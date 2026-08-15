@@ -30,7 +30,11 @@
   --bg: var(--bg-main);
   --bg-elevated: var(--bg-surface);
   --text: var(--text-main);
-  --border: var(--border-color);
+  /* Bordure renforcée : mélangée avec la couleur de texte du thème plutôt
+     qu'une valeur fixe, pour que la délimitation (header/footer, cartes,
+     séparateurs) reste bien visible dans les 13 thèmes sans avoir à
+     recalibrer --border-color un par un. */
+  --border: color-mix(in srgb, var(--border-color), var(--text-main) 25%);
 }
 
 :root[data-theme="beige"] {
@@ -271,6 +275,7 @@ img {
 /* Header */
 
 .site-header {
+  width: 100%;
   border-bottom: 1px solid var(--border);
 }
 
@@ -349,6 +354,7 @@ img {
   position: fixed;
   inset-block-end: 0;
   inset-inline: 0;
+  width: 100%;
   z-index: 20;
   background: var(--bg);
   border-top: 1px solid var(--border);
@@ -405,16 +411,66 @@ main {
   opacity: 0.9;
 }
 
-/* Documentation — page dédiée à /documentation/*, marges généreuses et
-   colonne de lecture confortable, dans l'esprit d'une doc Vercel. */
+/* Documentation — layout à sidebar (liste des sections à gauche, contenu à
+   droite dans une colonne de lecture confortable), dans l'esprit d'une doc
+   Vercel. La sidebar est "sticky" pour rester visible pendant la lecture. */
 
-.docs-content {
-  padding-block: clamp(2.5rem, 6vw, 4.5rem);
+.docs-layout {
+  padding-block: clamp(2rem, 6vw, 3.5rem);
+  display: grid;
+  grid-template-columns: 14rem minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+.docs-sidebar {
+  position: sticky;
+  top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.docs-sidebar a {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  border: 1px solid transparent;
+}
+
+.docs-sidebar a:hover {
+  color: var(--text);
+  background: var(--bg-surface-hover);
+}
+
+.docs-sidebar a.is-active {
+  color: var(--text);
+  font-weight: 600;
+  background: var(--bg-elevated);
+  border-color: var(--border);
 }
 
 .docs-content__inner {
   max-width: 42rem;
-  margin-inline: auto;
+  min-width: 0;
+}
+
+@media (max-width: 48rem) {
+  .docs-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .docs-sidebar {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+  }
 }
 
 /* Prose — typographie du contenu long (doc MDX + corps des articles de

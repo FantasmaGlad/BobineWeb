@@ -7,19 +7,19 @@ const copy = {
     title: "Soutenir Bobine",
     body: [
       "Bobine est un projet gratuit et open-source (AGPL-3.0), sans abonnement ni service payant.",
-      "La façon la plus utile de le soutenir aujourd'hui : mettre une étoile sur le dépôt GitHub, remonter un bug ou une idée dans les Issues, ou en parler autour de vous.",
-      "Un lien de don (GitHub Sponsors ou équivalent) sera ajouté ici dès qu'il sera en place.",
+      "Un don ponctuel ou récurrent sur Ko-fi aide à couvrir l'hébergement, le nom de domaine et le matériel de test. Sinon, une étoile sur le dépôt GitHub ou un bug remonté dans les Issues aide tout autant.",
     ],
-    cta: "Voir le dépôt sur GitHub",
+    ctaKofi: "Faire un don sur Ko-fi",
+    ctaGithub: "Voir le dépôt sur GitHub",
   },
   en: {
     title: "Support Bobine",
     body: [
       "Bobine is a free, open-source project (AGPL-3.0), with no subscription and no paid service.",
-      "The most useful way to support it today: star the GitHub repository, report a bug or an idea in the Issues, or tell people about it.",
-      "A donation link (GitHub Sponsors or similar) will be added here once it's set up.",
+      "A one-off or recurring donation on Ko-fi helps cover hosting, the domain, and test hardware. Otherwise, starring the GitHub repository or reporting a bug in the Issues helps just as much.",
     ],
-    cta: "View the repository on GitHub",
+    ctaKofi: "Donate on Ko-fi",
+    ctaGithub: "View the repository on GitHub",
   },
 } as const;
 
@@ -50,9 +50,20 @@ export default async function SupportPage({
           {paragraph}
         </p>
       ))}
-      <a className="button" href="https://github.com/FantasmaGlad/Bobine" target="_blank" rel="noreferrer">
-        {t.cta}
-      </a>
+      <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+        <a className="button" href="https://ko-fi.com/fantasmaglad" target="_blank" rel="noreferrer">
+          {t.ctaKofi}
+        </a>
+        <a
+          className="button"
+          style={{ background: "transparent", color: "var(--text)", border: "1px solid var(--border)" }}
+          href="https://github.com/FantasmaGlad/Bobine"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {t.ctaGithub}
+        </a>
+      </div>
     </div>
   );
 }

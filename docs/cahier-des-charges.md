@@ -93,7 +93,7 @@ C'est la fonctionnalité explicitement requise en premier :
 
 ## 12. Soutien au projet
 
-- Page « Soutenir » simple : lien GitHub Sponsors (et/ou Ko-fi / Open Collective), sans promesse de service commercial. Pas de tarification ni de facturation à gérer en V1.
+- Page « Soutenir » simple : lien [Ko-fi](https://ko-fi.com/fantasmaglad) (GitHub Sponsors non disponible sur le compte au moment du lancement), sans promesse de service commercial. Pas de tarification ni de facturation à gérer en V1.
 
 ## 13. Communauté & support
 

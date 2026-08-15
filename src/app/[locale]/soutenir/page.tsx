@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
+import GitHubIcon from "@/components/icons/GitHubIcon";
+import CoffeeCupIcon from "@/components/icons/CoffeeCupIcon";
 
 const copy = {
   fr: {
@@ -51,16 +53,31 @@ export default async function SupportPage({
         </p>
       ))}
       <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-        <a className="button" href="https://ko-fi.com/fantasmaglad" target="_blank" rel="noreferrer">
+        <a
+          className="button"
+          style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem" }}
+          href="https://ko-fi.com/fantasmaglad"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <CoffeeCupIcon size={18} />
           {t.ctaKofi}
         </a>
         <a
           className="button"
-          style={{ background: "transparent", color: "var(--text)", border: "1px solid var(--border)" }}
+          style={{
+            background: "transparent",
+            color: "var(--text)",
+            border: "1px solid var(--border)",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+          }}
           href="https://github.com/FantasmaGlad/Bobine"
           target="_blank"
           rel="noreferrer"
         >
+          <GitHubIcon size={18} />
           {t.ctaGithub}
         </a>
       </div>

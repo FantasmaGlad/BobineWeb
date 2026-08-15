@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import type { Locale } from "@/lib/i18n";
 import { isLocale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
+import GitHubIcon from "@/components/icons/GitHubIcon";
 
 const copy = {
   fr: {
@@ -66,11 +67,19 @@ export default async function HomePage({
         </Link>
         <a
           className="button"
-          style={{ background: "transparent", color: "var(--text)", border: "1px solid var(--border)" }}
+          style={{
+            background: "transparent",
+            color: "var(--text)",
+            border: "1px solid var(--border)",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+          }}
           href="https://github.com/FantasmaGlad/Bobine"
           target="_blank"
           rel="noreferrer"
         >
+          <GitHubIcon size={18} />
           {t.ctaSecondary}
         </a>
       </div>

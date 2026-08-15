@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Dictionary, Locale } from "@/lib/i18n";
+import GitHubIcon from "@/components/icons/GitHubIcon";
 
 export default function Footer({
   locale,
@@ -17,7 +18,9 @@ export default function Footer({
             href="https://github.com/FantasmaGlad/Bobine"
             target="_blank"
             rel="noreferrer"
+            style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
           >
+            <GitHubIcon size={15} />
             {dict.footer.github}
           </a>
           <Link href={`/${locale}/mentions-legales`}>{dict.footer.legal}</Link>

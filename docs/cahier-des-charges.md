@@ -81,8 +81,8 @@ C'est la fonctionnalité explicitement requise en premier :
 
 ## 10. Analytics & vie privée
 
-- **Aucun tracking en V1** — cohérent avec le positionnement « no cloud, no tracking » du produit lui-même. Pas de bandeau cookie nécessaire.
-- Si un besoin de mesure d'audience apparaît plus tard, réévaluer avec une solution respectueuse de la vie privée (Plausible/Umami, éventuellement auto-hébergée) plutôt que Google Analytics.
+- **Vercel Web Analytics activé** (`@vercel/analytics`) — cookieless, n'identifie pas les visiteurs individuellement, pas de bandeau de consentement nécessaire. Décision révisée par rapport au « aucun tracking » initial : ce choix reste cohérent avec le positionnement du produit (pas de Google Analytics, pas de profilage), tout en donnant une visibilité basique sur la fréquentation.
+- Toujours pas de Google Analytics ni d'équivalent avec cookies/profilage.
 
 ## 11. Pages légales & conformité
 

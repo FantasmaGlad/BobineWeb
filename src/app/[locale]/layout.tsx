@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Analytics } from "@vercel/analytics/next";
 import { getDictionary, isLocale, locales } from "@/lib/i18n";
 import { THEME_STORAGE_KEY } from "@/lib/themes";
 import Header from "@/components/Header";
@@ -50,6 +51,7 @@ export default async function RootLayout({
         <Header locale={locale} dict={dict} />
         <main>{children}</main>
         <Footer locale={locale} dict={dict} />
+        <Analytics />
       </body>
     </html>
   );

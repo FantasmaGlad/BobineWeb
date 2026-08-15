@@ -101,7 +101,12 @@ export default function PowerDemoScene() {
         <directionalLight position={[2, 3, 2]} intensity={0.9} />
         <directionalLight position={[-2, 1.5, -1.5]} intensity={0.3} />
         <Suspense fallback={null}>
-          <TvModel playing={playing} position={[-1.3, 0, 0]} scale={3.2} />
+          <TvModel
+            playing={playing}
+            onActivate={() => setPlaying((value) => !value)}
+            position={[-1.3, 0, 0]}
+            scale={3.2}
+          />
           <WyseModel
             active={playing}
             onActivate={() => setPlaying((value) => !value)}

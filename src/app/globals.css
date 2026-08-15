@@ -161,3 +161,39 @@ main {
 .button:hover {
   opacity: 0.9;
 }
+
+/* Corps des articles de blog (rendu Markdown des releases GitHub) */
+
+.release-body h1,
+.release-body h2,
+.release-body h3 {
+  margin-top: 2rem;
+}
+
+.release-body ul,
+.release-body ol {
+  padding-inline-start: 1.25rem;
+}
+
+.release-body code {
+  background: var(--bg-elevated);
+  padding: 0.15em 0.4em;
+  border-radius: 0.3em;
+  font-size: 0.9em;
+}
+
+.release-body pre {
+  background: var(--bg-elevated);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+.release-body pre code {
+  background: none;
+  padding: 0;
+}
+
+.release-body a {
+  color: var(--accent-primary);
+}

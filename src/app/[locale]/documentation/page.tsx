@@ -46,10 +46,10 @@ export default async function DocumentationIndexPage({
   const t = copy[locale as Locale];
 
   return (
-    <div className="container" style={{ paddingBlock: "3rem" }}>
+    <>
       <h1>{t.title}</h1>
       <p style={{ color: "var(--text-muted)" }}>{t.intro}</p>
-      <div style={{ display: "grid", gap: "1rem", marginTop: "2rem", maxWidth: "40rem" }}>
+      <div style={{ display: "grid", gap: "1rem", marginTop: "2rem" }}>
         {t.sections.map(([slug, title, body]) => (
           <Link
             key={slug}
@@ -67,6 +67,6 @@ export default async function DocumentationIndexPage({
           </Link>
         ))}
       </div>
-    </div>
+    </>
   );
 }

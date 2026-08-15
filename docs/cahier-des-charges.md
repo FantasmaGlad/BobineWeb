@@ -269,10 +269,10 @@ Notes sur les écarts avec la proposition initiale :
 
 ## 17. Historique et suite
 
-Étapes initiales (toutes réalisées, cf. `Start.md`) : validation du cahier des charges, création du dépôt, scaffolding Next.js suivant la structure du §16, construction de la page d'accueil et du tutoriel d'installation, puis extension au reste de l'arborescence.
+Étapes initiales (toutes réalisées, cf. `Start.md`) : validation du cahier des charges, création du dépôt, scaffolding Next.js suivant la structure du §16, construction de la page d'accueil et du tutoriel d'installation, extension au reste de l'arborescence, intégration et ajustement de la scène 3D (voile TV plaqué bord à bord, vidéo de démo versionnée, header sticky au défilement).
 
 Suite envisagée :
-- Remplacer la vidéo de test de `/demo-3d` (actuellement un placeholder non versionné, cf. §16.1) par un contenu libre de droit avant toute mise en avant de cette page.
+- Remplacer la vidéo de démo de `/demo-3d` (`kiosk-demo.mp4`) par une capture HD finale du logiciel avant toute mise en avant de cette page.
 - Explorer un rendu "live" (DOM/iframe plaqué en 3D) de l'écran du kiosk sur `/demo-3d`, en complément de la vidéo pré-enregistrée actuelle.
 
 ---

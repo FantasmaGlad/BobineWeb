@@ -346,8 +346,12 @@ img {
 /* Footer */
 
 .site-footer {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: 20;
+  background: var(--bg);
   border-top: 1px solid var(--border);
-  margin-top: 4rem;
 }
 
 .site-footer__inner {
@@ -382,6 +386,9 @@ img {
 
 main {
   flex: 1;
+  /* Dégage l'espace du footer, maintenant fixe (position: fixed), pour que
+     le bas du contenu ne se retrouve jamais masqué derrière lui. */
+  padding-bottom: var(--footer-height, 8rem);
 }
 
 .button {

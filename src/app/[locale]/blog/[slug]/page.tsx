@@ -1,10 +1,30 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Markdown from "react-markdown";
+import Markdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { isLocale } from "@/lib/i18n";
 import { getBobineRelease, getBobineReleases } from "@/lib/github-releases";
 import GitHubIcon from "@/components/icons/GitHubIcon";
+import GitHubAttachmentMedia from "@/components/GitHubAttachmentMedia";
+
+// Notes de release rédigées via l'éditeur GitHub : une vidéo/image glissée-
+// déposée y devient un simple lien brut vers cette URL (pas de balise <video>
+// dans le Markdown source) — on l'intercepte pour l'incorporer en lecteur.
+const GITHUB_ATTACHMENT_PATTERN =
+  /^https:\/\/github\.com\/user-attachments\/assets\//;
+
+const markdownComponents: Components = {
+  a({ href, children, ...props }) {
+    if (href && GITHUB_ATTACHMENT_PATTERN.test(href)) {
+      return <GitHubAttachmentMedia href={href}>{children}</GitHubAttachmentMedia>;
+    }
+    return (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    );
+  },
+};
 
 export async function generateStaticParams() {
   const releases = await getBobineReleases();
@@ -43,7 +63,9 @@ export default async function BlogPostPage({
         </p>
       )}
       <div className="release-body">
-        <Markdown remarkPlugins={[remarkGfm]}>{release.body}</Markdown>
+        <Markdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+          {release.body}
+        </Markdown>
       </div>
       <a
         href={release.url}

@@ -1,3 +1,5 @@
+> ✅ **Exécuté le 2026-08-15** — dépôt initialisé, scaffolding Next.js poussé sur `main`, projet Vercel lié et déployé, `bobine.fit`/`www.bobine.fit` déjà configurés sur le projet. Ce document reste pour référence ; il n'a pas besoin d'être rejoué. Un souci de résolution du domaine custom (404 côté Vercel malgré un build de prod réussi) restait à vérifier côté dashboard *Project → Settings → Domains* au moment de l'exécution.
+
 # Start — Setup technique BobineWeb
 
 Ce document est un prompt à coller tel quel dans une nouvelle session d'agent. Il ne suppose aucun contexte préalable : tout ce qu'il faut savoir est soit ci-dessous, soit dans les fichiers référencés.

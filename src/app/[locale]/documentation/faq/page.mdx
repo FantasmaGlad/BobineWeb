@@ -1,0 +1,21 @@
+export const metadata = {
+  title: "FAQ",
+};
+
+# FAQ / Dépannage
+
+> 🚧 Version provisoire — traduction anglaise à venir.
+
+**Bobine fonctionne-t-il sans internet ?**
+Oui, une fois installé, la salle n'a besoin d'aucune connexion internet pour diffuser les cours. Internet n'est nécessaire qu'une seule fois, à l'installation.
+
+**Je n'arrive pas à joindre `bobine.local`, que faire ?**
+Si votre réseau bloque le mDNS, utilisez l'adresse IP de la machine directement (affichée à la fin de `install.sh`, ou trouvable avec `hostname -I` sur le mini PC).
+
+**Un composant plante, dois-je tout redémarrer ?**
+Non : un chien de garde surveille `/api/health` et redémarre automatiquement un composant en panne (backend, Redis ou kiosque).
+
+**Comment désinstaller Bobine ?**
+Depuis l'admin : *Paramètres → Zone de danger → Uninstall*. En ligne de commande : `sudo ./install.sh --uninstall --purge`.
+
+D'autres questions ? Ouvrez une [Issue sur GitHub](https://github.com/FantasmaGlad/Bobine/issues).

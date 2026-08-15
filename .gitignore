@@ -26,5 +26,13 @@ yarn-error.log*
 # vercel
 .vercel
 
-# editor
-.claude/settings.local.json
+# outillage local (agents IA, éditeurs) — jamais versionné, même
+# convention que Bobine (frontend/.gitignore)
+.claude/
+.agents/
+.agent/
+.gemini/
+CLAUDE.md
+AGENTS.md
+.vscode/
+.idea/

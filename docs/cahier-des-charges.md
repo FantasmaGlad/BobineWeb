@@ -199,6 +199,7 @@ Notes :
   claude mcp add --transport http github https://api.githubcopilot.com/mcp/
   claude mcp add --transport http vercel https://mcp.vercel.com
   ```
+- **Gemini CLI** : mêmes serveurs configurés en local dans `.gemini/settings.json` (format `httpUrl` au lieu de `type`/`url`) — fichier volontairement non versionné (cf. `.gitignore`, même convention que `Bobine/.gitignore` pour l'outillage IA local).
 
 ### 16.3. `package.json` (dépendances de départ)
 

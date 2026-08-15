@@ -39,8 +39,6 @@ export default async function Demo3DPage({
 
   return (
     <div className="container" style={{ paddingBlock: "3rem" }}>
-      <h1>{t.title}</h1>
-      <p style={{ color: "var(--text-muted)", maxWidth: "40rem" }}>{t.intro}</p>
       <div className="power-demo__card">
         <PowerDemoLoader />
       </div>

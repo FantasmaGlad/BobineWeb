@@ -26,4 +26,6 @@ yarn-error.log*
 # vercel
 .vercel
 
-# editor
+# convention que Bobine (frontend/.gitignore)
+.vscode/
+.idea/

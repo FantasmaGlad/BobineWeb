@@ -1,0 +1,41 @@
+export const metadata = {
+  title: "Démarrage rapide",
+};
+
+# Démarrage rapide
+
+> 🚧 Version provisoire. Captures d'écran, GIFs et traduction anglaise à venir — le tutoriel détaillé fait l'objet d'une session dédiée.
+
+Ce guide vous accompagne, étape par étape, de « je découvre Bobine » à « ma salle diffuse ses cours » — sans compétence technique préalable au-delà de suivre des instructions.
+
+## Ce qu'il vous faut
+
+- Un mini PC ou thin client x86-64 (référence : Dell Wyse 5070), 4 Go de RAM minimum.
+- Une clé USB de 8 Go ou plus.
+- Un écran (HDMI) et, si possible, un réseau Wi-Fi local.
+
+## Étape 1 — Préparer la clé USB Debian
+
+Téléchargez l'image Debian 13 *netinst* sur [debian.org/download](https://www.debian.org/download) et écrivez-la sur la clé USB.
+
+## Étape 2 — Installer Debian sur le mini PC
+
+Démarrez le mini PC sur la clé USB, suivez l'installateur : nom de machine, compte utilisateur, mot de passe — puis à l'étape « Sélection des logiciels », ne cochez que **serveur SSH** et **utilitaires usuels du système**.
+
+## Étape 3 — Installer Bobine
+
+Depuis le mini PC (ou par SSH), avec votre compte normal :
+
+```bash
+git clone https://github.com/FantasmaGlad/Bobine.git
+cd Bobine
+sudo ./install.sh
+```
+
+## Étape 4 — Ouvrir l'interface
+
+Depuis n'importe quel appareil du même réseau, ouvrez `http://bobine.local`.
+
+---
+
+Pour aller plus loin, voir le [guide d'utilisation](/documentation/utilisation) ou la [documentation technique complète](https://github.com/FantasmaGlad/Bobine/blob/main/docs/ARCHITECTURE.md) sur GitHub.

@@ -1,0 +1,35 @@
+{
+  "name": "bobineweb",
+  "version": "0.1.0",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "description": "Site web de Bobine — vitrine, documentation et tutoriel d'installation.",
+  "homepage": "https://bobine.fit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FantasmaGlad/BobineWeb.git"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "next": "16.3.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "@next/mdx": "16.3.1",
+    "@mdx-js/loader": "^3",
+    "@mdx-js/react": "^3"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/mdx": "^2",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.1",
+    "typescript": "^5"
+  }
+}

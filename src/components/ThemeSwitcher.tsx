@@ -27,12 +27,6 @@ function randomTheme(exclude: Theme): Theme {
   return candidates[Math.floor(Math.random() * candidates.length)];
 }
 
-// Interaction "roulette" : un clic tire un thème au hasard, un double-clic
-// (ou Maj+Entrée au clavier) ouvre la sélection manuelle précise. Le simple
-// clic est retardé le temps de détecter un éventuel second clic, pour ne pas
-// tirer deux thèmes au hasard avant d'ouvrir le sélecteur manuel.
-const DOUBLE_CLICK_WINDOW_MS = 300;
-
 export default function ThemeSwitcher() {
   // Toujours initialisé au défaut serveur ("beige") pour que l'hydratation
   // corresponde exactement au HTML rendu côté serveur — le serveur ne connaît
@@ -42,7 +36,6 @@ export default function ThemeSwitcher() {
   const [theme, setTheme] = useState<Theme>(defaultTheme);
   const [manualOpen, setManualOpen] = useState(false);
   const selectRef = useRef<HTMLSelectElement>(null);
-  const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     // Aligne l'état React sur le DOM déjà correct (script anti-FOUC) — pas
@@ -55,12 +48,6 @@ export default function ThemeSwitcher() {
   useEffect(() => {
     if (manualOpen) selectRef.current?.focus();
   }, [manualOpen]);
-
-  useEffect(() => {
-    return () => {
-      if (clickTimer.current) clearTimeout(clickTimer.current);
-    };
-  }, []);
 
   function chooseTheme(next: Theme) {
     setTheme(next);
@@ -97,17 +84,13 @@ export default function ThemeSwitcher() {
       aria-keyshortcuts="Shift+Enter"
       aria-label={`Thème : ${themeLabels[theme]}. Entrée pour un thème au hasard, Maj+Entrée pour choisir précisément.`}
       onClick={() => {
-        if (clickTimer.current) clearTimeout(clickTimer.current);
-        clickTimer.current = setTimeout(() => {
-          chooseTheme(randomTheme(theme));
-          clickTimer.current = null;
-        }, DOUBLE_CLICK_WINDOW_MS);
+        // Appliqué immédiatement, sans délai d'attente d'un éventuel second
+        // clic : un double-clic déclenchera juste un second tirage avant que
+        // onDoubleClick n'ouvre la sélection manuelle, ce qui est sans
+        // conséquence (l'état final visible est le sélecteur ouvert).
+        chooseTheme(randomTheme(theme));
       }}
       onDoubleClick={() => {
-        if (clickTimer.current) {
-          clearTimeout(clickTimer.current);
-          clickTimer.current = null;
-        }
         setManualOpen(true);
       }}
       onKeyDown={(event) => {
@@ -115,10 +98,6 @@ export default function ThemeSwitcher() {
         // atteignable au clavier/lecteur d'écran.
         if (event.shiftKey && (event.key === "Enter" || event.key === " ")) {
           event.preventDefault();
-          if (clickTimer.current) {
-            clearTimeout(clickTimer.current);
-            clickTimer.current = null;
-          }
           setManualOpen(true);
         }
       }}

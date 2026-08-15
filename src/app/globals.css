@@ -1,22 +1,231 @@
+/*
+ * Système de thèmes — repris à l'identique des 13 thèmes de l'application
+ * Bobine (frontend/src/app/globals.css) pour une cohérence visuelle produit
+ * ↔ site. Choix explicite (data-theme), pas prefers-color-scheme : c'est un
+ * réglage que la personne choisit et qui persiste, pas la préférence système
+ * — même logique que dans l'app. Le thème par défaut du site est "beige"
+ * (cahier des charges UI/UX), différent du défaut sombre de l'application.
+ */
+
 :root {
-  --accent-primary: #e4002b; /* Rouge Bobine — repris de l'application */
-  --accent-primary-fg: #ffffff;
-  --bg: #ffffff;
-  --bg-elevated: #f7f7f8;
-  --text: #161116;
-  --text-muted: #5b5560;
-  --border: #e5e2e6;
+  --bg-main: #ede8d0;
+  --bg-surface: #f6f2e4;
+  --bg-surface-elevated: #fffdf7;
+  --bg-surface-hover: #e2dcc2;
+
+  --text-main: #372528;
+  --text-muted: #6b5751;
+  --text-dim: #7c675d;
+
+  --border-color: #dcd3b8;
+  --border-focus: #b8a98a;
+
+  --accent-primary: #372528;
+  --accent-primary-fg: #f4efe0;
+
+  --logo-filter: none;
   --max-width: 72rem;
+
+  /* Alias — noms utilisés dans les composants du site */
+  --bg: var(--bg-main);
+  --bg-elevated: var(--bg-surface);
+  --text: var(--text-main);
+  --border: var(--border-color);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #161116;
-    --bg-elevated: #201b23;
-    --text: #f4f2f5;
-    --text-muted: #a79fac;
-    --border: #322b34;
-  }
+:root[data-theme="beige"] {
+  --bg-main: #ede8d0;
+  --bg-surface: #f6f2e4;
+  --bg-surface-elevated: #fffdf7;
+  --bg-surface-hover: #e2dcc2;
+  --text-main: #372528;
+  --text-muted: #6b5751;
+  --text-dim: #7c675d;
+  --border-color: #dcd3b8;
+  --border-focus: #b8a98a;
+  --accent-primary: #372528;
+  --accent-primary-fg: #f4efe0;
+  --logo-filter: none;
+}
+
+:root[data-theme="sombre"] {
+  --bg-main: #0a0a0a;
+  --bg-surface: #141414;
+  --bg-surface-elevated: #1e1e20;
+  --bg-surface-hover: #262629;
+  --text-main: #ffffff;
+  --text-muted: #8e8e93;
+  --text-dim: #828288;
+  --border-color: #2c2c2e;
+  --border-focus: #48484a;
+  --accent-primary: #e4002b;
+  --accent-primary-fg: #ffffff;
+  --logo-filter: invert(1);
+}
+
+:root[data-theme="clair"] {
+  --bg-main: #f4f4f5;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-surface-hover: #ececee;
+  --text-main: #16161a;
+  --text-muted: #55555c;
+  --text-dim: #75757c;
+  --border-color: #e1e1e4;
+  --border-focus: #b8b8bd;
+  --accent-primary: #e4002b;
+  --accent-primary-fg: #ffffff;
+  --logo-filter: none;
+}
+
+:root[data-theme="lune"] {
+  --bg-main: #131229;
+  --bg-surface: #1b1a38;
+  --bg-surface-elevated: #292966;
+  --bg-surface-hover: #34335f;
+  --text-main: #f1f0ff;
+  --text-muted: #a3a3cc;
+  --text-dim: #85859e;
+  --border-color: #2e2d52;
+  --border-focus: #5c5c99;
+  --accent-primary: #8484e6;
+  --accent-primary-fg: #161116;
+  --logo-filter: invert(1);
+}
+
+:root[data-theme="menthe"] {
+  --bg-main: #eafff5;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-surface-hover: #d9fbe9;
+  --text-main: #0f2e22;
+  --text-muted: #3f6b58;
+  --text-dim: #5c8a76;
+  --border-color: #bfeedb;
+  --border-focus: #7fcfa8;
+  --accent-primary: #2f9e6e;
+  --accent-primary-fg: #161116;
+  --logo-filter: none;
+}
+
+:root[data-theme="automne"] {
+  --bg-main: #1a120a;
+  --bg-surface: #241a0f;
+  --bg-surface-elevated: #614419;
+  --bg-surface-hover: #7a5722;
+  --text-main: #fff3e0;
+  --text-muted: #db9a39;
+  --text-dim: #a97f3f;
+  --border-color: #3a2a17;
+  --border-focus: #b37e2e;
+  --accent-primary: #ffb343;
+  --accent-primary-fg: #161116;
+  --logo-filter: invert(1);
+}
+
+:root[data-theme="hiver"] {
+  --bg-main: #071b1f;
+  --bg-surface: #0b2429;
+  --bg-surface-elevated: #0b2e33;
+  --bg-surface-hover: #123842;
+  --text-main: #e8f7f9;
+  --text-muted: #93b1b5;
+  --text-dim: #6f9296;
+  --border-color: #163a41;
+  --border-focus: #4f7c82;
+  --accent-primary: #6fd6e6;
+  --accent-primary-fg: #161116;
+  --logo-filter: invert(1);
+}
+
+:root[data-theme="chili"] {
+  --bg-main: #170203;
+  --bg-surface: #240508;
+  --bg-surface-elevated: #38000a;
+  --bg-surface-hover: #4a0a10;
+  --text-main: #fff0ee;
+  --text-muted: #ffa896;
+  --text-dim: #d98a7a;
+  --border-color: #3d0d10;
+  --border-focus: #9b1313;
+  --accent-primary: #cd1c18;
+  --accent-primary-fg: #ffffff;
+  --logo-filter: invert(1);
+}
+
+:root[data-theme="ciel"] {
+  --bg-main: #b3ebf2;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-surface-hover: #d9f6fa;
+  --text-main: #14333b;
+  --text-muted: #2e6c7b;
+  --text-dim: #4a9dae;
+  --border-color: #a4dfe9;
+  --border-focus: #77cbda;
+  --accent-primary: #2e6c7b;
+  --accent-primary-fg: #ffffff;
+  --logo-filter: none;
+}
+
+:root[data-theme="orchidee"] {
+  --bg-main: #2b172a;
+  --bg-surface: #3c203b;
+  --bg-surface-elevated: #4f2b4e;
+  --bg-surface-hover: #5e3a5d;
+  --text-main: #ffffff;
+  --text-muted: #ed80e9;
+  --text-dim: #c96dc6;
+  --border-color: #4f2b4e;
+  --border-focus: #784176;
+  --accent-primary: #c96dc6;
+  --accent-primary-fg: #161116;
+  --logo-filter: invert(1);
+}
+
+:root[data-theme="taupe"] {
+  --bg-main: #241e19;
+  --bg-surface: #322a23;
+  --bg-surface-elevated: #54463a;
+  --bg-surface-hover: #61503f;
+  --text-main: #ffffff;
+  --text-muted: #fcd3ae;
+  --text-dim: #ab8f76;
+  --border-color: #54463a;
+  --border-focus: #826d5a;
+  --accent-primary: #ab8f76;
+  --accent-primary-fg: #161116;
+  --logo-filter: invert(1);
+}
+
+:root[data-theme="charbon"] {
+  --bg-main: #111111;
+  --bg-surface: #1a1a1a;
+  --bg-surface-elevated: #2b2b2b;
+  --bg-surface-hover: #383838;
+  --text-main: #ffffff;
+  --text-muted: #f2f2f2;
+  --text-dim: #a1a1a1;
+  --border-color: #2e2e2e;
+  --border-focus: #4a4a4a;
+  --accent-primary: #a1a1a1;
+  --accent-primary-fg: #161116;
+  --logo-filter: invert(1);
+}
+
+:root[data-theme="lavande"] {
+  --bg-main: #d3d3ff;
+  --bg-surface: #eeeeff;
+  --bg-surface-elevated: #faf9ff;
+  --bg-surface-hover: #c3c3f4;
+  --text-main: #2c2140;
+  --text-muted: #5c4a75;
+  --text-dim: #6f5a86;
+  --border-color: #bcbcf0;
+  --border-focus: #a47dab;
+  --accent-primary: #a47dab;
+  --accent-primary-fg: #241a30;
+  --logo-filter: none;
 }
 
 * {
@@ -36,6 +245,9 @@ body {
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
     sans-serif;
   line-height: 1.55;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 a {
@@ -105,6 +317,28 @@ img {
 .locale-switcher__link.is-active {
   color: var(--text);
   font-weight: 600;
+}
+
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.theme-switcher select {
+  background: var(--bg-elevated);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  padding: 0.25rem 0.5rem;
+  font: inherit;
+}
+
+.theme-switcher select:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 1px;
 }
 
 /* Footer */

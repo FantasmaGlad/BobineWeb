@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 export default function Header({
   locale,
@@ -28,6 +29,7 @@ export default function Header({
             width={140}
             height={51}
             priority
+            style={{ filter: "var(--logo-filter)" }}
           />
         </Link>
         <nav aria-label="Navigation principale" className="site-header__nav">
@@ -37,7 +39,10 @@ export default function Header({
             </Link>
           ))}
         </nav>
-        <LocaleSwitcher locale={locale} dict={dict} />
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <ThemeSwitcher />
+          <LocaleSwitcher locale={locale} dict={dict} />
+        </div>
       </div>
     </header>
   );

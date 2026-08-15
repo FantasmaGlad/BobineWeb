@@ -6,6 +6,7 @@ import { getDictionary, isLocale, locales } from "@/lib/i18n";
 import { THEME_STORAGE_KEY } from "@/lib/themes";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Demo3DPreloader from "@/components/three/Demo3DPreloader";
 import "../globals.css";
 
 // Applique le thème persisté (localStorage) avant le premier rendu, pour
@@ -55,6 +56,7 @@ export default async function RootLayout({
         <main>{children}</main>
         <Footer locale={locale} dict={dict} />
         <Analytics />
+        <Demo3DPreloader />
       </body>
     </html>
   );

@@ -592,6 +592,36 @@ main {
   cursor: grab;
 }
 
+.power-demo__stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.power-demo__stage:fullscreen {
+  background: var(--bg-elevated);
+}
+
+.power-demo__fullscreen {
+  position: absolute;
+  bottom: 0.85rem;
+  right: 0.85rem;
+  z-index: 2;
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--bg-surface-elevated);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.power-demo__fullscreen:hover {
+  color: var(--text);
+  border-color: var(--border-focus);
+}
+
 .power-demo__loading {
   display: flex;
   align-items: center;
@@ -627,7 +657,7 @@ main {
   border: 1px solid var(--border);
   color: var(--text-muted);
   font-size: 0.75rem;
-  white-space: nowrap;
+  max-width: calc(100% - 1.7rem);
   pointer-events: none;
 }
 

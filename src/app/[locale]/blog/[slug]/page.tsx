@@ -4,6 +4,7 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { isLocale } from "@/lib/i18n";
 import { getBobineRelease, getBobineReleases } from "@/lib/github-releases";
+import GitHubIcon from "@/components/icons/GitHubIcon";
 
 export async function generateStaticParams() {
   const releases = await getBobineReleases();
@@ -44,8 +45,14 @@ export default async function BlogPostPage({
       <div className="release-body">
         <Markdown remarkPlugins={[remarkGfm]}>{release.body}</Markdown>
       </div>
-      <a href={release.url} target="_blank" rel="noreferrer">
-        {locale === "fr" ? "Voir la release sur GitHub →" : "View the release on GitHub →"}
+      <a
+        href={release.url}
+        target="_blank"
+        rel="noreferrer"
+        style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
+      >
+        <GitHubIcon size={15} />
+        {locale === "fr" ? "Voir la release sur GitHub" : "View the release on GitHub"}
       </a>
     </div>
   );

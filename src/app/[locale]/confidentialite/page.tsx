@@ -6,7 +6,7 @@ const copy = {
   fr: {
     title: "Confidentialité",
     sections: [
-      ["Aucun suivi", "Ce site ne dépose aucun cookie de suivi et n'utilise aucun outil d'analyse d'audience (pas de Google Analytics, pas d'équivalent). Aucune donnée de navigation n'est collectée."],
+      ["Mesure d'audience", "Ce site utilise Vercel Web Analytics pour compter les visites et les pages consultées. Cet outil ne dépose aucun cookie et n'identifie pas les visiteurs individuellement (pas d'adresse IP stockée, pas de profil, pas de suivi entre sites) — aucun bandeau de consentement n'est donc nécessaire. Aucun autre outil de suivi n'est utilisé (pas de Google Analytics, pas d'équivalent)."],
       ["Contact", "Le seul moyen de contact est un lien e-mail direct (clement.barillot3901@gmail.com) — aucun formulaire ne collecte de données sur ce site."],
       ["Hébergement", "Le site est hébergé par Vercel Inc., qui peut traiter des données techniques (adresse IP, journaux serveur) dans le cadre normal de la fourniture du service d'hébergement."],
     ],
@@ -14,7 +14,7 @@ const copy = {
   en: {
     title: "Privacy",
     sections: [
-      ["No tracking", "This site sets no tracking cookies and uses no audience-analytics tool (no Google Analytics, no equivalent). No browsing data is collected."],
+      ["Audience measurement", "This site uses Vercel Web Analytics to count visits and page views. This tool sets no cookies and does not identify individual visitors (no stored IP address, no profile, no cross-site tracking) — so no consent banner is required. No other tracking tool is used (no Google Analytics, no equivalent)."],
       ["Contact", "The only contact method is a direct email link (clement.barillot3901@gmail.com) — no form on this site collects data."],
       ["Hosting", "The site is hosted by Vercel Inc., which may process technical data (IP address, server logs) as part of normally providing the hosting service."],
     ],

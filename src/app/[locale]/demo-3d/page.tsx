@@ -7,14 +7,14 @@ const copy = {
   fr: {
     title: "Démo — Bobine en 3D",
     intro:
-      "Un test de faisabilité : le mini PC et l'écran qui font tourner Bobine, en 3D. Cliquez sur le Wyse pour lancer la démo du kiosk sur l'écran.",
-    hint: "Glisser pour tourner · molette pour zoomer · repères en bas à droite pour changer de vue · clic sur le Wyse pour lancer la démo",
+      "Le mini PC et l'écran qui font tourner Bobine, en 3D. Cliquez sur le Wyse pour lancer la démo du kiosk sur l'écran.",
+    hint: "Glisser pour tourner · molette pour zoomer · repères en bas à droite pour changer de vue",
   },
   en: {
     title: "Demo — Bobine in 3D",
     intro:
-      "A feasibility test: the mini PC and screen that run Bobine, in 3D. Click the Wyse to play the kiosk demo on screen.",
-    hint: "Drag to rotate · scroll to zoom · bottom-right gizmo to switch views · click the Wyse to start the demo",
+      "The mini PC and screen that run Bobine, in 3D. Click the Wyse to play the kiosk demo on screen.",
+    hint: "Drag to rotate · scroll to zoom · bottom-right gizmo to switch views",
   },
 } as const;
 

@@ -1,6 +1,6 @@
 # Cahier des charges — Site web Bobine (BobineWeb)
 
-Statut : validé à l'issue d'un entretien de cadrage avec le porteur du projet. Prêt pour le scaffolding technique (§17, voir aussi `Start.md`).
+Statut : validé à l'issue d'un entretien de cadrage avec le porteur du projet, puis implémenté — le site est en production sur bobine.fit. Le §16 documente désormais l'état **réel** du projet (structure, MCP, dépendances), et non plus la proposition initiale de scaffolding ; voir aussi `Start.md` pour l'historique du setup.
 
 ## 1. Contexte et objectif
 
@@ -27,6 +27,7 @@ Portée retenue : **site complet dès le départ** (pas de MVP minimal suivi d'i
 
 - `/` — Accueil : pitch, pourquoi Bobine (vs. LesMills Cinema), fonctionnalités clés, démo, CTA vers le tutoriel d'installation.
 - `/fonctionnalites` — détail des fonctionnalités (planification, borne à la demande, radio, télécommande, mode coach audio...).
+- `/demo-3d` — démo 3D interactive (Wyse 5070 + écran, Three.js/`@react-three/fiber`) : test de faisabilité né en cours de route, hors périmètre V1 initial mais désormais dans la navigation principale — voir §16.1 pour la stack.
 - `/documentation` — racine de la doc, avec sous-sections :
   - `/documentation/demarrage-rapide` — **tutoriel d'installation pas-à-pas grand public** (priorité n°1, voir §5).
   - `/documentation/utilisation` — guide d'utilisation (admin, cinéma membre, radio, télécommande).
@@ -114,56 +115,73 @@ Le README cible déjà une liste de mots-clés (« alternative open source à Le
 
 ## 16. Structure technique détaillée
 
-### 16.1. Arborescence de fichiers proposée
+### 16.1. Arborescence de fichiers (état actuel)
 
 ```
 BobineWeb/
-├── .claude/
-│   ├── launch.json              # preview du serveur de dev (cf. Bobine/.claude/launch.json)
-│   └── settings.local.json      # gitignored
+├── .claude/                     # gitignored — config locale agent Claude Code
+│   └── launch.json              # preview du serveur de dev
+├── .gemini/                     # gitignored — miroir de .mcp.json pour Gemini CLI
+│   └── settings.json
+├── .agent/ , .agents/           # gitignorés, réservés à d'autres outils agent IA locaux
+│                                 # (vides pour l'instant — même convention que Bobine/.gitignore)
 ├── .github/
 │   └── workflows/
-│       └── ci.yml               # build + lint sur push/PR (miroir du ci.yml de Bobine)
+│       └── ci.yml               # lint + build sur push/PR
 ├── .mcp.json                    # serveurs MCP du projet (GitHub, Vercel — cf. §16.2)
+├── assets/                      # gitignored — sources brutes des modèles 3D/vidéos (dizaines de Mo,
+│   ├── models/                  # jamais commitées ; seule la version optimisée dans public/ l'est)
+│   └── Video/
 ├── docs/
-│   └── cahier-des-charges.md    # ce document
+│   ├── cahier-des-charges.md    # ce document
+│   └── cahier-des-charges-ui-ux.md
 ├── public/
-│   ├── favicon.ico
-│   ├── logo-bobine.png          # copié depuis Bobine/Assets/Images/logo_bobine.png
-│   ├── logo-bobine-icon.png     # copié depuis Bobine/Assets/Images/logo_bobine_icon.png
-│   └── og-image.png             # image de partage réseaux sociaux
+│   ├── logo-bobine.png
+│   ├── logo-bobine-icon.png
+│   ├── models/                  # modèles glTF Binary optimisés (gltf-transform : simplification
+│   │   ├── wyse5070.glb         # géométrique + compression meshopt + textures WebP)
+│   │   └── tv3d.glb
+│   └── videos/                  # vidéos de démo compressées (ffmpeg) — gitignored tant qu'aucun
+│                                 # contenu libre de droit n'a remplacé le placeholder de test
 ├── src/
 │   ├── app/
 │   │   ├── [locale]/            # "fr" | "en" — routing i18n (cf. §9)
 │   │   │   ├── page.tsx                        # accueil
 │   │   │   ├── fonctionnalites/page.tsx
+│   │   │   ├── demo-3d/page.tsx                # démo 3D interactive (cf. §4)
 │   │   │   ├── documentation/
-│   │   │   │   ├── page.tsx                    # sommaire de la doc
+│   │   │   │   ├── layout.tsx                  # mise en page à sidebar
+│   │   │   │   ├── page.tsx                    # vue d'ensemble
 │   │   │   │   ├── demarrage-rapide/page.mdx    # tutoriel d'installation (priorité n°1)
 │   │   │   │   ├── utilisation/page.mdx
 │   │   │   │   ├── faq/page.mdx
 │   │   │   │   └── developpeurs/page.mdx
 │   │   │   ├── blog/
 │   │   │   │   ├── page.tsx                    # liste, alimentée par l'API GitHub Releases
-│   │   │   │   └── [slug]/page.tsx
+│   │   │   │   └── [slug]/page.tsx             # rendu Markdown + pièces jointes GitHub (vidéo/image)
 │   │   │   ├── soutenir/page.tsx
 │   │   │   ├── a-propos/page.tsx
 │   │   │   ├── mentions-legales/page.tsx
-│   │   │   └── confidentialite/page.tsx
-│   │   ├── layout.tsx
+│   │   │   ├── confidentialite/page.tsx
+│   │   │   └── opengraph-image.tsx             # image de partage générée dynamiquement
+│   │   ├── icon.png              # favicon (convention Next.js, pas de favicon.ico séparé)
+│   │   ├── robots.ts
 │   │   ├── sitemap.ts
-│   │   └── globals.css          # tokens de design (--accent-primary: #e4002b, etc.)
+│   │   └── globals.css          # tokens de design, système des 13 thèmes (cf. §3 du volet UI/UX)
 │   ├── components/
-│   │   ├── nav/
-│   │   ├── docs/                # sommaire doc, fil d'ariane
-│   │   └── ui/
-│   ├── content/                 # MDX non lié à une route (fragments réutilisables)
+│   │   ├── icons/                # GitHubIcon, CoffeeCupIcon
+│   │   ├── three/                # scène 3D : PowerDemoScene, TvModel, WyseModel, PowerDemoLoader
+│   │   ├── Header.tsx, Footer.tsx, ThemeSwitcher.tsx, LocaleSwitcher.tsx
+│   │   ├── DocsSidebar.tsx       # navigation de la documentation (section active)
+│   │   ├── GitHubAttachmentMedia.tsx  # <video>/<img> pour les pièces jointes GitHub du blog
+│   │   └── Shot.tsx              # emplacement capture d'écran/GIF (placeholder tutoriel)
 │   ├── lib/
 │   │   ├── i18n.ts
+│   │   ├── themes.ts
 │   │   └── github-releases.ts   # fetch des releases Bobine pour le blog
-│   └── messages/                # dictionnaires de traduction fr.json / en.json
-├── scripts/
-│   └── sync-og-assets.ts        # optionnel : régénère les images de partage
+│   ├── messages/                # dictionnaires de traduction fr.json / en.json
+│   ├── mdx-components.tsx
+│   └── proxy.ts                 # middleware de routing i18n
 ├── .env.example
 ├── next.config.ts
 ├── package.json
@@ -200,8 +218,9 @@ Notes :
   claude mcp add --transport http vercel https://mcp.vercel.com
   ```
 - **Gemini CLI** : mêmes serveurs configurés en local dans `.gemini/settings.json` (format `httpUrl` au lieu de `type`/`url`) — fichier volontairement non versionné (cf. `.gitignore`, même convention que `Bobine/.gitignore` pour l'outillage IA local).
+- `.agent/` et `.agents/` sont réservés dans `.gitignore` pour la config locale d'autres outils agent IA (au cas où), même s'ils sont vides actuellement — seuls `.claude/` et `.gemini/` sont réellement utilisés à ce jour.
 
-### 16.3. `package.json` (dépendances de départ)
+### 16.3. `package.json` (dépendances — état actuel)
 
 ```json
 {
@@ -216,32 +235,45 @@ Notes :
     "lint": "eslint"
   },
   "dependencies": {
-    "next": "16.2.10",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "next-intl": "^3",
-    "@next/mdx": "^16"
+    "@mdx-js/loader": "^3",
+    "@mdx-js/react": "^3",
+    "@next/mdx": "16.3.1",
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
+    "@vercel/analytics": "^2.0.1",
+    "meshoptimizer": "^1.2.0",
+    "next": "16.3.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "three": "^0.185.1"
   },
   "devDependencies": {
+    "@types/mdx": "^2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/mdx": "^2",
+    "@types/three": "^0.185.4",
     "eslint": "^9",
-    "eslint-config-next": "16.2.10",
+    "eslint-config-next": "16.3.1",
     "typescript": "^5"
   }
 }
 ```
 
-Versions à réaligner sur celles réellement disponibles au moment du scaffolding (`npm create next-app@latest`) plutôt que recopiées telles quelles.
+Notes sur les écarts avec la proposition initiale :
+- `next-intl` n'a finalement pas été retenu : l'i18n est faite « à la main » (`src/lib/i18n.ts` + `src/messages/*.json` + `src/proxy.ts`), plus simple pour le volume de contenu du site.
+- `react-markdown` + `remark-gfm` : rendu du corps des releases GitHub sur le blog.
+- `three`, `@react-three/fiber`, `@react-three/drei`, `meshoptimizer` : ajoutés pour la démo 3D (`/demo-3d`, cf. §4) — chargés uniquement sur cette route (`next/dynamic`, `ssr: false`), sans impact sur le poids des autres pages.
 
-## 17. Prochaines étapes
+## 17. Historique et suite
 
-1. Validation de ce cahier des charges (retours, annotations, ajustements).
-2. Création du dépôt `github.com/FantasmaGlad/BobineWeb`, ajout de la clé de déploiement (§8).
-3. Scaffolding Next.js suivant la structure du §16 — voir `Start.md` pour le prompt d'exécution complet.
-4. Construction en priorité de la page d'accueil et du tutoriel d'installation (le cœur de la mission), puis extension au reste de l'arborescence.
+Étapes initiales (toutes réalisées, cf. `Start.md`) : validation du cahier des charges, création du dépôt, scaffolding Next.js suivant la structure du §16, construction de la page d'accueil et du tutoriel d'installation, puis extension au reste de l'arborescence.
+
+Suite envisagée :
+- Remplacer la vidéo de test de `/demo-3d` (actuellement un placeholder non versionné, cf. §16.1) par un contenu libre de droit avant toute mise en avant de cette page.
+- Explorer un rendu "live" (DOM/iframe plaqué en 3D) de l'écran du kiosk sur `/demo-3d`, en complément de la vidéo pré-enregistrée actuelle.
 
 ---
 

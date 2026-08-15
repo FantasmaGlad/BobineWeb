@@ -15,6 +15,7 @@ export default function Header({
     [`/${locale}/fonctionnalites`, dict.nav.features],
     [`/${locale}/documentation`, dict.nav.documentation],
     [`/${locale}/blog`, dict.nav.blog],
+    [`/${locale}/demo-3d`, dict.nav.demo],
     [`/${locale}/soutenir`, dict.nav.support],
     [`/${locale}/a-propos`, dict.nav.about],
   ];

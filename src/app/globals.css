@@ -560,6 +560,94 @@ main {
   margin-block: 2.5rem;
 }
 
+.release-body__attachment {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 34rem;
+  margin-inline: auto;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  margin-block: 1.5rem;
+  background: var(--bg-elevated);
+}
+
+/* Démo 3D — carte contenant le canvas Three.js (fond de la carte visible
+   par transparence du canvas, cohérent avec le thème actif). */
+
+.power-demo__card {
+  position: relative;
+  margin-block: 2rem;
+  aspect-ratio: 16 / 10;
+  max-height: 34rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--bg-elevated);
+  overflow: hidden;
+}
+
+.power-demo__card canvas {
+  touch-action: none;
+  cursor: grab;
+}
+
+.power-demo__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.power-demo__loading--overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-elevated);
+}
+
+.power-demo__hint {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin-top: 0.75rem;
+}
+
+.power-demo__status {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.power-demo__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--text-dim);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.power-demo__status[data-on="true"] {
+  color: var(--text);
+}
+
+.power-demo__status[data-on="true"] .power-demo__dot {
+  background: #3ddc84;
+  box-shadow: 0 0 0.5rem #3ddc84;
+}
+
 /* Emplacement réservé pour une capture d'écran/GIF pas encore fournie
    (tutoriel d'installation) — remplacé par une vraie image le moment venu. */
 

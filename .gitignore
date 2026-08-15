@@ -26,6 +26,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# sources brutes des assets 3D (non compressées, plusieurs dizaines de Mo) —
+# seule la version optimisée dans public/models/ est versionnée et servie
+/assets/
+
 # outillage local (agents IA, éditeurs) — jamais versionné, même
 # convention que Bobine (frontend/.gitignore)
 .claude/

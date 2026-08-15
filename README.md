@@ -20,7 +20,11 @@ npm run lint     # ESLint
 
 ## Stack
 
-Next.js (App Router) + TypeScript, contenu documentation/blog en MDX, i18n FR/EN par segment de route (`/fr/...`, `/en/...`). Le blog est généré automatiquement depuis les [releases GitHub](https://github.com/FantasmaGlad/Bobine/releases) du dépôt Bobine.
+Next.js (App Router) + TypeScript, contenu documentation/blog en MDX, i18n FR/EN par segment de route (`/fr/...`, `/en/...`). Le blog est généré automatiquement depuis les [releases GitHub](https://github.com/FantasmaGlad/Bobine/releases) du dépôt Bobine. Une démo 3D interactive (Three.js / `@react-three/fiber`) est disponible sur `/demo-3d`.
+
+## Outillage IA (développement local)
+
+
 
 ## Licence
 

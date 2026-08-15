@@ -12,10 +12,10 @@ const VIDEO_URL = "/videos/kiosk-demo.mp4";
 // par-dessus, calé à la main sur la zone d'écran. Constantes ajustées à
 // l'œil face au rendu réel.
 const SCREEN = {
-  position: [0, 0.47, 0.048] as const,
+  position: [0, 0.478, 0.048] as const,
   rotation: [0, 0, 0] as const,
   width: 0.965,
-  height: 0.725,
+  height: 0.745,
 };
 
 const VEIL_CSS_VAR = "--accent-primary";

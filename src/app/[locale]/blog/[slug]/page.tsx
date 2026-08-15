@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { isLocale } from "@/lib/i18n";
 import { getBobineRelease, getBobineReleases } from "@/lib/github-releases";
 
@@ -39,8 +41,9 @@ export default async function BlogPostPage({
           )}
         </p>
       )}
-      {/* Rendu texte brut pour l'instant — le corps vient de l'API Releases GitHub (Markdown). */}
-      <pre style={{ whiteSpace: "pre-wrap", fontFamily: "inherit" }}>{release.body}</pre>
+      <div className="release-body">
+        <Markdown remarkPlugins={[remarkGfm]}>{release.body}</Markdown>
+      </div>
       <a href={release.url} target="_blank" rel="noreferrer">
         {locale === "fr" ? "Voir la release sur GitHub →" : "View the release on GitHub →"}
       </a>

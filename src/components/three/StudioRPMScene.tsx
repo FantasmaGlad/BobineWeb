@@ -1,7 +1,7 @@
 "use client";
 
-import { Suspense, useEffect, useRef, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Suspense, useEffect } from "react";
+import { Canvas, useThree } from "@react-three/fiber";
 import { ContactShadows, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import VeloModel from "./VeloModel";
@@ -32,6 +32,15 @@ const BIKES_EXACT_GRID: Array<{
 ];
 
 function StudioContent() {
+  const { invalidate } = useThree();
+
+  // Force le premier rendu dès que les modèles GLTF sont instanciés
+  useEffect(() => {
+    invalidate();
+    const timer = setTimeout(() => invalidate(), 200);
+    return () => clearTimeout(timer);
+  }, [invalidate]);
+
   return (
     <>
       <OrbitControls
@@ -98,30 +107,8 @@ function StudioContent() {
 }
 
 export default function StudioRPMScene() {
-  const [isInView, setIsInView] = useState(true);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Coupe le rendu WebGL quand la section n'est pas visible dans l'écran
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el || typeof IntersectionObserver === "undefined") {
-      setIsInView(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-      },
-      { rootMargin: "150px", threshold: 0.05 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <div className="studio-rpm-container" ref={containerRef}>
+    <div className="studio-rpm-container">
       <div className="studio-rpm-header">
         <div className="studio-rpm-title">
           <span className="studio-rpm-badge">Studio RPM & Biking 3D</span>
@@ -130,31 +117,27 @@ export default function StudioRPMScene() {
       </div>
 
       <div className="studio-rpm-viewport studio-rpm-viewport--dark">
-        {isInView ? (
-          <Suspense
-            fallback={
-              <div className="studio-rpm-loading">
-                Chargement du studio 3D...
-              </div>
-            }
+        <Suspense
+          fallback={
+            <div className="studio-rpm-loading">
+              Chargement du studio 3D...
+            </div>
+          }
+        >
+          <Canvas
+            camera={{ position: [3.8, 2.4, 4.6], fov: 38 }}
+            frameloop="demand"
+            dpr={1}
+            gl={{
+              alpha: true,
+              antialias: true,
+              powerPreference: "low-power",
+              toneMapping: THREE.ACESFilmicToneMapping,
+            }}
           >
-            <Canvas
-              camera={{ position: [3.8, 2.4, 4.6], fov: 38 }}
-              frameloop="demand"
-              dpr={1}
-              gl={{
-                alpha: true,
-                antialias: true,
-                powerPreference: "low-power",
-                toneMapping: THREE.ACESFilmicToneMapping,
-              }}
-            >
-              <StudioContent />
-            </Canvas>
-          </Suspense>
-        ) : (
-          <div className="studio-rpm-loading">Scène 3D en pause (hors écran)</div>
-        )}
+            <StudioContent />
+          </Canvas>
+        </Suspense>
       </div>
 
       <div className="studio-rpm-footer">
@@ -164,6 +147,7 @@ export default function StudioRPMScene() {
     </div>
   );
 }
+
 
 
 

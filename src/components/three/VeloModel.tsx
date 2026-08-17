@@ -1,5 +1,4 @@
-"use client";
-
+import { useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 
 const MODEL_URL = "/models/velo.glb";
@@ -14,7 +13,7 @@ export default function VeloModel({
   scale?: number;
 }) {
   const { scene } = useGLTF(MODEL_URL);
-  const clone = scene.clone();
+  const clone = useMemo(() => scene.clone(), [scene]);
 
   return (
     <group position={position} rotation={rotation} scale={scale}>
@@ -22,5 +21,6 @@ export default function VeloModel({
     </group>
   );
 }
+
 
 useGLTF.preload(MODEL_URL);

@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { Canvas } from "@react-three/fiber";
 import { ContactShadows, OrbitControls } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
@@ -9,7 +10,17 @@ import TvModel from "./TvModel";
 import WyseModel from "./WyseModel";
 import VeloModel from "./VeloModel";
 
+const Spline = dynamic(() => import("@splinetool/react-spline/next"), {
+  ssr: false,
+  loading: () => (
+    <div className="studio-rpm-loading">
+      Chargement de la scène 3D Spline...
+    </div>
+  ),
+});
+
 type CameraView = "studio" | "screen" | "rider";
+type SceneEngine = "three" | "spline";
 
 const VIEW_PRESETS: Record<
   CameraView,
@@ -109,6 +120,7 @@ function SceneContent({
 export default function StudioRPMScene() {
   const [playing, setPlaying] = useState(true);
   const [view, setView] = useState<CameraView>("studio");
+  const [engine, setEngine] = useState<SceneEngine>("spline");
 
   return (
     <div className="studio-rpm-container">
@@ -118,65 +130,99 @@ export default function StudioRPMScene() {
           <h3>Immersion en salle de cours collectifs</h3>
         </div>
         <div className="studio-rpm-controls">
-          <div className="studio-rpm-btn-group" role="group" aria-label="Angles de caméra">
+          <div className="studio-rpm-btn-group" role="group" aria-label="Moteur 3D">
             <button
               type="button"
-              className={`studio-rpm-btn ${view === "studio" ? "is-active" : ""}`}
-              onClick={() => setView("studio")}
+              className={`studio-rpm-btn ${engine === "spline" ? "is-active" : ""}`}
+              onClick={() => setEngine("spline")}
             >
-              Vue studio
+              Scène Spline 3D
             </button>
             <button
               type="button"
-              className={`studio-rpm-btn ${view === "screen" ? "is-active" : ""}`}
-              onClick={() => setView("screen")}
+              className={`studio-rpm-btn ${engine === "three" ? "is-active" : ""}`}
+              onClick={() => setEngine("three")}
             >
-              Vue régie & TV
-            </button>
-            <button
-              type="button"
-              className={`studio-rpm-btn ${view === "rider" ? "is-active" : ""}`}
-              onClick={() => setView("rider")}
-            >
-              Vue adhérent
+              Régie Three.js
             </button>
           </div>
-          <button
-            type="button"
-            className="studio-rpm-action-btn"
-            onClick={() => setPlaying((prev) => !prev)}
-            aria-label={playing ? "Mettre la vidéo en pause" : "Lancer la vidéo"}
-          >
-            {playing ? "Pause flux vidéo" : "Lancer flux vidéo"}
-          </button>
+
+          {engine === "three" && (
+            <>
+              <div className="studio-rpm-btn-group" role="group" aria-label="Angles de caméra">
+                <button
+                  type="button"
+                  className={`studio-rpm-btn ${view === "studio" ? "is-active" : ""}`}
+                  onClick={() => setView("studio")}
+                >
+                  Vue studio
+                </button>
+                <button
+                  type="button"
+                  className={`studio-rpm-btn ${view === "screen" ? "is-active" : ""}`}
+                  onClick={() => setView("screen")}
+                >
+                  Vue régie & TV
+                </button>
+                <button
+                  type="button"
+                  className={`studio-rpm-btn ${view === "rider" ? "is-active" : ""}`}
+                  onClick={() => setView("rider")}
+                >
+                  Vue adhérent
+                </button>
+              </div>
+              <button
+                type="button"
+                className="studio-rpm-action-btn"
+                onClick={() => setPlaying((prev) => !prev)}
+                aria-label={playing ? "Mettre la vidéo en pause" : "Lancer la vidéo"}
+              >
+                {playing ? "Pause flux vidéo" : "Lancer flux vidéo"}
+              </button>
+            </>
+          )}
         </div>
       </div>
 
       <div className="studio-rpm-viewport">
-        <Suspense
-          fallback={
-            <div className="studio-rpm-loading">
-              Chargement de la scène studio 3D...
-            </div>
-          }
-        >
-          <Canvas
-            camera={{ position: VIEW_PRESETS[view].position, fov: 36 }}
-            dpr={[1, 1.75]}
-            gl={{ alpha: true, antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
+        {engine === "spline" ? (
+          <Spline scene="/models/scene.splinecode" />
+        ) : (
+          <Suspense
+            fallback={
+              <div className="studio-rpm-loading">
+                Chargement de la scène studio 3D...
+              </div>
+            }
           >
-            <SceneContent
-              playing={playing}
-              onTogglePlay={() => setPlaying((p) => !p)}
-              view={view}
-            />
-          </Canvas>
-        </Suspense>
+            <Canvas
+              camera={{ position: VIEW_PRESETS[view].position, fov: 36 }}
+              dpr={[1, 1.75]}
+              gl={{ alpha: true, antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
+            >
+              <SceneContent
+                playing={playing}
+                onTogglePlay={() => setPlaying((p) => !p)}
+                view={view}
+              />
+            </Canvas>
+          </Suspense>
+        )}
       </div>
       <div className="studio-rpm-footer">
-        <span>Faites glisser pour tourner autour des vélos et de la régie</span>
-        <span>Modèle Dell Wyse 5070 + TV HDMI-CEC + Vélos stationnaires</span>
+        <span>
+          {engine === "spline"
+            ? "Scène 3D Spline interactive — Glissez pour tourner, molette pour zoomer"
+            : "Faites glisser pour tourner autour des vélos et de la régie"}
+        </span>
+        <span>
+          {engine === "spline"
+            ? "Moteur Spline Runtime"
+            : "Modèle Dell Wyse 5070 + TV HDMI-CEC + Vélos stationnaires"}
+        </span>
       </div>
     </div>
   );
 }
+

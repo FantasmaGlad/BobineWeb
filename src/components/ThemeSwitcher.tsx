@@ -41,6 +41,7 @@ export default function ThemeSwitcher() {
   );
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -69,6 +70,27 @@ export default function ThemeSwitcher() {
     };
   }, [isOpen]);
 
+  // Gestion du simple clic (thème suivant) vs double clic (ouvrir la sélection manuelle)
+  function handleButtonClick(event: React.MouseEvent) {
+    event.preventDefault();
+
+    if (clickTimeoutRef.current) {
+      // Double clic détecté : ouvrir la liste manuelle
+      clearTimeout(clickTimeoutRef.current);
+      clickTimeoutRef.current = null;
+      setIsOpen((prev) => !prev);
+    } else {
+      // Attente d'un éventuel second clic
+      clickTimeoutRef.current = setTimeout(() => {
+        clickTimeoutRef.current = null;
+        // Simple clic : cycle vers le thème suivant
+        const currentIndex = themes.indexOf(theme);
+        const nextTheme = themes[(currentIndex + 1) % themes.length];
+        applyTheme(nextTheme);
+      }, 250);
+    }
+  }
+
   function handleSelect(next: Theme) {
     applyTheme(next);
     setIsOpen(false);
@@ -81,10 +103,11 @@ export default function ThemeSwitcher() {
       <button
         type="button"
         className="theme-switcher-btn"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleButtonClick}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
-        aria-label={`Thème actif : ${currentMeta.label}. Cliquer pour changer de thème.`}
+        title="1 clic : thème suivant · Double-clic : menu des 13 thèmes"
+        aria-label={`Thème actif : ${currentMeta.label}. 1 clic pour changer, double-clic pour ouvrir la liste.`}
       >
         <span
           className="theme-swatch-icon"
@@ -102,9 +125,19 @@ export default function ThemeSwitcher() {
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
+          onClick={(e) => {
+            // Clic direct sur la flèche pour ouvrir immédiatement le menu
+            e.stopPropagation();
+            if (clickTimeoutRef.current) {
+              clearTimeout(clickTimeoutRef.current);
+              clickTimeoutRef.current = null;
+            }
+            setIsOpen((prev) => !prev);
+          }}
           style={{
             transition: "transform 0.2s ease",
             transform: isOpen ? "rotate(180deg)" : "rotate(0)",
+            cursor: "pointer",
           }}
         >
           <polyline points="6 9 12 15 18 9" />

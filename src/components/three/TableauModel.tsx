@@ -7,14 +7,45 @@ import * as THREE from "three";
 const MODEL_URL = "/models/tableau.glb";
 const VIDEO_URL = "/videos/kiosk-demo.mp4";
 
-// Dimensions et positions exactes fournies depuis l'inspecteur Spline
-const SCREEN_SIZE = {
+// Dimensions et positions exactes depuis l'inspecteur Spline
+const SCREEN_DIMS = {
   width: 1.90,
   height: 1.40,
   y: 1.55,
-  zFront: -1.375,
-  zBack: -1.425,
+  zFront: -1.372,
+  zBack: -1.428,
 };
+
+// Hook pour récupérer dynamiquement la couleur d'accent du thème actif
+function useThemeAccent(fallback = "#6366f1"): string {
+  const [accentColor, setAccentColor] = useState(() => {
+    if (typeof document === "undefined") return fallback;
+    const val = getComputedStyle(document.documentElement)
+      .getPropertyValue("--accent-primary")
+      .trim();
+    return val || fallback;
+  });
+
+  useEffect(() => {
+    const update = () => {
+      const val = getComputedStyle(document.documentElement)
+        .getPropertyValue("--accent-primary")
+        .trim();
+      if (val) setAccentColor(val);
+    };
+
+    update();
+    const observer = new MutationObserver(update);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return accentColor;
+}
 
 export default function TableauModel({
   playing = false,
@@ -32,44 +63,45 @@ export default function TableauModel({
   const { scene } = useGLTF(MODEL_URL);
   const clone = useMemo(() => scene.clone(), [scene]);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [texture, setTexture] = useState<THREE.VideoTexture | null>(null);
+  const [videoTexture, setVideoTexture] = useState<THREE.VideoTexture | null>(null);
+  const themeAccent = useThemeAccent();
 
-  // Initialisation de la texture vidéo pour l'écran de projection
+  // Création robuste de l'élément vidéo HTML5 et de la VideoTexture
   useEffect(() => {
-    const el = document.createElement("video");
-    el.src = VIDEO_URL;
-    el.loop = true;
-    el.muted = true;
-    el.playsInline = true;
-    el.preload = "auto";
-    videoRef.current = el;
+    const video = document.createElement("video");
+    video.src = VIDEO_URL;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.crossOrigin = "anonymous";
+    video.preload = "auto";
+    videoRef.current = video;
 
-    const videoTexture = new THREE.VideoTexture(el);
-    videoTexture.colorSpace = THREE.SRGBColorSpace;
-    videoTexture.minFilter = THREE.LinearFilter;
-    videoTexture.magFilter = THREE.LinearFilter;
-    videoTexture.generateMipmaps = false;
+    const texture = new THREE.VideoTexture(video);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.generateMipmaps = false;
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTexture(videoTexture);
+    setVideoTexture(texture);
 
     return () => {
-      el.pause();
-      videoTexture.dispose();
+      video.pause();
+      texture.dispose();
       videoRef.current = null;
     };
   }, []);
 
-  // Gestion lecture / pause du flux vidéo
+  // Lecture / pause synchrone
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
     if (playing) {
-      video.currentTime = 0;
-      const promise = video.play();
-      if (promise !== undefined) {
-        promise.catch((err) => {
-          console.warn("Erreur lecture vidéo RPM:", err);
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          console.warn("Lecture vidéo 3D RPM :", err);
         });
       }
     } else {
@@ -99,40 +131,39 @@ export default function TableauModel({
 
   return (
     <group>
-      {/* Modèle de structure de l'écran déroulant */}
+      {/* Structure de l'écran déroulant suspendu */}
       <group position={position} rotation={rotation} scale={scale}>
         <primitive object={clone} />
       </group>
 
-      {/* Voile rectangulaire Face Avant (vers les vélos) */}
+      {/* Voile & Écran Face Avant (orienté vers les vélos) */}
       <mesh
-        position={[0, SCREEN_SIZE.y, SCREEN_SIZE.zFront]}
+        position={[0, SCREEN_DIMS.y, SCREEN_DIMS.zFront]}
         rotation={[0, 0, 0]}
         onClick={handleClick}
         onPointerOver={handlePointerOver}
         onPointerOut={handlePointerOut}
       >
-        <planeGeometry args={[SCREEN_SIZE.width, SCREEN_SIZE.height]} />
+        <planeGeometry args={[SCREEN_DIMS.width, SCREEN_DIMS.height]} />
         <meshBasicMaterial
-          map={playing ? texture : null}
-          color={playing ? "#ffffff" : "#f1f5f9"}
+          map={playing && videoTexture ? videoTexture : null}
+          color={playing ? "#ffffff" : themeAccent}
           toneMapped={false}
           side={THREE.FrontSide}
         />
       </mesh>
 
-      {/* Voile rectangulaire Face Arrière */}
+      {/* Voile Face Arrière (couleur du thème au repos et en lecture) */}
       <mesh
-        position={[0, SCREEN_SIZE.y, SCREEN_SIZE.zBack]}
+        position={[0, SCREEN_DIMS.y, SCREEN_DIMS.zBack]}
         rotation={[0, Math.PI, 0]}
         onClick={handleClick}
         onPointerOver={handlePointerOver}
         onPointerOut={handlePointerOut}
       >
-        <planeGeometry args={[SCREEN_SIZE.width, SCREEN_SIZE.height]} />
+        <planeGeometry args={[SCREEN_DIMS.width, SCREEN_DIMS.height]} />
         <meshBasicMaterial
-          map={playing ? texture : null}
-          color={playing ? "#ffffff" : "#e2e8f0"}
+          color={themeAccent}
           toneMapped={false}
           side={THREE.FrontSide}
         />

@@ -76,13 +76,14 @@ function StudioContent() {
         />
       ))}
 
-      {/* Ombre de sol globale */}
+      {/* Ombre de sol globale calculée une seule fois */}
       <ContactShadows
         position={[0, -0.41, 1.2]}
-        opacity={0.45}
+        opacity={0.4}
         scale={12}
-        blur={2.2}
+        blur={2}
         far={4}
+        frames={1}
       />
     </>
   );
@@ -131,7 +132,8 @@ export default function StudioRPMScene() {
           >
             <Canvas
               camera={{ position: [3.8, 3.2, 6.2], fov: 38 }}
-              dpr={[1, 1.25]}
+              frameloop="demand"
+              dpr={1}
               gl={{
                 alpha: true,
                 antialias: true,

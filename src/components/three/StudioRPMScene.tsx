@@ -1,64 +1,25 @@
 "use client";
 
 import { Suspense, useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic";
 import { Canvas } from "@react-three/fiber";
 import { ContactShadows, OrbitControls } from "@react-three/drei";
-import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import * as THREE from "three";
 import TvModel from "./TvModel";
 import WyseModel from "./WyseModel";
 import VeloModel from "./VeloModel";
 
-const Spline = dynamic(() => import("@splinetool/react-spline/next"), {
-  ssr: false,
-  loading: () => (
-    <div className="studio-rpm-loading">
-      Chargement de la scène 3D Spline...
-    </div>
-  ),
-});
-
-type CameraView = "studio" | "screen" | "rider";
-type SceneEngine = "three" | "spline";
-
-const VIEW_PRESETS: Record<
-  CameraView,
-  { position: [number, number, number]; target: [number, number, number] }
-> = {
-  studio: {
-    position: [0, 2.2, 5.2],
-    target: [0, 0.4, 0],
-  },
-  screen: {
-    position: [0, 1.1, 2.6],
-    target: [0, 0.6, -0.2],
-  },
-  rider: {
-    position: [-0.9, 1.4, 2.8],
-    target: [0, 0.7, -0.3],
-  },
-};
-
 function SceneContent({
   playing,
   onTogglePlay,
-  view,
 }: {
   playing: boolean;
   onTogglePlay: () => void;
-  view: CameraView;
 }) {
-  const controlsRef = useRef<OrbitControlsImpl>(null);
-
-  const preset = VIEW_PRESETS[view];
-
   return (
     <>
       <OrbitControls
-        ref={controlsRef}
         makeDefault
-        target={preset.target}
+        target={[0, 0.4, 0]}
         minDistance={2}
         maxDistance={8}
         maxPolarAngle={Math.PI / 2 - 0.05}
@@ -81,7 +42,12 @@ function SceneContent({
       />
 
       {/* Mini PC Dell Wyse 5070 posé sur la droite de l'écran */}
-      <WyseModel position={[1.1, -0.35, -0.4]} scale={0.7} />
+      <WyseModel
+        active={playing}
+        onActivate={onTogglePlay}
+        position={[1.1, -0.35, -0.4]}
+        scale={0.7}
+      />
 
       {/* Rangée de vélos stationnaires face à l'écran */}
       {/* Vélo central */}
@@ -119,9 +85,7 @@ function SceneContent({
 
 export default function StudioRPMScene() {
   const [playing, setPlaying] = useState(true);
-  const [view, setView] = useState<CameraView>("studio");
-  const [engine, setEngine] = useState<SceneEngine>("three");
-  const [isInView, setIsInView] = useState(false);
+  const [isInView, setIsInView] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Coupe le rendu WebGL quand la section n'est pas visible dans l'écran
@@ -150,110 +114,45 @@ export default function StudioRPMScene() {
           <span className="studio-rpm-badge">Studio RPM & Biking 3D</span>
           <h3>Immersion en salle de cours collectifs</h3>
         </div>
-        <div className="studio-rpm-controls">
-          <div className="studio-rpm-btn-group" role="group" aria-label="Moteur 3D">
-            <button
-              type="button"
-              className={`studio-rpm-btn ${engine === "three" ? "is-active" : ""}`}
-              onClick={() => setEngine("three")}
-            >
-              Régie Three.js (Optimisée)
-            </button>
-            <button
-              type="button"
-              className={`studio-rpm-btn ${engine === "spline" ? "is-active" : ""}`}
-              onClick={() => setEngine("spline")}
-            >
-              Scène Spline 3D
-            </button>
-          </div>
-
-          {engine === "three" && (
-            <>
-              <div className="studio-rpm-btn-group" role="group" aria-label="Angles de caméra">
-                <button
-                  type="button"
-                  className={`studio-rpm-btn ${view === "studio" ? "is-active" : ""}`}
-                  onClick={() => setView("studio")}
-                >
-                  Vue studio
-                </button>
-                <button
-                  type="button"
-                  className={`studio-rpm-btn ${view === "screen" ? "is-active" : ""}`}
-                  onClick={() => setView("screen")}
-                >
-                  Vue régie & TV
-                </button>
-                <button
-                  type="button"
-                  className={`studio-rpm-btn ${view === "rider" ? "is-active" : ""}`}
-                  onClick={() => setView("rider")}
-                >
-                  Vue adhérent
-                </button>
-              </div>
-              <button
-                type="button"
-                className="studio-rpm-action-btn"
-                onClick={() => setPlaying((prev) => !prev)}
-                aria-label={playing ? "Mettre la vidéo en pause" : "Lancer la vidéo"}
-              >
-                {playing ? "Pause flux vidéo" : "Lancer flux vidéo"}
-              </button>
-            </>
-          )}
-        </div>
       </div>
 
       <div className="studio-rpm-viewport">
         {isInView ? (
-          engine === "spline" ? (
-            <Spline scene="/models/scene.splinecode" />
-          ) : (
-            <Suspense
-              fallback={
-                <div className="studio-rpm-loading">
-                  Chargement de la scène studio 3D...
-                </div>
-              }
+          <Suspense
+            fallback={
+              <div className="studio-rpm-loading">
+                Chargement de la scène 3D...
+              </div>
+            }
+          >
+            <Canvas
+              camera={{ position: [0, 2.2, 5.2], fov: 36 }}
+              dpr={[1, 1.25]}
+              gl={{
+                alpha: true,
+                antialias: true,
+                powerPreference: "low-power",
+                toneMapping: THREE.ACESFilmicToneMapping,
+              }}
             >
-              <Canvas
-                camera={{ position: VIEW_PRESETS[view].position, fov: 36 }}
-                dpr={[1, 1.25]}
-                gl={{
-                  alpha: true,
-                  antialias: true,
-                  powerPreference: "low-power",
-                  toneMapping: THREE.ACESFilmicToneMapping,
-                }}
-              >
-                <SceneContent
-                  playing={playing}
-                  onTogglePlay={() => setPlaying((p) => !p)}
-                  view={view}
-                />
-              </Canvas>
-            </Suspense>
-          )
+              <SceneContent
+                playing={playing}
+                onTogglePlay={() => setPlaying((p) => !p)}
+              />
+            </Canvas>
+          </Suspense>
         ) : (
           <div className="studio-rpm-loading">Scène 3D en pause (hors écran)</div>
         )}
       </div>
+
       <div className="studio-rpm-footer">
-        <span>
-          {engine === "spline"
-            ? "Scène 3D Spline interactive — Glissez pour tourner, molette pour zoomer"
-            : "Faites glisser pour tourner autour des vélos et de la régie"}
-        </span>
-        <span>
-          {engine === "spline"
-            ? "Moteur Spline Runtime"
-            : "Rendu Three.js matériel optimisé (Draco + QuickSync)"}
-        </span>
+        <span>Glissez pour faire pivoter la vue · Molette pour zoomer · Clic sur l&apos;écran ou le Wyse pour contrôler</span>
+        <span>Dell Wyse 5070 + TV HDMI-CEC + Studio RPM</span>
       </div>
     </div>
   );
 }
+
 
 

@@ -5,16 +5,16 @@ import PowerDemoLoader from "@/components/three/PowerDemoLoader";
 
 const copy = {
   fr: {
-    title: "Démo — Bobine en 3D",
+    title: "Démo — Le matériel Bobine en 3D",
     intro:
-      "Le mini PC et l'écran qui font tourner Bobine, en 3D. Cliquez sur le Wyse pour lancer la démo du kiosk sur l'écran.",
-    hint: "Glisser pour tourner · molette pour zoomer · repères en bas à droite pour changer de vue",
+      "Visualisez le mini PC (Dell Wyse 5070) et l'écran qui animent Bobine. Cliquez sur le boîtier pour allumer la machine et lancer la démo du kiosque vidéo sur l'écran.",
+    hint: "Glisser pour tourner la vue · Molette pour zoomer · Clic sur le Wyse pour allumer / éteindre",
   },
   en: {
-    title: "Demo — Bobine in 3D",
+    title: "Demo — Bobine Hardware in 3D",
     intro:
-      "The mini PC and screen that run Bobine, in 3D. Click the Wyse to play the kiosk demo on screen.",
-    hint: "Drag to rotate · scroll to zoom · bottom-right gizmo to switch views",
+      "Explore the thin client (Dell Wyse 5070) and display running Bobine. Click the PC unit to power it on and launch the video kiosk demo on screen.",
+    hint: "Drag to rotate view · Scroll to zoom · Click the Wyse PC to turn on / off",
   },
 } as const;
 
@@ -38,11 +38,17 @@ export default async function Demo3DPage({
   const t = copy[locale as Locale];
 
   return (
-    <div className="container" style={{ paddingBlock: "3rem" }}>
+    <div className="container" style={{ paddingBlock: "1.25rem" }}>
+      <div style={{ maxWidth: "48rem", marginBottom: "0.75rem" }}>
+        <h1 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.3rem)", marginBottom: "0.4rem" }}>{t.title}</h1>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", margin: 0, lineHeight: 1.5 }}>{t.intro}</p>
+      </div>
+
       <div className="power-demo__card">
         <PowerDemoLoader />
       </div>
-      <p className="power-demo__hint">{t.hint}</p>
+      <p className="power-demo__hint" style={{ marginTop: "0.5rem", fontSize: "0.85rem", color: "var(--text-muted)" }}>{t.hint}</p>
     </div>
   );
 }
+

@@ -7,21 +7,35 @@ import CoffeeCupIcon from "@/components/icons/CoffeeCupIcon";
 const copy = {
   fr: {
     title: "Soutenir Bobine",
-    body: [
-      "Bobine est un projet gratuit et open-source (AGPL-3.0), sans abonnement ni service payant.",
-      "Un don ponctuel ou récurrent sur Ko-fi aide à couvrir l'hébergement, le nom de domaine et le matériel de test. Sinon, une étoile sur le dépôt GitHub ou un bug remonté dans les Issues aide tout autant.",
+    subtitle: "Bobine est un logiciel libre (AGPL-3.0), gratuit, sans publicité et sans abonnement.",
+    cards: [
+      {
+        title: "Contribuer financièrement",
+        desc: "Un don ponctuel ou récurrent sur Ko-fi aide directement à financer le matériel de test (mini PC, télécommandes, cartes son), le nom de domaine et les serveurs d'intégration.",
+      },
+      {
+        title: "Contribuer au code & aux retours",
+        desc: "Une étoile sur le dépôt GitHub, un retour d'expérience en salle, une traduction ou une suggestion d'amélioration dans les Issues nous aide tout autant à faire grandir le projet.",
+      },
     ],
     ctaKofi: "Faire un don sur Ko-fi",
-    ctaGithub: "Voir le dépôt sur GitHub",
+    ctaGithub: "Rejoindre sur GitHub",
   },
   en: {
     title: "Support Bobine",
-    body: [
-      "Bobine is a free, open-source project (AGPL-3.0), with no subscription and no paid service.",
-      "A one-off or recurring donation on Ko-fi helps cover hosting, the domain, and test hardware. Otherwise, starring the GitHub repository or reporting a bug in the Issues helps just as much.",
+    subtitle: "Bobine is free, open-source software (AGPL-3.0) with no subscriptions and no ads.",
+    cards: [
+      {
+        title: "Financial Support",
+        desc: "A one-off or monthly donation on Ko-fi directly funds test hardware (mini PCs, wireless remotes, audio DACs), the domain name, and CI infrastructure.",
+      },
+      {
+        title: "Code & Community Feedback",
+        desc: "Starring the repository on GitHub, sharing your club deployment feedback, submitting a translation, or opening an issue helps us just as much.",
+      },
     ],
     ctaKofi: "Donate on Ko-fi",
-    ctaGithub: "View the repository on GitHub",
+    ctaGithub: "Join on GitHub",
   },
 } as const;
 
@@ -45,42 +59,46 @@ export default async function SupportPage({
   const t = copy[locale as Locale];
 
   return (
-    <div className="container" style={{ paddingBlock: "3rem", maxWidth: "40rem" }}>
-      <h1>{t.title}</h1>
-      {t.body.map((paragraph) => (
-        <p key={paragraph} style={{ color: "var(--text-muted)" }}>
-          {paragraph}
-        </p>
-      ))}
-      <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+    <div className="container" style={{ paddingBlock: "1.5rem", maxWidth: "48rem" }}>
+      <h1 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.3rem)", marginBottom: "0.5rem" }}>{t.title}</h1>
+      <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", marginBottom: "1.25rem", lineHeight: 1.5 }}>
+        {t.subtitle}
+      </p>
+
+      <div style={{ display: "grid", gap: "0.85rem", marginBottom: "1.25rem" }}>
+        {t.cards.map((card) => (
+          <div key={card.title} className="card-interactive" style={{ padding: "1.15rem" }}>
+            <h3 className="card-title" style={{ fontSize: "1.05rem", marginBottom: "0.25rem" }}>
+              {card.title}
+            </h3>
+            <p className="card-desc" style={{ fontSize: "0.9rem" }}>
+              {card.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
         <a
-          className="button"
-          style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem" }}
+          className="btn-primary"
           href="https://ko-fi.com/fantasmaglad"
           target="_blank"
           rel="noreferrer"
         >
-          <CoffeeCupIcon size={18} />
+          <CoffeeCupIcon size={16} />
           {t.ctaKofi}
         </a>
         <a
-          className="button"
-          style={{
-            background: "transparent",
-            color: "var(--text)",
-            border: "1px solid var(--border)",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.5rem",
-          }}
+          className="btn-secondary"
           href="https://github.com/FantasmaGlad/Bobine"
           target="_blank"
           rel="noreferrer"
         >
-          <GitHubIcon size={18} />
+          <GitHubIcon size={16} />
           {t.ctaGithub}
         </a>
       </div>
     </div>
   );
 }
+

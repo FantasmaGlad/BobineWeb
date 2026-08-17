@@ -41,12 +41,12 @@ export default async function LegalNoticePage({
   const t = copy[locale as Locale];
 
   return (
-    <div className="container" style={{ paddingBlock: "3rem", maxWidth: "40rem" }}>
-      <h1>{t.title}</h1>
+    <div className="container" style={{ paddingBlock: "1.25rem", maxWidth: "40rem" }}>
+      <h1 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.2rem)", marginBottom: "0.5rem" }}>{t.title}</h1>
       {t.sections.map(([heading, body]) => (
-        <section key={heading} style={{ marginBlock: "1.5rem" }}>
-          <h2 style={{ fontSize: "1.1rem" }}>{heading}</h2>
-          <p style={{ color: "var(--text-muted)" }}>{body}</p>
+        <section key={heading} style={{ marginBlock: "0.85rem" }}>
+          <h2 style={{ fontSize: "1.05rem", marginBottom: "0.25rem" }}>{heading}</h2>
+          <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: 1.5, margin: 0 }}>{body}</p>
         </section>
       ))}
     </div>

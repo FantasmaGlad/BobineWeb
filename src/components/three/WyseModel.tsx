@@ -8,14 +8,14 @@ import type { Group } from "three";
 const MODEL_URL = "/models/wyse5070.glb";
 
 export default function WyseModel({
-  active,
+  active = false,
   onActivate,
   position = [0, 0, 0] as const,
   rotation = [0, 0, 0] as const,
   scale = 1,
 }: {
-  active: boolean;
-  onActivate: () => void;
+  active?: boolean;
+  onActivate?: () => void;
   position?: readonly [number, number, number];
   rotation?: readonly [number, number, number];
   scale?: number;
@@ -42,7 +42,7 @@ export default function WyseModel({
       scale={scale}
       onClick={(event: ThreeEvent<MouseEvent>) => {
         event.stopPropagation();
-        onActivate();
+        onActivate?.();
       }}
       onPointerOver={(event: ThreeEvent<PointerEvent>) => {
         event.stopPropagation();

@@ -5,126 +5,120 @@ import Link from "next/link";
 
 const copy = {
   fr: {
-    title: "Tout ce que Bobine fait tourner en local",
+    title: "Architecture & Fonctionnalités Techniques de Bobine",
     intro:
-      "Une suite logicielle complète pour transformer un mini PC en régie vidéo, borne à la demande et radio de salle de sport.",
-    categories: {
-      video: "Vidéo & Diffusion",
-      audio: "Audio & Ambiance",
-      control: "Pilotage & Contrôle",
-      system: "Système & Exploitation",
-    },
-    features: [
+      "Une suite logicielle locale et modulaire qui transforme un simple mini PC standard en régie vidéo autonome, borne tactile adhérent et radio d'ambiance 24/7.",
+    modules: [
       {
-        category: "video",
-        title: "Planification vidéo automatisée",
-        desc: "Construisez votre planning hebdomadaire avec des créneaux récurrents. Les cours se lancent automatiquement à la seconde près sur l'écran assigné.",
+        id: "video-engine",
+        badge: "Diffusion & Vidéo",
+        title: "Moteur de Lecture MPV & Accélération Matérielle",
+        desc: "Bobine intègre un moteur de rendu vidéo optimisé pour les processeurs Intel (Celeron J4105 / N5105 / i3 / i5) exploitant le décodage matériel VA-API et Intel QuickSync.",
+        specs: [
+          { label: "Résolution & Fluidité", value: "1080p et 4K jusqu'à 60 images/seconde" },
+          { label: "Charge Processeur", value: "Moins de 8% d'usage CPU en lecture active" },
+          { label: "Codecs supportés", value: "H.264, HEVC (H.265), VP9, AV1, WebM" },
+          { label: "Double affichage", value: "Sortie HDMI principale + affichage réseau secondaire" },
+        ],
       },
       {
-        category: "video",
-        title: "Borne cinéma à la demande",
-        desc: "Un mode plein écran interactif pensé pour vos adhérents. Ils parcourent le catalogue de cours et démarrent leur séance en un geste.",
+        id: "scheduler-cec",
+        badge: "Automatisation & Télévision",
+        title: "Planificateur Intelligent & Contrôle HDMI-CEC",
+        desc: "Fini les allumages manuels ou les télécommandes égarées. Bobine pilote directement l'écran de la salle grâce au protocole HDMI-CEC.",
+        specs: [
+          { label: "Allumage TV", value: "Allumage automatique 2 minutes avant le cours" },
+          { label: "Mise en veille", value: "Extinction automatique de l'écran en fin de séance" },
+          { label: "Grille hebdomadaire", value: "Créneaux récurrents configurables à la seconde" },
+          { label: "Décompte visuel", value: "Affichage d'un compte à rebours d'échauffement" },
+        ],
       },
       {
-        category: "video",
-        title: "Double sortie écran indépendante",
-        desc: "Gérez un écran câblé en HDMI (ex: vidéo dans la salle de cours) et un écran réseau (ex: radio ou affichage dans l'espace accueil) sur la même machine.",
+        id: "kiosk-controls",
+        badge: "Adhérents & Contrôle",
+        title: "Borne Tactile À la Demande & WebSockets Locaux",
+        desc: "Entre deux cours planifiés, la salle reste vivante : les adhérents peuvent lancer des séances individuelles ou en petits groupes sur l'écran tactile ou depuis leur smartphone.",
+        specs: [
+          { label: "Interface Borne", value: "Interface plein écran épurée et navigable au doigt" },
+          { label: "Télécommande smartphone", value: "Scan de QR code Wi-Fi local sans installer d'application" },
+          { label: "Télécommandes sans fil", value: "Support plug-and-play des télécommandes USB air-remote" },
+          { label: "Contrôle du volume", value: "Gestion centralisée du volume sono et vidéo" },
+        ],
       },
       {
-        category: "audio",
-        title: "Radio d'ambiance intégrée 24/7",
-        desc: "Lecteur musical continu avec fondu enchaîné réglable (crossfade), lecture aléatoire, playlists dédiées et messages vocaux programmables.",
-      },
-      {
-        category: "audio",
-        title: "Mode coach audio",
-        desc: "Diffusez des cours purement audio sur les enceintes de la salle, accompagnés d'un fond visuel apaisant ou animé sur les écrans.",
-      },
-      {
-        category: "control",
-        title: "Télécommande mobile web",
-        desc: "Ouvrez l'application sur n'importe quel smartphone connecté au Wi-Fi de la salle pour piloter la lecture, le volume et passer les cours.",
-      },
-      {
-        category: "control",
-        title: "Télécommande physique sans fil",
-        desc: "Compatible avec les télécommandes USB plug-and-play « air remote ». Vos coachs et membres peuvent naviguer sans écran tactile.",
-      },
-      {
-        category: "system",
-        title: "Gestion de bibliothèque multimédia",
-        desc: "Import rapide par glisser-déposer, téléversement en lot, catégorisation libre et génération instantanée de miniatures vidéo.",
-      },
-      {
-        category: "system",
-        title: "Architecture locale & auto-guérison",
-        desc: "Fonctionne sans internet. Un chien de garde interne surveille les processus et redémarre automatiquement le kiosque et les services en cas de panne.",
+        id: "audio-watchdog",
+        badge: "Sonorisation & Robustesse",
+        title: "Radio d'Ambiance 24/7 & Chien de Garde Résilient",
+        desc: "Bobine assure une ambiance continue sur le plateau ou dans le studio avec un lecteur musical intégré et une résilience matérielle absolue.",
+        specs: [
+          { label: "Fondu musical (Crossfade)", value: "Transitions douces sans aucun blanc sonore" },
+          { label: "Annonces programmées", value: "Diffusion de messages vocaux horaires (fermeture, consignes)" },
+          { label: "Chien de garde (Watchdog)", value: "Surveillance continue systemd avec relance automatique" },
+          { label: "Reprise sur coupure", value: "Redémarrage instantané et autonome après coupure de courant" },
+        ],
       },
     ],
-    ctaTitle: "Découvrez Bobine en action",
-    ctaDesc: "Explorez notre démo 3D interactive ou installez Bobine sur votre matériel dès aujourd'hui.",
+    ctaTitle: "Prêt à découvrir le fonctionnement en 3D ?",
+    ctaDesc: "Manipulez le mini PC et l'écran TV en temps réel dans notre scène interactive 3D.",
     ctaPrimary: "Installer Bobine",
     ctaSecondary: "Voir la démo 3D",
   },
   en: {
-    title: "Everything Bobine runs locally",
+    title: "Technical Architecture & Core Capabilities of Bobine",
     intro:
-      "A complete software suite turning any budget mini PC into a video playout system, on-demand kiosk, and gym radio.",
-    categories: {
-      video: "Video & Playout",
-      audio: "Audio & Music",
-      control: "Controls & Remotes",
-      system: "System & Reliability",
-    },
-    features: [
+      "A modular, local-first software suite that transforms standard budget mini PCs into an autonomous gym playout system, member kiosk, and 24/7 background audio station.",
+    modules: [
       {
-        category: "video",
-        title: "Automated Video Scheduling",
-        desc: "Build a recurring weekly timetable. Classes start and stop automatically on time on the designated display screen.",
+        id: "video-engine",
+        badge: "Playout & Video",
+        title: "MPV Playout Engine & Hardware Acceleration",
+        desc: "Bobine embeds a dedicated video player engine optimized for Intel processors (Celeron J4105 / N5105 / i3 / i5) leveraging VA-API and Intel QuickSync hardware decoding.",
+        specs: [
+          { label: "Resolution & Frame Rate", value: "1080p and 4K up to 60 frames per second" },
+          { label: "CPU Utilization", value: "Under 8% CPU usage during active video playout" },
+          { label: "Supported Codecs", value: "H.264, HEVC (H.265), VP9, AV1, WebM" },
+          { label: "Dual Displays", value: "Main wired HDMI output + secondary networked stream" },
+        ],
       },
       {
-        category: "video",
-        title: "On-Demand Cinema Kiosk",
-        desc: "A member-facing full-screen interactive interface. Members can browse available classes and start workouts autonomously.",
+        id: "scheduler-cec",
+        badge: "Automation & Display",
+        title: "Smart Weekly Scheduler & Native HDMI-CEC",
+        desc: "No more misplaced remotes. Bobine powers on and controls the workout room TV screen automatically via native HDMI-CEC protocol.",
+        specs: [
+          { label: "TV Auto-Power", value: "Screen powers on 2 minutes before the workout" },
+          { label: "Auto-Standby", value: "Automatic TV standby when workout finishes" },
+          { label: "Weekly Schedule", value: "Recurring timetable slots configured to the exact second" },
+          { label: "Visual Countdown", value: "Warm-up countdown overlay before session starts" },
+        ],
       },
       {
-        category: "video",
-        title: "Dual Independent Screen Outputs",
-        desc: "Drive a direct HDMI wired display and a networked display simultaneously with separate contents from a single mini PC.",
+        id: "kiosk-controls",
+        badge: "Members & Interaction",
+        title: "On-Demand Member Kiosk & Local WebSockets",
+        desc: "Between scheduled classes, members can browse workouts and start on-demand sessions directly from a touch display or their own mobile phones.",
+        specs: [
+          { label: "Kiosk UI", value: "Touch-optimized full-screen interface for fast browsing" },
+          { label: "Mobile Remote", value: "Local Wi-Fi QR code scan with no app installation needed" },
+          { label: "Wireless Remotes", value: "Plug-and-play USB air-mouse / remote support" },
+          { label: "Volume Control", value: "Centralized volume management for video and voice audio" },
+        ],
       },
       {
-        category: "audio",
-        title: "Integrated 24/7 Gym Radio",
-        desc: "Continuous background music player featuring smooth crossfade, custom playlists, and scheduled automated voice announcements.",
-      },
-      {
-        category: "audio",
-        title: "Audio Coach Mode",
-        desc: "Play audio-only guided workout sessions over the gym sound system with ambient visual backgrounds on screens.",
-      },
-      {
-        category: "control",
-        title: "Mobile Web Remote Control",
-        desc: "Open the control interface on any mobile browser on the local network to pause, skip, and manage volumes effortlessly.",
-      },
-      {
-        category: "control",
-        title: "Physical Wireless Remote",
-        desc: "Works out of the box with standard USB air remotes. Instructors and members can control classes without touching the PC.",
-      },
-      {
-        category: "system",
-        title: "Media Library Management",
-        desc: "Fast drag-and-drop imports, bulk video uploads, custom categories, and automatic video thumbnail extraction.",
-      },
-      {
-        category: "system",
-        title: "Local-First & Self-Healing",
-        desc: "Runs 100% offline. An integrated watchdog supervisor continuously monitors services and restarts components automatically if needed.",
+        id: "audio-watchdog",
+        badge: "Audio & Resilience",
+        title: "24/7 Background Music & Watchdog Supervisor",
+        desc: "Bobine provides continuous background sound across the gym floor with an integrated audio player and bulletproof crash recovery.",
+        specs: [
+          { label: "Audio Crossfade", value: "Smooth transitions with zero audio silence gaps" },
+          { label: "Scheduled Spoken Alerts", value: "Automated announcements (gym closing, safety guidelines)" },
+          { label: "Systemd Watchdog", value: "Continuous process supervision with automatic recovery" },
+          { label: "Power Cut Resilience", value: "Instant automatic reboot and resume after power cuts" },
+        ],
       },
     ],
-    ctaTitle: "See Bobine in Action",
-    ctaDesc: "Try our interactive 3D demo or install Bobine on your mini PC today.",
+    ctaTitle: "Ready to explore the 3D hardware interactive view?",
+    ctaDesc: "Inspect the mini PC and TV display in real time in our interactive 3D scene.",
     ctaPrimary: "Install Bobine",
     ctaSecondary: "Try 3D Demo",
   },
@@ -150,40 +144,100 @@ export default async function FeaturesPage({
   const t = copy[locale as Locale];
 
   return (
-    <div className="container" style={{ paddingBlock: "1.25rem" }}>
+    <div className="container" style={{ paddingBlock: "1.5rem" }}>
       {/* En-tête */}
-      <div style={{ maxWidth: "46rem", marginBottom: "1.5rem" }}>
-        <h1 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.3rem)", marginBottom: "0.5rem" }}>{t.title}</h1>
-        <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", margin: 0, lineHeight: 1.5 }}>{t.intro}</p>
+      <div style={{ maxWidth: "48rem", marginBottom: "2rem" }}>
+        <h1
+          style={{
+            fontSize: "clamp(1.85rem, 3.8vw, 2.5rem)",
+            fontWeight: 800,
+            lineHeight: 1.2,
+            marginBottom: "0.65rem",
+            color: "var(--text-heading)",
+          }}
+        >
+          {t.title}
+        </h1>
+        <p
+          style={{
+            color: "var(--text-muted)",
+            fontSize: "1rem",
+            margin: 0,
+            lineHeight: 1.55,
+          }}
+        >
+          {t.intro}
+        </p>
       </div>
 
-      {/* Grille des fonctionnalités */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(17rem, 1fr))",
-          gap: "0.85rem",
-          marginBottom: "1.75rem",
-        }}
-      >
-        {t.features.map((feat) => {
-          const categoryName =
-            t.categories[feat.category as keyof typeof t.categories] || feat.category;
-          return (
-            <div key={feat.title} className="card-interactive" style={{ padding: "0.95rem 1.15rem" }}>
-              <div style={{ marginBottom: "0.5rem" }}>
-                <span
-                  className="badge"
-                  style={{ fontSize: "0.7rem", padding: "0.15rem 0.5rem" }}
-                >
-                  {categoryName}
-                </span>
-              </div>
-              <h3 className="card-title" style={{ fontSize: "1rem", marginBottom: "0.25rem" }}>{feat.title}</h3>
-              <p className="card-desc" style={{ fontSize: "0.85rem", lineHeight: 1.45 }}>{feat.desc}</p>
+      {/* Modules Techniques Détaillés */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", marginBottom: "2.5rem" }}>
+        {t.modules.map((mod) => (
+          <div key={mod.id} className="profile-tab-card">
+            <div style={{ marginBottom: "1rem" }}>
+              <span className="profile-tab-card__badge">{mod.badge}</span>
+              <h2
+                style={{
+                  margin: "0.25rem 0 0.4rem 0",
+                  fontSize: "1.25rem",
+                  fontWeight: 700,
+                  color: "var(--text-heading)",
+                }}
+              >
+                {mod.title}
+              </h2>
+              <p
+                style={{
+                  margin: 0,
+                  color: "var(--text-muted)",
+                  fontSize: "0.925rem",
+                  lineHeight: 1.5,
+                  maxWidth: "48rem",
+                }}
+              >
+                {mod.desc}
+              </p>
             </div>
-          );
-        })}
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(14rem, 1fr))",
+                gap: "0.75rem",
+                background: "var(--bg-surface-hover)",
+                border: "1px solid var(--border-subtle)",
+                borderRadius: "0.65rem",
+                padding: "1rem",
+              }}
+            >
+              {mod.specs.map((sp, idx) => (
+                <div key={idx}>
+                  <div
+                    style={{
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                      color: "var(--text-muted)",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.04em",
+                      marginBottom: "0.15rem",
+                    }}
+                  >
+                    {sp.label}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                      color: "var(--text-heading)",
+                    }}
+                  >
+                    {sp.value}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Call to Action */}
@@ -191,22 +245,36 @@ export default async function FeaturesPage({
         style={{
           background: "var(--bg-card)",
           border: "1px solid var(--border-subtle)",
-          borderRadius: "0.85rem",
-          padding: "1.25rem 1.5rem",
+          borderRadius: "0.95rem",
+          padding: "1.5rem 1.75rem",
           boxShadow: "var(--shadow-card)",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           flexWrap: "wrap",
-          gap: "1rem",
+          gap: "1.25rem",
+          marginBottom: "2rem",
         }}
       >
-        <div style={{ maxWidth: "32rem" }}>
-          <h3 style={{ margin: "0 0 0.25rem 0", fontSize: "1.15rem" }}>{t.ctaTitle}</h3>
-          <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "0.875rem" }}>{t.ctaDesc}</p>
+        <div style={{ maxWidth: "34rem" }}>
+          <h3
+            style={{
+              margin: "0 0 0.35rem 0",
+              fontSize: "1.2rem",
+              color: "var(--text-heading)",
+            }}
+          >
+            {t.ctaTitle}
+          </h3>
+          <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "0.9rem" }}>
+            {t.ctaDesc}
+          </p>
         </div>
         <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-          <Link className="btn-primary" href={`/${locale}/documentation/demarrage-rapide`}>
+          <Link
+            className="btn-primary"
+            href={`/${locale}/documentation/demarrage-rapide`}
+          >
             {t.ctaPrimary}
           </Link>
           <Link className="btn-secondary" href={`/${locale}/demo-3d`}>
@@ -217,4 +285,3 @@ export default async function FeaturesPage({
     </div>
   );
 }
-

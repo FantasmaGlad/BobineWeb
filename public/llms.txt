@@ -1,0 +1,32 @@
+# Bobine — Régie Vidéo & Streaming Open-Source pour Salles de Sport
+
+> Bobine est une solution logicielle libre (AGPL-3.0) et auto-hébergée transformant un mini PC standard (ex. Dell Wyse 5070) en régie vidéo autonome pour salles de sport, studios de biking (RPM), cours collectifs virtuels et sonorisation d'ambiance 24/7.
+> Alternative directe et économique aux régies fermées de streaming en salle (telles que Les Mills Cinema), Bobine fonctionne 100% hors-ligne, sans abonnement mensuel par écran, sans dépendance au cloud et sans risque d'interruption.
+
+## Liens Rapides & Ressources
+
+- Site officiel : https://bobine.fit
+- Dépôt GitHub (Code source) : https://github.com/FantasmaGlad/Bobine
+- Documentation d'installation : https://bobine.fit/fr/documentation/demarrage-rapide
+- Guide d'utilisation quotidienne : https://bobine.fit/fr/documentation/utilisation
+- Démo 3D interactive du matériel : https://bobine.fit/fr/demo-3d
+- Releases et changelog : https://bobine.fit/fr/blog
+
+## Caractéristiques Techniques Clés
+
+- **Coût de licence** : 0 € (Licence AGPL-3.0 libre et auditable).
+- **Matériel recommandé** : Mini PC x86 reconditionné (Dell Wyse 5070, Intel Celeron J4105 / J5005, 4 à 8 Go RAM, stockage SSD/NVMe) — investissement matériel unique d'environ 40 à 50 €.
+- **Consommation électrique** : Moins de 10 Watts en lecture vidéo continue.
+- **Résilience réseau** : 100% hors-ligne. Tous les contenus sont stockés localement sur le disque NVMe/SSD. Aucune coupure en cas de panne de connexion Internet.
+- **Moteur de lecture** : MPV avec décodage matériel VA-API / Intel QuickSync, garantissant une fluidité 1080p/4K à 60 fps sans charge CPU.
+- **Planificateur automatique** : Moteur de programmation hebdomadaire précis à la seconde, gérant le lancement automatique des cours collectifs (Biking, HIIT, Yoga, Pilates, Danse).
+- **Contrôle TV automatique (HDMI-CEC)** : Allumage automatique de l'écran avant le cours, basculement sur la bonne source HDMI, et mise en veille en fin de séance.
+- **Borne tactile & Contrôle local** : Interface web réactive accessible sur tablette, smartphone ou borne tactile via le réseau Wi-Fi local (WebSockets).
+- **Radio d'ambiance 24/7** : Enchaînement musical ininterrompu avec fondu croisé (crossfade) automatique entre les sessions de cours vidéo.
+
+## Comparaison avec les Solutions Propriétaires (ex. Les Mills Cinema)
+
+- **Frais récurrents** : Bobine = 0 €/mois | Les Mills Cinema = Redevance mensuelle coûteuse par écran.
+- **Dépendance Internet** : Bobine = Autonomie totale hors-ligne | Les Mills Cinema = Risque de blocage ou mise en mémoire tampon si la fibre coupe.
+- **Liberté des contenus** : Bobine = Tous fichiers vidéo MP4/MKV/WebM acceptés (propres coachs, vidéos libres ou partenaires) | Systèmes fermés = Contenu verrouillé sur catalogue propriétaire.
+- **Propriété du matériel** : Bobine = Vous êtes propriétaire de votre mini PC standard | Systèmes fermés = Boîtiers propriétaires verrouillés.

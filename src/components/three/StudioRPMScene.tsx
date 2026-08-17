@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { ContactShadows, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -31,7 +31,13 @@ const BIKES_EXACT_GRID: Array<{
   { position: [1.5, 0, 2.1], rotation: [0, Math.PI / 2, 0] },
 ];
 
-function StudioContent() {
+function StudioContent({
+  playing,
+  onTogglePlaying,
+}: {
+  playing: boolean;
+  onTogglePlaying: () => void;
+}) {
   const { invalidate } = useThree();
 
   // Force le premier rendu dès que les modèles GLTF sont instanciés
@@ -57,13 +63,18 @@ function StudioContent() {
       />
 
       {/* Éclairage studio Spline */}
-      <ambientLight intensity={0.9} />
+      <ambientLight intensity={playing ? 1.0 : 0.9} />
       <directionalLight position={[6, 8, 5]} intensity={1.3} />
       <directionalLight position={[-6, 6, -3]} intensity={0.5} />
       <pointLight position={[0, 3, -1]} intensity={0.8} color="#818cf8" />
+      {playing && (
+        <pointLight position={[0, 1.5, -1.0]} intensity={1.5} color="#38bdf8" distance={4} />
+      )}
 
-      {/* Toile de projection suspendue (Position exacte Spline) */}
+      {/* Toile de projection suspendue avec double voile et vidéo */}
       <TableauModel
+        playing={playing}
+        onActivate={onTogglePlaying}
         position={[0, 0.7, -1.4]}
         rotation={[0, 0, 0]}
         scale={2.0}
@@ -76,8 +87,10 @@ function StudioContent() {
         scale={1.0}
       />
 
-      {/* Mini PC Dell Wyse 5070 discret */}
+      {/* Mini PC Dell Wyse 5070 discret et interactif */}
       <WyseModel
+        active={playing}
+        onActivate={onTogglePlaying}
         position={[2.0, 0, -1.2]}
         rotation={[0, -0.35, 0]}
         scale={0.5}
@@ -107,6 +120,8 @@ function StudioContent() {
 }
 
 export default function StudioRPMScene() {
+  const [playing, setPlaying] = useState(false);
+
   return (
     <div className="studio-rpm-container">
       <div className="studio-rpm-header">
@@ -126,7 +141,7 @@ export default function StudioRPMScene() {
         >
           <Canvas
             camera={{ position: [3.8, 2.4, 4.6], fov: 38 }}
-            frameloop="demand"
+            frameloop={playing ? "always" : "demand"}
             dpr={1}
             gl={{
               alpha: true,
@@ -135,13 +150,16 @@ export default function StudioRPMScene() {
               toneMapping: THREE.ACESFilmicToneMapping,
             }}
           >
-            <StudioContent />
+            <StudioContent
+              playing={playing}
+              onTogglePlaying={() => setPlaying((p) => !p)}
+            />
           </Canvas>
         </Suspense>
       </div>
 
       <div className="studio-rpm-footer">
-        <span>Glissez pour faire pivoter la vue · Molette pour zoomer et explorer la salle</span>
+        <span>Glissez pour faire pivoter la vue · Molette pour zoomer · Cliquez sur l’écran ou le Wyse pour {playing ? "mettre en pause" : "lancer le cours vidéo"}</span>
         <span>Studio RPM avec écran de projection & vélos stationnaires</span>
       </div>
     </div>

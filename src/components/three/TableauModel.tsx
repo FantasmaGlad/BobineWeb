@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { useGLTF } from "@react-three/drei";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useGLTF, useVideoTexture } from "@react-three/drei";
 import * as THREE from "three";
 
 const MODEL_URL = "/models/tableau.glb";
@@ -47,6 +47,39 @@ function useThemeAccent(fallback = "#6366f1"): string {
   return accentColor;
 }
 
+// Composant de texture vidéo géré par le hook natif useVideoTexture de Drei
+function VideoMaterial({ playing }: { playing: boolean }) {
+  const texture = useVideoTexture(VIDEO_URL, {
+    start: playing,
+    muted: true,
+    loop: true,
+    playsInline: true,
+    crossOrigin: "anonymous",
+  });
+
+  useEffect(() => {
+    const video = texture.image as HTMLVideoElement;
+    if (!video) return;
+
+    if (playing) {
+      const p = video.play();
+      if (p !== undefined) {
+        p.catch((err) => console.warn("Erreur lecture vidéo RPM:", err));
+      }
+    } else {
+      video.pause();
+    }
+  }, [playing, texture]);
+
+  return (
+    <meshBasicMaterial
+      map={texture}
+      toneMapped={false}
+      side={THREE.FrontSide}
+    />
+  );
+}
+
 export default function TableauModel({
   playing = false,
   onActivate,
@@ -63,56 +96,6 @@ export default function TableauModel({
   const { scene } = useGLTF(MODEL_URL);
   const clone = useMemo(() => scene.clone(), [scene]);
   const themeAccent = useThemeAccent();
-
-  // Création stable de l'élément vidéo et de sa VideoTexture via useMemo
-  const { video, videoTexture } = useMemo(() => {
-    if (typeof document === "undefined") {
-      return { video: null, videoTexture: null };
-    }
-    const el = document.createElement("video");
-    el.src = VIDEO_URL;
-    el.loop = true;
-    el.muted = true;
-    el.playsInline = true;
-    el.crossOrigin = "anonymous";
-    el.setAttribute("webkit-playsinline", "true");
-    el.preload = "auto";
-    el.load();
-
-    const texture = new THREE.VideoTexture(el);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.minFilter = THREE.LinearFilter;
-    texture.magFilter = THREE.LinearFilter;
-    texture.generateMipmaps = false;
-
-    return { video: el, videoTexture: texture };
-  }, []);
-
-  // Nettoyage lors du démontage
-  useEffect(() => {
-    return () => {
-      if (video) video.pause();
-      if (videoTexture) videoTexture.dispose();
-    };
-  }, [video, videoTexture]);
-
-  // Synchronisation de l'état de lecture
-  useEffect(() => {
-    if (!video) return;
-
-    if (playing) {
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((err) => {
-          console.warn("Lecture vidéo 3D RPM :", err);
-        });
-      }
-    } else {
-      video.pause();
-    }
-  }, [video, playing]);
-
-
 
   const handlePointerOver = (e: { stopPropagation: () => void }) => {
     if (onActivate) {
@@ -141,22 +124,27 @@ export default function TableauModel({
         <primitive object={clone} />
       </group>
 
-      {/* 1. Écran Vidéo Face Avant (affiché et actif pendant la lecture) */}
-      {videoTexture && (
+      {/* 1. Écran Vidéo Face Avant (affiché pendant la lecture) */}
+      {playing && (
         <mesh
-          position={[0, SCREEN_DIMS.y, SCREEN_DIMS.zFront + 0.005]}
+          position={[0, SCREEN_DIMS.y, SCREEN_DIMS.zFront + 0.006]}
           rotation={[0, 0, 0]}
-          visible={playing}
           onClick={handleClick}
           onPointerOver={handlePointerOver}
           onPointerOut={handlePointerOut}
         >
           <planeGeometry args={[SCREEN_DIMS.width, SCREEN_DIMS.height]} />
-          <meshBasicMaterial
-            map={videoTexture}
-            toneMapped={false}
-            side={THREE.FrontSide}
-          />
+          <Suspense
+            fallback={
+              <meshBasicMaterial
+                color={themeAccent}
+                toneMapped={false}
+                side={THREE.FrontSide}
+              />
+            }
+          >
+            <VideoMaterial playing={playing} />
+          </Suspense>
         </mesh>
       )}
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { Canvas } from "@react-three/fiber";
 import { ContactShadows, OrbitControls } from "@react-three/drei";
@@ -67,10 +67,10 @@ function SceneContent({
         autoRotate={false}
       />
 
-      <ambientLight intensity={playing ? 0.9 : 0.75} />
-      <directionalLight position={[4, 6, 4]} intensity={1.1} castShadow />
-      <directionalLight position={[-4, 4, -2]} intensity={0.4} />
-      <pointLight position={[0, 2, 0]} intensity={playing ? 1.2 : 0.6} color="#818cf8" />
+      <ambientLight intensity={playing ? 0.85 : 0.7} />
+      <directionalLight position={[4, 6, 4]} intensity={1.0} />
+      <directionalLight position={[-4, 4, -2]} intensity={0.3} />
+      <pointLight position={[0, 2, 0]} intensity={playing ? 1.0 : 0.5} color="#818cf8" />
 
       {/* Écran TV Bobine au centre de la scène */}
       <TvModel
@@ -108,7 +108,7 @@ function SceneContent({
       {/* Ombre de contact au sol */}
       <ContactShadows
         position={[0, -0.41, 0.6]}
-        opacity={0.45}
+        opacity={0.4}
         scale={8}
         blur={2}
         far={3}
@@ -120,10 +120,31 @@ function SceneContent({
 export default function StudioRPMScene() {
   const [playing, setPlaying] = useState(true);
   const [view, setView] = useState<CameraView>("studio");
-  const [engine, setEngine] = useState<SceneEngine>("spline");
+  const [engine, setEngine] = useState<SceneEngine>("three");
+  const [isInView, setIsInView] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Coupe le rendu WebGL quand la section n'est pas visible dans l'écran
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setIsInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { rootMargin: "100px", threshold: 0.05 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="studio-rpm-container">
+    <div className="studio-rpm-container" ref={containerRef}>
       <div className="studio-rpm-header">
         <div className="studio-rpm-title">
           <span className="studio-rpm-badge">Studio RPM & Biking 3D</span>
@@ -133,17 +154,17 @@ export default function StudioRPMScene() {
           <div className="studio-rpm-btn-group" role="group" aria-label="Moteur 3D">
             <button
               type="button"
+              className={`studio-rpm-btn ${engine === "three" ? "is-active" : ""}`}
+              onClick={() => setEngine("three")}
+            >
+              Régie Three.js (Optimisée)
+            </button>
+            <button
+              type="button"
               className={`studio-rpm-btn ${engine === "spline" ? "is-active" : ""}`}
               onClick={() => setEngine("spline")}
             >
               Scène Spline 3D
-            </button>
-            <button
-              type="button"
-              className={`studio-rpm-btn ${engine === "three" ? "is-active" : ""}`}
-              onClick={() => setEngine("three")}
-            >
-              Régie Three.js
             </button>
           </div>
 
@@ -186,28 +207,37 @@ export default function StudioRPMScene() {
       </div>
 
       <div className="studio-rpm-viewport">
-        {engine === "spline" ? (
-          <Spline scene="/models/scene.splinecode" />
-        ) : (
-          <Suspense
-            fallback={
-              <div className="studio-rpm-loading">
-                Chargement de la scène studio 3D...
-              </div>
-            }
-          >
-            <Canvas
-              camera={{ position: VIEW_PRESETS[view].position, fov: 36 }}
-              dpr={[1, 1.75]}
-              gl={{ alpha: true, antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
+        {isInView ? (
+          engine === "spline" ? (
+            <Spline scene="/models/scene.splinecode" />
+          ) : (
+            <Suspense
+              fallback={
+                <div className="studio-rpm-loading">
+                  Chargement de la scène studio 3D...
+                </div>
+              }
             >
-              <SceneContent
-                playing={playing}
-                onTogglePlay={() => setPlaying((p) => !p)}
-                view={view}
-              />
-            </Canvas>
-          </Suspense>
+              <Canvas
+                camera={{ position: VIEW_PRESETS[view].position, fov: 36 }}
+                dpr={[1, 1.25]}
+                gl={{
+                  alpha: true,
+                  antialias: true,
+                  powerPreference: "low-power",
+                  toneMapping: THREE.ACESFilmicToneMapping,
+                }}
+              >
+                <SceneContent
+                  playing={playing}
+                  onTogglePlay={() => setPlaying((p) => !p)}
+                  view={view}
+                />
+              </Canvas>
+            </Suspense>
+          )
+        ) : (
+          <div className="studio-rpm-loading">Scène 3D en pause (hors écran)</div>
         )}
       </div>
       <div className="studio-rpm-footer">
@@ -219,10 +249,11 @@ export default function StudioRPMScene() {
         <span>
           {engine === "spline"
             ? "Moteur Spline Runtime"
-            : "Modèle Dell Wyse 5070 + TV HDMI-CEC + Vélos stationnaires"}
+            : "Rendu Three.js matériel optimisé (Draco + QuickSync)"}
         </span>
       </div>
     </div>
   );
 }
+
 

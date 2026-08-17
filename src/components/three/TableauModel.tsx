@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -12,7 +12,7 @@ const SCREEN_DIMS = {
   width: 1.90,
   height: 1.40,
   y: 1.55,
-  zFront: -1.372,
+  zFront: -1.370,
   zBack: -1.428,
 };
 
@@ -62,39 +62,42 @@ export default function TableauModel({
 }) {
   const { scene } = useGLTF(MODEL_URL);
   const clone = useMemo(() => scene.clone(), [scene]);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [videoTexture, setVideoTexture] = useState<THREE.VideoTexture | null>(null);
   const themeAccent = useThemeAccent();
 
-  // Création robuste de l'élément vidéo HTML5 et de la VideoTexture
-  useEffect(() => {
-    const video = document.createElement("video");
-    video.src = VIDEO_URL;
-    video.loop = true;
-    video.muted = true;
-    video.playsInline = true;
-    video.crossOrigin = "anonymous";
-    video.preload = "auto";
-    videoRef.current = video;
+  // Création stable de l'élément vidéo et de sa VideoTexture via useMemo
+  const { video, videoTexture } = useMemo(() => {
+    if (typeof document === "undefined") {
+      return { video: null, videoTexture: null };
+    }
+    const el = document.createElement("video");
+    el.src = VIDEO_URL;
+    el.loop = true;
+    el.muted = true;
+    el.playsInline = true;
+    el.crossOrigin = "anonymous";
+    el.setAttribute("webkit-playsinline", "true");
+    el.preload = "auto";
+    el.load();
 
-    const texture = new THREE.VideoTexture(video);
+    const texture = new THREE.VideoTexture(el);
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
     texture.generateMipmaps = false;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setVideoTexture(texture);
 
-    return () => {
-      video.pause();
-      texture.dispose();
-      videoRef.current = null;
-    };
+    return { video: el, videoTexture: texture };
   }, []);
 
-  // Lecture / pause synchrone
+  // Nettoyage lors du démontage
   useEffect(() => {
-    const video = videoRef.current;
+    return () => {
+      if (video) video.pause();
+      if (videoTexture) videoTexture.dispose();
+    };
+  }, [video, videoTexture]);
+
+  // Synchronisation de l'état de lecture
+  useEffect(() => {
     if (!video) return;
 
     if (playing) {
@@ -107,7 +110,9 @@ export default function TableauModel({
     } else {
       video.pause();
     }
-  }, [playing]);
+  }, [video, playing]);
+
+
 
   const handlePointerOver = (e: { stopPropagation: () => void }) => {
     if (onActivate) {
@@ -136,24 +141,43 @@ export default function TableauModel({
         <primitive object={clone} />
       </group>
 
-      {/* Voile & Écran Face Avant (orienté vers les vélos) */}
+      {/* 1. Écran Vidéo Face Avant (affiché et actif pendant la lecture) */}
+      {videoTexture && (
+        <mesh
+          position={[0, SCREEN_DIMS.y, SCREEN_DIMS.zFront + 0.005]}
+          rotation={[0, 0, 0]}
+          visible={playing}
+          onClick={handleClick}
+          onPointerOver={handlePointerOver}
+          onPointerOut={handlePointerOut}
+        >
+          <planeGeometry args={[SCREEN_DIMS.width, SCREEN_DIMS.height]} />
+          <meshBasicMaterial
+            map={videoTexture}
+            toneMapped={false}
+            side={THREE.FrontSide}
+          />
+        </mesh>
+      )}
+
+      {/* 2. Voile Thème Face Avant (affiché au repos aux couleurs du thème actif) */}
       <mesh
         position={[0, SCREEN_DIMS.y, SCREEN_DIMS.zFront]}
         rotation={[0, 0, 0]}
+        visible={!playing}
         onClick={handleClick}
         onPointerOver={handlePointerOver}
         onPointerOut={handlePointerOut}
       >
         <planeGeometry args={[SCREEN_DIMS.width, SCREEN_DIMS.height]} />
         <meshBasicMaterial
-          map={playing && videoTexture ? videoTexture : null}
-          color={playing ? "#ffffff" : themeAccent}
+          color={themeAccent}
           toneMapped={false}
           side={THREE.FrontSide}
         />
       </mesh>
 
-      {/* Voile Face Arrière (couleur du thème au repos et en lecture) */}
+      {/* 3. Voile Thème Face Arrière (toujours habillé avec la couleur du thème) */}
       <mesh
         position={[0, SCREEN_DIMS.y, SCREEN_DIMS.zBack]}
         rotation={[0, Math.PI, 0]}

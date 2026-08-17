@@ -9,26 +9,26 @@ import TableauModel from "./TableauModel";
 import ProjecteurModel from "./ProjecteurModel";
 import WyseModel from "./WyseModel";
 
-// Grille de 8 vélos stationnaires (2 colonnes x 4 rangées) orientés vers l'écran
-const BIKES_GRID: Array<{
+// Coordonnées exactes décodées depuis Spline scene.glb (12 vélos en 2 rangées de 6)
+const BIKES_EXACT_GRID: Array<{
   position: [number, number, number];
   rotation: [number, number, number];
 }> = [
-  // Rangée 1 (Avant)
-  { position: [-0.65, 0, -0.2], rotation: [0, Math.PI * 0.15, 0] },
-  { position: [0.65, 0, -0.2], rotation: [0, -Math.PI * 0.15, 0] },
+  // Rangée Avant (Z = 1.0m)
+  { position: [-1.5, 0, 1.0], rotation: [0, Math.PI / 2, 0] },
+  { position: [-1.0, 0, 1.0], rotation: [0, Math.PI / 2, 0] },
+  { position: [-0.5, 0, 1.0], rotation: [0, Math.PI / 2, 0] },
+  { position: [0.5, 0, 1.0], rotation: [0, Math.PI / 2, 0] },
+  { position: [1.0, 0, 1.0], rotation: [0, Math.PI / 2, 0] },
+  { position: [1.5, 0, 1.0], rotation: [0, Math.PI / 2, 0] },
 
-  // Rangée 2
-  { position: [-0.75, 0, 0.75], rotation: [0, Math.PI * 0.12, 0] },
-  { position: [0.75, 0, 0.75], rotation: [0, -Math.PI * 0.12, 0] },
-
-  // Rangée 3
-  { position: [-0.85, 0, 1.7], rotation: [0, Math.PI * 0.08, 0] },
-  { position: [0.85, 0, 1.7], rotation: [0, -Math.PI * 0.08, 0] },
-
-  // Rangée 4 (Fond)
-  { position: [-0.95, 0, 2.65], rotation: [0, Math.PI * 0.05, 0] },
-  { position: [0.95, 0, 2.65], rotation: [0, -Math.PI * 0.05, 0] },
+  // Rangée Arrière (Z = 2.1m)
+  { position: [-1.5, 0, 2.1], rotation: [0, Math.PI / 2, 0] },
+  { position: [-1.0, 0, 2.1], rotation: [0, Math.PI / 2, 0] },
+  { position: [-0.5, 0, 2.1], rotation: [0, Math.PI / 2, 0] },
+  { position: [0.5, 0, 2.1], rotation: [0, Math.PI / 2, 0] },
+  { position: [1.0, 0, 2.1], rotation: [0, Math.PI / 2, 0] },
+  { position: [1.5, 0, 2.1], rotation: [0, Math.PI / 2, 0] },
 ];
 
 function StudioContent() {
@@ -36,61 +36,61 @@ function StudioContent() {
     <>
       <OrbitControls
         makeDefault
-        target={[0, 0.6, 0.5]}
-        minDistance={2.2}
-        maxDistance={7.5}
-        maxPolarAngle={Math.PI / 2 - 0.08}
-        minPolarAngle={0.2}
+        target={[0, 0.7, 0.3]}
+        minDistance={2.5}
+        maxDistance={8.5}
+        maxPolarAngle={Math.PI / 2 - 0.05}
+        minPolarAngle={0.15}
         enablePan={false}
         enableZoom={true}
         autoRotate={false}
         dampingFactor={0.05}
       />
 
-      {/* Éclairage studio soigné */}
-      <ambientLight intensity={0.8} />
-      <directionalLight position={[4, 6, 4]} intensity={1.2} />
-      <directionalLight position={[-4, 5, -2]} intensity={0.5} />
-      <pointLight position={[0, 2.5, -1]} intensity={1.0} color="#818cf8" />
+      {/* Éclairage studio Spline */}
+      <ambientLight intensity={0.9} />
+      <directionalLight position={[6, 8, 5]} intensity={1.3} />
+      <directionalLight position={[-6, 6, -3]} intensity={0.5} />
+      <pointLight position={[0, 3, -1]} intensity={0.8} color="#818cf8" />
 
-      {/* Grand écran de projection suspendu face aux vélos */}
+      {/* Toile de projection suspendue (Position exacte Spline) */}
       <TableauModel
-        position={[0, 0.35, -1.5]}
+        position={[0, 0.7, -1.4]}
         rotation={[0, 0, 0]}
-        scale={2.1}
+        scale={2.0}
       />
 
-      {/* Projecteur fixé au plafond au-dessus de la salle */}
+      {/* Projecteur au plafond (Position exacte Spline) */}
       <ProjecteurModel
-        position={[0, 2.1, 0.2]}
-        rotation={[0.15, 0, 0]}
-        scale={0.55}
+        position={[0, 2.81, -1.0]}
+        rotation={[0, -Math.PI / 2, 0]}
+        scale={1.0}
       />
 
-      {/* Mini PC Dell Wyse 5070 posé discrètement sur le côté */}
+      {/* Mini PC Dell Wyse 5070 discret */}
       <WyseModel
-        position={[1.55, 0, -1.3]}
-        rotation={[0, -0.4, 0]}
+        position={[2.0, 0, -1.2]}
+        rotation={[0, -0.35, 0]}
         scale={0.5}
       />
 
-      {/* Grille de vélos stationnaires */}
-      {BIKES_GRID.map((bike, index) => (
+      {/* Les 12 vélos stationnaires texturés aux positions Spline */}
+      {BIKES_EXACT_GRID.map((bike, index) => (
         <VeloModel
           key={index}
           position={bike.position}
           rotation={bike.rotation}
-          scale={0.62}
+          scale={1.0}
         />
       ))}
 
-      {/* Ombre de sol réaliste mise en cache (1 frame) */}
+      {/* Ombre de sol contact optimisée (mise en cache) */}
       <ContactShadows
-        position={[0, -0.01, 0.6]}
-        opacity={0.5}
-        scale={10}
+        position={[0, -0.01, 0.5]}
+        opacity={0.45}
+        scale={14}
         blur={2}
-        far={3.5}
+        far={4}
         frames={1}
       />
     </>
@@ -139,17 +139,16 @@ export default function StudioRPMScene() {
             }
           >
             <Canvas
-              camera={{ position: [2.6, 2.0, 4.4], fov: 36 }}
+              camera={{ position: [3.8, 2.4, 4.6], fov: 38 }}
               frameloop="demand"
               dpr={1}
               gl={{
-                alpha: false,
+                alpha: true,
                 antialias: true,
                 powerPreference: "low-power",
                 toneMapping: THREE.ACESFilmicToneMapping,
               }}
             >
-              <color attach="background" args={["#1c1e24"]} />
               <StudioContent />
             </Canvas>
           </Suspense>
@@ -165,6 +164,7 @@ export default function StudioRPMScene() {
     </div>
   );
 }
+
 
 
 

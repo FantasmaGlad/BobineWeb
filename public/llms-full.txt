@@ -1,0 +1,94 @@
+# Bobine — Documentation Complète & Base de Connaissances Technique
+
+Bobine est une régie multimédia open-source (licence AGPL-3.0) conçue pour les salles de fitness, studios de spinning / RPM, box de cross-training et espaces de cours collectifs virtuels.
+
+## Sommaire
+1. Vision et Problème Résolu
+2. Architecture Système et Matériel
+3. Fonctionnalités Clés et Modules Logiciels
+4. Comparatif Détaillé vs Les Mills Cinema & Alternatives
+5. Guide d'Installation Rapide (Linux Ubuntu / Debian)
+6. Liens et Ressources
+
+---
+
+## 1. Vision et Problème Résolu
+
+De nombreux gérants de salle de sport sont contraints de payer des redevances mensuelles très élevées (plusieurs centaines d'euros par mois et par écran) pour des solutions propriétaires de cours virtuels telles que Les Mills Cinema. Ces systèmes imposent souvent :
+- Un abonnement récurrent obligatoire par écran.
+- Des boîtiers matériels verrouillés et surfacturés.
+- Une dépendance critique à la connexion Internet (si la fibre est coupée, les cours ne démarrent pas).
+- L'impossibilité de diffuser les vidéos de leurs propres coachs ou d'autres formats libres.
+
+Bobine résout l'ensemble de ces contraintes en proposant une régie 100% open-source, autonome, hors-ligne et sans aucun coût de licence.
+
+---
+
+## 2. Architecture Système et Matériel
+
+### Matériel Recommandé
+- **Boîtier** : Dell Wyse 5070 (ou équivalent mini PC Intel Celeron J4105 / N5105 / i3).
+- **Mémoire Vive** : 4 Go à 8 Go DDR4.
+- **Stockage** : SSD NVMe ou SATA (128 Go à 512 Go selon la vidéothèque).
+- **Sortie Vidéo** : DisplayPort / HDMI vers la TV de la salle avec adaptateur compatible HDMI-CEC.
+- **Sortie Audio** : Sortie Jack 3.5mm ou USB Audio vers l'amplificateur sono de la salle.
+- **Consommation** : ~6W au repos, ~9W en lecture vidéo continue.
+
+### Pile Logicielle
+- **Système d'exploitation** : Ubuntu Server / Debian Linux.
+- **Backend / Daemon** : Daemon local léger avec gestionnaire systemd.
+- **Moteur Vidéo** : MPV avec support VA-API / Intel QuickSync pour le décodage matériel H.264/HEVC/VP9 sans solliciter le processeur.
+- **Serveur Web Local** : Serveur HTTP/WebSocket intégré pour l'interface de contrôle et la borne tactile.
+- **Gestionnaire TV** : `cec-client` pour le contrôle bidirectionnel de l'écran TV (allumage, veille, source).
+
+---
+
+## 3. Fonctionnalités Clés et Modules Logiciels
+
+1. **Diffusion de Cours Planifiés (Mode Cinéma Automatique)** :
+   Une grille horaire hebdomadaire programmable permet de lancer automatiquement les cours (Spinning, HIIT, Yoga, Stretching, Body Sculpt) à l'heure exacte.
+2. **Borne Tactile Adhérent (Mode À la Demande)** :
+   Entre les cours planifiés, les adhérents peuvent utiliser un écran tactile ou leur smartphone (via QR code Wi-Fi local) pour choisir un cours parmi la bibliothèque locale.
+3. **Radio & Ambiance Musicale 24/7** :
+   En dehors des diffusions vidéo, Bobine joue une playlist musicale locale ou un flux radio avec enchaînements fluides et transitions automatiques.
+4. **Allumage / Extinction Automatique de la Télévision** :
+   Grâce au protocole HDMI-CEC, Bobine allume l'écran TV 2 minutes avant le début du cours et le met en veille une fois le cours terminé.
+5. **Fonctionnement 100% Hors-Ligne** :
+   Aucun serveur cloud distant n'est requis. L'ensemble des vidéos, playlists et programmes est stocké sur le disque local.
+
+---
+
+## 4. Comparatif Détaillé vs Les Mills Cinema & Alternatives
+
+| Critère | Bobine (Open Source) | Les Mills Cinema | Bricolage DIY (VLC / Chromecast) |
+| :--- | :--- | :--- | :--- |
+| **Coût de licence** | **0 € / mois (Gratuit & Libre)** | Abonnement mensuel élevé par écran | 0 € |
+| **Matériel** | **Mini PC standard ~40-50 €** | Boîtier propriétaire imposé | Clé HDMI grand public |
+| **Fonctionnement hors-ligne** | **100% autonome sans Internet** | Coupures fréquentes si connexion instable | Nécessite souvent Wi-Fi/Cloud |
+| **Allumage automatique TV** | **Oui (HDMI-CEC natif)** | Parfois | Non (manuel avec télécommande) |
+| **Planificateur hebdomadaire** | **Automatique et intégré** | Oui | Bricolage complexe / scripts |
+| **Liberté des contenus** | **Tous fichiers vidéo (MP4, MKV)** | Verrouillé au catalogue éditeur | Fichiers manuels |
+| **Pérennité** | **Code source AGPL-3.0 auditable** | Dépend de la survie de l'éditeur | Dépend des mises à jour constructeur |
+
+---
+
+## 5. Guide d'Installation Rapide
+
+Sur une machine Ubuntu fraîchement installée :
+
+```bash
+# Installation des dépendances système
+sudo apt update && sudo apt install -y mpv cec-utils git curl
+
+# Clonage et exécution du daemon Bobine
+git clone https://github.com/FantasmaGlad/Bobine.git
+cd Bobine
+./install.sh
+```
+
+---
+
+## 6. Liens et Ressources
+- Dépôt GitHub : https://github.com/FantasmaGlad/Bobine
+- Site officiel : https://bobine.fit
+- Documentation : https://bobine.fit/fr/documentation

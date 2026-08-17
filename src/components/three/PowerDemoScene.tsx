@@ -94,8 +94,9 @@ export default function PowerDemoScene() {
     <div ref={stageRef} className="power-demo__stage">
       <Canvas
         camera={{ position: [0, 1, 6.5], fov: 32 }}
-        dpr={[1, 1.75]}
-        gl={{ alpha: true, antialias: true }}
+        frameloop="demand"
+        dpr={1}
+        gl={{ alpha: true, antialias: true, powerPreference: "low-power" }}
       >
         <ambientLight intensity={playing ? 0.85 : 0.65} />
         <directionalLight position={[2, 3, 2]} intensity={0.9} />
@@ -120,6 +121,7 @@ export default function PowerDemoScene() {
             blur={2.4}
             far={2.2}
             scale={9}
+            frames={1}
           />
         </Suspense>
         <OrbitControls

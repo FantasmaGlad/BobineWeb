@@ -51,22 +51,32 @@ Décision structurante : **le site porte le même système de 13 thèmes que l'a
   - **Footer fixe** en bas (`flex-shrink: 0`, hauteur généreuse symétrique ~5.5rem).
   - **Zone centrale (`<main>`)** : seule zone défilable (`flex: 1`, `overflow-y: auto`, `scrollbar-width: thin`).
   - **Optimisation "sans scroll"** : calibrage des densités pour faire tenir le contenu des pages principales directement dans l'écran.
+- **Règle éditoriale stricte** : Zéro emoji dans toute l'interface et les contenus textuels (remplacés par des icônes SVG vectorielles ou de la typographie claire).
+- **Composants d'immersion et de comparaison** :
+  - **Scène 3D Studio RPM** ([`src/components/three/StudioRPMScene.tsx`](../src/components/three/StudioRPMScene.tsx)) : Grille de 8 vélos stationnaires face à l'écran de projection et au boîtier Dell Wyse 5070.
+  - **Onglets Profilés** ([`src/components/ProfileTabs.tsx`](../src/components/ProfileTabs.tsx)) : 3 angles éditoriaux sans jargon (*Gérants de salle*, *Adhérents & Coachs*, *Open Source & Souveraineté*).
+  - **Tableau Comparatif** ([`src/components/ComparisonTable.tsx`](../src/components/ComparisonTable.tsx)) : Bobine face aux régies fermées et au bricolage.
+  - **Schéma Matériel & Terminal Linux** ([`src/components/HardwareDiagram.tsx`](../src/components/HardwareDiagram.tsx)) : Câblage en 3 câbles et console d'installation interactive.
 - **Boutons** : `.btn-primary` (accent plein avec halo et flèche), `.btn-secondary` (carte élégante avec icône).
 - **Cartes** : `.card-interactive` avec fond de surface distinct, bordure subtile, et micro-élévation au survol.
-- **Badges** : `.badge` discrets pour les tags de catégorie, tags de licence et de fonctionnalités.
 
-## 8. Accessibilité
+## 8. Optimisations Graphiques & Performance WebGL (0% GPU au repos)
 
-- Contrastes WCAG AA à vérifier pour chaque thème lors de l'ajout de nouveaux composants (les valeurs reprises de l'app ont déjà été calibrées pour ça côté application — cf. commentaires de `frontend/src/app/globals.css` — mais un composant nouveau propre au site doit être revérifié).
-- `:focus-visible` avec `--border-focus` sur les éléments interactifs (déjà en place sur le sélecteur de thème, à généraliser aux liens/boutons au fil des pages).
-- Sélecteurs natifs (`<select>`) plutôt que des dropdowns custom, pour l'accessibilité clavier/lecteur d'écran gratuite.
+- **Rendu à la demande (`frameloop="demand"`)** : Arrêt complet de la boucle de calcul quand la caméra est statique (0 FPS / 0% GPU). Rendu uniquement lors d'une interaction utilisateur (glissement de souris, zoom).
+- **Mise en cache des ombres (`ContactShadows frames={1}`)** : Calcul unique de la texture d'ombre au montage, sans recalcul par image.
+- **Mise en veille hors champ (`IntersectionObserver`)** : Démontage/pause automatique du canvas WebGL lorsque la section n'est plus visible dans la fenêtre.
+- **Résolution native (`dpr={1}`) et profil `low-power`** : Évite toute surconsommation sur les écrans haute densité (Retina/4K).
 
-## 9. Motion
+## 9. Référencement & Découverte IA (SEO / GEO)
 
-Transition douce (`0.2s ease`) sur fond/texte lors d'un changement de thème, pas d'autre animation systématique pour l'instant. Les animations de la mascotte (§6) définiront leurs propres règles une fois produites — probablement discrètes et déclenchées (hover, apparition), pas en boucle permanente.
+- **Fichiers pour agents et moteurs IA** : [`public/llms.txt`](../public/llms.txt) (résumé structuré) et [`public/llms-full.txt`](../public/llms-full.txt) (corpus technique complet).
+- **Manifeste PWA** : [`src/app/manifest.ts`](../src/app/manifest.ts) générant `/manifest.webmanifest`.
+- **Données structurées Schema.org** : [`src/components/JsonLd.tsx`](../src/components/JsonLd.tsx) (`SoftwareApplication`, `Organization`, `WebSite`).
+- **Sitemap dynamique & Robots.txt** : 34 routes indexées avec métadonnées multilingues et directives pour les robots d'indexation IA (GPTBot, ClaudeBot, PerplexityBot).
 
-## 10. Prochaines étapes
+## 10. Accessibilité
 
-1. Construire les pages restantes (fonctionnalités, documentation, blog, etc. — déjà scaffoldées avec un contenu minimal, cf. cahier des charges technique §16) en respectant ce système.
-2. Vérifier les contrastes des 13 thèmes sur les nouveaux composants au fur et à mesure.
-3. Une fois les visuels mascotte produits, les intégrer aux emplacements du §6 sans changement de structure.
+- Contrastes WCAG AA validés sur l'ensemble des 13 thèmes.
+- `:focus-visible` avec `--border-focus` sur les éléments interactifs.
+- Navigation au clavier fluide sur les onglets et les modèles 3D.
+

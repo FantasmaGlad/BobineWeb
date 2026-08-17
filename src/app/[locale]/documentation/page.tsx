@@ -6,22 +6,62 @@ import { isLocale, type Locale } from "@/lib/i18n";
 const copy = {
   fr: {
     title: "Documentation",
-    intro: "Pour bien démarrer, puis pour aller plus loin.",
+    intro: "Pour bien démarrer, configurer vos écrans et exploiter Bobine au quotidien.",
     sections: [
-      ["demarrage-rapide", "Démarrage rapide", "Le tutoriel pas-à-pas pour installer Bobine sur votre mini PC, sans prérequis technique."],
-      ["utilisation", "Utilisation", "Le guide de l'admin, de la borne membre, de la radio et de la télécommande."],
-      ["faq", "FAQ / Dépannage", "Réponses aux questions les plus fréquentes."],
-      ["developpeurs", "Développeurs", "Architecture technique, API, et guide de contribution."],
+      {
+        slug: "demarrage-rapide",
+        badge: "Tutoriel",
+        title: "Démarrage rapide",
+        body: "Le guide d'installation étape par étape sur Debian 13 pour votre mini PC, sans connaissances techniques approfondies.",
+      },
+      {
+        slug: "utilisation",
+        badge: "Guide Pratique",
+        title: "Utilisation & Exploitation",
+        body: "Le fonctionnement complet du panneau d'administration, de la borne cinéma membre, de la radio et des télécommandes.",
+      },
+      {
+        slug: "faq",
+        badge: "Support",
+        title: "FAQ / Dépannage",
+        body: "Les réponses aux questions courantes, résolution de problèmes réseau et astuces d'optimisation.",
+      },
+      {
+        slug: "developpeurs",
+        badge: "Technique",
+        title: "Développeurs & Architecture",
+        body: "Architecture interne, endpoints d'API, services systemd, stack logicielle et guide de contribution.",
+      },
     ],
   },
   en: {
     title: "Documentation",
-    intro: "Everything to get started, then to go further.",
+    intro: "Everything to get started, configure your screens, and operate Bobine smoothly.",
     sections: [
-      ["demarrage-rapide", "Quick start", "The step-by-step tutorial to install Bobine on your mini PC, no technical background required."],
-      ["utilisation", "Usage", "The guide to the admin panel, member kiosk, radio and remote."],
-      ["faq", "FAQ / Troubleshooting", "Answers to the most common questions."],
-      ["developpeurs", "Developers", "Technical architecture, API reference, and contribution guide."],
+      {
+        slug: "demarrage-rapide",
+        badge: "Tutorial",
+        title: "Quick Start Guide",
+        body: "Step-by-step installation guide on Debian 13 for your mini PC, no prior Linux expertise required.",
+      },
+      {
+        slug: "utilisation",
+        badge: "User Manual",
+        title: "Daily Usage & Operations",
+        body: "Complete manual for the admin interface, the member-facing cinema kiosk, background radio, and remotes.",
+      },
+      {
+        slug: "faq",
+        badge: "Support",
+        title: "FAQ / Troubleshooting",
+        body: "Answers to common questions, local network troubleshooting, and performance tuning tips.",
+      },
+      {
+        slug: "developpeurs",
+        badge: "Technical",
+        title: "Developers & Architecture",
+        body: "Internal software architecture, REST API endpoints, systemd services, and contribution guidelines.",
+      },
     ],
   },
 } as const;
@@ -47,23 +87,31 @@ export default async function DocumentationIndexPage({
 
   return (
     <>
-      <h1>{t.title}</h1>
-      <p style={{ color: "var(--text-muted)" }}>{t.intro}</p>
-      <div style={{ display: "grid", gap: "1rem", marginTop: "2rem" }}>
-        {t.sections.map(([slug, title, body]) => (
+      <h1 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.2rem)", marginBottom: "0.35rem" }}>{t.title}</h1>
+      <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", marginBottom: "1.25rem" }}>
+        {t.intro}
+      </p>
+
+      <div style={{ display: "grid", gap: "0.75rem" }}>
+        {t.sections.map((section) => (
           <Link
-            key={slug}
-            href={`/${locale}/documentation/${slug}`}
-            style={{
-              border: "1px solid var(--border)",
-              borderRadius: "0.75rem",
-              padding: "1.25rem",
-              textDecoration: "none",
-              color: "var(--text)",
-            }}
+            key={section.slug}
+            href={`/${locale}/documentation/${section.slug}`}
+            className="card-interactive"
+            style={{ textDecoration: "none", padding: "1rem 1.15rem" }}
           >
-            <h3 style={{ marginTop: 0, fontSize: "1.05rem" }}>{title}</h3>
-            <p style={{ color: "var(--text-muted)", margin: 0 }}>{body}</p>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.35rem" }}>
+              <span className="badge" style={{ fontSize: "0.7rem", padding: "0.15rem 0.5rem" }}>
+                {section.badge}
+              </span>
+              <span style={{ color: "var(--accent-primary)", fontSize: "1.1rem", fontWeight: 700 }}>
+                →
+              </span>
+            </div>
+            <h3 className="card-title" style={{ fontSize: "1.05rem", marginBottom: "0.25rem" }}>
+              {section.title}
+            </h3>
+            <p className="card-desc" style={{ fontSize: "0.875rem" }}>{section.body}</p>
           </Link>
         ))}
       </div>

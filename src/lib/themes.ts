@@ -16,9 +16,8 @@ export const themes = [
 
 export type Theme = (typeof themes)[number];
 
-// Beige — cohérent avec le choix éditorial du cahier des charges UI/UX,
-// distinct du thème sombre par défaut de l'application Bobine elle-même.
-export const defaultTheme: Theme = "beige";
+// Lavande — thème par défaut du site vitrine
+export const defaultTheme: Theme = "lavande";
 
 export const themeLabels: Record<Theme, string> = {
   beige: "Beige",
@@ -36,8 +35,32 @@ export const themeLabels: Record<Theme, string> = {
   lavande: "Lavande",
 };
 
+export interface ThemeMeta {
+  label: string;
+  bg: string;
+  accent: string;
+  isDark: boolean;
+}
+
+export const themeMeta: Record<Theme, ThemeMeta> = {
+  beige: { label: "Beige", bg: "#ede8d0", accent: "#372528", isDark: false },
+  sombre: { label: "Sombre", bg: "#0d0f12", accent: "#e4002b", isDark: true },
+  clair: { label: "Clair", bg: "#f8fafc", accent: "#e4002b", isDark: false },
+  lune: { label: "Lune", bg: "#0f0e26", accent: "#818cf8", isDark: true },
+  menthe: { label: "Menthe", bg: "#f0fdf4", accent: "#16a34a", isDark: false },
+  automne: { label: "Automne", bg: "#18120c", accent: "#f59e0b", isDark: true },
+  hiver: { label: "Hiver", bg: "#081a24", accent: "#06b6d4", isDark: true },
+  chili: { label: "Chili", bg: "#180406", accent: "#ef4444", isDark: true },
+  ciel: { label: "Ciel", bg: "#e0f2fe", accent: "#0284c7", isDark: false },
+  orchidee: { label: "Orchidée", bg: "#200d1e", accent: "#d946ef", isDark: true },
+  taupe: { label: "Taupe", bg: "#1c1917", accent: "#d97706", isDark: true },
+  charbon: { label: "Charbon", bg: "#121214", accent: "#e11d48", isDark: true },
+  lavande: { label: "Lavande", bg: "#eef2ff", accent: "#6366f1", isDark: false },
+};
+
 export const THEME_STORAGE_KEY = "bobineweb-theme";
 
 export function isTheme(value: string): value is Theme {
   return (themes as readonly string[]).includes(value);
 }
+

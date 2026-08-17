@@ -17,41 +17,43 @@ Deux orientations combinées, choisies explicitement plutôt que l'une ou l'autr
 
 ## 3. Système de couleurs — thèmes dynamiques
 
-Décision structurante : **le site porte le même système de 13 thèmes que l'application Bobine** (`frontend/src/app/globals.css`), pas une palette simplifiée propre au site. Cohérence totale entre le produit et sa vitrine : quelqu'un qui a choisi un thème dans l'app retrouve la même ambiance colorée sur le site.
+Décision structurante : **le site porte le même système de 13 thèmes que l'application Bobine** (`src/app/globals.css`), avec un étalonnage précis des contrastes, des surfaces multi-niveaux et des micro-reliefs.
 
-- **Thème par défaut du site : Beige** (fond `#ede8d0`, texte/accent `#372528`) — différent du défaut sombre de l'application elle-même, choisi spécifiquement pour la vitrine (plus chaleureux, cohérent avec la direction artistique du §2).
-- **12 autres thèmes sélectionnables** : Sombre (le défaut de l'app, renommé ici pour être sélectionnable explicitement), Clair, Lune, Menthe, Automne, Hiver, Chili, Ciel, Orchidée, Taupe, Charbon, Lavande — valeurs strictement identiques à celles de l'app (mêmes hex), pas de réinterprétation.
-- **Choix explicite, pas `prefers-color-scheme`** : le thème est un réglage que la personne choisit (sélecteur dans le header) et qui persiste (`localStorage`), pas la préférence système du navigateur — même logique que l'application, qui traite déjà ce choix comme un réglage persisté plutôt qu'une préférence OS.
-- **Implémentation** : tokens CSS `--bg-main`, `--bg-surface`, `--bg-surface-elevated`, `--text-main`, `--text-muted`, `--text-dim`, `--border-color`, `--border-focus`, `--accent-primary`, `--accent-primary-fg`, `--logo-filter` par thème (`:root[data-theme="…"]`, `src/app/globals.css`). Le logo (pictogramme noir sur fond transparent) s'inverse automatiquement sur fond sombre via `--logo-filter`, comme dans l'app.
-- **Anti-flash** : un script inline dans `<head>` (`src/app/[locale]/layout.tsx`) applique le thème stocké avant le premier rendu, pour éviter un flash du thème par défaut suivi d'un changement brusque.
-- **Sélecteur** : `<select>` natif dans le header (`ThemeSwitcher`), à côté du sélecteur de langue — accessible clavier/lecteur d'écran nativement, pas de composant custom lourd.
+- **Thème par défaut du site : Lavande** (fond `#eef2ff`, cartes blanches `#ffffff`, texte `#1e1b4b`, accents indigo/violet `#6366f1` / `#4f46e5`) — choisi pour sa clarté, son élégance et sa lisibilité immédiate.
+- **12 autres thèmes sélectionnables** : Beige (couleurs officielles Bobine sans rouge), Sombre, Clair, Lune, Menthe, Automne, Hiver, Chili, Ciel, Orchidée, Taupe, Charbon.
+- **Choix explicite et persistant** : le thème est sélectionné par l'utilisateur et persisté dans `localStorage` (`bobineweb-theme`).
+- **Implémentation** : tokens CSS (`--bg-canvas`, `--bg-card`, `--bg-card-hover`, `--bg-surface-elevated`, `--text-heading`, `--text-main`, `--text-muted`, `--border-subtle`, `--accent-primary`, `--accent-primary-fg`, etc.).
+- **Anti-flash** : script inline synchrone dans `<head>` appliquant l'attribut `data-theme` avant le premier rendu.
+- **Sélecteur** : menu déroulant accessible avec pastilles de prévisualisation bicolores (fond + accent) pour chaque thème ([`src/components/ThemeSwitcher.tsx`](../src/components/ThemeSwitcher.tsx)).
 
 ## 4. Typographie
 
-**Pile système** (`-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif`) — déjà en place, confirmée : zéro poids de chargement, rendu natif sur chaque appareil. La personnalité de marque vient de la mascotte et du système de thèmes, pas d'une police custom. À reconsidérer seulement si la direction artistique évolue nettement (ex. si la mascotte s'accompagne d'un lettrage/logo type qui appelle une police d'accompagnement).
+**Pile système** (`-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif`) : zéro poids de chargement, rendu natif sur chaque appareil, contrastes WCAG AA validés.
 
-## 5. Logo & mascotte
+## 5. Logo & Mascotte
 
-- **Logo actuel** (`public/logo-bobine.png`, wordmark complet ; `public/logo-bobine-icon.png`, pictogramme seul) confirmé suffisant tel quel, aucune retouche prévue.
-- **Rôle de la mascotte** : au-delà du logo, le hamster doit apparaître à des endroits choisis pour installer un ton chaleureux sans nuire à l'épure générale — pas partout, pas en fond décoratif permanent.
+- **Logo** (`public/logo-bobine.png`, wordmark complet ; `public/logo-bobine-icon.png`, pictogramme seul).
+- **Icône du site / Favicon** : `public/Bobine_icon.png` et `src/app/icon.png` (mascotte hamster endormi dans le B en pellicule).
+- **Rôle de la mascotte** : humaniser le produit aux points clés (accueil, documentation, 404, soutenir).
 
 ## 6. Emplacements prévus pour les futurs visuels mascotte
 
-Liste concrète à remplir une fois les illustrations produites — chaque emplacement est fonctionnel dès maintenant (texte seul ou espace réservé), prêt à recevoir le visuel sans changement de structure :
+- **Page d'accueil** — illustration hero à côté ou sous le pitch principal.
+- **Page 404 / contenu manquant** — mascotte endormie (« rien à voir ici, il dort »).
+- **Page Soutenir** — visuel chaleureux accompagnant les liens de don et contribution.
+- **Tutoriel d'installation** — jalons visuels dans les étapes clés.
 
-- **Page d'accueil** — un emplacement hero à côté ou sous le pitch principal (`src/app/[locale]/page.tsx`), pour une illustration ou une courte animation de la mascotte.
-- **Page 404 / contenu manquant** — la mascotte endormie se prête bien à un « rien à voir ici, il dort » plutôt qu'une page d'erreur générique.
-- **Page Soutenir** — un petit visuel à côté de l'appel au don, plus chaleureux qu'un simple bouton.
-- **Favicon/icône animée** — non prioritaire, à évaluer une fois les autres emplacements en place.
-- **Étapes clés du tutoriel d'installation** — une petite occurrence de la mascotte aux moments charnières (début, fin) du guide pas-à-pas, sans alourdir les captures d'écran techniques elles-mêmes.
+## 7. Architecture de Layout & Composants UI
 
-## 7. Composants UI (état actuel)
-
-- **Boutons** (`.button`) : fond `--accent-primary`, texte `--accent-primary-fg`, un seul style plein pour l'action principale, variante « outline » (fond transparent, bordure `--border`) pour l'action secondaire.
-- **Cartes** (fonctionnalités, documentation, blog) : bordure `--border`, coin arrondi `0.75rem`, pas d'ombre — cohérent avec la platitude épurée plutôt qu'un style « SaaS » à ombres portées.
-- **Header** : logo + nav horizontale + sélecteurs (thème, langue) groupés à droite, une seule ligne qui wrap en mobile.
-- **Footer** : tagline + liens légaux/GitHub, sobre, texte `--text-muted`.
-- **Corps de blog** (`.release-body`) : rendu Markdown (react-markdown + remark-gfm) des releases GitHub, styles minimaux (code, listes, liens en `--accent-primary`).
+- **Structure de la fenêtre (Viewport)** :
+  - Viewport verrouillé en pleine hauteur (`height: 100dvh; overflow: hidden`).
+  - **Header fixe** en haut (`flex-shrink: 0`, hauteur généreuse symétrique ~5.5rem).
+  - **Footer fixe** en bas (`flex-shrink: 0`, hauteur généreuse symétrique ~5.5rem).
+  - **Zone centrale (`<main>`)** : seule zone défilable (`flex: 1`, `overflow-y: auto`, `scrollbar-width: thin`).
+  - **Optimisation "sans scroll"** : calibrage des densités pour faire tenir le contenu des pages principales directement dans l'écran.
+- **Boutons** : `.btn-primary` (accent plein avec halo et flèche), `.btn-secondary` (carte élégante avec icône).
+- **Cartes** : `.card-interactive` avec fond de surface distinct, bordure subtile, et micro-élévation au survol.
+- **Badges** : `.badge` discrets pour les tags de catégorie, tags de licence et de fonctionnalités.
 
 ## 8. Accessibilité
 

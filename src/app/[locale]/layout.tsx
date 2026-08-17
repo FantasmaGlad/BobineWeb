@@ -9,11 +9,11 @@ import Footer from "@/components/Footer";
 import Demo3DPreloader from "@/components/three/Demo3DPreloader";
 import "../globals.css";
 
-// Applique le thème persisté (localStorage) avant le premier rendu, pour
-// éviter un flash du thème par défaut (Beige) suivi d'un changement brusque.
+// Applique le thème persisté (localStorage) avant le premier rendu, avec
+// "lavande" comme thème par défaut.
 const themeInitScript = `try{var t=localStorage.getItem(${JSON.stringify(
   THEME_STORAGE_KEY
-)});if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}`;
+)})||'lavande';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','lavande');}`;
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

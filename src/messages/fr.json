@@ -24,9 +24,10 @@
     "noResults": "Aucun résultat trouvé pour cette recherche."
   },
   "chatbot": {
-    "title": "Assistant IA Bobine",
-    "subtitle": "Conseil & Dimensionnement Matériel",
-    "buttonLabel": "Assistant Bobine",
+    "title": "Baamix",
+    "subtitle": "Commerciale Baamix",
+    "buttonLabel": "Baamix",
     "inputPlaceholder": "Posez votre question (matériel, devis, config)..."
   }
 }
+

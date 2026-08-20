@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Locale } from "@/lib/i18n";
@@ -35,8 +36,8 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
       ];
 
   const defaultGreeting = isEn
-    ? "Hello! I am the Bobine virtual assistant. How can I help you equip your gym or understand how our open-source video playout works?"
-    : "Bonjour ! Je suis l'assistant virtuel de Bobine. Comment puis-je vous aider à équiper votre salle ou à découvrir le fonctionnement de notre régie vidéo open-source ?";
+    ? "Hello! I am Baamix, the Bobine commercial advisor. How can I help you equip your gym or estimate your savings with our open-source system?"
+    : "Bonjour ! Je suis Baamix, la commerciale de Bobine. Comment puis-je vous aider à équiper votre salle ou à calculer vos économies avec notre régie open-source ?";
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -134,8 +135,8 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
         err instanceof Error
           ? err.message
           : isEn
-          ? "Sorry, an error occurred while connecting to the assistant."
-          : "Désolé, une erreur est survenue lors de la communication avec l'assistant.";
+          ? "Sorry, an error occurred while connecting to Baamix."
+          : "Désolé, une erreur est survenue lors de la communication avec Baamix.";
 
       setMessages((prev) => [
         ...prev,
@@ -158,48 +159,50 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
 
   return (
     <>
-      {/* Bouton d'ouverture flottant */}
+      {/* Bouton d'ouverture flottant au milieu droit de l'écran */}
       <div className="chatbot-floating-wrapper">
         {!isOpen && (
           <button
             type="button"
             className="chatbot-trigger-btn"
             onClick={() => setIsOpen(true)}
-            aria-label={isEn ? "Open Bobine AI Assistant" : "Ouvrir l'assistant IA Bobine"}
+            aria-label={isEn ? "Open chat with Baamix" : "Ouvrir la discussion avec Baamix"}
             aria-expanded={isOpen}
           >
-            <div className="chatbot-trigger-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                <path d="M8 9h8" />
-                <path d="M8 13h6" />
-              </svg>
+            <div className="chatbot-trigger-avatar">
+              <Image
+                src="/images/baamix.jpg"
+                alt="Baamix"
+                width={24}
+                height={24}
+                className="chatbot-avatar-img"
+              />
             </div>
-            <span className="chatbot-trigger-label">
-              {isEn ? "Bobine AI" : "Assistant IA"}
-            </span>
+            <span className="chatbot-trigger-label">Baamix</span>
             <span className="chatbot-trigger-dot" />
           </button>
         )}
       </div>
 
-      {/* Fenêtre de discussion compacte */}
+      {/* Fenêtre de discussion positionnée au milieu droit */}
       {isOpen && (
         <div ref={modalRef} className="chatbot-modal" role="dialog" aria-modal="true">
           {/* En-tête */}
           <div className="chatbot-modal__header">
             <div className="chatbot-modal__title-group">
               <div className="chatbot-avatar">
-                <span>🐹</span>
+                <Image
+                  src="/images/baamix.jpg"
+                  alt="Baamix"
+                  width={34}
+                  height={34}
+                  className="chatbot-avatar-img"
+                />
                 <span className="chatbot-avatar-status" />
               </div>
               <div>
-                <h4 className="chatbot-modal__title">
-                  {isEn ? "Bobine AI Assistant" : "Assistant IA Bobine"}
-                </h4>
-                <span className="chatbot-modal__subtitle">
-                  {isEn ? "Instant Advice & Sizing" : "Conseil & Matériel"}
-                </span>
+                <h4 className="chatbot-modal__title">Baamix</h4>
+                <span className="chatbot-modal__subtitle">Commerciale Baamix</span>
               </div>
             </div>
             <div style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
@@ -236,7 +239,15 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
           <div className="chatbot-modal__body">
             {/* Message de bienvenue */}
             <div className="chatbot-message chatbot-message--assistant">
-              <div className="chatbot-message__avatar">🐹</div>
+              <div className="chatbot-message__avatar">
+                <Image
+                  src="/images/baamix.jpg"
+                  alt="Baamix"
+                  width={26}
+                  height={26}
+                  className="chatbot-avatar-img"
+                />
+              </div>
               <div className="chatbot-message__bubble">
                 <p style={{ margin: 0 }}>{defaultGreeting}</p>
               </div>
@@ -270,7 +281,15 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
                 className={`chatbot-message chatbot-message--${m.role}`}
               >
                 {m.role === "assistant" && (
-                  <div className="chatbot-message__avatar">🐹</div>
+                  <div className="chatbot-message__avatar">
+                    <Image
+                      src="/images/baamix.jpg"
+                      alt="Baamix"
+                      width={26}
+                      height={26}
+                      className="chatbot-avatar-img"
+                    />
+                  </div>
                 )}
                 <div className="chatbot-message__bubble">
                   {m.role === "assistant" ? (
@@ -287,7 +306,15 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
             {/* Indicateur de frappe */}
             {isLoading && (
               <div className="chatbot-message chatbot-message--assistant">
-                <div className="chatbot-message__avatar">🐹</div>
+                <div className="chatbot-message__avatar">
+                  <Image
+                    src="/images/baamix.jpg"
+                    alt="Baamix"
+                    width={26}
+                    height={26}
+                    className="chatbot-avatar-img"
+                  />
+                </div>
                 <div className="chatbot-message__bubble chatbot-message__typing">
                   <span className="typing-dot" />
                   <span className="typing-dot" />
@@ -308,8 +335,8 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
                 className="chatbot-input"
                 placeholder={
                   isEn
-                    ? "Ask a question (hardware, costs, setup)..."
-                    : "Posez votre question (matériel, devis, config)..."
+                    ? "Ask Baamix (hardware, costs, setup)..."
+                    : "Posez votre question à Baamix (matériel, devis)..."
                 }
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -331,8 +358,8 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
             </div>
             <div className="chatbot-badge-disclaimer">
               {isEn
-                ? "DeepSeek v4 · Sovereign AGPL-3.0"
-                : "DeepSeek v4 · Logiciel Libre AGPL-3.0"}
+                ? "Baamix Commerciale · Sovereign AGPL-3.0"
+                : "Baamix Commerciale · Logiciel Libre AGPL-3.0"}
             </div>
           </div>
         </div>

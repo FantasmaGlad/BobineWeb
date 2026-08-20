@@ -8,6 +8,7 @@ import DocsTableOfContents from "@/components/DocsTableOfContents";
 const sections: Record<Locale, ReadonlyArray<readonly [string, string]>> = {
   fr: [
     ["", "Vue d'ensemble"],
+    ["manifeste", "Manifeste & Identité"],
     ["demarrage-rapide", "Démarrage rapide"],
     ["utilisation", "Utilisation"],
     ["faq", "FAQ / Dépannage"],
@@ -15,12 +16,14 @@ const sections: Record<Locale, ReadonlyArray<readonly [string, string]>> = {
   ],
   en: [
     ["", "Overview"],
+    ["manifeste", "Manifesto & Identity"],
     ["demarrage-rapide", "Quick start"],
     ["utilisation", "Usage"],
     ["faq", "FAQ / Troubleshooting"],
     ["developpeurs", "Developers"],
   ],
 };
+
 
 export default async function DocumentationLayout({
   children,

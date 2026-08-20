@@ -9,6 +9,12 @@ const copy = {
     intro: "Pour bien démarrer, configurer vos écrans et exploiter Bobine au quotidien.",
     sections: [
       {
+        slug: "manifeste",
+        badge: "Vision & DA",
+        title: "Manifeste & Identité",
+        body: "L'histoire, le pourquoi, la philosophie libre, la direction artistique et l'origine de la mascotte Baamix.",
+      },
+      {
         slug: "demarrage-rapide",
         badge: "Tutoriel",
         title: "Démarrage rapide",
@@ -39,6 +45,12 @@ const copy = {
     intro: "Everything to get started, configure your screens, and operate Bobine smoothly.",
     sections: [
       {
+        slug: "manifeste",
+        badge: "Vision & DA",
+        title: "Manifesto & Identity",
+        body: "The story, why Bobine was built, open-source values, art direction, and the origin of Baamix.",
+      },
+      {
         slug: "demarrage-rapide",
         badge: "Tutorial",
         title: "Quick Start Guide",
@@ -65,6 +77,7 @@ const copy = {
     ],
   },
 } as const;
+
 
 export async function generateMetadata({
   params,

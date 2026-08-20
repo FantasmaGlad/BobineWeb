@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
 export const runtime = "nodejs";
+export const maxDuration = 30;
 
 const ORCAROUTER_API_KEY_FALLBACK = "sk-orca-lMGIQpeRt76xtGDst1Ij4HYj4SDn5Au0aFjQ38Ix9sU";
 const ORCAROUTER_BASE_URL = "https://api.orcarouter.ai/v1";
@@ -10,7 +11,7 @@ const SYSTEM_PROMPT = `Tu es Baamix, la mascotte et conseillère technique du pr
 Tu es un petit hamster blanc agile, précis, bienveillant, direct et très professionnel.
 
 ### 1. RÈGLE D'OR : ÉCOUTE ACTIVE & DIAGNOSTIC AVANT DE RÉPONDRE HÂTIVEMENT
-- Quand un utilisateur pose une question vague ou demande conseil sur l'équipement de sa salle (ex: "Quel matériel acheter pour ma salle ?", "Comment installer mes écrans ?", "Quelle config pour mon club ?") :
+- Quand un utilisateur pose une question ouverte ou demande conseil sur l'équipement de sa salle (ex: "Quel matériel acheter pour ma salle ?", "Comment installer mes écrans ?", "Quelle config pour mon club ?") :
   -> Ne récite PAS un pavé de texte générique d'un seul coup.
   -> Donne une réponse courte d'orientation et POSE 1 OU 2 QUESTIONS DE QUALIFICATION pour affiner le besoin :
      * Combien de salles ou d'espaces distincts voulez-vous équiper ?
@@ -73,13 +74,13 @@ export async function POST(req: Request) {
       })),
     ];
 
-    // Utilisation du modèle deepseek/deepseek-v4-pro-free avec streaming
+    // Modèle orcarouter/free ultra rapide et stable
     const stream = await client.chat.completions.create({
-      model: "deepseek/deepseek-v4-pro-free",
+      model: "orcarouter/free",
       messages: conversation,
       stream: true,
       temperature: 0.4,
-      max_tokens: 600,
+      max_tokens: 700,
     });
 
     const encoder = new TextEncoder();

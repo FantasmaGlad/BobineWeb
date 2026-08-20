@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { isLocale } from "@/lib/i18n";
+import { isLocale, type Locale } from "@/lib/i18n";
+
 
 import CodeBlock from "@/components/CodeBlock";
+
+import { buildMetadata } from "@/lib/seo";
+import ShareButton from "@/components/ShareButton";
 
 export async function generateMetadata({
   params,
@@ -11,9 +15,22 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return {
-    title: locale === "en" ? "Developer Documentation" : "Documentation développeurs",
-  };
+  const isEn = locale === "en";
+  return buildMetadata({
+    locale: locale as Locale,
+    pathname: "/documentation/developpeurs",
+    title: isEn ? "Developer Documentation & Software Architecture — Bobine" : "Documentation Développeurs & Architecture Logicielle — Bobine",
+    description: isEn
+      ? "Technical reference for Bobine developers: multi-worker FastAPI backend, Redis state bus, MPV hardware playout, Next.js UI, and AGPL-3.0 contribution guidelines."
+      : "Référence technique pour développeurs : backend FastAPI multi-worker, bus Redis, moteur MPV accéléré matériellement, interface Next.js et contribution AGPL-3.0.",
+    keywords: [
+      "Architecture Bobine",
+      "Développement Bobine FastAPI",
+      "MPV backend Python",
+      "Redis state bus fitness",
+      "Contribution open-source AGPL-3.0",
+    ],
+  });
 }
 
 export default async function DeveloppeursPage({
@@ -27,7 +44,19 @@ export default async function DeveloppeursPage({
 
   return isEn ? (
     <>
-      <h1>Developer Documentation & Architecture</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+        <div>
+          <span className="feature-category-label">Architecture</span>
+          <h1 style={{ margin: 0 }}>Developer Documentation & Architecture</h1>
+        </div>
+        <ShareButton
+          locale={locale as Locale}
+          pathname="/documentation/developpeurs"
+          title="Bobine Developer Documentation & Architecture"
+          description="Technical reference and architectural overview of Bobine."
+        />
+      </div>
+
       <p>
         This page provides a technical overview of the Bobine software architecture, stack, and local development workflow. Complete documentation lives in the main repository:
       </p>
@@ -74,7 +103,20 @@ npm run dev</code>
     </>
   ) : (
     <>
-      <h1>Documentation développeurs & Architecture</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+
+        <div>
+          <span className="feature-category-label">Architecture</span>
+          <h1 style={{ margin: 0 }}>Documentation Développeurs & Architecture</h1>
+        </div>
+        <ShareButton
+          locale={locale as Locale}
+          pathname="/documentation/developpeurs"
+          title="Documentation Développeurs Bobine"
+          description="Synthèse technique de l'architecture logicielle, de la stack et du développement local de Bobine."
+        />
+      </div>
+
       <p>
         Cette page présente une synthèse de l&apos;architecture technique, de la stack et du flux de développement local de Bobine. La référence complète vit dans le dépôt officiel :
       </p>

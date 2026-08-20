@@ -21,6 +21,8 @@ const copy = {
   },
 } as const;
 
+import { buildMetadata } from "@/lib/seo";
+
 export async function generateMetadata({
   params,
 }: {
@@ -28,8 +30,17 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return { title: copy[locale].title };
+  const isEn = locale === "en";
+  return buildMetadata({
+    locale: locale as Locale,
+    pathname: "/confidentialite",
+    title: isEn ? "Privacy Policy — Bobine" : "Politique de Confidentialité — Bobine",
+    description: isEn
+      ? "Privacy policy for the Bobine website: privacy-first analytics, no advertising trackers, and no personal data collection."
+      : "Politique de confidentialité du site Bobine : mesure d'audience respectueuse, zéro cookie publicitaire et aucune collecte de données personnelles.",
+  });
 }
+
 
 export default async function PrivacyPage({
   params,

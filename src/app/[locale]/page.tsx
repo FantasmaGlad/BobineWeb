@@ -28,6 +28,8 @@ const copy = {
   },
 } as const;
 
+import { buildMetadata } from "@/lib/seo";
+
 export async function generateMetadata({
   params,
 }: {
@@ -35,8 +37,29 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return { title: copy[locale].title };
+  const isEn = locale === "en";
+  return buildMetadata({
+    locale: locale as Locale,
+    pathname: "",
+    title: isEn
+      ? "Bobine — Open-Source Playout & Video Streaming for Gyms"
+      : "Bobine — Régie vidéo & streaming open-source pour salles de sport",
+    description: isEn
+      ? "Transform standard budget mini PCs into an autonomous, 100% offline video playout suite for gyms. The free, self-hosted alternative to Les Mills Cinema."
+      : "Transformez un mini PC standard en régie vidéo autonome et 100% hors-ligne pour votre salle de sport. L'alternative libre et sans abonnement à Les Mills Cinema.",
+    keywords: [
+      "Bobine",
+      "Régie vidéo salle de sport",
+      "Alternative Les Mills Cinema",
+      "Affichage dynamique fitness",
+      "Streaming vidéo salle de sport",
+      "Cours collectifs vidéo fitness",
+      "Dell Wyse 5070 streaming",
+      "Logiciel libre sport",
+    ],
+  });
 }
+
 
 export default async function HomePage({
   params,

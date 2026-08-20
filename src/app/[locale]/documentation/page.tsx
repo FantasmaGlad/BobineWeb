@@ -79,6 +79,9 @@ const copy = {
 } as const;
 
 
+import { buildMetadata } from "@/lib/seo";
+import ShareButton from "@/components/ShareButton";
+
 export async function generateMetadata({
   params,
 }: {
@@ -86,7 +89,22 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return { title: copy[locale].title };
+  const isEn = locale === "en";
+  return buildMetadata({
+    locale: locale as Locale,
+    pathname: "/documentation",
+    title: isEn ? "Documentation & Guides — Bobine" : "Documentation & Guides Techniques — Bobine",
+    description: isEn
+      ? "Official documentation for Bobine: quick start setup, system manual, troubleshooting FAQ, developer reference, and software architecture."
+      : "Documentation officielle de Bobine : guide d'installation Debian, manuel d'exploitation en salle, FAQ dépannage, architecture logicielle et manifeste.",
+    keywords: [
+      "Documentation Bobine",
+      "Guide régie vidéo salle de sport",
+      "Tutoriel installation Bobine",
+      "FAQ Bobine",
+      "Manuel exploitation fitness",
+    ],
+  });
 }
 
 export default async function DocumentationIndexPage({
@@ -100,10 +118,21 @@ export default async function DocumentationIndexPage({
 
   return (
     <>
-      <h1 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.2rem)", marginBottom: "0.35rem" }}>{t.title}</h1>
-      <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", marginBottom: "1.25rem" }}>
-        {t.intro}
-      </p>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.25rem" }}>
+        <div>
+          <h1 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.2rem)", marginBottom: "0.35rem" }}>{t.title}</h1>
+          <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", margin: 0 }}>
+            {t.intro}
+          </p>
+        </div>
+        <ShareButton
+          locale={locale as Locale}
+          pathname="/documentation"
+          title={t.title}
+          description={t.intro}
+        />
+      </div>
+
 
       <div style={{ display: "grid", gap: "0.75rem" }}>
         {t.sections.map((section) => (

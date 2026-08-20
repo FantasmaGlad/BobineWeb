@@ -19,6 +19,9 @@ const copy = {
   },
 } as const;
 
+import { buildMetadata } from "@/lib/seo";
+import ShareButton from "@/components/ShareButton";
+
 export async function generateMetadata({
   params,
 }: {
@@ -26,7 +29,21 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return { title: copy[locale].title };
+  const isEn = locale === "en";
+  return buildMetadata({
+    locale: locale as Locale,
+    pathname: "/blog",
+    title: isEn ? "Blog & Release Changelog — Bobine" : "Blog & Journal des Versions — Bobine",
+    description: isEn
+      ? "Stay updated with the latest Bobine releases, new features, and playout improvements directly from GitHub."
+      : "Suivez les dernières versions, notes de mise à jour et nouveautés de la suite logicielle Bobine.",
+    keywords: [
+      "Blog Bobine",
+      "Releases Bobine",
+      "Mises à jour régie vidéo",
+      "Changelog Bobine",
+    ],
+  });
 }
 
 export default async function BlogIndexPage({
@@ -41,10 +58,21 @@ export default async function BlogIndexPage({
 
   return (
     <div className="container" style={{ paddingBlock: "1.25rem", maxWidth: "48rem" }}>
-      <h1 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.3rem)", marginBottom: "0.4rem" }}>{t.title}</h1>
-      <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", marginBottom: "1.25rem", lineHeight: 1.5 }}>
-        {t.intro}
-      </p>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.25rem" }}>
+        <div>
+          <h1 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.3rem)", marginBottom: "0.4rem" }}>{t.title}</h1>
+          <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", margin: 0, lineHeight: 1.5 }}>
+            {t.intro}
+          </p>
+        </div>
+        <ShareButton
+          locale={locale as Locale}
+          pathname="/blog"
+          title={t.title}
+          description={t.intro}
+        />
+      </div>
+
 
       {releases.length === 0 && (
         <div className="card-interactive" style={{ padding: "1.25rem", textAlign: "center" }}>

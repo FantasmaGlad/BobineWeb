@@ -39,6 +39,8 @@ const copy = {
   },
 } as const;
 
+import { buildMetadata } from "@/lib/seo";
+
 export async function generateMetadata({
   params,
 }: {
@@ -46,8 +48,17 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return { title: copy[locale].title };
+  const isEn = locale === "en";
+  return buildMetadata({
+    locale: locale as Locale,
+    pathname: "/soutenir",
+    title: isEn ? "Support & Contribute — Bobine" : "Soutenir & Contribuer — Bobine",
+    description: isEn
+      ? "Support the development of Bobine, the free, open-source playout system for sports clubs. Donate on Ko-fi or contribute on GitHub."
+      : "Soutenez le développement de Bobine, la régie vidéo open-source pour salles de sport. Faites un don sur Ko-fi ou contribuez sur GitHub.",
+  });
 }
+
 
 export default async function SupportPage({
   params,

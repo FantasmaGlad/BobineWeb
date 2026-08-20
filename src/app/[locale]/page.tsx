@@ -17,12 +17,6 @@ const copy = {
     ctaPrimary: "Installer Bobine",
     ctaSecondary: "Voir sur GitHub",
     ctaDocs: "Consulter la documentation →",
-    kpis: [
-      { value: "0 € / mois", label: "Aucune redevance par écran" },
-      { value: "100% Hors-ligne", label: "Zéro coupure réseau" },
-      { value: "~40-50 €", label: "Mini PC reconditionné standard" },
-      { value: "< 10 W", label: "Consommation électrique sobre" },
-    ],
   },
   en: {
     title: "The open-source video & streaming system for your fitness club",
@@ -31,12 +25,6 @@ const copy = {
     ctaPrimary: "Install Bobine",
     ctaSecondary: "View on GitHub",
     ctaDocs: "Explore documentation →",
-    kpis: [
-      { value: "$0 / month", label: "Zero per-screen license fees" },
-      { value: "100% Offline", label: "Zero downtime on outage" },
-      { value: "~$40-50", label: "Standard refurbished mini PC" },
-      { value: "< 10 W", label: "Ultra-low power consumption" },
-    ],
   },
 } as const;
 
@@ -60,16 +48,16 @@ export default async function HomePage({
   const t = copy[locale as Locale];
 
   return (
-    <div className="container" style={{ paddingBlock: "1.5rem" }}>
+    <div className="container" style={{ paddingBlock: "1.75rem" }}>
       {/* 1. Hero Section */}
-      <section style={{ maxWidth: "52rem", marginBottom: "2.5rem" }}>
+      <section style={{ maxWidth: "54rem", marginBottom: "2.75rem" }}>
         <h1
           style={{
-            fontSize: "clamp(1.9rem, 4.2vw, 2.85rem)",
+            fontSize: "clamp(2rem, 4.5vw, 3rem)",
             fontWeight: 800,
             lineHeight: 1.15,
             letterSpacing: "-0.03em",
-            marginBottom: "0.85rem",
+            marginBottom: "0.95rem",
             color: "var(--text-heading)",
           }}
         >
@@ -78,11 +66,11 @@ export default async function HomePage({
 
         <p
           style={{
-            fontSize: "clamp(0.95rem, 2vw, 1.1rem)",
-            lineHeight: 1.55,
+            fontSize: "clamp(1rem, 2.1vw, 1.15rem)",
+            lineHeight: 1.6,
             color: "var(--text-muted)",
-            maxWidth: "46rem",
-            marginBottom: "1.35rem",
+            maxWidth: "48rem",
+            marginBottom: "1.75rem",
           }}
         >
           {t.subtitle}
@@ -91,10 +79,9 @@ export default async function HomePage({
         <div
           style={{
             display: "flex",
-            gap: "0.75rem",
+            gap: "0.85rem",
             alignItems: "center",
             flexWrap: "wrap",
-            marginBottom: "1.75rem",
           }}
         >
           <Link
@@ -131,8 +118,8 @@ export default async function HomePage({
           <Link
             href={`/${locale}/documentation`}
             style={{
-              padding: "0.4rem 0.75rem",
-              fontSize: "0.85rem",
+              padding: "0.45rem 0.85rem",
+              fontSize: "0.875rem",
               fontWeight: 600,
               color: "var(--accent-primary)",
               textDecoration: "none",
@@ -140,16 +127,6 @@ export default async function HomePage({
           >
             {t.ctaDocs}
           </Link>
-        </div>
-
-        {/* KPI Bar */}
-        <div className="kpi-bar">
-          {t.kpis.map((kpi, idx) => (
-            <div key={idx} className="kpi-item">
-              <div className="kpi-value">{kpi.value}</div>
-              <div className="kpi-label">{kpi.label}</div>
-            </div>
-          ))}
         </div>
       </section>
 

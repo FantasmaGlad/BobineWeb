@@ -5,7 +5,9 @@ import { Analytics } from "@vercel/analytics/next";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { THEME_STORAGE_KEY } from "@/lib/themes";
 import Header from "@/components/Header";
+import TechTicker from "@/components/TechTicker";
 import Footer from "@/components/Footer";
+
 import Demo3DPreloader from "@/components/three/Demo3DPreloader";
 import JsonLd from "@/components/JsonLd";
 import BobineChatbot from "@/components/BobineChatbot";
@@ -123,8 +125,10 @@ export default async function RootLayout({
         />
         <JsonLd locale={locale} />
         <Header locale={locale} dict={dict} />
+        <TechTicker locale={locale as Locale} />
         <main>{children}</main>
         <Footer locale={locale} dict={dict} />
+
         <BobineChatbot locale={locale as Locale} />
         <ServiceWorkerRegistration locale={locale as Locale} />
         <Analytics />

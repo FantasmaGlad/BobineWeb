@@ -8,6 +8,7 @@ import StudioRPMScene from "@/components/three/StudioRPMScene";
 import ProfileTabs from "@/components/ProfileTabs";
 import ComparisonTable from "@/components/ComparisonTable";
 import HardwareDiagram from "@/components/HardwareDiagram";
+import RoiCalculator from "@/components/RoiCalculator";
 
 const copy = {
   fr: {
@@ -173,7 +174,11 @@ export default async function HomePage({
       {/* 5. Schéma Matériel & Terminal Linux */}
       <HardwareDiagram locale={locale as Locale} />
 
-      {/* 6. CTA Box */}
+      {/* 6. Simulateur d'Économies & Calculateur de ROI */}
+      <RoiCalculator locale={locale as Locale} />
+
+      {/* 7. CTA Box */}
+
       <section
         style={{
           background: "var(--bg-card)",

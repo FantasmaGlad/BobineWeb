@@ -1,11 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import GitHubBadge from "@/components/GitHubBadge";
+import MobileDrawer from "@/components/MobileDrawer";
+
 
 export default function Header({
   locale,
@@ -15,6 +19,7 @@ export default function Header({
   dict: Dictionary;
 }) {
   const pathname = usePathname();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const links: Array<[string, string]> = [
     [`/${locale}/fonctionnalites`, dict.nav.features],
@@ -26,37 +31,69 @@ export default function Header({
   ];
 
   return (
-    <header className="site-header">
-      <div className="site-header__inner">
-        <Link href={`/${locale}`} className="site-header__brand" aria-label="Bobine - Accueil">
-          <Image
-            src="/logo-bobine.png"
-            alt="Bobine"
-            width={140}
-            height={51}
-            priority
-            style={{ filter: "var(--logo-filter)" }}
-          />
-        </Link>
-        <nav aria-label="Navigation principale" className="site-header__nav">
-          {links.map(([href, label]) => {
-            const isActive = pathname === href || (href !== `/${locale}` && pathname.startsWith(href));
-            return (
-              <Link
-                key={href}
-                href={href}
-                className={isActive ? "is-active" : undefined}
-              >
-                {label}
-              </Link>
-            );
-          })}
-        </nav>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
-          <ThemeSwitcher />
-          <LocaleSwitcher locale={locale} dict={dict} />
+    <>
+      <header className="site-header">
+        <div className="site-header__inner">
+          <Link href={`/${locale}`} className="site-header__brand" aria-label="Bobine - Accueil">
+            <Image
+              src="/logo-bobine.png"
+              alt="Bobine"
+              width={140}
+              height={51}
+              priority
+              style={{ filter: "var(--logo-filter)" }}
+            />
+          </Link>
+
+          {/* Navigation Desktop */}
+          <nav aria-label="Navigation principale" className="site-header__nav">
+            {links.map(([href, label]) => {
+              const isActive = pathname === href || (href !== `/${locale}` && pathname.startsWith(href));
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className={isActive ? "is-active" : undefined}
+                >
+                  {label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Switchers & Badges Desktop */}
+          <div className="site-header__actions">
+            <GitHubBadge />
+            <ThemeSwitcher />
+            <LocaleSwitcher locale={locale} dict={dict} />
+          </div>
+
+
+          {/* Bouton Burger Mobile */}
+          <button
+            type="button"
+            className="mobile-burger-btn"
+            onClick={() => setIsDrawerOpen(true)}
+            aria-label="Ouvrir le menu de navigation"
+            aria-expanded={isDrawerOpen}
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Drawer Mobile */}
+      <MobileDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        locale={locale}
+        dict={dict}
+      />
+    </>
   );
 }
+

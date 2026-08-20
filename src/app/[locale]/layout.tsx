@@ -2,13 +2,17 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
-import { getDictionary, isLocale, locales } from "@/lib/i18n";
+import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { THEME_STORAGE_KEY } from "@/lib/themes";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Demo3DPreloader from "@/components/three/Demo3DPreloader";
 import JsonLd from "@/components/JsonLd";
+import BobineChatbot from "@/components/BobineChatbot";
+import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import "../globals.css";
+
+
 
 // Applique le thème persisté (localStorage) avant le premier rendu, avec
 // "lavande" comme thème par défaut.
@@ -121,9 +125,13 @@ export default async function RootLayout({
         <Header locale={locale} dict={dict} />
         <main>{children}</main>
         <Footer locale={locale} dict={dict} />
+        <BobineChatbot locale={locale as Locale} />
+        <ServiceWorkerRegistration locale={locale as Locale} />
         <Analytics />
         <Demo3DPreloader />
       </body>
+
     </html>
   );
 }
+

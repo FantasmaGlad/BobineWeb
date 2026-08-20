@@ -25,9 +25,10 @@
   },
   "chatbot": {
     "title": "Baamix",
-    "subtitle": "Commerciale Baamix",
+    "subtitle": "Mascotte de Bobine",
     "buttonLabel": "Baamix",
     "inputPlaceholder": "Posez votre question (matériel, devis, config)..."
   }
 }
+
 

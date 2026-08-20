@@ -36,8 +36,9 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
       ];
 
   const defaultGreeting = isEn
-    ? "Hello! Have a question about Bobine or equipping your gym?"
-    : "Bonjour ! Une question sur Bobine ou l'équipement de votre salle ?";
+    ? "Hello! I am Baamix, the Bobine mascot. Have a question about Bobine or equipping your gym?"
+    : "Bonjour, je suis Baamix la mascotte de Bobine ! Une question sur Bobine ou l'équipement de votre salle ?";
+
 
 
   useEffect(() => {
@@ -204,8 +205,9 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
               </div>
               <div>
                 <h4 className="chatbot-modal__title">Baamix</h4>
-                <span className="chatbot-modal__subtitle">Commerciale Baamix</span>
+                <span className="chatbot-modal__subtitle">{isEn ? "Bobine Mascot" : "Mascotte de Bobine"}</span>
               </div>
+
             </div>
             <div style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
               {messages.length > 0 && (

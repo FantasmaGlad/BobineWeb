@@ -142,9 +142,10 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
         ...prev,
         {
           role: "assistant",
-          content: `⚠️ ${errMsg}`,
+          content: errMsg,
         },
       ]);
+
     } finally {
       setIsLoading(false);
     }

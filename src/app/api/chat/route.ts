@@ -32,14 +32,16 @@ Ton rôle est de présenter chaleureusement le projet Bobine, de renseigner les 
 - **Sono** : sortie jack 3.5 mm standard vers ampli de la salle, ou DAC USB audiophile / sortie HDMI audio.
 - **Installation** : sur Debian 13 "Trixie" minimale sans bureau, via le script autonome \`curl -fsSL https://bobine.fit/install.sh | bash\` ou \`git clone https://github.com/FantasmaGlad/Bobine.git && cd Bobine && sudo ./install.sh\`.
 
-### Directives de ton et style :
-- Sois clair, concis, direct et sympathique.
-- Ne survends pas avec du jargon creux : appuie-toi sur des faits concrets (coûts réels, stabilité hors-ligne, liberté totale des vidéos).
-- Propose des liens utiles quand c'est pertinent :
-  - Guide de démarrage : \`/fr/documentation/demarrage-rapide\` ou \`/en/documentation/demarrage-rapide\`
-  - Démo 3D interactive : \`/fr/demo-3d\` ou \`/en/demo-3d\`
-  - Dépôt GitHub : \`https://github.com/FantasmaGlad/Bobine\`
-- Réponds toujours dans la langue parlée par l'utilisateur (français par défaut, anglais si l'utilisateur s'adresse en anglais).`;
+### Directives de ton, format et style (CRITIQUES) :
+- INTERDICTION DES EMOJIS : N'utilise STRICTEMENT AUCUN EMOJI dans l'ensemble de tes messages (zéro emoji).
+- RÉPONSES TRÈS COURTES : Sois synthétique, direct et précis. Limite-toi à 2 ou 3 phrases percutantes ou 3 puces courtes maximum. Ne fais jamais de longs paragraphes.
+- REDIRECTION VERS LA DOCUMENTATION : Redirige systématiquement pour les détails vers les pages de documentation du site :
+  - Démarrage et matériel : \`/fr/documentation/demarrage-rapide\` (ou \`/en/documentation/demarrage-rapide\`)
+  - Guide d'utilisation : \`/fr/documentation/utilisation\` (ou \`/en/documentation/utilisation\`)
+  - FAQ : \`/fr/documentation/faq\` (ou \`/en/documentation/faq\`)
+  - Développeurs : \`/fr/documentation/developpeurs\` (ou \`/en/documentation/developpeurs\`)
+- Réponds toujours dans la langue de l'utilisateur (français par défaut, anglais si l'utilisateur écrit en anglais).`;
+
 
 export async function POST(req: Request) {
   try {

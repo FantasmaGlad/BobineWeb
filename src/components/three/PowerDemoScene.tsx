@@ -14,10 +14,6 @@ import TvModel from "./TvModel";
 import WyseModel from "./WyseModel";
 
 function ResizeOnFullscreenChange() {
-  // Le passage en plein écran ne redimensionne pas toujours fiablement le
-  // renderer three.js (le canvas peut rester bloqué à sa taille précédente
-  // le temps que le ResizeObserver interne réagisse à la transition) — on
-  // force explicitement la remise à taille juste après la transition.
   const { gl, camera } = useThree();
 
   useEffect(() => {
@@ -42,14 +38,11 @@ function ResizeOnFullscreenChange() {
 }
 
 function LoadingOverlay() {
-  // useProgress est un hook React normal (pas un composant de la scène) :
-  // il peut vivre en dehors du <Canvas>, ce qui évite tout souci de
-  // positionnement/projection propre au rendu 3D pour un simple indicateur.
   const { active } = useProgress();
   if (!active) return null;
   return (
     <div className="power-demo__loading power-demo__loading--overlay">
-      Chargement des modèles…
+      Chargement des modèles 3D…
     </div>
   );
 }
@@ -94,11 +87,17 @@ export default function PowerDemoScene() {
     <div ref={stageRef} className="power-demo__stage">
       <Canvas
         camera={{ position: [0, 1, 6.5], fov: 32 }}
-        frameloop="demand"
-        dpr={1}
-        gl={{ alpha: true, antialias: true, powerPreference: "low-power" }}
+        frameloop={playing ? "always" : "demand"}
+        dpr={[1, 1.5]}
+        gl={{
+          alpha: true,
+          antialias: true,
+          powerPreference: "high-performance",
+          preserveDrawingBuffer: false,
+          stencil: false,
+        }}
       >
-        <ambientLight intensity={playing ? 0.85 : 0.65} />
+        <ambientLight intensity={playing ? 0.9 : 0.7} />
         <directionalLight position={[2, 3, 2]} intensity={0.9} />
         <directionalLight position={[-2, 1.5, -1.5]} intensity={0.3} />
         <Suspense fallback={null}>
@@ -127,6 +126,8 @@ export default function PowerDemoScene() {
         <OrbitControls
           makeDefault
           enablePan={false}
+          enableDamping={true}
+          dampingFactor={0.08}
           minDistance={0.6}
           maxDistance={10}
           minPolarAngle={0.15}

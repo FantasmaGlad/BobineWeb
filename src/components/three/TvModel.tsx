@@ -70,11 +70,13 @@ export default function TvModel({
   useEffect(() => {
     const el = document.createElement("video");
     el.src = VIDEO_URL;
+    el.crossOrigin = "anonymous";
     el.loop = true;
     el.muted = true;
     el.playsInline = true;
     el.preload = "auto";
     videoRef.current = el;
+
 
     const videoTexture = new THREE.VideoTexture(el);
     videoTexture.colorSpace = THREE.SRGBColorSpace;

@@ -24,9 +24,10 @@
     "noResults": "No matching topics found in documentation."
   },
   "chatbot": {
-    "title": "Bobine AI Assistant",
-    "subtitle": "Instant Advice & Hardware Sizing",
-    "buttonLabel": "Ask Bobine AI",
-    "inputPlaceholder": "Ask a question (hardware, costs, setup)..."
+    "title": "Baamix",
+    "subtitle": "Commerciale Baamix",
+    "buttonLabel": "Baamix",
+    "inputPlaceholder": "Ask a question (hardware, quote, setup)..."
   }
 }
+

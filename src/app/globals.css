@@ -1870,7 +1870,7 @@ main {
 }
 
 /* ==========================================================================
-   Bandeau Défilant Télémetrie & Spécifications Techniques (TechTicker)
+   Bandeau Défilant Spécifications Techniques (TechTicker)
    ========================================================================== */
 
 .tech-ticker-wrapper {
@@ -1891,14 +1891,13 @@ main {
 .tech-ticker-badge {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0 0.85rem;
+  justify-content: center;
+  padding: 0 0.75rem;
   height: 100%;
   background: var(--bg-card);
   border-right: 1px solid var(--border-subtle);
   z-index: 10;
   flex-shrink: 0;
-  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.08);
 }
 
 .tech-ticker-badge__dot {
@@ -1907,20 +1906,12 @@ main {
   border-radius: 50%;
   background: #22c55e;
   box-shadow: 0 0 8px #22c55e;
-  animation: pulseLiveDot 1.6s infinite;
+  animation: pulseLiveDot 1.8s infinite;
 }
 
 @keyframes pulseLiveDot {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
-}
-
-.tech-ticker-badge__title {
-  font-size: 0.675rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: var(--text-heading);
-  white-space: nowrap;
+  50% { opacity: 0.35; transform: scale(0.8); }
 }
 
 .tech-ticker-track {
@@ -1937,7 +1928,7 @@ main {
   align-items: center;
   flex-shrink: 0;
   white-space: nowrap;
-  animation: tickerScroll 48s linear infinite;
+  animation: tickerScroll 96s linear infinite;
 }
 
 .tech-ticker-wrapper:hover .tech-ticker-content {
@@ -1958,36 +1949,11 @@ main {
 }
 
 .tech-ticker-tag {
-  font-size: 0.625rem;
+  font-size: 0.7rem;
   font-weight: 800;
-  padding: 0.125rem 0.35rem;
-  border-radius: 0.25rem;
+  color: var(--accent-primary);
   letter-spacing: 0.04em;
   text-transform: uppercase;
-}
-
-.tech-ticker-tag--live {
-  background: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.3);
-}
-
-.tech-ticker-tag--accent {
-  background: var(--accent-subtle);
-  color: var(--accent-primary);
-  border: 1px solid var(--border-vibrant);
-}
-
-.tech-ticker-tag--ok {
-  background: rgba(59, 130, 246, 0.15);
-  color: #60a5fa;
-  border: 1px solid rgba(59, 130, 246, 0.3);
-}
-
-.tech-ticker-tag--warn {
-  background: rgba(245, 158, 11, 0.15);
-  color: #f59e0b;
-  border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 .tech-ticker-label {
@@ -1997,24 +1963,15 @@ main {
 
 .tech-ticker-value {
   color: var(--text-heading);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .tech-ticker-separator {
-  color: var(--text-dim);
-  margin-left: 0.6rem;
-  opacity: 0.4;
-  font-size: 0.675rem;
+  color: var(--border-subtle);
+  margin-left: 0.65rem;
+  font-size: 0.75rem;
 }
 
-@media (max-width: 640px) {
-  .tech-ticker-badge {
-    padding: 0 0.5rem;
-  }
-  .tech-ticker-badge__title {
-    display: none;
-  }
-}
 
 
 /* ==========================================================================
@@ -2186,39 +2143,61 @@ main {
    Chatbot IA Bobine (Orca Router & DeepSeek)
    ========================================================================== */
 
+/* ==========================================================================
+   Chatbot Commerciale Baamix
+   ========================================================================== */
+
 .chatbot-floating-wrapper {
   position: fixed;
-  bottom: 1.25rem;
+  top: 50%;
   right: 1.25rem;
+  transform: translateY(-50%);
   z-index: 950;
 }
 
 .chatbot-trigger-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  background: var(--accent-primary);
-  color: var(--accent-primary-fg);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  gap: 0.5rem;
+  background: var(--bg-card);
+  color: var(--text-heading);
+  border: 1px solid var(--border-subtle);
   border-radius: 2rem;
-  padding: 0.48rem 0.95rem;
+  padding: 0.38rem 0.85rem 0.38rem 0.42rem;
   font-size: 0.825rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 20px -2px var(--accent-glow), var(--shadow-card);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.25), var(--shadow-card);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .chatbot-trigger-btn:hover {
-  transform: translateY(-2px) scale(1.03);
-  background: var(--accent-hover);
-  box-shadow: 0 8px 24px -2px var(--accent-glow);
+  transform: scale(1.05);
+  border-color: var(--accent-primary);
+  box-shadow: 0 10px 30px -2px var(--accent-glow);
 }
 
-.chatbot-trigger-icon {
+.chatbot-trigger-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  border: 1.5px solid var(--accent-primary);
+}
+
+.chatbot-avatar-img {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.chatbot-trigger-label {
+  line-height: 1;
 }
 
 .chatbot-trigger-dot {
@@ -2235,28 +2214,28 @@ main {
   50% { opacity: 0.6; transform: scale(0.85); }
 }
 
-/* Modal Chatbot — Compact, fluide et non-obstruant */
+/* Modal Chatbot Baamix — Positionné au milieu droit */
 .chatbot-modal {
   position: fixed;
-  bottom: 1.25rem;
+  top: 50%;
   right: 1.25rem;
+  transform: translateY(-50%);
   width: min(calc(100vw - 2.5rem), 23rem);
-  height: min(29.5rem, calc(100dvh - 5.5rem));
+  height: min(32rem, calc(100dvh - 4rem));
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: 1rem;
-  box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.45), 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.5), 0 0 1px rgba(255, 255, 255, 0.1);
   z-index: 960;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: scaleUpChat 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: scaleUpChatCenter 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-
-@keyframes scaleUpChat {
-  from { opacity: 0; transform: scale(0.92) translateY(20px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+@keyframes scaleUpChatCenter {
+  from { opacity: 0; transform: translateY(-50%) scale(0.92); }
+  to { opacity: 1; transform: translateY(-50%) scale(1); }
 }
 
 .chatbot-modal__header {
@@ -2271,46 +2250,50 @@ main {
 .chatbot-modal__title-group {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.65rem;
 }
 
 .chatbot-avatar {
   position: relative;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: var(--accent-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  border: 1.5px solid var(--accent-primary);
+  overflow: visible;
 }
 
 .chatbot-avatar-status {
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   background: #22c55e;
   border: 1.5px solid var(--bg-card);
   border-radius: 50%;
+  z-index: 2;
 }
 
 .chatbot-modal__title {
   margin: 0;
-  font-size: 0.925rem;
-  font-weight: 700;
+  font-size: 0.95rem;
+  font-weight: 800;
   color: var(--text-heading);
   line-height: 1.2;
 }
 
 .chatbot-modal__subtitle {
   font-size: 0.725rem;
-  color: var(--text-muted);
+  font-weight: 600;
+  color: var(--accent-primary);
 }
 
 .chatbot-header-btn {
+
   background: transparent;
   border: none;
   color: var(--text-muted);
@@ -2356,13 +2339,15 @@ main {
   width: 26px;
   height: 26px;
   border-radius: 50%;
+  overflow: hidden;
   background: var(--accent-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
   flex-shrink: 0;
+  border: 1px solid var(--border-subtle);
 }
+
 
 .chatbot-message__bubble {
   padding: 0.65rem 0.85rem;
@@ -2519,6 +2504,33 @@ main {
   text-align: center;
   margin-top: 0.4rem;
 }
+
+@media (max-width: 600px) {
+  .chatbot-floating-wrapper {
+    top: auto;
+    bottom: 1rem;
+    right: 1rem;
+    transform: none;
+  }
+
+  .chatbot-modal {
+    top: auto;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    left: 0.5rem;
+    transform: none;
+    width: auto;
+    height: calc(100dvh - 1rem);
+    border-radius: 0.85rem;
+    animation: scaleUpChatMobile 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes scaleUpChatMobile {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
 
 /* ==========================================================================
    Documentation Search, TOC & Code Blocks

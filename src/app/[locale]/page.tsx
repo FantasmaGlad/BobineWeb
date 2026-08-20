@@ -71,16 +71,27 @@ export default async function HomePage({
   const t = copy[locale as Locale];
 
   return (
-    <div className="container" style={{ paddingBlock: "1.75rem" }}>
-      {/* 1. Hero Section */}
-      <section style={{ maxWidth: "54rem", marginBottom: "2.75rem" }}>
+    <div className="container">
+      {/* 1. Hero Section — Plein écran au chargement */}
+      <section
+        className="hero-fullscreen"
+        style={{
+          minHeight: "calc(100svh - 130px)",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          maxWidth: "56rem",
+          paddingBlock: "clamp(2rem, 8vh, 5rem)",
+          boxSizing: "border-box",
+        }}
+      >
         <h1
           style={{
-            fontSize: "clamp(2rem, 4.5vw, 3rem)",
+            fontSize: "clamp(2.1rem, 4.8vw, 3.3rem)",
             fontWeight: 800,
-            lineHeight: 1.15,
+            lineHeight: 1.12,
             letterSpacing: "-0.03em",
-            marginBottom: "0.95rem",
+            marginBottom: "1.25rem",
             color: "var(--text-heading)",
           }}
         >
@@ -89,11 +100,11 @@ export default async function HomePage({
 
         <p
           style={{
-            fontSize: "clamp(1rem, 2.1vw, 1.15rem)",
+            fontSize: "clamp(1.05rem, 2.1vw, 1.25rem)",
             lineHeight: 1.6,
             color: "var(--text-muted)",
             maxWidth: "48rem",
-            marginBottom: "1.75rem",
+            marginBottom: "2.25rem",
           }}
         >
           {t.subtitle}
@@ -105,6 +116,7 @@ export default async function HomePage({
             gap: "0.85rem",
             alignItems: "center",
             flexWrap: "wrap",
+            marginBottom: "2.5rem",
           }}
         >
           <Link
@@ -142,7 +154,7 @@ export default async function HomePage({
             href={`/${locale}/documentation`}
             style={{
               padding: "0.45rem 0.85rem",
-              fontSize: "0.875rem",
+              fontSize: "0.9rem",
               fontWeight: 600,
               color: "var(--accent-primary)",
               textDecoration: "none",
@@ -151,7 +163,26 @@ export default async function HomePage({
             {t.ctaDocs}
           </Link>
         </div>
+
+        <div
+          style={{
+            marginTop: "auto",
+            paddingTop: "1.5rem",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.45rem",
+            color: "var(--text-dim)",
+            fontSize: "0.825rem",
+            fontWeight: 500,
+          }}
+        >
+          <span>{locale === "en" ? "Scroll down to explore" : "Défiler pour découvrir"}</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
       </section>
+
 
       {/* 2. Les 3 Profils — Onglets Interactifs */}
       <ProfileTabs locale={locale as Locale} />

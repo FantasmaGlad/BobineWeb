@@ -1869,36 +1869,153 @@ main {
   color: #58a6ff;
 }
 
-/* KPI Bar */
+/* ==========================================================================
+   Bandeau Défilant Télémetrie & Spécifications Techniques (TechTicker)
+   ========================================================================== */
 
-.kpi-bar {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-  gap: 0.75rem;
-  margin-bottom: 2rem;
+.tech-ticker-wrapper {
+  width: 100%;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  height: 2.25rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.75rem;
+  user-select: none;
+  position: relative;
+  z-index: 30;
 }
 
-.kpi-item {
+.tech-ticker-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 0.85rem;
+  height: 100%;
   background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 0.65rem;
-  padding: 0.85rem 1rem;
-  text-align: center;
+  border-right: 1px solid var(--border-subtle);
+  z-index: 10;
+  flex-shrink: 0;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.08);
 }
 
-.kpi-value {
-  font-size: clamp(1.2rem, 2.5vw, 1.45rem);
+.tech-ticker-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  animation: pulseLiveDot 1.6s infinite;
+}
+
+@keyframes pulseLiveDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.tech-ticker-badge__title {
+  font-size: 0.675rem;
   font-weight: 800;
-  color: var(--accent-primary);
-  line-height: 1.1;
-  margin-bottom: 0.2rem;
+  letter-spacing: 0.08em;
+  color: var(--text-heading);
+  white-space: nowrap;
 }
 
-.kpi-label {
-  font-size: 0.775rem;
-  font-weight: 500;
-  color: var(--text-muted);
+.tech-ticker-track {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 1rem, black calc(100% - 2rem), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 1rem, black calc(100% - 2rem), transparent);
 }
+
+.tech-ticker-content {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+  animation: tickerScroll 48s linear infinite;
+}
+
+.tech-ticker-wrapper:hover .tech-ticker-content {
+  animation-play-state: paused;
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.tech-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 0.85rem;
+  line-height: 1;
+}
+
+.tech-ticker-tag {
+  font-size: 0.625rem;
+  font-weight: 800;
+  padding: 0.125rem 0.35rem;
+  border-radius: 0.25rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tech-ticker-tag--live {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.tech-ticker-tag--accent {
+  background: var(--accent-subtle);
+  color: var(--accent-primary);
+  border: 1px solid var(--border-vibrant);
+}
+
+.tech-ticker-tag--ok {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.tech-ticker-tag--warn {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.tech-ticker-label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.tech-ticker-value {
+  color: var(--text-heading);
+  font-weight: 700;
+}
+
+.tech-ticker-separator {
+  color: var(--text-dim);
+  margin-left: 0.6rem;
+  opacity: 0.4;
+  font-size: 0.675rem;
+}
+
+@media (max-width: 640px) {
+  .tech-ticker-badge {
+    padding: 0 0.5rem;
+  }
+  .tech-ticker-badge__title {
+    display: none;
+  }
+}
+
 
 /* ==========================================================================
    Header Responsive & Mobile Burger

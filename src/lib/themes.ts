@@ -16,8 +16,9 @@ export const themes = [
 
 export type Theme = (typeof themes)[number];
 
-// Lavande — thème par défaut du site vitrine
-export const defaultTheme: Theme = "lavande";
+// Clair — thème par défaut épuré noir et blanc
+export const defaultTheme: Theme = "clair";
+
 
 export const themeLabels: Record<Theme, string> = {
   beige: "Beige",

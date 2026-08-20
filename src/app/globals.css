@@ -2444,7 +2444,8 @@ main {
 }
 
 .chatbot-message--assistant .chatbot-message__bubble p {
-  margin-block: 0.35rem;
+  margin-block: 0.5rem;
+  line-height: 1.55;
 }
 
 .chatbot-message--assistant .chatbot-message__bubble p:first-child {
@@ -2457,13 +2458,17 @@ main {
 
 .chatbot-message--assistant .chatbot-message__bubble ul,
 .chatbot-message--assistant .chatbot-message__bubble ol {
-  padding-left: 1.15rem;
-  margin-block: 0.35rem;
+  padding-left: 1.25rem;
+  margin-block: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
 .chatbot-message--assistant .chatbot-message__bubble li {
-  margin-bottom: 0.2rem;
+  line-height: 1.5;
 }
+
 
 .chatbot-message--assistant .chatbot-message__bubble pre {
   white-space: pre-wrap;

@@ -1439,87 +1439,191 @@ main {
   border-radius: 2px 2px 0 0;
 }
 
-.profile-tab-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 0.95rem;
-  padding: 1.5rem;
-  box-shadow: var(--shadow-card);
-}
+/* ==========================================================================
+   Étiquette de catégorie épurée (Partagée)
+   ========================================================================== */
 
-.profile-tab-card__header {
-  margin-bottom: 1.25rem;
-}
-
-.profile-tab-card__badge {
+.feature-category-label {
   display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.725rem;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   color: var(--accent-primary);
-  background: var(--accent-subtle);
-  padding: 0.15rem 0.55rem;
-  border-radius: 0.35rem;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.4rem;
 }
 
-.profile-tab-card__title {
-  margin: 0 0 0.35rem 0;
-  font-size: clamp(1.2rem, 2.5vw, 1.45rem);
-  font-weight: 700;
-  color: var(--text-heading);
+/* ==========================================================================
+   Page Fonctionnalités — Délimitations par traits fins
+   ========================================================================== */
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
 }
 
-.profile-tab-card__desc {
-  margin: 0;
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  line-height: 1.5;
+.feature-section {
+  border-top: 1px solid var(--border-subtle);
+  padding-block: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.feature-section__header {
   max-width: 48rem;
 }
 
-.profile-tab-card__grid {
+.feature-section__title {
+  margin: 0.15rem 0 0.45rem 0;
+  font-size: clamp(1.25rem, 2.6vw, 1.5rem);
+  font-weight: 750;
+  color: var(--text-heading);
+  letter-spacing: -0.02em;
+}
+
+.feature-section__desc {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.feature-specs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1.25rem 1.75rem;
+  padding-top: 0.5rem;
 }
 
-.profile-point {
+.feature-spec-item {
+  border-left: 2px solid var(--border-subtle);
+  padding-left: 0.85rem;
   display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  background: var(--bg-surface-hover);
-  border: 1px solid var(--border-subtle);
-  border-radius: 0.65rem;
-  padding: 0.85rem 1rem;
+  flex-direction: column;
 }
 
-.profile-point__indicator {
-  width: 0.65rem;
-  height: 0.65rem;
-  border-radius: 999px;
-  background: var(--accent-primary);
-  margin-top: 0.35rem;
-  flex-shrink: 0;
-}
-
-.profile-point__title {
-  margin: 0 0 0.2rem 0;
-  font-size: 0.925rem;
+.feature-spec-label {
+  font-size: 0.725rem;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 0.2rem;
+}
+
+.feature-spec-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   Section Profils Utilisateurs (ProfileTabs)
+   ========================================================================== */
+
+.profile-tabs-section {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 2.25rem;
+  margin-bottom: 2.75rem;
+}
+
+.profile-tabs-nav {
+  display: flex;
+  gap: 1.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.25rem;
+  overflow-x: auto;
+}
+
+.profile-tab-btn {
+  background: transparent;
+  border: none;
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s ease;
+  white-space: nowrap;
+}
+
+.profile-tab-btn:hover {
   color: var(--text-heading);
 }
 
-.profile-point__detail {
-  margin: 0;
-  font-size: 0.825rem;
-  color: var(--text-muted);
-  line-height: 1.45;
+.profile-tab-btn.is-active {
+  color: var(--accent-primary);
+  font-weight: 700;
 }
 
-.profile-tab-card__footer {
+.profile-tab-btn.is-active::after {
+  content: '';
+  position: absolute;
+  bottom: -0.3rem;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent-primary);
+  border-radius: 2px;
+}
+
+.profile-tab-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-tab-content__header {
+  max-width: 48rem;
+  margin-bottom: 0.5rem;
+}
+
+.profile-tab-content__title {
+  margin: 0.15rem 0 0.4rem 0;
+  font-size: clamp(1.2rem, 2.5vw, 1.45rem);
+  font-weight: 750;
+  color: var(--text-heading);
+  letter-spacing: -0.02em;
+}
+
+.profile-tab-content__desc {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.profile-points-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.profile-point-card {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 0.85rem;
+}
+
+.profile-point-title {
+  margin: 0 0 0.35rem 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.profile-point-detail {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.profile-tab-content__footer {
   display: flex;
   justify-content: flex-start;
   padding-top: 0.5rem;
@@ -1530,47 +1634,36 @@ main {
    ========================================================================== */
 
 .comparison-section {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 2.25rem;
   margin-bottom: 2.75rem;
 }
 
 .comparison-header {
-  margin-bottom: 1.25rem;
-  max-width: 46rem;
-}
-
-.comparison-badge {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--accent-primary);
-  background: var(--accent-subtle);
-  padding: 0.15rem 0.55rem;
-  border-radius: 0.35rem;
-  margin-bottom: 0.35rem;
+  margin-bottom: 1.5rem;
+  max-width: 48rem;
 }
 
 .comparison-title {
-  margin: 0 0 0.35rem 0;
+  margin: 0.15rem 0 0.4rem 0;
   font-size: clamp(1.25rem, 3vw, 1.65rem);
-  font-weight: 700;
+  font-weight: 750;
   color: var(--text-heading);
+  letter-spacing: -0.02em;
 }
 
 .comparison-desc {
   margin: 0;
-  font-size: 0.925rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .comparison-table-wrapper {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 0.95rem;
+  border-radius: 0.75rem;
   overflow-x: auto;
-  box-shadow: var(--shadow-card);
 }
 
 .comparison-table {
@@ -1592,7 +1685,7 @@ main {
 }
 
 .comparison-table thead th {
-  background: var(--bg-surface-hover);
+  background: var(--bg-surface);
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -1604,24 +1697,8 @@ main {
 
 .col-bobine {
   width: 28%;
-  background: color-mix(in srgb, var(--accent-primary) 6%, var(--bg-card)) !important;
-  border-left: 2px solid var(--accent-primary);
-  border-right: 2px solid var(--accent-primary);
-  border-top: 2px solid var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 5%, var(--bg-card)) !important;
   color: var(--text-heading);
-}
-
-.col-bobine-badge {
-  display: inline-block;
-  font-size: 0.675rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background: var(--accent-primary);
-  color: var(--accent-primary-fg);
-  padding: 0.1rem 0.45rem;
-  border-radius: 0.25rem;
-  margin-bottom: 0.2rem;
 }
 
 .col-bobine strong,
@@ -1648,14 +1725,8 @@ main {
 
 .cell-bobine {
   background: color-mix(in srgb, var(--accent-primary) 4%, var(--bg-card));
-  border-left: 2px solid var(--accent-primary);
-  border-right: 2px solid var(--accent-primary);
   font-weight: 600;
   color: var(--accent-primary);
-}
-
-.comparison-table tbody tr:last-child .cell-bobine {
-  border-bottom: 2px solid var(--accent-primary);
 }
 
 .cell-bobine-content {
@@ -1681,54 +1752,43 @@ main {
    ========================================================================== */
 
 .hardware-section {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 2.25rem;
   margin-bottom: 2.75rem;
 }
 
 .hardware-header {
-  margin-bottom: 1.25rem;
-  max-width: 46rem;
-}
-
-.hardware-badge {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--accent-primary);
-  background: var(--accent-subtle);
-  padding: 0.15rem 0.55rem;
-  border-radius: 0.35rem;
-  margin-bottom: 0.35rem;
+  margin-bottom: 1.5rem;
+  max-width: 48rem;
 }
 
 .hardware-title {
-  margin: 0 0 0.35rem 0;
+  margin: 0.15rem 0 0.4rem 0;
   font-size: clamp(1.25rem, 3vw, 1.65rem);
-  font-weight: 700;
+  font-weight: 750;
   color: var(--text-heading);
+  letter-spacing: -0.02em;
 }
 
 .hardware-desc {
   margin: 0;
-  font-size: 0.925rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .hardware-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: 1rem;
+  gap: 1.25rem;
   margin-bottom: 1.5rem;
 }
 
 .hardware-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 0.85rem;
+  border-radius: 0.75rem;
   padding: 1.15rem;
-  box-shadow: var(--shadow-sm);
 }
 
 .hardware-card__top {
@@ -1748,7 +1808,7 @@ main {
 .hardware-card__tag {
   font-size: 0.7rem;
   font-weight: 600;
-  background: var(--bg-surface-hover);
+  background: var(--bg-surface);
   color: var(--text-muted);
   padding: 0.15rem 0.45rem;
   border-radius: 0.3rem;
@@ -1768,6 +1828,7 @@ main {
   color: var(--text-muted);
   line-height: 1.45;
 }
+
 
 /* Simulateur de Terminal Linux */
 
@@ -2809,7 +2870,9 @@ main {
    ========================================================================== */
 
 .roi-calculator-section {
-  margin-block: 2.5rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 2.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .roi-calculator-header {
@@ -2817,42 +2880,29 @@ main {
   margin-bottom: 1.5rem;
 }
 
-.roi-calculator-badge {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--accent-primary);
-  background: var(--accent-subtle);
-  border: 1px solid var(--border-subtle);
-  padding: 0.2rem 0.6rem;
-  border-radius: 2rem;
-  margin-bottom: 0.5rem;
-}
-
 .roi-calculator-title {
-  font-size: clamp(1.45rem, 3vw, 1.85rem);
-  font-weight: 800;
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  font-weight: 750;
   color: var(--text-heading);
+  letter-spacing: -0.02em;
   line-height: 1.25;
-  margin: 0 0 0.4rem 0;
+  margin: 0.15rem 0 0.4rem 0;
 }
 
 .roi-calculator-desc {
   margin: 0;
   font-size: 0.95rem;
   color: var(--text-muted);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .roi-calculator-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 1rem;
-  padding: 1.75rem;
-  box-shadow: var(--shadow-card);
+  border-radius: 0.85rem;
+  padding: 1.5rem;
 }
+
 
 .roi-sliders-grid {
   display: grid;

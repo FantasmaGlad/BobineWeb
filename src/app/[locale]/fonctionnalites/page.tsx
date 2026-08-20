@@ -3,11 +3,9 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import RoiCalculator from "@/components/RoiCalculator";
 
-
-
 const copy = {
   fr: {
-    title: "Architecture & Fonctionnalités Techniques de Bobine",
+    title: "Architecture & Capacités Techniques de Bobine",
     intro:
       "Une suite logicielle locale et modulaire qui transforme un simple mini PC standard en régie vidéo autonome, borne tactile adhérent et radio d'ambiance 24/7.",
     modules: [
@@ -20,7 +18,7 @@ const copy = {
           { label: "Résolution & Fluidité", value: "1080p et 4K jusqu'à 60 images/seconde" },
           { label: "Charge Processeur", value: "Moins de 8% d'usage CPU en lecture active" },
           { label: "Codecs supportés", value: "H.264, HEVC (H.265), VP9, AV1, WebM" },
-          { label: "Double affichage", value: "Sortie HDMI principale + affichage réseau secondaire" },
+          { label: "Double affichage", value: "Sortie HDMI principale + flux réseau secondaire" },
         ],
       },
       {
@@ -43,7 +41,7 @@ const copy = {
         specs: [
           { label: "Interface Borne", value: "Interface plein écran épurée et navigable au doigt" },
           { label: "Télécommande smartphone", value: "Scan de QR code Wi-Fi local sans installer d'application" },
-          { label: "Télécommandes sans fil", value: "Support plug-and-play des télécommandes USB air-remote" },
+          { label: "Télécommandes sans fil", value: "Support plug-and-play des télécommandes USB air-mouse" },
           { label: "Contrôle du volume", value: "Gestion centralisée du volume sono et vidéo" },
         ],
       },
@@ -60,10 +58,6 @@ const copy = {
         ],
       },
     ],
-    ctaTitle: "Prêt à découvrir le fonctionnement en 3D ?",
-    ctaDesc: "Manipulez le mini PC et l'écran TV en temps réel dans notre scène interactive 3D.",
-    ctaPrimary: "Installer Bobine",
-    ctaSecondary: "Voir la démo 3D",
   },
   en: {
     title: "Technical Architecture & Core Capabilities of Bobine",
@@ -119,10 +113,6 @@ const copy = {
         ],
       },
     ],
-    ctaTitle: "Ready to explore the 3D hardware interactive view?",
-    ctaDesc: "Inspect the mini PC and TV display in real time in our interactive 3D scene.",
-    ctaPrimary: "Install Bobine",
-    ctaSecondary: "Try 3D Demo",
   },
 } as const;
 
@@ -146,15 +136,16 @@ export default async function FeaturesPage({
   const t = copy[locale as Locale];
 
   return (
-    <div className="container" style={{ paddingBlock: "1.5rem" }}>
-      {/* En-tête */}
-      <div style={{ maxWidth: "48rem", marginBottom: "2rem" }}>
+    <div className="container" style={{ paddingBlock: "2rem" }}>
+      {/* En-tête de page */}
+      <div style={{ maxWidth: "50rem", marginBottom: "2.5rem" }}>
         <h1
           style={{
-            fontSize: "clamp(1.85rem, 3.8vw, 2.5rem)",
+            fontSize: "clamp(2rem, 4vw, 2.75rem)",
             fontWeight: 800,
-            lineHeight: 1.2,
-            marginBottom: "0.65rem",
+            lineHeight: 1.15,
+            letterSpacing: "-0.03em",
+            marginBottom: "0.85rem",
             color: "var(--text-heading)",
           }}
         >
@@ -163,82 +154,34 @@ export default async function FeaturesPage({
         <p
           style={{
             color: "var(--text-muted)",
-            fontSize: "1rem",
+            fontSize: "1.05rem",
             margin: 0,
-            lineHeight: 1.55,
+            lineHeight: 1.6,
           }}
         >
           {t.intro}
         </p>
       </div>
 
-      {/* Modules Techniques Détaillés */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", marginBottom: "2.5rem" }}>
+      {/* Modules Techniques Épurés — Séparation par traits fins */}
+      <div className="features-list">
         {t.modules.map((mod) => (
-          <div key={mod.id} className="profile-tab-card">
-            <div style={{ marginBottom: "1rem" }}>
-              <span className="profile-tab-card__badge">{mod.badge}</span>
-              <h2
-                style={{
-                  margin: "0.25rem 0 0.4rem 0",
-                  fontSize: "1.25rem",
-                  fontWeight: 700,
-                  color: "var(--text-heading)",
-                }}
-              >
-                {mod.title}
-              </h2>
-              <p
-                style={{
-                  margin: 0,
-                  color: "var(--text-muted)",
-                  fontSize: "0.925rem",
-                  lineHeight: 1.5,
-                  maxWidth: "48rem",
-                }}
-              >
-                {mod.desc}
-              </p>
+          <section key={mod.id} className="feature-section">
+            <div className="feature-section__header">
+              <span className="feature-category-label">{mod.badge}</span>
+              <h2 className="feature-section__title">{mod.title}</h2>
+              <p className="feature-section__desc">{mod.desc}</p>
             </div>
 
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(14rem, 1fr))",
-                gap: "0.75rem",
-                background: "var(--bg-surface-hover)",
-                border: "1px solid var(--border-subtle)",
-                borderRadius: "0.65rem",
-                padding: "1rem",
-              }}
-            >
+            <div className="feature-specs-grid">
               {mod.specs.map((sp, idx) => (
-                <div key={idx}>
-                  <div
-                    style={{
-                      fontSize: "0.75rem",
-                      fontWeight: 600,
-                      color: "var(--text-muted)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.04em",
-                      marginBottom: "0.15rem",
-                    }}
-                  >
-                    {sp.label}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "0.875rem",
-                      fontWeight: 600,
-                      color: "var(--text-heading)",
-                    }}
-                  >
-                    {sp.value}
-                  </div>
+                <div key={idx} className="feature-spec-item">
+                  <div className="feature-spec-label">{sp.label}</div>
+                  <div className="feature-spec-value">{sp.value}</div>
                 </div>
               ))}
             </div>
-          </div>
+          </section>
         ))}
       </div>
 
@@ -247,4 +190,3 @@ export default async function FeaturesPage({
     </div>
   );
 }
-

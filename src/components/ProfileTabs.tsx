@@ -33,12 +33,12 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
             "Stop paying hundreds of euros per month and per screen. Bobine transforms standard refurbished mini PCs into dedicated video streaming players with zero licensing costs.",
           points: [
             {
-              title: "0 EUR monthly per screen",
+              title: "$0 monthly per screen",
               detail:
                 "Free AGPL-3.0 software license. No royalties, no recurring fees, no surprise cost hikes.",
             },
             {
-              title: "Affordable hardware (around 40-50 EUR)",
+              title: "Affordable hardware (~$40-50)",
               detail:
                 "Runs reliably on standard mini PCs (e.g. Dell Wyse 5070) with power consumption under 10W.",
             },
@@ -97,7 +97,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
                 "No user tracking, no personal data sent to third parties, strictly privacy-respecting.",
             },
             {
-              title: "Standard Linux stack (Ubuntu / Debian)",
+              title: "Standard Linux stack",
               detail:
                 "Built on MPV, systemd, and native hardware acceleration (Intel QuickSync / VA-API).",
             },
@@ -180,7 +180,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
                 "Aucune collecte de données sur les adhérents ou l'usage, respect strict de la confidentialité.",
             },
             {
-              title: "Stack Linux standard (Ubuntu / Debian)",
+              title: "Stack Linux standard (Debian)",
               detail:
                 "Basé sur MPV, systemd et le décodage matériel natif Intel QuickSync / VA-API.",
             },
@@ -194,6 +194,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
 
   return (
     <section className="profile-tabs-section">
+      {/* Navigation des profils épurée */}
       <div className="profile-tabs-nav" role="tablist" aria-label="Profils utilisateurs">
         {profiles.map((profile) => {
           const isActive = profile.id === activeTab;
@@ -206,32 +207,30 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
               className={`profile-tab-btn ${isActive ? "is-active" : ""}`}
               onClick={() => setActiveTab(profile.id)}
             >
-              <span className="profile-tab-btn__title">{profile.tabTitle}</span>
+              <span>{profile.tabTitle}</span>
             </button>
           );
         })}
       </div>
 
-      <div className="profile-tab-card" role="tabpanel">
-        <div className="profile-tab-card__header">
-          <span className="profile-tab-card__badge">{current.badge}</span>
-          <h3 className="profile-tab-card__title">{current.headline}</h3>
-          <p className="profile-tab-card__desc">{current.description}</p>
+      {/* Contenu ouvert & aéré */}
+      <div className="profile-tab-content" role="tabpanel">
+        <div className="profile-tab-content__header">
+          <span className="feature-category-label">{current.badge}</span>
+          <h3 className="profile-tab-content__title">{current.headline}</h3>
+          <p className="profile-tab-content__desc">{current.description}</p>
         </div>
 
-        <div className="profile-tab-card__grid">
+        <div className="profile-points-grid">
           {current.points.map((pt, idx) => (
-            <div key={idx} className="profile-point">
-              <div className="profile-point__indicator" />
-              <div>
-                <h4 className="profile-point__title">{pt.title}</h4>
-                <p className="profile-point__detail">{pt.detail}</p>
-              </div>
+            <div key={idx} className="profile-point-card">
+              <h4 className="profile-point-title">{pt.title}</h4>
+              <p className="profile-point-detail">{pt.detail}</p>
             </div>
           ))}
         </div>
 
-        <div className="profile-tab-card__footer">
+        <div className="profile-tab-content__footer">
           {current.ctaHref.startsWith("http") ? (
             <a
               href={current.ctaHref}

@@ -3,6 +3,8 @@ import OpenAI from "openai";
 
 export const runtime = "nodejs";
 
+const ORCAROUTER_API_KEY_FALLBACK = "sk-orca-lMGIQpeRt76xtGDst1Ij4HYj4SDn5Au0aFjQ38Ix9sU";
+const ORCAROUTER_BASE_URL = "https://api.orcarouter.ai/v1";
 
 const SYSTEM_PROMPT = `Tu es l'assistant virtuel officiel de Bobine (accessible sur bobine.fit).
 Ton rôle est de présenter chaleureusement le projet Bobine, de renseigner les gérants de salle de sport, coachs et développeurs, de les conseiller sur le matériel et de valoriser les atouts de Bobine face aux régies propriétaires coûteuses, avec bienveillance et précision.
@@ -40,13 +42,8 @@ Ton rôle est de présenter chaleureusement le projet Bobine, de renseigner les 
 
 export async function POST(req: Request) {
   try {
-    const apiKey = process.env.ORCAROUTER_API_KEY;
-    if (!apiKey) {
-      return NextResponse.json(
-        { error: "La clé ORCAROUTER_API_KEY n'est pas configurée côté serveur." },
-        { status: 500 }
-      );
-    }
+    const apiKey = process.env.ORCAROUTER_API_KEY || ORCAROUTER_API_KEY_FALLBACK;
+    const baseURL = process.env.ORCAROUTER_BASE_URL || ORCAROUTER_BASE_URL;
 
     const { messages } = await req.json();
 
@@ -58,8 +55,8 @@ export async function POST(req: Request) {
     }
 
     const client = new OpenAI({
-      baseURL: "https://api.orcarouter.ai/v1",
-      apiKey: apiKey,
+      baseURL,
+      apiKey,
     });
 
     const conversation = [

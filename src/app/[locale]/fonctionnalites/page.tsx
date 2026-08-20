@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
-import Link from "next/link";
 import RoiCalculator from "@/components/RoiCalculator";
+
 
 
 const copy = {
@@ -244,50 +244,7 @@ export default async function FeaturesPage({
 
       {/* Simulateur d'Économies & Calculateur de ROI */}
       <RoiCalculator locale={locale as Locale} />
-
-      {/* Call to Action */}
-
-      <div
-        style={{
-          background: "var(--bg-card)",
-          border: "1px solid var(--border-subtle)",
-          borderRadius: "0.95rem",
-          padding: "1.5rem 1.75rem",
-          boxShadow: "var(--shadow-card)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: "1.25rem",
-          marginBottom: "2rem",
-        }}
-      >
-        <div style={{ maxWidth: "34rem" }}>
-          <h3
-            style={{
-              margin: "0 0 0.35rem 0",
-              fontSize: "1.2rem",
-              color: "var(--text-heading)",
-            }}
-          >
-            {t.ctaTitle}
-          </h3>
-          <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "0.9rem" }}>
-            {t.ctaDesc}
-          </p>
-        </div>
-        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-          <Link
-            className="btn-primary"
-            href={`/${locale}/documentation/demarrage-rapide`}
-          >
-            {t.ctaPrimary}
-          </Link>
-          <Link className="btn-secondary" href={`/${locale}/demo-3d`}>
-            {t.ctaSecondary}
-          </Link>
-        </div>
-      </div>
     </div>
   );
 }
+

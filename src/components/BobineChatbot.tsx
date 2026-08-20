@@ -16,6 +16,7 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -47,6 +48,36 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
     }
+  }, [isOpen]);
+
+  // Fermeture par clic extérieur et touche Échap
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape" && isOpen) {
+        setIsOpen(false);
+      }
+    }
+
+    function handleClickOutside(e: MouseEvent) {
+      if (
+        isOpen &&
+        modalRef.current &&
+        !modalRef.current.contains(e.target as Node) &&
+        !(e.target as HTMLElement).closest(".chatbot-trigger-btn")
+      ) {
+        setIsOpen(false);
+      }
+    }
+
+    if (isOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, [isOpen]);
 
   async function sendMessage(textToSend?: string) {
@@ -97,7 +128,6 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
           return [...list, { role: "assistant", content: currentText }];
         });
       }
-
     } catch (err: unknown) {
       console.error("Erreur chatbot:", err);
       const errMsg =
@@ -111,7 +141,7 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
         ...prev,
         {
           role: "assistant",
-          content: `⚠️ **${errMsg}**`,
+          content: `⚠️ ${errMsg}`,
         },
       ]);
     } finally {
@@ -119,12 +149,12 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
     }
   }
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
     }
-  };
+  }
 
   return (
     <>
@@ -136,25 +166,26 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
             className="chatbot-trigger-btn"
             onClick={() => setIsOpen(true)}
             aria-label={isEn ? "Open Bobine AI Assistant" : "Ouvrir l'assistant IA Bobine"}
+            aria-expanded={isOpen}
           >
             <div className="chatbot-trigger-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                 <path d="M8 9h8" />
                 <path d="M8 13h6" />
               </svg>
             </div>
             <span className="chatbot-trigger-label">
-              {isEn ? "Ask Bobine AI" : "Assistant Bobine"}
+              {isEn ? "Bobine AI" : "Assistant IA"}
             </span>
             <span className="chatbot-trigger-dot" />
           </button>
         )}
       </div>
 
-      {/* Fenêtre de discussion */}
+      {/* Fenêtre de discussion compacte */}
       {isOpen && (
-        <div className="chatbot-modal" role="dialog" aria-modal="true">
+        <div ref={modalRef} className="chatbot-modal" role="dialog" aria-modal="true">
           {/* En-tête */}
           <div className="chatbot-modal__header">
             <div className="chatbot-modal__title-group">
@@ -167,7 +198,7 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
                   {isEn ? "Bobine AI Assistant" : "Assistant IA Bobine"}
                 </h4>
                 <span className="chatbot-modal__subtitle">
-                  {isEn ? "Instant Advice & Hardware Sizing" : "Conseil & Dimensionnement Matériel"}
+                  {isEn ? "Instant Advice & Sizing" : "Conseil & Matériel"}
                 </span>
               </div>
             </div>
@@ -178,7 +209,7 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
                   className="chatbot-header-btn"
                   onClick={() => setMessages([])}
                   title={isEn ? "Reset chat" : "Réinitialiser la conversation"}
-                  aria-label={isEn ? "Reset chat" : "Réinitialiser la conversation"}
+                  aria-label={isEn ? "Reset chat" : "Réinitialiser"}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <polyline points="1 4 1 10 7 10" />
@@ -191,6 +222,7 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
                 className="chatbot-header-btn"
                 onClick={() => setIsOpen(false)}
                 aria-label={isEn ? "Close" : "Fermer"}
+                title={isEn ? "Close assistant" : "Fermer l'assistant"}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="18" y1="6" x2="6" y2="18" />
@@ -299,8 +331,8 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
             </div>
             <div className="chatbot-badge-disclaimer">
               {isEn
-                ? "Powered by DeepSeek v4 · Free & Sovereign AGPL-3.0"
-                : "Alimenté par DeepSeek v4 · Logiciel Libre AGPL-3.0"}
+                ? "DeepSeek v4 · Sovereign AGPL-3.0"
+                : "DeepSeek v4 · Logiciel Libre AGPL-3.0"}
             </div>
           </div>
         </div>

@@ -28,10 +28,11 @@ export default function RoiCalculator({ locale }: { locale: Locale }) {
   return (
     <section className="roi-calculator-section">
       <div className="roi-calculator-header">
-        <span className="roi-calculator-badge">
+        <span className="feature-category-label">
           {isEn ? "Interactive ROI Calculator" : "Simulateur d'Économies & ROI"}
         </span>
         <h3 className="roi-calculator-title">
+
           {isEn
             ? "Calculate your gym's annual savings with Bobine"
             : "Calculez les économies réelles de votre salle avec Bobine"}

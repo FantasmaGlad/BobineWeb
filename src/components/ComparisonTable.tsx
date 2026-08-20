@@ -112,7 +112,7 @@ export default function ComparisonTable({ locale }: { locale: Locale }) {
   return (
     <section className="comparison-section">
       <div className="comparison-header">
-        <span className="comparison-badge">
+        <span className="feature-category-label">
           {isEn ? "Detailed Comparison" : "Comparatif Détaillé"}
         </span>
         <h3 className="comparison-title">
@@ -135,9 +135,6 @@ export default function ComparisonTable({ locale }: { locale: Locale }) {
                 {isEn ? "Feature / Metric" : "Critère & Métrique"}
               </th>
               <th scope="col" className="col-bobine">
-                <div className="col-bobine-badge">
-                  {isEn ? "Recommended" : "Recommandé"}
-                </div>
                 <strong>Bobine</strong>
                 <span>{isEn ? "Open-Source & Local" : "Open-Source & Autonome"}</span>
               </th>

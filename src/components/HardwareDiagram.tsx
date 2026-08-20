@@ -61,10 +61,11 @@ export default function HardwareDiagram({ locale }: { locale: Locale }) {
   return (
     <section className="hardware-section">
       <div className="hardware-header">
-        <span className="hardware-badge">
+        <span className="feature-category-label">
           {isEn ? "Architecture & Hardware" : "Architecture & Matériel"}
         </span>
         <h3 className="hardware-title">
+
           {isEn ? "3-Cable Setup on Dell Wyse 5070" : "Installation en 3 câbles sur Mini PC standard"}
         </h3>
         <p className="hardware-desc">

@@ -36,8 +36,9 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
       ];
 
   const defaultGreeting = isEn
-    ? "Hello! I am Baamix, the Bobine commercial advisor. How can I help you equip your gym or estimate your savings with our open-source system?"
-    : "Bonjour ! Je suis Baamix, la commerciale de Bobine. Comment puis-je vous aider à équiper votre salle ou à calculer vos économies avec notre régie open-source ?";
+    ? "Hello! Have a question about Bobine or equipping your gym?"
+    : "Bonjour ! Une question sur Bobine ou l'équipement de votre salle ?";
+
 
   useEffect(() => {
     if (messagesEndRef.current) {

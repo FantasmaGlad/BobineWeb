@@ -76,12 +76,14 @@ export default async function HomePage({
       <section
         className="hero-fullscreen"
         style={{
-          minHeight: "calc(100svh - 130px)",
+          minHeight: "calc(100svh - 110px)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           maxWidth: "56rem",
-          paddingBlock: "clamp(2rem, 8vh, 5rem)",
+          paddingTop: "clamp(4rem, 14vh, 8rem)",
+          paddingBottom: "clamp(5rem, 18vh, 10rem)",
+          marginBottom: "clamp(5rem, 16vh, 10rem)",
           boxSizing: "border-box",
         }}
       >
@@ -166,8 +168,7 @@ export default async function HomePage({
 
         <div
           style={{
-            marginTop: "auto",
-            paddingTop: "1.5rem",
+            marginTop: "1.5rem",
             display: "flex",
             alignItems: "center",
             gap: "0.45rem",
@@ -182,6 +183,7 @@ export default async function HomePage({
           </svg>
         </div>
       </section>
+
 
 
       {/* 2. Les 3 Profils — Onglets Interactifs */}

@@ -17,10 +17,11 @@ import "../globals.css";
 
 
 // Applique le thème persisté (localStorage) avant le premier rendu, avec
-// "lavande" comme thème par défaut.
+// "clair" comme thème par défaut.
 const themeInitScript = `try{var t=localStorage.getItem(${JSON.stringify(
   THEME_STORAGE_KEY
-)})||'lavande';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','lavande');}`;
+)})||'clair';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','clair');}`;
+
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import Link from "next/link";
+import RoiCalculator from "@/components/RoiCalculator";
+
 
 const copy = {
   fr: {
@@ -240,7 +242,11 @@ export default async function FeaturesPage({
         ))}
       </div>
 
+      {/* Simulateur d'Économies & Calculateur de ROI */}
+      <RoiCalculator locale={locale as Locale} />
+
       {/* Call to Action */}
+
       <div
         style={{
           background: "var(--bg-card)",

@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import DocsSidebar from "@/components/DocsSidebar";
+import DocsSearch from "@/components/DocsSearch";
+import DocsTableOfContents from "@/components/DocsTableOfContents";
 
 const sections: Record<Locale, ReadonlyArray<readonly [string, string]>> = {
   fr: [
@@ -31,9 +33,30 @@ export default async function DocumentationLayout({
   if (!isLocale(locale)) notFound();
 
   return (
-    <div className="container docs-layout">
-      <DocsSidebar locale={locale} items={sections[locale]} />
-      <div className="docs-content__inner">{children}</div>
+    <div className="docs-page-wrapper">
+      <div className="docs-layout">
+        <aside className="docs-sidebar-panel">
+          <div className="docs-sidebar-sticky">
+            <DocsSearch locale={locale} />
+            <div className="docs-sidebar-nav-wrapper">
+              <span className="docs-sidebar-section-title">
+                {locale === "en" ? "Documentation" : "Navigation"}
+              </span>
+              <DocsSidebar locale={locale} items={sections[locale]} />
+            </div>
+          </div>
+        </aside>
+
+        <main className="docs-main-panel">
+          <article className="docs-content">
+            <div className="docs-content__inner">{children}</div>
+          </article>
+        </main>
+
+        <aside className="docs-toc-panel">
+          <DocsTableOfContents locale={locale} />
+        </aside>
+      </div>
     </div>
   );
 }

@@ -17,5 +17,16 @@
   "localeSwitcher": {
     "fr": "Français",
     "en": "English"
+  },
+  "search": {
+    "placeholder": "Rechercher dans la documentation & FAQ...",
+    "resultsFound": "résultats trouvés",
+    "noResults": "Aucun résultat trouvé pour cette recherche."
+  },
+  "chatbot": {
+    "title": "Assistant IA Bobine",
+    "subtitle": "Conseil & Dimensionnement Matériel",
+    "buttonLabel": "Assistant Bobine",
+    "inputPlaceholder": "Posez votre question (matériel, devis, config)..."
   }
 }

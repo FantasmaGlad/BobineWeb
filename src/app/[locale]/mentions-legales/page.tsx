@@ -21,6 +21,8 @@ const copy = {
   },
 } as const;
 
+import { buildMetadata } from "@/lib/seo";
+
 export async function generateMetadata({
   params,
 }: {
@@ -28,8 +30,17 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return { title: copy[locale].title };
+  const isEn = locale === "en";
+  return buildMetadata({
+    locale: locale as Locale,
+    pathname: "/mentions-legales",
+    title: isEn ? "Legal Notice — Bobine" : "Mentions Légales — Bobine",
+    description: isEn
+      ? "Legal information and hosting details for the Bobine open-source project."
+      : "Informations légales et hébergement du site vitrine et de documentation du projet libre Bobine.",
+  });
 }
+
 
 export default async function LegalNoticePage({
   params,

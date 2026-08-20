@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { isLocale } from "@/lib/i18n";
+import { isLocale, type Locale } from "@/lib/i18n";
+
 
 import Shot from "@/components/Shot";
 import Link from "next/link";
+
+import { buildMetadata } from "@/lib/seo";
+import ShareButton from "@/components/ShareButton";
 
 export async function generateMetadata({
   params,
@@ -12,9 +16,22 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return {
-    title: locale === "en" ? "Usage Guide" : "Utilisation",
-  };
+  const isEn = locale === "en";
+  return buildMetadata({
+    locale: locale as Locale,
+    pathname: "/documentation/utilisation",
+    title: isEn ? "User Manual & Daily Operations — Bobine" : "Guide d'Utilisation & Exploitation Quotidienne — Bobine",
+    description: isEn
+      ? "Comprehensive usage manual for Bobine: Admin dashboard, video library management, weekly timetable scheduler, member touch kiosk, and 24/7 background radio."
+      : "Manuel complet d'utilisation de Bobine : panneau d'administration, médiathèque vidéo, planificateur de cours hebdomadaire, borne tactile et radio 24/7.",
+    keywords: [
+      "Guide utilisation Bobine",
+      "Panneau administration vidéo fitness",
+      "Planificateur cours collectif",
+      "Borne tactile membre fitness",
+      "Télécommande smartphone QR code",
+    ],
+  });
 }
 
 export default async function UtilisationPage({
@@ -28,7 +45,19 @@ export default async function UtilisationPage({
 
   return isEn ? (
     <>
-      <h1>Usage Guide & Operations</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+        <div>
+          <span className="feature-category-label">User Manual</span>
+          <h1 style={{ margin: 0 }}>Usage Guide & Operations</h1>
+        </div>
+        <ShareButton
+          locale={locale as Locale}
+          pathname="/documentation/utilisation"
+          title="Bobine User Manual & Operations"
+          description="Complete manual for the Bobine video playout and streaming system."
+        />
+      </div>
+
       <p>
         The complete guide to every screen, feature, and tool once Bobine is installed (see the <Link href={`/${locale}/documentation/demarrage-rapide`}>Quick Start Guide</Link> if you haven&apos;t installed it yet).
       </p>
@@ -102,7 +131,20 @@ export default async function UtilisationPage({
     </>
   ) : (
     <>
-      <h1>Utilisation & Guide Pratique</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+
+        <div>
+          <span className="feature-category-label">Guide Pratique</span>
+          <h1 style={{ margin: 0 }}>Utilisation & Guide Pratique</h1>
+        </div>
+        <ShareButton
+          locale={locale as Locale}
+          pathname="/documentation/utilisation"
+          title="Guide d'Utilisation Bobine"
+          description="Le guide complet de chaque écran et fonctionnalité de Bobine."
+        />
+      </div>
+
       <p>
         Le guide complet de chaque écran et de chaque outil, une fois Bobine installé (voir le <Link href={`/${locale}/documentation/demarrage-rapide`}>démarrage rapide</Link> si ce n&apos;est pas encore fait).
       </p>

@@ -116,6 +116,9 @@ const copy = {
   },
 } as const;
 
+import { buildMetadata } from "@/lib/seo";
+import ShareButton from "@/components/ShareButton";
+
 export async function generateMetadata({
   params,
 }: {
@@ -123,7 +126,25 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return { title: copy[locale].title };
+  const isEn = locale === "en";
+  return buildMetadata({
+    locale: locale as Locale,
+    pathname: "/fonctionnalites",
+    title: isEn
+      ? "Features & Playout Architecture — Bobine"
+      : "Fonctionnalités & Architecture Technique — Bobine",
+    description: isEn
+      ? "Discover the modular capabilities of Bobine: MPV hardware decoding, automated HDMI-CEC TV control, on-demand touch kiosk, and 24/7 background audio."
+      : "Découvrez les capacités modulaires de Bobine : moteur MPV accéléré matériellement, pilotage TV automatique HDMI-CEC, borne tactile adhérent et radio 24/7.",
+    keywords: [
+      "Fonctionnalités Bobine",
+      "Décodage matériel MPV VA-API",
+      "Contrôle TV HDMI-CEC fitness",
+      "Borne tactile cours collectif",
+      "Radio ambiance salle de sport",
+      "Architecture streaming autonome",
+    ],
+  });
 }
 
 export default async function FeaturesPage({
@@ -138,30 +159,40 @@ export default async function FeaturesPage({
   return (
     <div className="container" style={{ paddingBlock: "2rem" }}>
       {/* En-tête de page */}
-      <div style={{ maxWidth: "50rem", marginBottom: "2.5rem" }}>
-        <h1
-          style={{
-            fontSize: "clamp(2rem, 4vw, 2.75rem)",
-            fontWeight: 800,
-            lineHeight: 1.15,
-            letterSpacing: "-0.03em",
-            marginBottom: "0.85rem",
-            color: "var(--text-heading)",
-          }}
-        >
-          {t.title}
-        </h1>
-        <p
-          style={{
-            color: "var(--text-muted)",
-            fontSize: "1.05rem",
-            margin: 0,
-            lineHeight: 1.6,
-          }}
-        >
-          {t.intro}
-        </p>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "2.5rem" }}>
+        <div style={{ maxWidth: "50rem" }}>
+          <h1
+            style={{
+              fontSize: "clamp(2rem, 4vw, 2.75rem)",
+              fontWeight: 800,
+              lineHeight: 1.15,
+              letterSpacing: "-0.03em",
+              marginBottom: "0.85rem",
+              color: "var(--text-heading)",
+            }}
+          >
+            {t.title}
+          </h1>
+          <p
+            style={{
+              color: "var(--text-muted)",
+              fontSize: "1.05rem",
+              margin: 0,
+              lineHeight: 1.6,
+            }}
+          >
+            {t.intro}
+          </p>
+        </div>
+        <ShareButton
+          locale={locale as Locale}
+          pathname="/fonctionnalites"
+          title={t.title}
+          description={t.intro}
+          hashtags={["Bobine", "OpenSource", "FitnessTech", "VideoStreaming"]}
+        />
       </div>
+
 
       {/* Modules Techniques Épurés — Séparation par traits fins */}
       <div className="features-list">

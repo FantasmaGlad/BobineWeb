@@ -53,6 +53,9 @@ const copy = {
   },
 } as const;
 
+import { buildMetadata } from "@/lib/seo";
+import ShareButton from "@/components/ShareButton";
+
 export async function generateMetadata({
   params,
 }: {
@@ -60,7 +63,24 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return { title: copy[locale].title };
+  const isEn = locale === "en";
+  return buildMetadata({
+    locale: locale as Locale,
+    pathname: "/a-propos",
+    title: isEn
+      ? "About Bobine — Story, Core Values & Vision"
+      : "À Propos de Bobine — Histoire, Cœur & Vision",
+    description: isEn
+      ? "Learn about the mission behind Bobine: empowering gym owners with an open-source, offline-first alternative to proprietary video subscriptions."
+      : "Découvrez la genèse et la mission de Bobine : redonner l'autonomie aux gérants de salle avec une régie vidéo libre, sobre et 100% hors-ligne.",
+    keywords: [
+      "À propos Bobine",
+      "Histoire Bobine",
+      "Mission Bobine régie vidéo",
+      "Logiciel libre salle de sport",
+      "Vision Bobine fitness",
+    ],
+  });
 }
 
 export default async function AboutPage({
@@ -74,7 +94,16 @@ export default async function AboutPage({
 
   return (
     <div className="container" style={{ paddingBlock: "2rem", maxWidth: "50rem" }}>
-      <span className="feature-category-label">{t.badge}</span>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "0.5rem" }}>
+        <span className="feature-category-label">{t.badge}</span>
+        <ShareButton
+          locale={locale as Locale}
+          pathname="/a-propos"
+          title={t.title}
+          description={t.intro}
+        />
+      </div>
+
       <h1
         style={{
           fontSize: "clamp(1.85rem, 3.8vw, 2.5rem)",

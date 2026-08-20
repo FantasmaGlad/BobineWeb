@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { isLocale } from "@/lib/i18n";
+import { isLocale, type Locale } from "@/lib/i18n";
 import Link from "next/link";
+import { buildMetadata } from "@/lib/seo";
 import GitHubIcon from "@/components/icons/GitHubIcon";
+import ShareButton from "@/components/ShareButton";
 
 export async function generateMetadata({
   params,
@@ -11,9 +13,24 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return {
-    title: locale === "en" ? "Manifesto, Identity & Vision" : "Manifeste, Identité & Vision",
-  };
+  const isEn = locale === "en";
+  return buildMetadata({
+    locale: locale as Locale,
+    pathname: "/documentation/manifeste",
+    title: isEn
+      ? "Manifesto, Identity & Art Direction — Bobine"
+      : "Manifeste, Identité & Direction Artistique — Bobine",
+    description: isEn
+      ? "The story, why Bobine was built, open-source values (AGPL-3.0), art direction, and the origin of the Baamix mascot."
+      : "L'histoire, le pourquoi de Bobine, les valeurs du logiciel libre (AGPL-3.0), la direction artistique et l'origine de la mascotte Baamix.",
+    keywords: [
+      "Manifeste Bobine",
+      "Direction artistique Bobine",
+      "Mascotte Baamix",
+      "Pourquoi Bobine",
+      "Valeurs open source fitness",
+    ],
+  });
 }
 
 export default async function ManifestePage({
@@ -27,8 +44,20 @@ export default async function ManifestePage({
 
   return isEn ? (
     <>
-      <span className="feature-category-label">Philosophy & Vision</span>
-      <h1>Manifesto, Identity & Art Direction</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+        <div>
+          <span className="feature-category-label">Philosophy & Vision</span>
+          <h1 style={{ margin: 0 }}>Manifesto, Identity & Art Direction</h1>
+        </div>
+        <ShareButton
+          locale={locale as Locale}
+          pathname="/documentation/manifeste"
+          title="Bobine Manifesto, Identity & Art Direction"
+          description="The story, core values, and aesthetic principles behind Bobine."
+          hashtags={["Bobine", "Manifesto", "OpenSource", "DigitalCommons"]}
+        />
+      </div>
+
       <p className="docs-lead">
         The story, core values, and aesthetic principles behind Bobine: a free, local-first cinema playout system engineered for independent gyms.
       </p>
@@ -90,8 +119,20 @@ export default async function ManifestePage({
     </>
   ) : (
     <>
-      <span className="feature-category-label">Philosophie & Vision</span>
-      <h1>Manifeste, Identité & Direction Artistique</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+        <div>
+          <span className="feature-category-label">Philosophie & Vision</span>
+          <h1 style={{ margin: 0 }}>Manifeste, Identité & Direction Artistique</h1>
+        </div>
+        <ShareButton
+          locale={locale as Locale}
+          pathname="/documentation/manifeste"
+          title="Manifeste, Identité & Direction Artistique — Bobine"
+          description="L'histoire, les valeurs fondatrices et les choix esthétiques qui animent Bobine."
+          hashtags={["Bobine", "Manifeste", "OpenSource", "CommunsNumériques"]}
+        />
+      </div>
+
       <p className="docs-lead">
         L&apos;histoire, les valeurs fondatrices et les choix esthétiques qui animent Bobine : un système de régie vidéo autonome et libre pour les salles de sport.
       </p>

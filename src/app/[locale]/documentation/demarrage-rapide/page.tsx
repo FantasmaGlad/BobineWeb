@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { isLocale } from "@/lib/i18n";
+import { isLocale, type Locale } from "@/lib/i18n";
+
 
 import Shot from "@/components/Shot";
 import CodeBlock from "@/components/CodeBlock";
 import Link from "next/link";
+
+import { buildMetadata } from "@/lib/seo";
+import ShareButton from "@/components/ShareButton";
 
 export async function generateMetadata({
   params,
@@ -13,9 +17,22 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return {
-    title: locale === "en" ? "Quick Start Guide" : "Démarrage rapide",
-  };
+  const isEn = locale === "en";
+  return buildMetadata({
+    locale: locale as Locale,
+    pathname: "/documentation/demarrage-rapide",
+    title: isEn ? "Quick Start Guide & Debian Setup — Bobine" : "Guide de Démarrage Rapide & Installation Debian — Bobine",
+    description: isEn
+      ? "Step-by-step setup guide for Bobine on Debian 13: hardware selection (Dell Wyse 5070), automated 1-command installer, and first workout screen playout."
+      : "Guide d'installation pas à pas de Bobine sur Debian 13 : choix du mini PC (Dell Wyse 5070), commande d'installation automatisée et premier lancement en salle.",
+    keywords: [
+      "Installation Bobine",
+      "Démarrage rapide régie vidéo",
+      "Debian 13 mini PC fitness",
+      "Dell Wyse 5070 installation",
+      "Script install.sh Bobine",
+    ],
+  });
 }
 
 export default async function DemarrageRapidePage({
@@ -29,7 +46,19 @@ export default async function DemarrageRapidePage({
 
   return isEn ? (
     <>
-      <h1>Quick Start Guide</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+        <div>
+          <span className="feature-category-label">Tutorial</span>
+          <h1 style={{ margin: 0 }}>Quick Start Guide</h1>
+        </div>
+        <ShareButton
+          locale={locale as Locale}
+          pathname="/documentation/demarrage-rapide"
+          title="Bobine Quick Start Guide"
+          description="Step-by-step setup guide for Bobine on Debian 13."
+        />
+      </div>
+
 
       <p>
         This guide walks you step-by-step from discovering Bobine to having your workout room actively broadcasting virtual classes — with no prior Linux or system administration experience needed beyond following straightforward instructions. Expect about 30 to 45 minutes total setup time, mostly unattended while automated installers download and build.
@@ -123,7 +152,20 @@ sudo ./install.sh</code>
     </>
   ) : (
     <>
-      <h1>Démarrage rapide</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+
+        <div>
+          <span className="feature-category-label">Tutoriel</span>
+          <h1 style={{ margin: 0 }}>Démarrage rapide</h1>
+        </div>
+        <ShareButton
+          locale={locale as Locale}
+          pathname="/documentation/demarrage-rapide"
+          title="Guide de Démarrage Rapide Bobine"
+          description="Guide étape par étape pour installer et configurer Bobine sur votre mini PC."
+        />
+      </div>
+
 
       <p>
         Ce guide vous accompagne, étape par étape, de « je découvre Bobine » à « ma salle diffuse ses cours » — sans compétence technique préalable au-delà de suivre des instructions. Comptez environ 30 à 45 minutes, dont une bonne partie en attente pendant les installations.

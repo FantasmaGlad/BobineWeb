@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import DocsSidebar from "@/components/DocsSidebar";
 import DocsSearch from "@/components/DocsSearch";
+import DocsMobileNav from "@/components/DocsMobileNav";
 
 const sections: Record<Locale, ReadonlyArray<readonly [string, string]>> = {
   fr: [
@@ -22,7 +23,6 @@ const sections: Record<Locale, ReadonlyArray<readonly [string, string]>> = {
     ["developpeurs", "Developers"],
   ],
 };
-
 
 export default async function DocumentationLayout({
   children,
@@ -59,7 +59,11 @@ export default async function DocumentationLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {/* Barre de navigation contextuelle mobile/tablette */}
+      <DocsMobileNav locale={locale} items={sections[locale]} />
+
       <div className="docs-layout">
+        {/* Sidebar Desktop */}
         <aside className="docs-sidebar-panel">
           <div className="docs-sidebar-sticky">
             <DocsSearch locale={locale} />

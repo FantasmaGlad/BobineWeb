@@ -127,6 +127,7 @@ export default function ComparisonTable({ locale }: { locale: Locale }) {
         </p>
       </div>
 
+      {/* Vue Tableau pour Desktop & Tablette */}
       <div className="comparison-table-wrapper">
         <table className="comparison-table">
           <thead>
@@ -175,6 +176,43 @@ export default function ComparisonTable({ locale }: { locale: Locale }) {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Vue Cartes Tactiles pour Mobile (< 768px) */}
+      <div className="comparison-cards-mobile" aria-hidden="true">
+        {rows.map((row, idx) => (
+          <div key={idx} className="comparison-card-mobile">
+            <div className="comparison-card-mobile__header">
+              <span className="comparison-card-mobile__feature">{row.feature}</span>
+            </div>
+            <div className="comparison-card-mobile__body">
+              {/* Bobine */}
+              <div className="comparison-card-mobile__row is-bobine">
+                <span className="comparison-card-mobile__label">Bobine :</span>
+                <div className="comparison-card-mobile__val">
+                  <svg className="icon-check" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <strong>{row.bobine}</strong>
+                </div>
+              </div>
+              {/* Proprietary */}
+              <div className="comparison-card-mobile__row">
+                <span className="comparison-card-mobile__label">
+                  {isEn ? "Proprietary :" : "Régies fermées :"}
+                </span>
+                <span className="comparison-card-mobile__val">{row.proprietary}</span>
+              </div>
+              {/* DIY */}
+              <div className="comparison-card-mobile__row">
+                <span className="comparison-card-mobile__label">
+                  {isEn ? "DIY / VLC :" : "Bricolage DIY :"}
+                </span>
+                <span className="comparison-card-mobile__val">{row.diy}</span>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

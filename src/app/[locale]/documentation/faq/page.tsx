@@ -4,6 +4,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
+import DownloadPdfButton from "@/components/DownloadPdfButton";
 import CodeBlock from "@/components/CodeBlock";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
@@ -134,12 +135,15 @@ export default async function FaqPage({
           <span className="feature-category-label">Support & Knowledge</span>
           <h1 style={{ margin: 0 }}>FAQ & Troubleshooting</h1>
         </div>
-        <ShareButton
-          locale={locale as Locale}
-          pathname="/documentation/faq"
-          title="Bobine FAQ & Troubleshooting"
-          description="Answers to common questions and troubleshooting guide for Bobine."
-        />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <DownloadPdfButton locale={locale as Locale} />
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/documentation/faq"
+            title="Bobine FAQ & Troubleshooting"
+            description="Answers to common questions and troubleshooting guide for Bobine."
+          />
+        </div>
       </div>
 
       <p>
@@ -245,12 +249,15 @@ speaker-test -t wav -c 2 -l 1</code>
           <span className="feature-category-label">Support & Connaissances</span>
           <h1 style={{ margin: 0 }}>FAQ / Dépannage</h1>
         </div>
-        <ShareButton
-          locale={locale as Locale}
-          pathname="/documentation/faq"
-          title="FAQ & Dépannage Bobine"
-          description="Réponses aux questions fréquentes et guide de résolution des erreurs."
-        />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <DownloadPdfButton locale={locale as Locale} />
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/documentation/faq"
+            title="FAQ & Dépannage Bobine"
+            description="Réponses aux questions fréquentes et guide de résolution des erreurs."
+          />
+        </div>
       </div>
 
       <p>

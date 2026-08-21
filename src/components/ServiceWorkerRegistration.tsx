@@ -22,22 +22,27 @@ export default function ServiceWorkerRegistration({ locale }: { locale: Locale }
     }
 
     // 2. Gestion des changements de connectivité réseau
+    let timer: NodeJS.Timeout | null = null;
+
     const handleOnline = () => {
       setIsOffline(false);
       setShowToast(true);
-      const timer = setTimeout(() => setShowToast(false), 3500);
-      return () => clearTimeout(timer);
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => setShowToast(false), 5000);
     };
 
     const handleOffline = () => {
       setIsOffline(true);
       setShowToast(true);
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => setShowToast(false), 5000);
     };
 
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOffline);
 
     return () => {
+      if (timer) clearTimeout(timer);
       window.removeEventListener("online", handleOnline);
       window.removeEventListener("offline", handleOffline);
     };

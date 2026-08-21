@@ -7,6 +7,7 @@ import Shot from "@/components/Shot";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
+import DownloadPdfButton from "@/components/DownloadPdfButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
@@ -62,12 +63,15 @@ export default async function UtilisationPage({
           <span className="feature-category-label">User Manual & Operations</span>
           <h1 style={{ margin: 0 }}>Usage Guide & Operations</h1>
         </div>
-        <ShareButton
-          locale={locale as Locale}
-          pathname="/documentation/utilisation"
-          title="Bobine User Manual & Operations"
-          description="Complete manual for the Bobine video playout and streaming system."
-        />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <DownloadPdfButton locale={locale as Locale} />
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/documentation/utilisation"
+            title="Bobine User Manual & Operations"
+            description="Complete manual for the Bobine video playout and streaming system."
+          />
+        </div>
       </div>
 
       <p>
@@ -200,12 +204,15 @@ export default async function UtilisationPage({
           <span className="feature-category-label">Guide Pratique & Exploitation</span>
           <h1 style={{ margin: 0 }}>Utilisation & Guide Pratique</h1>
         </div>
-        <ShareButton
-          locale={locale as Locale}
-          pathname="/documentation/utilisation"
-          title="Guide d'Utilisation Bobine"
-          description="Le guide complet de chaque écran et fonctionnalité de Bobine."
-        />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <DownloadPdfButton locale={locale as Locale} />
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/documentation/utilisation"
+            title="Guide d'Utilisation Bobine"
+            description="Le guide complet de chaque écran et fonctionnalité de Bobine."
+          />
+        </div>
       </div>
 
       <p>

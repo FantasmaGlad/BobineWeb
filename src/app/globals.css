@@ -936,12 +936,18 @@ main {
 .docs-sidebar-sticky {
   position: sticky;
   top: 0;
-  max-height: 100vh;
+  max-height: calc(100vh - 4.5rem);
   overflow-y: auto;
-  padding: 1.5rem 1.25rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 1.25rem 1.15rem;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.15rem;
+}
+
+.docs-sidebar-sticky::-webkit-scrollbar {
+  display: none;
 }
 
 .docs-sidebar-nav-wrapper {
@@ -3562,6 +3568,59 @@ main {
 
 .share-copy-btn--featured:hover {
   background: color-mix(in srgb, var(--accent-primary) 18%, var(--bg-card));
+}
+
+/* ==========================================================================
+   Export / Impression PDF de la documentation
+   ========================================================================== */
+@media print {
+  header,
+  footer,
+  aside.docs-sidebar-panel,
+  .share-menu-container,
+  .download-pdf-btn,
+  .tech-ticker-wrapper,
+  .docs-search-wrapper,
+  .power-demo__status,
+  .chatbot-container,
+  .offline-toast {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+    font-size: 11pt !important;
+  }
+
+  .docs-page-wrapper,
+  .docs-layout,
+  .docs-main-panel,
+  .docs-content,
+  .docs-content__inner {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid;
+    color: #000000 !important;
+  }
+
+  pre, code, .docs-table-wrapper {
+    page-break-inside: avoid;
+  }
+
+  a {
+    text-decoration: underline !important;
+    color: #111827 !important;
+  }
 }
 
 

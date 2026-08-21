@@ -103,10 +103,10 @@ function LoadingOverlay() {
 // Voile HD Studio 16:9 orienté vers les vélos avec texture vidéo interactive et audio
 function VoileHD({
   playing,
-  onActivate,
+  onToggle,
 }: {
   playing: boolean;
-  onActivate: () => void;
+  onToggle: (videoEl?: HTMLVideoElement) => void;
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const materialRef = useRef<THREE.MeshBasicMaterial | null>(null);
@@ -116,7 +116,6 @@ function VoileHD({
   useEffect(() => {
     const el = document.createElement("video");
     el.src = VIDEO_URL;
-    el.crossOrigin = "anonymous";
     el.loop = true;
     el.playsInline = true;
     el.preload = "auto";
@@ -132,30 +131,33 @@ function VoileHD({
 
     return () => {
       el.pause();
+      el.src = "";
       videoTexture.dispose();
       videoRef.current = null;
     };
   }, []);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
+    const v = videoRef.current;
+    if (!v) return;
     if (playing) {
-      video.currentTime = 0;
-      video.muted = false;
-      video.volume = 0.85;
-      const promise = video.play();
-      if (promise !== undefined) {
-        promise.catch((err) => {
-          console.warn("Autoplay / audio error, falling back to muted:", err);
-          video.muted = true;
-          video.play().catch(() => {});
-        });
+      if (v.paused) {
+        v.currentTime = 0;
+        v.muted = false;
+        v.volume = 0.85;
+        const p = v.play();
+        if (p !== undefined) {
+          p.catch((err) => {
+            console.warn("Autoplay audio blocked, falling back to muted:", err);
+            v.muted = true;
+            v.play().catch(() => {});
+          });
+        }
       }
     } else {
-      video.pause();
-      video.muted = true;
+      if (!v.paused) {
+        v.pause();
+      }
     }
   }, [playing]);
 
@@ -164,6 +166,23 @@ function VoileHD({
       materialRef.current.needsUpdate = true;
     }
   }, [playing, texture]);
+
+  const handleMeshClick = () => {
+    const v = videoRef.current;
+    if (v && !playing) {
+      v.currentTime = 0;
+      v.muted = false;
+      v.volume = 0.85;
+      const p = v.play();
+      if (p !== undefined) {
+        p.catch(() => {
+          v.muted = true;
+          v.play().catch(() => {});
+        });
+      }
+    }
+    onToggle(v || undefined);
+  };
 
   return (
     <group position={[4.0, 3.2, 0]} rotation={[0, -Math.PI / 2, 0]}>
@@ -177,7 +196,10 @@ function VoileHD({
       <mesh
         onClick={(e) => {
           e.stopPropagation();
-          onActivate();
+          handleMeshClick();
+        }}
+        onPointerDown={(e) => {
+          e.stopPropagation();
         }}
         onPointerOver={(e) => {
           e.stopPropagation();
@@ -212,7 +234,9 @@ export default function PowerDemoScene() {
   const [playing, setPlaying] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
 
-  const togglePlaying = () => setPlaying((prev) => !prev);
+  const handleTogglePlay = () => {
+    setPlaying((prev) => !prev);
+  };
 
   return (
     <div ref={stageRef} className="power-demo__stage" style={{ width: "100%", height: "100%", border: "none", borderRadius: 0, padding: 0, margin: 0, background: "transparent" }}>
@@ -241,23 +265,23 @@ export default function PowerDemoScene() {
           <ThemeSpace3D />
 
           {/* 1. Écran Cinéma Studio HD orienté vers la caméra et les vélos */}
-          <VoileHD playing={playing} onActivate={togglePlaying} />
+          <VoileHD playing={playing} onToggle={handleTogglePlay} />
 
           {/* 2. Dell Wyse 5070 sur son support à droite de l'écran */}
           <WyseModel
             active={playing}
-            onActivate={togglePlaying}
+            onActivate={handleTogglePlay}
             position={[3.8, 0.35, 3.6]}
             rotation={[0, -Math.PI / 2, 0]}
             scale={0.9}
           />
 
-          {/* 3. Les 4 vélos stationnaires face à l'écran (échelle réaliste 2.2) */}
+          {/* 3. Les 4 vélos stationnaires face à l'écran (-Math.PI / 2 pour orienter le guidon vers l'écran) */}
           {BIKES_STUDIO.map((bike, idx) => (
             <VeloModel
               key={idx}
               position={bike.position}
-              rotation={[0, Math.PI / 2, 0]}
+              rotation={[0, -Math.PI / 2, 0]}
               scale={2.2}
             />
           ))}
@@ -288,10 +312,26 @@ export default function PowerDemoScene() {
 
       <LoadingOverlay />
 
-      <div className="power-demo__status" data-on={playing} style={{ position: "absolute", top: "1.25rem", left: "1.25rem", zIndex: 10 }}>
+      <button
+        type="button"
+        className="power-demo__status"
+        data-on={playing}
+        onClick={handleTogglePlay}
+        style={{
+          position: "absolute",
+          top: "1.25rem",
+          left: "1.25rem",
+          zIndex: 10,
+          cursor: "pointer",
+          border: "1px solid var(--border-subtle)",
+          background: "var(--bg-card)",
+          fontFamily: "inherit",
+        }}
+        title="Cliquez pour lancer ou mettre en pause la démo vidéo"
+      >
         <span className="power-demo__dot" />
-        {playing ? "Démo vidéo en cours" : "Cliquez sur le Wyse ou l'écran pour lancer la démo"}
-      </div>
+        <span>{playing ? "Démo vidéo en cours (cliquez pour pause)" : "Cliquez sur le Wyse ou l'écran pour lancer la démo"}</span>
+      </button>
     </div>
   );
 }

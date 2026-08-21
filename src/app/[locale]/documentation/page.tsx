@@ -81,6 +81,7 @@ const copy = {
 
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
+import DownloadPdfButton from "@/components/DownloadPdfButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
@@ -137,12 +138,15 @@ export default async function DocumentationIndexPage({
             {t.intro}
           </p>
         </div>
-        <ShareButton
-          locale={locale as Locale}
-          pathname="/documentation"
-          title={t.title}
-          description={t.intro}
-        />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <DownloadPdfButton locale={locale as Locale} />
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/documentation"
+            title={t.title}
+            description={t.intro}
+          />
+        </div>
       </div>
 
       <div style={{ display: "grid", gap: "0.75rem" }}>

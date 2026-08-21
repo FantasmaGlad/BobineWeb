@@ -131,14 +131,27 @@ export default async function DocumentationIndexPage({
   return (
     <>
       <BreadcrumbsJsonLd items={breadcrumbs} />
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.25rem" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.75rem" }}>
         <div>
-          <h1 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.2rem)", marginBottom: "0.35rem" }}>{t.title}</h1>
-          <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", margin: 0 }}>
+          <span className="feature-category-label">
+            {locale === "en" ? "Knowledge Base & Guides" : "Base de Connaissances & Guides"}
+          </span>
+          <h1
+            style={{
+              fontSize: "clamp(2rem, 3.8vw, 2.6rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.03em",
+              marginBlock: "0.35rem 0.5rem",
+              color: "var(--text-heading)",
+            }}
+          >
+            {t.title}
+          </h1>
+          <p style={{ color: "var(--text-muted)", fontSize: "1.05rem", margin: 0, lineHeight: 1.5 }}>
             {t.intro}
           </p>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
           <DownloadPdfButton locale={locale as Locale} />
           <ShareButton
             locale={locale as Locale}
@@ -149,26 +162,28 @@ export default async function DocumentationIndexPage({
         </div>
       </div>
 
-      <div style={{ display: "grid", gap: "0.75rem" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem" }}>
         {t.sections.map((section) => (
           <Link
             key={section.slug}
             href={`/${locale}/documentation/${section.slug}`}
             className="card-interactive"
-            style={{ textDecoration: "none", padding: "1rem 1.15rem" }}
+            style={{ textDecoration: "none", padding: "1.25rem 1.35rem", display: "flex", flexDirection: "column" }}
           >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.35rem" }}>
-              <span className="badge" style={{ fontSize: "0.7rem", padding: "0.15rem 0.5rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
+              <span className="badge" style={{ fontSize: "0.725rem", padding: "0.2rem 0.6rem" }}>
                 {section.badge}
               </span>
-              <span style={{ color: "var(--accent-primary)", fontSize: "1.1rem", fontWeight: 700 }}>
+              <span style={{ color: "var(--accent-primary)", fontSize: "1.15rem", fontWeight: 700 }}>
                 →
               </span>
             </div>
-            <h3 className="card-title" style={{ fontSize: "1.05rem", marginBottom: "0.25rem" }}>
+            <h3 className="card-title" style={{ fontSize: "1.15rem", marginBottom: "0.35rem" }}>
               {section.title}
             </h3>
-            <p className="card-desc" style={{ fontSize: "0.875rem" }}>{section.body}</p>
+            <p className="card-desc" style={{ fontSize: "0.925rem", lineHeight: 1.5, margin: 0 }}>
+              {section.body}
+            </p>
           </Link>
         ))}
       </div>

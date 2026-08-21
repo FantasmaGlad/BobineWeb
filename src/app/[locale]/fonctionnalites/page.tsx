@@ -158,49 +158,75 @@ export default async function FeaturesPage({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const t = copy[locale as Locale];
+  const isEn = locale === "en";
 
   return (
-    <div className="container" style={{ paddingBlock: "2rem" }}>
-      {/* En-tête de page */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "2.5rem" }}>
-        <div style={{ maxWidth: "50rem" }}>
-          <h1
-            style={{
-              fontSize: "clamp(2rem, 4vw, 2.75rem)",
-              fontWeight: 800,
-              lineHeight: 1.15,
-              letterSpacing: "-0.03em",
-              marginBottom: "0.85rem",
-              color: "var(--text-heading)",
-            }}
-          >
-            {t.title}
-          </h1>
-          <p
-            style={{
-              color: "var(--text-muted)",
-              fontSize: "1.05rem",
-              margin: 0,
-              lineHeight: 1.6,
-            }}
-          >
-            {t.intro}
-          </p>
+    <div className="container">
+      {/* 1. Hero Section — Plein écran au chargement sans coupure */}
+      <section
+        className="hero-fullscreen"
+        style={{
+          minHeight: "calc(100svh - 110px)",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          maxWidth: "56rem",
+          paddingTop: "clamp(3rem, 10vh, 6rem)",
+          paddingBottom: "clamp(4rem, 12vh, 7rem)",
+          boxSizing: "border-box",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+          <span className="feature-category-label">
+            {isEn ? "Playout Engine & Hardware" : "Moteur de Diffusion & Matériel"}
+          </span>
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/fonctionnalites"
+            title={t.title}
+            description={t.intro}
+            hashtags={["Bobine", "OpenSource", "FitnessTech", "VideoStreaming"]}
+          />
         </div>
-        <ShareButton
-          locale={locale as Locale}
-          pathname="/fonctionnalites"
-          title={t.title}
-          description={t.intro}
-          hashtags={["Bobine", "OpenSource", "FitnessTech", "VideoStreaming"]}
-        />
-      </div>
 
+        <h1
+          style={{
+            fontSize: "clamp(2.1rem, 4.8vw, 3.2rem)",
+            fontWeight: 800,
+            lineHeight: 1.12,
+            letterSpacing: "-0.03em",
+            marginBottom: "1.25rem",
+            color: "var(--text-heading)",
+          }}
+        >
+          {t.title}
+        </h1>
+        <p
+          style={{
+            color: "var(--text-muted)",
+            fontSize: "clamp(1.05rem, 2vw, 1.25rem)",
+            lineHeight: 1.6,
+            margin: "0 0 2rem 0",
+            maxWidth: "48rem",
+          }}
+        >
+          {t.intro}
+        </p>
 
-      {/* Modules Techniques Épurés — Séparation par traits fins */}
+        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
+          <a href="#video-engine" className="btn-primary">
+            {isEn ? "Explore Features" : "Découvrir les Capacités"} ↓
+          </a>
+          <a href="#roi-calculator" className="btn-secondary">
+            {isEn ? "ROI Calculator" : "Calculateur d'Économies"}
+          </a>
+        </div>
+      </section>
+
+      {/* 2. Modules Techniques Épurés — Séparation par traits fins */}
       <div className="features-list">
         {t.modules.map((mod) => (
-          <section key={mod.id} className="feature-section">
+          <section key={mod.id} id={mod.id} className="feature-section">
             <div className="feature-section__header">
               <span className="feature-category-label">{mod.badge}</span>
               <h2 className="feature-section__title">{mod.title}</h2>
@@ -219,8 +245,10 @@ export default async function FeaturesPage({
         ))}
       </div>
 
-      {/* Simulateur d'Économies & Calculateur de ROI */}
-      <RoiCalculator locale={locale as Locale} />
+      {/* 3. Simulateur d'Économies & Calculateur de ROI */}
+      <div id="roi-calculator" style={{ paddingTop: "2rem" }}>
+        <RoiCalculator locale={locale as Locale} />
+      </div>
     </div>
   );
 }

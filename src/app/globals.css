@@ -782,6 +782,22 @@ img {
   position: relative;
 }
 
+.theme-switcher-pill-group {
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.45rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.15s ease;
+  overflow: hidden;
+}
+
+.theme-switcher-pill-group:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 1px var(--accent-primary);
+}
+
 .theme-switcher-btn {
   display: inline-flex;
   align-items: center;
@@ -790,24 +806,44 @@ img {
   font-size: 0.8rem;
   font-weight: 500;
   color: var(--text-main);
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 0.45rem;
-  padding: 0.3rem 0.65rem;
+  background: transparent;
+  border: none;
+  padding: 0.3rem 0.55rem 0.3rem 0.65rem;
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
   transition: all 0.15s ease;
 }
 
 .theme-switcher-btn:hover {
   color: var(--text-heading);
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 1px var(--accent-primary);
+  background: var(--bg-surface-hover);
 }
 
 .theme-switcher-btn:focus-visible {
   outline: 2px solid var(--accent-primary);
-  outline-offset: 2px;
+  outline-offset: -1px;
+}
+
+.theme-switcher-arrow-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem 0.45rem;
+  background: transparent;
+  border: none;
+  border-left: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.theme-switcher-arrow-btn:hover {
+  color: var(--text-heading);
+  background: var(--bg-surface-hover);
+}
+
+.theme-switcher-arrow-btn:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: -1px;
 }
 
 .theme-swatch-icon {
@@ -2807,30 +2843,33 @@ main {
 
 .chatbot-floating-wrapper {
   position: fixed;
-  top: 50%;
-  right: 1.25rem;
-  transform: translateY(-50%);
+  bottom: 2rem;
+  right: 2rem;
+  top: auto;
+  transform: none;
   z-index: 950;
 }
 
 .chatbot-trigger-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  background: var(--bg-card);
+  gap: 0.55rem;
+  background: var(--bg-surface-elevated);
   color: var(--text-heading);
   border: 1px solid var(--border-subtle);
   border-radius: 2rem;
-  padding: 0.38rem 0.85rem 0.38rem 0.42rem;
+  padding: 0.42rem 0.95rem 0.42rem 0.48rem;
   font-size: 0.825rem;
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.25), var(--shadow-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .chatbot-trigger-btn:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px) scale(1.02);
   border-color: var(--accent-primary);
   box-shadow: 0 10px 30px -2px var(--accent-glow);
 }
@@ -2872,29 +2911,29 @@ main {
   50% { opacity: 0.6; transform: scale(0.85); }
 }
 
-/* Modal Chatbot Baamix — Positionné au milieu droit */
+/* Modal Chatbot Baamix — Positionné en bas à droite */
 .chatbot-modal {
-
   position: fixed;
-  top: 50%;
-  right: 1.25rem;
-  transform: translateY(-50%);
-  width: min(calc(100vw - 2rem), 26.5rem);
-  height: min(33.5rem, calc(100dvh - 3.5rem));
+  bottom: 2rem;
+  right: 2rem;
+  top: auto;
+  transform: none;
+  width: min(calc(100vw - 2.5rem), 26.5rem);
+  height: min(34rem, calc(100dvh - 4.5rem));
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 1rem;
+  border-radius: 1.25rem;
   box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.5), 0 0 1px rgba(255, 255, 255, 0.1);
   z-index: 960;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: scaleUpChatCenter 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: scaleUpChatCorner 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes scaleUpChatCenter {
-  from { opacity: 0; transform: translateY(-50%) scale(0.92); }
-  to { opacity: 1; transform: translateY(-50%) scale(1); }
+@keyframes scaleUpChatCorner {
+  from { opacity: 0; transform: translateY(16px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .chatbot-modal__header {
@@ -4243,6 +4282,349 @@ main {
     text-decoration: underline !important;
     color: #111827 !important;
   }
+}
+
+/* ==========================================================================
+   Page Soutenir — Grille 2 Colonnes (GitHub PR & Ko-fi Widget)
+   ========================================================================== */
+
+.support-dual-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+  align-items: stretch;
+}
+
+@media (max-width: 860px) {
+  .support-dual-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Colonne Gauche : Style GitHub Pull Request */
+.github-pr-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.github-pr-card:hover {
+  border-color: var(--accent-primary);
+}
+
+.github-pr-card__header {
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-surface-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.github-pr-card__status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.github-pr-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #238636;
+  color: #ffffff;
+  padding: 0.25rem 0.65rem;
+  border-radius: 2rem;
+  font-size: 0.775rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.github-pr-repo {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.github-pr-card__title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1.3;
+}
+
+.github-pr-card__branch-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: var(--text-muted);
+}
+
+.github-pr-branch {
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.35rem;
+  color: var(--text-main);
+}
+
+.github-pr-branch.is-feature {
+  color: var(--accent-primary);
+  border-color: color-mix(in srgb, var(--accent-primary) 40%, transparent);
+}
+
+.github-pr-arrow {
+  color: var(--text-dim);
+  font-weight: 700;
+}
+
+.github-pr-card__body {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.github-pr-card__intro {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.github-pr-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.github-pr-checkitem {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.github-pr-checkicon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: color-mix(in srgb, #238636 15%, transparent);
+  color: #238636;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.github-pr-checktext {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.9rem;
+}
+
+.github-pr-checktext strong {
+  color: var(--text-heading);
+  font-weight: 600;
+}
+
+.github-pr-checktext span {
+  color: var(--text-muted);
+  font-size: 0.825rem;
+}
+
+.github-pr-code-snippet {
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.825rem;
+  color: var(--accent-primary);
+  overflow-x: auto;
+}
+
+.github-pr-card__footer {
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-surface-elevated);
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Colonne Droite : Style Widget Ko-fi */
+.kofi-widget-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.kofi-widget-card:hover {
+  border-color: var(--accent-primary);
+}
+
+.kofi-widget-card__header {
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-surface-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.kofi-widget-avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.kofi-avatar-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 0.75rem;
+  background: var(--accent-primary);
+  color: var(--accent-primary-fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+.kofi-creator-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.kofi-creator-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  line-height: 1.2;
+}
+
+.kofi-creator-handle {
+  font-size: 0.825rem;
+  color: var(--text-muted);
+}
+
+.kofi-widget-card__body {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.kofi-widget-card__intro {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.kofi-amount-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.kofi-selector-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.kofi-amount-pills {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .kofi-amount-pills {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.kofi-amount-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 0.4rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-inset);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.kofi-amount-pill:hover {
+  border-color: var(--accent-primary);
+  background: var(--bg-surface-hover);
+}
+
+.kofi-amount-pill.is-selected {
+  border-color: var(--accent-primary);
+  background: var(--accent-subtle);
+  color: var(--accent-primary);
+  font-weight: 700;
+  box-shadow: 0 0 0 1px var(--accent-primary);
+}
+
+.kofi-amount-qty {
+  font-size: 0.775rem;
+  opacity: 0.85;
+}
+
+.kofi-amount-price {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.kofi-breakdown-box {
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.65rem;
+  padding: 0.85rem 1rem;
+}
+
+.kofi-breakdown-title {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  margin-bottom: 0.4rem;
+}
+
+.kofi-breakdown-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.kofi-widget-card__footer {
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-surface-elevated);
+  border-top: 1px solid var(--border-subtle);
 }
 
 

@@ -162,28 +162,37 @@ export default async function DocumentationIndexPage({
         </div>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem" }}>
+      <div style={{ display: "flex", flexDirection: "column", borderTop: "1px solid var(--border-subtle)" }}>
         {t.sections.map((section) => (
           <Link
             key={section.slug}
             href={`/${locale}/documentation/${section.slug}`}
-            className="card-interactive"
-            style={{ textDecoration: "none", padding: "1.25rem 1.35rem", display: "flex", flexDirection: "column" }}
+            className="doc-open-row"
+            style={{
+              textDecoration: "none",
+              paddingBlock: "1.5rem",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+              gap: "1.5rem",
+            }}
           >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
-              <span className="badge" style={{ fontSize: "0.725rem", padding: "0.2rem 0.6rem" }}>
-                {section.badge}
-              </span>
-              <span style={{ color: "var(--accent-primary)", fontSize: "1.15rem", fontWeight: 700 }}>
-                →
-              </span>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", maxWidth: "48rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                <span className="badge" style={{ fontSize: "0.725rem", padding: "0.2rem 0.55rem" }}>
+                  {section.badge}
+                </span>
+                <h2 style={{ fontSize: "1.2rem", fontWeight: 700, margin: 0, color: "var(--text-heading)" }}>
+                  {section.title}
+                </h2>
+              </div>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", lineHeight: 1.55, margin: 0 }}>
+                {section.body}
+              </p>
             </div>
-            <h3 className="card-title" style={{ fontSize: "1.15rem", marginBottom: "0.35rem" }}>
-              {section.title}
-            </h3>
-            <p className="card-desc" style={{ fontSize: "0.925rem", lineHeight: 1.5, margin: 0 }}>
-              {section.body}
-            </p>
+            <span style={{ color: "var(--accent-primary)", fontSize: "1.15rem", fontWeight: 700, flexShrink: 0, marginTop: "0.25rem" }}>
+              →
+            </span>
           </Link>
         ))}
       </div>

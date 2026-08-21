@@ -65,7 +65,7 @@ export default async function DemarrageRapidePage({
           <h1 style={{ margin: 0 }}>Quick Start Guide</h1>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <DownloadPdfButton locale={locale as Locale} />
+          <DownloadPdfButton locale={locale as Locale} chapterId="demarrage-rapide" />
           <ShareButton
             locale={locale as Locale}
             pathname="/documentation/demarrage-rapide"
@@ -229,7 +229,7 @@ speaker-test -t wav -c 2 -l 1</code>
           <h1 style={{ margin: 0 }}>Démarrage rapide</h1>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <DownloadPdfButton locale={locale as Locale} />
+          <DownloadPdfButton locale={locale as Locale} chapterId="demarrage-rapide" />
           <ShareButton
             locale={locale as Locale}
             pathname="/documentation/demarrage-rapide"

@@ -7,34 +7,13 @@ export default function PdfIcon({ className, size = 16 }: { className?: string; 
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      aria-hidden="true"
     >
+      <rect width="24" height="24" rx="4" fill="#ED2224" />
       <path
-        d="M14 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2Z"
-        fill="#EF4444"
-        fillOpacity="0.15"
-        stroke="#EF4444"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M18.8 15.2c-.5-1.4-2.1-2.4-4.5-2.8-.8-.8-1.5-1.8-2.1-3 .4-1.6.6-3.1.4-3.8-.3-1-1.2-1.3-1.8-.8-.6.5-.8 1.6-.5 3 .3 1.1.9 2.4 1.7 3.7-1.3 2.7-3.1 4.7-4.4 5.3-.9.4-1.5.3-1.8-.2-.3-.5-.1-1.4.6-2.2 1-.9 2.6-1.5 4.3-1.6.4.7.9 1.4 1.4 2.1 1.7-.3 3.6-.3 4.8.2.9.4 1.3 1 1.3 1.4 0 .3-.3.5-.8.5-.4 0-.9-.3-1.4-.7l3.7 3zm-9.3-5.2c-.7-.9-1.2-1.9-1.4-2.7-.2-.7 0-1.1.2-1.2.2-.1.5 0 .7.3.2.3.4.9.4 1.7 0 .7-.1 1.4-.2 2.1l.3-.2zm-3.6 6.3c-.4.5-.5.9-.3 1.1.1.1.4.1.7 0 .6-.3 1.6-1.3 2.7-2.8-1.5.1-2.5.7-3.1 1.7zm10.7-.1c-.1.2-.4.4-.9.2-.6-.2-1.6-.4-2.8-.3.7.6 1.3.8 1.7.8.3 0 .4-.1.5-.3.1-.2.4-.2.5-.4z"
+        fill="#FFFFFF"
       />
-      <path
-        d="M14 2V8H20"
-        stroke="#EF4444"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <text
-        x="7"
-        y="17"
-        fill="#EF4444"
-        fontSize="5.5"
-        fontWeight="800"
-        fontFamily="sans-serif"
-        letterSpacing="0.05em"
-      >
-        PDF
-      </text>
     </svg>
   );
 }

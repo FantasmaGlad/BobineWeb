@@ -160,7 +160,7 @@ export default async function AboutPage({
 
         <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
           <a href="#about-sections" className="btn-primary">
-            {isEn ? "Discover the Story" : "Découvrir l'Histoire"} ↓
+            {isEn ? "Discover the Story" : "Découvrir l'Histoire"}
           </a>
           <Link className="btn-secondary" href={`/${locale}/documentation/manifeste`}>
             {t.ctaManifesto} →

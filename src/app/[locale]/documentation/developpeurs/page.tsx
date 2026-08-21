@@ -61,7 +61,7 @@ export default async function DeveloppeursPage({
           <h1 style={{ margin: 0 }}>Developer Documentation & Architecture</h1>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <DownloadPdfButton locale={locale as Locale} />
+          <DownloadPdfButton locale={locale as Locale} chapterId="developpeurs" />
           <ShareButton
             locale={locale as Locale}
             pathname="/documentation/developpeurs"
@@ -276,7 +276,7 @@ npm run dev`}</code>
           <h1 style={{ margin: 0 }}>Documentation Développeurs & Architecture</h1>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <DownloadPdfButton locale={locale as Locale} />
+          <DownloadPdfButton locale={locale as Locale} chapterId="developpeurs" />
           <ShareButton
             locale={locale as Locale}
             pathname="/documentation/developpeurs"

@@ -189,23 +189,19 @@ export default async function BlogIndexPage({
       </div>
 
       {/* =========================================================================
-          1. CARTE HERO : DERNIÈRE RELEASE MAJEURE EN VEDETTE
+          1. CARTE HERO : DERNIÈRE RELEASE MAJEURE EN VEDETTE (LAYOUT OUVERT)
           ========================================================================= */}
       {latestRelease && (
         <div
-          className="card-interactive"
           style={{
-            padding: "clamp(1.5rem, 3vw, 2.25rem)",
-            marginBottom: "3rem",
-            background: "linear-gradient(135deg, var(--bg-card) 0%, var(--bg-surface-elevated) 100%)",
-            border: "1.5px solid var(--border-subtle)",
-            borderRadius: "1rem",
-            boxShadow: "var(--shadow-card)",
+            paddingBottom: "2.5rem",
+            marginBottom: "2.5rem",
+            borderBottom: "1px solid var(--border-subtle)",
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem", marginBottom: "0.85rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-              <span className="badge" style={{ fontSize: "0.8rem", padding: "0.25rem 0.75rem", background: "var(--accent-subtle)", color: "var(--accent-primary)", border: "1px solid var(--border-vibrant)" }}>
+              <span className="badge" style={{ fontSize: "0.8rem", padding: "0.25rem 0.75rem" }}>
                 {t.featuredReleaseBadge}
               </span>
               <span style={{ fontSize: "0.875rem", fontWeight: 700, color: "var(--text-heading)", fontFamily: "monospace" }}>
@@ -222,7 +218,7 @@ export default async function BlogIndexPage({
             )}
           </div>
 
-          <h2 style={{ fontSize: "clamp(1.4rem, 2.8vw, 1.85rem)", fontWeight: 800, color: "var(--text-heading)", margin: 0, marginBottom: "0.85rem", lineHeight: 1.25 }}>
+          <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.1rem)", fontWeight: 800, color: "var(--text-heading)", margin: "0 0 0.85rem 0", lineHeight: 1.25 }}>
             <Link
               href={`/${locale}/blog/${encodeURIComponent(latestRelease.slug)}`}
               style={{ textDecoration: "none", color: "inherit" }}
@@ -261,7 +257,7 @@ export default async function BlogIndexPage({
       )}
 
       {/* =========================================================================
-          2. ARTICLES TECHNIQUES & GUIDES DE FOND
+          2. ARTICLES TECHNIQUES & GUIDES DE FOND (LAYOUT OUVERT)
           ========================================================================= */}
       <div style={{ marginBottom: "3rem" }}>
         <div style={{ marginBottom: "1.25rem", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "0.5rem" }}>
@@ -270,41 +266,40 @@ export default async function BlogIndexPage({
           </h2>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.25rem" }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           {articles.map((art) => (
             <Link
               key={art.slug}
               href={art.link}
-              className="card-interactive"
+              className="doc-open-row"
               style={{
                 textDecoration: "none",
-                padding: "1.5rem",
+                paddingBlock: "1.35rem",
                 display: "flex",
-                flexDirection: "column",
                 justifyContent: "space-between",
-                borderRadius: "0.85rem",
-                border: "1px solid var(--border-subtle)",
+                alignItems: "flex-start",
+                gap: "1.5rem",
               }}
             >
-              <div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.6rem" }}>
-                  <span className="badge" style={{ fontSize: "0.75rem", padding: "0.2rem 0.55rem" }}>
+              <div style={{ maxWidth: "48rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.4rem" }}>
+                  <span className="badge" style={{ fontSize: "0.725rem", padding: "0.15rem 0.5rem" }}>
                     {art.category}
                   </span>
                   <span style={{ fontSize: "0.775rem", color: "var(--text-dim)" }}>
                     {art.readTime}
                   </span>
                 </div>
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--text-heading)", margin: "0 0 0.5rem 0", lineHeight: 1.35 }}>
+                <h3 style={{ fontSize: "1.15rem", fontWeight: 700, color: "var(--text-heading)", margin: "0 0 0.35rem 0", lineHeight: 1.35 }}>
                   {art.title}
                 </h3>
-                <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", lineHeight: 1.55, margin: 0 }}>
+                <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: 1.55, margin: 0 }}>
                   {art.desc}
                 </p>
               </div>
-              <div style={{ marginTop: "1rem", color: "var(--accent-primary)", fontSize: "0.85rem", fontWeight: 600 }}>
+              <span style={{ color: "var(--accent-primary)", fontSize: "0.85rem", fontWeight: 600, flexShrink: 0, marginTop: "0.5rem" }}>
                 {t.readArticle}
-              </div>
+              </span>
             </Link>
           ))}
         </div>
@@ -321,15 +316,15 @@ export default async function BlogIndexPage({
             </h2>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+          <div style={{ display: "flex", flexDirection: "column" }}>
             {releases.slice(1).map((release) => (
               <Link
                 key={release.slug}
                 href={`/${locale}/blog/${encodeURIComponent(release.slug)}`}
-                className="card-interactive"
+                className="doc-open-row"
                 style={{
                   textDecoration: "none",
-                  padding: "1rem 1.25rem",
+                  paddingBlock: "1rem",
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",

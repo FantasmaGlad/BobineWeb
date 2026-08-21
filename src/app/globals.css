@@ -1320,11 +1320,24 @@ main {
 .docs-content__inner {
   width: 100%;
   max-width: 100%;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 0.85rem;
-  padding: clamp(1.5rem, 3vw, 2.5rem);
-  box-shadow: var(--shadow-sm);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.doc-open-row {
+  border-bottom: 1px solid var(--border-subtle);
+  transition: all 0.15s ease;
+}
+
+.doc-open-row:hover {
+  border-bottom-color: var(--accent-primary);
+}
+
+.doc-open-row:hover h2 {
+  color: var(--accent-primary) !important;
 }
 
 /* Documentation Mobile Contextual Navigation */

@@ -136,7 +136,7 @@ export default async function FaqPage({
           <h1 style={{ margin: 0 }}>FAQ & Troubleshooting</h1>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <DownloadPdfButton locale={locale as Locale} />
+          <DownloadPdfButton locale={locale as Locale} chapterId="faq" />
           <ShareButton
             locale={locale as Locale}
             pathname="/documentation/faq"
@@ -250,7 +250,7 @@ speaker-test -t wav -c 2 -l 1</code>
           <h1 style={{ margin: 0 }}>FAQ / Dépannage</h1>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <DownloadPdfButton locale={locale as Locale} />
+          <DownloadPdfButton locale={locale as Locale} chapterId="faq" />
           <ShareButton
             locale={locale as Locale}
             pathname="/documentation/faq"

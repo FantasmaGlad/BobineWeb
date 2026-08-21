@@ -1,12 +1,12 @@
 {
   "mcpServers": {
     "github": {
-      "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/"
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"]
     },
     "vercel": {
-      "type": "http",
-      "url": "https://mcp.vercel.com/FantasmaGlad/bobineweb"
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-vercel"]
     }
   }
 }

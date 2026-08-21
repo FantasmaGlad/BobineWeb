@@ -1,44 +1,30 @@
-# BobineWeb
+# bobine.fit
 
-Site web officiel de [Bobine](https://github.com/FantasmaGlad/Bobine) — vitrine, documentation, guide d'installation et démo 3D interactive. Déployé sur [bobine.fit](https://bobine.fit).
+Portail web et documentation officielle de **Bobine** — régie vidéo et système de diffusion multimédia autonome open-source pour salles de sport et studios fitness.
 
-Voir [`docs/cahier-des-charges.md`](docs/cahier-des-charges.md) pour le contexte produit et les décisions techniques, et [`docs/cahier-des-charges-ui-ux.md`](docs/cahier-des-charges-ui-ux.md) pour la direction artistique et le système de design.
+- **URL de production** : [https://bobine.fit](https://bobine.fit)
+- **Dépôt principal** : [github.com/FantasmaGlad/Bobine](https://github.com/FantasmaGlad/Bobine)
+- **Licence** : AGPL-3.0
 
-## Fonctionnalités du site
+---
 
-- **Design system multi-thèmes** : 13 thèmes riches et étalonnés avec dropdown interactif à pastilles bicolores (thème par défaut : *Lavande*).
-- **Layout plein écran ergonomique** : Header et Footer fixes symétriques avec zone de lecture centrale défilable sans scroll parasite.
-- **Documentation technique** : guides pas-à-pas en MDX pour l'installation, l'exploitation quotidienne et l'architecture logicielle.
-- **Démo 3D interactive** : rendu temps réel Three.js / React Three Fiber du matériel Bobine (mini PC Dell Wyse 5070 et affichage vidéo).
-- **Synchronisation dynamique du blog** : publication automatisée depuis les releases GitHub officielles.
-- **Internationalisation (i18n)** : bilingue Français / Anglais par segment d'URL (`/fr`, `/en`).
+## Architecture & Spécifications
 
-## Développement local
+- **Framework** : Next.js 16 (App Router, Turbopack, React 19)
+- **Rendu** : Génération statique complète (SSG — 39 routes localisées FR/EN)
+- **Régie 3D** : Three.js / React Three Fiber / Drei (scène interactive Wyse 5070 & écran HD)
+- **Design System** : CSS pur avec variables dynamiques — 18 thèmes bicolores classés (8 Clairs, 10 Sombres)
+- **Performances** : 100% Hors-ligne (PWA / Service Worker), polices système zéro latence
+- **Déploiement** : Vercel Edge Network
 
-Prérequis : Node.js ≥ 20.
+---
+
+## Commandes
 
 ```bash
-npm install
-npm run dev   # http://localhost:3000
+npm install     # Installation des dépendances
+npm run dev     # Serveur de développement (http://localhost:3000)
+npm run build   # Compilation de production statique
+npm run lint    # Validation ESLint & TypeScript
 ```
-
-```bash
-npm run build   # build de production
-npm run lint     # ESLint
-```
-
-## Stack
-
-Next.js (App Router, Turbopack) + TypeScript, React 19, MDX (@next/mdx), Three.js (@react-three/fiber, @react-three/drei), CSS Vanilla avec variables dynamiques et anti-FOUC.
-
-## Outillage IA & MCP
-
-Ce dépôt est développé avec l'assistance d'outils IA :
-
-- `.mcp.json` — configuration des serveurs MCP (GitHub, Vercel).
-- `.claude/`, `.gemini/`, `.agents/` — configurations locales par agent (ignorées dans `.gitignore`).
-
-## Licence
-
-AGPL-3.0-or-later — voir [`LICENSE`](https://github.com/FantasmaGlad/Bobine/blob/main/LICENSE) du projet Bobine.
 

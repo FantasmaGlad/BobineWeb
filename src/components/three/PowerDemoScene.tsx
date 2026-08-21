@@ -3,7 +3,6 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
-  ContactShadows,
   OrbitControls,
   useProgress,
 } from "@react-three/drei";
@@ -276,7 +275,7 @@ export default function PowerDemoScene() {
             scale={0.9}
           />
 
-          {/* 3. Les 4 vélos stationnaires face à l'écran (-Math.PI / 2 pour orienter le guidon vers l'écran) */}
+          {/* 3. Les 4 vélos stationnaires face à l'écran (-90° / -Math.PI / 2) */}
           {BIKES_STUDIO.map((bike, idx) => (
             <VeloModel
               key={idx}
@@ -285,16 +284,6 @@ export default function PowerDemoScene() {
               scale={2.2}
             />
           ))}
-
-          {/* Ombre de sol contact douce */}
-          <ContactShadows
-            position={[0, 0, 0]}
-            opacity={0.5}
-            blur={2.0}
-            far={10}
-            scale={20}
-            frames={1}
-          />
         </Suspense>
 
         <OrbitControls

@@ -40,8 +40,8 @@ Décision structurante : **le site porte un système complet de 18 thèmes bicol
   - `foret` (Vert sapin & émeraude nocturne)
   - `abysse` (Océan abyssal & bleu électrique)
 - **Sélecteur de Thème Segmenté** ([`src/components/ThemeSwitcher.tsx`](../src/components/ThemeSwitcher.tsx)) :
-  - Deux onglets dédiés : **☀️ Thèmes Clairs (8)** et **🌙 Thèmes Sombres (10)**.
-  - Grille tactile de cartes avec pastilles bicolores (fond + accent), descriptions d'ambiance et coche de sélection active.
+  - Deux onglets dédiés : **Thèmes Clairs (8)** et **Thèmes Sombres (10)** (avec icônes vectorielles SVG soleil / lune, zéro emoji).
+  - Grille tactile de cartes avec pastilles bicolores (fond + accent), descriptions d'ambiance et coche SVG de sélection active.
   - Persistance dans `localStorage` (`bobineweb-theme`) et synchronisation synchrone multi-onglets via `useSyncExternalStore`.
 
 ## 4. Typographie
@@ -70,7 +70,7 @@ Décision structurante : **le site porte un système complet de 18 thèmes bicol
     - Panneau latéral tactile [`MobileDrawer.tsx`](../src/components/MobileDrawer.tsx) avec fond flouté (`backdrop-filter: blur(10px)`), cibles tactiles $\ge 48\text{px}$, accès direct aux sous-chapitres de documentation et contrôles de personnalisation intégrés.
     - Navigation de documentation contextuelle [`DocsMobileNav.tsx`](../src/components/DocsMobileNav.tsx) : barre collante avec sélecteur de chapitre déroulant et recherche plein écran.
     - Comparateur [`ComparisonTable.tsx`](../src/components/ComparisonTable.tsx) adaptatif : bascule automatique en cartes comparatives sur mobile pour une lisibilité totale sans zoom.
-- **Règle éditoriale stricte** : Zéro emoji dans toute l'interface et les contenus textuels (remplacés par des icônes SVG vectorielles ou de la typographie claire).
+- **Règle absolue (Zéro Emoji)** : **Interdiction stricte et absolue de tout emoji dans l'ensemble du site, de l'interface, des composants UI, des boutons, des sélecteurs et de la documentation**. Toute indication visuelle doit être exclusivement portée par des icônes vectorielles SVG ou de la typographie textuelle soignée.
 - **Export & Sauvegarde** : Bouton d'export PDF vectoriel (`window.print()` avec styles `@media print` optimisés) et notification hors-ligne auto-dissimulée à 5s.
 
 ## 8. Optimisations Graphiques & Performance WebGL (0% GPU au repos)

@@ -9,6 +9,7 @@ import { buildMetadata } from "@/lib/seo";
 import GitHubIcon from "@/components/icons/GitHubIcon";
 import GitHubAttachmentMedia from "@/components/GitHubAttachmentMedia";
 import ShareButton from "@/components/ShareButton";
+import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 const GITHUB_ATTACHMENT_PATTERN =
   /^https:\/\/github\.com\/user-attachments\/assets\//;
@@ -89,8 +90,15 @@ export default async function BlogPostPage({
     },
   };
 
+  const breadcrumbs = [
+    { name: "Bobine", url: `/${locale}` },
+    { name: "Blog", url: `/${locale}/blog` },
+    { name: release.title, url: `/${locale}/blog/${slug}` },
+  ];
+
   return (
     <div className="container" style={{ paddingBlock: "clamp(2.5rem, 6vw, 5rem)", maxWidth: "60rem" }}>
+      <BreadcrumbsJsonLd items={breadcrumbs} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}

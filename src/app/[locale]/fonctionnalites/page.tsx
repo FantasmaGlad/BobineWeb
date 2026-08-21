@@ -131,18 +131,21 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "/fonctionnalites",
     title: isEn
-      ? "Features & Playout Architecture — Bobine"
-      : "Fonctionnalités & Architecture Technique — Bobine",
+      ? "Features & Playout Architecture — Bobine | Les Mills Cinema Alternative"
+      : "Fonctionnalités & Architecture Technique — Bobine | Alternative Les Mills Cinema",
     description: isEn
-      ? "Discover the modular capabilities of Bobine: MPV hardware decoding, automated HDMI-CEC TV control, on-demand touch kiosk, and 24/7 background audio."
-      : "Découvrez les capacités modulaires de Bobine : moteur MPV accéléré matériellement, pilotage TV automatique HDMI-CEC, borne tactile adhérent et radio 24/7.",
+      ? "Discover the modular capabilities of Bobine: MPV hardware decoding, automated HDMI-CEC TV control, on-demand touch kiosk, and 24/7 background audio without monthly subscription."
+      : "Découvrez les fonctionnalités de Bobine face aux solutions comme Les Mills Cinema : décodage matériel Intel VA-API, pilotage TV automatique HDMI-CEC, borne tactile et radio 24/7 sans abonnement.",
     keywords: [
       "Fonctionnalités Bobine",
+      "Alternative Les Mills Cinema",
+      "Alternative Les Mills Virtual",
       "Décodage matériel MPV VA-API",
       "Contrôle TV HDMI-CEC fitness",
       "Borne tactile cours collectif",
       "Radio ambiance salle de sport",
       "Architecture streaming autonome",
+      "Virtual fitness player features",
     ],
   });
 }

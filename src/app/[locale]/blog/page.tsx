@@ -21,6 +21,7 @@ const copy = {
 
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
+import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
   params,
@@ -42,6 +43,7 @@ export async function generateMetadata({
       "Releases Bobine",
       "Mises à jour régie vidéo",
       "Changelog Bobine",
+      "Nouveautés Bobine",
     ],
   });
 }
@@ -56,8 +58,14 @@ export default async function BlogIndexPage({
   const t = copy[locale as Locale];
   const releases = await getBobineReleases();
 
+  const breadcrumbs = [
+    { name: "Bobine", url: `/${locale}` },
+    { name: t.title, url: `/${locale}/blog` },
+  ];
+
   return (
     <div className="container" style={{ paddingBlock: "clamp(2rem, 5vw, 4rem)", maxWidth: "68rem" }}>
+      <BreadcrumbsJsonLd items={breadcrumbs} />
       {/* En-tête large et aéré */}
       <div
         style={{

@@ -5,9 +5,9 @@ import { isLocale, type Locale } from "@/lib/i18n";
 
 import Shot from "@/components/Shot";
 import Link from "next/link";
-
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
+import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
   params,
@@ -20,16 +20,21 @@ export async function generateMetadata({
   return buildMetadata({
     locale: locale as Locale,
     pathname: "/documentation/utilisation",
-    title: isEn ? "User Manual & Daily Operations — Bobine" : "Guide d'Utilisation & Exploitation Quotidienne — Bobine",
+    title: isEn
+      ? "User Manual & Daily Operations — Bobine | Les Mills Cinema Alternative"
+      : "Guide d'Utilisation & Exploitation Quotidienne — Bobine | Alternative Les Mills Cinema",
     description: isEn
       ? "Comprehensive usage manual for Bobine: Admin dashboard, video library management, weekly timetable scheduler, member touch kiosk, and 24/7 background radio."
       : "Manuel complet d'utilisation de Bobine : panneau d'administration, médiathèque vidéo, planificateur de cours hebdomadaire, borne tactile et radio 24/7.",
     keywords: [
       "Guide utilisation Bobine",
+      "Alternative Les Mills Cinema",
+      "Alternative Les Mills Virtual",
       "Panneau administration vidéo fitness",
       "Planificateur cours collectif",
       "Borne tactile membre fitness",
       "Télécommande smartphone QR code",
+      "Gym video operations guide",
     ],
   });
 }
@@ -43,11 +48,18 @@ export default async function UtilisationPage({
   if (!isLocale(locale)) notFound();
   const isEn = locale === "en";
 
+  const breadcrumbs = [
+    { name: "Bobine", url: `/${locale}` },
+    { name: "Documentation", url: `/${locale}/documentation` },
+    { name: isEn ? "Operations Manual" : "Utilisation & Exploitation", url: `/${locale}/documentation/utilisation` },
+  ];
+
   return isEn ? (
     <>
+      <BreadcrumbsJsonLd items={breadcrumbs} />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
         <div>
-          <span className="feature-category-label">User Manual</span>
+          <span className="feature-category-label">User Manual & Operations</span>
           <h1 style={{ margin: 0 }}>Usage Guide & Operations</h1>
         </div>
         <ShareButton
@@ -62,25 +74,79 @@ export default async function UtilisationPage({
         The complete guide to every screen, feature, and tool once Bobine is installed (see the <Link href={`/${locale}/documentation/demarrage-rapide`}>Quick Start Guide</Link> if you haven&apos;t installed it yet).
       </p>
 
+      <div className="docs-callout docs-callout--info">
+        <div className="docs-callout__icon">🌐</div>
+        <div className="docs-callout__content">
+          <div className="docs-callout__title">Universal Web Architecture</div>
+          <div>All control interfaces (Admin, Kiosk, Remote) are web applications rendered in your browser. Any tablet, smartphone, or laptop on the gym&apos;s Wi-Fi network can manage Bobine without downloading apps from an app store.</div>
+        </div>
+      </div>
+
       <h2 id="admin-dashboard">Admin Dashboard</h2>
       <p>
         Accessible on <code>http://bobine.local</code> from any web browser on your gym&apos;s local network — no client software or apps needed.
       </p>
       <Shot caption="Overview of the Bobine web administration dashboard" />
 
-      <h3 id="workout-library">Workout Library</h3>
+      <h3 id="workout-library">Workout Library & Video Formats</h3>
       <p>
         Drag-and-drop or batch video upload, custom category management (Spinning, HIIT, Yoga, Pilates, Stretching), multi-file actions, upload progress tracking, and automatic video thumbnail extraction.
       </p>
+
+      <div className="docs-table-wrapper">
+        <table className="docs-table">
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Supported</th>
+              <th>Recommended Setting</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Video Codec</strong></td>
+              <td>H.264 (AVC), H.265 (HEVC), VP9, AV1</td>
+              <td><code>H.264 / High Profile</code> (100% hardware decoded)</td>
+            </tr>
+            <tr>
+              <td><strong>Resolution & FPS</strong></td>
+              <td>720p, 1080p, 4K (24/30/60 FPS)</td>
+              <td><code>1080p @ 60 FPS</code></td>
+            </tr>
+            <tr>
+              <td><strong>Bitrate</strong></td>
+              <td>Up to 50 Mbps</td>
+              <td><code>8 to 15 Mbps</code> (CBR/VBR)</td>
+            </tr>
+            <tr>
+              <td><strong>Audio Format</strong></td>
+              <td>AAC-LC, MP3, FLAC, PCM</td>
+              <td><code>AAC 48kHz Stereo @ 256 kbps</code></td>
+            </tr>
+            <tr>
+              <td><strong>Container</strong></td>
+              <td>MP4, MKV, WebM, MOV</td>
+              <td><code>.mp4</code> (with faststart enabled)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <Shot caption="Uploading video files via drag-and-drop into the media library" />
 
-      <h3 id="weekly-scheduling">Weekly Scheduling</h3>
+      <h3 id="weekly-scheduling">Weekly Scheduling & Automation</h3>
       <p>
-        Build a recurring weekly timetable: each scheduled class triggers automatically at the exact second on the chosen display, powering on the TV via HDMI-CEC.
+        Build a recurring weekly timetable: each scheduled class triggers automatically at the exact second on the chosen display.
       </p>
+      <div className="docs-callout docs-callout--tip">
+        <div className="docs-callout__icon">⚡</div>
+        <div className="docs-callout__content">
+          <div className="docs-callout__title">Automated TV Power (HDMI-CEC)</div>
+          <div>Bobine automatically sends an HDMI-CEC power-on command to your TV <strong>2 minutes before</strong> the class starts, switches the input channel, and puts the screen into standby <strong>5 minutes after</strong> the workout ends.</div>
+        </div>
+      </div>
       <Shot caption="Weekly scheduling grid with scheduled workout slots" />
 
-      <h3 id="playlists">Playlists</h3>
+      <h3 id="playlists">Playlists & Rotation</h3>
       <p>
         Create custom playlists for both the cinema screen and background radio — loop modes, shuffle playback, and custom track sequencing.
       </p>
@@ -98,7 +164,7 @@ export default async function UtilisationPage({
 
       <h2 id="network-secondary-display">Network Secondary Display</h2>
       <p>
-        A completely independent second display output — any device with a browser on the local network (smart TV, iPad, PC) can open and display it.
+        A completely independent second display output — any device with a browser on the local network (smart TV, iPad, PC) can open and display it simultaneously.
       </p>
 
       <h2 id="coach-audio-mode">Coach Audio Mode</h2>
@@ -109,13 +175,13 @@ export default async function UtilisationPage({
 
       <h2 id="background-radio">24/7 Background Music & Voice Alerts</h2>
       <p>
-        A continuous background music player: smooth crossfades between songs, shuffle, repeat, and scheduled vocal safety announcements (&quot;Please re-rack your weights&quot;, closing warnings).
+        A continuous background music player: smooth crossfades between songs (adjustable 0s to 12s), shuffle, repeat, and scheduled vocal safety announcements (&quot;Please wipe down equipment&quot;, closing warnings).
       </p>
       <Shot caption="Admin Radio tab with active playlist and playback controls" />
 
-      <h2 id="mobile-phone-remote">Mobile Phone Remote</h2>
+      <h2 id="mobile-phone-remote">Mobile Phone Remote (QR Code)</h2>
       <p>
-        Open <code>http://bobine.local</code> on a mobile phone on the local Wi-Fi: the interface automatically adapts into a fast handheld remote for gym staff (play, pause, seek, next track, volume).
+        Scan the local QR code or open <code>http://bobine.local/remote</code> on any phone connected to the gym Wi-Fi: the interface becomes a handheld controller for instructors (play, pause, seek, volume control, track skip).
       </p>
       <Shot caption="Mobile remote control interface on a smartphone" />
 
@@ -132,9 +198,8 @@ export default async function UtilisationPage({
   ) : (
     <>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
-
         <div>
-          <span className="feature-category-label">Guide Pratique</span>
+          <span className="feature-category-label">Guide Pratique & Exploitation</span>
           <h1 style={{ margin: 0 }}>Utilisation & Guide Pratique</h1>
         </div>
         <ShareButton
@@ -149,22 +214,76 @@ export default async function UtilisationPage({
         Le guide complet de chaque écran et de chaque outil, une fois Bobine installé (voir le <Link href={`/${locale}/documentation/demarrage-rapide`}>démarrage rapide</Link> si ce n&apos;est pas encore fait).
       </p>
 
+      <div className="docs-callout docs-callout--info">
+        <div className="docs-callout__icon">🌐</div>
+        <div className="docs-callout__content">
+          <div className="docs-callout__title">Architecture Web Universelle</div>
+          <div>Toutes les interfaces de pilotage (Admin, Kiosque, Télécommande) sont des applications web servies en local. N&apos;importe quel smartphone, tablette ou ordinateur connecté au Wi-Fi de la salle pilote Bobine sans passer par un magasin d&apos;applications.</div>
+        </div>
+      </div>
+
       <h2 id="panneau-dadministration">Panneau d&apos;administration</h2>
       <p>
-        Accessible sur <code>http://bobine.local</code> depuis n&apos;importe quel navigateur du réseau — aucune installation cliente nécessaire.
+        Accessible sur <code>http://bobine.local</code> depuis n&apos;importe quel navigateur du réseau local — aucune installation cliente nécessaire.
       </p>
       <Shot caption="Vue d'ensemble du panneau d'administration" />
 
-      <h3 id="bibliotheque">Bibliothèque</h3>
+      <h3 id="bibliotheque">Bibliothèque & Formats Vidéo Recommandés</h3>
       <p>
-        Import par glisser-déposer ou envoi en lot, catégories libres (les catégories de cours ne sont pas imposées : elles s&apos;adaptent à votre catalogue), sélection groupée pour agir sur plusieurs fichiers à la fois, progression affichée fichier par fichier, miniatures générées automatiquement.
+        Import par glisser-déposer ou envoi en lot, catégories libres (les catégories de cours s&apos;adaptent à votre catalogue), sélection groupée pour agir sur plusieurs fichiers à la fois, progression affichée fichier par fichier, miniatures générées automatiquement.
       </p>
+
+      <div className="docs-table-wrapper">
+        <table className="docs-table">
+          <thead>
+            <tr>
+              <th>Paramètre</th>
+              <th>Formats supportés</th>
+              <th>Réglage recommandé</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Codec Vidéo</strong></td>
+              <td>H.264 (AVC), H.265 (HEVC), VP9, AV1</td>
+              <td><code>H.264 / High Profile</code> (100% matériel)</td>
+            </tr>
+            <tr>
+              <td><strong>Résolution & Fréquence</strong></td>
+              <td>720p, 1080p, 4K (24/30/60 FPS)</td>
+              <td><code>1080p @ 60 FPS</code></td>
+            </tr>
+            <tr>
+              <td><strong>Débit binaire (Bitrate)</strong></td>
+              <td>Jusqu&apos;à 50 Mbps</td>
+              <td><code>8 à 15 Mbps</code> (CBR/VBR)</td>
+            </tr>
+            <tr>
+              <td><strong>Format Audio</strong></td>
+              <td>AAC-LC, MP3, FLAC, PCM</td>
+              <td><code>AAC 48kHz Stéréo @ 256 kbps</code></td>
+            </tr>
+            <tr>
+              <td><strong>Conteneur</strong></td>
+              <td>MP4, MKV, WebM, MOV</td>
+              <td><code>.mp4</code> (avec option faststart)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <Shot caption="Import de vidéos par glisser-déposer dans la bibliothèque" />
 
-      <h3 id="planification">Planification</h3>
+      <h3 id="planification">Planification & Automatisation</h3>
       <p>
         Construisez une timetable hebdomadaire : chaque créneau démarre automatiquement à l&apos;heure prévue, sur l&apos;écran choisi.
       </p>
+      <div className="docs-callout docs-callout--tip">
+        <div className="docs-callout__icon">⚡</div>
+        <div className="docs-callout__content">
+          <div className="docs-callout__title">Allumage TV automatique (HDMI-CEC)</div>
+          <div>Bobine envoie un signal HDMI-CEC pour allumer la télévision <strong>2 minutes avant</strong> le début du cours, bascule sur la bonne entrée, et remet l&apos;écran en veille <strong>5 minutes après</strong> la fin de la séance.</div>
+        </div>
+      </div>
       <Shot caption="Planning hebdomadaire avec des créneaux de cours" />
 
       <h3 id="playlists">Playlists</h3>
@@ -172,7 +291,7 @@ export default async function UtilisationPage({
         Des playlists pour la borne cinéma comme pour la radio — ordre des pistes, lecture aléatoire, répétition.
       </p>
 
-      <h3 id="parametres">Paramètres</h3>
+      <h3 id="parametres">Paramètres & Routage d&apos;écran</h3>
       <p>
         Sortie d&apos;écran (quel contenu sur l&apos;écran câblé, quel contenu sur l&apos;écran réseau), thèmes, langue, réseau, et la zone de danger (désinstallation).
       </p>
@@ -185,7 +304,7 @@ export default async function UtilisationPage({
 
       <h2 id="ecran-reseau">Écran réseau</h2>
       <p>
-        Une seconde sortie, totalement indépendante de l&apos;écran câblé — n&apos;importe quel appareil avec un navigateur sur le réseau local peut l&apos;afficher.
+        Une seconde sortie, totalement indépendante de l&apos;écran câblé — n&apos;importe quel appareil avec un navigateur sur le réseau local peut l&apos;afficher en simultané.
       </p>
 
       <h2 id="mode-coach-audio">Mode coach audio</h2>
@@ -194,15 +313,15 @@ export default async function UtilisationPage({
       </p>
       <Shot caption="Écran du mode coach audio avec fond animé" />
 
-      <h2 id="radio">Radio</h2>
+      <h2 id="radio">Radio 24/7 & Rappels Vocaux</h2>
       <p>
-        Un lecteur de musique d&apos;ambiance 24/7, façon Spotify : fondu enchaîné entre les pistes, lecture aléatoire, répétition, et rappels vocaux programmés (« re-rackez vos poids », etc.).
+        Un lecteur de musique d&apos;ambiance 24/7, façon Spotify : fondu enchaîné réglable (de 0s à 12s), lecture aléatoire, répétition, et rappels vocaux programmés (« re-rackez vos poids », consignes de fermeture).
       </p>
       <Shot caption="Onglet Radio de l'admin : playlist en cours et contrôles" />
 
-      <h2 id="telecommande-mobile">Télécommande mobile</h2>
+      <h2 id="telecommande-mobile">Télécommande mobile (QR Code)</h2>
       <p>
-        Ouvrez <code>http://bobine.local</code> sur un téléphone connecté au même réseau : l&apos;interface s&apos;adapte automatiquement en télécommande pour le staff — lecture, pause, avance, piste suivante.
+        Scannez le QR Code affiché dans l&apos;administration ou ouvrez <code>http://bobine.local/remote</code> sur un téléphone connecté au Wi-Fi : l&apos;interface devient une télécommande de poche pour les coachs (lecture, pause, avance, volume, passage de piste).
       </p>
       <Shot caption="Interface de télécommande mobile sur un téléphone" />
 

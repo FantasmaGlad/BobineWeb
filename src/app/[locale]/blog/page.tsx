@@ -17,8 +17,8 @@ const copy = {
     releasesHeading: "Notes de Versions & Mises à Jour",
     articlesHeading: "Articles Techniques & Retours d'Expérience",
     empty: "Aucune version publiée pour le moment.",
-    readMore: "Lire les détails de la version →",
-    readArticle: "Lire le guide complet →",
+    readMore: "Lire les détails de la version",
+    readArticle: "Lire le guide complet",
     viewOnGithub: "Voir sur GitHub",
   },
   en: {
@@ -29,8 +29,8 @@ const copy = {
     releasesHeading: "Release Changelog & Updates",
     articlesHeading: "Technical Articles & Real-World Guides",
     empty: "No releases found yet.",
-    readMore: "Read release details →",
-    readArticle: "Read full guide →",
+    readMore: "Read release details",
+    readArticle: "Read full guide",
     viewOnGithub: "View on GitHub",
   },
 } as const;

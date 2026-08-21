@@ -151,7 +151,7 @@ export default async function DemarrageRapidePage({
       <div className="docs-callout docs-callout--info">
         <div className="docs-callout__content">
           <div className="docs-callout__title">Recommended BIOS Setting</div>
-          <div>In the BIOS under <strong>Power Management → AC Recovery</strong>, set to <strong>Power On</strong>. This guarantees that your Bobine player automatically powers back on and resumes playback after any gym power outage.</div>
+          <div>In the BIOS under <strong>Power Management / AC Recovery</strong>, set to <strong>Power On</strong>. This guarantees that your Bobine player automatically powers back on and resumes playback after any gym power outage.</div>
         </div>
       </div>
       <Shot caption="Boot menu showing the USB flash drive selected as primary boot device" />
@@ -315,7 +315,7 @@ speaker-test -t wav -c 2 -l 1</code>
       <div className="docs-callout docs-callout--info">
         <div className="docs-callout__content">
           <div className="docs-callout__title">Réglage BIOS recommandé</div>
-          <div>Dans le BIOS (section <strong>Power Management → AC Recovery</strong>), choisissez <strong>Power On</strong>. Le mini PC se rallumera ainsi automatiquement dès le retour du courant après une coupure générale.</div>
+          <div>Dans le BIOS (section <strong>Power Management / AC Recovery</strong>), choisissez <strong>Power On</strong>. Le mini PC se rallumera ainsi automatiquement dès le retour du courant après une coupure générale.</div>
         </div>
       </div>
       <Shot caption="Écran du menu de démarrage (boot menu) avec la clé USB visible dans la liste" />

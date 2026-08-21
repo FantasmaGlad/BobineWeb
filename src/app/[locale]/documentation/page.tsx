@@ -2,6 +2,11 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
+import { buildMetadata } from "@/lib/seo";
+import ShareButton from "@/components/ShareButton";
+import DownloadPdfButton from "@/components/DownloadPdfButton";
+import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
+import QuickInstallSnippet from "@/components/QuickInstallSnippet";
 
 const copy = {
   fr: {
@@ -11,30 +16,35 @@ const copy = {
       {
         slug: "manifeste",
         badge: "Vision & DA",
+        readTime: "4 min",
         title: "Manifeste & Identité",
         body: "L'histoire, le pourquoi, la philosophie libre, la direction artistique et l'origine de la mascotte Baamix.",
       },
       {
         slug: "demarrage-rapide",
         badge: "Tutoriel",
+        readTime: "6 min",
         title: "Démarrage rapide",
         body: "Le guide d'installation étape par étape sur Debian 13 pour votre mini PC, sans connaissances techniques approfondies.",
       },
       {
         slug: "utilisation",
         badge: "Guide Pratique",
+        readTime: "8 min",
         title: "Utilisation & Exploitation",
         body: "Le fonctionnement complet du panneau d'administration, de la borne cinéma membre, de la radio et des télécommandes.",
       },
       {
         slug: "faq",
         badge: "Support",
+        readTime: "5 min",
         title: "FAQ / Dépannage",
         body: "Les réponses aux questions courantes, résolution de problèmes réseau et astuces d'optimisation.",
       },
       {
         slug: "developpeurs",
         badge: "Technique",
+        readTime: "7 min",
         title: "Développeurs & Architecture",
         body: "Architecture interne, endpoints d'API, services systemd, stack logicielle et guide de contribution.",
       },
@@ -47,42 +57,41 @@ const copy = {
       {
         slug: "manifeste",
         badge: "Vision & DA",
+        readTime: "4 min",
         title: "Manifesto & Identity",
         body: "The story, why Bobine was built, open-source values, art direction, and the origin of Baamix.",
       },
       {
         slug: "demarrage-rapide",
         badge: "Tutorial",
+        readTime: "6 min",
         title: "Quick Start Guide",
         body: "Step-by-step installation guide on Debian 13 for your mini PC, no prior Linux expertise required.",
       },
       {
         slug: "utilisation",
         badge: "User Manual",
+        readTime: "8 min",
         title: "Daily Usage & Operations",
         body: "Complete manual for the admin interface, the member-facing cinema kiosk, background radio, and remotes.",
       },
       {
         slug: "faq",
         badge: "Support",
+        readTime: "5 min",
         title: "FAQ / Troubleshooting",
         body: "Answers to common questions, local network troubleshooting, and performance tuning tips.",
       },
       {
         slug: "developpeurs",
         badge: "Technical",
+        readTime: "7 min",
         title: "Developers & Architecture",
         body: "Internal software architecture, REST API endpoints, systemd services, and contribution guidelines.",
       },
     ],
   },
 } as const;
-
-
-import { buildMetadata } from "@/lib/seo";
-import ShareButton from "@/components/ShareButton";
-import DownloadPdfButton from "@/components/DownloadPdfButton";
-import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
   params,
@@ -131,7 +140,7 @@ export default async function DocumentationIndexPage({
   return (
     <>
       <BreadcrumbsJsonLd items={breadcrumbs} />
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.75rem" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "0.5rem" }}>
         <div>
           <span className="feature-category-label">
             {locale === "en" ? "Knowledge Base & Guides" : "Base de Connaissances & Guides"}
@@ -162,6 +171,10 @@ export default async function DocumentationIndexPage({
         </div>
       </div>
 
+      {/* Encart Commande d'installation rapide en 1 ligne */}
+      <QuickInstallSnippet locale={locale as Locale} />
+
+      {/* Liste des chapitres — Mise en page ouverte, lignes fines */}
       <div style={{ display: "flex", flexDirection: "column", borderTop: "1px solid var(--border-subtle)" }}>
         {t.sections.map((section) => (
           <Link
@@ -170,29 +183,26 @@ export default async function DocumentationIndexPage({
             className="doc-open-row"
             style={{
               textDecoration: "none",
-              paddingBlock: "1.5rem",
+              paddingBlock: "1.35rem",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "flex-start",
               gap: "1.5rem",
             }}
           >
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", maxWidth: "48rem" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem", maxWidth: "48rem" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                <span className="badge" style={{ fontSize: "0.725rem", padding: "0.2rem 0.55rem" }}>
-                  {section.badge}
+                <span className="badge" style={{ fontSize: "0.725rem", padding: "0.15rem 0.5rem" }}>
+                  {section.badge} · {section.readTime}
                 </span>
-                <h2 style={{ fontSize: "1.2rem", fontWeight: 700, margin: 0, color: "var(--text-heading)" }}>
+                <h2 style={{ fontSize: "1.15rem", fontWeight: 700, margin: 0, color: "var(--text-heading)" }}>
                   {section.title}
                 </h2>
               </div>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", lineHeight: 1.55, margin: 0 }}>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.925rem", lineHeight: 1.55, margin: 0 }}>
                 {section.body}
               </p>
             </div>
-            <span style={{ color: "var(--accent-primary)", fontSize: "1.15rem", fontWeight: 700, flexShrink: 0, marginTop: "0.25rem" }}>
-              →
-            </span>
           </Link>
         ))}
       </div>

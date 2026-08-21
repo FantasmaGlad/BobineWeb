@@ -16,7 +16,7 @@ const copy = {
       "Bobine transforme un mini PC bon marché en système vidéo complet pour votre espace fitness : cours planifiés, borne cinéma à la demande, radio d'ambiance 24/7 — sans abonnement, sans dépendance au cloud, sans coupure.",
     ctaPrimary: "Installer Bobine",
     ctaSecondary: "Voir sur GitHub",
-    ctaDocs: "Consulter la documentation →",
+    ctaDocs: "Consulter la documentation",
   },
   en: {
     title: "The open-source video & streaming system for your fitness club",
@@ -24,7 +24,7 @@ const copy = {
       "Bobine turns a low-cost mini PC into a complete in-club multimedia system: scheduled classes, on-demand cinema kiosk, 24/7 background radio — no monthly fees, no cloud lock-in, no downtime.",
     ctaPrimary: "Install Bobine",
     ctaSecondary: "View on GitHub",
-    ctaDocs: "Explore documentation →",
+    ctaDocs: "Explore documentation",
   },
 } as const;
 

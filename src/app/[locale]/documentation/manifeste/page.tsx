@@ -125,7 +125,7 @@ export default async function ManifestePage({
           View Source Code on GitHub
         </a>
         <Link className="btn-secondary" href={`/${locale}/documentation/demarrage-rapide`}>
-          Install Bobine →
+          Install Bobine
         </Link>
       </div>
     </>
@@ -203,7 +203,7 @@ export default async function ManifestePage({
           Explorer le code sur GitHub
         </a>
         <Link className="btn-secondary" href={`/${locale}/documentation/demarrage-rapide`}>
-          Installer Bobine →
+          Installer Bobine
         </Link>
       </div>
     </>

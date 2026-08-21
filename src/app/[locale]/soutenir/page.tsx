@@ -86,7 +86,7 @@ export default function SupportPage() {
 
               <div className="github-pr-card__branch-info">
                 <span className="github-pr-branch">main</span>
-                <span className="github-pr-arrow">←</span>
+                <span className="github-pr-branch-sep">{isEn ? "from" : "depuis"}</span>
                 <span className="github-pr-branch is-feature">feature/your-contribution</span>
               </div>
             </div>

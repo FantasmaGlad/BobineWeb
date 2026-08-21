@@ -121,9 +121,9 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
     if (!messageContent || isLoading) return;
 
     const userMessage: Message = { role: "user", content: messageContent };
-    const updatedMessages = [...messages, userMessage];
+    const assistantMessage: Message = { role: "assistant", content: "" };
 
-    setMessages(updatedMessages);
+    setMessages((prev) => [...prev, userMessage, assistantMessage]);
     setInput("");
     setIsLoading(true);
 
@@ -132,18 +132,18 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          messages: updatedMessages,
+          messages: [...messages, userMessage],
           locale,
         }),
       });
 
       if (!response.ok) {
         const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.error || "Erreur de communication avec le serveur.");
+        throw new Error(errData.error || (isEn ? "Server communication error." : "Erreur de communication avec le serveur."));
       }
 
       if (!response.body) {
-        throw new Error("Flux de réponse indisponible.");
+        throw new Error(isEn ? "Response stream unavailable." : "Flux de réponse indisponible.");
       }
 
       const reader = response.body.getReader();
@@ -165,14 +165,17 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
       }
     } catch (err: unknown) {
       const errorMsg =
-        err instanceof Error ? err.message : "Erreur de génération du message.";
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: `⚠️ Une erreur s'est produite : ${errorMsg}`,
-        },
-      ]);
+        err instanceof Error ? err.message : (isEn ? "Message generation error." : "Erreur de génération du message.");
+      setMessages((prev) => {
+        const list = prev.slice(0, -1);
+        return [
+          ...list,
+          {
+            role: "assistant",
+            content: isEn ? `Error: ${errorMsg}` : `Erreur : ${errorMsg}`,
+          },
+        ];
+      });
     } finally {
       setIsLoading(false);
     }

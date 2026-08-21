@@ -206,13 +206,15 @@ export default function MobileDrawer({
                     window.dispatchEvent(new CustomEvent("open-baamix"));
                   }}
                 >
-                  <Image
-                    src="/images/baamix.jpg"
-                    alt="Baamix"
-                    width={22}
-                    height={22}
-                    className="chatbot-avatar-img"
-                  />
+                  <div className="mobile-drawer-baamix-avatar">
+                    <Image
+                      src="/images/baamix.jpg"
+                      alt="Baamix"
+                      width={22}
+                      height={22}
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                  </div>
                   <span>Baamix</span>
                 </button>
               )}

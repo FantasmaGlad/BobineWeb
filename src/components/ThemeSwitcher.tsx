@@ -13,9 +13,15 @@ import {
 } from "@/lib/themes";
 
 function getCurrentTheme(): Theme {
-  if (typeof document === "undefined") return defaultTheme;
+  if (typeof window === "undefined") return defaultTheme;
+  try {
+    const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+    if (stored && isTheme(stored)) {
+      return stored as Theme;
+    }
+  } catch {}
   const attr = document.documentElement.getAttribute("data-theme");
-  return attr && isTheme(attr) ? attr : defaultTheme;
+  return attr && isTheme(attr) ? (attr as Theme) : defaultTheme;
 }
 
 const listeners = new Set<() => void>();

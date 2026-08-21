@@ -118,7 +118,7 @@ export default async function BlogPostPage({
             transition: "color 0.15s ease",
           }}
         >
-          ← {locale === "fr" ? "Retour aux articles" : "Back to articles"}
+          {locale === "fr" ? "Retour aux articles" : "Back to articles"}
         </Link>
       </div>
 

@@ -141,7 +141,7 @@ export default function RoiCalculator({ locale }: { locale: Locale }) {
             className="btn-primary"
             href={`/${locale}/documentation/demarrage-rapide`}
           >
-            {isEn ? "Start Free Setup →" : "Installer Bobine gratuitement →"}
+            {isEn ? "Start Free Setup" : "Installer Bobine gratuitement"}
           </Link>
         </div>
       </div>

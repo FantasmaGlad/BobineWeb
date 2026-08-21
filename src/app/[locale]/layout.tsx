@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
-import { THEME_STORAGE_KEY } from "@/lib/themes";
 import Header from "@/components/Header";
 import TechTicker from "@/components/TechTicker";
 import Footer from "@/components/Footer";
@@ -13,14 +11,6 @@ import JsonLd from "@/components/JsonLd";
 import BobineChatbot from "@/components/BobineChatbot";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import "../globals.css";
-
-
-
-// Applique le thème persisté (localStorage) avant le premier rendu, avec
-// "clair" comme thème par défaut.
-const themeInitScript = `try{var t=localStorage.getItem(${JSON.stringify(
-  THEME_STORAGE_KEY
-)})||'clair';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','clair');}`;
 
 
 export function generateStaticParams() {
@@ -89,6 +79,8 @@ export const metadata: Metadata = {
 
 
 
+import ThemeSync from "@/components/ThemeSync";
+
 export default async function RootLayout({
   children,
   params,
@@ -103,12 +95,15 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body>
-        <Script
-          id="theme-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{ __html: themeInitScript }}
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('bobineweb-theme')||'clair';document.documentElement.setAttribute('data-theme',t);}catch(e){}})()`,
+          }}
         />
+      </head>
+      <body>
+        <ThemeSync />
         <JsonLd locale={locale} />
         <Header locale={locale} dict={dict} />
         <TechTicker locale={locale as Locale} />
@@ -120,7 +115,6 @@ export default async function RootLayout({
         <Analytics />
         <Demo3DPreloader />
       </body>
-
     </html>
   );
 }

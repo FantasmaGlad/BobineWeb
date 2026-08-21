@@ -236,6 +236,7 @@ const BIKES_STUDIO = [
 
 export default function PowerDemoScene() {
   const [playing, setPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
 
   const handleTogglePlay = () => {
@@ -244,7 +245,17 @@ export default function PowerDemoScene() {
       el.muted = false;
       el.volume = 1.0;
     }
+    setIsMuted(false);
     setPlaying((prev) => !prev);
+  };
+
+  const handleToggleMute = () => {
+    const el = document.getElementById("bobine-3d-video-el") as HTMLVideoElement;
+    if (el) {
+      const nextMuted = !el.muted;
+      el.muted = nextMuted;
+      setIsMuted(nextMuted);
+    }
   };
 
   return (
@@ -311,26 +322,74 @@ export default function PowerDemoScene() {
 
       <LoadingOverlay />
 
-      <button
-        type="button"
-        className="power-demo__status"
-        data-on={playing}
-        onClick={handleTogglePlay}
+      <div
         style={{
           position: "absolute",
           top: "1.25rem",
           left: "1.25rem",
           zIndex: 10,
-          cursor: "pointer",
-          border: "1px solid var(--border-subtle)",
-          background: "var(--bg-card)",
-          fontFamily: "inherit",
+          display: "flex",
+          gap: "0.5rem",
+          flexWrap: "wrap",
+          alignItems: "center",
         }}
-        title="Cliquez pour lancer ou mettre en pause la démo vidéo"
       >
-        <span className="power-demo__dot" />
-        <span>{playing ? "Démo vidéo en cours (cliquez pour pause)" : "Cliquez sur le Wyse ou l'écran pour lancer la démo"}</span>
-      </button>
+        <button
+          type="button"
+          className="power-demo__status"
+          data-on={playing}
+          onClick={handleTogglePlay}
+          style={{
+            cursor: "pointer",
+            border: "1px solid var(--border-subtle)",
+            background: "var(--bg-card)",
+            fontFamily: "inherit",
+          }}
+          title="Cliquez pour lancer ou mettre en pause la démo vidéo"
+        >
+          <span className="power-demo__dot" />
+          <span>{playing ? "Démo vidéo en cours (cliquez pour pause)" : "Cliquez sur le Wyse ou l'écran pour lancer la démo"}</span>
+        </button>
+
+        {playing && (
+          <button
+            type="button"
+            className="btn-secondary"
+            onClick={handleToggleMute}
+            style={{
+              padding: "0.35rem 0.75rem",
+              fontSize: "0.8rem",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem",
+              background: "var(--bg-card)",
+              border: "1px solid var(--border-subtle)",
+              cursor: "pointer",
+              borderRadius: "999px",
+            }}
+            title={isMuted ? "Activer le son" : "Couper le son"}
+          >
+            {isMuted ? (
+              <>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                  <line x1="23" y1="9" x2="17" y2="15" />
+                  <line x1="17" y1="9" x2="23" y2="15" />
+                </svg>
+                <span>Son coupé</span>
+              </>
+            ) : (
+              <>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+                </svg>
+                <span>Son 100%</span>
+              </>
+            )}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

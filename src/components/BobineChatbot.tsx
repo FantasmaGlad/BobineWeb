@@ -51,7 +51,27 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
     ? "Hello! I am Baamix, the Bobine mascot. Have a question about Bobine or equipping your gym?"
     : "Bonjour, je suis Baamix la mascotte de Bobine ! Une question sur Bobine ou l'équipement de votre salle ?";
 
+  useEffect(() => {
+    function handleToggle() {
+      setIsOpen((prev) => !prev);
+    }
+    function handleOpen() {
+      setIsOpen(true);
+    }
+    function handleClose() {
+      setIsOpen(false);
+    }
 
+    window.addEventListener("toggle-baamix", handleToggle);
+    window.addEventListener("open-baamix", handleOpen);
+    window.addEventListener("close-baamix", handleClose);
+
+    return () => {
+      window.removeEventListener("toggle-baamix", handleToggle);
+      window.removeEventListener("open-baamix", handleOpen);
+      window.removeEventListener("close-baamix", handleClose);
+    };
+  }, []);
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -78,7 +98,8 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
         isOpen &&
         modalRef.current &&
         !modalRef.current.contains(e.target as Node) &&
-        !(e.target as HTMLElement).closest(".chatbot-trigger-btn")
+        !(e.target as HTMLElement).closest(".baamix-header-btn") &&
+        !(e.target as HTMLElement).closest(".mobile-drawer-baamix-btn")
       ) {
         setIsOpen(false);
       }
@@ -127,16 +148,15 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let streamBuffer = "";
-
-      setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+      let accumulated = "";
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
+
         const chunk = decoder.decode(value, { stream: true });
-        streamBuffer = `${streamBuffer}${chunk}`;
-        const currentText = streamBuffer;
+        accumulated = `${accumulated}${chunk}`;
+        const currentText = accumulated;
 
         setMessages((prev) => {
           const list = prev.slice(0, -1);
@@ -144,87 +164,51 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
         });
       }
     } catch (err: unknown) {
-      console.error("Erreur chatbot:", err);
-      const errMsg =
-        err instanceof Error
-          ? err.message
-          : isEn
-          ? "Sorry, an error occurred while connecting to Baamix."
-          : "Désolé, une erreur est survenue lors de la communication avec Baamix.";
-
+      const errorMsg =
+        err instanceof Error ? err.message : "Erreur de génération du message.";
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: errMsg,
+          content: `⚠️ Une erreur s'est produite : ${errorMsg}`,
         },
       ]);
-
     } finally {
       setIsLoading(false);
     }
   }
 
-  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+  function handleKeyDownInput(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
     }
   }
 
-  if (!isAllowedPage) {
+  if (!isAllowedPage || !isOpen) {
     return null;
   }
 
   return (
-    <>
-      {/* Bouton d'ouverture flottant au milieu droit de l'écran */}
-      <div className="chatbot-floating-wrapper">
-        {!isOpen && (
-          <button
-            type="button"
-            className="chatbot-trigger-btn"
-            onClick={() => setIsOpen(true)}
-            aria-label={isEn ? "Open chat with Baamix" : "Ouvrir la discussion avec Baamix"}
-            aria-expanded={isOpen}
-          >
-            <div className="chatbot-trigger-avatar">
-              <Image
-                src="/images/baamix.jpg"
-                alt="Baamix"
-                width={24}
-                height={24}
-                className="chatbot-avatar-img"
-              />
-            </div>
-            <span className="chatbot-trigger-label">Baamix</span>
-            <span className="chatbot-trigger-dot" />
-          </button>
-        )}
-      </div>
-
-      {/* Fenêtre de discussion positionnée au milieu droit */}
-      {isOpen && (
-        <div ref={modalRef} className="chatbot-modal" role="dialog" aria-modal="true">
-          {/* En-tête */}
-          <div className="chatbot-modal__header">
-            <div className="chatbot-modal__title-group">
-              <div className="chatbot-avatar">
-                <Image
-                  src="/images/baamix.jpg"
-                  alt="Baamix"
-                  width={34}
-                  height={34}
-                  className="chatbot-avatar-img"
-                />
-                <span className="chatbot-avatar-status" />
-              </div>
-              <div>
-                <h4 className="chatbot-modal__title">Baamix</h4>
-                <span className="chatbot-modal__subtitle">{isEn ? "Bobine Mascot" : "Mascotte de Bobine"}</span>
-              </div>
-
-            </div>
+    <div ref={modalRef} className="chatbot-modal" role="dialog" aria-modal="true">
+      {/* En-tête */}
+      <div className="chatbot-modal__header">
+        <div className="chatbot-modal__title-group">
+          <div className="chatbot-avatar">
+            <Image
+              src="/images/baamix.jpg"
+              alt="Baamix"
+              width={34}
+              height={34}
+              className="chatbot-avatar-img"
+            />
+            <span className="chatbot-avatar-status" />
+          </div>
+          <div>
+            <h4 className="chatbot-modal__title">Baamix</h4>
+            <span className="chatbot-modal__subtitle">{isEn ? "Bobine Mascot" : "Mascotte de Bobine"}</span>
+          </div>
+        </div>
             <div style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
               {messages.length > 0 && (
                 <button
@@ -360,7 +344,7 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
                 }
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
+                onKeyDown={handleKeyDownInput}
                 disabled={isLoading}
               />
               <button
@@ -383,7 +367,5 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
             </div>
           </div>
         </div>
-      )}
-    </>
   );
 }

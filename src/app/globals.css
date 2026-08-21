@@ -2837,35 +2837,75 @@ main {
    Chatbot IA Bobine (Orca Router & DeepSeek)
    ========================================================================== */
 
-/* ==========================================================================
-   Chatbot Commerciale Baamix
-   ========================================================================== */
-
-.chatbot-floating-wrapper {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  top: auto;
-  transform: none;
-  z-index: 950;
-}
-
-.chatbot-trigger-btn {
+/* Bouton Baamix dans le Header */
+.baamix-header-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  background: var(--bg-surface-elevated);
+  gap: 0.45rem;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
   color: var(--text-heading);
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 2rem;
-  padding: 0.42rem 0.95rem 0.42rem 0.48rem;
-  font-size: 0.825rem;
-  font-weight: 700;
+  border-radius: 0.45rem;
+  padding: 0.3rem 0.65rem 0.3rem 0.45rem;
   cursor: pointer;
-  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.25), var(--shadow-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.15s ease;
+}
+
+.baamix-header-btn:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 1px var(--accent-primary);
+  background: var(--bg-surface-hover);
+}
+
+.baamix-header-avatar {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.baamix-header-dot {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 1px solid var(--bg-card);
+}
+
+.mobile-drawer-baamix-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.65rem;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-heading);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin-top: 0.5rem;
+}
+
+.mobile-drawer-baamix-btn:hover {
+  border-color: var(--accent-primary);
+  background: var(--bg-surface-hover);
 }
 
 .chatbot-trigger-btn:hover {
@@ -4353,9 +4393,56 @@ main {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
+/* Profil GitHub du Maintainer */
+.github-profile-author-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.35rem 0.6rem;
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.55rem;
+}
+
+.github-profile-avatar-box {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid var(--border-subtle);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.github-profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.github-profile-author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.github-profile-name {
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1.2;
+}
+
+.github-profile-role {
+  font-size: 0.725rem;
+  color: var(--text-muted);
+  line-height: 1.1;
+}
+
 .github-pr-card__title {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-heading);
   line-height: 1.3;

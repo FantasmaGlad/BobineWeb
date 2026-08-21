@@ -30,6 +30,15 @@ export default function Header({
     [`/${locale}/a-propos`, dict.nav.about],
   ];
 
+  const isAllowedBaamix = (() => {
+    if (!pathname) return false;
+    const cleanPath = pathname.replace(/\/$/, "");
+    if (cleanPath === `/${locale}`) return true;
+    if (cleanPath.startsWith(`/${locale}/fonctionnalites`)) return true;
+    if (cleanPath.startsWith(`/${locale}/documentation`)) return true;
+    return false;
+  })();
+
   return (
     <>
       <header className="site-header">
@@ -63,6 +72,27 @@ export default function Header({
 
           {/* Switchers & Badges Desktop */}
           <div className="site-header__actions">
+            {isAllowedBaamix && (
+              <button
+                type="button"
+                className="baamix-header-btn"
+                onClick={() => window.dispatchEvent(new CustomEvent("toggle-baamix"))}
+                title="Ouvrir l'assistant Baamix"
+                aria-label="Ouvrir l'assistant Baamix"
+              >
+                <div className="baamix-header-avatar">
+                  <Image
+                    src="/images/baamix.jpg"
+                    alt="Baamix"
+                    width={20}
+                    height={20}
+                    className="chatbot-avatar-img"
+                  />
+                  <span className="baamix-header-dot" />
+                </div>
+                <span>Baamix</span>
+              </button>
+            )}
             <GitHubBadge />
             <ThemeSwitcher />
             <LocaleSwitcher locale={locale} dict={dict} />

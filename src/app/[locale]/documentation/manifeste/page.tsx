@@ -59,7 +59,7 @@ export default async function ManifestePage({
           <h1 style={{ margin: 0 }}>Manifesto, Identity & Art Direction</h1>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <DownloadPdfButton locale={locale as Locale} />
+          <DownloadPdfButton locale={locale as Locale} chapterId="manifeste" />
           <ShareButton
             locale={locale as Locale}
             pathname="/documentation/manifeste"
@@ -137,7 +137,7 @@ export default async function ManifestePage({
           <h1 style={{ margin: 0 }}>Manifeste, Identité & Direction Artistique</h1>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <DownloadPdfButton locale={locale as Locale} />
+          <DownloadPdfButton locale={locale as Locale} chapterId="manifeste" />
           <ShareButton
             locale={locale as Locale}
             pathname="/documentation/manifeste"

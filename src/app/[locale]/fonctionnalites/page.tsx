@@ -215,7 +215,7 @@ export default async function FeaturesPage({
 
         <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
           <a href="#video-engine" className="btn-primary">
-            {isEn ? "Explore Features" : "Découvrir les Capacités"} ↓
+            {isEn ? "Explore Features" : "Découvrir les Capacités"}
           </a>
           <a href="#roi-calculator" className="btn-secondary">
             {isEn ? "ROI Calculator" : "Calculateur d'Économies"}

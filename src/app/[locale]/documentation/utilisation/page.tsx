@@ -64,7 +64,7 @@ export default async function UtilisationPage({
           <h1 style={{ margin: 0 }}>Usage Guide & Operations</h1>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <DownloadPdfButton locale={locale as Locale} />
+          <DownloadPdfButton locale={locale as Locale} chapterId="utilisation" />
           <ShareButton
             locale={locale as Locale}
             pathname="/documentation/utilisation"
@@ -205,7 +205,7 @@ export default async function UtilisationPage({
           <h1 style={{ margin: 0 }}>Utilisation & Guide Pratique</h1>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <DownloadPdfButton locale={locale as Locale} />
+          <DownloadPdfButton locale={locale as Locale} chapterId="utilisation" />
           <ShareButton
             locale={locale as Locale}
             pathname="/documentation/utilisation"

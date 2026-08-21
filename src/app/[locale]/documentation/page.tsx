@@ -81,6 +81,7 @@ const copy = {
 
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
+import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
   params,
@@ -93,16 +94,21 @@ export async function generateMetadata({
   return buildMetadata({
     locale: locale as Locale,
     pathname: "/documentation",
-    title: isEn ? "Documentation & Guides — Bobine" : "Documentation & Guides Techniques — Bobine",
+    title: isEn
+      ? "Documentation & Playout Guides — Bobine | Les Mills Cinema Alternative"
+      : "Documentation & Guides Techniques — Bobine | Alternative Les Mills Cinema",
     description: isEn
       ? "Official documentation for Bobine: quick start setup, system manual, troubleshooting FAQ, developer reference, and software architecture."
       : "Documentation officielle de Bobine : guide d'installation Debian, manuel d'exploitation en salle, FAQ dépannage, architecture logicielle et manifeste.",
     keywords: [
       "Documentation Bobine",
+      "Alternative Les Mills Cinema",
+      "Alternative Les Mills Virtual",
       "Guide régie vidéo salle de sport",
       "Tutoriel installation Bobine",
       "FAQ Bobine",
       "Manuel exploitation fitness",
+      "Gym video automation manual",
     ],
   });
 }
@@ -116,8 +122,14 @@ export default async function DocumentationIndexPage({
   if (!isLocale(locale)) notFound();
   const t = copy[locale as Locale];
 
+  const breadcrumbs = [
+    { name: "Bobine", url: `/${locale}` },
+    { name: t.title, url: `/${locale}/documentation` },
+  ];
+
   return (
     <>
+      <BreadcrumbsJsonLd items={breadcrumbs} />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.25rem" }}>
         <div>
           <h1 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.2rem)", marginBottom: "0.35rem" }}>{t.title}</h1>
@@ -132,7 +144,6 @@ export default async function DocumentationIndexPage({
           description={t.intro}
         />
       </div>
-
 
       <div style={{ display: "grid", gap: "0.75rem" }}>
         {t.sections.map((section) => (

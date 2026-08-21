@@ -4,9 +4,9 @@ import { isLocale, type Locale } from "@/lib/i18n";
 
 
 import CodeBlock from "@/components/CodeBlock";
-
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
+import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
   params,
@@ -19,12 +19,16 @@ export async function generateMetadata({
   return buildMetadata({
     locale: locale as Locale,
     pathname: "/documentation/developpeurs",
-    title: isEn ? "Developer Documentation & Software Architecture — Bobine" : "Documentation Développeurs & Architecture Logicielle — Bobine",
+    title: isEn
+      ? "Developer Documentation & REST API — Bobine | Open Source Playout"
+      : "Documentation Développeurs & API REST — Bobine | Régie Vidéo Libre",
     description: isEn
-      ? "Technical reference for Bobine developers: multi-worker FastAPI backend, Redis state bus, MPV hardware playout, Next.js UI, and AGPL-3.0 contribution guidelines."
-      : "Référence technique pour développeurs : backend FastAPI multi-worker, bus Redis, moteur MPV accéléré matériellement, interface Next.js et contribution AGPL-3.0.",
+      ? "Technical reference for Bobine developers: multi-worker FastAPI backend, REST API, WebSockets, MPV hardware playout, Next.js UI, and AGPL-3.0 contribution guidelines."
+      : "Référence technique pour développeurs : API REST locale, WebSockets, backend FastAPI multi-worker, bus Redis, moteur MPV accéléré matériellement et contribution AGPL-3.0.",
     keywords: [
       "Architecture Bobine",
+      "API REST Bobine",
+      "WebSockets fitness playout",
       "Développement Bobine FastAPI",
       "MPV backend Python",
       "Redis state bus fitness",
@@ -42,124 +46,438 @@ export default async function DeveloppeursPage({
   if (!isLocale(locale)) notFound();
   const isEn = locale === "en";
 
+  const breadcrumbs = [
+    { name: "Bobine", url: `/${locale}` },
+    { name: "Documentation", url: `/${locale}/documentation` },
+    { name: isEn ? "Developers & Architecture" : "Développeurs & Architecture", url: `/${locale}/documentation/developpeurs` },
+  ];
+
   return isEn ? (
     <>
+      <BreadcrumbsJsonLd items={breadcrumbs} />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
         <div>
-          <span className="feature-category-label">Architecture</span>
+          <span className="feature-category-label">Architecture & API Reference</span>
           <h1 style={{ margin: 0 }}>Developer Documentation & Architecture</h1>
         </div>
         <ShareButton
           locale={locale as Locale}
           pathname="/documentation/developpeurs"
           title="Bobine Developer Documentation & Architecture"
-          description="Technical reference and architectural overview of Bobine."
+          description="Technical reference, REST API, WebSockets and architectural overview of Bobine."
         />
       </div>
 
       <p>
-        This page provides a technical overview of the Bobine software architecture, stack, and local development workflow. Complete documentation lives in the main repository:
+        This documentation provides an in-depth reference for software engineers and integrators working with the Bobine platform: architecture, local REST API endpoints, real-time WebSocket protocol, background systemd supervisors, and AGPL-3.0 contribution guidelines.
       </p>
 
-      <ul>
-        <li><a href="https://github.com/FantasmaGlad/Bobine/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noreferrer"><strong>docs/ARCHITECTURE.md</strong></a> — multi-worker backend, SQLite data model, distributed Redis state bus, MPV hardware player, REST API, and WebSockets.</li>
-        <li><a href="https://github.com/FantasmaGlad/Bobine" target="_blank" rel="noreferrer"><strong>GitHub Repository</strong></a> — source code, Issues, Discussions, and Releases.</li>
-      </ul>
+      <div className="docs-callout docs-callout--info">
+        <div className="docs-callout__icon">⚡</div>
+        <div className="docs-callout__content">
+          <div className="docs-callout__title">100% Local & Privacy-Preserving</div>
+          <div>All APIs and WebSocket streams run exclusively on the local network (LAN / Wi-Fi) of the mini PC. No media, authentication keys, or analytics are ever transmitted to third-party cloud servers.</div>
+        </div>
+      </div>
 
       <h2 id="software-stack">Software Stack</h2>
-      <ul>
-        <li><strong>Backend</strong> — Python 3.11+, FastAPI with <code>uvicorn</code> (4 workers), SQLAlchemy, SQLite, Redis (Pub/Sub state bus, distributed locks), APScheduler, <code>ffmpeg</code> &amp; Intel VA-API for hardware decoding.</li>
-        <li><strong>Frontend</strong> — Next.js (App Router, static export served by backend in production), React 19, TypeScript, Vanilla CSS with 13 dynamic themes, and WebSockets.</li>
-        <li><strong>Runtime &amp; Playout</strong> — Debian 13, Chromium kiosk mode (X11), <code>systemd</code> supervisors, <code>avahi-daemon</code> for mDNS discovery.</li>
-        <li><strong>Installer</strong> — <code>install.sh</code> (Bash, idempotent automated deployment).</li>
-      </ul>
+      <div className="docs-table-wrapper">
+        <table className="docs-table">
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Technology</th>
+              <th>Role & Responsibility</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Backend API</strong></td>
+              <td>Python 3.11+, FastAPI, Uvicorn</td>
+              <td>High-throughput asynchronous REST API and WebSocket events</td>
+            </tr>
+            <tr>
+              <td><strong>State Bus & Cache</strong></td>
+              <td>Redis 7 (Pub/Sub & Distributed Locks)</td>
+              <td>Inter-worker state synchronization, rate-limiting, and locking</td>
+            </tr>
+            <tr>
+              <td><strong>Persistence</strong></td>
+              <td>SQLite + SQLAlchemy 2.0</td>
+              <td>Workout metadata, weekly schedules, playlists, and settings</td>
+            </tr>
+            <tr>
+              <td><strong>Playout Engine</strong></td>
+              <td>MPV + Intel VA-API (libva)</td>
+              <td>Zero-copy hardware video decoding (1080p60 & 4K) via IPC Unix socket</td>
+            </tr>
+            <tr>
+              <td><strong>Frontend UI</strong></td>
+              <td>Next.js 16 (App Router), React 19, TS</td>
+              <td>Universal responsive web app (Admin, Kiosk, Remote, Radio)</td>
+            </tr>
+            <tr>
+              <td><strong>Hardware Control</strong></td>
+              <td>libcec (HDMI-CEC) + ALSA</td>
+              <td>Automated TV standby/wake and multi-channel audio routing</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <h2 id="architecture-overview">Architecture Overview</h2>
-      <p>
-        A single on-premise mini PC runs the multi-worker backend (shared state via Redis, distributed locks preventing race conditions), the Chromium kiosk display for the wired screen, and serves the static Next.js interface (admin, cinema kiosk, mobile remote). All other devices (network secondary screen, remotes, staff laptops) are simple web browsers connecting over local Wi-Fi — zero media ever leaves your local network.
-      </p>
-
-      <h2 id="local-development">Local Development</h2>
-      <p>Prerequisites: Node.js ≥ 20, Python ≥ 3.11, local active Redis server.</p>
+      <h2 id="local-development">Local Development Workflow</h2>
+      <p>Prerequisites: Node.js ≥ 20, Python ≥ 3.11, active local Redis server.</p>
 
       <CodeBlock>
-        <code># Backend (FastAPI + Redis) — port 8001 in dev
+        <code>{`# 1. Backend (FastAPI + Redis) — running on port 8001
 cd backend
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-redis-server &
+redis-server --daemonize yes
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8001
 
-# Frontend (Next.js)
+# 2. Frontend (Next.js App Router) — running on port 3000
 cd frontend
 npm install
-npm run dev</code>
+npm run dev`}</code>
       </CodeBlock>
 
-      <h2 id="contributing">Contributing</h2>
+      <h2 id="rest-api-reference">Local REST API Reference</h2>
       <p>
-        Issues and pull requests are warmly welcome on the official repository. Bobine is released under the <strong>AGPL-3.0</strong> copyleft license: any modified version operated as a network service must make its source code available under the same license terms.
+        The Bobine daemon exposes a clean, typed REST API on <code>http://bobine.local/api</code> (or <code>http://127.0.0.1:8000/api</code>):
       </p>
+
+      <div className="docs-api-card">
+        <div className="docs-api-header">
+          <span className="docs-method-badge docs-method--get">GET</span>
+          <span className="docs-api-endpoint">/api/health</span>
+        </div>
+        <p>Machine-readable health check endpoint queried continuously by the systemd watchdog.</p>
+        <CodeBlock>
+          <code>{`// Response (200 OK)
+{
+  "status": "healthy",
+  "redis": "connected",
+  "database": "ok",
+  "kiosk_active": true,
+  "uptime_seconds": 86420
+}`}</code>
+        </CodeBlock>
+      </div>
+
+      <div className="docs-api-card">
+        <div className="docs-api-header">
+          <span className="docs-method-badge docs-method--get">GET</span>
+          <span className="docs-api-endpoint">/api/status</span>
+        </div>
+        <p>Returns the real-time playback state, active workout, progress, and screen routing status.</p>
+        <CodeBlock>
+          <code>{`// Response (200 OK)
+{
+  "state": "playing",
+  "current_workout": {
+    "id": "w_982a7f",
+    "title": "RPM Sprint 45",
+    "category": "Spinning",
+    "duration_seconds": 2700
+  },
+  "timecode": 1420.5,
+  "volume": 80,
+  "next_scheduled_class": {
+    "title": "Yoga Vinyasa",
+    "starts_in_seconds": 840
+  }
+}`}</code>
+        </CodeBlock>
+      </div>
+
+      <div className="docs-api-card">
+        <div className="docs-api-header">
+          <span className="docs-method-badge docs-method--post">POST</span>
+          <span className="docs-api-endpoint">/api/playout/play</span>
+        </div>
+        <p>Starts immediate video playout for a specified workout ID.</p>
+        <CodeBlock>
+          <code>{`// Request body
+{ "workout_id": "w_982a7f", "target_display": "hdmi_wired" }
+
+// Response (200 OK)
+{ "success": true, "message": "Playout started" }`}</code>
+        </CodeBlock>
+      </div>
+
+      <div className="docs-api-card">
+        <div className="docs-api-header">
+          <span className="docs-method-badge docs-method--post">POST</span>
+          <span className="docs-api-endpoint">/api/playout/volume</span>
+        </div>
+        <p>Adjusts master hardware sound volume level (0 to 100).</p>
+        <CodeBlock>
+          <code>{`// Request body
+{ "level": 85 }
+
+// Response (200 OK)
+{ "success": true, "current_volume": 85 }`}</code>
+        </CodeBlock>
+      </div>
+
+      <div className="docs-api-card">
+        <div className="docs-api-header">
+          <span className="docs-method-badge docs-method--post">POST</span>
+          <span className="docs-api-endpoint">/api/cec/power-on</span>
+        </div>
+        <p>Sends an HDMI-CEC wakeup signal to the connected television screen.</p>
+      </div>
+
+      <h2 id="websocket-events">Real-Time WebSocket Protocol</h2>
+      <p>
+        Clients connect to <code>ws://bobine.local/ws/events</code> to receive instantaneous state changes across all devices:
+      </p>
+
+      <CodeBlock>
+        <code>{`// Broadcast event on state change:
+{
+  "event": "PLAYBACK_STATE_CHANGED",
+  "payload": {
+    "state": "playing",
+    "workout_id": "w_982a7f",
+    "timecode": 45.2,
+    "volume": 80
+  }
+}`}</code>
+      </CodeBlock>
+
+      <h2 id="systemd-services">Systemd Supervisor Architecture</h2>
+      <p>Bobine is managed by 3 isolated systemd services for fault tolerance:</p>
+      <ul>
+        <li><code>bobine-backend.service</code> — Python FastAPI application, Redis connection, and SQLite daemon.</li>
+        <li><code>bobine-kiosk.service</code> — Lightweight X11 session running Chromium in kiosk mode displaying the wired cinema screen.</li>
+        <li><code>bobine-watchdog.service</code> — Proactive health supervisor polling <code>/api/health</code> every 10s and triggering automated component restarts if needed.</li>
+      </ul>
+
+      <h2 id="contributing-community">Community, Contact & Contribution</h2>
+      <p>
+        Bobine is licensed under the <strong>AGPL-3.0</strong> copyleft license. We welcome contributions, bug reports, and hardware compatibility tests.
+      </p>
+
+      <div className="docs-contact-box">
+        <div><strong>GitHub Repository</strong> — <a href="https://github.com/FantasmaGlad/Bobine" target="_blank" rel="noreferrer">github.com/FantasmaGlad/Bobine</a></div>
+        <div><strong>Discussions & Support</strong> — <a href="https://github.com/FantasmaGlad/Bobine/discussions" target="_blank" rel="noreferrer">GitHub Discussions</a></div>
+        <div><strong>Security & Bug Reports</strong> — Open an issue or contact the maintainers via GitHub.</div>
+      </div>
     </>
   ) : (
     <>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
-
         <div>
-          <span className="feature-category-label">Architecture</span>
+          <span className="feature-category-label">Architecture & Référence API</span>
           <h1 style={{ margin: 0 }}>Documentation Développeurs & Architecture</h1>
         </div>
         <ShareButton
           locale={locale as Locale}
           pathname="/documentation/developpeurs"
           title="Documentation Développeurs Bobine"
-          description="Synthèse technique de l'architecture logicielle, de la stack et du développement local de Bobine."
+          description="Synthèse technique de l'architecture logicielle, des APIs REST et des WebSockets de Bobine."
         />
       </div>
 
       <p>
-        Cette page présente une synthèse de l&apos;architecture technique, de la stack et du flux de développement local de Bobine. La référence complète vit dans le dépôt officiel :
+        Cette documentation constitue la référence technique pour les développeurs et intégrateurs du système Bobine : architecture système, endpoints de l&apos;API REST locale, protocole d&apos;événements WebSockets temps réel, superviseurs systemd et guide de contribution AGPL-3.0.
       </p>
 
-      <ul>
-        <li><a href="https://github.com/FantasmaGlad/Bobine/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noreferrer"><strong>docs/ARCHITECTURE.md</strong></a> — stack, architecture multi-worker, modèle de données SQLite, bus d&apos;état Redis, lecteur matériel MPV, API REST et WebSockets.</li>
-        <li><a href="https://github.com/FantasmaGlad/Bobine" target="_blank" rel="noreferrer"><strong>Dépôt GitHub</strong></a> — code source, Issues, Discussions et Releases.</li>
-      </ul>
+      <div className="docs-callout docs-callout--info">
+        <div className="docs-callout__icon">⚡</div>
+        <div className="docs-callout__content">
+          <div className="docs-callout__title">100% Local & Respect de la vie privée</div>
+          <div>L&apos;ensemble des APIs et flux WebSockets s&apos;exécute exclusivement sur le réseau local (LAN / Wi-Fi) du mini PC. Aucun média, clé d&apos;authentification ou donnée télémétrique n&apos;est transmis à des serveurs tiers.</div>
+        </div>
+      </div>
 
-      <h2 id="stack-technique">Stack technique</h2>
-      <ul>
-        <li><strong>Backend</strong> — Python 3.11+, FastAPI avec <code>uvicorn</code> (4 workers), SQLAlchemy, SQLite, Redis (bus d&apos;état Pub/Sub, verrous distribués), APScheduler, <code>ffmpeg</code> et VA-API Intel pour le décodage matériel.</li>
-        <li><strong>Frontend</strong> — Next.js (App Router, export statique servi par le backend en production), React 19, TypeScript, CSS vanilla avec 13 thèmes commutables à chaud, WebSockets.</li>
-        <li><strong>Exploitation</strong> — Debian 13, Chromium en kiosque (X11), <code>systemd</code>, <code>avahi-daemon</code> pour la découverte mDNS.</li>
-        <li><strong>Installation</strong> — <code>install.sh</code> (Bash, déploiement automatisé et idempotent).</li>
-      </ul>
+      <h2 id="stack-technique">Stack Technique Détaillée</h2>
+      <div className="docs-table-wrapper">
+        <table className="docs-table">
+          <thead>
+            <tr>
+              <th>Couche</th>
+              <th>Technologie</th>
+              <th>Rôle & Responsabilité</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Backend API</strong></td>
+              <td>Python 3.11+, FastAPI, Uvicorn</td>
+              <td>API REST asynchrone ultra-rapide et gestion des connexions WebSockets</td>
+            </tr>
+            <tr>
+              <td><strong>Bus d&apos;état & Cache</strong></td>
+              <td>Redis 7 (Pub/Sub & Verrous distribués)</td>
+              <td>Synchronisation multi-workers, limitation de débit et verrous anti-concurrence</td>
+            </tr>
+            <tr>
+              <td><strong>Persistance</strong></td>
+              <td>SQLite + SQLAlchemy 2.0</td>
+              <td>Métadonnées des vidéos, planning hebdomadaire, playlists et paramètres</td>
+            </tr>
+            <tr>
+              <td><strong>Moteur de Lecture</strong></td>
+              <td>MPV + Intel VA-API (libva)</td>
+              <td>Décodage matériel vidéo zero-copy (1080p60 et 4K) piloté via socket IPC Unix</td>
+            </tr>
+            <tr>
+              <td><strong>Interface Frontend</strong></td>
+              <td>Next.js 16 (App Router), React 19, TS</td>
+              <td>Application web universelle et réactive (Admin, Kiosque, Télécommande, Radio)</td>
+            </tr>
+            <tr>
+              <td><strong>Contrôle Matériel</strong></td>
+              <td>libcec (HDMI-CEC) + ALSA</td>
+              <td>Allumage/veille automatique du téléviseur et routage audio multi-canaux</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <h2 id="architecture-en-bref">Architecture en bref</h2>
-      <p>
-        Un seul mini PC sur le réseau local fait tourner le backend multi-worker (état partagé via Redis, verrous distribués), le kiosque Chromium pour l&apos;écran câblé, et sert l&apos;interface Next.js (admin, cinéma membre, télécommande mobile). Les autres appareils (écran réseau, télécommandes, PC d&apos;admin) sont de simples navigateurs qui pointent vers le mini PC — aucun média ne quitte le réseau local.
-      </p>
-
-      <h2 id="developpement-local">Développement local</h2>
-      <p>Prérequis : Node.js ≥ 20, Python ≥ 3.11, Redis local actif.</p>
+      <h2 id="developpement-local">Développement Local</h2>
+      <p>Prérequis : Node.js ≥ 20, Python ≥ 3.11, serveur Redis actif en local.</p>
 
       <CodeBlock>
-        <code># Backend (FastAPI + Redis) — port 8001 en dev
+        <code>{`# 1. Backend (FastAPI + Redis) — port 8001
 cd backend
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-redis-server &
+redis-server --daemonize yes
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8001
 
-# Frontend (Next.js)
+# 2. Frontend (Next.js App Router) — port 3000
 cd frontend
 npm install
-npm run dev</code>
+npm run dev`}</code>
       </CodeBlock>
 
-      <h2 id="contribuer">Contribuer</h2>
+      <h2 id="reference-api-rest">Référence de l&apos;API REST Locale</h2>
       <p>
-        Les Issues et pull requests sont les bienvenues sur le dépôt principal. Le projet est sous licence <strong>AGPL-3.0</strong> : toute version modifiée exploitée comme service réseau doit rendre son code source disponible sous la même licence.
+        Le démon Bobine expose une API REST complète et typée sur <code>http://bobine.local/api</code> (ou <code>http://127.0.0.1:8000/api</code>) :
       </p>
+
+      <div className="docs-api-card">
+        <div className="docs-api-header">
+          <span className="docs-method-badge docs-method--get">GET</span>
+          <span className="docs-api-endpoint">/api/health</span>
+        </div>
+        <p>Point de contrôle de santé machine interrogé en continu par le chien de garde systemd.</p>
+        <CodeBlock>
+          <code>{`// Réponse JSON (200 OK)
+{
+  "status": "healthy",
+  "redis": "connected",
+  "database": "ok",
+  "kiosk_active": true,
+  "uptime_seconds": 86420
+}`}</code>
+        </CodeBlock>
+      </div>
+
+      <div className="docs-api-card">
+        <div className="docs-api-header">
+          <span className="docs-method-badge docs-method--get">GET</span>
+          <span className="docs-api-endpoint">/api/status</span>
+        </div>
+        <p>Retourne l&apos;état de diffusion en temps réel, le cours en cours, le timecode et le volume.</p>
+        <CodeBlock>
+          <code>{`// Réponse JSON (200 OK)
+{
+  "state": "playing",
+  "current_workout": {
+    "id": "w_982a7f",
+    "title": "RPM Sprint 45",
+    "category": "Spinning",
+    "duration_seconds": 2700
+  },
+  "timecode": 1420.5,
+  "volume": 80,
+  "next_scheduled_class": {
+    "title": "Yoga Vinyasa",
+    "starts_in_seconds": 840
+  }
+}`}</code>
+        </CodeBlock>
+      </div>
+
+      <div className="docs-api-card">
+        <div className="docs-api-header">
+          <span className="docs-method-badge docs-method--post">POST</span>
+          <span className="docs-api-endpoint">/api/playout/play</span>
+        </div>
+        <p>Déclenche la lecture immédiate d&apos;une vidéo par son identifiant unique.</p>
+        <CodeBlock>
+          <code>{`// Corps de requête
+{ "workout_id": "w_982a7f", "target_display": "hdmi_wired" }
+
+// Réponse JSON (200 OK)
+{ "success": true, "message": "Lecture démarrée" }`}</code>
+        </CodeBlock>
+      </div>
+
+      <div className="docs-api-card">
+        <div className="docs-api-header">
+          <span className="docs-method-badge docs-method--post">POST</span>
+          <span className="docs-api-endpoint">/api/playout/volume</span>
+        </div>
+        <p>Ajuste le volume sonore général de la salle (valeur de 0 à 100).</p>
+        <CodeBlock>
+          <code>{`// Corps de requête
+{ "level": 85 }
+
+// Réponse JSON (200 OK)
+{ "success": true, "current_volume": 85 }`}</code>
+        </CodeBlock>
+      </div>
+
+      <div className="docs-api-card">
+        <div className="docs-api-header">
+          <span className="docs-method-badge docs-method--post">POST</span>
+          <span className="docs-api-endpoint">/api/cec/power-on</span>
+        </div>
+        <p>Transmet une commande HDMI-CEC d&apos;allumage direct au téléviseur raccordé.</p>
+      </div>
+
+      <h2 id="flux-websockets">Protocole d&apos;Événements WebSockets</h2>
+      <p>
+        Les interfaces clientes se connectent à <code>ws://bobine.local/ws/events</code> pour recevoir les mises à jour en direct :
+      </p>
+
+      <CodeBlock>
+        <code>{`// Message JSON diffusé à tous les clients connectés :
+{
+  "event": "PLAYBACK_STATE_CHANGED",
+  "payload": {
+    "state": "playing",
+    "workout_id": "w_982a7f",
+    "timecode": 45.2,
+    "volume": 80
+  }
+}`}</code>
+      </CodeBlock>
+
+      <h2 id="services-systemd">Architecture des Services Systemd</h2>
+      <p>Bobine est orchestré par 3 unités systemd indépendantes :</p>
+      <ul>
+        <li><code>bobine-backend.service</code> — Application FastAPI Python, bus Redis et démon SQLite.</li>
+        <li><code>bobine-kiosk.service</code> — Session graphique X11 allégée affichant Chromium en plein écran sur la TV.</li>
+        <li><code>bobine-watchdog.service</code> — Superviseur de résilience interrogeant <code>/api/health</code> toutes les 10s avec relance automatique.</li>
+      </ul>
+
+      <h2 id="contact-communaute">Communauté, Contact & Contribution</h2>
+      <p>
+        Bobine est publié sous licence <strong>AGPL-3.0</strong>. Les contributions de code, rapports de bugs et retours d&apos;expérience matériel sont les bienvenus.
+      </p>
+
+      <div className="docs-contact-box">
+        <div><strong>Dépôt GitHub</strong> — <a href="https://github.com/FantasmaGlad/Bobine" target="_blank" rel="noreferrer">github.com/FantasmaGlad/Bobine</a></div>
+        <div><strong>Discussions & Support</strong> — <a href="https://github.com/FantasmaGlad/Bobine/discussions" target="_blank" rel="noreferrer">Discussions GitHub</a></div>
+        <div><strong>Sécurité & Signalement</strong> — Ouvrez une issue ou contactez les mainteneurs sur GitHub.</div>
+      </div>
     </>
   );
 }

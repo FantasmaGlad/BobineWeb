@@ -99,10 +99,38 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
       tags: ["watchdog", "panne", "coupure", "courant", "reprise", "systemd"],
     },
     {
+      title: "Tableau de résolution des erreurs courantes",
+      category: "Dépannage",
+      excerpt: "Diagnostic pas à pas pour mDNS, écran noir, audio HDMI, VA-API et CEC.",
+      href: "/fr/documentation/faq#tableau-depannage",
+      tags: ["erreur", "depannage", "audio", "ecran noir", "cec", "mdns", "vainfo"],
+    },
+    {
+      title: "Commandes de diagnostic indispensables (systemctl, vainfo, logs)",
+      category: "Dépannage",
+      excerpt: "Commandes terminal pour tester les services systemd, les flux de logs et l'API de santé.",
+      href: "/fr/documentation/faq#commandes-diagnostic",
+      tags: ["diagnostic", "journalctl", "systemctl", "vainfo", "terminal", "ssh"],
+    },
+    {
+      title: "Référence de l'API REST Locale (/api/health, /api/status, /api/playout)",
+      category: "Développeurs",
+      excerpt: "Documentation complète des endpoints REST asynchrones pour le contrôle de lecture et de la santé.",
+      href: "/fr/documentation/developpeurs#reference-api-rest",
+      tags: ["api", "rest", "endpoints", "health", "status", "playout", "json"],
+    },
+    {
+      title: "Protocole d'Événements WebSockets temps réel (/ws/events)",
+      category: "Développeurs",
+      excerpt: "Flux d'événements bidirectionnel pour la synchronisation instantanée des états entre écrans et télécommandes.",
+      href: "/fr/documentation/developpeurs#flux-websockets",
+      tags: ["websocket", "ws", "events", "temps reel", "broadcast", "etat"],
+    },
+    {
       title: "Architecture FastAPI, Redis, MPV & Next.js",
       category: "Développeurs",
       excerpt: "Détails de la pile logicielle multi-worker, SQLite, verrous distribués et WebSockets.",
-      href: "/fr/documentation/developpeurs#architecture-en-bref",
+      href: "/fr/documentation/developpeurs#stack-technique",
       tags: ["fastapi", "python", "redis", "mpv", "sqlite", "architecture", "developpeurs"],
     },
   ],
@@ -136,10 +164,17 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
       tags: ["install.sh", "script", "automation", "systemd", "redis", "fastapi"],
     },
     {
+      title: "Post-Install Validation & Hardware VA-API",
+      category: "Installation",
+      excerpt: "Verify Intel hardware video acceleration with vainfo and check systemd service units.",
+      href: "/en/documentation/demarrage-rapide#step-7--verify-system",
+      tags: ["vainfo", "intel", "vaapi", "systemd", "validation", "speaker-test"],
+    },
+    {
       title: "Open Interface at http://bobine.local",
       category: "Configuration",
       excerpt: "First connection from any local network browser or via the machine IP address.",
-      href: "/en/documentation/demarrage-rapide#step-7--open-the-interface",
+      href: "/en/documentation/demarrage-rapide#step-8--open-the-interface",
       tags: ["mdns", "bobine.local", "ip", "browser", "admin"],
     },
     {
@@ -178,24 +213,38 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
       tags: ["radio", "music", "crossfade", "announcements", "voice"],
     },
     {
-      title: "Automated HDMI-CEC TV Standby & Power",
-      category: "FAQ",
-      excerpt: "Powers TV on before class and into standby after workout with no manual remote.",
-      href: "/en/documentation/faq#daily-operation",
-      tags: ["hdmi", "cec", "power", "standby", "tv", "screen"],
+      title: "Common Error Resolution Matrix",
+      category: "Troubleshooting",
+      excerpt: "Step-by-step diagnostic fixes for mDNS, black screens, HDMI audio, and CEC.",
+      href: "/en/documentation/faq#troubleshooting-matrix",
+      tags: ["error", "troubleshooting", "audio", "black screen", "cec", "mdns"],
     },
     {
-      title: "Power Cut Resilience & Watchdog Supervisor",
-      category: "FAQ",
-      excerpt: "Continuous health monitoring on /api/health and instant automated recovery.",
-      href: "/en/documentation/faq#daily-operation",
-      tags: ["watchdog", "power cut", "crash", "recovery", "systemd"],
+      title: "Essential Diagnostic Commands (systemctl, vainfo, logs)",
+      category: "Troubleshooting",
+      excerpt: "Terminal diagnostic commands to inspect service health, live logs, and audio.",
+      href: "/en/documentation/faq#diagnostic-commands",
+      tags: ["diagnostic", "journalctl", "systemctl", "vainfo", "terminal", "ssh"],
+    },
+    {
+      title: "Local REST API Reference (/api/health, /api/status, /api/playout)",
+      category: "Developers",
+      excerpt: "Complete technical reference for local REST endpoints, request/response models.",
+      href: "/en/documentation/developpeurs#rest-api-reference",
+      tags: ["api", "rest", "endpoints", "health", "status", "playout", "json"],
+    },
+    {
+      title: "Real-Time WebSocket Protocol (/ws/events)",
+      category: "Developers",
+      excerpt: "Real-time state broadcast events for multi-screen and remote control synchronization.",
+      href: "/en/documentation/developpeurs#websocket-events",
+      tags: ["websocket", "ws", "events", "realtime", "broadcast", "state"],
     },
     {
       title: "FastAPI, Redis, MPV & Next.js Architecture",
       category: "Developers",
       excerpt: "Multi-worker backend details, SQLite database, distributed locks, and WebSockets.",
-      href: "/en/documentation/developpeurs#architecture-overview",
+      href: "/en/documentation/developpeurs#software-stack",
       tags: ["fastapi", "python", "redis", "mpv", "sqlite", "architecture", "developers"],
     },
   ],
@@ -244,8 +293,8 @@ export default function DocsSearch({ locale }: { locale: Locale }) {
           className="docs-search-input"
           placeholder={
             isEn
-              ? "Search documentation & FAQ (e.g. Wyse, HDMI-CEC, install, sound)..."
-              : "Rechercher dans la documentation & FAQ (ex. Wyse, HDMI-CEC, sono, install)..."
+              ? "Search documentation..."
+              : "Rechercher dans la documentation..."
           }
           value={query}
           onChange={(e) => setQuery(e.target.value)}

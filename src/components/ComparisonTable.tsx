@@ -117,13 +117,13 @@ export default function ComparisonTable({ locale }: { locale: Locale }) {
         </span>
         <h3 className="comparison-title">
           {isEn
-            ? "Bobine vs Proprietary Gym Streaming vs DIY"
-            : "Bobine face aux régies fermées et au bricolage"}
+            ? "Bobine vs Les Mills Cinema & Proprietary Fitness Virtual Playout"
+            : "Bobine face à Les Mills Cinema et aux régies propriétaires"}
         </h3>
         <p className="comparison-desc">
           {isEn
-            ? "A concrete, objective comparison of features, recurrent costs, and operational reliability."
-            : "Une comparaison objective et sans concession des fonctionnalités, coûts récurrents et de la fiabilité en salle."}
+            ? "An objective comparison of features, license costs, offline autonomy, and hardware reliability for gym video studios."
+            : "Une comparaison objective des fonctionnalités, des coûts de licence, de l'autonomie hors-ligne et de la fiabilité pour vos studios vidéo fitness."}
         </p>
       </div>
 
@@ -139,8 +139,8 @@ export default function ComparisonTable({ locale }: { locale: Locale }) {
                 <span>{isEn ? "Open-Source & Local" : "Open-Source & Autonome"}</span>
               </th>
               <th scope="col" className="col-proprietary">
-                <strong>{isEn ? "Proprietary Systems" : "Régies Propriétaires"}</strong>
-                <span>{isEn ? "e.g. Les Mills Cinema" : "ex. Les Mills Cinema"}</span>
+                <strong>{isEn ? "Les Mills / Proprietary" : "Les Mills & Régies Fermées"}</strong>
+                <span>{isEn ? "Les Mills Cinema / Virtual" : "Les Mills Cinema / Virtual"}</span>
               </th>
               <th scope="col" className="col-diy">
                 <strong>{isEn ? "DIY Solutions" : "Bricolage DIY"}</strong>

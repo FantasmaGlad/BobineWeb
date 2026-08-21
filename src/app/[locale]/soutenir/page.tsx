@@ -40,6 +40,7 @@ const copy = {
 } as const;
 
 import { buildMetadata } from "@/lib/seo";
+import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
   params,
@@ -56,9 +57,14 @@ export async function generateMetadata({
     description: isEn
       ? "Support the development of Bobine, the free, open-source playout system for sports clubs. Donate on Ko-fi or contribute on GitHub."
       : "Soutenez le développement de Bobine, la régie vidéo open-source pour salles de sport. Faites un don sur Ko-fi ou contribuez sur GitHub.",
+    keywords: [
+      "Soutenir Bobine",
+      "Donner Ko-fi Bobine",
+      "Contribuer logiciel libre fitness",
+      "Bobine GitHub",
+    ],
   });
 }
-
 
 export default async function SupportPage({
   params,
@@ -69,8 +75,18 @@ export default async function SupportPage({
   if (!isLocale(locale)) notFound();
   const t = copy[locale as Locale];
 
+  const breadcrumbs = [
+    { name: "Bobine", url: `/${locale}` },
+    { name: isEnTitle(locale), url: `/${locale}/soutenir` },
+  ];
+
+  function isEnTitle(loc: string) {
+    return loc === "en" ? "Support" : "Soutenir";
+  }
+
   return (
     <div className="container" style={{ paddingBlock: "1.5rem", maxWidth: "48rem" }}>
+      <BreadcrumbsJsonLd items={breadcrumbs} />
       <h1 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.3rem)", marginBottom: "0.5rem" }}>{t.title}</h1>
       <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", marginBottom: "1.25rem", lineHeight: 1.5 }}>
         {t.subtitle}

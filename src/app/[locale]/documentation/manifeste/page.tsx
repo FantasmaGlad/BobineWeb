@@ -5,6 +5,7 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import GitHubIcon from "@/components/icons/GitHubIcon";
 import ShareButton from "@/components/ShareButton";
+import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
   params,
@@ -18,8 +19,8 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "/documentation/manifeste",
     title: isEn
-      ? "Manifesto, Identity & Art Direction — Bobine"
-      : "Manifeste, Identité & Direction Artistique — Bobine",
+      ? "Manifesto, Identity & Art Direction — Bobine | Open Source Playout"
+      : "Manifeste, Identité & Direction Artistique — Bobine | Vision Libre",
     description: isEn
       ? "The story, why Bobine was built, open-source values (AGPL-3.0), art direction, and the origin of the Baamix mascot."
       : "L'histoire, le pourquoi de Bobine, les valeurs du logiciel libre (AGPL-3.0), la direction artistique et l'origine de la mascotte Baamix.",
@@ -42,8 +43,15 @@ export default async function ManifestePage({
   if (!isLocale(locale)) notFound();
   const isEn = locale === "en";
 
+  const breadcrumbs = [
+    { name: "Bobine", url: `/${locale}` },
+    { name: "Documentation", url: `/${locale}/documentation` },
+    { name: isEn ? "Manifesto & Identity" : "Manifeste & Identité", url: `/${locale}/documentation/manifeste` },
+  ];
+
   return isEn ? (
     <>
+      <BreadcrumbsJsonLd items={breadcrumbs} />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
         <div>
           <span className="feature-category-label">Philosophy & Vision</span>

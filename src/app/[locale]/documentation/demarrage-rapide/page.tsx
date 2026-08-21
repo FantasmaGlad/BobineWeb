@@ -6,9 +6,9 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import Shot from "@/components/Shot";
 import CodeBlock from "@/components/CodeBlock";
 import Link from "next/link";
-
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
+import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
   params,
@@ -21,16 +21,21 @@ export async function generateMetadata({
   return buildMetadata({
     locale: locale as Locale,
     pathname: "/documentation/demarrage-rapide",
-    title: isEn ? "Quick Start Guide & Debian Setup — Bobine" : "Guide de Démarrage Rapide & Installation Debian — Bobine",
+    title: isEn
+      ? "Quick Start Guide & Debian Setup — Bobine | Les Mills Alternative"
+      : "Guide de Démarrage Rapide & Installation Debian — Bobine | Alternative Les Mills",
     description: isEn
       ? "Step-by-step setup guide for Bobine on Debian 13: hardware selection (Dell Wyse 5070), automated 1-command installer, and first workout screen playout."
       : "Guide d'installation pas à pas de Bobine sur Debian 13 : choix du mini PC (Dell Wyse 5070), commande d'installation automatisée et premier lancement en salle.",
     keywords: [
       "Installation Bobine",
+      "Alternative Les Mills Cinema",
+      "Alternative Les Mills Virtual",
       "Démarrage rapide régie vidéo",
       "Debian 13 mini PC fitness",
       "Dell Wyse 5070 installation",
       "Script install.sh Bobine",
+      "Gym playout installer",
     ],
   });
 }
@@ -44,11 +49,18 @@ export default async function DemarrageRapidePage({
   if (!isLocale(locale)) notFound();
   const isEn = locale === "en";
 
+  const breadcrumbs = [
+    { name: "Bobine", url: `/${locale}` },
+    { name: "Documentation", url: `/${locale}/documentation` },
+    { name: isEn ? "Quick Start" : "Démarrage rapide", url: `/${locale}/documentation/demarrage-rapide` },
+  ];
+
   return isEn ? (
     <>
+      <BreadcrumbsJsonLd items={breadcrumbs} />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
         <div>
-          <span className="feature-category-label">Tutorial</span>
+          <span className="feature-category-label">Tutorial & Setup</span>
           <h1 style={{ margin: 0 }}>Quick Start Guide</h1>
         </div>
         <ShareButton
@@ -59,20 +71,57 @@ export default async function DemarrageRapidePage({
         />
       </div>
 
-
       <p>
         This guide walks you step-by-step from discovering Bobine to having your workout room actively broadcasting virtual classes — with no prior Linux or system administration experience needed beyond following straightforward instructions. Expect about 30 to 45 minutes total setup time, mostly unattended while automated installers download and build.
       </p>
 
+      <div className="docs-callout docs-callout--tip">
+        <div className="docs-callout__icon">💡</div>
+        <div className="docs-callout__content">
+          <div className="docs-callout__title">Quick Setup Summary</div>
+          <div>Internet is only required once during the initial installation. Once setup is complete, your gym runs 100% offline from local SSD storage with zero cloud dependencies.</div>
+        </div>
+      </div>
+
       <h2 id="what-you-need">What you need</h2>
-      <ul>
-        <li>A <strong>standard x86-64 mini PC or thin client</strong> (Reference unit: Dell Wyse 5070 with Intel Gemini Lake Celeron J4105; any small Debian-compatible PC with an Intel iGPU works great).</li>
-        <li><strong>4 GB RAM</strong> minimum (8 GB ideal), a few GB of storage for the core system plus your video catalog size (128GB to 256GB SSD recommended).</li>
-        <li>A <strong>USB flash drive (8 GB or larger)</strong> (it will be fully formatted).</li>
-        <li>A <strong>standard display and keyboard</strong> to plug into the mini PC temporarily during the initial Debian install (not required once Bobine is running).</li>
-        <li>A <strong>second computer</strong> (laptop or desktop) to prepare the USB drive and connect to the mini PC over SSH.</li>
-        <li><strong>Internet access</strong> on the mini PC&apos;s local network during the initial setup (only needed once to download packages).</li>
-      </ul>
+      <div className="docs-table-wrapper">
+        <table className="docs-table">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Requirement</th>
+              <th>Recommendation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Mini PC / Hardware</strong></td>
+              <td>x86-64 CPU with Intel iGPU</td>
+              <td>Dell Wyse 5070 (Intel J4105) ~40–50 €</td>
+            </tr>
+            <tr>
+              <td><strong>Memory (RAM)</strong></td>
+              <td>4 GB minimum</td>
+              <td>8 GB DDR4</td>
+            </tr>
+            <tr>
+              <td><strong>Storage</strong></td>
+              <td>32 GB minimum</td>
+              <td>128 GB–256 GB SATA/NVMe SSD</td>
+            </tr>
+            <tr>
+              <td><strong>Display / TV</strong></td>
+              <td>HDMI 1080p or 4K</td>
+              <td>TV with HDMI-CEC support for auto power</td>
+            </tr>
+            <tr>
+              <td><strong>Installation Media</strong></td>
+              <td>8 GB+ USB Flash Drive</td>
+              <td>USB 3.0 drive</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <h2 id="step-1--download-debian-13">Step 1 — Download Debian 13</h2>
       <p>
@@ -92,10 +141,17 @@ export default async function DemarrageRapidePage({
       </CodeBlock>
       <p><em>Replace <code>/dev/sdX</code> with your actual USB drive identifier found via <code>lsblk</code>.</em></p>
 
-      <h2 id="step-3--boot-mini-pc-on-usb-drive">Step 3 — Boot the mini PC from USB</h2>
+      <h2 id="step-3--boot-mini-pc-on-usb-drive">Step 3 — Boot the mini PC from USB & BIOS Settings</h2>
       <p>
         Plug the USB flash drive into your mini PC, power it on, and immediately press the Boot Menu key — usually <code>F12</code> on Dell Wyse, or <code>F7</code>, <code>F10</code>, <code>Esc</code> on other brands. Select the USB drive in the list.
       </p>
+      <div className="docs-callout docs-callout--info">
+        <div className="docs-callout__icon">⚙️</div>
+        <div className="docs-callout__content">
+          <div className="docs-callout__title">Recommended BIOS Setting</div>
+          <div>In the BIOS under <strong>Power Management → AC Recovery</strong>, set to <strong>Power On</strong>. This guarantees that your Bobine player automatically powers back on and resumes playback after any gym power outage.</div>
+        </div>
+      </div>
       <Shot caption="Boot menu showing the USB flash drive selected as primary boot device" />
 
       <h2 id="step-4--install-debian">Step 4 — Install minimal Debian</h2>
@@ -130,14 +186,27 @@ sudo ./install.sh</code>
       </p>
       <Shot caption="Completed install.sh execution showing success summary and local IP address" />
 
-      <h2 id="step-7--open-the-interface">Step 7 — Open the Interface</h2>
+      <h2 id="step-7--verify-system">Step 7 — Post-Install Validation</h2>
+      <p>Verify that your hardware acceleration and systemd services are operating properly:</p>
+      <CodeBlock>
+        <code># 1. Verify Intel Hardware Video Acceleration (VA-API)
+vainfo
+
+# 2. Check status of Bobine background services
+sudo systemctl status bobine-backend bobine-kiosk
+
+# 3. Test sound output through HDMI / Jack
+speaker-test -t wav -c 2 -l 1</code>
+      </CodeBlock>
+
+      <h2 id="step-8--open-the-interface">Step 8 — Open the Interface</h2>
       <p>From any phone, tablet, or PC on the same Wi-Fi / LAN, open your browser:</p>
       <CodeBlock>
         <code>http://bobine.local</code>
       </CodeBlock>
       <Shot caption="First login on the Bobine web administration dashboard" />
 
-      <h2 id="step-8--import-your-first-workouts">Step 8 — Import your first workouts</h2>
+      <h2 id="step-9--import-your-first-workouts">Step 9 — Import your first workouts</h2>
       <p>
         From the Admin panel, upload your fitness videos (drag and drop batch upload), create your categories (Spinning, Yoga, HIIT, Body Sculpt), and configure your weekly timetable.
       </p>
@@ -146,16 +215,15 @@ sudo ./install.sh</code>
       <h2 id="next-steps">What&apos;s next?</h2>
       <ul>
         <li><Link href={`/${locale}/documentation/utilisation`}>User Manual & Daily Operations</Link> — Admin, Cinema kiosk, 24/7 Radio, Mobile remote.</li>
-        <li><Link href={`/${locale}/documentation/faq`}>FAQ & Troubleshooting</Link> — Common questions and tips.</li>
-        <li>Questions or need help? Open an <a href="https://github.com/FantasmaGlad/Bobine/issues" target="_blank" rel="noreferrer">Issue on GitHub</a>.</li>
+        <li><Link href={`/${locale}/documentation/faq`}>FAQ & Troubleshooting</Link> — Common questions, error resolution table, and diagnostic commands.</li>
+        <li><Link href={`/${locale}/documentation/developpeurs`}>Developer & API Reference</Link> — REST endpoints, WebSockets, systemd, and contribution guidelines.</li>
       </ul>
     </>
   ) : (
     <>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
-
         <div>
-          <span className="feature-category-label">Tutoriel</span>
+          <span className="feature-category-label">Tutoriel & Installation</span>
           <h1 style={{ margin: 0 }}>Démarrage rapide</h1>
         </div>
         <ShareButton
@@ -166,20 +234,57 @@ sudo ./install.sh</code>
         />
       </div>
 
-
       <p>
-        Ce guide vous accompagne, étape par étape, de « je découvre Bobine » à « ma salle diffuse ses cours » — sans compétence technique préalable au-delà de suivre des instructions. Comptez environ 30 à 45 minutes, dont une bonne partie en attente pendant les installations.
+        Ce guide vous accompagne, étape par étape, de « je découvre Bobine » à « ma salle diffuse ses cours » — sans compétence technique préalable au-delà de suivre des instructions claires. Comptez environ 30 à 45 minutes, dont une bonne partie en attente pendant le téléchargement et la compilation automatisée.
       </p>
 
+      <div className="docs-callout docs-callout--tip">
+        <div className="docs-callout__icon">💡</div>
+        <div className="docs-callout__content">
+          <div className="docs-callout__title">Installation 100% autonome</div>
+          <div>Internet n&apos;est requis qu&apos;une seule fois lors de l&apos;installation initiale pour télécharger les paquets. Ensuite, la salle diffuse ses cours 100% hors-ligne depuis son SSD local sans aucune dépendance au cloud.</div>
+        </div>
+      </div>
+
       <h2 id="ce-quil-vous-faut">Ce qu&apos;il vous faut</h2>
-      <ul>
-        <li>Un <strong>mini PC ou thin client x86-64</strong> (référence : Dell Wyse 5070, Intel Gemini Lake ; tout petit PC compatible Debian avec un iGPU Intel convient).</li>
-        <li><strong>4 Go de RAM</strong> minimum, quelques Go de disque libre pour l&apos;application, plus l&apos;espace de votre bibliothèque vidéo (SSD 128 Go à 256 Go recommandé).</li>
-        <li>Une <strong>clé USB de 8 Go ou plus</strong> (elle sera entièrement effacée).</li>
-        <li>Un <strong>écran et un clavier</strong> à brancher temporairement sur le mini PC, le temps d&apos;installer Debian (pas nécessaires ensuite).</li>
-        <li>Un <strong>second ordinateur</strong> pour préparer la clé USB et vous connecter au mini PC.</li>
-        <li>Un accès <strong>internet</strong> sur le réseau du mini PC (nécessaire uniquement pendant l&apos;installation).</li>
-      </ul>
+      <div className="docs-table-wrapper">
+        <table className="docs-table">
+          <thead>
+            <tr>
+              <th>Composant</th>
+              <th>Spécification minimale</th>
+              <th>Recommandation optimale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Mini PC / Matériel</strong></td>
+              <td>x86-64 avec iGPU Intel</td>
+              <td>Dell Wyse 5070 (Celeron J4105) ~40–50 €</td>
+            </tr>
+            <tr>
+              <td><strong>Mémoire vive (RAM)</strong></td>
+              <td>4 Go</td>
+              <td>8 Go DDR4</td>
+            </tr>
+            <tr>
+              <td><strong>Stockage</strong></td>
+              <td>32 Go</td>
+              <td>128 Go à 256 Go SSD SATA/NVMe</td>
+            </tr>
+            <tr>
+              <td><strong>Écran / Téléviseur</strong></td>
+              <td>HDMI 1080p ou 4K</td>
+              <td>Écran avec HDMI-CEC pour allumage auto</td>
+            </tr>
+            <tr>
+              <td><strong>Support d&apos;installation</strong></td>
+              <td>Clé USB 8 Go ou plus</td>
+              <td>Clé USB 3.0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <h2 id="etape-1--telecharger-debian-13">Étape 1 — Télécharger Debian 13</h2>
       <p>
@@ -199,10 +304,17 @@ sudo ./install.sh</code>
       </CodeBlock>
       <p><em>Remplacez <code>/dev/sdX</code> par votre clé USB (trouvée avec <code>lsblk</code>).</em></p>
 
-      <h2 id="etape-3--demarrer-le-mini-pc-sur-la-cle">Étape 3 — Démarrer le mini PC sur la clé</h2>
+      <h2 id="etape-3--demarrer-le-mini-pc-sur-la-cle">Étape 3 — Démarrer le mini PC sur la clé & Réglages BIOS</h2>
       <p>
         Insérez la clé USB dans le mini PC, allumez-le, et pressez la touche du menu de démarrage — souvent <code>F12</code>, <code>F7</code>, <code>F10</code> ou <code>Échap</code> (sur un Dell Wyse, c&apos;est généralement <code>F12</code>). Choisissez la clé USB dans la liste.
       </p>
+      <div className="docs-callout docs-callout--info">
+        <div className="docs-callout__icon">⚙️</div>
+        <div className="docs-callout__content">
+          <div className="docs-callout__title">Réglage BIOS recommandé</div>
+          <div>Dans le BIOS (section <strong>Power Management → AC Recovery</strong>), choisissez <strong>Power On</strong>. Le mini PC se rallumera ainsi automatiquement dès le retour du courant après une coupure générale.</div>
+        </div>
+      </div>
       <Shot caption="Écran du menu de démarrage (boot menu) avec la clé USB visible dans la liste" />
 
       <h2 id="etape-4--installer-debian">Étape 4 — Installer Debian</h2>
@@ -233,18 +345,31 @@ cd Bobine
 sudo ./install.sh</code>
       </CodeBlock>
       <p>
-        <code>install.sh</code> est autonome : il installe les paquets système, Redis, Node.js et Python, construit l&apos;interface web, écrit la configuration, enregistre les services systemd et démarre tout en 10 à 15 minutes.
+        <code>install.sh</code> est autonome et idempotent : il installe les paquets système, Redis, Node.js et Python, construit l&apos;interface web, écrit la configuration, enregistre les services systemd et démarre tout en 10 à 15 minutes.
       </p>
       <Shot caption="Fin de l'exécution de install.sh : message de succès et adresse IP affichée dans le terminal" />
 
-      <h2 id="etape-7--ouvrir-linterface">Étape 7 — Ouvrir l&apos;interface</h2>
+      <h2 id="etape-7--validation-du-systeme">Étape 7 — Validation & Diagnostic du système</h2>
+      <p>Vérifiez que l&apos;accélération matérielle et les services d&apos;arrière-plan fonctionnent :</p>
+      <CodeBlock>
+        <code>{`# 1. Vérifier l'accélération matérielle Intel QuickSync (VA-API)
+vainfo
+
+# 2. Vérifier l'état des services Bobine
+sudo systemctl status bobine-backend bobine-kiosk
+
+# 3. Tester la sortie audio HDMI / Jack
+speaker-test -t wav -c 2 -l 1`}</code>
+      </CodeBlock>
+
+      <h2 id="etape-8--ouvrir-linterface">Étape 8 — Ouvrir l&apos;interface</h2>
       <p>Depuis n&apos;importe quel appareil du même réseau, ouvrez votre navigateur :</p>
       <CodeBlock>
         <code>http://bobine.local</code>
       </CodeBlock>
       <Shot caption="Première ouverture de l'interface d'administration Bobine dans un navigateur" />
 
-      <h2 id="etape-8--importer-vos-premieres-videos">Étape 8 — Importer vos premières vidéos</h2>
+      <h2 id="etape-9--importer-vos-premieres-videos">Étape 9 — Importer vos premières vidéos</h2>
       <p>
         Depuis le panneau d&apos;administration, importez vos vidéos de cours (glisser-déposer en lot), puis construisez un planning ou une playlist.
       </p>
@@ -252,9 +377,9 @@ sudo ./install.sh</code>
 
       <h2 id="et-ensuite-">Et ensuite ?</h2>
       <ul>
-        <li><Link href={`/${locale}/documentation/utilisation`}>Guide d&apos;utilisation</Link> — admin, cinéma membre, radio, télécommande.</li>
-        <li><Link href={`/${locale}/documentation/faq`}>FAQ / Dépannage</Link> — questions fréquentes.</li>
-        <li>Un problème non couvert ici ? Ouvrez une <a href="https://github.com/FantasmaGlad/Bobine/issues" target="_blank" rel="noreferrer">Issue sur GitHub</a>.</li>
+        <li><Link href={`/${locale}/documentation/utilisation`}>Guide d&apos;utilisation & Exploitation</Link> — admin, cinéma membre, radio, télécommande.</li>
+        <li><Link href={`/${locale}/documentation/faq`}>FAQ & Dépannage</Link> — questions fréquentes, tableau d&apos;erreurs et commandes de diagnostic.</li>
+        <li><Link href={`/${locale}/documentation/developpeurs`}>Documentation Développeur & API</Link> — endpoints REST, WebSockets, systemd et contribution.</li>
       </ul>
     </>
   );

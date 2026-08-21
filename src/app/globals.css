@@ -2657,39 +2657,44 @@ main {
   width: 100%;
   max-width: 100%;
   margin-bottom: 0;
+  box-sizing: border-box;
 }
-
 
 .docs-search-input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
+  box-sizing: border-box;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 0.65rem;
-  padding: 0.4rem 0.75rem;
+  border-radius: 0.55rem;
+  padding: 0.45rem 0.65rem;
   box-shadow: var(--shadow-sm);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .docs-search-input-wrapper:focus-within {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px var(--accent-subtle);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
 }
 
 .docs-search-icon {
   color: var(--text-muted);
-  margin-right: 0.5rem;
+  margin-right: 0.45rem;
   flex-shrink: 0;
 }
 
 .docs-search-input {
   flex: 1;
+  min-width: 0;
+  width: 100%;
   background: transparent;
   border: none;
   outline: none;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-heading);
+  box-sizing: border-box;
 }
 
 .docs-search-clear-btn {
@@ -2700,6 +2705,7 @@ main {
   padding: 0.2rem;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .docs-search-results {
@@ -2867,6 +2873,197 @@ main {
   background: rgba(51, 65, 85, 0.95);
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   Vercel-style Documentation Components (Callouts, Tables, API cards)
+   ========================================================================== */
+
+.docs-callout {
+  display: flex;
+  gap: 0.85rem;
+  padding: 1rem 1.15rem;
+  border-radius: 0.65rem;
+  margin: 1.5rem 0;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  font-size: 0.925rem;
+  line-height: 1.55;
+  box-sizing: border-box;
+}
+
+.docs-callout--tip {
+  border-left: 4px solid #10b981;
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.docs-callout--info {
+  border-left: 4px solid #3b82f6;
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.docs-callout--warning {
+  border-left: 4px solid #f59e0b;
+  background: rgba(245, 158, 11, 0.06);
+}
+
+.docs-callout--danger {
+  border-left: 4px solid #ef4444;
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.docs-callout__icon {
+  flex-shrink: 0;
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+
+.docs-callout__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.docs-callout__title {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: var(--text-heading);
+}
+
+.docs-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.65rem;
+  background: var(--bg-card);
+}
+
+.docs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  text-align: left;
+}
+
+.docs-table th {
+  background: var(--bg-surface);
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.docs-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-body);
+  vertical-align: top;
+}
+
+.docs-table tr:last-child td {
+  border-bottom: none;
+}
+
+.docs-table code {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.825rem;
+  padding: 0.15rem 0.35rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.3rem;
+}
+
+.docs-api-card {
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.65rem;
+  padding: 1.15rem;
+  margin: 1.25rem 0;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.docs-api-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.65rem;
+}
+
+.docs-method-badge {
+  font-size: 0.75rem;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.35rem;
+  text-transform: uppercase;
+  font-family: var(--font-mono, monospace);
+}
+
+.docs-method--get {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.docs-method--post {
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+.docs-method--delete {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.docs-method--ws {
+  background: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+}
+
+.docs-api-endpoint {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.docs-card {
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.65rem;
+  padding: 1.25rem;
+  background: var(--bg-card);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.docs-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.docs-contact-box {
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 /* ==========================================================================

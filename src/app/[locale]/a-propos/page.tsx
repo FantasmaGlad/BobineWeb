@@ -55,6 +55,7 @@ const copy = {
 
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
+import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
   params,
@@ -68,8 +69,8 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "/a-propos",
     title: isEn
-      ? "About Bobine — Story, Core Values & Vision"
-      : "À Propos de Bobine — Histoire, Cœur & Vision",
+      ? "About Bobine — Story, Core Values & Vision | Open Source Gym"
+      : "À Propos de Bobine — Histoire, Cœur & Vision | Régie Libre",
     description: isEn
       ? "Learn about the mission behind Bobine: empowering gym owners with an open-source, offline-first alternative to proprietary video subscriptions."
       : "Découvrez la genèse et la mission de Bobine : redonner l'autonomie aux gérants de salle avec une régie vidéo libre, sobre et 100% hors-ligne.",
@@ -77,6 +78,7 @@ export async function generateMetadata({
       "À propos Bobine",
       "Histoire Bobine",
       "Mission Bobine régie vidéo",
+      "Alternative Les Mills Cinema",
       "Logiciel libre salle de sport",
       "Vision Bobine fitness",
     ],
@@ -92,8 +94,18 @@ export default async function AboutPage({
   if (!isLocale(locale)) notFound();
   const t = copy[locale as Locale];
 
+  const breadcrumbs = [
+    { name: "Bobine", url: `/${locale}` },
+    { name: isEnTitle(locale), url: `/${locale}/a-propos` },
+  ];
+
+  function isEnTitle(loc: string) {
+    return loc === "en" ? "About" : "À propos";
+  }
+
   return (
-    <div className="container" style={{ paddingBlock: "2rem", maxWidth: "50rem" }}>
+    <div className="container" style={{ paddingBlock: "clamp(2.5rem, 6vw, 5rem)", maxWidth: "56rem" }}>
+      <BreadcrumbsJsonLd items={breadcrumbs} />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "0.5rem" }}>
         <span className="feature-category-label">{t.badge}</span>
         <ShareButton

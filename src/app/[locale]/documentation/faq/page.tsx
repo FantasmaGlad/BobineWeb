@@ -227,10 +227,9 @@ speaker-test -t wav -c 2 -l 1</code>
 
       <h2 id="support-help">Getting Further Help</h2>
       <div className="docs-callout docs-callout--tip">
-        <div className="docs-callout__icon">💬</div>
         <div className="docs-callout__content">
           <div className="docs-callout__title">Interactive AI Assistant & Community</div>
-          <div>You can ask technical questions to our AI mascot Baamix using the chat widget on the right, or open a ticket on <a href="https://github.com/FantasmaGlad/Bobine/issues" target="_blank" rel="noreferrer">GitHub Issues</a>.</div>
+          <div>You can ask technical questions to our AI assistant Baamix using the chat widget on the right, or open a ticket on <a href="https://github.com/FantasmaGlad/Bobine/issues" target="_blank" rel="noreferrer">GitHub Issues</a>.</div>
         </div>
       </div>
     </>
@@ -339,7 +338,6 @@ speaker-test -t wav -c 2 -l 1`}</code>
 
       <h2 id="support-aide">Aide & Support</h2>
       <div className="docs-callout docs-callout--tip">
-        <div className="docs-callout__icon">💬</div>
         <div className="docs-callout__content">
           <div className="docs-callout__title">Assistant IA & Communauté</div>
           <div>Vous pouvez poser vos questions techniques directement à Baamix via la bulle de discussion à droite, ou ouvrir un ticket sur <a href="https://github.com/FantasmaGlad/Bobine/issues" target="_blank" rel="noreferrer">GitHub Issues</a>.</div>

@@ -5,9 +5,11 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Bobine",
+    alternateName: ["Bobine fit", "bobine.fit", "Bobine Fit", "Bobine Playout"],
     operatingSystem: "Linux (Debian 13, Ubuntu, x86-64)",
     applicationCategory: "MultimediaApplication",
     applicationSubCategory: "Gym Video Playout & Virtual Fitness Automation",
+    url: "https://bobine.fit",
     description: isEn
       ? "Open-source, self-hosted streaming and video automation system for gyms and fitness clubs. Offline alternative to Les Mills Cinema and Virtual systems."
       : "Régie vidéo et système de streaming open-source et auto-hébergé pour salles de sport et studios fitness. Alternative hors-ligne à Les Mills Cinema et Les Mills Virtual.",
@@ -62,6 +64,7 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Bobine",
+    alternateName: ["Bobine fit", "bobine.fit"],
     url: "https://bobine.fit",
     logo: "https://bobine.fit/icon.png",
     description: isEn
@@ -77,6 +80,7 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Bobine",
+    alternateName: ["Bobine fit", "bobine.fit", "Bobine Fit"],
     url: "https://bobine.fit",
     inLanguage: ["fr-FR", "en-US"],
     potentialAction: {

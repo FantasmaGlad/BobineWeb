@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import GitHubIcon from "@/components/icons/GitHubIcon";
-import CoffeeCupIcon from "@/components/icons/CoffeeCupIcon";
+import KofiIcon from "@/components/icons/KofiIcon";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import { type Locale } from "@/lib/i18n";
 
@@ -156,7 +156,7 @@ export default function SupportPage() {
             <div className="kofi-widget-card__header">
               <div className="kofi-widget-avatar-row">
                 <div className="kofi-avatar-box">
-                  <CoffeeCupIcon size={22} />
+                  <KofiIcon size={22} />
                 </div>
                 <div className="kofi-creator-info">
                   <span className="kofi-creator-title">
@@ -215,31 +215,13 @@ export default function SupportPage() {
                 rel="noreferrer"
                 style={{ width: "100%", justifyContent: "center", minHeight: "44px" }}
               >
-                <CoffeeCupIcon size={18} />
+                <KofiIcon size={18} />
                 {isEn
                   ? `Donate ${coffeeCount * 3} € on Ko-fi`
                   : `Faire un don de ${coffeeCount * 3} € sur Ko-fi`}
               </a>
             </div>
           </div>
-        </div>
-
-        {/* Invite au défilement pour en savoir plus */}
-        <div style={{ textAlign: "center", marginTop: "1.25rem" }}>
-          <a
-            href="#community-details"
-            style={{
-              color: "var(--text-muted)",
-              fontSize: "0.85rem",
-              textDecoration: "none",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.35rem",
-            }}
-          >
-            <span>{isEn ? "Discover our philosophy & funding model" : "Découvrir notre philosophie & modèle de financement"}</span>
-            <span>↓</span>
-          </a>
         </div>
       </section>
 

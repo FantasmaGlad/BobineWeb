@@ -162,21 +162,21 @@ export default async function FeaturesPage({
 
   return (
     <div className="container">
-      {/* 1. Hero Section — Plein écran au chargement sans coupure */}
+      {/* 1. Hero Section — Positionnée haut au chargement */}
       <section
         className="hero-fullscreen"
         style={{
           minHeight: "calc(100svh - 110px)",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           maxWidth: "56rem",
-          paddingTop: "clamp(3rem, 10vh, 6rem)",
-          paddingBottom: "clamp(4rem, 12vh, 7rem)",
+          paddingTop: "clamp(1.25rem, 3vh, 2.25rem)",
+          paddingBottom: "clamp(2rem, 5vh, 3.5rem)",
           boxSizing: "border-box",
         }}
       >
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "0.75rem" }}>
           <span className="feature-category-label">
             {isEn ? "Playout Engine & Hardware" : "Moteur de Diffusion & Matériel"}
           </span>

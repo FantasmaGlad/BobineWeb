@@ -694,7 +694,6 @@ img {
   min-height: 4.25rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 0.75rem;
   flex-wrap: nowrap;
 }
@@ -724,7 +723,8 @@ img {
   gap: 0.2rem;
   flex-wrap: nowrap;
   align-items: center;
-  flex-shrink: 0;
+  flex: 1 1 auto;
+  margin-right: auto;
 }
 
 .site-header__nav a {
@@ -789,12 +789,14 @@ img {
 .theme-switcher-pill-group {
   display: inline-flex;
   align-items: center;
+  width: 7.35rem;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: 0.45rem;
   box-shadow: var(--shadow-sm);
   transition: all 0.15s ease;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .theme-switcher-pill-group:hover {
@@ -812,9 +814,19 @@ img {
   color: var(--text-main);
   background: transparent;
   border: none;
-  padding: 0.3rem 0.55rem 0.3rem 0.65rem;
+  padding: 0.3rem 0.35rem 0.3rem 0.55rem;
   cursor: pointer;
   transition: all 0.15s ease;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.theme-switcher-btn__label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
 }
 
 .theme-switcher-btn:hover {
@@ -1206,13 +1218,14 @@ main {
   max-width: 100%;
   margin: 0;
   padding: 0;
+  padding-bottom: clamp(3rem, 6vh, 5rem);
 }
 
 .docs-layout {
   display: grid;
   grid-template-columns: 18rem minmax(0, 1fr);
   width: 100%;
-  min-height: calc(100vh - 5.5rem);
+  min-height: auto;
   align-items: stretch;
 }
 
@@ -1291,7 +1304,7 @@ main {
 }
 
 .docs-main-panel {
-  padding: 1.5rem clamp(1.25rem, 3vw, 2.5rem);
+  padding: 1.5rem clamp(1.25rem, 3vw, 2.5rem) clamp(2.5rem, 5vh, 4rem);
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -4281,15 +4294,53 @@ main {
    Export / Impression PDF de la documentation
    ========================================================================== */
 @media print {
+  @page {
+    margin: 1.5cm 1.2cm;
+    size: A4;
+  }
+
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #111827 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  :root {
+    --bg-canvas: #ffffff !important;
+    --bg-card: #ffffff !important;
+    --bg-surface: #ffffff !important;
+    --bg-surface-elevated: #ffffff !important;
+    --bg-inset: #f9fafb !important;
+    --text-heading: #000000 !important;
+    --text-main: #1f2937 !important;
+    --text-muted: #4b5563 !important;
+    --text-dim: #6b7280 !important;
+    --border-subtle: #e5e7eb !important;
+    --border-color: #d1d5db !important;
+    --accent-primary: #4338ca !important;
+  }
+
+  .site-header,
   header,
   footer,
+  .site-footer,
   aside.docs-sidebar-panel,
+  .docs-mobile-nav-wrapper,
+  .docs-mobile-nav,
   .share-menu-container,
   .download-pdf-btn,
   .tech-ticker-wrapper,
+  .tech-ticker,
   .docs-search-wrapper,
   .power-demo__status,
   .chatbot-container,
+  .chatbot-modal,
+  .chatbot-floating-wrapper,
+  .baamix-header-btn,
+  .mobile-drawer-overlay,
   .offline-toast {
     display: none !important;
   }
@@ -4297,7 +4348,8 @@ main {
   body {
     background: #ffffff !important;
     color: #111827 !important;
-    font-size: 11pt !important;
+    font-size: 10.5pt !important;
+    line-height: 1.5 !important;
   }
 
   .docs-page-wrapper,
@@ -4315,13 +4367,17 @@ main {
     background: transparent !important;
   }
 
-  h1, h2, h3 {
+  h1, h2, h3, h4 {
     page-break-after: avoid;
+    break-after: avoid;
     color: #000000 !important;
   }
 
-  pre, code, .docs-table-wrapper {
+  pre, code, .docs-table-wrapper, table, .card-interactive, .docs-table-row {
     page-break-inside: avoid;
+    break-inside: avoid;
+    border: 1px solid #e5e7eb !important;
+    background: #f9fafb !important;
   }
 
   a {

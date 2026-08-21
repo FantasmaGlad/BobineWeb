@@ -55,10 +55,6 @@ export default function TechTicker({ locale }: { locale: Locale }) {
       role="region"
       aria-label={locale === "en" ? "Technical specifications stream" : "Flux de spécifications techniques en continu"}
     >
-      <div className="tech-ticker-badge" title={locale === "en" ? "Live system stream" : "Flux système actif"}>
-        <span className="tech-ticker-badge__dot" />
-      </div>
-
       <div className="tech-ticker-track">
         {/* Double défilement pour boucle infinie fluide */}
         <div className="tech-ticker-content">

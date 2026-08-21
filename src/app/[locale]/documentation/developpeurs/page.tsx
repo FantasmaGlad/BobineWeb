@@ -6,6 +6,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import CodeBlock from "@/components/CodeBlock";
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
+import DownloadPdfButton from "@/components/DownloadPdfButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
@@ -20,19 +21,18 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "/documentation/developpeurs",
     title: isEn
-      ? "Developer Documentation & REST API — Bobine | Open Source Playout"
+      ? "Developer Reference & REST API Documentation — Bobine"
       : "Documentation Développeurs & API REST — Bobine | Régie Vidéo Libre",
     description: isEn
-      ? "Technical reference for Bobine developers: multi-worker FastAPI backend, REST API, WebSockets, MPV hardware playout, Next.js UI, and AGPL-3.0 contribution guidelines."
-      : "Référence technique pour développeurs : API REST locale, WebSockets, backend FastAPI multi-worker, bus Redis, moteur MPV accéléré matériellement et contribution AGPL-3.0.",
+      ? "Complete technical reference for software engineers: local REST API endpoints, WebSockets protocol, systemd architecture, and AGPL-3.0 development."
+      : "Référence technique complète pour développeurs : endpoints de l'API REST locale, protocole WebSockets, architecture des services systemd et code source.",
     keywords: [
-      "Architecture Bobine",
       "API REST Bobine",
-      "WebSockets fitness playout",
-      "Développement Bobine FastAPI",
-      "MPV backend Python",
-      "Redis state bus fitness",
-      "Contribution open-source AGPL-3.0",
+      "Documentation développeurs Bobine",
+      "WebSockets régie vidéo",
+      "Architecture logicielle Bobine",
+      "systemd Bobine",
+      "Gym playout developer API",
     ],
   });
 }
@@ -49,7 +49,7 @@ export default async function DeveloppeursPage({
   const breadcrumbs = [
     { name: "Bobine", url: `/${locale}` },
     { name: "Documentation", url: `/${locale}/documentation` },
-    { name: isEn ? "Developers & Architecture" : "Développeurs & Architecture", url: `/${locale}/documentation/developpeurs` },
+    { name: isEn ? "Developers" : "Développeurs", url: `/${locale}/documentation/developpeurs` },
   ];
 
   return isEn ? (
@@ -60,12 +60,15 @@ export default async function DeveloppeursPage({
           <span className="feature-category-label">Architecture & API Reference</span>
           <h1 style={{ margin: 0 }}>Developer Documentation & Architecture</h1>
         </div>
-        <ShareButton
-          locale={locale as Locale}
-          pathname="/documentation/developpeurs"
-          title="Bobine Developer Documentation & Architecture"
-          description="Technical reference, REST API, WebSockets and architectural overview of Bobine."
-        />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <DownloadPdfButton locale={locale as Locale} />
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/documentation/developpeurs"
+            title="Bobine Developer Documentation & Architecture"
+            description="Technical reference, REST API, WebSockets and architectural overview of Bobine."
+          />
+        </div>
       </div>
 
       <p>
@@ -272,12 +275,15 @@ npm run dev`}</code>
           <span className="feature-category-label">Architecture & Référence API</span>
           <h1 style={{ margin: 0 }}>Documentation Développeurs & Architecture</h1>
         </div>
-        <ShareButton
-          locale={locale as Locale}
-          pathname="/documentation/developpeurs"
-          title="Documentation Développeurs Bobine"
-          description="Synthèse technique de l'architecture logicielle, des APIs REST et des WebSockets de Bobine."
-        />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <DownloadPdfButton locale={locale as Locale} />
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/documentation/developpeurs"
+            title="Documentation Développeurs Bobine"
+            description="Synthèse technique de l'architecture logicielle, des APIs REST et des WebSockets de Bobine."
+          />
+        </div>
       </div>
 
       <p>

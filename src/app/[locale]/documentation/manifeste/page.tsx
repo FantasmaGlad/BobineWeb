@@ -5,6 +5,7 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import GitHubIcon from "@/components/icons/GitHubIcon";
 import ShareButton from "@/components/ShareButton";
+import DownloadPdfButton from "@/components/DownloadPdfButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
@@ -57,13 +58,16 @@ export default async function ManifestePage({
           <span className="feature-category-label">Philosophy & Vision</span>
           <h1 style={{ margin: 0 }}>Manifesto, Identity & Art Direction</h1>
         </div>
-        <ShareButton
-          locale={locale as Locale}
-          pathname="/documentation/manifeste"
-          title="Bobine Manifesto, Identity & Art Direction"
-          description="The story, core values, and aesthetic principles behind Bobine."
-          hashtags={["Bobine", "Manifesto", "OpenSource", "DigitalCommons"]}
-        />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <DownloadPdfButton locale={locale as Locale} />
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/documentation/manifeste"
+            title="Bobine Manifesto, Identity & Art Direction"
+            description="The story, core values, and aesthetic principles behind Bobine."
+            hashtags={["Bobine", "Manifesto", "OpenSource", "DigitalCommons"]}
+          />
+        </div>
       </div>
 
       <p className="docs-lead">
@@ -132,13 +136,16 @@ export default async function ManifestePage({
           <span className="feature-category-label">Philosophie & Vision</span>
           <h1 style={{ margin: 0 }}>Manifeste, Identité & Direction Artistique</h1>
         </div>
-        <ShareButton
-          locale={locale as Locale}
-          pathname="/documentation/manifeste"
-          title="Manifeste, Identité & Direction Artistique — Bobine"
-          description="L'histoire, les valeurs fondatrices et les choix esthétiques qui animent Bobine."
-          hashtags={["Bobine", "Manifeste", "OpenSource", "CommunsNumériques"]}
-        />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <DownloadPdfButton locale={locale as Locale} />
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/documentation/manifeste"
+            title="Manifeste, Identité & Direction Artistique — Bobine"
+            description="L'histoire, les valeurs fondatrices et les choix esthétiques qui animent Bobine."
+            hashtags={["Bobine", "Manifeste", "OpenSource", "CommunsNumériques"]}
+          />
+        </div>
       </div>
 
       <p className="docs-lead">

@@ -8,6 +8,7 @@ import CodeBlock from "@/components/CodeBlock";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
+import DownloadPdfButton from "@/components/DownloadPdfButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
@@ -63,12 +64,15 @@ export default async function DemarrageRapidePage({
           <span className="feature-category-label">Tutorial & Setup</span>
           <h1 style={{ margin: 0 }}>Quick Start Guide</h1>
         </div>
-        <ShareButton
-          locale={locale as Locale}
-          pathname="/documentation/demarrage-rapide"
-          title="Bobine Quick Start Guide"
-          description="Step-by-step setup guide for Bobine on Debian 13."
-        />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <DownloadPdfButton locale={locale as Locale} />
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/documentation/demarrage-rapide"
+            title="Bobine Quick Start Guide"
+            description="Step-by-step setup guide for Bobine on Debian 13."
+          />
+        </div>
       </div>
 
       <p>
@@ -224,12 +228,15 @@ speaker-test -t wav -c 2 -l 1</code>
           <span className="feature-category-label">Tutoriel & Installation</span>
           <h1 style={{ margin: 0 }}>Démarrage rapide</h1>
         </div>
-        <ShareButton
-          locale={locale as Locale}
-          pathname="/documentation/demarrage-rapide"
-          title="Guide de Démarrage Rapide Bobine"
-          description="Guide étape par étape pour installer et configurer Bobine sur votre mini PC."
-        />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <DownloadPdfButton locale={locale as Locale} />
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/documentation/demarrage-rapide"
+            title="Guide de Démarrage Rapide Bobine"
+            description="Guide étape par étape pour installer et configurer Bobine sur votre mini PC."
+          />
+        </div>
       </div>
 
       <p>

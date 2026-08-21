@@ -57,11 +57,40 @@ export default async function BlogIndexPage({
   const releases = await getBobineReleases();
 
   return (
-    <div className="container" style={{ paddingBlock: "1.25rem", maxWidth: "48rem" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.25rem" }}>
-        <div>
-          <h1 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.3rem)", marginBottom: "0.4rem" }}>{t.title}</h1>
-          <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", margin: 0, lineHeight: 1.5 }}>
+    <div className="container" style={{ paddingBlock: "clamp(2rem, 5vw, 4rem)", maxWidth: "68rem" }}>
+      {/* En-tête large et aéré */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          flexWrap: "wrap",
+          gap: "1.5rem",
+          paddingBottom: "2rem",
+          borderBottom: "1px solid var(--border-subtle)",
+          marginBottom: "1rem",
+        }}
+      >
+        <div style={{ maxWidth: "44rem" }}>
+          <h1
+            style={{
+              fontSize: "clamp(2rem, 4vw, 2.75rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.025em",
+              marginBottom: "0.75rem",
+              color: "var(--text-heading)",
+            }}
+          >
+            {t.title}
+          </h1>
+          <p
+            style={{
+              color: "var(--text-muted)",
+              fontSize: "clamp(1rem, 2vw, 1.125rem)",
+              margin: 0,
+              lineHeight: 1.6,
+            }}
+          >
             {t.intro}
           </p>
         </div>
@@ -73,45 +102,79 @@ export default async function BlogIndexPage({
         />
       </div>
 
-
       {releases.length === 0 && (
-        <div className="card-interactive" style={{ padding: "1.25rem", textAlign: "center" }}>
-          <p style={{ color: "var(--text-muted)", margin: 0, fontSize: "0.9rem" }}>{t.empty}</p>
+        <div style={{ padding: "3rem 1rem", textAlign: "center" }}>
+          <p style={{ color: "var(--text-muted)", margin: 0, fontSize: "1rem" }}>{t.empty}</p>
         </div>
       )}
 
-      <div style={{ display: "grid", gap: "0.75rem" }}>
+      {/* Liste aérée avec délimitations par traits fins */}
+      <div style={{ display: "flex", flexDirection: "column" }}>
         {releases.map((release) => (
           <Link
             key={release.slug}
             href={`/${locale}/blog/${encodeURIComponent(release.slug)}`}
-            className="card-interactive"
-            style={{ textDecoration: "none", padding: "1.1rem" }}
+            style={{
+              textDecoration: "none",
+              paddingBlock: "1.75rem",
+              borderBottom: "1px solid var(--border-subtle)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.6rem",
+              transition: "opacity 0.15s ease",
+            }}
+            className="blog-list-item"
           >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.35rem", flexWrap: "wrap", gap: "0.5rem" }}>
-              <span className="badge" style={{ fontSize: "0.7rem", padding: "0.15rem 0.5rem" }}>
-                {release.slug}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: "0.75rem",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                <span className="badge" style={{ fontSize: "0.75rem", padding: "0.2rem 0.6rem" }}>
+                  {release.slug}
+                </span>
+                {release.publishedAt && (
+                  <time
+                    style={{ color: "var(--text-dim)", fontSize: "0.85rem", fontWeight: 500 }}
+                    dateTime={release.publishedAt}
+                  >
+                    {new Date(release.publishedAt).toLocaleDateString(
+                      locale === "fr" ? "fr-FR" : "en-US",
+                      { year: "numeric", month: "long", day: "numeric" }
+                    )}
+                  </time>
+                )}
+              </div>
+              <span
+                style={{
+                  color: "var(--accent-primary)",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.35rem",
+                }}
+              >
+                {t.readMore}
               </span>
-              {release.publishedAt && (
-                <time
-                  style={{ color: "var(--text-muted)", fontSize: "0.8rem", fontWeight: 500 }}
-                  dateTime={release.publishedAt}
-                >
-                  {new Date(release.publishedAt).toLocaleDateString(
-                    locale === "fr" ? "fr-FR" : "en-US",
-                    { year: "numeric", month: "long", day: "numeric" }
-                  )}
-                </time>
-              )}
             </div>
 
-            <h3 className="card-title" style={{ fontSize: "1.05rem", marginBottom: "0.25rem" }}>
+            <h2
+              style={{
+                fontSize: "clamp(1.2rem, 2.5vw, 1.5rem)",
+                fontWeight: 700,
+                color: "var(--text-heading)",
+                margin: 0,
+                lineHeight: 1.35,
+              }}
+            >
               {release.title}
-            </h3>
-
-            <span style={{ color: "var(--accent-primary)", fontSize: "0.85rem", fontWeight: 600, marginTop: "0.25rem", display: "inline-block" }}>
-              {t.readMore}
-            </span>
+            </h2>
           </Link>
         ))}
       </div>

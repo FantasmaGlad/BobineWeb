@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
 export const runtime = "nodejs";
-export const maxDuration = 30;
+export const maxDuration = 60;
 
 const ORCAROUTER_API_KEY_FALLBACK = "sk-orca-lMGIQpeRt76xtGDst1Ij4HYj4SDn5Au0aFjQ38Ix9sU";
 const ORCAROUTER_BASE_URL = "https://api.orcarouter.ai/v1";
@@ -74,14 +74,35 @@ export async function POST(req: Request) {
       })),
     ];
 
-    // Modèle orcarouter/free ultra rapide et stable
-    const stream = await client.chat.completions.create({
-      model: "orcarouter/free",
-      messages: conversation,
-      stream: true,
-      temperature: 0.4,
-      max_tokens: 700,
-    });
+    const candidateModels = [
+      process.env.ORCAROUTER_MODEL,
+      "qwen/qwen3.8-27b-free",
+      "orcarouter/free",
+      "deepseek/deepseek-v4-flash-free",
+    ].filter(Boolean) as string[];
+
+    let stream = null;
+    let lastError: unknown = null;
+
+    for (const model of candidateModels) {
+      try {
+        stream = await client.chat.completions.create({
+          model,
+          messages: conversation,
+          stream: true,
+          temperature: 0.3,
+          max_tokens: 2500,
+        });
+        if (stream) break;
+      } catch (err) {
+        console.warn(`Modèle ${model} indisponible, tentative avec le suivant...`, err);
+        lastError = err;
+      }
+    }
+
+    if (!stream) {
+      throw lastError || new Error("Aucun modèle disponible pour répondre.");
+    }
 
     const encoder = new TextEncoder();
     const readable = new ReadableStream({

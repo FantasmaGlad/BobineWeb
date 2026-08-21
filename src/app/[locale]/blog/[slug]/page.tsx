@@ -90,13 +90,13 @@ export default async function BlogPostPage({
   };
 
   return (
-    <div className="container" style={{ paddingBlock: "clamp(2rem, 5vw, 4rem)", maxWidth: "48rem" }}>
+    <div className="container" style={{ paddingBlock: "clamp(2.5rem, 6vw, 5rem)", maxWidth: "60rem" }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
-      <div style={{ marginBottom: "1.5rem" }}>
+      <div style={{ marginBottom: "2rem" }}>
         <Link
           href={`/${locale}/blog`}
           style={{
@@ -105,50 +105,90 @@ export default async function BlogPostPage({
             gap: "0.4rem",
             color: "var(--text-muted)",
             fontSize: "0.9rem",
-            fontWeight: 500,
+            fontWeight: 600,
             textDecoration: "none",
+            transition: "color 0.15s ease",
           }}
         >
           ← {locale === "fr" ? "Retour aux articles" : "Back to articles"}
         </Link>
       </div>
 
-      <article className="docs-content__inner" style={{ maxWidth: "100%" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem", flexWrap: "wrap", gap: "0.75rem" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-            <span className="badge">{release.slug}</span>
-            {release.publishedAt && (
-              <time
-                style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}
-                dateTime={release.publishedAt}
-              >
-                {new Date(release.publishedAt).toLocaleDateString(
-                  locale === "fr" ? "fr-FR" : "en-US",
-                  { year: "numeric", month: "long", day: "numeric" }
-                )}
-              </time>
-            )}
+      <article style={{ width: "100%" }}>
+        <header
+          style={{
+            paddingBottom: "2rem",
+            borderBottom: "1px solid var(--border-subtle)",
+            marginBottom: "2.5rem",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "1.25rem",
+              flexWrap: "wrap",
+              gap: "1rem",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <span className="badge" style={{ fontSize: "0.8rem", padding: "0.25rem 0.65rem" }}>
+                {release.slug}
+              </span>
+              {release.publishedAt && (
+                <time
+                  style={{ color: "var(--text-dim)", fontSize: "0.9rem", fontWeight: 500 }}
+                  dateTime={release.publishedAt}
+                >
+                  {new Date(release.publishedAt).toLocaleDateString(
+                    locale === "fr" ? "fr-FR" : "en-US",
+                    { year: "numeric", month: "long", day: "numeric" }
+                  )}
+                </time>
+              )}
+            </div>
+            <ShareButton
+              locale={locale as Locale}
+              pathname={`/blog/${slug}`}
+              title={release.title}
+              description={`Notes de version et nouveautés de Bobine : ${release.title}`}
+              hashtags={["Bobine", "Release", "OpenSource", "Fitness"]}
+            />
           </div>
-          <ShareButton
-            locale={locale as Locale}
-            pathname={`/blog/${slug}`}
-            title={release.title}
-            description={`Notes de version et nouveautés de Bobine : ${release.title}`}
-            hashtags={["Bobine", "Release", "OpenSource", "Fitness"]}
-          />
-        </div>
 
-        <h1 style={{ fontSize: "clamp(1.8rem, 4vw, 2.4rem)", marginBottom: "1.5rem" }}>
-          {release.title}
-        </h1>
+          <h1
+            style={{
+              fontSize: "clamp(2rem, 4.5vw, 3rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.18,
+              color: "var(--text-heading)",
+              margin: 0,
+            }}
+          >
+            {release.title}
+          </h1>
+        </header>
 
-        <div className="release-body">
+        <div className="release-body" style={{ fontSize: "1.05rem", lineHeight: 1.75 }}>
           <Markdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
             {release.body}
           </Markdown>
         </div>
 
-        <div style={{ marginTop: "2.5rem", paddingTop: "1.5rem", borderTop: "1px solid var(--border-subtle)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
+        <footer
+          style={{
+            marginTop: "3.5rem",
+            paddingTop: "2rem",
+            borderTop: "1px solid var(--border-subtle)",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "1.25rem",
+          }}
+        >
           <a
             href={release.url}
             target="_blank"
@@ -166,7 +206,7 @@ export default async function BlogPostPage({
             description={`Notes de version et nouveautés de Bobine : ${release.title}`}
             hashtags={["Bobine", "Release", "OpenSource", "Fitness"]}
           />
-        </div>
+        </footer>
       </article>
     </div>
   );

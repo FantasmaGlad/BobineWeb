@@ -16,6 +16,10 @@ const copy = {
         desc: "Pendant des années, les gérants de salle ont dû payer des abonnements exorbitants (150 € à 400 € / mois par écran) pour de simples players vidéo connectés qui gèlent à la moindre coupure réseau. Bobine élimine définitivement cette taxe récurrente et remet la souveraineté entre les mains des clubs.",
       },
       {
+        title: "La Volonté Open Source & la Souveraineté Physique",
+        desc: "Créer Bobine, c'est avant tout un engagement fort envers la communauté Open Source et la liberté d'utiliser un logiciel sans entraves. Nous défendons le droit fondamental de détenir et d'exécuter physiquement ses outils sur ses propres moyens informatiques locaux, sans dépendance au cloud ni rente imposée.",
+      },
+      {
         title: "Le Cœur & L'Idée",
         desc: "Une solution 'Offline-First' résiliente qui tourne sur du matériel informatique standard reconditionné (~40-50 €) consommant moins de 10 Watts. Aucune boîte noire fermée, aucun traceur, aucun abonnement caché : le logiciel est publié sous licence AGPL-3.0.",
       },
@@ -37,6 +41,10 @@ const copy = {
       {
         title: "The 'Why'",
         desc: "For years, gym owners have been locked into expensive subscriptions ($150 to $400 / month per screen) for simple streaming players that freeze during internet outages. Bobine eliminates recurring licensing fees and restores autonomy to sports clubs.",
+      },
+      {
+        title: "Open Source Commitment & Physical Ownership",
+        desc: "Building Bobine is rooted in an unwavering dedication to the Open Source community and digital sovereignty. We champion the fundamental right to physically own, control, and execute software on your own local hardware, free from cloud lock-in and perpetual licensing fees.",
       },
       {
         title: "The Core & Concept",

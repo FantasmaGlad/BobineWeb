@@ -15,16 +15,34 @@ Deux orientations combinées, choisies explicitement plutôt que l'une ou l'autr
 
 **Les illustrations et animations définitives de la mascotte seront produites plus tard** — ce document prévoit leurs emplacements et leur rôle, pas leur rendu final. En attendant, ces emplacements restent vides ou occupés par un espace réservé simple (silhouette, ou rien), jamais par un visuel provisoire de mauvaise qualité qui donnerait une fausse impression de fini.
 
-## 3. Système de couleurs — thèmes dynamiques
+## 3. Système de couleurs — thèmes dynamiques (18 Thèmes classés)
 
-Décision structurante : **le site porte le même système de 13 thèmes que l'application Bobine** (`src/app/globals.css`), avec un étalonnage précis des contrastes, des surfaces multi-niveaux et des micro-reliefs.
+Décision structurante : **le site porte un système complet de 18 thèmes bicolores classés en deux collections distinctes** (`src/app/globals.css`, `src/lib/themes.ts`) :
 
-- **Thème par défaut du site : Lavande** (fond `#eef2ff`, cartes blanches `#ffffff`, texte `#1e1b4b`, accents indigo/violet `#6366f1` / `#4f46e5`) — choisi pour sa clarté, son élégance et sa lisibilité immédiate.
-- **12 autres thèmes sélectionnables** : Beige (couleurs officielles Bobine sans rouge), Sombre, Clair, Lune, Menthe, Automne, Hiver, Chili, Ciel, Orchidée, Taupe, Charbon.
-- **Choix explicite et persistant** : le thème est sélectionné par l'utilisateur et persisté dans `localStorage` (`bobineweb-theme`).
-- **Implémentation** : tokens CSS (`--bg-canvas`, `--bg-card`, `--bg-card-hover`, `--bg-surface-elevated`, `--text-heading`, `--text-main`, `--text-muted`, `--border-subtle`, `--accent-primary`, `--accent-primary-fg`, etc.).
-- **Anti-flash** : script inline synchrone dans `<head>` appliquant l'attribut `data-theme` avant le premier rendu.
-- **Sélecteur** : menu déroulant accessible avec pastilles de prévisualisation bicolores (fond + accent) pour chaque thème ([`src/components/ThemeSwitcher.tsx`](../src/components/ThemeSwitcher.tsx)).
+- **Collection Claire (8 thèmes épurés & lumineux)** :
+  - `clair` (Thème par défaut : Minimalisme pur, albâtre `#f8fafc` & ardoise `#0f172a`)
+  - `beige` (Sable chaud & moka naturel)
+  - `ciel` (Azur aérien & bleu océan)
+  - `menthe` (Vert botanique & émeraude)
+  - `lavande` (Améthyste & indigo doux)
+  - `aurore` (Ambre doré & pêche)
+  - `glacier` (Givre polaire & cyan doux)
+  - `rose` (Quartz & pivoine)
+- **Collection Sombre (10 variations riches & contrastées)** :
+  - `sombre` (Studio moderne & titane)
+  - `charbon` (OLED noir pur & monochrome)
+  - `lune` (Indigo nuit & violet cosmique)
+  - `hiver` (Glacier boréal & cyan néon)
+  - `chili` (Crimson rubis & rouge vif)
+  - `automne` (Ambre toasté & cuir espresso)
+  - `orchidee` (Cyberpunk magenta & néo-violet)
+  - `taupe` (Espresso moka & bronze chaud)
+  - `foret` (Vert sapin & émeraude nocturne)
+  - `abysse` (Océan abyssal & bleu électrique)
+- **Sélecteur de Thème Segmenté** ([`src/components/ThemeSwitcher.tsx`](../src/components/ThemeSwitcher.tsx)) :
+  - Deux onglets dédiés : **☀️ Thèmes Clairs (8)** et **🌙 Thèmes Sombres (10)**.
+  - Grille tactile de cartes avec pastilles bicolores (fond + accent), descriptions d'ambiance et coche de sélection active.
+  - Persistance dans `localStorage` (`bobineweb-theme`) et synchronisation synchrone multi-onglets via `useSyncExternalStore`.
 
 ## 4. Typographie
 
@@ -43,40 +61,36 @@ Décision structurante : **le site porte le même système de 13 thèmes que l'a
 - **Page Soutenir** — visuel chaleureux accompagnant les liens de don et contribution.
 - **Tutoriel d'installation** — jalons visuels dans les étapes clés.
 
-## 7. Architecture de Layout & Composants UI
+## 7. Architecture de Layout & Ergonomie Tablette / Mobile
 
 - **Structure de la fenêtre (Viewport)** :
-  - Viewport verrouillé en pleine hauteur (`height: 100dvh; overflow: hidden`).
-  - **Header fixe** en haut (`flex-shrink: 0`, hauteur généreuse symétrique ~5.5rem).
-  - **Footer fixe** en bas (`flex-shrink: 0`, hauteur généreuse symétrique ~5.5rem).
-  - **Zone centrale (`<main>`)** : seule zone défilable (`flex: 1`, `overflow-y: auto`, `scrollbar-width: thin`).
-  - **Optimisation "sans scroll"** : calibrage des densités pour faire tenir le contenu des pages principales directement dans l'écran.
+  - **Desktop** : Header et Footer fixes symétriques avec zone centrale défilable sans scroll parasite.
+  - **Tablette & Mobile (Breakpoint 1024px)** :
+    - Menu compact avec bouton hamburger tactile ($\ge 44\text{px}$).
+    - Panneau latéral tactile [`MobileDrawer.tsx`](../src/components/MobileDrawer.tsx) avec fond flouté (`backdrop-filter: blur(10px)`), cibles tactiles $\ge 48\text{px}$, accès direct aux sous-chapitres de documentation et contrôles de personnalisation intégrés.
+    - Navigation de documentation contextuelle [`DocsMobileNav.tsx`](../src/components/DocsMobileNav.tsx) : barre collante avec sélecteur de chapitre déroulant et recherche plein écran.
+    - Comparateur [`ComparisonTable.tsx`](../src/components/ComparisonTable.tsx) adaptatif : bascule automatique en cartes comparatives sur mobile pour une lisibilité totale sans zoom.
 - **Règle éditoriale stricte** : Zéro emoji dans toute l'interface et les contenus textuels (remplacés par des icônes SVG vectorielles ou de la typographie claire).
-- **Composants d'immersion et de comparaison** :
-  - **Scène 3D Studio RPM** ([`src/components/three/StudioRPMScene.tsx`](../src/components/three/StudioRPMScene.tsx)) : Grille de 8 vélos stationnaires face à l'écran de projection et au boîtier Dell Wyse 5070.
-  - **Onglets Profilés** ([`src/components/ProfileTabs.tsx`](../src/components/ProfileTabs.tsx)) : 3 angles éditoriaux sans jargon (*Gérants de salle*, *Adhérents & Coachs*, *Open Source & Souveraineté*).
-  - **Tableau Comparatif** ([`src/components/ComparisonTable.tsx`](../src/components/ComparisonTable.tsx)) : Bobine face aux régies fermées et au bricolage.
-  - **Schéma Matériel & Terminal Linux** ([`src/components/HardwareDiagram.tsx`](../src/components/HardwareDiagram.tsx)) : Câblage en 3 câbles et console d'installation interactive.
-- **Boutons** : `.btn-primary` (accent plein avec halo et flèche), `.btn-secondary` (carte élégante avec icône).
-- **Cartes** : `.card-interactive` avec fond de surface distinct, bordure subtile, et micro-élévation au survol.
+- **Export & Sauvegarde** : Bouton d'export PDF vectoriel (`window.print()` avec styles `@media print` optimisés) et notification hors-ligne auto-dissimulée à 5s.
 
 ## 8. Optimisations Graphiques & Performance WebGL (0% GPU au repos)
 
 - **Rendu à la demande (`frameloop="demand"`)** : Arrêt complet de la boucle de calcul quand la caméra est statique (0 FPS / 0% GPU). Rendu uniquement lors d'une interaction utilisateur (glissement de souris, zoom).
-- **Mise en cache des ombres (`ContactShadows frames={1}`)** : Calcul unique de la texture d'ombre au montage, sans recalcul par image.
+- **Mise en cache des ombres** : Pas de recalcul d'ombres en temps réel au repos.
 - **Mise en veille hors champ (`IntersectionObserver`)** : Démontage/pause automatique du canvas WebGL lorsque la section n'est plus visible dans la fenêtre.
 - **Résolution native (`dpr={1}`) et profil `low-power`** : Évite toute surconsommation sur les écrans haute densité (Retina/4K).
 
 ## 9. Référencement & Découverte IA (SEO / GEO)
 
-- **Fichiers pour agents et moteurs IA** : [`public/llms.txt`](../public/llms.txt) (résumé structuré) et [`public/llms-full.txt`](../public/llms-full.txt) (corpus technique complet).
+- **Fichiers pour agents et moteurs IA** : [`public/llms.txt`](../public/llms.txt) (résumé structuré pour Perplexity, ChatGPT, Claude, Gemini).
 - **Manifeste PWA** : [`src/app/manifest.ts`](../src/app/manifest.ts) générant `/manifest.webmanifest`.
 - **Données structurées Schema.org** : [`src/components/JsonLd.tsx`](../src/components/JsonLd.tsx) (`SoftwareApplication`, `Organization`, `WebSite`).
-- **Sitemap dynamique & Robots.txt** : 34 routes indexées avec métadonnées multilingues et directives pour les robots d'indexation IA (GPTBot, ClaudeBot, PerplexityBot).
+- **Sitemap dynamique & Robots.txt** : 39 routes indexées avec métadonnées multilingues et directives pour tous les robots d'indexation IA.
 
 ## 10. Accessibilité
 
-- Contrastes WCAG AA validés sur l'ensemble des 13 thèmes.
+- Contrastes WCAG AA validés sur l'ensemble des 18 thèmes.
+- Cibles tactiles $\ge 48\text{px}$ sur l'ensemble des boutons et liens mobiles.
 - `:focus-visible` avec `--border-focus` sur les éléments interactifs.
 - Navigation au clavier fluide sur les onglets et les modèles 3D.
 

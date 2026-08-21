@@ -275,12 +275,12 @@ export default function PowerDemoScene() {
             scale={0.9}
           />
 
-          {/* 3. Les 4 vélos stationnaires face à l'écran (-90° / -Math.PI / 2) */}
+          {/* 3. Les 4 vélos stationnaires face à l'écran */}
           {BIKES_STUDIO.map((bike, idx) => (
             <VeloModel
               key={idx}
               position={bike.position}
-              rotation={[0, -Math.PI / 2, 0]}
+              rotation={[0, 0, 0]}
               scale={2.2}
             />
           ))}

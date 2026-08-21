@@ -47,8 +47,8 @@ export default function Header({
             <Image
               src="/logo-bobine.png"
               alt="Bobine"
-              width={140}
-              height={51}
+              width={155}
+              height={56}
               priority
               style={{ filter: "var(--logo-filter)" }}
             />

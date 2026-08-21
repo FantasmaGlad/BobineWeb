@@ -93,67 +93,89 @@ export default async function AboutPage({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const t = copy[locale as Locale];
+  const isEn = locale === "en";
 
   const breadcrumbs = [
     { name: "Bobine", url: `/${locale}` },
-    { name: isEnTitle(locale), url: `/${locale}/a-propos` },
+    { name: isEn ? "About" : "À propos", url: `/${locale}/a-propos` },
   ];
 
-  function isEnTitle(loc: string) {
-    return loc === "en" ? "About" : "À propos";
-  }
-
   return (
-    <div className="container" style={{ paddingBlock: "clamp(2.5rem, 6vw, 5rem)", maxWidth: "56rem" }}>
+    <div className="container" style={{ maxWidth: "56rem" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "0.5rem" }}>
-        <span className="feature-category-label">{t.badge}</span>
-        <ShareButton
-          locale={locale as Locale}
-          pathname="/a-propos"
-          title={t.title}
-          description={t.intro}
-        />
-      </div>
 
-      <h1
+      {/* 1. Hero Section — Plein écran au chargement */}
+      <section
+        className="hero-fullscreen"
         style={{
-          fontSize: "clamp(1.85rem, 3.8vw, 2.5rem)",
-          fontWeight: 800,
-          lineHeight: 1.2,
-          letterSpacing: "-0.03em",
-          marginBottom: "0.85rem",
-          color: "var(--text-heading)",
+          minHeight: "calc(100svh - 110px)",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          paddingTop: "clamp(3rem, 10vh, 6rem)",
+          paddingBottom: "clamp(4rem, 12vh, 7rem)",
+          boxSizing: "border-box",
         }}
       >
-        {t.title}
-      </h1>
-      <p
-        style={{
-          color: "var(--text-muted)",
-          fontSize: "1.05rem",
-          lineHeight: 1.6,
-          marginBottom: "2.25rem",
-        }}
-      >
-        {t.intro}
-      </p>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+          <span className="feature-category-label">{t.badge}</span>
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/a-propos"
+            title={t.title}
+            description={t.intro}
+          />
+        </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", marginBottom: "2.5rem" }}>
+        <h1
+          style={{
+            fontSize: "clamp(2.1rem, 4.8vw, 3.2rem)",
+            fontWeight: 800,
+            lineHeight: 1.12,
+            letterSpacing: "-0.03em",
+            marginBottom: "1.25rem",
+            color: "var(--text-heading)",
+          }}
+        >
+          {t.title}
+        </h1>
+        <p
+          style={{
+            color: "var(--text-muted)",
+            fontSize: "clamp(1.05rem, 2vw, 1.25rem)",
+            lineHeight: 1.6,
+            marginBottom: "2rem",
+          }}
+        >
+          {t.intro}
+        </p>
+
+        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
+          <a href="#about-sections" className="btn-primary">
+            {isEn ? "Discover the Story" : "Découvrir l'Histoire"} ↓
+          </a>
+          <Link className="btn-secondary" href={`/${locale}/documentation/manifeste`}>
+            {t.ctaManifesto} →
+          </Link>
+        </div>
+      </section>
+
+      {/* 2. Sections de contenu détaillées */}
+      <div id="about-sections" style={{ display: "flex", flexDirection: "column", gap: "2.5rem", paddingBottom: "4rem" }}>
         {t.sections.map((sec, idx) => (
           <div
             key={idx}
             style={{
               borderTop: "1px solid var(--border-subtle)",
-              paddingTop: "1.25rem",
+              paddingTop: "1.5rem",
             }}
           >
             <h2
               style={{
-                fontSize: "1.2rem",
+                fontSize: "1.35rem",
                 fontWeight: 700,
                 color: "var(--text-heading)",
-                marginBottom: "0.4rem",
+                marginBottom: "0.6rem",
               }}
             >
               {sec.title}
@@ -161,8 +183,8 @@ export default async function AboutPage({
             <p
               style={{
                 color: "var(--text-main)",
-                fontSize: "0.95rem",
-                lineHeight: 1.6,
+                fontSize: "1rem",
+                lineHeight: 1.65,
                 margin: 0,
               }}
             >
@@ -170,24 +192,24 @@ export default async function AboutPage({
             </p>
           </div>
         ))}
-      </div>
 
-      <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-        <Link className="btn-primary" href={`/${locale}/documentation/manifeste`}>
-          {t.ctaManifesto} →
-        </Link>
-        <a
-          className="btn-secondary"
-          href="https://github.com/FantasmaGlad/Bobine"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <GitHubIcon size={16} />
-          {t.ctaGithub}
-        </a>
-        <Link className="btn-secondary" href={`/${locale}/documentation`}>
-          {t.ctaDoc}
-        </Link>
+        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "1rem" }}>
+          <Link className="btn-primary" href={`/${locale}/documentation/manifeste`}>
+            {t.ctaManifesto} →
+          </Link>
+          <a
+            className="btn-secondary"
+            href="https://github.com/FantasmaGlad/Bobine"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <GitHubIcon size={16} />
+            {t.ctaGithub}
+          </a>
+          <Link className="btn-secondary" href={`/${locale}/documentation`}>
+            {t.ctaDoc}
+          </Link>
+        </div>
       </div>
     </div>
   );

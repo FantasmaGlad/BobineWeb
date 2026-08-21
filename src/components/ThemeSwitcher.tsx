@@ -6,6 +6,7 @@ import {
   defaultTheme,
   isTheme,
   themeMeta,
+  themes,
   lightThemes,
   darkThemes,
   type Theme,
@@ -47,7 +48,16 @@ export default function ThemeSwitcher() {
   );
   const containerRef = useRef<HTMLDivElement>(null);
 
-  function handleToggleOpen() {
+  function handleCycleTheme(e: React.MouseEvent) {
+    e.stopPropagation();
+    const currentIndex = themes.indexOf(theme);
+    const nextIndex = (currentIndex + 1) % themes.length;
+    const next = themes[nextIndex];
+    applyTheme(next);
+  }
+
+  function handleToggleOpen(e: React.MouseEvent) {
+    e.stopPropagation();
     setIsOpen((prev) => {
       const next = !prev;
       if (next) {
@@ -93,41 +103,52 @@ export default function ThemeSwitcher() {
 
   return (
     <div className="theme-switcher-wrapper" ref={containerRef}>
-      <button
-        type="button"
-        className="theme-switcher-btn"
-        onClick={handleToggleOpen}
-        aria-expanded={isOpen}
-        aria-haspopup="dialog"
-        title="Changer de thème (Collections Claire & Sombre)"
-        aria-label={`Thème actif : ${currentMeta.label} (${currentMeta.isDark ? "Sombre" : "Clair"}). Cliquez pour ouvrir le sélecteur.`}
-      >
-        <span
-          className="theme-swatch-icon"
-          style={{
-            background: `linear-gradient(135deg, ${currentMeta.bg} 50%, ${currentMeta.accent} 50%)`,
-          }}
-        />
-        <span className="theme-switcher-btn__label">
-          {currentMeta.label}
-        </span>
-        <svg
-          width="12"
-          height="12"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          style={{
-            transition: "transform 0.2s ease",
-            transform: isOpen ? "rotate(180deg)" : "rotate(0)",
-          }}
+      <div className="theme-switcher-pill-group">
+        <button
+          type="button"
+          className="theme-switcher-btn"
+          onClick={handleCycleTheme}
+          title={`Thème actuel : ${currentMeta.label}. Cliquez pour passer au thème suivant.`}
+          aria-label={`Thème actif : ${currentMeta.label}. Cliquez pour passer au thème suivant.`}
         >
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
-      </button>
+          <span
+            className="theme-swatch-icon"
+            style={{
+              background: `linear-gradient(135deg, ${currentMeta.bg} 50%, ${currentMeta.accent} 50%)`,
+            }}
+          />
+          <span className="theme-switcher-btn__label">
+            {currentMeta.label}
+          </span>
+        </button>
+
+        <button
+          type="button"
+          className="theme-switcher-arrow-btn"
+          onClick={handleToggleOpen}
+          aria-expanded={isOpen}
+          aria-haspopup="dialog"
+          title="Ouvrir la liste complète des 18 thèmes"
+          aria-label="Ouvrir la liste complète des 18 thèmes"
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              transition: "transform 0.2s ease",
+              transform: isOpen ? "rotate(180deg)" : "rotate(0)",
+            }}
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+      </div>
 
       {isOpen && (
         <div className="theme-dropdown-modal" role="dialog" aria-label="Palette des thèmes">

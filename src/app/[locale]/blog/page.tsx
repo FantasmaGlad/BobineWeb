@@ -140,126 +140,129 @@ export default async function BlogIndexPage({
   const latestRelease = releases[0];
 
   return (
-    <div className="container" style={{ paddingBlock: "clamp(2rem, 4vh, 3.5rem)", maxWidth: "70rem" }}>
+    <div className="container" style={{ paddingBlock: "clamp(1rem, 2vh, 2rem)", maxWidth: "70rem" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
-      {/* En-tête large et aéré */}
-      <div
+      {/* 1. ÉCRAN D'ACCUEIL COMPLET SANS DEVOIR SCROLLER */}
+      <section
         style={{
+          minHeight: "calc(100svh - 8.5rem)",
           display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          flexWrap: "wrap",
-          gap: "1.5rem",
-          paddingBottom: "1.75rem",
-          borderBottom: "1px solid var(--border-subtle)",
-          marginBottom: "2rem",
+          flexDirection: "column",
+          justifyContent: "center",
+          paddingBottom: "2rem",
         }}
       >
-        <div style={{ maxWidth: "46rem" }}>
-          <span className="feature-category-label">{t.badge}</span>
-          <h1
-            style={{
-              fontSize: "clamp(2.1rem, 4.2vw, 3rem)",
-              fontWeight: 800,
-              letterSpacing: "-0.03em",
-              marginBlock: "0.4rem 0.65rem",
-              color: "var(--text-heading)",
-            }}
-          >
-            {t.title}
-          </h1>
-          <p
-            style={{
-              color: "var(--text-muted)",
-              fontSize: "1.05rem",
-              margin: 0,
-              lineHeight: 1.6,
-            }}
-          >
-            {t.intro}
-          </p>
-        </div>
-        <ShareButton
-          locale={locale as Locale}
-          pathname="/blog"
-          title={t.title}
-          description={t.intro}
-        />
-      </div>
-
-      {/* =========================================================================
-          1. CARTE HERO : DERNIÈRE RELEASE MAJEURE EN VEDETTE (LAYOUT OUVERT)
-          ========================================================================= */}
-      {latestRelease && (
+        {/* En-tête large et aéré */}
         <div
           style={{
-            paddingBottom: "2.5rem",
-            marginBottom: "2.5rem",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            flexWrap: "wrap",
+            gap: "1.5rem",
+            paddingBottom: "1.25rem",
             borderBottom: "1px solid var(--border-subtle)",
+            marginBottom: "1.75rem",
           }}
         >
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem", marginBottom: "0.85rem" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-              <span className="badge" style={{ fontSize: "0.8rem", padding: "0.25rem 0.75rem" }}>
-                {t.featuredReleaseBadge}
-              </span>
-              <span style={{ fontSize: "0.875rem", fontWeight: 700, color: "var(--text-heading)", fontFamily: "monospace" }}>
-                {latestRelease.slug}
-              </span>
-            </div>
-            {latestRelease.publishedAt && (
-              <time style={{ color: "var(--text-dim)", fontSize: "0.85rem", fontWeight: 500 }}>
-                {new Date(latestRelease.publishedAt).toLocaleDateString(
-                  locale === "fr" ? "fr-FR" : "en-US",
-                  { year: "numeric", month: "long", day: "numeric" }
-                )}
-              </time>
-            )}
+          <div style={{ maxWidth: "46rem" }}>
+            <span className="feature-category-label">{t.badge}</span>
+            <h1
+              style={{
+                fontSize: "clamp(2.1rem, 4vw, 2.8rem)",
+                fontWeight: 800,
+                letterSpacing: "-0.03em",
+                marginBlock: "0.35rem 0.5rem",
+                color: "var(--text-heading)",
+              }}
+            >
+              {t.title}
+            </h1>
+            <p
+              style={{
+                color: "var(--text-muted)",
+                fontSize: "1rem",
+                margin: 0,
+                lineHeight: 1.55,
+              }}
+            >
+              {t.intro}
+            </p>
           </div>
-
-          <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.1rem)", fontWeight: 800, color: "var(--text-heading)", margin: "0 0 0.85rem 0", lineHeight: 1.25 }}>
-            <Link
-              href={`/${locale}/blog/${encodeURIComponent(latestRelease.slug)}`}
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              {latestRelease.title}
-            </Link>
-          </h2>
-
-          <ul style={{ margin: "0 0 1.5rem 0", paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.95rem", lineHeight: 1.7 }}>
-            <li>{locale === "en" ? "Full MPV video playback with Intel QuickSync & VA-API hardware decoding" : "Moteur vidéo MPV avec décodage matériel Intel QuickSync et VA-API (moins de 8% CPU)"}</li>
-            <li>{locale === "en" ? "Automated TV power on/off scheduling via HDMI-CEC signals" : "Allumage et extinction automatique des téléviseurs via protocole HDMI-CEC"}</li>
-            <li>{locale === "en" ? "On-demand member touch kiosk and instant smartphone remote via local QR code" : "Borne tactile membre à la demande & télécommande smartphone via QR code local"}</li>
-            <li>{locale === "en" ? "24/7 background plateau music radio with seamless gapless crossfading" : "Radio d'ambiance plateau 24/7 avec fondu musical sans aucun blanc sonore"}</li>
-          </ul>
-
-          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
-            <Link
-              href={`/${locale}/blog/${encodeURIComponent(latestRelease.slug)}`}
-              className="btn-primary"
-              style={{ textDecoration: "none" }}
-            >
-              <span>{t.readMore}</span>
-            </Link>
-            <a
-              href={latestRelease.url}
-              target="_blank"
-              rel="noreferrer"
-              className="btn-secondary"
-              style={{ textDecoration: "none" }}
-            >
-              <GitHubIcon size={16} />
-              <span>{t.viewOnGithub}</span>
-            </a>
-          </div>
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/blog"
+            title={t.title}
+            description={t.intro}
+          />
         </div>
-      )}
+
+        {/* CARTE HERO : DERNIÈRE RELEASE MAJEURE EN VEDETTE (LAYOUT OUVERT) */}
+        {latestRelease && (
+          <div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem", marginBottom: "0.75rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                <span className="badge" style={{ fontSize: "0.775rem", padding: "0.2rem 0.65rem" }}>
+                  {t.featuredReleaseBadge}
+                </span>
+                <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-heading)", fontFamily: "monospace" }}>
+                  {latestRelease.slug}
+                </span>
+              </div>
+              {latestRelease.publishedAt && (
+                <time style={{ color: "var(--text-dim)", fontSize: "0.85rem", fontWeight: 500 }}>
+                  {new Date(latestRelease.publishedAt).toLocaleDateString(
+                    locale === "fr" ? "fr-FR" : "en-US",
+                    { year: "numeric", month: "long", day: "numeric" }
+                  )}
+                </time>
+              )}
+            </div>
+
+            <h2 style={{ fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)", fontWeight: 800, color: "var(--text-heading)", margin: "0 0 0.75rem 0", lineHeight: 1.25 }}>
+              <Link
+                href={`/${locale}/blog/${encodeURIComponent(latestRelease.slug)}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                {latestRelease.title}
+              </Link>
+            </h2>
+
+            <ul style={{ margin: "0 0 1.35rem 0", paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.925rem", lineHeight: 1.65 }}>
+              <li>{locale === "en" ? "Full MPV video playback with Intel QuickSync & VA-API hardware decoding" : "Moteur vidéo MPV avec décodage matériel Intel QuickSync et VA-API (moins de 8% CPU)"}</li>
+              <li>{locale === "en" ? "Automated TV power on/off scheduling via HDMI-CEC signals" : "Allumage et extinction automatique des téléviseurs via protocole HDMI-CEC"}</li>
+              <li>{locale === "en" ? "On-demand member touch kiosk and instant smartphone remote via local QR code" : "Borne tactile membre à la demande & télécommande smartphone via QR code local"}</li>
+              <li>{locale === "en" ? "24/7 background plateau music radio with seamless gapless crossfading" : "Radio d'ambiance plateau 24/7 avec fondu musical sans aucun blanc sonore"}</li>
+            </ul>
+
+            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
+              <Link
+                href={`/${locale}/blog/${encodeURIComponent(latestRelease.slug)}`}
+                className="btn-primary"
+                style={{ textDecoration: "none" }}
+              >
+                <span>{t.readMore}</span>
+              </Link>
+              <a
+                href={latestRelease.url}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-secondary"
+                style={{ textDecoration: "none" }}
+              >
+                <GitHubIcon size={16} />
+                <span>{t.viewOnGithub}</span>
+              </a>
+            </div>
+          </div>
+        )}
+      </section>
 
       {/* =========================================================================
-          2. ARTICLES TECHNIQUES & GUIDES DE FOND (LAYOUT OUVERT)
+          2. ARTICLES TECHNIQUES & GUIDES DE FOND (EN SCROLLANT)
           ========================================================================= */}
-      <div style={{ marginBottom: "3rem" }}>
+      <div style={{ paddingTop: "2.5rem", borderTop: "1px solid var(--border-subtle)", marginBottom: "3rem" }}>
         <div style={{ marginBottom: "1.25rem", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "0.5rem" }}>
           <h2 style={{ fontSize: "1.35rem", fontWeight: 700, color: "var(--text-heading)", margin: 0 }}>
             {t.articlesHeading}

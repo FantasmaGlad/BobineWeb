@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import DocsSidebar from "@/components/DocsSidebar";
 import DocsSearch from "@/components/DocsSearch";
-import DocsTableOfContents from "@/components/DocsTableOfContents";
 
 const sections: Record<Locale, ReadonlyArray<readonly [string, string]>> = {
   fr: [
@@ -78,10 +77,6 @@ export default async function DocumentationLayout({
             <div className="docs-content__inner">{children}</div>
           </article>
         </main>
-
-        <aside className="docs-toc-panel">
-          <DocsTableOfContents locale={locale} />
-        </aside>
       </div>
     </div>
   );

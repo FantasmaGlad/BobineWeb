@@ -105,7 +105,7 @@ function VoileHD({
   onToggle,
 }: {
   playing: boolean;
-  onToggle: (videoEl?: HTMLVideoElement) => void;
+  onToggle: () => void;
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const materialRef = useRef<THREE.MeshBasicMaterial | null>(null);
@@ -113,11 +113,24 @@ function VoileHD({
   const themeAccent = useThemeAccent();
 
   useEffect(() => {
-    const el = document.createElement("video");
-    el.src = VIDEO_URL;
-    el.loop = true;
-    el.playsInline = true;
-    el.preload = "auto";
+    let el = document.getElementById("bobine-3d-video-el") as HTMLVideoElement;
+    if (!el) {
+      el = document.createElement("video");
+      el.id = "bobine-3d-video-el";
+      el.src = VIDEO_URL;
+      el.loop = true;
+      el.playsInline = true;
+      el.preload = "auto";
+      el.crossOrigin = "anonymous";
+      el.style.position = "fixed";
+      el.style.top = "-9999px";
+      el.style.left = "-9999px";
+      el.style.width = "1px";
+      el.style.height = "1px";
+      el.style.opacity = "0.01";
+      el.style.pointerEvents = "none";
+      document.body.appendChild(el);
+    }
     videoRef.current = el;
 
     const videoTexture = new THREE.VideoTexture(el);
@@ -130,8 +143,10 @@ function VoileHD({
 
     return () => {
       el.pause();
-      el.src = "";
       videoTexture.dispose();
+      if (el.parentNode) {
+        el.parentNode.removeChild(el);
+      }
       videoRef.current = null;
     };
   }, []);
@@ -140,18 +155,16 @@ function VoileHD({
     const v = videoRef.current;
     if (!v) return;
     if (playing) {
-      if (v.paused) {
-        v.currentTime = 0;
-        v.muted = false;
-        v.volume = 0.85;
-        const p = v.play();
-        if (p !== undefined) {
-          p.catch((err) => {
-            console.warn("Autoplay audio blocked, falling back to muted:", err);
-            v.muted = true;
-            v.play().catch(() => {});
-          });
-        }
+      v.currentTime = 0;
+      v.muted = false;
+      v.volume = 1.0;
+      const p = v.play();
+      if (p !== undefined) {
+        p.catch((err) => {
+          console.warn("Autoplay with audio blocked:", err);
+          v.muted = true;
+          v.play().catch(() => {});
+        });
       }
     } else {
       if (!v.paused) {
@@ -168,19 +181,11 @@ function VoileHD({
 
   const handleMeshClick = () => {
     const v = videoRef.current;
-    if (v && !playing) {
-      v.currentTime = 0;
+    if (v) {
       v.muted = false;
-      v.volume = 0.85;
-      const p = v.play();
-      if (p !== undefined) {
-        p.catch(() => {
-          v.muted = true;
-          v.play().catch(() => {});
-        });
-      }
+      v.volume = 1.0;
     }
-    onToggle(v || undefined);
+    onToggle();
   };
 
   return (
@@ -234,6 +239,11 @@ export default function PowerDemoScene() {
   const stageRef = useRef<HTMLDivElement>(null);
 
   const handleTogglePlay = () => {
+    const el = document.getElementById("bobine-3d-video-el") as HTMLVideoElement;
+    if (el) {
+      el.muted = false;
+      el.volume = 1.0;
+    }
     setPlaying((prev) => !prev);
   };
 

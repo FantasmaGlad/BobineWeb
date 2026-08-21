@@ -267,14 +267,23 @@ Notes sur les écarts avec la proposition initiale :
 - `react-markdown` + `remark-gfm` : rendu du corps des releases GitHub sur le blog.
 - `three`, `@react-three/fiber`, `@react-three/drei`, `meshoptimizer` : ajoutés pour la démo 3D (`/demo-3d`, cf. §4) — chargés uniquement sur cette route (`next/dynamic`, `ssr: false`), sans impact sur le poids des autres pages.
 
-## 17. Historique et suite
+## 18. Stratégie SEO, Sitemaps & Indexation pour Moteurs IA (GEO)
 
-Étapes initiales (toutes réalisées, cf. `Start.md`) : validation du cahier des charges, création du dépôt, scaffolding Next.js suivant la structure du §16, construction de la page d'accueil et du tutoriel d'installation, extension au reste de l'arborescence, intégration et ajustement de la scène 3D (voile TV plaqué bord à bord, vidéo de démo versionnée, header sticky au défilement).
+Le site `bobine.fit` intègre une stratégie de visibilité complète pour les moteurs de recherche traditionnels et génératifs :
 
-Suite envisagée :
-- Remplacer la vidéo de démo de `/demo-3d` (`kiosk-demo.mp4`) par une capture HD finale du logiciel avant toute mise en avant de cette page.
-- Explorer un rendu "live" (DOM/iframe plaqué en 3D) de l'écran du kiosk sur `/demo-3d`, en complément de la vidéo pré-enregistrée actuelle.
+### 18.1. Architecture du Sitemap (`src/app/sitemap.ts`)
+- **Fichier servi** : `https://bobine.fit/sitemap.xml`
+- **Génération dynamique** : 39 routes statiques (FR/EN) + les pages de blog issues des releases GitHub (`/blog/[slug]`).
+- **Balises `hreflang`** : Déclaration systématique des versions alternatives `fr`, `en` et `x-default` (`/fr`).
+
+### 18.2. Découverte par les Moteurs d'Intelligence Artificielle
+- **`public/llms.txt`** : Document Markdown condensé et structuré, pensé pour les scrapers et moteurs de recherche LLM (Perplexity, ChatGPT, Claude, Gemini).
+- **`src/app/robots.ts`** : Directives explicites d'indexation autorisant tous les crawlers IA (`GPTBot`, `PerplexityBot`, `ClaudeBot`, `Google-Extended`, etc.).
+- **Vérification Bing** : `public/BingSiteAuth.xml` pour la prise en charge immédiate par Bing Webmaster Tools.
+
+### 18.3. Données Structurées (Schema.org)
+- Intégration dans `src/components/JsonLd.tsx` des schémas `SoftwareApplication` (licence AGPL-3.0, catégorie Sport/Multimédia), `Organization`, `WebSite` et `BreadcrumbList`.
 
 ---
 
-*Document rédigé par entretien de cadrage — réponses retenues : portée complète dès la V1 ; stack Next.js + MDX ; hébergement Vercel avec portabilité vers un auto-hébergement futur (DuckDNS) ; bilingue FR/EN dès le lancement ; aucun tracking ; tutoriel d'installation entièrement nouveau (pas une reprise du README) ; page de soutien simple (dons) ; communauté centrée sur GitHub ; éditeur du site « Fanta », contact clement.barillot3901@gmail.com ; dépôt github.com/FantasmaGlad/BobineWeb ; blog automatique depuis les releases GitHub ; pas de page comparatif dédiée ; logo actuel conservé tel quel.*
+*Document rédigé par entretien de cadrage — réponses retenues : portée complète dès la V1 ; stack Next.js + MDX ; hébergement Vercel avec portabilité vers un auto-hébergement futur (DuckDNS) ; bilingue FR/EN dès le lancement ; aucun tracking ; tutoriel d'installation entièrement nouveau (pas une reprise du README) ; page de soutien simple (dons) ; communauté centrée sur GitHub ; éditeur du site « Fanta », contact clement.barillot3901@gmail.com ; dépôt github.com/FantasmaGlad/BobineWeb ; blog automatique depuis les releases GitHub ; pas de page comparatif dédiée ; logo actuel conservé tel quel ; règle absolue zéro emoji.*

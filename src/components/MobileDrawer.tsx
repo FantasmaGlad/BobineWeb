@@ -25,6 +25,15 @@ export default function MobileDrawer({
   const pathname = usePathname();
   const drawerRef = useRef<HTMLDivElement>(null);
 
+  const isAllowedBaamix = (() => {
+    if (!pathname) return false;
+    const cleanPath = pathname.replace(/\/$/, "");
+    if (cleanPath === `/${locale}`) return true;
+    if (cleanPath.startsWith(`/${locale}/fonctionnalites`)) return true;
+    if (cleanPath.startsWith(`/${locale}/documentation`)) return true;
+    return false;
+  })();
+
   const mainLinks: Array<{ href: string; label: string; tag?: string }> = [
     { href: `/${locale}`, label: dict.nav.home },
     { href: `/${locale}/fonctionnalites`, label: dict.nav.features },
@@ -187,8 +196,29 @@ export default function MobileDrawer({
               </div>
             </div>
 
-            <div style={{ marginTop: "1rem", display: "flex", justifyContent: "center" }}>
-              <GitHubBadge />
+            <div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              {isAllowedBaamix && (
+                <button
+                  type="button"
+                  className="mobile-drawer-baamix-btn"
+                  onClick={() => {
+                    onClose();
+                    window.dispatchEvent(new CustomEvent("open-baamix"));
+                  }}
+                >
+                  <Image
+                    src="/images/baamix.jpg"
+                    alt="Baamix"
+                    width={22}
+                    height={22}
+                    className="chatbot-avatar-img"
+                  />
+                  <span>Baamix</span>
+                </button>
+              )}
+              <div style={{ display: "flex", justifyContent: "center", marginTop: "0.25rem" }}>
+                <GitHubBadge />
+              </div>
             </div>
           </div>
         </div>

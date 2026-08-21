@@ -104,20 +104,20 @@ export default async function AboutPage({
     <div className="container" style={{ maxWidth: "56rem" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
-      {/* 1. Hero Section — Plein écran au chargement */}
+      {/* 1. Hero Section — Plein écran positionné haut au chargement */}
       <section
         className="hero-fullscreen"
         style={{
           minHeight: "calc(100svh - 110px)",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          paddingTop: "clamp(3rem, 10vh, 6rem)",
-          paddingBottom: "clamp(4rem, 12vh, 7rem)",
+          justifyContent: "flex-start",
+          paddingTop: "clamp(1.25rem, 3vh, 2.25rem)",
+          paddingBottom: "clamp(2rem, 5vh, 3.5rem)",
           boxSizing: "border-box",
         }}
       >
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "0.75rem" }}>
           <span className="feature-category-label">{t.badge}</span>
           <ShareButton
             locale={locale as Locale}

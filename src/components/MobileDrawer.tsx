@@ -9,7 +9,6 @@ import ThemeSwitcher from "@/components/ThemeSwitcher";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 import GitHubBadge from "@/components/GitHubBadge";
 
-
 interface MobileDrawerProps {
   isOpen: boolean;
   onClose: () => void;
@@ -26,14 +25,37 @@ export default function MobileDrawer({
   const pathname = usePathname();
   const drawerRef = useRef<HTMLDivElement>(null);
 
-  const links: Array<[string, string]> = [
-    [`/${locale}`, dict.nav.home],
-    [`/${locale}/fonctionnalites`, dict.nav.features],
-    [`/${locale}/documentation`, dict.nav.documentation],
-    [`/${locale}/blog`, dict.nav.blog],
-    [`/${locale}/demo-3d`, dict.nav.demo],
-    [`/${locale}/soutenir`, dict.nav.support],
-    [`/${locale}/a-propos`, dict.nav.about],
+  const mainLinks: Array<{ href: string; label: string; tag?: string }> = [
+    { href: `/${locale}`, label: dict.nav.home },
+    { href: `/${locale}/fonctionnalites`, label: dict.nav.features },
+    { href: `/${locale}/demo-3d`, label: dict.nav.demo, tag: "3D" },
+    { href: `/${locale}/documentation`, label: dict.nav.documentation },
+    { href: `/${locale}/blog`, label: dict.nav.blog },
+    { href: `/${locale}/soutenir`, label: dict.nav.support },
+    { href: `/${locale}/a-propos`, label: dict.nav.about },
+  ];
+
+  const docSubLinks: Array<{ href: string; label: string }> = [
+    {
+      href: `/${locale}/documentation/demarrage-rapide`,
+      label: locale === "en" ? "Quick Start Guide" : "Démarrage rapide",
+    },
+    {
+      href: `/${locale}/documentation/utilisation`,
+      label: locale === "en" ? "User Manual" : "Manuel d'utilisation",
+    },
+    {
+      href: `/${locale}/documentation/faq`,
+      label: locale === "en" ? "FAQ & Troubleshooting" : "FAQ & Dépannage",
+    },
+    {
+      href: `/${locale}/documentation/developpeurs`,
+      label: locale === "en" ? "Developer & API" : "Développeurs & API",
+    },
+    {
+      href: `/${locale}/documentation/manifeste`,
+      label: locale === "en" ? "Manifesto & Identity" : "Manifeste & Identité",
+    },
   ];
 
   useEffect(() => {
@@ -71,8 +93,9 @@ export default function MobileDrawer({
             <Image
               src="/logo-bobine.png"
               alt="Bobine"
-              width={120}
-              height={44}
+              width={125}
+              height={46}
+              priority
               style={{ filter: "var(--logo-filter)" }}
             />
           </Link>
@@ -89,45 +112,84 @@ export default function MobileDrawer({
           </button>
         </div>
 
-        {/* Navigation Links */}
-        <nav className="mobile-drawer-nav" aria-label="Menu mobile">
-          {links.map(([href, label]) => {
-            const isActive =
-              pathname === href ||
-              (href !== `/${locale}` && pathname.startsWith(href));
-            return (
-              <Link
-                key={href}
-                href={href}
-                className={`mobile-drawer-link ${isActive ? "is-active" : ""}`}
-                onClick={onClose}
-              >
-                <span>{label}</span>
-                {isActive && <span className="mobile-drawer-active-dot" />}
-              </Link>
-            );
-          })}
-        </nav>
+        {/* Corps du Drawer Scrollable */}
+        <div className="mobile-drawer-body">
+          {/* Navigation Principale */}
+          <div className="mobile-drawer-section">
+            <span className="mobile-drawer-section-title">
+              {locale === "en" ? "Navigation" : "Navigation"}
+            </span>
+            <nav className="mobile-drawer-nav" aria-label="Menu principal">
+              {mainLinks.map((item) => {
+                const isActive =
+                  pathname === item.href ||
+                  (item.href !== `/${locale}` && pathname.startsWith(item.href));
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`mobile-drawer-link ${isActive ? "is-active" : ""}`}
+                    onClick={onClose}
+                  >
+                    <span className="mobile-drawer-link__text">{item.label}</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                      {item.tag && (
+                        <span className="mobile-drawer-link__tag">{item.tag}</span>
+                      )}
+                      {isActive && <span className="mobile-drawer-active-dot" />}
+                    </div>
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
 
-        {/* Switchers & Actions */}
-        <div className="mobile-drawer-footer">
-          <div className="mobile-drawer-switchers">
-            <div className="mobile-drawer-switcher-row">
-              <span className="mobile-drawer-switcher-label">
-                {locale === "en" ? "Theme" : "Thème"} :
-              </span>
-              <ThemeSwitcher />
-            </div>
-            <div className="mobile-drawer-switcher-row">
-              <span className="mobile-drawer-switcher-label">
-                {locale === "en" ? "Language" : "Langue"} :
-              </span>
-              <LocaleSwitcher locale={locale} dict={dict} />
+          {/* Sous-Menu Rapide Documentation (Si l'utilisateur consulte la doc ou souhaite un accès direct) */}
+          <div className="mobile-drawer-section">
+            <span className="mobile-drawer-section-title">
+              {locale === "en" ? "Documentation Sections" : "Guides & Documentation"}
+            </span>
+            <div className="mobile-drawer-subgrid">
+              {docSubLinks.map((item) => {
+                const isSubActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`mobile-drawer-sublink ${isSubActive ? "is-active" : ""}`}
+                    onClick={onClose}
+                  >
+                    <span>{item.label}</span>
+                    {isSubActive && <span className="mobile-drawer-active-dot" />}
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
-          <div style={{ marginTop: "1rem", display: "flex", justifyContent: "center" }}>
-            <GitHubBadge />
+          {/* Personnalisation & Actions */}
+          <div className="mobile-drawer-section mobile-drawer-section--settings">
+            <span className="mobile-drawer-section-title">
+              {locale === "en" ? "Settings & Social" : "Réglages & Communauté"}
+            </span>
+            <div className="mobile-drawer-switchers-grid">
+              <div className="mobile-drawer-setting-box">
+                <span className="mobile-drawer-setting-title">
+                  {locale === "en" ? "Theme" : "Thème"}
+                </span>
+                <ThemeSwitcher />
+              </div>
+              <div className="mobile-drawer-setting-box">
+                <span className="mobile-drawer-setting-title">
+                  {locale === "en" ? "Language" : "Langue"}
+                </span>
+                <LocaleSwitcher locale={locale} dict={dict} />
+              </div>
+            </div>
+
+            <div style={{ marginTop: "1rem", display: "flex", justifyContent: "center" }}>
+              <GitHubBadge />
+            </div>
           </div>
         </div>
       </div>

@@ -6,7 +6,8 @@ import {
   defaultTheme,
   isTheme,
   themeMeta,
-  themes,
+  lightThemes,
+  darkThemes,
   type Theme,
 } from "@/lib/themes";
 
@@ -39,9 +40,22 @@ export default function ThemeSwitcher() {
     getCurrentTheme,
     () => defaultTheme
   );
+  const currentMeta = themeMeta[theme] || themeMeta[defaultTheme];
   const [isOpen, setIsOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<"light" | "dark">(() =>
+    currentMeta.isDark ? "dark" : "light"
+  );
   const containerRef = useRef<HTMLDivElement>(null);
-  const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  function handleToggleOpen() {
+    setIsOpen((prev) => {
+      const next = !prev;
+      if (next) {
+        setActiveTab(currentMeta.isDark ? "dark" : "light");
+      }
+      return next;
+    });
+  }
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -70,44 +84,23 @@ export default function ThemeSwitcher() {
     };
   }, [isOpen]);
 
-  // Gestion du simple clic (thème suivant) vs double clic (ouvrir la sélection manuelle)
-  function handleButtonClick(event: React.MouseEvent) {
-    event.preventDefault();
-
-    if (clickTimeoutRef.current) {
-      // Double clic détecté : ouvrir la liste manuelle
-      clearTimeout(clickTimeoutRef.current);
-      clickTimeoutRef.current = null;
-      setIsOpen((prev) => !prev);
-    } else {
-      // Attente d'un éventuel second clic
-      clickTimeoutRef.current = setTimeout(() => {
-        clickTimeoutRef.current = null;
-        // Simple clic : cycle vers le thème suivant
-        const currentIndex = themes.indexOf(theme);
-        const nextTheme = themes[(currentIndex + 1) % themes.length];
-        applyTheme(nextTheme);
-      }, 250);
-    }
-  }
-
   function handleSelect(next: Theme) {
     applyTheme(next);
     setIsOpen(false);
   }
 
-  const currentMeta = themeMeta[theme] || themeMeta[defaultTheme];
+  const displayedThemes = activeTab === "light" ? lightThemes : darkThemes;
 
   return (
     <div className="theme-switcher-wrapper" ref={containerRef}>
       <button
         type="button"
         className="theme-switcher-btn"
-        onClick={handleButtonClick}
+        onClick={handleToggleOpen}
         aria-expanded={isOpen}
-        aria-haspopup="listbox"
-        title="1 clic : thème suivant · Double-clic : menu des 13 thèmes"
-        aria-label={`Thème actif : ${currentMeta.label}. 1 clic pour changer, double-clic pour ouvrir la liste.`}
+        aria-haspopup="dialog"
+        title="Changer de thème (Collections Claire & Sombre)"
+        aria-label={`Thème actif : ${currentMeta.label} (${currentMeta.isDark ? "Sombre" : "Clair"}). Cliquez pour ouvrir le sélecteur.`}
       >
         <span
           className="theme-swatch-icon"
@@ -115,7 +108,9 @@ export default function ThemeSwitcher() {
             background: `linear-gradient(135deg, ${currentMeta.bg} 50%, ${currentMeta.accent} 50%)`,
           }}
         />
-        <span>Thème : {currentMeta.label}</span>
+        <span className="theme-switcher-btn__label">
+          {currentMeta.isDark ? "🌙" : "☀️"} {currentMeta.label}
+        </span>
         <svg
           width="12"
           height="12"
@@ -125,19 +120,9 @@ export default function ThemeSwitcher() {
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          onClick={(e) => {
-            // Clic direct sur la flèche pour ouvrir immédiatement le menu
-            e.stopPropagation();
-            if (clickTimeoutRef.current) {
-              clearTimeout(clickTimeoutRef.current);
-              clickTimeoutRef.current = null;
-            }
-            setIsOpen((prev) => !prev);
-          }}
           style={{
             transition: "transform 0.2s ease",
             transform: isOpen ? "rotate(180deg)" : "rotate(0)",
-            cursor: "pointer",
           }}
         >
           <polyline points="6 9 12 15 18 9" />
@@ -145,29 +130,69 @@ export default function ThemeSwitcher() {
       </button>
 
       {isOpen && (
-        <div className="theme-dropdown" role="listbox" aria-label="Choisir un thème">
-          {themes.map((t) => {
-            const meta = themeMeta[t];
-            const isActive = t === theme;
-            return (
-              <button
-                key={t}
-                type="button"
-                role="option"
-                aria-selected={isActive}
-                className={`theme-option ${isActive ? "is-active" : ""}`}
-                onClick={() => handleSelect(t)}
-              >
-                <span
-                  className="theme-swatch-icon"
-                  style={{
-                    background: `linear-gradient(135deg, ${meta.bg} 50%, ${meta.accent} 50%)`,
-                  }}
-                />
-                <span>{meta.label}</span>
-              </button>
-            );
-          })}
+        <div className="theme-dropdown-modal" role="dialog" aria-label="Palette des thèmes">
+          {/* Contrôle segmenté Clair / Sombre */}
+          <div className="theme-segmented-control" role="tablist">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeTab === "light"}
+              className={`theme-segment-btn ${activeTab === "light" ? "is-active" : ""}`}
+              onClick={() => setActiveTab("light")}
+            >
+              <span>☀️ Thèmes Clairs</span>
+              <span className="theme-segment-count">{lightThemes.length}</span>
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeTab === "dark"}
+              className={`theme-segment-btn ${activeTab === "dark" ? "is-active" : ""}`}
+              onClick={() => setActiveTab("dark")}
+            >
+              <span>🌙 Thèmes Sombres</span>
+              <span className="theme-segment-count">{darkThemes.length}</span>
+            </button>
+          </div>
+
+          {/* Grille de sélection des thèmes */}
+          <div className="theme-grid" role="listbox">
+            {displayedThemes.map((t) => {
+              const meta = themeMeta[t];
+              const isActive = t === theme;
+              return (
+                <button
+                  key={t}
+                  type="button"
+                  role="option"
+                  aria-selected={isActive}
+                  className={`theme-card-option ${isActive ? "is-active" : ""}`}
+                  onClick={() => handleSelect(t)}
+                >
+                  <div className="theme-card-option__swatch-wrapper">
+                    <span
+                      className="theme-card-option__swatch"
+                      style={{
+                        background: `linear-gradient(135deg, ${meta.bg} 50%, ${meta.accent} 50%)`,
+                        boxShadow: `0 0 0 1px var(--border-subtle), 0 2px 4px rgba(0,0,0,0.15)`,
+                      }}
+                    />
+                  </div>
+                  <div className="theme-card-option__info">
+                    <span className="theme-card-option__name">{meta.label}</span>
+                    {meta.desc && (
+                      <span className="theme-card-option__desc">{meta.desc}</span>
+                    )}
+                  </div>
+                  {isActive && (
+                    <span className="theme-card-option__check" aria-hidden="true">
+                      ✓
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
         </div>
       )}
     </div>

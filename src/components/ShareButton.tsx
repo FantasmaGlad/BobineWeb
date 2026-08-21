@@ -28,8 +28,8 @@ export default function ShareButton({
     : `https://bobine.fit/${locale}${pathname}`;
 
   const formattedSnippet = isEn
-    ? `🎬 ${title}\n\n${description}\n\n👉 Discover the project: ${url}\n\n${hashtags.map((h) => `#${h}`).join(" ")}`
-    : `🎬 ${title}\n\n${description}\n\n👉 Découvrir le projet : ${url}\n\n${hashtags.map((h) => `#${h}`).join(" ")}`;
+    ? `${title}\n\n${description}\n\nProject link: ${url}\n\n${hashtags.map((h) => `#${h}`).join(" ")}`
+    : `${title}\n\n${description}\n\nLien du projet : ${url}\n\n${hashtags.map((h) => `#${h}`).join(" ")}`;
 
   // Fermeture au clic extérieur et touche Échap
   useEffect(() => {
@@ -164,8 +164,8 @@ export default function ShareButton({
               </svg>
               <span>
                 {copiedType === "text"
-                  ? (isEn ? "✓ Formatted post copied!" : "✓ Post formaté copié !")
-                  : (isEn ? "Copy formatted post (LinkedIn, WhatsApp...)" : "Copier le texte formaté (LinkedIn, WhatsApp...)")}
+                  ? (isEn ? "Copied!" : "Post formaté copié !")
+                  : (isEn ? "Copy formatted post" : "Copier le texte formaté")}
               </span>
             </button>
 
@@ -180,7 +180,7 @@ export default function ShareButton({
               </svg>
               <span>
                 {copiedType === "link"
-                  ? (isEn ? "✓ Direct link copied!" : "✓ Lien direct copié !")
+                  ? (isEn ? "Link copied!" : "Lien direct copié !")
                   : (isEn ? "Copy direct URL" : "Copier le lien direct")}
               </span>
             </button>

@@ -48,31 +48,38 @@ export default async function Demo3DPage({
       <BreadcrumbsJsonLd items={breadcrumbs} />
       <div
         style={{
-        width: "100%",
-        maxWidth: "100%",
-        height: "calc(100svh - 9.75rem)",
-        minHeight: "440px",
-        padding: "0.5rem 1.25rem",
-        display: "flex",
-        flexDirection: "column",
-        boxSizing: "border-box",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        className="power-demo__card"
-        style={{
           width: "100%",
-          height: "100%",
-          flex: 1,
+          maxWidth: "100%",
+          height: "calc(100svh - 8.5rem)",
+          minHeight: "440px",
+          padding: 0,
           margin: 0,
-          maxHeight: "none",
-          aspectRatio: "auto",
+          display: "flex",
+          flexDirection: "column",
+          boxSizing: "border-box",
+          overflow: "hidden",
+          background: "transparent",
         }}
       >
-        <PowerDemoLoader />
+        <div
+          className="power-demo__card"
+          style={{
+            width: "100%",
+            height: "100%",
+            flex: 1,
+            margin: 0,
+            padding: 0,
+            border: "none",
+            borderRadius: 0,
+            boxShadow: "none",
+            maxHeight: "none",
+            aspectRatio: "auto",
+            background: "transparent",
+          }}
+        >
+          <PowerDemoLoader />
+        </div>
       </div>
-    </div>
     </>
   );
 }

@@ -73,7 +73,6 @@ export default async function DeveloppeursPage({
       </p>
 
       <div className="docs-callout docs-callout--info">
-        <div className="docs-callout__icon">⚡</div>
         <div className="docs-callout__content">
           <div className="docs-callout__title">100% Local & Privacy-Preserving</div>
           <div>All APIs and WebSocket streams run exclusively on the local network (LAN / Wi-Fi) of the mini PC. No media, authentication keys, or analytics are ever transmitted to third-party cloud servers.</div>
@@ -286,7 +285,6 @@ npm run dev`}</code>
       </p>
 
       <div className="docs-callout docs-callout--info">
-        <div className="docs-callout__icon">⚡</div>
         <div className="docs-callout__content">
           <div className="docs-callout__title">100% Local & Respect de la vie privée</div>
           <div>L&apos;ensemble des APIs et flux WebSockets s&apos;exécute exclusivement sur le réseau local (LAN / Wi-Fi) du mini PC. Aucun média, clé d&apos;authentification ou donnée télémétrique n&apos;est transmis à des serveurs tiers.</div>

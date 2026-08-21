@@ -4,13 +4,10 @@ import { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   ContactShadows,
-  GizmoHelper,
-  GizmoViewport,
   OrbitControls,
   useProgress,
 } from "@react-three/drei";
 import * as THREE from "three";
-import TvModel from "./TvModel";
 import WyseModel from "./WyseModel";
 import VeloModel from "./VeloModel";
 
@@ -52,13 +49,13 @@ function ThemeSpace3D() {
   const themeAccent = useThemeAccent();
   const particlesRef = useRef<THREE.Points>(null);
 
-  // 100 particules ambiantes légères en suspension dans le studio
+  // 120 particules ambiantes légères en suspension dans le studio
   const [particlePositions] = useState(() => {
-    const coords = new Float32Array(100 * 3);
-    for (let i = 0; i < 100; i++) {
-      coords[i * 3] = (Math.random() - 0.5) * 36;
-      coords[i * 3 + 1] = Math.random() * 16;
-      coords[i * 3 + 2] = (Math.random() - 0.5) * 36;
+    const coords = new Float32Array(120 * 3);
+    for (let i = 0; i < 120; i++) {
+      coords[i * 3] = (Math.random() - 0.5) * 32;
+      coords[i * 3 + 1] = Math.random() * 12;
+      coords[i * 3 + 2] = (Math.random() - 0.5) * 32;
     }
     return coords;
   });
@@ -67,21 +64,11 @@ function ThemeSpace3D() {
     <group>
       {/* Grille au sol légère teintée */}
       <gridHelper
-        args={[36, 36, themeAccent, themeAccent]}
-        position={[0, -0.01, 0]}
+        args={[32, 32, themeAccent, themeAccent]}
+        position={[0, 0, 0]}
       >
-        <lineBasicMaterial attach="material" color={themeAccent} transparent opacity={0.15} />
+        <lineBasicMaterial attach="material" color={themeAccent} transparent opacity={0.12} />
       </gridHelper>
-
-      {/* Anneaux lumineux subtils au sol sous le studio */}
-      <mesh position={[0, -0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[8.5, 8.6, 64]} />
-        <meshBasicMaterial color={themeAccent} transparent opacity={0.3} side={THREE.DoubleSide} />
-      </mesh>
-      <mesh position={[0, -0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[13.5, 13.6, 64]} />
-        <meshBasicMaterial color={themeAccent} transparent opacity={0.2} side={THREE.DoubleSide} />
-      </mesh>
 
       {/* Particules flottantes d'ambiance */}
       <points ref={particlesRef}>
@@ -92,10 +79,10 @@ function ThemeSpace3D() {
           />
         </bufferGeometry>
         <pointsMaterial
-          size={0.12}
+          size={0.10}
           color={themeAccent}
           transparent
-          opacity={0.4}
+          opacity={0.35}
           sizeAttenuation={true}
         />
       </points>
@@ -113,7 +100,7 @@ function LoadingOverlay() {
   );
 }
 
-// Voile HD officiel 610x360 à x475 y782 z0 avec texture vidéo interactive et audio
+// Voile HD Studio 16:9 orienté vers les vélos avec texture vidéo interactive et audio
 function VoileHD({
   playing,
   onActivate,
@@ -179,8 +166,14 @@ function VoileHD({
   }, [playing, texture]);
 
   return (
-    <group position={[4.75, 7.82, 0]} rotation={[0, Math.PI / 2, 0]}>
-      {/* Voile HD Format 6.10m x 3.60m */}
+    <group position={[4.0, 3.2, 0]} rotation={[0, -Math.PI / 2, 0]}>
+      {/* Cadre fin de l'écran cinéma studio */}
+      <mesh position={[0, 0, -0.04]}>
+        <boxGeometry args={[6.0, 3.46, 0.06]} />
+        <meshStandardMaterial color="#111827" roughness={0.6} metalness={0.4} />
+      </mesh>
+
+      {/* Surface de diffusion vidéo HD (16:9 - 5.80m x 3.26m) */}
       <mesh
         onClick={(e) => {
           e.stopPropagation();
@@ -194,7 +187,7 @@ function VoileHD({
           document.body.style.cursor = "auto";
         }}
       >
-        <planeGeometry args={[6.10, 3.60]} />
+        <planeGeometry args={[5.80, 3.26]} />
         <meshBasicMaterial
           ref={materialRef}
           map={playing ? texture : null}
@@ -207,12 +200,12 @@ function VoileHD({
   );
 }
 
-// Positions des 4 vélos face à l'écran depuis scene.gltf
-const BIKES_SCENE = [
-  { position: [-2.5, 0, -2.0] as const },
-  { position: [-2.5, 0, -5.2] as const },
-  { position: [-2.5, 0, 2.0] as const },
-  { position: [-2.5, 0, 5.2] as const },
+// 4 vélos stationnaires de studio orientés face à l'écran
+const BIKES_STUDIO = [
+  { position: [-1.2, 0, -2.5] as const },
+  { position: [-1.2, 0, -0.85] as const },
+  { position: [-1.2, 0, 0.85] as const },
+  { position: [-1.2, 0, 2.5] as const },
 ];
 
 export default function PowerDemoScene() {
@@ -222,9 +215,9 @@ export default function PowerDemoScene() {
   const togglePlaying = () => setPlaying((prev) => !prev);
 
   return (
-    <div ref={stageRef} className="power-demo__stage">
+    <div ref={stageRef} className="power-demo__stage" style={{ width: "100%", height: "100%", border: "none", borderRadius: 0, padding: 0, margin: 0, background: "transparent" }}>
       <Canvas
-        camera={{ position: [-13.5, 9.5, 11.5], fov: 38 }}
+        camera={{ position: [-8.5, 4.2, 7.2], fov: 42 }}
         frameloop={playing ? "always" : "demand"}
         dpr={[1, 1.5]}
         gl={{
@@ -236,55 +229,46 @@ export default function PowerDemoScene() {
         }}
       >
         {/* Éclairage studio immersif */}
-        <ambientLight intensity={playing ? 1.0 : 0.85} />
-        <directionalLight position={[12, 18, 12]} intensity={1.3} />
-        <directionalLight position={[-12, 10, -8]} intensity={0.45} />
+        <ambientLight intensity={playing ? 1.1 : 0.9} />
+        <directionalLight position={[10, 16, 10]} intensity={1.4} />
+        <directionalLight position={[-10, 8, -6]} intensity={0.5} />
         {playing && (
-          <pointLight position={[3.5, 7.8, 0]} intensity={2.5} color="#38bdf8" distance={14} />
+          <pointLight position={[2.5, 3.2, 0]} intensity={3.0} color="#38bdf8" distance={12} />
         )}
 
         <Suspense fallback={null}>
           {/* Environnement 3D teinté aux couleurs du thème actif */}
           <ThemeSpace3D />
 
-          {/* 1. Voile HD 610x360 à x475 y782 z0 */}
+          {/* 1. Écran Cinéma Studio HD orienté vers la caméra et les vélos */}
           <VoileHD playing={playing} onActivate={togglePlaying} />
 
-          {/* 2. TV 3D positionnée à x500 y547.7 z0 */}
-          <TvModel
-            playing={playing}
-            onActivate={togglePlaying}
-            position={[5.0, 5.48, 0]}
-            rotation={[0, Math.PI / 2, 0]}
-            scale={1.12}
-          />
-
-          {/* 3. Wyse 5070 positionné à x500 y600 z500 */}
+          {/* 2. Dell Wyse 5070 sur son support à droite de l'écran */}
           <WyseModel
             active={playing}
             onActivate={togglePlaying}
-            position={[5.0, 6.0, 5.0]}
-            rotation={[0, Math.PI / 2, 0]}
-            scale={0.3}
+            position={[3.8, 0.35, 3.6]}
+            rotation={[0, -Math.PI / 2, 0]}
+            scale={0.9}
           />
 
-          {/* 4. Les 4 vélos stationnaires de scene.gltf face au voile */}
-          {BIKES_SCENE.map((bike, idx) => (
+          {/* 3. Les 4 vélos stationnaires face à l'écran (échelle réaliste 2.2) */}
+          {BIKES_STUDIO.map((bike, idx) => (
             <VeloModel
               key={idx}
               position={bike.position}
-              rotation={[0, 0, 0]}
-              scale={0.8}
+              rotation={[0, Math.PI / 2, 0]}
+              scale={2.2}
             />
           ))}
 
           {/* Ombre de sol contact douce */}
           <ContactShadows
             position={[0, 0, 0]}
-            opacity={0.45}
-            blur={2.5}
-            far={12}
-            scale={22}
+            opacity={0.5}
+            blur={2.0}
+            far={10}
+            scale={20}
             frames={1}
           />
         </Suspense>
@@ -294,24 +278,17 @@ export default function PowerDemoScene() {
           enablePan={false}
           enableDamping={true}
           dampingFactor={0.08}
-          minDistance={3.5}
-          maxDistance={30}
+          minDistance={3.0}
+          maxDistance={22}
           minPolarAngle={0.1}
           maxPolarAngle={Math.PI / 2 - 0.02}
-          target={[1.2, 5.2, 0]}
+          target={[1.0, 2.2, 0]}
         />
-
-        <GizmoHelper alignment="bottom-right" margin={[48, 48]}>
-          <GizmoViewport
-            axisColors={["#e4626f", "#7fcf7f", "#6fa8e6"]}
-            labelColor="#1a1a1a"
-          />
-        </GizmoHelper>
       </Canvas>
 
       <LoadingOverlay />
 
-      <div className="power-demo__status" data-on={playing}>
+      <div className="power-demo__status" data-on={playing} style={{ position: "absolute", top: "1.25rem", left: "1.25rem", zIndex: 10 }}>
         <span className="power-demo__dot" />
         {playing ? "Démo vidéo en cours" : "Cliquez sur le Wyse ou l'écran pour lancer la démo"}
       </div>

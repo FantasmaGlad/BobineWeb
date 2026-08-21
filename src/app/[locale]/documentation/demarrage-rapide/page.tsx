@@ -76,7 +76,6 @@ export default async function DemarrageRapidePage({
       </p>
 
       <div className="docs-callout docs-callout--tip">
-        <div className="docs-callout__icon">💡</div>
         <div className="docs-callout__content">
           <div className="docs-callout__title">Quick Setup Summary</div>
           <div>Internet is only required once during the initial installation. Once setup is complete, your gym runs 100% offline from local SSD storage with zero cloud dependencies.</div>
@@ -146,7 +145,6 @@ export default async function DemarrageRapidePage({
         Plug the USB flash drive into your mini PC, power it on, and immediately press the Boot Menu key — usually <code>F12</code> on Dell Wyse, or <code>F7</code>, <code>F10</code>, <code>Esc</code> on other brands. Select the USB drive in the list.
       </p>
       <div className="docs-callout docs-callout--info">
-        <div className="docs-callout__icon">⚙️</div>
         <div className="docs-callout__content">
           <div className="docs-callout__title">Recommended BIOS Setting</div>
           <div>In the BIOS under <strong>Power Management → AC Recovery</strong>, set to <strong>Power On</strong>. This guarantees that your Bobine player automatically powers back on and resumes playback after any gym power outage.</div>
@@ -239,7 +237,6 @@ speaker-test -t wav -c 2 -l 1</code>
       </p>
 
       <div className="docs-callout docs-callout--tip">
-        <div className="docs-callout__icon">💡</div>
         <div className="docs-callout__content">
           <div className="docs-callout__title">Installation 100% autonome</div>
           <div>Internet n&apos;est requis qu&apos;une seule fois lors de l&apos;installation initiale pour télécharger les paquets. Ensuite, la salle diffuse ses cours 100% hors-ligne depuis son SSD local sans aucune dépendance au cloud.</div>
@@ -309,7 +306,6 @@ speaker-test -t wav -c 2 -l 1</code>
         Insérez la clé USB dans le mini PC, allumez-le, et pressez la touche du menu de démarrage — souvent <code>F12</code>, <code>F7</code>, <code>F10</code> ou <code>Échap</code> (sur un Dell Wyse, c&apos;est généralement <code>F12</code>). Choisissez la clé USB dans la liste.
       </p>
       <div className="docs-callout docs-callout--info">
-        <div className="docs-callout__icon">⚙️</div>
         <div className="docs-callout__content">
           <div className="docs-callout__title">Réglage BIOS recommandé</div>
           <div>Dans le BIOS (section <strong>Power Management → AC Recovery</strong>), choisissez <strong>Power On</strong>. Le mini PC se rallumera ainsi automatiquement dès le retour du courant après une coupure générale.</div>

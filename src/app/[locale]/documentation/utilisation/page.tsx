@@ -75,7 +75,6 @@ export default async function UtilisationPage({
       </p>
 
       <div className="docs-callout docs-callout--info">
-        <div className="docs-callout__icon">🌐</div>
         <div className="docs-callout__content">
           <div className="docs-callout__title">Universal Web Architecture</div>
           <div>All control interfaces (Admin, Kiosk, Remote) are web applications rendered in your browser. Any tablet, smartphone, or laptop on the gym&apos;s Wi-Fi network can manage Bobine without downloading apps from an app store.</div>
@@ -138,7 +137,6 @@ export default async function UtilisationPage({
         Build a recurring weekly timetable: each scheduled class triggers automatically at the exact second on the chosen display.
       </p>
       <div className="docs-callout docs-callout--tip">
-        <div className="docs-callout__icon">⚡</div>
         <div className="docs-callout__content">
           <div className="docs-callout__title">Automated TV Power (HDMI-CEC)</div>
           <div>Bobine automatically sends an HDMI-CEC power-on command to your TV <strong>2 minutes before</strong> the class starts, switches the input channel, and puts the screen into standby <strong>5 minutes after</strong> the workout ends.</div>
@@ -215,7 +213,6 @@ export default async function UtilisationPage({
       </p>
 
       <div className="docs-callout docs-callout--info">
-        <div className="docs-callout__icon">🌐</div>
         <div className="docs-callout__content">
           <div className="docs-callout__title">Architecture Web Universelle</div>
           <div>Toutes les interfaces de pilotage (Admin, Kiosque, Télécommande) sont des applications web servies en local. N&apos;importe quel smartphone, tablette ou ordinateur connecté au Wi-Fi de la salle pilote Bobine sans passer par un magasin d&apos;applications.</div>
@@ -278,7 +275,6 @@ export default async function UtilisationPage({
         Construisez une timetable hebdomadaire : chaque créneau démarre automatiquement à l&apos;heure prévue, sur l&apos;écran choisi.
       </p>
       <div className="docs-callout docs-callout--tip">
-        <div className="docs-callout__icon">⚡</div>
         <div className="docs-callout__content">
           <div className="docs-callout__title">Allumage TV automatique (HDMI-CEC)</div>
           <div>Bobine envoie un signal HDMI-CEC pour allumer la télévision <strong>2 minutes avant</strong> le début du cours, bascule sur la bonne entrée, et remet l&apos;écran en veille <strong>5 minutes après</strong> la fin de la séance.</div>

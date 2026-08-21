@@ -6,20 +6,22 @@ export default function NotFound() {
       {/* Mascotte Hamster stylisée endormie */}
       <div
         style={{
-          width: "120px",
-          height: "120px",
+          width: "90px",
+          height: "90px",
           margin: "0 auto 1.5rem auto",
-          background: "var(--bg-card)",
-          border: "2px dashed var(--border-subtle)",
+          background: "var(--accent-subtle)",
+          border: "2px solid var(--accent-primary)",
           borderRadius: "50%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: "3.5rem",
+          fontSize: "1.75rem",
+          fontWeight: 800,
+          color: "var(--accent-primary)",
           boxShadow: "var(--shadow-card)",
         }}
       >
-        <span>🐹</span>
+        <span>404</span>
       </div>
 
       <span
@@ -48,7 +50,7 @@ export default function NotFound() {
           lineHeight: 1.2,
         }}
       >
-        Chut... La mascotte fait sa sieste !
+        Page non trouvée
       </h1>
 
       <p
@@ -59,7 +61,7 @@ export default function NotFound() {
           marginBottom: "2rem",
         }}
       >
-        La page que vous recherchez semble introuvable ou a été déplacée. Ne réveillez pas le hamster et reprenez votre navigation :
+        La ressource que vous recherchez semble introuvable ou a été déplacée. Vous pouvez reprendre votre navigation :
       </p>
 
       <div

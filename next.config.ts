@@ -34,6 +34,17 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
+  experimental: {
+    optimizePackageImports: [
+      "@react-three/drei",
+      "@react-three/fiber",
+      "three",
+      "jspdf",
+      "openai",
+      "react-markdown",
+      "remark-gfm",
+    ],
+  },
   async headers() {
     return [
       {

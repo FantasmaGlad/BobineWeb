@@ -1,4 +1,3 @@
-import { jsPDF } from "jspdf";
 import { type Locale } from "./i18n";
 
 export interface DocChapter {
@@ -265,6 +264,7 @@ export async function generateDocumentationPdf({
     ? allChapters.filter((c) => c.id === chapterId)
     : allChapters;
 
+  const { jsPDF } = await import("jspdf");
   const doc = new jsPDF({
     orientation: "portrait",
     unit: "mm",

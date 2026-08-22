@@ -112,18 +112,8 @@ export default async function AboutPage({
     <div className="container" style={{ maxWidth: "56rem" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
-      {/* 1. Hero Section — Positionnée haut au chargement */}
-      <section
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          maxWidth: "52rem",
-          paddingTop: "clamp(1.25rem, 2.5vh, 2rem)",
-          paddingBottom: "clamp(1.5rem, 3vh, 2.5rem)",
-          boxSizing: "border-box",
-        }}
-      >
+      {/* 1. Hero Section — Responsive et équilibré */}
+      <section className="page-hero">
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem", marginBottom: "0.5rem" }}>
           <span className="feature-category-label">{t.badge}</span>
           <ShareButton
@@ -134,27 +124,10 @@ export default async function AboutPage({
           />
         </div>
 
-        <h1
-          style={{
-            fontSize: "clamp(1.65rem, 4vw, 2.7rem)",
-            fontWeight: 800,
-            lineHeight: 1.15,
-            letterSpacing: "-0.03em",
-            marginBlock: "0.35rem 0.85rem",
-            color: "var(--text-heading)",
-          }}
-        >
+        <h1 className="page-hero__title">
           {t.title}
         </h1>
-        <p
-          style={{
-            color: "var(--text-muted)",
-            fontSize: "clamp(0.925rem, 1.8vw, 1.05rem)",
-            lineHeight: 1.6,
-            marginBottom: "1.5rem",
-            maxWidth: "46rem",
-          }}
-        >
+        <p className="page-hero__intro">
           {t.intro}
         </p>
 

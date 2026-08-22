@@ -72,54 +72,17 @@ export default async function HomePage({
 
   return (
     <div className="container">
-      {/* 1. Hero Section — Positionné haut sous le bandeau */}
-      <section
-        className="hero-fullscreen"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          maxWidth: "56rem",
-          paddingTop: "clamp(1.25rem, 3vh, 2.25rem)",
-          paddingBottom: "clamp(1.5rem, 3vh, 2.5rem)",
-          marginBottom: "clamp(2rem, 4vh, 3.5rem)",
-          boxSizing: "border-box",
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "clamp(2.1rem, 4.8vw, 3.3rem)",
-            fontWeight: 800,
-            lineHeight: 1.12,
-            letterSpacing: "-0.03em",
-            marginBottom: "1.25rem",
-            color: "var(--text-heading)",
-          }}
-        >
+      {/* 1. Hero Section — Plein écran propre sur Desktop, fluide sur Mobile */}
+      <section className="hero-fullscreen">
+        <h1 className="hero-fullscreen__title">
           {t.title}
         </h1>
 
-        <p
-          style={{
-            fontSize: "clamp(1.05rem, 2.1vw, 1.25rem)",
-            lineHeight: 1.6,
-            color: "var(--text-muted)",
-            maxWidth: "48rem",
-            marginBottom: "2.25rem",
-          }}
-        >
+        <p className="hero-fullscreen__subtitle">
           {t.subtitle}
         </p>
 
-        <div
-          style={{
-            display: "flex",
-            gap: "0.85rem",
-            alignItems: "center",
-            flexWrap: "wrap",
-            marginBottom: "2.5rem",
-          }}
-        >
+        <div className="hero-fullscreen__actions">
           <Link
             className="btn-primary"
             href={`/${locale}/documentation/demarrage-rapide`}
@@ -166,8 +129,8 @@ export default async function HomePage({
         </div>
 
         <div
+          className="hero-fullscreen__scroll"
           style={{
-            marginTop: "1.5rem",
             display: "flex",
             alignItems: "center",
             gap: "0.45rem",

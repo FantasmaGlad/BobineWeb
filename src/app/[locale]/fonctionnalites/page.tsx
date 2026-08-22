@@ -160,18 +160,8 @@ export default async function FeaturesPage({
 
   return (
     <div className="container">
-      {/* 1. Hero Section — Positionnée haut au chargement */}
-      <section
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          maxWidth: "52rem",
-          paddingTop: "clamp(1.25rem, 2.5vh, 2rem)",
-          paddingBottom: "clamp(1.5rem, 3vh, 2.5rem)",
-          boxSizing: "border-box",
-        }}
-      >
+      {/* 1. Hero Section — Responsive et équilibré */}
+      <section className="page-hero" style={{ maxWidth: "56rem" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem", marginBottom: "0.5rem" }}>
           <span className="feature-category-label">
             {isEn ? "Playout Engine & Hardware" : "Moteur de Diffusion & Matériel"}
@@ -185,27 +175,10 @@ export default async function FeaturesPage({
           />
         </div>
 
-        <h1
-          style={{
-            fontSize: "clamp(1.65rem, 4vw, 2.7rem)",
-            fontWeight: 800,
-            lineHeight: 1.15,
-            letterSpacing: "-0.03em",
-            marginBlock: "0.35rem 0.85rem",
-            color: "var(--text-heading)",
-          }}
-        >
+        <h1 className="page-hero__title">
           {t.title}
         </h1>
-        <p
-          style={{
-            color: "var(--text-muted)",
-            fontSize: "clamp(0.925rem, 1.8vw, 1.05rem)",
-            lineHeight: 1.6,
-            margin: "0 0 1.5rem 0",
-            maxWidth: "46rem",
-          }}
-        >
+        <p className="page-hero__intro">
           {t.intro}
         </p>
 

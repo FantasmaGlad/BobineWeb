@@ -32,7 +32,7 @@ export async function GET() {
 
     let stars = 0;
     let forks = 0;
-    let latestRelease = "v2.0.0";
+    let latestRelease = "v2.0.1";
 
     if (repoRes.ok) {
       const repoData = await repoRes.json();
@@ -42,7 +42,7 @@ export async function GET() {
 
     if (releasesRes.ok) {
       const relData = await releasesRes.json();
-      latestRelease = relData.tag_name || "v2.0.0";
+      latestRelease = relData.tag_name || "v2.0.1";
     }
 
     const payload: RepoStatsResponse = {
@@ -53,7 +53,7 @@ export async function GET() {
 
     return NextResponse.json(payload, {
       headers: {
-        "Cache-Control": "public, s-maxage=1800, stale-while-revalidate=3600",
+        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
       },
     });
   } catch (err) {
@@ -61,7 +61,7 @@ export async function GET() {
     return NextResponse.json({
       stars: 0,
       forks: 0,
-      latestRelease: "v2.0.0",
+      latestRelease: "v2.0.1",
     });
   }
 }

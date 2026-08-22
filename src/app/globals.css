@@ -5092,6 +5092,205 @@ main {
   border-width: 0;
 }
 
+/* ==========================================================================
+   HÉROS RESPONSIVES : ÉCRANS DESKTOP PC & SMARTPHONES MOBILES
+   ========================================================================== */
+
+/* 1. Page d'accueil (Hero plein écran sur Desktop, fluide sur mobile) */
+.hero-fullscreen {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  max-width: 58rem;
+  width: 100%;
+}
+
+.hero-fullscreen__title {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-heading);
+}
+
+.hero-fullscreen__subtitle {
+  color: var(--text-muted);
+}
+
+@media (min-width: 1024px) {
+  .hero-fullscreen {
+    min-height: calc(100vh - 130px);
+    min-height: calc(100svh - 130px);
+    justify-content: center;
+    padding-top: clamp(2.5rem, 5vh, 4rem);
+    padding-bottom: 2rem;
+    margin-bottom: 0;
+  }
+
+  .hero-fullscreen__title {
+    font-size: clamp(2.6rem, 5.2vw, 3.8rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-fullscreen__subtitle {
+    font-size: clamp(1.15rem, 2.1vw, 1.35rem);
+    line-height: 1.6;
+    max-width: 50rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-fullscreen__actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .hero-fullscreen__scroll {
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero-fullscreen {
+    min-height: auto;
+    padding-top: 1.25rem;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-fullscreen__title {
+    font-size: clamp(1.85rem, 4.8vw, 2.3rem);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .hero-fullscreen__subtitle {
+    font-size: 1rem;
+    line-height: 1.55;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-fullscreen__actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-fullscreen__scroll {
+    display: none;
+  }
+}
+
+/* 2. En-tête des pages Fonctionnalités, À propos, Documentation */
+.page-hero {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.page-hero__title {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-heading);
+}
+
+.page-hero__intro {
+  color: var(--text-muted);
+}
+
+@media (min-width: 1024px) {
+  .page-hero {
+    padding-top: clamp(2.5rem, 4.5vh, 3.5rem);
+    padding-bottom: clamp(2rem, 3.5vh, 2.75rem);
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .page-hero__title {
+    font-size: clamp(2.3rem, 4vw, 3.1rem);
+    line-height: 1.12;
+    margin-block: 0.5rem 1rem;
+  }
+
+  .page-hero__intro {
+    font-size: 1.15rem;
+    line-height: 1.65;
+    max-width: 50rem;
+    margin-bottom: 2rem;
+  }
+
+  .doc-hero-wrap {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .doc-hero-wrap .doc-hero-title {
+    font-size: clamp(2.2rem, 3.8vw, 2.9rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-block: 0.4rem 0.6rem;
+    color: var(--text-heading);
+  }
+
+  .doc-hero-wrap .doc-hero-intro {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 48rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .page-hero {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .page-hero__title {
+    font-size: clamp(1.65rem, 4vw, 2.2rem);
+    line-height: 1.18;
+    margin-block: 0.35rem 0.75rem;
+  }
+
+  .page-hero__intro {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    max-width: 100%;
+    margin-bottom: 1.25rem;
+  }
+
+  .doc-hero-wrap {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .doc-hero-wrap .doc-hero-title {
+    font-size: clamp(1.55rem, 3.5vw, 2.1rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-block: 0.35rem 0.5rem;
+    color: var(--text-heading);
+  }
+
+  .doc-hero-wrap .doc-hero-intro {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+}
+
 
 
 

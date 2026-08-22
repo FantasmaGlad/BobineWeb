@@ -21,7 +21,7 @@ export default function GitHubBadge({ compact = false }: { compact?: boolean }) 
   }, []);
 
   const starsCount = stats?.stars ?? 0;
-  const releaseTag = stats?.latestRelease || "v2.0.0";
+  const releaseTag = stats?.latestRelease || "v2.0.1";
 
   return (
     <a

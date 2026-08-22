@@ -126,6 +126,18 @@ export default async function DemarrageRapidePage({
         </table>
       </div>
 
+      <div className="docs-callout docs-callout--info">
+        <div className="docs-callout__content">
+          <div className="docs-callout__title">Tested & Recommended Mini PC Models</div>
+          <div>
+            <ul>
+              <li><strong>Intel options</strong>: Dell Wyse 5070 (Intel Celeron J4105 ~$40–50 refurbished), HP ProDesk 400/600 G4/G5 DM, Lenovo ThinkCentre M710q/M720q Tiny, Beelink Mini S12 / EQ12 (Intel N100/N5105).</li>
+              <li><strong>AMD options</strong>: HP EliteDesk 705 G4/G5 Mini (AMD Ryzen 3/5 Pro ~$60–80 refurbished), Lenovo ThinkCentre M715q/M725q Tiny, HP T630/T730/T740 Thin Client.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <h2 id="step-1--download-debian-13">Step 1 — Download Debian 13</h2>
       <p>
         Bobine targets <strong>Debian 13 &quot;Trixie&quot;</strong> (or Debian 12 &quot;Bookworm&quot;), minimal headless installation with no graphical desktop environment.
@@ -336,6 +348,18 @@ speaker-test -t wav -c 2 -l 1</code>
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <div className="docs-callout docs-callout--info">
+        <div className="docs-callout__content">
+          <div className="docs-callout__title">Modèles de Mini PC testés & recommandés</div>
+          <div>
+            <ul>
+              <li><strong>Options Intel</strong> : Dell Wyse 5070 (Intel Celeron J4105 ~40–50 € reconditionné), HP ProDesk 400/600 G4/G5 DM, Lenovo ThinkCentre M710q/M720q Tiny, Beelink Mini S12 / EQ12 (Intel N100/N5105).</li>
+              <li><strong>Options AMD</strong> : HP EliteDesk 705 G4/G5 Mini (AMD Ryzen 3/5 Pro ~60–80 € reconditionné), Lenovo ThinkCentre M715q/M725q Tiny, HP T630/T730/T740 Thin Client.</li>
+            </ul>
+          </div>
+        </div>
       </div>
 
       <h2 id="etape-1--telecharger-debian-13">Étape 1 — Télécharger Debian 13</h2>

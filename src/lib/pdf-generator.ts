@@ -54,7 +54,7 @@ export const docChaptersFr: DocChapter[] = [
       {
         subtitle: "2.1 Materiel Recommande",
         paragraphs: [
-          "Mini PC bureautique reconditionne : Dell Wyse 5070, HP T630, ou Intel Celeron J4105 / N5105 / N100.",
+          "Mini PC bureautique reconditionne : Dell Wyse 5070 (Intel), HP EliteDesk 705 (AMD Ryzen), ou Beelink N100.",
           "Memoire vive : 4 Go a 8 Go RAM. Stockage : SSD 128 Go ou plus. Connexion : Cable HDMI relie a l'ecran du studio.",
         ],
       },
@@ -144,7 +144,7 @@ export const docChaptersFr: DocChapter[] = [
         paragraphs: [
           "Backend : Python 3 + FastAPI pour les API REST et WebSockets ultra-rapides (< 2 ms).",
           "Base de donnees : SQLite pour la simplicite et la robustesse sans maintenance serveur.",
-          "Moteur de rendu : MPV avec acceleration VA-API / Intel QuickSync.",
+          "Moteur de rendu : MPV avec acceleration VA-API (Intel QuickSync et AMD Radeon).",
         ],
       },
       {

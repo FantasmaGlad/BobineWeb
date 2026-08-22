@@ -58,7 +58,7 @@ const faqData = {
     },
     {
       q: "Quel matériel informatique faut-il acheter ?",
-      a: "Un mini PC x86-64 standard (référence : Dell Wyse 5070 reconditionné à ~40-50 € avec processeur Intel Celeron J4105), 4 à 8 Go de RAM, et un écran HDMI.",
+      a: "Un mini PC x86-64 standard : Intel (Dell Wyse 5070 Celeron J4105 ~40-50 €, Lenovo ThinkCentre Tiny, Beelink N100) ou AMD (HP EliteDesk 705 G4/G5 Ryzen 3/5 Pro ~60-80 €, Lenovo M715q), 4 à 8 Go de RAM, et un écran HDMI.",
     },
     {
       q: "Que se passe-t-il en cas de coupure de courant ou de plantage ?",
@@ -84,7 +84,7 @@ const faqData = {
     },
     {
       q: "What hardware do I need to equip my gym?",
-      a: "A standard refurbished x86-64 mini PC (Reference unit: Dell Wyse 5070 with Intel Celeron J4105, ~40-50 EUR), 4-8GB RAM, and an HDMI TV display.",
+      a: "A standard refurbished x86-64 mini PC: Intel (Dell Wyse 5070 Celeron J4105 ~40-50 EUR, Lenovo ThinkCentre Tiny, Beelink N100) or AMD (HP EliteDesk 705 G4/G5 Ryzen 3/5 Pro ~60-80 EUR, Lenovo M715q), 4-8GB RAM, and an HDMI TV display.",
     },
     {
       q: "What happens if there is a power cut or system crash?",
@@ -161,8 +161,8 @@ export default async function FaqPage({
       <p><strong>Do I need an active internet connection?</strong><br />
       No. Internet access is only required once during the initial software installation to download packages. Daily gym operations are completely offline.</p>
 
-      <p><strong>What hardware is recommended?</strong><br />
-      A standard refurbished x86-64 mini PC (Reference unit: Dell Wyse 5070 with Intel Celeron J4105, ~40–50 €), 4GB to 8GB RAM, and an HDMI TV screen. Detailed hardware guide in the <Link href={`/${locale}/documentation/demarrage-rapide`}>Quick Start Guide</Link>.</p>
+      <p><strong>What hardware do I need to equip my gym?</strong><br />
+      A standard refurbished x86-64 mini PC: Intel (Dell Wyse 5070 Celeron J4105 ~40–50 €, Lenovo ThinkCentre Tiny, Beelink N100) or AMD (HP EliteDesk 705 G4/G5 Ryzen 3/5 Pro ~60–80 €, Lenovo M715q), 4GB to 8GB RAM, and an HDMI TV screen. Detailed hardware guide in the <Link href={`/${locale}/documentation/demarrage-rapide`}>Quick Start Guide</Link>.</p>
 
       <h2 id="troubleshooting-matrix">Common Error Resolution Matrix</h2>
       <div className="docs-table-wrapper">
@@ -171,7 +171,7 @@ export default async function FaqPage({
             <tr>
               <th>Issue / Symptom</th>
               <th>Probable Cause</th>
-              <th>Resolution</th>
+              <th>Step-by-Step Resolution</th>
             </tr>
           </thead>
           <tbody>
@@ -193,7 +193,7 @@ export default async function FaqPage({
             <tr>
               <td>Video stutter / high CPU load (&gt;30%)</td>
               <td>VA-API hardware acceleration disabled</td>
-              <td>Run <code>vainfo</code>. Verify <code>i965-va-driver-shaders</code> or <code>intel-media-va-driver</code> is installed.</td>
+              <td>Run <code>vainfo</code>. Verify <code>intel-media-va-driver-non-free</code> (Intel) or <code>mesa-va-drivers</code> (AMD Radeon) is installed.</td>
             </tr>
             <tr>
               <td>Port 8000 / 8001 Conflict</td>
@@ -276,7 +276,7 @@ speaker-test -t wav -c 2 -l 1</code>
       Non. Internet n&apos;est requis qu&apos;une seule fois lors de l&apos;installation initiale pour télécharger les paquets Debian. L&apos;exploitation quotidienne en salle est totalement autonome.</p>
 
       <p><strong>Quel matériel informatique faut-il acheter ?</strong><br />
-      Un mini PC x86-64 standard (référence : Dell Wyse 5070 reconditionné à ~40-50 € avec processeur Intel Celeron J4105), 4 à 8 Go de RAM, et un écran HDMI. Voir les détails dans le <Link href={`/${locale}/documentation/demarrage-rapide`}>guide de démarrage rapide</Link>.</p>
+      Un mini PC x86-64 standard : Intel (Dell Wyse 5070 Celeron J4105 ~40-50 €, Lenovo ThinkCentre Tiny, Beelink N100) ou AMD (HP EliteDesk 705 G4/G5 Ryzen 3/5 Pro ~60-80 €, Lenovo M715q), 4 à 8 Go de RAM, et un écran HDMI. Voir les détails dans le <Link href={`/${locale}/documentation/demarrage-rapide`}>guide de démarrage rapide</Link>.</p>
 
       <h2 id="tableau-depannage">Tableau de Résolution des Erreurs Courantes</h2>
       <div className="docs-table-wrapper">
@@ -307,7 +307,7 @@ speaker-test -t wav -c 2 -l 1</code>
             <tr>
               <td>Vidéo saccadée / CPU saturé (&gt;30%)</td>
               <td>Accélération matérielle VA-API inactive</td>
-              <td>Vérifiez avec <code>vainfo</code>. Installez le paquet de pilotes <code>intel-media-va-driver</code>.</td>
+              <td>Vérifiez avec <code>vainfo</code>. Installez le pilote adapté : <code>intel-media-va-driver-non-free</code> (Intel) ou <code>mesa-va-drivers</code> (AMD Radeon).</td>
             </tr>
             <tr>
               <td>Conflit de port 8000 / 8001</td>

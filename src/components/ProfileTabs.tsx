@@ -103,7 +103,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
             {
               title: "Standard Linux stack",
               detail:
-                "Built on MPV, systemd, and native hardware acceleration (Intel QuickSync / VA-API).",
+                "Built on MPV, systemd, and native hardware acceleration (Intel & AMD VA-API).",
             },
           ],
           ctaText: "View on GitHub",
@@ -189,7 +189,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
             {
               title: "Stack Linux standard (Debian)",
               detail:
-                "Basé sur MPV, systemd et le décodage matériel natif Intel QuickSync / VA-API.",
+                "Basé sur MPV, systemd et le décodage matériel natif Intel & AMD VA-API.",
             },
           ],
           ctaText: "Explorer le code sur GitHub",

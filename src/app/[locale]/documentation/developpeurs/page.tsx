@@ -110,7 +110,7 @@ export default async function DeveloppeursPage({
             </tr>
             <tr>
               <td><strong>Playout Engine</strong></td>
-              <td>MPV + Intel VA-API (libva)</td>
+              <td>MPV + VA-API (Intel iHD & AMD mesa-va-drivers)</td>
               <td>Zero-copy hardware video decoding (1080p60 & 4K) via IPC Unix socket</td>
             </tr>
             <tr>
@@ -325,7 +325,7 @@ npm run dev`}</code>
             </tr>
             <tr>
               <td><strong>Moteur de Lecture</strong></td>
-              <td>MPV + Intel VA-API (libva)</td>
+              <td>MPV + VA-API (Intel iHD & AMD mesa-va-drivers)</td>
               <td>Décodage matériel vidéo zero-copy (1080p60 et 4K) piloté via socket IPC Unix</td>
             </tr>
             <tr>

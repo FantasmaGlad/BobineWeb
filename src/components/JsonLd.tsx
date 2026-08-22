@@ -15,7 +15,7 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
       : "Régie vidéo et système de streaming open-source et auto-hébergé pour salles de sport et studios fitness. Alternative hors-ligne à Les Mills Cinema et Les Mills Virtual.",
     memoryRequirements: "4 GB",
     storageRequirements: "16 GB SSD",
-    processorRequirements: "Intel Celeron / Pentium / Core x86-64 with Intel QuickSync (VA-API)",
+    processorRequirements: "x86-64 CPU (Intel Celeron / Core QuickSync, AMD Ryzen / Athlon Radeon VA-API)",
     featureList: isEn
       ? [
           "Zero-subscription offline video playout engine",
@@ -24,7 +24,7 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
           "Instant mobile remote control via local QR code",
           "24/7 background radio with automatic voice announcements",
           "Free open-source alternative to Les Mills Cinema",
-          "Hardware-accelerated 1080p60 & 4K decoding (Intel VA-API)",
+          "Hardware-accelerated 1080p60 & 4K decoding (Intel & AMD VA-API)",
         ]
       : [
           "Régie vidéo autonome 100% hors-ligne sans abonnement",
@@ -33,7 +33,7 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
           "Télécommande mobile instantanée par QR code local sans application",
           "Radio d'ambiance 24/7 avec alertes et annonces vocales programmées",
           "Alternative libre et gratuite à Les Mills Cinema et régies propriétaires",
-          "Décodage matériel ultra-fluide 1080p60 et 4K via Intel VA-API",
+          "Décodage matériel ultra-fluide 1080p60 et 4K via Intel & AMD VA-API",
         ],
     offers: {
       "@type": "Offer",

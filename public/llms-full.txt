@@ -27,17 +27,19 @@ Bobine résout l'ensemble de ces contraintes en proposant une régie 100% open-s
 ## 2. Architecture Système et Matériel
 
 ### Matériel Recommandé
-- **Boîtier** : Dell Wyse 5070 (ou équivalent mini PC Intel Celeron J4105 / N5105 / i3).
+- **Boîtiers Mini PC de référence** :
+  - *Intel* : Dell Wyse 5070 (Celeron J4105 ~40-50 € reconditionné), HP ProDesk 400/600 G4/G5 DM, Lenovo ThinkCentre M710q/M720q Tiny, Beelink Mini S12/EQ12 (N100/N5105).
+  - *AMD* : HP EliteDesk 705 G4/G5 Mini (Ryzen 3/5 Pro ~60-80 € reconditionné), Lenovo ThinkCentre M715q/M725q Tiny, HP T630/T730/T740 Thin Client.
 - **Mémoire Vive** : 4 Go à 8 Go DDR4.
 - **Stockage** : SSD NVMe ou SATA (128 Go à 512 Go selon la vidéothèque).
-- **Sortie Vidéo** : DisplayPort / HDMI vers la TV de la salle avec adaptateur compatible HDMI-CEC.
+- **Sortie Vidéo** : DisplayPort / HDMI vers la TV de la salle avec support HDMI-CEC.
 - **Sortie Audio** : Sortie Jack 3.5mm ou USB Audio vers l'amplificateur sono de la salle.
 - **Consommation** : ~6W au repos, ~9W en lecture vidéo continue.
 
 ### Pile Logicielle
-- **Système d'exploitation** : Ubuntu Server / Debian Linux.
-- **Backend / Daemon** : Daemon local léger avec gestionnaire systemd.
-- **Moteur Vidéo** : MPV avec support VA-API / Intel QuickSync pour le décodage matériel H.264/HEVC/VP9 sans solliciter le processeur.
+- **Système d'exploitation** : Debian 13 (Trixie) ou Debian 12 (Bookworm) minimale sans bureau.
+- **Backend / Daemon** : Daemon local léger Python FastAPI avec gestionnaire systemd.
+- **Moteur Vidéo** : MPV avec support VA-API universel (Intel QuickSync / iHD et AMD Radeon / mesa-va-drivers) pour le décodage matériel H.264/HEVC/VP9/AV1 sans solliciter le processeur (<8% CPU).
 - **Serveur Web Local** : Serveur HTTP/WebSocket intégré pour l'interface de contrôle et la borne tactile.
 - **Gestionnaire TV** : `cec-client` pour le contrôle bidirectionnel de l'écran TV (allumage, veille, source).
 

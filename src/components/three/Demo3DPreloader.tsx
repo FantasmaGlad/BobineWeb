@@ -5,7 +5,7 @@ import { useGLTF } from "@react-three/drei";
 
 const MODEL_TV = "/models/tv3d.glb";
 const MODEL_WYSE = "/models/wyse5070.glb";
-const VIDEO_DEMO = "/videos/kiosk-demo.mp4";
+const VIDEO_DEMO = "/videos/VideoDemo.mp4";
 
 export default function Demo3DPreloader() {
   useEffect(() => {

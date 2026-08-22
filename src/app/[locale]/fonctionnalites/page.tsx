@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
-import RoiCalculator from "@/components/RoiCalculator";
+import { buildMetadata } from "@/lib/seo";
+import ShareButton from "@/components/ShareButton";
 
 const copy = {
   fr: {
@@ -116,9 +117,6 @@ const copy = {
   },
 } as const;
 
-import { buildMetadata } from "@/lib/seo";
-import ShareButton from "@/components/ShareButton";
-
 export async function generateMetadata({
   params,
 }: {
@@ -217,9 +215,6 @@ export default async function FeaturesPage({
           <a href="#video-engine" className="btn-primary">
             {isEn ? "Explore Features" : "Découvrir les Capacités"}
           </a>
-          <a href="#roi-calculator" className="btn-secondary">
-            {isEn ? "ROI Calculator" : "Calculateur d'Économies"}
-          </a>
         </div>
       </section>
 
@@ -243,11 +238,6 @@ export default async function FeaturesPage({
             </div>
           </section>
         ))}
-      </div>
-
-      {/* 3. Simulateur d'Économies & Calculateur de ROI */}
-      <div id="roi-calculator" style={{ paddingTop: "2rem" }}>
-        <RoiCalculator locale={locale as Locale} />
       </div>
     </div>
   );

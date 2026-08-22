@@ -217,14 +217,14 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
       <div className="profile-tab-content" role="tabpanel">
         <div className="profile-tab-content__header">
           <span className="feature-category-label">{current.badge}</span>
-          <h3 className="profile-tab-content__title">{current.headline}</h3>
+          <h2 className="profile-tab-content__title">{current.headline}</h2>
           <p className="profile-tab-content__desc">{current.description}</p>
         </div>
 
         <div className="profile-points-grid">
           {current.points.map((pt, idx) => (
             <div key={idx} className="profile-point-card">
-              <h4 className="profile-point-title">{pt.title}</h4>
+              <h3 className="profile-point-title">{pt.title}</h3>
               <p className="profile-point-detail">{pt.detail}</p>
             </div>
           ))}

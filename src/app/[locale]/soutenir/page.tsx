@@ -25,6 +25,11 @@ export default function SupportPage() {
   return (
     <div className="container" style={{ maxWidth: "72rem" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
+      <h1 className="sr-only">
+        {isEn
+          ? "Support the Bobine Project — Open Source Gym Playout"
+          : "Soutenir le Projet Bobine — Régie Vidéo Libre"}
+      </h1>
 
       {/* =========================================================================
           1. ÉCRAN INITIAL SANS SCROLL : LES DEUX INTERFACES CÔTE À CÔTE

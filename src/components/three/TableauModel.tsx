@@ -5,7 +5,7 @@ import { useGLTF, useVideoTexture } from "@react-three/drei";
 import * as THREE from "three";
 
 const MODEL_URL = "/models/tableau.glb";
-const VIDEO_URL = "/videos/kiosk-demo.mp4";
+const VIDEO_URL = "/videos/VideoDemo.mp4";
 
 // Dimensions et positions exactes depuis l'inspecteur Spline
 const SCREEN_DIMS = {

@@ -6,7 +6,6 @@ import Header from "@/components/Header";
 import TechTicker from "@/components/TechTicker";
 import Footer from "@/components/Footer";
 
-import Demo3DPreloader from "@/components/three/Demo3DPreloader";
 import JsonLd from "@/components/JsonLd";
 import BobineChatbot from "@/components/BobineChatbot";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
@@ -113,7 +112,6 @@ export default async function RootLayout({
         <BobineChatbot locale={locale as Locale} />
         <ServiceWorkerRegistration locale={locale as Locale} />
         <Analytics />
-        <Demo3DPreloader />
       </body>
     </html>
   );

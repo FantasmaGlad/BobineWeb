@@ -76,11 +76,11 @@ export default async function DocumentationLayout({
           </div>
         </aside>
 
-        <main className="docs-main-panel">
+        <div className="docs-main-panel">
           <article className="docs-content">
             <div className="docs-content__inner">{children}</div>
           </article>
-        </main>
+        </div>
       </div>
     </div>
   );

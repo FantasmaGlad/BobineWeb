@@ -46,6 +46,11 @@ export default async function Demo3DPage({
   return (
     <>
       <BreadcrumbsJsonLd items={breadcrumbs} />
+      <h1 className="sr-only">
+        {locale === "en"
+          ? "Interactive 3D Hardware Demo — Bobine"
+          : "Démo Matériel Interactive 3D — Bobine"}
+      </h1>
       <div
         style={{
           width: "100%",

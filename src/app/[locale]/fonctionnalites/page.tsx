@@ -14,7 +14,7 @@ const copy = {
         id: "video-engine",
         badge: "Diffusion & Vidéo",
         title: "Moteur de Lecture MPV & Accélération Matérielle",
-        desc: "Bobine intègre un moteur de rendu vidéo optimisé pour les processeurs Intel (Celeron J4105 / N5105 / i3 / i5) exploitant le décodage matériel VA-API et Intel QuickSync.",
+        desc: "Bobine intègre un moteur de rendu vidéo optimisé pour les processeurs Intel et AMD (Intel QuickSync / iHD, AMD Ryzen / Radeon VA-API) exploitant le décodage matériel VA-API pour une fluidité totale et un usage CPU minime.",
         specs: [
           { label: "Résolution & Fluidité", value: "1080p et 4K jusqu'à 60 images/seconde" },
           { label: "Charge Processeur", value: "Moins de 8% d'usage CPU en lecture active" },
@@ -69,7 +69,7 @@ const copy = {
         id: "video-engine",
         badge: "Playout & Video",
         title: "MPV Playout Engine & Hardware Acceleration",
-        desc: "Bobine embeds a dedicated video player engine optimized for Intel processors (Celeron J4105 / N5105 / i3 / i5) leveraging VA-API and Intel QuickSync hardware decoding.",
+        desc: "Bobine embeds a dedicated video player engine optimized for Intel and AMD processors (Intel QuickSync / iHD, AMD Ryzen / Radeon VA-API) leveraging hardware decoding for smooth playout with minimal CPU usage.",
         specs: [
           { label: "Resolution & Frame Rate", value: "1080p and 4K up to 60 frames per second" },
           { label: "CPU Utilization", value: "Under 8% CPU usage during active video playout" },

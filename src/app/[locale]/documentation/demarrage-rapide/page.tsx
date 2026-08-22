@@ -178,14 +178,62 @@ export default async function DemarrageRapidePage({
 
       <h2 id="step-6--install-bobine">Step 6 — Install Bobine</h2>
       <p>Still in SSH with your regular user account (<strong>not root</strong>):</p>
+      
+      <p><strong>Option A — Direct 1-line installation (recommended):</strong></p>
+      <CodeBlock>
+        <code>curl -sSL https://bobine.fit/install.sh | bash</code>
+      </CodeBlock>
+
+      <p><strong>Option B — Manual repository clone:</strong></p>
       <CodeBlock>
         <code>git clone https://github.com/FantasmaGlad/Bobine.git
 cd Bobine
 sudo ./install.sh</code>
       </CodeBlock>
+
       <p>
         <code>install.sh</code> is idempotent and fully automated: it installs system packages, Redis, Node.js, Python virtual environment, builds the Next.js UI, configures systemd background services (backend, kiosk, audio supervisor, watchdog), and starts the entire system.
       </p>
+
+      <div className="docs-table-wrapper">
+        <table className="docs-table">
+          <thead>
+            <tr>
+              <th>Flag / Mode</th>
+              <th>Description</th>
+              <th>Usage Command</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Default (Clean)</code></td>
+              <td>Streamlined progress indicators; detailed command logs written to <code>/var/log/bobine/install-*.log</code>.</td>
+              <td><code>sudo ./install.sh</code></td>
+            </tr>
+            <tr>
+              <td><code>-v, --verbose</code></td>
+              <td>Live stream of all compile outputs, apt downloads, and subprocess traces directly to terminal.</td>
+              <td><code>sudo ./install.sh -v</code></td>
+            </tr>
+            <tr>
+              <td><code>-q, --quiet</code></td>
+              <td>Silent execution, outputting only error traces and the final connection summary.</td>
+              <td><code>sudo ./install.sh -q</code></td>
+            </tr>
+            <tr>
+              <td><code>--no-kiosk</code></td>
+              <td>Server-only deployment without local X11 display or audio drivers.</td>
+              <td><code>sudo ./install.sh --no-kiosk</code></td>
+            </tr>
+            <tr>
+              <td><code>--check</code></td>
+              <td>Non-destructive diagnostic verifying background services, ports, and configuration.</td>
+              <td><code>sudo ./install.sh --check</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <Shot caption="Completed install.sh execution showing success summary and local IP address" />
 
       <h2 id="step-7--verify-system">Step 7 — Post-Install Validation</h2>
@@ -342,14 +390,62 @@ speaker-test -t wav -c 2 -l 1</code>
 
       <h2 id="etape-6--installer-bobine">Étape 6 — Installer Bobine</h2>
       <p>Toujours en SSH, avec votre compte normal (<strong>pas root</strong>) :</p>
+      
+      <p><strong>Option A — Commande rapide en 1 ligne (recommandée) :</strong></p>
+      <CodeBlock>
+        <code>curl -sSL https://bobine.fit/install.sh | bash</code>
+      </CodeBlock>
+
+      <p><strong>Option B — Clonage manuel du dépôt :</strong></p>
       <CodeBlock>
         <code>git clone https://github.com/FantasmaGlad/Bobine.git
 cd Bobine
 sudo ./install.sh</code>
       </CodeBlock>
+
       <p>
         <code>install.sh</code> est autonome et idempotent : il installe les paquets système, Redis, Node.js et Python, construit l&apos;interface web, écrit la configuration, enregistre les services systemd et démarre tout en 10 à 15 minutes.
       </p>
+
+      <div className="docs-table-wrapper">
+        <table className="docs-table">
+          <thead>
+            <tr>
+              <th>Option / Mode</th>
+              <th>Description</th>
+              <th>Commande de lancement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Épuré (défaut)</code></td>
+              <td>Affichage sobre et minimaliste ; logs détaillés stockés dans <code>/var/log/bobine/install-*.log</code>.</td>
+              <td><code>sudo ./install.sh</code></td>
+            </tr>
+            <tr>
+              <td><code>-v, --verbose</code></td>
+              <td>Mode verbeux : flux complet des compilations et téléchargements apt en direct.</td>
+              <td><code>sudo ./install.sh -v</code></td>
+            </tr>
+            <tr>
+              <td><code>-q, --quiet</code></td>
+              <td>Mode silencieux : seules les erreurs et le récapitulatif final s&apos;affichent.</td>
+              <td><code>sudo ./install.sh -q</code></td>
+            </tr>
+            <tr>
+              <td><code>--no-kiosk</code></td>
+              <td>Installation serveur sans affichage graphique X11 ni pilotes audio locaux.</td>
+              <td><code>sudo ./install.sh --no-kiosk</code></td>
+            </tr>
+            <tr>
+              <td><code>--check</code></td>
+              <td>Diagnostic de santé non destructif vérifiant les services, ports et fichiers.</td>
+              <td><code>sudo ./install.sh --check</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <Shot caption="Fin de l'exécution de install.sh : message de succès et adresse IP affichée dans le terminal" />
 
       <h2 id="etape-7--validation-du-systeme">Étape 7 — Validation & Diagnostic du système</h2>

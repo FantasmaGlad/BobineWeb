@@ -140,34 +140,47 @@ export default async function DocumentationIndexPage({
   return (
     <>
       <BreadcrumbsJsonLd items={breadcrumbs} />
-      <div className="doc-hero-wrap" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem" }}>
+      <section className="doc-hero-wrap">
         <div>
-          <span className="feature-category-label">
-            {locale === "en" ? "Knowledge Base & Guides" : "Base de Connaissances & Guides"}
-          </span>
-          <h1 className="doc-hero-title">
-            {t.title}
-          </h1>
-          <p className="doc-hero-intro">
-            {t.intro}
-          </p>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", marginTop: "0.5rem" }}>
-          <DownloadPdfButton locale={locale as Locale} />
-          <ShareButton
-            locale={locale as Locale}
-            pathname="/documentation"
-            title={t.title}
-            description={t.intro}
-          />
-        </div>
-      </div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem" }}>
+            <div>
+              <span className="feature-category-label">
+                {locale === "en" ? "Knowledge Base & Guides" : "Base de Connaissances & Guides"}
+              </span>
+              <h1 className="doc-hero-title">
+                {t.title}
+              </h1>
+              <p className="doc-hero-intro">
+                {t.intro}
+              </p>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", marginTop: "0.5rem" }}>
+              <DownloadPdfButton locale={locale as Locale} />
+              <ShareButton
+                locale={locale as Locale}
+                pathname="/documentation"
+                title={t.title}
+                description={t.intro}
+              />
+            </div>
+          </div>
 
-      {/* Encart Commande d'installation rapide en 1 ligne */}
-      <QuickInstallSnippet locale={locale as Locale} />
+          {/* Encart Commande d'installation rapide en 1 ligne */}
+          <div style={{ marginTop: "1.5rem" }}>
+            <QuickInstallSnippet locale={locale as Locale} />
+          </div>
+        </div>
+
+        <div className="page-hero__scroll">
+          <span>{locale === "en" ? "Scroll down to browse chapters" : "Défiler pour parcourir les chapitres"}</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
+      </section>
 
       {/* Liste des chapitres — Mise en page ouverte, lignes fines */}
-      <div style={{ display: "flex", flexDirection: "column", borderTop: "1px solid var(--border-subtle)" }}>
+      <div style={{ display: "flex", flexDirection: "column", paddingTop: "clamp(2rem, 4vh, 3rem)" }}>
         {t.sections.map((section) => (
           <Link
             key={section.slug}

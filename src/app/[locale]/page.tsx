@@ -72,73 +72,65 @@ export default async function HomePage({
 
   return (
     <div className="container">
-      {/* 1. Hero Section — Plein écran propre sur Desktop, fluide sur Mobile */}
+      {/* 1. Hero Section — Plein écran propre sur Desktop et Mobile */}
       <section className="hero-fullscreen">
-        <h1 className="hero-fullscreen__title">
-          {t.title}
-        </h1>
+        <div>
+          <h1 className="hero-fullscreen__title">
+            {t.title}
+          </h1>
 
-        <p className="hero-fullscreen__subtitle">
-          {t.subtitle}
-        </p>
+          <p className="hero-fullscreen__subtitle">
+            {t.subtitle}
+          </p>
 
-        <div className="hero-fullscreen__actions">
-          <Link
-            className="btn-primary"
-            href={`/${locale}/documentation/demarrage-rapide`}
-          >
-            {t.ctaPrimary}
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
+          <div className="hero-fullscreen__actions">
+            <Link
+              className="btn-primary"
+              href={`/${locale}/documentation/demarrage-rapide`}
             >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
-          </Link>
+              {t.ctaPrimary}
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </Link>
 
-          <a
-            className="btn-secondary"
-            href="https://github.com/FantasmaGlad/Bobine"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <GitHubIcon size={16} />
-            {t.ctaSecondary}
-          </a>
+            <a
+              className="btn-secondary"
+              href="https://github.com/FantasmaGlad/Bobine"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <GitHubIcon size={16} />
+              {t.ctaSecondary}
+            </a>
 
-          <Link
-            href={`/${locale}/documentation`}
-            style={{
-              padding: "0.45rem 0.85rem",
-              fontSize: "0.9rem",
-              fontWeight: 600,
-              color: "var(--accent-primary)",
-              textDecoration: "none",
-            }}
-          >
-            {t.ctaDocs}
-          </Link>
+            <Link
+              href={`/${locale}/documentation`}
+              style={{
+                padding: "0.45rem 0.85rem",
+                fontSize: "0.9rem",
+                fontWeight: 600,
+                color: "var(--accent-primary)",
+                textDecoration: "none",
+              }}
+            >
+              {t.ctaDocs}
+            </Link>
+          </div>
         </div>
 
-        <div
-          className="hero-fullscreen__scroll"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.45rem",
-            color: "var(--text-dim)",
-            fontSize: "0.825rem",
-            fontWeight: 500,
-          }}
-        >
+        <div className="hero-fullscreen__scroll">
           <span>{locale === "en" ? "Scroll down to explore" : "Défiler pour découvrir"}</span>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polyline points="6 9 12 15 18 9" />

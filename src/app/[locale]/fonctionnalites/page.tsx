@@ -160,37 +160,46 @@ export default async function FeaturesPage({
 
   return (
     <div className="container">
-      {/* 1. Hero Section — Responsive et équilibré */}
-      <section className="page-hero" style={{ maxWidth: "56rem" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem", marginBottom: "0.5rem" }}>
-          <span className="feature-category-label">
-            {isEn ? "Playout Engine & Hardware" : "Moteur de Diffusion & Matériel"}
-          </span>
-          <ShareButton
-            locale={locale as Locale}
-            pathname="/fonctionnalites"
-            title={t.title}
-            description={t.intro}
-            hashtags={["Bobine", "OpenSource", "FitnessTech", "VideoStreaming"]}
-          />
+      {/* 1. Hero Section — Plein écran sans coupure */}
+      <section className="page-hero page-hero--fullscreen" style={{ maxWidth: "56rem" }}>
+        <div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem", marginBottom: "0.5rem" }}>
+            <span className="feature-category-label">
+              {isEn ? "Playout Engine & Hardware" : "Moteur de Diffusion & Matériel"}
+            </span>
+            <ShareButton
+              locale={locale as Locale}
+              pathname="/fonctionnalites"
+              title={t.title}
+              description={t.intro}
+              hashtags={["Bobine", "OpenSource", "FitnessTech", "VideoStreaming"]}
+            />
+          </div>
+
+          <h1 className="page-hero__title">
+            {t.title}
+          </h1>
+          <p className="page-hero__intro">
+            {t.intro}
+          </p>
+
+          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
+            <a href="#video-engine" className="btn-primary">
+              {isEn ? "Explore Features" : "Découvrir les Capacités"}
+            </a>
+          </div>
         </div>
 
-        <h1 className="page-hero__title">
-          {t.title}
-        </h1>
-        <p className="page-hero__intro">
-          {t.intro}
-        </p>
-
-        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
-          <a href="#video-engine" className="btn-primary">
-            {isEn ? "Explore Features" : "Découvrir les Capacités"}
-          </a>
+        <div className="page-hero__scroll">
+          <span>{locale === "en" ? "Scroll down to explore features" : "Défiler pour découvrir"}</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
         </div>
       </section>
 
       {/* 2. Modules Techniques Épurés — Séparation par traits fins */}
-      <div className="features-list">
+      <div className="features-list" style={{ paddingTop: "clamp(2.5rem, 5vh, 4rem)" }}>
         {t.modules.map((mod) => (
           <section key={mod.id} id={mod.id} className="feature-section">
             <div className="feature-section__header">

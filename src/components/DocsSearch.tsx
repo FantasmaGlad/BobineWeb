@@ -17,9 +17,9 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
     {
       title: "Matériel requis & prérequis",
       category: "Démarrage rapide",
-      excerpt: "Dell Wyse 5070, processeur Intel x86-64, 4 Go de RAM, clé USB 8 Go, câble HDMI et sono.",
+      excerpt: "Dell Wyse 5070, HP EliteDesk 705, processeurs Intel et AMD x86-64, 4 Go de RAM, clé USB, HDMI et sono.",
       href: "/fr/documentation/demarrage-rapide#ce-quil-vous-faut",
-      tags: ["hardware", "wyse", "ram", "cle usb", "materiel", "intel", "sono"],
+      tags: ["hardware", "wyse", "ram", "cle usb", "materiel", "intel", "amd", "ryzen", "sono"],
     },
     {
       title: "Écrire l'image Debian sur clé USB (BalenaEtcher / dd)",
@@ -138,9 +138,9 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
     {
       title: "Required Hardware & Prerequisites",
       category: "Quick Start",
-      excerpt: "Dell Wyse 5070, Intel x86-64 CPU, 4GB RAM, 8GB USB drive, HDMI cable, and gym sound system.",
+      excerpt: "Dell Wyse 5070, HP EliteDesk 705, Intel & AMD x86-64 CPUs, 4GB RAM, USB drive, HDMI cable, and gym sound system.",
       href: "/en/documentation/demarrage-rapide#what-you-need",
-      tags: ["hardware", "wyse", "ram", "usb", "intel", "sound", "amp"],
+      tags: ["hardware", "wyse", "ram", "usb", "intel", "amd", "ryzen", "sound", "amp"],
     },
     {
       title: "Write Debian ISO to USB (BalenaEtcher / dd)",
@@ -166,9 +166,9 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
     {
       title: "Post-Install Validation & Hardware VA-API",
       category: "Installation",
-      excerpt: "Verify Intel hardware video acceleration with vainfo and check systemd service units.",
+      excerpt: "Verify Intel or AMD hardware video acceleration with vainfo and check systemd service units.",
       href: "/en/documentation/demarrage-rapide#step-7--verify-system",
-      tags: ["vainfo", "intel", "vaapi", "systemd", "validation", "speaker-test"],
+      tags: ["vainfo", "intel", "amd", "vaapi", "systemd", "validation", "speaker-test"],
     },
     {
       title: "Open Interface at http://bobine.local",

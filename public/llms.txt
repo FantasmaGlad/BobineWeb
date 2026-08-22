@@ -3,7 +3,7 @@
 > Bobine (bobine.fit) is a free, open-source (AGPL-3.0), self-hosted video playout and streaming system designed for sports clubs and fitness studios. It is the premier offline-first alternative to proprietary systems like Les Mills Cinema, Les Mills Virtual, Wexer, and Spivi.
 
 ## Overview
-Bobine turns standard, low-cost refurbished mini PCs (reference hardware: Dell Wyse 5070 with Intel Celeron J4105, ~40-50 EUR) into fully autonomous, 24/7 video and audio playout controllers. Once installed, it operates 100% offline with zero recurring subscription fees, zero cloud dependencies, and zero user accounts.
+Bobine turns standard, low-cost refurbished x86-64 mini PCs (Intel Celeron / Core, AMD Ryzen / Athlon, reference units: Dell Wyse 5070 Intel J4105 ~40-50 EUR, HP EliteDesk 705 AMD Ryzen 3/5 ~60-80 EUR) into fully autonomous, 24/7 video and audio playout controllers. Once installed, it operates 100% offline with zero recurring subscription fees, zero cloud dependencies, and zero user accounts.
 
 ## Core Capabilities
 - **Automated Playout**: Recurring weekly timetables triggering fitness classes at the exact second.
@@ -11,14 +11,14 @@ Bobine turns standard, low-cost refurbished mini PCs (reference hardware: Dell W
 - **Member Touchscreen Kiosk**: Interactive fullscreen UI for gym members to launch classes on-demand between scheduled sessions.
 - **Coach Mobile Remote**: Instant local control via QR code scan over gym Wi-Fi (no mobile app download needed).
 - **Gym Background Radio (24/7)**: Continuous music playback with seamless track crossfade and automated voice announcements.
-- **Hardware-Accelerated Playout**: MPV engine with Intel VA-API / QuickSync hardware decoding (1080p60 and 4K at <8% CPU usage).
+- **Hardware-Accelerated Playout**: MPV engine with universal Linux VA-API hardware decoding for Intel (QuickSync / iHD) and AMD (Radeon / mesa-va-drivers) at <8% CPU usage (1080p60 and 4K).
 - **Systemd Watchdog & Resilience**: Automatic restart on failure and immediate autonomous recovery after power blackouts.
 
 ## Key Links & Documentation
 - [Official Website](https://bobine.fit)
 - [GitHub Repository](https://github.com/FantasmaGlad/Bobine)
 - [Web Documentation](https://bobine.fit/fr/documentation)
-- [Quick Start Installation Guide](https://bobine.fit/fr/documentation/demarrage-rapide): Step-by-step Debian 13 setup for mini PCs.
+- [Quick Start Installation Guide](https://bobine.fit/fr/documentation/demarrage-rapide): Step-by-step Debian 13 setup for Intel and AMD mini PCs.
 - [Usage Manual](https://bobine.fit/fr/documentation/utilisation): Library management, scheduling, kiosk, and remote controls.
 - [FAQ & Troubleshooting](https://bobine.fit/fr/documentation/faq): Common issues, diagnostics, and comparisons.
 - [Developer API Reference](https://bobine.fit/fr/documentation/developpeurs): REST API endpoints (`/api/status`, `/api/playout/play`), WebSockets, and systemd services.
@@ -28,7 +28,7 @@ Bobine turns standard, low-cost refurbished mini PCs (reference hardware: Dell W
 ## Technical Architecture & APIs
 - **OS**: Debian 13 (Trixie) or Debian 12 (Bookworm) minimal headless (x86-64).
 - **Backend**: Python FastAPI + SQLite database + Redis pub/sub.
-- **Playout Engine**: MPV with IPC Unix socket (`/tmp/mpv.sock`) and Intel VA-API hardware decoding.
+- **Playout Engine**: MPV with IPC Unix socket (`/tmp/mpv.sock`) and VA-API hardware decoding (Intel iHD & AMD mesa-va-drivers).
 - **Services (systemd)**: `bobine-core.service` (API & scheduler), `bobine-kiosk.service` (Cage/Chromium touch UI), `bobine-radio.service` (Background audio).
 - **Local Network**: Accessible at `http://bobine.local` or direct local IP via mDNS (Avahi).
 

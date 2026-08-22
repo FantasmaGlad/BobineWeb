@@ -228,15 +228,21 @@ export default function SupportPage() {
             </div>
           </div>
         </div>
+        <div className="page-hero__scroll">
+          <span>{isEn ? "Scroll down to learn more about supporting Bobine" : "Défiler pour découvrir le projet"}</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
       </section>
 
       {/* =========================================================================
-          2. SECTION AU DÉFILEMENT : TITRE & DÉVELOPPEMENT DÉTAILLÉ
+          2. SECTION EXPLICATIVE AU SCROLL : POURQUOI SOUTENIR BOBINE
           ========================================================================= */}
-      <section id="community-details" style={{ paddingBlock: "clamp(3rem, 6vh, 5rem)", maxWidth: "52rem", marginInline: "auto" }}>
-        <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+      <section style={{ maxWidth: "56rem", marginInline: "auto", paddingTop: "clamp(2.5rem, 5vh, 4rem)", paddingBottom: "4rem" }}>
+        <div style={{ marginBottom: "2rem" }}>
           <span className="feature-category-label">
-            {isEn ? "Community & Funding" : "Communauté & Financement"}
+            {isEn ? "Independence & Open Source" : "Indépendance & Logiciel Libre"}
           </span>
           <h2
             style={{

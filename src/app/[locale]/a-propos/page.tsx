@@ -112,37 +112,46 @@ export default async function AboutPage({
     <div className="container" style={{ maxWidth: "56rem" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
-      {/* 1. Hero Section — Responsive et équilibré */}
-      <section className="page-hero">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem", marginBottom: "0.5rem" }}>
-          <span className="feature-category-label">{t.badge}</span>
-          <ShareButton
-            locale={locale as Locale}
-            pathname="/a-propos"
-            title={t.title}
-            description={t.intro}
-          />
+      {/* 1. Hero Section — Plein écran sans coupure */}
+      <section className="page-hero page-hero--fullscreen">
+        <div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem", marginBottom: "0.5rem" }}>
+            <span className="feature-category-label">{t.badge}</span>
+            <ShareButton
+              locale={locale as Locale}
+              pathname="/a-propos"
+              title={t.title}
+              description={t.intro}
+            />
+          </div>
+
+          <h1 className="page-hero__title">
+            {t.title}
+          </h1>
+          <p className="page-hero__intro">
+            {t.intro}
+          </p>
+
+          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
+            <a href="#about-sections" className="btn-primary">
+              {isEn ? "Discover the Story" : "Découvrir l'Histoire"}
+            </a>
+            <Link className="btn-secondary" href={`/${locale}/documentation/manifeste`}>
+              {t.ctaManifesto}
+            </Link>
+          </div>
         </div>
 
-        <h1 className="page-hero__title">
-          {t.title}
-        </h1>
-        <p className="page-hero__intro">
-          {t.intro}
-        </p>
-
-        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
-          <a href="#about-sections" className="btn-primary">
-            {isEn ? "Discover the Story" : "Découvrir l'Histoire"}
-          </a>
-          <Link className="btn-secondary" href={`/${locale}/documentation/manifeste`}>
-            {t.ctaManifesto}
-          </Link>
+        <div className="page-hero__scroll">
+          <span>{locale === "en" ? "Scroll down to read the story" : "Défiler pour découvrir"}</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
         </div>
       </section>
 
       {/* 2. Sections de contenu détaillées */}
-      <div id="about-sections" style={{ display: "flex", flexDirection: "column", gap: "2.5rem", paddingBottom: "4rem" }}>
+      <div id="about-sections" style={{ display: "flex", flexDirection: "column", gap: "2.5rem", paddingTop: "clamp(2.5rem, 5vh, 4rem)", paddingBottom: "4rem" }}>
         {t.sections.map((sec, idx) => (
           <div
             key={idx}

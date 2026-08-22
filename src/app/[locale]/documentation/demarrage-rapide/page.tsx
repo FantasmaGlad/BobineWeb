@@ -99,8 +99,8 @@ export default async function DemarrageRapidePage({
           <tbody>
             <tr>
               <td><strong>Mini PC / Hardware</strong></td>
-              <td>x86-64 CPU with Intel iGPU</td>
-              <td>Dell Wyse 5070 (Intel J4105) ~40–50 €</td>
+              <td>x86-64 CPU with Intel iGPU or AMD APU</td>
+              <td>Dell Wyse 5070 (Intel J4105) ~40–50 € or any budget Intel / AMD mini PC</td>
             </tr>
             <tr>
               <td><strong>Memory (RAM)</strong></td>
@@ -311,8 +311,8 @@ speaker-test -t wav -c 2 -l 1</code>
           <tbody>
             <tr>
               <td><strong>Mini PC / Matériel</strong></td>
-              <td>x86-64 avec iGPU Intel</td>
-              <td>Dell Wyse 5070 (Celeron J4105) ~40–50 €</td>
+              <td>x86-64 avec iGPU Intel ou APU AMD</td>
+              <td>Dell Wyse 5070 (Celeron J4105) ~40–50 € ou tout mini PC Intel / AMD Ryzen</td>
             </tr>
             <tr>
               <td><strong>Mémoire vive (RAM)</strong></td>

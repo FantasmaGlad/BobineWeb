@@ -140,27 +140,19 @@ export default async function DocumentationIndexPage({
   return (
     <>
       <BreadcrumbsJsonLd items={breadcrumbs} />
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "0.5rem" }}>
+      <div className="doc-hero-wrap" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem" }}>
         <div>
           <span className="feature-category-label">
             {locale === "en" ? "Knowledge Base & Guides" : "Base de Connaissances & Guides"}
           </span>
-          <h1
-            style={{
-              fontSize: "clamp(1.55rem, 3.5vw, 2.3rem)",
-              fontWeight: 800,
-              letterSpacing: "-0.03em",
-              marginBlock: "0.35rem 0.5rem",
-              color: "var(--text-heading)",
-            }}
-          >
+          <h1 className="doc-hero-title">
             {t.title}
           </h1>
-          <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", margin: 0, lineHeight: 1.55 }}>
+          <p className="doc-hero-intro">
             {t.intro}
           </p>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", marginTop: "0.5rem" }}>
           <DownloadPdfButton locale={locale as Locale} />
           <ShareButton
             locale={locale as Locale}

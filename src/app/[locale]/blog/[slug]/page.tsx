@@ -29,7 +29,13 @@ const markdownComponents: Components = {
 
 export async function generateStaticParams() {
   const releases = await getBobineReleases();
-  return releases.map((release) => ({ slug: release.slug }));
+  const slugs = new Set<string>();
+  for (const rel of releases) {
+    slugs.add(rel.slug);
+    slugs.add(rel.slug.toLowerCase());
+    slugs.add(rel.slug.toUpperCase());
+  }
+  return Array.from(slugs).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({

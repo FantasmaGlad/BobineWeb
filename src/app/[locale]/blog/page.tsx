@@ -153,12 +153,21 @@ export default async function BlogIndexPage({
               </Link>
             </h2>
 
-            <ul style={{ margin: "0 0 1.25rem 0", paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.9rem", lineHeight: 1.6 }}>
-              <li>{locale === "en" ? "Full MPV video playback with Intel QuickSync & VA-API hardware decoding" : "Moteur vidéo MPV avec décodage matériel Intel QuickSync et VA-API (moins de 8% CPU)"}</li>
-              <li>{locale === "en" ? "Automated TV power on/off scheduling via HDMI-CEC signals" : "Allumage et extinction automatique des téléviseurs via protocole HDMI-CEC"}</li>
-              <li>{locale === "en" ? "On-demand member touch kiosk and instant smartphone remote via local QR code" : "Borne tactile membre à la demande & télécommande smartphone via QR code local"}</li>
-              <li>{locale === "en" ? "24/7 background plateau music radio with seamless gapless crossfading" : "Radio d'ambiance plateau 24/7 avec fondu musical sans aucun blanc sonore"}</li>
-            </ul>
+            {latestRelease.slug.startsWith("V2.0.1") || latestRelease.slug.startsWith("v2.0.1") ? (
+              <ul style={{ margin: "0 0 1.25rem 0", paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.9rem", lineHeight: 1.6 }}>
+                <li>{locale === "en" ? "Full hardware video acceleration for both Intel QuickSync (iHD) and AMD Radeon (mesa-va-drivers) under 8% CPU" : "Accélération matérielle complète pour Intel QuickSync (iHD) et AMD Radeon (mesa-va-drivers) sous 8% CPU"}</li>
+                <li>{locale === "en" ? "New 1-line auto-installer (curl -sSL https://bobine.fit/install.sh | bash) with clean & verbose (-v) modes" : "Nouvel installateur automatique en 1 ligne (curl -sSL https://bobine.fit/install.sh | bash) avec modes épuré et verbeux (-v)"}</li>
+                <li>{locale === "en" ? "Smart update handling for existing directories without conflicts, auto hardware driver setup" : "Gestion intelligente des mises à jour des dossiers existants sans collision et installation automatique des pilotes"}</li>
+                <li>{locale === "en" ? "Official links to web documentation, 3D interactive studio demo, and Ko-fi community support" : "Liens officiels vers la documentation web, la démo 3D interactive et le soutien communautaire Ko-fi"}</li>
+              </ul>
+            ) : (
+              <ul style={{ margin: "0 0 1.25rem 0", paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.9rem", lineHeight: 1.6 }}>
+                <li>{locale === "en" ? "Full MPV video playback with Intel QuickSync & VA-API hardware decoding" : "Moteur vidéo MPV avec décodage matériel Intel QuickSync et VA-API (moins de 8% CPU)"}</li>
+                <li>{locale === "en" ? "Automated TV power on/off scheduling via HDMI-CEC signals" : "Allumage et extinction automatique des téléviseurs via protocole HDMI-CEC"}</li>
+                <li>{locale === "en" ? "On-demand member touch kiosk and instant smartphone remote via local QR code" : "Borne tactile membre à la demande & télécommande smartphone via QR code local"}</li>
+                <li>{locale === "en" ? "24/7 background plateau music radio with seamless gapless crossfading" : "Radio d'ambiance plateau 24/7 avec fondu musical sans aucun blanc sonore"}</li>
+              </ul>
+            )}
 
             <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
               <Link

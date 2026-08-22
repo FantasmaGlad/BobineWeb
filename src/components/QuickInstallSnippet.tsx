@@ -5,8 +5,12 @@ import type { Locale } from "@/lib/i18n";
 
 export default function QuickInstallSnippet({ locale }: { locale: Locale }) {
   const [copied, setCopied] = useState(false);
+  const [isVerbose, setIsVerbose] = useState(false);
   const isEn = locale === "en";
-  const command = "curl -sSL https://bobine.fit/install.sh | bash";
+
+  const command = isVerbose
+    ? "curl -sSL https://bobine.fit/install.sh | bash -s -- --verbose"
+    : "curl -sSL https://bobine.fit/install.sh | bash";
 
   const handleCopy = async () => {
     try {
@@ -22,10 +26,10 @@ export default function QuickInstallSnippet({ locale }: { locale: Locale }) {
     <div
       style={{
         marginBlock: "0.85rem 1.35rem",
-        padding: "0.45rem 0.85rem",
+        padding: "0.55rem 0.85rem",
         background: "var(--bg-surface)",
         border: "1px solid var(--border-subtle)",
-        borderRadius: "0.45rem",
+        borderRadius: "0.55rem",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
@@ -34,23 +38,58 @@ export default function QuickInstallSnippet({ locale }: { locale: Locale }) {
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", minWidth: 0, flexWrap: "wrap" }}>
-        <span
+        {/* Toggle Mode Épuré vs Verbeux */}
+        <div
           style={{
-            fontSize: "0.7rem",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.06em",
-            color: "var(--text-muted)",
+            display: "inline-flex",
+            alignItems: "center",
+            background: "var(--bg-inset)",
+            border: "1px solid var(--border-subtle)",
+            borderRadius: "0.35rem",
+            padding: "2px",
+            gap: "2px",
           }}
         >
-          {isEn ? "Quick install" : "Install rapide"}
-        </span>
+          <button
+            type="button"
+            onClick={() => setIsVerbose(false)}
+            style={{
+              background: !isVerbose ? "var(--bg-card)" : "transparent",
+              color: !isVerbose ? "var(--text-heading)" : "var(--text-muted)",
+              fontWeight: !isVerbose ? 700 : 500,
+              fontSize: "0.68rem",
+              padding: "0.15rem 0.45rem",
+              borderRadius: "0.25rem",
+              border: !isVerbose ? "1px solid var(--border-subtle)" : "1px solid transparent",
+              cursor: "pointer",
+            }}
+          >
+            {isEn ? "Clean" : "Épuré"}
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsVerbose(true)}
+            style={{
+              background: isVerbose ? "var(--bg-card)" : "transparent",
+              color: isVerbose ? "var(--text-heading)" : "var(--text-muted)",
+              fontWeight: isVerbose ? 700 : 500,
+              fontSize: "0.68rem",
+              padding: "0.15rem 0.45rem",
+              borderRadius: "0.25rem",
+              border: isVerbose ? "1px solid var(--border-subtle)" : "1px solid transparent",
+              cursor: "pointer",
+            }}
+          >
+            {isEn ? "Verbose (-v)" : "Verbeux (-v)"}
+          </button>
+        </div>
+
         <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", overflowX: "auto" }}>
           <span style={{ color: "var(--accent-primary)", fontWeight: 700, fontFamily: "monospace", fontSize: "0.85rem" }}>$</span>
           <code
             style={{
               fontFamily: "monospace",
-              fontSize: "0.85rem",
+              fontSize: "0.825rem",
               color: "var(--text-heading)",
               whiteSpace: "nowrap",
             }}

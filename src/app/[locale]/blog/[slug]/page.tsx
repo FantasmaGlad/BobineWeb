@@ -97,14 +97,14 @@ export default async function BlogPostPage({
   ];
 
   return (
-    <div className="container" style={{ paddingBlock: "clamp(2.5rem, 6vw, 5rem)", maxWidth: "60rem" }}>
+    <div className="container" style={{ paddingBlock: "clamp(1.25rem, 3vw, 2.5rem)", maxWidth: "56rem" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
-      <div style={{ marginBottom: "2rem" }}>
+      <div style={{ marginBottom: "1.25rem" }}>
         <Link
           href={`/${locale}/blog`}
           style={{
@@ -112,22 +112,22 @@ export default async function BlogPostPage({
             alignItems: "center",
             gap: "0.4rem",
             color: "var(--text-muted)",
-            fontSize: "0.9rem",
+            fontSize: "0.85rem",
             fontWeight: 600,
             textDecoration: "none",
             transition: "color 0.15s ease",
           }}
         >
-          {locale === "fr" ? "Retour aux articles" : "Back to articles"}
+          &larr; {locale === "fr" ? "Retour aux versions" : "Back to releases"}
         </Link>
       </div>
 
       <article style={{ width: "100%" }}>
         <header
           style={{
-            paddingBottom: "2rem",
+            paddingBottom: "1.25rem",
             borderBottom: "1px solid var(--border-subtle)",
-            marginBottom: "2.5rem",
+            marginBottom: "1.75rem",
           }}
         >
           <div
@@ -135,18 +135,18 @@ export default async function BlogPostPage({
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginBottom: "1.25rem",
+              marginBottom: "1rem",
               flexWrap: "wrap",
-              gap: "1rem",
+              gap: "0.75rem",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-              <span className="badge" style={{ fontSize: "0.8rem", padding: "0.25rem 0.65rem" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+              <span className="badge" style={{ fontSize: "0.775rem", padding: "0.2rem 0.6rem" }}>
                 {release.slug}
               </span>
               {release.publishedAt && (
                 <time
-                  style={{ color: "var(--text-dim)", fontSize: "0.9rem", fontWeight: 500 }}
+                  style={{ color: "var(--text-dim)", fontSize: "0.85rem", fontWeight: 500 }}
                   dateTime={release.publishedAt}
                 >
                   {new Date(release.publishedAt).toLocaleDateString(
@@ -167,10 +167,10 @@ export default async function BlogPostPage({
 
           <h1
             style={{
-              fontSize: "clamp(2rem, 4.5vw, 3rem)",
+              fontSize: "clamp(1.4rem, 3.2vw, 2.2rem)",
               fontWeight: 800,
               letterSpacing: "-0.03em",
-              lineHeight: 1.18,
+              lineHeight: 1.22,
               color: "var(--text-heading)",
               margin: 0,
             }}
@@ -179,7 +179,7 @@ export default async function BlogPostPage({
           </h1>
         </header>
 
-        <div className="release-body" style={{ fontSize: "1.05rem", lineHeight: 1.75 }}>
+        <div className="release-body">
           <Markdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
             {release.body}
           </Markdown>
@@ -187,14 +187,14 @@ export default async function BlogPostPage({
 
         <footer
           style={{
-            marginTop: "3.5rem",
-            paddingTop: "2rem",
+            marginTop: "2.5rem",
+            paddingTop: "1.5rem",
             borderTop: "1px solid var(--border-subtle)",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             flexWrap: "wrap",
-            gap: "1.25rem",
+            gap: "1rem",
           }}
         >
           <a

@@ -80,9 +80,17 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
   }, [messages, isLoading]);
 
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    } else {
+      document.body.style.overflow = "";
     }
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   // Fermeture par clic extérieur et touche Échap

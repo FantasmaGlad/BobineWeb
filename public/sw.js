@@ -2,23 +2,14 @@
 const CACHE_NAME = "bobineweb-v1";
 
 const PRECACHE_ASSETS = [
-  "/",
   "/fr",
   "/en",
   "/fr/documentation",
   "/en/documentation",
   "/fr/documentation/demarrage-rapide",
   "/en/documentation/demarrage-rapide",
-  "/fr/documentation/utilisation",
-  "/en/documentation/utilisation",
-  "/fr/documentation/faq",
-  "/en/documentation/faq",
-  "/fr/documentation/developpeurs",
-  "/en/documentation/developpeurs",
   "/fr/fonctionnalites",
   "/en/fonctionnalites",
-  "/fr/demo-3d",
-  "/en/demo-3d",
   "/icon.png",
   "/Bobine_icon.png",
   "/manifest.webmanifest",
@@ -27,11 +18,12 @@ const PRECACHE_ASSETS = [
 // Installation : mise en cache des pages et ressources essentielles
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(PRECACHE_ASSETS).catch((err) => {
-        console.warn("[SW] Pré-mise en cache partielle:", err);
-      });
-    }).then(() => self.skipWaiting())
+    caches
+      .open(CACHE_NAME)
+      .then((cache) => {
+        return cache.addAll(PRECACHE_ASSETS).catch(() => {});
+      })
+      .then(() => self.skipWaiting())
   );
 });
 

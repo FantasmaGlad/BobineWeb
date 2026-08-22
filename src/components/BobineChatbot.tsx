@@ -2,9 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import dynamic from "next/dynamic";
 import type { Locale } from "@/lib/i18n";
+
+const MarkdownRenderer = dynamic(() => import("./MarkdownRenderer"), {
+  loading: () => <span className="markdown-loading" />,
+});
 
 interface Message {
   role: "user" | "assistant";
@@ -296,9 +299,7 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
                 )}
                 <div className="chatbot-message__bubble">
                   {m.role === "assistant" ? (
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                      {m.content}
-                    </ReactMarkdown>
+                    <MarkdownRenderer content={m.content} />
                   ) : (
                     <p style={{ margin: 0 }}>{m.content}</p>
                   )}

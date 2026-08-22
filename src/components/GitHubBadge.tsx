@@ -30,7 +30,6 @@ export default function GitHubBadge({ compact = false }: { compact?: boolean }) 
       rel="noreferrer"
       className={`github-badge ${compact ? "github-badge--compact" : ""}`}
       title="Voir le dépôt GitHub officiel de Bobine & donner une étoile"
-      aria-label="GitHub repository and star counter"
     >
       <svg
         className="github-badge__icon"

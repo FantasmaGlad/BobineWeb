@@ -13,12 +13,7 @@ export default function ServiceWorkerRegistration({ locale }: { locale: Locale }
     if (typeof window !== "undefined" && "serviceWorker" in navigator && process.env.NODE_ENV === "production") {
       navigator.serviceWorker
         .register("/sw.js")
-        .then((reg) => {
-          console.log("[PWA] Service Worker actif:", reg.scope);
-        })
-        .catch((err) => {
-          console.warn("[PWA] Échec enregistrement Service Worker:", err);
-        });
+        .catch(() => {});
     }
 
     // 2. Gestion des changements de connectivité réseau

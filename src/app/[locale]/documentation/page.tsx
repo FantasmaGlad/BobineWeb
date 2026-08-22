@@ -147,7 +147,7 @@ export default async function DocumentationIndexPage({
           </span>
           <h1
             style={{
-              fontSize: "clamp(2rem, 3.8vw, 2.6rem)",
+              fontSize: "clamp(1.55rem, 3.5vw, 2.3rem)",
               fontWeight: 800,
               letterSpacing: "-0.03em",
               marginBlock: "0.35rem 0.5rem",
@@ -156,7 +156,7 @@ export default async function DocumentationIndexPage({
           >
             {t.title}
           </h1>
-          <p style={{ color: "var(--text-muted)", fontSize: "1.05rem", margin: 0, lineHeight: 1.5 }}>
+          <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", margin: 0, lineHeight: 1.55 }}>
             {t.intro}
           </p>
         </div>

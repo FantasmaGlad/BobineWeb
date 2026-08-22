@@ -103,61 +103,61 @@ export default async function LegalNoticePage({
   ];
 
   return (
-    <div className="container" style={{ paddingBlock: "clamp(2rem, 4vh, 3.5rem)", maxWidth: "56rem" }}>
+    <div className="container" style={{ paddingBlock: "clamp(1.25rem, 3vh, 2.5rem)", maxWidth: "52rem" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
-      <div style={{ textAlign: "center", marginBottom: "clamp(2rem, 4vw, 3rem)" }}>
+      <div style={{ textAlign: "center", marginBottom: "clamp(1.5rem, 3vw, 2.25rem)" }}>
         <span className="feature-category-label">{t.badge}</span>
         <h1
           style={{
-            fontSize: "clamp(2rem, 4.2vw, 2.85rem)",
+            fontSize: "clamp(1.65rem, 3.8vw, 2.5rem)",
             fontWeight: 800,
             lineHeight: 1.15,
             letterSpacing: "-0.03em",
-            marginBlock: "0.4rem 0.75rem",
+            marginBlock: "0.35rem 0.65rem",
             color: "var(--text-heading)",
           }}
         >
           {t.title}
         </h1>
-        <p style={{ color: "var(--text-muted)", fontSize: "1.05rem", lineHeight: 1.6, margin: 0 }}>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", lineHeight: 1.55, margin: 0, maxWidth: "42rem", marginInline: "auto" }}>
           {t.subtitle}
         </p>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "1.15rem" }}>
         {t.sections.map((sec) => (
           <div
             key={sec.heading}
             style={{
               background: "var(--bg-card)",
               border: "1px solid var(--border-subtle)",
-              borderRadius: "0.85rem",
-              padding: "1.5rem 1.75rem",
+              borderRadius: "0.75rem",
+              padding: "1.15rem 1.35rem",
               boxShadow: "var(--shadow-card)",
             }}
           >
             <h2
               style={{
-                fontSize: "1.2rem",
+                fontSize: "1.05rem",
                 fontWeight: 700,
                 color: "var(--text-heading)",
-                marginBottom: "0.6rem",
+                marginBottom: "0.45rem",
                 letterSpacing: "-0.02em",
               }}
             >
               {sec.heading}
             </h2>
-            <p style={{ color: "var(--text-main)", fontSize: "0.95rem", lineHeight: 1.65, margin: 0, marginBottom: "0.5rem" }}>
+            <p style={{ color: "var(--text-main)", fontSize: "0.885rem", lineHeight: 1.6, margin: 0, marginBottom: "0.45rem" }}>
               {sec.body}
             </p>
             {sec.contact && (
-              <p style={{ color: "var(--accent-primary)", fontSize: "0.875rem", fontWeight: 600, margin: 0, marginBottom: "0.35rem" }}>
+              <p style={{ color: "var(--accent-primary)", fontSize: "0.825rem", fontWeight: 600, margin: 0, marginBottom: "0.3rem" }}>
                 {sec.contact}
               </p>
             )}
             {sec.subtext && (
-              <p style={{ color: "var(--text-dim)", fontSize: "0.825rem", lineHeight: 1.5, margin: 0 }}>
+              <p style={{ color: "var(--text-dim)", fontSize: "0.8rem", lineHeight: 1.45, margin: 0 }}>
                 {sec.subtext}
               </p>
             )}

@@ -54,8 +54,8 @@ export default function DownloadPdfButton({
         opacity: isGenerating ? 0.7 : 1,
       }}
     >
-      <PdfIcon size={16} />
-      <span>
+      <PdfIcon size={15} />
+      <span className="download-pdf-label--full">
         {isGenerating
           ? isEn
             ? "Generating PDF..."
@@ -63,6 +63,9 @@ export default function DownloadPdfButton({
           : isEn
           ? "Download PDF"
           : "Télécharger en PDF"}
+      </span>
+      <span className="download-pdf-label--short">
+        {isGenerating ? "PDF..." : "PDF"}
       </span>
     </button>
   );

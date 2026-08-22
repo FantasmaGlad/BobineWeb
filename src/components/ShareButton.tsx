@@ -120,7 +120,9 @@ export default function ShareButton({
       </button>
 
       {isOpen && (
-        <div className="share-dropdown-panel" role="menu">
+        <>
+          <div className="share-backdrop" onClick={() => setIsOpen(false)} />
+          <div className="share-dropdown-panel" role="menu">
           <div className="share-dropdown-header">
             <span className="share-dropdown-title">
               {isEn ? "Share this resource" : "Partager cette page"}
@@ -186,7 +188,8 @@ export default function ShareButton({
             </button>
           </div>
         </div>
-      )}
+      </>
+    )}
     </div>
   );
 }

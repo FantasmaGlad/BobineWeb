@@ -162,19 +162,17 @@ export default async function FeaturesPage({
     <div className="container">
       {/* 1. Hero Section — Positionnée haut au chargement */}
       <section
-        className="hero-fullscreen"
         style={{
-          minHeight: "calc(100svh - 110px)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-start",
-          maxWidth: "56rem",
-          paddingTop: "clamp(1.25rem, 3vh, 2.25rem)",
-          paddingBottom: "clamp(2rem, 5vh, 3.5rem)",
+          maxWidth: "52rem",
+          paddingTop: "clamp(1.25rem, 2.5vh, 2rem)",
+          paddingBottom: "clamp(1.5rem, 3vh, 2.5rem)",
           boxSizing: "border-box",
         }}
       >
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "0.75rem" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem", marginBottom: "0.5rem" }}>
           <span className="feature-category-label">
             {isEn ? "Playout Engine & Hardware" : "Moteur de Diffusion & Matériel"}
           </span>
@@ -189,11 +187,11 @@ export default async function FeaturesPage({
 
         <h1
           style={{
-            fontSize: "clamp(2.1rem, 4.8vw, 3.2rem)",
+            fontSize: "clamp(1.65rem, 4vw, 2.7rem)",
             fontWeight: 800,
-            lineHeight: 1.12,
+            lineHeight: 1.15,
             letterSpacing: "-0.03em",
-            marginBottom: "1.25rem",
+            marginBlock: "0.35rem 0.85rem",
             color: "var(--text-heading)",
           }}
         >
@@ -202,10 +200,10 @@ export default async function FeaturesPage({
         <p
           style={{
             color: "var(--text-muted)",
-            fontSize: "clamp(1.05rem, 2vw, 1.25rem)",
+            fontSize: "clamp(0.925rem, 1.8vw, 1.05rem)",
             lineHeight: 1.6,
-            margin: "0 0 2rem 0",
-            maxWidth: "48rem",
+            margin: "0 0 1.5rem 0",
+            maxWidth: "46rem",
           }}
         >
           {t.intro}

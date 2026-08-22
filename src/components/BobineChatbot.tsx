@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -13,7 +12,6 @@ interface Message {
 }
 
 export default function BobineChatbot({ locale }: { locale: Locale }) {
-  const pathname = usePathname();
   const isEn = locale === "en";
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -22,16 +20,6 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
   const modalRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  // Visibilité stricte : Accueil, Fonctionnalités, Documentation uniquement
-  const isAllowedPage = (() => {
-    if (!pathname) return false;
-    const cleanPath = pathname.replace(/\/$/, "");
-    if (cleanPath === `/${locale}`) return true;
-    if (cleanPath.startsWith(`/${locale}/fonctionnalites`)) return true;
-    if (cleanPath.startsWith(`/${locale}/documentation`)) return true;
-    return false;
-  })();
 
   const suggestions = isEn
     ? [
@@ -196,7 +184,7 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
     }
   }
 
-  if (!isAllowedPage || !isOpen) {
+  if (!isOpen) {
     return null;
   }
 

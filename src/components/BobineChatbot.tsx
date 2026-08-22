@@ -208,7 +208,7 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
             <span className="chatbot-avatar-status" />
           </div>
           <div>
-            <h4 className="chatbot-modal__title">Baamix</h4>
+            <span className="chatbot-modal__title" style={{ display: "block" }}>Baamix</span>
             <span className="chatbot-modal__subtitle">{isEn ? "Bobine Mascot" : "Mascotte de Bobine"}</span>
           </div>
         </div>

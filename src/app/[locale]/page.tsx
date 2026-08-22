@@ -72,18 +72,17 @@ export default async function HomePage({
 
   return (
     <div className="container">
-      {/* 1. Hero Section — Plein écran au chargement */}
+      {/* 1. Hero Section — Positionné haut sous le bandeau */}
       <section
         className="hero-fullscreen"
         style={{
-          minHeight: "calc(100svh - 110px)",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           maxWidth: "56rem",
-          paddingTop: "clamp(4rem, 14vh, 8rem)",
-          paddingBottom: "clamp(5rem, 18vh, 10rem)",
-          marginBottom: "clamp(5rem, 16vh, 10rem)",
+          paddingTop: "clamp(1.25rem, 3vh, 2.25rem)",
+          paddingBottom: "clamp(1.5rem, 3vh, 2.5rem)",
+          marginBottom: "clamp(2rem, 4vh, 3.5rem)",
           boxSizing: "border-box",
         }}
       >

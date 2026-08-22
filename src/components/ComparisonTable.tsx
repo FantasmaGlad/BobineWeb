@@ -115,11 +115,11 @@ export default function ComparisonTable({ locale }: { locale: Locale }) {
         <span className="feature-category-label">
           {isEn ? "Detailed Comparison" : "Comparatif Détaillé"}
         </span>
-        <h3 className="comparison-title">
+        <h2 className="comparison-title">
           {isEn
             ? "Bobine vs Les Mills Cinema & Proprietary Fitness Virtual Playout"
             : "Bobine face à Les Mills Cinema et aux régies propriétaires"}
-        </h3>
+        </h2>
         <p className="comparison-desc">
           {isEn
             ? "An objective comparison of features, license costs, offline autonomy, and hardware reliability for gym video studios."

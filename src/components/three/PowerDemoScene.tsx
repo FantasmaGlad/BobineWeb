@@ -154,22 +154,8 @@ function VoileHD({
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    if (playing) {
-      v.currentTime = 0;
-      v.muted = false;
-      v.volume = 1.0;
-      const p = v.play();
-      if (p !== undefined) {
-        p.catch((err) => {
-          console.warn("Autoplay with audio blocked:", err);
-          v.muted = true;
-          v.play().catch(() => {});
-        });
-      }
-    } else {
-      if (!v.paused) {
-        v.pause();
-      }
+    if (!playing && !v.paused) {
+      v.pause();
     }
   }, [playing]);
 
@@ -180,11 +166,6 @@ function VoileHD({
   }, [playing, texture]);
 
   const handleMeshClick = () => {
-    const v = videoRef.current;
-    if (v) {
-      v.muted = false;
-      v.volume = 1.0;
-    }
     onToggle();
   };
 
@@ -242,18 +223,42 @@ export default function PowerDemoScene() {
   const handleTogglePlay = () => {
     const el = document.getElementById("bobine-3d-video-el") as HTMLVideoElement;
     if (el) {
-      el.muted = false;
-      el.volume = 1.0;
+      if (!playing) {
+        el.muted = false;
+        el.volume = 1.0;
+        const playPromise = el.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              setIsMuted(false);
+            })
+            .catch(() => {
+              // Fallback si le navigateur restreint l'audio sans geste antérieur
+              el.muted = true;
+              el.play().catch(() => {});
+              setIsMuted(true);
+            });
+        }
+        setPlaying(true);
+      } else {
+        el.pause();
+        setPlaying(false);
+      }
+    } else {
+      setPlaying((prev) => !prev);
     }
-    setIsMuted(false);
-    setPlaying((prev) => !prev);
   };
 
-  const handleToggleMute = () => {
+  const handleToggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
     const el = document.getElementById("bobine-3d-video-el") as HTMLVideoElement;
     if (el) {
       const nextMuted = !el.muted;
       el.muted = nextMuted;
+      el.volume = 1.0;
+      if (!nextMuted && el.paused && playing) {
+        el.play().catch(() => {});
+      }
       setIsMuted(nextMuted);
     }
   };
@@ -322,29 +327,13 @@ export default function PowerDemoScene() {
 
       <LoadingOverlay />
 
-      <div
-        style={{
-          position: "absolute",
-          top: "1.25rem",
-          left: "1.25rem",
-          zIndex: 10,
-          display: "flex",
-          gap: "0.5rem",
-          flexWrap: "wrap",
-          alignItems: "center",
-        }}
-      >
+      {/* Barre de contrôles flex non chevauchante */}
+      <div className="power-demo__controls-bar">
         <button
           type="button"
-          className="power-demo__status"
+          className="power-demo__status-btn"
           data-on={playing}
           onClick={handleTogglePlay}
-          style={{
-            cursor: "pointer",
-            border: "1px solid var(--border-subtle)",
-            background: "var(--bg-card)",
-            fontFamily: "inherit",
-          }}
           title="Cliquez pour lancer ou mettre en pause la démo vidéo"
         >
           <span className="power-demo__dot" />
@@ -354,19 +343,8 @@ export default function PowerDemoScene() {
         {playing && (
           <button
             type="button"
-            className="btn-secondary"
+            className="power-demo__sound-btn"
             onClick={handleToggleMute}
-            style={{
-              padding: "0.35rem 0.75rem",
-              fontSize: "0.8rem",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.4rem",
-              background: "var(--bg-card)",
-              border: "1px solid var(--border-subtle)",
-              cursor: "pointer",
-              borderRadius: "999px",
-            }}
             title={isMuted ? "Activer le son" : "Couper le son"}
           >
             {isMuted ? (

@@ -64,10 +64,9 @@ export default function HardwareDiagram({ locale }: { locale: Locale }) {
         <span className="feature-category-label">
           {isEn ? "Architecture & Hardware" : "Architecture & Matériel"}
         </span>
-        <h3 className="hardware-title">
-
+        <h2 className="hardware-title">
           {isEn ? "3-Cable Setup on Dell Wyse 5070" : "Installation en 3 câbles sur Mini PC standard"}
-        </h3>
+        </h2>
         <p className="hardware-desc">
           {isEn
             ? "No complex rack required. A single refurbished mini PC placed behind the screen powers the entire studio."
@@ -82,7 +81,7 @@ export default function HardwareDiagram({ locale }: { locale: Locale }) {
               <span className="hardware-card__num">{c.num}</span>
               <span className="hardware-card__tag">{c.tag}</span>
             </div>
-            <h4 className="hardware-card__title">{c.title}</h4>
+            <h3 className="hardware-card__title">{c.title}</h3>
             <p className="hardware-card__desc">{c.desc}</p>
           </div>
         ))}

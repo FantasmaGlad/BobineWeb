@@ -5,7 +5,7 @@ import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
 const MODEL_URL = "/models/tv3d.glb";
-const VIDEO_URL = "/videos/kiosk-demo.mp4";
+const VIDEO_URL = "/videos/VideoDemo.mp4";
 
 // Le modèle (généré par IA à partir de photos) est un mesh unique, sans
 // sous-objet "écran" isolable — on plaque donc un plan indépendant

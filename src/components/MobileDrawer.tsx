@@ -219,14 +219,11 @@ export default function MobileDrawer({
           </div>
 
           {/* 4. Communauté & Légal — Tout en bas */}
-          <div className="mobile-drawer-section" style={{ borderBottom: "none", paddingBottom: "1rem" }}>
+          <div className="mobile-drawer-section" style={{ borderBottom: "none", paddingBottom: "1.25rem" }}>
             <span className="mobile-drawer-section-title">
               {isEn ? "Community & Legal" : "Communauté & Légal"}
             </span>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", alignItems: "center" }}>
-              <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
-                <GitHubBadge />
-              </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem", alignItems: "center" }}>
               <div style={{ display: "flex", gap: "1.25rem", justifyContent: "center", alignItems: "center", fontSize: "0.8rem" }}>
                 <Link
                   href={`/${locale}/mentions-legales`}
@@ -243,6 +240,9 @@ export default function MobileDrawer({
                 >
                   {dict.footer.privacy}
                 </Link>
+              </div>
+              <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+                <GitHubBadge />
               </div>
             </div>
           </div>

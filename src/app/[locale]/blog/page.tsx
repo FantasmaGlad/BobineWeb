@@ -10,91 +10,26 @@ import GitHubIcon from "@/components/icons/GitHubIcon";
 
 const copy = {
   fr: {
-    badge: "Actualités & Mises à Jour",
-    title: "Blog & Journal des Versions",
-    intro: "Toutes les nouveautés, notes de mise à jour et articles d'architecture de Bobine, synchronisés en continu depuis GitHub.",
+    badge: "Journal des Mises à Jour",
+    title: "Releases & Changelog",
+    intro: "Toutes les versions stables, correctifs et nouveautés logicielles de Bobine, synchronisés directement depuis GitHub.",
     featuredReleaseBadge: "Dernière Version Stable",
-    releasesHeading: "Notes de Versions & Mises à Jour",
-    articlesHeading: "Articles Techniques & Retours d'Expérience",
+    releasesHeading: "Historique des versions",
     empty: "Aucune version publiée pour le moment.",
     readMore: "Lire les détails de la version",
-    readArticle: "Lire le guide complet",
     viewOnGithub: "Voir sur GitHub",
   },
   en: {
-    badge: "News & Releases",
-    title: "Blog & Release Changelog",
-    intro: "Latest releases, update notes, and software architecture articles for Bobine, synchronized continuously from GitHub.",
+    badge: "Release Changelog",
+    title: "Releases & Changelog",
+    intro: "All stable releases, patches, and feature updates for Bobine, synchronized directly from GitHub.",
     featuredReleaseBadge: "Latest Stable Release",
-    releasesHeading: "Release Changelog & Updates",
-    articlesHeading: "Technical Articles & Real-World Guides",
+    releasesHeading: "Release History",
     empty: "No releases found yet.",
     readMore: "Read release details",
-    readArticle: "Read full guide",
     viewOnGithub: "View on GitHub",
   },
 } as const;
-
-const technicalArticles = {
-  fr: [
-    {
-      slug: "pourquoi-regie-locale-hors-ligne",
-      link: "/fr/documentation/manifeste",
-      category: "Architecture",
-      readTime: "4 min de lecture",
-      date: "18 août 2026",
-      title: "Pourquoi une régie 100% hors-ligne est indispensable pour les salles de fitness",
-      desc: "Les coupures de fibre et les pannes cloud ne doivent jamais interrompre les cours collectifs. Analyse des avantages de l'architecture locale face aux régies vidéo dépendantes d'Internet.",
-    },
-    {
-      slug: "choisir-mini-pc-reconditionne-fitness",
-      link: "/fr/documentation/demarrage-rapide",
-      category: "Matériel & Frugalité",
-      readTime: "6 min de lecture",
-      date: "12 août 2026",
-      title: "Guide Matériel : Quel mini PC reconditionné choisir à moins de 50 € (Dell Wyse, Celeron)",
-      desc: "Benchmark des processeurs Intel Celeron J4105 et N5105 pour décoder du H.264 et HEVC en 1080p60 avec moins de 8% de charge CPU et 8W de consommation.",
-    },
-    {
-      slug: "automatisation-tv-hdmi-cec",
-      link: "/fr/documentation/utilisation",
-      category: "Automatisation",
-      readTime: "5 min de lecture",
-      date: "5 août 2026",
-      title: "Contrôle HDMI-CEC : Allumer et éteindre automatiquement les écrans de votre salle",
-      desc: "Comment Bobine élimine les télécommandes perdues et les écrans laissés allumés la nuit grâce aux signaux CEC envoyés par la sortie HDMI du mini PC.",
-    },
-  ],
-  en: [
-    {
-      slug: "why-offline-first-gym-playout",
-      link: "/en/documentation/manifeste",
-      category: "Architecture",
-      readTime: "4 min read",
-      date: "August 18, 2026",
-      title: "Why 100% Offline-First Playout is Essential for Modern Sports Facilities",
-      desc: "Internet outages and cloud downtime should never stop scheduled fitness classes. An in-depth analysis of local-first playout vs. proprietary cloud-dependent players.",
-    },
-    {
-      slug: "choosing-budget-mini-pc-gym",
-      link: "/en/documentation/demarrage-rapide",
-      category: "Hardware & Frugality",
-      readTime: "6 min read",
-      date: "August 12, 2026",
-      title: "Hardware Guide: Best Budget Refurbished Mini PCs Under $50 (Dell Wyse, Celeron)",
-      desc: "Benchmarking Intel Celeron J4105 and N5105 for 1080p60 H.264 / HEVC video playback with under 8% CPU usage and 8W power draw.",
-    },
-    {
-      slug: "automated-tv-control-hdmi-cec",
-      link: "/en/documentation/utilisation",
-      category: "Automation",
-      readTime: "5 min read",
-      date: "August 5, 2026",
-      title: "HDMI-CEC Automation: Automatically Powering TV Screens On and Off",
-      desc: "How Bobine eliminates lost remotes and overnight screen power waste by sending CEC commands directly over the mini PC's HDMI output.",
-    },
-  ],
-};
 
 export async function generateMetadata({
   params,
@@ -107,12 +42,11 @@ export async function generateMetadata({
   return buildMetadata({
     locale: locale as Locale,
     pathname: "/blog",
-    title: isEn ? "Blog & Release Changelog — Bobine" : "Blog & Journal des Versions — Bobine",
+    title: isEn ? "Releases & Changelog — Bobine" : "Releases & Changelog — Bobine",
     description: isEn
       ? "Stay updated with the latest Bobine releases, new features, and playout improvements directly from GitHub."
       : "Suivez les dernières versions, notes de mise à jour et nouveautés de la suite logicielle Bobine.",
     keywords: [
-      "Blog Bobine",
       "Releases Bobine",
       "Mises à jour régie vidéo",
       "Changelog Bobine",
@@ -130,7 +64,6 @@ export default async function BlogIndexPage({
   if (!isLocale(locale)) notFound();
   const t = copy[locale as Locale];
   const releases = await getBobineReleases();
-  const articles = technicalArticles[locale as Locale];
 
   const breadcrumbs = [
     { name: "Bobine", url: `/${locale}` },
@@ -140,37 +73,28 @@ export default async function BlogIndexPage({
   const latestRelease = releases[0];
 
   return (
-    <div className="container" style={{ paddingBlock: "clamp(1rem, 2vh, 2rem)", maxWidth: "70rem" }}>
+    <div className="container" style={{ paddingBlock: "clamp(1rem, 2.5vh, 2.5rem)", maxWidth: "60rem" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
-      {/* 1. ÉCRAN D'ACCUEIL COMPLET SANS DEVOIR SCROLLER */}
-      <section
-        style={{
-          minHeight: "calc(100svh - 8.5rem)",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          paddingBottom: "2rem",
-        }}
-      >
-        {/* En-tête large et aéré */}
+      {/* En-tête large et aéré */}
+      <section style={{ marginBottom: "2rem" }}>
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "flex-start",
             flexWrap: "wrap",
-            gap: "1.5rem",
+            gap: "1.25rem",
             paddingBottom: "1.25rem",
             borderBottom: "1px solid var(--border-subtle)",
-            marginBottom: "1.75rem",
+            marginBottom: "1.5rem",
           }}
         >
-          <div style={{ maxWidth: "46rem" }}>
+          <div style={{ maxWidth: "42rem" }}>
             <span className="feature-category-label">{t.badge}</span>
             <h1
               style={{
-                fontSize: "clamp(2.1rem, 4vw, 2.8rem)",
+                fontSize: "clamp(1.6rem, 3.5vw, 2.3rem)",
                 fontWeight: 800,
                 letterSpacing: "-0.03em",
                 marginBlock: "0.35rem 0.5rem",
@@ -182,7 +106,7 @@ export default async function BlogIndexPage({
             <p
               style={{
                 color: "var(--text-muted)",
-                fontSize: "1rem",
+                fontSize: "0.95rem",
                 margin: 0,
                 lineHeight: 1.55,
               }}
@@ -198,12 +122,12 @@ export default async function BlogIndexPage({
           />
         </div>
 
-        {/* CARTE HERO : DERNIÈRE RELEASE MAJEURE EN VEDETTE (LAYOUT OUVERT) */}
-        {latestRelease && (
+        {/* CARTE HERO : DERNIÈRE RELEASE MAJEURE EN VEDETTE */}
+        {latestRelease ? (
           <div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem", marginBottom: "0.75rem" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                <span className="badge" style={{ fontSize: "0.775rem", padding: "0.2rem 0.65rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem", marginBottom: "0.65rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <span className="badge" style={{ fontSize: "0.75rem", padding: "0.15rem 0.55rem" }}>
                   {t.featuredReleaseBadge}
                 </span>
                 <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-heading)", fontFamily: "monospace" }}>
@@ -211,7 +135,7 @@ export default async function BlogIndexPage({
                 </span>
               </div>
               {latestRelease.publishedAt && (
-                <time style={{ color: "var(--text-dim)", fontSize: "0.85rem", fontWeight: 500 }}>
+                <time style={{ color: "var(--text-dim)", fontSize: "0.825rem", fontWeight: 500 }}>
                   {new Date(latestRelease.publishedAt).toLocaleDateString(
                     locale === "fr" ? "fr-FR" : "en-US",
                     { year: "numeric", month: "long", day: "numeric" }
@@ -220,7 +144,7 @@ export default async function BlogIndexPage({
               )}
             </div>
 
-            <h2 style={{ fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)", fontWeight: 800, color: "var(--text-heading)", margin: "0 0 0.75rem 0", lineHeight: 1.25 }}>
+            <h2 style={{ fontSize: "clamp(1.25rem, 2.4vw, 1.65rem)", fontWeight: 800, color: "var(--text-heading)", margin: "0 0 0.65rem 0", lineHeight: 1.3 }}>
               <Link
                 href={`/${locale}/blog/${encodeURIComponent(latestRelease.slug)}`}
                 style={{ textDecoration: "none", color: "inherit" }}
@@ -229,7 +153,7 @@ export default async function BlogIndexPage({
               </Link>
             </h2>
 
-            <ul style={{ margin: "0 0 1.35rem 0", paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.925rem", lineHeight: 1.65 }}>
+            <ul style={{ margin: "0 0 1.25rem 0", paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.9rem", lineHeight: 1.6 }}>
               <li>{locale === "en" ? "Full MPV video playback with Intel QuickSync & VA-API hardware decoding" : "Moteur vidéo MPV avec décodage matériel Intel QuickSync et VA-API (moins de 8% CPU)"}</li>
               <li>{locale === "en" ? "Automated TV power on/off scheduling via HDMI-CEC signals" : "Allumage et extinction automatique des téléviseurs via protocole HDMI-CEC"}</li>
               <li>{locale === "en" ? "On-demand member touch kiosk and instant smartphone remote via local QR code" : "Borne tactile membre à la demande & télécommande smartphone via QR code local"}</li>
@@ -256,65 +180,16 @@ export default async function BlogIndexPage({
               </a>
             </div>
           </div>
+        ) : (
+          <p style={{ color: "var(--text-muted)" }}>{t.empty}</p>
         )}
       </section>
 
-      {/* =========================================================================
-          2. ARTICLES TECHNIQUES & GUIDES DE FOND (EN SCROLLANT)
-          ========================================================================= */}
-      <div style={{ paddingTop: "2.5rem", borderTop: "1px solid var(--border-subtle)", marginBottom: "3rem" }}>
-        <div style={{ marginBottom: "1.25rem", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "0.5rem" }}>
-          <h2 style={{ fontSize: "1.35rem", fontWeight: 700, color: "var(--text-heading)", margin: 0 }}>
-            {t.articlesHeading}
-          </h2>
-        </div>
-
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          {articles.map((art) => (
-            <Link
-              key={art.slug}
-              href={art.link}
-              className="doc-open-row"
-              style={{
-                textDecoration: "none",
-                paddingBlock: "1.35rem",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "flex-start",
-                gap: "1.5rem",
-              }}
-            >
-              <div style={{ maxWidth: "48rem" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.4rem" }}>
-                  <span className="badge" style={{ fontSize: "0.725rem", padding: "0.15rem 0.5rem" }}>
-                    {art.category}
-                  </span>
-                  <span style={{ fontSize: "0.775rem", color: "var(--text-dim)" }}>
-                    {art.readTime}
-                  </span>
-                </div>
-                <h3 style={{ fontSize: "1.15rem", fontWeight: 700, color: "var(--text-heading)", margin: "0 0 0.35rem 0", lineHeight: 1.35 }}>
-                  {art.title}
-                </h3>
-                <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: 1.55, margin: 0 }}>
-                  {art.desc}
-                </p>
-              </div>
-              <span style={{ color: "var(--accent-primary)", fontSize: "0.85rem", fontWeight: 600, flexShrink: 0, marginTop: "0.5rem" }}>
-                {t.readArticle}
-              </span>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      {/* =========================================================================
-          3. HISTORIQUE DES VERSIONS / RELEASES GITHUB
-          ========================================================================= */}
+      {/* HISTORIQUE DES VERSIONS / RELEASES GITHUB */}
       {releases.length > 1 && (
-        <div>
-          <div style={{ marginBottom: "1rem", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "0.5rem" }}>
-            <h2 style={{ fontSize: "1.35rem", fontWeight: 700, color: "var(--text-heading)", margin: 0 }}>
+        <div style={{ paddingTop: "2rem", borderTop: "1px solid var(--border-subtle)" }}>
+          <div style={{ marginBottom: "0.85rem", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "0.4rem" }}>
+            <h2 style={{ fontSize: "1.15rem", fontWeight: 700, color: "var(--text-heading)", margin: 0 }}>
               {t.releasesHeading}
             </h2>
           </div>
@@ -327,23 +202,23 @@ export default async function BlogIndexPage({
                 className="doc-open-row"
                 style={{
                   textDecoration: "none",
-                  paddingBlock: "1rem",
+                  paddingBlock: "0.85rem",
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
                   flexWrap: "wrap",
-                  gap: "0.75rem",
+                  gap: "0.65rem",
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                  <span className="badge" style={{ fontSize: "0.75rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+                  <span className="badge" style={{ fontSize: "0.725rem" }}>
                     {release.slug}
                   </span>
-                  <span style={{ fontWeight: 600, color: "var(--text-heading)", fontSize: "0.95rem" }}>
+                  <span style={{ fontWeight: 600, color: "var(--text-heading)", fontSize: "0.9rem" }}>
                     {release.title}
                   </span>
                 </div>
-                <span style={{ color: "var(--accent-primary)", fontSize: "0.85rem", fontWeight: 600 }}>
+                <span style={{ color: "var(--accent-primary)", fontSize: "0.825rem", fontWeight: 600 }}>
                   {t.readMore}
                 </span>
               </Link>
@@ -354,4 +229,5 @@ export default async function BlogIndexPage({
     </div>
   );
 }
+
 

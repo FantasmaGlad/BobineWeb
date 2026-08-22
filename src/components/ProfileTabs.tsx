@@ -7,6 +7,7 @@ import type { Locale } from "@/lib/i18n";
 interface ProfileData {
   id: string;
   tabTitle: string;
+  shortTitle: string;
   badge: string;
   headline: string;
   description: string;
@@ -27,6 +28,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
         {
           id: "managers",
           tabTitle: "Gym Managers",
+          shortTitle: "Managers",
           badge: "Profitability & Autonomy",
           headline: "Zero subscription fees, immediate return on investment",
           description:
@@ -54,6 +56,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
         {
           id: "members",
           tabTitle: "Members & Coaches",
+          shortTitle: "Members",
           badge: "Zero Downtime & Fluency",
           headline: "Smooth virtual classes, zero buffering during sessions",
           description:
@@ -81,6 +84,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
         {
           id: "opensource",
           tabTitle: "Open Source & Privacy",
+          shortTitle: "Open Source",
           badge: "Sovereignty & Code Auditability",
           headline: "Fully auditable AGPL-3.0 software, local data privacy",
           description:
@@ -110,6 +114,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
         {
           id: "managers",
           tabTitle: "Gérants de salle",
+          shortTitle: "Gérants",
           badge: "Rentabilité & Maîtrise",
           headline: "0 € d'abonnement mensuel, amortissement immédiat",
           description:
@@ -137,6 +142,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
         {
           id: "members",
           tabTitle: "Adhérents & Coachs",
+          shortTitle: "Adhérents",
           badge: "Zéro Panne & Fluidité",
           headline: "Des cours collectifs fluides, sans coupure en plein effort",
           description:
@@ -164,6 +170,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
         {
           id: "opensource",
           tabTitle: "Open Source & Souveraineté",
+          shortTitle: "Open Source",
           badge: "Transparence & Code Libre",
           headline: "Logiciel auditable sous licence AGPL-3.0, données locales",
           description:
@@ -207,7 +214,8 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
               className={`profile-tab-btn ${isActive ? "is-active" : ""}`}
               onClick={() => setActiveTab(profile.id)}
             >
-              <span>{profile.tabTitle}</span>
+              <span className="profile-tab-btn__full">{profile.tabTitle}</span>
+              <span className="profile-tab-btn__short">{profile.shortTitle}</span>
             </button>
           );
         })}

@@ -9,6 +9,8 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: [
+          "Googlebot",
+          "Googlebot-Image",
           "GPTBot",
           "ChatGPT-User",
           "PerplexityBot",

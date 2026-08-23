@@ -11,9 +11,10 @@ Portail web et documentation officielle de **Bobine** — régie vidéo et syst�
 ## Architecture & Spécifications
 
 - **Framework** : Next.js 16 (App Router, Turbopack, React 19)
-- **Rendu** : Génération statique complète (SSG — 39 routes localisées FR/EN)
+- **Rendu** : Génération statique complète (SSG — 47 routes localisées FR/EN)
 - **Régie 3D** : Three.js / React Three Fiber / Drei (scène interactive Wyse 5070 & écran HD)
 - **Design System** : CSS pur avec variables dynamiques — 18 thèmes bicolores classés (8 Clairs, 10 Sombres)
+- **SEO & GEO** : Sitemap multilingue dynamique, JSON-LD enrichi, métadonnées Googlebot, favicons haute fidélité (multiples de 48px)
 - **Performances** : 100% Hors-ligne (PWA / Service Worker), polices système zéro latence
 - **Déploiement** : Vercel Edge Network
 

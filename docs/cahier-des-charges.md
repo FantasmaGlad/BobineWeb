@@ -250,6 +250,12 @@ Le site `bobine.fit` intègre une stratégie de visibilité complète pour les m
 ### 18.3. Données Structurées (Schema.org)
 - Intégration dans `src/components/JsonLd.tsx` des schémas `SoftwareApplication` (licence AGPL-3.0, catégorie Sport/Multimédia), `Organization`, `WebSite` et `BreadcrumbList`.
 
+## 19. Assistant IA Conversationnel « Baamix » (`src/app/api/chat/route.ts`)
+
+- **Rôle** : Mascotte et conseillère technique Bobine (équipement de salles, dimensionnement matériel, devis 0 €, documentation).
+- **Moteur & Routage** : OpenRouter (`https://openrouter.ai/api/v1`) avec modèle principal `google/gemma-4-26b-a4b-it:free` et résilience automatique sur modèles compatibles.
+- **Paramétrage** : Variable d'environnement `OPENROUTER_API_KEY` (avec clé de secours intégrée).
+
 ---
 
 *Document rédigé par entretien de cadrage — réponses retenues : portée complète dès la V1 ; stack Next.js + MDX ; hébergement Vercel avec portabilité vers un auto-hébergement futur (DuckDNS) ; bilingue FR/EN dès le lancement ; aucun tracking ; tutoriel d'installation entièrement nouveau (pas une reprise du README) ; page de soutien simple (dons) ; communauté centrée sur GitHub ; éditeur du site « Fanta », contact clement.barillot@bobine.fit ; dépôt github.com/FantasmaGlad/BobineWeb ; blog automatique depuis les releases GitHub ; pas de page comparatif dédiée ; logo actuel conservé tel quel ; règle absolue zéro emoji.*

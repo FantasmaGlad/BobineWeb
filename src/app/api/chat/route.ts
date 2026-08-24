@@ -4,8 +4,9 @@ import OpenAI from "openai";
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
-const ORCAROUTER_API_KEY_FALLBACK = "sk-orca-lMGIQpeRt76xtGDst1Ij4HYj4SDn5Au0aFjQ38Ix9sU";
-const ORCAROUTER_BASE_URL = "https://api.orcarouter.ai/v1";
+const OPENROUTER_API_KEY_FALLBACK =
+  "sk-or-v1-REDACTED";
+const OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1";
 
 const SYSTEM_PROMPT = `Tu es Baamix, la mascotte et conseillère technique du projet Bobine (site : bobine.fit, code : github.com/FantasmaGlad/Bobine).
 Tu es un petit hamster blanc agile, précis, bienveillant, direct et très professionnel.
@@ -52,8 +53,14 @@ Réponds toujours dans la langue de l'utilisateur (français par défaut, anglai
 
 export async function POST(req: Request) {
   try {
-    const apiKey = process.env.ORCAROUTER_API_KEY || ORCAROUTER_API_KEY_FALLBACK;
-    const baseURL = process.env.ORCAROUTER_BASE_URL || ORCAROUTER_BASE_URL;
+    const apiKey =
+      process.env.OPENROUTER_API_KEY ||
+      process.env.ORCAROUTER_API_KEY ||
+      OPENROUTER_API_KEY_FALLBACK;
+    const baseURL =
+      process.env.OPENROUTER_BASE_URL ||
+      process.env.ORCAROUTER_BASE_URL ||
+      OPENROUTER_BASE_URL;
 
     const { messages } = await req.json();
 
@@ -67,6 +74,10 @@ export async function POST(req: Request) {
     const client = new OpenAI({
       baseURL,
       apiKey,
+      defaultHeaders: {
+        "HTTP-Referer": "https://bobine.fit",
+        "X-Title": "Bobine",
+      },
     });
 
     const conversation = [
@@ -78,10 +89,11 @@ export async function POST(req: Request) {
     ];
 
     const candidateModels = [
-      process.env.ORCAROUTER_MODEL,
-      "qwen/qwen3.8-27b-free",
-      "orcarouter/free",
-      "deepseek/deepseek-v4-flash-free",
+      process.env.OPENROUTER_MODEL,
+      "google/gemma-4-26b-a4b-it:free",
+      "google/gemma-4-31b-it:free",
+      "openrouter/free",
+      "openrouter/auto",
     ].filter(Boolean) as string[];
 
     let stream = null;
@@ -119,7 +131,7 @@ export async function POST(req: Request) {
           }
           controller.close();
         } catch (err) {
-          console.error("Erreur de streaming Orca Router:", err);
+          console.error("Erreur de streaming OpenRouter:", err);
           controller.error(err);
         }
       },

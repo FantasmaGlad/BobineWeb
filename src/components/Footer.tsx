@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import GitHubIcon from "@/components/icons/GitHubIcon";
 
@@ -10,7 +13,13 @@ export default function Footer({
   locale: Locale;
   dict: Dictionary;
 }) {
+  const pathname = usePathname();
   const isEn = locale === "en";
+
+  // Masquer le footer sur l'écran de démo 3D pour préserver la scène immersive plein écran
+  if (pathname && pathname.includes("/demo-3d")) {
+    return null;
+  }
 
   return (
     <footer className="site-footer">

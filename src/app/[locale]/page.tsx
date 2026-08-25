@@ -7,7 +7,6 @@ import GitHubIcon from "@/components/icons/GitHubIcon";
 import ProfileTabs from "@/components/ProfileTabs";
 import ComparisonTable from "@/components/ComparisonTable";
 import HardwareDiagram from "@/components/HardwareDiagram";
-import RoiCalculator from "@/components/RoiCalculator";
 
 const copy = {
   fr: {
@@ -129,16 +128,7 @@ export default async function HomePage({
             </Link>
           </div>
         </div>
-
-        <div className="hero-fullscreen__scroll">
-          <span>{locale === "en" ? "Scroll down to explore" : "Défiler pour découvrir"}</span>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </div>
       </section>
-
-
 
       {/* 2. Les 3 Profils — Onglets Interactifs */}
       <ProfileTabs locale={locale as Locale} />
@@ -148,9 +138,6 @@ export default async function HomePage({
 
       {/* 4. Schéma Matériel & Terminal Linux */}
       <HardwareDiagram locale={locale as Locale} />
-
-      {/* 5. Simulateur d'Économies & Calculateur de ROI */}
-      <RoiCalculator locale={locale as Locale} />
     </div>
   );
 }

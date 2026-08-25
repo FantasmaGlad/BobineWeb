@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
+import RoiCalculator from "@/components/RoiCalculator";
 
 export async function generateMetadata({
   params,
@@ -312,6 +313,11 @@ export default async function LesMillsComparisonPage({
           </article>
         ))}
       </section>
+
+      {/* Simulateur d'Économies & Calculateur de ROI */}
+      <div style={{ marginBottom: "3.5rem" }}>
+        <RoiCalculator locale={locale as Locale} />
+      </div>
 
       {/* Bloc CTA */}
       <section style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "1rem", padding: "2.5rem 2rem", textAlign: "center", maxWidth: "860px" }}>

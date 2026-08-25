@@ -141,17 +141,10 @@ export default async function AboutPage({
             </Link>
           </div>
         </div>
-
-        <div className="page-hero__scroll">
-          <span>{locale === "en" ? "Scroll down to read the story" : "Défiler pour découvrir"}</span>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </div>
       </section>
 
       {/* 2. Sections de contenu détaillées */}
-      <div id="about-sections" style={{ display: "flex", flexDirection: "column", gap: "2.5rem", paddingTop: "clamp(2.5rem, 5vh, 4rem)", paddingBottom: "4rem" }}>
+      <div id="about-sections" style={{ display: "flex", flexDirection: "column", gap: "2.5rem", paddingTop: "2rem", paddingBottom: "4rem" }}>
         {t.sections.map((sec, idx) => (
           <div
             key={idx}

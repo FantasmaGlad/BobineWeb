@@ -170,17 +170,10 @@ export default async function DocumentationIndexPage({
             <QuickInstallSnippet locale={locale as Locale} />
           </div>
         </div>
-
-        <div className="page-hero__scroll">
-          <span>{locale === "en" ? "Scroll down to browse chapters" : "Défiler pour parcourir les chapitres"}</span>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </div>
       </section>
 
       {/* Liste des chapitres — Mise en page ouverte, lignes fines */}
-      <div style={{ display: "flex", flexDirection: "column", paddingTop: "clamp(2rem, 4vh, 3rem)" }}>
+      <div style={{ display: "flex", flexDirection: "column", paddingTop: "2rem" }}>
         {t.sections.map((section) => (
           <Link
             key={section.slug}

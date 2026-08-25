@@ -194,18 +194,11 @@ export default async function BlogIndexPage({
             <p style={{ color: "var(--text-muted)" }}>{t.empty}</p>
           )}
         </div>
-
-        <div className="page-hero__scroll">
-          <span>{locale === "en" ? "Scroll down to see all releases" : "Défiler pour voir toutes les versions"}</span>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </div>
       </section>
 
       {/* HISTORIQUE DES VERSIONS / RELEASES GITHUB */}
       {releases.length > 1 && (
-        <div style={{ paddingTop: "clamp(2.5rem, 5vh, 4rem)" }}>
+        <div style={{ paddingTop: "2rem" }}>
           <div style={{ marginBottom: "0.85rem", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "0.4rem" }}>
             <h2 style={{ fontSize: "1.15rem", fontWeight: 700, color: "var(--text-heading)", margin: 0 }}>
               {t.releasesHeading}

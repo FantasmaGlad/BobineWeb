@@ -27,7 +27,12 @@ Portée retenue : **site complet dès le départ** (pas de MVP minimal suivi d'i
 
 - `/` — Accueil : pitch, pourquoi Bobine (vs. LesMills Cinema), fonctionnalités clés, démo, CTA vers le tutoriel d'installation.
 - `/fonctionnalites` — détail des fonctionnalités (planification, borne à la demande, radio, télécommande, mode coach audio...).
-- `/demo-3d` — démo 3D interactive (Wyse 5070 + écran, Three.js/`@react-three/fiber`) : test de faisabilité né en cours de route, hors périmètre V1 initial mais désormais dans la navigation principale — voir §16.1 pour la stack.
+- `/comparatif` — **Hub comparatif & alternatives** (modèle économique, souveraineté, matériel) avec 4 études dédiées :
+  - `/comparatif/les-mills-cinema` — Alternative à Les Mills Cinema / Virtual, suppression des redevances par programme, calculateur ROI.
+  - `/comparatif/wexer-fitness-on-demand` — Alternative à Wexer et FOD, architecture Local-First vs SaaS cloud.
+  - `/comparatif/radical-fitness-yako` — Alternative à Radical Fitness et cours de franchise (Yako), import de vidéos libres.
+  - `/comparatif/affichage-dynamique-fitness` — Bobine vs afficheurs dynamiques génériques (HDMI-CEC, borne tactile, radio 24/7).
+- `/demo-3d` — démo 3D interactive (Wyse 5070 + écran, Three.js/`@react-three/fiber`).
 - `/documentation` — racine de la doc, avec sous-sections :
   - `/documentation/demarrage-rapide` — **tutoriel d'installation pas-à-pas grand public** (priorité n°1, voir §5).
   - `/documentation/utilisation` — guide d'utilisation (admin, cinéma membre, radio, télécommande).
@@ -240,16 +245,21 @@ Le site `bobine.fit` intègre une stratégie de visibilité complète pour les m
 
 ### 18.1. Architecture du Sitemap (`src/app/sitemap.ts`)
 - **Fichier servi** : `https://bobine.fit/sitemap.xml`
-- **Génération dynamique** : 39 routes statiques (FR/EN) + les pages de blog issues des releases GitHub (`/blog/[slug]`).
+- **Génération dynamique** : 44 routes statiques (FR/EN) + les pages de blog issues des releases GitHub (`/blog/[slug]`).
 - **Balises `hreflang`** : Déclaration systématique des versions alternatives `fr`, `en` et `x-default` (`/fr`).
+- **Pages comparatives ciblées** : Déclaration des routes `/comparatif`, `/comparatif/les-mills-cinema`, `/comparatif/wexer-fitness-on-demand`, `/comparatif/radical-fitness-yako`, `/comparatif/affichage-dynamique-fitness` avec priorité 0.9.
 
 ### 18.2. Découverte par les Moteurs d'Intelligence Artificielle
-- **`public/llms.txt`** : Document Markdown condensé et structuré, pensé pour les scrapers et moteurs de recherche LLM (Perplexity, ChatGPT, Claude, Gemini).
+- **`public/llms.txt`** : Document Markdown condensé et structuré, pensé pour les scrapers et moteurs de recherche LLM (Perplexity, ChatGPT, Claude, Gemini), intégrant matrices comparatives, modèles économiques et arguments de souveraineté.
 - **`src/app/robots.ts`** : Directives explicites d'indexation autorisant tous les crawlers IA (`GPTBot`, `PerplexityBot`, `ClaudeBot`, `Google-Extended`, etc.).
 - **Vérification Bing** : `public/BingSiteAuth.xml` pour la prise en charge immédiate par Bing Webmaster Tools.
 
-### 18.3. Données Structurées (Schema.org)
-- Intégration dans `src/components/JsonLd.tsx` des schémas `SoftwareApplication` (licence AGPL-3.0, catégorie Sport/Multimédia), `Organization`, `WebSite` et `BreadcrumbList`.
+### 18.3. Données Structurées (Schema.org) & Standard Favicon Google
+- Intégration dans `src/components/JsonLd.tsx` des schémas :
+  - `SoftwareApplication` (licence AGPL-3.0, offre perpétuelle 0 €, matériel requis).
+  - `FAQPage` pour l'obtention de Rich Snippets sur les requêtes de substitution ("Alternative Les Mills Cinema", "Prix régie vidéo salle de sport").
+  - `Organization`, `WebSite` et `BreadcrumbList`.
+- **Standard Favicon Google Search** : Déploiement des icônes carrées conformes aux règles Googlebot-Image (`48x48`, `96x96`, `192x192`, `512x512`, multi-calques `favicon.ico`).
 
 ## 19. Assistant IA Conversationnel « Baamix » (`src/app/api/chat/route.ts`)
 

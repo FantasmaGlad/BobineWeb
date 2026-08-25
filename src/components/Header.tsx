@@ -23,6 +23,7 @@ export default function Header({
 
   const links: Array<[string, string]> = [
     [`/${locale}/fonctionnalites`, dict.nav.features],
+    [`/${locale}/comparatif`, dict.nav.comparisons],
     [`/${locale}/documentation`, dict.nav.documentation],
     [`/${locale}/blog`, dict.nav.blog],
     [`/${locale}/demo-3d`, dict.nav.demo],
@@ -35,6 +36,7 @@ export default function Header({
     const cleanPath = pathname.replace(/\/$/, "");
     if (cleanPath === `/${locale}`) return true;
     if (cleanPath.startsWith(`/${locale}/fonctionnalites`)) return true;
+    if (cleanPath.startsWith(`/${locale}/comparatif`)) return true;
     if (cleanPath.startsWith(`/${locale}/documentation`)) return true;
     return false;
   })();

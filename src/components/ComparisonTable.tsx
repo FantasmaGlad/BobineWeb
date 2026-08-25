@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 
 export default function ComparisonTable({ locale }: { locale: Locale }) {
@@ -213,6 +214,111 @@ export default function ComparisonTable({ locale }: { locale: Locale }) {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Liens vers les comparatifs spécialisés */}
+      <div style={{ marginTop: "2rem", paddingTop: "1.5rem", borderTop: "1px solid var(--border-subtle)" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.75rem", marginBottom: "1rem" }}>
+          <span style={{ fontSize: "0.85rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted)" }}>
+            {isEn ? "Detailed Case Studies & Alternatives :" : "Études comparatives détaillées & alternatives :"}
+          </span>
+          <Link
+            href={`/${locale}/comparatif`}
+            style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--accent-primary)", textDecoration: "none" }}
+          >
+            {isEn ? "View all comparisons →" : "Voir tous les comparatifs →"}
+          </Link>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "0.75rem" }}>
+          <Link
+            href={`/${locale}/comparatif/les-mills-cinema`}
+            style={{
+              background: "var(--bg-card)",
+              border: "1px solid var(--border-subtle)",
+              borderRadius: "0.6rem",
+              padding: "0.85rem 1rem",
+              textDecoration: "none",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.25rem",
+              transition: "border-color 0.15s ease",
+            }}
+          >
+            <span style={{ fontSize: "0.875rem", fontWeight: 700, color: "var(--text-heading)" }}>
+              vs Les Mills Cinema
+            </span>
+            <span style={{ fontSize: "0.775rem", color: "var(--text-muted)" }}>
+              {isEn ? "Save $1,500–$3,600/yr per studio" : "Économisez 1 500 € à 3 600 € / an"}
+            </span>
+          </Link>
+
+          <Link
+            href={`/${locale}/comparatif/wexer-fitness-on-demand`}
+            style={{
+              background: "var(--bg-card)",
+              border: "1px solid var(--border-subtle)",
+              borderRadius: "0.6rem",
+              padding: "0.85rem 1rem",
+              textDecoration: "none",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.25rem",
+              transition: "border-color 0.15s ease",
+            }}
+          >
+            <span style={{ fontSize: "0.875rem", fontWeight: 700, color: "var(--text-heading)" }}>
+              vs Wexer & FOD
+            </span>
+            <span style={{ fontSize: "0.775rem", color: "var(--text-muted)" }}>
+              {isEn ? "Local-First vs $250+/mo Cloud SaaS" : "Local-First vs SaaS Cloud à 250 €+/mois"}
+            </span>
+          </Link>
+
+          <Link
+            href={`/${locale}/comparatif/radical-fitness-yako`}
+            style={{
+              background: "var(--bg-card)",
+              border: "1px solid var(--border-subtle)",
+              borderRadius: "0.6rem",
+              padding: "0.85rem 1rem",
+              textDecoration: "none",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.25rem",
+              transition: "border-color 0.15s ease",
+            }}
+          >
+            <span style={{ fontSize: "0.875rem", fontWeight: 700, color: "var(--text-heading)" }}>
+              vs Radical & Yako
+            </span>
+            <span style={{ fontSize: "0.775rem", color: "var(--text-muted)" }}>
+              {isEn ? "Independent studios vs Franchise lock" : "Studios indépendants vs franchise"}
+            </span>
+          </Link>
+
+          <Link
+            href={`/${locale}/comparatif/affichage-dynamique-fitness`}
+            style={{
+              background: "var(--bg-card)",
+              border: "1px solid var(--border-subtle)",
+              borderRadius: "0.6rem",
+              padding: "0.85rem 1rem",
+              textDecoration: "none",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.25rem",
+              transition: "border-color 0.15s ease",
+            }}
+          >
+            <span style={{ fontSize: "0.875rem", fontWeight: 700, color: "var(--text-heading)" }}>
+              vs Affichage Dynamique
+            </span>
+            <span style={{ fontSize: "0.775rem", color: "var(--text-muted)" }}>
+              {isEn ? "TouchPlayer, Waves, Screenly..." : "TouchPlayer, Waves, Screenly..."}
+            </span>
+          </Link>
+        </div>
       </div>
     </section>
   );

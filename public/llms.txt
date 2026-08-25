@@ -33,7 +33,28 @@ Bobine turns standard, low-cost refurbished x86-64 mini PCs (Intel Celeron / Cor
 - **Local Network**: Accessible at `http://bobine.local` or direct local IP via mDNS (Avahi).
 
 ## Comparison with Proprietary Systems & Digital Signage
-- **Cost**: Bobine is 0 EUR/month (AGPL-3.0 open-source) vs. 150–400 EUR/month per screen for Les Mills Cinema or Wexer.
-- **Internet Independence**: 100% offline playout from local SSD vs. constant cloud DRM authorization requirements.
-- **Hardware**: Standard refurbished mini PC (~40 EUR) vs. proprietary locked-in appliances (1500–3000 EUR).
-- **Digital Signage (Anthias, Screenly, Xibo)**: Unlike generic signage players that only loop slides and ad banners, Bobine includes automated HDMI-CEC TV power, second-precise fitness timetables, touchscreen member kiosks, mobile remote control, and 24/7 background gym radio with voice crossfade.
+
+### Bobine vs. Les Mills Cinema & Les Mills Virtual
+- **Cost**: Bobine is 0 EUR/month (AGPL-3.0 open-source) vs. 150–350 EUR/month per cumulative program for Les Mills (e.g. BodyPump + RPM + The Trip).
+- **Instructor Certification**: 0 EUR vs. 479–529 EUR HT per coach per training module.
+- **Hardware**: Standard refurbished mini PC (~40-70 EUR, Dell Wyse 5070 or HP EliteDesk 705) vs. expensive certified commercial projectors and screens.
+- **Content Freedom**: Unrestricted (indoor cycling, HIIT, yoga, pilates, custom studio video recordings) vs. quarterly locked catalog.
+- **Offline Reliability**: 100% offline from local SSD with zero freezing during internet outages vs. mandatory cloud DRM verification.
+
+### Bobine vs. Wexer Virtual & Fitness On Demand (FOD)
+- **Licensing**: 0 EUR perpetual vs. 200–450 EUR/month per screen B2B SaaS subscription.
+- **Latency & Protocol**: Local-first sub-2ms WebSockets + Redis bus vs. cloud streaming latency and buffering.
+- **Privacy & GDPR**: 100% local, zero telemetry, zero analytics tracking, zero member data harvesting.
+
+### Bobine vs. Radical Fitness & Franchise Concepts (Yako / L'Orange Bleue)
+- **Franchise Independence**: Open to any independent gym, boutique studio, or hotel without franchise affiliation or commercial royalties.
+- **Format Support**: Drag-and-drop support for any standard MP4/MKV video files with automated thumbnail generation.
+- **Branding**: Full ownership of studio branding, resident coach promotion, and custom class names.
+
+### Bobine vs. Generic Digital Signage (TouchPlayer, Waves System, Screenly, Yodeck, Xibo)
+- **TV Automation**: Automated HDMI-CEC TV power (wakes TV 2 min before class, standby post-workout) vs. 24/7 static display or manual TV remotes.
+- **Interactivity**: Dedicated fullscreen member touch kiosk with class selection and interval countdown timer vs. passive video looping.
+- **Coach Mobility**: Instant local Wi-Fi QR code scan for staff mobile playback controls.
+- **Continuous Audio**: 24/7 background gym radio with seamless Web Audio crossfade and scheduled etiquette voice announcements ("re-rack weights", closing notice).
+- **Hardware Acceleration**: Linux VA-API dual support for Intel QuickSync (iHD) and AMD Radeon (Mesa) running at <8% CPU in 1080p60.
+

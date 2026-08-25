@@ -29,6 +29,7 @@ export default function MobileDrawer({
   const mainLinks: Array<{ href: string; label: string; tag?: string }> = [
     { href: `/${locale}`, label: dict.nav.home },
     { href: `/${locale}/fonctionnalites`, label: dict.nav.features },
+    { href: `/${locale}/comparatif`, label: dict.nav.comparisons },
     { href: `/${locale}/demo-3d`, label: dict.nav.demo, tag: "3D" },
     { href: `/${locale}/documentation`, label: dict.nav.documentation },
     { href: `/${locale}/blog`, label: dict.nav.blog },

@@ -107,8 +107,10 @@ export default async function RootLayout({
         <JsonLd locale={locale} />
         <Header locale={locale} dict={dict} />
         <TechTicker locale={locale as Locale} />
-        <main>{children}</main>
-        <Footer locale={locale} dict={dict} />
+        <main>
+          {children}
+          <Footer locale={locale as Locale} dict={dict} />
+        </main>
 
         <BobineChatbot locale={locale as Locale} />
         <ServiceWorkerRegistration locale={locale as Locale} />

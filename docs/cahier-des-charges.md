@@ -70,9 +70,10 @@ C'est la fonctionnalité explicitement requise en premier :
 
 - **Dépôt** : [github.com/FantasmaGlad/BobineWeb](https://github.com/FantasmaGlad/BobineWeb) (à créer, public comme le reste du projet).
 - **Clé de déploiement** : une paire de clés SSH dédiée a été générée (`~/.ssh/bobineweb_deploy`), suivant le même schéma que les autres dépôts de ce poste (alias `github.com-bobineweb` dans `~/.ssh/config`). La clé publique est à coller dans *BobineWeb → Settings → Deploy keys* (cocher *Allow write access* pour pouvoir pousser depuis ce poste) — clé publique reproduite dans `Start.md`.
-- **V1 : Vercel**, projet lié au dépôt GitHub `BobineWeb`, déploiement automatique à chaque push sur `main`, previews sur chaque pull request. Palier gratuit suffisant pour un site vitrine.
-- DNS : `bobine.fit` pointé vers Vercel.
+- **V1 : Vercel + Cloudflare**, projet lié au dépôt GitHub `BobineWeb`, déploiement automatique à chaque push sur `main`. Cloudflare agit comme proxy inverse (Reverse Proxy Anycast) et pare-feu WAF/DDoS en amont de Vercel.
+- DNS : domaine `bobine.fit` délégué à Cloudflare (`mack.ns.cloudflare.com`, `teagan.ns.cloudflare.com`) puis routé vers l'Anycast Vercel (`76.76.21.21` et `cname.vercel-dns.com`) en mode Proxied avec SSL Full (Strict).
 - **Contrainte de portabilité explicitement demandée** : garder la possibilité de migrer un jour vers un hébergement personnel (matériel perso + DuckDNS). En conséquence : éviter les briques propriétaires Vercel non standard (Vercel KV/Blob, logique Edge Middleware avancée) sauf besoin clairement justifié, pour que le site reste déployable ailleurs sans réécriture.
+
 
 ## 9. Internationalisation (FR / EN)
 
@@ -256,6 +257,21 @@ Le site `bobine.fit` intègre une stratégie de visibilité complète pour les m
 - **Moteur & Routage** : OpenRouter (`https://openrouter.ai/api/v1`) avec modèle principal `google/gemma-4-26b-a4b-it:free` et résilience automatique sur modèles compatibles.
 - **Paramétrage** : Variable d'environnement `OPENROUTER_API_KEY` (avec clé de secours intégrée).
 
+## 20. Protection Réseau, DNS & Sécurité Cloudflare
+
+- **Rôle** : Proxy inverse (Reverse Proxy), protection anti-DDoS, WAF et accélérateur CDN mondial en amont de Vercel.
+- **Configuration DNS** :
+  - Délégation aux serveurs de noms Cloudflare : `mack.ns.cloudflare.com` et `teagan.ns.cloudflare.com`.
+  - Routage racine (`bobine.fit` / `@`) : Type `A` vers `76.76.21.21` (Anycast Vercel), statut *Proxied*.
+  - Routage sous-domaine (`www.bobine.fit`) : Type `CNAME` vers `cname.vercel-dns.com`, statut *Proxied*.
+- **Chiffrement SSL/TLS** :
+  - Mode **Full (Strict)** : Chiffrement intégral navigateur ↔ Cloudflare ↔ Vercel, évitant toute boucle de redirection `ERR_TOO_MANY_REDIRECTS`.
+  - Protocoles : TLS 1.2+, HTTP/3 (QUIC), 0-RTT.
+- **Gestion des Bots & Indexation IA** :
+  - **Bot fight mode** activé pour bloquer les sondes malveillantes et le scraping non sollicité.
+  - **Block AI bots** sur `Allow (do not block)` pour préserver l'indexation GEO (Perplexity, ChatGPT, Claude, Gemini) spécifiée au §18.
+
 ---
 
-*Document rédigé par entretien de cadrage — réponses retenues : portée complète dès la V1 ; stack Next.js + MDX ; hébergement Vercel avec portabilité vers un auto-hébergement futur (DuckDNS) ; bilingue FR/EN dès le lancement ; aucun tracking ; tutoriel d'installation entièrement nouveau (pas une reprise du README) ; page de soutien simple (dons) ; communauté centrée sur GitHub ; éditeur du site « Fanta », contact clement.barillot@bobine.fit ; dépôt github.com/FantasmaGlad/BobineWeb ; blog automatique depuis les releases GitHub ; pas de page comparatif dédiée ; logo actuel conservé tel quel ; règle absolue zéro emoji.*
+*Document rédigé par entretien de cadrage — réponses retenues : portée complète dès la V1 ; stack Next.js + MDX ; hébergement Vercel + Cloudflare avec portabilité vers un auto-hébergement futur (DuckDNS) ; bilingue FR/EN dès le lancement ; aucun tracking ; tutoriel d'installation entièrement nouveau (pas une reprise du README) ; page de soutien simple (dons) ; communauté centrée sur GitHub ; éditeur du site « Fanta », contact clement.barillot@bobine.fit ; dépôt github.com/FantasmaGlad/BobineWeb ; blog automatique depuis les releases GitHub ; pas de page comparatif dédiée ; logo actuel conservé tel quel ; règle absolue zéro emoji.*
+

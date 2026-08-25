@@ -5091,15 +5091,20 @@ main {
    EN-TÊTES & HÉROS NATURELS (SANS SYNDROME BOX IN A BOX)
    ========================================================================== */
 
-/* 1. Page d'accueil */
+/* 1. Page d'accueil — Plein écran immersif sans coupure visuelle */
 .hero-fullscreen {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   max-width: 58rem;
   width: 100%;
-  padding-top: clamp(2rem, 5vw, 3.5rem);
-  padding-bottom: clamp(1.5rem, 3.5vw, 2.5rem);
+  min-height: 100%;
+  min-height: calc(100dvh - 7rem);
+  min-height: calc(100svh - 7rem);
+  justify-content: space-between;
+  padding-top: clamp(1.75rem, 3.5vh, 3rem);
+  padding-bottom: clamp(1.25rem, 2.5vh, 2rem);
+  flex-shrink: 0;
 }
 
 .hero-fullscreen__title {
@@ -5110,6 +5115,17 @@ main {
 
 .hero-fullscreen__subtitle {
   color: var(--text-muted);
+}
+
+.hero-fullscreen__scroll {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--text-muted);
+  font-size: 0.825rem;
+  font-weight: 500;
+  margin-top: auto;
+  padding-top: 1rem;
 }
 
 @media (min-width: 1024px) {
@@ -5131,13 +5147,14 @@ main {
     gap: 1rem;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: 1.5rem;
   }
 }
 
 @media (max-width: 1023px) {
   .hero-fullscreen {
-    padding-top: clamp(1.25rem, 3vw, 2rem);
-    padding-bottom: clamp(1rem, 2.5vw, 1.5rem);
+    padding-top: clamp(1.25rem, 3vh, 2rem);
+    padding-bottom: clamp(1rem, 2vh, 1.5rem);
   }
 
   .hero-fullscreen__title {
@@ -5158,6 +5175,12 @@ main {
     gap: 0.65rem;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .hero-fullscreen__scroll {
+    margin-top: auto;
+    padding-top: 0.75rem;
   }
 }
 

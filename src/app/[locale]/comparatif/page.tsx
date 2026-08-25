@@ -48,112 +48,112 @@ const COMPARISONS_DATA = {
         slug: "les-mills-cinema",
         target: "Les Mills Cinema & Les Mills Virtual",
         badge: "Modèle Premium & Redevances",
-        headline: "Économisez 1 500 € à 3 600 € par an sans sacrifier l'expérience immersive en studio.",
+        headline: "Économisez 1 500 € à 3 600 € / an par studio sans sacrifier l'expérience immersive.",
         description:
-          "Comparatif direct entre le modèle de licence par programme Les Mills (BodyPump, RPM, The Trip, formation coachs à 500 €) et l'autonomie totale 100% hors-ligne de Bobine.",
+          "Comparatif détaillé entre le modèle à royalties cumulées de Les Mills (BodyPump, RPM, The Trip) et la régie libre Bobine sur mini PC reconditionné standard.",
         points: [
-          "0 € / mois vs 150 € à 350 € / mois par programme",
-          "Mini PC reconditionné standard (~50 €) vs projecteurs certifiés imposés",
-          "Liberté totale de catalogue (cours maison, cycling, HIIT, yoga)",
-          "100% Hors-ligne : zéro freeze en cas de panne internet",
+          "0 € / mois de licence (AGPL-3.0) vs 150 € à 350 € / mois par programme",
+          "0 € de formation obligatoire vs 500 € HT / module par coach",
+          "100% hors-ligne sur SSD local sans coupure en cas de panne internet",
+          "Allumage TV automatique HDMI-CEC synchronisé avec le planning",
         ],
       },
       {
         slug: "wexer-fitness-on-demand",
-        target: "Wexer Virtual & Fitness On Demand",
-        badge: "SaaS B2B Cloud",
-        headline: "Reprenez le contrôle de vos écrans face aux plateformes cloud par abonnement mensuel.",
+        target: "Wexer Virtual & Fitness On Demand (FOD)",
+        badge: "Local-First vs SaaS Cloud",
+        headline: "Dites adieu aux abonnements SaaS cloud à 250 €+/mois par écran.",
         description:
-          "Mise en parallèle du modèle d'abonnement récurrent Wexer / FOD (200 € à 450 € / mois par écran) face à la solution souveraine locale et sans latence Bobine.",
+          "Pourquoi choisir une architecture décentralisée locale avec bus temps réel plutôt qu'un lecteur cloud tributaire de la bande passante et des pannes de serveurs distants.",
         points: [
-          "Aucun abonnement mensuel perpétuel",
-          "Données 100% locales et privées (zéro télémétrie cloud)",
-          "Réactivité instantanée sur le réseau local Wi-Fi (< 2 ms)",
-          "Contrôle TV automatique par HDMI-CEC natif",
+          "Zéro abonnement récurrent vs 200 € à 450 € / mois par écran",
+          "Réactivité sub-2ms sur réseau local vs latence et mise en mémoire cloud",
+          "Souveraineté totale RGPD : zéro collecte de données adhérents",
+          "Télécommande coach instantanée par QR code sur Wi-Fi local",
         ],
       },
       {
         slug: "radical-fitness-yako",
-        target: "Radical Fitness & Programmes Franchises (Yako)",
-        badge: "Franchises & Catalogues Liés",
-        headline: "Offrez à votre studio indépendant une régie vidéo de niveau franchise sans redevance.",
+        target: "Radical Fitness & Cours de Franchise (Yako)",
+        badge: "Liberté des Clubs Indépendants",
+        headline: "Diffusez vos propres cours et valorisez vos coachs sans franchise imposée.",
         description:
-          "Comment diffuser vos propres cours collectifs, cours de biking et séances vidéo sans être enfermé dans un réseau de franchise ou un forfait imposé.",
+          "Comment les gérants de clubs indépendants peuvent proposer une grille de cours virtuels de haute qualité (Cycling, HIIT, Yoga, Renfo) sans affiliation ni redevance de marque.",
         points: [
-          "Accessible à tous les indépendants sans affiliation",
-          "Import libre glisser-déposer de n'importe quel fichier vidéo MP4/MKV",
-          "Gestion libre des catégories de cours et des plannings",
-          "Télécommande coach instantanée sur smartphone par QR code",
+          "Import libre par glisser-déposer de vos vidéos personnalisées (MP4, MKV)",
+          "Zéro affiliation franchise requise (indépendance opérationnelle totale)",
+          "Mise en avant de votre propre marque et de vos coachs résidents",
+          "Radio d'ambiance 24/7 intégrée avec fondu Web Audio continu",
         ],
       },
       {
         slug: "affichage-dynamique-fitness",
-        target: "Affichage Dynamique Générique (TouchPlayer, Waves, Screenly)",
-        badge: "Digital Signage vs Régie Métier",
-        headline: "Pourquoi un simple lecteur d'affichage dynamique ne remplace pas une régie fitness dédiée.",
+        target: "Affichage Dynamique Générique (TouchPlayer, Screenly...)",
+        badge: "Régie Métier vs Signalétique",
+        headline: "Pourquoi un afficheur dynamique passif ne remplace pas une régie vidéo fitness.",
         description:
-          "Les limites des outils de digital signage généralistes face aux fonctions métiers indispensables de Bobine (HDMI-CEC, borne tactile adhérent, radio 24/7).",
+          "Comprendre la différence fondamentale entre des boucles d'images passives et les fonctions métier de Bobine (contrôle TV HDMI-CEC, borne tactile adhérent, radio 24/7).",
         points: [
-          "Pilotage matériel des écrans TV par HDMI-CEC (Allumage 2 min avant)",
-          "Borne tactile adhérent avec compte à rebours de créneau",
-          "Radio plateau 24/7 avec fondu enchaîné et annonces vocales",
-          "Reprise automatique après coupure de courant (Watchdog systemd)",
+          "Allumage automatique TV par HDMI-CEC 2 min avant chaque séance",
+          "Borne tactile plein écran pour lancement de cours à la demande avec décompte",
+          "Radio d'ambiance 24/7 avec annonces programmées de bienséance",
+          "Reprise autonome après coupure électrique via watchdog systemd",
         ],
       },
     ],
   },
   en: {
     badge: "Comparative Studies & Alternatives",
-    title: "Comparative Guide to Virtual Fitness & Gym Playout Solutions",
+    title: "Virtual Fitness & Video Playout Comparison Guide",
     subtitle:
-      "An objective breakdown of software licensing costs, content freedom, hardware lock-in, and offline reliability across major gym video solutions.",
+      "Objectively analyze licensing costs, content freedom, hardware constraints, and offline reliability between Bobine and commercial market solutions.",
     cards: [
       {
         slug: "les-mills-cinema",
         target: "Les Mills Cinema & Les Mills Virtual",
-        badge: "Premium Royalties & Locked Box",
-        headline: "Save $1,500 to $3,600 annually per studio with complete playout autonomy.",
+        badge: "Premium Royalties vs Open Playout",
+        headline: "Save $1,500 to $3,600 / year per studio with zero recurring license fees.",
         description:
-          "Direct comparison between Les Mills per-program licensing fees (BodyPump, RPM, The Trip, instructor certification costs) and Bobine's 100% offline open-source model.",
+          "Detailed breakdown between Les Mills cumulative royalties (BodyPump, RPM, The Trip) and Bobine's free sovereign playout engine running on budget mini PCs.",
         points: [
-          "$0 / month vs $150–$350 / month per program",
-          "Standard refurbished mini PC (~$50) vs mandatory certified hardware",
-          "Full content freedom (indoor cycling, HIIT, yoga, custom videos)",
-          "100% Offline: zero freezing during internet outages",
+          "$0 / month license (AGPL-3.0) vs $150–$350 / month per program",
+          "$0 coach certifications vs $500+ per module per instructor",
+          "100% offline from local SSD with zero freezes during internet drops",
+          "Native HDMI-CEC TV power automation tied to timetable slots",
         ],
       },
       {
         slug: "wexer-fitness-on-demand",
-        target: "Wexer Virtual & Fitness On Demand",
-        badge: "Cloud B2B SaaS",
-        headline: "Regain ownership of your studio screens against recurring cloud fees.",
+        target: "Wexer Virtual & Fitness On Demand (FOD)",
+        badge: "Local-First vs Cloud SaaS",
+        headline: "Say goodbye to $250+/month per screen cloud SaaS subscriptions.",
         description:
-          "Side-by-side analysis of recurring Wexer / FOD SaaS subscriptions ($200–$450/month per screen) vs Bobine's local-first zero-latency playout engine.",
+          "Why decentralized local-first playout delivers superior reliability compared to cloud streaming appliances vulnerable to network outages.",
         points: [
-          "Zero perpetual subscription fees",
-          "100% Local and private data (zero cloud telemetry)",
-          "Instant LAN Wi-Fi responsiveness (< 2 ms roundtrip)",
-          "Automatic TV power management via native HDMI-CEC",
+          "Zero recurring SaaS fee vs $200–$450 / month per screen",
+          "Sub-2ms local latency vs cloud streaming buffering",
+          "Complete GDPR compliance: zero member data harvesting",
+          "Instant coach mobile remote via local Wi-Fi QR code scan",
         ],
       },
       {
         slug: "radical-fitness-yako",
         target: "Radical Fitness & Franchise Programs",
-        badge: "Franchise & Tied Content",
-        headline: "Equip independent fitness clubs with franchise-grade virtual video without lock-in.",
+        badge: "Independent Studio Sovereignty",
+        headline: "Broadcast custom workout videos and elevate your trainers with zero franchise lock-in.",
         description:
-          "How independent gym owners can schedule and play custom workout videos, indoor cycling, and cardio without being locked into expensive franchise contracts.",
+          "How independent gym owners deliver studio-grade virtual workouts (Cycling, HIIT, Yoga, Strength) without paying third-party franchise brand fees.",
         points: [
-          "Available for any gym or studio without franchise affiliation",
-          "Drag-and-drop import for standard MP4/MKV video files",
-          "Unrestricted custom categories and timetable management",
-          "Instant coach mobile remote via local Wi-Fi QR code scan",
+          "Unrestricted drag-and-drop import for custom workout videos (MP4, MKV)",
+          "No franchise affiliation required (complete catalog freedom)",
+          "Full ownership of gym branding, instructors, and timetables",
+          "Integrated 24/7 background audio with seamless Web Audio crossfade",
         ],
       },
       {
         slug: "affichage-dynamique-fitness",
         target: "Generic Digital Signage (TouchPlayer, Waves, Screenly)",
-        badge: "Digital Signage vs Dedicated Gym Playout",
+        badge: "Dedicated Playout vs Generic Signage",
         headline: "Why generic digital signage players fail to meet gym studio requirements.",
         description:
           "Understanding the gap between generic slide/video loopers and Bobine's purpose-built fitness features (HDMI-CEC TV control, member touch kiosk, 24/7 gym radio).",
@@ -180,54 +180,69 @@ export default async function ComparatifHubPage({
 
   return (
     <div className="container" style={{ paddingBottom: "4rem" }}>
-      <header style={{ paddingTop: "2.5rem", paddingBottom: "2.5rem", textAlign: "center", maxWidth: "860px", margin: "0 auto" }}>
+      {/* En-tête aéré */}
+      <header style={{ paddingTop: "2.5rem", paddingBottom: "2.5rem", maxWidth: "800px" }}>
         <span className="feature-category-label">{data.badge}</span>
         <h1 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.75rem)", fontWeight: 800, marginTop: "0.75rem", marginBottom: "1rem", color: "var(--text-heading)", lineHeight: 1.2 }}>
           {data.title}
         </h1>
-        <p style={{ fontSize: "1.1rem", color: "var(--text-muted)", lineHeight: 1.6 }}>
+        <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", lineHeight: 1.6, margin: 0 }}>
           {data.subtitle}
         </p>
       </header>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "1.5rem" }}>
+      {/* Grille 2x2 parfaitement équilibrée sans boîte-dans-une-boîte */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
+          gap: "1.75rem",
+        }}
+      >
         {data.cards.map((card) => (
           <article
             key={card.slug}
             style={{
               background: "var(--bg-card)",
               border: "1px solid var(--border-subtle)",
-              borderRadius: "0.85rem",
+              borderRadius: "0.75rem",
               padding: "1.75rem",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
               boxShadow: "var(--shadow-sm)",
-              transition: "transform 0.15s ease, border-color 0.15s ease",
             }}
           >
             <div>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem", gap: "0.5rem" }}>
-                <span style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--accent-primary)", background: "var(--accent-subtle)", padding: "0.25rem 0.6rem", borderRadius: "0.35rem" }}>
-                  {card.badge}
-                </span>
-              </div>
+              <span
+                style={{
+                  fontSize: "0.75rem",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                  color: "var(--accent-primary)",
+                  display: "inline-block",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                {card.badge}
+              </span>
 
-              <h2 style={{ fontSize: "1.3rem", fontWeight: 700, color: "var(--text-heading)", marginBottom: "0.6rem", lineHeight: 1.3 }}>
+              <h2 style={{ fontSize: "1.25rem", fontWeight: 800, color: "var(--text-heading)", marginBottom: "0.6rem", lineHeight: 1.25 }}>
                 {card.target}
               </h2>
 
-              <p style={{ fontSize: "0.95rem", fontWeight: 600, color: "var(--text-body)", marginBottom: "0.75rem", lineHeight: 1.4 }}>
+              <p style={{ fontSize: "0.925rem", fontWeight: 600, color: "var(--text-main)", marginBottom: "0.6rem", lineHeight: 1.45 }}>
                 {card.headline}
               </p>
 
-              <p style={{ fontSize: "0.875rem", color: "var(--text-muted)", marginBottom: "1.25rem", lineHeight: 1.5 }}>
+              <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "1.25rem", lineHeight: 1.55 }}>
                 {card.description}
               </p>
 
-              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem 0", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem 0", display: "flex", flexDirection: "column", gap: "0.45rem" }}>
                 {card.points.map((pt, pIdx) => (
-                  <li key={pIdx} style={{ fontSize: "0.825rem", color: "var(--text-body)", display: "flex", alignItems: "flex-start", gap: "0.5rem" }}>
+                  <li key={pIdx} style={{ fontSize: "0.825rem", color: "var(--text-main)", display: "flex", alignItems: "flex-start", gap: "0.5rem" }}>
                     <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" style={{ color: "var(--accent-primary)", flexShrink: 0, marginTop: "2px" }}>
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>

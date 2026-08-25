@@ -94,9 +94,6 @@ export default function Footer({
             <Link href={`/${locale}/comparatif/affichage-dynamique-fitness`} style={{ fontSize: "0.85rem", color: "var(--text-muted)", textDecoration: "none" }}>
               vs Affichage Dynamique
             </Link>
-            <Link href={`/${locale}/comparatif`} style={{ fontSize: "0.85rem", color: "var(--accent-primary)", fontWeight: 600, textDecoration: "none" }}>
-              {isEn ? "All comparisons →" : "Tous les comparatifs →"}
-            </Link>
           </div>
 
           {/* Colonne 4 : Ressources & Communauté */}

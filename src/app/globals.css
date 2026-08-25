@@ -2706,7 +2706,7 @@ main {
   align-items: center;
   flex-shrink: 0;
   white-space: nowrap;
-  animation: tickerScroll 96s linear infinite;
+  animation: tickerScroll 130s linear infinite;
 }
 
 @keyframes tickerScroll {

@@ -281,51 +281,54 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
             )}
 
             {/* Messages échangés */}
-            {messages.map((m, idx) => (
-              <div
-                key={idx}
-                className={`chatbot-message chatbot-message--${m.role}`}
-              >
-                {m.role === "assistant" && (
-                  <div className="chatbot-message__avatar">
-                    <Image
-                      src="/images/baamix.jpg"
-                      alt="Baamix"
-                      width={26}
-                      height={26}
-                      className="chatbot-avatar-img"
-                    />
+            {messages.map((m, idx) => {
+              if (m.role === "assistant" && !m.content) {
+                return (
+                  <div key={idx} className="chatbot-message chatbot-message--assistant">
+                    <div className="chatbot-message__avatar">
+                      <Image
+                        src="/images/baamix.jpg"
+                        alt="Baamix"
+                        width={26}
+                        height={26}
+                        className="chatbot-avatar-img"
+                      />
+                    </div>
+                    <div className="chatbot-message__bubble chatbot-message__typing">
+                      <span className="typing-dot" />
+                      <span className="typing-dot" />
+                      <span className="typing-dot" />
+                    </div>
                   </div>
-                )}
-                <div className="chatbot-message__bubble">
-                  {m.role === "assistant" ? (
-                    <MarkdownRenderer content={m.content} />
-                  ) : (
-                    <p style={{ margin: 0 }}>{m.content}</p>
-                  )}
-                </div>
-              </div>
-            ))}
+                );
+              }
 
-            {/* Indicateur de frappe */}
-            {isLoading && (
-              <div className="chatbot-message chatbot-message--assistant">
-                <div className="chatbot-message__avatar">
-                  <Image
-                    src="/images/baamix.jpg"
-                    alt="Baamix"
-                    width={26}
-                    height={26}
-                    className="chatbot-avatar-img"
-                  />
+              return (
+                <div
+                  key={idx}
+                  className={`chatbot-message chatbot-message--${m.role}`}
+                >
+                  {m.role === "assistant" && (
+                    <div className="chatbot-message__avatar">
+                      <Image
+                        src="/images/baamix.jpg"
+                        alt="Baamix"
+                        width={26}
+                        height={26}
+                        className="chatbot-avatar-img"
+                      />
+                    </div>
+                  )}
+                  <div className="chatbot-message__bubble">
+                    {m.role === "assistant" ? (
+                      <MarkdownRenderer content={m.content} />
+                    ) : (
+                      <p style={{ margin: 0 }}>{m.content}</p>
+                    )}
+                  </div>
                 </div>
-                <div className="chatbot-message__bubble chatbot-message__typing">
-                  <span className="typing-dot" />
-                  <span className="typing-dot" />
-                  <span className="typing-dot" />
-                </div>
-              </div>
-            )}
+              );
+            })}
 
             <div ref={messagesEndRef} />
           </div>

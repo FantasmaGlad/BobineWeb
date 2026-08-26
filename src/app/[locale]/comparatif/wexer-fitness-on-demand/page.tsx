@@ -197,22 +197,9 @@ export default async function WexerComparisonPage({
   const isEn = locale === "en";
 
   return (
-    <div className="container" style={{ paddingBottom: "4rem" }}>
-      {/* Fil d'Ariane */}
-      <nav aria-label="Breadcrumb" style={{ paddingTop: "1.5rem", fontSize: "0.85rem", color: "var(--text-muted)" }}>
-        <Link href={`/${locale}`} style={{ color: "var(--text-muted)", textDecoration: "none" }}>
-          {isEn ? "Home" : "Accueil"}
-        </Link>
-        <span style={{ margin: "0 0.5rem" }}>/</span>
-        <Link href={`/${locale}/comparatif`} style={{ color: "var(--text-muted)", textDecoration: "none" }}>
-          {isEn ? "Comparisons" : "Comparatifs"}
-        </Link>
-        <span style={{ margin: "0 0.5rem" }}>/</span>
-        <span style={{ color: "var(--text-heading)", fontWeight: 600 }}>Wexer & Fitness On Demand</span>
-      </nav>
-
+    <>
       {/* En-tête */}
-      <header style={{ paddingTop: "2rem", paddingBottom: "2.5rem", maxWidth: "860px" }}>
+      <header style={{ paddingTop: "1rem", paddingBottom: "2rem", maxWidth: "860px" }}>
         <span className="feature-category-label">{c.badge}</span>
         <h1 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.75rem)", fontWeight: 800, marginTop: "0.75rem", marginBottom: "1rem", color: "var(--text-heading)", lineHeight: 1.2 }}>
           {c.title}
@@ -319,6 +306,6 @@ export default async function WexerComparisonPage({
           </Link>
         </div>
       </section>
-    </div>
+    </>
   );
 }

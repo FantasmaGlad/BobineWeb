@@ -5310,6 +5310,24 @@ main {
   }
 }
 
+/* ==========================================================================
+   Barre de Navigation des Comparatifs
+   ========================================================================== */
+
+.comparatif-nav-container {
+  width: 100%;
+}
+
+.comparatif-nav-container nav::-webkit-scrollbar {
+  display: none;
+}
+
+.comparatif-nav-container nav {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
 
 
 

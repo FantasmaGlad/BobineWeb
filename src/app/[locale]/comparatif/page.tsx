@@ -179,9 +179,9 @@ export default async function ComparatifHubPage({
   const isEn = locale === "en";
 
   return (
-    <div className="container" style={{ paddingBottom: "4rem" }}>
+    <>
       {/* En-tête aéré */}
-      <header style={{ paddingTop: "2.5rem", paddingBottom: "2.5rem", maxWidth: "800px" }}>
+      <header style={{ paddingTop: "1rem", paddingBottom: "2rem", maxWidth: "800px" }}>
         <span className="feature-category-label">{data.badge}</span>
         <h1 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.75rem)", fontWeight: 800, marginTop: "0.75rem", marginBottom: "1rem", color: "var(--text-heading)", lineHeight: 1.2 }}>
           {data.title}
@@ -266,6 +266,6 @@ export default async function ComparatifHubPage({
           </article>
         ))}
       </div>
-    </div>
+    </>
   );
 }

@@ -9,56 +9,56 @@ import { buildMetadata } from "@/lib/seo";
 
 const copy = {
   fr: {
-    badge: "Origine & Philosophie",
-    title: "L'histoire, le cœur et la vision de Bobine",
+    badge: "À Propos & Présentation",
+    title: "Le projet Bobine, son auteur et ses engagements",
     intro:
-      "Bobine est né d'une volonté simple : libérer les salles de sport, clubs associatifs et coachs de la rente des régies vidéo propriétaires, en offrant une alternative 100% hors-ligne, sobre et sous licence libre.",
+      "Bobine est une suite logicielle libre et autonome créée pour affranchir les salles de sport, studios de fitness, hôtels et coachs indépendants de la rente des régies vidéo propriétaires.",
     sections: [
       {
-        title: "Le Pourquoi : briser la rente des régies propriétaires",
-        desc: "Pendant des années, les gérants de salle ont dû payer des abonnements exorbitants (150 € à 400 € / mois par écran) pour de simples players vidéo connectés qui gèlent à la moindre coupure réseau. Bobine élimine définitivement cette taxe récurrente et remet la souveraineté entre les mains des clubs.",
+        title: "La Mission : Redonner la souveraineté aux gérants de salle",
+        desc: "Pendant des années, les clubs de fitness ont été contraints de payer des abonnements mensuels de 150 € à 400 € par écran pour des boîtiers fermés qui se bloquent à la moindre panne internet. Bobine élimine définitivement ces redevances récurrentes et permet à chaque salle de piloter sa propre régie vidéo avec une totale indépendance.",
       },
       {
-        title: "La Volonté Open Source & la Souveraineté Physique",
-        desc: "Créer Bobine, c'est avant tout un engagement fort envers la communauté Open Source et la liberté d'utiliser un logiciel sans entraves. Nous défendons le droit fondamental de détenir et d'exécuter physiquement ses outils sur ses propres moyens informatiques locaux, sans dépendance au cloud ni rente imposée.",
+        title: "L'Auteur & La Gouvernance Open Source",
+        desc: "Initié et développé par Clément Barillot (FantasmaGlad), Bobine est publié sous licence libre AGPL-3.0. L'intégralité du code source est publique, auditable et pérenne sur GitHub, garantissant qu'aucune fonctionnalité essentielle ne sera jamais verrouillée derrière un péage propriétaire.",
       },
       {
-        title: "Le Cœur & L'Idée : frugale et locale",
-        desc: "Une solution 'Offline-First' résiliente qui tourne sur du matériel informatique standard reconditionné (~40-50 €) consommant moins de 10 Watts. Aucune boîte noire fermée, aucun traceur, aucun abonnement caché : le logiciel est publié sous licence AGPL-3.0.",
+        title: "L'Engagement Écologique & Matériel Frugal",
+        desc: "À contre-courant de l'obsolescence programmée, Bobine est optimisé pour tourner sur des mini PC reconditionnés professionnels (type Dell Wyse 5070 ou HP EliteDesk) à moins de 50 €. Avec une consommation électrique active inférieure à 10 Watts, la solution allie sobriété énergétique et performances 1080p60/4K sans saccade.",
       },
       {
-        title: "L'Identité & La Direction Artistique",
-        desc: "Le nom 'Bobine' rend hommage à la bobine de cinéma 35mm et à sa mécanique infatigable. Notre mascotte 'Baamix' — un petit hamster blanc agile et travailleur — incarne l'énergie sportive, l'endurance et l'ingéniosité des solutions locales.",
+        title: "L'Identité & La Mascotte Baamix",
+        desc: "Le nom 'Bobine' rend hommage à la mécanique infatigable des bobines de cinéma 35mm. Notre mascotte 'Baamix' — un petit hamster blanc agile et endurant — symbolise l'énergie sportive, l'ingéniosité des architectures locales et l'autonomie face aux géants du cloud.",
       },
     ],
-    ctaGithub: "Explorer le code source sur GitHub",
+    ctaGithub: "Code source sur GitHub",
     ctaManifesto: "Lire le manifeste complet",
     ctaDoc: "Documentation technique",
   },
   en: {
-    badge: "Origin & Philosophy",
-    title: "The Story, Core Values & Vision of Bobine",
+    badge: "About & Overview",
+    title: "The Bobine Project, Author & Core Commitments",
     intro:
-      "Bobine was created with a clear goal: free gym owners, sports clubs, and fitness coaches from proprietary rental systems by offering a 100% offline-first, frugal, and open-source playout suite.",
+      "Bobine is a free, local-first gym playout suite designed to emancipate fitness studios, independent gyms, hotels, and trainers from proprietary streaming rental models.",
     sections: [
       {
-        title: "The 'Why': Breaking Free from Rental Models",
-        desc: "For years, gym owners have been locked into expensive subscriptions ($150 to $400 / month per screen) for simple streaming players that freeze during internet outages. Bobine eliminates recurring licensing fees and restores autonomy to sports clubs.",
+        title: "The Mission: Empowering Gyms with Digital Sovereignty",
+        desc: "For years, fitness studios have been locked into recurring monthly fees ($150 to $400/mo per screen) for closed streaming boxes that freeze during network drops. Bobine permanently removes these software royalties, giving gym managers total control over their video timetables and screens.",
       },
       {
-        title: "Open Source Commitment & Physical Ownership",
-        desc: "Building Bobine is rooted in an unwavering dedication to the Open Source community and digital sovereignty. We champion the fundamental right to physically own, control, and execute software on your own local hardware, free from cloud lock-in and perpetual licensing fees.",
+        title: "The Author & Open Source Governance",
+        desc: "Created and maintained by Clément Barillot (FantasmaGlad), Bobine is released under the copyleft AGPL-3.0 license. The entire codebase is publicly auditable and transparent on GitHub, guaranteeing that core playback and automation capabilities remain free forever.",
       },
       {
-        title: "The Core & Concept: Frugal and Local-First",
-        desc: "A resilient 'Offline-First' architecture powered by standard refurbished mini PCs (~$40-50) using under 10W of electricity. No proprietary black boxes, no telemetry, no recurring lock-in: the code is licensed under the AGPL-3.0 digital commons.",
+        title: "Frugal Hardware & Eco-Responsible Playout",
+        desc: "Fighting against planned obsolescence, Bobine is engineered to run on standard refurbished enterprise mini PCs (like the Dell Wyse 5070 or HP EliteDesk) costing under $50. Consuming under 10 Watts of active power, it delivers high-performance 1080p60/4K playout with minimal carbon footprint.",
       },
       {
-        title: "Identity & Art Direction",
-        desc: "The name 'Bobine' is a tribute to 35mm cinema reels and mechanical precision. Our mascot 'Baamix' — a nimble, dedicated white hamster — embodies relentless athletic stamina and frugal ingenuity.",
+        title: "Identity & The Baamix Mascot",
+        desc: "The name 'Bobine' pays homage to classic 35mm cinema film reels. Our mascot 'Baamix' — a nimble, determined white hamster — represents athletic stamina, local-first resilience, and decentralized ingenuity.",
       },
     ],
-    ctaGithub: "Explore Source Code on GitHub",
+    ctaGithub: "Source Code on GitHub",
     ctaManifesto: "Read the Full Manifesto",
     ctaDoc: "Technical Documentation",
   },
@@ -76,14 +76,16 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "/a-propos",
     title: isEn
-      ? "About Bobine — Story, Core Values & Vision | Open Source Gym"
-      : "À Propos de Bobine — Histoire, Cœur & Vision | Régie Libre",
+      ? "About Bobine — Author, Open Source Mission & Core Values"
+      : "À Propos de Bobine — Auteur, Mission Libre & Engagements",
     description: isEn
-      ? "Learn about the mission behind Bobine: empowering gym owners with an open-source, offline-first alternative to proprietary video subscriptions."
-      : "Découvrez la genèse et la mission de Bobine : redonner l'autonomie aux gérants de salle avec une régie vidéo libre, sobre et 100% hors-ligne.",
+      ? "Learn about the mission, governance, and author behind Bobine: empowering gyms with a sovereign, local-first alternative to proprietary video subscriptions."
+      : "Découvrez la genèse, l'auteur et les engagements de Bobine : redonner l'autonomie aux gérants de salle avec une régie vidéo libre, sobre et 100% hors-ligne.",
     keywords: [
       "À propos Bobine",
       "Histoire Bobine",
+      "Clément Barillot Bobine",
+      "FantasmaGlad GitHub",
       "Mission Bobine régie vidéo",
       "Alternative Les Mills Cinema",
       "Logiciel libre salle de sport",
@@ -146,8 +148,8 @@ export default async function AboutPage({
         </div>
       </header>
 
-      {/* 2. Sections de contenu détaillées */}
-      <div id="about-sections" style={{ display: "flex", flexDirection: "column", gap: "2rem", paddingTop: "1rem" }}>
+      {/* 2. Cartes de présentation des piliers du projet */}
+      <div id="about-sections" style={{ display: "flex", flexDirection: "column", gap: "1.75rem", paddingTop: "1rem" }}>
         {t.sections.map((sec, idx) => (
           <article
             key={idx}

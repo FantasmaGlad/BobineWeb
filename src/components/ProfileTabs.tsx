@@ -51,7 +51,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
             },
           ],
           ctaText: "Calculate your savings",
-          ctaHref: `/${locale}/fonctionnalites`,
+          ctaHref: `/${locale}/comparatif/les-mills-cinema`,
         },
         {
           id: "members",
@@ -136,8 +136,8 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
                 "Aucun boîtier propriétaire bridé. Vous maîtrisez vos machines, vos disques et vos fichiers vidéo.",
             },
           ],
-          ctaText: "Découvrir les fonctionnalités",
-          ctaHref: `/${locale}/fonctionnalites`,
+          ctaText: "Simuler vos économies",
+          ctaHref: `/${locale}/comparatif/les-mills-cinema`,
         },
         {
           id: "members",

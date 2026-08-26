@@ -27,7 +27,7 @@ const METRICS_FR: TickerMetric[] = [
   { tag: "RÉSILIENCE", label: "Watchdog systemd", value: "Sonde /api/health et relance automatique en < 1s" },
   { tag: "REPRISE", label: "Coupure secteur", value: "Rétablissement autonome au démarrage sans intervention" },
   { tag: "CONFIDENTIALITÉ", label: "Protection RGPD", value: "Zéro collecte · Zéro caméra/micro · Données 100% locales" },
-  { tag: "INSTALLATION", label: "Déploiement rapide", value: "1 ligne (curl bobine.fit/install.sh) · Cœur Rust" },
+  { tag: "INSTALLATION", label: "Déploiement rapide", value: "1 ligne (curl bobine.fit/install.sh) · Stack Linux / FastAPI / MPV" },
   { tag: "STACK", label: "Architecture", value: "Debian 13 · FastAPI · SQLite · Redis · Chromium X11" },
   { tag: "LICENCE", label: "Souveraineté", value: "AGPL-3.0 (Code source 100% ouvert et auditable)" },
 ];
@@ -51,7 +51,7 @@ const METRICS_EN: TickerMetric[] = [
   { tag: "WATCHDOG", label: "Health supervisor", value: "systemd /api/health watchdog with auto-recovery in < 1s" },
   { tag: "UPTIME", label: "Blackout recovery", value: "Autonomous boot & playout restoration post power cut" },
   { tag: "PRIVACY", label: "GDPR Compliance", value: "Zero tracking · Zero camera/mic · 100% Local data" },
-  { tag: "INSTALLATION", label: "Quick deployment", value: "1-line command (curl bobine.fit/install.sh) · Rust engine" },
+  { tag: "INSTALLATION", label: "Quick deployment", value: "1-line command (curl bobine.fit/install.sh) · Linux / FastAPI / MPV stack" },
   { tag: "STACK", label: "Technology", value: "Debian 13 · FastAPI · SQLite · Redis · Chromium X11" },
   { tag: "LICENSE", label: "Sovereignty", value: "AGPL-3.0 (100% Open source & auditable)" },
 ];

@@ -88,9 +88,9 @@ const COMPARISONS_DATA = {
       },
       {
         slug: "affichage-dynamique-fitness",
-        target: "Affichage Dynamique Générique (TouchPlayer, Screenly...)",
+        target: "Anthias (Screenly OSE) & Affichage Dynamique (TouchPlayer, Waves, Yodeck)",
         badge: "Régie Métier vs Signalétique",
-        headline: "Pourquoi un afficheur dynamique passif ne remplace pas une régie vidéo fitness.",
+        headline: "Pourquoi un afficheur passif comme Anthias ne remplace pas une régie vidéo fitness.",
         description:
           "Comprendre la différence fondamentale entre des boucles d'images passives et les fonctions métier de Bobine (contrôle TV HDMI-CEC, borne tactile adhérent, radio 24/7).",
         points: [
@@ -152,9 +152,9 @@ const COMPARISONS_DATA = {
       },
       {
         slug: "affichage-dynamique-fitness",
-        target: "Generic Digital Signage (TouchPlayer, Waves, Screenly)",
+        target: "Anthias (Screenly OSE) & Generic Signage (TouchPlayer, Waves, Yodeck)",
         badge: "Dedicated Playout vs Generic Signage",
-        headline: "Why generic digital signage players fail to meet gym studio requirements.",
+        headline: "Why passive players like Anthias fail to meet gym studio requirements.",
         description:
           "Understanding the gap between generic slide/video loopers and Bobine's purpose-built fitness features (HDMI-CEC TV control, member touch kiosk, 24/7 gym radio).",
         points: [

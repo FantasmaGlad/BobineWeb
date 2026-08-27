@@ -60,17 +60,25 @@ Bobine résout l'ensemble de ces contraintes en proposant une régie 100% open-s
 
 ---
 
-## 4. Comparatif Détaillé vs Les Mills Cinema & Alternatives
+## 4. Comparatif Détaillé vs Anthias, Les Mills Cinema & Alternatives
 
-| Critère | Bobine (Open Source) | Les Mills Cinema | Bricolage DIY (VLC / Chromecast) |
-| :--- | :--- | :--- | :--- |
-| **Coût de licence** | **0 € / mois (Gratuit & Libre)** | Abonnement mensuel élevé par écran | 0 € |
-| **Matériel** | **Mini PC standard ~40-50 €** | Boîtier propriétaire imposé | Clé HDMI grand public |
-| **Fonctionnement hors-ligne** | **100% autonome sans Internet** | Coupures fréquentes si connexion instable | Nécessite souvent Wi-Fi/Cloud |
-| **Allumage automatique TV** | **Oui (HDMI-CEC natif)** | Parfois | Non (manuel avec télécommande) |
-| **Planificateur hebdomadaire** | **Automatique et intégré** | Oui | Bricolage complexe / scripts |
-| **Liberté des contenus** | **Tous fichiers vidéo (MP4, MKV)** | Verrouillé au catalogue éditeur | Fichiers manuels |
-| **Pérennité** | **Code source AGPL-3.0 auditable** | Dépend de la survie de l'éditeur | Dépend des mises à jour constructeur |
+### Tableau Comparatif Global
+| Critère | Bobine (Open Source) | Anthias (Screenly OSE) | Les Mills Cinema | Wexer / Fitness On Demand |
+| :--- | :--- | :--- | :--- | :--- |
+| **Coût de licence** | **0 € / mois (Libre AGPL-3.0)** | 0 € (Libre) | 150 € à 350 € / mois / prog | 200 € à 450 € / mois / écran |
+| **Usage Principal** | **Régie active & planning fitness** | Affichage passif publicitaire | Cours virtuels propriétaires | Cours virtuels cloud SaaS |
+| **Matériel Cible** | **Mini PC x86-64 SSD (~40-70 €)** | Raspberry Pi (SD Card fragile) | Boîtier propriétaire imposé | Boîtier commercial dédié |
+| **Automatisation TV** | **Oui (HDMI-CEC veille/allumage)** | Non (Écran allumé 24/7) | Partielle | Non / Manuel |
+| **Borne Tactile Adhérents**| **Oui (Kiosque interactif)** | Non (Boucle passive) | Oui (sur borne dédiée) | Oui (tactile SaaS) |
+| **Télécommande Coach** | **QR Code local instantané** | Non | Non | Dashboard cloud |
+| **Radio 24/7 & Annonces** | **Oui (Fondu continu + voix)** | Non | Non | Non |
+| **Hors-ligne & RGPD** | **100% local, zéro télémétrie** | Local basique | Cloud DRM récurrent | Dépendance Internet totale |
+
+### Bobine vs Anthias (ex-Screenly OSE)
+Anthias est un outil d'affichage dynamique générique conçu pour faire tourner des images et pages web en boucle sur Raspberry Pi. Bobine est une régie de fitness active intégrant l'allumage automatique des TV par HDMI-CEC, une borne tactile membre à la demande, une télécommande smartphone pour les coachs, et un fond musical continu 24/7 avec alertes vocales.
+
+### Bobine vs Radical Fitness & Concepts de Franchise (Yako / L'Orange Bleue)
+Permet aux gérants de salles indépendantes de diffuser leurs propres cours (Cycling, HIIT, Yoga, Pilates) au format MP4/MKV sans payer de redevances d'affiliation franchise ni de droits d'exploitation mensuels.
 
 ---
 

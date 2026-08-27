@@ -3,7 +3,12 @@ import type { NextRequest } from "next/server";
 import { defaultLocale, locales } from "@/lib/i18n";
 
 export function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const host = request.headers.get("host") || "";
+  const { pathname, search } = request.nextUrl;
+
+  if (host.startsWith("www.bobine.fit")) {
+    return NextResponse.redirect(new URL(`https://bobine.fit${pathname}${search}`), 308);
+  }
 
   const hasLocale = locales.some(
     (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)

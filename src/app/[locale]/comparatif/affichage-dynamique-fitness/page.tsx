@@ -17,31 +17,35 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "/comparatif/affichage-dynamique-fitness",
     title: isEn
-      ? "Bobine vs Generic Digital Signage (TouchPlayer, Waves System, Screenly, Yodeck)"
-      : "Bobine face à l'Affichage Dynamique Générique (TouchPlayer, Waves System, Screenly, Yodeck)",
+      ? "Bobine vs Anthias (Screenly OSE) & Digital Signage (TouchPlayer, Waves, Yodeck)"
+      : "Bobine face à Anthias (Screenly OSE) & l'Affichage Dynamique (TouchPlayer, Waves, Yodeck)",
     description: isEn
-      ? "Why generic digital signage players fail to replace a dedicated gym playout system. Compare HDMI-CEC automation, member on-demand kiosks, coach remotes, and 24/7 background radio."
-      : "Pourquoi un simple lecteur d'affichage dynamique ne remplace pas une régie vidéo de fitness dédiée. Comparatif HDMI-CEC, borne tactile adhérent, télécommande coach et radio 24/7.",
+      ? "Why Screenly Anthias and generic digital signage players fail in gym environments. Compare HDMI-CEC TV automation, member touch kiosk, coach mobile remote, and 24/7 background radio."
+      : "Pourquoi Anthias (Screenly OSE) et les afficheurs passifs ne conviennent pas aux salles de sport. Comparatif HDMI-CEC, borne tactile adhérent, télécommande coach QR code et radio 24/7.",
     keywords: [
+      "Alternative Anthias",
+      "Alternative Screenly Anthias",
+      "Alternative Screenly OSE",
+      "Anthias digital signage fitness",
       "Affichage dynamique salle de sport",
       "Alternative TouchPlayer Fitness",
       "Alternative Waves System fitness",
-      "Alternative Screenly Anthias fitness",
       "Alternative Yodeck salle de sport",
-      "Régie vidéo fitness vs digital signage",
+      "Alternative Xibo fitness",
+      "Régie vidéo fitness vs Anthias",
       "Borne tactile cours de sport",
-      "Bobine vs affichage dynamique",
+      "Bobine vs Anthias",
     ],
   });
 }
 
 const CONTENT = {
   fr: {
-    breadcrumb: "Comparatifs / Affichage Dynamique Fitness",
+    breadcrumb: "Comparatifs / Anthias & Affichage Dynamique Fitness",
     badge: "Étude Métier & Matériel",
-    title: "Bobine face à l'Affichage Dynamique Générique",
+    title: "Bobine face à Anthias (Screenly OSE) & l'Affichage Dynamique",
     subtitle:
-      "Pourquoi les solutions de signalétique en boucle (TouchPlayer, Waves System, Screenly, Yodeck) sont insuffisantes pour animer une vraie salle de fitness ?",
+      "Pourquoi Anthias (ex-Screenly OSE), TouchPlayer, Waves System ou Yodeck sont insuffisants pour piloter une vraie salle de fitness ?",
     summaryCards: [
       { label: "Automatisation TV", value: "HDMI-CEC Natif", desc: "Allumage / veille sans télécommande" },
       { label: "Borne Adhérents", value: "Kiosque Tactile", desc: "Sélection à la demande avec compte à rebours" },
@@ -49,8 +53,8 @@ const CONTENT = {
       { label: "Radio Plateau", value: "24/7 avec Fondu", desc: "Crossfade continu et annonces vocales" },
     ],
     table: {
-      title: "Régie Métier vs Affichage Dynamique Standard",
-      headers: ["Fonctionnalité Métier Fitness", "Bobine (Régie Fitness Dédiée)", "Affichage Dynamique Générique"],
+      title: "Régie Métier Bobine vs Anthias & Afficheurs Standards",
+      headers: ["Fonctionnalité Métier Fitness", "Bobine (Régie Fitness Dédiée)", "Anthias & Affichage Dynamique"],
       rows: [
         {
           criterion: "Allumage & Veille TV Automatique (HDMI-CEC)",
@@ -111,11 +115,11 @@ const CONTENT = {
     },
   },
   en: {
-    breadcrumb: "Comparisons / Fitness Digital Signage",
+    breadcrumb: "Comparisons / Anthias & Gym Digital Signage",
     badge: "Hardware & Vertical Analysis",
-    title: "Bobine vs Generic Digital Signage Players",
+    title: "Bobine vs Anthias (Screenly OSE) & Digital Signage",
     subtitle:
-      "Why standard digital signage tools (TouchPlayer, Waves System, Screenly, Yodeck) fail to meet the operational demands of fitness studios?",
+      "Why Anthias (formerly Screenly OSE), TouchPlayer, Waves System, or Yodeck fail to meet the operational demands of fitness studios?",
     summaryCards: [
       { label: "TV Automation", value: "Native HDMI-CEC", desc: "Auto power & standby with zero manual remotes" },
       { label: "Member Kiosk", value: "Touchscreen Ready", desc: "On-demand class selection with countdown timer" },
@@ -123,8 +127,8 @@ const CONTENT = {
       { label: "Gym Radio", value: "24/7 Crossfade", desc: "Continuous music and automated voice alerts" },
     ],
     table: {
-      title: "Gym Playout vs Generic Signage",
-      headers: ["Fitness Operational Feature", "Bobine (Dedicated Gym Playout)", "Generic Digital Signage"],
+      title: "Gym Playout vs Anthias & Generic Signage",
+      headers: ["Fitness Operational Feature", "Bobine (Dedicated Gym Playout)", "Anthias & Generic Digital Signage"],
       rows: [
         {
           criterion: "Automated TV Screen Power (HDMI-CEC)",

@@ -51,10 +51,12 @@ Bobine turns standard, low-cost refurbished x86-64 mini PCs (Intel Celeron / Cor
 - **Format Support**: Drag-and-drop support for any standard MP4/MKV video files with automated thumbnail generation.
 - **Branding**: Full ownership of studio branding, resident coach promotion, and custom class names.
 
-### Bobine vs. Generic Digital Signage (TouchPlayer, Waves System, Screenly, Yodeck, Xibo)
-- **TV Automation**: Automated HDMI-CEC TV power (wakes TV 2 min before class, standby post-workout) vs. 24/7 static display or manual TV remotes.
-- **Interactivity**: Dedicated fullscreen member touch kiosk with class selection and interval countdown timer vs. passive video looping.
-- **Coach Mobility**: Instant local Wi-Fi QR code scan for staff mobile playback controls.
-- **Continuous Audio**: 24/7 background gym radio with seamless Web Audio crossfade and scheduled etiquette voice announcements ("re-rack weights", closing notice).
-- **Hardware Acceleration**: Linux VA-API dual support for Intel QuickSync (iHD) and AMD Radeon (Mesa) running at <8% CPU in 1080p60.
+### Bobine vs. Screenly Anthias & Raspberry Pi Signage (Anthias, TouchPlayer, Waves System, Yodeck, Xibo)
+- **Primary Use-Case**: Bobine is an active, gym-specific playout and studio automation engine, whereas Anthias (formerly Screenly OSE) is a passive web/image slide looper.
+- **TV Automation**: Bobine provides native HDMI-CEC power automation (automatically wakes TV 2 min before scheduled class and sends standby command after workout), whereas Anthias leaves displays running 24/7 or requires manual remote controls.
+- **Interactivity & Kiosk**: Bobine includes a dedicated fullscreen member touch kiosk with on-demand class catalog and countdown timer; Anthias is read-only passive looping.
+- **Coach Mobility**: Bobine generates a dynamic local Wi-Fi QR code for staff/coach playback remote control without installing any mobile application.
+- **Continuous Audio & Studio Sound**: Bobine integrates 24/7 background gym radio with Web Audio continuous crossfade and automated voice etiquette alerts ("re-rack weights", "closing in 15 min"); Anthias has no audio crossfade or voice announcement system.
+- **Hardware Reliability**: Bobine runs on refurbished x86-64 mini PCs (Dell Wyse 5070, HP EliteDesk 705 ~40-70 EUR) with durable NVMe/SATA SSDs and VA-API hardware decoding (<8% CPU in 1080p60/4K); Anthias commonly runs on Raspberry Pis prone to SD card corruption, thermal throttling, and power instability in commercial 24/7 environments.
+- **Auto-Recovery**: Supervised by systemd watchdog for immediate zero-touch reboot and timetable resumption post power outage.
 

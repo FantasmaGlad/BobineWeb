@@ -124,10 +124,10 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
           },
           {
             "@type": "Question",
-            name: "Can I broadcast my own custom fitness videos and indoor cycling classes with Bobine?",
+            name: "Why choose Bobine over Screenly Anthias or generic Raspberry Pi digital signage for gym studios?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes, Bobine is fully content-agnostic. Operators can drag and drop standard MP4, MKV, or WebM video files for indoor cycling, HIIT, yoga, pilates, or strength workouts, with custom categories and automated timetables.",
+              text: "Anthias (formerly Screenly OSE) is designed for passive billboard slides and video loops. Bobine is purpose-built for fitness studios with automated HDMI-CEC TV power management, interactive member on-demand touch kiosk, mobile coach remote control via local QR code, and 24/7 background audio with voice announcements, running on reliable x86-64 mini PCs.",
             },
           },
         ]
@@ -162,6 +162,14 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
             acceptedAnswer: {
               "@type": "Answer",
               text: "Oui, Bobine est totalement agnostique. Vous pouvez importer par glisser-déposer n'importe quel fichier vidéo MP4, MKV ou WebM (cycling indoor, HIIT, yoga, pilates, renforcement) avec vos propres coachs et plannings personnalisés.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Pourquoi choisir Bobine plutôt qu'Anthias (Screenly OSE) ou un Raspberry Pi d'affichage dynamique ?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Anthias est un simple afficheur passif en boucle. Bobine est une véritable régie active de salle de sport avec allumage automatique TV par HDMI-CEC, borne tactile adhérents, télécommande coach par QR code et radio 24/7 avec annonces vocales, le tout fiabilisé sur mini PC x86-64 avec SSD.",
             },
           },
         ],

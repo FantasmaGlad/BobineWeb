@@ -186,12 +186,6 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
           <span className="terminal-title">
             bash — bobine-installer v2.0
           </span>
-          <span className="terminal-demo-status-pill">
-            <span className={`terminal-demo-status-dot ${isCompleted ? "is-complete" : "is-running"}`} />
-            {isCompleted
-              ? isEn ? "Installed (200 OK)" : "Opérationnel (200 OK)"
-              : isEn ? "Deploying..." : "Déploiement en cours..."}
-          </span>
         </div>
 
         <div className="terminal-demo-actions">

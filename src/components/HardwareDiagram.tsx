@@ -1,5 +1,4 @@
 import type { Locale } from "@/lib/i18n";
-import TerminalDemo from "@/components/TerminalDemo";
 
 export default function HardwareDiagram({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
@@ -74,9 +73,6 @@ export default function HardwareDiagram({ locale }: { locale: Locale }) {
           </div>
         ))}
       </div>
-
-      {/* Démo interactive du Terminal avec Art ASCII et déploiement temps réel */}
-      <TerminalDemo locale={locale} />
     </section>
   );
 }

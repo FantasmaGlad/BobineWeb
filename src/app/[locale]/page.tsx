@@ -4,6 +4,7 @@ import type { Locale } from "@/lib/i18n";
 import { isLocale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 import GitHubIcon from "@/components/icons/GitHubIcon";
+import TerminalDemo from "@/components/TerminalDemo";
 import ProfileTabs from "@/components/ProfileTabs";
 import ComparisonTable from "@/components/ComparisonTable";
 import HardwareDiagram from "@/components/HardwareDiagram";
@@ -137,13 +138,18 @@ export default async function HomePage({
         </div>
       </section>
 
-      {/* 2. Les 3 Profils — Onglets Interactifs */}
+      {/* 2. Démo Interactive du Terminal & Déploiement Linux */}
+      <section className="terminal-section" style={{ marginBlock: "1rem 3.5rem" }}>
+        <TerminalDemo locale={locale as Locale} />
+      </section>
+
+      {/* 3. Les 3 Profils — Onglets Interactifs */}
       <ProfileTabs locale={locale as Locale} />
 
-      {/* 3. Tableau Comparatif Détaillé */}
+      {/* 4. Tableau Comparatif Détaillé */}
       <ComparisonTable locale={locale as Locale} />
 
-      {/* 4. Schéma Matériel & Terminal Linux */}
+      {/* 5. Schéma Matériel (Installation 3 câbles) */}
       <HardwareDiagram locale={locale as Locale} />
     </div>
   );

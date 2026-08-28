@@ -2706,7 +2706,7 @@ main {
   margin-block: 0.85rem 1rem;
   padding: 0.85rem 1rem;
   background: rgba(0, 0, 0, 0.45);
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 0.5rem;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -2718,8 +2718,8 @@ main {
   font-size: clamp(0.36rem, 0.65vw, 0.65rem);
   line-height: 1.06;
   letter-spacing: 0;
-  color: #38bdf8;
-  text-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
   white-space: pre;
   user-select: all;
 }

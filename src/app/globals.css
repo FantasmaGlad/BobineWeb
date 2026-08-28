@@ -3934,10 +3934,64 @@ main {
   font-weight: 600;
 }
 
-/* CodeBlock Copy Button */
+/* ==========================================================================
+   Terminal Code Blocks (Markdown, Documentation & Blog)
+   ========================================================================== */
+
+.terminal-code-block,
 .code-block-wrapper {
   position: relative;
-  margin-block: 1rem;
+  margin-block: 1.35rem 1.85rem;
+  border-radius: 0.65rem;
+  border: 1px solid var(--border-subtle);
+  background: #0d1117;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.terminal-code-block__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+  padding: 0.45rem 0.85rem;
+}
+
+.terminal-code-block__title {
+  display: flex;
+  align-items: center;
+}
+
+.terminal-code-block__title code {
+  color: #8b949e;
+  font-size: 0.725rem;
+  font-family: "SF Mono", Monaco, Consolas, monospace;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.terminal-code-block__body {
+  margin: 0 !important;
+  padding: 0.95rem 1.15rem !important;
+  background: #0d1117 !important;
+  color: #c9d1d9 !important;
+  font-family: "SF Mono", Monaco, "Cascadia Code", Consolas, monospace !important;
+  font-size: 0.8rem !important;
+  line-height: 1.55 !important;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+.terminal-code-block__body code {
+  background: none !important;
+  color: #c9d1d9 !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+  font-family: inherit !important;
 }
 
 .code-block-copy-btn {
@@ -5607,30 +5661,22 @@ main {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  padding: 0.1rem 0.35rem;
+  padding: 0.12rem 0.45rem;
   border-radius: 0.25rem;
   background: var(--bg-inset);
-  color: var(--text-muted);
+  color: var(--accent-primary);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.15s ease;
 }
 
-.interactive-terminal-tab-badge.is-success {
-  background: rgba(39, 201, 63, 0.15);
-  color: #27c93f;
+.interactive-terminal-tab:hover .interactive-terminal-tab-badge {
+  border-color: var(--accent-primary);
 }
 
-.interactive-terminal-tab-badge.is-warning {
-  background: rgba(255, 189, 46, 0.15);
-  color: #ffbd2e;
-}
-
-.interactive-terminal-tab-badge.is-danger {
-  background: rgba(255, 95, 86, 0.15);
-  color: #ff5f56;
-}
-
-.interactive-terminal-tab-badge.is-info {
-  background: rgba(56, 189, 248, 0.15);
-  color: #38bdf8;
+.interactive-terminal-tab.is-active .interactive-terminal-tab-badge {
+  background: var(--bg-surface);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
 }
 
 .interactive-terminal-desc-bar {

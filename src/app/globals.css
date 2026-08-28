@@ -5541,6 +5541,301 @@ main {
   scrollbar-width: none;
 }
 
+/* ==========================================================================
+   Interactive Terminal (Documentation)
+   ========================================================================== */
+
+.interactive-terminal-card {
+  margin-block: 1.5rem 2.25rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.interactive-terminal-topbar {
+  background: var(--bg-inset);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.35rem 0.5rem;
+}
+
+.interactive-terminal-tabs-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.interactive-terminal-tabs-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.interactive-terminal-tab {
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.4rem;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.interactive-terminal-tab:hover {
+  color: var(--text-heading);
+  background: var(--bg-card);
+}
+
+.interactive-terminal-tab.is-active {
+  color: var(--text-heading);
+  background: var(--bg-card);
+  border-color: var(--border-subtle);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.interactive-terminal-tab-badge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.25rem;
+  background: var(--bg-inset);
+  color: var(--text-muted);
+}
+
+.interactive-terminal-tab-badge.is-success {
+  background: rgba(39, 201, 63, 0.15);
+  color: #27c93f;
+}
+
+.interactive-terminal-tab-badge.is-warning {
+  background: rgba(255, 189, 46, 0.15);
+  color: #ffbd2e;
+}
+
+.interactive-terminal-tab-badge.is-danger {
+  background: rgba(255, 95, 86, 0.15);
+  color: #ff5f56;
+}
+
+.interactive-terminal-tab-badge.is-info {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+}
+
+.interactive-terminal-desc-bar {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.interactive-terminal-scenario-title {
+  font-size: 0.925rem;
+  color: var(--text-heading);
+  font-weight: 700;
+}
+
+.interactive-terminal-scenario-text {
+  margin: 0.2rem 0 0 0;
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.interactive-terminal-flags-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  padding-top: 0.4rem;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.interactive-terminal-flags-label {
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.interactive-terminal-flags-list {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.interactive-terminal-flag-chip {
+  font: inherit;
+  font-size: 0.72rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.35rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.interactive-terminal-flag-chip:hover {
+  border-color: var(--accent-primary);
+  color: var(--text-heading);
+}
+
+.interactive-terminal-flag-chip.is-checked {
+  background: var(--bg-inset);
+  border-color: var(--accent-primary);
+  color: var(--text-heading);
+  font-weight: 600;
+}
+
+.interactive-terminal-flag-chip code {
+  font-family: "SF Mono", Monaco, Consolas, monospace;
+  font-size: 0.72rem;
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+.flag-checkbox-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid var(--border-subtle);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-surface);
+}
+
+.interactive-terminal-flag-chip.is-checked .flag-checkbox-indicator {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: #ffffff;
+}
+
+.interactive-terminal-window {
+  background: #0d1117;
+  overflow: hidden;
+}
+
+.interactive-terminal-header {
+  background: #161b22;
+  padding: 0.5rem 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #30363d;
+}
+
+.interactive-terminal-window-title code {
+  color: #8b949e;
+  font-size: 0.725rem;
+  font-family: "SF Mono", Monaco, Consolas, monospace;
+}
+
+.interactive-terminal-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.interactive-terminal-body {
+  padding: 0.95rem 1.15rem;
+  font-family: "SF Mono", Monaco, "Cascadia Code", Consolas, monospace;
+  font-size: 0.78rem;
+  color: #c9d1d9;
+  line-height: 1.55;
+  max-height: 20rem;
+  overflow-y: auto;
+  transition: opacity 0.2s ease;
+}
+
+.interactive-terminal-body.is-animating {
+  opacity: 0.4;
+}
+
+.interactive-terminal-cmd-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+}
+
+.interactive-terminal-user-host {
+  color: #7ee787;
+  font-weight: 700;
+}
+
+.interactive-terminal-cmd-text {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.interactive-terminal-output {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.terminal-output-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  word-break: break-word;
+}
+
+.terminal-line--stdout {
+  color: #c9d1d9;
+}
+
+.terminal-line--success {
+  color: #7ee787;
+}
+
+.terminal-line--warn {
+  color: #f2cc60;
+}
+
+.terminal-line--error {
+  color: #ff7b72;
+  font-weight: 600;
+}
+
+.terminal-line--info {
+  color: #79c0ff;
+}
+
+.terminal-line--dim {
+  color: #8b949e;
+}
+
+.terminal-line--prompt {
+  color: #d2a8ff;
+  font-weight: 600;
+}
+
+.terminal-line--json {
+  color: #a5d6ff;
+}
+
 
 
 

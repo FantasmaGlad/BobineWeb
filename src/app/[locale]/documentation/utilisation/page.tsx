@@ -4,6 +4,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 
 
 import Shot from "@/components/Shot";
+import InteractiveTerminal from "@/components/InteractiveTerminal";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
@@ -181,6 +182,12 @@ export default async function UtilisationPage({
       </p>
       <Shot caption="Admin Radio tab with active playlist and playback controls" />
 
+      <InteractiveTerminal
+        locale={locale as Locale}
+        preset="usage"
+        title="bash — bobine audio & operations console"
+      />
+
       <h2 id="mobile-phone-remote">Mobile Phone Remote (QR Code)</h2>
       <p>
         Scan the local QR code or open <code>http://bobine.local/remote</code> on any phone connected to the gym Wi-Fi: the interface becomes a handheld controller for instructors (play, pause, seek, volume control, track skip).
@@ -321,6 +328,12 @@ export default async function UtilisationPage({
         Un lecteur de musique d&apos;ambiance 24/7, façon Spotify : fondu enchaîné réglable (de 0s à 12s), lecture aléatoire, répétition, et rappels vocaux programmés (« re-rackez vos poids », consignes de fermeture).
       </p>
       <Shot caption="Onglet Radio de l'admin : playlist en cours et contrôles" />
+
+      <InteractiveTerminal
+        locale={locale as Locale}
+        preset="usage"
+        title="bash — console sono & opérations bobine"
+      />
 
       <h2 id="telecommande-mobile">Télécommande mobile (QR Code)</h2>
       <p>

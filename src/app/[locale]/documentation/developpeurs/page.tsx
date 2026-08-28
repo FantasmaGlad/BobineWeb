@@ -4,6 +4,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 
 
 import CodeBlock from "@/components/CodeBlock";
+import InteractiveTerminal from "@/components/InteractiveTerminal";
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
 import DownloadPdfButton from "@/components/DownloadPdfButton";
@@ -127,22 +128,14 @@ export default async function DeveloppeursPage({
         </table>
       </div>
 
-      <h2 id="local-development">Local Development Workflow</h2>
+      <h2 id="local-development">Local Development Workflow & Interactive API Console</h2>
       <p>Prerequisites: Node.js ≥ 20, Python ≥ 3.11, active local Redis server.</p>
 
-      <CodeBlock>
-        <code>{`# 1. Backend (FastAPI + Redis) — running on port 8001
-cd backend
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-redis-server --daemonize yes
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8001
-
-# 2. Frontend (Next.js App Router) — running on port 3000
-cd frontend
-npm install
-npm run dev`}</code>
-      </CodeBlock>
+      <InteractiveTerminal
+        locale={locale as Locale}
+        preset="developer"
+        title="bash — bobine dev environment & api console"
+      />
 
       <h2 id="rest-api-reference">Local REST API Reference</h2>
       <p>
@@ -342,22 +335,14 @@ npm run dev`}</code>
         </table>
       </div>
 
-      <h2 id="developpement-local">Développement Local</h2>
+      <h2 id="developpement-local">Développement Local & Console Interactive d&apos;API</h2>
       <p>Prérequis : Node.js ≥ 20, Python ≥ 3.11, serveur Redis actif en local.</p>
 
-      <CodeBlock>
-        <code>{`# 1. Backend (FastAPI + Redis) — port 8001
-cd backend
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-redis-server --daemonize yes
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8001
-
-# 2. Frontend (Next.js App Router) — port 3000
-cd frontend
-npm install
-npm run dev`}</code>
-      </CodeBlock>
+      <InteractiveTerminal
+        locale={locale as Locale}
+        preset="developer"
+        title="bash — environnement dev & console api bobine"
+      />
 
       <h2 id="reference-api-rest">Référence de l&apos;API REST Locale</h2>
       <p>

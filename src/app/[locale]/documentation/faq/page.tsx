@@ -5,7 +5,7 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
 import DownloadPdfButton from "@/components/DownloadPdfButton";
-import CodeBlock from "@/components/CodeBlock";
+import InteractiveTerminal from "@/components/InteractiveTerminal";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
@@ -209,25 +209,14 @@ export default async function FaqPage({
         </table>
       </div>
 
-      <h2 id="diagnostic-commands">Essential Diagnostic Commands</h2>
-      <p>Connect over SSH to run these diagnostic commands if you encounter an issue:</p>
+      <h2 id="diagnostic-commands">Essential Diagnostic & Troubleshooting Commands</h2>
+      <p>Connect over SSH to run these interactive diagnostic simulations and error resolution recipes:</p>
 
-      <CodeBlock>
-        <code># 1. Check all Bobine systemd services
-sudo systemctl status bobine-backend bobine-kiosk bobine-watchdog
-
-# 2. View live logs in real time
-sudo journalctl -u bobine-backend -u bobine-kiosk -f
-
-# 3. Query the machine health endpoint
-curl -s http://127.0.0.1:8000/api/health | jq .
-
-# 4. Test HDMI-CEC communication
-cec-client -l
-
-# 5. Test audio output
-speaker-test -t wav -c 2 -l 1</code>
-      </CodeBlock>
+      <InteractiveTerminal
+        locale={locale as Locale}
+        preset="troubleshooting"
+        title="bash — bobine diagnostic console"
+      />
 
       <h2 id="support-help">Getting Further Help</h2>
       <div className="docs-callout docs-callout--tip">
@@ -323,25 +312,14 @@ speaker-test -t wav -c 2 -l 1</code>
         </table>
       </div>
 
-      <h2 id="commandes-diagnostic">Commandes de Diagnostic Indispensables</h2>
-      <p>Connectez-vous en SSH sur le mini PC pour exécuter ces vérifications :</p>
+      <h2 id="commandes-diagnostic">Commandes de Diagnostic & Résolution Interactive</h2>
+      <p>Connectez-vous en SSH sur le mini PC pour exécuter ces simulations interactives et recettes de dépannage :</p>
 
-      <CodeBlock>
-        <code>{`# 1. Vérifier l'état de tous les services Bobine
-sudo systemctl status bobine-backend bobine-kiosk bobine-watchdog
-
-# 2. Consulter les logs en direct (streaming temps réel)
-sudo journalctl -u bobine-backend -u bobine-kiosk -f
-
-# 3. Tester le point de santé machine de l'API
-curl -s http://127.0.0.1:8000/api/health | jq .
-
-# 4. Détecter l'adaptateur HDMI-CEC
-cec-client -l
-
-# 5. Tester la sortie audio des enceintes
-speaker-test -t wav -c 2 -l 1`}</code>
-      </CodeBlock>
+      <InteractiveTerminal
+        locale={locale as Locale}
+        preset="troubleshooting"
+        title="bash — console de diagnostic bobine"
+      />
 
       <h2 id="support-aide">Aide & Support</h2>
       <div className="docs-callout docs-callout--tip">

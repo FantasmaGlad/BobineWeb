@@ -41,8 +41,8 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "",
     title: isEn
-      ? "Bobine (bobine.fit) — Open-Source Gym Video Playout & Streaming"
-      : "Bobine (bobine.fit) — Régie vidéo & streaming open-source pour salle de sport",
+      ? "Bobine Fit — Open-Source Gym Video Playout & Streaming"
+      : "Bobine Fit — Régie vidéo & streaming open-source pour salle de sport",
     description: isEn
       ? "Transform standard budget mini PCs into an autonomous, 100% offline video playout suite for gyms. The free, self-hosted alternative to Les Mills Cinema."
       : "Transformez un mini PC standard en régie vidéo autonome et 100% hors-ligne pour votre salle de sport. L'alternative libre et sans abonnement à Les Mills Cinema.",

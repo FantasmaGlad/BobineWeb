@@ -11,9 +11,7 @@ interface RouteConfig {
 const staticRoutes: RouteConfig[] = [
   { path: "", priority: 1.0, changeFrequency: "weekly" },
   { path: "/fonctionnalites", priority: 0.95, changeFrequency: "weekly" },
-  { path: "/documentation", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/documentation/manifeste", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/documentation/demarrage-rapide", priority: 0.9, changeFrequency: "weekly" },
+  { path: "/documentation", priority: 0.95, changeFrequency: "weekly" },
   { path: "/documentation/utilisation", priority: 0.85, changeFrequency: "weekly" },
   { path: "/documentation/faq", priority: 0.85, changeFrequency: "weekly" },
   { path: "/documentation/developpeurs", priority: 0.8, changeFrequency: "monthly" },

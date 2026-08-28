@@ -75,7 +75,7 @@ export default function NotFound() {
         <Link href="/fr" className="btn-primary">
           Retour à l&apos;accueil
         </Link>
-        <Link href="/fr/documentation/demarrage-rapide" className="btn-secondary">
+        <Link href="/fr/documentation" className="btn-secondary">
           Guide d&apos;installation
         </Link>
         <Link href="/fr/demo-3d" className="btn-secondary">

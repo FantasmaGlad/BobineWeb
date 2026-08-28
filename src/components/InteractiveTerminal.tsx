@@ -113,6 +113,7 @@ export default function InteractiveTerminal({
         : [...current, flag];
       return { ...prev, [activeScenario.id]: updated };
     });
+    handleSimulate();
   };
 
   const computeCommand = useCallback(() => {
@@ -144,7 +145,7 @@ export default function InteractiveTerminal({
     setIsExecuting(true);
     setTimeout(() => {
       setIsExecuting(false);
-    }, 450);
+    }, 350);
   };
 
   if (!activeScenario) return null;
@@ -162,7 +163,10 @@ export default function InteractiveTerminal({
               <button
                 key={sc.id}
                 type="button"
-                onClick={() => setActiveScenarioId(sc.id)}
+                onClick={() => {
+                  setActiveScenarioId(sc.id);
+                  handleSimulate();
+                }}
                 className={`interactive-terminal-tab ${isActive ? "is-active" : ""}`}
               >
                 {sc.badge && (
@@ -237,24 +241,10 @@ export default function InteractiveTerminal({
           </div>
 
           <div className="interactive-terminal-window-title">
-            <code>{title || "terminal — bobine-cli"}</code>
+            <span>{title || "terminal — bobine-cli"}</span>
           </div>
 
           <div className="interactive-terminal-header-actions">
-            <button
-              type="button"
-              className="terminal-ctrl-btn"
-              onClick={handleSimulate}
-              disabled={isExecuting}
-              title={isEn ? "Re-run simulation" : "Simuler l'exécution"}
-              aria-label={isEn ? "Re-run simulation" : "Simuler l'exécution"}
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polygon points="5 3 19 12 5 21 5 3" />
-              </svg>
-              <span>{isExecuting ? (isEn ? "Running..." : "En cours...") : (isEn ? "Simulate" : "Exécuter")}</span>
-            </button>
-
             <button
               type="button"
               className="terminal-copy-btn"
@@ -284,10 +274,17 @@ export default function InteractiveTerminal({
 
         {/* Terminal Body */}
         <div className={`interactive-terminal-body ${isExecuting ? "is-animating" : ""}`}>
-          {/* Command Prompt Line */}
-          <div className="interactive-terminal-cmd-row">
+          {/* Command Prompt Line (Clickable to re-execute) */}
+          <div
+            className="interactive-terminal-cmd-row is-clickable"
+            onClick={handleSimulate}
+            role="button"
+            tabIndex={0}
+            title={isEn ? "Click to run command" : "Cliquer pour exécuter la commande"}
+          >
             <span className="interactive-terminal-user-host">fanta@wyse:~$</span>
             <span className="interactive-terminal-cmd-text">{fullCommand}</span>
+            <span className="terminal-cursor" />
           </div>
 
           {/* Output Lines */}

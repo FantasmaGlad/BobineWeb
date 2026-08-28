@@ -33,7 +33,7 @@ export default function CodeBlock({
           <span className="dot dot--green" />
         </div>
         <div className="terminal-code-block__title">
-          <code>{title}</code>
+          <span>{title}</span>
         </div>
         <button
           type="button"

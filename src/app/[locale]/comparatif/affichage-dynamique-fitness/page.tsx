@@ -302,7 +302,7 @@ export default async function SignageComparisonPage({
           {c.cta.desc}
         </p>
         <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-          <Link href={`/${locale}/documentation/demarrage-rapide`} className="btn-primary">
+          <Link href={`/${locale}/documentation`} className="btn-primary">
             {c.cta.btnInstall}
           </Link>
           <Link href={`/${locale}/fonctionnalites`} className="btn-secondary">

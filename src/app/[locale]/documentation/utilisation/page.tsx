@@ -5,6 +5,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 
 import Shot from "@/components/Shot";
 import InteractiveTerminal from "@/components/InteractiveTerminal";
+import BobineBrowserMockup from "@/components/BobineBrowserMockup";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
@@ -76,7 +77,7 @@ export default async function UtilisationPage({
       </div>
 
       <p>
-        The complete guide to every screen, feature, and tool once Bobine is installed (see the <Link href={`/${locale}/documentation/demarrage-rapide`}>Quick Start Guide</Link> if you haven&apos;t installed it yet).
+        The complete guide to every screen, feature, and tool once Bobine is installed (see the <Link href={`/${locale}/documentation`}>Quick Start Guide</Link> if you haven&apos;t installed it yet).
       </p>
 
       <div className="docs-callout docs-callout--info">
@@ -85,6 +86,8 @@ export default async function UtilisationPage({
           <div>All control interfaces (Admin, Kiosk, Remote) are web applications rendered in your browser. Any tablet, smartphone, or laptop on the gym&apos;s Wi-Fi network can manage Bobine without downloading apps from an app store.</div>
         </div>
       </div>
+
+      <BobineBrowserMockup locale={locale as Locale} />
 
       <h2 id="admin-dashboard">Admin Dashboard</h2>
       <p>
@@ -223,7 +226,7 @@ export default async function UtilisationPage({
       </div>
 
       <p>
-        Le guide complet de chaque écran et de chaque outil, une fois Bobine installé (voir le <Link href={`/${locale}/documentation/demarrage-rapide`}>démarrage rapide</Link> si ce n&apos;est pas encore fait).
+        Le guide complet de chaque écran et de chaque outil, une fois Bobine installé (voir le <Link href={`/${locale}/documentation`}>démarrage rapide</Link> si ce n&apos;est pas encore fait).
       </p>
 
       <div className="docs-callout docs-callout--info">
@@ -232,6 +235,8 @@ export default async function UtilisationPage({
           <div>Toutes les interfaces de pilotage (Admin, Kiosque, Télécommande) sont des applications web servies en local. N&apos;importe quel smartphone, tablette ou ordinateur connecté au Wi-Fi de la salle pilote Bobine sans passer par un magasin d&apos;applications.</div>
         </div>
       </div>
+
+      <BobineBrowserMockup locale={locale as Locale} />
 
       <h2 id="panneau-dadministration">Panneau d&apos;administration</h2>
       <p>

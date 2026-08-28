@@ -162,7 +162,7 @@ export default async function FaqPage({
       No. Internet access is only required once during the initial software installation to download packages. Daily gym operations are completely offline.</p>
 
       <p><strong>What hardware do I need to equip my gym?</strong><br />
-      A standard refurbished x86-64 mini PC: Intel (Dell Wyse 5070 Celeron J4105 ~40–50 €, Lenovo ThinkCentre Tiny, Beelink N100) or AMD (HP EliteDesk 705 G4/G5 Ryzen 3/5 Pro ~60–80 €, Lenovo M715q), 4GB to 8GB RAM, and an HDMI TV screen. Detailed hardware guide in the <Link href={`/${locale}/documentation/demarrage-rapide`}>Quick Start Guide</Link>.</p>
+      A standard refurbished x86-64 mini PC: Intel (Dell Wyse 5070 Celeron J4105 ~40–50 €, Lenovo ThinkCentre Tiny, Beelink N100) or AMD (HP EliteDesk 705 G4/G5 Ryzen 3/5 Pro ~60–80 €, Lenovo M715q), 4GB to 8GB RAM, and an HDMI TV screen. Detailed hardware guide in the <Link href={`/${locale}/documentation`}>Quick Start Guide</Link>.</p>
 
       <h2 id="troubleshooting-matrix">Common Error Resolution Matrix</h2>
       <div className="docs-table-wrapper">
@@ -265,7 +265,7 @@ export default async function FaqPage({
       Non. Internet n&apos;est requis qu&apos;une seule fois lors de l&apos;installation initiale pour télécharger les paquets Debian. L&apos;exploitation quotidienne en salle est totalement autonome.</p>
 
       <p><strong>Quel matériel informatique faut-il acheter ?</strong><br />
-      Un mini PC x86-64 standard : Intel (Dell Wyse 5070 Celeron J4105 ~40-50 €, Lenovo ThinkCentre Tiny, Beelink N100) ou AMD (HP EliteDesk 705 G4/G5 Ryzen 3/5 Pro ~60-80 €, Lenovo M715q), 4 à 8 Go de RAM, et un écran HDMI. Voir les détails dans le <Link href={`/${locale}/documentation/demarrage-rapide`}>guide de démarrage rapide</Link>.</p>
+      Un mini PC x86-64 standard : Intel (Dell Wyse 5070 Celeron J4105 ~40-50 €, Lenovo ThinkCentre Tiny, Beelink N100) ou AMD (HP EliteDesk 705 G4/G5 Ryzen 3/5 Pro ~60-80 €, Lenovo M715q), 4 à 8 Go de RAM, et un écran HDMI. Voir les détails dans le <Link href={`/${locale}/documentation`}>guide de démarrage rapide</Link>.</p>
 
       <h2 id="tableau-depannage">Tableau de Résolution des Erreurs Courantes</h2>
       <div className="docs-table-wrapper">

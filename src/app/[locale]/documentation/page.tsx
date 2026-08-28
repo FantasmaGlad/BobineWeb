@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
@@ -6,92 +5,7 @@ import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
 import DownloadPdfButton from "@/components/DownloadPdfButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
-import InteractiveTerminal from "@/components/InteractiveTerminal";
-
-const copy = {
-  fr: {
-    title: "Documentation",
-    intro: "Pour bien démarrer, configurer vos écrans et exploiter Bobine au quotidien.",
-    sections: [
-      {
-        slug: "manifeste",
-        badge: "Vision & DA",
-        readTime: "4 min",
-        title: "Manifeste & Identité",
-        body: "L'histoire, le pourquoi, la philosophie libre, la direction artistique et l'origine de la mascotte Baamix.",
-      },
-      {
-        slug: "demarrage-rapide",
-        badge: "Tutoriel",
-        readTime: "6 min",
-        title: "Démarrage rapide",
-        body: "Le guide d'installation étape par étape sur Debian 13 pour votre mini PC, sans connaissances techniques approfondies.",
-      },
-      {
-        slug: "utilisation",
-        badge: "Guide Pratique",
-        readTime: "8 min",
-        title: "Utilisation & Exploitation",
-        body: "Le fonctionnement complet du panneau d'administration, de la borne cinéma membre, de la radio et des télécommandes.",
-      },
-      {
-        slug: "faq",
-        badge: "Support",
-        readTime: "5 min",
-        title: "FAQ / Dépannage",
-        body: "Les réponses aux questions courantes, résolution de problèmes réseau et astuces d'optimisation.",
-      },
-      {
-        slug: "developpeurs",
-        badge: "Technique",
-        readTime: "7 min",
-        title: "Développeurs & Architecture",
-        body: "Architecture interne, endpoints d'API, services systemd, stack logicielle et guide de contribution.",
-      },
-    ],
-  },
-  en: {
-    title: "Documentation",
-    intro: "Everything to get started, configure your screens, and operate Bobine smoothly.",
-    sections: [
-      {
-        slug: "manifeste",
-        badge: "Vision & DA",
-        readTime: "4 min",
-        title: "Manifesto & Identity",
-        body: "The story, why Bobine was built, open-source values, art direction, and the origin of Baamix.",
-      },
-      {
-        slug: "demarrage-rapide",
-        badge: "Tutorial",
-        readTime: "6 min",
-        title: "Quick Start Guide",
-        body: "Step-by-step installation guide on Debian 13 for your mini PC, no prior Linux expertise required.",
-      },
-      {
-        slug: "utilisation",
-        badge: "User Manual",
-        readTime: "8 min",
-        title: "Daily Usage & Operations",
-        body: "Complete manual for the admin interface, the member-facing cinema kiosk, background radio, and remotes.",
-      },
-      {
-        slug: "faq",
-        badge: "Support",
-        readTime: "5 min",
-        title: "FAQ / Troubleshooting",
-        body: "Answers to common questions, local network troubleshooting, and performance tuning tips.",
-      },
-      {
-        slug: "developpeurs",
-        badge: "Technical",
-        readTime: "7 min",
-        title: "Developers & Architecture",
-        body: "Internal software architecture, REST API endpoints, systemd services, and contribution guidelines.",
-      },
-    ],
-  },
-} as const;
+import QuickStartStepper from "@/components/QuickStartStepper";
 
 export async function generateMetadata({
   params,
@@ -105,109 +19,68 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "/documentation",
     title: isEn
-      ? "Documentation & Playout Guides — Bobine | Les Mills Cinema Alternative"
-      : "Documentation & Guides Techniques — Bobine | Alternative Les Mills Cinema",
+      ? "Quick Start Guide & Documentation — Bobine | Les Mills Alternative"
+      : "Guide de Démarrage Rapide & Documentation — Bobine | Alternative Les Mills",
     description: isEn
-      ? "Official documentation for Bobine: quick start setup, system manual, troubleshooting FAQ, developer reference, and software architecture."
-      : "Documentation officielle de Bobine : guide d'installation Debian, manuel d'exploitation en salle, FAQ dépannage, architecture logicielle et manifeste.",
+      ? "Interactive step-by-step setup guide for Bobine on Debian 13: hardware selection (Dell Wyse 5070), automated 1-command installer, and first workout screen playout."
+      : "Guide d'installation interactif pas à pas de Bobine sur Debian 13 : choix du mini PC (Dell Wyse 5070), commande d'installation automatisée et premier lancement en salle.",
     keywords: [
       "Documentation Bobine",
+      "Démarrage rapide Bobine",
+      "Installation Bobine",
       "Alternative Les Mills Cinema",
-      "Alternative Les Mills Virtual",
-      "Guide régie vidéo salle de sport",
-      "Tutoriel installation Bobine",
-      "FAQ Bobine",
-      "Manuel exploitation fitness",
-      "Gym video automation manual",
+      "Debian 13 mini PC fitness",
+      "Script install.sh Bobine",
     ],
   });
 }
 
-export default async function DocumentationIndexPage({
+export default async function DocumentationPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const t = copy[locale as Locale];
+  const isEn = locale === "en";
 
   const breadcrumbs = [
     { name: "Bobine", url: `/${locale}` },
-    { name: t.title, url: `/${locale}/documentation` },
+    { name: "Documentation", url: `/${locale}/documentation` },
+    { name: isEn ? "Quick Start" : "Démarrage rapide", url: `/${locale}/documentation` },
   ];
 
   return (
     <>
       <BreadcrumbsJsonLd items={breadcrumbs} />
-      <section className="doc-hero-wrap">
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.25rem" }}>
         <div>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem" }}>
-            <div>
-              <span className="feature-category-label">
-                {locale === "en" ? "Knowledge Base & Guides" : "Base de Connaissances & Guides"}
-              </span>
-              <h1 className="doc-hero-title">
-                {t.title}
-              </h1>
-              <p className="doc-hero-intro">
-                {t.intro}
-              </p>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", marginTop: "0.5rem" }}>
-              <DownloadPdfButton locale={locale as Locale} />
-              <ShareButton
-                locale={locale as Locale}
-                pathname="/documentation"
-                title={t.title}
-                description={t.intro}
-              />
-            </div>
-          </div>
-
-          {/* Démonstration terminal interactive avec commande et sélection d'options */}
-          <div style={{ marginTop: "1.75rem" }}>
-            <InteractiveTerminal
-              locale={locale as Locale}
-              preset="installer"
-              title={locale === "en" ? "bash — bobine bootstrap playground" : "bash — démonstrateur d'installation bobine"}
-            />
-          </div>
+          <span className="feature-category-label">
+            {isEn ? "Tutorial & Setup Wizard" : "Tutoriel & Guide Interactif"}
+          </span>
+          <h1 style={{ margin: 0 }}>
+            {isEn ? "Quick Start Guide" : "Démarrage rapide"}
+          </h1>
         </div>
-      </section>
-
-      {/* Liste des chapitres — Mise en page ouverte, lignes fines */}
-      <div style={{ display: "flex", flexDirection: "column", paddingTop: "2rem" }}>
-        {t.sections.map((section) => (
-          <Link
-            key={section.slug}
-            href={`/${locale}/documentation/${section.slug}`}
-            className="doc-open-row"
-            style={{
-              textDecoration: "none",
-              paddingBlock: "1.35rem",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              gap: "1.5rem",
-            }}
-          >
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem", maxWidth: "48rem" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                <span className="badge" style={{ fontSize: "0.725rem", padding: "0.15rem 0.5rem" }}>
-                  {section.badge} · {section.readTime}
-                </span>
-                <h2 style={{ fontSize: "1.15rem", fontWeight: 700, margin: 0, color: "var(--text-heading)" }}>
-                  {section.title}
-                </h2>
-              </div>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.925rem", lineHeight: 1.55, margin: 0 }}>
-                {section.body}
-              </p>
-            </div>
-          </Link>
-        ))}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <DownloadPdfButton locale={locale as Locale} chapterId="demarrage-rapide" />
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/documentation"
+            title={isEn ? "Bobine Quick Start Guide" : "Guide de Démarrage Rapide Bobine"}
+            description={isEn ? "Interactive step-by-step setup guide for Bobine on Debian 13." : "Guide interactif d'installation étape par étape de Bobine sur Debian 13."}
+          />
+        </div>
       </div>
+
+      <p style={{ color: "var(--text-muted)", fontSize: "1.025rem", lineHeight: 1.6, marginBottom: "1.5rem" }}>
+        {isEn
+          ? "This interactive guide walks you step-by-step from choosing your hardware to having your fitness room actively broadcasting virtual classes — with no prior Linux experience needed. Validate each step as you progress, or switch to continuous view anytime."
+          : "Ce guide interactif vous accompagne pas à pas, du choix de votre mini PC jusqu'à la diffusion de vos premiers cours virtuels en salle — sans aucune connaissance Linux préalable requise. Validez chaque étape à votre rythme ou passez en mode lecture continue."}
+      </p>
+
+      {/* Guide Interactif Étape par Étape */}
+      <QuickStartStepper locale={locale as Locale} />
     </>
   );
 }

@@ -7,17 +7,13 @@ import DocsMobileNav from "@/components/DocsMobileNav";
 
 const sections: Record<Locale, ReadonlyArray<readonly [string, string]>> = {
   fr: [
-    ["", "Vue d'ensemble"],
-    ["manifeste", "Manifeste & Identité"],
-    ["demarrage-rapide", "Démarrage rapide"],
+    ["", "Démarrage rapide"],
     ["utilisation", "Utilisation"],
     ["faq", "FAQ / Dépannage"],
     ["developpeurs", "Développeurs"],
   ],
   en: [
-    ["", "Overview"],
-    ["manifeste", "Manifesto & Identity"],
-    ["demarrage-rapide", "Quick start"],
+    ["", "Quick start"],
     ["utilisation", "Usage"],
     ["faq", "FAQ / Troubleshooting"],
     ["developpeurs", "Developers"],

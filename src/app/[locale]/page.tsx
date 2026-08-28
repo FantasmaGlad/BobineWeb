@@ -86,7 +86,7 @@ export default async function HomePage({
           <div className="hero-fullscreen__actions">
             <Link
               className="btn-primary"
-              href={`/${locale}/documentation/demarrage-rapide`}
+              href={`/${locale}/documentation`}
             >
               {t.ctaPrimary}
               <svg

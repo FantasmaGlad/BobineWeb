@@ -1,20 +1,8 @@
-"use client";
-
-import { useState } from "react";
 import type { Locale } from "@/lib/i18n";
+import TerminalDemo from "@/components/TerminalDemo";
 
 export default function HardwareDiagram({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
-  const [copied, setCopied] = useState(false);
-
-  const command = "curl -fsSL https://bobine.fit/install.sh | bash";
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(command).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  };
 
   const cables = isEn
     ? [
@@ -87,50 +75,8 @@ export default function HardwareDiagram({ locale }: { locale: Locale }) {
         ))}
       </div>
 
-      <div className="terminal-wrapper">
-        <div className="terminal-header">
-          <div className="terminal-dots">
-            <span className="dot dot--red" />
-            <span className="dot dot--yellow" />
-            <span className="dot dot--green" />
-          </div>
-          <span className="terminal-title">
-            {isEn ? "Automated Linux Deployment (Ubuntu / Debian)" : "Déploiement automatisé Linux (Ubuntu / Debian)"}
-          </span>
-          <button
-            type="button"
-            className="terminal-copy-btn"
-            onClick={handleCopy}
-            aria-label={isEn ? "Copy install command" : "Copier la commande"}
-          >
-            {copied ? (isEn ? "Copied!" : "Copié !") : (isEn ? "Copy" : "Copier")}
-          </button>
-        </div>
-        <div className="terminal-body">
-          <div className="terminal-line terminal-line--command">
-            <span className="terminal-prompt">$</span>
-            <code>{command}</code>
-          </div>
-          <div className="terminal-line terminal-line--output">
-            <span className="terminal-ok">[OK]</span> Détection matérielle : Intel Celeron J4105 (VA-API QuickSync actif)
-          </div>
-          <div className="terminal-line terminal-line--output">
-            <span className="terminal-ok">[OK]</span> Stockage local : Disque NVMe 256 Go monté sur /var/lib/bobine
-          </div>
-          <div className="terminal-line terminal-line--output">
-            <span className="terminal-ok">[OK]</span> Sortie vidéo & CEC : Écran Samsung 65&quot; détecté sur bus HDMI-0
-          </div>
-          <div className="terminal-line terminal-line--output">
-            <span className="terminal-ok">[OK]</span> Sortie audio sono : Interface analogique calibrée
-          </div>
-          <div className="terminal-line terminal-line--output">
-            <span className="terminal-ok">[OK]</span> Service systemd activé : bobine.service (actif, en cours d&apos;exécution)
-          </div>
-          <div className="terminal-line terminal-line--highlight">
-            Serveur Bobine opérationnel — Interface locale : http://192.168.1.50:8080
-          </div>
-        </div>
-      </div>
+      {/* Démo interactive du Terminal avec Art ASCII et déploiement temps réel */}
+      <TerminalDemo locale={locale} />
     </section>
   );
 }

@@ -2547,20 +2547,22 @@ main {
 }
 
 
-/* Simulateur de Terminal Linux */
+/* Simulateur de Terminal Linux & Démo Interactive */
 
 .terminal-wrapper {
   background: #0d1117;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 0.85rem;
   overflow: hidden;
-  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .terminal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
   padding: 0.65rem 1rem;
   background: #161b22;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -2569,6 +2571,7 @@ main {
 .terminal-dots {
   display: flex;
   gap: 0.4rem;
+  align-items: center;
 }
 
 .dot {
@@ -2581,32 +2584,81 @@ main {
 .dot--yellow { background: #ffbd2e; }
 .dot--green { background: #27c93f; }
 
+.terminal-demo-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
 .terminal-title {
   font-size: 0.775rem;
-  font-family: monospace;
+  font-family: "SF Mono", Monaco, "Cascadia Code", Consolas, monospace;
   color: #8b949e;
 }
 
+.terminal-demo-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.68rem;
+  font-family: "SF Mono", Monaco, Consolas, monospace;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #c9d1d9;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.terminal-demo-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+}
+
+.terminal-demo-status-dot.is-running {
+  background: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
+  animation: pulseLiveDot 1.2s ease-in-out infinite;
+}
+
+.terminal-demo-status-dot.is-complete {
+  background: #27c93f;
+  box-shadow: 0 0 8px rgba(39, 201, 63, 0.6);
+}
+
+.terminal-demo-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.terminal-ctrl-btn,
 .terminal-copy-btn {
   font: inherit;
-  font-size: 0.75rem;
-  font-family: monospace;
+  font-size: 0.72rem;
+  font-family: "SF Mono", Monaco, "Cascadia Code", Consolas, monospace;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: #c9d1d9;
-  padding: 0.2rem 0.55rem;
+  padding: 0.25rem 0.55rem;
   border-radius: 0.35rem;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   transition: all 0.15s ease;
 }
 
+.terminal-ctrl-btn:hover,
 .terminal-copy-btn:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.18);
   color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .terminal-body {
-  padding: 1rem 1.15rem;
+  padding: 1.15rem 1.25rem;
   font-family: "SF Mono", Monaco, "Cascadia Code", "Fira Code", Consolas, monospace;
   font-size: 0.825rem;
   color: #c9d1d9;
@@ -2621,21 +2673,183 @@ main {
   color: #58a6ff;
   font-weight: 600;
   display: flex;
+  align-items: center;
   gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.terminal-demo-command-text {
+  color: #e2e8f0;
+  font-weight: 600;
+  font-family: inherit;
 }
 
 .terminal-prompt {
   color: #7ee787;
+  font-weight: 700;
 }
 
-.terminal-line--output {
-  color: #8b949e;
+.terminal-cursor {
+  display: inline-block;
+  color: #38bdf8;
+  margin-left: 2px;
+  animation: cursorBlink 0.9s step-start infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Bannière ASCII */
+.terminal-ascii-container {
+  margin-block: 0.85rem 1rem;
+  padding: 0.85rem 1rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.terminal-ascii-art {
+  margin: 0;
+  font-family: "SF Mono", Monaco, "Cascadia Code", Consolas, monospace;
+  font-size: clamp(0.36rem, 0.65vw, 0.65rem);
+  line-height: 1.06;
+  letter-spacing: 0;
+  color: #38bdf8;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+  white-space: pre;
+  user-select: all;
+}
+
+.terminal-ascii-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+  padding-top: 0.55rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  font-size: 0.72rem;
+}
+
+.terminal-ascii-tag {
+  color: #7dd3fc;
+  font-weight: 600;
+}
+
+.terminal-ascii-meta {
+  color: #94a3b8;
+  font-size: 0.7rem;
+}
+
+/* Étapes d'installation */
+.terminal-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+}
+
+.terminal-step-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  color: #c9d1d9;
 }
 
 .terminal-ok {
   color: #7ee787;
   font-weight: 700;
-  margin-right: 0.4rem;
+  font-family: inherit;
+}
+
+.terminal-spinner {
+  display: inline-flex;
+  align-items: center;
+  color: #38bdf8;
+  vertical-align: middle;
+}
+
+.terminal-spinner-icon {
+  animation: spinIcon 0.8s linear infinite;
+}
+
+@keyframes spinIcon {
+  100% { transform: rotate(360deg); }
+}
+
+.terminal-step-title {
+  color: #f1f5f9;
+  font-weight: 600;
+}
+
+.terminal-step-detail {
+  color: #94a3b8;
+}
+
+/* Boîte récapitulative finale */
+.terminal-demo-success-box {
+  margin-top: 1rem;
+  padding: 0.85rem 1.15rem;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  border-left: 3px solid #22c55e;
+  border-radius: 0.45rem;
+  color: #f1f5f9;
+}
+
+.terminal-demo-box-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4ade80;
+  margin-bottom: 0.65rem;
+  font-size: 0.85rem;
+}
+
+.terminal-box-check {
+  color: #4ade80;
+  flex-shrink: 0;
+}
+
+.terminal-demo-box-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.65rem;
+}
+
+.terminal-demo-box-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.terminal-box-label {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.terminal-box-url,
+.terminal-box-cmd {
+  font-family: "SF Mono", Monaco, Consolas, monospace;
+  font-size: 0.775rem;
+  color: #38bdf8;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: fit-content;
+}
+
+.terminal-line--output {
+  color: #8b949e;
 }
 
 .terminal-line--highlight {

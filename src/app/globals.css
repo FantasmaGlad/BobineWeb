@@ -5882,6 +5882,303 @@ main {
   color: #a5d6ff;
 }
 
+/* ==========================================================================
+   QuickStart Stepper (Interactive Step-by-Step Guide)
+   ========================================================================== */
+
+.quickstart-stepper-container {
+  margin-block: 1.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.stepper-mode-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.65rem;
+}
+
+.stepper-progress-counter {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.stepper-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.45rem;
+  padding: 2px;
+  gap: 2px;
+}
+
+.stepper-mode-btn {
+  font: inherit;
+  font-size: 0.725rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 0.35rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.15s ease;
+}
+
+.stepper-mode-btn.is-active {
+  background: var(--bg-card);
+  color: var(--text-heading);
+  border-color: var(--border-subtle);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.stepper-progress-track {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-inset);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.stepper-progress-fill {
+  height: 100%;
+  background: var(--accent-primary);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.stepper-nav-pills-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.35rem;
+  scrollbar-width: none;
+}
+
+.stepper-nav-pills-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.stepper-nav-pill {
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.75rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.5rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.stepper-nav-pill:hover {
+  background: var(--bg-card);
+  color: var(--text-heading);
+  border-color: var(--accent-primary);
+}
+
+.stepper-nav-pill.is-active {
+  background: var(--bg-card);
+  color: var(--text-heading);
+  border-color: var(--accent-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.stepper-nav-pill.is-done {
+  border-color: var(--accent-primary);
+}
+
+.pill-number-badge {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--bg-inset);
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border: 1px solid var(--border-subtle);
+}
+
+.stepper-nav-pill.is-active .pill-number-badge {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+}
+
+.stepper-nav-pill.is-done .pill-number-badge {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+}
+
+.stepper-focused-card,
+.stepper-continuous-item {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.stepper-continuous-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.stepper-card-header {
+  padding: 1.15rem 1.35rem;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.stepper-card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.stepper-card-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.3rem;
+  background: var(--bg-inset);
+  color: var(--accent-primary);
+  border: 1px solid var(--border-subtle);
+}
+
+.stepper-card-heading {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  letter-spacing: -0.01em;
+}
+
+.stepper-card-check-btn {
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.45rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all 0.15s ease;
+}
+
+.stepper-card-check-btn:hover {
+  border-color: var(--accent-primary);
+  color: var(--text-heading);
+}
+
+.stepper-card-check-btn.is-checked {
+  background: var(--bg-inset);
+  border-color: var(--accent-primary);
+  color: var(--text-heading);
+}
+
+.stepper-check-box {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stepper-card-check-btn.is-checked .stepper-check-box {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: #ffffff;
+}
+
+.stepper-card-body {
+  padding: 1.35rem 1.5rem;
+  color: var(--text-base);
+  font-size: 0.925rem;
+  line-height: 1.6;
+}
+
+.stepper-card-body p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.stepper-card-body p:last-child {
+  margin-bottom: 0;
+}
+
+.stepper-card-footer {
+  padding: 1rem 1.35rem;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.stepper-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.825rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.stepper-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.stepper-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 
 
 

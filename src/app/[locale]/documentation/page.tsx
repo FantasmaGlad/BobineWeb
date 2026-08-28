@@ -6,7 +6,7 @@ import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
 import DownloadPdfButton from "@/components/DownloadPdfButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
-import QuickInstallSnippet from "@/components/QuickInstallSnippet";
+import InteractiveTerminal from "@/components/InteractiveTerminal";
 
 const copy = {
   fr: {
@@ -165,9 +165,13 @@ export default async function DocumentationIndexPage({
             </div>
           </div>
 
-          {/* Encart Commande d'installation rapide en 1 ligne */}
-          <div style={{ marginTop: "1.5rem" }}>
-            <QuickInstallSnippet locale={locale as Locale} />
+          {/* Démonstration terminal interactive avec commande et sélection d'options */}
+          <div style={{ marginTop: "1.75rem" }}>
+            <InteractiveTerminal
+              locale={locale as Locale}
+              preset="installer"
+              title={locale === "en" ? "bash — bobine bootstrap playground" : "bash — démonstrateur d'installation bobine"}
+            />
           </div>
         </div>
       </section>

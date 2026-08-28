@@ -68,6 +68,7 @@ export default function ComparatifNav({ locale, currentTitle }: ComparatifNavPro
           gap: "0.75rem",
           paddingTop: "1rem",
           paddingBottom: "0.75rem",
+          borderBottom: "1px solid var(--border-subtle)",
         }}
       >
         <nav aria-label="Breadcrumb" style={{ fontSize: "0.835rem", color: "var(--text-muted)", display: "flex", alignItems: "center", gap: "0.4rem", flexWrap: "wrap" }}>
@@ -102,43 +103,6 @@ export default function ComparatifNav({ locale, currentTitle }: ComparatifNavPro
           description={isEn ? "Bobine gym video playout comparison" : "Comparatif régie vidéo fitness Bobine"}
         />
       </div>
-
-      {/* Barre d'onglets de navigation rapide entre comparatifs */}
-      <nav
-        aria-label="Navigation des comparatifs"
-        style={{
-          display: "flex",
-          gap: "0.4rem",
-          overflowX: "auto",
-          paddingBottom: "0.5rem",
-          borderBottom: "1px solid var(--border-subtle)",
-          WebkitOverflowScrolling: "touch",
-        }}
-      >
-        {navItems.map((item) => {
-          const isActive = pathname === item.href;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              style={{
-                fontSize: "0.835rem",
-                fontWeight: isActive ? 700 : 500,
-                padding: "0.4rem 0.85rem",
-                borderRadius: "0.45rem",
-                textDecoration: "none",
-                whiteSpace: "nowrap",
-                background: isActive ? "var(--accent-subtle)" : "transparent",
-                color: isActive ? "var(--accent-primary)" : "var(--text-muted)",
-                border: isActive ? "1px solid var(--border-vibrant)" : "1px solid transparent",
-                transition: "all 0.15s ease",
-              }}
-            >
-              {item.label}
-            </Link>
-          );
-        })}
-      </nav>
     </div>
   );
 }

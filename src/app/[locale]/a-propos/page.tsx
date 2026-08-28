@@ -98,9 +98,6 @@ export default async function AboutPage({
       <main style={{ display: "flex", flexDirection: "column" }}>
         {/* Section 1 : Le Pourquoi */}
         <section style={{ paddingBlock: "2.5rem", borderBottom: "1px solid var(--border-subtle)" }}>
-          <span className="badge" style={{ fontSize: "0.725rem", padding: "0.15rem 0.5rem", marginBottom: "0.85rem", display: "inline-block" }}>
-            {isEn ? "Origins & Mission" : "Origines & Mission"}
-          </span>
           <h2 style={{ fontSize: "1.45rem", fontWeight: 700, color: "var(--text-heading)", margin: "0 0 0.85rem 0" }}>
             {isEn ? "The \"Why\": Ending the Proprietary Playout Royalty" : "Le Pourquoi : En finir avec la rente des régies fermées"}
           </h2>
@@ -120,9 +117,6 @@ export default async function AboutPage({
 
         {/* Section 2 : Les Piliers Fondateurs */}
         <section style={{ paddingBlock: "2.5rem", borderBottom: "1px solid var(--border-subtle)" }}>
-          <span className="badge" style={{ fontSize: "0.725rem", padding: "0.15rem 0.5rem", marginBottom: "0.85rem", display: "inline-block" }}>
-            {isEn ? "Core Values" : "Piliers Fondateurs"}
-          </span>
           <h2 style={{ fontSize: "1.45rem", fontWeight: 700, color: "var(--text-heading)", margin: "0 0 1.25rem 0" }}>
             {isEn ? "Frugality, Local-First Autonomy & Digital Commons" : "Frugalité, Autonomie Hors-Ligne & Communs Numériques"}
           </h2>
@@ -165,9 +159,6 @@ export default async function AboutPage({
 
         {/* Section 3 : Identité & Direction Artistique */}
         <section style={{ paddingBlock: "2.5rem", borderBottom: "1px solid var(--border-subtle)" }}>
-          <span className="badge" style={{ fontSize: "0.725rem", padding: "0.15rem 0.5rem", marginBottom: "0.85rem", display: "inline-block" }}>
-            {isEn ? "Brand & Art Direction" : "Identité & Direction Artistique"}
-          </span>
           <h2 style={{ fontSize: "1.45rem", fontWeight: 700, color: "var(--text-heading)", margin: "0 0 1rem 0" }}>
             {isEn ? "Cinema Craftsmanship & The Mascot Baamix" : "L'Artisanat Cinéma & La Mascotte Baamix"}
           </h2>
@@ -175,29 +166,26 @@ export default async function AboutPage({
             <p style={{ margin: 0 }}>
               <strong>{isEn ? "The Name « Bobine » : " : "Le Nom « Bobine » : "}</strong>
               {isEn
-                ? "A direct tribute to classic 35mm film reels and mechanical precision. Like an authentic projection room, Bobine guarantees continuous, reliable, and uncompromised playback."
-                : "Un hommage à la bobine de film 35mm et à la mécanique de précision. Une régie cinéma robuste qui déroule les cours avec fluidité et endurance."}
+                ? "A tribute to 35mm film reels and to Bobine, my grandmother's dog."
+                : "Un hommage à la bobine de film 35mm et à Bobine la chienne de ma grand-mère."}
             </p>
             <p style={{ margin: 0 }}>
               <strong>{isEn ? "The Mascot « Baamix » : " : "La Mascotte « Baamix » : "}</strong>
               {isEn
-                ? "A nimble, determined white hamster. Embodying athletic stamina, resourcefulness, and friendly independence, Baamix represents the spirited drive of independent gym communities."
-                : "Un petit hamster blanc agile, vif et infatigable. Il incarne l'endurance des sportifs, l'ingéniosité des architectures locales et la liberté face aux monopoles du cloud."}
+                ? "My little white hamster who got me into computing in 2024 when I created a game in his likeness."
+                : "Mon petit Hamster Blanc qui m'a lancé dans le monde de l'informatique en 2024 pour lui créer un jeu à son effigie."}
             </p>
             <p style={{ margin: 0 }}>
               <strong>{isEn ? "Visual Discipline : " : "Épure Visuelle : "}</strong>
               {isEn
-                ? "A dark cinema atmosphere, 18 dual-tone accessible themes, delicate hairline dividers, vector wireframe icons, and strictly zero emojis across all interfaces."
-                : "Une atmosphère studio cinéma sombre, 18 thèmes bicolores contrastés, des lignes fines de séparation, des icônes filaires vectorielles soignées et zéro emoji."}
+                ? "A dark cinema studio atmosphere, 18 contrasted dual-tone themes. An iconic logo."
+                : "Une atmosphère studio cinéma sombre, 18 thèmes bicolores contrastés. Un logo iconique."}
             </p>
           </div>
         </section>
 
         {/* Section 4 : L'Auteur & Gouvernance */}
         <section style={{ paddingBlock: "2.5rem" }}>
-          <span className="badge" style={{ fontSize: "0.725rem", padding: "0.15rem 0.5rem", marginBottom: "0.85rem", display: "inline-block" }}>
-            {isEn ? "Author & Governance" : "Auteur & Gouvernance"}
-          </span>
           <h2 style={{ fontSize: "1.45rem", fontWeight: 700, color: "var(--text-heading)", margin: "0 0 0.85rem 0" }}>
             {isEn ? "Created by Clément Barillot (FantasmaGlad)" : "Développé par Clément Barillot (FantasmaGlad)"}
           </h2>

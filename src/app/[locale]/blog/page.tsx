@@ -75,106 +75,112 @@ export default async function BlogIndexPage({
     <div className="container" style={{ maxWidth: "60rem" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
-      {/* 1. Hero Section — Plein écran propre sur Desktop et Mobile */}
+      {/* 1. Hero Section — Plein écran avec la dernière release en vedette */}
       <section className="hero-fullscreen">
         <div>
-          <span className="feature-category-label" style={{ marginBottom: "0.75rem", display: "inline-block" }}>
+          <span className="feature-category-label" style={{ marginBottom: "0.5rem", display: "inline-block" }}>
             {t.badge}
           </span>
 
-          <h1 className="hero-fullscreen__title">
+          <h1 className="hero-fullscreen__title" style={{ marginBottom: "0.5rem" }}>
             {t.title}
           </h1>
 
-          <p className="hero-fullscreen__subtitle">
+          <p className="hero-fullscreen__subtitle" style={{ marginBottom: "1.5rem" }}>
             {t.intro}
           </p>
+
+          {/* DERNIÈRE RELEASE MAJEURE EN GROS DANS LE HERO */}
+          {latestRelease && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.85rem",
+                maxWidth: "52rem",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
+                <span
+                  className="badge"
+                  style={{
+                    fontSize: "0.85rem",
+                    padding: "0.25rem 0.65rem",
+                    fontWeight: 800,
+                    fontFamily: "monospace",
+                    color: "var(--accent-primary)",
+                    borderColor: "var(--accent-primary)",
+                  }}
+                >
+                  {latestRelease.slug}
+                </span>
+                {latestRelease.publishedAt && (
+                  <time style={{ color: "var(--text-dim)", fontSize: "0.85rem", fontWeight: 500 }}>
+                    {new Date(latestRelease.publishedAt).toLocaleDateString(
+                      locale === "fr" ? "fr-FR" : "en-US",
+                      { year: "numeric", month: "long", day: "numeric" }
+                    )}
+                  </time>
+                )}
+              </div>
+
+              <h2 style={{ fontSize: "clamp(1.35rem, 2.8vw, 1.85rem)", fontWeight: 800, color: "var(--text-heading)", margin: 0, lineHeight: 1.25 }}>
+                <Link
+                  href={`/${locale}/blog/${encodeURIComponent(latestRelease.slug)}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  {latestRelease.title}
+                </Link>
+              </h2>
+
+              {latestRelease.slug.startsWith("V2.0.1") || latestRelease.slug.startsWith("v2.0.1") ? (
+                <ul style={{ margin: 0, paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.925rem", lineHeight: 1.6 }}>
+                  <li>{locale === "en" ? "Full hardware video acceleration for both Intel QuickSync (iHD) and AMD Radeon (mesa-va-drivers) under 8% CPU" : "Accélération matérielle complète pour Intel QuickSync (iHD) et AMD Radeon (mesa-va-drivers) sous 8% CPU"}</li>
+                  <li>{locale === "en" ? "New 1-line auto-installer (curl -sSL https://bobine.fit/install.sh | bash) with clean & verbose (-v) modes" : "Nouvel installateur automatique en 1 ligne (curl -sSL https://bobine.fit/install.sh | bash) avec modes épuré et verbeux (-v)"}</li>
+                  <li>{locale === "en" ? "Smart update handling for existing directories without conflicts, auto hardware driver setup" : "Gestion intelligente des mises à jour des dossiers existants sans collision et installation automatique des pilotes"}</li>
+                </ul>
+              ) : (
+                <ul style={{ margin: 0, paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.925rem", lineHeight: 1.6 }}>
+                  <li>{locale === "en" ? "Full MPV video playback with Intel QuickSync & VA-API hardware decoding" : "Moteur vidéo MPV avec décodage matériel Intel QuickSync et VA-API (moins de 8% CPU)"}</li>
+                  <li>{locale === "en" ? "Automated TV power on/off scheduling via HDMI-CEC signals" : "Allumage et extinction automatique des téléviseurs via protocole HDMI-CEC"}</li>
+                  <li>{locale === "en" ? "On-demand member touch kiosk and instant smartphone remote via local QR code" : "Borne tactile membre à la demande & télécommande smartphone via QR code local"}</li>
+                </ul>
+              )}
+
+              <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center", marginTop: "0.25rem" }}>
+                <Link
+                  href={`/${locale}/blog/${encodeURIComponent(latestRelease.slug)}`}
+                  className="btn-primary"
+                  style={{ textDecoration: "none" }}
+                >
+                  <span>{t.readMore}</span>
+                </Link>
+                <a
+                  href={latestRelease.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-secondary"
+                  style={{ textDecoration: "none" }}
+                >
+                  <GitHubIcon size={16} />
+                  <span>{t.viewOnGithub}</span>
+                </a>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="hero-fullscreen__scroll">
-          <span>{locale === "en" ? "Scroll down to explore" : "Défiler pour découvrir"}</span>
+          <span>{locale === "en" ? "Scroll down to explore older releases" : "Défiler pour découvrir les anciennes Release"}</span>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polyline points="6 9 12 15 18 9" />
           </svg>
         </div>
       </section>
 
-      {/* 2. Dernière Version Majeure & Historique des Versions */}
-      <div style={{ paddingTop: "2rem", paddingBottom: "3rem" }}>
-        {latestRelease ? (
-          <div style={{ marginBottom: "3rem" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem", marginBottom: "0.65rem" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <span className="badge" style={{ fontSize: "0.75rem", padding: "0.15rem 0.55rem" }}>
-                  {t.featuredReleaseBadge}
-                </span>
-                <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-heading)", fontFamily: "monospace" }}>
-                  {latestRelease.slug}
-                </span>
-              </div>
-              {latestRelease.publishedAt && (
-                <time style={{ color: "var(--text-dim)", fontSize: "0.825rem", fontWeight: 500 }}>
-                  {new Date(latestRelease.publishedAt).toLocaleDateString(
-                    locale === "fr" ? "fr-FR" : "en-US",
-                    { year: "numeric", month: "long", day: "numeric" }
-                  )}
-                </time>
-              )}
-            </div>
-
-            <h2 style={{ fontSize: "clamp(1.25rem, 2.4vw, 1.65rem)", fontWeight: 800, color: "var(--text-heading)", margin: "0 0 0.65rem 0", lineHeight: 1.3 }}>
-              <Link
-                href={`/${locale}/blog/${encodeURIComponent(latestRelease.slug)}`}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                {latestRelease.title}
-              </Link>
-            </h2>
-
-            {latestRelease.slug.startsWith("V2.0.1") || latestRelease.slug.startsWith("v2.0.1") ? (
-              <ul style={{ margin: "0 0 1.25rem 0", paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.9rem", lineHeight: 1.6 }}>
-                <li>{locale === "en" ? "Full hardware video acceleration for both Intel QuickSync (iHD) and AMD Radeon (mesa-va-drivers) under 8% CPU" : "Accélération matérielle complète pour Intel QuickSync (iHD) et AMD Radeon (mesa-va-drivers) sous 8% CPU"}</li>
-                <li>{locale === "en" ? "New 1-line auto-installer (curl -sSL https://bobine.fit/install.sh | bash) with clean & verbose (-v) modes" : "Nouvel installateur automatique en 1 ligne (curl -sSL https://bobine.fit/install.sh | bash) avec modes épuré et verbeux (-v)"}</li>
-                <li>{locale === "en" ? "Smart update handling for existing directories without conflicts, auto hardware driver setup" : "Gestion intelligente des mises à jour des dossiers existants sans collision et installation automatique des pilotes"}</li>
-                <li>{locale === "en" ? "Official links to web documentation, 3D interactive studio demo, and Ko-fi community support" : "Liens officiels vers la documentation web, la démo 3D interactive et le soutien communautaire Ko-fi"}</li>
-              </ul>
-            ) : (
-              <ul style={{ margin: "0 0 1.25rem 0", paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.9rem", lineHeight: 1.6 }}>
-                <li>{locale === "en" ? "Full MPV video playback with Intel QuickSync & VA-API hardware decoding" : "Moteur vidéo MPV avec décodage matériel Intel QuickSync et VA-API (moins de 8% CPU)"}</li>
-                <li>{locale === "en" ? "Automated TV power on/off scheduling via HDMI-CEC signals" : "Allumage et extinction automatique des téléviseurs via protocole HDMI-CEC"}</li>
-                <li>{locale === "en" ? "On-demand member touch kiosk and instant smartphone remote via local QR code" : "Borne tactile membre à la demande & télécommande smartphone via QR code local"}</li>
-                <li>{locale === "en" ? "24/7 background plateau music radio with seamless gapless crossfading" : "Radio d'ambiance plateau 24/7 avec fondu musical sans aucun blanc sonore"}</li>
-              </ul>
-            )}
-
-            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
-              <Link
-                href={`/${locale}/blog/${encodeURIComponent(latestRelease.slug)}`}
-                className="btn-primary"
-                style={{ textDecoration: "none" }}
-              >
-                <span>{t.readMore}</span>
-              </Link>
-              <a
-                href={latestRelease.url}
-                target="_blank"
-                rel="noreferrer"
-                className="btn-secondary"
-                style={{ textDecoration: "none" }}
-              >
-                <GitHubIcon size={16} />
-                <span>{t.viewOnGithub}</span>
-              </a>
-            </div>
-          </div>
-        ) : (
-          <p style={{ color: "var(--text-muted)" }}>{t.empty}</p>
-        )}
-      </div>
-
-      {/* HISTORIQUE DES VERSIONS / RELEASES GITHUB */}
+      {/* 2. HISTORIQUE DES ANCIENNES VERSIONS / RELEASES GITHUB */}
       {releases.length > 1 && (
-        <div style={{ paddingTop: "2rem" }}>
+        <div style={{ paddingTop: "2rem", paddingBottom: "4rem" }}>
           <div style={{ marginBottom: "0.85rem", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "0.4rem" }}>
             <h2 style={{ fontSize: "1.15rem", fontWeight: 700, color: "var(--text-heading)", margin: 0 }}>
               {t.releasesHeading}

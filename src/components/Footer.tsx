@@ -49,9 +49,6 @@ export default function Footer({
                 ? "The free, self-hosted, 100% offline video playout and gym streaming system."
                 : "La régie vidéo et système de streaming libre, auto-hébergé et 100% hors-ligne pour salles de sport."}
             </p>
-            <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 600 }}>
-              {dict.footer.tagline}
-            </span>
           </div>
 
           {/* Colonne 2 : Navigation */}

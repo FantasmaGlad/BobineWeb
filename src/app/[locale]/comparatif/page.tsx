@@ -181,18 +181,31 @@ export default async function ComparatifHubPage({
 
   return (
     <>
-      {/* En-tête aéré */}
-      <header style={{ paddingTop: "1rem", paddingBottom: "2rem", maxWidth: "800px" }}>
-        <span className="feature-category-label">{data.badge}</span>
-        <h1 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.75rem)", fontWeight: 800, marginTop: "0.75rem", marginBottom: "1rem", color: "var(--text-heading)", lineHeight: 1.2 }}>
-          {data.title}
-        </h1>
-        <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", lineHeight: 1.6, margin: 0 }}>
-          {data.subtitle}
-        </p>
-      </header>
+      {/* 1. Hero Section — Plein écran propre sur Desktop et Mobile */}
+      <section className="hero-fullscreen" style={{ minHeight: "calc(100dvh - 11rem)" }}>
+        <div>
+          <span className="feature-category-label" style={{ marginBottom: "0.75rem", display: "inline-block" }}>
+            {data.badge}
+          </span>
 
-      {/* Grille 2x2 parfaitement équilibrée sans boîte-dans-une-boîte */}
+          <h1 className="hero-fullscreen__title">
+            {data.title}
+          </h1>
+
+          <p className="hero-fullscreen__subtitle">
+            {data.subtitle}
+          </p>
+        </div>
+
+        <div className="hero-fullscreen__scroll">
+          <span>{locale === "en" ? "Scroll down to explore" : "Défiler pour découvrir"}</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
+      </section>
+
+      {/* 2. Grille 2x2 des études comparatives */}
       <div
         style={{
           display: "grid",

@@ -14,7 +14,7 @@ export default async function ComparatifLayout({
   if (!isLocale(locale)) notFound();
 
   return (
-    <div className="container" style={{ paddingBottom: "4rem" }}>
+    <div className="container" style={{ paddingBottom: "2rem" }}>
       <ComparatifNav locale={locale as Locale} />
       {children}
     </div>

@@ -1030,7 +1030,7 @@ img {
 .site-footer__inner {
   max-width: var(--max-width);
   margin-inline: auto;
-  padding: 2.5rem clamp(1rem, 3vw, 1.75rem) 1.5rem;
+  padding: 1.25rem clamp(1rem, 3vw, 1.75rem) 0.85rem;
   display: flex;
   flex-direction: column;
   color: var(--text-muted);

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
+import ComparisonTable from "@/components/ComparisonTable";
 
 export async function generateMetadata({
   params,
@@ -265,6 +266,11 @@ export default async function ComparatifHubPage({
             </Link>
           </article>
         ))}
+      </div>
+
+      {/* Tableau comparatif détaillé complet */}
+      <div style={{ marginTop: "3.5rem" }}>
+        <ComparisonTable locale={locale as Locale} />
       </div>
     </>
   );

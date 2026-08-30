@@ -47,10 +47,10 @@ export default function Header({
         <div className="site-header__inner">
           <Link href={`/${locale}`} className="site-header__brand" aria-label="Bobine - Accueil">
             <Image
-              src="/logo-bobine.png"
+              src="/logo_bobine_entier.png"
               alt="Bobine"
-              width={155}
-              height={56}
+              width={160}
+              height={90}
               priority
               style={{ filter: "var(--logo-filter)" }}
             />

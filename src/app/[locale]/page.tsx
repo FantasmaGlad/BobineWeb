@@ -5,9 +5,6 @@ import { isLocale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 import GitHubIcon from "@/components/icons/GitHubIcon";
 import TerminalDemo from "@/components/TerminalDemo";
-import ProfileTabs from "@/components/ProfileTabs";
-import ComparisonTable from "@/components/ComparisonTable";
-import HardwareDiagram from "@/components/HardwareDiagram";
 
 const copy = {
   fr: {
@@ -142,15 +139,6 @@ export default async function HomePage({
       <section className="terminal-section" style={{ marginBlock: "1rem 3.5rem" }}>
         <TerminalDemo locale={locale as Locale} />
       </section>
-
-      {/* 3. Les 3 Profils — Onglets Interactifs */}
-      <ProfileTabs locale={locale as Locale} />
-
-      {/* 4. Tableau Comparatif Détaillé */}
-      <ComparisonTable locale={locale as Locale} />
-
-      {/* 5. Schéma Matériel (Installation 3 câbles) */}
-      <HardwareDiagram locale={locale as Locale} />
     </div>
   );
 }

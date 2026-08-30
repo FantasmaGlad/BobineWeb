@@ -2714,13 +2714,22 @@ main {
 
 .terminal-ascii-art {
   margin: 0;
-  font-family: "SF Mono", Monaco, "Cascadia Code", Consolas, monospace;
-  font-size: clamp(0.36rem, 0.65vw, 0.65rem);
-  line-height: 1.06;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: clamp(0.32rem, 0.62vw, 0.65rem);
+  line-height: 1.05;
   letter-spacing: 0;
   color: #ffffff;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
-  white-space: pre;
+  white-space: pre !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0;
   user-select: all;
 }
 

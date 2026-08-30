@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import Link from "next/link";
-import GitHubIcon from "@/components/icons/GitHubIcon";
-import ShareButton from "@/components/ShareButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import { buildMetadata } from "@/lib/seo";
 
@@ -52,50 +50,37 @@ export default async function AboutPage({
   ];
 
   return (
-    <div className="container" style={{ paddingBottom: "5rem", maxWidth: "56rem" }}>
+    <div className="container" style={{ maxWidth: "56rem" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
-      {/* En-tête aéré et épuré */}
-      <header style={{ paddingTop: "2.5rem", paddingBottom: "2.25rem", borderBottom: "1px solid var(--border-subtle)" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem", marginBottom: "0.85rem" }}>
-          <span className="feature-category-label">
+      {/* 1. Hero Section — Plein écran propre sur Desktop et Mobile */}
+      <section className="hero-fullscreen">
+        <div>
+          <span className="feature-category-label" style={{ marginBottom: "0.75rem", display: "inline-block" }}>
             {isEn ? "Manifesto, Identity & Author" : "Manifeste, Identité & Auteur"}
           </span>
-          <ShareButton
-            locale={locale as Locale}
-            pathname="/a-propos"
-            title={isEn ? "About Bobine & Manifesto" : "À Propos de Bobine & Manifeste"}
-            description={isEn ? "The open-source story, values, and identity behind Bobine." : "L'histoire, les valeurs libres et l'identité de Bobine."}
-          />
+
+          <h1 className="hero-fullscreen__title">
+            {isEn ? "The Story, Manifesto & Commitments behind Bobine" : "L'Histoire, le Manifeste et les Engagements de Bobine"}
+          </h1>
+
+          <p className="hero-fullscreen__subtitle">
+            {isEn
+              ? "Bobine is a free, local-first cinema playout suite engineered to emancipate gym owners, fitness studios, hotels, and independent trainers from proprietary subscription lock-in."
+              : "Bobine est une suite logicielle libre et autonome créée pour affranchir les gérants de salle, studios de fitness, hôtels et coachs indépendants de la rente des régies vidéo propriétaires."}
+          </p>
         </div>
 
-        <h1 style={{ fontSize: "clamp(2rem, 4vw, 2.85rem)", fontWeight: 800, color: "var(--text-heading)", lineHeight: 1.15, margin: "0 0 1.15rem 0", letterSpacing: "-0.02em" }}>
-          {isEn ? "The Story, Manifesto & Commitments behind Bobine" : "L'Histoire, le Manifeste et les Engagements de Bobine"}
-        </h1>
-        <p style={{ fontSize: "1.125rem", color: "var(--text-muted)", lineHeight: 1.65, margin: 0, maxWidth: "48rem" }}>
-          {isEn
-            ? "Bobine is a free, local-first cinema playout suite engineered to emancipate gym owners, fitness studios, hotels, and independent trainers from proprietary subscription lock-in."
-            : "Bobine est une suite logicielle libre et autonome créée pour affranchir les gérants de salle, studios de fitness, hôtels et coachs indépendants de la rente des régies vidéo propriétaires."}
-        </p>
-
-        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center", marginTop: "1.75rem" }}>
-          <Link className="btn-primary" href={`/${locale}/documentation`}>
-            {isEn ? "Get Started & Documentation" : "Démarrage & Documentation"}
-          </Link>
-          <a
-            className="btn-secondary"
-            href="https://github.com/FantasmaGlad/Bobine"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <GitHubIcon size={16} />
-            {isEn ? "Source Code on GitHub (AGPL-3.0)" : "Code source sur GitHub (AGPL-3.0)"}
-          </a>
+        <div className="hero-fullscreen__scroll">
+          <span>{locale === "en" ? "Scroll down to explore" : "Défiler pour découvrir"}</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
         </div>
-      </header>
+      </section>
 
       {/* Sections ouvertes avec délimitations de lignes fines (zéro syndrome box-in-a-box) */}
-      <main style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{ display: "flex", flexDirection: "column", paddingBottom: "3rem" }}>
         {/* Section 1 : Le Pourquoi */}
         <section style={{ paddingBlock: "2.5rem", borderBottom: "1px solid var(--border-subtle)" }}>
           <h2 style={{ fontSize: "1.45rem", fontWeight: 700, color: "var(--text-heading)", margin: "0 0 0.85rem 0" }}>
@@ -204,7 +189,7 @@ export default async function AboutPage({
             </Link>
           </div>
         </section>
-      </main>
+      </div>
     </div>
   );
 }

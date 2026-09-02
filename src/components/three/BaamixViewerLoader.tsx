@@ -10,19 +10,10 @@ const BaamixViewer = dynamic(() => import("./BaamixViewer"), {
         width: "100%",
         maxWidth: "340px",
         height: "280px",
-        margin: "0 auto 1.5rem auto",
-        borderRadius: "1rem",
-        background: "var(--bg-surface)",
-        border: "1px solid var(--border-subtle)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "var(--text-muted)",
-        fontSize: "0.85rem",
+        margin: "0 auto 1.25rem auto",
+        background: "transparent",
       }}
-    >
-      Chargement de Baamix 3D…
-    </div>
+    />
   ),
 });
 

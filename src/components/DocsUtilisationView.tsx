@@ -44,17 +44,20 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           : "Maîtrisez chaque écran et outil de Bobine après son installation. Choisissez une rubrique ci-dessous ou parcourez l'ensemble du guide."}
       </p>
 
-      {/* Barre d'onglets segmentée épurée (Zéro Box-in-a-Box) */}
+      {/* Barre d'onglets segmentée épurée */}
       <div
         role="tablist"
         aria-label={isEn ? "Documentation sections" : "Sections de la documentation"}
         style={{
-          display: "flex",
+          display: "inline-flex",
           alignItems: "center",
-          gap: "0.5rem",
-          paddingBottom: "0.75rem",
+          gap: "0.35rem",
+          padding: "4px",
           marginBottom: "2rem",
-          borderBottom: "1px solid var(--border-subtle)",
+          background: "var(--bg-inset)",
+          border: "1px solid var(--border-subtle)",
+          borderRadius: "0.6rem",
+          maxWidth: "100%",
           overflowX: "auto",
           WebkitOverflowScrolling: "touch",
         }}
@@ -64,28 +67,29 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           role="tab"
           aria-selected={activeTab === "basics"}
           onClick={() => setActiveTab("basics")}
-          className="stepper-mode-btn"
           style={{
-            padding: "0.5rem 1rem",
-            borderRadius: "0.5rem",
-            fontSize: "0.875rem",
-            fontWeight: 700,
+            padding: "0.4rem 0.8rem",
+            borderRadius: "0.45rem",
+            fontSize: "0.825rem",
+            fontWeight: 600,
             cursor: "pointer",
-            background: activeTab === "basics" ? "var(--accent-primary)" : "var(--bg-surface)",
-            color: activeTab === "basics" ? "var(--accent-primary-fg)" : "var(--text-muted)",
-            border: `1px solid ${activeTab === "basics" ? "var(--accent-primary)" : "var(--border-subtle)"}`,
+            background: activeTab === "basics" ? "var(--bg-card)" : "transparent",
+            color: activeTab === "basics" ? "var(--text-heading)" : "var(--text-muted)",
+            border: activeTab === "basics" ? "1px solid var(--border-subtle)" : "1px solid transparent",
+            boxShadow: activeTab === "basics" ? "var(--shadow-sm)" : "none",
             transition: "all 0.15s ease",
             display: "inline-flex",
             alignItems: "center",
-            gap: "0.45rem",
+            gap: "0.4rem",
+            whiteSpace: "nowrap",
           }}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <rect x="2" y="3" width="20" height="14" rx="2" />
             <line x1="8" y1="21" x2="16" y2="21" />
             <line x1="12" y1="17" x2="12" y2="21" />
           </svg>
-          <span>{isEn ? "1. Basics & Fundamentals" : "1. Bases & Prise en main"}</span>
+          <span>{isEn ? "1. Basics & First Steps" : "1. Bases & Prise en main"}</span>
         </button>
 
         <button
@@ -93,26 +97,27 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           role="tab"
           aria-selected={activeTab === "features"}
           onClick={() => setActiveTab("features")}
-          className="stepper-mode-btn"
           style={{
-            padding: "0.5rem 1rem",
-            borderRadius: "0.5rem",
-            fontSize: "0.875rem",
-            fontWeight: 700,
+            padding: "0.4rem 0.8rem",
+            borderRadius: "0.45rem",
+            fontSize: "0.825rem",
+            fontWeight: 600,
             cursor: "pointer",
-            background: activeTab === "features" ? "var(--accent-primary)" : "var(--bg-surface)",
-            color: activeTab === "features" ? "var(--accent-primary-fg)" : "var(--text-muted)",
-            border: `1px solid ${activeTab === "features" ? "var(--accent-primary)" : "var(--border-subtle)"}`,
+            background: activeTab === "features" ? "var(--bg-card)" : "transparent",
+            color: activeTab === "features" ? "var(--text-heading)" : "var(--text-muted)",
+            border: activeTab === "features" ? "1px solid var(--border-subtle)" : "1px solid transparent",
+            boxShadow: activeTab === "features" ? "var(--shadow-sm)" : "none",
             transition: "all 0.15s ease",
             display: "inline-flex",
             alignItems: "center",
-            gap: "0.45rem",
+            gap: "0.4rem",
+            whiteSpace: "nowrap",
           }}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polygon points="5 3 19 12 5 21 5 3" />
           </svg>
-          <span>{isEn ? "2. Advanced Features" : "2. Fonctionnalités & Moteurs"}</span>
+          <span>{isEn ? "2. Features" : "2. Fonctionnalités"}</span>
         </button>
 
         <button
@@ -120,23 +125,24 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           role="tab"
           aria-selected={activeTab === "all"}
           onClick={() => setActiveTab("all")}
-          className="stepper-mode-btn"
           style={{
-            padding: "0.5rem 1rem",
-            borderRadius: "0.5rem",
-            fontSize: "0.875rem",
-            fontWeight: 700,
+            padding: "0.4rem 0.8rem",
+            borderRadius: "0.45rem",
+            fontSize: "0.825rem",
+            fontWeight: 600,
             cursor: "pointer",
-            background: activeTab === "all" ? "var(--accent-primary)" : "var(--bg-surface)",
-            color: activeTab === "all" ? "var(--accent-primary-fg)" : "var(--text-muted)",
-            border: `1px solid ${activeTab === "all" ? "var(--accent-primary)" : "var(--border-subtle)"}`,
+            background: activeTab === "all" ? "var(--bg-card)" : "transparent",
+            color: activeTab === "all" ? "var(--text-heading)" : "var(--text-muted)",
+            border: activeTab === "all" ? "1px solid var(--border-subtle)" : "1px solid transparent",
+            boxShadow: activeTab === "all" ? "var(--shadow-sm)" : "none",
             transition: "all 0.15s ease",
             display: "inline-flex",
             alignItems: "center",
-            gap: "0.45rem",
+            gap: "0.4rem",
+            whiteSpace: "nowrap",
           }}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="8" y1="6" x2="21" y2="6" />
             <line x1="8" y1="12" x2="21" y2="12" />
             <line x1="8" y1="18" x2="21" y2="18" />

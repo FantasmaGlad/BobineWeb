@@ -149,18 +149,13 @@ const TROUBLESHOOTING_ROWS = {
 export default function DocsFaqView({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const [mainTab, setMainTab] = useState<"faq" | "troubleshoot" | "all">("faq");
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [openIndexes, setOpenIndexes] = useState<Record<number, boolean>>({ 0: true, 1: true, 2: true, 3: true, 4: true, 5: true });
+  const [openIndexes, setOpenIndexes] = useState<Record<number, boolean>>({});
 
   const toggleQuestion = (idx: number) => {
     setOpenIndexes((prev) => ({ ...prev, [idx]: !prev[idx] }));
   };
 
   const faqList = FAQ_ITEMS[locale] || FAQ_ITEMS.fr;
-  const filteredFaq = selectedCategory === "all"
-    ? faqList
-    : faqList.filter((item) => item.category === selectedCategory);
-
   const troubleList = TROUBLESHOOTING_ROWS[locale] || TROUBLESHOOTING_ROWS.fr;
 
   return (
@@ -197,12 +192,15 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
         role="tablist"
         aria-label={isEn ? "FAQ Sections" : "Sections FAQ"}
         style={{
-          display: "flex",
+          display: "inline-flex",
           alignItems: "center",
-          gap: "0.5rem",
-          paddingBottom: "0.75rem",
+          gap: "0.35rem",
+          padding: "4px",
           marginBottom: "1.75rem",
-          borderBottom: "1px solid var(--border-subtle)",
+          background: "var(--bg-inset)",
+          border: "1px solid var(--border-subtle)",
+          borderRadius: "0.6rem",
+          maxWidth: "100%",
           overflowX: "auto",
           WebkitOverflowScrolling: "touch",
         }}
@@ -212,28 +210,29 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
           role="tab"
           aria-selected={mainTab === "faq"}
           onClick={() => setMainTab("faq")}
-          className="stepper-mode-btn"
           style={{
-            padding: "0.5rem 1rem",
-            borderRadius: "0.5rem",
-            fontSize: "0.875rem",
-            fontWeight: 700,
+            padding: "0.4rem 0.8rem",
+            borderRadius: "0.45rem",
+            fontSize: "0.825rem",
+            fontWeight: 600,
             cursor: "pointer",
-            background: mainTab === "faq" ? "var(--accent-primary)" : "var(--bg-surface)",
-            color: mainTab === "faq" ? "var(--accent-primary-fg)" : "var(--text-muted)",
-            border: `1px solid ${mainTab === "faq" ? "var(--accent-primary)" : "var(--border-subtle)"}`,
+            background: mainTab === "faq" ? "var(--bg-card)" : "transparent",
+            color: mainTab === "faq" ? "var(--text-heading)" : "var(--text-muted)",
+            border: mainTab === "faq" ? "1px solid var(--border-subtle)" : "1px solid transparent",
+            boxShadow: mainTab === "faq" ? "var(--shadow-sm)" : "none",
             transition: "all 0.15s ease",
             display: "inline-flex",
             alignItems: "center",
-            gap: "0.45rem",
+            gap: "0.4rem",
+            whiteSpace: "nowrap",
           }}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="12" cy="12" r="10" />
             <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
             <line x1="12" y1="17" x2="12.01" y2="17" />
           </svg>
-          <span>{isEn ? "1. Frequently Asked Questions" : "1. Questions Fréquemment Posées"}</span>
+          <span>{isEn ? "1. FAQ" : "1. FAQ"}</span>
         </button>
 
         <button
@@ -241,26 +240,27 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
           role="tab"
           aria-selected={mainTab === "troubleshoot"}
           onClick={() => setMainTab("troubleshoot")}
-          className="stepper-mode-btn"
           style={{
-            padding: "0.5rem 1rem",
-            borderRadius: "0.5rem",
-            fontSize: "0.875rem",
-            fontWeight: 700,
+            padding: "0.4rem 0.8rem",
+            borderRadius: "0.45rem",
+            fontSize: "0.825rem",
+            fontWeight: 600,
             cursor: "pointer",
-            background: mainTab === "troubleshoot" ? "var(--accent-primary)" : "var(--bg-surface)",
-            color: mainTab === "troubleshoot" ? "var(--accent-primary-fg)" : "var(--text-muted)",
-            border: `1px solid ${mainTab === "troubleshoot" ? "var(--accent-primary)" : "var(--border-subtle)"}`,
+            background: mainTab === "troubleshoot" ? "var(--bg-card)" : "transparent",
+            color: mainTab === "troubleshoot" ? "var(--text-heading)" : "var(--text-muted)",
+            border: mainTab === "troubleshoot" ? "1px solid var(--border-subtle)" : "1px solid transparent",
+            boxShadow: mainTab === "troubleshoot" ? "var(--shadow-sm)" : "none",
             transition: "all 0.15s ease",
             display: "inline-flex",
             alignItems: "center",
-            gap: "0.45rem",
+            gap: "0.4rem",
+            whiteSpace: "nowrap",
           }}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
           </svg>
-          <span>{isEn ? "2. Troubleshooting & Diagnostics" : "2. Dépannage & Diagnostics"}</span>
+          <span>{isEn ? "2. Troubleshooting" : "2. Dépannage"}</span>
         </button>
 
         <button
@@ -268,23 +268,24 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
           role="tab"
           aria-selected={mainTab === "all"}
           onClick={() => setMainTab("all")}
-          className="stepper-mode-btn"
           style={{
-            padding: "0.5rem 1rem",
-            borderRadius: "0.5rem",
-            fontSize: "0.875rem",
-            fontWeight: 700,
+            padding: "0.4rem 0.8rem",
+            borderRadius: "0.45rem",
+            fontSize: "0.825rem",
+            fontWeight: 600,
             cursor: "pointer",
-            background: mainTab === "all" ? "var(--accent-primary)" : "var(--bg-surface)",
-            color: mainTab === "all" ? "var(--accent-primary-fg)" : "var(--text-muted)",
-            border: `1px solid ${mainTab === "all" ? "var(--accent-primary)" : "var(--border-subtle)"}`,
+            background: mainTab === "all" ? "var(--bg-card)" : "transparent",
+            color: mainTab === "all" ? "var(--text-heading)" : "var(--text-muted)",
+            border: mainTab === "all" ? "1px solid var(--border-subtle)" : "1px solid transparent",
+            boxShadow: mainTab === "all" ? "var(--shadow-sm)" : "none",
             transition: "all 0.15s ease",
             display: "inline-flex",
             alignItems: "center",
-            gap: "0.45rem",
+            gap: "0.4rem",
+            whiteSpace: "nowrap",
           }}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="8" y1="6" x2="21" y2="6" />
             <line x1="8" y1="12" x2="21" y2="12" />
             <line x1="8" y1="18" x2="21" y2="18" />
@@ -296,7 +297,7 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
         </button>
       </div>
 
-      {/* SECTION 1 : QUESTIONS FRÉQUENTES AVEC FILTRES PAR THÈME */}
+      {/* SECTION 1 : QUESTIONS FRÉQUENTES */}
       {(mainTab === "faq" || mainTab === "all") && (
         <section style={{ marginBottom: "3rem" }}>
           {mainTab === "all" && (
@@ -307,39 +308,9 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
             </div>
           )}
 
-          {/* Filtres thématiques par boutons puces */}
-          <div style={{ display: "flex", gap: "0.45rem", flexWrap: "wrap", marginBottom: "1.5rem" }}>
-            {[
-              { id: "all", label: isEn ? "All Topics" : "Tous les thèmes" },
-              { id: "license", label: isEn ? "Free License & Cost" : "Gratuité & Licence" },
-              { id: "compare", label: isEn ? "vs Les Mills / Wexer" : "vs Les Mills & Wexer" },
-              { id: "offline", label: isEn ? "100% Offline Autonomy" : "100% Hors-Ligne" },
-              { id: "hardware", label: isEn ? "Mini PC Hardware" : "Matériel Mini PC" },
-            ].map((cat) => (
-              <button
-                key={cat.id}
-                type="button"
-                onClick={() => setSelectedCategory(cat.id)}
-                style={{
-                  padding: "0.35rem 0.75rem",
-                  borderRadius: "999px",
-                  fontSize: "0.8rem",
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  background: selectedCategory === cat.id ? "color-mix(in srgb, var(--accent-primary) 12%, var(--bg-surface))" : "var(--bg-surface)",
-                  color: selectedCategory === cat.id ? "var(--accent-primary)" : "var(--text-muted)",
-                  border: `1px solid ${selectedCategory === cat.id ? "var(--accent-primary)" : "var(--border-subtle)"}`,
-                  transition: "all 0.15s ease",
-                }}
-              >
-                {cat.label}
-              </button>
-            ))}
-          </div>
-
           {/* Liste épurée des questions/réponses sans boîte-dans-une-boîte */}
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            {filteredFaq.map((item, idx) => {
+            {faqList.map((item, idx) => {
               const isOpen = !!openIndexes[idx];
               return (
                 <article

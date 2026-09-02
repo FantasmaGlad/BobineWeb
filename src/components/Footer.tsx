@@ -79,16 +79,16 @@ export default function Footer({
               {isEn ? "Comparisons & Alternatives" : "Comparatifs & Alternatives"}
             </span>
             <Link href={`/${locale}/comparatif/les-mills-cinema`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
-              vs Les Mills Cinema
+              Les Mills Cinema
             </Link>
             <Link href={`/${locale}/comparatif/wexer-fitness-on-demand`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
-              vs Wexer & FOD
+              Wexer & FOD
             </Link>
             <Link href={`/${locale}/comparatif/radical-fitness-yako`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
-              vs Radical Fitness & Yako
+              Radical Fitness & Yako
             </Link>
             <Link href={`/${locale}/comparatif/affichage-dynamique-fitness`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
-              vs Affichage Dynamique
+              Affichage Dynamique
             </Link>
           </div>
 

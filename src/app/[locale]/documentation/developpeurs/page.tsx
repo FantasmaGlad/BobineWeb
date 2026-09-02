@@ -254,12 +254,6 @@ export default async function DeveloppeursPage({
       <p>
         Bobine is licensed under the <strong>AGPL-3.0</strong> copyleft license. We welcome contributions, bug reports, and hardware compatibility tests.
       </p>
-
-      <div className="docs-contact-box">
-        <div><strong>GitHub Repository</strong> — <a href="https://github.com/FantasmaGlad/Bobine" target="_blank" rel="noreferrer">github.com/FantasmaGlad/Bobine</a></div>
-        <div><strong>Discussions & Support</strong> — <a href="https://github.com/FantasmaGlad/Bobine/discussions" target="_blank" rel="noreferrer">GitHub Discussions</a></div>
-        <div><strong>Security & Bug Reports</strong> — Open an issue or contact the maintainers via GitHub.</div>
-      </div>
     </>
   ) : (
     <>
@@ -461,12 +455,6 @@ export default async function DeveloppeursPage({
       <p>
         Bobine est publié sous licence <strong>AGPL-3.0</strong>. Les contributions de code, rapports de bugs et retours d&apos;expérience matériel sont les bienvenus.
       </p>
-
-      <div className="docs-contact-box">
-        <div><strong>Dépôt GitHub</strong> — <a href="https://github.com/FantasmaGlad/Bobine" target="_blank" rel="noreferrer">github.com/FantasmaGlad/Bobine</a></div>
-        <div><strong>Discussions & Support</strong> — <a href="https://github.com/FantasmaGlad/Bobine/discussions" target="_blank" rel="noreferrer">Discussions GitHub</a></div>
-        <div><strong>Sécurité & Signalement</strong> — Ouvrez une issue ou contactez les mainteneurs sur GitHub.</div>
-      </div>
     </>
   );
 }

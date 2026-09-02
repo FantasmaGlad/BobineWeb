@@ -221,9 +221,6 @@ export default function MobileDrawer({
 
           {/* 4. Communauté & Légal — Tout en bas */}
           <div className="mobile-drawer-section" style={{ borderBottom: "none", paddingBottom: "1.25rem" }}>
-            <span className="mobile-drawer-section-title">
-              {isEn ? "Community & Legal" : "Communauté & Légal"}
-            </span>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem", alignItems: "center" }}>
               <div style={{ display: "flex", gap: "1.25rem", justifyContent: "center", alignItems: "center", fontSize: "0.8rem" }}>
                 <Link

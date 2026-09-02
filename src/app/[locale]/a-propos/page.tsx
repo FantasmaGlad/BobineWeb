@@ -174,20 +174,11 @@ export default async function AboutPage({
           <h2 style={{ fontSize: "1.45rem", fontWeight: 700, color: "var(--text-heading)", margin: "0 0 0.85rem 0" }}>
             {isEn ? "Created by Clément Barillot (FantasmaGlad)" : "Développé par Clément Barillot (FantasmaGlad)"}
           </h2>
-          <p style={{ color: "var(--text-base)", fontSize: "1rem", lineHeight: 1.7, margin: "0 0 1.5rem 0" }}>
+          <p style={{ color: "var(--text-base)", fontSize: "1rem", lineHeight: 1.7, margin: 0 }}>
             {isEn
               ? "Bobine is designed and maintained with passion as an independent open-source contribution to the fitness, sports, and digital sovereignty movements."
               : "Bobine est conçu et maintenu avec rigueur comme une contribution open-source pérenne au service des gérants de salle et des passionnés de sport."}
           </p>
-
-          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-            <Link className="btn-primary" href={`/${locale}/documentation`}>
-              {isEn ? "Read the Documentation" : "Accéder à la Documentation"}
-            </Link>
-            <Link className="btn-secondary" href={`/${locale}/comparatif`}>
-              {isEn ? "Compare with Proprietary Systems" : "Comparer avec les offres propriétaires"}
-            </Link>
-          </div>
         </section>
       </div>
     </div>

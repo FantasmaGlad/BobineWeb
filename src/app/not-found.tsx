@@ -1,29 +1,85 @@
 import Link from "next/link";
+import BaamixViewerLoader from "@/components/three/BaamixViewerLoader";
+import "./globals.css";
 
 export default function GlobalNotFound() {
   return (
-    <html lang="fr">
-      <body style={{ margin: 0, padding: 0, background: "#eef2ff", color: "#1e1b4b", fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" }}>
-        <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "2rem", textAlign: "center" }}>
-          <div style={{ fontSize: "3rem", fontWeight: 800, color: "#6366f1", marginBottom: "0.5rem", letterSpacing: "-0.04em" }}>404</div>
-          <h1 style={{ fontSize: "2rem", fontWeight: 800, margin: "0 0 0.5rem 0" }}>Page introuvable / Page Not Found</h1>
-          <p style={{ color: "#4f46e5", maxWidth: "32rem", margin: "0 0 1.5rem 0" }}>
-            La page demandée n&apos;existe pas. / The requested page does not exist.
-          </p>
-          <Link
-            href="/fr"
+    <html lang="fr" suppressHydrationWarning>
+      <head>
+        <title>404 · Page introuvable · Bobine</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('bobineweb-theme')||'clair';document.documentElement.setAttribute('data-theme',t);}catch(e){}})()`,
+          }}
+        />
+      </head>
+      <body>
+        <div
+          style={{
+            minHeight: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "2rem 1.5rem",
+            textAlign: "center",
+            boxSizing: "border-box",
+          }}
+        >
+          {/* Modèle 3D Baamix interactif 360° */}
+          <BaamixViewerLoader />
+
+          <span
             style={{
               display: "inline-block",
-              background: "#6366f1",
-              color: "#ffffff",
-              fontWeight: 600,
-              textDecoration: "none",
-              padding: "0.65rem 1.25rem",
-              borderRadius: "0.5rem",
+              fontSize: "0.8rem",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              color: "var(--accent-primary)",
+              background: "var(--accent-subtle)",
+              padding: "0.3rem 0.85rem",
+              borderRadius: "999px",
+              marginBottom: "0.75rem",
             }}
           >
-            Retour à l&apos;accueil / Go Home
-          </Link>
+            Erreur 404 · Page introuvable
+          </span>
+
+          <h1
+            style={{
+              fontSize: "clamp(1.75rem, 4vw, 2.35rem)",
+              fontWeight: 800,
+              color: "var(--text-heading)",
+              margin: "0 0 0.6rem 0",
+              lineHeight: 1.2,
+            }}
+          >
+            Page introuvable / Page Not Found
+          </h1>
+
+          <p
+            style={{
+              color: "var(--text-muted)",
+              maxWidth: "34rem",
+              margin: "0 0 1.75rem 0",
+              fontSize: "1rem",
+              lineHeight: 1.6,
+            }}
+          >
+            La page demandée n&apos;existe pas ou a été déplacée. / The requested page does not exist or has been moved.
+          </p>
+
+          <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
+            <Link href="/fr" className="btn-primary">
+              Retour à l&apos;accueil
+            </Link>
+            <Link href="/en" className="btn-secondary">
+              Go to English Home
+            </Link>
+          </div>
         </div>
       </body>
     </html>

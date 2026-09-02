@@ -1,28 +1,11 @@
 import Link from "next/link";
+import BaamixViewerLoader from "@/components/three/BaamixViewerLoader";
 
 export default function NotFound() {
   return (
     <div className="container" style={{ paddingBlock: "3rem", textAlign: "center", maxWidth: "42rem" }}>
-      {/* Mascotte Hamster stylisée endormie */}
-      <div
-        style={{
-          width: "90px",
-          height: "90px",
-          margin: "0 auto 1.5rem auto",
-          background: "var(--accent-subtle)",
-          border: "2px solid var(--accent-primary)",
-          borderRadius: "50%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "1.75rem",
-          fontWeight: 800,
-          color: "var(--accent-primary)",
-          boxShadow: "var(--shadow-card)",
-        }}
-      >
-        <span>404</span>
-      </div>
+      {/* Mascotte Hamster Baamix 3D manipulable en 360° */}
+      <BaamixViewerLoader />
 
       <span
         style={{

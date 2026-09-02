@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import ComparisonTable from "@/components/ComparisonTable";
 
 export async function generateMetadata({
   params,
@@ -182,7 +181,7 @@ export default async function ComparatifHubPage({
   return (
     <>
       {/* 1. Hero Section — Plein écran propre sur Desktop et Mobile */}
-      <section className="hero-fullscreen" style={{ minHeight: "calc(100dvh - 11rem)" }}>
+      <section className="hero-fullscreen" style={{ minHeight: "calc(100svh - 8.5rem)", paddingBottom: "2.5rem" }}>
         <div>
           <span className="feature-category-label" style={{ marginBottom: "0.75rem", display: "inline-block" }}>
             {data.badge}
@@ -279,11 +278,6 @@ export default async function ComparatifHubPage({
             </Link>
           </article>
         ))}
-      </div>
-
-      {/* Tableau comparatif détaillé complet */}
-      <div style={{ marginTop: "3.5rem" }}>
-        <ComparisonTable locale={locale as Locale} />
       </div>
     </>
   );

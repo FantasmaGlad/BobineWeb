@@ -31,41 +31,24 @@ export default function GlobalNotFound() {
           {/* Modèle 3D Baamix interactif 360° */}
           <BaamixViewerLoader />
 
-          <span
+          <h1
             style={{
-              display: "inline-block",
-              fontSize: "0.8rem",
+              fontSize: "clamp(1.5rem, 3.5vw, 2.1rem)",
               fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
-              color: "var(--accent-primary)",
-              background: "var(--accent-subtle)",
-              padding: "0.3rem 0.85rem",
-              borderRadius: "999px",
-              marginBottom: "0.75rem",
+              color: "var(--text-heading)",
+              margin: "0 0 0.6rem 0",
+              lineHeight: 1.25,
             }}
           >
             Erreur 404 · Page introuvable
-          </span>
-
-          <h1
-            style={{
-              fontSize: "clamp(1.75rem, 4vw, 2.35rem)",
-              fontWeight: 800,
-              color: "var(--text-heading)",
-              margin: "0 0 0.6rem 0",
-              lineHeight: 1.2,
-            }}
-          >
-            Page introuvable / Page Not Found
           </h1>
 
           <p
             style={{
               color: "var(--text-muted)",
               maxWidth: "34rem",
-              margin: "0 0 1.75rem 0",
-              fontSize: "1rem",
+              margin: "0 0 1.5rem 0",
+              fontSize: "0.95rem",
               lineHeight: 1.6,
             }}
           >
@@ -73,10 +56,28 @@ export default function GlobalNotFound() {
           </p>
 
           <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="/fr" className="btn-primary">
+            <Link
+              href="/fr"
+              className="btn-secondary"
+              style={{
+                padding: "0.5rem 1.15rem",
+                fontSize: "0.875rem",
+                fontWeight: 500,
+                borderRadius: "0.5rem",
+              }}
+            >
               Retour à l&apos;accueil
             </Link>
-            <Link href="/en" className="btn-secondary">
+            <Link
+              href="/en"
+              className="btn-secondary"
+              style={{
+                padding: "0.5rem 1.15rem",
+                fontSize: "0.875rem",
+                fontWeight: 500,
+                borderRadius: "0.5rem",
+              }}
+            >
               Go to English Home
             </Link>
           </div>

@@ -7,41 +7,24 @@ export default function NotFound() {
       {/* Mascotte Hamster Baamix 3D manipulable en 360° */}
       <BaamixViewerLoader />
 
-      <span
+      <h1
         style={{
-          display: "inline-block",
-          fontSize: "0.85rem",
+          fontSize: "clamp(1.5rem, 3.5vw, 2.1rem)",
           fontWeight: 700,
-          textTransform: "uppercase",
-          letterSpacing: "0.08em",
-          color: "var(--accent-primary)",
-          background: "var(--accent-subtle)",
-          padding: "0.25rem 0.75rem",
-          borderRadius: "2rem",
-          marginBottom: "0.75rem",
+          color: "var(--text-heading)",
+          marginBottom: "0.6rem",
+          lineHeight: 1.25,
         }}
       >
         Erreur 404 · Page introuvable
-      </span>
-
-      <h1
-        style={{
-          fontSize: "clamp(1.8rem, 4vw, 2.5rem)",
-          fontWeight: 800,
-          color: "var(--text-heading)",
-          marginBottom: "0.75rem",
-          lineHeight: 1.2,
-        }}
-      >
-        Page non trouvée
       </h1>
 
       <p
         style={{
           color: "var(--text-muted)",
-          fontSize: "1.05rem",
+          fontSize: "0.95rem",
           lineHeight: 1.6,
-          marginBottom: "2rem",
+          marginBottom: "1.75rem",
         }}
       >
         La ressource que vous recherchez semble introuvable ou a été déplacée. Vous pouvez reprendre votre navigation :
@@ -50,18 +33,45 @@ export default function NotFound() {
       <div
         style={{
           display: "flex",
-          gap: "0.85rem",
+          gap: "0.75rem",
           justifyContent: "center",
           flexWrap: "wrap",
         }}
       >
-        <Link href="/fr" className="btn-primary">
+        <Link
+          href="/fr"
+          className="btn-secondary"
+          style={{
+            padding: "0.5rem 1.15rem",
+            fontSize: "0.875rem",
+            fontWeight: 500,
+            borderRadius: "0.5rem",
+          }}
+        >
           Retour à l&apos;accueil
         </Link>
-        <Link href="/fr/documentation" className="btn-secondary">
+        <Link
+          href="/fr/documentation"
+          className="btn-secondary"
+          style={{
+            padding: "0.5rem 1.15rem",
+            fontSize: "0.875rem",
+            fontWeight: 500,
+            borderRadius: "0.5rem",
+          }}
+        >
           Guide d&apos;installation
         </Link>
-        <Link href="/fr/demo-3d" className="btn-secondary">
+        <Link
+          href="/fr/demo-3d"
+          className="btn-secondary"
+          style={{
+            padding: "0.5rem 1.15rem",
+            fontSize: "0.875rem",
+            fontWeight: 500,
+            borderRadius: "0.5rem",
+          }}
+        >
           Démo 3D
         </Link>
       </div>

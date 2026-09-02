@@ -76,7 +76,7 @@ export default async function BlogIndexPage({
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
       {/* 1. Hero Section — Plein écran avec la dernière release en vedette */}
-      <section className="hero-fullscreen">
+      <section className="hero-fullscreen blog-hero-section">
         <div>
           <span className="feature-category-label" style={{ marginBottom: "0.5rem", display: "inline-block" }}>
             {t.badge}
@@ -93,6 +93,7 @@ export default async function BlogIndexPage({
           {/* DERNIÈRE RELEASE MAJEURE EN GROS DANS LE HERO */}
           {latestRelease && (
             <div
+              className="blog-hero-release-card"
               style={{
                 display: "flex",
                 flexDirection: "column",

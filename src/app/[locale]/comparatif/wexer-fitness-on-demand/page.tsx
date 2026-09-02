@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
+import ShareButton from "@/components/ShareButton";
 
 export async function generateMetadata({
   params,
@@ -200,8 +201,25 @@ export default async function WexerComparisonPage({
     <>
       {/* En-tête */}
       <header style={{ paddingTop: "1rem", paddingBottom: "2rem", maxWidth: "860px" }}>
-        <span className="feature-category-label">{c.badge}</span>
-        <h1 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.75rem)", fontWeight: 800, marginTop: "0.75rem", marginBottom: "1rem", color: "var(--text-heading)", lineHeight: 1.2 }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "0.75rem",
+            flexWrap: "wrap",
+            marginBottom: "0.75rem",
+          }}
+        >
+          <span className="feature-category-label">{c.badge}</span>
+          <ShareButton
+            locale={locale as Locale}
+            pathname="/comparatif/wexer-fitness-on-demand"
+            title={c.title}
+            description={c.subtitle}
+          />
+        </div>
+        <h1 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.75rem)", fontWeight: 800, marginTop: "0.5rem", marginBottom: "1rem", color: "var(--text-heading)", lineHeight: 1.2 }}>
           {c.title}
         </h1>
         <p style={{ fontSize: "1.1rem", color: "var(--text-muted)", lineHeight: 1.6 }}>

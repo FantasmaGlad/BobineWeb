@@ -13,6 +13,7 @@ export default function ThemeSync() {
       const theme: Theme = stored && isTheme(stored) ? (stored as Theme) : defaultTheme;
       document.documentElement.setAttribute("data-theme", theme);
     } catch {}
+    window.scrollTo(0, 0);
   }, [pathname]);
 
   return null;

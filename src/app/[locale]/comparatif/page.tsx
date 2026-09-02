@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
+import ShareButton from "@/components/ShareButton";
 
 export async function generateMetadata({
   params,
@@ -183,9 +184,26 @@ export default async function ComparatifHubPage({
       {/* 1. Hero Section — Plein écran propre sur Desktop et Mobile */}
       <section className="hero-fullscreen" style={{ minHeight: "calc(100svh - 8.5rem)", paddingBottom: "2.5rem" }}>
         <div>
-          <span className="feature-category-label" style={{ marginBottom: "0.75rem", display: "inline-block" }}>
-            {data.badge}
-          </span>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: "0.75rem",
+              flexWrap: "wrap",
+              marginBottom: "0.85rem",
+            }}
+          >
+            <span className="feature-category-label" style={{ display: "inline-block" }}>
+              {data.badge}
+            </span>
+            <ShareButton
+              locale={locale as Locale}
+              pathname="/comparatif"
+              title={data.title}
+              description={data.subtitle}
+            />
+          </div>
 
           <h1 className="hero-fullscreen__title">
             {data.title}

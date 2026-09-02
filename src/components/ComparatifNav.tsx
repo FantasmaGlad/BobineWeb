@@ -54,6 +54,11 @@ export default function ComparatifNav({ locale, currentTitle }: ComparatifNavPro
       : []),
   ];
 
+  // Sur la page d'accueil du comparatif, ne pas afficher l'arborescence "Accueil / Comparatifs"
+  if (pathname === `/${locale}/comparatif`) {
+    return <BreadcrumbsJsonLd items={breadcrumbs} />;
+  }
+
   return (
     <div className="comparatif-nav-container" style={{ marginBottom: "1.5rem" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />

@@ -4932,22 +4932,46 @@ main {
   align-items: stretch;
 }
 
+.support-hero-viewport {
+  min-height: calc(100svh - 6.5rem);
+  min-height: calc(100dvh - 6.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(1.25rem, 2.5vh, 2.5rem);
+  box-sizing: border-box;
+}
+
 @media (max-width: 860px) {
   .support-hero-viewport {
     min-height: auto !important;
-    padding-block: 0.75rem 2.5rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 3rem !important;
   }
 
   .support-dual-grid {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 3.5rem;
   }
 
   .github-pr-card {
-    min-height: calc(100svh - 6.5rem);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    min-height: auto !important;
+    border-radius: 1rem;
+    border: 1px solid var(--border-subtle);
+    overflow: hidden;
+  }
+
+  .github-pr-card__header {
+    padding: 1rem 1.15rem !important;
+  }
+
+  .github-pr-card__body {
+    padding: 1.15rem !important;
+    gap: 0.85rem !important;
+  }
+
+  .github-pr-card__footer {
+    padding: 1rem 1.15rem !important;
   }
 }
 

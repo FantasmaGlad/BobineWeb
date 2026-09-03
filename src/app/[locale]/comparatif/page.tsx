@@ -183,7 +183,7 @@ export default async function ComparatifHubPage({
   return (
     <>
       {/* 1. Hero Section — Plein écran propre sur Desktop et Mobile */}
-      <section className="hero-fullscreen" style={{ minHeight: "calc(100svh - 8.5rem)", paddingBottom: "2.5rem" }}>
+      <section className="hero-fullscreen">
         <div>
           <div
             style={{

@@ -34,17 +34,7 @@ export default function SupportPage() {
       {/* =========================================================================
           1. ÉCRAN INITIAL SANS SCROLL : LES DEUX INTERFACES CÔTE À CÔTE
           ========================================================================= */}
-      <section
-        className="support-hero-viewport"
-        style={{
-          minHeight: "calc(100svh - 110px)",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          paddingBlock: "clamp(1.5rem, 3vh, 3rem)",
-          boxSizing: "border-box",
-        }}
-      >
+      <section className="support-hero-viewport">
         <div className="support-dual-grid">
           {/* =====================================================================
               COLONNE GAUCHE : Style GitHub Pull Request / Profil Maintainer

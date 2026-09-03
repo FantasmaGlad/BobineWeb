@@ -5,6 +5,7 @@ import { isLocale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 import GitHubIcon from "@/components/icons/GitHubIcon";
 import TerminalDemo from "@/components/TerminalDemo";
+import ScrollIndicator from "@/components/ScrollIndicator";
 
 const copy = {
   fr: {
@@ -127,12 +128,7 @@ export default async function HomePage({
           </div>
         </div>
 
-        <div className="hero-fullscreen__scroll">
-          <span>{locale === "en" ? "Scroll down to explore" : "Défiler pour découvrir"}</span>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </div>
+        <ScrollIndicator locale={locale as Locale} />
       </section>
 
       {/* 2. Démo Interactive du Terminal & Déploiement Linux */}

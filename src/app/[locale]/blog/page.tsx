@@ -6,6 +6,7 @@ import { getBobineReleases } from "@/lib/github-releases";
 import { buildMetadata } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import GitHubIcon from "@/components/icons/GitHubIcon";
+import ScrollIndicator from "@/components/ScrollIndicator";
 
 const copy = {
   fr: {
@@ -171,12 +172,10 @@ export default async function BlogIndexPage({
           )}
         </div>
 
-        <div className="hero-fullscreen__scroll">
-          <span>{locale === "en" ? "Scroll down to explore older releases" : "Défiler pour découvrir les anciennes Release"}</span>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </div>
+        <ScrollIndicator
+          locale={locale as Locale}
+          label={locale === "en" ? "Scroll down to explore older releases" : "Défiler pour découvrir les anciennes Release"}
+        />
       </section>
 
       {/* 2. HISTORIQUE DES ANCIENNES VERSIONS / RELEASES GITHUB */}

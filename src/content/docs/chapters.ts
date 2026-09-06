@@ -229,20 +229,22 @@ const fr: DocChapter[] = [
       "État réel des pistes d'extension de Bobine vers les tablettes tactiles, présenté sans survente : ce qui est à l'étude et ce qui reste une piste exploratoire.",
     subsections: [
       {
-        subtitle: "7.1 Android : étude de faisabilité en cours",
+        subtitle: "7.1 Android : étude de faisabilité pour tablettes tactiles",
         paragraphs: [
-          "Une étude technique explore l'embarquement du serveur Bobine (Python/FastAPI) directement dans une application Android via un pont Python-Java (Chaquopy), avec sortie vidéo déportée sur un second écran par l'API Presentation d'Android.",
-          "Cette piste est documentée en interne mais aucune application Android n'est publiée à ce jour : il s'agit d'une faisabilité à l'étude, sans date de disponibilité annoncée.",
+          "L'objectif est d'étendre la portabilité de Bobine vers des tablettes tactiles autonomes comme les Xiaomi Pad (Xiaomi Pad 6, 7 ou 8) et les tablettes équipées d'un port USB-C 3.2 supportant la sortie vidéo DisplayPort (ex. Samsung Galaxy Tab).",
+          "Une étude technique explore l'embarquement du serveur Bobine (Python/FastAPI) directement dans une application Android via un pont Python-Java (Chaquopy), avec sortie vidéo déportée vers le téléviseur ou vidéoprojecteur du studio par l'API Presentation d'Android.",
+          "Cette piste permettrait à une unique tablette murale de servir à la fois de pupitre coach tactile et de régie vidéo autonome, sans nécessiter de mini PC ou de serveur séparé. La faisabilité est à l'étude en interne, sans date de livraison engagée à ce stade.",
         ],
-        techChips: [{ icon: "smartphone", label: "Android / Chaquopy" }],
+        techChips: [{ icon: "smartphone", label: "Android / Chaquopy" }, { icon: "tablet", label: "Xiaomi Pad / USB-C DP" }],
       },
       {
-        subtitle: "7.2 iOS / iPadOS : piste explorée, non engagée",
+        subtitle: "7.2 iOS / iPadOS : piste explorée pour iPads avec sortie vidéo USB-C / Thunderbolt",
         paragraphs: [
-          "Contrairement à Android, iOS restreint fortement l'exécution de code serveur en arrière-plan, ce qui rend un portage direct plus complexe et non encore étudié techniquement côté Bobine.",
-          "Le support iPad reste donc une piste évoquée pour l'avenir, sans étude de faisabilité ni engagement de calendrier à ce stade.",
+          "Dans la même optique de portabilité tactile maximale, la piste iPadOS est envisagée pour les iPads dotés d'une sortie vidéo filaire directe, notamment les iPad Pro à puce Apple Silicon (M1, M2, M4) pourvus d'un port Thunderbolt / USB 4, ainsi que les iPad Air (M2) avec sortie DisplayPort sur USB-C.",
+          "Sur ce type d'appareil, un simple câble USB-C ou un dock permettrait d'alimenter la tablette tout en projetant le flux vidéo du cours sur le grand écran du studio, l'écran tactile de l'iPad restant dédié aux commandes de l'instructeur.",
+          "Contrairement à l'écosystème Android, iOS restreint fortement l'exécution de processus serveurs locaux en arrière-plan. Le portage de l'architecture Bobine sur iPadOS constitue donc une piste prospective activement réfléchie, mais non engagée techniquement ni calendairement.",
         ],
-        techChips: [{ icon: "tablet", label: "iPadOS" }],
+        techChips: [{ icon: "tablet", label: "iPadOS / Thunderbolt" }],
       },
     ],
   },
@@ -468,20 +470,22 @@ const en: DocChapter[] = [
       "The real state of Bobine's tablet expansion plans, presented without overselling: what is under study and what remains an open exploration.",
     subsections: [
       {
-        subtitle: "7.1 Android: feasibility study in progress",
+        subtitle: "7.1 Android: feasibility study for touch tablets",
         paragraphs: [
-          "A technical study is exploring embedding the Bobine server (Python/FastAPI) directly inside an Android app through a Python-Java bridge (Chaquopy), with video output routed to a second screen via Android's Presentation API.",
-          "This path is documented internally, but no Android application has been published to date: it is a feasibility study, with no announced availability date.",
+          "The objective is to expand Bobine's portability to standalone touch tablets such as Xiaomi Pad models (Xiaomi Pad 6, 7, or 8) and devices equipped with a USB-C 3.2 port supporting DisplayPort video output (e.g. Samsung Galaxy Tab).",
+          "A technical study is exploring embedding the Bobine server (Python/FastAPI) directly inside an Android app through a Python-Java bridge (Chaquopy), with video output routed to the studio display or projector via Android's Presentation API.",
+          "This track would enable a single wall-mounted tablet to serve simultaneously as a tactile coach console and as an autonomous video appliance, eliminating the need for a separate mini PC. Feasibility is under internal review, with no committed release date.",
         ],
-        techChips: [{ icon: "smartphone", label: "Android / Chaquopy" }],
+        techChips: [{ icon: "smartphone", label: "Android / Chaquopy" }, { icon: "tablet", label: "Xiaomi Pad / USB-C DP" }],
       },
       {
-        subtitle: "7.2 iOS / iPadOS: explored, not committed",
+        subtitle: "7.2 iOS / iPadOS: explored track for iPads with USB-C / Thunderbolt video output",
         paragraphs: [
-          "Unlike Android, iOS strongly restricts running background server code, which makes a direct port more complex and not yet technically studied on the Bobine side.",
-          "iPad support therefore remains an idea for the future, with no feasibility study or timeline commitment at this stage.",
+          "With the same goal of maximum tactile portability, iPadOS support is actively explored for iPads equipped with wired display output, notably Apple Silicon iPad Pro models (M1, M2, M4) featuring Thunderbolt / USB 4, as well as iPad Air models (M2) with DisplayPort over USB-C.",
+          "On these devices, a single USB-C cable or hub would provide power while driving the class video stream to the studio display or projector, leaving the iPad touchscreen dedicated to coach controls.",
+          "Unlike the Android environment, iOS strictly sandboxes background server execution. Porting the Bobine architecture to iPadOS is therefore a prospective exploration, without technical or timeline commitment at this stage.",
         ],
-        techChips: [{ icon: "tablet", label: "iPadOS" }],
+        techChips: [{ icon: "tablet", label: "iPadOS / Thunderbolt" }],
       },
     ],
   },

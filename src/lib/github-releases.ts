@@ -22,6 +22,13 @@ interface GitHubReleaseApiResponse {
 
 const FALLBACK_RELEASES: BobineRelease[] = [
   {
+    slug: "V3.0.0",
+    title: "Bobine V3.0.0 — Sortie Officielle Multi-Plateforme & Souveraineté Numérique",
+    publishedAt: "2026-09-06T12:53:00Z",
+    url: "https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.0",
+    body: `Bobine V3.0.0 marque l'ouverture au grand public avec des applications natives en 1 clic pour Windows, Linux et macOS, une architecture unifiée sans Redis (FastAPI + SQLite), l'anti-veille native Screen Wake Lock et la sauvegarde universelle ZIP.`,
+  },
+  {
     slug: "V2.0.1",
     title: "Bobine V2.0.1 — Accélération Matérielle Intel/AMD & Nouvel Installeur Rapide",
     publishedAt: "2026-08-22T11:55:21Z",

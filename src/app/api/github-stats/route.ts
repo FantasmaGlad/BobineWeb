@@ -4,11 +4,24 @@ export const runtime = "nodejs";
 
 const REPO = "FantasmaGlad/Bobine";
 
-interface RepoStatsResponse {
+export interface RepoStatsResponse {
   stars: number;
   forks: number;
   latestRelease: string;
+  downloads: {
+    windows: string;
+    linux: string;
+    macos: string;
+    assistant: string;
+  };
 }
+
+const FALLBACK_DOWNLOADS = {
+  windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-Setup-3.0.0.exe",
+  linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/bobine_3.0.0_amd64.deb",
+  macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-3.0.0.dmg",
+  assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/bobine-assistant",
+};
 
 export async function GET() {
   const headers: Record<string, string> = {
@@ -32,7 +45,8 @@ export async function GET() {
 
     let stars = 0;
     let forks = 0;
-    let latestRelease = "v2.0.1";
+    let latestRelease = "V3.0.0";
+    const downloads = { ...FALLBACK_DOWNLOADS };
 
     if (repoRes.ok) {
       const repoData = await repoRes.json();
@@ -42,13 +56,30 @@ export async function GET() {
 
     if (releasesRes.ok) {
       const relData = await releasesRes.json();
-      latestRelease = relData.tag_name || "v2.0.1";
+      latestRelease = relData.tag_name || "V3.0.0";
+      if (Array.isArray(relData.assets)) {
+        for (const asset of relData.assets) {
+          const name = (asset.name || "").toLowerCase();
+          const url = asset.browser_download_url;
+          if (!url) continue;
+          if (name.endsWith(".exe")) {
+            downloads.windows = url;
+          } else if (name.endsWith(".deb")) {
+            downloads.linux = url;
+          } else if (name.endsWith(".dmg")) {
+            downloads.macos = url;
+          } else if (name.includes("assistant")) {
+            downloads.assistant = url;
+          }
+        }
+      }
     }
 
     const payload: RepoStatsResponse = {
       stars,
       forks,
       latestRelease,
+      downloads,
     };
 
     return NextResponse.json(payload, {
@@ -61,7 +92,8 @@ export async function GET() {
     return NextResponse.json({
       stars: 0,
       forks: 0,
-      latestRelease: "v2.0.1",
+      latestRelease: "V3.0.0",
+      downloads: FALLBACK_DOWNLOADS,
     });
   }
 }

@@ -68,10 +68,10 @@ const STEPS: StepItem[] = [
   },
   {
     id: "systemd",
-    labelFr: "Services Systemd",
-    labelEn: "Systemd daemon units",
-    detailFr: "5/5 unités actives (backend, kiosk, audio-guard, watchdog)",
-    detailEn: "5/5 units active (backend, kiosk, audio-guard, watchdog)",
+    labelFr: "Architecture unifiée & Services",
+    labelEn: "Unified architecture & Systemd units",
+    detailFr: "FastAPI + SQLite (mono-processus sans Redis) · 4 services actifs",
+    detailEn: "FastAPI + SQLite (single-process without Redis) · 4 units active",
     durationMs: 400,
   },
   {
@@ -280,7 +280,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
                 {isEn ? "Open-Source Gym Video Playout System" : "Régie Vidéo & Streaming Libre pour Salle de Sport"}
               </span>
               <span className="terminal-ascii-meta">
-                Debian 13 · Dell Wyse 5070 · FastAPI + Next.js
+                Debian 13 · Dell Wyse 5070 · FastAPI + Next.js (v3.0.0)
               </span>
             </div>
           </div>
@@ -331,7 +331,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                 <polyline points="22 4 12 14.01 9 11.01" />
               </svg>
-              <strong>{isEn ? "Bobine Playout Engine — Ready & Operational" : "Serveur Bobine opérationnel — Prêt pour diffusion"}</strong>
+              <strong>{isEn ? "Bobine Appliance v3.0.0 — Ready & Operational" : "Bobine Appliance v3.0.0 opérationnelle — Prête pour diffusion"}</strong>
             </div>
 
             <div className="terminal-demo-box-grid">

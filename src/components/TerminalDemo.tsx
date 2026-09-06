@@ -281,24 +281,20 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
           <span className="terminal-title">
             bash — install.sh (v3.0.0)
           </span>
-          <span className={`terminal-demo-status-pill ${hasTriggered && !isCompleted ? "is-active" : ""}`}>
-            <span
-              className={`terminal-demo-status-dot ${
-                !hasTriggered
-                  ? "is-waiting"
-                  : isCompleted
-                  ? "is-complete"
-                  : "is-running"
-              }`}
-            />
-            <span>
-              {!hasTriggered
-                ? (isEn ? "Press Enter" : "Appuyer sur Entrée")
-                : isCompleted
-                ? (isEn ? "Installed (15/15)" : "Installé (15/15)")
-                : (isEn ? `Step ${completedSteps + 1}/15` : `Étape ${completedSteps + 1}/15`)}
+          {hasTriggered && (
+            <span className={`terminal-demo-status-pill ${!isCompleted ? "is-active" : ""}`}>
+              <span
+                className={`terminal-demo-status-dot ${
+                  isCompleted ? "is-complete" : "is-running"
+                }`}
+              />
+              <span>
+                {isCompleted
+                  ? (isEn ? "Installed (15/15)" : "Installé (15/15)")
+                  : (isEn ? `Step ${completedSteps + 1}/15` : `Étape ${completedSteps + 1}/15`)}
+              </span>
             </span>
-          </span>
+          )}
         </div>
 
         <div className="terminal-demo-actions">

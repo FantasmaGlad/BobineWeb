@@ -55,7 +55,7 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       badge: isEn ? "1-click install" : "Installation 1 clic",
       url: downloads.linux,
       isComingSoon: false,
-      icon: <LinuxIcon size={26} className="os-download-card__icon" />,
+      icon: <LinuxIcon size={28} className="os-download-card__icon" />,
     },
     {
       id: "windows",
@@ -65,7 +65,7 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       badge: isEn ? "1-click install" : "Installation 1 clic",
       url: downloads.windows,
       isComingSoon: false,
-      icon: <WindowsIcon size={24} className="os-download-card__icon" />,
+      icon: <WindowsIcon size={26} className="os-download-card__icon" />,
     },
     {
       id: "macos",
@@ -75,7 +75,7 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       badge: isEn ? "1-click install" : "Installation 1 clic",
       url: downloads.macos,
       isComingSoon: false,
-      icon: <AppleIcon size={25} className="os-download-card__icon" />,
+      icon: <AppleIcon size={26} className="os-download-card__icon" />,
     },
     {
       id: "android",
@@ -85,7 +85,7 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       badge: isEn ? "Coming Soon" : "Arrive Bientôt",
       url: "#",
       isComingSoon: true,
-      icon: <AndroidIcon size={25} className="os-download-card__icon" />,
+      icon: <AndroidIcon size={27} className="os-download-card__icon" />,
     },
   ];
 
@@ -99,10 +99,6 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
               className="os-download-card os-download-card--soon"
               aria-label={`${card.name} (${card.format}) — ${card.badge}`}
             >
-              <div className="os-download-card__ribbon-soon">
-                <span>{card.badge}</span>
-              </div>
-
               <div className="os-download-card__header">
                 <div className="os-download-card__icon-wrap">
                   {card.icon}

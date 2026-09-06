@@ -129,7 +129,7 @@ https://github.com/user-attachments/assets/cf819efe-b5be-4c02-9209-40f0350cf354
 
 Bobine est conçu pour fonctionner sans supervision technique continue :
 
-- **Supervision automatique** — un chien de garde surveille en continu l'état de Redis, de la base de données et de l'écran kiosque ; un composant en panne redémarre de lui-même.
+- **Supervision automatique** — un chien de garde surveille en continu l'état de la base de données et de l'écran kiosque ; un composant en panne redémarre de lui-même.
 - **Reprise après coupure de courant** — l'ensemble des services redémarre automatiquement, sans remise en route manuelle.
 - **Compatibilité télécommande USB native** — la borne adhérent et l'écran radio répondent directement à une télécommande USB à dongle, reconnue comme un clavier standard.
 - **Aucune installation côté client** — chaque écran et chaque télécommande sont de simples pages web ; aucun logiciel à déployer en dehors du mini PC central.
@@ -268,7 +268,7 @@ https://github.com/user-attachments/assets/cf819efe-b5be-4c02-9209-40f0350cf354
 
 Bobine est conçu pour fonctionner sans supervision technique continue :
 
-- **Supervision automatique** — un chien de garde surveille en continu l'état de Redis, de la base de données et de l'écran kiosque ; un composant en panne redémarre de lui-même.
+- **Supervision automatique** — un chien de garde surveille en continu l'état de la base de données et de l'écran kiosque ; un composant en panne redémarre de lui-même.
 - **Reprise après coupure de courant** — l'ensemble des services redémarre automatiquement, sans remise en route manuelle.
 - **Compatibilité télécommande USB native** — la borne adhérent et l'écran radio répondent directement à une télécommande USB à dongle, reconnue comme un clavier standard.
 - **Aucune installation côté client** — chaque écran et chaque télécommande sont de simples pages web ; aucun logiciel à déployer en dehors du mini PC central.

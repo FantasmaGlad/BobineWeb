@@ -100,11 +100,6 @@ export default async function DeveloppeursPage({
               <td>High-throughput asynchronous REST API and WebSocket events</td>
             </tr>
             <tr>
-              <td><strong>State Bus & Cache</strong></td>
-              <td>Redis 7 (Pub/Sub & Distributed Locks)</td>
-              <td>Inter-worker state synchronization, rate-limiting, and locking</td>
-            </tr>
-            <tr>
               <td><strong>Persistence</strong></td>
               <td>SQLite + SQLAlchemy 2.0</td>
               <td>Workout metadata, weekly schedules, playlists, and settings</td>
@@ -129,7 +124,7 @@ export default async function DeveloppeursPage({
       </div>
 
       <h2 id="local-development">Local Development Workflow & Interactive API Console</h2>
-      <p>Prerequisites: Node.js ≥ 20, Python ≥ 3.11, active local Redis server.</p>
+      <p>Prerequisites: Node.js ≥ 20, Python ≥ 3.11.</p>
 
       <InteractiveTerminal
         locale={locale as Locale}
@@ -152,7 +147,6 @@ export default async function DeveloppeursPage({
           <code>{`// Response (200 OK)
 {
   "status": "healthy",
-  "redis": "connected",
   "database": "ok",
   "kiosk_active": true,
   "uptime_seconds": 86420
@@ -249,7 +243,7 @@ export default async function DeveloppeursPage({
       <h2 id="systemd-services">Systemd Supervisor Architecture</h2>
       <p>Bobine is managed by 3 isolated systemd services for fault tolerance:</p>
       <ul>
-        <li><code>bobine-backend.service</code> — Python FastAPI application, Redis connection, and SQLite daemon.</li>
+        <li><code>bobine-backend.service</code> — Python FastAPI application and SQLite daemon.</li>
         <li><code>bobine-kiosk.service</code> — Lightweight X11 session running Chromium in kiosk mode displaying the wired cinema screen.</li>
         <li><code>bobine-watchdog.service</code> — Proactive health supervisor polling <code>/api/health</code> every 10s and triggering automated component restarts if needed.</li>
       </ul>
@@ -305,11 +299,6 @@ export default async function DeveloppeursPage({
               <td>API REST asynchrone ultra-rapide et gestion des connexions WebSockets</td>
             </tr>
             <tr>
-              <td><strong>Bus d&apos;état & Cache</strong></td>
-              <td>Redis 7 (Pub/Sub & Verrous distribués)</td>
-              <td>Synchronisation multi-workers, limitation de débit et verrous anti-concurrence</td>
-            </tr>
-            <tr>
               <td><strong>Persistance</strong></td>
               <td>SQLite + SQLAlchemy 2.0</td>
               <td>Métadonnées des vidéos, planning hebdomadaire, playlists et paramètres</td>
@@ -334,7 +323,7 @@ export default async function DeveloppeursPage({
       </div>
 
       <h2 id="developpement-local">Développement Local & Console Interactive d&apos;API</h2>
-      <p>Prérequis : Node.js ≥ 20, Python ≥ 3.11, serveur Redis actif en local.</p>
+      <p>Prérequis : Node.js ≥ 20, Python ≥ 3.11.</p>
 
       <InteractiveTerminal
         locale={locale as Locale}
@@ -357,7 +346,6 @@ export default async function DeveloppeursPage({
           <code>{`// Réponse JSON (200 OK)
 {
   "status": "healthy",
-  "redis": "connected",
   "database": "ok",
   "kiosk_active": true,
   "uptime_seconds": 86420
@@ -454,7 +442,7 @@ export default async function DeveloppeursPage({
       <h2 id="services-systemd">Architecture des Services Systemd</h2>
       <p>Bobine est orchestré par 3 unités systemd indépendantes :</p>
       <ul>
-        <li><code>bobine-backend.service</code> — Application FastAPI Python, bus Redis et démon SQLite.</li>
+        <li><code>bobine-backend.service</code> — Application FastAPI Python et démon SQLite.</li>
         <li><code>bobine-kiosk.service</code> — Session graphique X11 allégée affichant Chromium en plein écran sur la TV.</li>
         <li><code>bobine-watchdog.service</code> — Superviseur de résilience interrogeant <code>/api/health</code> toutes les 10s avec relance automatique.</li>
       </ul>

@@ -97,9 +97,9 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
     {
       title: "Script d'installation automatisé install.sh",
       category: "Installation",
-      excerpt: "Exécuter git clone puis sudo ./install.sh pour installer Redis, Node, Python, MPV et les services systemd.",
+      excerpt: "Exécuter git clone puis sudo ./install.sh pour installer Node, Python, MPV et les services systemd.",
       href: "/fr/documentation#etape-6--installer-bobine",
-      tags: ["install.sh", "script", "automatique", "systemd", "redis", "fastapi"],
+      tags: ["install.sh", "script", "automatique", "systemd", "fastapi"],
     },
     {
       title: "Accéder à l'interface http://bobine.local",
@@ -162,7 +162,7 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
       category: "Dépannage",
       excerpt: "Diagnostic pas à pas pour mDNS, écran noir, audio HDMI, VA-API et sauvegardes.",
       href: "/fr/documentation/faq#tableau-depannage",
-      tags: ["erreur", "depannage", "audio", "ecran noir", "cec", "mdns", "vainfo"],
+      tags: ["erreur", "depannage", "audio", "ecran noir", "sauvegarde", "mdns", "vainfo"],
     },
     {
       title: "Commandes de diagnostic indispensables (systemctl, vainfo, logs)",
@@ -186,11 +186,11 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
       tags: ["websocket", "ws", "events", "temps reel", "broadcast", "etat"],
     },
     {
-      title: "Architecture FastAPI, Redis, MPV & Next.js",
+      title: "Architecture FastAPI, SQLite, MPV & Next.js",
       category: "Développeurs",
       excerpt: "Détails de la pile logicielle multi-worker, SQLite, verrous distribués et WebSockets.",
       href: "/fr/documentation/developpeurs#stack-technique",
-      tags: ["fastapi", "python", "redis", "mpv", "sqlite", "architecture", "developpeurs"],
+      tags: ["fastapi", "python", "mpv", "sqlite", "architecture", "developpeurs"],
     },
   ],
   en: [
@@ -218,9 +218,9 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
     {
       title: "Automated Playout Installation Script install.sh",
       category: "Installation",
-      excerpt: "Run git clone then sudo ./install.sh to deploy Redis, Node, Python, MPV, and systemd services.",
+      excerpt: "Run git clone then sudo ./install.sh to deploy Node, Python, MPV, and systemd services.",
       href: "/en/documentation#step-6--install-bobine",
-      tags: ["install.sh", "script", "automation", "systemd", "redis", "fastapi"],
+      tags: ["install.sh", "script", "automation", "systemd", "fastapi"],
     },
     {
       title: "Post-Install Validation & Hardware VA-API",
@@ -276,7 +276,7 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
       category: "Troubleshooting",
       excerpt: "Step-by-step diagnostic fixes for mDNS, black screens, HDMI audio, and backups.",
       href: "/en/documentation/faq#troubleshooting-matrix",
-      tags: ["error", "troubleshooting", "audio", "black screen", "cec", "mdns"],
+      tags: ["error", "troubleshooting", "audio", "black screen", "backup", "mdns"],
     },
     {
       title: "Essential Diagnostic Commands (systemctl, vainfo, logs)",
@@ -300,11 +300,11 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
       tags: ["websocket", "ws", "events", "realtime", "broadcast", "state"],
     },
     {
-      title: "FastAPI, Redis, MPV & Next.js Architecture",
+      title: "FastAPI, SQLite, MPV & Next.js Architecture",
       category: "Developers",
       excerpt: "Multi-worker backend details, SQLite database, distributed locks, and WebSockets.",
       href: "/en/documentation/developpeurs#software-stack",
-      tags: ["fastapi", "python", "redis", "mpv", "sqlite", "architecture", "developers"],
+      tags: ["fastapi", "python", "mpv", "sqlite", "architecture", "developers"],
     },
   ],
 };

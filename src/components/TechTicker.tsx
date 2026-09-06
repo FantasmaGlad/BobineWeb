@@ -23,12 +23,12 @@ const METRICS_FR: TickerMetric[] = [
   { tag: "COACH AUDIO", label: "Diffusion hybride", value: "Pistes voix synchronisées sur fonds visuels animés" },
   { tag: "SONO", label: "Radio plateau 24/7", value: "Fondu enchaîné Web Audio + Rappels vocaux de bienséance" },
   { tag: "RÉSEAU", label: "Mode de diffusion", value: "100% Hors-ligne · Découverte mDNS (bobine.local)" },
-  { tag: "LATENCE", label: "Bus temps réel", value: "WebSockets + Redis (< 2 ms sur le LAN Wi-Fi)" },
+  { tag: "LATENCE", label: "Bus temps réel", value: "WebSockets locaux (< 2 ms sur le LAN Wi-Fi)" },
   { tag: "RÉSILIENCE", label: "Watchdog systemd", value: "Sonde /api/health et relance automatique en < 1s" },
   { tag: "REPRISE", label: "Coupure secteur", value: "Rétablissement autonome au démarrage sans intervention" },
   { tag: "CONFIDENTIALITÉ", label: "Protection RGPD", value: "Zéro collecte · Zéro caméra/micro · Données 100% locales" },
   { tag: "INSTALLATION", label: "Déploiement rapide", value: "1 ligne (curl bobine.fit/install.sh) · Stack Linux / FastAPI / MPV" },
-  { tag: "STACK", label: "Architecture", value: "Debian 13 · FastAPI · SQLite · Redis · Chromium X11" },
+  { tag: "STACK", label: "Architecture", value: "Debian 13 · FastAPI · SQLite · Chromium X11" },
   { tag: "LICENCE", label: "Souveraineté", value: "AGPL-3.0 (Code source 100% ouvert et auditable)" },
 ];
 
@@ -47,12 +47,12 @@ const METRICS_EN: TickerMetric[] = [
   { tag: "AUDIO COACH", label: "Hybrid sessions", value: "Synchronized vocal tracks with animated visual loops" },
   { tag: "AUDIO", label: "Gym Radio 24/7", value: "Web Audio crossfade + Automated gym etiquette voice alerts" },
   { tag: "NETWORK", label: "Playout resilience", value: "100% Offline-first · mDNS discovery (bobine.local)" },
-  { tag: "LATENCY", label: "Real-time bus", value: "WebSockets + Redis (< 2 ms on local LAN)" },
+  { tag: "LATENCY", label: "Real-time bus", value: "Local WebSockets (< 2 ms on local LAN)" },
   { tag: "WATCHDOG", label: "Health supervisor", value: "systemd /api/health watchdog with auto-recovery in < 1s" },
   { tag: "UPTIME", label: "Blackout recovery", value: "Autonomous boot & playout restoration post power cut" },
   { tag: "PRIVACY", label: "GDPR Compliance", value: "Zero tracking · Zero camera/mic · 100% Local data" },
   { tag: "INSTALLATION", label: "Quick deployment", value: "1-line command (curl bobine.fit/install.sh) · Linux / FastAPI / MPV stack" },
-  { tag: "STACK", label: "Technology", value: "Debian 13 · FastAPI · SQLite · Redis · Chromium X11" },
+  { tag: "STACK", label: "Technology", value: "Debian 13 · FastAPI · SQLite · Chromium X11" },
   { tag: "LICENSE", label: "Sovereignty", value: "AGPL-3.0 (100% Open source & auditable)" },
 ];
 

@@ -46,7 +46,7 @@ const CONTENT = {
     summaryCards: [
       { label: "Coût Mensuel Récurrent", value: "0 € vs 250 €+", desc: "Économie directe chaque mois par écran" },
       { label: "Architecture", value: "100% Locale", desc: "Zéro dépendance aux serveurs cloud" },
-      { label: "Latence Réseau", value: "< 2 ms (LAN)", desc: "WebSockets + Redis en local" },
+      { label: "Latence Réseau", value: "< 2 ms (LAN)", desc: "WebSockets locaux, sans serveur intermédiaire" },
       { label: "Protection Données", value: "Conforme RGPD", desc: "Zéro collecte, zéro tracker externe" },
     ],
     table: {
@@ -97,7 +97,7 @@ const CONTENT = {
       },
       {
         title: "2. La puissance du Local-First : zéro latence, zéro coupure",
-        text: "En déplaçant l'intégralité du moteur de diffusion sur un mini PC local, Bobine supprime tout intermédiaire cloud. La réactivité des commandes (lancement d'un cours depuis la borne tactile ou la télécommande mobile) s'effectue en moins de 2 millisecondes via le bus local Redis et WebSockets. Les vidéos 1080p60 et 4K démarrent instantanément sans temps de chargement (buffering).",
+        text: "En déplaçant l'intégralité du moteur de diffusion sur un mini PC local, Bobine supprime tout intermédiaire cloud. La réactivité des commandes (lancement d'un cours depuis la borne tactile ou la télécommande mobile) s'effectue en moins de 2 millisecondes via WebSockets locaux. Les vidéos 1080p60 et 4K démarrent instantanément sans temps de chargement (buffering).",
       },
       {
         title: "3. Souveraineté totale et conformité RGPD",
@@ -120,7 +120,7 @@ const CONTENT = {
     summaryCards: [
       { label: "Recurring Software Cost", value: "$0 vs $250+/mo", desc: "Direct monthly savings per screen" },
       { label: "System Architecture", value: "100% Local", desc: "Zero cloud server dependencies" },
-      { label: "Network Latency", value: "< 2 ms (LAN)", desc: "Local WebSockets + Redis bus" },
+      { label: "Network Latency", value: "< 2 ms (LAN)", desc: "Local WebSockets, no middleman server" },
       { label: "Data Protection", value: "GDPR Sovereign", desc: "Zero tracking, zero external telemetry" },
     ],
     table: {

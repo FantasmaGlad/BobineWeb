@@ -241,8 +241,8 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           <h3 id="system-health-watchdog">{isEn ? "System Health & Watchdog Supervisor" : "Santé et Supervision Automatique"}</h3>
           <p>
             {isEn
-              ? "Bobine exposes a machine-readable health endpoint at GET http://bobine.local/api/health (monitoring Redis, SQLite, and Chromium kiosk). A local systemd watchdog continuously tests it and restarts failing components automatically — your workout room recovers autonomously with zero staff intervention, even after a total power cut."
-              : "Bobine expose un point de contrôle machine-lisible, GET http://bobine.local/api/health, qui rapporte l'état de Redis, de la base de données et du kiosque Chromium. Un chien de garde local le sonde en continu et redémarre automatiquement un composant en panne — la salle se rétablit sans intervention, y compris après une coupure de courant."}
+              ? "Bobine exposes a machine-readable health endpoint at GET http://bobine.local/api/health (monitoring SQLite and the Chromium kiosk). A local systemd watchdog continuously tests it and restarts failing components automatically — your workout room recovers autonomously with zero staff intervention, even after a total power cut."
+              : "Bobine expose un point de contrôle machine-lisible, GET http://bobine.local/api/health, qui rapporte l'état de la base de données et du kiosque Chromium. Un chien de garde local le sonde en continu et redémarre automatiquement un composant en panne — la salle se rétablit sans intervention, y compris après une coupure de courant."}
           </p>
         </section>
       )}

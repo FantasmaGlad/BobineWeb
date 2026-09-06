@@ -132,7 +132,7 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       subtitle: isEn ? "iPad & tactile kiosks" : "iPad & bornes tactiles",
       format: isEn ? "Explored idea" : "Piste explorée",
       badge: isEn ? "Roadmap" : "À venir",
-      statusLabel: isEn ? "Not yet studied" : "Pas encore à l'étude",
+      statusLabel: isEn ? "In development" : "En développement",
       url: "#",
       isComingSoon: true,
       icon: <AppleIcon size={26} className="os-download-card__icon" />,

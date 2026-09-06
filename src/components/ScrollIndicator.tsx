@@ -8,8 +8,8 @@ interface ScrollIndicatorProps {
   targetId?: string;
 }
 
-export default function ScrollIndicator({ locale, label, targetId = "headless-installation" }: ScrollIndicatorProps) {
-  const defaultLabel = locale === "en" ? "Other installation methods" : "Autres méthodes d'installation";
+export default function ScrollIndicator({ locale, label, targetId }: ScrollIndicatorProps) {
+  const defaultLabel = locale === "en" ? "Scroll down to discover" : "Défiler pour découvrir";
   const displayLabel = label || defaultLabel;
 
   const handleScroll = () => {

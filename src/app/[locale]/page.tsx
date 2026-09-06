@@ -3,7 +3,6 @@ import type { Locale } from "@/lib/i18n";
 import { isLocale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 import OsDownloadGrid from "@/components/OsDownloadGrid";
-import TabletRoadmapBanner from "@/components/TabletRoadmapBanner";
 import HeadlessInstallSection from "@/components/HeadlessInstallSection";
 import ScrollIndicator from "@/components/ScrollIndicator";
 
@@ -74,14 +73,15 @@ export default async function HomePage({
             {t.subtitle}
           </p>
 
-          {/* Grille de téléchargement direct pour les 3 OS principaux */}
+          {/* Grille de téléchargement direct pour les 4 OS (Linux, Windows, macOS, Android) */}
           <OsDownloadGrid locale={locale as Locale} />
-
-          {/* Bandeau d'information prospective tablettes ARM (Android & iPadOS) */}
-          <TabletRoadmapBanner locale={locale as Locale} />
         </div>
 
-        <ScrollIndicator locale={locale as Locale} />
+        <ScrollIndicator
+          locale={locale as Locale}
+          label={locale === "en" ? "Other installation methods" : "Autres méthodes d'installation"}
+          targetId="headless-installation"
+        />
       </section>
 
       {/* 2. Installation Headless & Démonstrations Dédiées (Bash CLI & Bobine Assistant Tauri) */}

@@ -5,6 +5,7 @@ import type { Locale } from "@/lib/i18n";
 
 interface StepItem {
   id: string;
+  num: number;
   labelFr: string;
   labelEn: string;
   detailFr: string;
@@ -14,52 +15,139 @@ interface StepItem {
 
 const STEPS: StepItem[] = [
   {
-    id: "hw",
-    labelFr: "Détection matérielle & GPU",
-    labelEn: "Hardware & GPU discovery",
-    detailFr: "Intel Celeron J4105 (VA-API QuickSync actif)",
-    detailEn: "Intel Celeron J4105 (VA-API QuickSync active)",
-    durationMs: 400,
+    id: "packages",
+    num: 1,
+    labelFr: "Paquets système (apt)",
+    labelEn: "System packages (apt)",
+    detailFr: "Chromium, MPV, Uvicorn, SQLite3, nftables & pilotes VA-API iHD",
+    detailEn: "Chromium, MPV, Uvicorn, SQLite3, nftables & VA-API iHD drivers",
+    durationMs: 340,
   },
   {
-    id: "storage",
-    labelFr: "Stockage NVMe & partitions",
-    labelEn: "NVMe storage & data partitions",
-    detailFr: "Disque 256 Go monté (/var/lib/bobine)",
-    detailEn: "256 GB drive mounted (/var/lib/bobine)",
+    id: "gpu-access",
+    num: 2,
+    labelFr: "Accès GPU (groupes render/video) & Xwrapper",
+    labelEn: "GPU access (render/video groups) & Xwrapper",
+    detailFr: "Accélération matérielle QuickSync Intel configurée",
+    detailEn: "Intel QuickSync hardware acceleration configured",
+    durationMs: 280,
+  },
+  {
+    id: "python-env",
+    num: 3,
+    labelFr: "Environnement Python & dépendances backend",
+    labelEn: "Python virtualenv & backend dependencies",
+    detailFr: "Python 3.13 venv isolé, FastAPI, SQLAlchemy, Uvicorn",
+    detailEn: "Isolated Python 3.13 venv, FastAPI, SQLAlchemy, Uvicorn",
     durationMs: 350,
   },
   {
-    id: "video",
-    labelFr: "Sortie vidéo & CEC",
-    labelEn: "Video output & HDMI-CEC",
-    detailFr: "Écran Samsung 65\" sur bus HDMI-0 (1080p60 + CEC auto)",
-    detailEn: "Samsung 65\" screen on HDMI-0 (1080p60 + auto CEC)",
-    durationMs: 400,
+    id: "frontend-build",
+    num: 4,
+    labelFr: "Build du frontend Next.js",
+    labelEn: "Next.js frontend build",
+    detailFr: "Export statique SSG (frontend/out) optimisé pour l'appliance",
+    detailEn: "Static SSG export (frontend/out) appliance-optimized",
+    durationMs: 380,
+  },
+  {
+    id: "config",
+    num: 5,
+    labelFr: "Configuration de production",
+    labelEn: "Production configuration",
+    detailFr: "/etc/bobine/config.toml généré (mono-processus sans Redis)",
+    detailEn: "/etc/bobine/config.toml generated (single-process without Redis)",
+    durationMs: 260,
+  },
+  {
+    id: "cli-tool",
+    num: 6,
+    labelFr: "Script de contrôle CLI 'bobine'",
+    labelEn: "CLI control script 'bobine'",
+    detailFr: "/usr/local/bin/bobine installé (start/stop/status/logs)",
+    detailEn: "/usr/local/bin/bobine installed (start/stop/status/logs)",
+    durationMs: 240,
+  },
+  {
+    id: "uninstaller",
+    num: 7,
+    labelFr: "Désinstalleur détaché",
+    labelEn: "Detached uninstaller",
+    detailFr: "Script autonome de réinitialisation d'usine prêt",
+    detailEn: "Autonomous factory reset script ready",
+    durationMs: 230,
+  },
+  {
+    id: "backend-service",
+    num: 8,
+    labelFr: "Service systemd — backend FastAPI",
+    labelEn: "Systemd service — FastAPI backend",
+    detailFr: "bobine-backend.service actif (port 8000)",
+    detailEn: "bobine-backend.service active (port 8000)",
+    durationMs: 300,
+  },
+  {
+    id: "kiosk",
+    num: 9,
+    labelFr: "Kiosk Chromium (écran cinéma câblé)",
+    labelEn: "Chromium Kiosk (cabled cinema display)",
+    detailFr: "Session X11 verrouillée, anti-veille Screen Wake Lock actif",
+    detailEn: "Locked X11 session, Screen Wake Lock active",
+    durationMs: 340,
   },
   {
     id: "audio",
-    labelFr: "Moteur Audio sono",
-    labelEn: "Sound system audio engine",
-    detailFr: "Interface analogique calibrée (Jack 3.5mm vers sono)",
-    detailEn: "Calibrated analog interface (3.5mm jack to gym PA)",
-    durationMs: 350,
+    num: 10,
+    labelFr: "Audio (auto-port, anti-sifflement)",
+    labelEn: "Audio engine (auto-port, anti-hum)",
+    detailFr: "Garde-fou sonore hors session & profil ALSA calibré",
+    detailEn: "Sound guard between sessions & calibrated ALSA profile",
+    durationMs: 260,
   },
   {
-    id: "systemd",
-    labelFr: "Architecture unifiée & Services",
-    labelEn: "Unified architecture & Systemd units",
-    detailFr: "FastAPI + SQLite (mono-processus sans Redis) · 4 services actifs",
-    detailEn: "FastAPI + SQLite (single-process without Redis) · 4 units active",
-    durationMs: 450,
+    id: "sudoers",
+    num: 11,
+    labelFr: "Autorisation sudo restreinte",
+    labelEn: "Restricted sudo authorization",
+    detailFr: "Règles ciblées pour maintenance et remise à zéro sécurisée",
+    detailEn: "Targeted rules for maintenance & secure factory reset",
+    durationMs: 230,
   },
   {
-    id: "health",
-    labelFr: "Vérification de santé API",
-    labelEn: "API Healthcheck verification",
-    detailFr: "HTTP 200 OK (http://127.0.0.1:8000/api/health — 12ms)",
-    detailEn: "HTTP 200 OK (http://127.0.0.1:8000/api/health — 12ms)",
-    durationMs: 350,
+    id: "ntp",
+    num: 12,
+    labelFr: "Synchronisation NTP",
+    labelEn: "NTP clock synchronization",
+    detailFr: "systemd-timesyncd configuré pour calendrier précis",
+    detailEn: "systemd-timesyncd configured for timetable accuracy",
+    durationMs: 230,
+  },
+  {
+    id: "mdns-redirect",
+    num: 13,
+    labelFr: "URL locale (mDNS) & redirection du port 80",
+    labelEn: "Local URL (mDNS) & port 80 redirection",
+    detailFr: "http://bobine.local accessible sur tout le réseau local",
+    detailEn: "http://bobine.local accessible throughout local LAN",
+    durationMs: 280,
+  },
+  {
+    id: "watchdog",
+    num: 14,
+    labelFr: "Chien de garde de santé (watchdog)",
+    labelEn: "Health watchdog timer",
+    detailFr: "bobine-watchdog.timer actif (reprise automatique)",
+    detailEn: "bobine-watchdog.timer active (automatic recovery)",
+    durationMs: 240,
+  },
+  {
+    id: "activation",
+    num: 15,
+    labelFr: "Activation des services & vérification de santé",
+    labelEn: "Services activation & healthcheck",
+    detailFr: "HTTP 200 OK (http://127.0.0.1:8000/api/health — 8ms)",
+    detailEn: "HTTP 200 OK (http://127.0.0.1:8000/api/health — 8ms)",
+    durationMs: 340,
   },
 ];
 
@@ -69,15 +157,16 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const [copied, setCopied] = useState(false);
 
-  const [typedChars, setTypedChars] = useState(0);
+  // États d'exécution
+  // false = en attente de la touche Entrée par l'utilisateur
+  const [hasTriggered, setHasTriggered] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
   const [completedSteps, setCompletedSteps] = useState<number>(0);
   const [currentRunningStep, setCurrentRunningStep] = useState<number>(-1);
   const [isCompleted, setIsCompleted] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [hasStarted, setHasStarted] = useState(false);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const terminalBodyRef = useRef<HTMLDivElement | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const clearActiveTimer = () => {
@@ -87,90 +176,80 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
     }
   };
 
-  const startAnimation = useCallback(() => {
+  // Défilement automatique vers le bas du terminal au fur et à mesure
+  const scrollToBottom = useCallback(() => {
+    if (terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+    }
+  }, []);
+
+  // Déclenchement de l'exécution (touche Entrée ou clic)
+  const triggerExecution = useCallback(() => {
+    if (hasTriggered) return;
     clearActiveTimer();
-    setTypedChars(0);
+    setHasTriggered(true);
+    setShowBanner(true);
+    setCurrentRunningStep(0);
+  }, [hasTriggered]);
+
+  const restartTerminal = useCallback(() => {
+    clearActiveTimer();
+    setHasTriggered(false);
     setShowBanner(false);
     setCompletedSteps(0);
     setCurrentRunningStep(-1);
     setIsCompleted(false);
-    setIsPlaying(true);
-    setHasStarted(true);
   }, []);
 
   const skipToEnd = useCallback(() => {
     clearActiveTimer();
-    setTypedChars(COMMAND_TEXT.length);
+    setHasTriggered(true);
     setShowBanner(true);
     setCompletedSteps(STEPS.length);
     setCurrentRunningStep(-1);
     setIsCompleted(true);
-    setIsPlaying(false);
-    setHasStarted(true);
-  }, []);
+    setTimeout(scrollToBottom, 50);
+  }, [scrollToBottom]);
 
-  // Détection d'entrée dans le champ de vision (IntersectionObserver)
+  // Écoute de la touche Entrée au clavier
   useEffect(() => {
-    if (hasStarted) return;
-    const el = containerRef.current;
-    if (!el || typeof IntersectionObserver === "undefined") {
-      startAnimation();
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry && entry.isIntersecting && !hasStarted) {
-          startAnimation();
-          observer.disconnect();
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Enter" && !hasTriggered) {
+        // Empêcher les effets de bord si l'utilisateur est dans le viewport
+        const rect = containerRef.current?.getBoundingClientRect();
+        if (rect && rect.top < window.innerHeight && rect.bottom > 0) {
+          e.preventDefault();
+          triggerExecution();
         }
-      },
-      { threshold: 0.2 }
-    );
+      }
+    };
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [hasStarted, startAnimation]);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [hasTriggered, triggerExecution]);
 
-  // Effet de saisie de la commande caractère par caractère
+  // Déroulement des 15 étapes
   useEffect(() => {
-    if (!isPlaying) return;
-
-    if (typedChars < COMMAND_TEXT.length) {
-      timerRef.current = setTimeout(() => {
-        setTypedChars((prev) => prev + 1);
-      }, 26);
-      return () => clearActiveTimer();
-    }
-
-    if (typedChars === COMMAND_TEXT.length && !showBanner) {
-      timerRef.current = setTimeout(() => {
-        setShowBanner(true);
-        setCurrentRunningStep(0);
-      }, 280);
-      return () => clearActiveTimer();
-    }
-  }, [typedChars, isPlaying, showBanner]);
-
-  // Progression séquentielle des étapes d'installation
-  useEffect(() => {
-    if (!isPlaying || !showBanner || isCompleted) return;
+    if (!hasTriggered || !showBanner || isCompleted) return;
 
     if (currentRunningStep >= 0 && currentRunningStep < STEPS.length) {
       const step = STEPS[currentRunningStep];
       timerRef.current = setTimeout(() => {
         setCompletedSteps((prev) => prev + 1);
+        scrollToBottom();
+
         if (currentRunningStep + 1 < STEPS.length) {
           setCurrentRunningStep((prev) => prev + 1);
         } else {
           setCurrentRunningStep(-1);
           setIsCompleted(true);
+          setTimeout(scrollToBottom, 60);
         }
       }, step.durationMs);
+
       return () => clearActiveTimer();
     }
-  }, [currentRunningStep, showBanner, isPlaying, isCompleted]);
+  }, [currentRunningStep, showBanner, hasTriggered, isCompleted, scrollToBottom]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(COMMAND_TEXT).then(() => {
@@ -180,8 +259,17 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
   };
 
   return (
-    <div ref={containerRef} className="terminal-wrapper terminal-demo-root">
-      {/* Top Header Bar */}
+    <div
+      ref={containerRef}
+      className="terminal-wrapper terminal-demo-root"
+      tabIndex={0}
+      role="region"
+      aria-label={isEn ? "Bash installation interactive simulation" : "Simulation interactive de l'installation Bash"}
+      onClick={() => {
+        if (!hasTriggered) triggerExecution();
+      }}
+    >
+      {/* Barre d'en-tête du terminal */}
       <div className="terminal-header">
         <div className="terminal-dots" aria-hidden="true">
           <span className="dot dot--red" />
@@ -191,31 +279,57 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
 
         <div className="terminal-demo-title-group">
           <span className="terminal-title">
-            bash — bobine-installer v3.0.0
+            bash — install.sh (v3.0.0)
+          </span>
+          <span className={`terminal-demo-status-pill ${hasTriggered && !isCompleted ? "is-active" : ""}`}>
+            <span
+              className={`terminal-demo-status-dot ${
+                !hasTriggered
+                  ? "is-waiting"
+                  : isCompleted
+                  ? "is-complete"
+                  : "is-running"
+              }`}
+            />
+            <span>
+              {!hasTriggered
+                ? (isEn ? "Press Enter" : "Appuyer sur Entrée")
+                : isCompleted
+                ? (isEn ? "Installed (15/15)" : "Installé (15/15)")
+                : (isEn ? `Step ${completedSteps + 1}/15` : `Étape ${completedSteps + 1}/15`)}
+            </span>
           </span>
         </div>
 
         <div className="terminal-demo-actions">
           {/* Bouton Rejouer */}
-          <button
-            type="button"
-            className="terminal-ctrl-btn"
-            onClick={startAnimation}
-            title={isEn ? "Replay animation" : "Rejouer l'animation"}
-            aria-label={isEn ? "Replay animation" : "Rejouer l'animation"}
-          >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.19" />
-            </svg>
-            <span>{isEn ? "Replay" : "Rejouer"}</span>
-          </button>
-
-          {/* Bouton Passer à la fin */}
-          {!isCompleted && (
+          {hasTriggered && (
             <button
               type="button"
               className="terminal-ctrl-btn"
-              onClick={skipToEnd}
+              onClick={(e) => {
+                e.stopPropagation();
+                restartTerminal();
+              }}
+              title={isEn ? "Reset terminal" : "Réinitialiser"}
+              aria-label={isEn ? "Reset terminal" : "Réinitialiser"}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.19" />
+              </svg>
+              <span>{isEn ? "Reset" : "Rejouer"}</span>
+            </button>
+          )}
+
+          {/* Bouton Passer à la fin */}
+          {hasTriggered && !isCompleted && (
+            <button
+              type="button"
+              className="terminal-ctrl-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                skipToEnd();
+              }}
               title={isEn ? "Skip animation" : "Passer l'animation"}
               aria-label={isEn ? "Skip animation" : "Passer l'animation"}
             >
@@ -227,11 +341,14 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
             </button>
           )}
 
-          {/* Bouton Copier */}
+          {/* Bouton Copier la commande */}
           <button
             type="button"
             className="terminal-copy-btn"
-            onClick={handleCopy}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleCopy();
+            }}
             aria-label={isEn ? "Copy install command" : "Copier la commande"}
           >
             {copied ? (
@@ -254,20 +371,39 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      {/* Terminal Screen Body */}
-      <div className="terminal-body terminal-demo-body">
-        {/* Command Line Input */}
+      {/* Corps du terminal avec hauteur fixe et défilement interne sans tressautement */}
+      <div ref={terminalBodyRef} className="terminal-body terminal-demo-body">
+        {/* Ligne d'invite avec commande */}
         <div className="terminal-line terminal-line--command">
-          <span className="terminal-prompt">$</span>
+          <span className="terminal-prompt">fanta@dell-wyse:~$</span>
           <code className="terminal-demo-command-text">
-            {COMMAND_TEXT.slice(0, typedChars)}
-            {typedChars < COMMAND_TEXT.length && (
-              <span className="terminal-cursor" aria-hidden="true">▋</span>
-            )}
+            {COMMAND_TEXT}
           </code>
+          {!hasTriggered && (
+            <span className="terminal-cursor" aria-hidden="true" />
+          )}
+
+          {/* Bouton d'incitation à l'exécution si pas encore déclenché */}
+          {!hasTriggered && (
+            <button
+              type="button"
+              className="terminal-enter-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                triggerExecution();
+              }}
+              title={isEn ? "Press Enter to run" : "Appuyer sur Entrée pour exécuter"}
+            >
+              <span>{isEn ? "Press Enter" : "Appuyer sur Entrée"}</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <polyline points="9 10 4 15 9 20" />
+                <path d="M20 4v7a4 4 0 0 1-4 4H4" />
+              </svg>
+            </button>
+          )}
         </div>
 
-        {/* ASCII Art Banner */}
+        {/* Bannière ASCII officielle de install.sh */}
         {showBanner && (
           <div className="terminal-ascii-container">
             <svg
@@ -287,13 +423,13 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
                 {isEn ? "Open-Source Gym Video Playout System" : "Régie Vidéo & Streaming Libre pour Salle de Sport"}
               </span>
               <span className="terminal-ascii-meta">
-                Debian 13 · Dell Wyse 5070 · FastAPI + Next.js (v3.0.0)
+                Debian 13 (trixie) · Dell Wyse 5070 · FastAPI + Next.js (v3.0.0)
               </span>
             </div>
           </div>
         )}
 
-        {/* Progression des étapes */}
+        {/* Défilement des 15 étapes de install.sh */}
         {showBanner && (
           <div className="terminal-steps-list">
             {STEPS.map((step, idx) => {
@@ -309,8 +445,15 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
                     isDone ? "step-done" : "step-running"
                   }`}
                 >
+                  <span className="terminal-step-num">
+                    [{step.num}/15]
+                  </span>
                   {isDone ? (
-                    <span className="terminal-ok">[OK]</span>
+                    <span className="terminal-ok">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    </span>
                   ) : (
                     <span className="terminal-spinner">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeDasharray="32" strokeDashoffset="12" className="terminal-spinner-icon" aria-hidden="true">
@@ -319,10 +462,10 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
                     </span>
                   )}
                   <span className="terminal-step-title">
-                    {isEn ? step.labelEn : step.labelFr} :
+                    {isEn ? step.labelEn : step.labelFr}
                   </span>
                   <span className="terminal-step-detail">
-                    {isEn ? step.detailEn : step.detailFr}
+                    — {isEn ? step.detailEn : step.detailFr}
                   </span>
                 </div>
               );
@@ -330,29 +473,40 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
           </div>
         )}
 
-        {/* Bilan de fin d'installation */}
+        {/* Bilan final récapitulatif fidèle à install.sh */}
         {isCompleted && (
-          <div className="terminal-demo-success-box">
-            <div className="terminal-demo-box-header">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="terminal-box-check" aria-hidden="true">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                <polyline points="22 4 12 14.01 9 11.01" />
+          <div className="terminal-demo-summary-box">
+            <div className="terminal-summary-header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12" />
               </svg>
-              <strong>{isEn ? "Bobine Appliance v3.0.0 — Ready & Operational" : "Bobine Appliance v3.0.0 opérationnelle — Prête pour diffusion"}</strong>
+              <strong>{isEn ? "Bobine — Installation completed successfully" : "Bobine — Installation terminée avec succès"}</strong>
             </div>
 
-            <div className="terminal-demo-box-grid">
-              <div className="terminal-demo-box-item">
-                <span className="terminal-box-label">{isEn ? "Screen Playout (HDMI-0)" : "Diffusion Écran (HDMI-0)"} :</span>
-                <code className="terminal-box-url">http://127.0.0.1:8000/kiosk</code>
+            <div className="terminal-summary-table">
+              <div className="terminal-summary-row">
+                <span className="summary-key">Admin</span>
+                <span className="summary-val">http://bobine.local <span className="summary-alt">(et http://10.0.0.30:8000)</span></span>
               </div>
-              <div className="terminal-demo-box-item">
-                <span className="terminal-box-label">{isEn ? "Web Remote & Studio Admin" : "Télécommande & Admin"} :</span>
-                <code className="terminal-box-url">http://bobine.local</code>
+              <div className="terminal-summary-row">
+                <span className="summary-key">Kiosk</span>
+                <span className="summary-val">http://127.0.0.1:8000/kiosk <span className="summary-alt">(écran cinéma HDMI-0)</span></span>
               </div>
-              <div className="terminal-demo-box-item">
-                <span className="terminal-box-label">{isEn ? "CLI Control Command" : "Contrôle Terminal"} :</span>
-                <code className="terminal-box-cmd">bobine status</code>
+              <div className="terminal-summary-row">
+                <span className="summary-key">Config</span>
+                <span className="summary-val">/etc/bobine/config.toml</span>
+              </div>
+              <div className="terminal-summary-row">
+                <span className="summary-key">Journal</span>
+                <span className="summary-val">/var/log/bobine/install-2026-09-06.log</span>
+              </div>
+              <div className="terminal-summary-row">
+                <span className="summary-key">Contrôle</span>
+                <span className="summary-val"><code>bobine &#123;start|stop|restart|status|logs&#125;</code></span>
+              </div>
+              <div className="terminal-summary-row">
+                <span className="summary-key">Diagnostic</span>
+                <span className="summary-val"><code>sudo ./install.sh --check</code></span>
               </div>
             </div>
           </div>

@@ -291,22 +291,41 @@ export default function InteractiveTerminal({
           <div className="interactive-terminal-output">
             {outputLines.map((line, idx) => {
               let lineClass = "terminal-line--stdout";
-              let prefix = "";
+              let prefixIcon: React.ReactNode = null;
 
               if (line.type === "prompt") {
                 lineClass = "terminal-line--prompt";
               } else if (line.type === "success") {
                 lineClass = "terminal-line--success";
-                prefix = "✓ ";
+                prefixIcon = (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                );
               } else if (line.type === "warn") {
                 lineClass = "terminal-line--warn";
-                prefix = "⚠ ";
+                prefixIcon = (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+                    <line x1="12" y1="9" x2="12" y2="13" />
+                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                  </svg>
+                );
               } else if (line.type === "error") {
                 lineClass = "terminal-line--error";
-                prefix = "✗ ";
+                prefixIcon = (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                );
               } else if (line.type === "info") {
                 lineClass = "terminal-line--info";
-                prefix = "▸ ";
+                prefixIcon = (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                );
               } else if (line.type === "dim") {
                 lineClass = "terminal-line--dim";
               } else if (line.type === "json") {
@@ -315,7 +334,7 @@ export default function InteractiveTerminal({
 
               return (
                 <div key={idx} className={`terminal-output-line ${lineClass}`}>
-                  {prefix && <span className="line-symbol-prefix">{prefix}</span>}
+                  {prefixIcon && <span className="line-symbol-prefix">{prefixIcon}</span>}
                   <span>{line.text}</span>
                 </div>
               );

@@ -5,6 +5,7 @@ import type { Locale } from "@/lib/i18n";
 import WindowsIcon from "@/components/icons/WindowsIcon";
 import LinuxIcon from "@/components/icons/LinuxIcon";
 import AppleIcon from "@/components/icons/AppleIcon";
+import AndroidIcon from "@/components/icons/AndroidIcon";
 
 interface DownloadsState {
   version: string;
@@ -53,6 +54,7 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       format: isEn ? "Package .deb" : "Paquet .deb",
       badge: isEn ? "1-click install" : "Installation 1 clic",
       url: downloads.linux,
+      isComingSoon: false,
       icon: <LinuxIcon size={26} className="os-download-card__icon" />,
     },
     {
@@ -62,6 +64,7 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       format: isEn ? "Installer .exe" : "Installeur .exe",
       badge: isEn ? "1-click install" : "Installation 1 clic",
       url: downloads.windows,
+      isComingSoon: false,
       icon: <WindowsIcon size={24} className="os-download-card__icon" />,
     },
     {
@@ -71,60 +74,124 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       format: isEn ? "Disk image .dmg" : "Image disque .dmg",
       badge: isEn ? "1-click install" : "Installation 1 clic",
       url: downloads.macos,
+      isComingSoon: false,
       icon: <AppleIcon size={25} className="os-download-card__icon" />,
+    },
+    {
+      id: "android",
+      name: "Android",
+      subtitle: isEn ? "Tablets & ARM tactile kiosks" : "Tablettes & Bornes tactiles ARM",
+      format: isEn ? "Package .apk" : "Paquet .apk",
+      badge: isEn ? "Coming Soon" : "Arrive Bientôt",
+      url: "#",
+      isComingSoon: true,
+      icon: <AndroidIcon size={25} className="os-download-card__icon" />,
     },
   ];
 
   return (
     <div className="os-download-grid" role="region" aria-label={isEn ? "Direct downloads" : "Téléchargements directs"}>
-      {cards.map((card) => (
-        <a
-          key={card.id}
-          href={card.url}
-          className="os-download-card"
-          download
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${isEn ? "Download" : "Télécharger"} Bobine ${downloads.version} ${card.name} (${card.format})`}
-        >
-          <div className="os-download-card__header">
-            <div className="os-download-card__icon-wrap">
-              {card.icon}
-            </div>
-            <div className="os-download-card__title-group">
-              <span className="os-download-card__name">{card.name}</span>
-              <span className="os-download-card__subtitle">{card.subtitle}</span>
-            </div>
-          </div>
-
-          <div className="os-download-card__meta">
-            <span className="os-download-card__format">{card.format}</span>
-            <span className="os-download-card__version">{downloads.version}</span>
-          </div>
-
-          <div className="os-download-card__action">
-            <span className="os-download-card__action-text">
-              {isEn ? "Download" : "Télécharger"}
-            </span>
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-              className="os-download-card__action-icon"
+      {cards.map((card) => {
+        if (card.isComingSoon) {
+          return (
+            <div
+              key={card.id}
+              className="os-download-card os-download-card--soon"
+              aria-label={`${card.name} (${card.format}) — ${card.badge}`}
             >
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
-          </div>
-        </a>
-      ))}
+              <div className="os-download-card__ribbon-soon">
+                <span>{card.badge}</span>
+              </div>
+
+              <div className="os-download-card__header">
+                <div className="os-download-card__icon-wrap">
+                  {card.icon}
+                </div>
+                <div className="os-download-card__title-group">
+                  <span className="os-download-card__name">{card.name}</span>
+                  <span className="os-download-card__subtitle">{card.subtitle}</span>
+                </div>
+              </div>
+
+              <div className="os-download-card__meta">
+                <span className="os-download-card__format">{card.format}</span>
+                <span className="os-download-card__version os-download-card__version--soon">
+                  {isEn ? "In development" : "En développement"}
+                </span>
+              </div>
+
+              <div className="os-download-card__action os-download-card__action--soon">
+                <span className="os-download-card__action-text">
+                  {card.badge}
+                </span>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <a
+            key={card.id}
+            href={card.url}
+            className="os-download-card"
+            download
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${isEn ? "Download" : "Télécharger"} Bobine ${downloads.version} ${card.name} (${card.format})`}
+          >
+            <div className="os-download-card__header">
+              <div className="os-download-card__icon-wrap">
+                {card.icon}
+              </div>
+              <div className="os-download-card__title-group">
+                <span className="os-download-card__name">{card.name}</span>
+                <span className="os-download-card__subtitle">{card.subtitle}</span>
+              </div>
+            </div>
+
+            <div className="os-download-card__meta">
+              <span className="os-download-card__format">{card.format}</span>
+              <span className="os-download-card__version">{downloads.version}</span>
+            </div>
+
+            <div className="os-download-card__action">
+              <span className="os-download-card__action-text">
+                {isEn ? "Download" : "Télécharger"}
+              </span>
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                className="os-download-card__action-icon"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+            </div>
+          </a>
+        );
+      })}
     </div>
   );
 }

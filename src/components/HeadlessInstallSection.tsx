@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import TerminalDemo from "@/components/TerminalDemo";
 import TauriDemo from "@/components/TauriDemo";
-import TauriIcon from "@/components/icons/TauriIcon";
+import NetworkIcon from "@/components/icons/NetworkIcon";
 
 interface HeadlessInstallSectionProps {
   locale: Locale;
@@ -29,41 +29,51 @@ export default function HeadlessInstallSection({ locale }: { locale: Locale }) {
             : "Transformez un mini PC dédié (Dell Wyse 5070, HP ProDesk DM...) en borne 24/7 verrouillée sans bureau graphique parasite, grâce au script automatisé ou à l'assistant graphique d'orchestration."}
         </p>
 
-        {/* Boutons d'onglets segmentés */}
-        <div className="headless-tabs-segmented" role="tablist" aria-label={isEn ? "Installation method selector" : "Sélecteur de méthode d'installation"}>
+        {/* Boutons d'installation séparés et découplés */}
+        <div className="headless-action-tabs" role="tablist" aria-label={isEn ? "Installation method selector" : "Sélecteur de méthode d'installation"}>
           <button
             type="button"
             role="tab"
             aria-selected={activeTab === "bash"}
-            className={`headless-tab-btn ${activeTab === "bash" ? "is-active" : ""}`}
+            className={`headless-action-btn ${activeTab === "bash" ? "is-active" : ""}`}
             onClick={() => setActiveTab("bash")}
           >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <polyline points="4 17 10 11 4 5" />
-              <line x1="12" y1="19" x2="20" y2="19" />
-            </svg>
-            <span>{isEn ? "Bash Installer (CLI)" : "Installateur Bash (CLI)"}</span>
+            <div className="headless-action-btn__icon-wrap">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <polyline points="4 17 10 11 4 5" />
+                <line x1="12" y1="19" x2="20" y2="19" />
+              </svg>
+            </div>
+            <div className="headless-action-btn__text">
+              <span className="headless-action-btn__title">{isEn ? "Bash Installer (CLI)" : "Installateur Bash (CLI)"}</span>
+              <span className="headless-action-btn__desc">{isEn ? "One-line automated shell deploy" : "Script 1-ligne automatisé"}</span>
+            </div>
           </button>
 
           <button
             type="button"
             role="tab"
             aria-selected={activeTab === "tauri"}
-            className={`headless-tab-btn ${activeTab === "tauri" ? "is-active" : ""}`}
+            className={`headless-action-btn ${activeTab === "tauri" ? "is-active" : ""}`}
             onClick={() => setActiveTab("tauri")}
           >
-            <TauriIcon size={14} />
-            <span>{isEn ? "Bobine Assistant (Tauri)" : "Bobine Assistant (Tauri)"}</span>
+            <div className="headless-action-btn__icon-wrap">
+              <NetworkIcon size={16} />
+            </div>
+            <div className="headless-action-btn__text">
+              <span className="headless-action-btn__title">{isEn ? "Bobine Assistant (Tauri)" : "Bobine Assistant (Tauri)"}</span>
+              <span className="headless-action-btn__desc">{isEn ? "Network discovery & desktop wizard" : "Découverte réseau & wizard guidé"}</span>
+            </div>
           </button>
         </div>
       </div>

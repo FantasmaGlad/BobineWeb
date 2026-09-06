@@ -3,6 +3,7 @@ import type { Locale } from "@/lib/i18n";
 import { isLocale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 import OsDownloadGrid from "@/components/OsDownloadGrid";
+import TabletRoadmapBanner from "@/components/TabletRoadmapBanner";
 import HeadlessInstallSection from "@/components/HeadlessInstallSection";
 import ScrollIndicator from "@/components/ScrollIndicator";
 
@@ -75,6 +76,9 @@ export default async function HomePage({
 
           {/* Grille de téléchargement direct pour les 3 OS principaux */}
           <OsDownloadGrid locale={locale as Locale} />
+
+          {/* Bandeau d'information prospective tablettes ARM (Android & iPadOS) */}
+          <TabletRoadmapBanner locale={locale as Locale} />
         </div>
 
         <ScrollIndicator locale={locale as Locale} />

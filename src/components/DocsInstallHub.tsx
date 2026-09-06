@@ -8,6 +8,7 @@ import LinuxIcon from "@/components/icons/LinuxIcon";
 import TauriIcon from "@/components/icons/TauriIcon";
 import TerminalIcon from "@/components/icons/TerminalIcon";
 import QuickStartStepper from "@/components/QuickStartStepper";
+import TabletRoadmapBanner from "@/components/TabletRoadmapBanner";
 
 type InstallTab = "windows" | "macos" | "linux" | "tauri" | "cli";
 
@@ -679,6 +680,9 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           </div>
         </div>
       )}
+
+      {/* Bandeau prospective tablettes ARM (Android & iPadOS) */}
+      <TabletRoadmapBanner locale={locale} />
     </div>
   );
 }

@@ -1218,25 +1218,26 @@ main {
 .docs-sidebar-panel {
   background: var(--bg-surface);
   border-right: 1px solid var(--border-subtle);
-  display: flex;
-  flex-direction: column;
-}
-
-.docs-sidebar-sticky {
   position: sticky;
-  top: 0;
-  max-height: calc(100vh - 4.5rem);
+  top: 4.25rem;
+  height: calc(100vh - 4.25rem);
+  max-height: calc(100vh - 4.25rem);
+  align-self: start;
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  z-index: 20;
+}
+
+.docs-sidebar-panel::-webkit-scrollbar {
+  display: none;
+}
+
+.docs-sidebar-sticky {
   padding: 1.25rem 1.15rem;
   display: flex;
   flex-direction: column;
   gap: 1.15rem;
-}
-
-.docs-sidebar-sticky::-webkit-scrollbar {
-  display: none;
 }
 
 .docs-sidebar-nav-wrapper {
@@ -7266,6 +7267,68 @@ main {
     justify-content: center;
   }
 }
+
+/* ==========================================================================
+   Bandeau Feuille de Route Tablettes ARM (Android & iPadOS)
+   ========================================================================== */
+
+.tablet-roadmap-banner {
+  margin-top: 1.25rem;
+  padding: 1rem 1.35rem;
+  border-radius: var(--radius-lg, 12px);
+  border: 1px dashed var(--border-subtle);
+  background: color-mix(in srgb, var(--bg-card) 75%, transparent);
+  text-align: left;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.tablet-roadmap-banner:hover {
+  border-color: color-mix(in srgb, var(--accent-primary) 40%, transparent);
+  background: color-mix(in srgb, var(--bg-card) 90%, var(--accent-primary) 10%);
+}
+
+.tablet-roadmap-banner__badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.45rem;
+}
+
+.tablet-roadmap-banner__badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+}
+
+.tablet-roadmap-banner__icons {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--text-muted);
+}
+
+.tablet-roadmap-banner__title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  margin: 0 0 0.35rem 0;
+  line-height: 1.3;
+}
+
+.tablet-roadmap-banner__text {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
 
 
 

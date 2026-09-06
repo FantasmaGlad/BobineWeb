@@ -3,27 +3,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import type { Locale } from "@/lib/i18n";
 
-const ASCII_ART = `   ████████████████████                                                                                                 
- ██████████████████████████                                                                                             
- ██    ██         ██   █████                                                                                            
- ██    ██         ██   ██████                                                                                           
- ██ ███████████████████████ ██                                                                                          
- █████████████████████████████                       ██████              ██████                                         
-  ██████████        ███████ ██                       ██████              ██████                                         
-   ██████████████████████   ██                       ██████              ██████                                         
-   ██████████   █████  ███████                       ██████                                                             
-   ██████        █████████████      █████████████    ████████████████    ██████  ████████████████      ████████████     
-  █████          ██ ██    █████    ███████████████   █████████████████   ██████  █████████████████    ███████████████   
- █████                     ████   ███████    ██████  ████████   ████████ ██████  ████████   ███████  ██████     ██████  
-██████       ██        ███  ████ ██████       ██████ ██████       ██████ ██████  ███████     ██████ ██████████████████  
-██████        ██  ██        ████ ██████       ██████ ██████       ██████ ██████  ██████      ██████ ██████████████████  
-███████████    ███  ████████████ ███████     ███████ ███████      ██████ ██████  ██████      ██████ ██████              
- ███ █████████████████████ █████  █████████████████  ██████████████████  ██████  ██████      ██████  ███████████████    
-█████ █ █████████ ███ █████████    ███████████████   █████████████████   ██████  ██████      ██████   ███████████████   
- ████  ████████ ███ █   ███████       ██████████     ███████████████     ██████  ██████      ██████      ██████████     
-  ███████████████████████████                                                                                           
-     █████████████████████`;
-
 interface StepItem {
   id: string;
   labelFr: string;
@@ -40,7 +19,7 @@ const STEPS: StepItem[] = [
     labelEn: "Hardware & GPU discovery",
     detailFr: "Intel Celeron J4105 (VA-API QuickSync actif)",
     detailEn: "Intel Celeron J4105 (VA-API QuickSync active)",
-    durationMs: 380,
+    durationMs: 400,
   },
   {
     id: "storage",
@@ -48,7 +27,7 @@ const STEPS: StepItem[] = [
     labelEn: "NVMe storage & data partitions",
     detailFr: "Disque 256 Go monté (/var/lib/bobine)",
     detailEn: "256 GB drive mounted (/var/lib/bobine)",
-    durationMs: 340,
+    durationMs: 350,
   },
   {
     id: "video",
@@ -56,7 +35,7 @@ const STEPS: StepItem[] = [
     labelEn: "Video output & HDMI-CEC",
     detailFr: "Écran Samsung 65\" sur bus HDMI-0 (1080p60 + CEC auto)",
     detailEn: "Samsung 65\" screen on HDMI-0 (1080p60 + auto CEC)",
-    durationMs: 380,
+    durationMs: 400,
   },
   {
     id: "audio",
@@ -64,7 +43,7 @@ const STEPS: StepItem[] = [
     labelEn: "Sound system audio engine",
     detailFr: "Interface analogique calibrée (Jack 3.5mm vers sono)",
     detailEn: "Calibrated analog interface (3.5mm jack to gym PA)",
-    durationMs: 320,
+    durationMs: 350,
   },
   {
     id: "systemd",
@@ -72,7 +51,7 @@ const STEPS: StepItem[] = [
     labelEn: "Unified architecture & Systemd units",
     detailFr: "FastAPI + SQLite (mono-processus sans Redis) · 4 services actifs",
     detailEn: "FastAPI + SQLite (single-process without Redis) · 4 units active",
-    durationMs: 400,
+    durationMs: 450,
   },
   {
     id: "health",
@@ -80,7 +59,7 @@ const STEPS: StepItem[] = [
     labelEn: "API Healthcheck verification",
     detailFr: "HTTP 200 OK (http://127.0.0.1:8000/api/health — 12ms)",
     detailEn: "HTTP 200 OK (http://127.0.0.1:8000/api/health — 12ms)",
-    durationMs: 300,
+    durationMs: 350,
   },
 ];
 
@@ -95,8 +74,10 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
   const [completedSteps, setCompletedSteps] = useState<number>(0);
   const [currentRunningStep, setCurrentRunningStep] = useState<number>(-1);
   const [isCompleted, setIsCompleted] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
 
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const clearActiveTimer = () => {
@@ -114,6 +95,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
     setCurrentRunningStep(-1);
     setIsCompleted(false);
     setIsPlaying(true);
+    setHasStarted(true);
   }, []);
 
   const skipToEnd = useCallback(() => {
@@ -124,16 +106,41 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
     setCurrentRunningStep(-1);
     setIsCompleted(true);
     setIsPlaying(false);
+    setHasStarted(true);
   }, []);
 
-  // Typing animation effect
+  // Détection d'entrée dans le champ de vision (IntersectionObserver)
+  useEffect(() => {
+    if (hasStarted) return;
+    const el = containerRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      startAnimation();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry && entry.isIntersecting && !hasStarted) {
+          startAnimation();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasStarted, startAnimation]);
+
+  // Effet de saisie de la commande caractère par caractère
   useEffect(() => {
     if (!isPlaying) return;
 
     if (typedChars < COMMAND_TEXT.length) {
       timerRef.current = setTimeout(() => {
         setTypedChars((prev) => prev + 1);
-      }, 24);
+      }, 26);
       return () => clearActiveTimer();
     }
 
@@ -141,12 +148,12 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
       timerRef.current = setTimeout(() => {
         setShowBanner(true);
         setCurrentRunningStep(0);
-      }, 250);
+      }, 280);
       return () => clearActiveTimer();
     }
   }, [typedChars, isPlaying, showBanner]);
 
-  // Step progression effect
+  // Progression séquentielle des étapes d'installation
   useEffect(() => {
     if (!isPlaying || !showBanner || isCompleted) return;
 
@@ -173,7 +180,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
   };
 
   return (
-    <div className="terminal-wrapper terminal-demo-root">
+    <div ref={containerRef} className="terminal-wrapper terminal-demo-root">
       {/* Top Header Bar */}
       <div className="terminal-header">
         <div className="terminal-dots" aria-hidden="true">
@@ -184,35 +191,35 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
 
         <div className="terminal-demo-title-group">
           <span className="terminal-title">
-            bash — bobine-installer v2.0
+            bash — bobine-installer v3.0.0
           </span>
         </div>
 
         <div className="terminal-demo-actions">
-          {/* Replay Button */}
+          {/* Bouton Rejouer */}
           <button
             type="button"
             className="terminal-ctrl-btn"
             onClick={startAnimation}
-            title={isEn ? "Replay animation" : "Rejouer l\x27animation"}
-            aria-label={isEn ? "Replay animation" : "Rejouer l\x27animation"}
+            title={isEn ? "Replay animation" : "Rejouer l'animation"}
+            aria-label={isEn ? "Replay animation" : "Rejouer l'animation"}
           >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.19" />
             </svg>
             <span>{isEn ? "Replay" : "Rejouer"}</span>
           </button>
 
-          {/* Quick skip / Instant view */}
+          {/* Bouton Passer à la fin */}
           {!isCompleted && (
             <button
               type="button"
               className="terminal-ctrl-btn"
               onClick={skipToEnd}
-              title={isEn ? "Skip animation" : "Passer l\x27animation"}
-              aria-label={isEn ? "Skip animation" : "Passer l\x27animation"}
+              title={isEn ? "Skip animation" : "Passer l'animation"}
+              aria-label={isEn ? "Skip animation" : "Passer l'animation"}
             >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <polygon points="5 4 15 12 5 20 5 4" />
                 <line x1="19" y1="5" x2="19" y2="19" />
               </svg>
@@ -220,7 +227,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
             </button>
           )}
 
-          {/* Copy Command Button */}
+          {/* Bouton Copier */}
           <button
             type="button"
             className="terminal-copy-btn"
@@ -229,14 +236,14 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
           >
             {copied ? (
               <>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
                 <span>{isEn ? "Copied!" : "Copié !"}</span>
               </>
             ) : (
               <>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                 </svg>
@@ -260,7 +267,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
           </code>
         </div>
 
-        {/* ASCII Art Banner — Rendu vectoriel matriciel pixel-perfect garanti sans déformation mobile */}
+        {/* ASCII Art Banner */}
         {showBanner && (
           <div className="terminal-ascii-container">
             <svg
@@ -286,7 +293,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
           </div>
         )}
 
-        {/* Installation Steps Progression */}
+        {/* Progression des étapes */}
         {showBanner && (
           <div className="terminal-steps-list">
             {STEPS.map((step, idx) => {
@@ -306,7 +313,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
                     <span className="terminal-ok">[OK]</span>
                   ) : (
                     <span className="terminal-spinner">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeDasharray="32" strokeDashoffset="12" className="terminal-spinner-icon">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeDasharray="32" strokeDashoffset="12" className="terminal-spinner-icon" aria-hidden="true">
                         <circle cx="12" cy="12" r="10" />
                       </svg>
                     </span>
@@ -323,11 +330,11 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
           </div>
         )}
 
-        {/* Final Installation Summary Box */}
+        {/* Bilan de fin d'installation */}
         {isCompleted && (
           <div className="terminal-demo-success-box">
             <div className="terminal-demo-box-header">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="terminal-box-check">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="terminal-box-check" aria-hidden="true">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                 <polyline points="22 4 12 14.01 9 11.01" />
               </svg>

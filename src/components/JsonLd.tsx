@@ -93,88 +93,6 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
     },
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: isEn
-      ? [
-          {
-            "@type": "Question",
-            name: "What is the best free alternative to Les Mills Cinema and Les Mills Virtual for gyms?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Bobine is a free, open-source (AGPL-3.0), and 100% offline-first video playout system designed for fitness clubs. It allows gym operators to schedule and play workout videos, power on studio TVs via HDMI-CEC, offer an on-demand member touchscreen kiosk, and run 24/7 background audio with zero subscription fees.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "How much does it cost to set up a Bobine gym video system?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "The Bobine software is completely free with no monthly license fees. Hardware requirements are minimal: any refurbished x86-64 mini PC (such as a Dell Wyse 5070 or HP EliteDesk 705 costing $40–$70) running Debian 13, saving gyms $1,500 to $3,600 annually per studio compared to proprietary solutions like Les Mills or Wexer.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "How does Bobine compare to Wexer Virtual and Fitness On Demand?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Unlike cloud SaaS systems charging $200–$450/month per screen with internet dependencies, Bobine operates 100% locally from SSD storage with sub-2ms local latency, native HDMI-CEC TV automation, and zero tracking or cloud telemetry.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Why choose Bobine over Screenly Anthias or generic Raspberry Pi digital signage for gym studios?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Anthias (formerly Screenly OSE) is designed for passive billboard slides and video loops. Bobine is purpose-built for fitness studios with automated HDMI-CEC TV power management, interactive member on-demand touch kiosk, mobile coach remote control via local QR code, and 24/7 background audio with voice announcements, running on reliable x86-64 mini PCs.",
-            },
-          },
-        ]
-      : [
-          {
-            "@type": "Question",
-            name: "Quelle est la meilleure alternative à Les Mills Cinema et Les Mills Virtual pour salle de sport ?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Bobine est une régie vidéo open-source (AGPL-3.0) et 100% hors-ligne conçue pour les salles de fitness. Elle permet de planifier des cours vidéo, d'allumer automatiquement les téléviseurs par HDMI-CEC, de proposer une borne tactile adhérent à la demande et de diffuser une radio 24/7 sans aucun abonnement mensuel (0 €/mois).",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Combien coûte l'installation de Bobine dans un studio de fitness ?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Le logiciel Bobine est 100% gratuit et sans redevance. L'investissement matériel se limite à un mini PC standard reconditionné (type Dell Wyse 5070 ou HP EliteDesk 705 coûtant entre 40 € et 70 €) sous Debian 13, permettant d'économiser 1 500 € à 3 600 € par an et par studio face aux solutions propriétaires.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Quelles sont les différences entre Bobine et Wexer ou Fitness On Demand ?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Contrairement aux plateformes cloud SaaS facturées 200 € à 450 €/mois par écran avec risque de coupure internet, Bobine fonctionne en architecture locale 100% hors-ligne, avec une réactivité sub-2ms sur le réseau local, un contrôle TV automatique HDMI-CEC et une conformité RGPD totale.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Peut-on diffuser ses propres cours de cycling et vidéos d'entraînement avec Bobine ?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Oui, Bobine est totalement agnostique. Vous pouvez importer par glisser-déposer n'importe quel fichier vidéo MP4, MKV ou WebM (cycling indoor, HIIT, yoga, pilates, renforcement) avec vos propres coachs et plannings personnalisés.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Pourquoi choisir Bobine plutôt qu'Anthias (Screenly OSE) ou un Raspberry Pi d'affichage dynamique ?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Anthias est un simple afficheur passif en boucle. Bobine est une véritable régie active de salle de sport avec allumage automatique TV par HDMI-CEC, borne tactile adhérents, télécommande coach par QR code et radio 24/7 avec annonces vocales, le tout fiabilisé sur mini PC x86-64 avec SSD.",
-            },
-          },
-        ],
-  };
-
   return (
     <>
       <script
@@ -188,10 +106,6 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
     </>
   );

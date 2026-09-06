@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
+import FaqJsonLd from "@/components/FaqJsonLd";
 import DocsFaqView from "@/components/DocsFaqView";
+import { FAQ_ITEMS } from "@/content/docs/faq-data";
 
 export async function generateMetadata({
   params,
@@ -53,6 +55,7 @@ export default async function FaqPage({
   return (
     <>
       <BreadcrumbsJsonLd items={breadcrumbs} />
+      <FaqJsonLd items={FAQ_ITEMS[locale as Locale]} />
       <DocsFaqView locale={locale as Locale} />
     </>
   );

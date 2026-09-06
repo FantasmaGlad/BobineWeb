@@ -7,10 +7,11 @@ import AppleIcon from "@/components/icons/AppleIcon";
 import LinuxIcon from "@/components/icons/LinuxIcon";
 import TauriIcon from "@/components/icons/TauriIcon";
 import TerminalIcon from "@/components/icons/TerminalIcon";
+import AndroidIcon from "@/components/icons/AndroidIcon";
 import QuickStartStepper from "@/components/QuickStartStepper";
-import RoadmapSection from "@/components/RoadmapSection";
+import { docChapters } from "@/content/docs/chapters";
 
-type InstallTab = "windows" | "macos" | "linux" | "tauri" | "cli";
+type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
 
 interface DownloadsState {
   version: string;
@@ -31,6 +32,8 @@ const FALLBACK_DOWNLOADS: DownloadsState = {
 export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const [activeTab, setActiveTab] = useState<InstallTab>("windows");
+  const roadmapChapter = docChapters[locale].find((c) => c.id === "feuille-de-route");
+  const [androidRoadmap, iosRoadmap] = roadmapChapter?.subsections ?? [];
   const [downloads, setDownloads] = useState<DownloadsState>(FALLBACK_DOWNLOADS);
   const [copiedCmd, setCopiedCmd] = useState(false);
 
@@ -64,7 +67,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
   const tabs: Array<{
     id: InstallTab;
-    group: "desktop" | "appliance";
+    group: "desktop" | "appliance" | "roadmap";
     name: string;
     format: string;
     badge: string;
@@ -93,6 +96,22 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       format: ".deb (Debian, Ubuntu)",
       badge: isEn ? "1-click" : "1 clic",
       icon: <LinuxIcon size={20} />,
+    },
+    {
+      id: "android",
+      group: "roadmap",
+      name: "Android",
+      format: isEn ? "Feasibility study" : "Étude de faisabilité",
+      badge: isEn ? "Roadmap" : "À venir",
+      icon: <AndroidIcon size={20} />,
+    },
+    {
+      id: "ios",
+      group: "roadmap",
+      name: "iOS / iPadOS",
+      format: isEn ? "Explored idea" : "Piste explorée",
+      badge: isEn ? "Roadmap" : "À venir",
+      icon: <AppleIcon size={20} />,
     },
     {
       id: "tauri",
@@ -519,6 +538,92 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         </div>
       )}
 
+      {/* ANDROID (feuille de route, etude de faisabilite) */}
+      {activeTab === "android" && (
+        <div
+          id="panel-android"
+          role="tabpanel"
+          aria-labelledby="tab-android"
+          className="docs-install-panel animate-fade-in"
+        >
+          <div className="docs-method-hero">
+            <div className="docs-method-hero__left">
+              <div className="docs-method-hero__icon">
+                <AndroidIcon size={32} />
+              </div>
+              <div>
+                <h2 className="docs-method-hero__title">
+                  {isEn ? "Android: feasibility study in progress" : "Android : étude de faisabilité en cours"}
+                </h2>
+                <p className="docs-method-hero__desc">
+                  {isEn
+                    ? "Not shipped yet. A technical study is exploring an ARM tablet port, documented below without overselling."
+                    : "Pas encore disponible. Une étude technique explore un portage sur tablette ARM, documentée ci-dessous sans survente."}
+                </p>
+              </div>
+            </div>
+            <div className="docs-method-hero__action-col">
+              <span className="docs-roadmap-status-pill">
+                {isEn ? "Feasibility study — no release date" : "Étude de faisabilité — sans date de sortie"}
+              </span>
+            </div>
+          </div>
+
+          <div className="docs-callout docs-callout--info">
+            <div className="docs-callout__content">
+              {androidRoadmap?.paragraphs.map((p, i) => (
+                <p key={i} style={{ margin: i === 0 ? 0 : "0.6rem 0 0 0" }}>
+                  {p}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* iOS / iPadOS (feuille de route, piste exploree) */}
+      {activeTab === "ios" && (
+        <div
+          id="panel-ios"
+          role="tabpanel"
+          aria-labelledby="tab-ios"
+          className="docs-install-panel animate-fade-in"
+        >
+          <div className="docs-method-hero">
+            <div className="docs-method-hero__left">
+              <div className="docs-method-hero__icon">
+                <AppleIcon size={32} />
+              </div>
+              <div>
+                <h2 className="docs-method-hero__title">
+                  {isEn ? "iOS / iPadOS: explored, not committed" : "iOS / iPadOS : piste explorée, non engagée"}
+                </h2>
+                <p className="docs-method-hero__desc">
+                  {isEn
+                    ? "Not under active study yet. Here is why iPad support is a harder question than Android."
+                    : "Pas encore à l'étude active. Voici pourquoi le support iPad est une question plus complexe qu'Android."}
+                </p>
+              </div>
+            </div>
+            <div className="docs-method-hero__action-col">
+              <span className="docs-roadmap-status-pill docs-roadmap-status-pill--muted">
+                {isEn ? "Explored idea — no timeline" : "Piste explorée — sans calendrier"}
+              </span>
+            </div>
+          </div>
+
+          <div className="docs-callout docs-callout--info">
+            <div className="docs-callout__content">
+              {iosRoadmap?.paragraphs.map((p, i) => (
+                <p key={i} style={{ margin: i === 0 ? 0 : "0.6rem 0 0 0" }}>
+                  {p}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* 4. TAURI ASSISTANT */}
       {activeTab === "tauri" && (
         <div
@@ -681,8 +786,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      {/* Feuille de route réelle : Android à l'étude, iOS/iPadOS piste explorée */}
-      <RoadmapSection locale={locale} />
     </div>
   );
 }

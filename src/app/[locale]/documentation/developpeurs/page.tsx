@@ -142,7 +142,7 @@ export default async function DeveloppeursPage({
         The Bobine daemon exposes a clean, typed REST API on <code>http://bobine.local/api</code> (or <code>http://127.0.0.1:8000/api</code>):
       </p>
 
-      <div className="docs-api-card">
+      <div className="docs-api-card" id="api-health">
         <div className="docs-api-header">
           <span className="docs-method-badge docs-method--get">GET</span>
           <span className="docs-api-endpoint">/api/health</span>
@@ -160,7 +160,7 @@ export default async function DeveloppeursPage({
         </CodeBlock>
       </div>
 
-      <div className="docs-api-card">
+      <div className="docs-api-card" id="api-status">
         <div className="docs-api-header">
           <span className="docs-method-badge docs-method--get">GET</span>
           <span className="docs-api-endpoint">/api/status</span>
@@ -186,7 +186,7 @@ export default async function DeveloppeursPage({
         </CodeBlock>
       </div>
 
-      <div className="docs-api-card">
+      <div className="docs-api-card" id="api-playout-play">
         <div className="docs-api-header">
           <span className="docs-method-badge docs-method--post">POST</span>
           <span className="docs-api-endpoint">/api/playout/play</span>
@@ -201,7 +201,7 @@ export default async function DeveloppeursPage({
         </CodeBlock>
       </div>
 
-      <div className="docs-api-card">
+      <div className="docs-api-card" id="api-playout-volume">
         <div className="docs-api-header">
           <span className="docs-method-badge docs-method--post">POST</span>
           <span className="docs-api-endpoint">/api/playout/volume</span>
@@ -216,7 +216,7 @@ export default async function DeveloppeursPage({
         </CodeBlock>
       </div>
 
-      <div className="docs-api-card">
+      <div className="docs-api-card" id="api-cec-power-on">
         <div className="docs-api-header">
           <span className="docs-method-badge docs-method--post">POST</span>
           <span className="docs-api-endpoint">/api/cec/power-on</span>
@@ -225,6 +225,10 @@ export default async function DeveloppeursPage({
       </div>
 
       <h2 id="websocket-events">Real-Time WebSocket Protocol</h2>
+      <div className="docs-api-header" style={{ marginBottom: "0.65rem" }}>
+        <span className="docs-method-badge docs-method--ws">WS</span>
+        <span className="docs-api-endpoint">/ws/events</span>
+      </div>
       <p>
         Clients connect to <code>ws://bobine.local/ws/events</code> to receive instantaneous state changes across all devices:
       </p>
@@ -343,7 +347,7 @@ export default async function DeveloppeursPage({
         Le démon Bobine expose une API REST complète et typée sur <code>http://bobine.local/api</code> (ou <code>http://127.0.0.1:8000/api</code>) :
       </p>
 
-      <div className="docs-api-card">
+      <div className="docs-api-card" id="api-health">
         <div className="docs-api-header">
           <span className="docs-method-badge docs-method--get">GET</span>
           <span className="docs-api-endpoint">/api/health</span>
@@ -361,7 +365,7 @@ export default async function DeveloppeursPage({
         </CodeBlock>
       </div>
 
-      <div className="docs-api-card">
+      <div className="docs-api-card" id="api-status">
         <div className="docs-api-header">
           <span className="docs-method-badge docs-method--get">GET</span>
           <span className="docs-api-endpoint">/api/status</span>
@@ -387,7 +391,7 @@ export default async function DeveloppeursPage({
         </CodeBlock>
       </div>
 
-      <div className="docs-api-card">
+      <div className="docs-api-card" id="api-playout-play">
         <div className="docs-api-header">
           <span className="docs-method-badge docs-method--post">POST</span>
           <span className="docs-api-endpoint">/api/playout/play</span>
@@ -402,7 +406,7 @@ export default async function DeveloppeursPage({
         </CodeBlock>
       </div>
 
-      <div className="docs-api-card">
+      <div className="docs-api-card" id="api-playout-volume">
         <div className="docs-api-header">
           <span className="docs-method-badge docs-method--post">POST</span>
           <span className="docs-api-endpoint">/api/playout/volume</span>
@@ -417,7 +421,7 @@ export default async function DeveloppeursPage({
         </CodeBlock>
       </div>
 
-      <div className="docs-api-card">
+      <div className="docs-api-card" id="api-cec-power-on">
         <div className="docs-api-header">
           <span className="docs-method-badge docs-method--post">POST</span>
           <span className="docs-api-endpoint">/api/cec/power-on</span>
@@ -426,6 +430,10 @@ export default async function DeveloppeursPage({
       </div>
 
       <h2 id="flux-websockets">Protocole d&apos;Événements WebSockets</h2>
+      <div className="docs-api-header" style={{ marginBottom: "0.65rem" }}>
+        <span className="docs-method-badge docs-method--ws">WS</span>
+        <span className="docs-api-endpoint">/ws/events</span>
+      </div>
       <p>
         Les interfaces clientes se connectent à <code>ws://bobine.local/ws/events</code> pour recevoir les mises à jour en direct :
       </p>

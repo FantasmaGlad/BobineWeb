@@ -67,7 +67,6 @@ export default async function DocumentationPage({
           </h1>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <DownloadPdfButton locale={locale as Locale} chapterId="demarrage-rapide" variant="chapter" />
           <ShareButton
             locale={locale as Locale}
             pathname="/documentation"

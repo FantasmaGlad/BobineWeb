@@ -6642,6 +6642,25 @@ main {
   box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--accent-primary) 18%, transparent);
 }
 
+.os-download-card--recommended {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 1px var(--accent-primary), 0 14px 32px -12px color-mix(in srgb, var(--accent-primary) 24%, transparent);
+}
+
+.os-download-card__recommended-tag {
+  position: absolute;
+  top: -0.6rem;
+  left: 1.1rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-primary-fg, #ffffff);
+  background: var(--accent-primary);
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+}
+
 .os-download-card__header {
   display: flex;
   align-items: center;

@@ -10,6 +10,7 @@ import TerminalIcon from "@/components/icons/TerminalIcon";
 import AndroidIcon from "@/components/icons/AndroidIcon";
 import QuickStartStepper from "@/components/QuickStartStepper";
 import { docChapters } from "@/content/docs/chapters";
+import { detectPlatform, reorderForPlatform, type DetectedPlatform } from "@/lib/detectPlatform";
 
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
 
@@ -32,10 +33,17 @@ const FALLBACK_DOWNLOADS: DownloadsState = {
 export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const [activeTab, setActiveTab] = useState<InstallTab>("windows");
+  const [detected, setDetected] = useState<DetectedPlatform>(null);
   const roadmapChapter = docChapters[locale].find((c) => c.id === "feuille-de-route");
   const [androidRoadmap, iosRoadmap] = roadmapChapter?.subsections ?? [];
   const [downloads, setDownloads] = useState<DownloadsState>(FALLBACK_DOWNLOADS);
   const [copiedCmd, setCopiedCmd] = useState(false);
+
+  useEffect(() => {
+    const platform = detectPlatform();
+    setDetected(platform);
+    if (platform) setActiveTab(platform);
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -131,6 +139,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
     },
   ];
 
+  const orderedTabs = reorderForPlatform(tabs, detected);
+
   return (
     <div className="docs-install-hub">
       {/* Sélecteur de méthode d'installation avec logos vectoriels */}
@@ -146,7 +156,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           aria-label={isEn ? "Installation methods" : "Méthodes d'installation"}
           className="docs-install-tabs"
         >
-          {tabs.map((tab) => {
+          {orderedTabs.map((tab) => {
             const isSelected = activeTab === tab.id;
             return (
               <button

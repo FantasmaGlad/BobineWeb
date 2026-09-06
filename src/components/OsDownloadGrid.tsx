@@ -6,6 +6,7 @@ import WindowsIcon from "@/components/icons/WindowsIcon";
 import LinuxIcon from "@/components/icons/LinuxIcon";
 import AppleIcon from "@/components/icons/AppleIcon";
 import AndroidIcon from "@/components/icons/AndroidIcon";
+import { detectPlatform, reorderForPlatform, type DetectedPlatform } from "@/lib/detectPlatform";
 
 interface DownloadsState {
   version: string;
@@ -24,6 +25,11 @@ const FALLBACK_DOWNLOADS: DownloadsState = {
 export default function OsDownloadGrid({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const [downloads, setDownloads] = useState<DownloadsState>(FALLBACK_DOWNLOADS);
+  const [detected, setDetected] = useState<DetectedPlatform>(null);
+
+  useEffect(() => {
+    setDetected(detectPlatform());
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -89,16 +95,24 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
     },
   ];
 
+  const orderedCards = reorderForPlatform(cards, detected);
+
   return (
     <div className="os-download-grid" role="region" aria-label={isEn ? "Direct downloads" : "Téléchargements directs"}>
-      {cards.map((card) => {
+      {orderedCards.map((card) => {
+        const isRecommended = detected === card.id;
         if (card.isComingSoon) {
           return (
             <div
               key={card.id}
-              className="os-download-card os-download-card--soon"
+              className={`os-download-card os-download-card--soon${isRecommended ? " os-download-card--recommended" : ""}`}
               aria-label={`${card.name} (${card.format}) — ${card.badge}`}
             >
+              {isRecommended && (
+                <span className="os-download-card__recommended-tag">
+                  {isEn ? "Your device" : "Votre appareil"}
+                </span>
+              )}
               <div className="os-download-card__header">
                 <div className="os-download-card__icon-wrap">
                   {card.icon}
@@ -143,12 +157,17 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
           <a
             key={card.id}
             href={card.url}
-            className="os-download-card"
+            className={`os-download-card${isRecommended ? " os-download-card--recommended" : ""}`}
             download
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${isEn ? "Download" : "Télécharger"} Bobine ${downloads.version} ${card.name} (${card.format})`}
           >
+            {isRecommended && (
+              <span className="os-download-card__recommended-tag">
+                {isEn ? "Your device" : "Votre appareil"}
+              </span>
+            )}
             <div className="os-download-card__header">
               <div className="os-download-card__icon-wrap">
                 {card.icon}

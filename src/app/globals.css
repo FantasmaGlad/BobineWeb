@@ -6596,7 +6596,12 @@ main {
 /* --------------------------------------------------------------------------
    3. Grille de Téléchargements Directs Multi-OS (Hero Bobine 3.0.0)
    -------------------------------------------------------------------------- */
-.os-download-grid {
+/* Le shell porte la grille commune ; featured et grid s'effacent
+   (display:contents) pour que leurs cartes rejoignent la même rangée
+   sur desktop/tablette. Sur mobile, le shell redevient une colonne et
+   featured retrouve sa propre boîte pour épingler le repère de
+   défilement en bas de son bloc (voir media query plus bas). */
+.os-download-shell {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: clamp(1rem, 1.6vw, 1.4rem);
@@ -6604,6 +6609,11 @@ main {
   max-width: 100%;
   margin-top: clamp(1.25rem, 2.5vh, 2rem);
   margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
+}
+
+.os-download-featured,
+.os-download-grid {
+  display: contents;
 }
 
 .os-download-card {
@@ -6705,19 +6715,26 @@ main {
   color: var(--text-muted);
   margin-top: 0.2rem;
   line-height: 1.35;
-  min-height: 2.2em;
+  min-height: 2.7em; /* 2 lignes pleines (1.35 x 2) : évite un décalage de quelques px entre sous-titres 1 et 2 lignes */
 }
 
 .os-download-card__meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
   font-size: 0.825rem;
   color: var(--text-muted);
   margin-top: auto;
   margin-bottom: 1rem;
   padding-top: 0.85rem;
   border-top: 1px dashed var(--border-subtle);
+  /* Réserve la hauteur de 2 lignes même si un seul des deux libellés
+     (format / statut) passe à la ligne sur une carte étroite : la
+     délimitation (border-top) reste ainsi à la même hauteur sur les 5
+     cartes, qu'elles aient un contenu court ("V3.0.0") ou long
+     ("Étude de faisabilité" / "En développement"). */
+  min-height: 3.6rem;
 }
 
 .os-download-card__format {
@@ -6779,7 +6796,7 @@ main {
 }
 
 @media (max-width: 1023px) and (min-width: 640px) {
-  .os-download-grid {
+  .os-download-shell {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
@@ -6806,11 +6823,33 @@ main {
 }
 
 @media (max-width: 639px) {
-  .os-download-grid {
-    grid-template-columns: 1fr;
+  .os-download-shell {
+    display: flex;
+    flex-direction: column;
     gap: 0.85rem;
     margin-top: 1rem;
     margin-bottom: 1.5rem;
+  }
+
+  .os-download-featured {
+    display: block;
+  }
+
+  /* Quand un appareil est détecté, la carte recommandée + le repère de
+     défilement occupent le reste de l'écran (min-height calculée en JS
+     via featuredMinHeight, voir OsDownloadGrid.tsx) : le repère est
+     ainsi toujours épinglé au vrai bas du premier écran, et la carte
+     suivante ne dépasse jamais du premier écran. */
+  .os-download-featured--detected {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .os-download-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
   }
 
   .os-download-card {
@@ -6824,6 +6863,7 @@ main {
 
   .os-download-mobile-hint {
     display: flex;
+    margin-top: auto;
   }
 }
 

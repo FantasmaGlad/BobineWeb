@@ -10,12 +10,12 @@ const copy = {
   fr: {
     title: "Bobine — La régie vidéo & streaming libre pour votre salle de sport",
     subtitle:
-      "Bobine transforme un mini PC bon marché en système vidéo complet pour votre espace fitness : cours planifiés, borne cinéma à la demande, radio d'ambiance 24/7 — sans abonnement, sans dépendance au cloud, sans coupure.",
+      "Bobine transforme un Mac mini, un laptop ou un mini PC reconditionné en régie vidéo pour votre salle de sport : cours planifiés, borne cinéma à la demande, radio 24/7 — sans abonnement, sans cloud, sans coupure.",
   },
   en: {
     title: "Bobine — The open-source video & streaming system for your fitness club",
     subtitle:
-      "Bobine turns a low-cost mini PC into a complete in-club multimedia system: scheduled classes, on-demand cinema kiosk, 24/7 background radio — no monthly fees, no cloud lock-in, no downtime.",
+      "Bobine turns a Mac mini, a laptop, or a budget mini PC into a complete video system for your fitness club: scheduled classes, on-demand cinema kiosk, 24/7 radio — no fees, no cloud lock-in, no downtime.",
   },
 } as const;
 

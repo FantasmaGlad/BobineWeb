@@ -6,111 +6,119 @@ import ScrollIndicator from "@/components/ScrollIndicator";
 
 const copy = {
   fr: {
-    title: "Architecture & Capacités Techniques de Bobine",
+    title: "Ce que Bobine change au quotidien dans votre salle",
     intro:
-      "Une suite logicielle locale et modulaire qui transforme un simple mini PC standard en régie vidéo autonome, borne tactile adhérent et radio d'ambiance 24/7.",
+      "Une régie vidéo qui tourne toute seule : les cours se lancent à l'heure, l'écran s'allume et s'éteint tout seul, et vos adhérents se servent sans vous déranger.",
     modules: [
       {
         id: "video-engine",
-        badge: "Diffusion & Vidéo",
-        title: "Moteur de Lecture MPV & Accélération Matérielle",
-        desc: "Bobine intègre un moteur de rendu vidéo optimisé pour les processeurs Intel et AMD (Intel QuickSync / iHD, AMD Ryzen / Radeon VA-API) exploitant le décodage matériel VA-API pour une fluidité totale et un usage CPU minime.",
+        badge: "Diffusion vidéo",
+        title: "Vos cours se lancent tout seuls, à l'heure",
+        desc: "Plus besoin qu'un salarié lance la vidéo au bon moment : Bobine diffuse chaque séance à l'heure prévue, en 1080p ou en 4K, sans saccade ni coupure, même sur un petit ordinateur d'occasion.",
+        technicalTitle: "Détails techniques",
         specs: [
-          { label: "Résolution & Fluidité", value: "1080p et 4K jusqu'à 60 images/seconde" },
-          { label: "Charge Processeur", value: "Moins de 8% d'usage CPU en lecture active" },
+          { label: "Résolution & fluidité", value: "1080p et 4K jusqu'à 60 images par seconde" },
+          { label: "Charge processeur", value: "Moins de 8% d'usage CPU en lecture active" },
           { label: "Codecs supportés", value: "H.264, HEVC (H.265), VP9, AV1, WebM" },
-          { label: "Double affichage", value: "Sortie HDMI principale + flux réseau secondaire" },
+          { label: "Double affichage", value: "Sortie HDMI principale et flux réseau secondaire" },
         ],
       },
       {
         id: "scheduler-cec",
-        badge: "Automatisation & Télévision",
-        title: "Planificateur Intelligent & Contrôle HDMI-CEC",
-        desc: "Fini les allumages manuels ou les télécommandes égarées. Bobine pilote directement l'écran de la salle grâce au protocole HDMI-CEC.",
+        badge: "Écran & télévision",
+        title: "L'écran s'allume et s'éteint tout seul",
+        desc: "Fini les télécommandes égarées ou l'écran resté allumé pour rien toute la nuit : Bobine pilote directement la télévision de la salle, sur un planning hebdomadaire que vous réglez une bonne fois pour toutes.",
+        technicalTitle: "Détails techniques",
         specs: [
           { label: "Allumage TV", value: "Allumage automatique 2 minutes avant le cours" },
           { label: "Mise en veille", value: "Extinction automatique de l'écran en fin de séance" },
           { label: "Grille hebdomadaire", value: "Créneaux récurrents configurables à la seconde" },
-          { label: "Décompte visuel", value: "Affichage d'un compte à rebours d'échauffement" },
+          { label: "Protocole utilisé", value: "Contrôle natif par HDMI-CEC, sans boîtier tiers" },
         ],
       },
       {
         id: "kiosk-controls",
-        badge: "Adhérents & Contrôle",
-        title: "Borne Tactile À la Demande & WebSockets Locaux",
-        desc: "Entre deux cours planifiés, la salle reste vivante : les adhérents peuvent lancer des séances individuelles ou en petits groupes sur l'écran tactile ou depuis leur smartphone.",
+        badge: "Adhérents",
+        title: "Vos adhérents se servent tout seuls",
+        desc: "Entre deux cours, la salle reste vivante : un adhérent choisit sa séance sur l'écran tactile ou scanne un QR code pour la lancer depuis son téléphone, sans rien installer et sans vous demander de l'aide.",
+        technicalTitle: "Détails techniques",
         specs: [
-          { label: "Interface Borne", value: "Interface plein écran épurée et navigable au doigt" },
+          { label: "Interface borne", value: "Interface plein écran épurée et navigable au doigt" },
           { label: "Télécommande smartphone", value: "Scan de QR code Wi-Fi local sans installer d'application" },
           { label: "Télécommandes sans fil", value: "Support plug-and-play des télécommandes USB air-mouse" },
-          { label: "Contrôle du volume", value: "Gestion centralisée du volume sono et vidéo" },
+          { label: "Temps de réponse", value: "WebSockets locaux, réaction quasi instantanée" },
         ],
       },
       {
         id: "audio-watchdog",
-        badge: "Sonorisation & Robustesse",
-        title: "Radio d'Ambiance 24/7 & Chien de Garde Résilient",
-        desc: "Bobine assure une ambiance continue sur le plateau ou dans le studio avec un lecteur musical intégré et une résilience matérielle absolue.",
+        badge: "Ambiance & fiabilité",
+        title: "Une ambiance qui ne s'arrête jamais",
+        desc: "Une musique de fond continue en dehors des cours, et une machine qui repart toute seule après une coupure de courant ou un redémarrage, sans que vous ayez à intervenir.",
+        technicalTitle: "Détails techniques",
         specs: [
-          { label: "Fondu musical (Crossfade)", value: "Transitions douces sans aucun blanc sonore" },
+          { label: "Fondu musical (crossfade)", value: "Transitions douces sans aucun blanc sonore" },
           { label: "Annonces programmées", value: "Diffusion de messages vocaux horaires (fermeture, consignes)" },
-          { label: "Chien de garde (Watchdog)", value: "Surveillance continue systemd avec relance automatique" },
+          { label: "Chien de garde (watchdog)", value: "Surveillance continue systemd avec relance automatique" },
           { label: "Reprise sur coupure", value: "Redémarrage instantané et autonome après coupure de courant" },
         ],
       },
     ],
   },
   en: {
-    title: "Technical Architecture & Core Capabilities of Bobine",
+    title: "What Bobine changes day to day in your gym",
     intro:
-      "A modular, local-first software suite that transforms standard budget mini PCs into an autonomous gym playout system, member kiosk, and 24/7 background audio station.",
+      "A playout system that runs on its own: classes start on time, the screen turns on and off by itself, and members help themselves without needing you.",
     modules: [
       {
         id: "video-engine",
-        badge: "Playout & Video",
-        title: "MPV Playout Engine & Hardware Acceleration",
-        desc: "Bobine embeds a dedicated video player engine optimized for Intel and AMD processors (Intel QuickSync / iHD, AMD Ryzen / Radeon VA-API) leveraging hardware decoding for smooth playout with minimal CPU usage.",
+        badge: "Video playout",
+        title: "Your classes start on their own, on time",
+        desc: "No more staff having to press play at the right moment: Bobine plays every session on schedule, in 1080p or 4K, with no stutter or freeze, even on a small refurbished computer.",
+        technicalTitle: "Technical details",
         specs: [
-          { label: "Resolution & Frame Rate", value: "1080p and 4K up to 60 frames per second" },
-          { label: "CPU Utilization", value: "Under 8% CPU usage during active video playout" },
-          { label: "Supported Codecs", value: "H.264, HEVC (H.265), VP9, AV1, WebM" },
-          { label: "Dual Displays", value: "Main wired HDMI output + secondary networked stream" },
+          { label: "Resolution & frame rate", value: "1080p and 4K up to 60 frames per second" },
+          { label: "CPU utilization", value: "Under 8% CPU usage during active video playout" },
+          { label: "Supported codecs", value: "H.264, HEVC (H.265), VP9, AV1, WebM" },
+          { label: "Dual displays", value: "Main wired HDMI output plus secondary networked stream" },
         ],
       },
       {
         id: "scheduler-cec",
-        badge: "Automation & Display",
-        title: "Smart Weekly Scheduler & Native HDMI-CEC",
-        desc: "No more misplaced remotes. Bobine powers on and controls the workout room TV screen automatically via native HDMI-CEC protocol.",
+        badge: "Screen & TV",
+        title: "The screen turns on and off by itself",
+        desc: "No more misplaced remotes or a screen left on all night for nothing: Bobine controls the room's TV directly, on a weekly schedule you set up once and forget.",
+        technicalTitle: "Technical details",
         specs: [
-          { label: "TV Auto-Power", value: "Screen powers on 2 minutes before the workout" },
-          { label: "Auto-Standby", value: "Automatic TV standby when workout finishes" },
-          { label: "Weekly Schedule", value: "Recurring timetable slots configured to the exact second" },
-          { label: "Visual Countdown", value: "Warm-up countdown overlay before session starts" },
+          { label: "TV auto-power", value: "Screen powers on 2 minutes before the workout" },
+          { label: "Auto-standby", value: "Automatic TV standby when the workout finishes" },
+          { label: "Weekly schedule", value: "Recurring timetable slots configured to the exact second" },
+          { label: "Protocol used", value: "Native HDMI-CEC control, no third-party box" },
         ],
       },
       {
         id: "kiosk-controls",
-        badge: "Members & Interaction",
-        title: "On-Demand Member Kiosk & Local WebSockets",
-        desc: "Between scheduled classes, members can browse workouts and start on-demand sessions directly from a touch display or their own mobile phones.",
+        badge: "Members",
+        title: "Members help themselves",
+        desc: "Between scheduled classes, the room stays alive: a member picks a session on the touch screen or scans a QR code to start it from their phone, with nothing to install and no need to ask for help.",
+        technicalTitle: "Technical details",
         specs: [
           { label: "Kiosk UI", value: "Touch-optimized full-screen interface for fast browsing" },
-          { label: "Mobile Remote", value: "Local Wi-Fi QR code scan with no app installation needed" },
-          { label: "Wireless Remotes", value: "Plug-and-play USB air-mouse / remote support" },
-          { label: "Volume Control", value: "Centralized volume management for video and voice audio" },
+          { label: "Mobile remote", value: "Local Wi-Fi QR code scan with no app installation needed" },
+          { label: "Wireless remotes", value: "Plug-and-play USB air-mouse / remote support" },
+          { label: "Response time", value: "Local WebSockets, near-instant reaction" },
         ],
       },
       {
         id: "audio-watchdog",
-        badge: "Audio & Resilience",
-        title: "24/7 Background Music & Watchdog Supervisor",
-        desc: "Bobine provides continuous background sound across the gym floor with an integrated audio player and bulletproof crash recovery.",
+        badge: "Ambiance & reliability",
+        title: "An atmosphere that never stops",
+        desc: "Continuous background music outside of classes, and a machine that comes back on its own after a power cut or restart, with nothing for you to do.",
+        technicalTitle: "Technical details",
         specs: [
-          { label: "Audio Crossfade", value: "Smooth transitions with zero audio silence gaps" },
-          { label: "Scheduled Spoken Alerts", value: "Automated announcements (gym closing, safety guidelines)" },
-          { label: "Systemd Watchdog", value: "Continuous process supervision with automatic recovery" },
-          { label: "Power Cut Resilience", value: "Instant automatic reboot and resume after power cuts" },
+          { label: "Audio crossfade", value: "Smooth transitions with zero audio silence gaps" },
+          { label: "Scheduled spoken alerts", value: "Automated announcements (gym closing, safety guidelines)" },
+          { label: "Systemd watchdog", value: "Continuous process supervision with automatic recovery" },
+          { label: "Power cut resilience", value: "Instant automatic reboot and resume after power cuts" },
         ],
       },
     ],
@@ -129,20 +137,20 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "/fonctionnalites",
     title: isEn
-      ? "Features & Playout Architecture — Bobine | Les Mills Cinema Alternative"
-      : "Fonctionnalités & Architecture Technique — Bobine | Alternative Les Mills Cinema",
+      ? "Features — Bobine | Les Mills Cinema Alternative"
+      : "Fonctionnalités — Bobine | Alternative Les Mills Cinema",
     description: isEn
-      ? "Discover the modular capabilities of Bobine: MPV hardware decoding, automated HDMI-CEC TV control, on-demand touch kiosk, and 24/7 background audio without monthly subscription."
-      : "Découvrez les fonctionnalités de Bobine face aux solutions comme Les Mills Cinema : décodage matériel Intel VA-API, pilotage TV automatique HDMI-CEC, borne tactile et radio 24/7 sans abonnement.",
+      ? "What Bobine does for your gym day to day: classes that start on their own, a screen that turns on and off automatically, a self-service member kiosk, and 24/7 background audio without a monthly subscription."
+      : "Ce que Bobine change au quotidien pour votre salle : des cours qui se lancent tout seuls, un écran piloté automatiquement, une borne libre-service pour les adhérents et une ambiance sonore 24/7, sans abonnement.",
     keywords: [
       "Fonctionnalités Bobine",
       "Alternative Les Mills Cinema",
       "Alternative Les Mills Virtual",
-      "Décodage matériel MPV VA-API",
-      "Contrôle TV HDMI-CEC fitness",
+      "Diffusion vidéo automatique salle de sport",
+      "Contrôle TV automatique fitness",
       "Borne tactile cours collectif",
       "Radio ambiance salle de sport",
-      "Architecture streaming autonome",
+      "Régie vidéo autonome",
       "Virtual fitness player features",
     ],
   });
@@ -164,7 +172,7 @@ export default async function FeaturesPage({
       <section className="hero-fullscreen">
         <div>
           <span className="feature-category-label" style={{ marginBottom: "0.75rem", display: "inline-block" }}>
-            {isEn ? "Playout Engine & Hardware" : "Moteur de Diffusion & Matériel"}
+            {isEn ? "Features" : "Fonctionnalités"}
           </span>
 
           <h1 className="hero-fullscreen__title">
@@ -189,14 +197,19 @@ export default async function FeaturesPage({
               <p className="feature-section__desc">{mod.desc}</p>
             </div>
 
-            <div className="feature-specs-grid">
-              {mod.specs.map((sp, idx) => (
-                <div key={idx} className="feature-spec-item">
-                  <div className="feature-spec-label">{sp.label}</div>
-                  <div className="feature-spec-value">{sp.value}</div>
-                </div>
-              ))}
-            </div>
+            <details className="feature-tech-details">
+              <summary className="feature-tech-details__summary">
+                {mod.technicalTitle}
+              </summary>
+              <div className="feature-specs-grid">
+                {mod.specs.map((sp, idx) => (
+                  <div key={idx} className="feature-spec-item">
+                    <div className="feature-spec-label">{sp.label}</div>
+                    <div className="feature-spec-value">{sp.value}</div>
+                  </div>
+                ))}
+              </div>
+            </details>
           </section>
         ))}
       </div>

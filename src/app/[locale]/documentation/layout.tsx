@@ -4,6 +4,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import DocsSidebar from "@/components/DocsSidebar";
 import DocsSearch from "@/components/DocsSearch";
 import DocsMobileNav from "@/components/DocsMobileNav";
+import DocsTableOfContents from "@/components/DocsTableOfContents";
 
 const sections: Record<Locale, ReadonlyArray<readonly [string, string]>> = {
   fr: [
@@ -76,6 +77,7 @@ export default async function DocumentationLayout({
           <article className="docs-content">
             <div className="docs-content__inner">{children}</div>
           </article>
+          <DocsTableOfContents locale={locale} />
         </div>
       </div>
     </div>

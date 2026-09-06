@@ -8,7 +8,7 @@ import LinuxIcon from "@/components/icons/LinuxIcon";
 import TauriIcon from "@/components/icons/TauriIcon";
 import TerminalIcon from "@/components/icons/TerminalIcon";
 import QuickStartStepper from "@/components/QuickStartStepper";
-import TabletRoadmapBanner from "@/components/TabletRoadmapBanner";
+import RoadmapSection from "@/components/RoadmapSection";
 
 type InstallTab = "windows" | "macos" | "linux" | "tauri" | "cli";
 
@@ -681,8 +681,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      {/* Bandeau prospective tablettes ARM (Android & iPadOS) */}
-      <TabletRoadmapBanner locale={locale} />
+      {/* Feuille de route réelle : Android à l'étude, iOS/iPadOS piste explorée */}
+      <RoadmapSection locale={locale} />
     </div>
   );
 }

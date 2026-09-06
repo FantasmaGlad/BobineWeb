@@ -6,6 +6,7 @@ import ShareButton from "@/components/ShareButton";
 import DownloadPdfButton from "@/components/DownloadPdfButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import DocsInstallHub from "@/components/DocsInstallHub";
+import Link from "next/link";
 
 export async function generateMetadata({
   params,
@@ -66,7 +67,7 @@ export default async function DocumentationPage({
           </h1>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <DownloadPdfButton locale={locale as Locale} chapterId="demarrage-rapide" />
+          <DownloadPdfButton locale={locale as Locale} chapterId="demarrage-rapide" variant="chapter" />
           <ShareButton
             locale={locale as Locale}
             pathname="/documentation"
@@ -76,11 +77,31 @@ export default async function DocumentationPage({
         </div>
       </div>
 
-      <p style={{ color: "var(--text-muted)", fontSize: "1.025rem", lineHeight: 1.6, marginBottom: "1.75rem" }}>
+      <p style={{ color: "var(--text-muted)", fontSize: "1.025rem", lineHeight: 1.6, marginBottom: "0.75rem" }}>
         {isEn
           ? "Bobine adapts to your setup: choose between 1-click desktop applications for standard computers (Windows, Mac, Linux) or deploy a dedicated 24/7 appliance for uninterrupted studio playout with automated HDMI-CEC TV control."
           : "Bobine s'adapte à vos besoins : choisissez entre les applications de bureau en 1 clic pour vos ordinateurs personnels ou de régie (Windows, Mac, Linux), ou déployez une appliance dédiée 24/7 pour une diffusion ininterrompue en studio avec allumage automatique de l'écran."}
       </p>
+
+      <p style={{ fontSize: "0.9rem", marginBottom: "1.75rem" }}>
+        <Link href={`/${locale}/fonctionnalites`} style={{ color: "var(--accent-primary)", fontWeight: 600, textDecoration: "none" }}>
+          {isEn ? "See also: What Bobine does for your gym →" : "Voir aussi : ce que Bobine change pour votre salle →"}
+        </Link>
+      </p>
+
+      <div className="docs-callout docs-callout--info" style={{ alignItems: "center", justifyContent: "space-between", flexWrap: "wrap" }}>
+        <div className="docs-callout__content">
+          <div className="docs-callout__title">
+            {isEn ? "Complete offline manual" : "Manuel complet hors-ligne"}
+          </div>
+          <p style={{ margin: 0, color: "var(--text-muted)" }}>
+            {isEn
+              ? "One PDF document: cover page, table of contents, and every chapter (manifesto, setup, usage, features, FAQ, developer reference, roadmap) — kept ready for offline use if the site or network is ever unreachable."
+              : "Un seul document PDF : page de garde, sommaire et tous les chapitres (manifeste, installation, utilisation, fonctionnalités, FAQ, référence développeurs, feuille de route) — à garder sous la main hors-ligne en cas de site ou réseau indisponible."}
+          </p>
+        </div>
+        <DownloadPdfButton locale={locale as Locale} variant="manual" />
+      </div>
 
       {/* Hub d'Installation Multi-Méthodes avec logos officiels */}
       <DocsInstallHub locale={locale as Locale} />

@@ -11,9 +11,35 @@ interface DocsMobileNavProps {
   items: ReadonlyArray<readonly [string, string]>;
 }
 
+interface PageHeading {
+  id: string;
+  text: string;
+  level: number;
+}
+
 export default function DocsMobileNav({ locale, items }: DocsMobileNavProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [pageHeadings, setPageHeadings] = useState<PageHeading[]>([]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const article = document.querySelector(".docs-content");
+    if (!article) return;
+    const elements = Array.from(article.querySelectorAll("h2, h3"));
+    setPageHeadings(
+      elements.map((elem, idx) => {
+        if (!elem.id) {
+          elem.id = `section-${idx}-${elem.textContent?.toLowerCase().replace(/[^\w\d]+/g, "-") || "title"}`;
+        }
+        return {
+          id: elem.id,
+          text: elem.textContent || "",
+          level: elem.tagName.toLowerCase() === "h2" ? 2 : 3,
+        };
+      })
+    );
+  }, [isOpen, pathname]);
 
   // Trouver l'index de l'item actif
   const currentIndex = items.findIndex(([sub]) => {
@@ -107,6 +133,34 @@ export default function DocsMobileNav({ locale, items }: DocsMobileNavProps) {
                   );
                 })}
               </div>
+
+              {pageHeadings.length > 0 && (
+                <div className="docs-mobile-nav-dropdown__list docs-mobile-nav-dropdown__list--toc">
+                  <span className="docs-mobile-nav-dropdown__label">
+                    {locale === "en" ? "On this page" : "Sur cette page"}
+                  </span>
+                  {pageHeadings.map((heading) => (
+                    <a
+                      key={heading.id}
+                      href={`#${heading.id}`}
+                      className={`docs-mobile-nav-dropdown__toc-item docs-mobile-nav-dropdown__toc-item--lvl${heading.level}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setIsOpen(false);
+                        const target = document.getElementById(heading.id);
+                        if (target) {
+                          setTimeout(() => {
+                            target.scrollIntoView({ behavior: "smooth", block: "start" });
+                            window.history.pushState(null, "", `#${heading.id}`);
+                          }, 150);
+                        }
+                      }}
+                    >
+                      {heading.text}
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           </>
         )}

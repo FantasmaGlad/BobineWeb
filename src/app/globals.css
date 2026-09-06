@@ -6823,9 +6823,25 @@ main {
 }
 
 @media (max-width: 639px) {
+  /* Le contenu du hero (titre, sous-titre, grille OS) grandit pour
+     occuper toute la hauteur disponible sous le header, en pur CSS
+     (flex + unités dvh) plutôt qu'une hauteur figée calculée en JS au
+     chargement : cette dernière approche se désynchronisait de la
+     vraie hauteur visible quand la barre d'adresse du navigateur
+     apparaît/disparaît pendant le défilement, donnant l'impression que
+     le repère de défilement "bougeait" tout seul. */
+  .hero-fullscreen__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+
   .os-download-shell {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-height: 0;
     gap: 0.85rem;
     margin-top: 1rem;
     margin-bottom: 1.5rem;
@@ -6836,20 +6852,22 @@ main {
   }
 
   /* Quand un appareil est détecté, la carte recommandée + le repère de
-     défilement occupent le reste de l'écran (min-height calculée en JS
-     via featuredMinHeight, voir OsDownloadGrid.tsx) : le repère est
-     ainsi toujours épinglé au vrai bas du premier écran, et la carte
-     suivante ne dépasse jamais du premier écran. */
+     défilement occupent tout l'espace restant jusqu'au bas de l'écran :
+     le repère est ainsi toujours épinglé au vrai bas du premier écran,
+     et la carte suivante ne dépasse jamais du premier écran. */
   .os-download-featured--detected {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex: 1;
+    min-height: 0;
   }
 
   .os-download-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 0.85rem;
+    flex-shrink: 0;
   }
 
   .os-download-card {

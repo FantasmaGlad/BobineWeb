@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import type { Locale } from "@/lib/i18n";
 import WindowsIcon from "@/components/icons/WindowsIcon";
 import LinuxIcon from "@/components/icons/LinuxIcon";
@@ -26,32 +26,10 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const [downloads, setDownloads] = useState<DownloadsState>(FALLBACK_DOWNLOADS);
   const [detected, setDetected] = useState<DetectedPlatform>(null);
-  const [featuredMinHeight, setFeaturedMinHeight] = useState<number | null>(null);
-  const featuredRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setDetected(detectPlatform());
   }, []);
-
-  // Sur mobile, calcule la hauteur exacte restante jusqu'au bas de
-  // l'écran (indépendamment de la longueur du titre/sous-titre selon
-  // la langue) pour epingler le repère "Défiler pour voir les autres
-  // versions" au vrai bas du premier écran, sans laisser la carte
-  // suivante apparaître tronquée.
-  useEffect(() => {
-    if (!detected) return;
-    const updateHeight = () => {
-      if (window.innerWidth >= 640 || !featuredRef.current) {
-        setFeaturedMinHeight(null);
-        return;
-      }
-      const top = featuredRef.current.getBoundingClientRect().top;
-      setFeaturedMinHeight(Math.max(window.innerHeight - top - 12, 0));
-    };
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    return () => window.removeEventListener("resize", updateHeight);
-  }, [detected]);
 
   useEffect(() => {
     let isMounted = true;
@@ -257,11 +235,7 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
           hauteur avec le repère de defilement epingle en bas ; sur
           desktop, ce wrapper s'efface (display:contents) et rejoint la
           grille commune pour garder les 5 cartes sur une seule rangee. */}
-      <div
-        ref={featuredRef}
-        className={`os-download-featured${detected ? " os-download-featured--detected" : ""}`}
-        style={featuredMinHeight !== null ? { minHeight: `${featuredMinHeight}px` } : undefined}
-      >
+      <div className={`os-download-featured${detected ? " os-download-featured--detected" : ""}`}>
         {renderCard(featuredCard)}
         {detected && (
           <div className="os-download-mobile-hint" aria-hidden="true">

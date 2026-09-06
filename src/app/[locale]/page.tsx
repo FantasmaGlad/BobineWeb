@@ -64,7 +64,7 @@ export default async function HomePage({
     <div className="container">
       {/* 1. Hero Section — Plein écran propre sur Desktop et Mobile */}
       <section className="hero-fullscreen">
-        <div>
+        <div className="hero-fullscreen__content">
           <h1 className="hero-fullscreen__title">
             {t.title}
           </h1>

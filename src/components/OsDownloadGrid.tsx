@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState, type ReactNode } from "react";
 import type { Locale } from "@/lib/i18n";
 import WindowsIcon from "@/components/icons/WindowsIcon";
 import LinuxIcon from "@/components/icons/LinuxIcon";
@@ -52,7 +52,17 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
     };
   }, []);
 
-  const cards = [
+  const cards: Array<{
+    id: string;
+    name: string;
+    subtitle: string;
+    format: string;
+    badge: string;
+    statusLabel?: string;
+    url: string;
+    isComingSoon: boolean;
+    icon: ReactNode;
+  }> = [
     {
       id: "linux",
       name: "Linux",
@@ -87,11 +97,23 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       id: "android",
       name: "Android",
       subtitle: isEn ? "Tablets & ARM tactile kiosks" : "Tablettes & Bornes tactiles ARM",
-      format: isEn ? "Package .apk" : "Paquet .apk",
-      badge: isEn ? "Coming Soon" : "Arrive Bientôt",
+      format: isEn ? "Feasibility study" : "Étude de faisabilité",
+      badge: isEn ? "Roadmap" : "À venir",
+      statusLabel: isEn ? "In development" : "En développement",
       url: "#",
       isComingSoon: true,
       icon: <AndroidIcon size={27} className="os-download-card__icon" />,
+    },
+    {
+      id: "ios",
+      name: "iOS / iPadOS",
+      subtitle: isEn ? "iPad & tactile kiosks" : "iPad & bornes tactiles",
+      format: isEn ? "Explored idea" : "Piste explorée",
+      badge: isEn ? "Roadmap" : "À venir",
+      statusLabel: isEn ? "Not yet studied" : "Pas encore à l'étude",
+      url: "#",
+      isComingSoon: true,
+      icon: <AppleIcon size={26} className="os-download-card__icon" />,
     },
   ];
 
@@ -99,12 +121,20 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
 
   return (
     <div className="os-download-grid" role="region" aria-label={isEn ? "Direct downloads" : "Téléchargements directs"}>
-      {orderedCards.map((card) => {
+      {orderedCards.map((card, idx) => {
         const isRecommended = detected === card.id;
+        const scrollHint = idx === 0 && detected && (
+          <div className="os-download-mobile-hint" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+            <span>{isEn ? "Scroll to see other versions" : "Défiler pour voir les autres versions"}</span>
+          </div>
+        );
         if (card.isComingSoon) {
           return (
+            <Fragment key={card.id}>
             <div
-              key={card.id}
               className={`os-download-card os-download-card--soon${isRecommended ? " os-download-card--recommended" : ""}`}
               aria-label={`${card.name} (${card.format}) — ${card.badge}`}
             >
@@ -126,7 +156,7 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
               <div className="os-download-card__meta">
                 <span className="os-download-card__format">{card.format}</span>
                 <span className="os-download-card__version os-download-card__version--soon">
-                  {isEn ? "In development" : "En développement"}
+                  {card.statusLabel}
                 </span>
               </div>
 
@@ -150,12 +180,14 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
                 </svg>
               </div>
             </div>
+            {scrollHint}
+            </Fragment>
           );
         }
 
         return (
+          <Fragment key={card.id}>
           <a
-            key={card.id}
             href={card.url}
             className={`os-download-card${isRecommended ? " os-download-card--recommended" : ""}`}
             download
@@ -205,6 +237,8 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
               </svg>
             </div>
           </a>
+          {scrollHint}
+          </Fragment>
         );
       })}
     </div>

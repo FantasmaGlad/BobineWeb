@@ -171,10 +171,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               >
                 <span className="docs-install-tab-icon">{tab.icon}</span>
                 <span className="docs-install-tab-text">
-                  <span className="docs-install-tab-name-row">
-                    <span className="docs-install-tab-name">{tab.name}</span>
-                    <span className="docs-install-tab-badge">{tab.badge}</span>
-                  </span>
+                  <span className="docs-install-tab-name">{tab.name}</span>
                   <span className="docs-install-tab-format">{tab.format}</span>
                 </span>
               </button>

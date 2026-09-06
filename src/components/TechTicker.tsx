@@ -30,6 +30,7 @@ const METRICS_FR: TickerMetric[] = [
   { tag: "INSTALLATION", label: "Déploiement rapide", value: "1 ligne (curl bobine.fit/install.sh) · Stack Linux / FastAPI / MPV" },
   { tag: "STACK", label: "Architecture", value: "Debian 13 · FastAPI · SQLite · Chromium X11" },
   { tag: "LICENCE", label: "Souveraineté", value: "AGPL-3.0 (Code source 100% ouvert et auditable)" },
+  { tag: "FEUILLE DE ROUTE", label: "Tablettes tactiles", value: "iOS / Android : en développement" },
 ];
 
 const METRICS_EN: TickerMetric[] = [
@@ -54,6 +55,7 @@ const METRICS_EN: TickerMetric[] = [
   { tag: "INSTALLATION", label: "Quick deployment", value: "1-line command (curl bobine.fit/install.sh) · Linux / FastAPI / MPV stack" },
   { tag: "STACK", label: "Technology", value: "Debian 13 · FastAPI · SQLite · Chromium X11" },
   { tag: "LICENSE", label: "Sovereignty", value: "AGPL-3.0 (100% Open source & auditable)" },
+  { tag: "ROADMAP", label: "Touch tablets", value: "iOS / Android: in development" },
 ];
 
 export default function TechTicker({ locale }: { locale: Locale }) {

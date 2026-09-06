@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
+import { docChapters } from "@/content/docs/chapters";
+import { getBobineReleases } from "@/lib/github-releases";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -8,7 +10,7 @@ const OPENROUTER_API_KEY_FALLBACK =
   "sk-or-v1-REDACTED";
 const OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1";
 
-const SYSTEM_PROMPT = `Tu es Baamix, la mascotte et conseillère technique du projet Bobine (site : bobine.fit, code : github.com/FantasmaGlad/Bobine).
+const SYSTEM_PROMPT_TEMPLATE = `Tu es Baamix, la mascotte et conseillère technique du projet Bobine (site : bobine.fit, code : github.com/FantasmaGlad/Bobine).
 Tu es un petit hamster blanc agile, précis, bienveillant, direct et très professionnel.
 
 ### 1. RÈGLE D'OR : ÉCOUTE ACTIVE & DIAGNOSTIC AVANT DE RÉPONDRE HÂTIVEMENT
@@ -39,18 +41,66 @@ Tu es un petit hamster blanc agile, précis, bienveillant, direct et très profe
 - Ne produis JAMAIS de gros bloc compact ou de mur de texte.
 - INTERDICTION STRICTE DES EMOJIS : N'inclus absolument aucun emoji (zéro emoji).
 
-### 4. CONNAISSANCES DU PROJET :
-- **Pourquoi Bobine** : Libérer les salles de sport de la rente des régies propriétaires à 150-400 €/mois par écran.
-- **Cœur** : 100% Offline-First (fonctionne sans Internet), frugalité matérielle, lecteur MPV accéléré par le GPU en VA-API (Intel QuickSync / iHD ou AMD Radeon / mesa-va-drivers), sauvegarde/restauration ZIP en un clic, radio 24/7.
-- **Nom & Mascotte** : "Bobine" en hommage à la pellicule cinéma 35mm. "Baamix" le hamster blanc symbolise l'agilité, l'endurance et l'ingéniosité.
-- **Redirections doc** :
-  * Guide de démarrage : /fr/documentation
-  * Utilisation & écrans : /fr/documentation/utilisation
-  * Manifeste, Vision & Auteur : /fr/a-propos
-  * FAQ / Dépannage : /fr/documentation/faq
-  * Développeurs : /fr/documentation/developpeurs
+### 4. CONNAISSANCES DU PROJET (générées automatiquement depuis la documentation officielle, ne jamais contredire ces faits) :
+{{PROJECT_KNOWLEDGE}}
+
+### 5. VERSION ACTUELLE (récupérée en direct depuis GitHub) :
+{{VERSION_INFO}}
+
+### 6. REDIRECTIONS DOCUMENTATION :
+- Guide de démarrage : /fr/documentation
+- Utilisation & écrans : /fr/documentation/utilisation
+- Manifeste, Vision & Auteur : /fr/a-propos
+- FAQ / Dépannage : /fr/documentation/faq
+- Développeurs : /fr/documentation/developpeurs
+
+Si une question porte sur un point absent de ta base de connaissances ci-dessus, ne l'invente pas : dis que tu n'es pas certaine et renvoie vers la page de documentation la plus pertinente plutôt que de deviner.
 
 Réponds toujours dans la langue de l'utilisateur (français par défaut, anglais si l'utilisateur écrit en anglais).`;
+
+/**
+ * Construit la section "connaissances du projet" à partir de la même
+ * source de contenu que les pages de documentation et le PDF
+ * (src/content/docs/chapters.ts), pour que Baamix ne se désynchronise
+ * jamais de ce qui est réellement publié sur le site.
+ */
+function buildProjectKnowledge(): string {
+  return docChapters.fr
+    .map((chapter) => {
+      const subsectionLines = chapter.subsections
+        .map((sub) => `  * ${sub.subtitle} : ${sub.paragraphs[0] ?? ""}`)
+        .join("\n");
+      return `- **${chapter.title}** — ${chapter.summary}\n${subsectionLines}`;
+    })
+    .join("\n");
+}
+
+/**
+ * Récupère la dernière version publiée sur GitHub (avec mise en cache
+ * 30 min côté Next.js) pour que Baamix cite toujours le bon numéro de
+ * version sans qu'un humain ait à éditer ce fichier à chaque sortie.
+ */
+async function buildVersionInfo(): Promise<string> {
+  try {
+    const releases = await getBobineReleases();
+    const latest = releases[0];
+    if (!latest) return "Version actuelle inconnue, ne pas inventer de numéro de version.";
+    const shortBody = latest.body.split("\n").slice(0, 6).join("\n");
+    return `- **Dernière version publiée** : ${latest.title} (${latest.slug}), publiée le ${latest.publishedAt || "date inconnue"}.\n- **Notes de version (extrait)** :\n${shortBody}`;
+  } catch {
+    return "Version actuelle indisponible pour le moment, ne pas inventer de numéro de version.";
+  }
+}
+
+async function buildSystemPrompt(): Promise<string> {
+  const [projectKnowledge, versionInfo] = await Promise.all([
+    Promise.resolve(buildProjectKnowledge()),
+    buildVersionInfo(),
+  ]);
+  return SYSTEM_PROMPT_TEMPLATE
+    .replace("{{PROJECT_KNOWLEDGE}}", projectKnowledge)
+    .replace("{{VERSION_INFO}}", versionInfo);
+}
 
 export async function POST(req: Request) {
   try {
@@ -81,8 +131,10 @@ export async function POST(req: Request) {
       },
     });
 
+    const systemPrompt = await buildSystemPrompt();
+
     const conversation = [
-      { role: "system" as const, content: SYSTEM_PROMPT },
+      { role: "system" as const, content: systemPrompt },
       ...messages.map((m: { role: string; content: string }) => ({
         role: (m.role === "user" ? "user" : "assistant") as "user" | "assistant",
         content: String(m.content),

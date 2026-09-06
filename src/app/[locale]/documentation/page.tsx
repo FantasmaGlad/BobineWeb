@@ -5,7 +5,7 @@ import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
 import DownloadPdfButton from "@/components/DownloadPdfButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
-import QuickStartStepper from "@/components/QuickStartStepper";
+import DocsInstallHub from "@/components/DocsInstallHub";
 
 export async function generateMetadata({
   params,
@@ -19,16 +19,19 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "/documentation",
     title: isEn
-      ? "Quick Start Guide & Documentation — Bobine | Les Mills Alternative"
-      : "Guide de Démarrage Rapide & Documentation — Bobine | Alternative Les Mills",
+      ? "Setup Guide & Documentation — Bobine | Multi-OS Playout Suite"
+      : "Guide de Démarrage & Installation — Bobine | Régie Vidéo Multi-OS",
     description: isEn
-      ? "Interactive step-by-step setup guide for Bobine on Debian 13: hardware selection (Dell Wyse 5070), automated 1-command installer, and first workout screen playout."
-      : "Guide d'installation interactif pas à pas de Bobine sur Debian 13 : choix du mini PC (Dell Wyse 5070), commande d'installation automatisée et premier lancement en salle.",
+      ? "Official Bobine V3.0.0 setup guide: 1-click desktop installers for Windows, macOS, and Linux, local network orchestration with Bobine Assistant (Tauri), and 24/7 dedicated gym appliance on Debian 13."
+      : "Guide d'installation officiel de Bobine V3.0.0 : installeurs 1 clic pour Windows, macOS et Linux, orchestration réseau avec Bobine Assistant (Tauri), et régie autonome 24/7 sur mini PC Debian 13.",
     keywords: [
       "Documentation Bobine",
       "Démarrage rapide Bobine",
       "Installation Bobine",
-      "Alternative Les Mills Cinema",
+      "Bobine Windows",
+      "Bobine macOS",
+      "Bobine Linux",
+      "Bobine Assistant",
       "Debian 13 mini PC fitness",
       "Script install.sh Bobine",
     ],
@@ -47,7 +50,7 @@ export default async function DocumentationPage({
   const breadcrumbs = [
     { name: "Bobine", url: `/${locale}` },
     { name: "Documentation", url: `/${locale}/documentation` },
-    { name: isEn ? "Quick Start" : "Démarrage rapide", url: `/${locale}/documentation` },
+    { name: isEn ? "Getting Started" : "Installation & Démarrage", url: `/${locale}/documentation` },
   ];
 
   return (
@@ -56,10 +59,10 @@ export default async function DocumentationPage({
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.25rem" }}>
         <div>
           <span className="feature-category-label">
-            {isEn ? "Tutorial & Setup Wizard" : "Tutoriel & Guide Interactif"}
+            {isEn ? "Getting Started & Multi-OS Setup" : "Installation & Mise en Route Multi-OS"}
           </span>
           <h1 style={{ margin: 0 }}>
-            {isEn ? "Quick Start Guide" : "Démarrage rapide"}
+            {isEn ? "Installation & Quick Start" : "Guide de Démarrage & Installation"}
           </h1>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -67,20 +70,20 @@ export default async function DocumentationPage({
           <ShareButton
             locale={locale as Locale}
             pathname="/documentation"
-            title={isEn ? "Bobine Quick Start Guide" : "Guide de Démarrage Rapide Bobine"}
-            description={isEn ? "Interactive step-by-step setup guide for Bobine on Debian 13." : "Guide interactif d'installation étape par étape de Bobine sur Debian 13."}
+            title={isEn ? "Bobine Installation & Quick Start Guide" : "Guide de Démarrage & Installation Bobine"}
+            description={isEn ? "Official setup guide for Bobine V3.0.0 across Windows, macOS, Linux, and dedicated appliances." : "Guide d'installation officiel de Bobine V3.0.0 sur Windows, macOS, Linux et mini PC dédiés."}
           />
         </div>
       </div>
 
-      <p style={{ color: "var(--text-muted)", fontSize: "1.025rem", lineHeight: 1.6, marginBottom: "1.5rem" }}>
+      <p style={{ color: "var(--text-muted)", fontSize: "1.025rem", lineHeight: 1.6, marginBottom: "1.75rem" }}>
         {isEn
-          ? "This interactive guide walks you step-by-step from choosing your hardware to having your fitness room actively broadcasting virtual classes — with no prior Linux experience needed. Validate each step as you progress, or switch to continuous view anytime."
-          : "Ce guide interactif vous accompagne pas à pas, du choix de votre mini PC jusqu'à la diffusion de vos premiers cours virtuels en salle — sans aucune connaissance Linux préalable requise. Validez chaque étape à votre rythme ou passez en mode lecture continue."}
+          ? "Bobine adapts to your setup: choose between 1-click desktop applications for standard computers (Windows, Mac, Linux) or deploy a dedicated 24/7 appliance for uninterrupted studio playout with automated HDMI-CEC TV control."
+          : "Bobine s'adapte à vos besoins : choisissez entre les applications de bureau en 1 clic pour vos ordinateurs personnels ou de régie (Windows, Mac, Linux), ou déployez une appliance dédiée 24/7 pour une diffusion ininterrompue en studio avec allumage automatique de l'écran."}
       </p>
 
-      {/* Guide Interactif Étape par Étape */}
-      <QuickStartStepper locale={locale as Locale} />
+      {/* Hub d'Installation Multi-Méthodes avec logos officiels */}
+      <DocsInstallHub locale={locale as Locale} />
     </>
   );
 }

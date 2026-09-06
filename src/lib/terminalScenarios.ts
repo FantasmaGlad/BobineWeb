@@ -78,8 +78,8 @@ export const installerScenarios: TerminalScenario[] = [
         {
           type: "dim",
           text: isEnglish
-            ? "Bobine Installer v2.0 · Debian 13 (trixie) · Dell Wyse 5070"
-            : "Bobine Installateur v2.0 · Debian 13 (trixie) · Dell Wyse 5070",
+            ? "Bobine Installer v3.0.0 · Debian 13 (trixie) · Dell Wyse 5070"
+            : "Bobine Installateur v3.0.0 · Debian 13 (trixie) · Dell Wyse 5070",
         },
       ];
 
@@ -149,8 +149,8 @@ export const installerScenarios: TerminalScenario[] = [
       lines.push({
         type: "success",
         text: isEnglish
-          ? "Systemd: 5/5 services enabled and active (backend, kiosk, audio-guard, watchdog)"
-          : "Services : 5/5 unités systemd activées et en cours d'exécution",
+          ? "Systemd: 4/4 services enabled and active (backend, kiosk, audio-guard, watchdog)"
+          : "Services : 4/4 unités systemd activées et en cours d'exécution",
       });
 
       lines.push({
@@ -559,7 +559,7 @@ export const developerScenarios: TerminalScenario[] = [
         text: JSON.stringify(
           {
             status: "ok",
-            version: "2.0.1",
+            version: "3.0.0",
             uptime_seconds: 144200,
             hardware: {
               gpu: "Intel Celeron J4105 (iHD VA-API)",

@@ -299,8 +299,8 @@ sudo ./install.sh</code>
 
           <p>
             {isEn
-              ? "install.sh is idempotent and fully automated: it configures Redis, Node.js, Python virtual environment, Next.js UI build, systemd units (backend, kiosk, audio guard, watchdog), and starts everything."
-              : "install.sh est autonome et idempotent : il configure Redis, Node.js, l'environnement Python, compile l'interface Next.js, enregistre les 5 services systemd et démarre la régie."}
+              ? "install.sh is idempotent and fully automated: it configures the Python virtual environment (FastAPI + SQLite, no external Redis), builds the Next.js UI, registers the 4 systemd units (backend, kiosk, audio-guard, watchdog), and starts everything."
+              : "install.sh est autonome et idempotent : il configure l'environnement Python (FastAPI + SQLite, sans dépendance Redis), compile l'interface Next.js, enregistre les 4 services systemd (backend, kiosk, audio-guard, watchdog) et démarre la régie."}
           </p>
           <Shot caption={isEn ? "Completed install.sh execution showing success summary and local IP address" : "Fin de l'exécution de install.sh : message de succès et adresse IP affichée dans le terminal"} />
         </div>

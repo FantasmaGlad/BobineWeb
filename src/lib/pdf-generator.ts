@@ -46,31 +46,31 @@ export const docChaptersFr: DocChapter[] = [
   {
     id: "demarrage-rapide",
     badge: "Tutoriel",
-    title: "2. Guide de Demarrage Rapide",
+    title: "2. Guide de Demarrage & Installation",
     summary:
-      "Guide d'installation etape par etape sur Debian 13 pour votre mini PC standard, sans connaissances techniques prealables.",
+      "Methodes d'installation de Bobine V3.0.0 : applications de bureau 1-clic pour le grand public (Windows, macOS, Linux) et deploiement sur appliance dediee de salle de sport.",
     subsections: [
       {
-        subtitle: "2.1 Materiel Recommande",
+        subtitle: "2.1 Applications de Bureau Grand Public (1 clic)",
         paragraphs: [
-          "Mini PC bureautique reconditionne : Dell Wyse 5070 (Intel), HP EliteDesk 705 (AMD Ryzen), ou Beelink N100.",
-          "Memoire vive : 4 Go a 8 Go RAM. Stockage : SSD 128 Go ou plus. Connexion : Cable HDMI relie a l'ecran du studio.",
+          "Windows 11 / 10 / IoT : Installeur Bobine-Setup-3.0.0.exe, demarrage silencieux en arriere-plan (systray), regle pare-feu automatique pour telecommande smartphone.",
+          "macOS Apple Silicon (M1-M4) : Image disque Bobine-3.0.0.dmg, glisser-deposer dans /Applications, icone compagnon dans la barre des menus.",
+          "Linux Bureau : Paquet natif bobine_3.0.0_amd64.deb, installation via logitheque ou 'sudo apt install ./bobine_3.0.0_amd64.deb'.",
         ],
       },
       {
-        subtitle: "2.2 Installation du Systeme d'Exploitation",
+        subtitle: "2.2 Appliance Dediee & Salle 24/7 (Mini PC Headless)",
         paragraphs: [
-          "Telechargez l'image Debian 13 (Bookworm / Trixie) standard sans environnement graphique lourd.",
-          "Flashez la cle USB avec Rufus ou BalenaEtcher, puis demarrez le mini PC sur la cle.",
+          "Pour une diffusion permanente et ininterrompue en salle sur un mini PC dedie (Dell Wyse 5070, Beelink N100, HP ProDesk) sous Debian 13 minimale sans bureau.",
+          "Commande d'installation unique et automatique avec acceleration materielle VA-API et controle TV par HDMI-CEC :",
         ],
-        codeBlock: "sudo apt update && sudo apt install -y git curl python3 python3-pip mpv cec-utils",
+        codeBlock: "curl -fsSL https://bobine.fit/install.sh | bash",
       },
       {
-        subtitle: "2.3 Deploiement Automatise de Bobine",
+        subtitle: "2.3 Orchestration Reseau avec Bobine Assistant (Tauri)",
         paragraphs: [
-          "Clonez le depot officiel et lancez le script d'initialisation systeme :",
+          "Application graphique legere (binaire bobine-assistant) pour decouvrir les bornes via mDNS (bobine.local), auditer le materiel en SSH et deployer sans terminal.",
         ],
-        codeBlock: "git clone https://github.com/FantasmaGlad/Bobine.git\ncd Bobine\nsudo ./scripts/install.sh",
       },
     ],
   },
@@ -339,7 +339,7 @@ export async function generateDocumentationPdf({
     month: "long",
     day: "numeric",
   });
-  doc.text(`Version 2.0.0 - ${dateStr} - Licence AGPL-3.0 - bobine.fit`, margin + 8, y + 34);
+  doc.text(`Version 3.0.0 - ${dateStr} - Licence AGPL-3.0 - bobine.fit`, margin + 8, y + 34);
 
   y += 52;
 

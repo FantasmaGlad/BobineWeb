@@ -57,7 +57,7 @@ const COMPARISONS_DATA = {
           "0 € / mois de licence (AGPL-3.0) vs 150 € à 350 € / mois par programme",
           "0 € de formation obligatoire vs 500 € HT / module par coach",
           "100% hors-ligne sur SSD local sans coupure en cas de panne internet",
-          "Allumage TV automatique HDMI-CEC synchronisé avec le planning",
+          "Installation 1 clic sur Windows, macOS, Linux ou mini PC reconditionné",
         ],
       },
       {
@@ -94,9 +94,9 @@ const COMPARISONS_DATA = {
         badge: "Régie Métier vs Signalétique",
         headline: "Pourquoi un afficheur passif comme Anthias ne remplace pas une régie vidéo fitness.",
         description:
-          "Comprendre la différence fondamentale entre des boucles d'images passives et les fonctions métier de Bobine (contrôle TV HDMI-CEC, borne tactile adhérent, radio 24/7).",
+          "Comprendre la différence fondamentale entre des boucles d'images passives et les fonctions métier de Bobine (planning de cours programmés, borne tactile adhérent, radio 24/7).",
         points: [
-          "Allumage automatique TV par HDMI-CEC 2 min avant chaque séance",
+          "Lecture automatique des cours à l'heure planifiée, à la seconde près",
           "Borne tactile plein écran pour lancement de cours à la demande avec décompte",
           "Radio d'ambiance 24/7 avec annonces programmées de bienséance",
           "Reprise autonome après coupure électrique via watchdog systemd",
@@ -121,7 +121,7 @@ const COMPARISONS_DATA = {
           "$0 / month license (AGPL-3.0) vs $150–$350 / month per program",
           "$0 coach certifications vs $500+ per module per instructor",
           "100% offline from local SSD with zero freezes during internet drops",
-          "Native HDMI-CEC TV power automation tied to timetable slots",
+          "1-click installer on Windows, macOS, Linux, or a refurbished mini PC",
         ],
       },
       {
@@ -158,9 +158,9 @@ const COMPARISONS_DATA = {
         badge: "Dedicated Playout vs Generic Signage",
         headline: "Why passive players like Anthias fail to meet gym studio requirements.",
         description:
-          "Understanding the gap between generic slide/video loopers and Bobine's purpose-built fitness features (HDMI-CEC TV control, member touch kiosk, 24/7 gym radio).",
+          "Understanding the gap between generic slide/video loopers and Bobine's purpose-built fitness features (scheduled class playout, member touch kiosk, 24/7 gym radio).",
         points: [
-          "Automated TV power via HDMI-CEC (Turn on 2 min before workout)",
+          "Automatic playout at the exact scheduled second, not a loop",
           "Fullscreen member touch kiosk with live countdown timer",
           "24/7 Gym background radio with crossfade and etiquette voice alerts",
           "Autonomous boot recovery post power cut (systemd watchdog)",

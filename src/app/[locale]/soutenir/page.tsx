@@ -120,7 +120,7 @@ export default function SupportPage() {
                   </div>
                   <div className="github-pr-checktext">
                     <strong>{isEn ? "Submit Pull Requests" : "Soumettre des Pull Requests"}</strong>
-                    <span>{isEn ? "Improve Intel VA-API, CEC drivers or i18n." : "Améliorez le code, le contrôle TV ou les traductions."}</span>
+                    <span>{isEn ? "Improve Intel VA-API decoding, backups or i18n." : "Améliorez le décodage Intel VA-API, les sauvegardes ou les traductions."}</span>
                   </div>
                 </div>
               </div>
@@ -196,7 +196,7 @@ export default function SupportPage() {
                 </span>
                 <ul className="kofi-breakdown-list">
                   <li>{isEn ? "Test mini PCs (Dell Wyse 5070 / ~40-50 €)" : "Mini PC reconditionnés pour banc d'essai (~40-50 €)"}</li>
-                  <li>{isEn ? "HDMI-CEC adapters & wireless air-mouse remotes" : "Clés HDMI-CEC, cartes son et télécommandes"}</li>
+                  <li>{isEn ? "Sound cards & wireless air-mouse remotes" : "Cartes son et télécommandes"}</li>
                   <li>{isEn ? "Domain renewal & CI continuous build servers" : "Nom de domaine bobine.fit & serveurs de build CI"}</li>
                 </ul>
               </div>
@@ -265,8 +265,8 @@ export default function SupportPage() {
             </h3>
             <p style={{ color: "var(--text-main)", fontSize: "0.975rem", lineHeight: 1.65, margin: 0 }}>
               {isEn
-                ? "Bobine has no external corporate investors and collects zero user data. Every donation received via Ko-fi directly pays for hardware testing benches (Dell Wyse units, Intel Celeron mini PCs, HDMI-CEC USB keys), domain renewals, and automated CI/CD runners."
-                : "Bobine ne dépend d'aucun investisseur privé et ne collecte aucune donnée personnelle. Chaque euro reçu sur Ko-fi sert exclusivement à financer le banc d'essai matériel (mini PC Dell Wyse, clés HDMI-CEC, cartes son), le renouvellement du nom de domaine et les serveurs de compilation continue."}
+                ? "Bobine has no external corporate investors and collects zero user data. Every donation received via Ko-fi directly pays for hardware testing benches (Dell Wyse units, Intel Celeron mini PCs, sound cards), domain renewals, and automated CI/CD runners."
+                : "Bobine ne dépend d'aucun investisseur privé et ne collecte aucune donnée personnelle. Chaque euro reçu sur Ko-fi sert exclusivement à financer le banc d'essai matériel (mini PC Dell Wyse, cartes son), le renouvellement du nom de domaine et les serveurs de compilation continue."}
             </p>
           </div>
 

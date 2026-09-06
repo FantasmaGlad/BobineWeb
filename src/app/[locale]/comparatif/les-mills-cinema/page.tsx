@@ -81,9 +81,9 @@ const CONTENT = {
           competitor: "Verrouillé aux sorties trimestrielles de l'éditeur",
         },
         {
-          criterion: "Contrôle Automatisé des Écrans",
-          bobine: "HDMI-CEC natif (Allumage 2 min avant, veille post-cours)",
-          competitor: "Selon boîtiers propriétaires",
+          criterion: "Résilience & Redémarrage Automatique",
+          bobine: "Chien de garde intégré : reprise instantanée après coupure secteur ou plantage",
+          competitor: "Dépend du support technique et de la connexion au serveur distant",
         },
         {
           criterion: "Borne Adhérent à la Demande",
@@ -104,7 +104,7 @@ const CONTENT = {
       },
       {
         title: "2. L'alternative souveraine : Bobine sur mini PC standard",
-        text: "Bobine casse cette dépendance. En installant Debian 13 et Bobine sur un mini PC reconditionné bon marché (type Dell Wyse 5070 à 45 € ou HP EliteDesk 705 à 65 €), vous disposez d'une régie vidéo de niveau professionnel. Vous importez vos propres vidéos de cours en MP4 ou MKV, organisez vos grilles horaires à la seconde près, et pilotez automatiquement l'allumage des téléviseurs de la salle par HDMI-CEC.",
+        text: "Bobine casse cette dépendance. Installez-le en 1 clic sur un PC Windows ou Mac existant, ou sur un mini PC reconditionné bon marché (type Dell Wyse 5070 à 45 € ou HP EliteDesk 705 à 65 €) : vous disposez d'une régie vidéo de niveau professionnel. Vous importez vos propres vidéos de cours en MP4 ou MKV, organisez vos grilles horaires à la seconde près, et le système reprend automatiquement après chaque coupure de courant, sans intervention.",
       },
       {
         title: "3. Résilience 100% Hors-ligne : zéro écran noir en plein cours",
@@ -160,9 +160,9 @@ const CONTENT = {
           competitor: "Locked to quarterly releases from provider",
         },
         {
-          criterion: "Automated TV Screen Control",
-          bobine: "Native HDMI-CEC (Turn on 2 min before, standby post-class)",
-          competitor: "Varies by proprietary appliance",
+          criterion: "Resilience & Automatic Recovery",
+          bobine: "Built-in watchdog: instant resume after a power cut or crash",
+          competitor: "Depends on tech support and remote server connectivity",
         },
         {
           criterion: "Member On-Demand Kiosk",
@@ -183,7 +183,7 @@ const CONTENT = {
       },
       {
         title: "2. The Sovereign Alternative: Bobine on Budget Mini PCs",
-        text: "Bobine eliminates recurring costs entirely. By installing Debian 13 and Bobine on an affordable refurbished mini PC (such as a Dell Wyse 5070 for $45 or an HP EliteDesk 705 for $65), you unlock an enterprise-grade video playout engine. Import standard MP4 or MKV videos, schedule timetable slots with second-precision, and control TV power via native HDMI-CEC.",
+        text: "Bobine eliminates recurring costs entirely. Install it in one click on an existing Windows or Mac computer, or on an affordable refurbished mini PC (such as a Dell Wyse 5070 for $45 or an HP EliteDesk 705 for $65), and unlock an enterprise-grade video playout engine. Import standard MP4 or MKV videos, schedule timetable slots with second-precision, and let the system resume automatically after every power cut, with no intervention.",
       },
       {
         title: "3. 100% Offline Resilience: Never Face Black Screens",

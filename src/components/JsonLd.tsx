@@ -19,7 +19,7 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
     featureList: isEn
       ? [
           "Zero-subscription offline video playout engine",
-          "Automated TV power & standby via HDMI-CEC",
+          "One-click ZIP backup and restore of the full configuration",
           "Touchscreen member cinema kiosk on demand",
           "Instant mobile remote control via local QR code",
           "24/7 background radio with automatic voice announcements",
@@ -28,7 +28,7 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
         ]
       : [
           "Régie vidéo autonome 100% hors-ligne sans abonnement",
-          "Allumage et mise en veille automatique de la TV par HDMI-CEC",
+          "Sauvegarde et restauration ZIP en un clic de toute la configuration",
           "Borne cinéma membre tactile à la demande",
           "Télécommande mobile instantanée par QR code local sans application",
           "Radio d'ambiance 24/7 avec alertes et annonces vocales programmées",

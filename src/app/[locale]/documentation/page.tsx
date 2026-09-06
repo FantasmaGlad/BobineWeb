@@ -78,8 +78,8 @@ export default async function DocumentationPage({
 
       <p style={{ color: "var(--text-muted)", fontSize: "1.025rem", lineHeight: 1.6, marginBottom: "0.75rem" }}>
         {isEn
-          ? "Bobine adapts to your setup: choose between 1-click desktop applications for standard computers (Windows, Mac, Linux) or deploy a dedicated 24/7 appliance for uninterrupted studio playout with automated HDMI-CEC TV control."
-          : "Bobine s'adapte à vos besoins : choisissez entre les applications de bureau en 1 clic pour vos ordinateurs personnels ou de régie (Windows, Mac, Linux), ou déployez une appliance dédiée 24/7 pour une diffusion ininterrompue en studio avec allumage automatique de l'écran."}
+          ? "Bobine adapts to your setup: choose between 1-click desktop applications for standard computers (Windows, Mac, Linux) or deploy a dedicated 24/7 appliance for uninterrupted studio playout with automatic recovery after power cuts."
+          : "Bobine s'adapte à vos besoins : choisissez entre les applications de bureau en 1 clic pour vos ordinateurs personnels ou de régie (Windows, Mac, Linux), ou déployez une appliance dédiée 24/7 pour une diffusion ininterrompue en studio avec reprise automatique après coupure de courant."}
       </p>
 
       <p style={{ fontSize: "0.9rem", marginBottom: "1.75rem" }}>

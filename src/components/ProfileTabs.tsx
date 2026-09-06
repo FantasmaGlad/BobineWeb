@@ -73,9 +73,9 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
                 "Automated countdowns and scheduled start times for Spinning, HIIT, Yoga, Pilates, and Body Sculpt.",
             },
             {
-              title: "Automated TV control via HDMI-CEC",
+              title: "One-click backup & restore",
               detail:
-                "The screen turns on automatically before the workout and switches to standby at the end.",
+                "Export your entire setup as a ZIP archive and restore it in seconds on a new machine.",
             },
           ],
           ctaText: "Discover features",
@@ -159,9 +159,9 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
                 "Lancement automatique des cours de Biking (RPM), HIIT, Yoga, Pilates, Stretching et Cuisses-Abdos-Fessiers.",
             },
             {
-              title: "Allumage TV automatique (HDMI-CEC)",
+              title: "Sauvegarde et restauration en un clic",
               detail:
-                "L'écran s'allume automatiquement 2 minutes avant le cours et se met en veille à la fin de la session.",
+                "Exportez toute votre configuration en archive ZIP et restaurez-la en quelques secondes sur une nouvelle machine.",
             },
           ],
           ctaText: "Voir le guide d'utilisation",

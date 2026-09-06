@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 
 interface TocItem {
@@ -13,48 +13,68 @@ export default function DocsTableOfContents({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const [headings, setHeadings] = useState<TocItem[]>([]);
   const [activeId, setActiveId] = useState<string>("");
+  const intersectionObserverRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    // Récupère les titres H2 et H3 dans la zone de contenu de la doc
     const article = document.querySelector(".docs-content");
     if (!article) return;
 
-    const elements = Array.from(article.querySelectorAll("h2, h3"));
-    const items: TocItem[] = elements.map((elem, idx) => {
-      if (!elem.id) {
-        elem.id = `section-${idx}-${elem.textContent?.toLowerCase().replace(/[^\w\d]+/g, "-") || "title"}`;
-      }
-      return {
-        id: elem.id,
-        text: elem.textContent || "",
-        level: elem.tagName.toLowerCase() === "h2" ? 2 : 3,
-      };
-    });
+    let frameId: number | null = null;
 
-    const frameId = requestAnimationFrame(() => {
-      setHeadings(items);
-    });
+    // Re-scanne les titres H2/H3 visibles — appelé au montage puis à chaque
+    // fois que le contenu change (ex : changement d'onglet dans un guide
+    // d'installation), sans quoi le sommaire restait figé sur le premier
+    // onglet affiché.
+    const scanHeadings = () => {
+      const elements = Array.from(article.querySelectorAll("h2, h3"));
+      const items: TocItem[] = elements.map((elem, idx) => {
+        if (!elem.id) {
+          elem.id = `section-${idx}-${elem.textContent?.toLowerCase().replace(/[^\w\d]+/g, "-") || "title"}`;
+        }
+        return {
+          id: elem.id,
+          text: elem.textContent || "",
+          level: elem.tagName.toLowerCase() === "h2" ? 2 : 3,
+        };
+      });
 
-    // Observer pour le scrollspy
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: "-80px 0% -60% 0%" }
-    );
+      setHeadings((prev) => {
+        const changed =
+          prev.length !== items.length || prev.some((p, i) => p.id !== items[i]?.id || p.text !== items[i]?.text);
+        return changed ? items : prev;
+      });
 
-    elements.forEach((elem) => observer.observe(elem));
+      intersectionObserverRef.current?.disconnect();
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveId(entry.target.id);
+            }
+          });
+        },
+        { rootMargin: "-80px 0% -60% 0%" }
+      );
+      elements.forEach((elem) => observer.observe(elem));
+      intersectionObserverRef.current = observer;
+    };
+
+    const scheduleScan = () => {
+      if (frameId !== null) cancelAnimationFrame(frameId);
+      frameId = requestAnimationFrame(scanHeadings);
+    };
+
+    scheduleScan();
+
+    const mutationObserver = new MutationObserver(scheduleScan);
+    mutationObserver.observe(article, { childList: true, subtree: true });
 
     return () => {
-      cancelAnimationFrame(frameId);
-      observer.disconnect();
+      if (frameId !== null) cancelAnimationFrame(frameId);
+      mutationObserver.disconnect();
+      intersectionObserverRef.current?.disconnect();
     };
   }, []);
-
 
   if (headings.length === 0) return null;
 

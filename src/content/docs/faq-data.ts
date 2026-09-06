@@ -33,7 +33,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "compare",
       q: "En quoi Bobine diffère-t-il d'un outil d'affichage publicitaire / dynamique (Anthias, Screenly, Xibo, Yodeck) ?",
-      a: "Les outils d'affichage dynamique généralistes font défiler des diaporamas ou des pages web en boucle, mais ils ne sont pas adaptés aux studios de fitness : pas d'allumage TV par HDMI-CEC synchronisé à la seconde, pas de borne tactile membre pour lancer un cours à la demande, pas de télécommande smartphone par QR code et pas de radio 24/7 avec fondu sonore. Bobine est spécialement pensé comme une régie de cours collectifs.",
+      a: "Les outils d'affichage dynamique généralistes font défiler des diaporamas ou des pages web en boucle, mais ils ne sont pas adaptés aux studios de fitness : pas de planning de cours programmés à la seconde, pas de borne tactile membre pour lancer un cours à la demande, pas de télécommande smartphone par QR code et pas de radio 24/7 avec fondu sonore. Bobine est spécialement pensé comme une régie de cours collectifs.",
     },
     {
       category: "compare",
@@ -65,7 +65,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "compare",
       q: "How does Bobine differ from general digital signage tools (Anthias, Screenly, Xibo, Yodeck)?",
-      a: "General digital signage players loop slides and ad banners, but lack fitness-specific features: automated HDMI-CEC TV wake/standby synchronized to timetables, interactive touch member kiosk, QR-code smartphone remote, and 24/7 background audio with voice crossfade. Bobine is purpose-built for gym studio playout.",
+      a: "General digital signage players loop slides and ad banners, but lack fitness-specific features: second-precise scheduled class timetables, interactive touch member kiosk, QR-code smartphone remote, and 24/7 background audio with voice crossfade. Bobine is purpose-built for gym studio playout.",
     },
     {
       category: "compare",
@@ -124,9 +124,9 @@ export const TROUBLESHOOTING_ROWS: Record<Locale, TroubleshootRow[]> = {
       solution: "Tuez le processus bloquant avec 'sudo fuser -k 8000/tcp' puis relancez les services.",
     },
     {
-      issue: "La TV ne s'allume pas en HDMI-CEC",
-      cause: "Option CEC désactivée sur la TV ou droits utilisateur",
-      solution: "Activez le CEC (Anynet+, Bravia Sync, Simplink) dans le menu TV. Ajoutez l'utilisateur : 'sudo usermod -aG video,dialout $USER'.",
+      issue: "Échec de restauration d'une sauvegarde ZIP",
+      cause: "Archive corrompue ou exportée depuis une version incompatible",
+      solution: "Vérifiez l'intégrité avec 'sqlite3 bobine.db \"PRAGMA integrity_check;\"'. Ré-exportez une sauvegarde fraîche depuis le panneau d'administration si l'archive est corrompue.",
     },
   ],
   en: [
@@ -156,9 +156,9 @@ export const TROUBLESHOOTING_ROWS: Record<Locale, TroubleshootRow[]> = {
       solution: "Kill lingering processes with 'sudo fuser -k 8000/tcp' and restart services.",
     },
     {
-      issue: "TV does not power on via HDMI-CEC",
-      cause: "CEC disabled in TV settings or missing user group permissions",
-      solution: "Enable HDMI-CEC (Anynet+, Bravia Sync, Simplink) in TV menu. Add user: 'sudo usermod -aG video,dialout $USER'.",
+      issue: "Restoring a ZIP backup fails",
+      cause: "Corrupted archive or exported from an incompatible version",
+      solution: "Check integrity with 'sqlite3 bobine.db \"PRAGMA integrity_check;\"'. Export a fresh backup from the admin panel if the archive is corrupted.",
     },
   ],
 };

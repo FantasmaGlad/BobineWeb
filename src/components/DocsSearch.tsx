@@ -144,11 +144,11 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
       tags: ["radio", "musique", "crossfade", "annonces", "voix"],
     },
     {
-      title: "Allumage TV automatique HDMI-CEC",
+      title: "Sauvegarde et restauration ZIP",
       category: "FAQ",
-      excerpt: "Pilote l'allumage et la mise en veille de la TV sans télécommande physique.",
+      excerpt: "Exportez toute votre configuration en un clic et restaurez-la sur une nouvelle machine.",
       href: "/fr/documentation/faq#utilisation-quotidienne",
-      tags: ["hdmi", "cec", "allumage", "veille", "tv", "ecran"],
+      tags: ["sauvegarde", "restauration", "zip", "backup", "sqlite"],
     },
     {
       title: "Résilience aux coupures de courant & Chien de garde",
@@ -160,7 +160,7 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
     {
       title: "Tableau de résolution des erreurs courantes",
       category: "Dépannage",
-      excerpt: "Diagnostic pas à pas pour mDNS, écran noir, audio HDMI, VA-API et CEC.",
+      excerpt: "Diagnostic pas à pas pour mDNS, écran noir, audio HDMI, VA-API et sauvegardes.",
       href: "/fr/documentation/faq#tableau-depannage",
       tags: ["erreur", "depannage", "audio", "ecran noir", "cec", "mdns", "vainfo"],
     },
@@ -274,7 +274,7 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
     {
       title: "Common Error Resolution Matrix",
       category: "Troubleshooting",
-      excerpt: "Step-by-step diagnostic fixes for mDNS, black screens, HDMI audio, and CEC.",
+      excerpt: "Step-by-step diagnostic fixes for mDNS, black screens, HDMI audio, and backups.",
       href: "/en/documentation/faq#troubleshooting-matrix",
       tags: ["error", "troubleshooting", "audio", "black screen", "cec", "mdns"],
     },

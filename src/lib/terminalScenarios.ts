@@ -128,8 +128,8 @@ export const installerScenarios: TerminalScenario[] = [
         lines.push({
           type: "success",
           text: isEnglish
-            ? "Display: HDMI-1 connected (1080p60) · HDMI-CEC TV power sync enabled"
-            : "Affichage : Sortie HDMI-1 (1080p60) · Pilote TV HDMI-CEC activé",
+            ? "Display: HDMI-1 connected (1080p60) · VA-API hardware decoding enabled"
+            : "Affichage : Sortie HDMI-1 (1080p60) · Décodage matériel VA-API activé",
         });
         lines.push({
           type: "success",
@@ -386,57 +386,57 @@ export const troubleshootingScenarios: TerminalScenario[] = [
     ],
   },
   {
-    id: "hdmi-cec",
+    id: "backup-export",
     badge: {
-      fr: "Contrôle TV",
-      en: "TV Control",
+      fr: "Sauvegarde",
+      en: "Backup",
       variant: "default",
     },
     tabLabel: {
-      fr: "Test HDMI-CEC",
-      en: "HDMI-CEC Test",
+      fr: "Test Sauvegarde ZIP",
+      en: "ZIP Backup Test",
     },
     title: {
-      fr: "Détection et allumage automatique de l'écran TV par HDMI-CEC",
-      en: "Detection and automatic power control of TV screen via HDMI-CEC",
+      fr: "Export et vérification d'intégrité d'une sauvegarde complète",
+      en: "Export and integrity check of a full backup",
     },
     description: {
-      fr: "Teste la liaison CEC pour confirmer que le mini PC peut allumer, mettre en veille et basculer la source de la télévision automatiquement.",
-      en: "Tests the CEC bus to verify that the mini PC can turn on, standby, and switch input on the gym television automatically.",
+      fr: "Teste l'export ZIP complet (vidéothèque, planning, réglages) et vérifie l'intégrité de la base SQLite embarquée.",
+      en: "Tests the full ZIP export (video library, schedule, settings) and checks the integrity of the embedded SQLite database.",
     },
-    baseCommand: "echo 'scan' | cec-client -s -d 1",
+    baseCommand: "bobine-cli backup export --verify",
     getOutput: (_flags: string[], isEn: boolean): TerminalLine[] => [
       {
         type: "dim",
-        text: "CEC Client v6.0.2 opened on adapter /dev/cec0",
+        text: "bobine-cli v3.0.0 — backup module",
       },
       {
         type: "info",
-        text: isEn ? "Scanning HDMI CEC bus for connected display devices..." : "Analyse du bus HDMI CEC pour les appareils connectés...",
+        text: isEn ? "Exporting video library, schedule, and settings..." : "Export de la vidéothèque, du planning et des réglages...",
       },
       {
         type: "success",
-        text: "device #0: TV (Samsung Crystal UHD 65\")",
+        text: "archive: bobine-backup-2026-09-06.zip (842 MB)",
       },
       {
         type: "stdout",
-        text: "  address       : 0.0.0.0",
+        text: "  videos        : 128 files",
       },
       {
         type: "stdout",
-        text: "  active source : yes",
+        text: "  schedule      : 24 recurring slots",
       },
       {
         type: "stdout",
-        text: "  vendor        : Samsung (0000f0)",
+        text: "  database      : bobine.db (SQLite)",
       },
       {
         type: "stdout",
-        text: "  cec version   : 1.4",
+        text: "  integrity     : PRAGMA integrity_check -> ok",
       },
       {
         type: "prompt",
-        text: isEn ? "TV successfully responds to automated power on/off commands." : "La télévision répond avec succès aux ordres d'allumage/veille.",
+        text: isEn ? "Backup archive verified and ready to restore on any machine." : "Archive de sauvegarde vérifiée et prête à être restaurée sur n'importe quelle machine.",
       },
     ],
   },
@@ -649,8 +649,8 @@ export const developerScenarios: TerminalScenario[] = [
       en: "Running the automated Backend test suite",
     },
     description: {
-      fr: "Vérifie la résolution des conflits de planning, les commandes HDMI-CEC et l'intégrité de la base SQLite.",
-      en: "Validates timetable conflict resolution, HDMI-CEC commands, and SQLite database integrity.",
+      fr: "Vérifie la résolution des conflits de planning, l'export de sauvegarde et l'intégrité de la base SQLite.",
+      en: "Validates timetable conflict resolution, backup export, and SQLite database integrity.",
     },
     baseCommand: "cd backend && .venv/bin/pytest -v tests/",
     getOutput: (_flags: string[], isEn: boolean): TerminalLine[] => [

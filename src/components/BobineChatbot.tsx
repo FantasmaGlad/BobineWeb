@@ -28,13 +28,13 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
     ? [
         "What hardware should I buy for my gym?",
         "How is Bobine free with no subscription?",
-        "How does automated HDMI-CEC TV power work?",
+        "How does the one-click backup and restore work?",
         "How do I install Bobine on Debian?",
       ]
     : [
         "Quel matériel acheter pour ma salle ?",
         "Pourquoi Bobine est gratuit sans abonnement ?",
-        "Comment marche l'allumage TV auto (HDMI-CEC) ?",
+        "Comment fonctionne la sauvegarde en un clic ?",
         "Comment installer Bobine sur Debian ?",
       ];
 

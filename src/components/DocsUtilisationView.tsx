@@ -266,11 +266,11 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           </p>
           <div className="docs-callout docs-callout--tip">
             <div className="docs-callout__content">
-              <div className="docs-callout__title">{isEn ? "Automated TV Power (HDMI-CEC)" : "Allumage TV automatique (HDMI-CEC)"}</div>
+              <div className="docs-callout__title">{isEn ? "Resilient by Design" : "Résilient par conception"}</div>
               <div>
                 {isEn
-                  ? "Bobine automatically sends an HDMI-CEC power-on command to your TV 2 minutes before the class starts, switches the input channel, and puts the screen into standby 5 minutes after the workout ends."
-                  : "Bobine envoie un signal HDMI-CEC pour allumer la télévision 2 minutes avant le début du cours, bascule sur la bonne entrée, et remet l'écran en veille 5 minutes après la fin de la séance."}
+                  ? "If the schedule was interrupted by a reboot or a power cut, Bobine's watchdog resumes the correct playlist automatically — no missed class, no manual restart."
+                  : "Si le planning est interrompu par un redémarrage ou une coupure de courant, le chien de garde de Bobine reprend automatiquement la bonne playlist — aucun cours manqué, aucun redémarrage manuel."}
               </div>
             </div>
           </div>

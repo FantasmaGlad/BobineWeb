@@ -78,8 +78,8 @@ const CONTENT = {
           competitor: "Selon solution de diffusion imposée par l'enseigne",
         },
         {
-          criterion: "Allumage Écran Automatique (HDMI-CEC)",
-          bobine: "Inclus en standard (Allumage TV 2 min avant le cours)",
+          criterion: "Télécommande Coach sans Application",
+          bobine: "Scan QR code Wi-Fi local instantané (aucune application à installer)",
           competitor: "Rarement pris en charge de manière native",
         },
         {
@@ -152,9 +152,9 @@ const CONTENT = {
           competitor: "Subject to vendor hardware and cloud requirements",
         },
         {
-          criterion: "Automated Screen Power (HDMI-CEC)",
-          bobine: "Included natively (TV powers on 2 min before class)",
-          competitor: "Rarely supported natively on standard TVs",
+          criterion: "App-Free Coach Remote",
+          bobine: "Instant local Wi-Fi QR scan (nothing to install)",
+          competitor: "Rarely supported natively",
         },
         {
           criterion: "Continuous Background Audio",

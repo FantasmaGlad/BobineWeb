@@ -120,9 +120,9 @@ export default async function DeveloppeursPage({
               <td>Universal responsive web app (Admin, Kiosk, Remote, Radio)</td>
             </tr>
             <tr>
-              <td><strong>Hardware Control</strong></td>
-              <td>libcec (HDMI-CEC) + ALSA</td>
-              <td>Automated TV standby/wake and multi-channel audio routing</td>
+              <td><strong>Audio Routing</strong></td>
+              <td>ALSA</td>
+              <td>Multi-channel audio output routing and volume control</td>
             </tr>
           </tbody>
         </table>
@@ -216,12 +216,12 @@ export default async function DeveloppeursPage({
         </CodeBlock>
       </div>
 
-      <div className="docs-api-card" id="api-cec-power-on">
+      <div className="docs-api-card" id="api-backup-export">
         <div className="docs-api-header">
           <span className="docs-method-badge docs-method--post">POST</span>
-          <span className="docs-api-endpoint">/api/cec/power-on</span>
+          <span className="docs-api-endpoint">/api/backup/export</span>
         </div>
-        <p>Sends an HDMI-CEC wakeup signal to the connected television screen.</p>
+        <p>Generates a full ZIP export of the video library, schedule, and settings for backup or migration.</p>
       </div>
 
       <h2 id="websocket-events">Real-Time WebSocket Protocol</h2>
@@ -325,9 +325,9 @@ export default async function DeveloppeursPage({
               <td>Application web universelle et réactive (Admin, Kiosque, Télécommande, Radio)</td>
             </tr>
             <tr>
-              <td><strong>Contrôle Matériel</strong></td>
-              <td>libcec (HDMI-CEC) + ALSA</td>
-              <td>Allumage/veille automatique du téléviseur et routage audio multi-canaux</td>
+              <td><strong>Routage Audio</strong></td>
+              <td>ALSA</td>
+              <td>Routage de la sortie audio multi-canaux et gestion du volume</td>
             </tr>
           </tbody>
         </table>
@@ -421,12 +421,12 @@ export default async function DeveloppeursPage({
         </CodeBlock>
       </div>
 
-      <div className="docs-api-card" id="api-cec-power-on">
+      <div className="docs-api-card" id="api-backup-export">
         <div className="docs-api-header">
           <span className="docs-method-badge docs-method--post">POST</span>
-          <span className="docs-api-endpoint">/api/cec/power-on</span>
+          <span className="docs-api-endpoint">/api/backup/export</span>
         </div>
-        <p>Transmet une commande HDMI-CEC d&apos;allumage direct au téléviseur raccordé.</p>
+        <p>Génère une archive ZIP complète de la vidéothèque, du planning et des réglages pour sauvegarde ou migration.</p>
       </div>
 
       <h2 id="flux-websockets">Protocole d&apos;Événements WebSockets</h2>

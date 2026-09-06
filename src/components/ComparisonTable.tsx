@@ -20,10 +20,10 @@ export default function ComparisonTable({ locale }: { locale: Locale }) {
           bobineHighlight: true,
         },
         {
-          feature: "Automated TV standby & power (HDMI-CEC)",
-          bobine: "Yes (Native automatic control)",
-          proprietary: "Proprietary hardware only",
-          diy: "No (Manual TV remote)",
+          feature: "One-click backup & restore",
+          bobine: "Yes (Full ZIP export/import)",
+          proprietary: "Cloud-managed only",
+          diy: "No (Manual file copies)",
           bobineHighlight: true,
         },
         {
@@ -71,10 +71,10 @@ export default function ComparisonTable({ locale }: { locale: Locale }) {
           bobineHighlight: true,
         },
         {
-          feature: "Allumage / Extinction TV auto (HDMI-CEC)",
-          bobine: "Oui (Gestion automatique native)",
-          proprietary: "Selon boîtier propriétaire",
-          diy: "Non (Télécommande manuelle)",
+          feature: "Sauvegarde et restauration en 1 clic",
+          bobine: "Oui (Export/import ZIP complet)",
+          proprietary: "Géré uniquement par le cloud",
+          diy: "Non (Copies de fichiers manuelles)",
           bobineHighlight: true,
         },
         {

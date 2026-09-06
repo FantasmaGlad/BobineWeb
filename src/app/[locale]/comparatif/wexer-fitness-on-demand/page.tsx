@@ -74,9 +74,9 @@ const CONTENT = {
           competitor: "Collecte de données d'usage et analytics cloud tiers",
         },
         {
-          criterion: "Allumage & Veille Automatique des Écrans",
-          bobine: "HDMI-CEC natif (Contrôle direct du téléviseur)",
-          competitor: "Nécessite souvent des modules ou télécommandes externes",
+          criterion: "Installation Multi-Plateforme",
+          bobine: "1 clic sur Windows, macOS et Linux, ou appliance Debian dédiée",
+          competitor: "Boîtier certifié imposé par l'éditeur",
         },
         {
           criterion: "Télécommande Coach sans Application",
@@ -148,9 +148,9 @@ const CONTENT = {
           competitor: "Usage tracking and third-party cloud analytics",
         },
         {
-          criterion: "Automatic TV Power & Standby",
-          bobine: "Native HDMI-CEC (Direct TV power management)",
-          competitor: "Requires external relay modules or manual remotes",
+          criterion: "Cross-Platform Installation",
+          bobine: "1-click on Windows, macOS and Linux, or a dedicated Debian appliance",
+          competitor: "Locked to a vendor-certified box",
         },
         {
           criterion: "Staff Mobile Remote",

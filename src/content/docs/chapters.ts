@@ -62,7 +62,7 @@ const fr: DocChapter[] = [
         subtitle: "2.2 Appliance dédiée & salle 24/7 (mini PC headless)",
         paragraphs: [
           "Pour une diffusion permanente et ininterrompue sur un mini PC dédié (Dell Wyse 5070, Beelink N100, HP ProDesk) sous Debian 13 minimale sans bureau graphique.",
-          "Commande d'installation unique et automatique, avec accélération matérielle VA-API et contrôle de la télévision par HDMI-CEC :",
+          "Commande d'installation unique et automatique, avec accélération matérielle VA-API pour la lecture vidéo :",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | bash",
       },
@@ -122,12 +122,12 @@ const fr: DocChapter[] = [
         techChips: [{ icon: "film", label: "MPV / VA-API" }],
       },
       {
-        subtitle: "4.2 Écran et télévision pilotés automatiquement",
+        subtitle: "4.2 Sauvegarde et mises à jour automatiques",
         paragraphs: [
-          "Plus de télécommande égarée ni d'écran resté allumé pour rien : la télévision s'allume avant le cours et s'éteint après.",
-          "Détail technique : pilotage par protocole HDMI-CEC, allumage automatique deux minutes avant le cours, extinction en fin de séance, grille hebdomadaire configurable à la seconde.",
+          "Une configuration entière (vidéothèque, planning, réglages) s'exporte en un clic et se restaure en quelques secondes sur une nouvelle machine.",
+          "Détail technique : export ZIP complet avec vérification d'intégrité SQLite à la restauration, réinitialisation usine avec confirmation explicite requise, vérification automatique des nouvelles versions sur GitHub.",
         ],
-        techChips: [{ icon: "tv", label: "HDMI-CEC" }],
+        techChips: [{ icon: "server", label: "ZIP / SQLite" }],
       },
       {
         subtitle: "4.3 Borne libre-service pour les adhérents",
@@ -153,15 +153,15 @@ const fr: DocChapter[] = [
     title: "5. FAQ & Résolution des Problèmes",
     icon: "help",
     summary:
-      "Réponses aux questions courantes, dépannage réseau, contrôle TV HDMI-CEC et astuces d'optimisation.",
+      "Réponses aux questions courantes, dépannage réseau, sauvegarde et astuces d'optimisation.",
     subsections: [
       {
-        subtitle: "5.1 Le téléviseur ne s'allume pas automatiquement",
+        subtitle: "5.1 Comment sauvegarder ma configuration avant une réinstallation ?",
         paragraphs: [
-          "Vérifiez que l'option HDMI-CEC (Anynet+, Bravia Sync, Simplink selon la marque) est activée dans les paramètres avancés du téléviseur.",
-          "Testez la détection matérielle avec la commande suivante :",
+          "Depuis le panneau d'administration, exportez une archive ZIP complète (vidéothèque, planning, réglages) en un clic, puis réimportez-la sur la nouvelle machine.",
+          "Vérifiez l'intégrité de la base de données restaurée avec la commande suivante :",
         ],
-        codeBlock: "echo scan | cec-client -s -d 1",
+        codeBlock: "sqlite3 bobine.db 'PRAGMA integrity_check;'",
       },
       {
         subtitle: "5.2 Bobine fonctionne-t-il sans connexion internet ?",
@@ -301,7 +301,7 @@ const en: DocChapter[] = [
         subtitle: "2.2 Dedicated 24/7 appliance (headless mini PC)",
         paragraphs: [
           "For uninterrupted, permanent playout on a dedicated mini PC (Dell Wyse 5070, Beelink N100, HP ProDesk) running minimal, desktop-less Debian 13.",
-          "A single automated installation command, with VA-API hardware acceleration and HDMI-CEC TV control:",
+          "A single automated installation command, with VA-API hardware acceleration for video playback:",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | bash",
       },
@@ -361,12 +361,12 @@ const en: DocChapter[] = [
         techChips: [{ icon: "film", label: "MPV / VA-API" }],
       },
       {
-        subtitle: "4.2 Automatic screen and TV control",
+        subtitle: "4.2 Automatic backup and updates",
         paragraphs: [
-          "No more misplaced remotes or a screen left on for nothing: the TV turns on before class and off afterwards.",
-          "Technical detail: native HDMI-CEC control, automatic power-on two minutes before class, automatic standby at the end of a session, weekly schedule configurable to the second.",
+          "An entire configuration (video library, schedule, settings) exports in one click and restores in seconds on a new machine.",
+          "Technical detail: full ZIP export with SQLite integrity checks on restore, factory reset requiring explicit typed confirmation, automatic check for new releases on GitHub.",
         ],
-        techChips: [{ icon: "tv", label: "HDMI-CEC" }],
+        techChips: [{ icon: "server", label: "ZIP / SQLite" }],
       },
       {
         subtitle: "4.3 Self-service member kiosk",
@@ -392,15 +392,15 @@ const en: DocChapter[] = [
     title: "5. FAQ & Troubleshooting",
     icon: "help",
     summary:
-      "Answers to common questions, network troubleshooting, HDMI-CEC TV control, and optimization tips.",
+      "Answers to common questions, network troubleshooting, backups, and optimization tips.",
     subsections: [
       {
-        subtitle: "5.1 The TV does not turn on automatically",
+        subtitle: "5.1 How do I back up my configuration before reinstalling?",
         paragraphs: [
-          "Check that HDMI-CEC (branded Anynet+, Bravia Sync, Simplink depending on the manufacturer) is enabled in the TV's advanced settings.",
-          "Test hardware detection with the following command:",
+          "From the admin panel, export a complete ZIP archive (video library, schedule, settings) in one click, then re-import it on the new machine.",
+          "Verify the restored database's integrity with the following command:",
         ],
-        codeBlock: "echo scan | cec-client -s -d 1",
+        codeBlock: "sqlite3 bobine.db 'PRAGMA integrity_check;'",
       },
       {
         subtitle: "5.2 Does Bobine work without an internet connection?",

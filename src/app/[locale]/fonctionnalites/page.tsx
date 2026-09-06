@@ -8,7 +8,7 @@ const copy = {
   fr: {
     title: "Ce que Bobine change au quotidien dans votre salle",
     intro:
-      "Une régie vidéo qui tourne toute seule : les cours se lancent à l'heure, l'écran s'allume et s'éteint tout seul, et vos adhérents se servent sans vous déranger.",
+      "Une régie vidéo qui tourne toute seule : les cours se lancent à l'heure, votre configuration se sauvegarde toute seule, et vos adhérents se servent sans vous déranger.",
     modules: [
       {
         id: "video-engine",
@@ -24,16 +24,16 @@ const copy = {
         ],
       },
       {
-        id: "scheduler-cec",
-        badge: "Écran & télévision",
-        title: "L'écran s'allume et s'éteint tout seul",
-        desc: "Fini les télécommandes égarées ou l'écran resté allumé pour rien toute la nuit : Bobine pilote directement la télévision de la salle, sur un planning hebdomadaire que vous réglez une bonne fois pour toutes.",
+        id: "backup-updates",
+        badge: "Sauvegarde & mises à jour",
+        title: "Votre régie se sauvegarde et se met à jour toute seule",
+        desc: "Une erreur de manipulation ou un disque à remplacer ne fait pas tout perdre : exportez toute votre configuration en un clic, et restaurez-la en quelques secondes sur une nouvelle machine.",
         technicalTitle: "Détails techniques",
         specs: [
-          { label: "Allumage TV", value: "Allumage automatique 2 minutes avant le cours" },
-          { label: "Mise en veille", value: "Extinction automatique de l'écran en fin de séance" },
-          { label: "Grille hebdomadaire", value: "Créneaux récurrents configurables à la seconde" },
-          { label: "Protocole utilisé", value: "Contrôle natif par HDMI-CEC, sans boîtier tiers" },
+          { label: "Sauvegarde", value: "Export ZIP complet (vidéothèque, planning, réglages)" },
+          { label: "Restauration", value: "Import en un clic avec vérification d'intégrité SQLite" },
+          { label: "Réinitialisation", value: "Retour usine avec confirmation explicite requise" },
+          { label: "Mises à jour", value: "Vérification automatique des nouvelles versions sur GitHub" },
         ],
       },
       {
@@ -67,7 +67,7 @@ const copy = {
   en: {
     title: "What Bobine changes day to day in your gym",
     intro:
-      "A playout system that runs on its own: classes start on time, the screen turns on and off by itself, and members help themselves without needing you.",
+      "A playout system that runs on its own: classes start on time, your setup backs itself up, and members help themselves without needing you.",
     modules: [
       {
         id: "video-engine",
@@ -83,16 +83,16 @@ const copy = {
         ],
       },
       {
-        id: "scheduler-cec",
-        badge: "Screen & TV",
-        title: "The screen turns on and off by itself",
-        desc: "No more misplaced remotes or a screen left on all night for nothing: Bobine controls the room's TV directly, on a weekly schedule you set up once and forget.",
+        id: "backup-updates",
+        badge: "Backup & updates",
+        title: "Your setup backs itself up and updates itself",
+        desc: "A mistake or a failing drive doesn't have to mean starting over: export your entire configuration in one click, and restore it in seconds on a new machine.",
         technicalTitle: "Technical details",
         specs: [
-          { label: "TV auto-power", value: "Screen powers on 2 minutes before the workout" },
-          { label: "Auto-standby", value: "Automatic TV standby when the workout finishes" },
-          { label: "Weekly schedule", value: "Recurring timetable slots configured to the exact second" },
-          { label: "Protocol used", value: "Native HDMI-CEC control, no third-party box" },
+          { label: "Backup", value: "Full ZIP export (video library, schedule, settings)" },
+          { label: "Restore", value: "One-click import with SQLite integrity checks" },
+          { label: "Factory reset", value: "Requires an explicit typed confirmation" },
+          { label: "Updates", value: "Automatic check for new releases on GitHub" },
         ],
       },
       {
@@ -140,8 +140,8 @@ export async function generateMetadata({
       ? "Features — Bobine | Les Mills Cinema Alternative"
       : "Fonctionnalités — Bobine | Alternative Les Mills Cinema",
     description: isEn
-      ? "What Bobine does for your gym day to day: classes that start on their own, a screen that turns on and off automatically, a self-service member kiosk, and 24/7 background audio without a monthly subscription."
-      : "Ce que Bobine change au quotidien pour votre salle : des cours qui se lancent tout seuls, un écran piloté automatiquement, une borne libre-service pour les adhérents et une ambiance sonore 24/7, sans abonnement.",
+      ? "What Bobine does for your gym day to day: classes that start on their own, a setup that backs itself up, a self-service member kiosk, and 24/7 background audio without a monthly subscription."
+      : "Ce que Bobine change au quotidien pour votre salle : des cours qui se lancent tout seuls, une configuration qui se sauvegarde toute seule, une borne libre-service pour les adhérents et une ambiance sonore 24/7, sans abonnement.",
     keywords: [
       "Fonctionnalités Bobine",
       "Alternative Les Mills Cinema",

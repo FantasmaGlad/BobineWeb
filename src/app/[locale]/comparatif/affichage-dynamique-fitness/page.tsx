@@ -21,8 +21,8 @@ export async function generateMetadata({
       ? "Bobine vs Anthias (Screenly OSE) & Digital Signage (TouchPlayer, Waves, Yodeck)"
       : "Bobine face à Anthias (Screenly OSE) & l'Affichage Dynamique (TouchPlayer, Waves, Yodeck)",
     description: isEn
-      ? "Why Screenly Anthias and generic digital signage players fail in gym environments. Compare HDMI-CEC TV automation, member touch kiosk, coach mobile remote, and 24/7 background radio."
-      : "Pourquoi Anthias (Screenly OSE) et les afficheurs passifs ne conviennent pas aux salles de sport. Comparatif HDMI-CEC, borne tactile adhérent, télécommande coach QR code et radio 24/7.",
+      ? "Why Screenly Anthias and generic digital signage players fail in gym environments. Compare scheduled class playout, member touch kiosk, coach mobile remote, and 24/7 background radio."
+      : "Pourquoi Anthias (Screenly OSE) et les afficheurs passifs ne conviennent pas aux salles de sport. Comparatif planning de cours, borne tactile adhérent, télécommande coach QR code et radio 24/7.",
     keywords: [
       "Alternative Anthias",
       "Alternative Screenly Anthias",
@@ -48,7 +48,7 @@ const CONTENT = {
     subtitle:
       "Pourquoi Anthias (ex-Screenly OSE), TouchPlayer, Waves System ou Yodeck sont insuffisants pour piloter une vraie salle de fitness ?",
     summaryCards: [
-      { label: "Automatisation TV", value: "HDMI-CEC Natif", desc: "Allumage / veille sans télécommande" },
+      { label: "Planification", value: "Cours Programmés", desc: "Lecture automatique à l'heure planifiée, pas une boucle" },
       { label: "Borne Adhérents", value: "Kiosque Tactile", desc: "Sélection à la demande avec compte à rebours" },
       { label: "Contrôle Coach", value: "QR Code Local", desc: "Télécommande smartphone sans installer d'app" },
       { label: "Radio Plateau", value: "24/7 avec Fondu", desc: "Crossfade continu et annonces vocales" },
@@ -58,9 +58,9 @@ const CONTENT = {
       headers: ["Fonctionnalité Métier Fitness", "Bobine (Régie Fitness Dédiée)", "Anthias & Affichage Dynamique"],
       rows: [
         {
-          criterion: "Allumage & Veille TV Automatique (HDMI-CEC)",
-          bobine: "Oui (Allumage 2 min avant, extinction en fin de cours)",
-          competitor: "Non (Écran allumé 24/7 ou extinction manuelle)",
+          criterion: "Planning Hebdomadaire de Cours Programmés",
+          bobine: "Oui (Lecture automatique à l'heure planifiée, à la seconde près)",
+          competitor: "Non (Simple boucle de diaporama ou de vidéos sans horaire)",
         },
         {
           criterion: "Borne Tactile Adhérents à la Demande",
@@ -122,7 +122,7 @@ const CONTENT = {
     subtitle:
       "Why Anthias (formerly Screenly OSE), TouchPlayer, Waves System, or Yodeck fail to meet the operational demands of fitness studios?",
     summaryCards: [
-      { label: "TV Automation", value: "Native HDMI-CEC", desc: "Auto power & standby with zero manual remotes" },
+      { label: "Scheduling", value: "Scheduled Classes", desc: "Auto playout at the exact scheduled time, not a loop" },
       { label: "Member Kiosk", value: "Touchscreen Ready", desc: "On-demand class selection with countdown timer" },
       { label: "Coach Remote", value: "Local QR Code", desc: "Smartphone control with no app installation" },
       { label: "Gym Radio", value: "24/7 Crossfade", desc: "Continuous music and automated voice alerts" },
@@ -132,9 +132,9 @@ const CONTENT = {
       headers: ["Fitness Operational Feature", "Bobine (Dedicated Gym Playout)", "Anthias & Generic Digital Signage"],
       rows: [
         {
-          criterion: "Automated TV Screen Power (HDMI-CEC)",
-          bobine: "Yes (Turns TV on 2 min before, standby post-workout)",
-          competitor: "No (Displays run 24/7 or require manual TV remote)",
+          criterion: "Weekly Scheduled Class Timetable",
+          bobine: "Yes (Auto playout at the exact scheduled second)",
+          competitor: "No (Plain slideshow or video loop with no timetable)",
         },
         {
           criterion: "Member On-Demand Touchscreen Kiosk",

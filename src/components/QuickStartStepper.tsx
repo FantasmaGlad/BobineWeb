@@ -98,7 +98,7 @@ export default function QuickStartStepper({ locale }: QuickStartStepperProps) {
                 <tr>
                   <td><strong>{isEn ? "Display / TV" : "Écran TV / Vidéoprojecteur"}</strong></td>
                   <td>HDMI 1080p ou 4K</td>
-                  <td>{isEn ? "TV with HDMI-CEC power sync" : "Télévision compatible HDMI-CEC"}</td>
+                  <td>{isEn ? "4K 60fps TV or projector" : "Télévision ou vidéoprojecteur 4K 60 im/s"}</td>
                 </tr>
                 <tr>
                   <td><strong>{isEn ? "Flash Drive" : "Clé USB"}</strong></td>

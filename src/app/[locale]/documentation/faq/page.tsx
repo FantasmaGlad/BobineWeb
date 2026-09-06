@@ -31,7 +31,7 @@ export async function generateMetadata({
       "Dépannage régie vidéo",
       "Erreurs courantes Bobine",
       "Commandes diagnostic Linux Bobine",
-      "HDMI-CEC dépannage",
+      "Sauvegarde et restauration Bobine",
       "Virtual gym troubleshooting",
     ],
   });

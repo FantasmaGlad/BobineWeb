@@ -13,9 +13,9 @@ export default function HardwareDiagram({ locale }: { locale: Locale }) {
         },
         {
           num: "02",
-          title: "HDMI Video + CEC Control",
-          desc: "Carries 1080p/4K 60fps video signal and sends automated standby/power commands to the TV screen.",
-          tag: "Auto-Power TV",
+          title: "HDMI Video Output",
+          desc: "Carries the 1080p/4K 60fps video signal directly to the TV or projector screen.",
+          tag: "1080p/4K 60fps",
         },
         {
           num: "03",
@@ -33,9 +33,9 @@ export default function HardwareDiagram({ locale }: { locale: Locale }) {
         },
         {
           num: "02",
-          title: "Vidéo HDMI + Contrôle CEC",
-          desc: "Transmet le flux vidéo 1080p/4K et pilote l'allumage / veille automatique de la TV.",
-          tag: "Pilote TV Auto",
+          title: "Sortie Vidéo HDMI",
+          desc: "Transmet directement le flux vidéo 1080p/4K 60 im/s vers la TV ou le vidéoprojecteur.",
+          tag: "1080p/4K 60fps",
         },
         {
           num: "03",

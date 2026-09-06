@@ -33,7 +33,7 @@ const FALLBACK_RELEASES: BobineRelease[] = [
     title: "Bobine V2.0.1 — Accélération Matérielle Intel/AMD & Nouvel Installeur Rapide",
     publishedAt: "2026-08-22T11:55:21Z",
     url: "https://github.com/FantasmaGlad/Bobine/releases/tag/V2.0.1",
-    body: `Bobine est une régie vidéo et sonore autonome et libre (licence AGPL-3.0) conçue pour équiper les studios et salles de sport : diffusion automatique de cours collectifs programmés à la seconde, contrôle direct du téléviseur par HDMI-CEC, borne tactile adhérent à la demande, télécommande mobile locale sans application, et radio d'ambiance 24/7 avec annonces vocales.
+    body: `Bobine est une régie vidéo et sonore autonome et libre (licence AGPL-3.0) conçue pour équiper les studios et salles de sport : diffusion automatique de cours collectifs programmés à la seconde, sauvegarde et restauration en un clic, borne tactile adhérent à la demande, télécommande mobile locale sans application, et radio d'ambiance 24/7 avec annonces vocales.
 
 Incluant borne à la demande, expérience adhérent soignée — tout en gardant le contrôle total de son environnement.
 Code source ouvert, données sur votre matériel, aucun compte à créer, aucun service qui peut être coupé unilatéralement.
@@ -143,7 +143,7 @@ Bobine est conçu pour fonctionner sans supervision technique continue :
   - **Modèles AMD** : HP EliteDesk 705 G4/G5 Mini (AMD Ryzen 3/5 Pro ~60–80 € reconditionné), Lenovo ThinkCentre M715q/M725q Tiny, HP T630/T730/T740 Thin Client.
   - Le décodage matériel VA-API (Intel QuickSync / iHD ou AMD Radeon / mesa-va-drivers) est automatiquement détecté et configuré (<8% CPU en 1080p60/4K).
 - **Mémoire & Stockage** : 4 Go de RAM minimum (8 Go recommandés), SSD de 64 Go à 256 Go.
-- **Écrans** : Sortie HDMI principale câblée (avec support HDMI-CEC pour allumage/veille TV automatique) + écran réseau secondaire sur n'importe quel navigateur.
+- **Écrans** : Sortie HDMI principale câblée + écran réseau secondaire sur n'importe quel navigateur.
 - **Réseau** : Réseau local Wi-Fi ou Ethernet (aucune connexion internet requise après installation initiale).
 
 Internet n'est nécessaire qu'une seule fois, pour l'installation du système d'exploitation et du logiciel.
@@ -189,7 +189,7 @@ Bobine est distribué sous licence **AGPL-3.0**. Le code source est public et au
     title: "Bobine V2.0.0 — Official Release",
     publishedAt: "2026-08-16T17:00:00Z",
     url: "https://github.com/FantasmaGlad/Bobine/releases/tag/V2.0.0",
-    body: `Bobine est une régie vidéo et sonore autonome et libre (licence AGPL-3.0) conçue pour équiper les studios et salles de sport : diffusion automatique de cours collectifs programmés à la seconde, contrôle direct du téléviseur par HDMI-CEC, borne tactile adhérent à la demande, télécommande mobile locale sans application, et radio d'ambiance 24/7 avec annonces vocales.
+    body: `Bobine est une régie vidéo et sonore autonome et libre (licence AGPL-3.0) conçue pour équiper les studios et salles de sport : diffusion automatique de cours collectifs programmés à la seconde, sauvegarde et restauration en un clic, borne tactile adhérent à la demande, télécommande mobile locale sans application, et radio d'ambiance 24/7 avec annonces vocales.
 
 Incluant borne à la demande, expérience adhérent soignée — tout en gardant le contrôle total de son environnement.
 Code source ouvert, données sur votre matériel, aucun compte à créer, aucun service qui peut être coupé unilatéralement.

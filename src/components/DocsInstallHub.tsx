@@ -744,8 +744,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 </h2>
                 <p className="docs-method-hero__desc">
                   {isEn
-                    ? "Recommended for permanent gym installations. Turns low-cost refurbished hardware (Dell Wyse 5070, Beelink N100 ~40-70 €) into an autonomous, maintenance-free playout appliance with HDMI-CEC TV control."
-                    : "La solution recommandée pour les studios et salles de sport : transforme un mini PC reconditionné (40 à 70 €) sous Debian 13 minimale en régie autonome 365 jours/an avec contrôle TV par HDMI-CEC."}
+                    ? "Recommended for permanent gym installations. Turns low-cost refurbished hardware (Dell Wyse 5070, Beelink N100 ~40-70 €) into an autonomous, maintenance-free playout appliance with a self-healing watchdog."
+                    : "La solution recommandée pour les studios et salles de sport : transforme un mini PC reconditionné (40 à 70 €) sous Debian 13 minimale en régie autonome 365 jours/an avec chien de garde auto-réparateur."}
                 </p>
               </div>
             </div>
@@ -776,8 +776,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             </h3>
             <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", lineHeight: 1.6, marginBottom: "1.5rem" }}>
               {isEn
-                ? "Follow the 10 steps below from hardware preparation to automated HDMI-CEC playback in your studio. Test installer options live in the terminal emulator at Step 6."
-                : "Suivez les 10 étapes ci-dessous, de la préparation du matériel jusqu'à la diffusion automatisée avec allumage TV par HDMI-CEC. Testez les options d'installation en direct dans le terminal à l'étape 6."}
+                ? "Follow the 10 steps below from hardware preparation to automated class playout in your studio. Test installer options live in the terminal emulator at Step 6."
+                : "Suivez les 10 étapes ci-dessous, de la préparation du matériel jusqu'à la diffusion automatisée des cours. Testez les options d'installation en direct dans le terminal à l'étape 6."}
             </p>
 
             {/* Stepper interactif complet avec terminal virtuel */}

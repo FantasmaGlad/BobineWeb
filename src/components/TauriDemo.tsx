@@ -42,13 +42,14 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
   // Étape 4 : Options
   const [kioskEnabled, setKioskEnabled] = useState<boolean>(true);
   const [mockEnabled, setMockEnabled] = useState<boolean>(true);
+  const [betaChannel, setBetaChannel] = useState<boolean>(false);
 
   // Étape 5 : Déploiement
   const [deployStepIndex, setDeployStepIndex] = useState<number>(0);
   const [deployPct, setDeployPct] = useState<number>(0);
   const [deployLogs, setDeployLogs] = useState<string[]>([
     "[SYS] Session SSH établie avec 10.0.0.30:22",
-    "[SYS] Lancement du déploiement automatisé : ./install.sh --progress=json",
+    "[SYS] Lancement du déploiement automatisé : ./install.sh --channel=stable --progress=json",
   ]);
   const [isDeployCompleted, setIsDeployCompleted] = useState<boolean>(false);
 
@@ -77,13 +78,14 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
     setWizardStep(5);
     setDeployStepIndex(0);
     setDeployPct(5);
+    const channelFlag = betaChannel ? "--channel=beta" : "--channel=stable";
     setDeployLogs([
       "[SYS] Session SSH authentifiée (utilisateur 'fanta')",
       "[SYS] Amorçage des privilèges sudo : OK",
-      "[SYS] Lancement : ./install.sh --progress=json",
+      `[SYS] Lancement : ./install.sh ${channelFlag} --progress=json`,
     ]);
     setIsDeployCompleted(false);
-  }, []);
+  }, [betaChannel]);
 
   // Avance les étapes de déploiement
   useEffect(() => {
@@ -500,6 +502,23 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                     type="checkbox"
                     checked={mockEnabled}
                     onChange={(e) => setMockEnabled(e.target.checked)}
+                    className="tauri-checkbox"
+                  />
+                </label>
+
+                <label className="tauri-toggle-card">
+                  <div className="tauri-toggle-text">
+                    <span className="tauri-toggle-title">{isEn ? "Bobine Beta Program" : "Programme Bobine Beta"}</span>
+                    <span className="tauri-toggle-desc">
+                      {isEn
+                        ? "Early access to upcoming features. Automatically replaced by equivalent or newer stable. Disabled = Stable channel (recommended)."
+                        : "Accès anticipé aux fonctionnalités en cours de développement. Une version stable équivalente ou plus récente la remplace toujours. Désactivé = canal Stable (recommandé)."}
+                    </span>
+                  </div>
+                  <input
+                    type="checkbox"
+                    checked={betaChannel}
+                    onChange={(e) => setBetaChannel(e.target.checked)}
                     className="tauri-checkbox"
                   />
                 </label>

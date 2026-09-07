@@ -8,6 +8,7 @@ export interface BobineRelease {
   publishedAt: string;
   url: string;
   body: string;
+  isPrerelease?: boolean;
 }
 
 interface GitHubReleaseApiResponse {
@@ -22,11 +23,36 @@ interface GitHubReleaseApiResponse {
 
 const FALLBACK_RELEASES: BobineRelease[] = [
   {
+    slug: "beta",
+    title: "Bobine — Bêta (build automatique)",
+    publishedAt: "2026-09-07T18:00:00Z",
+    url: "https://github.com/FantasmaGlad/Bobine/releases/tag/beta",
+    body: `Bobine — Bêta (build automatique)
+
+Pre-release à accès anticipé aux fonctionnalités en cours de développement — reconstruite automatiquement à chaque publication et republiée en place sur ce même tag mobile beta. Une version stable équivalente ou plus récente la remplace toujours automatiquement.
+
+Réservée aux utilisateurs ayant activé le canal Bêta ("Programme Bobine Beta" dans Réglages → Mises à jour, install.sh --channel=beta, ou l'assistant Tauri).
+
+### Téléchargements directs du canal Bêta
+
+- Windows : [Bobine-Setup-beta.exe](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe)
+- Linux Bureau : [bobine_beta_amd64.deb](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb)
+- macOS : [Bobine-beta.dmg](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.dmg)
+- Bobine Assistant : [bobine-assistant](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant)
+- Script Appliance : \`curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta\`
+
+### Retour à la version Stable
+
+À tout moment et sans perte de données : Réglages → Mises à jour logicielles → « Programme Bobine Beta » → Stable.`,
+    isPrerelease: true,
+  },
+  {
     slug: "V3.0.0",
     title: "Bobine V3.0.0 — Sortie Officielle Multi-Plateforme & Souveraineté Numérique",
     publishedAt: "2026-09-06T12:53:00Z",
     url: "https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.0",
     body: `Bobine V3.0.0 marque l'ouverture au grand public avec des applications natives en 1 clic pour Windows, Linux et macOS, une architecture unifiée sans Redis (FastAPI + SQLite), l'anti-veille native Screen Wake Lock et la sauvegarde universelle ZIP.`,
+    isPrerelease: false,
   },
   {
     slug: "V2.0.1",
@@ -310,6 +336,7 @@ export async function getBobineReleases(): Promise<BobineRelease[]> {
         publishedAt: release.published_at ?? "",
         url: release.html_url,
         body: release.body ?? "",
+        isPrerelease: Boolean(release.prerelease || release.tag_name.toLowerCase() === "beta"),
       }));
 
     return validReleases.length > 0 ? validReleases : FALLBACK_RELEASES;
@@ -323,4 +350,19 @@ export async function getBobineRelease(
 ): Promise<BobineRelease | null> {
   const releases = await getBobineReleases();
   return releases.find((release) => release.slug.toLowerCase() === slug.toLowerCase()) ?? null;
+}
+
+export async function getBobineStableReleases(): Promise<BobineRelease[]> {
+  const releases = await getBobineReleases();
+  const stable = releases.filter((release) => !release.isPrerelease);
+  return stable.length > 0 ? stable : FALLBACK_RELEASES.filter((r) => !r.isPrerelease);
+}
+
+export async function getBobineBetaRelease(): Promise<BobineRelease | null> {
+  const releases = await getBobineReleases();
+  return (
+    releases.find((release) => release.isPrerelease || release.slug.toLowerCase() === "beta") ??
+    FALLBACK_RELEASES.find((r) => r.slug === "beta") ??
+    null
+  );
 }

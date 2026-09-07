@@ -12,22 +12,34 @@ import QuickStartStepper from "@/components/QuickStartStepper";
 import { docChapters } from "@/content/docs/chapters";
 import { detectPlatform, reorderForPlatform, type DetectedPlatform } from "@/lib/detectPlatform";
 
+import type { ReleaseChannelInfo } from "@/app/api/github-stats/route";
+
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
 
-interface DownloadsState {
-  version: string;
-  windows: string;
-  linux: string;
-  macos: string;
-  assistant: string;
-}
-
-const FALLBACK_DOWNLOADS: DownloadsState = {
+const FALLBACK_STABLE: ReleaseChannelInfo = {
   version: "V3.0.0",
-  windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-Setup-3.0.0.exe",
-  linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/bobine_3.0.0_amd64.deb",
-  macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-3.0.0.dmg",
-  assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/bobine-assistant",
+  title: "Bobine V3.0.0 — Sortie Officielle Multi-Plateforme",
+  publishedAt: "2026-09-06T12:53:00Z",
+  downloads: {
+    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-Setup-3.0.0.exe",
+    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/bobine_3.0.0_amd64.deb",
+    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-3.0.0.dmg",
+    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/bobine-assistant",
+    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/install.sh",
+  },
+};
+
+const FALLBACK_BETA: ReleaseChannelInfo = {
+  version: "beta",
+  title: "Bobine — Bêta (build automatique)",
+  publishedAt: "2026-09-07T18:00:00Z",
+  downloads: {
+    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe",
+    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb",
+    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.dmg",
+    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant",
+    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/install.sh",
+  },
 };
 
 export default function DocsInstallHub({ locale }: { locale: Locale }) {
@@ -36,7 +48,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const [detected, setDetected] = useState<DetectedPlatform>(null);
   const roadmapChapter = docChapters[locale].find((c) => c.id === "feuille-de-route");
   const [androidRoadmap, iosRoadmap] = roadmapChapter?.subsections ?? [];
-  const [downloads, setDownloads] = useState<DownloadsState>(FALLBACK_DOWNLOADS);
+  const [stable, setStable] = useState<ReleaseChannelInfo>(FALLBACK_STABLE);
+  const [beta, setBeta] = useState<ReleaseChannelInfo>(FALLBACK_BETA);
   const [copiedCmd, setCopiedCmd] = useState(false);
 
   useEffect(() => {
@@ -51,13 +64,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (!isMounted || !data) return;
-        setDownloads({
-          version: data.latestRelease || FALLBACK_DOWNLOADS.version,
-          windows: data.downloads?.windows || FALLBACK_DOWNLOADS.windows,
-          linux: data.downloads?.linux || FALLBACK_DOWNLOADS.linux,
-          macos: data.downloads?.macos || FALLBACK_DOWNLOADS.macos,
-          assistant: data.downloads?.assistant || FALLBACK_DOWNLOADS.assistant,
-        });
+        if (data.stable) setStable(data.stable);
+        if (data.beta) setBeta(data.beta);
       })
       .catch(() => {});
     return () => {
@@ -209,32 +217,51 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             </div>
 
             <div className="docs-method-hero__action-col">
-              <a
-                href={downloads.windows}
-                download
-                className="btn-primary docs-method-download-btn"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-                <span>{isEn ? "Download Bobine-Setup-3.0.0.exe" : "Télécharger Bobine-Setup-3.0.0.exe"}</span>
-              </a>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", width: "100%" }}>
+                <a
+                  href={stable.downloads.windows}
+                  download
+                  className="btn-primary docs-method-download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>{isEn ? `Download Stable (${stable.version})` : `Télécharger la Stable (${stable.version})`}</span>
+                </a>
+
+                <a
+                  href={beta.downloads.windows}
+                  download
+                  className="btn-secondary docs-method-download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none" }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>{isEn ? "Download Beta (Rolling beta)" : "Télécharger la Bêta (Rolling beta)"}</span>
+                </a>
+              </div>
+
               <div className="docs-method-meta-row">
-                <span className="docs-method-version-text">{downloads.version}</span>
+                <span className="docs-method-version-text">{stable.version}</span>
                 <span className="docs-method-meta-dot">·</span>
                 <span>x86-64</span>
                 <span className="docs-method-meta-dot">·</span>
                 <a
-                  href="https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.0"
+                  href="https://github.com/FantasmaGlad/Bobine/releases"
                   target="_blank"
                   rel="noreferrer"
                   className="docs-method-source-link"
                 >
-                  GitHub Release
+                  GitHub Releases
                 </a>
               </div>
             </div>
@@ -335,32 +362,51 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             </div>
 
             <div className="docs-method-hero__action-col">
-              <a
-                href={downloads.macos}
-                download
-                className="btn-primary docs-method-download-btn"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-                <span>{isEn ? "Download Bobine-3.0.0.dmg" : "Télécharger Bobine-3.0.0.dmg"}</span>
-              </a>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", width: "100%" }}>
+                <a
+                  href={stable.downloads.macos}
+                  download
+                  className="btn-primary docs-method-download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>{isEn ? `Download Stable (${stable.version})` : `Télécharger la Stable (${stable.version})`}</span>
+                </a>
+
+                <a
+                  href={beta.downloads.macos}
+                  download
+                  className="btn-secondary docs-method-download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none" }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>{isEn ? "Download Beta (Rolling beta)" : "Télécharger la Bêta (Rolling beta)"}</span>
+                </a>
+              </div>
+
               <div className="docs-method-meta-row">
-                <span className="docs-method-version-text">{downloads.version}</span>
+                <span className="docs-method-version-text">{stable.version}</span>
                 <span className="docs-method-meta-dot">·</span>
                 <span>Apple Silicon (arm64)</span>
                 <span className="docs-method-meta-dot">·</span>
                 <a
-                  href="https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.0"
+                  href="https://github.com/FantasmaGlad/Bobine/releases"
                   target="_blank"
                   rel="noreferrer"
                   className="docs-method-source-link"
                 >
-                  GitHub Release
+                  GitHub Releases
                 </a>
               </div>
             </div>
@@ -461,32 +507,51 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             </div>
 
             <div className="docs-method-hero__action-col">
-              <a
-                href={downloads.linux}
-                download
-                className="btn-primary docs-method-download-btn"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-                <span>{isEn ? "Download bobine_3.0.0_amd64.deb" : "Télécharger bobine_3.0.0_amd64.deb"}</span>
-              </a>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", width: "100%" }}>
+                <a
+                  href={stable.downloads.linux}
+                  download
+                  className="btn-primary docs-method-download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>{isEn ? `Download Stable (${stable.version})` : `Télécharger la Stable (${stable.version})`}</span>
+                </a>
+
+                <a
+                  href={beta.downloads.linux}
+                  download
+                  className="btn-secondary docs-method-download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none" }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>{isEn ? "Download Beta (Rolling beta)" : "Télécharger la Bêta (Rolling beta)"}</span>
+                </a>
+              </div>
+
               <div className="docs-method-meta-row">
-                <span className="docs-method-version-text">{downloads.version}</span>
+                <span className="docs-method-version-text">{stable.version}</span>
                 <span className="docs-method-meta-dot">·</span>
                 <span>x86-64 (amd64)</span>
                 <span className="docs-method-meta-dot">·</span>
                 <a
-                  href="https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.0"
+                  href="https://github.com/FantasmaGlad/Bobine/releases"
                   target="_blank"
                   rel="noreferrer"
                   className="docs-method-source-link"
                 >
-                  GitHub Release
+                  GitHub Releases
                 </a>
               </div>
             </div>
@@ -660,7 +725,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
             <div className="docs-method-hero__action-col">
               <a
-                href={downloads.assistant}
+                href={stable.downloads.assistant}
                 download
                 className="btn-primary docs-method-download-btn"
                 target="_blank"
@@ -674,17 +739,17 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <span>{isEn ? "Download bobine-assistant" : "Télécharger bobine-assistant"}</span>
               </a>
               <div className="docs-method-meta-row">
-                <span className="docs-method-version-text">{downloads.version}</span>
+                <span className="docs-method-version-text">{stable.version}</span>
                 <span className="docs-method-meta-dot">·</span>
                 <span>Tauri 2 (Rust)</span>
                 <span className="docs-method-meta-dot">·</span>
                 <a
-                  href="https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.0"
+                  href="https://github.com/FantasmaGlad/Bobine/releases"
                   target="_blank"
                   rel="noreferrer"
                   className="docs-method-source-link"
                 >
-                  GitHub Release
+                  GitHub Releases
                 </a>
               </div>
             </div>
@@ -760,20 +825,39 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             </div>
 
             <div className="docs-method-hero__action-col">
-              <div className="docs-quick-install-box">
-                <span className="docs-quick-install-box__label">
-                  {isEn ? "1-Line Install Command:" : "Commande d'installation en 1 ligne :"}
-                </span>
-                <div className="docs-copyable-cmd">
-                  <code>curl -fsSL https://bobine.fit/install.sh | bash</code>
-                  <button
-                    type="button"
-                    onClick={() => copyToClipboard("curl -fsSL https://bobine.fit/install.sh | bash")}
-                    className="docs-copy-btn"
-                    aria-label={isEn ? "Copy install command" : "Copier la commande"}
-                  >
-                    {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
-                  </button>
+              <div className="docs-quick-install-box" style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+                <div>
+                  <span className="docs-quick-install-box__label">
+                    {isEn ? "Stable Install Command (Recommended):" : "Commande d'installation Stable (Recommandé) :"}
+                  </span>
+                  <div className="docs-copyable-cmd">
+                    <code>curl -fsSL https://bobine.fit/install.sh | sudo bash</code>
+                    <button
+                      type="button"
+                      onClick={() => copyToClipboard("curl -fsSL https://bobine.fit/install.sh | sudo bash")}
+                      className="docs-copy-btn"
+                      aria-label={isEn ? "Copy stable install command" : "Copier la commande stable"}
+                    >
+                      {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <span className="docs-quick-install-box__label">
+                    {isEn ? "Beta Channel Install (Rolling beta):" : "Canal Bêta (Rolling beta — Accès anticipé) :"}
+                  </span>
+                  <div className="docs-copyable-cmd">
+                    <code>curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta</code>
+                    <button
+                      type="button"
+                      onClick={() => copyToClipboard("curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta")}
+                      className="docs-copy-btn"
+                      aria-label={isEn ? "Copy beta install command" : "Copier la commande bêta"}
+                    >
+                      {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

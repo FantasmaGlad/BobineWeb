@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Markdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { getBobineRelease, getBobineReleases } from "@/lib/github-releases";
 import { buildMetadata } from "@/lib/seo";
@@ -15,21 +16,54 @@ const GITHUB_ATTACHMENT_PATTERN =
   /^https:\/\/github\.com\/user-attachments\/assets\//;
 
 const markdownComponents: Components = {
-  a({ href, children, ...props }) {
+  a({ href, children, node, ...props }) {
     if (href && GITHUB_ATTACHMENT_PATTERN.test(href)) {
       return <GitHubAttachmentMedia href={href}>{children}</GitHubAttachmentMedia>;
     }
     return (
-      <a href={href} {...props}>
+      <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
         {children}
       </a>
     );
   },
+  img({ src, alt, node, ...props }) {
+    return (
+      <img
+        src={src}
+        alt={alt || ""}
+        style={{
+          maxWidth: "100%",
+          height: "auto",
+          borderRadius: "8px",
+          display: "block",
+          margin: "1.25rem auto",
+        }}
+        {...props}
+      />
+    );
+  },
 };
+
+function cleanReleaseBody(body: string, title: string): string {
+  let cleaned = body;
+  // Si le corps markdown commence par un H1 identique ou similaire au titre déjà affiché dans le header, on le retire
+  cleaned = cleaned.replace(/^\s*#\s+[^\n]+/m, (match) => {
+    const headingText = match.replace(/^#\s+/, "").trim();
+    if (
+      headingText.toLowerCase() === title.toLowerCase() ||
+      headingText.includes(title) ||
+      title.includes(headingText)
+    ) {
+      return "";
+    }
+    return match;
+  });
+  return cleaned.trim();
+}
 
 export async function generateStaticParams() {
   const releases = await getBobineReleases();
-  const slugs = new Set<string>();
+  const slugs = new Set<string>(["beta", "BETA"]);
   for (const rel of releases) {
     slugs.add(rel.slug);
     slugs.add(rel.slug.toLowerCase());
@@ -185,9 +219,30 @@ export default async function BlogPostPage({
           </h1>
         </header>
 
+        {(release.isPrerelease || slug.toLowerCase() === "beta") && (
+          <div className="docs-callout docs-callout--info" style={{ marginBottom: "1.75rem" }}>
+            <div className="docs-callout__content">
+              <div className="docs-callout__title">
+                {locale === "fr"
+                  ? "Canal Bêta — Version à accès anticipé (Rolling release)"
+                  : "Beta Channel — Early access version (Rolling release)"}
+              </div>
+              <p style={{ margin: "0.4rem 0 0 0", fontSize: "0.925rem", lineHeight: 1.6 }}>
+                {locale === "fr"
+                  ? "Cette version bêta roulante est automatiquement reconstruite et mise à jour en place sur le tag mobile GitHub beta. Elle s'installe directement par-dessus votre version existante sans créer d'application doublon. Vous pouvez revenir à la version stable à tout moment depuis Réglages → Mises à jour logicielles sans perte de données."
+                  : "This rolling beta release is automatically rebuilt and updated in place on GitHub mobile tag beta. It installs directly over your existing installation without duplicating the application. You can switch back to the stable release anytime from Settings → Software Updates without data loss."}
+              </p>
+            </div>
+          </div>
+        )}
+
         <div className="release-body">
-          <Markdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-            {release.body}
+          <Markdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeRaw]}
+            components={markdownComponents}
+          >
+            {cleanReleaseBody(release.body, release.title)}
           </Markdown>
         </div>
 

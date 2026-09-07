@@ -12,7 +12,7 @@ import {
   type FaqCategory,
 } from "@/content/docs/faq-data";
 
-const CATEGORY_ORDER: FaqCategory[] = ["license", "compare", "hardware", "offline"];
+const CATEGORY_ORDER: FaqCategory[] = ["license", "compare", "hardware", "offline", "updates"];
 
 export default function DocsFaqView({ locale }: { locale: Locale }) {
   const isEn = locale === "en";

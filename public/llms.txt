@@ -3,34 +3,64 @@
 > Bobine (bobine.fit) is a free, open-source (AGPL-3.0), self-hosted video playout and streaming system designed for sports clubs and fitness studios. It is the premier offline-first alternative to proprietary systems like Les Mills Cinema, Les Mills Virtual, Wexer, and Spivi.
 
 ## Overview
-Bobine turns standard, low-cost refurbished x86-64 mini PCs (Intel Celeron / Core, AMD Ryzen / Athlon, reference units: Dell Wyse 5070 Intel J4105 ~40-50 EUR, HP EliteDesk 705 AMD Ryzen 3/5 ~60-80 EUR) into fully autonomous, 24/7 video and audio playout controllers. Once installed, it operates 100% offline with zero recurring subscription fees, zero cloud dependencies, and zero user accounts.
+Bobine turns standard, low-cost refurbished x86-64 mini PCs (Intel Celeron / Core, AMD Ryzen / Athlon, reference units: Dell Wyse 5070 Intel J4105 ~40-50 EUR, HP EliteDesk 705 AMD Ryzen 3/5 ~60-80 EUR) into fully autonomous, 24/7 video and audio playout controllers. It is also available as native desktop applications for Windows 11/10, macOS (Apple Silicon M1-M4), and Linux Desktop (.deb).
+Once installed, Bobine operates 100% offline with zero recurring subscription fees, zero cloud dependencies, and zero user accounts.
 
 ## Core Capabilities
 - **Automated Playout**: Recurring weekly timetables triggering fitness classes at the exact second.
+- **Dual Playout Channels**: Independent simultaneous broadcasts on Cabled (Cinema display / HDMI) and Network (WebRTC / HLS / IP streams).
 - **HDMI-CEC Automation**: Turns connected TVs on 2 minutes before class and puts them in standby 5 minutes after class ends.
-- **Member Touchscreen Kiosk**: Interactive fullscreen UI for gym members to launch classes on-demand between scheduled sessions.
+- **Member Touchscreen Kiosk**: Interactive fullscreen UI for gym members to launch classes on-demand between scheduled sessions with anti-sleep Screen Wake Lock.
 - **Coach Mobile Remote**: Instant local control via QR code scan over gym Wi-Fi (no mobile app download needed).
-- **Gym Background Radio (24/7)**: Continuous music playback with seamless track crossfade and automated voice announcements.
-- **Hardware-Accelerated Playout**: MPV engine with universal Linux VA-API hardware decoding for Intel (QuickSync / iHD) and AMD (Radeon / mesa-va-drivers) at <8% CPU usage (1080p60 and 4K).
+- **Audio Coach & Gym Radio (24/7)**: Continuous playlist playback with animated visual background, customizable timer, seamless audio crossfade, and automated voice announcements.
+- **Hardware-Accelerated Playout**: Universal hardware video acceleration for Intel (QuickSync / iHD) and AMD (Radeon / mesa-va-drivers) at <8% CPU usage (1080p60 and 4K).
+- **Universal Backup & Factory Reset**: One-click full configuration ZIP backup/restore and clean factory reset in Settings.
 - **Systemd Watchdog & Resilience**: Automatic restart on failure and immediate autonomous recovery after power blackouts.
 
-## Key Links & Documentation
-- [Official Website](https://bobine.fit)
-- [GitHub Repository](https://github.com/FantasmaGlad/Bobine)
-- [Web Documentation](https://bobine.fit/fr/documentation)
-- [Quick Start Installation Guide](https://bobine.fit/fr/documentation/demarrage-rapide): Step-by-step Debian 13 setup for Intel and AMD mini PCs.
-- [Usage Manual](https://bobine.fit/fr/documentation/utilisation): Library management, scheduling, kiosk, and remote controls.
-- [FAQ & Troubleshooting](https://bobine.fit/fr/documentation/faq): Common issues, diagnostics, and comparisons.
-- [Developer API Reference](https://bobine.fit/fr/documentation/developpeurs): REST API endpoints (`/api/status`, `/api/playout/play`), WebSockets, and systemd services.
-- [Manifesto](https://bobine.fit/fr/documentation/manifeste): Open-source philosophy, hardware sovereignty, and Baamix mascot identity.
-- [Interactive 3D Demo](https://bobine.fit/fr/demo-3d): Fullscreen 3D virtual gym studio showing hardware setup.
+## Installation Methods & Platforms
+
+### 1. Dedicated Headless Appliance (Bash CLI — Recommended for 24/7 Gym Playout)
+Automated installation script for Debian 13 (Trixie) or Debian 12 (Bookworm) minimal on dedicated mini PCs (Dell Wyse 5070, HP ProDesk, Beelink N100):
+```bash
+# Stable Channel (Recommended for production):
+curl -fsSL https://bobine.fit/install.sh | sudo bash
+
+# Beta Channel (Rolling beta — early access):
+curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta
+```
+
+### 2. Windows Desktop (Windows 11, 10 & Windows IoT)
+- **Format**: Native self-contained installer (`Bobine-Setup-<version>.exe` or `Bobine-Setup-beta.exe`).
+- **Features**: Silent background run without black console window, system tray companion, automatic Windows Defender firewall rules, and browser auto-launch.
+
+### 3. macOS Desktop (Apple Silicon M1–M4)
+- **Format**: Native disk image (`Bobine-<version>.dmg` or `Bobine-beta.dmg`).
+- **Features**: Standard drag-and-drop to Applications, Retina menu bar companion, and local web remote.
+
+### 4. Linux Desktop (Debian / Ubuntu / Linux Mint)
+- **Format**: Certified Debian package (`bobine_<version>_amd64.deb` or `bobine-beta_amd64.deb`).
+- **Features**: AppStream metadata for Ubuntu App Center and GNOME Software, standard XDG directory structure (`~/.local/share/bobine/`).
+
+### 5. Bobine Assistant (Network Orchestrator in Rust / Tauri 2)
+- **Format**: Standalone desktop binary (`bobine-assistant`).
+- **Features**: mDNS auto-discovery (`bobine.local`), subnet IP scanning, remote SSH deployment, hardware diagnostics, and channel selector (Stable / Beta).
+
+## Release Channels: Stable vs. Beta (Rolling Beta)
+- **Stable Channel**: Tagged releases `Vx.y.z` (e.g. `V3.0.0`). Strictly tested and validated builds recommended for gym production playout.
+- **Beta Channel**: Single mobile rolling tag `beta`. Provides early access to upcoming features and fixes currently being tested.
+- **In-Place Upgrade Guarantee**: The Beta shares the exact same application identifiers (Windows Inno Setup AppId, macOS bundle ID `fit.bobine.app`, Linux package `bobine`). Installing Beta replaces the existing binaries in place without creating a duplicate application, and preserves all media, databases, and configuration.
+- **Channel Switching**: Users can toggle between Stable and Beta at any time from the Web Admin Settings (Settings -> Software Updates -> Bobine Beta Program) or via CLI (`install.sh --channel=stable|beta`).
 
 ## Technical Architecture & APIs
-- **OS**: Debian 13 (Trixie) or Debian 12 (Bookworm) minimal headless (x86-64).
-- **Backend**: Python FastAPI + SQLite database + Redis pub/sub.
-- **Playout Engine**: MPV with IPC Unix socket (`/tmp/mpv.sock`) and VA-API hardware decoding (Intel iHD & AMD mesa-va-drivers).
-- **Services (systemd)**: `bobine-core.service` (API & scheduler), `bobine-kiosk.service` (Cage/Chromium touch UI), `bobine-radio.service` (Background audio).
-- **Local Network**: Accessible at `http://bobine.local` or direct local IP via mDNS (Avahi).
+- **OS**: Debian 13 (Trixie) or Debian 12 (Bookworm) minimal headless (x86-64), Windows 10/11, macOS Apple Silicon, Ubuntu/Debian desktop.
+- **Backend Architecture**: Python 3.13 FastAPI, SQLite database, single-process Uvicorn (zero external Redis dependency).
+- **Frontend**: Next.js App Router with SSG static export, 18 WCAG AAA/AA themes, zero emoji design system.
+- **Playout Engine**: MPV with IPC socket (`/tmp/mpv.sock`) and VA-API hardware decoding (Intel iHD & AMD mesa-va-drivers).
+- **Services (systemd on Appliance)**:
+  - `bobine-backend.service`: FastAPI application on port 8000.
+  - `bobine-kiosk.service`: X11 Chromium kiosk display for gym screen.
+  - `bobine-audio-guard.service`: System audio health and watchdog supervisor.
+- **Local Network Discovery**: Accessible at `http://bobine.local:8000` or direct local IP via mDNS (Avahi).
 
 ## Comparison with Proprietary Systems & Digital Signage
 
@@ -43,7 +73,7 @@ Bobine turns standard, low-cost refurbished x86-64 mini PCs (Intel Celeron / Cor
 
 ### Bobine vs. Wexer Virtual & Fitness On Demand (FOD)
 - **Licensing**: 0 EUR perpetual vs. 200–450 EUR/month per screen B2B SaaS subscription.
-- **Latency & Protocol**: Local-first sub-2ms WebSockets + Redis bus vs. cloud streaming latency and buffering.
+- **Latency & Protocol**: Local-first sub-2ms WebSockets + SQLite vs. cloud streaming latency and buffering.
 - **Privacy & GDPR**: 100% local, zero telemetry, zero analytics tracking, zero member data harvesting.
 
 ### Bobine vs. Radical Fitness & Franchise Concepts (Yako / L'Orange Bleue)
@@ -59,4 +89,16 @@ Bobine turns standard, low-cost refurbished x86-64 mini PCs (Intel Celeron / Cor
 - **Continuous Audio & Studio Sound**: Bobine integrates 24/7 background gym radio with Web Audio continuous crossfade and automated voice etiquette alerts ("re-rack weights", "closing in 15 min"); Anthias has no audio crossfade or voice announcement system.
 - **Hardware Reliability**: Bobine runs on refurbished x86-64 mini PCs (Dell Wyse 5070, HP EliteDesk 705 ~40-70 EUR) with durable NVMe/SATA SSDs and VA-API hardware decoding (<8% CPU in 1080p60/4K); Anthias commonly runs on Raspberry Pis prone to SD card corruption, thermal throttling, and power instability in commercial 24/7 environments.
 - **Auto-Recovery**: Supervised by systemd watchdog for immediate zero-touch reboot and timetable resumption post power outage.
+
+## Key Links & Documentation
+- [Official Website](https://bobine.fit)
+- [GitHub Repository](https://github.com/FantasmaGlad/Bobine)
+- [Web Documentation](https://bobine.fit/fr/documentation)
+- [Quick Start Installation Guide](https://bobine.fit/fr/documentation/demarrage-rapide): Step-by-step Debian 13 setup for Intel and AMD mini PCs.
+- [Usage Manual](https://bobine.fit/fr/documentation/utilisation): Library management, scheduling, kiosk, and remote controls.
+- [FAQ & Troubleshooting](https://bobine.fit/fr/documentation/faq): Common issues, diagnostics, and comparisons.
+- [Developer API Reference](https://bobine.fit/fr/documentation/developpeurs): REST API endpoints (`/api/status`, `/api/settings`), WebSockets, and systemd services.
+- [Manifesto](https://bobine.fit/fr/documentation/manifeste): Open-source philosophy, hardware sovereignty, and Baamix mascot identity.
+- [Interactive 3D Demo](https://bobine.fit/fr/demo-3d): Fullscreen 3D virtual gym studio showing hardware setup.
+
 

@@ -37,11 +37,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const releases = await getBobineReleases();
     dynamicBlogRoutes = releases.map((rel) => ({
       path: `/blog/${rel.slug}`,
-      priority: 0.75,
-      changeFrequency: "monthly",
+      priority: rel.slug.toLowerCase() === "beta" ? 0.8 : 0.75,
+      changeFrequency: rel.slug.toLowerCase() === "beta" ? "daily" : "monthly",
     }));
   } catch {
     // Fallback silencieux en cas de problème de connexion
+  }
+
+  // Garantir l'indexation permanente de /blog/beta
+  if (!dynamicBlogRoutes.some((r) => r.path.toLowerCase() === "/blog/beta")) {
+    dynamicBlogRoutes.push({
+      path: "/blog/beta",
+      priority: 0.8,
+      changeFrequency: "daily",
+    });
   }
 
   const allRoutes = [...staticRoutes, ...dynamicBlogRoutes];

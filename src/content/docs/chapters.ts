@@ -73,6 +73,14 @@ const fr: DocChapter[] = [
           "C'est un outil d'exploitation destiné aux techniciens qui gèrent plusieurs salles, distinct de l'application Bobine elle-même.",
         ],
       },
+      {
+        subtitle: "2.4 Canaux de version : Stable ou Bêta (Rolling beta)",
+        paragraphs: [
+          "Bobine propose deux canaux de version : le canal Stable (recommandé en production, tags Vx.y.z) et le canal Bêta (rolling beta, accès anticipé aux nouveautés en cours de test sur le tag fixe beta).",
+          "Sur toutes les plateformes (Windows, macOS, Linux, Appliance), la version Bêta s'installe par-dessus la version existante sans créer d'application doublon ni altérer vos données. Pour installer l'appliance directement en canal Bêta :",
+        ],
+        codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta",
+      },
     ],
   },
   {
@@ -313,6 +321,14 @@ const en: DocChapter[] = [
           "Bobine Assistant is a lightweight Rust/Tauri 2 desktop app that discovers appliances on the local network via mDNS (bobine.local), audits hardware over SSH, and deploys without a terminal.",
           "It is an operations tool for technicians managing several venues, separate from the Bobine application itself.",
         ],
+      },
+      {
+        subtitle: "2.4 Release channels: Stable or Beta (Rolling beta)",
+        paragraphs: [
+          "Bobine offers two release channels: the Stable channel (recommended for production, Vx.y.z tags) and the Beta channel (rolling beta, early access to upcoming features on the fixed beta tag).",
+          "Across all platforms (Windows, macOS, Linux, Appliance), installing the Beta upgrades your existing installation in-place without creating a duplicate application or affecting your library and settings. To install the appliance directly on the Beta channel:",
+        ],
+        codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta",
       },
     ],
   },

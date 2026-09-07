@@ -151,11 +151,14 @@ const STEPS: StepItem[] = [
   },
 ];
 
-const COMMAND_TEXT = "curl -fsSL https://bobine.fit/install.sh | bash";
+const COMMAND_STABLE = "curl -fsSL https://bobine.fit/install.sh | sudo bash";
+const COMMAND_BETA = "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta";
 
 export default function TerminalDemo({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const [copied, setCopied] = useState(false);
+  const [channel, setChannel] = useState<"stable" | "beta">("stable");
+  const commandText = channel === "stable" ? COMMAND_STABLE : COMMAND_BETA;
 
   // États d'exécution
   // false = en attente de la touche Entrée par l'utilisateur
@@ -252,7 +255,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
   }, [currentRunningStep, showBanner, hasTriggered, isCompleted, scrollToBottom]);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(COMMAND_TEXT).then(() => {
+    navigator.clipboard.writeText(commandText).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
@@ -279,7 +282,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
 
         <div className="terminal-demo-title-group">
           <span className="terminal-title">
-            bash — install.sh (v3.0.0)
+            bash — install.sh ({channel === "stable" ? "Stable" : "Bêta"})
           </span>
           {hasTriggered && (
             <span className={`terminal-demo-status-pill ${!isCompleted ? "is-active" : ""}`}>
@@ -295,6 +298,34 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
               </span>
             </span>
           )}
+        </div>
+
+        {/* Sélecteur de canal Stable / Bêta */}
+        <div className="terminal-channel-tabs" role="tablist" aria-label={isEn ? "Release channel" : "Canal de version"}>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={channel === "stable"}
+            className={`terminal-channel-tab ${channel === "stable" ? "is-active" : ""}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              setChannel("stable");
+            }}
+          >
+            Stable
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={channel === "beta"}
+            className={`terminal-channel-tab ${channel === "beta" ? "is-active" : ""}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              setChannel("beta");
+            }}
+          >
+            Bêta
+          </button>
         </div>
 
         <div className="terminal-demo-actions">
@@ -352,7 +383,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
-                <span>{isEn ? "Copied!" : "Copié !"}</span>
+                <span>{isEn ? "Copied" : "Copié"}</span>
               </>
             ) : (
               <>
@@ -373,7 +404,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         <div className="terminal-line terminal-line--command">
           <span className="terminal-prompt">fanta@dell-wyse:~$</span>
           <code className="terminal-demo-command-text">
-            {COMMAND_TEXT}
+            {commandText}
           </code>
           {!hasTriggered && (
             <span className="terminal-cursor" aria-hidden="true" />

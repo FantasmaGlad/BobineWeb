@@ -1,6 +1,6 @@
 import type { Locale } from "@/lib/i18n";
 
-export type FaqCategory = "license" | "compare" | "hardware" | "offline";
+export type FaqCategory = "license" | "compare" | "hardware" | "offline" | "updates";
 
 export interface FaqItem {
   q: string;
@@ -14,12 +14,14 @@ export const FAQ_CATEGORY_LABELS: Record<Locale, Record<FaqCategory, string>> = 
     compare: "Comparatifs",
     hardware: "Matériel",
     offline: "Hors-ligne",
+    updates: "Mises à jour",
   },
   en: {
     license: "License & Cost",
     compare: "Comparisons",
     hardware: "Hardware",
     offline: "Offline",
+    updates: "Updates",
   },
 };
 
@@ -55,6 +57,16 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       q: "Que se passe-t-il en cas de coupure de courant ou de plantage ?",
       a: "Un chien de garde systemd surveille en continu la santé des services et relance automatiquement les composants en cas d'anomalie. Les services redémarrent instantanément et de façon autonome dès le retour du courant électrique.",
     },
+    {
+      category: "updates",
+      q: "Quelle est la différence entre la version Stable et la version Bêta (Rolling beta) ?",
+      a: "La version Stable (ex. V3.0.0) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La version Bêta (Rolling beta) offre un accès anticipé continu aux fonctionnalités en cours de test. Elle partage les mêmes identifiants d'application, s'installe par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages → Mises à jour sans perte de données ni de médias.",
+    },
+    {
+      category: "updates",
+      q: "Comment changer de canal de mise à jour (Stable / Bêta) sur mon installation ?",
+      a: "Sur le panneau d'administration web, rendez-vous dans Réglages → Mises à jour logicielles et activez ou désactivez le « Programme Bobine Bêta ». Sur une appliance dédiée CLI, vous pouvez également relancer l'installeur avec l'option --channel=beta ou --channel=stable (ex : curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta).",
+    },
   ],
   en: [
     {
@@ -86,6 +98,16 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       category: "hardware",
       q: "What happens if there is a power cut or system crash?",
       a: "A local systemd supervisor continuously monitors process health and restarts failing components automatically. All services boot autonomously upon power restoration after a blackout.",
+    },
+    {
+      category: "updates",
+      q: "What is the difference between the Stable and Beta (Rolling beta) channels?",
+      a: "The Stable release (e.g. V3.0.0) is the official tested build recommended for production gym playout. The Beta release (Rolling beta) provides continuous early access to features currently being tested. It shares identical system application IDs, installs directly over your current version without creating duplicate apps, and allows reverting back to Stable anytime from Settings → Software Updates without data loss.",
+    },
+    {
+      category: "updates",
+      q: "How do I switch between Stable and Beta update channels on my setup?",
+      a: "From the web administration dashboard, go to Settings → Software Updates and toggle the 'Bobine Beta Program'. On a dedicated headless CLI appliance, you can run the installer with --channel=beta or --channel=stable (e.g. curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta).",
     },
   ],
 };

@@ -1681,6 +1681,17 @@ main {
   background: var(--bg-card);
 }
 
+.release-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md, 8px);
+}
+
+.release-body p[align="center"],
+.release-body p:has(img) {
+  text-align: center;
+}
+
 .blog-list-item {
   transition: opacity 0.15s ease, transform 0.15s ease;
 }
@@ -2703,6 +2714,39 @@ main {
 .terminal-demo-status-dot.is-complete {
   background: var(--accent-success, #16a34a);
   box-shadow: 0 0 8px rgba(22, 163, 74, 0.6);
+}
+
+.terminal-channel-tabs {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  gap: 2px;
+}
+
+.terminal-channel-tab {
+  font: inherit;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.terminal-channel-tab:hover {
+  color: var(--text-heading);
+}
+
+.terminal-channel-tab.is-active {
+  background: var(--accent-primary);
+  color: var(--accent-primary-fg, #ffffff);
 }
 
 .terminal-demo-actions {
@@ -8025,12 +8069,453 @@ main {
   border-color: var(--border-subtle);
 }
 
+/* ==========================================================================
+   Modale de Téléchargement Multi-Canal (Stable / Bêta) & Sélecteur d'OS
+   ========================================================================== */
 
+.download-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow-y: auto;
+  animation: fadeInModal 0.2s ease-out;
+}
 
+.download-modal {
+  position: relative;
+  width: 100%;
+  max-width: 740px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl, 16px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: slideUpModal 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
+@keyframes slideUpModal {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
 
+.download-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 1.75rem 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
 
+.download-modal__title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
 
+.download-modal__eyebrow {
+  font-size: 0.725rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-primary);
+}
 
+.download-modal__title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin: 0;
+}
 
+.download-modal__subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin: 0;
+}
 
+.download-modal__close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.download-modal__close-btn:hover {
+  background: color-mix(in srgb, var(--accent-primary) 12%, var(--bg-card));
+  color: var(--text-heading);
+  border-color: color-mix(in srgb, var(--accent-primary) 30%, var(--border-subtle));
+}
+
+.download-modal__os-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-canvas);
+  border-bottom: 1px solid var(--border-subtle);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.download-modal__os-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.download-modal__os-tab:hover {
+  color: var(--text-heading);
+  border-color: color-mix(in srgb, var(--accent-primary) 40%, var(--border-subtle));
+}
+
+.download-modal__os-tab.is-active {
+  background: color-mix(in srgb, var(--accent-primary) 12%, var(--bg-card));
+  border-color: var(--accent-primary);
+  color: var(--text-heading);
+  font-weight: 700;
+}
+
+.download-modal__os-icon {
+  display: flex;
+  align-items: center;
+  color: inherit;
+}
+
+.download-modal__os-name {
+  color: inherit;
+}
+
+.download-modal__os-badge {
+  font-size: 0.68rem;
+  font-family: var(--font-mono, monospace);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--text-muted) 12%, transparent);
+  color: var(--text-muted);
+}
+
+.download-modal__os-tab.is-active .download-modal__os-badge {
+  background: color-mix(in srgb, var(--accent-primary) 22%, transparent);
+  color: var(--text-heading);
+}
+
+.download-modal__body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  overflow-y: auto;
+  max-height: calc(90vh - 180px);
+}
+
+.download-modal__cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.download-modal__cli-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.download-modal__channel-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25rem;
+  border-radius: var(--radius-lg, 12px);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.download-modal__channel-card--stable {
+  border-color: color-mix(in srgb, var(--accent-primary) 35%, var(--border-subtle));
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--accent-primary) 8%, transparent);
+}
+
+.download-modal__channel-card--beta {
+  border-color: color-mix(in srgb, #f59e0b 35%, var(--border-subtle));
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.06);
+}
+
+.download-modal__card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.download-modal__card-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.download-modal__badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  line-height: 1.2;
+}
+
+.download-modal__badge--stable {
+  background: color-mix(in srgb, var(--accent-primary) 15%, transparent);
+  color: var(--accent-primary);
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 30%, transparent);
+}
+
+.download-modal__badge--rec {
+  background: color-mix(in srgb, #10b981 15%, transparent);
+  color: #10b981;
+  border: 1px solid color-mix(in srgb, #10b981 30%, transparent);
+}
+
+.download-modal__badge--beta {
+  background: color-mix(in srgb, #f59e0b 16%, transparent);
+  color: #d97706;
+  border: 1px solid color-mix(in srgb, #f59e0b 32%, transparent);
+}
+
+[data-theme="sombre"] .download-modal__badge--beta,
+[data-theme="charbon"] .download-modal__badge--beta,
+[data-theme="lune"] .download-modal__badge--beta,
+[data-theme="hiver"] .download-modal__badge--beta,
+[data-theme="chili"] .download-modal__badge--beta,
+[data-theme="automne"] .download-modal__badge--beta,
+[data-theme="orchidee"] .download-modal__badge--beta,
+[data-theme="taupe"] .download-modal__badge--beta,
+[data-theme="foret"] .download-modal__badge--beta,
+[data-theme="abysse"] .download-modal__badge--beta {
+  color: #fbbf24;
+}
+
+.download-modal__version {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.download-modal__card-desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 0 0 1rem 0;
+  flex-grow: 1;
+}
+
+.download-modal__card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.65rem;
+  border-radius: 6px;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.download-modal__filename {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 190px;
+}
+
+.download-modal__fileformat {
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.download-modal__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md, 8px);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+}
+
+.download-modal__action-btn--primary {
+  background: var(--accent-primary);
+  color: var(--accent-primary-fg, #ffffff);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent-primary) 25%, transparent);
+}
+
+.download-modal__action-btn--primary:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.download-modal__action-btn--secondary {
+  background: transparent;
+  color: var(--text-heading);
+  border: 1px solid var(--border-subtle);
+}
+
+.download-modal__action-btn--secondary:hover {
+  background: color-mix(in srgb, var(--accent-primary) 8%, var(--bg-card));
+  border-color: color-mix(in srgb, var(--accent-primary) 35%, var(--border-subtle));
+  transform: translateY(-1px);
+}
+
+.download-modal__cli-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8rem;
+}
+
+.download-modal__cli-block code {
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow-x: auto;
+  flex: 1;
+}
+
+.download-modal__cli-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
+  color: var(--accent-primary);
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.download-modal__cli-copy-btn:hover {
+  background: var(--accent-primary);
+  color: var(--accent-primary-fg, #ffffff);
+}
+
+.download-modal__reassurance {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent-primary) 6%, var(--bg-card));
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 18%, var(--border-subtle));
+}
+
+.download-modal__reassurance-icon {
+  color: var(--accent-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.download-modal__reassurance-text {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.download-modal__reassurance-text strong {
+  color: var(--text-heading);
+}
+
+@media (max-width: 640px) {
+  .download-modal__cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .download-modal__header {
+    padding: 1.25rem 1.25rem 1rem;
+  }
+  .download-modal__os-nav {
+    padding: 0.5rem 1rem;
+  }
+  .download-modal__body {
+    padding: 1rem;
+  }
+}
+
+/* Multi-channel buttons dans DocsInstallHub */
+.docs-method-actions-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.docs-method-btn--stable {
+  /* Aligné sur docs-method-download-btn */
+}
+
+.docs-method-btn--beta {
+  background: transparent;
+  color: var(--text-heading);
+  border: 1px solid var(--border-subtle);
+}
+
+.docs-method-btn--beta:hover {
+  background: color-mix(in srgb, var(--accent-primary) 8%, var(--bg-card));
+  border-color: color-mix(in srgb, var(--accent-primary) 35%, var(--border-subtle));
+}

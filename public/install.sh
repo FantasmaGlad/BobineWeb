@@ -1,48 +1,63 @@
 #!/usr/bin/env bash
 #
-# Bobine — Script d'installation rapide & bootstrap
-# Usage :
-#   curl -sSL https://bobine.fit/install.sh | bash
-#   curl -sSL https://bobine.fit/install.sh | bash -s -- --verbose
-#   curl -sSL https://bobine.fit/install.sh | bash -s -- --no-kiosk
+# install.sh — installateur tout-en-un d'Bobine
+# Cible par défaut : Debian 13 (trixie) sur Dell Wyse 5070, Intel Gemini Lake.
+#
+# Usage rapide :
+#   git clone <repo> Bobine && cd Bobine
+#   sudo ./install.sh                 # installation complète (kiosk + backend)
+#   sudo ./install.sh --help          # toutes les options
+#
+# Idempotent : le relancer après un 'git pull' met à jour les dépendances,
+# reconstruit le frontend et redémarre les services proprement.
 #
 set -euo pipefail
 
-# 0. Couleurs et symboles
-if [[ -t 1 ]] && [[ "${NO_COLOR:-}" != "1" ]]; then
-    BOLD='\033[1m'
-    DIM='\033[2m'
-    RESET='\033[0m'
-    WHITE='\033[1;37m'
-    CYAN='\033[38;5;51m'
-    BLUE='\033[38;5;75m'
-    GREEN='\033[38;5;84m'
-    YELLOW='\033[38;5;220m'
-    RED='\033[38;5;203m'
+SCRIPT_NAME="$(basename "${BASH_SOURCE[0]}")"
+# Calculé tôt (avant tout usage root/argparse) : sert à la fois au bandeau
+# d'accueil ci-dessous et à REPO_DIR plus bas (cf. §"Cible" — même valeur,
+# lue une seule fois pour éviter toute divergence entre les deux usages).
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Source de vérité unique du numéro de version (réf. mission "canal Stable/
+# Bêta") : fichier VERSION à la racine du dépôt, lu ici et par les scripts de
+# packaging (packaging/linux/build_deb.sh, packaging/macos/build_app.sh) —
+# repli "3.0.1" si le fichier est absent (ex. script copié isolément).
+SCRIPT_VERSION="$(cat "${REPO_DIR}/VERSION" 2>/dev/null || echo "3.0.1")"
+# Déplacé ici (auparavant défini beaucoup plus bas, avec le reste du bloc
+# "Cible") : nécessaire tôt pour select_update_channel(), qui lit/écrit le
+# canal choisi (${CONFIG_DIR}/update-channel) avant même l'exécution du
+# premier step() — cf. réf. mission "canal Stable/Bêta".
+CONFIG_DIR="/etc/bobine"
+
+# ============================================================================
+# 0. Affichage : couleurs, symboles, aide, arguments
+#    (tout ce bloc doit fonctionner sans root, pour que --help reste utilisable)
+# ============================================================================
+
+if [[ -t 1 ]] && [[ "${NO_COLOR:-}" != "1" ]] && command -v tput >/dev/null 2>&1 && [[ "$(tput colors 2>/dev/null || echo 0)" -ge 8 ]]; then
+    BOLD=$(tput bold); DIM=$(tput dim); RESET=$(tput sgr0)
+    WHITE=$(tput setaf 7 2>/dev/null || echo '')
+    RED=$(tput setaf 1); GREEN=$(tput setaf 2); YELLOW=$(tput setaf 3)
+    BLUE=$(tput setaf 4); CYAN=$(tput setaf 6)
 else
-    BOLD=""
-    DIM=""
-    RESET=""
-    WHITE=""
-    CYAN=""
-    BLUE=""
-    GREEN=""
-    YELLOW=""
-    RED=""
+    BOLD=""; DIM=""; RESET=""; WHITE=""; RED=""; GREEN=""; YELLOW=""; BLUE=""; CYAN=""
 fi
 
 ICON_OK="${GREEN}✓${RESET}"
-ICON_INFO="${CYAN}▸${RESET}"
-ICON_WARN="${YELLOW}⚠${RESET}"
 ICON_FAIL="${RED}✗${RESET}"
+ICON_WARN="${YELLOW}⚠${RESET}"
+ICON_SKIP="${DIM}⤫${RESET}"
+ICON_INFO="${BLUE}→${RESET}"
 
-print_banner() {
+INSTALL_LANG=""
+
+banner() {
     local cols
     cols=$(tput cols 2>/dev/null || echo 80)
-    
+
     printf "\n"
     if (( cols >= 115 )); then
-        printf "%b" "${WHITE}${BOLD}"
+        printf "%s%s" "$WHITE" "$BOLD"
         cat <<'EOF'
    ████████████████████                                                                                                 
  ██████████████████████████                                                                                             
@@ -65,104 +80,1528 @@ print_banner() {
   ███████████████████████████                                                                                           
      █████████████████████                                                                                              
 EOF
-        printf "%b" "${RESET}"
+        printf "%s" "$RESET"
     else
-        printf "%b  ██████   ██████  ██████  ██ ███   ██ ███████%b\n" "${WHITE}${BOLD}" "${RESET}"
-        printf "%b  ██   ██ ██    ██ ██   ██ ██ ████  ██ ██     %b\n" "${WHITE}${BOLD}" "${RESET}"
-        printf "%b  ██████  ██    ██ ██████  ██ ██ ██ ██ █████  %b\n" "${WHITE}${BOLD}" "${RESET}"
-        printf "%b  ██   ██ ██    ██ ██   ██ ██ ██  ████ ██     %b\n" "${WHITE}${BOLD}" "${RESET}"
-        printf "%b  ██████   ██████  ██████  ██ ██   ███ ███████%b\n" "${WHITE}${BOLD}" "${RESET}"
+        printf '%s%s  Bobine%s %s· installateur v%s%s\n' "$BOLD" "$WHITE" "$RESET" "$DIM" "$SCRIPT_VERSION" "$RESET"
     fi
-    printf "%b  Régie Vidéo & Streaming Libre pour Salle de Sport%b\n" "${DIM}" "${RESET}"
-    printf "%b  Debian 13 · Dell Wyse 5070 · FastAPI + Next.js%b\n\n" "${DIM}" "${RESET}"
+    if [[ "${INSTALL_LANG:-fr}" == "en" ]]; then
+        printf '%s  Open-Source Video Playout & Streaming Suite for Gyms%s\n' "$DIM" "$RESET"
+        printf '%s  Debian 13 (trixie) · Dell Wyse 5070 · FastAPI + Next.js (v%s)%s\n\n' "$DIM" "$SCRIPT_VERSION" "$RESET"
+    else
+        printf '%s  Régie Vidéo & Streaming Libre pour Salle de Sport%s\n' "$DIM" "$RESET"
+        printf '%s  Debian 13 (trixie) · Dell Wyse 5070 · FastAPI + Next.js (v%s)%s\n\n' "$DIM" "$SCRIPT_VERSION" "$RESET"
+    fi
 }
 
-print_banner
+usage() {
+    cat <<EOF
+${BOLD}${SCRIPT_NAME}${RESET} — installateur tout-en-un d'Bobine (v${SCRIPT_VERSION})
 
-printf " %s %sInitialisation de l'environnement Bobine...%s\n" "${ICON_INFO}" "${BOLD}" "${RESET}"
+${BOLD}USAGE${RESET}
+  sudo ./${SCRIPT_NAME} [options]
 
-# 1. Détection si on est déjà positionné dans un dossier Bobine local
-if [[ -f "install.sh" && -d "backend" && -d "frontend" ]]; then
-    printf " %s %sDépôt local détecté :%s %s%s%s\n" "${ICON_OK}" "${GREEN}" "${RESET}" "${DIM}" "$(pwd)" "${RESET}"
-    if [[ -d ".git" ]]; then
-        printf " %s Recherche des mises à jour sur GitHub...\n" "${ICON_INFO}"
-        git fetch origin --tags -q 2>/dev/null || true
-        git pull --ff-only 2>/dev/null || git pull -q 2>/dev/null || true
+${BOLD}OPTIONS${RESET}
+  -h, --help          Affiche cette aide et quitte
+  -V, --version       Affiche la version et quitte
+  -l, --lang=fr|en    Langue de l'installateur (fr: Français, en: English)
+      --channel=stable|beta
+                        Canal de mise à jour (stable par défaut). Bêta donne un accès
+                        anticipé aux fonctionnalités en cours de développement — la
+                        prochaine version stable la remplace toujours automatiquement.
+  -y, --yes           Ne demande aucune confirmation (mode non-interactif)
+  -v, --verbose       Mode verbeux : affiche l'intégralité des flux et logs de compilation en direct
+  -q, --quiet         Mode silencieux : n'affiche que les erreurs et le bilan final
+      --dry-run       N'applique aucun changement : affiche ce qui serait fait
+      --no-kiosk      Installation "serveur" : backend seul, sans Chromium/X11/audio
+                        (pour un poste de dev ou un serveur distinct de l'écran câblé)
+      --skip-packages Ne touche pas aux paquets apt (suppose les dépendances système déjà en place)
+      --skip-build    Ne reconstruit pas le frontend (suppose frontend/out déjà à jour)
+      --as-user LOGIN Compte cible quand le script tourne en root DIRECT (Debian sans sudo, lancé via 'su -').
+                        Le kiosk, les fichiers et les groupes GPU appartiendront à ce compte.
+      --progress=json Émet une ligne JSON par étape (sortie machine) pour l'assistant graphique.
+                        Une ligne = un évènement {run_begin|step|run_end} ; le journal humain reste inchangé.
+      --check         Diagnostic de l'installation existante, sans rien modifier
+      --uninstall     Arrête, désactive et retire tout ce que ce script a installé
+      --purge         Avec --uninstall : retire aussi venv/, node_modules/, frontend/out/ et la config
+      --purge-data    Avec --uninstall --purge : retire EN PLUS les médias importés (destructif, confirmation requise)
+
+${BOLD}EXEMPLES${RESET}
+  sudo ./${SCRIPT_NAME}                       Installation standard (interface épurée par défaut)
+  sudo ./${SCRIPT_NAME} --lang=en             Installation en anglais
+  sudo ./${SCRIPT_NAME} --channel=beta        Rejoint le canal Bêta (accès anticipé)
+  sudo ./${SCRIPT_NAME} -v                    Installation avec flux verbeux (logs détaillés en direct)
+  sudo ./${SCRIPT_NAME} --no-kiosk            Backend seul, sur un serveur ou un poste de dev
+  sudo ./${SCRIPT_NAME} --skip-packages       Réinstalle après un 'git pull' sans retoucher apt
+  sudo ./${SCRIPT_NAME} --dry-run             Prévisualise toutes les actions sans rien changer
+  sudo ./${SCRIPT_NAME} --check               Vérifie l'état des services et affiche un résumé
+  sudo ./${SCRIPT_NAME} --uninstall --purge   Désinstalle complètement (conserve les médias importés)
+  su - -c "\$PWD/${SCRIPT_NAME} --as-user fanta -y"   Machine SANS sudo : install en root direct pour le compte 'fanta'
+
+Journal complet de chaque exécution : /var/log/bobine/install-*.log
+EOF
+}
+
+DRY_RUN=false
+ASSUME_YES=false
+NO_KIOSK=false
+SKIP_PACKAGES=false
+SKIP_BUILD=false
+AS_USER=""
+DO_CHECK=false
+DO_UNINSTALL=false
+DO_PURGE=false
+DO_PURGE_DATA=false
+VERBOSE=false
+QUIET=false
+PROGRESS=""
+PROGRESS_JSON=false
+UPDATE_CHANNEL=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -h|--help) usage; exit 0 ;;
+        -V|--version) echo "Bobine install.sh v${SCRIPT_VERSION}"; exit 0 ;;
+        -l|--lang) INSTALL_LANG="${2:-}"; shift ;;
+        -l=*|--lang=*) INSTALL_LANG="${1#*=}" ;;
+        --channel) UPDATE_CHANNEL="${2:-}"; shift ;;
+        --channel=*) UPDATE_CHANNEL="${1#*=}" ;;
+        -y|--yes) ASSUME_YES=true ;;
+        --dry-run) DRY_RUN=true ;;
+        --no-kiosk) NO_KIOSK=true ;;
+        --skip-packages) SKIP_PACKAGES=true ;;
+        --skip-build) SKIP_BUILD=true ;;
+        --as-user) AS_USER="${2:-}"; shift ;;
+        --progress=*) PROGRESS="${1#*=}" ;;
+        --progress) PROGRESS="${2:-}"; shift ;;
+        --check) DO_CHECK=true ;;
+        --uninstall) DO_UNINSTALL=true ;;
+        --purge) DO_PURGE=true ;;
+        --purge-data) DO_PURGE_DATA=true ;;
+        -v|--verbose) VERBOSE=true ;;
+        -q|--quiet) QUIET=true ;;
+        *) echo "Option inconnue : $1" >&2; echo; usage; exit 1 ;;
+    esac
+    shift
+done
+
+select_installer_language() {
+    if [[ -n "${INSTALL_LANG:-}" ]]; then
+        case "${INSTALL_LANG,,}" in
+            en*) INSTALL_LANG="en" ;;
+            *)   INSTALL_LANG="fr" ;;
+        esac
+        return 0
     fi
-    chmod +x ./install.sh
-    if [[ $EUID -ne 0 ]]; then
-        if command -v sudo >/dev/null 2>&1; then
-            exec sudo ./install.sh "$@"
+
+    if $ASSUME_YES || [[ ! -t 0 ]]; then
+        if [[ "${LANG:-}" =~ ^en ]]; then
+            INSTALL_LANG="en"
         else
-            exec su - -c "$PWD/install.sh $*"
+            INSTALL_LANG="fr"
+        fi
+        return 0
+    fi
+
+    printf '\n%s  Langue de l'\''installateur / Installer language :%s\n' "$BOLD" "$RESET"
+    printf '    %s1%s) Français (par défaut)\n' "$CYAN" "$RESET"
+    printf '    %s2%s) English\n' "$CYAN" "$RESET"
+    local reply
+    read -r -p "$(printf '%s  Votre choix / Choice [1/2] (1) : %s' "$YELLOW" "$RESET")" reply </dev/tty || reply="1"
+    case "$reply" in
+        2|[eE][nN]*) INSTALL_LANG="en" ;;
+        *)           INSTALL_LANG="fr" ;;
+    esac
+}
+
+select_installer_language
+
+# Canal de mise à jour (réf. mission "Programme Bobine Beta") : "stable" ou
+# "beta". Une réinstallation idempotente (--skip-packages après un 'git
+# pull', cf. en-tête du script) reprend le canal précédemment choisi plutôt
+# que de retomber sur stable à chaque relance — c'est aussi ce que
+# backend/app/utils/deployment_profiles/linux_headless.py lit pour que le
+# bouton "Mettre à jour" de Réglages reste cohérent avec ce choix CLI.
+select_update_channel() {
+    if [[ -n "${UPDATE_CHANNEL:-}" ]]; then
+        case "${UPDATE_CHANNEL,,}" in
+            beta*) UPDATE_CHANNEL="beta" ;;
+            *)     UPDATE_CHANNEL="stable" ;;
+        esac
+        return 0
+    fi
+
+    local previous=""
+    [[ -f "${CONFIG_DIR}/update-channel" ]] && previous="$(cat "${CONFIG_DIR}/update-channel" 2>/dev/null || true)"
+
+    if $ASSUME_YES || [[ ! -t 0 ]]; then
+        UPDATE_CHANNEL="${previous:-stable}"
+        return 0
+    fi
+
+    printf '\n%s  Canal de mise à jour :%s\n' "$BOLD" "$RESET"
+    printf '    %s1%s) Stable (par défaut, recommandé)\n' "$CYAN" "$RESET"
+    printf '    %s2%s) Bêta — accès anticipé aux fonctionnalités en cours de développement\n' "$CYAN" "$RESET"
+    local default_choice="1"
+    [[ "${previous}" == "beta" ]] && default_choice="2"
+    local reply
+    read -r -p "$(printf '%s  Votre choix [1/2] (%s) : %s' "$YELLOW" "$default_choice" "$RESET")" reply </dev/tty || reply="${default_choice}"
+    case "${reply:-$default_choice}" in
+        2) UPDATE_CHANNEL="beta" ;;
+        *) UPDATE_CHANNEL="stable" ;;
+    esac
+}
+
+select_update_channel
+
+# --progress=json : sortie machine (une ligne JSON par évènement) pour piloter
+# une barre de progression depuis l'assistant graphique (réf.
+# docs/cahier-des-charges-installeur.md §10). Seule la valeur 'json' est gérée.
+case "${PROGRESS}" in
+    "")     ;;
+    json)   PROGRESS_JSON=true ;;
+    *)      echo "Valeur --progress inconnue : ${PROGRESS} (attendu : json)" >&2; exit 1 ;;
+esac
+
+log()  { $QUIET && return 0; printf '\n%s%s▸%s %s\n' "$BOLD" "$CYAN" "$RESET" "$*"; }
+ok()   { $QUIET && return 0; printf '  %s %s\n' "$ICON_OK" "$*"; }
+warn() { printf '  %s %s%s%s\n' "$ICON_WARN" "$YELLOW" "$*" "$RESET" >&2; }
+err()  { printf '  %s %s%s%s\n' "$ICON_FAIL" "$RED" "$*" "$RESET" >&2; }
+
+confirm() {
+    $ASSUME_YES && return 0
+    local reply
+    read -r -p "$(printf '%s%s%s [o/N] ' "$YELLOW" "$1" "$RESET")" reply </dev/tty || return 1
+    [[ "$reply" =~ ^[oOyY]$ ]]
+}
+
+# Exécute une commande "atomique" en respectant --dry-run et la verbosité.
+# En mode épuré par défaut, la sortie est redirigée vers LOG_FILE.
+# En mode verbeux (-v/--verbose), la sortie est diffusée en direct à l'écran.
+run() {
+    if $DRY_RUN; then
+        printf '  %s[dry-run]%s %s\n' "$DIM" "$RESET" "$*"
+        return 0
+    fi
+    if $VERBOSE; then
+        "$@"
+    else
+        "$@" >>"${LOG_FILE}" 2>&1
+    fi
+}
+
+# Écrit (ou tronque) un fichier depuis un heredoc, en respectant --dry-run.
+write_file() {
+    if $DRY_RUN; then
+        printf '  %s[dry-run]%s écrirait %s\n' "$DIM" "$RESET" "$1"
+        cat >/dev/null
+    else
+        cat >"$1"
+    fi
+}
+
+# Idem en ajout (deuxième moitié d'un fichier généré en deux temps, ex.
+# kiosk-xinitrc : en-tête interpolée puis corps littéral).
+append_file() {
+    if $DRY_RUN; then
+        cat >/dev/null
+    else
+        cat >>"$1"
+    fi
+}
+
+# Exécute une commande EN TANT QUE TARGET_USER. Préfère `sudo -u` (comportement
+# éprouvé du chemin classique) et retombe sur `runuser` (util-linux, toujours
+# présent) quand sudo est absent — indispensable au chemin --as-user (Debian
+# minimal sans sudo, lancé en root via 'su -'). Respecte --dry-run et la verbosité.
+run_user() {
+    if $DRY_RUN; then
+        printf '  %s[dry-run]%s (utilisateur %s) %s\n' "$DIM" "$RESET" "${TARGET_USER}" "$*"
+        return 0
+    fi
+    if command -v sudo >/dev/null 2>&1; then
+        if $VERBOSE; then
+            sudo -u "${TARGET_USER}" -- "$@"
+        else
+            sudo -u "${TARGET_USER}" -- "$@" >>"${LOG_FILE}" 2>&1
         fi
     else
-        exec ./install.sh "$@"
+        local home
+        home="$(getent passwd "${TARGET_USER}" | cut -d: -f6)"
+        if $VERBOSE; then
+            runuser -u "${TARGET_USER}" -- env "HOME=${home:-/home/${TARGET_USER}}" "$@"
+        else
+            runuser -u "${TARGET_USER}" -- env "HOME=${home:-/home/${TARGET_USER}}" "$@" >>"${LOG_FILE}" 2>&1
+        fi
     fi
-fi
+}
 
-# 2. Détermination du dossier cible
-TARGET_DIR="${BOBINE_DIR:-$HOME/Bobine}"
-
-if [[ ! -d "${TARGET_DIR}" && -d "$HOME/Developpement/web/Bobine" ]]; then
-    TARGET_DIR="$HOME/Developpement/web/Bobine"
-fi
-
-printf " %s Dossier cible : %s%s%s\n" "${ICON_INFO}" "${BOLD}" "${TARGET_DIR}" "${RESET}"
-
-# 3. Vérification / installation des prérequis minimaux (git, curl, ca-certificates)
-if ! command -v git >/dev/null 2>&1 || ! command -v curl >/dev/null 2>&1; then
-    printf " %s Installation des outils système préalables (%sgit, curl, ca-certificates%s)...\n" "${ICON_INFO}" "${BOLD}" "${RESET}"
-    if [[ $EUID -eq 0 ]]; then
-        apt-get update -qq && apt-get install -y -qq git curl ca-certificates
-    elif command -v sudo >/dev/null 2>&1; then
-        sudo apt-get update -qq && sudo apt-get install -y -qq git curl ca-certificates
+# Installe un paquet OPTIONNEL : ne fait JAMAIS échouer l'installation s'il est
+# indisponible (ex. composant apt non activé) — simple avertissement. Sert à la
+# détection matérielle : on tente le meilleur paquet pour le GPU/CPU présent.
+apt_optional() {
+    if $DRY_RUN; then
+        printf '  %s[dry-run]%s installerait (optionnel) %s\n' "$DIM" "$RESET" "$*"
+        return 0
+    fi
+    local cmd=(apt-get install -y --no-install-recommends "$@")
+    if $VERBOSE; then
+        if "${cmd[@]}"; then
+            ok "paquet installé : $*"
+            return 0
+        fi
     else
-        printf " %s %s'git' et 'curl' sont requis. Installez-les via 'apt install git curl ca-certificates'.%s\n" "${ICON_WARN}" "${YELLOW}" "${RESET}" >&2
-        exit 1
+        if "${cmd[@]}" >>"${LOG_FILE}" 2>&1; then
+            ok "paquet installé : $*"
+            return 0
+        fi
     fi
-fi
+    warn "paquet indisponible, ignoré : $* (composant apt manquant ?)"
+    return 1
+}
 
-# 4. Gestion intelligente du dépôt cible
-if [[ -d "${TARGET_DIR}/.git" ]]; then
-    printf " %s %sDépôt Git existant détecté :%s %s\n" "${ICON_OK}" "${GREEN}" "${RESET}" "${TARGET_DIR}"
-    LOCAL_VER="$(git -C "${TARGET_DIR}" describe --tags --always 2>/dev/null || git -C "${TARGET_DIR}" rev-parse --short HEAD 2>/dev/null || echo "actuelle")"
-    printf " %s Version locale : %s%s%s\n" "${ICON_INFO}" "${CYAN}" "${LOCAL_VER}" "${RESET}"
-    printf " %s Synchronisation avec GitHub...\n" "${ICON_INFO}"
-    git -C "${TARGET_DIR}" fetch origin --tags -q 2>/dev/null || git -C "${TARGET_DIR}" fetch origin -q 2>/dev/null || true
-    
-    if git -C "${TARGET_DIR}" pull --ff-only 2>/dev/null; then
-        NEW_VER="$(git -C "${TARGET_DIR}" describe --tags --always 2>/dev/null || git -C "${TARGET_DIR}" rev-parse --short HEAD 2>/dev/null || echo "$LOCAL_VER")"
-        printf " %s %sDépôt synchronisé (%s)%s\n" "${ICON_OK}" "${GREEN}" "${NEW_VER}" "${RESET}"
-    else
-        printf " %s %sModifications locales détectées : conservation de l'état local.%s\n" "${ICON_WARN}" "${YELLOW}" "${RESET}"
+# Active les composants contrib/non-free/non-free-firmware sur les sources
+# Debian officielles s'ils manquent (requis par firmwares & pilotes non libres,
+# séparés en composants distincts depuis Debian 12). Idempotent ; sauvegarde
+# .bobine.bak avant toute édition. Gère le format deb822 (défaut de Debian 13)
+# et l'ancien /etc/apt/sources.list.
+ensure_apt_components() {
+    local want=(contrib non-free non-free-firmware) changed=false f comp
+    for f in /etc/apt/sources.list.d/*.sources; do
+        [[ -f "$f" ]] || continue
+        grep -qiE '^URIs:.*debian\.org' "$f" || continue
+        grep -qiE '^Components:' "$f" || continue
+        for comp in "${want[@]}"; do
+            grep -iE '^Components:' "$f" | grep -qw "$comp" && continue
+            [[ -f "${f}.bobine.bak" ]] || cp -a "$f" "${f}.bobine.bak"
+            sed -i -E "s/^(Components:.*)$/\1 ${comp}/I" "$f"
+            changed=true
+        done
+    done
+    if [[ -f /etc/apt/sources.list ]] \
+        && grep -qE '^[[:space:]]*deb[[:space:]].* main' /etc/apt/sources.list \
+        && ! grep -qE '^[[:space:]]*deb[[:space:]].*(contrib|non-free)' /etc/apt/sources.list; then
+        cp -a /etc/apt/sources.list /etc/apt/sources.list.bobine.bak
+        sed -i -E '/^[[:space:]]*deb[[:space:]].* main/ s/ main/ main contrib non-free non-free-firmware/' /etc/apt/sources.list
+        changed=true
     fi
-elif [[ -d "${TARGET_DIR}" && -f "${TARGET_DIR}/install.sh" && -d "${TARGET_DIR}/backend" ]]; then
-    printf " %s Répertoire Bobine existant détecté (sans git) : utilisation des sources présentes.\n" "${ICON_OK}"
-elif [[ -d "${TARGET_DIR}" && "$(ls -A "${TARGET_DIR}" 2>/dev/null)" ]]; then
-    BACKUP_DIR="${TARGET_DIR}.backup_$(date +%Y%m%d_%H%M%S)"
-    printf " %s Le dossier %s existe déjà : sauvegarde vers %s\n" "${ICON_WARN}" "${TARGET_DIR}" "${BACKUP_DIR}"
-    mv "${TARGET_DIR}" "${BACKUP_DIR}"
-    printf " %s Clonage du dépôt Bobine officiel...\n" "${ICON_INFO}"
-    git clone https://github.com/FantasmaGlad/Bobine.git "${TARGET_DIR}"
-else
-    printf " %s Clonage du dépôt Bobine officiel depuis GitHub...\n" "${ICON_INFO}"
-    git clone https://github.com/FantasmaGlad/Bobine.git "${TARGET_DIR}"
-fi
+    $changed && ok "composants apt (contrib/non-free/non-free-firmware) activés"
+    $changed
+}
 
-cd "${TARGET_DIR}"
-chmod +x ./install.sh
+# Nombre d'appels à step() ci-dessous (mettre à jour si on en ajoute/retire).
+# Cohérence garantie par la CI (job « install.sh sanity ») qui compare cette
+# valeur à `grep -cE '^\s*step ' install.sh` : un ajout d'étape sans mise à jour
+# ici casse le build (et fausserait le pourcentage de --progress=json).
+STEP_TOTAL=16
+STEP_CUR=0
+STEP_START_TS=0
+CURRENT_STEP_TITLE=""
+CURRENT_STEP_SLUG=""
+STEP_OPEN=false
 
-# 5. Exécution de l'installateur tout-en-un
-printf " %s %sLancement de l'installateur Bobine...%s\n\n" "${ICON_INFO}" "${BOLD}" "${RESET}"
+# ---- Sortie machine (--progress=json) ----------------------------------------
+# Émet une ligne JSON compacte par évènement sur le fd 3 (stdout d'origine,
+# préservé avant la redirection vers tee) : l'assistant graphique la parse pour
+# une barre de progression + un journal repliable, sans que ces lignes polluent
+# le fichier journal humain. Schéma versionné par la clé de tête "bobine":1
+# (le consommateur filtre les lignes qui matchent ^\{"bobine":). Silencieux hors
+# --progress=json. Réf. docs/cahier-des-charges-installeur.md §10.
+# Astuce SSH : allouer un PTY pour un flush ligne à ligne côté assistant.
+_json_escape() { local s="$1"; s="${s//\\/\\\\}"; s="${s//\"/\\\"}"; printf '%s' "$s"; }
+_now_iso() { date -u +%Y-%m-%dT%H:%M:%SZ; }
+_pct_start() { echo $(( (STEP_CUR - 1) * 100 / STEP_TOTAL )); }
+_pct_done()  { echo $(( STEP_CUR * 100 / STEP_TOTAL )); }
+
+emit_event() {
+    $PROGRESS_JSON || return 0
+    printf '{"bobine":1,"ts":"%s",%s}\n' "$(_now_iso)" "$1" >&3
+}
+
+# Émet l'évènement d'une étape. $1=status (start|ok|skip|error), $2=pct,
+# $3=détail optionnel (raison d'un skip, code d'erreur…).
+emit_step() {
+    $PROGRESS_JSON || return 0
+    local extra=""
+    [[ -n "${3:-}" ]] && extra=",\"detail\":\"$(_json_escape "$3")\""
+    emit_event "\"event\":\"step\",\"status\":\"$1\",\"step\":${STEP_CUR},\"total\":${STEP_TOTAL},\"pct\":$2,\"slug\":\"${CURRENT_STEP_SLUG}\",\"title\":\"$(_json_escape "$CURRENT_STEP_TITLE")\"${extra}"
+}
+
+# Clôt l'étape courante une seule fois (émet ok/skip). Permet à step() de clore
+# automatiquement une étape qui n'a pas appelé step_done (ex. « Script de
+# contrôle CLI »), tout en évitant un double évènement quand step_done/step_skip
+# l'ont déjà close.
+_close_step() {
+    $STEP_OPEN || return 0
+    STEP_OPEN=false
+    emit_step "$1" "$(_pct_done)" "${2:-}"
+}
+
+step() {
+    _close_step ok
+    STEP_CUR=$((STEP_CUR + 1))
+    STEP_START_TS=$SECONDS
+    CURRENT_STEP_SLUG="$1"; shift
+    CURRENT_STEP_TITLE="$*"
+    STEP_OPEN=true
+    if ! $QUIET; then
+        printf '\n%s┃%s %s[%d/%d]%s %s%s%s\n' "$CYAN" "$RESET" "$DIM" "$STEP_CUR" "$STEP_TOTAL" "$RESET" "$BOLD" "$*" "$RESET"
+    fi
+    emit_step start "$(_pct_start)"
+}
+step_done() {
+    if ! $QUIET; then
+        printf '  %s (%ss)\n' "$ICON_OK" "$((SECONDS - STEP_START_TS))"
+    fi
+    _close_step ok
+}
+step_skip() {
+    if ! $QUIET; then
+        printf '  %s ignoré — %s\n' "$ICON_SKIP" "$*"
+    fi
+    _close_step skip "$*"
+}
+
+on_error() {
+    local rc=$?
+    echo
+    err "Échec à l'étape [${STEP_CUR}/${STEP_TOTAL}] ${CURRENT_STEP_TITLE} (code ${rc})."
+    if [[ -n "${LOG_FILE:-}" && -f "${LOG_FILE}" ]]; then
+        err "Journal complet : ${LOG_FILE}"
+        if ! $VERBOSE; then
+            echo
+            printf '%s--- Dernières lignes du journal (%s) ---%s\n' "$YELLOW" "${LOG_FILE}" "$RESET"
+            tail -n 25 "${LOG_FILE}" | sed 's/^/  /' || true
+            printf '%s------------------------------------------------------------%s\n' "$YELLOW" "$RESET"
+        fi
+    fi
+    STEP_OPEN=false
+    emit_step error "$(_pct_start)" "code ${rc}"
+    emit_event "\"event\":\"run_end\",\"status\":\"error\",\"rc\":${rc},\"step\":${STEP_CUR},\"total\":${STEP_TOTAL}"
+    exit "$rc"
+}
+trap on_error ERR
+
+# ============================================================================
+# 1. Vérifications préalables
+# ============================================================================
 
 if [[ $EUID -ne 0 ]]; then
-    if command -v sudo >/dev/null 2>&1; then
-        exec sudo ./install.sh "$@"
+    banner
+    echo
+    err "Ce script doit être lancé en root :"
+    err "  • via sudo depuis ton compte : sudo ./${SCRIPT_NAME}"
+    err "  • ou en root direct (Debian sans sudo) : su - -c \"\$PWD/${SCRIPT_NAME} --as-user <login>\""
+    exit 1
+fi
+
+# Compte cible (propriétaire des fichiers, service kiosk, groupes GPU) :
+#  - chemin classique : SUDO_USER (le compte ayant lancé sudo) ;
+#  - chemin --as-user (root direct via 'su -', machine sans sudo, réf. cahier
+#    des charges installeur §7 « option B ») : le login fourni explicitement.
+if [[ -n "${AS_USER}" ]]; then
+    TARGET_USER="${AS_USER}"
+elif [[ -n "${SUDO_USER:-}" && "${SUDO_USER}" != "root" ]]; then
+    TARGET_USER="${SUDO_USER}"
+else
+    banner
+    echo
+    err "Impossible de déterminer le compte cible."
+    err "Lance via 'sudo ./${SCRIPT_NAME}' depuis ton compte normal,"
+    err "ou en root (su -) avec '--as-user <login>' — ex. su - -c \"\$PWD/${SCRIPT_NAME} --as-user fanta -y\"."
+    exit 1
+fi
+
+if ! id "${TARGET_USER}" >/dev/null 2>&1; then
+    banner; echo
+    err "Le compte cible '${TARGET_USER}' n'existe pas sur cette machine."
+    exit 1
+fi
+if [[ "${TARGET_USER}" == "root" ]]; then
+    banner; echo
+    err "Le compte cible ne peut pas être root (le kiosk et les fichiers doivent appartenir à un utilisateur normal)."
+    exit 1
+fi
+BACKEND_DIR="${REPO_DIR}/backend"
+FRONTEND_DIR="${REPO_DIR}/frontend"
+VENV_DIR="${BACKEND_DIR}/.venv"
+CONFIG_FILE="${CONFIG_DIR}/config.toml"
+SERVICE_PORT=8000
+KIOSK_URL="http://127.0.0.1:${SERVICE_PORT}/kiosk"
+UNITS=(bobine-backend bobine-kiosk bobine-audio-guard bobine-redirect bobine-watchdog)
+
+LOG_DIR="/var/log/bobine"
+mkdir -p "${LOG_DIR}" 2>/dev/null || LOG_DIR="/tmp"
+LOG_FILE="${LOG_DIR}/install-$(date +%Y%m%d-%H%M%S).log"
+# fd 3 = canal des évènements JSON (--progress=json) : on garde le stdout
+# d'origine AVANT de dérouter le stdout "humain" vers tee. Les évènements
+# atteignent ainsi l'assistant (même canal SSH) sans être écrits au journal.
+exec 3>&1
+exec > >(tee -a "${LOG_FILE}") 2>&1
+
+# ---- Dispatch : désinstallation ----
+if $DO_UNINSTALL; then
+    banner
+    log "Désinstallation d'Bobine"
+    echo "  Dépôt   : ${REPO_DIR}"
+    echo "  Journal : ${LOG_FILE}"
+
+    confirm "Arrêter et retirer tous les services Bobine ?" || { echo "Annulé."; exit 0; }
+
+    for unit in "${UNITS[@]}"; do
+        if systemctl list-unit-files "${unit}.service" &>/dev/null; then
+            run systemctl disable --now "${unit}.service" 2>/dev/null || true
+            run rm -f "/etc/systemd/system/${unit}.service"
+            ok "${unit}.service retiré"
+        else
+            step_skip "${unit}.service non installé"
+        fi
+    done
+    # Le chien de garde est piloté par un TIMER (l'unité .service ci-dessus est
+    # déclenchée par lui) : retirer aussi le timer.
+    run systemctl disable --now bobine-watchdog.timer 2>/dev/null || true
+    run rm -f /etc/systemd/system/bobine-watchdog.timer
+    run systemctl daemon-reload
+
+    run rm -f /etc/sudoers.d/bobine
+    run rm -f /etc/modprobe.d/bobine-audio.conf
+    run rm -f /etc/wireplumber/wireplumber.conf.d/51-fix-jack-autoport.conf
+    run rm -f /etc/systemd/system/powertop.service.d/10-audio-nopowersave.conf
+    run rm -f /usr/local/bin/bobine
+    run rm -f /usr/local/sbin/bobine-uninstall
+    if command -v nft >/dev/null 2>&1; then
+        run nft delete table ip olmc_redirect 2>/dev/null || true
+    fi
+    ok "Intégrations système (sudoers, audio, redirection, commande CLI) retirées."
+
+    if $DO_PURGE; then
+        warn "Suppression de la configuration, de l'environnement Python et du build frontend."
+        run rm -rf "${CONFIG_DIR}"
+        run rm -rf "${VENV_DIR}"
+        run rm -rf "${FRONTEND_DIR}/out" "${FRONTEND_DIR}/node_modules"
+        ok "Configuration, venv et build frontend retirés."
+
+        if $DO_PURGE_DATA; then
+            if confirm "${RED}Supprimer aussi les médias importés (${REPO_DIR}/data et l'ancien ${REPO_DIR}/backend/data) ? IRRÉVERSIBLE.${RESET}"; then
+                run rm -rf "${REPO_DIR}/data"
+                # Ancien emplacement historique (réf. §10.1 cahier des charges
+                # Radio) : audio/fonds/logs pouvaient y résider avant unification
+                # — sans cette ligne ils survivaient à un --purge-data (orphelins).
+                run rm -rf "${REPO_DIR}/backend/data"
+                warn "Médias importés supprimés (nouvel et ancien emplacement)."
+            else
+                echo "  Médias conservés (${REPO_DIR}/data)."
+            fi
+        fi
     else
-        printf " %s Exécution en root via su...\n" "${ICON_INFO}"
-        exec su - -c "$PWD/install.sh $*"
+        echo "  ${ICON_INFO} Configuration (${CONFIG_DIR}), venv et données conservées — relance avec --purge pour les retirer aussi."
+    fi
+
+    log "Désinstallation terminée."
+    exit 0
+fi
+
+# ---- Dispatch : diagnostic seul ----
+BOX_WIDTH=70
+box_line() {
+    local text="$1" pad
+    pad=$((BOX_WIDTH - 4 - ${#text}))
+    (( pad < 0 )) && pad=0
+    printf '%s│%s %s%*s%s│%s\n' "$DIM" "$RESET" "$text" "$pad" "" "$DIM" "$RESET"
+}
+box_rule() { printf '%s%s%s%s\n' "$DIM" "$1" "$(printf '─%.0s' $(seq 1 $((BOX_WIDTH - 2))))" "$2$RESET"; }
+box_top()    { box_rule "┌" "┐"; }
+box_mid()    { box_rule "├" "┤"; }
+box_bottom() { box_rule "└" "┘"; }
+
+do_check() {
+    banner
+    log "Diagnostic de l'installation"
+
+    local port="${SERVICE_PORT}"
+    if [[ -f "${CONFIG_FILE}" ]]; then
+        port=$(grep -E '^port' "${CONFIG_FILE}" 2>/dev/null | sed -E 's/[^0-9]*([0-9]+).*/\1/' || echo "${SERVICE_PORT}")
+        [[ -z "$port" ]] && port="${SERVICE_PORT}"
+    fi
+
+    echo
+    box_top
+    box_line "  Bobine — diagnostic"
+    box_mid
+    for unit in "${UNITS[@]}"; do
+        if systemctl list-unit-files "${unit}.service" &>/dev/null; then
+            if systemctl is-active --quiet "${unit}.service"; then
+                box_line "  ✓ ${unit}  actif"
+            else
+                box_line "  ✗ ${unit}  $(systemctl is-active "${unit}.service" 2>/dev/null || echo inconnu)"
+            fi
+        else
+            box_line "  ⤫ ${unit}  non installé"
+        fi
+    done
+    box_mid
+    if curl -fsS -o /dev/null -m 3 "http://127.0.0.1:${port}/api/health" 2>/dev/null; then
+        box_line "  ✓ API backend répond (port ${port})"
+    else
+        box_line "  ✗ API backend injoignable (port ${port})"
+    fi
+    if [[ -d "${FRONTEND_DIR}/out" ]]; then
+        box_line "  ✓ build frontend présent ($(date -r "${FRONTEND_DIR}/out" '+%d/%m %H:%M' 2>/dev/null || echo date-inconnue))"
+    else
+        box_line "  ✗ build frontend absent"
+    fi
+    [[ -d "${VENV_DIR}" ]] && box_line "  ✓ environnement Python présent" || box_line "  ✗ environnement Python absent"
+    if git -C "${REPO_DIR}" rev-parse --short HEAD &>/dev/null; then
+        local rev dirty extra=""
+        rev=$(git -C "${REPO_DIR}" rev-parse --short HEAD)
+        dirty=$(git -C "${REPO_DIR}" status --porcelain 2>/dev/null | wc -l)
+        [[ "$dirty" -gt 0 ]] && extra="  (+${dirty} fichiers modifiés)"
+        box_line "  → révision ${rev}${extra}"
+    fi
+    box_bottom
+    echo
+    exit 0
+}
+$DO_CHECK && do_check
+
+# ============================================================================
+# Installation
+# ============================================================================
+
+banner
+echo
+echo "  Dépôt        : ${REPO_DIR}"
+echo "  Utilisateur  : ${TARGET_USER}"
+echo "  Journal      : ${LOG_FILE}"
+FLAGS_ACTIVE=""
+$DRY_RUN && FLAGS_ACTIVE+="dry-run "
+$NO_KIOSK && FLAGS_ACTIVE+="no-kiosk "
+$SKIP_PACKAGES && FLAGS_ACTIVE+="skip-packages "
+$SKIP_BUILD && FLAGS_ACTIVE+="skip-build "
+$ASSUME_YES && FLAGS_ACTIVE+="non-interactif "
+[[ -n "$FLAGS_ACTIVE" ]] && echo "  Options      : ${YELLOW}${FLAGS_ACTIVE}${RESET}"
+
+if systemctl list-unit-files bobine-backend.service &>/dev/null; then
+    echo "  Mode         : mise à jour d'une installation existante"
+else
+    echo "  Mode         : nouvelle installation"
+fi
+
+if [[ -r /etc/os-release ]]; then
+    . /etc/os-release
+    if [[ "${VERSION_CODENAME:-}" != "trixie" ]]; then
+        warn "Ce script est prévu pour Debian 13 (trixie). Système détecté : ${PRETTY_NAME:-inconnu}. On continue quand même."
+    fi
+fi
+
+AVAIL_KB=$(df --output=avail -k "${REPO_DIR}" 2>/dev/null | tail -1 | tr -d ' ')
+if [[ -n "${AVAIL_KB:-}" ]] && (( AVAIL_KB < 2 * 1024 * 1024 )); then
+    warn "Moins de 2 Go disponibles sur $(df --output=target "${REPO_DIR}" | tail -1 | tr -d ' ') — l'import de vidéos réclame nettement plus d'espace."
+fi
+
+# Début de la séquence pilotable : métadonnées d'exécution pour l'assistant.
+emit_event "\"event\":\"run_begin\",\"version\":\"${SCRIPT_VERSION}\",\"total\":${STEP_TOTAL},\"user\":\"$(_json_escape "${TARGET_USER}")\",\"repo\":\"$(_json_escape "${REPO_DIR}")\",\"log\":\"$(_json_escape "${LOG_FILE}")\",\"mode\":\"$($NO_KIOSK && echo server || echo kiosk)\",\"dry_run\":${DRY_RUN}"
+
+# ---------------------------------------------------------------------------
+step update-channel "Canal de mise à jour (Stable / Bêta)"
+# ---------------------------------------------------------------------------
+# Persiste le choix pour les relances idempotentes (cf. select_update_channel)
+# et pour que backend/app/utils/deployment_profiles/linux_headless.py reste
+# cohérent avec ce choix CLI quand le bouton "Mettre à jour" de Réglages est
+# utilisé ensuite.
+mkdir -p "${CONFIG_DIR}" 2>/dev/null || true
+write_file "${CONFIG_DIR}/update-channel" <<< "${UPDATE_CHANNEL}"
+
+if [[ -d "${REPO_DIR}/.git" ]]; then
+    # --force : le canal Bêta repose sur un tag UNIQUE et mobile ("beta",
+    # réf. mission "canal Stable/Bêta" — un seul fichier de release Bêta sur
+    # GitHub plutôt qu'un tag par itération) — sans --force, un `git fetch`
+    # classique refuse de mettre à jour un tag local si le tag distant a
+    # bougé depuis le dernier fetch.
+    run git -C "${REPO_DIR}" fetch --tags --force
+    if [[ "${UPDATE_CHANNEL}" == "beta" ]]; then
+        # Tag fixe, pas de recherche : la CI republie toujours sous ce même
+        # nom (cf. .github/workflows/ci.yml, job release-beta). Peut ne pas
+        # exister encore (aucune bêta jamais publiée) — vérifié juste après,
+        # pas de recherche à faire ici contrairement à la branche stable.
+        if git -C "${REPO_DIR}" rev-parse --verify -q "refs/tags/beta" >/dev/null; then
+            TARGET_TAG="beta"
+        else
+            TARGET_TAG=""
+        fi
+    else
+        # Dernier tag Vx.y.z, en excluant tout tag qui ne suit pas cette
+        # forme stricte (garde-fou si un tag non standard existe).
+        TARGET_TAG="$(git -C "${REPO_DIR}" tag --list 'V*' --sort=-v:refname 2>/dev/null | grep -E '^V[0-9]+\.[0-9]+\.[0-9]+$' | head -1)"
+    fi
+    if [[ -n "${TARGET_TAG:-}" ]]; then
+        CURRENT_TAG="$(git -C "${REPO_DIR}" describe --tags --exact-match 2>/dev/null || true)"
+        if [[ "${CURRENT_TAG}" != "${TARGET_TAG}" ]]; then
+            log "Bascule sur ${TARGET_TAG} (canal ${UPDATE_CHANNEL})"
+            run git -C "${REPO_DIR}" checkout "${TARGET_TAG}"
+        else
+            ok "Déjà sur ${TARGET_TAG} (canal ${UPDATE_CHANNEL})"
+        fi
+    else
+        warn "Aucun tag de release trouvé dans ce dépôt — installation depuis la branche courante (canal « ${UPDATE_CHANNEL} » enregistré, sans effet pour cette exécution)."
     fi
 else
-    exec ./install.sh "$@"
+    warn "${REPO_DIR} n'est pas un dépôt git — canal « ${UPDATE_CHANNEL} » enregistré mais sans effet sur les fichiers installés."
+fi
+step_done
+
+# ---------------------------------------------------------------------------
+step packages "Paquets système (apt)"
+# ---------------------------------------------------------------------------
+if $SKIP_PACKAGES; then
+    step_skip "--skip-packages"
+else
+    export DEBIAN_FRONTEND=noninteractive
+    run apt-get update -qq
+
+    run apt-get install -y --no-install-recommends \
+        ffmpeg \
+        python3 \
+        python3-venv \
+        python3-pip \
+        chromium \
+        xinit \
+        xserver-xorg \
+        x11-xserver-utils \
+        unclutter \
+        vainfo \
+        curl \
+        ca-certificates \
+        gnupg \
+        sudo \
+        avahi-daemon \
+        nftables
+    ok "paquets système de base installés"
+
+    # ----------------------------------------------------------------------
+    # Détection matérielle DYNAMIQUE (GPU/CPU/firmware) : on adapte les paquets
+    # au matériel RÉEL au lieu d'un Intel figé — la cible varie (Intel, AMD/
+    # Ryzen, éventuellement NVIDIA). lspci/lscpu font partie de la base Debian.
+    # ----------------------------------------------------------------------
+    GPU_LINES="$(lspci -nn 2>/dev/null | grep -Ei 'VGA compatible controller|3D controller|Display controller' || true)"
+    HAS_INTEL_GPU=false; HAS_AMD_GPU=false; HAS_NVIDIA_GPU=false
+    grep -qiE '\[8086:' <<<"$GPU_LINES" && HAS_INTEL_GPU=true
+    grep -qiE '\[1002:' <<<"$GPU_LINES" && HAS_AMD_GPU=true
+    grep -qiE '\[10de:' <<<"$GPU_LINES" && HAS_NVIDIA_GPU=true
+    CPU_VENDOR="$(LC_ALL=C lscpu 2>/dev/null | awk -F: '/Vendor ID/{gsub(/^[ \t]+/,"",$2);print $2; exit}')"
+    ok "matériel détecté — GPU: Intel=$HAS_INTEL_GPU AMD=$HAS_AMD_GPU NVIDIA=$HAS_NVIDIA_GPU | CPU=${CPU_VENDOR:-inconnu}"
+
+    # Les pilotes/firmwares non libres exigent les composants non-free* : on les
+    # active AVANT si du matériel en a besoin, puis on rafraîchit apt (réf.
+    # docs/cahier-des-charges-installeur.md §9).
+    if $HAS_INTEL_GPU || $HAS_AMD_GPU || $HAS_NVIDIA_GPU; then
+        if ! $DRY_RUN && ensure_apt_components; then
+            run apt-get update -qq || true
+        fi
+    fi
+
+    # Microcode CPU (stabilité/sécurité) selon le vendeur détecté.
+    case "$CPU_VENDOR" in
+        *AuthenticAMD*|*AMD*)     apt_optional amd64-microcode ;;
+        *GenuineIntel*|*Intel*)   apt_optional intel-microcode ;;
+    esac
+
+    # Pilote VA-API (décodage vidéo matériel) selon le GPU détecté.
+    if $HAS_INTEL_GPU; then
+        apt_optional intel-media-va-driver-non-free || apt_optional i965-va-driver
+    fi
+    if $HAS_AMD_GPU; then
+        # radeonsi (Mesa) fournit le VA-API des GPU/APU AMD (Ryzen inclus).
+        apt_optional mesa-va-drivers
+        apt_optional firmware-amd-graphics
+    fi
+    if $HAS_NVIDIA_GPU && ! $HAS_INTEL_GPU && ! $HAS_AMD_GPU; then
+        warn "GPU NVIDIA seul détecté : pas de pilote propriétaire installé (hors périmètre v1)."
+        warn "Le décodage vidéo se fera en logiciel — surveiller la charge CPU sur l'écran réseau."
+    fi
+
+    # Firmware générique souvent nécessaire sur une base minimale (Wi-Fi/divers).
+    apt_optional firmware-linux-free
+    apt_optional firmware-misc-nonfree
+    if ip -o link 2>/dev/null | grep -qiE ': wl'; then
+        log "Interface Wi-Fi détectée : firmware sans fil"
+        apt_optional firmware-iwlwifi
+        apt_optional firmware-realtek
+        apt_optional firmware-atheros
+    fi
+
+    # Node.js (build du frontend Next.js en export statique) : la version des
+    # dépôts Debian est souvent trop ancienne, on installe donc une LTS actuelle
+    # via NodeSource si besoin.
+    if ! command -v node >/dev/null 2>&1 || [[ "$(node -v | sed 's/^v//;s/\..*//')" -lt 20 ]]; then
+        if $DRY_RUN; then
+            echo "  ${DIM}[dry-run]${RESET} installerait Node.js 22.x LTS (NodeSource)"
+        else
+            log "Installation de Node.js 22.x LTS (NodeSource)"
+            if $VERBOSE; then
+                curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+                apt-get install -y nodejs
+            else
+                curl -fsSL https://deb.nodesource.com/setup_22.x | bash - >>"${LOG_FILE}" 2>&1
+                apt-get install -y nodejs >>"${LOG_FILE}" 2>&1
+            fi
+            ok "Node.js 22.x LTS installé : $(node -v 2>/dev/null || echo 'installé')"
+        fi
+    else
+        ok "Node.js déjà présent : $(node -v)"
+    fi
+    step_done
+fi
+
+# ---------------------------------------------------------------------------
+step gpu-access "Accès GPU (groupes render/video) & Xwrapper"
+# ---------------------------------------------------------------------------
+if $NO_KIOSK; then
+    step_skip "--no-kiosk"
+else
+    run usermod -aG render,video "${TARGET_USER}"
+    ok "${TARGET_USER} ajouté aux groupes render/video"
+
+    # Autorise Xorg à démarrer depuis une session systemd (pas une console
+    # physique classique) : nécessaire car le kiosk est lancé par un service,
+    # pas un login interactif standard.
+    if $DRY_RUN; then
+        echo "  ${DIM}[dry-run]${RESET} configurerait /etc/X11/Xwrapper.config (allowed_users=anybody)"
+    else
+        if [[ -f /etc/X11/Xwrapper.config ]]; then
+            if grep -q '^allowed_users=' /etc/X11/Xwrapper.config; then
+                sed -i 's/^allowed_users=.*/allowed_users=anybody/' /etc/X11/Xwrapper.config
+            else
+                echo 'allowed_users=anybody' >> /etc/X11/Xwrapper.config
+            fi
+        else
+            printf 'allowed_users=anybody\nneeds_root_rights=yes\n' > /etc/X11/Xwrapper.config
+        fi
+        ok "Xwrapper.config configuré"
+    fi
+    step_done
+fi
+
+# ---------------------------------------------------------------------------
+step python-env "Environnement Python & dépendances backend"
+# ---------------------------------------------------------------------------
+if [[ ! -d "${VENV_DIR}" ]]; then
+    run_user python3 -m venv "${VENV_DIR}"
+    ok "venv créé : ${VENV_DIR}"
+else
+    ok "venv déjà présent : ${VENV_DIR}"
+fi
+PIP_QUIET="-q"; $VERBOSE && PIP_QUIET=""
+run_user "${VENV_DIR}/bin/pip" install --upgrade pip ${PIP_QUIET}
+run_user "${VENV_DIR}/bin/pip" install -r "${BACKEND_DIR}/requirements.txt" ${PIP_QUIET}
+step_done
+
+# ---------------------------------------------------------------------------
+step frontend-build "Build du frontend Next.js"
+# ---------------------------------------------------------------------------
+if $SKIP_BUILD; then
+    step_skip "--skip-build"
+    if [[ ! -d "${FRONTEND_DIR}/out" ]]; then
+        err "frontend/out introuvable et --skip-build demandé : le backend n'aura rien à servir."
+        exit 1
+    fi
+else
+    run_user bash -c "cd '${FRONTEND_DIR}' && npm install --no-audit --no-fund && npm run build"
+    if [[ ! -d "${FRONTEND_DIR}/out" ]] && ! $DRY_RUN; then
+        err "le build frontend n'a pas produit de dossier out/. Abandon."
+        exit 1
+    fi
+    ok "build produit dans ${FRONTEND_DIR}/out"
+    step_done
+fi
+
+# ---------------------------------------------------------------------------
+step config "Configuration de production"
+# ---------------------------------------------------------------------------
+log "Écriture de ${CONFIG_FILE}"
+run mkdir -p "${CONFIG_DIR}"
+# Tous les dossiers média sous un unique arbre ${REPO_DIR}/data (réf. §10.1 du
+# cahier des charges Radio) : avant ce correctif, seuls videos/watched/
+# thumbnails étaient créés/déclarés, et audio/fonds/logs retombaient sur les
+# défauts relatifs à backend/ → données éclatées sur deux arbres.
+run mkdir -p \
+    "${REPO_DIR}/data/videos" "${REPO_DIR}/data/watched" "${REPO_DIR}/data/thumbnails" \
+    "${REPO_DIR}/data/backgrounds" "${REPO_DIR}/data/backgrounds_watched" \
+    "${REPO_DIR}/data/audio" "${REPO_DIR}/data/audio_watched" \
+    "${REPO_DIR}/data/radio" "${REPO_DIR}/data/radio_covers" \
+    "${REPO_DIR}/data/radio_announcements" "${REPO_DIR}/data/radio_watched" \
+    "${REPO_DIR}/data/logs"
+run chown -R "${TARGET_USER}:${TARGET_USER}" "${REPO_DIR}/data"
+
+write_file "${CONFIG_FILE}" <<EOF
+# Configuration de production Bobine — générée par install.sh le $(date -Idate).
+# Modifiable à la main ; relance 'sudo systemctl restart bobine-backend'
+# après toute modification pour l'appliquer.
+
+[database]
+database_url = "sqlite:///${REPO_DIR}/data/database.db"
+
+[media]
+media_dir = "${REPO_DIR}/data/videos"
+watch_dir = "${REPO_DIR}/data/watched"
+thumbnails_dir = "${REPO_DIR}/data/thumbnails"
+backgrounds_dir = "${REPO_DIR}/data/backgrounds"
+backgrounds_watch_dir = "${REPO_DIR}/data/backgrounds_watched"
+audio_dir = "${REPO_DIR}/data/audio"
+audio_watch_dir = "${REPO_DIR}/data/audio_watched"
+# Module Radio (réf. docs/cahier-des-charges-radio.md) : sous-système musical
+# indépendant, dossiers séparés des cours audio coach.
+radio_dir = "${REPO_DIR}/data/radio"
+radio_covers_dir = "${REPO_DIR}/data/radio_covers"
+radio_announcements_dir = "${REPO_DIR}/data/radio_announcements"
+radio_watch_dir = "${REPO_DIR}/data/radio_watched"
+
+[logs]
+logs_dir = "${REPO_DIR}/data/logs"
+
+[server]
+host = "0.0.0.0"
+port = ${SERVICE_PORT}
+
+[playback]
+wait_time_between_courses = 10
+volume_default = 100
+EOF
+ok "configuration écrite"
+
+# Convergence des installations antérieures (réf. §10.1 du cahier des charges
+# Radio) : jusqu'ici audio/fonds/logs pouvaient résider sous backend/data. On
+# le signale et on oriente vers le script de migration dédié (opt-in, sauvegarde
+# la base avant toute réécriture, à lancer backend arrêté) plutôt que de
+# relocaliser automatiquement des données de production en plein install.
+if [[ -d "${REPO_DIR}/backend/data" ]]; then
+    warn "Données héritées détectées dans ${REPO_DIR}/backend/data (ancien emplacement)."
+    warn "Pour les unifier sous ${REPO_DIR}/data, arrête le backend puis lance :"
+    warn "  ${VENV_DIR}/bin/python ${REPO_DIR}/scripts/migrate_unify_data_dirs.py --dry-run"
+    warn "puis à nouveau sans --dry-run une fois le plan vérifié."
+fi
+step_done
+
+# ---------------------------------------------------------------------------
+step cli-tool "Script de contrôle CLI 'bobine'"
+# ---------------------------------------------------------------------------
+write_file /usr/local/bin/bobine <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+SERVICES=(bobine-backend.service bobine-kiosk.service)
+
+case "${1:-}" in
+    start)   sudo systemctl start "${SERVICES[@]}" ;;
+    stop)    sudo systemctl stop "${SERVICES[@]}" ;;
+    restart) sudo systemctl restart "${SERVICES[@]}" ;;
+    status)  systemctl status "${SERVICES[@]}" --no-pager ;;
+    logs)    journalctl -u bobine-backend -u bobine-kiosk -f ;;
+    *)
+        echo "Usage: bobine {start|stop|restart|status|logs}"
+        exit 1
+        ;;
+esac
+EOF
+run chmod +x /usr/local/bin/bobine
+ok "commande 'bobine' installée"
+
+# ---------------------------------------------------------------------------
+step uninstaller "Désinstalleur détaché (bouton « Désinstaller » de l'UI)"
+# ---------------------------------------------------------------------------
+# Enveloppe lancée en root (règle sudoers dédiée ci-dessous) par le backend
+# quand l'utilisateur confirme la désinstallation depuis Paramètres. systemd-run
+# détache l'opération dans une unité transitoire : sans cela, l'arrêt du service
+# backend (déclenché par --uninstall) tuerait le script lui-même, qui tourne
+# dans le même cgroup. La désinstallation elle-même reste celle, déjà testée,
+# de --uninstall --purge --purge-data (services + config + app + données, sans
+# toucher aux paquets apt partagés).
+write_file /usr/local/sbin/bobine-uninstall <<EOF
+#!/usr/bin/env bash
+exec systemd-run --collect --unit=olmc-uninstall --description="Bobine uninstall" ${REPO_DIR}/install.sh --uninstall --purge --purge-data -y
+EOF
+run chmod +x /usr/local/sbin/bobine-uninstall
+ok "désinstalleur '/usr/local/sbin/bobine-uninstall' installé"
+step_done
+
+# ---------------------------------------------------------------------------
+step backend-service "Service systemd — backend FastAPI"
+# ---------------------------------------------------------------------------
+write_file /etc/systemd/system/bobine-backend.service <<EOF
+[Unit]
+Description=Bobine - Backend FastAPI
+After=network.target
+
+[Service]
+Type=simple
+User=${TARGET_USER}
+Group=${TARGET_USER}
+WorkingDirectory=${BACKEND_DIR}
+ExecStart=${VENV_DIR}/bin/uvicorn app.main:app --host 0.0.0.0 --port ${SERVICE_PORT} --workers 1
+Restart=always
+RestartSec=2
+# Reprise après coupure électrique : démarrage automatique au boot via
+# [Install] ci-dessous + Restart=always pour toute panne en cours de vie.
+
+[Install]
+WantedBy=multi-user.target
+EOF
+ok "bobine-backend.service écrit"
+step_done
+
+# ---------------------------------------------------------------------------
+step kiosk "Kiosk Chromium (écran cinéma câblé)"
+# ---------------------------------------------------------------------------
+if $NO_KIOSK; then
+    step_skip "--no-kiosk"
+else
+    log "Configuration du kiosk Chromium (X11 dédié, sans display manager)"
+
+    CHROMIUM_BIN="/usr/lib/chromium/chromium"
+    if [[ ! -x "${CHROMIUM_BIN}" ]]; then
+        warn "${CHROMIUM_BIN} introuvable, utilisation de /usr/bin/chromium à la place."
+        warn "Le wrapper Debian charge plasma-browser-integration : à désinstaller si le kiosk se bloque en environnement non-Plasma."
+        CHROMIUM_BIN="/usr/bin/chromium"
+    fi
+
+    # En-tête généré (valeurs résolues à l'installation), suivi du corps statique.
+    write_file "${CONFIG_DIR}/kiosk-xinitrc" <<EOF
+#!/bin/sh
+# Généré par install.sh — lancé par Xorg au démarrage de la session kiosk.
+CHROMIUM_BIN="${CHROMIUM_BIN}"
+KIOSK_URL="${KIOSK_URL}"
+EOF
+    append_file "${CONFIG_DIR}/kiosk-xinitrc" <<'EOF'
+
+# Pas de mise en veille ni d'écran noir sur l'écran cinéma.
+xset s off
+xset -dpms
+xset s noblank
+
+# Masque le curseur de souris (pas d'interaction locale attendue).
+if command -v unclutter >/dev/null 2>&1; then
+    unclutter -idle 0.1 -root &
+fi
+
+# --- Configuration de l'affichage (correctif "écran réduit au lancement") ---
+# Deux causes observées sur le Wyse : (1) une sortie fantôme configurée par
+# Xorg à côté de la vraie (bureau étendu 3840x1080 dont l'écran ne montre
+# qu'une moitié), (2) aucun window manager ne tourne dans cette session, donc
+# la demande de plein écran de Chromium (--kiosk) n'est honorée par personne
+# et la fenêtre reste à sa taille par défaut. On force donc ici LA sortie
+# réellement connectée à son mode préféré en 0x0, on éteint toutes les
+# autres, puis on passe à Chromium une géométrie explicite.
+# L'EDID d'un projecteur peut mettre quelques secondes à être lisible au
+# démarrage à froid : on réessaie avant de se rabattre sur l'état courant.
+OUTPUT=""
+for _ in $(seq 1 15); do
+    OUTPUT=$(xrandr --query | awk '/ connected/{print $1; exit}')
+    [ -n "${OUTPUT}" ] && break
+    sleep 1
+done
+if [ -n "${OUTPUT}" ]; then
+    xrandr --output "${OUTPUT}" --primary --auto --pos 0x0
+    for OTHER in $(xrandr --query | awk '/connected/{print $1}'); do
+        [ "${OTHER}" = "${OUTPUT}" ] || xrandr --output "${OTHER}" --off
+    done
+fi
+
+# Géométrie réelle de l'écran après configuration (repli 1920x1080 si illisible).
+SCREEN_SIZE=$(xrandr --query | awk -F'[ ,]+' '/current/{print $8"x"$10; exit}')
+case "${SCREEN_SIZE}" in
+    [0-9]*x[0-9]*) ;;
+    *) SCREEN_SIZE="1920x1080" ;;
+esac
+SCREEN_W=${SCREEN_SIZE%x*}
+SCREEN_H=${SCREEN_SIZE#*x}
+
+# Attend que le backend réponde avant de lancer Chromium : sinon la page
+# d'erreur "connexion refusée" reste affichée jusqu'à intervention manuelle.
+for _ in $(seq 1 60); do
+    curl -fsS -o /dev/null "${KIOSK_URL%/kiosk}/api/health" && break
+    sleep 1
+done
+
+# Sécurité audio (réf. diagnostic prises jack qui hurlent) : WirePlumber/ACP
+# réinitialise certains registres bruts du codec (dont 'Auto-Mute Mode') à
+# leur valeur par défaut ('Disabled') à chaque activation de profil, ce qui
+# annule silencieusement 'alsactl store' au boot suivant — reconstaté ici
+# après plusieurs redémarrages. On le réapplique donc à chaque lancement du
+# kiosk (après l'attente ci-dessus, WirePlumber a largement eu le temps de
+# démarrer) plutôt que de compter sur la persistance ALSA seule.
+# Démute explicite : bobine-audio-guard.service coupe
+# Master/Speaker par défaut hors session kiosk, c'est ici qu'on les rouvre
+# une fois prêt.
+#
+# Dynamique et non figée sur "carte 0" : la sortie câblée peut être une carte
+# différente selon le boîtier (Wyse, mini-PC...), et un même codec expose
+# souvent plusieurs sorties analogiques simultanées (Speaker = interne/arrière,
+# Headphone/Headphone+LO = prise avant, Front/Surround = autres canaux) qui
+# partagent le même flux PCM plutôt que de s'exclure — sauf que le registre
+# 'Auto-Mute Mode' du codec, LUI, coupe automatiquement les autres sorties dès
+# qu'un jack est détecté branché (cause du bug "une seule prise fonctionne").
+# On le désactive donc explicitement, puis on démute/monte à 100% CHAQUE
+# contrôle de lecture découvert sur CHAQUE carte, plutôt qu'une liste figée de
+# noms — pour que toutes les prises câblées restent actives en même temps,
+# quel que soit le matériel.
+for BOBINE_CARD in $(awk -F'[][]' '/^ *[0-9]+ \[/{print $2}' /proc/asound/cards 2>/dev/null | sed 's/[[:space:]]*$//'); do
+    amixer -c "${BOBINE_CARD}" sset 'Auto-Mute Mode' 'Disabled' >/dev/null 2>&1 || true
+    # Volume explicite plutôt qu'un simple "unmute" (le cycle mute/unmute
+    # pouvait laisser le volume matériel à 0% tout en étant démuté — son coupé
+    # de façon non-évidente). 100% (0dB, niveau ligne de référence) sur TOUS
+    # les chemins de sortie : le Wyse alimente une table de mixage, c'est ELLE
+    # qui atténue — un niveau source réduit obligeait à pousser le gain de la
+    # table au maximum, ce qui est pire (bruit de fond amplifié, aucune
+    # marge). Le réglage de volume "utilisateur" reste disponible via les
+    # boutons de l'interface (volume logiciel appliqué au flux par le kiosk),
+    # indépendant de ces niveaux matériels de référence.
+    amixer -c "${BOBINE_CARD}" scontrols 2>/dev/null | sed -n "s/^Simple mixer control '\([^']*\)'.*/\1/p" | sort -u | while IFS= read -r BOBINE_CTRL; do
+        case "${BOBINE_CTRL}" in
+            *[Mm]ic*|*Boost|Capture|"Input Source"|"Auto-Mute Mode") continue ;;
+        esac
+        amixer -c "${BOBINE_CARD}" sset "${BOBINE_CTRL}" 100% unmute >/dev/null 2>&1 || true
+    done
+    # Chemin micro fermé (réf. "bruit strident continu même pendant la
+    # lecture") : la prise avant est une prise combo casque/micro (TRRS) — le
+    # codec y détectait un "Headset Mic" fantôme et polarisait le contact
+    # micro avec Capture ET Headset Mic Boost à fond (+60dB cumulés). Un câble
+    # stéréo TRS classique branché là court-circuite ce contact polarisé vers
+    # la masse audio -> bruit électrique continu injecté dans l'ampli. Aucun
+    # micro n'est utilisé sur ce déploiement : gains à zéro, capture coupée,
+    # et source d'entrée déplacée sur le micro ARRIÈRE (rien d'y branché) pour
+    # éloigner la polarisation du jack avant utilisé en sortie. Contrôles
+    # optionnels selon le codec (mini-PC sans prise micro dédiée) : chacun est
+    # tenté isolément, sans erreur si absent.
+    amixer -c "${BOBINE_CARD}" sset 'Capture' 0% nocap >/dev/null 2>&1 || true
+    amixer -c "${BOBINE_CARD}" sset 'Capture',1 0% nocap >/dev/null 2>&1 || true
+    amixer -c "${BOBINE_CARD}" sset 'Headset Mic Boost' 0 >/dev/null 2>&1 || true
+    amixer -c "${BOBINE_CARD}" sset 'Rear Mic Boost' 0 >/dev/null 2>&1 || true
+    amixer -c "${BOBINE_CARD}" cset name='Input Source' 'Rear Mic' >/dev/null 2>&1 || true
+    amixer -c "${BOBINE_CARD}" cset name='Input Source',index=1 'Rear Mic' >/dev/null 2>&1 || true
+done
+# Volume logiciel PipeWire aussi à 100% sur TOUS les sinks (pas seulement le
+# sink par défaut) : c'est le canal que pilotent les boutons de volume de
+# l'interface — un plafond logiciel bas ici aurait le même défaut que le
+# plafond matériel corrigé ci-dessus, et un boîtier avec plusieurs cartes son
+# expose potentiellement plusieurs sinks WirePlumber.
+pactl list short sinks 2>/dev/null | cut -f1 | while IFS= read -r BOBINE_SINK; do
+    pactl set-sink-volume "${BOBINE_SINK}" 100% >/dev/null 2>&1 || true
+done
+
+# Profil Chromium dédié et jetable, purgé à chaque lancement du kiosk :
+# supprime toutes les données temporaires de chargement (cache d'une ancienne
+# version du frontend après mise à jour, état de session "crashed", service
+# workers). Tout est resservi par le backend local, la purge est sans coût.
+KIOSK_PROFILE="/var/tmp/bobine-kiosk-profile"
+rm -rf "${KIOSK_PROFILE}"
+
+# Flags VAAPI validés à l'installation — à re-vérifier après install via
+# chrome://gpu et 'intel_gpu_top' (cf. rappel affiché en fin de script).
+exec ${CHROMIUM_BIN} \
+    --kiosk "${KIOSK_URL}" \
+    --user-data-dir="${KIOSK_PROFILE}" \
+    --window-position=0,0 \
+    --window-size=${SCREEN_W},${SCREEN_H} \
+    --no-first-run \
+    --noerrdialogs \
+    --disable-infobars \
+    --disable-session-crashed-bubble \
+    --disable-pinch \
+    --overscroll-history-navigation=0 \
+    --autoplay-policy=no-user-gesture-required \
+    --enable-features=AcceleratedVideoDecodeLinuxGL \
+    --use-gl=egl \
+    --start-fullscreen \
+    --check-for-update-interval=31536000
+EOF
+    run chmod +x "${CONFIG_DIR}/kiosk-xinitrc"
+
+    write_file /etc/systemd/system/bobine-kiosk.service <<EOF
+[Unit]
+Description=Bobine - Kiosk Chromium (écran cinéma)
+After=bobine-backend.service
+Requires=bobine-backend.service
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+User=${TARGET_USER}
+Group=${TARGET_USER}
+PAMName=login
+TTYPath=/dev/tty1
+StandardInput=tty
+StandardOutput=journal
+StandardError=journal
+UtmpIdentifier=tty1
+UtmpMode=user
+Restart=always
+RestartSec=2
+ExecStart=/usr/bin/xinit ${CONFIG_DIR}/kiosk-xinitrc -- :0 vt1 -nolisten tcp
+
+[Install]
+WantedBy=multi-user.target
+EOF
+    ok "bobine-kiosk.service + kiosk-xinitrc écrits"
+    step_done
+fi
+
+# ---------------------------------------------------------------------------
+step audio "Audio (auto-port, anti-sifflement, garde-fou hors session)"
+# ---------------------------------------------------------------------------
+if $NO_KIOSK; then
+    step_skip "--no-kiosk"
+else
+    # WirePlumber désactive api.acp.auto-port/auto-profile par défaut pour
+    # toutes les cartes ALSA, ce qui fige la sortie active sur le port choisi
+    # au démarrage quel que soit le jack réellement branché (cause du bug
+    # "une seule prise fonctionne" + bruits stridents sur sortie DAC non
+    # pilotée). On restaure ici la commutation automatique de prise jack.
+    run mkdir -p /etc/wireplumber/wireplumber.conf.d
+    write_file /etc/wireplumber/wireplumber.conf.d/51-fix-jack-autoport.conf <<'EOF'
+monitor.alsa.rules = [
+  {
+    matches = [
+      { device.name = "~alsa_card.pci.*" }
+    ]
+    actions = {
+      update-props = {
+        api.acp.auto-port = true
+        api.acp.auto-profile = true
+      }
+    }
+  }
+]
+EOF
+    ok "commutation automatique de prise jack restaurée"
+
+    # Mise en veille du codec HDA désactivée (anti-sifflement) : avec
+    # power_save=1 (défaut Debian), le codec Realtek se coupe après ~1s
+    # d'inactivité et se rallume à la demande — chaque cycle laisse la sortie
+    # analogique flotter puis produit un pop, source classique de sifflement
+    # continu sur un ampli externe. Constaté sur ce Wyse : 8x plus de temps
+    # éteint qu'allumé en usage kiosk normal. Coût : ~0,5W de plus, sans objet
+    # sur une machine branchée secteur en continu.
+    write_file /etc/modprobe.d/bobine-audio.conf <<'EOF'
+options snd-hda-intel power_save=0 power_save_controller=N
+EOF
+    # Application immédiate sans attendre le prochain reboot.
+    if ! $DRY_RUN; then
+        echo 0 > /sys/module/snd_hda_intel/parameters/power_save 2>/dev/null || true
+        echo on > /sys/bus/pci/devices/0000:00:0e.0/power/control 2>/dev/null || true
+    fi
+    ok "mise en veille du codec audio désactivée"
+
+    # Si un powertop.service ("powertop --auto-tune") existe sur la machine,
+    # il RÉACTIVE power_save=1 à chaque boot APRÈS le chargement du module,
+    # annulant silencieusement le réglage modprobe ci-dessus. Drop-in qui
+    # restaure le réglage anti-bruit juste après son passage, sans toucher à
+    # ses autres optimisations.
+    if [[ -f /etc/systemd/system/powertop.service ]]; then
+        run mkdir -p /etc/systemd/system/powertop.service.d
+        write_file /etc/systemd/system/powertop.service.d/10-audio-nopowersave.conf <<'EOF'
+[Service]
+ExecStartPost=/bin/sh -c 'echo 0 > /sys/module/snd_hda_intel/parameters/power_save'
+ExecStartPost=/bin/sh -c 'echo on > /sys/bus/pci/devices/0000:00:0e.0/power/control'
+EOF
+        ok "garde-fou powertop installé"
+    fi
+
+    # Coupe le son hors session kiosk : ni le correctif Auto-Mute Mode
+    # ci-dessus (appliqué seulement dans kiosk-xinitrc, tard dans le boot,
+    # une fois le backend joignable) ni 'alsactl store' seul ne couvrent la
+    # fenêtre AVANT que le kiosk démarre ni celle APRÈS son arrêt
+    # (redémarrage/extinction) — exactement la fenêtre où une sortie DAC non
+    # pilotée peut hurler. Ce service coupe TOUTES les sorties de lecture
+    # découvertes, sur TOUTES les cartes ALSA (script dédié, pas une liste de
+    # noms figée sur "carte 0" — même logique dynamique que kiosk-xinitrc, qui
+    # gère plusieurs sorties câblées simultanées) au tout début du boot (bien
+    # avant le kiosk) et les recoupe explicitement à l'arrêt ; kiosk-xinitrc
+    # les rouvre une fois réellement prêt à jouer du son.
+    write_file /usr/local/bin/bobine-audio-mute.sh <<'EOF'
+#!/bin/sh
+CARDS=$(awk -F'[][]' '/^ *[0-9]+ \[/{print $2}' /proc/asound/cards 2>/dev/null | sed 's/[[:space:]]*$//')
+# Carte pas encore énumérée par le noyau au tout début du boot (cf.
+# Restart=on-failure du service appelant) : on échoue explicitement pour
+# déclencher une nouvelle tentative plutôt que de "réussir" sans rien couper.
+[ -z "${CARDS}" ] && exit 1
+for CARD in ${CARDS}; do
+    amixer -c "${CARD}" scontrols 2>/dev/null | sed -n "s/^Simple mixer control '\([^']*\)'.*/\1/p" | sort -u | while IFS= read -r CTRL; do
+        case "${CTRL}" in
+            *[Mm]ic*|*Boost|Capture|"Input Source"|"Auto-Mute Mode") continue ;;
+        esac
+        amixer -c "${CARD}" -q sset "${CTRL}" mute 2>/dev/null || true
+    done
+done
+EOF
+    run chmod +x /usr/local/bin/bobine-audio-mute.sh
+    write_file /etc/systemd/system/bobine-audio-guard.service <<'EOF'
+[Unit]
+Description=Bobine - Coupe le son hors session kiosk
+Before=bobine-kiosk.service
+StartLimitIntervalSec=30
+StartLimitBurst=20
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+# La carte ALSA (module noyau snd_hda_intel, énumération PCI) n'est pas
+# forcément prête au moment où ce service démarre malgré WantedBy=multi-user
+# — constaté : "amixer: Invalid card number '0'" au premier boot après
+# installation. Pas de dépendance systemd fiable à 100% sur la disponibilité
+# d'une carte son précise (systemd-udev-settle est déconseillé/plus lent) :
+# on retente donc simplement toutes les secondes plutôt que de dépendre d'un
+# ordonnancement exact, la carte apparaît toujours en quelques secondes.
+Restart=on-failure
+RestartSec=1
+ExecStart=/usr/local/bin/bobine-audio-mute.sh
+ExecStop=/usr/local/bin/bobine-audio-mute.sh
+
+[Install]
+WantedBy=multi-user.target
+EOF
+    ok "garde-fou audio (silence hors session kiosk) écrit"
+    step_done
+fi
+
+# ---------------------------------------------------------------------------
+step sudoers "Autorisation sudo restreinte (bouton de réinitialisation)"
+# ---------------------------------------------------------------------------
+log "Autorisation sudo restreinte pour le redémarrage des services depuis l'UI"
+if $NO_KIOSK; then
+    SUDOERS_UNITS="/usr/bin/systemctl restart bobine-backend.service"
+else
+    SUDOERS_UNITS="/usr/bin/systemctl restart bobine-backend.service, /usr/bin/systemctl restart bobine-kiosk.service"
+fi
+# Enveloppe de désinstallation (bouton « Désinstaller » de l'UI) : commande
+# unique, sans argument, qui détache le --uninstall via systemd-run.
+SUDOERS_UNITS="${SUDOERS_UNITS}, /usr/local/sbin/bobine-uninstall"
+write_file /etc/sudoers.d/bobine <<EOF
+# Autorise UNIQUEMENT ces commandes précises, sans mot de passe :
+#   - le redémarrage des unités (bouton de réinitialisation des paramètres) ;
+#   - l'enveloppe de désinstallation /usr/local/sbin/bobine-uninstall
+#     (bouton « Désinstaller », remise à zéro complète).
+# Ne JAMAIS élargir à d'autres commandes ni remplacer par NOPASSWD: ALL.
+${TARGET_USER} ALL=(root) NOPASSWD: ${SUDOERS_UNITS}
+EOF
+if ! $DRY_RUN; then
+    chmod 0440 /etc/sudoers.d/bobine
+    if ! visudo -c -f /etc/sudoers.d/bobine >/dev/null 2>&1; then
+        warn "Fichier sudoers généré invalide, suppression (le bouton de reset ne fonctionnera pas)"
+        rm -f /etc/sudoers.d/bobine
+    else
+        ok "règle sudoers validée par visudo"
+    fi
+fi
+step_done
+
+# ---------------------------------------------------------------------------
+step ntp "Synchronisation NTP"
+# ---------------------------------------------------------------------------
+# Défense en profondeur derrière le correctif applicatif (/api/time + offset
+# côté kiosk) : sans NTP, l'horloge RTC du Wyse peut dériver indépendamment
+# de toute correction logicielle côté navigateur.
+if command -v timedatectl >/dev/null 2>&1; then
+    run timedatectl set-ntp true
+    ok "systemd-timesyncd activé"
+else
+    warn "timedatectl introuvable — vérifier manuellement la synchronisation NTP du système"
+fi
+step_done
+
+# ---------------------------------------------------------------------------
+step mdns-redirect "URL locale (mDNS) & redirection du port 80"
+# ---------------------------------------------------------------------------
+# - avahi (mDNS) publie "bobine.local" sur le LAN sans toucher au
+#   hostname de la machine ;
+# - une règle nftables redirige le port 80 entrant vers le port applicatif,
+#   pour une URL sans numéro de port depuis téléphone/PC. L'URL historique
+#   http://<IP>:8000 reste fonctionnelle.
+log "Publication du nom mDNS 'bobine.local' (avahi)"
+if $DRY_RUN; then
+    echo "  ${DIM}[dry-run]${RESET} configurerait avahi-daemon.conf (host-name, IPv6 désactivé)"
+else
+    AVAHI_CONF="/etc/avahi/avahi-daemon.conf"
+    if grep -qE '^#?host-name=' "${AVAHI_CONF}"; then
+        sed -i 's/^#\?host-name=.*/host-name=bobine/' "${AVAHI_CONF}"
+    else
+        sed -i '/^\[server\]/a host-name=bobine' "${AVAHI_CONF}"
+    fi
+    # IPv6 désactivé côté avahi : le paquet Debian publie par défaut
+    # use-ipv6=yes, donc une adresse AAAA globale en plus de l'IPv4 — mais
+    # rien dans la pile (redirection nftables port 80, bind uvicorn
+    # "0.0.0.0") ne gère l'IPv6 de bout en bout. Un client qui préfère IPv6
+    # (comportement courant des navigateurs) se connecte alors à un port
+    # fermé -> refus immédiat, alors que l'IPv4 fonctionne. Plus simple de ne
+    # publier que l'IPv4 que d'ajouter un vrai support IPv6 pour un usage LAN.
+    if grep -qE '^#?use-ipv6=' "${AVAHI_CONF}"; then
+        sed -i 's/^#\?use-ipv6=.*/use-ipv6=no/' "${AVAHI_CONF}"
+    else
+        sed -i '/^\[server\]/a use-ipv6=no' "${AVAHI_CONF}"
+    fi
+fi
+# Le service peut être masqué sur une installation Debian durcie : démasqué
+# explicitement (unité + socket) avant activation. Échec toléré : le mDNS est
+# un confort, l'accès par http://<IP>:8000 reste toujours valable.
+run systemctl unmask avahi-daemon.service avahi-daemon.socket >/dev/null 2>&1 || true
+
+# Réf. "bobine.local injoignable après un redémarrage complet, alors que
+# 'systemctl restart avahi-daemon' seul fonctionnait" : l'unité avahi-daemon
+# livrée par Debian ne dépend QUE de sysinit.target/basic.target, pas de
+# network-online.target — rien sur cette machine ne tire cette cible non
+# plus (NetworkManager-wait-online.service est activable mais jamais
+# sollicité). Au premier restart après install, l'interface avait déjà son
+# bail DHCP depuis longtemps donc ça passait inaperçu ; à un boot à froid,
+# avahi peut démarrer avant que l'interface réseau ait une adresse. avahi
+# republie normalement dès qu'il détecte le changement d'interface (netlink),
+# mais ce filet dépendait jusqu'ici du hasard du timing plutôt que d'être
+# garanti — on le rend explicite.
+run mkdir -p /etc/systemd/system/avahi-daemon.service.d
+write_file /etc/systemd/system/avahi-daemon.service.d/10-wait-network-online.conf <<'EOF'
+[Unit]
+After=network-online.target
+Wants=network-online.target
+EOF
+run systemctl daemon-reload
+run systemctl enable avahi-daemon >/dev/null 2>&1 || true
+if ! $DRY_RUN && ! systemctl restart avahi-daemon; then
+    warn "Impossible de démarrer avahi-daemon : l'URL bobine.local ne sera pas publiée."
+    warn "L'accès par adresse IP (http://<IP-du-Wyse>:8000) reste fonctionnel."
+else
+    ok "avahi-daemon actif"
+fi
+
+log "Redirection du port 80 vers ${SERVICE_PORT} (nftables)"
+write_file "${CONFIG_DIR}/redirect.nft" <<EOF
+# Généré par install.sh — accès sans numéro de port (http://bobine.local).
+# Le triplet create/delete/create rend le rechargement idempotent.
+table ip olmc_redirect
+delete table ip olmc_redirect
+table ip olmc_redirect {
+    chain prerouting {
+        type nat hook prerouting priority dstnat; policy accept;
+        tcp dport 80 redirect to :${SERVICE_PORT}
+    }
+}
+EOF
+write_file /etc/systemd/system/bobine-redirect.service <<EOF
+[Unit]
+Description=Bobine - Redirection port 80 vers ${SERVICE_PORT}
+After=network-pre.target nftables.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/sbin/nft -f ${CONFIG_DIR}/redirect.nft
+ExecStop=/usr/sbin/nft delete table ip olmc_redirect
+
+[Install]
+WantedBy=multi-user.target
+EOF
+ok "redirection du port 80 configurée"
+step_done
+
+# ---------------------------------------------------------------------------
+step watchdog "Chien de garde de santé (watchdog)"
+# ---------------------------------------------------------------------------
+# Redémarrage AUTOMATIQUE d'un composant mort en consommant /api/health (base
+# SQLite, kiosque Chromium). Complète `Restart=always` de systemd, qui ne
+# couvre que la mort du *processus*, pas les défaillances *logiques* (backend
+# vivant mais base verrouillée, Chromium gelé…). Piloté par un TIMER systemd
+# (pas de process résident). Distinct du garde AUDIO (`bobine-audio-guard`, un
+# oneshot qui coupe le son hors session kiosk) : rôles séparés.
+run chmod +x "${REPO_DIR}/scripts/watchdog.sh"
+write_file /etc/systemd/system/bobine-watchdog.service <<EOF
+[Unit]
+Description=Bobine - Chien de garde santé (redémarre un composant mort)
+After=bobine-backend.service
+
+[Service]
+Type=oneshot
+ExecStart=${REPO_DIR}/scripts/watchdog.sh
+EOF
+write_file /etc/systemd/system/bobine-watchdog.timer <<'EOF'
+[Unit]
+Description=Bobine - Declenche le chien de garde sante periodiquement
+
+[Timer]
+# Laisse le systeme finir de booter avant la premiere passe (evite de lutter
+# contre le demarrage normal des services), puis une passe toutes les 30 s.
+OnBootSec=90s
+OnUnitActiveSec=30s
+AccuracySec=5s
+
+[Install]
+WantedBy=timers.target
+EOF
+ok "chien de garde santé (watchdog) écrit"
+step_done
+
+# ---------------------------------------------------------------------------
+step activation "Activation des services & vérification de santé"
+# ---------------------------------------------------------------------------
+run systemctl daemon-reload
+if ! $NO_KIOSK; then
+    run systemctl enable --now bobine-audio-guard.service
+fi
+run systemctl enable --now bobine-backend.service
+# Chien de garde : actif dans tous les modes (surveille au moins le backend).
+run systemctl enable --now bobine-watchdog.timer
+if ! $NO_KIOSK; then
+    run systemctl enable --now bobine-kiosk.service
+fi
+run systemctl enable bobine-redirect.service >/dev/null 2>&1 || true
+if ! $DRY_RUN && ! systemctl restart bobine-redirect.service; then
+    warn "Redirection port 80 -> ${SERVICE_PORT} indisponible (nftables) : utiliser http://bobine.local:${SERVICE_PORT}."
+fi
+
+if ! $DRY_RUN; then
+    log "Attente de la disponibilité de l'API backend"
+    HEALTHY=false
+    for _ in $(seq 1 20); do
+        if curl -fsS -o /dev/null -m 2 "http://127.0.0.1:${SERVICE_PORT}/api/health" 2>/dev/null; then
+            HEALTHY=true
+            break
+        fi
+        sleep 1
+    done
+    if $HEALTHY; then
+        ok "API backend en ligne sur le port ${SERVICE_PORT}"
+    else
+        warn "L'API backend ne répond pas encore après 20s — vérifie : journalctl -u bobine-backend -n 50"
+    fi
+fi
+step_done
+
+# ---------------------------------------------------------------------------
+# Résumé final
+# ---------------------------------------------------------------------------
+echo
+box_top
+box_line "  Bobine — installation terminée"
+box_mid
+box_line "  Admin      http://bobine.local"
+box_line "             http://127.0.0.1:${SERVICE_PORT}  (et http://<IP>:${SERVICE_PORT})"
+if ! $NO_KIOSK; then
+    box_line "  Kiosk      ${KIOSK_URL}"
+fi
+box_line "  Config     ${CONFIG_FILE}"
+box_line "  Journal    ${LOG_FILE}"
+box_line "  Contrôle   bobine {start|stop|restart|status|logs}"
+box_line "  Diagnostic sudo ./${SCRIPT_NAME} --check"
+box_bottom
+echo
+
+# Fin de la séquence pilotable : l'assistant peut fermer sa barre à 100 % et
+# afficher l'écran final (URL/QR). healthy reflète le contrôle /api/health.
+emit_event "\"event\":\"run_end\",\"status\":\"ok\",\"pct\":100,\"total\":${STEP_TOTAL},\"healthy\":${HEALTHY:-false},\"url\":\"http://bobine.local\",\"port\":${SERVICE_PORT},\"dry_run\":${DRY_RUN}"
+
+if ! $DRY_RUN; then
+    systemctl --no-pager --lines=0 status bobine-backend.service $($NO_KIOSK || echo bobine-kiosk.service) 2>/dev/null || true
+fi
+
+if ! $NO_KIOSK; then
+    echo
+    warn "L'appartenance aux groupes render/video ne s'applique qu'aux nouvelles sessions :"
+    warn "un redémarrage complet de la machine est recommandé avant la première recette."
+    warn "Après redémarrage, revérifie le décodage matériel :"
+    warn "  vainfo   (doit lister les profils H.264/HEVC avec le pilote iHD)"
+    warn "  chrome://gpu dans le kiosk, et 'intel_gpu_top' pendant une lecture"
 fi

@@ -8,24 +8,42 @@ import AppleIcon from "@/components/icons/AppleIcon";
 import AndroidIcon from "@/components/icons/AndroidIcon";
 import { detectPlatform, reorderForPlatform, type DetectedPlatform } from "@/lib/detectPlatform";
 
-interface DownloadsState {
-  version: string;
-  windows: string;
-  linux: string;
-  macos: string;
-}
+import type { ReleaseChannelInfo } from "@/app/api/github-stats/route";
+import DownloadModal, { type DownloadPlatform } from "@/components/DownloadModal";
 
-const FALLBACK_DOWNLOADS: DownloadsState = {
+const FALLBACK_STABLE: ReleaseChannelInfo = {
   version: "V3.0.0",
-  windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-Setup-3.0.0.exe",
-  linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/bobine_3.0.0_amd64.deb",
-  macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-3.0.0.dmg",
+  title: "Bobine V3.0.0 — Sortie Officielle Multi-Plateforme",
+  publishedAt: "2026-09-06T12:53:00Z",
+  downloads: {
+    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-Setup-3.0.0.exe",
+    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/bobine_3.0.0_amd64.deb",
+    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-3.0.0.dmg",
+    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/bobine-assistant",
+    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/install.sh",
+  },
+};
+
+const FALLBACK_BETA: ReleaseChannelInfo = {
+  version: "beta",
+  title: "Bobine — Bêta (build automatique)",
+  publishedAt: "2026-09-07T18:00:00Z",
+  downloads: {
+    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe",
+    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb",
+    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.dmg",
+    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant",
+    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/install.sh",
+  },
 };
 
 export default function OsDownloadGrid({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
-  const [downloads, setDownloads] = useState<DownloadsState>(FALLBACK_DOWNLOADS);
+  const [stableInfo, setStableInfo] = useState<ReleaseChannelInfo>(FALLBACK_STABLE);
+  const [betaInfo, setBetaInfo] = useState<ReleaseChannelInfo>(FALLBACK_BETA);
   const [detected, setDetected] = useState<DetectedPlatform>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalPlatform, setModalPlatform] = useState<DownloadPlatform>("windows");
 
   useEffect(() => {
     setDetected(detectPlatform());
@@ -37,12 +55,8 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (!isMounted || !data) return;
-        setDownloads({
-          version: data.latestRelease || FALLBACK_DOWNLOADS.version,
-          windows: data.downloads?.windows || FALLBACK_DOWNLOADS.windows,
-          linux: data.downloads?.linux || FALLBACK_DOWNLOADS.linux,
-          macos: data.downloads?.macos || FALLBACK_DOWNLOADS.macos,
-        });
+        if (data.stable) setStableInfo(data.stable);
+        if (data.beta) setBetaInfo(data.beta);
       })
       .catch(() => {
         // Fallback transparent déjà en place
@@ -51,6 +65,11 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       isMounted = false;
     };
   }, []);
+
+  const openDownloadModal = (platform: DownloadPlatform) => {
+    setModalPlatform(platform);
+    setIsModalOpen(true);
+  };
 
   const cards: Array<{
     id: string;
@@ -69,7 +88,7 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       subtitle: isEn ? "Debian, Ubuntu, Mint" : "Debian, Ubuntu, Mint",
       format: isEn ? "Package .deb" : "Paquet .deb",
       badge: isEn ? "1-click install" : "Installation 1 clic",
-      url: downloads.linux,
+      url: stableInfo.downloads.linux,
       isComingSoon: false,
       icon: <LinuxIcon size={28} className="os-download-card__icon" />,
     },
@@ -79,7 +98,7 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       subtitle: isEn ? "11, 10 & Windows IoT" : "11, 10 & Windows IoT",
       format: isEn ? "Installer .exe" : "Installeur .exe",
       badge: isEn ? "1-click install" : "Installation 1 clic",
-      url: downloads.windows,
+      url: stableInfo.downloads.windows,
       isComingSoon: false,
       icon: <WindowsIcon size={26} className="os-download-card__icon" />,
     },
@@ -89,7 +108,7 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       subtitle: isEn ? "Apple Silicon (M1–M4)" : "Apple Silicon (M1–M4)",
       format: isEn ? "Disk image .dmg" : "Image disque .dmg",
       badge: isEn ? "1-click install" : "Installation 1 clic",
-      url: downloads.macos,
+      url: stableInfo.downloads.macos,
       isComingSoon: false,
       icon: <AppleIcon size={26} className="os-download-card__icon" />,
     },
@@ -179,10 +198,12 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
         key={card.id}
         href={card.url}
         className={`os-download-card${isRecommended ? " os-download-card--recommended" : ""}`}
-        download
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`${isEn ? "Download" : "Télécharger"} Bobine ${downloads.version} ${card.name} (${card.format})`}
+        onClick={(e) => {
+          e.preventDefault();
+          openDownloadModal(card.id as DownloadPlatform);
+        }}
+        aria-haspopup="dialog"
+        aria-label={`${isEn ? "Download" : "Télécharger"} Bobine ${stableInfo.version} ${card.name} (${card.format})`}
       >
         {isRecommended && (
           <span className="os-download-card__recommended-tag">
@@ -201,7 +222,7 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
 
         <div className="os-download-card__meta">
           <span className="os-download-card__format">{card.format}</span>
-          <span className="os-download-card__version">{downloads.version}</span>
+          <span className="os-download-card__version">{stableInfo.version}</span>
         </div>
 
         <div className="os-download-card__action">
@@ -249,6 +270,15 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       <div className="os-download-grid" role="region" aria-label={isEn ? "Direct downloads" : "Téléchargements directs"}>
         {restCards.map((card) => renderCard(card))}
       </div>
+
+      <DownloadModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        locale={locale}
+        initialPlatform={modalPlatform}
+        stable={stableInfo}
+        beta={betaInfo}
+      />
     </div>
   );
 }

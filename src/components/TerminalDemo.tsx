@@ -8,146 +8,155 @@ interface StepItem {
   num: number;
   labelFr: string;
   labelEn: string;
-  detailFr: string;
-  detailEn: string;
+  detailFr: (channel: "stable" | "beta") => string;
+  detailEn: (channel: "stable" | "beta") => string;
   durationMs: number;
 }
 
 const STEPS: StepItem[] = [
   {
-    id: "packages",
+    id: "update-channel",
     num: 1,
+    labelFr: "Canal de mise à jour (Stable / Bêta)",
+    labelEn: "Update channel (Stable / Bêta)",
+    detailFr: (c) => (c === "beta" ? "Canal 'beta' configuré (/etc/bobine/update-channel)" : "Canal 'stable' configuré (/etc/bobine/update-channel)"),
+    detailEn: (c) => (c === "beta" ? "'beta' channel configured (/etc/bobine/update-channel)" : "'stable' channel configured (/etc/bobine/update-channel)"),
+    durationMs: 800,
+  },
+  {
+    id: "packages",
+    num: 2,
     labelFr: "Paquets système (apt)",
     labelEn: "System packages (apt)",
-    detailFr: "Chromium, MPV, Uvicorn, SQLite3, nftables & pilotes VA-API iHD",
-    detailEn: "Chromium, MPV, Uvicorn, SQLite3, nftables & VA-API iHD drivers",
-    durationMs: 340,
+    detailFr: () => "Chromium, MPV, Uvicorn, SQLite3, nftables & pilotes VA-API iHD",
+    detailEn: () => "Chromium, MPV, Uvicorn, SQLite3, nftables & VA-API iHD drivers",
+    durationMs: 950,
   },
   {
     id: "gpu-access",
-    num: 2,
+    num: 3,
     labelFr: "Accès GPU (groupes render/video) & Xwrapper",
     labelEn: "GPU access (render/video groups) & Xwrapper",
-    detailFr: "Accélération matérielle QuickSync Intel configurée",
-    detailEn: "Intel QuickSync hardware acceleration configured",
-    durationMs: 280,
+    detailFr: () => "Accélération matérielle QuickSync Intel configurée",
+    detailEn: () => "Intel QuickSync hardware acceleration configured",
+    durationMs: 800,
   },
   {
     id: "python-env",
-    num: 3,
+    num: 4,
     labelFr: "Environnement Python & dépendances backend",
     labelEn: "Python virtualenv & backend dependencies",
-    detailFr: "Python 3.13 venv isolé, FastAPI, SQLAlchemy, Uvicorn",
-    detailEn: "Isolated Python 3.13 venv, FastAPI, SQLAlchemy, Uvicorn",
-    durationMs: 350,
+    detailFr: () => "Python 3.13 venv isolé, FastAPI, SQLAlchemy, Uvicorn",
+    detailEn: () => "Isolated Python 3.13 venv, FastAPI, SQLAlchemy, Uvicorn",
+    durationMs: 900,
   },
   {
     id: "frontend-build",
-    num: 4,
+    num: 5,
     labelFr: "Build du frontend Next.js",
     labelEn: "Next.js frontend build",
-    detailFr: "Export statique SSG (frontend/out) optimisé pour l'appliance",
-    detailEn: "Static SSG export (frontend/out) appliance-optimized",
-    durationMs: 380,
+    detailFr: () => "Export statique SSG (frontend/out) optimisé pour l'appliance",
+    detailEn: () => "Static SSG export (frontend/out) appliance-optimized",
+    durationMs: 1000,
   },
   {
     id: "config",
-    num: 5,
+    num: 6,
     labelFr: "Configuration de production",
     labelEn: "Production configuration",
-    detailFr: "/etc/bobine/config.toml généré (mono-processus sans Redis)",
-    detailEn: "/etc/bobine/config.toml generated (single-process without Redis)",
-    durationMs: 260,
+    detailFr: () => "/etc/bobine/config.toml généré (mono-processus sans Redis)",
+    detailEn: () => "/etc/bobine/config.toml generated (single-process without Redis)",
+    durationMs: 750,
   },
   {
     id: "cli-tool",
-    num: 6,
+    num: 7,
     labelFr: "Script de contrôle CLI 'bobine'",
     labelEn: "CLI control script 'bobine'",
-    detailFr: "/usr/local/bin/bobine installé (start/stop/status/logs)",
-    detailEn: "/usr/local/bin/bobine installed (start/stop/status/logs)",
-    durationMs: 240,
+    detailFr: () => "/usr/local/bin/bobine installé (start/stop/status/logs)",
+    detailEn: () => "/usr/local/bin/bobine installed (start/stop/status/logs)",
+    durationMs: 700,
   },
   {
     id: "uninstaller",
-    num: 7,
+    num: 8,
     labelFr: "Désinstalleur détaché",
     labelEn: "Detached uninstaller",
-    detailFr: "Script autonome de réinitialisation d'usine prêt",
-    detailEn: "Autonomous factory reset script ready",
-    durationMs: 230,
+    detailFr: () => "Script autonome de réinitialisation d'usine prêt",
+    detailEn: () => "Autonomous factory reset script ready",
+    durationMs: 700,
   },
   {
     id: "backend-service",
-    num: 8,
+    num: 9,
     labelFr: "Service systemd — backend FastAPI",
     labelEn: "Systemd service — FastAPI backend",
-    detailFr: "bobine-backend.service actif (port 8000)",
-    detailEn: "bobine-backend.service active (port 8000)",
-    durationMs: 300,
+    detailFr: () => "bobine-backend.service actif (port 8000)",
+    detailEn: () => "bobine-backend.service active (port 8000)",
+    durationMs: 850,
   },
   {
     id: "kiosk",
-    num: 9,
+    num: 10,
     labelFr: "Kiosk Chromium (écran cinéma câblé)",
     labelEn: "Chromium Kiosk (cabled cinema display)",
-    detailFr: "Session X11 verrouillée, anti-veille Screen Wake Lock actif",
-    detailEn: "Locked X11 session, Screen Wake Lock active",
-    durationMs: 340,
+    detailFr: () => "Session X11 verrouillée, anti-veille Screen Wake Lock actif",
+    detailEn: () => "Locked X11 session, Screen Wake Lock active",
+    durationMs: 950,
   },
   {
     id: "audio",
-    num: 10,
+    num: 11,
     labelFr: "Audio (auto-port, anti-sifflement)",
     labelEn: "Audio engine (auto-port, anti-hum)",
-    detailFr: "Garde-fou sonore hors session & profil ALSA calibré",
-    detailEn: "Sound guard between sessions & calibrated ALSA profile",
-    durationMs: 260,
+    detailFr: () => "Garde-fou sonore hors session & profil ALSA calibré",
+    detailEn: () => "Sound guard between sessions & calibrated ALSA profile",
+    durationMs: 800,
   },
   {
     id: "sudoers",
-    num: 11,
+    num: 12,
     labelFr: "Autorisation sudo restreinte",
     labelEn: "Restricted sudo authorization",
-    detailFr: "Règles ciblées pour maintenance et remise à zéro sécurisée",
-    detailEn: "Targeted rules for maintenance & secure factory reset",
-    durationMs: 230,
+    detailFr: () => "Règles ciblées pour maintenance et remise à zéro sécurisée",
+    detailEn: () => "Targeted rules for maintenance & secure factory reset",
+    durationMs: 700,
   },
   {
     id: "ntp",
-    num: 12,
+    num: 13,
     labelFr: "Synchronisation NTP",
     labelEn: "NTP clock synchronization",
-    detailFr: "systemd-timesyncd configuré pour calendrier précis",
-    detailEn: "systemd-timesyncd configured for timetable accuracy",
-    durationMs: 230,
+    detailFr: () => "systemd-timesyncd configuré pour calendrier précis",
+    detailEn: () => "systemd-timesyncd configured for timetable accuracy",
+    durationMs: 700,
   },
   {
     id: "mdns-redirect",
-    num: 13,
+    num: 14,
     labelFr: "URL locale (mDNS) & redirection du port 80",
     labelEn: "Local URL (mDNS) & port 80 redirection",
-    detailFr: "http://bobine.local accessible sur tout le réseau local",
-    detailEn: "http://bobine.local accessible throughout local LAN",
-    durationMs: 280,
+    detailFr: () => "http://bobine.local accessible sur tout le réseau local",
+    detailEn: () => "http://bobine.local accessible throughout local LAN",
+    durationMs: 800,
   },
   {
     id: "watchdog",
-    num: 14,
+    num: 15,
     labelFr: "Chien de garde de santé (watchdog)",
     labelEn: "Health watchdog timer",
-    detailFr: "bobine-watchdog.timer actif (reprise automatique)",
-    detailEn: "bobine-watchdog.timer active (automatic recovery)",
-    durationMs: 240,
+    detailFr: () => "bobine-watchdog.timer actif (reprise automatique)",
+    detailEn: () => "bobine-watchdog.timer active (automatic recovery)",
+    durationMs: 750,
   },
   {
     id: "activation",
-    num: 15,
+    num: 16,
     labelFr: "Activation des services & vérification de santé",
     labelEn: "Services activation & healthcheck",
-    detailFr: "HTTP 200 OK (http://127.0.0.1:8000/api/health — 8ms)",
-    detailEn: "HTTP 200 OK (http://127.0.0.1:8000/api/health — 8ms)",
-    durationMs: 340,
+    detailFr: () => "HTTP 200 OK (http://127.0.0.1:8000/api/health — 8ms)",
+    detailEn: () => "HTTP 200 OK (http://127.0.0.1:8000/api/health — 8ms)",
+    durationMs: 950,
   },
 ];
 
@@ -161,9 +170,9 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
   const commandText = channel === "stable" ? COMMAND_STABLE : COMMAND_BETA;
 
   // États d'exécution
-  // false = en attente de la touche Entrée par l'utilisateur
   const [hasTriggered, setHasTriggered] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
+  const [channelPromptAnswered, setChannelPromptAnswered] = useState(false);
   const [completedSteps, setCompletedSteps] = useState<number>(0);
   const [currentRunningStep, setCurrentRunningStep] = useState<number>(-1);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -171,11 +180,16 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const terminalBodyRef = useRef<HTMLDivElement | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const promptTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const clearActiveTimer = () => {
+  const clearAllTimers = () => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
+    }
+    if (promptTimerRef.current) {
+      clearTimeout(promptTimerRef.current);
+      promptTimerRef.current = null;
     }
   };
 
@@ -186,54 +200,99 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
     }
   }, []);
 
-  // Déclenchement de l'exécution (touche Entrée ou clic)
+  // Démarre l'exécution des 16 étapes
+  const startStepsSequence = useCallback(() => {
+    setChannelPromptAnswered(true);
+    setCurrentRunningStep(0);
+    setTimeout(scrollToBottom, 40);
+  }, [scrollToBottom]);
+
+  // Sélection d'un canal lors du prompt interactif
+  const handleSelectChannelPrompt = useCallback(
+    (selected: "stable" | "beta") => {
+      setChannel(selected);
+      if (promptTimerRef.current) {
+        clearTimeout(promptTimerRef.current);
+        promptTimerRef.current = null;
+      }
+      setChannelPromptAnswered(true);
+      setTimeout(() => {
+        setCurrentRunningStep(0);
+        setTimeout(scrollToBottom, 40);
+      }, 500);
+    },
+    [scrollToBottom]
+  );
+
+  // Déclenchement de l'exécution (touche Entrée ou clic initial)
   const triggerExecution = useCallback(() => {
     if (hasTriggered) return;
-    clearActiveTimer();
+    clearAllTimers();
     setHasTriggered(true);
     setShowBanner(true);
-    setCurrentRunningStep(0);
-  }, [hasTriggered]);
+
+    // Si la commande incluait déjà --channel=beta, on valide directement le canal
+    // Sinon, on affiche le prompt interactif de sélection pendant un court instant avant de lancer
+    promptTimerRef.current = setTimeout(() => {
+      startStepsSequence();
+    }, 2200);
+  }, [hasTriggered, startStepsSequence]);
 
   const restartTerminal = useCallback(() => {
-    clearActiveTimer();
+    clearAllTimers();
     setHasTriggered(false);
     setShowBanner(false);
+    setChannelPromptAnswered(false);
     setCompletedSteps(0);
     setCurrentRunningStep(-1);
     setIsCompleted(false);
   }, []);
 
   const skipToEnd = useCallback(() => {
-    clearActiveTimer();
+    clearAllTimers();
     setHasTriggered(true);
     setShowBanner(true);
+    setChannelPromptAnswered(true);
     setCompletedSteps(STEPS.length);
     setCurrentRunningStep(-1);
     setIsCompleted(true);
     setTimeout(scrollToBottom, 50);
   }, [scrollToBottom]);
 
-  // Écoute de la touche Entrée au clavier
+  // Écoute des touches au clavier (Entrée pour lancer, 1 ou 2 pour choisir le canal)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Enter" && !hasTriggered) {
-        // Empêcher les effets de bord si l'utilisateur est dans le viewport
-        const rect = containerRef.current?.getBoundingClientRect();
-        if (rect && rect.top < window.innerHeight && rect.bottom > 0) {
+      const rect = containerRef.current?.getBoundingClientRect();
+      const isInViewport = rect && rect.top < window.innerHeight && rect.bottom > 0;
+      if (!isInViewport) return;
+
+      if (!hasTriggered && e.key === "Enter") {
+        e.preventDefault();
+        triggerExecution();
+        return;
+      }
+
+      if (hasTriggered && !channelPromptAnswered) {
+        if (e.key === "1") {
           e.preventDefault();
-          triggerExecution();
+          handleSelectChannelPrompt("stable");
+        } else if (e.key === "2") {
+          e.preventDefault();
+          handleSelectChannelPrompt("beta");
+        } else if (e.key === "Enter") {
+          e.preventDefault();
+          startStepsSequence();
         }
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [hasTriggered, triggerExecution]);
+  }, [hasTriggered, channelPromptAnswered, triggerExecution, handleSelectChannelPrompt, startStepsSequence]);
 
-  // Déroulement des 15 étapes
+  // Déroulement des 16 étapes (vitesse posée et lisible)
   useEffect(() => {
-    if (!hasTriggered || !showBanner || isCompleted) return;
+    if (!hasTriggered || !showBanner || !channelPromptAnswered || isCompleted) return;
 
     if (currentRunningStep >= 0 && currentRunningStep < STEPS.length) {
       const step = STEPS[currentRunningStep];
@@ -250,9 +309,14 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         }
       }, step.durationMs);
 
-      return () => clearActiveTimer();
+      return () => {
+        if (timerRef.current) {
+          clearTimeout(timerRef.current);
+          timerRef.current = null;
+        }
+      };
     }
-  }, [currentRunningStep, showBanner, hasTriggered, isCompleted, scrollToBottom]);
+  }, [currentRunningStep, showBanner, channelPromptAnswered, hasTriggered, isCompleted, scrollToBottom]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(commandText).then(() => {
@@ -293,8 +357,10 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
               />
               <span>
                 {isCompleted
-                  ? (isEn ? "Installed (15/15)" : "Installé (15/15)")
-                  : (isEn ? `Step ${completedSteps + 1}/15` : `Étape ${completedSteps + 1}/15`)}
+                  ? (isEn ? "Installed (16/16)" : "Installé (16/16)")
+                  : !channelPromptAnswered
+                  ? (isEn ? "Channel setup" : "Choix du canal")
+                  : (isEn ? `Step ${completedSteps + 1}/16` : `Étape ${completedSteps + 1}/16`)}
               </span>
             </span>
           )}
@@ -398,7 +464,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      {/* Corps du terminal avec hauteur fixe et défilement interne sans tressautement */}
+      {/* Corps du terminal avec hauteur fixe et défilement interne */}
       <div ref={terminalBodyRef} className="terminal-body terminal-demo-body">
         {/* Ligne d'invite avec commande */}
         <div className="terminal-line terminal-line--command">
@@ -456,8 +522,80 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
           </div>
         )}
 
-        {/* Défilement des 15 étapes de install.sh */}
+        {/* Invite interactive reproduisant select_update_channel de install.sh */}
         {showBanner && (
+          <div className="terminal-channel-prompt">
+            <div className="terminal-channel-prompt__header">
+              <span className="terminal-channel-prompt__label">
+                {isEn ? "Release channel:" : "Canal de mise à jour :"}
+              </span>
+            </div>
+
+            <div className="terminal-channel-prompt__choices">
+              <button
+                type="button"
+                className={`terminal-channel-prompt__btn ${channel === "stable" ? "is-selected" : ""}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleSelectChannelPrompt("stable");
+                }}
+                disabled={channelPromptAnswered}
+              >
+                <span className="terminal-prompt-num">1)</span>
+                <span className="terminal-prompt-name">
+                  {isEn ? "Stable (default, recommended)" : "Stable (par défaut, recommandé)"}
+                </span>
+              </button>
+
+              <button
+                type="button"
+                className={`terminal-channel-prompt__btn ${channel === "beta" ? "is-selected" : ""}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleSelectChannelPrompt("beta");
+                }}
+                disabled={channelPromptAnswered}
+              >
+                <span className="terminal-prompt-num">2)</span>
+                <span className="terminal-prompt-name">
+                  {isEn
+                    ? "Beta — early access to features in development"
+                    : "Bêta — accès anticipé aux fonctionnalités en cours de test"}
+                </span>
+              </button>
+            </div>
+
+            <div className="terminal-channel-prompt__query">
+              <span className="terminal-prompt-qtext">
+                {isEn
+                  ? `Your choice [1/2] (${channel === "beta" ? "2" : "1"}) : `
+                  : `Votre choix [1/2] (${channel === "beta" ? "2" : "1"}) : `}
+              </span>
+              <span className="terminal-prompt-qval">
+                {channelPromptAnswered ? (channel === "beta" ? "2" : "1") : ""}
+              </span>
+              {!channelPromptAnswered && (
+                <span className="terminal-cursor" aria-hidden="true" />
+              )}
+            </div>
+
+            {channelPromptAnswered && (
+              <div className="terminal-channel-prompt__confirmation">
+                <span className="terminal-channel-prompt__badge">
+                  {channel === "beta" ? "Bêta" : "Stable"}
+                </span>
+                <span className="terminal-channel-prompt__detail">
+                  {isEn
+                    ? `Update channel set to '${channel}' (/etc/bobine/update-channel)`
+                    : `Canal configuré sur '${channel}' (/etc/bobine/update-channel)`}
+                </span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Défilement des 16 étapes de install.sh */}
+        {showBanner && channelPromptAnswered && (
           <div className="terminal-steps-list">
             {STEPS.map((step, idx) => {
               const isDone = idx < completedSteps;
@@ -473,7 +611,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
                   }`}
                 >
                   <span className="terminal-step-num">
-                    [{step.num}/15]
+                    [{step.num}/16]
                   </span>
                   {isDone ? (
                     <span className="terminal-ok">
@@ -492,7 +630,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
                     {isEn ? step.labelEn : step.labelFr}
                   </span>
                   <span className="terminal-step-detail">
-                    — {isEn ? step.detailEn : step.detailFr}
+                    — {isEn ? step.detailEn(channel) : step.detailFr(channel)}
                   </span>
                 </div>
               );
@@ -511,6 +649,13 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
             </div>
 
             <div className="terminal-summary-table">
+              <div className="terminal-summary-row">
+                <span className="summary-key">Canal</span>
+                <span className="summary-val">
+                  <code>{channel === "beta" ? "beta (rolling release)" : "stable (Vx.y.z)"}</code>
+                  <span className="summary-alt">(/etc/bobine/update-channel)</span>
+                </span>
+              </div>
               <div className="terminal-summary-row">
                 <span className="summary-key">Admin</span>
                 <span className="summary-val">http://bobine.local <span className="summary-alt">(et http://10.0.0.30:8000)</span></span>
@@ -542,3 +687,4 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
     </div>
   );
 }
+

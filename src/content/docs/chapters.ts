@@ -54,9 +54,9 @@ const fr: DocChapter[] = [
         paragraphs: [
           "Windows 11 / 10 : installeur Bobine-Setup-3.0.0.exe, démarrage silencieux en arrière-plan (icône dans la barre système), règle de pare-feu automatique pour activer la télécommande smartphone.",
           "macOS Apple Silicon (M1 à M4) : image disque Bobine-3.0.0.dmg, glisser-déposer dans le dossier Applications, icône compagnon dans la barre de menus. Le support Mac Intel (x86_64) est en cours de validation.",
-          "Linux Bureau (Debian / Ubuntu) : paquet natif bobine_3.0.0_amd64.deb, installation via la logithèque ou en ligne de commande.",
+          "Linux Bureau (Debian / Ubuntu) : paquet natif bobine_3.0.0_amd64.deb, installation via la logithèque ou via apt avec résolution automatique des dépendances.",
         ],
-        codeBlock: "sudo apt install ./bobine_3.0.0_amd64.deb",
+        codeBlock: "sudo apt install bobine",
       },
       {
         subtitle: "2.2 Appliance dédiée & salle 24/7 (mini PC headless)",
@@ -303,9 +303,9 @@ const en: DocChapter[] = [
         paragraphs: [
           "Windows 11 / 10: Bobine-Setup-3.0.0.exe installer, silent background startup (systray icon), automatic firewall rule to enable the smartphone remote.",
           "macOS Apple Silicon (M1 to M4): Bobine-3.0.0.dmg disk image, drag-and-drop into Applications, companion menu bar icon. Intel Mac (x86_64) support is currently in validation.",
-          "Linux Desktop (Debian / Ubuntu): native bobine_3.0.0_amd64.deb package, installable through the software center or the command line.",
+          "Linux Desktop (Debian / Ubuntu): native bobine_3.0.0_amd64.deb package, installable through the software center or via apt with automatic dependency resolution.",
         ],
-        codeBlock: "sudo apt install ./bobine_3.0.0_amd64.deb",
+        codeBlock: "sudo apt install bobine",
       },
       {
         subtitle: "2.2 Dedicated 24/7 appliance (headless mini PC)",

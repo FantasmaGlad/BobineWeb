@@ -219,23 +219,6 @@ export default async function BlogPostPage({
           </h1>
         </header>
 
-        {(release.isPrerelease || slug.toLowerCase() === "beta") && (
-          <div className="docs-callout docs-callout--info" style={{ marginBottom: "1.75rem" }}>
-            <div className="docs-callout__content">
-              <div className="docs-callout__title">
-                {locale === "fr"
-                  ? "Canal Bêta — Version à accès anticipé (Rolling release)"
-                  : "Beta Channel — Early access version (Rolling release)"}
-              </div>
-              <p style={{ margin: "0.4rem 0 0 0", fontSize: "0.925rem", lineHeight: 1.6 }}>
-                {locale === "fr"
-                  ? "Cette version bêta roulante est automatiquement reconstruite et mise à jour en place sur le tag mobile GitHub beta. Elle s'installe directement par-dessus votre version existante sans créer d'application doublon. Vous pouvez revenir à la version stable à tout moment depuis Réglages → Mises à jour logicielles sans perte de données."
-                  : "This rolling beta release is automatically rebuilt and updated in place on GitHub mobile tag beta. It installs directly over your existing installation without duplicating the application. You can switch back to the stable release anytime from Settings → Software Updates without data loss."}
-              </p>
-            </div>
-          </div>
-        )}
-
         <div className="release-body">
           <Markdown
             remarkPlugins={[remarkGfm]}

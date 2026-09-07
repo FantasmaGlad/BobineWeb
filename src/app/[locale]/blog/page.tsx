@@ -10,7 +10,6 @@ import {
 import { buildMetadata } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import GitHubIcon from "@/components/icons/GitHubIcon";
-import ScrollIndicator from "@/components/ScrollIndicator";
 
 const copy = {
   fr: {
@@ -93,14 +92,16 @@ export default async function BlogIndexPage({
   ];
 
   const latestStable = stableReleases[0] ?? releases[0];
-  const historyReleases = releases.filter((r) => r.slug !== latestStable?.slug);
+  const historyReleases = stableReleases.filter(
+    (r) => r.slug !== latestStable?.slug && r.slug.toLowerCase() !== "beta" && !r.isPrerelease
+  );
 
   return (
     <div className="container" style={{ maxWidth: "60rem" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
       {/* 1. Hero Section — Plein écran avec la dernière release Stable en vedette */}
-      <section className="hero-fullscreen blog-hero-section">
+      <section className="blog-hero-section">
         <div>
           <span className="feature-category-label" style={{ marginBottom: "0.5rem", display: "inline-block" }}>
             {t.badge}
@@ -296,11 +297,6 @@ export default async function BlogIndexPage({
             </div>
           )}
         </div>
-
-        <ScrollIndicator
-          locale={locale as Locale}
-          label={locale === "en" ? "Scroll down to explore older releases" : "Défiler pour découvrir les anciennes Release"}
-        />
       </section>
 
       {/* 2. HISTORIQUE DES VERSIONS / RELEASES GITHUB */}

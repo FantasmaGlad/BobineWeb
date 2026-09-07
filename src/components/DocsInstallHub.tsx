@@ -577,17 +577,17 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             <div className="docs-step-card">
               <div className="docs-step-card__num">2</div>
               <div className="docs-step-card__content">
-                <h4>{isEn ? "Terminal Package Manager" : "Option B : Installation par terminal (apt)"}</h4>
+                <h4>{isEn ? "Terminal Package Manager (apt)" : "Option B : Installation par terminal (apt)"}</h4>
                 <p>
                   {isEn
-                    ? "Run standard apt to resolve dependencies automatically:"
-                    : "Installez le paquet local en résolvant automatiquement les dépendances :"}
+                    ? "Install via standard apt to resolve dependencies automatically:"
+                    : "Installez via apt en résolvant automatiquement toutes les dépendances :"}
                 </p>
                 <div className="docs-copyable-cmd">
-                  <code>sudo apt install ./bobine_3.0.0_amd64.deb</code>
+                  <code>sudo apt install bobine</code>
                   <button
                     type="button"
-                    onClick={() => copyToClipboard("sudo apt install ./bobine_3.0.0_amd64.deb")}
+                    onClick={() => copyToClipboard("sudo apt install bobine")}
                     className="docs-copy-btn"
                     aria-label={isEn ? "Copy command" : "Copier la commande"}
                   >

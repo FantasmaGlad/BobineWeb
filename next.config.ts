@@ -35,6 +35,7 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
   experimental: {
+    optimizeCss: true,
     optimizePackageImports: [
       "@react-three/drei",
       "@react-three/fiber",

@@ -40,8 +40,16 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.185.4",
+    "critters": "^0.0.25",
     "eslint": "^9",
     "eslint-config-next": "16.3.1",
     "typescript": "^5"
-  }
+  },
+  "browserslist": [
+    "chrome 64",
+    "edge 79",
+    "firefox 67",
+    "opera 51",
+    "safari 12"
+  ]
 }

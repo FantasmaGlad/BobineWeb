@@ -77,7 +77,6 @@ export default function TechTicker({ locale }: { locale: Locale }) {
               </span>
               <span className="tech-ticker-label">{item.label} :</span>
               <span className="tech-ticker-value">{item.value}</span>
-              <span className="tech-ticker-separator">·</span>
             </div>
           ))}
         </div>
@@ -90,7 +89,6 @@ export default function TechTicker({ locale }: { locale: Locale }) {
               </span>
               <span className="tech-ticker-label">{item.label} :</span>
               <span className="tech-ticker-value">{item.value}</span>
-              <span className="tech-ticker-separator">·</span>
             </div>
           ))}
         </div>

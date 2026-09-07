@@ -3112,7 +3112,8 @@ main {
   font-weight: 600;
 }
 
-.tech-ticker-separator {
+.tech-ticker-item::after {
+  content: "·";
   color: var(--border-subtle);
   margin-left: 0.65rem;
   font-size: 0.75rem;
@@ -6658,6 +6659,35 @@ main {
 .os-download-featured,
 .os-download-grid {
   display: contents;
+}
+
+/* Ordre visuel fixe dès 640px : évite le décalage de mise en page (CLS)
+   provoqué par reorderForPlatform() qui ne réordonne le DOM qu'après le
+   montage (détection client-only). display:contents fait que l'ordre du
+   DOM pilote l'ordre visuel de la grille ; ces règles le figent quel que
+   soit l'OS détecté, pour que le premier rendu affiche déjà la position
+   finale. Sous 640px, featured/grid redeviennent des blocs distincts
+   (voir media query plus bas) : cette règle ne s'y applique plus. */
+@media (min-width: 640px) {
+  .os-download-card[data-platform="linux"] {
+    order: 1;
+  }
+
+  .os-download-card[data-platform="windows"] {
+    order: 2;
+  }
+
+  .os-download-card[data-platform="macos"] {
+    order: 3;
+  }
+
+  .os-download-card[data-platform="android"] {
+    order: 4;
+  }
+
+  .os-download-card[data-platform="ios"] {
+    order: 5;
+  }
 }
 
 .os-download-card {

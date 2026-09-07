@@ -145,6 +145,7 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
       return (
         <div
           key={card.id}
+          data-platform={card.id}
           className={`os-download-card os-download-card--soon${isRecommended ? " os-download-card--recommended" : ""}`}
           aria-label={`${card.name} (${card.format}) — ${card.badge}`}
         >
@@ -196,6 +197,7 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
     return (
       <a
         key={card.id}
+        data-platform={card.id}
         href={card.url}
         className={`os-download-card${isRecommended ? " os-download-card--recommended" : ""}`}
         onClick={(e) => {

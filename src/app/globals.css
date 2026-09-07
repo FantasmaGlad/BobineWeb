@@ -8329,69 +8329,6 @@ main {
   border-color: color-mix(in srgb, var(--accent-primary) 30%, var(--border-subtle));
 }
 
-.download-modal__os-nav {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.75rem 1.5rem;
-  background: var(--bg-canvas);
-  border-bottom: 1px solid var(--border-subtle);
-  overflow-x: auto;
-  scrollbar-width: thin;
-}
-
-.download-modal__os-tab {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.45rem 0.75rem;
-  font-size: 0.82rem;
-  font-weight: 600;
-  border-radius: 8px;
-  border: 1px solid var(--border-subtle);
-  background: var(--bg-card);
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.15s ease;
-  white-space: nowrap;
-}
-
-.download-modal__os-tab:hover {
-  color: var(--text-heading);
-  border-color: color-mix(in srgb, var(--accent-primary) 40%, var(--border-subtle));
-}
-
-.download-modal__os-tab.is-active {
-  background: color-mix(in srgb, var(--accent-primary) 12%, var(--bg-card));
-  border-color: var(--accent-primary);
-  color: var(--text-heading);
-  font-weight: 700;
-}
-
-.download-modal__os-icon {
-  display: flex;
-  align-items: center;
-  color: inherit;
-}
-
-.download-modal__os-name {
-  color: inherit;
-}
-
-.download-modal__os-badge {
-  font-size: 0.68rem;
-  font-family: var(--font-mono, monospace);
-  padding: 0.1rem 0.35rem;
-  border-radius: 4px;
-  background: color-mix(in srgb, var(--text-muted) 12%, transparent);
-  color: var(--text-muted);
-}
-
-.download-modal__os-tab.is-active .download-modal__os-badge {
-  background: color-mix(in srgb, var(--accent-primary) 22%, transparent);
-  color: var(--text-heading);
-}
-
 .download-modal__body {
   padding: 1.5rem;
   display: flex;
@@ -8431,8 +8368,8 @@ main {
 }
 
 .download-modal__channel-card--beta {
-  border-color: color-mix(in srgb, #f59e0b 35%, var(--border-subtle));
-  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.06);
+  border-color: color-mix(in srgb, var(--accent-warning, #f59e0b) 35%, var(--border-subtle));
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--accent-warning, #f59e0b) 6%, transparent);
 }
 
 .download-modal__card-header {
@@ -8467,28 +8404,15 @@ main {
 }
 
 .download-modal__badge--rec {
-  background: color-mix(in srgb, #10b981 15%, transparent);
-  color: #10b981;
-  border: 1px solid color-mix(in srgb, #10b981 30%, transparent);
+  background: color-mix(in srgb, var(--accent-success, #16a34a) 15%, transparent);
+  color: var(--accent-success, #16a34a);
+  border: 1px solid color-mix(in srgb, var(--accent-success, #16a34a) 30%, transparent);
 }
 
 .download-modal__badge--beta {
-  background: color-mix(in srgb, #f59e0b 16%, transparent);
-  color: #d97706;
-  border: 1px solid color-mix(in srgb, #f59e0b 32%, transparent);
-}
-
-[data-theme="sombre"] .download-modal__badge--beta,
-[data-theme="charbon"] .download-modal__badge--beta,
-[data-theme="lune"] .download-modal__badge--beta,
-[data-theme="hiver"] .download-modal__badge--beta,
-[data-theme="chili"] .download-modal__badge--beta,
-[data-theme="automne"] .download-modal__badge--beta,
-[data-theme="orchidee"] .download-modal__badge--beta,
-[data-theme="taupe"] .download-modal__badge--beta,
-[data-theme="foret"] .download-modal__badge--beta,
-[data-theme="abysse"] .download-modal__badge--beta {
-  color: #fbbf24;
+  background: color-mix(in srgb, var(--accent-warning, #f59e0b) 16%, transparent);
+  color: var(--accent-warning, #f59e0b);
+  border: 1px solid color-mix(in srgb, var(--accent-warning, #f59e0b) 32%, transparent);
 }
 
 .download-modal__version {
@@ -8611,42 +8535,12 @@ main {
   color: var(--accent-primary-fg, #ffffff);
 }
 
-.download-modal__reassurance {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.65rem;
-  padding: 0.85rem 1rem;
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--accent-primary) 6%, var(--bg-card));
-  border: 1px solid color-mix(in srgb, var(--accent-primary) 18%, var(--border-subtle));
-}
-
-.download-modal__reassurance-icon {
-  color: var(--accent-primary);
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.download-modal__reassurance-text {
-  font-size: 0.8rem;
-  line-height: 1.45;
-  color: var(--text-muted);
-  margin: 0;
-}
-
-.download-modal__reassurance-text strong {
-  color: var(--text-heading);
-}
-
 @media (max-width: 640px) {
   .download-modal__cards-grid {
     grid-template-columns: 1fr;
   }
   .download-modal__header {
     padding: 1.25rem 1.25rem 1rem;
-  }
-  .download-modal__os-nav {
-    padding: 0.5rem 1rem;
   }
   .download-modal__body {
     padding: 1rem;

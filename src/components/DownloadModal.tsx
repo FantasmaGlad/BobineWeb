@@ -1,13 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import type { ReleaseChannelInfo } from "@/app/api/github-stats/route";
-import WindowsIcon from "@/components/icons/WindowsIcon";
-import AppleIcon from "@/components/icons/AppleIcon";
-import LinuxIcon from "@/components/icons/LinuxIcon";
-import TerminalIcon from "@/components/icons/TerminalIcon";
-import TauriIcon from "@/components/icons/TauriIcon";
 
 export type DownloadPlatform = "windows" | "macos" | "linux" | "cli" | "tauri";
 
@@ -75,44 +70,6 @@ export default function DownloadModal({
       setTimeout(() => setCopiedCmd(null), 2000);
     }
   };
-
-  const platforms: Array<{
-    id: DownloadPlatform;
-    name: string;
-    badge: string;
-    icon: ReactNode;
-  }> = [
-    {
-      id: "windows",
-      name: "Windows",
-      badge: ".exe",
-      icon: <WindowsIcon size={18} />,
-    },
-    {
-      id: "macos",
-      name: "macOS",
-      badge: ".dmg",
-      icon: <AppleIcon size={18} />,
-    },
-    {
-      id: "linux",
-      name: "Linux",
-      badge: ".deb",
-      icon: <LinuxIcon size={18} />,
-    },
-    {
-      id: "cli",
-      name: isEn ? "CLI Appliance" : "CLI Appliance",
-      badge: "bash",
-      icon: <TerminalIcon size={18} />,
-    },
-    {
-      id: "tauri",
-      name: isEn ? "Assistant" : "Assistant",
-      badge: "Tauri",
-      icon: <TauriIcon size={18} />,
-    },
-  ];
 
   const getPlatformDetails = () => {
     switch (activePlatform) {
@@ -222,31 +179,6 @@ export default function DownloadModal({
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
-        </div>
-
-        {/* Sélecteur d'OS sous forme d'onglets compacts */}
-        <div
-          className="download-modal__os-nav"
-          role="tablist"
-          aria-label={isEn ? "Platform selector" : "Sélecteur de plateforme"}
-        >
-          {platforms.map((p) => {
-            const isSelected = activePlatform === p.id;
-            return (
-              <button
-                key={p.id}
-                type="button"
-                role="tab"
-                aria-selected={isSelected}
-                className={`download-modal__os-tab ${isSelected ? "is-active" : ""}`}
-                onClick={() => setActivePlatform(p.id)}
-              >
-                <span className="download-modal__os-icon">{p.icon}</span>
-                <span className="download-modal__os-name">{p.name}</span>
-                <span className="download-modal__os-badge">{p.badge}</span>
-              </button>
-            );
-          })}
         </div>
 
         {/* Corps de la modale avec les deux canaux de version */}
@@ -446,26 +378,6 @@ export default function DownloadModal({
               </div>
             </div>
           )}
-
-          {/* Note rassurante sur la mise à jour sans doublon */}
-          <div className="download-modal__reassurance">
-            <div className="download-modal__reassurance-icon" aria-hidden="true">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
-            </div>
-            <p className="download-modal__reassurance-text">
-              {isEn ? (
-                <>
-                  <strong>In-place update guarantee:</strong> The Beta uses the same application identifiers as the Stable. Installing it upgrades your existing Bobine installation without creating a duplicate app or affecting your library and settings.
-                </>
-              ) : (
-                <>
-                  <strong>Garantie de mise à jour sans doublon :</strong> La version Bêta partage les mêmes identifiants système que la Stable. Son installation met à jour votre version existante sans créer d&apos;application doublon ni altérer vos vidéos ou réglages.
-                </>
-              )}
-            </p>
-          </div>
         </div>
       </div>
     </div>

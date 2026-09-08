@@ -22,24 +22,29 @@ export default function DocsMobileNav({ locale, items }: DocsMobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [pageHeadings, setPageHeadings] = useState<PageHeading[]>([]);
 
-  useEffect(() => {
-    if (!isOpen) return;
-    const article = document.querySelector(".docs-content");
-    if (!article) return;
-    const elements = Array.from(article.querySelectorAll("h2, h3"));
-    setPageHeadings(
-      elements.map((elem, idx) => {
-        if (!elem.id) {
-          elem.id = `section-${idx}-${elem.textContent?.toLowerCase().replace(/[^\w\d]+/g, "-") || "title"}`;
-        }
-        return {
-          id: elem.id,
-          text: elem.textContent || "",
-          level: elem.tagName.toLowerCase() === "h2" ? 2 : 3,
-        };
-      })
-    );
-  }, [isOpen, pathname]);
+  const toggleOpen = () => {
+    if (!isOpen) {
+      const article = document.querySelector(".docs-content");
+      if (article) {
+        const elements = Array.from(article.querySelectorAll("h2, h3"));
+        setPageHeadings(
+          elements.map((elem, idx) => {
+            if (!elem.id) {
+              elem.id = `section-${idx}-${elem.textContent?.toLowerCase().replace(/[^\w\d]+/g, "-") || "title"}`;
+            }
+            return {
+              id: elem.id,
+              text: elem.textContent || "",
+              level: elem.tagName.toLowerCase() === "h2" ? 2 : 3,
+            };
+          })
+        );
+      } else {
+        setPageHeadings([]);
+      }
+    }
+    setIsOpen((prev) => !prev);
+  };
 
   // Trouver l'index de l'item actif
   const currentIndex = items.findIndex(([sub]) => {
@@ -76,7 +81,7 @@ export default function DocsMobileNav({ locale, items }: DocsMobileNavProps) {
           <button
             type="button"
             className="docs-mobile-nav-trigger"
-            onClick={() => setIsOpen((prev) => !prev)}
+            onClick={toggleOpen}
             aria-expanded={isOpen}
             aria-label={locale === "en" ? "Choose documentation chapter" : "Choisir un chapitre de documentation"}
           >

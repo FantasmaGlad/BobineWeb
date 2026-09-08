@@ -10,7 +10,7 @@ import TerminalIcon from "@/components/icons/TerminalIcon";
 import AndroidIcon from "@/components/icons/AndroidIcon";
 import QuickStartStepper from "@/components/QuickStartStepper";
 import { docChapters } from "@/content/docs/chapters";
-import { detectPlatform, reorderForPlatform, type DetectedPlatform } from "@/lib/detectPlatform";
+import { useDetectedPlatform, reorderForPlatform } from "@/lib/detectPlatform";
 
 import type { ReleaseChannelInfo } from "@/app/api/github-stats/route";
 
@@ -44,19 +44,14 @@ const FALLBACK_BETA: ReleaseChannelInfo = {
 
 export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
-  const [activeTab, setActiveTab] = useState<InstallTab>("windows");
-  const [detected, setDetected] = useState<DetectedPlatform>(null);
+  const detected = useDetectedPlatform();
+  const [selectedTab, setSelectedTab] = useState<InstallTab | null>(null);
+  const activeTab: InstallTab = selectedTab ?? (detected as InstallTab | null) ?? "windows";
   const roadmapChapter = docChapters[locale].find((c) => c.id === "feuille-de-route");
   const [androidRoadmap, iosRoadmap] = roadmapChapter?.subsections ?? [];
   const [stable, setStable] = useState<ReleaseChannelInfo>(FALLBACK_STABLE);
   const [beta, setBeta] = useState<ReleaseChannelInfo>(FALLBACK_BETA);
   const [copiedCmd, setCopiedCmd] = useState(false);
-
-  useEffect(() => {
-    const platform = detectPlatform();
-    setDetected(platform);
-    if (platform) setActiveTab(platform);
-  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -174,7 +169,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 id={`tab-${tab.id}`}
                 aria-selected={isSelected}
                 aria-controls={`panel-${tab.id}`}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => setSelectedTab(tab.id)}
                 className={`docs-install-tab-btn ${isSelected ? "is-active" : ""}`}
               >
                 <span className="docs-install-tab-icon">{tab.icon}</span>

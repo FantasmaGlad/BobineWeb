@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
-import Link from "next/link";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import { buildMetadata } from "@/lib/seo";
 import ScrollIndicator from "@/components/ScrollIndicator";

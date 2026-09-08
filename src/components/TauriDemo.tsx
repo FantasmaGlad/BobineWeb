@@ -33,7 +33,6 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
 
   // Étape 1 : Découverte
   const [isScanning, setIsScanning] = useState<boolean>(false);
-  const [hasScanned, setHasScanned] = useState<boolean>(true);
   const [selectedIp, setSelectedIp] = useState<string>("10.0.0.30");
 
   // Étape 2 : Connexion SSH
@@ -52,9 +51,6 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
     "[SYS] Lancement du déploiement automatisé : ./install.sh --channel=stable --progress=json",
   ]);
   const [isDeployCompleted, setIsDeployCompleted] = useState<boolean>(false);
-
-  // Simulation automatique optionnelle
-  const [autoPlay, setAutoPlay] = useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const logsContainerRef = useRef<HTMLDivElement | null>(null);
@@ -123,7 +119,6 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
     clearActiveTimer();
     setWizardStep(1);
     setIsScanning(false);
-    setHasScanned(true);
     setSelectedIp("10.0.0.30");
     setSshConnecting(false);
     setDeployStepIndex(0);
@@ -154,7 +149,6 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
     setIsScanning(true);
     setTimeout(() => {
       setIsScanning(false);
-      setHasScanned(true);
     }, 700);
   };
 

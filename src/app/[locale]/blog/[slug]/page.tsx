@@ -16,7 +16,8 @@ const GITHUB_ATTACHMENT_PATTERN =
   /^https:\/\/github\.com\/user-attachments\/assets\//;
 
 const markdownComponents: Components = {
-  a({ href, children, node, ...props }) {
+  a({ href, children, node: _node, ...props }) {
+    void _node;
     if (href && GITHUB_ATTACHMENT_PATTERN.test(href)) {
       return <GitHubAttachmentMedia href={href}>{children}</GitHubAttachmentMedia>;
     }
@@ -26,8 +27,10 @@ const markdownComponents: Components = {
       </a>
     );
   },
-  img({ src, alt, node, ...props }) {
+  img({ src, alt, node: _node, ...props }) {
+    void _node;
     return (
+      /* eslint-disable-next-line @next/next/no-img-element */
       <img
         src={src}
         alt={alt || ""}

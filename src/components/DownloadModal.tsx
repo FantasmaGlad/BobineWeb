@@ -24,17 +24,10 @@ export default function DownloadModal({
   beta,
 }: DownloadModalProps) {
   const isEn = locale === "en";
-  const [activePlatform, setActivePlatform] = useState<DownloadPlatform>(initialPlatform);
+  const activePlatform: DownloadPlatform = initialPlatform;
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
   const modalRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
-
-  // Synchronise la plateforme sélectionnée lors de l'ouverture
-  useEffect(() => {
-    if (isOpen && initialPlatform) {
-      setActivePlatform(initialPlatform);
-    }
-  }, [isOpen, initialPlatform]);
 
   // Gestion de la touche Échap et verrouillage du défilement
   useEffect(() => {

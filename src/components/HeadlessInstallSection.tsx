@@ -10,7 +10,7 @@ interface HeadlessInstallSectionProps {
   locale: Locale;
 }
 
-export default function HeadlessInstallSection({ locale }: { locale: Locale }) {
+export default function HeadlessInstallSection({ locale }: HeadlessInstallSectionProps) {
   const isEn = locale === "en";
   const [activeTab, setActiveTab] = useState<"bash" | "tauri">("bash");
 

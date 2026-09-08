@@ -6,7 +6,7 @@ import WindowsIcon from "@/components/icons/WindowsIcon";
 import LinuxIcon from "@/components/icons/LinuxIcon";
 import AppleIcon from "@/components/icons/AppleIcon";
 import AndroidIcon from "@/components/icons/AndroidIcon";
-import { detectPlatform, reorderForPlatform, type DetectedPlatform } from "@/lib/detectPlatform";
+import { useDetectedPlatform, reorderForPlatform } from "@/lib/detectPlatform";
 
 import type { ReleaseChannelInfo } from "@/app/api/github-stats/route";
 import DownloadModal, { type DownloadPlatform } from "@/components/DownloadModal";
@@ -41,13 +41,9 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const [stableInfo, setStableInfo] = useState<ReleaseChannelInfo>(FALLBACK_STABLE);
   const [betaInfo, setBetaInfo] = useState<ReleaseChannelInfo>(FALLBACK_BETA);
-  const [detected, setDetected] = useState<DetectedPlatform>(null);
+  const detected = useDetectedPlatform();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalPlatform, setModalPlatform] = useState<DownloadPlatform>("windows");
-
-  useEffect(() => {
-    setDetected(detectPlatform());
-  }, []);
 
   useEffect(() => {
     let isMounted = true;

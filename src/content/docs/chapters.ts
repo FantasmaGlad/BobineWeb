@@ -71,7 +71,8 @@ const fr: DocChapter[] = [
       {
         subtitle: "2.3 Orchestration réseau avec Bobine Assistant (Tauri)",
         paragraphs: [
-          "Bobine Assistant est une application graphique légère en Rust et Tauri 2, pour découvrir les appliances sur le réseau local via mDNS (bobine.local), auditer le matériel par SSH et déployer sans ligne de commande.",
+          "Bobine Assistant est une application graphique légère en Rust et Tauri 2 : elle balaie le sous-réseau local et affiche TOUS les appareils qui répondent (nom d'hôte résolu en DNS inverse, adresse IP, système d'exploitation estimé, ports ouverts) — pas seulement les appliances Bobine — pour qu'un technicien puisse reconnaître sa borne au milieu du reste du réseau.",
+          "La connexion à une cible se fait par mot de passe, par import d'une clé SSH privée locale (sélecteur de fichier natif), ou par repli automatique sur l'agent SSH et les clés courantes de ~/.ssh/ — puis l'audit matériel et le déploiement se font sans ligne de commande.",
           "C'est un outil d'exploitation destiné aux techniciens qui gèrent plusieurs salles, distinct de l'application Bobine elle-même.",
         ],
       },
@@ -322,7 +323,8 @@ const en: DocChapter[] = [
       {
         subtitle: "2.3 Network orchestration with Bobine Assistant (Tauri)",
         paragraphs: [
-          "Bobine Assistant is a lightweight Rust/Tauri 2 desktop app that discovers appliances on the local network via mDNS (bobine.local), audits hardware over SSH, and deploys without a terminal.",
+          "Bobine Assistant is a lightweight Rust/Tauri 2 desktop app that scans the local subnet and lists EVERY device that responds (reverse-DNS hostname, IP address, estimated OS, open ports) — not just Bobine appliances — so a technician can spot their box among the rest of the network.",
+          "Connecting to a target works by password, by importing a local private SSH key (native file picker), or by automatic fallback to the SSH agent and common ~/.ssh/ keys — then hardware auditing and deployment happen without a terminal.",
           "It is an operations tool for technicians managing several venues, separate from the Bobine application itself.",
         ],
       },

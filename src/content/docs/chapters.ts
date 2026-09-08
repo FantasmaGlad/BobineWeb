@@ -54,10 +54,11 @@ const fr: DocChapter[] = [
         paragraphs: [
           "Windows 11 / 10 : installeur Bobine-Setup-3.0.0.exe, démarrage silencieux en arrière-plan (icône dans la barre système), règle de pare-feu automatique pour activer la télécommande smartphone.",
           "macOS Apple Silicon (M1 à M4) : image disque Bobine-3.0.0.dmg, glisser-déposer dans le dossier Applications, icône compagnon dans la barre de menus. Le support Mac Intel (x86_64) est en cours de validation.",
-          "Linux Bureau (Debian / Ubuntu) : dépôt APT officiel signé GPG (apt.bobine.fit) pour des mises à jour automatiques via apt upgrade, ou paquet autonome bobine_3.0.0_amd64.deb via la logithèque.",
+          "Linux Bureau (Debian / Ubuntu / Mint) : dépôt APT officiel signé cryptographiquement (https://apt.bobine.fit) pour des mises à jour automatiques via apt upgrade, ou paquet autonome bobine_3.0.0_amd64.deb via la logithèque.",
+          "Le dépôt APT officiel est signé par la clé RSA 4096 (empreinte 941B 6F52 6A72 59F4 694C F4BC 1B5D 18A9 76FA AD15) et dessert les canaux Stable (stable main) et Bêta (beta main).",
         ],
         codeBlock:
-          "curl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine",
+          "# 1. Importer la clé GPG officielle\ncurl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\n\n# 2. Déclarer la source APT (canal Stable ou Bêta)\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\n\n# 3. Mettre à jour et installer\nsudo apt update && sudo apt install bobine",
       },
       {
         subtitle: "2.2 Appliance dédiée & salle 24/7 (mini PC headless)",
@@ -304,10 +305,11 @@ const en: DocChapter[] = [
         paragraphs: [
           "Windows 11 / 10: Bobine-Setup-3.0.0.exe installer, silent background startup (systray icon), automatic firewall rule to enable the smartphone remote.",
           "macOS Apple Silicon (M1 to M4): Bobine-3.0.0.dmg disk image, drag-and-drop into Applications, companion menu bar icon. Intel Mac (x86_64) support is currently in validation.",
-          "Linux Desktop (Debian / Ubuntu): official GPG-signed APT repository (apt.bobine.fit) for automated updates via apt upgrade, or standalone bobine_3.0.0_amd64.deb package via the software center.",
+          "Linux Desktop (Debian / Ubuntu / Mint): official cryptographically signed APT repository (https://apt.bobine.fit) for automated updates via apt upgrade, or standalone bobine_3.0.0_amd64.deb package via the software center.",
+          "The official APT repository is signed with an RSA 4096-bit key (fingerprint 941B 6F52 6A72 59F4 694C F4BC 1B5D 18A9 76FA AD15) and serves both Stable (stable main) and Beta (beta main) channels.",
         ],
         codeBlock:
-          "curl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine",
+          "# 1. Import official GPG keyring\ncurl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\n\n# 2. Add APT repository source (Stable or Beta channel)\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\n\n# 3. Update & Install\nsudo apt update && sudo apt install bobine",
       },
       {
         subtitle: "2.2 Dedicated 24/7 appliance (headless mini PC)",

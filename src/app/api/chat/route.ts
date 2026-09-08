@@ -53,6 +53,7 @@ Tu es un petit hamster blanc agile, précis, bienveillant, direct et très profe
 - Manifeste, Vision & Auteur : /fr/a-propos
 - FAQ / Dépannage : /fr/documentation/faq
 - Développeurs : /fr/documentation/developpeurs
+- Dépôt APT officiel Linux (Debian / Ubuntu) : https://apt.bobine.fit (et jeu rétro Pong sur /pong)
 
 Si une question porte sur un point absent de ta base de connaissances ci-dessus, ne l'invente pas : dis que tu n'es pas certaine et renvoie vers la page de documentation la plus pertinente plutôt que de deviner.
 
@@ -68,7 +69,7 @@ function buildProjectKnowledge(): string {
   return docChapters.fr
     .map((chapter) => {
       const subsectionLines = chapter.subsections
-        .map((sub) => `  * ${sub.subtitle} : ${sub.paragraphs[0] ?? ""}`)
+        .map((sub) => `  * ${sub.subtitle} : ${sub.paragraphs.join(" ")}`)
         .join("\n");
       return `- **${chapter.title}** — ${chapter.summary}\n${subsectionLines}`;
     })

@@ -38,8 +38,19 @@ curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta
 - **Features**: Standard drag-and-drop to Applications, Retina menu bar companion, and local web remote.
 
 ### 4. Linux Desktop (Debian / Ubuntu / Linux Mint)
-- **Format**: Certified Debian package (`bobine_<version>_amd64.deb` or `bobine-beta_amd64.deb`).
-- **Features**: AppStream metadata for Ubuntu App Center and GNOME Software, standard XDG directory structure (`~/.local/share/bobine/`).
+- **Official APT Repository (Recommended for automatic updates)**: `https://apt.bobine.fit/`
+  ```bash
+  # 1. Official GPG keyring
+  curl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg
+
+  # 2. Add APT repository source (Stable channel; replace 'stable' with 'beta' for rolling pre-releases)
+  echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main" | sudo tee /etc/apt/sources.list.d/bobine.list
+
+  # 3. Update & Install
+  sudo apt update && sudo apt install bobine
+  ```
+- **Manual Package Format**: Certified Debian package (`bobine_<version>_amd64.deb` or `bobine-beta_amd64.deb`).
+- **Features**: AppStream metadata for Ubuntu App Center and GNOME Software, standard XDG directory structure (`~/.local/share/bobine/`), desktop shortcut, and system tray companion.
 
 ### 5. Bobine Assistant (Network Orchestrator in Rust / Tauri 2)
 - **Format**: Standalone desktop binary (`bobine-assistant`).
@@ -92,6 +103,7 @@ curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta
 
 ## Key Links & Documentation
 - [Official Website](https://bobine.fit)
+- [Official APT Repository](https://apt.bobine.fit)
 - [GitHub Repository](https://github.com/FantasmaGlad/Bobine)
 - [Web Documentation](https://bobine.fit/fr/documentation)
 - [Quick Start Installation Guide](https://bobine.fit/fr/documentation/demarrage-rapide): Step-by-step Debian 13 setup for Intel and AMD mini PCs.

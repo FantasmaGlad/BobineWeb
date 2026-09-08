@@ -565,11 +565,41 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             <div className="docs-step-card">
               <div className="docs-step-card__num">1</div>
               <div className="docs-step-card__content">
-                <h4>{isEn ? "1-Click Graphical Install" : "Option A : Installation graphique en 1 clic"}</h4>
+                <h4>{isEn ? "Option A: Official APT Repository (Recommended)" : "Option A : Dépôt APT officiel (Recommandé)"}</h4>
                 <p>
                   {isEn
-                    ? "Double-click bobine_3.0.0_amd64.deb to open it with Ubuntu App Center or GNOME Software, then click 'Install'."
-                    : "Double-cliquez sur bobine_3.0.0_amd64.deb pour l'ouvrir dans l'App Center Ubuntu ou la Logithèque GNOME, puis cliquez sur « Installer »."}
+                    ? "Add the official GPG-signed repository (apt.bobine.fit) to receive automatic updates with your standard apt upgrade:"
+                    : "Ajoutez le dépôt officiel signé GPG (apt.bobine.fit) pour bénéficier des mises à jour automatiques lors de vos apt upgrade habituels :"}
+                </p>
+                <div className="docs-copyable-cmd" style={{ whiteSpace: "pre-wrap", alignItems: "flex-start" }}>
+                  <code style={{ fontSize: "0.8rem", lineHeight: "1.5" }}>
+                    {`curl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho "deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine`}
+                  </code>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      copyToClipboard(
+                        "curl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine"
+                      )
+                    }
+                    className="docs-copy-btn"
+                    aria-label={isEn ? "Copy command" : "Copier la commande"}
+                  >
+                    {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
+                  </button>
+                </div>
+                <p style={{ marginTop: "0.5rem", fontSize: "0.85rem", color: "var(--text-muted)" }}>
+                  {isEn
+                    ? "For pre-release builds, replace 'stable' with 'beta'. Repository web portal: "
+                    : "Pour tester les versions préliminaires, remplacez « stable » par « beta ». Portail du dépôt : "}
+                  <a
+                    href="https://apt.bobine.fit"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "var(--text-heading)", textDecoration: "underline", textUnderlineOffset: "3px" }}
+                  >
+                    apt.bobine.fit
+                  </a>
                 </p>
               </div>
             </div>
@@ -577,17 +607,17 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             <div className="docs-step-card">
               <div className="docs-step-card__num">2</div>
               <div className="docs-step-card__content">
-                <h4>{isEn ? "Terminal Package Manager (apt)" : "Option B : Installation par terminal (apt)"}</h4>
+                <h4>{isEn ? "Option B: Direct .deb Package (Offline / 1-Click)" : "Option B : Paquet direct .deb (Hors ligne / 1 clic)"}</h4>
                 <p>
                   {isEn
-                    ? "Install via standard apt to resolve dependencies automatically:"
-                    : "Installez via apt en résolvant automatiquement toutes les dépendances :"}
+                    ? "Download the standalone .deb package above and double-click to install via Ubuntu App Center or GNOME Software, or run:"
+                    : "Téléchargez le paquet autonome .deb ci-dessus et double-cliquez pour l'installer via l'App Center Ubuntu / Logithèque GNOME, ou exécutez :"}
                 </p>
                 <div className="docs-copyable-cmd">
-                  <code>sudo apt install bobine</code>
+                  <code>sudo apt install ./bobine_*_amd64.deb</code>
                   <button
                     type="button"
-                    onClick={() => copyToClipboard("sudo apt install bobine")}
+                    onClick={() => copyToClipboard("sudo apt install ./bobine_*_amd64.deb")}
                     className="docs-copy-btn"
                     aria-label={isEn ? "Copy command" : "Copier la commande"}
                   >

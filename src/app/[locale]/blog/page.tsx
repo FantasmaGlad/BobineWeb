@@ -34,7 +34,7 @@ const copy = {
     intro: "All stable releases, patches, and feature updates for Bobine, synchronized directly from GitHub.",
     featuredReleaseBadge: "Latest Stable Release",
     betaBadge: "Beta Channel (Rolling beta)",
-    betaTitle: "Version Bêta (Rolling beta) : Accès anticipé aux fonctionnalités en cours de test",
+    betaTitle: "Beta Version (Rolling beta): Early access to features under testing",
     betaDesc: "Rolling build updated continuously on GitHub tag beta. Installs in place over your existing app without creating duplicates.",
     betaAction: "View Beta Release & Changelog",
     releasesHeading: "Release History",
@@ -117,16 +117,7 @@ export default async function BlogIndexPage({
 
           {/* DERNIÈRE RELEASE STABLE EN GROS DANS LE HERO */}
           {latestStable && (
-            <div
-              className="blog-hero-release-card"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.85rem",
-                maxWidth: "52rem",
-                marginBottom: "1.5rem",
-              }}
-            >
+            <div className="blog-hero-release-card blog-hero-release-card--stable">
               <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
                 <span
                   className="badge"
@@ -174,7 +165,13 @@ export default async function BlogIndexPage({
                 </Link>
               </h2>
 
-              {latestStable.slug.startsWith("V2.0.1") || latestStable.slug.startsWith("v2.0.1") ? (
+              {latestStable.slug.startsWith("V3") || latestStable.slug.startsWith("v3") ? (
+                <ul style={{ margin: 0, paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.925rem", lineHeight: 1.6 }}>
+                  <li>{locale === "en" ? "Official native Android release (.apk): dual-screen touch & HDMI output with standalone embedded FastAPI server" : "Sortie officielle de l'application native Android (.apk) : double affichage tactile / HDMI et serveur FastAPI autonome embarqué"}</li>
+                  <li>{locale === "en" ? "Multi-OS hardware accelerated transcoding (MediaCodec, Apple Silicon VideoToolbox, Linux VA-API)" : "Accélération matérielle multi-OS pour le réencodage vidéo (MediaCodec, Apple Silicon VideoToolbox, VA-API Linux)"}</li>
+                  <li>{locale === "en" ? "Native 2K and 4K quality preservation without downscaling, reactive 1-click import cancellation & sharp 1080p thumbnails" : "Conservation intégrale des flux 2K et 4K natifs sans sous-échantillonnage, annulation réactive d'importation et miniatures nettes 1080p"}</li>
+                </ul>
+              ) : latestStable.slug.startsWith("V2.0.1") || latestStable.slug.startsWith("v2.0.1") ? (
                 <ul style={{ margin: 0, paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.925rem", lineHeight: 1.6 }}>
                   <li>{locale === "en" ? "Full hardware video acceleration for both Intel QuickSync (iHD) and AMD Radeon (mesa-va-drivers) under 8% CPU" : "Accélération matérielle complète pour Intel QuickSync (iHD) et AMD Radeon (mesa-va-drivers) sous 8% CPU"}</li>
                   <li>{locale === "en" ? "New 1-line auto-installer (curl -sSL https://bobine.fit/install.sh | bash) with clean & verbose (-v) modes" : "Nouvel installateur automatique en 1 ligne (curl -sSL https://bobine.fit/install.sh | bash) avec modes épuré et verbeux (-v)"}</li>
@@ -212,17 +209,7 @@ export default async function BlogIndexPage({
 
           {/* CARTE DÉDIÉE : CANAL BÊTA (ROLLING BETA) */}
           {betaRelease && (
-            <div
-              className="blog-hero-release-card"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.75rem",
-                maxWidth: "52rem",
-                borderLeft: "3px solid var(--accent-primary)",
-                background: "var(--bg-card)",
-              }}
-            >
+            <div className="blog-hero-release-card blog-hero-release-card--beta">
               <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", flexWrap: "wrap" }}>
                 <span
                   className="badge"

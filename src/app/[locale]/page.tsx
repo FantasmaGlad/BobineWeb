@@ -86,16 +86,6 @@ export default async function HomePage({
         </div>
 
         <div className="hero-fullscreen__content">
-          {/* Bandeau discret d'annonce Android pour version mobile / smartphone */}
-          <div className="hero-fullscreen__mobile-android-badge" aria-label="Annonce Android">
-            <AndroidIcon size={14} color="var(--android-badge-fg)" className="hero-fullscreen__android-badge-icon" />
-            <span>
-              {locale === "en"
-                ? "Now available on Android! 09/09/2026"
-                : "Désormais disponible sur Android ! 09/09/2026"}
-            </span>
-          </div>
-
           <h1 className="hero-fullscreen__title">
             {t.title}
           </h1>

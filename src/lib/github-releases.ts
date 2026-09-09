@@ -49,10 +49,10 @@ Réservée aux utilisateurs ayant activé le canal Bêta ("Programme Bobine Beta
   },
   {
     slug: "V3.0.2",
-    title: "Bobine V3.0.2 — Sortie Officielle Android Native, Accélération Matérielle Multi-OS & Maxi Premium",
+    title: "Bobine V3.0.2 — Sortie Officielle Android Native, Accélération Matérielle Multi-OS & Qualité 4K Intégrale",
     publishedAt: "2026-09-09T20:00:00Z",
     url: "https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.2",
-    body: `Bobine V3.0.2 marque la sortie officielle de l'application native Android (.apk) avec double affichage tactile / HDMI et moteur FastAPI embarqué (Chaquopy). Cette version apporte également l'accélération matérielle multi-OS du réencodage (MediaCodec, VideoToolbox, VA-API), la politique stricte « Maxi Premium » préservant les flux 2K/4K natifs, l'annulation réactive des imports avec estimation en direct (ETA), et les miniatures Full HD 1080p.`,
+    body: `Bobine V3.0.2 marque la sortie officielle de l'application native Android (.apk) avec double affichage tactile / HDMI et moteur FastAPI embarqué (Chaquopy). Cette version apporte également l'accélération matérielle multi-OS du réencodage (MediaCodec, VideoToolbox, VA-API), la priorité accordée à la meilleure qualité vidéo avec conservation intégrale des flux 2K/4K natifs sans sous-échantillonnage, l'annulation réactive des imports avec estimation en direct (ETA), et les miniatures Full HD 1080p.`,
     isPrerelease: false,
   },
   {

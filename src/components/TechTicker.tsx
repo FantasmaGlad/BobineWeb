@@ -10,9 +10,15 @@ interface TickerMetric {
 
 const METRICS_FR: TickerMetric[] = [
   { tag: "ANDROID", label: "Application native", value: "Sortie officielle Bobine-3.0.2.apk (Chaquopy, double affichage tactile / HDMI)" },
+  { tag: "MULTI-OS", label: "Portabilité universelle", value: "Windows (.exe), macOS (.dmg), Linux (.deb / bash) & Android (.apk)" },
   { tag: "ACCÉLÉRATION GPU", label: "Réencodage matériel", value: "MediaCodec (Android), VideoToolbox (Apple Silicon) & VA-API (Linux)" },
-  { tag: "MAXI PREMIUM", label: "Résolutions natives", value: "Conservation stricte du 2K (1440p) et 4K (2160p) sans sous-échantillonnage" },
+  { tag: "MACOS", label: "Optimisation Apple Silicon", value: "Puces M1, M2, M3, M4 : réencodage matériel VideoToolbox ultra-rapide sans surchauffe" },
+  { tag: "MAC MINI", label: "Appliance de studio", value: "Idéal en régie discrète sous macOS : silence absolu, double écran HDMI & démarrage automatique" },
+  { tag: "HAUTE QUALITÉ", label: "Formats préservés", value: "Priorité à la meilleure qualité vidéo : conservation intégrale du 2K (1440p) et 4K (2160p) sans sous-échantillonnage" },
+  { tag: "FAST SEEK", label: "Navigation temporelle", value: "Intervalles de trames clés resserrés (GOP 60) pour un calage vidéo instantané & vignettes 1080p" },
   { tag: "ANNULATION", label: "Imports réactifs", value: "Arrêt immédiat FFmpeg en 1 clic (Croix), purge des temporaires & ETA temps réel" },
+  { tag: "HORS-LIGNE PUR", label: "Indépendance réseau", value: "Fonctionnement 100% autonome sans connexion Internet, résistant aux pannes de fibre" },
+  { tag: "HDMI-CEC", label: "Pilotage d'écran", value: "Allumage et mise en veille automatique des téléviseurs et vidéoprojecteurs de la salle" },
   { tag: "ÉCONOMIE", label: "Gain financier", value: "Économisez 1 500 € à 3 000 € / an par salle (Zéro redevance)" },
   { tag: "COÛT", label: "Abonnement logiciel", value: "0 € / mois · Licence libre AGPL-3.0 (Zéro coût caché)" },
   { tag: "DÉPÔT APT", label: "Linux Debian & Ubuntu", value: "Dépôt officiel apt.bobine.fit signé GPG RSA 4096 (apt install bobine)" },
@@ -38,14 +44,21 @@ const METRICS_FR: TickerMetric[] = [
   { tag: "INSTALLATION", label: "Déploiement rapide", value: "1 ligne (curl bobine.fit/install.sh) · Canaux --channel=stable|beta" },
   { tag: "STACK", label: "Architecture", value: "Debian 13 · FastAPI · SQLite · Chromium X11" },
   { tag: "LICENCE", label: "Souveraineté", value: "AGPL-3.0 (Code source 100% ouvert et auditable)" },
+  { tag: "ÉTUDE IOS", label: "Piste iPad & iPadOS", value: "Étude active pour iPads à sortie USB-C / Thunderbolt (affichage déporté /cinema)" },
   { tag: "FEUILLE DE ROUTE", label: "Tablettes tactiles", value: "Android natif disponible · iPadOS (piste prospective)" },
 ];
 
 const METRICS_EN: TickerMetric[] = [
   { tag: "ANDROID", label: "Native application", value: "Official Bobine-3.0.2.apk release (Chaquopy, dual tactile / HDMI displays)" },
+  { tag: "MULTI-OS", label: "Universal portability", value: "Windows (.exe), macOS (.dmg), Linux (.deb / bash) & Android (.apk)" },
   { tag: "GPU ACCELERATION", label: "Hardware transcoding", value: "MediaCodec (Android), VideoToolbox (Apple Silicon) & VA-API (Linux)" },
-  { tag: "MAXI PREMIUM", label: "Native resolutions", value: "Strict 2K (1440p) and 4K (2160p) preservation without downscaling" },
+  { tag: "MACOS", label: "Apple Silicon tuning", value: "M1, M2, M3, M4 chips: hardware VideoToolbox acceleration, zero heat build-up" },
+  { tag: "MAC MINI", label: "Studio appliance", value: "Ideal silent control unit: fanless profile, dual HDMI screens & auto-launch" },
+  { tag: "BEST QUALITY", label: "Preserved formats", value: "Best video quality prioritized: strict 2K (1440p) and 4K (2160p) preservation without downscaling" },
+  { tag: "FAST SEEK", label: "Instant scrubbing", value: "Tight keyframe intervals (GOP 60) for instant zero-lag seek & crisp 1080p thumbnails" },
   { tag: "CANCELLATION", label: "Reactive imports", value: "1-click instant FFmpeg cancel, orphan temp purge & live remaining ETA" },
+  { tag: "100% OFFLINE", label: "Fiber outage proof", value: "Runs entirely without Internet, immune to ISP blackouts and cloud downtime" },
+  { tag: "HDMI-CEC", label: "Display control", value: "Automatic power-on and standby for studio TVs and projectors via HDMI" },
   { tag: "SAVINGS", label: "Financial gain", value: "Save $1,500 to $3,000 / year per studio (Zero royalties)" },
   { tag: "COST", label: "Software license", value: "$0 / month · Free AGPL-3.0 license (Zero hidden fees)" },
   { tag: "APT REPO", label: "Linux Debian & Ubuntu", value: "Official GPG-signed apt.bobine.fit repository (apt install bobine)" },
@@ -71,6 +84,7 @@ const METRICS_EN: TickerMetric[] = [
   { tag: "INSTALLATION", label: "Quick deployment", value: "1-line command (curl bobine.fit/install.sh) · --channel=stable|beta" },
   { tag: "STACK", label: "Technology", value: "Debian 13 · FastAPI · SQLite · Chromium X11" },
   { tag: "LICENSE", label: "Sovereignty", value: "AGPL-3.0 (100% Open source & auditable)" },
+  { tag: "IOS TRACK", label: "iPad & iPadOS exploration", value: "Active study for iPads with USB-C / Thunderbolt video output (/cinema feed)" },
   { tag: "ROADMAP", label: "Touch tablets", value: "Native Android released · iPadOS (exploratory track)" },
 ];
 

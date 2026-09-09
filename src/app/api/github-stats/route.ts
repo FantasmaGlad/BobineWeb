@@ -12,6 +12,7 @@ export interface ReleaseChannelInfo {
     windows: string;
     linux: string;
     macos: string;
+    android: string;
     assistant: string;
     installScript: string;
   };
@@ -25,6 +26,7 @@ export interface RepoStatsResponse {
     windows: string;
     linux: string;
     macos: string;
+    android: string;
     assistant: string;
     installScript?: string;
   };
@@ -33,26 +35,28 @@ export interface RepoStatsResponse {
 }
 
 const FALLBACK_STABLE: ReleaseChannelInfo = {
-  version: "V3.0.0",
-  title: "Bobine V3.0.0 — Sortie Officielle Multi-Plateforme",
-  publishedAt: "2026-09-06T12:53:00Z",
+  version: "V3.0.2",
+  title: "Bobine V3.0.2 — Sortie Officielle Android Native & Accélération Matérielle",
+  publishedAt: "2026-09-09T20:00:00Z",
   downloads: {
-    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-Setup-3.0.0.exe",
-    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/bobine_3.0.0_amd64.deb",
-    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-3.0.0.dmg",
-    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/bobine-assistant",
-    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/install.sh",
+    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/Bobine-Setup-3.0.2.exe",
+    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/bobine_3.0.2_amd64.deb",
+    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/Bobine-3.0.2.dmg",
+    android: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/Bobine-3.0.2.apk",
+    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/bobine-assistant",
+    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/install.sh",
   },
 };
 
 const FALLBACK_BETA: ReleaseChannelInfo = {
   version: "beta",
   title: "Bobine — Bêta (build automatique)",
-  publishedAt: "2026-09-07T18:00:00Z",
+  publishedAt: "2026-09-09T20:00:00Z",
   downloads: {
     windows: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe",
     linux: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb",
     macos: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.dmg",
+    android: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.apk",
     assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant",
     installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/install.sh",
   },
@@ -74,6 +78,8 @@ function parseReleaseAssets(
       downloads.linux = url;
     } else if (name.endsWith(".dmg")) {
       downloads.macos = url;
+    } else if (name.endsWith(".apk")) {
+      downloads.android = url;
     } else if (name.includes("assistant")) {
       downloads.assistant = url;
     } else if (name === "install.sh") {
@@ -146,6 +152,7 @@ export async function GET() {
         windows: stableInfo.downloads.windows,
         linux: stableInfo.downloads.linux,
         macos: stableInfo.downloads.macos,
+        android: stableInfo.downloads.android,
         assistant: stableInfo.downloads.assistant,
         installScript: stableInfo.downloads.installScript,
       },

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import type { ReleaseChannelInfo } from "@/app/api/github-stats/route";
 
-export type DownloadPlatform = "windows" | "macos" | "linux" | "cli" | "tauri";
+export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "cli" | "tauri";
 
 interface DownloadModalProps {
   isOpen: boolean;
@@ -93,8 +93,18 @@ export default function DownloadModal({
           stableUrl: stable.downloads.linux,
           stableFilename: `bobine_${stable.version.replace(/^V/i, "")}_amd64.deb`,
           betaUrl: beta.downloads.linux,
-          betaFilename: "bobine-beta_amd64.deb",
+          betaFilename: "bobine_beta_amd64.deb",
           format: ".deb",
+        };
+      case "android":
+        return {
+          title: isEn ? "Bobine for Android" : "Bobine pour Android",
+          subtitle: isEn ? "Tablets & ARM touch kiosks (arm64-v8a)" : "Tablettes & Bornes tactiles ARM (arm64-v8a)",
+          stableUrl: stable.downloads.android,
+          stableFilename: `Bobine-${stable.version.replace(/^V/i, "")}.apk`,
+          betaUrl: beta.downloads.android,
+          betaFilename: "Bobine-beta.apk",
+          format: ".apk",
         };
       case "cli":
         return {

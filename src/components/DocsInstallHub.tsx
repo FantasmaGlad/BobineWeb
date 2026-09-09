@@ -17,26 +17,28 @@ import type { ReleaseChannelInfo } from "@/app/api/github-stats/route";
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
 
 const FALLBACK_STABLE: ReleaseChannelInfo = {
-  version: "V3.0.0",
-  title: "Bobine V3.0.0 — Sortie Officielle Multi-Plateforme",
-  publishedAt: "2026-09-06T12:53:00Z",
+  version: "V3.0.2",
+  title: "Bobine V3.0.2 — Sortie Officielle Android Native & Accélération Matérielle",
+  publishedAt: "2026-09-09T20:00:00Z",
   downloads: {
-    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-Setup-3.0.0.exe",
-    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/bobine_3.0.0_amd64.deb",
-    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-3.0.0.dmg",
-    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/bobine-assistant",
-    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/install.sh",
+    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/Bobine-Setup-3.0.2.exe",
+    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/bobine_3.0.2_amd64.deb",
+    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/Bobine-3.0.2.dmg",
+    android: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/Bobine-3.0.2.apk",
+    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/bobine-assistant",
+    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/install.sh",
   },
 };
 
 const FALLBACK_BETA: ReleaseChannelInfo = {
   version: "beta",
   title: "Bobine — Bêta (build automatique)",
-  publishedAt: "2026-09-07T18:00:00Z",
+  publishedAt: "2026-09-09T20:00:00Z",
   downloads: {
     windows: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe",
     linux: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb",
     macos: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.dmg",
+    android: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.apk",
     assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant",
     installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/install.sh",
   },
@@ -110,10 +112,10 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
     },
     {
       id: "android",
-      group: "roadmap",
+      group: "desktop",
       name: "Android",
-      format: isEn ? "Feasibility study" : "Étude de faisabilité",
-      badge: isEn ? "Roadmap" : "À venir",
+      format: isEn ? "Package .apk" : "Paquet .apk",
+      badge: isEn ? "1-click" : "1 clic",
       icon: <AndroidIcon size={20} />,
     },
     {
@@ -637,7 +639,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      {/* ANDROID (feuille de route, etude de faisabilite) */}
+      {/* ANDROID (Application native officielle) */}
       {activeTab === "android" && (
         <div
           id="panel-android"
@@ -652,19 +654,64 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               </div>
               <div>
                 <h2 className="docs-method-hero__title">
-                  {isEn ? "Android: feasibility study in progress" : "Android : étude de faisabilité en cours"}
+                  {isEn ? "Bobine for Android Tablets & Touch Kiosks" : "Bobine pour Tablettes Android & Bornes Tactiles"}
                 </h2>
                 <p className="docs-method-hero__desc">
                   {isEn
-                    ? "Not shipped yet. A technical study is exploring an ARM tablet port, documented below without overselling."
-                    : "Pas encore disponible. Une étude technique explore un portage sur tablette ARM, documentée ci-dessous sans survente."}
+                    ? "Official native APK package. Embedded FastAPI server (Chaquopy), independent dual display (/grid on tablet, /cinema on HDMI), and MediaCodec hardware acceleration."
+                    : "Paquet APK natif officiel. Serveur FastAPI embarqué (Chaquopy), double affichage indépendant (/grid sur tablette, /cinema sur HDMI), et accélération matérielle MediaCodec."}
                 </p>
               </div>
             </div>
+
             <div className="docs-method-hero__action-col">
-              <span className="docs-roadmap-status-pill">
-                {isEn ? "Feasibility study — no release date" : "Étude de faisabilité — sans date de sortie"}
-              </span>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", width: "100%" }}>
+                <a
+                  href={stable.downloads.android}
+                  download
+                  className="btn-primary docs-method-download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>{isEn ? `Download Stable (${stable.version})` : `Télécharger la Stable (${stable.version})`}</span>
+                </a>
+
+                <a
+                  href={beta.downloads.android}
+                  download
+                  className="btn-secondary docs-method-download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none" }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>{isEn ? "Download Beta (Rolling beta)" : "Télécharger la Bêta (Rolling beta)"}</span>
+                </a>
+              </div>
+
+              <div className="docs-method-meta-row">
+                <span className="docs-method-version-text">{stable.version}</span>
+                <span className="docs-method-meta-dot">·</span>
+                <span>ARM64 (arm64-v8a)</span>
+                <span className="docs-method-meta-dot">·</span>
+                <a
+                  href="https://github.com/FantasmaGlad/Bobine/releases"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="docs-method-source-link"
+                >
+                  GitHub Releases
+                </a>
+              </div>
             </div>
           </div>
 

@@ -35,6 +35,7 @@ Réservée aux utilisateurs ayant activé le canal Bêta ("Programme Bobine Beta
 
 ### Téléchargements directs du canal Bêta
 
+- Android : [Bobine-beta.apk](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.apk)
 - Windows : [Bobine-Setup-beta.exe](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe)
 - Linux Bureau : [bobine_beta_amd64.deb](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb)
 - macOS : [Bobine-beta.dmg](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.dmg)
@@ -45,6 +46,22 @@ Réservée aux utilisateurs ayant activé le canal Bêta ("Programme Bobine Beta
 
 À tout moment et sans perte de données : Réglages → Mises à jour logicielles → « Programme Bobine Beta » → Stable.`,
     isPrerelease: true,
+  },
+  {
+    slug: "V3.0.2",
+    title: "Bobine V3.0.2 — Sortie Officielle Android Native, Accélération Matérielle Multi-OS & Maxi Premium",
+    publishedAt: "2026-09-09T20:00:00Z",
+    url: "https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.2",
+    body: `Bobine V3.0.2 marque la sortie officielle de l'application native Android (.apk) avec double affichage tactile / HDMI et moteur FastAPI embarqué (Chaquopy). Cette version apporte également l'accélération matérielle multi-OS du réencodage (MediaCodec, VideoToolbox, VA-API), la politique stricte « Maxi Premium » préservant les flux 2K/4K natifs, l'annulation réactive des imports avec estimation en direct (ETA), et les miniatures Full HD 1080p.`,
+    isPrerelease: false,
+  },
+  {
+    slug: "V3.0.1",
+    title: "Bobine V3.0.1 — Canal Stable/Bêta, Dépôt APT Officiel & Fiabilité Multi-Plateformes",
+    publishedAt: "2026-09-08T18:00:00Z",
+    url: "https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.1",
+    body: `La version 3.0.1 introduit le canal de mise à jour Stable/Bêta ("Programme Bobine Beta"), le dépôt APT officiel apt.bobine.fit signé GPG pour Debian/Ubuntu, l'ouverture simultanée admin + kiosque sur PC, et la résolution dynamique des URLs réseau.`,
+    isPrerelease: false,
   },
   {
     slug: "V3.0.0",

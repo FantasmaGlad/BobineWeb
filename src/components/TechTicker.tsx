@@ -9,6 +9,10 @@ interface TickerMetric {
 }
 
 const METRICS_FR: TickerMetric[] = [
+  { tag: "ANDROID", label: "Application native", value: "Sortie officielle Bobine-3.0.2.apk (Chaquopy, double affichage tactile / HDMI)" },
+  { tag: "ACCÉLÉRATION GPU", label: "Réencodage matériel", value: "MediaCodec (Android), VideoToolbox (Apple Silicon) & VA-API (Linux)" },
+  { tag: "MAXI PREMIUM", label: "Résolutions natives", value: "Conservation stricte du 2K (1440p) et 4K (2160p) sans sous-échantillonnage" },
+  { tag: "ANNULATION", label: "Imports réactifs", value: "Arrêt immédiat FFmpeg en 1 clic (Croix), purge des temporaires & ETA temps réel" },
   { tag: "ÉCONOMIE", label: "Gain financier", value: "Économisez 1 500 € à 3 000 € / an par salle (Zéro redevance)" },
   { tag: "COÛT", label: "Abonnement logiciel", value: "0 € / mois · Licence libre AGPL-3.0 (Zéro coût caché)" },
   { tag: "DÉPÔT APT", label: "Linux Debian & Ubuntu", value: "Dépôt officiel apt.bobine.fit signé GPG RSA 4096 (apt install bobine)" },
@@ -34,10 +38,14 @@ const METRICS_FR: TickerMetric[] = [
   { tag: "INSTALLATION", label: "Déploiement rapide", value: "1 ligne (curl bobine.fit/install.sh) · Canaux --channel=stable|beta" },
   { tag: "STACK", label: "Architecture", value: "Debian 13 · FastAPI · SQLite · Chromium X11" },
   { tag: "LICENCE", label: "Souveraineté", value: "AGPL-3.0 (Code source 100% ouvert et auditable)" },
-  { tag: "FEUILLE DE ROUTE", label: "Mobilité tactile", value: "Android (étude de faisabilité Chaquopy) · iPadOS (piste explorée)" },
+  { tag: "FEUILLE DE ROUTE", label: "Tablettes tactiles", value: "Android natif disponible · iPadOS (piste prospective)" },
 ];
 
 const METRICS_EN: TickerMetric[] = [
+  { tag: "ANDROID", label: "Native application", value: "Official Bobine-3.0.2.apk release (Chaquopy, dual tactile / HDMI displays)" },
+  { tag: "GPU ACCELERATION", label: "Hardware transcoding", value: "MediaCodec (Android), VideoToolbox (Apple Silicon) & VA-API (Linux)" },
+  { tag: "MAXI PREMIUM", label: "Native resolutions", value: "Strict 2K (1440p) and 4K (2160p) preservation without downscaling" },
+  { tag: "CANCELLATION", label: "Reactive imports", value: "1-click instant FFmpeg cancel, orphan temp purge & live remaining ETA" },
   { tag: "SAVINGS", label: "Financial gain", value: "Save $1,500 to $3,000 / year per studio (Zero royalties)" },
   { tag: "COST", label: "Software license", value: "$0 / month · Free AGPL-3.0 license (Zero hidden fees)" },
   { tag: "APT REPO", label: "Linux Debian & Ubuntu", value: "Official GPG-signed apt.bobine.fit repository (apt install bobine)" },
@@ -63,7 +71,7 @@ const METRICS_EN: TickerMetric[] = [
   { tag: "INSTALLATION", label: "Quick deployment", value: "1-line command (curl bobine.fit/install.sh) · --channel=stable|beta" },
   { tag: "STACK", label: "Technology", value: "Debian 13 · FastAPI · SQLite · Chromium X11" },
   { tag: "LICENSE", label: "Sovereignty", value: "AGPL-3.0 (100% Open source & auditable)" },
-  { tag: "ROADMAP", label: "Touch tablets", value: "Android (Chaquopy feasibility study) · iPadOS (exploratory track)" },
+  { tag: "ROADMAP", label: "Touch tablets", value: "Native Android released · iPadOS (exploratory track)" },
 ];
 
 export default function TechTicker({ locale }: { locale: Locale }) {

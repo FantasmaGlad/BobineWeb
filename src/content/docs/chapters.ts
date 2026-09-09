@@ -237,16 +237,16 @@ const fr: DocChapter[] = [
     title: "7. Feuille de Route",
     icon: "roadmap",
     summary:
-      "État réel des pistes d'extension de Bobine vers les tablettes tactiles, présenté sans survente : ce qui est à l'étude et ce qui reste une piste exploratoire.",
+      "Sortie officielle de l'application native Android et état des pistes exploratoires vers les tablettes tactiles.",
     subsections: [
       {
-        subtitle: "7.1 Android : étude de faisabilité pour tablettes tactiles",
+        subtitle: "7.1 Android : application native officielle pour tablettes tactiles",
         paragraphs: [
-          "L'objectif est d'étendre la portabilité de Bobine vers des tablettes tactiles autonomes comme les Xiaomi Pad (Xiaomi Pad 6, 7 ou 8) et les tablettes équipées d'un port USB-C 3.2 supportant la sortie vidéo DisplayPort (ex. Samsung Galaxy Tab).",
-          "Une étude technique explore l'embarquement du serveur Bobine (Python/FastAPI) directement dans une application Android via un pont Python-Java (Chaquopy), avec sortie vidéo déportée vers le téléviseur ou vidéoprojecteur du studio par l'API Presentation d'Android.",
-          "Cette piste permettrait à une unique tablette murale de servir à la fois de pupitre coach tactile et de régie vidéo autonome, sans nécessiter de mini PC ou de serveur séparé. La faisabilité est à l'étude en interne, sans date de livraison engagée à ce stade.",
+          "L'application native Android (.apk) est officiellement disponible à partir de la version 3.0.2. Elle transforme n'importe quelle tablette tactile moderne (Xiaomi Pad 6, 7 ou 8, Samsung Galaxy Tab avec port USB-C DisplayPort) en régie vidéo et sonore complète et autonome.",
+          "Bobine embarque le moteur FastAPI sous CPython 3.13 via Chaquopy et un service d'arrière-plan persistant (ForegroundService). La sortie vidéo déportée vers le téléviseur ou vidéoprojecteur diffuse le kiosque plein écran /cinema en HDMI (127.0.0.1) sans barre d'état système, tandis que l'écran tactile de la tablette reste dédié au pupitre de commande /grid (127.0.0.2).",
+          "L'application intègre son propre binaire FFmpeg ARM64 avec accélération matérielle MediaCodec, un verrou mDNS (bobine.local) pour la télécommande sur le réseau Wi-Fi, et le stockage persistant sécurisé des données applicatives.",
         ],
-        techChips: [{ icon: "smartphone", label: "Android / Chaquopy" }, { icon: "tablet", label: "Xiaomi Pad / USB-C DP" }],
+        techChips: [{ icon: "smartphone", label: "Android / Chaquopy" }, { icon: "tablet", label: "Xiaomi Pad / USB-C DP" }, { icon: "film", label: "ARM64 / MediaCodec" }],
       },
       {
         subtitle: "7.2 iOS / iPadOS : piste explorée pour iPads avec sortie vidéo USB-C / Thunderbolt",
@@ -489,16 +489,16 @@ const en: DocChapter[] = [
     title: "7. Roadmap",
     icon: "roadmap",
     summary:
-      "The real state of Bobine's tablet expansion plans, presented without overselling: what is under study and what remains an open exploration.",
+      "Official native Android application release and status of touch tablet expansions.",
     subsections: [
       {
-        subtitle: "7.1 Android: feasibility study for touch tablets",
+        subtitle: "7.1 Android: official native application for touch tablets",
         paragraphs: [
-          "The objective is to expand Bobine's portability to standalone touch tablets such as Xiaomi Pad models (Xiaomi Pad 6, 7, or 8) and devices equipped with a USB-C 3.2 port supporting DisplayPort video output (e.g. Samsung Galaxy Tab).",
-          "A technical study is exploring embedding the Bobine server (Python/FastAPI) directly inside an Android app through a Python-Java bridge (Chaquopy), with video output routed to the studio display or projector via Android's Presentation API.",
-          "This track would enable a single wall-mounted tablet to serve simultaneously as a tactile coach console and as an autonomous video appliance, eliminating the need for a separate mini PC. Feasibility is under internal review, with no committed release date.",
+          "The native Android application (.apk) is officially available starting with version 3.0.2. It transforms any modern tablet (Xiaomi Pad 6, 7, or 8, Samsung Galaxy Tab with USB-C DisplayPort) into a complete, autonomous studio video playout appliance.",
+          "Bobine embeds the FastAPI engine under CPython 3.13 via Chaquopy and a persistent ForegroundService. The video feed routed to the studio TV or projector runs the clean full-screen /cinema player over HDMI (127.0.0.1), while the tablet touchscreen remains dedicated to the interactive /grid control panel (127.0.0.2).",
+          "The app bundles a native ARM64 FFmpeg binary with MediaCodec hardware acceleration, an mDNS lock (bobine.local) for local Wi-Fi remote control, and secure persistent application data storage.",
         ],
-        techChips: [{ icon: "smartphone", label: "Android / Chaquopy" }, { icon: "tablet", label: "Xiaomi Pad / USB-C DP" }],
+        techChips: [{ icon: "smartphone", label: "Android / Chaquopy" }, { icon: "tablet", label: "Xiaomi Pad / USB-C DP" }, { icon: "film", label: "ARM64 / MediaCodec" }],
       },
       {
         subtitle: "7.2 iOS / iPadOS: explored track for iPads with USB-C / Thunderbolt video output",

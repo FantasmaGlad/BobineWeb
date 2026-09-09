@@ -12,26 +12,28 @@ import type { ReleaseChannelInfo } from "@/app/api/github-stats/route";
 import DownloadModal, { type DownloadPlatform } from "@/components/DownloadModal";
 
 const FALLBACK_STABLE: ReleaseChannelInfo = {
-  version: "V3.0.0",
-  title: "Bobine V3.0.0 — Sortie Officielle Multi-Plateforme",
-  publishedAt: "2026-09-06T12:53:00Z",
+  version: "V3.0.2",
+  title: "Bobine V3.0.2 — Sortie Officielle Android Native & Accélération Matérielle",
+  publishedAt: "2026-09-09T20:00:00Z",
   downloads: {
-    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-Setup-3.0.0.exe",
-    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/bobine_3.0.0_amd64.deb",
-    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/Bobine-3.0.0.dmg",
-    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/bobine-assistant",
-    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.0/install.sh",
+    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/Bobine-Setup-3.0.2.exe",
+    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/bobine_3.0.2_amd64.deb",
+    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/Bobine-3.0.2.dmg",
+    android: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/Bobine-3.0.2.apk",
+    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/bobine-assistant",
+    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/install.sh",
   },
 };
 
 const FALLBACK_BETA: ReleaseChannelInfo = {
   version: "beta",
   title: "Bobine — Bêta (build automatique)",
-  publishedAt: "2026-09-07T18:00:00Z",
+  publishedAt: "2026-09-09T20:00:00Z",
   downloads: {
     windows: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe",
     linux: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb",
     macos: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.dmg",
+    android: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.apk",
     assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant",
     installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/install.sh",
   },
@@ -111,12 +113,11 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
     {
       id: "android",
       name: "Android",
-      subtitle: isEn ? "Tablets & ARM tactile kiosks" : "Tablettes & Bornes tactiles ARM",
-      format: isEn ? "Feasibility study" : "Étude de faisabilité",
-      badge: isEn ? "Roadmap" : "À venir",
-      statusLabel: isEn ? "In development" : "En développement",
-      url: "#",
-      isComingSoon: true,
+      subtitle: isEn ? "Tablets & ARM touch kiosks" : "Tablettes & Bornes tactiles ARM",
+      format: isEn ? "Package .apk" : "Paquet .apk",
+      badge: isEn ? "1-click install" : "Installation 1 clic",
+      url: stableInfo.downloads.android,
+      isComingSoon: false,
       icon: <AndroidIcon size={27} className="os-download-card__icon" />,
     },
     {

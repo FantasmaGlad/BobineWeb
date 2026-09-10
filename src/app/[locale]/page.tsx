@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import type { Locale } from "@/lib/i18n";
 import { isLocale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
@@ -75,27 +76,32 @@ export default async function HomePage({
                 : "Désormais disponible sur Android ! 09/09/2026"}
             </span>
           </div>
-          <img
-            src="/images/AndroidRelease.png"
+          <Image
+            src="/images/AndroidRelease.webp"
             alt=""
             className="hero-fullscreen__backdrop-img"
             width={720}
             height={720}
-            loading="eager"
+            sizes="(max-width: 639px) 240px, (max-width: 1023px) 340px, 420px"
+            priority={false}
           />
         </div>
 
         <div className="hero-fullscreen__content">
-          <h1 className="hero-fullscreen__title">
-            {t.title}
-          </h1>
+          <OsDownloadGrid
+            locale={locale as Locale}
+            headerSlot={
+              <>
+                <h1 className="hero-fullscreen__title">
+                  {t.title}
+                </h1>
 
-          <p className="hero-fullscreen__subtitle">
-            {t.subtitle}
-          </p>
-
-          {/* Grille de téléchargement direct pour les 4 OS (Linux, Windows, macOS, Android) */}
-          <OsDownloadGrid locale={locale as Locale} />
+                <p className="hero-fullscreen__subtitle">
+                  {t.subtitle}
+                </p>
+              </>
+            }
+          />
         </div>
 
         <ScrollIndicator

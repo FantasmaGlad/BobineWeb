@@ -1,10 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import type { Locale } from "@/lib/i18n";
-import TerminalDemo from "@/components/TerminalDemo";
-import TauriDemo from "@/components/TauriDemo";
 import NetworkIcon from "@/components/icons/NetworkIcon";
+
+const TerminalDemo = dynamic(() => import("@/components/TerminalDemo"), {
+  ssr: false,
+  loading: () => <div className="terminal-demo-placeholder" style={{ minHeight: "380px" }} />,
+});
+
+const TauriDemo = dynamic(() => import("@/components/TauriDemo"), {
+  ssr: false,
+  loading: () => <div className="tauri-demo-placeholder" style={{ minHeight: "380px" }} />,
+});
 
 interface HeadlessInstallSectionProps {
   locale: Locale;

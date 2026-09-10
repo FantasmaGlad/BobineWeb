@@ -39,7 +39,13 @@ const FALLBACK_BETA: ReleaseChannelInfo = {
   },
 };
 
-export default function OsDownloadGrid({ locale }: { locale: Locale }) {
+export default function OsDownloadGrid({
+  locale,
+  headerSlot,
+}: {
+  locale: Locale;
+  headerSlot?: ReactNode;
+}) {
   const isEn = locale === "en";
   const [stableInfo, setStableInfo] = useState<ReleaseChannelInfo>(FALLBACK_STABLE);
   const [betaInfo, setBetaInfo] = useState<ReleaseChannelInfo>(FALLBACK_BETA);
@@ -249,25 +255,56 @@ export default function OsDownloadGrid({ locale }: { locale: Locale }) {
     );
   };
 
+  const scrollToOtherVersions = () => {
+    const el = document.getElementById("other-os-versions");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.scrollBy({ top: window.innerHeight * 0.85, behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="os-download-shell">
-      {/* Sur mobile, la carte recommandée occupe son propre bloc pleine
-          hauteur avec le repère de defilement epingle en bas ; sur
-          desktop, ce wrapper s'efface (display:contents) et rejoint la
-          grille commune pour garder les 5 cartes sur une seule rangee. */}
-      <div className={`os-download-featured${detected ? " os-download-featured--detected" : ""}`}>
-        {renderCard(featuredCard)}
-        {detected && (
-          <div className="os-download-mobile-hint" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      {/* VUE MOBILE (< 640px) : Premier écran dynamique 100dvh avec carte recommandée et repère de défilement ancré en bas */}
+      <div className="os-download-mobile-view">
+        <div className="os-download-first-screen">
+          {headerSlot && (
+            <div className="os-download-first-screen__header">
+              {headerSlot}
+            </div>
+          )}
+          <div className={`os-download-featured${detected ? " os-download-featured--detected" : ""}`}>
+            {renderCard(featuredCard)}
+          </div>
+          <button
+            type="button"
+            className="os-download-mobile-hint"
+            onClick={scrollToOtherVersions}
+            aria-label={isEn ? "Scroll to see other versions" : "Défiler pour voir les autres versions"}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <polyline points="6 9 12 15 18 9" />
             </svg>
             <span>{isEn ? "Scroll to see other versions" : "Défiler pour voir les autres versions"}</span>
+          </button>
+        </div>
+
+        <div id="other-os-versions" className="os-download-grid" role="region" aria-label={isEn ? "Other versions" : "Autres versions"}>
+          {restCards.map((card) => renderCard(card))}
+        </div>
+      </div>
+
+      {/* VUE DESKTOP (>= 640px) : Grille 5 colonnes immuable, zéro déplacement DOM, zéro CLS */}
+      <div className="os-download-desktop-view">
+        {headerSlot && (
+          <div className="os-download-desktop-header">
+            {headerSlot}
           </div>
         )}
-      </div>
-      <div className="os-download-grid" role="region" aria-label={isEn ? "Direct downloads" : "Téléchargements directs"}>
-        {restCards.map((card) => renderCard(card))}
+        <div className="os-download-desktop-grid" role="region" aria-label={isEn ? "Direct downloads" : "Téléchargements directs"}>
+          {cards.map((card) => renderCard(card))}
+        </div>
       </div>
 
       <DownloadModal

@@ -33,6 +33,13 @@ let cachedPlatform: DetectedPlatform | undefined;
 
 function getClientSnapshot(): DetectedPlatform {
   if (cachedPlatform === undefined) {
+    if (typeof document !== "undefined") {
+      const attr = document.documentElement.getAttribute("data-platform") as DetectedPlatform;
+      if (attr) {
+        cachedPlatform = attr;
+        return cachedPlatform;
+      }
+    }
     cachedPlatform = detectPlatform();
   }
   return cachedPlatform;

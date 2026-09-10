@@ -34,6 +34,9 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
   experimental: {
     optimizeCss: true,
     optimizePackageImports: [

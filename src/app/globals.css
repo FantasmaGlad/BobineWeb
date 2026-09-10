@@ -2873,8 +2873,8 @@ main {
 }
 
 @keyframes pulseEnterPrompt {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent-primary) 30%, transparent); }
-  50% { transform: scale(1.02); box-shadow: 0 0 8px 2px color-mix(in srgb, var(--accent-primary) 30%, transparent); }
+  0%, 100% { transform: scale(1); opacity: 0.92; }
+  50% { transform: scale(1.04); opacity: 1; }
 }
 
 @keyframes cursorBlink {
@@ -3215,7 +3215,7 @@ main {
   align-items: center;
   flex-shrink: 0;
   white-space: nowrap;
-  animation: tickerScroll 130s linear infinite;
+  animation: tickerScroll 260s linear infinite;
 }
 
 @keyframes tickerScroll {
@@ -5850,19 +5850,19 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* Version mobile (< 1024px) : visible en fond en bas à droite */
-  top: auto;
-  bottom: 0.75rem;
-  right: -1.5rem;
+  /* Version mobile (< 1024px) : placée derrière le titre, centrée à droite */
+  top: 1.25rem;
+  bottom: auto;
+  right: -0.75rem;
   transform: none;
-  width: min(74vw, 340px);
-  max-height: 50%;
-  opacity: 0.52;
+  width: min(58vw, 240px);
+  max-height: 210px;
+  opacity: 0.85;
   transition: opacity 0.3s ease;
 }
 
 [data-theme="light"] .hero-fullscreen__backdrop-art {
-  opacity: 0.40;
+  opacity: 0.70;
 }
 
 @media (min-width: 1024px) {
@@ -6918,18 +6918,31 @@ main {
    featured retrouve sa propre boîte pour épingler le repère de
    défilement en bas de son bloc (voir media query plus bas). */
 .os-download-shell {
+  width: 100%;
+  max-width: 100%;
+}
+
+.os-download-desktop-view {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.os-download-desktop-header {
+  width: 100%;
+}
+
+.os-download-desktop-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: clamp(1rem, 1.6vw, 1.4rem);
   width: 100%;
-  max-width: 100%;
   margin-top: clamp(1.25rem, 2.5vh, 2rem);
   margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
 }
 
-.os-download-featured,
-.os-download-grid {
-  display: contents;
+.os-download-mobile-view {
+  display: none;
 }
 
 /* Ordre visuel fixe dès 640px : évite le décalage de mise en page (CLS)
@@ -7196,31 +7209,56 @@ main {
     min-height: 0;
   }
 
+  .os-download-desktop-view {
+    display: none !important;
+  }
+
+  .os-download-mobile-view {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .os-download-first-screen {
+    min-height: calc(100svh - 4.5rem - env(safe-area-inset-bottom, 0px));
+    min-height: calc(100dvh - 4.5rem - env(safe-area-inset-bottom, 0px));
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: max(0.35rem, env(safe-area-inset-bottom, 0px));
+  }
+
+  .os-download-first-screen__header {
+    display: flex;
+    flex-direction: column;
+  }
+
   .os-download-shell {
     display: flex;
     flex-direction: column;
     flex: 1;
     min-height: 0;
-    gap: 0.5rem;
     margin-top: 0.4rem;
     margin-bottom: 0.25rem;
   }
 
   .os-download-featured {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    min-height: 0;
+    margin: 0.4rem 0;
   }
 
-  /* Quand un appareil est détecté, la carte recommandée + le repère de
-     défilement occupent tout l'espace restant jusqu'au bas de l'écran :
-     le repère est ainsi toujours épinglé au vrai bas du premier écran,
-     et la carte suivante ne dépasse jamais du premier écran. */
   .os-download-featured--detected {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     flex: 1;
     min-height: 0;
-    gap: 0.35rem;
   }
 
   .os-download-grid {
@@ -7228,6 +7266,8 @@ main {
     grid-template-columns: 1fr;
     gap: 0.75rem;
     flex-shrink: 0;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
   }
 
   .os-download-card {
@@ -7241,10 +7281,20 @@ main {
 
   .os-download-mobile-hint {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
     margin-top: auto;
-    padding: 0.25rem 0 0.35rem;
+    padding: 0.35rem 0 0.5rem;
     padding-bottom: max(0.35rem, env(safe-area-inset-bottom, 0px));
     font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    animation: osDownloadHintBounce 1.8s ease-in-out infinite;
   }
 }
 

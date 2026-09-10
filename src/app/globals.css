@@ -5921,15 +5921,13 @@ main {
   height: auto;
   object-fit: contain;
   opacity: 0.88;
-  filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.45));
   mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.4) 8%, black 28%, black 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.4) 8%, black 28%, black 100%);
-  transition: opacity 0.3s ease, filter 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 [data-theme="light"] .hero-fullscreen__backdrop-img {
   opacity: 0.78;
-  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.18));
 }
 
 .hero-fullscreen__title {
@@ -8760,14 +8758,22 @@ main {
 }
 
 @media (max-width: 640px) {
+  .download-modal-backdrop {
+    padding: 0.75rem 0.5rem;
+  }
+  .download-modal {
+    max-height: calc(100svh - 1.5rem);
+  }
   .download-modal__cards-grid {
     grid-template-columns: 1fr;
   }
   .download-modal__header {
-    padding: 1.25rem 1.25rem 1rem;
+    padding: 1.15rem 1.15rem 0.85rem;
   }
   .download-modal__body {
-    padding: 1rem;
+    padding: 0.85rem 1rem 1.25rem;
+    max-height: calc(100svh - 120px);
+    -webkit-overflow-scrolling: touch;
   }
 }
 

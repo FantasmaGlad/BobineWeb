@@ -306,7 +306,7 @@ export default function DownloadModal({
                   target="_blank"
                   rel="noopener noreferrer"
                   download
-                  onClick={onClose}
+                  onClick={() => setTimeout(onClose, 300)}
                 >
                   <svg
                     width="16"
@@ -357,7 +357,7 @@ export default function DownloadModal({
                   target="_blank"
                   rel="noopener noreferrer"
                   download
-                  onClick={onClose}
+                  onClick={() => setTimeout(onClose, 300)}
                 >
                   <svg
                     width="16"

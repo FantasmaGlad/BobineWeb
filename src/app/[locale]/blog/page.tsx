@@ -210,9 +210,18 @@ export default async function BlogIndexPage({
             </div>
           )}
 
+          {/* INDICATEUR DE DÉFILEMENT (PLACÉ AU-DESSUS DE L'ENCADRÉ BÊTA) */}
+          <div style={{ display: "flex", justifyContent: "center", paddingTop: "0.25rem", paddingBottom: "1rem" }}>
+            <ScrollIndicator
+              locale={locale as Locale}
+              label={t.scrollOtherVersions}
+              targetId="beta-release"
+            />
+          </div>
+
           {/* CARTE DÉDIÉE : CANAL BÊTA (ROLLING BETA) */}
           {betaRelease && (
-            <div className="blog-hero-release-card blog-hero-release-card--beta">
+            <div id="beta-release" className="blog-hero-release-card blog-hero-release-card--beta" style={{ scrollMarginTop: "6.85rem" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", flexWrap: "wrap" }}>
                 <span
                   className="badge"
@@ -287,16 +296,6 @@ export default async function BlogIndexPage({
             </div>
           )}
         </div>
-
-        {historyReleases.length > 0 && (
-          <div style={{ display: "flex", justifyContent: "center", paddingTop: "0.5rem", paddingBottom: "1.25rem" }}>
-            <ScrollIndicator
-              locale={locale as Locale}
-              label={t.scrollOtherVersions}
-              targetId="release-history"
-            />
-          </div>
-        )}
       </section>
 
       {/* 2. HISTORIQUE DES VERSIONS / RELEASES GITHUB */}

@@ -1,0 +1,21 @@
+.release-body__attachment {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 34rem;
+  margin-inline: auto;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-subtle);
+  margin-block: 1.5rem;
+  background: var(--bg-card);
+}
+.release-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md, 8px);
+}
+.release-body p[align="center"],
+.release-body p:has(img) {
+  text-align: center;
+}

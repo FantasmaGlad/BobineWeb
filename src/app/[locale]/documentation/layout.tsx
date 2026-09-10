@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import DocsSidebar from "@/components/DocsSidebar";
 import DocsSearch from "@/components/DocsSearch";
+import "@/styles/split/docs.css";
 import DocsMobileNav from "@/components/DocsMobileNav";
 import DocsTableOfContents from "@/components/DocsTableOfContents";
 

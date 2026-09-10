@@ -5363,7 +5363,6 @@ main {
 
 .support-hero-viewport {
   min-height: calc(100svh - 6.5rem);
-  min-height: calc(100dvh - 6.5rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -5829,7 +5828,6 @@ main {
   max-width: 100%;
   width: 100%;
   min-height: calc(100svh - 6.5rem);
-  min-height: calc(100dvh - 6.5rem);
   justify-content: space-between;
   padding-top: clamp(1.5rem, 3vh, 2.5rem);
   padding-bottom: clamp(1.25rem, 2.5vh, 2rem);
@@ -6018,10 +6016,9 @@ main {
 
 @media (max-width: 1023px) {
   .hero-fullscreen {
-    min-height: calc(100svh - 6.5rem - env(safe-area-inset-bottom, 0px));
-    min-height: calc(100dvh - 6.5rem - env(safe-area-inset-bottom, 0px));
-    padding-top: clamp(1rem, 2vh, 1.5rem);
-    padding-bottom: clamp(0.75rem, 1.5vh, 1.25rem);
+    min-height: calc(100svh - 6.85rem - env(safe-area-inset-bottom, 0px));
+    padding-top: clamp(0.75rem, 1.5vh, 1.25rem);
+    padding-bottom: clamp(0.5rem, 1.2vh, 1rem);
     justify-content: space-between;
   }
 
@@ -6048,7 +6045,8 @@ main {
 
   .hero-fullscreen__scroll {
     margin-top: auto;
-    padding: 0.3rem 0.65rem;
+    margin-bottom: 0.5rem;
+    padding: 0.35rem 0.75rem;
     font-size: 0.8rem;
   }
 }
@@ -7182,10 +7180,11 @@ main {
 
 @media (max-width: 639px) {
   .hero-fullscreen {
-    min-height: calc(100svh - 4.5rem - env(safe-area-inset-bottom, 0px));
-    min-height: calc(100dvh - 4.5rem - env(safe-area-inset-bottom, 0px));
-    padding-top: 0.75rem;
-    padding-bottom: max(0.35rem, env(safe-area-inset-bottom, 0px));
+    min-height: calc(100svh - 6.85rem - env(safe-area-inset-bottom, 0px));
+    padding-top: 0.65rem;
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
+    box-sizing: border-box;
+    justify-content: space-between;
   }
 
   .hero-fullscreen__title {
@@ -7198,10 +7197,18 @@ main {
     margin-bottom: 0.6rem;
   }
 
-  /* Le contenu du hero (titre, sous-titre, grille OS) grandit pour
-     occuper toute la hauteur disponible sous le header, en pur CSS
-     (flex + unités dvh) plutôt qu'une hauteur figée calculée en JS au
-     chargement. */
+  .hero-fullscreen__scroll {
+    margin-top: auto;
+    margin-bottom: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.76rem;
+    align-self: center;
+  }
+
+  .hero-fullscreen:has(.os-download-shell) > .hero-fullscreen__scroll {
+    display: none !important;
+  }
+
   .hero-fullscreen__content {
     display: flex;
     flex-direction: column;
@@ -7217,17 +7224,16 @@ main {
     display: flex;
     flex-direction: column;
     width: 100%;
-    flex: 1;
-    min-height: 0;
   }
 
   .os-download-first-screen {
-    min-height: calc(100svh - 4.5rem - env(safe-area-inset-bottom, 0px));
-    min-height: calc(100dvh - 4.5rem - env(safe-area-inset-bottom, 0px));
+    min-height: calc(100svh - 6.85rem - env(safe-area-inset-bottom, 0px));
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-bottom: max(0.35rem, env(safe-area-inset-bottom, 0px));
+    padding-top: 0.25rem;
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
+    box-sizing: border-box;
   }
 
   .os-download-first-screen__header {
@@ -7238,8 +7244,6 @@ main {
   .os-download-shell {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    min-height: 0;
     margin-top: 0.4rem;
     margin-bottom: 0.25rem;
   }
@@ -7248,17 +7252,16 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    flex: 1;
-    min-height: 0;
-    margin: 0.4rem 0;
+    margin: auto 0;
+    width: 100%;
   }
 
   .os-download-featured--detected {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    flex: 1;
-    min-height: 0;
+    margin: auto 0;
+    width: 100%;
   }
 
   .os-download-grid {
@@ -7268,6 +7271,10 @@ main {
     flex-shrink: 0;
     padding-top: 1rem;
     padding-bottom: 2rem;
+  }
+
+  #other-os-versions {
+    scroll-margin-top: 6.85rem;
   }
 
   .os-download-card {
@@ -7285,8 +7292,8 @@ main {
     align-items: center;
     gap: 0.15rem;
     margin-top: auto;
-    padding: 0.35rem 0 0.5rem;
-    padding-bottom: max(0.35rem, env(safe-area-inset-bottom, 0px));
+    margin-bottom: 0.4rem;
+    padding: 0.35rem 0.65rem;
     font-size: 0.74rem;
     font-weight: 600;
     color: var(--text-muted);

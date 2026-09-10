@@ -134,8 +134,8 @@ export default function ThemeSwitcher() {
           onClick={handleToggleOpen}
           aria-expanded={isOpen}
           aria-haspopup="dialog"
-          title="Ouvrir la liste complète des 18 thèmes"
-          aria-label="Ouvrir la liste complète des 18 thèmes"
+          title={`Ouvrir la liste complète des ${themes.length} thèmes`}
+          aria-label={`Ouvrir la liste complète des ${themes.length} thèmes`}
         >
           <svg
             width="12"

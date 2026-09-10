@@ -10,7 +10,6 @@ export const lightThemes = [
 ] as const;
 
 export const darkThemes = [
-  "sombre",
   "charbon",
   "lune",
   "hiver",
@@ -42,7 +41,6 @@ export const themeLabels: Record<Theme, string> = {
   glacier: "Glacier",
   rose: "Rose",
   // Thèmes Sombres
-  sombre: "Sombre",
   charbon: "Charbon",
   lune: "Lune",
   hiver: "Hiver",
@@ -74,7 +72,6 @@ export const themeMeta: Record<Theme, ThemeMeta> = {
   rose: { label: "Rose", bg: "#fdf2f7", accent: "#db2777", isDark: false, desc: "Quartz & Pivoine" },
 
   // --- Collection Sombre ---
-  sombre: { label: "Sombre", bg: "#0d0f12", accent: "#f8fafc", isDark: true, desc: "Studio & Titane" },
   charbon: { label: "Charbon", bg: "#08090a", accent: "#ffffff", isDark: true, desc: "OLED Noir Pur" },
   lune: { label: "Lune", bg: "#0c0b1e", accent: "#818cf8", isDark: true, desc: "Indigo Cosmique" },
   hiver: { label: "Hiver", bg: "#06131a", accent: "#06b6d4", isDark: true, desc: "Glacier Boréal" },

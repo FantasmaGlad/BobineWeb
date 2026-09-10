@@ -1,11 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import type { Locale } from "@/lib/i18n";
 import type { ReleaseChannelInfo } from "@/app/api/github-stats/route";
 
 export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "cli" | "tauri";
+
+const subscribe = () => () => {};
+const getSnapshot = () => true;
+const getServerSnapshot = () => false;
 
 interface DownloadModalProps {
   isOpen: boolean;
@@ -27,13 +31,9 @@ export default function DownloadModal({
   const isEn = locale === "en";
   const activePlatform: DownloadPlatform = initialPlatform;
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
+  const isMounted = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const modalRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Gestion de la touche Échap et verrouillage du défilement
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function DownloadModal({
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen || !mounted) return null;
+  if (!isOpen || !isMounted) return null;
 
   const copyToClipboard = (text: string, key: string) => {
     if (navigator.clipboard) {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import type { Locale } from "@/lib/i18n";
 import type { ReleaseChannelInfo } from "@/app/api/github-stats/route";
 
@@ -26,8 +27,13 @@ export default function DownloadModal({
   const isEn = locale === "en";
   const activePlatform: DownloadPlatform = initialPlatform;
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
   const modalRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Gestion de la touche Échap et verrouillage du défilement
   useEffect(() => {
@@ -54,7 +60,7 @@ export default function DownloadModal({
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
   const copyToClipboard = (text: string, key: string) => {
     if (navigator.clipboard) {
@@ -133,7 +139,7 @@ export default function DownloadModal({
 
   const details = getPlatformDetails();
 
-  return (
+  return createPortal(
     <div
       className="download-modal-backdrop"
       onClick={(e) => {
@@ -383,6 +389,7 @@ export default function DownloadModal({
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

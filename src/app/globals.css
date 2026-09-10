@@ -41,11 +41,11 @@
   --logo-filter: none;
   --max-width: 76rem;
 
-  /* Badge d'annonce Android — Couleurs du robot calibrées WCAG AAA */
-  --android-badge-fg: #0d6832;
-  --android-badge-bg: rgba(13, 104, 50, 0.08);
-  --android-badge-border: rgba(13, 104, 50, 0.28);
-  --android-badge-glow: rgba(13, 104, 50, 0.12);
+  /* Badge d'annonce Android — Couleurs dérivées dynamiquement du thème actif */
+  --android-badge-fg: var(--accent-primary);
+  --android-badge-bg: color-mix(in srgb, var(--accent-primary) 12%, var(--bg-card));
+  --android-badge-border: color-mix(in srgb, var(--accent-primary) 35%, var(--border-subtle));
+  --android-badge-glow: color-mix(in srgb, var(--accent-primary) 20%, transparent);
 
   /* Rétrocompatibilité */
   --bg-main: var(--bg-canvas);
@@ -321,10 +321,10 @@
 :root[data-theme="taupe"],
 :root[data-theme="foret"],
 :root[data-theme="abysse"] {
-  --android-badge-fg: #3DDC84;
-  --android-badge-bg: rgba(61, 220, 132, 0.12);
-  --android-badge-border: rgba(61, 220, 132, 0.38);
-  --android-badge-glow: rgba(61, 220, 132, 0.22);
+  --android-badge-fg: var(--accent-primary);
+  --android-badge-bg: color-mix(in srgb, var(--accent-primary) 15%, var(--bg-card));
+  --android-badge-border: color-mix(in srgb, var(--accent-primary) 40%, var(--border-subtle));
+  --android-badge-glow: color-mix(in srgb, var(--accent-primary) 25%, transparent);
 }
 
 :root[data-theme="sombre"] {
@@ -5855,12 +5855,12 @@ main {
   transform: none;
   width: min(58vw, 240px);
   max-height: 210px;
-  opacity: 0.85;
+  opacity: 1;
   transition: opacity 0.3s ease;
 }
 
 [data-theme="light"] .hero-fullscreen__backdrop-art {
-  opacity: 0.70;
+  opacity: 1;
 }
 
 @media (min-width: 1024px) {
@@ -5920,14 +5920,14 @@ main {
   width: 100%;
   height: auto;
   object-fit: contain;
-  opacity: 0.88;
+  opacity: 1;
   mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.4) 8%, black 28%, black 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.4) 8%, black 28%, black 100%);
   transition: opacity 0.3s ease;
 }
 
 [data-theme="light"] .hero-fullscreen__backdrop-img {
-  opacity: 0.78;
+  opacity: 1;
 }
 
 .hero-fullscreen__title {
@@ -6078,7 +6078,19 @@ main {
    ========================================================================== */
 .blog-hero-section {
   width: 100%;
-  padding-block: clamp(1.5rem, 3.5vw, 2.5rem);
+  min-height: calc(100svh - 6.85rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: clamp(1rem, 2.5vw, 1.75rem);
+}
+
+.blog-hero-scroll-wrap {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  padding-top: 0.75rem;
+  padding-bottom: 0.5rem;
 }
 
 .blog-hero-release-card {
@@ -8757,22 +8769,25 @@ main {
   color: var(--accent-primary-fg, #ffffff);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .download-modal-backdrop {
-    padding: 0.75rem 0.5rem;
+    top: 6.5rem;
+    align-items: flex-start;
+    padding: 0.5rem 0.5rem 1.25rem;
   }
   .download-modal {
-    max-height: calc(100svh - 1.5rem);
+    max-height: calc(100svh - 6.5rem - 1rem);
   }
   .download-modal__cards-grid {
     grid-template-columns: 1fr;
   }
   .download-modal__header {
-    padding: 1.15rem 1.15rem 0.85rem;
+    padding: 1rem 1rem 0.75rem;
   }
   .download-modal__body {
-    padding: 0.85rem 1rem 1.25rem;
-    max-height: calc(100svh - 120px);
+    padding: 0.75rem 0.85rem 1rem;
+    max-height: calc(100svh - 6.5rem - 5.5rem);
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
 }

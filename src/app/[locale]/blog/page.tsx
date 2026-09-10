@@ -209,94 +209,96 @@ export default async function BlogIndexPage({
               </div>
             </div>
           )}
+        </div>
 
-          {/* INDICATEUR DE DÉFILEMENT (PLACÉ AU-DESSUS DE L'ENCADRÉ BÊTA) */}
-          <div style={{ display: "flex", justifyContent: "center", paddingTop: "0.25rem", paddingBottom: "1rem" }}>
-            <ScrollIndicator
-              locale={locale as Locale}
-              label={t.scrollOtherVersions}
-              targetId="beta-release"
-            />
-          </div>
-
-          {/* CARTE DÉDIÉE : CANAL BÊTA (ROLLING BETA) */}
-          {betaRelease && (
-            <div id="beta-release" className="blog-hero-release-card blog-hero-release-card--beta" style={{ scrollMarginTop: "6.85rem" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", flexWrap: "wrap" }}>
-                <span
-                  className="badge"
-                  style={{
-                    fontSize: "0.8rem",
-                    padding: "0.2rem 0.6rem",
-                    fontWeight: 800,
-                    fontFamily: "monospace",
-                    background: "var(--accent-subtle)",
-                    borderColor: "var(--accent-primary)",
-                    color: "var(--text-heading)",
-                  }}
-                >
-                  beta
-                </span>
-                <span
-                  style={{
-                    fontSize: "0.725rem",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.04em",
-                    padding: "0.15rem 0.5rem",
-                    borderRadius: "4px",
-                    border: "1px solid var(--border-subtle)",
-                    color: "var(--text-muted)",
-                  }}
-                >
-                  {t.betaBadge}
-                </span>
-                {betaRelease.publishedAt && (
-                  <time style={{ color: "var(--text-dim)", fontSize: "0.825rem" }}>
-                    {new Date(betaRelease.publishedAt).toLocaleDateString(
-                      locale === "fr" ? "fr-FR" : "en-US",
-                      { year: "numeric", month: "long", day: "numeric" }
-                    )}
-                  </time>
-                )}
-              </div>
-
-              <h3 style={{ fontSize: "1.15rem", fontWeight: 700, color: "var(--text-heading)", margin: 0, lineHeight: 1.35 }}>
-                <Link
-                  href={`/${locale}/blog/beta`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {t.betaTitle}
-                </Link>
-              </h3>
-
-              <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: 1.55 }}>
-                {t.betaDesc}
-              </p>
-
-              <div style={{ display: "flex", gap: "0.65rem", flexWrap: "wrap", alignItems: "center", marginTop: "0.25rem" }}>
-                <Link
-                  href={`/${locale}/blog/beta`}
-                  className="btn-secondary"
-                  style={{ textDecoration: "none", fontSize: "0.85rem", padding: "0.45rem 0.9rem" }}
-                >
-                  <span>{t.betaAction}</span>
-                </Link>
-                <a
-                  href={betaRelease.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-secondary"
-                  style={{ textDecoration: "none", fontSize: "0.85rem", padding: "0.45rem 0.9rem" }}
-                >
-                  <GitHubIcon size={15} />
-                  <span>{t.viewOnGithub}</span>
-                </a>
-              </div>
-            </div>
-          )}
+        {/* INDICATEUR DE DÉFILEMENT (PLACÉ EN BAS DE LA SECTION HERO) */}
+        <div className="blog-hero-scroll-wrap">
+          <ScrollIndicator
+            locale={locale as Locale}
+            label={t.scrollOtherVersions}
+            targetId={betaRelease ? "beta-release" : "release-history"}
+          />
         </div>
       </section>
+
+      {/* 2. CARTE DÉDIÉE : CANAL BÊTA (ROLLING BETA) — PLACÉE HORS DU PREMIER ÉCRAN */}
+      {betaRelease && (
+        <section id="beta-release" style={{ scrollMarginTop: "6.85rem", paddingTop: "1.25rem", paddingBottom: "0.5rem" }}>
+          <div className="blog-hero-release-card blog-hero-release-card--beta">
+            <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", flexWrap: "wrap" }}>
+              <span
+                className="badge"
+                style={{
+                  fontSize: "0.8rem",
+                  padding: "0.2rem 0.6rem",
+                  fontWeight: 800,
+                  fontFamily: "monospace",
+                  background: "var(--accent-subtle)",
+                  borderColor: "var(--accent-primary)",
+                  color: "var(--text-heading)",
+                }}
+              >
+                beta
+              </span>
+              <span
+                style={{
+                  fontSize: "0.725rem",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.04em",
+                  padding: "0.15rem 0.5rem",
+                  borderRadius: "4px",
+                  border: "1px solid var(--border-subtle)",
+                  color: "var(--text-muted)",
+                }}
+              >
+                {t.betaBadge}
+              </span>
+              {betaRelease.publishedAt && (
+                <time style={{ color: "var(--text-dim)", fontSize: "0.825rem" }}>
+                  {new Date(betaRelease.publishedAt).toLocaleDateString(
+                    locale === "fr" ? "fr-FR" : "en-US",
+                    { year: "numeric", month: "long", day: "numeric" }
+                  )}
+                </time>
+              )}
+            </div>
+
+            <h3 style={{ fontSize: "1.15rem", fontWeight: 700, color: "var(--text-heading)", margin: 0, lineHeight: 1.35 }}>
+              <Link
+                href={`/${locale}/blog/beta`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                {t.betaTitle}
+              </Link>
+            </h3>
+
+            <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: 1.55 }}>
+              {t.betaDesc}
+            </p>
+
+            <div style={{ display: "flex", gap: "0.65rem", flexWrap: "wrap", alignItems: "center", marginTop: "0.25rem" }}>
+              <Link
+                href={`/${locale}/blog/beta`}
+                className="btn-secondary"
+                style={{ textDecoration: "none", fontSize: "0.85rem", padding: "0.45rem 0.9rem" }}
+              >
+                <span>{t.betaAction}</span>
+              </Link>
+              <a
+                href={betaRelease.url}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-secondary"
+                style={{ textDecoration: "none", fontSize: "0.85rem", padding: "0.45rem 0.9rem" }}
+              >
+                <GitHubIcon size={15} />
+                <span>{t.viewOnGithub}</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 2. HISTORIQUE DES VERSIONS / RELEASES GITHUB */}
       {historyReleases.length > 0 && (

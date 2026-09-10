@@ -10,6 +10,7 @@ import {
 import { buildMetadata } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import GitHubIcon from "@/components/icons/GitHubIcon";
+import ScrollIndicator from "@/components/ScrollIndicator";
 
 const copy = {
   fr: {
@@ -22,6 +23,7 @@ const copy = {
     betaDesc: "Version continue construite automatiquement sur le tag mobile beta. Elle s'installe directement par-dessus votre version existante sans créer d'application doublon.",
     betaAction: "Consulter la release Bêta & le Changelog",
     releasesHeading: "Historique des versions",
+    scrollOtherVersions: "Défiler pour découvrir d'autres versions",
     empty: "Aucune version publiée pour le moment.",
     readMore: "Lire les détails de la version",
     viewOnGithub: "Voir sur GitHub",
@@ -38,6 +40,7 @@ const copy = {
     betaDesc: "Rolling build updated continuously on GitHub tag beta. Installs in place over your existing app without creating duplicates.",
     betaAction: "View Beta Release & Changelog",
     releasesHeading: "Release History",
+    scrollOtherVersions: "Scroll down to discover other versions",
     empty: "No releases found yet.",
     readMore: "Read release details",
     viewOnGithub: "View on GitHub",
@@ -284,11 +287,21 @@ export default async function BlogIndexPage({
             </div>
           )}
         </div>
+
+        {historyReleases.length > 0 && (
+          <div style={{ display: "flex", justifyContent: "center", paddingTop: "0.5rem", paddingBottom: "1.25rem" }}>
+            <ScrollIndicator
+              locale={locale as Locale}
+              label={t.scrollOtherVersions}
+              targetId="release-history"
+            />
+          </div>
+        )}
       </section>
 
       {/* 2. HISTORIQUE DES VERSIONS / RELEASES GITHUB */}
       {historyReleases.length > 0 && (
-        <div style={{ paddingTop: "2rem", paddingBottom: "4rem" }}>
+        <div id="release-history" style={{ paddingTop: "1.25rem", paddingBottom: "4rem", scrollMarginTop: "6.85rem" }}>
           <div style={{ marginBottom: "0.85rem", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "0.4rem" }}>
             <h2 style={{ fontSize: "1.15rem", fontWeight: 700, color: "var(--text-heading)", margin: 0 }}>
               {t.releasesHeading}

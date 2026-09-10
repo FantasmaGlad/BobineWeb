@@ -6111,7 +6111,11 @@ main {
   border: 1px solid var(--border-subtle);
   border-left: 4px solid var(--accent-primary);
   background: color-mix(in srgb, var(--accent-subtle) 22%, var(--bg-card));
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+#release-history {
+  scroll-margin-top: 6.85rem;
 }
 
 @media (min-width: 1024px) {

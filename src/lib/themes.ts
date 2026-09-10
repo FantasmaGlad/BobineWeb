@@ -72,15 +72,15 @@ export const themeMeta: Record<Theme, ThemeMeta> = {
   rose: { label: "Rose", bg: "#fdf2f7", accent: "#db2777", isDark: false, desc: "Quartz & Pivoine" },
 
   // --- Collection Sombre ---
-  charbon: { label: "Charbon", bg: "#08090a", accent: "#ffffff", isDark: true, desc: "OLED Noir Pur" },
-  lune: { label: "Lune", bg: "#0c0b1e", accent: "#818cf8", isDark: true, desc: "Indigo Cosmique" },
-  hiver: { label: "Hiver", bg: "#06131a", accent: "#06b6d4", isDark: true, desc: "Glacier Boréal" },
-  chili: { label: "Chili", bg: "#140406", accent: "#ef4444", isDark: true, desc: "Crimson Rubis" },
-  automne: { label: "Automne", bg: "#140e08", accent: "#f59e0b", isDark: true, desc: "Ambre & Cuir" },
-  orchidee: { label: "Orchidée", bg: "#180916", accent: "#d946ef", isDark: true, desc: "Cyberpunk Magenta" },
-  taupe: { label: "Taupe", bg: "#181513", accent: "#d97706", isDark: true, desc: "Espresso & Bronze" },
-  foret: { label: "Forêt", bg: "#05140d", accent: "#10b981", isDark: true, desc: "Sapin & Émeraude" },
-  abysse: { label: "Abysse", bg: "#040d1a", accent: "#38bdf8", isDark: true, desc: "Océan Abyssal" },
+  charbon: { label: "Charbon", bg: "#060708", accent: "#ffffff", isDark: true, desc: "OLED Noir Pur" },
+  lune: { label: "Lune", bg: "#090818", accent: "#818cf8", isDark: true, desc: "Indigo Cosmique" },
+  hiver: { label: "Hiver", bg: "#040f15", accent: "#06b6d4", isDark: true, desc: "Glacier Boréal" },
+  chili: { label: "Chili", bg: "#100305", accent: "#e11d48", isDark: true, desc: "Crimson Rubis" },
+  automne: { label: "Automne", bg: "#100a05", accent: "#f59e0b", isDark: true, desc: "Ambre & Cuir" },
+  orchidee: { label: "Orchidée", bg: "#120511", accent: "#d946ef", isDark: true, desc: "Cyberpunk Magenta" },
+  taupe: { label: "Taupe", bg: "#120f0e", accent: "#d97706", isDark: true, desc: "Espresso & Bronze" },
+  foret: { label: "Forêt", bg: "#040f09", accent: "#10b981", isDark: true, desc: "Sapin & Émeraude" },
+  abysse: { label: "Abysse", bg: "#030a14", accent: "#38bdf8", isDark: true, desc: "Océan Abyssal" },
 };
 
 export const THEME_STORAGE_KEY = "bobineweb-theme";

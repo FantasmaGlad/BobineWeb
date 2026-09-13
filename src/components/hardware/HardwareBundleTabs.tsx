@@ -5,9 +5,11 @@ import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
 import {
   HARDWARE_BUNDLES,
+  STANDALONE_ACCESSORIES,
   PRICE_CHECKED_AT,
   type OsKey,
   type TierKey,
+  type FormFactorKey,
   type HardwareItem,
 } from "@/content/hardware";
 import LinuxIcon from "@/components/icons/LinuxIcon";
@@ -15,6 +17,7 @@ import WindowsIcon from "@/components/icons/WindowsIcon";
 import AppleIcon from "@/components/icons/AppleIcon";
 import AndroidIcon from "@/components/icons/AndroidIcon";
 import VendorBadge from "@/components/hardware/VendorBadge";
+import HardwareAccessoriesGrid from "@/components/hardware/HardwareAccessoriesGrid";
 
 interface HardwareBundleTabsProps {
   locale: Locale;
@@ -35,14 +38,23 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
   const checkedDate = formatCheckedDate(PRICE_CHECKED_AT, isEn);
 
   const [selectedOs, setSelectedOs] = useState<OsKey>("linux");
+  const [selectedFormFactor, setSelectedFormFactor] = useState<FormFactorKey>("minipc");
   const [selectedTier, setSelectedTier] = useState<TierKey>("recommande");
 
   const currentBundle = HARDWARE_BUNDLES[selectedOs];
-  const currentTier = currentBundle.tiers[selectedTier] || currentBundle.tiers.recommande;
+  const formFactorKeys = Object.keys(currentBundle.formFactors) as FormFactorKey[];
+  const activeFormFactorKey = currentBundle.formFactors[selectedFormFactor]
+    ? selectedFormFactor
+    : formFactorKeys[0];
+  const currentFormFactor = currentBundle.formFactors[activeFormFactorKey]!;
+  const currentTier = currentFormFactor.tiers[selectedTier] || currentFormFactor.tiers[currentFormFactor.defaultTier];
 
   const totalAmazon = currentTier.items.reduce((acc, item) => acc + item.priceAmazon, 0);
   const mainItem = currentTier.items.find((item) => item.category === "uc") ?? currentTier.items[0];
   const accessoryItems = currentTier.items.filter((item) => item.id !== mainItem?.id);
+  const showFanBadge = activeFormFactorKey === "minipc" && (selectedOs === "linux" || selectedOs === "windows" || selectedOs === "macos") && mainItem;
+
+  const filteredStandaloneAccessories = STANDALONE_ACCESSORIES.filter((acc) => acc.compatibleOs.includes(selectedOs));
 
   const osList: Array<{ id: OsKey; label: string; badge?: string; icon: React.ReactNode }> = [
     {
@@ -70,6 +82,12 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
       icon: <AndroidIcon size={18} />,
     },
   ];
+
+  const formFactorLabels: Record<FormFactorKey, { fr: string; en: string }> = {
+    minipc: { fr: "Mini PC", en: "Mini PC" },
+    laptop: { fr: "PC Portable", en: "Laptop" },
+    tablet: { fr: "Tablette", en: "Tablet" },
+  };
 
   const tierList: Array<{ id: TierKey; label: string; sub: string }> = [
     {
@@ -116,8 +134,13 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
               aria-selected={isActive}
               onClick={() => {
                 setSelectedOs(item.id);
-                if (!HARDWARE_BUNDLES[item.id].tiers[selectedTier]) {
-                  setSelectedTier("recommande");
+                const nextKeys = Object.keys(HARDWARE_BUNDLES[item.id].formFactors) as FormFactorKey[];
+                if (!nextKeys.includes(selectedFormFactor)) {
+                  setSelectedFormFactor(nextKeys[0]);
+                }
+                const nextFormFactor = HARDWARE_BUNDLES[item.id].formFactors[nextKeys.includes(selectedFormFactor) ? selectedFormFactor : nextKeys[0]]!;
+                if (!nextFormFactor.tiers[selectedTier]) {
+                  setSelectedTier(nextFormFactor.defaultTier);
                 }
               }}
               style={{
@@ -200,11 +223,11 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                   margin: 0,
                 }}
               >
-                {isEn ? currentBundle.titleEn : currentBundle.titleFr}
+                {isEn ? currentFormFactor.titleEn : currentFormFactor.titleFr}
               </h2>
             </div>
             <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", margin: "0 0 0.4rem 0" }}>
-              {isEn ? currentBundle.subtitleEn : currentBundle.subtitleFr}
+              {isEn ? currentFormFactor.subtitleEn : currentFormFactor.subtitleFr}
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", flexWrap: "wrap" }}>
               <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 600 }}>
@@ -220,41 +243,90 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                   border: "1px solid var(--border-subtle)",
                 }}
               >
-                {isEn ? currentBundle.targetEn : currentBundle.targetFr}
+                {isEn ? currentFormFactor.targetEn : currentFormFactor.targetFr}
               </span>
             </div>
           </div>
+        </div>
 
-          {/* 3. SÉLECTEUR DE GAMME INTERNE (Essentiel, Recommandé, Pro, Premium) */}
+        {/* 3. SÉLECTEUR MINI PC / PC PORTABLE (masqué si une seule voie disponible) */}
+        {formFactorKeys.length > 1 && (
           <div
             className="stepper-mode-toggle"
             role="tablist"
-            aria-label={isEn ? "Tier level" : "Gamme de performance"}
-            style={{ alignSelf: "center", flexWrap: "wrap" }}
+            aria-label={isEn ? "Hardware form factor" : "Type de matériel"}
+            style={{ marginBottom: "1rem", flexWrap: "wrap" }}
           >
-            {tierList.map((tier) => {
-              const isTierActive = selectedTier === tier.id;
+            {formFactorKeys.map((key) => {
+              const isFormActive = activeFormFactorKey === key;
               return (
                 <button
-                  key={tier.id}
+                  key={key}
                   role="tab"
-                  aria-selected={isTierActive}
-                  onClick={() => setSelectedTier(tier.id)}
-                  className={`stepper-mode-btn ${isTierActive ? "is-active" : ""}`}
-                  style={{
-                    padding: "0.45rem 0.85rem",
-                    fontSize: "0.775rem",
+                  aria-selected={isFormActive}
+                  onClick={() => {
+                    setSelectedFormFactor(key);
+                    const nextFormFactor = currentBundle.formFactors[key]!;
+                    if (!nextFormFactor.tiers[selectedTier]) {
+                      setSelectedTier(nextFormFactor.defaultTier);
+                    }
                   }}
+                  className={`stepper-mode-btn ${isFormActive ? "is-active" : ""}`}
+                  style={{ padding: "0.45rem 0.85rem", fontSize: "0.775rem" }}
                 >
-                  <span>{tier.label}</span>
+                  <span>{isEn ? formFactorLabels[key].en : formFactorLabels[key].fr}</span>
                 </button>
               );
             })}
           </div>
+        )}
+
+        {/* 4. SÉLECTEUR DE GAMME (Essentiel, Recommandé, Pro, Premium) */}
+        <div
+          className="stepper-mode-toggle"
+          role="tablist"
+          aria-label={isEn ? "Tier level" : "Gamme de performance"}
+          style={{ marginBottom: "1.25rem", flexWrap: "wrap" }}
+        >
+          {tierList.map((tier) => {
+            const isTierActive = selectedTier === tier.id;
+            return (
+              <button
+                key={tier.id}
+                role="tab"
+                aria-selected={isTierActive}
+                onClick={() => setSelectedTier(tier.id)}
+                className={`stepper-mode-btn ${isTierActive ? "is-active" : ""}`}
+                style={{
+                  padding: "0.45rem 0.85rem",
+                  fontSize: "0.775rem",
+                }}
+              >
+                <span>{tier.label}</span>
+              </button>
+            );
+          })}
         </div>
 
-        <div key={`${selectedOs}-${selectedTier}`} className="hw-fade-panel">
-          {/* 4. DÉTAILS DE LA GAMME ACTIVE */}
+        <div key={`${selectedOs}-${activeFormFactorKey}-${selectedTier}`} className="hw-fade-panel">
+          {currentFormFactor.editorialNoteFr && (
+            <div
+              style={{
+                marginBottom: "1.25rem",
+                padding: "0.85rem 1rem",
+                borderRadius: "0.5rem",
+                background: "var(--bg-inset)",
+                border: "1px solid var(--border-subtle)",
+                fontSize: "0.8rem",
+                color: "var(--text-muted)",
+                lineHeight: 1.55,
+              }}
+            >
+              {isEn ? currentFormFactor.editorialNoteEn : currentFormFactor.editorialNoteFr}
+            </div>
+          )}
+
+          {/* 5. DÉTAILS DE LA GAMME ACTIVE */}
           <div style={{ marginBottom: "1.5rem" }}>
             <div
               style={{
@@ -293,7 +365,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                     {isEn ? currentTier.badgeEn : currentTier.badgeFr}
                   </span>
                 )}
-                {mainItem && (selectedOs === "linux" || selectedOs === "windows") && (
+                {showFanBadge && (
                   <span
                     style={{
                       fontSize: "0.675rem",
@@ -302,12 +374,12 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                       letterSpacing: "0.03em",
                       padding: "0.15rem 0.45rem",
                       borderRadius: "0.3rem",
-                      background: mainItem.hasFan ? "var(--bg-inset)" : "rgba(16, 185, 129, 0.14)",
-                      color: mainItem.hasFan ? "var(--text-muted)" : "#059669",
-                      border: mainItem.hasFan ? "1px solid var(--border-subtle)" : "1px solid rgba(16, 185, 129, 0.35)",
+                      background: mainItem!.hasFan ? "var(--bg-inset)" : "rgba(16, 185, 129, 0.14)",
+                      color: mainItem!.hasFan ? "var(--text-muted)" : "#059669",
+                      border: mainItem!.hasFan ? "1px solid var(--border-subtle)" : "1px solid rgba(16, 185, 129, 0.35)",
                     }}
                   >
-                    {mainItem.hasFan
+                    {mainItem!.hasFan
                       ? (isEn ? "Quiet fan" : "Ventilateur silencieux")
                       : (isEn ? "100% Fanless" : "100% Fanless")}
                   </span>
@@ -363,7 +435,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
             </p>
           </div>
 
-          {/* 5. UNITÉ PRINCIPALE — carte hero large écran */}
+          {/* 6. UNITÉ PRINCIPALE — carte hero large écran */}
           {mainItem && (
             <div
               className="hw-item-card hw-item-card--hero"
@@ -465,7 +537,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
             </div>
           )}
 
-          {/* 6. ACCESSOIRES DU PACK — grille 2/3 colonnes qui tire parti d'un écran large */}
+          {/* 7. ACCESSOIRES DU PACK — grille qui tire parti d'un écran large, alignement fixe */}
           {accessoryItems.length > 0 && (
             <div
               className="hw-accessory-grid"
@@ -488,6 +560,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                     display: "flex",
                     flexDirection: "column",
                     gap: "0.5rem",
+                    height: "100%",
                   }}
                 >
                   <div style={{ display: "flex", gap: "0.7rem", alignItems: "flex-start" }}>
@@ -528,6 +601,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                       alignItems: "center",
                       justifyContent: "space-between",
                       paddingTop: "0.5rem",
+                      marginTop: "auto",
                       borderTop: "1px dashed var(--border-subtle)",
                     }}
                   >
@@ -550,6 +624,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                         borderRadius: "0.35rem",
                         textDecoration: "none",
                         whiteSpace: "nowrap",
+                        flexShrink: 0,
                       }}
                     >
                       <span>Amazon</span>
@@ -565,7 +640,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
             </div>
           )}
 
-          {/* 7. SYNTHÈSE BUDGÉTAIRE */}
+          {/* 8. SYNTHÈSE BUDGÉTAIRE */}
           <div
             style={{
               background: "var(--bg-inset)",
@@ -631,7 +706,10 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
         </div>
       </div>
 
-      {/* 8. BARRE D'ACHAT FIXE MOBILE — reste accessible pendant le scroll sur téléphone */}
+      {/* 9. ACCESSOIRES & CÂBLERIE À L'UNITÉ — filtrés selon l'OS sélectionné ci-dessus */}
+      <HardwareAccessoriesGrid locale={locale} items={filteredStandaloneAccessories} />
+
+      {/* 10. BARRE D'ACHAT FIXE MOBILE — reste accessible pendant le scroll d'achat sur téléphone */}
       <div className="hw-mobile-buybar">
         <div className="hw-mobile-buybar-info">
           <span className="hw-mobile-buybar-price">{totalAmazon.toFixed(2)} €</span>

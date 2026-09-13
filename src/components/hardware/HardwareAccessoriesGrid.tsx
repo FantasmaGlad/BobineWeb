@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
-import { STANDALONE_ACCESSORIES, PRICE_CHECKED_AT } from "@/content/hardware";
+import { PRICE_CHECKED_AT, type StandaloneAccessory } from "@/content/hardware";
 
 function formatCheckedDate(iso: string, isEn: boolean) {
   const d = new Date(`${iso}T00:00:00Z`);
@@ -15,9 +15,11 @@ function formatCheckedDate(iso: string, isEn: boolean) {
   });
 }
 
-export default function HardwareAccessoriesGrid({ locale }: { locale: Locale }) {
+export default function HardwareAccessoriesGrid({ locale, items }: { locale: Locale; items: StandaloneAccessory[] }) {
   const isEn = locale === "en";
   const checkedDate = formatCheckedDate(PRICE_CHECKED_AT, isEn);
+
+  if (items.length === 0) return null;
 
   return (
     <div style={{ marginTop: "3.5rem" }}>
@@ -65,7 +67,7 @@ export default function HardwareAccessoriesGrid({ locale }: { locale: Locale }) 
           gap: "1rem",
         }}
       >
-        {STANDALONE_ACCESSORIES.map((acc) => {
+        {items.map((acc) => {
           const name = isEn ? acc.nameEn : acc.nameFr;
           const desc = isEn ? acc.descriptionEn : acc.descriptionFr;
           const cat = isEn ? acc.categoryEn : acc.categoryFr;

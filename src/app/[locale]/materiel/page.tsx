@@ -4,8 +4,6 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import HardwareBundleTabs from "@/components/hardware/HardwareBundleTabs";
-import HardwareAccessoriesGrid from "@/components/hardware/HardwareAccessoriesGrid";
-import HardwareRoiCard from "@/components/hardware/HardwareRoiCard";
 import AffiliationNotice from "@/components/hardware/AffiliationNotice";
 
 export async function generateMetadata({
@@ -75,12 +73,12 @@ export default async function HardwarePage({
       {
         "@type": "Product",
         position: 1,
-        name: "Pack Linux Appliance — Dell Wyse 5070 J5005 Studio",
+        name: "Pack Linux Appliance — Mini PC Industriel Fanless N100",
         description:
-          "Mini PC fanless autonome Intel Pentium Silver J5005, 8 Go RAM, 128 Go SSD M.2, câble DisplayPort vers HDMI 4K60 et télécommande 2.4 GHz USB.",
+          "Mini PC industriel 100% fanless Intel N100, 8 Go DDR4, 256 Go NVMe SSD, double sortie HDMI + DisplayPort, câble vidéo et télécommande 2.4 GHz USB.",
         offers: {
           "@type": "Offer",
-          price: "109.00",
+          price: "592.00",
           priceCurrency: "EUR",
           availability: "https://schema.org/InStock",
         },
@@ -88,12 +86,12 @@ export default async function HardwarePage({
       {
         "@type": "Product",
         position: 2,
-        name: "Pack Windows Desktop — Beelink S12 Pro Intel N100",
+        name: "Pack Windows Desktop — Beelink Mini S12 Pro Intel N100",
         description:
-          "Mini PC Intel Alder Lake N100 16 Go DDR5, SSD NVMe 500 Go, Windows 11 Pro, câble HDMI 2.1 48 Gbps et télécommande 2.4 GHz USB.",
+          "Mini PC Intel N100, 16 Go RAM, 512 Go SSD NVMe, Windows 11 Pro, câble HDMI 2.1 48 Gbps et télécommande 2.4 GHz USB.",
         offers: {
           "@type": "Offer",
-          price: "189.00",
+          price: "359.00",
           priceCurrency: "EUR",
           availability: "https://schema.org/InStock",
         },
@@ -101,12 +99,12 @@ export default async function HardwarePage({
       {
         "@type": "Product",
         position: 3,
-        name: "Pack Android Tactile — Xiaomi Pad 6 & Hub HDMI Power Delivery",
+        name: "Pack Android Tactile — Samsung Galaxy Tab A9+ & Support Mural Antivol",
         description:
-          "Tablette Snapdragon avec sortie vidéo filaire DisplayPort Alt Mode, hub adaptateur USB-C vers HDMI avec charge continue 100W et fixation sécurisée.",
+          "Tablette Samsung Galaxy Tab A9+ 11 pouces, support mural antivol verrouillable et câble d'alimentation continue 100W.",
         offers: {
           "@type": "Offer",
-          price: "289.00",
+          price: "285.00",
           priceCurrency: "EUR",
           availability: "https://schema.org/InStock",
         },
@@ -126,24 +124,6 @@ export default async function HardwarePage({
       {/* Hero Section */}
       <section style={{ paddingTop: "1.5rem", marginBottom: "2rem" }}>
         <div style={{ maxWidth: "52rem" }}>
-          <span
-            style={{
-              fontSize: "0.725rem",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.06em",
-              padding: "0.2rem 0.5rem",
-              borderRadius: "0.35rem",
-              background: "var(--bg-inset)",
-              color: "var(--accent-primary)",
-              border: "1px solid var(--border-subtle)",
-              display: "inline-block",
-              marginBottom: "0.75rem",
-            }}
-          >
-            {isEn ? "Hardware Recommendations & Bundles" : "Recommandations Matérielles & Packs"}
-          </span>
-
           <h1
             style={{
               fontSize: "clamp(1.75rem, 3.2vw, 2.5rem)",
@@ -174,16 +154,10 @@ export default async function HardwarePage({
         </div>
       </section>
 
-      {/* 1. Les 4 Bundles par OS (Linux, Windows, macOS, Android) */}
+      {/* 1. Les Bundles par OS (Linux, Windows, macOS, Android), avec accessoires filtrés intégrés */}
       <HardwareBundleTabs locale={currentLocale} />
 
-      {/* 2. Accessoires & Câblerie à l'unité */}
-      <HardwareAccessoriesGrid locale={currentLocale} />
-
-      {/* 3. Comparatif ROI : Bobine vs Systèmes Propriétaires */}
-      <HardwareRoiCard locale={currentLocale} />
-
-      {/* 4. Avertissement d'affiliation officiel conforme Amazon & DGCCRF */}
+      {/* 2. Avertissement d'affiliation officiel conforme Amazon & DGCCRF */}
       <AffiliationNotice locale={currentLocale} />
     </div>
   );

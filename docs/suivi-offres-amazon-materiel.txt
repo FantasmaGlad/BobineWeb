@@ -2,7 +2,7 @@ SUIVI DES OFFRES AMAZON — BOBINE / MATERIEL
 ============================================================
 Genere automatiquement depuis src/content/hardware.ts
 Date de derniere verification des prix/liens (PRICE_CHECKED_AT) : 2026-09-13
-Nombre total de produits uniques references : 31
+Nombre total de produits uniques references : 43
 
 MODE D'EMPLOI POUR UNE MISE A JOUR (à la main) :
 1. Ouvrir chaque lien Amazon ci-dessous et relever le prix affiche a l'instant T.
@@ -12,6 +12,73 @@ MODE D'EMPLOI POUR UNE MISE A JOUR (à la main) :
    remplacement reel sur amazon.fr (jamais inventer un ASIN), et mettre a jour
    ASIN + nom + prix + image dans hardware.ts (et retelecharger l'image reelle).
 4. Mettre a jour la constante PRICE_CHECKED_AT (format AAAA-MM-JJ) apres verification.
+5. Chaque gamme 'PC Portable' recommande desormais un vrai laptop achetable (voir
+   categorie ORDINATEURS PORTABLES) : ne jamais laisser cette voie redevenir
+   accessoire-only (hub/dock seul), c'est le bug corrige le 2026-09-13.
+
+------------------------------------------------------------
+ORDINATEURS PORTABLES (PC Portable)
+------------------------------------------------------------
+
+[B0B8QYXY9H] Acer Aspire Go 17 (Intel N150 / 8 Go RAM / 128 Go UFS, Windows 11)
+  Prix constate (2026-09-13) : 403.75 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0B8QYXY9H?tag=fantasmaglad-21
+  Utilise dans                        : Windows / PC Portable / Essentiel
+
+[B0GR1SJYGS] Apple MacBook Air 13" (Puce M5 / 24 Go RAM / 1 To SSD)
+  Prix constate (2026-09-13) : 1799.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0GR1SJYGS?tag=fantasmaglad-21
+  Utilise dans                        : macOS / PC Portable / Recommandé
+
+[B0DZDCKSD2] Apple MacBook Air 15" (Puce M4 / 16 Go RAM / 256 Go SSD)
+  Prix constate (2026-09-13) : 1269.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0DZDCKSD2?tag=fantasmaglad-21
+  Utilise dans                        : macOS / PC Portable / Essentiel
+
+[B0GR1RL3W6] Apple MacBook Pro 14" (Puce M5 / 32 Go RAM / 1 To SSD)
+  Prix constate (2026-09-13) : 2439.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0GR1RL3W6?tag=fantasmaglad-21
+  Utilise dans                        : macOS / PC Portable / Pro
+
+[B0GR1NMSKK] Apple MacBook Pro 16" (Puce M5 Pro / 24 Go RAM / 1 To SSD)
+  Prix constate (2026-09-13) : 3099.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0GR1NMSKK?tag=fantasmaglad-21
+  Utilise dans                        : macOS / PC Portable / Premium
+
+[B0H6GZKCSW] ASUS Vivobook X1607CA 16" (Intel Core Ultra 7 255H / 16 Go RAM / 512 Go SSD, Windows 11 Pro)
+  Prix constate (2026-09-13) : 1200.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0H6GZKCSW?tag=fantasmaglad-21
+  Utilise dans                        : Linux / PC Portable / Pro
+
+[B0GPN76ZSX] Dell XPS 13 (Intel Core Ultra 7 258V / 32 Go RAM / 1 To SSD)
+  Prix constate (2026-09-13) : 1779.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0GPN76ZSX?tag=fantasmaglad-21
+  Utilise dans                        : Windows / PC Portable / Premium
+
+[B0G3XPHHP2] HP 15-fc0009sf (AMD Ryzen 7-7730U / 16 Go RAM / 512 Go SSD, Windows 11)
+  Prix constate (2026-09-13) : 634.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0G3XPHHP2?tag=fantasmaglad-21
+  Utilise dans                        : Windows / PC Portable / Pro
+
+[B0G3XT2BLZ] HP 15-fc0012sf (AMD Ryzen 3-7320U / 8 Go RAM / 512 Go SSD, Windows 11)
+  Prix constate (2026-09-13) : 529.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0G3XT2BLZ?tag=fantasmaglad-21
+  Utilise dans                        : Windows / PC Portable / Recommandé
+
+[B0F142ZQLN] Lenovo ThinkPad X1 Carbon Gen 12 (Intel Core Ultra 5 125U / 16 Go RAM / 512 Go SSD)
+  Prix constate (2026-09-13) : 1922.29 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0F142ZQLN?tag=fantasmaglad-21
+  Utilise dans                        : Linux / PC Portable / Premium
+
+[B0GR1DNB5G] MSI Modern 14 (AMD Ryzen 7 7730U / 16 Go RAM / 512 Go SSD, sans système d'exploitation)
+  Prix constate (2026-09-13) : 705.31 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0GR1DNB5G?tag=fantasmaglad-21
+  Utilise dans                        : Linux / PC Portable / Recommandé
+
+[B0H3P2WZ9Z] Ordinateur Portable 15,3" (Core i5-8210Y / 24 Go RAM / 512 Go SSD, Windows 11)
+  Prix constate (2026-09-13) : 322.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0H3P2WZ9Z?tag=fantasmaglad-21
+  Utilise dans                        : Linux / PC Portable / Essentiel
 
 ------------------------------------------------------------
 SUPPORTS & FIXATIONS

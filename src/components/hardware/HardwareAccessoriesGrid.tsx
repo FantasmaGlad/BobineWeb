@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
 import { STANDALONE_ACCESSORIES } from "@/content/hardware";
 
@@ -79,7 +80,7 @@ export default function HardwareAccessoriesGrid({ locale }: { locale: Locale }) 
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    marginBottom: "0.5rem",
+                    marginBottom: "0.75rem",
                   }}
                 >
                   <span
@@ -108,32 +109,70 @@ export default function HardwareAccessoriesGrid({ locale }: { locale: Locale }) 
                   </span>
                 </div>
 
-                <h3
+                {/* Miniature photo et en-tête produit */}
+                <div
                   style={{
-                    fontSize: "0.95rem",
-                    fontWeight: 700,
-                    color: "var(--text-heading)",
-                    lineHeight: 1.35,
-                    margin: "0 0 0.4rem 0",
+                    display: "flex",
+                    gap: "0.85rem",
+                    marginBottom: "0.75rem",
+                    alignItems: "flex-start",
                   }}
                 >
-                  {name}
-                </h3>
-
-                <p
-                  style={{
-                    fontSize: "0.775rem",
-                    fontWeight: 600,
-                    color: "var(--text-heading)",
-                    background: "var(--bg-inset)",
-                    padding: "0.25rem 0.5rem",
-                    borderRadius: "0.3rem",
-                    margin: "0 0 0.5rem 0",
-                    fontFamily: "var(--font-mono, monospace)",
-                  }}
-                >
-                  {acc.specs}
-                </p>
+                  <div
+                    style={{
+                      width: "64px",
+                      height: "64px",
+                      borderRadius: "0.45rem",
+                      border: "1px solid var(--border-subtle)",
+                      background: "#ffffff",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      overflow: "hidden",
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Image
+                      src={acc.imageUrl}
+                      alt={name}
+                      width={56}
+                      height={56}
+                      style={{
+                        objectFit: "contain",
+                        width: "100%",
+                        height: "100%",
+                        padding: "4px",
+                      }}
+                    />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <h3
+                      style={{
+                        fontSize: "0.925rem",
+                        fontWeight: 700,
+                        color: "var(--text-heading)",
+                        lineHeight: 1.35,
+                        margin: "0 0 0.35rem 0",
+                      }}
+                    >
+                      {name}
+                    </h3>
+                    <div
+                      style={{
+                        fontSize: "0.725rem",
+                        fontWeight: 600,
+                        color: "var(--text-heading)",
+                        background: "var(--bg-inset)",
+                        padding: "0.2rem 0.45rem",
+                        borderRadius: "0.3rem",
+                        display: "inline-block",
+                        fontFamily: "var(--font-mono, monospace)",
+                      }}
+                    >
+                      {acc.specs}
+                    </div>
+                  </div>
+                </div>
 
                 <p
                   style={{
@@ -153,6 +192,7 @@ export default function HardwareAccessoriesGrid({ locale }: { locale: Locale }) 
                   target="_blank"
                   rel="nofollow sponsored noopener noreferrer"
                   className="btn-secondary"
+                  title={isEn ? "Open official Amazon product sheet" : "Ouvrir la fiche produit officielle Amazon"}
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -161,7 +201,7 @@ export default function HardwareAccessoriesGrid({ locale }: { locale: Locale }) 
                     width: "100%",
                     fontSize: "0.8rem",
                     fontWeight: 600,
-                    padding: "0.45rem 0.75rem",
+                    padding: "0.5rem 0.75rem",
                     borderRadius: "0.45rem",
                     textDecoration: "none",
                     textAlign: "center",
@@ -181,8 +221,19 @@ export default function HardwareAccessoriesGrid({ locale }: { locale: Locale }) 
                     <polyline points="15 3 21 3 21 9" />
                     <line x1="10" y1="14" x2="21" y2="3" />
                   </svg>
-                  <span>{isEn ? "View on Amazon" : "Voir sur Amazon"}</span>
+                  <span>{isEn ? "Product Sheet (Amazon)" : "Fiche Produit (Amazon)"}</span>
                 </a>
+                <div style={{ textAlign: "center", marginTop: "0.35rem" }}>
+                  <span
+                    style={{
+                      fontSize: "0.675rem",
+                      color: "var(--text-muted)",
+                      fontFamily: "var(--font-mono, monospace)",
+                    }}
+                  >
+                    Réf {acc.asin}
+                  </span>
+                </div>
               </div>
             </div>
           );

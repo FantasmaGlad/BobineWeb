@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
 import {
   HARDWARE_BUNDLES,
@@ -81,6 +82,11 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
       label: isEn ? "Pro" : "Gamme Pro",
       sub: isEn ? "High Cadence" : "Multi-Écrans",
     },
+    {
+      id: "premium",
+      label: isEn ? "Premium" : "Premium",
+      sub: isEn ? "No Compromise" : "Sans Compromis",
+    },
   ];
 
   return (
@@ -105,7 +111,6 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
               aria-selected={isActive}
               onClick={() => {
                 setSelectedOs(item.id);
-                // Si la gamme sélectionnée n'existe pas dans le nouvel OS, fallback sur recommandé
                 if (!HARDWARE_BUNDLES[item.id].tiers[selectedTier]) {
                   setSelectedTier("recommande");
                 }
@@ -211,12 +216,12 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
             </div>
           </div>
 
-          {/* 3. SÉLECTEUR DE GAMME INTERNE (Essentiel, Recommandé, Pro) */}
+          {/* 3. SÉLECTEUR DE GAMME INTERNE (Essentiel, Recommandé, Pro, Premium) */}
           <div
             className="stepper-mode-toggle"
             role="tablist"
             aria-label={isEn ? "Tier level" : "Gamme de performance"}
-            style={{ alignSelf: "center" }}
+            style={{ alignSelf: "center", flexWrap: "wrap" }}
           >
             {tierList.map((tier) => {
               const isTierActive = selectedTier === tier.id;
@@ -328,10 +333,33 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
           <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: 1.5, margin: 0 }}>
             {isEn ? currentTier.summaryEn : currentTier.summaryFr}
           </p>
+
+          {/* Note de transparence tarifaire pour le Wyse 5070 */}
+          {selectedOs === "linux" && (
+            <div
+              style={{
+                marginTop: "0.75rem",
+                padding: "0.6rem 0.85rem",
+                borderRadius: "0.45rem",
+                background: "var(--bg-inset)",
+                border: "1px solid var(--border-subtle)",
+                fontSize: "0.775rem",
+                color: "var(--text-muted)",
+                lineHeight: 1.4,
+              }}
+            >
+              <strong style={{ color: "var(--text-heading)" }}>
+                {isEn ? "Market Availability Note :" : "Note sur l'approvisionnement du Wyse 5070 :"}
+              </strong>{" "}
+              {isEn
+                ? "The Dell Wyse 5070 is an enterprise decommissioned model. Amazon pricing reflects certified renewed availability (~€130 - €160). For budget second-hand deals (€55 - €75), check circular economy platforms (eBay, Back Market, AfB Shop). If you prefer a brand new unit with direct manufacturer warranty on Amazon, check the Windows Mini PC tab (Intel N100)."
+                : "Le Dell Wyse 5070 étant un matériel d'entreprise déclassé, son tarif sur Amazon correspond aux stocks reconditionnés certifiés (~130 € - 160 €). Pour dénicher le meilleur prix d'occasion (55 € - 75 €), privilégiez les circuits de reconditionnement (eBay, Back Market, AfB Shop). Si vous souhaitez une machine neuve sous garantie constructeur directe sur Amazon, consultez l'onglet Windows Mini PC (Intel N100)."}
+            </div>
+          )}
         </div>
 
-        {/* 5. LISTE DES COMPOSANTS DU PACK */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "1.75rem" }}>
+        {/* 5. LISTE DES COMPOSANTS DU PACK AVEC PHOTOS & LIENS DIRECTS */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem", marginBottom: "1.75rem" }}>
           {currentTier.items.map((item: HardwareItem) => {
             return (
               <div
@@ -342,11 +370,41 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                   borderRadius: "0.55rem",
                   padding: "1rem",
                   display: "grid",
-                  gridTemplateColumns: "minmax(0, 1fr) auto",
+                  gridTemplateColumns: "72px minmax(0, 1fr) auto",
                   alignItems: "center",
                   gap: "1rem",
                 }}
               >
+                {/* Miniature photo du produit */}
+                <div
+                  style={{
+                    width: "72px",
+                    height: "72px",
+                    borderRadius: "0.45rem",
+                    border: "1px solid var(--border-subtle)",
+                    background: "#ffffff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden",
+                    flexShrink: 0,
+                  }}
+                >
+                  <Image
+                    src={item.imageUrl}
+                    alt={item.name}
+                    width={64}
+                    height={64}
+                    style={{
+                      objectFit: "contain",
+                      width: "100%",
+                      height: "100%",
+                      padding: "4px",
+                    }}
+                  />
+                </div>
+
+                {/* Descriptif technique */}
                 <div>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.25rem" }}>
                     <h4
@@ -376,6 +434,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                   </p>
                 </div>
 
+                {/* Prix et bouton direct fiche produit Amazon */}
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.35rem" }}>
                   <span
                     style={{
@@ -392,13 +451,14 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                     target="_blank"
                     rel="nofollow sponsored noopener noreferrer"
                     className="btn-secondary"
+                    title={isEn ? "Open official Amazon product sheet" : "Ouvrir la fiche produit officielle Amazon"}
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
                       gap: "0.35rem",
                       fontSize: "0.75rem",
                       fontWeight: 600,
-                      padding: "0.35rem 0.65rem",
+                      padding: "0.4rem 0.75rem",
                       borderRadius: "0.35rem",
                       textDecoration: "none",
                       whiteSpace: "nowrap",
@@ -418,15 +478,24 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                       <polyline points="15 3 21 3 21 9" />
                       <line x1="10" y1="14" x2="21" y2="3" />
                     </svg>
-                    <span>{isEn ? "View on Amazon" : "Voir sur Amazon"}</span>
+                    <span>{isEn ? "Product Sheet (Amazon)" : "Fiche Produit (Amazon)"}</span>
                   </a>
+                  <span
+                    style={{
+                      fontSize: "0.675rem",
+                      color: "var(--text-muted)",
+                      fontFamily: "var(--font-mono, monospace)",
+                    }}
+                  >
+                    Réf {item.asin}
+                  </span>
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* 6. SYNTHÈSE BUDGÉTAIRE ET COMPARATEUR TRANSPARENT MULTI-CANAUX */}
+        {/* 6. SYNTHÈSE BUDGÉTAIRE ET REPERES MULTI-CANAUX */}
         <div
           style={{
             background: "var(--bg-inset)",
@@ -479,7 +548,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
             </div>
 
             <a
-              href={`https://www.amazon.fr/s?k=Bobine+pack+${selectedOs}&tag=fantasmaglad-21`}
+              href={currentTier.items[0]?.amazonUrl || `https://www.amazon.fr/dp/${currentTier.items[0]?.asin}?tag=fantasmaglad-21`}
               target="_blank"
               rel="nofollow sponsored noopener noreferrer"
               className="btn-primary"
@@ -508,7 +577,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                 <circle cx="20" cy="21" r="1" />
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
               </svg>
-              <span>{isEn ? "Equip Studio via Amazon" : "Équiper la Salle via Amazon"}</span>
+              <span>{isEn ? "View Central Unit on Amazon" : "Voir l'Unité Centrale sur Amazon"}</span>
             </a>
           </div>
 
@@ -552,8 +621,8 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                 </div>
                 <p style={{ fontSize: "0.725rem", color: "var(--text-muted)", margin: 0 }}>
                   {isEn
-                    ? "Delivery in 24-48h · Full A-to-Z guarantee · Zero friction returns"
-                    : "Livraison 24-48h · Garantie A à Z · Retours simples"}
+                    ? "Delivery in 24-48h · Full A-to-Z guarantee · Direct product sheets"
+                    : "Livraison 24-48h · Garantie A à Z · Fiches directes"}
                 </p>
               </div>
 

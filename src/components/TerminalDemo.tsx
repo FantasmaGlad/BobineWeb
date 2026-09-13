@@ -518,16 +518,18 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         {showBanner && (
           <div className="terminal-ascii-container">
             <svg
-              viewBox="0 0 118 20"
+              viewBox="0 0 118 40"
               preserveAspectRatio="xMinYMid meet"
               className="terminal-ascii-svg"
               role="img"
               aria-label="Logo Bobine ASCII"
             >
-              <path
-                fill="currentColor"
-                d="M3,0h20v1h-20z M1,1h26v1h-26z M1,2h2v1h-2z M7,2h2v1h-2z M18,2h2v1h-2z M23,2h5v1h-5z M1,3h2v1h-2z M7,3h2v1h-2z M18,3h2v1h-2z M23,3h6v1h-6z M1,4h2v1h-2z M4,4h23v1h-23z M28,4h2v1h-2z M1,5h29v1h-29z M53,5h6v1h-6z M73,5h6v1h-6z M2,6h10v1h-10z M20,6h7v1h-7z M28,6h2v1h-2z M53,6h6v1h-6z M73,6h6v1h-6z M3,7h22v1h-22z M28,7h2v1h-2z M53,7h6v1h-6z M73,7h6v1h-6z M3,8h10v1h-10z M16,8h5v1h-5z M23,8h7v1h-7z M53,8h6v1h-6z M3,9h6v1h-6z M17,9h13v1h-13z M36,9h13v1h-13z M53,9h16v1h-16z M73,9h6v1h-6z M81,9h16v1h-16z M103,9h12v1h-12z M2,10h5v1h-5z M17,10h2v1h-2z M20,10h2v1h-2z M26,10h5v1h-5z M35,10h15v1h-15z M53,10h17v1h-17z M73,10h6v1h-6z M81,10h17v1h-17z M102,10h15v1h-15z M1,11h5v1h-5z M27,11h4v1h-4z M34,11h7v1h-7z M45,11h6v1h-6z M53,11h8v1h-8z M64,11h8v1h-8z M73,11h6v1h-6z M81,11h8v1h-8z M92,11h7v1h-7z M101,11h6v1h-6z M112,11h6v1h-6z M0,12h6v1h-6z M13,12h2v1h-2z M23,12h3v1h-3z M28,12h4v1h-4z M33,12h6v1h-6z M46,12h6v1h-6z M53,12h6v1h-6z M66,12h6v1h-6z M73,12h6v1h-6z M81,12h7v1h-7z M93,12h6v1h-6z M100,12h18v1h-18z M0,13h6v1h-6z M14,13h2v1h-2z M18,13h2v1h-2z M28,13h4v1h-4z M33,13h6v1h-6z M46,13h6v1h-6z M53,13h6v1h-6z M66,13h6v1h-6z M73,13h6v1h-6z M81,13h6v1h-6z M93,13h6v1h-6z M100,13h18v1h-18z M0,14h11v1h-11z M15,14h3v1h-3z M20,14h12v1h-12z M33,14h7v1h-7z M45,14h7v1h-7z M53,14h7v1h-7z M66,14h6v1h-6z M73,14h6v1h-6z M81,14h6v1h-6z M93,14h6v1h-6z M100,14h6v1h-6z M1,15h3v1h-3z M5,15h21v1h-21z M27,15h5v1h-5z M34,15h17v1h-17z M53,15h18v1h-18z M73,15h6v1h-6z M81,15h6v1h-6z M93,15h6v1h-6z M101,15h15v1h-15z M0,16h5v1h-5z M6,16h1v1h-1z M8,16h9v1h-9z M18,16h3v1h-3z M22,16h9v1h-9z M35,16h15v1h-15z M53,16h17v1h-17z M73,16h6v1h-6z M81,16h6v1h-6z M93,16h6v1h-6z M102,16h15v1h-15z M1,17h4v1h-4z M7,17h8v1h-8z M16,17h3v1h-3z M20,17h1v1h-1z M24,17h7v1h-7z M38,17h10v1h-10z M53,17h15v1h-15z M73,17h6v1h-6z M81,17h6v1h-6z M93,17h6v1h-6z M105,17h10v1h-10z M2,18h27v1h-27z M5,19h21v1h-21z"
-              />
+              <g transform="scale(1, 2)">
+                <path
+                  fill="currentColor"
+                  d="M3,0h20v1h-20z M1,1h26v1h-26z M1,2h2v1h-2z M7,2h2v1h-2z M18,2h2v1h-2z M23,2h5v1h-5z M1,3h2v1h-2z M7,3h2v1h-2z M18,3h2v1h-2z M23,3h6v1h-6z M1,4h2v1h-2z M4,4h23v1h-23z M28,4h2v1h-2z M1,5h29v1h-29z M53,5h6v1h-6z M73,5h6v1h-6z M2,6h10v1h-10z M20,6h7v1h-7z M28,6h2v1h-2z M53,6h6v1h-6z M73,6h6v1h-6z M3,7h22v1h-22z M28,7h2v1h-2z M53,7h6v1h-6z M73,7h6v1h-6z M3,8h10v1h-10z M16,8h5v1h-5z M23,8h7v1h-7z M53,8h6v1h-6z M3,9h6v1h-6z M17,9h13v1h-13z M36,9h13v1h-13z M53,9h16v1h-16z M73,9h6v1h-6z M81,9h16v1h-16z M103,9h12v1h-12z M2,10h5v1h-5z M17,10h2v1h-2z M20,10h2v1h-2z M26,10h5v1h-5z M35,10h15v1h-15z M53,10h17v1h-17z M73,10h6v1h-6z M81,10h17v1h-17z M102,10h15v1h-15z M1,11h5v1h-5z M27,11h4v1h-4z M34,11h7v1h-7z M45,11h6v1h-6z M53,11h8v1h-8z M64,11h8v1h-8z M73,11h6v1h-6z M81,11h8v1h-8z M92,11h7v1h-7z M101,11h6v1h-6z M112,11h6v1h-6z M0,12h6v1h-6z M13,12h2v1h-2z M23,12h3v1h-3z M28,12h4v1h-4z M33,12h6v1h-6z M46,12h6v1h-6z M53,12h6v1h-6z M66,12h6v1h-6z M73,12h6v1h-6z M81,12h7v1h-7z M93,12h6v1h-6z M100,12h18v1h-18z M0,13h6v1h-6z M14,13h2v1h-2z M18,13h2v1h-2z M28,13h4v1h-4z M33,13h6v1h-6z M46,13h6v1h-6z M53,13h6v1h-6z M66,13h6v1h-6z M73,13h6v1h-6z M81,13h6v1h-6z M93,13h6v1h-6z M100,13h18v1h-18z M0,14h11v1h-11z M15,14h3v1h-3z M20,14h12v1h-12z M33,14h7v1h-7z M45,14h7v1h-7z M53,14h7v1h-7z M66,14h6v1h-6z M73,14h6v1h-6z M81,14h6v1h-6z M93,14h6v1h-6z M100,14h6v1h-6z M1,15h3v1h-3z M5,15h21v1h-21z M27,15h5v1h-5z M34,15h17v1h-17z M53,15h18v1h-18z M73,15h6v1h-6z M81,15h6v1h-6z M93,15h6v1h-6z M101,15h15v1h-15z M0,16h5v1h-5z M6,16h1v1h-1z M8,16h9v1h-9z M18,16h3v1h-3z M22,16h9v1h-9z M35,16h15v1h-15z M53,16h17v1h-17z M73,16h6v1h-6z M81,16h6v1h-6z M93,16h6v1h-6z M102,16h15v1h-15z M1,17h4v1h-4z M7,17h8v1h-8z M16,17h3v1h-3z M20,17h1v1h-1z M24,17h7v1h-7z M38,17h10v1h-10z M53,17h15v1h-15z M73,17h6v1h-6z M81,17h6v1h-6z M93,17h6v1h-6z M105,17h10v1h-10z M2,18h27v1h-27z M5,19h21v1h-21z"
+                />
+              </g>
             </svg>
             <div className="terminal-ascii-caption">
               <span className="terminal-ascii-tag">

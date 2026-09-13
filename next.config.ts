@@ -66,6 +66,22 @@ const nextConfig: NextConfig = {
         headers: securityHeaders,
       },
       {
+        source: "/robots.txt",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
+          { key: "CDN-Cache-Control", value: "max-age=0" },
+          { key: "Cloudflare-CDN-Cache-Control", value: "max-age=0" },
+        ],
+      },
+      {
+        source: "/sitemap.xml",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
+          { key: "CDN-Cache-Control", value: "max-age=0" },
+          { key: "Cloudflare-CDN-Cache-Control", value: "max-age=0" },
+        ],
+      },
+      {
         source: "/install.sh",
         headers: [{ key: "X-Robots-Tag", value: "noindex" }],
       },

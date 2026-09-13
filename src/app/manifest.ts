@@ -43,9 +43,9 @@ export default function manifest(): MetadataRoute.Manifest {
         description: "Guide d'installation et d'utilisation",
       },
       {
-        name: "Démo 3D",
-        url: "/fr/demo-3d",
-        description: "Découverte interactive du matériel Bobine",
+        name: "Matériel",
+        url: "/fr/materiel",
+        description: "Recommandations matérielles et packs par OS pour studio fitness",
       },
       {
         name: "Fonctionnalités",

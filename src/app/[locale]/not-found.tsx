@@ -63,7 +63,7 @@ export default function NotFound() {
           Guide d&apos;installation
         </Link>
         <Link
-          href="/fr/demo-3d"
+          href="/fr/materiel"
           className="btn-secondary"
           style={{
             padding: "0.5rem 1.15rem",
@@ -72,7 +72,7 @@ export default function NotFound() {
             borderRadius: "0.5rem",
           }}
         >
-          Démo 3D
+          Guide Matériel
         </Link>
       </div>
     </div>

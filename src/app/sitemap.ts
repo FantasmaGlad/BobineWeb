@@ -21,7 +21,7 @@ const staticRoutes: RouteConfig[] = [
   { path: "/comparatif/wexer-fitness-on-demand", priority: 0.9, changeFrequency: "weekly" },
   { path: "/comparatif/radical-fitness-yako", priority: 0.9, changeFrequency: "weekly" },
   { path: "/comparatif/affichage-dynamique-fitness", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/demo-3d", priority: 0.75, changeFrequency: "monthly" },
+  { path: "/materiel", priority: 0.9, changeFrequency: "weekly" },
   { path: "/a-propos", priority: 0.8, changeFrequency: "monthly" },
   { path: "/soutenir", priority: 0.7, changeFrequency: "monthly" },
   { path: "/mentions-legales", priority: 0.3, changeFrequency: "yearly" },

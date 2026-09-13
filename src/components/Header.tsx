@@ -24,9 +24,9 @@ export default function Header({
   const links: Array<[string, string]> = [
     [`/${locale}/fonctionnalites`, dict.nav.features],
     [`/${locale}/comparatif`, dict.nav.comparisons],
+    [`/${locale}/materiel`, dict.nav.hardware],
     [`/${locale}/documentation`, dict.nav.documentation],
     [`/${locale}/blog`, dict.nav.blog],
-    [`/${locale}/demo-3d`, dict.nav.demo],
     [`/${locale}/soutenir`, dict.nav.support],
     [`/${locale}/a-propos`, dict.nav.about],
   ];
@@ -37,6 +37,7 @@ export default function Header({
     if (cleanPath === `/${locale}`) return true;
     if (cleanPath.startsWith(`/${locale}/fonctionnalites`)) return true;
     if (cleanPath.startsWith(`/${locale}/comparatif`)) return true;
+    if (cleanPath.startsWith(`/${locale}/materiel`)) return true;
     if (cleanPath.startsWith(`/${locale}/documentation`)) return true;
     return false;
   })();

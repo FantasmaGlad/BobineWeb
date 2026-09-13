@@ -30,7 +30,7 @@ export default function MobileDrawer({
     { href: `/${locale}`, label: dict.nav.home },
     { href: `/${locale}/fonctionnalites`, label: dict.nav.features },
     { href: `/${locale}/comparatif`, label: dict.nav.comparisons },
-    { href: `/${locale}/demo-3d`, label: dict.nav.demo, tag: "3D" },
+    { href: `/${locale}/materiel`, label: dict.nav.hardware, tag: "Packs" },
     { href: `/${locale}/documentation`, label: dict.nav.documentation },
     { href: `/${locale}/blog`, label: dict.nav.blog },
     { href: `/${locale}/soutenir`, label: dict.nav.support },

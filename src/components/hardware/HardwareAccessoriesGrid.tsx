@@ -1,0 +1,193 @@
+"use client";
+
+import React from "react";
+import { type Locale } from "@/lib/i18n";
+import { STANDALONE_ACCESSORIES } from "@/content/hardware";
+
+export default function HardwareAccessoriesGrid({ locale }: { locale: Locale }) {
+  const isEn = locale === "en";
+
+  return (
+    <div style={{ marginTop: "3.5rem" }}>
+      <div style={{ marginBottom: "1.5rem" }}>
+        <span
+          style={{
+            fontSize: "0.725rem",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "0.06em",
+            padding: "0.2rem 0.5rem",
+            borderRadius: "0.35rem",
+            background: "var(--bg-inset)",
+            color: "var(--accent-primary)",
+            border: "1px solid var(--border-subtle)",
+            display: "inline-block",
+            marginBottom: "0.5rem",
+          }}
+        >
+          {isEn ? "Accessories & Cabling" : "Accessoires & Câblerie à l'Unité"}
+        </span>
+        <h2
+          style={{
+            fontSize: "1.35rem",
+            fontWeight: 700,
+            color: "var(--text-heading)",
+            margin: "0 0 0.5rem 0",
+          }}
+        >
+          {isEn
+            ? "Essential Studio Connectors, Remotes & Mounts"
+            : "Connectique Studio, Télécommandes & Fixations Testées"}
+        </h2>
+        <p style={{ fontSize: "0.875rem", color: "var(--text-muted)", lineHeight: 1.5, margin: 0 }}>
+          {isEn
+            ? "Need to complete your existing setup? These certified cables, wireless remotes, and secure mounts have been vetted for 24/7 reliability in gym environments."
+            : "Vous possédez déjà une machine ? Retrouvez ici la câblerie blindée, les télécommandes sans fil et les supports muraux antivol testés et approuvés pour tourner en continu dans votre salle."}
+        </p>
+      </div>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+          gap: "1rem",
+        }}
+      >
+        {STANDALONE_ACCESSORIES.map((acc) => {
+          const name = isEn ? acc.nameEn : acc.nameFr;
+          const desc = isEn ? acc.descriptionEn : acc.descriptionFr;
+          const cat = isEn ? acc.categoryEn : acc.categoryFr;
+
+          return (
+            <div
+              key={acc.id}
+              style={{
+                background: "var(--bg-card)",
+                border: "1px solid var(--border-subtle)",
+                borderRadius: "0.65rem",
+                padding: "1.15rem",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                boxShadow: "0 1px 4px rgba(0, 0, 0, 0.03)",
+                transition: "border-color 0.2s ease, transform 0.2s ease",
+              }}
+            >
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "0.7rem",
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                      color: "var(--accent-primary)",
+                      background: "var(--bg-inset)",
+                      border: "1px solid var(--border-subtle)",
+                      padding: "0.15rem 0.45rem",
+                      borderRadius: "0.3rem",
+                    }}
+                  >
+                    {cat}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "0.95rem",
+                      fontWeight: 800,
+                      color: "var(--text-heading)",
+                    }}
+                  >
+                    ~{acc.priceEst.toFixed(2)} €
+                  </span>
+                </div>
+
+                <h3
+                  style={{
+                    fontSize: "0.95rem",
+                    fontWeight: 700,
+                    color: "var(--text-heading)",
+                    lineHeight: 1.35,
+                    margin: "0 0 0.4rem 0",
+                  }}
+                >
+                  {name}
+                </h3>
+
+                <p
+                  style={{
+                    fontSize: "0.775rem",
+                    fontWeight: 600,
+                    color: "var(--text-heading)",
+                    background: "var(--bg-inset)",
+                    padding: "0.25rem 0.5rem",
+                    borderRadius: "0.3rem",
+                    margin: "0 0 0.5rem 0",
+                    fontFamily: "var(--font-mono, monospace)",
+                  }}
+                >
+                  {acc.specs}
+                </p>
+
+                <p
+                  style={{
+                    fontSize: "0.8rem",
+                    color: "var(--text-muted)",
+                    lineHeight: 1.45,
+                    margin: "0 0 1rem 0",
+                  }}
+                >
+                  {desc}
+                </p>
+              </div>
+
+              <div>
+                <a
+                  href={acc.amazonUrl}
+                  target="_blank"
+                  rel="nofollow sponsored noopener noreferrer"
+                  className="btn-secondary"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "0.4rem",
+                    width: "100%",
+                    fontSize: "0.8rem",
+                    fontWeight: 600,
+                    padding: "0.45rem 0.75rem",
+                    borderRadius: "0.45rem",
+                    textDecoration: "none",
+                    textAlign: "center",
+                  }}
+                >
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  <span>{isEn ? "View on Amazon" : "Voir sur Amazon"}</span>
+                </a>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

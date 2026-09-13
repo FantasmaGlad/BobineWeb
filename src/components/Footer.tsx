@@ -62,8 +62,8 @@ export default function Footer({
             <Link href={`/${locale}/fonctionnalites`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.nav.features}
             </Link>
-            <Link href={`/${locale}/demo-3d`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
-              {dict.nav.demo}
+            <Link href={`/${locale}/materiel`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+              {dict.nav.hardware}
             </Link>
             <Link href={`/${locale}/documentation`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.nav.documentation}

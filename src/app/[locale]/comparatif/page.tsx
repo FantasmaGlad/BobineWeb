@@ -5,6 +5,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
 import ScrollIndicator from "@/components/ScrollIndicator";
+import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 export async function generateMetadata({
   params,
@@ -179,9 +180,15 @@ export default async function ComparatifHubPage({
   if (!isLocale(locale)) notFound();
   const data = COMPARISONS_DATA[locale as Locale];
   const isEn = locale === "en";
+  const breadcrumbs = [
+    { name: isEn ? "Home" : "Accueil", url: `/${locale}` },
+    { name: isEn ? "Comparisons" : "Comparatifs", url: `/${locale}/comparatif` },
+  ];
 
   return (
     <>
+      <BreadcrumbsJsonLd items={breadcrumbs} />
+
       {/* 1. Hero Section — Plein écran propre sur Desktop et Mobile */}
       <section className="hero-fullscreen">
         <div>

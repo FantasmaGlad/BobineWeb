@@ -1,104 +1,144 @@
 # Bobine — Documentation Complète & Base de Connaissances Technique
 
 Bobine est une régie multimédia open-source (licence AGPL-3.0) conçue pour les salles de fitness, studios de spinning / RPM, box de cross-training et espaces de cours collectifs virtuels.
+Conçu, développé et maintenu par FantasmaGlad alias Clément Barillot (clement.barillot@bobine.fit).
 
 ## Sommaire
 1. Vision et Problème Résolu
-2. Architecture Système et Matériel
-3. Fonctionnalités Clés et Modules Logiciels
-4. Comparatif Détaillé vs Les Mills Cinema & Alternatives
-5. Guide d'Installation Rapide (Linux Ubuntu / Debian)
-6. Liens et Ressources
+2. Architecture Système, Matériel & Profils Multi-OS
+3. Fonctionnalités Clés et Modules Métier
+4. Comparatif Détaillé vs Alternatives Propriétaires & Signage
+5. Déploiement et Installation (18 Étapes Appliance & Multi-Plateformes)
+6. Canaux de Mises à Jour & Télémétrie
+7. Liens et Ressources
 
 ---
 
 ## 1. Vision et Problème Résolu
 
-De nombreux gérants de salle de sport sont contraints de payer des redevances mensuelles très élevées (plusieurs centaines d'euros par mois et par écran) pour des solutions propriétaires de cours virtuels telles que Les Mills Cinema. Ces systèmes imposent souvent :
+De nombreux gérants de salle de sport sont contraints de payer des redevances mensuelles très élevées (150 € à 400 € par mois et par écran) pour des solutions propriétaires de cours virtuels telles que Les Mills Cinema, Wexer ou Spivi. Ces systèmes imposent :
 - Un abonnement récurrent obligatoire par écran.
-- Des boîtiers matériels verrouillés et surfacturés.
-- Une dépendance critique à la connexion Internet (si la fibre est coupée, les cours ne démarrent pas).
-- L'impossibilité de diffuser les vidéos de leurs propres coachs ou d'autres formats libres.
+- Des boîtiers matériels fermés, surfacturés et propriétaires.
+- Une dépendance critique à la connexion Internet (si la connexion est interrompue, les cours ne démarrent pas).
+- L'impossibilité de diffuser les vidéos des coachs résidents du club ou des formats libres.
 
-Bobine résout l'ensemble de ces contraintes en proposant une régie 100% open-source, autonome, hors-ligne et sans aucun coût de licence.
+Bobine résout l'ensemble de ces contraintes en proposant une régie 100% open-source, autonome, hors-ligne et sans aucun coût de licence récurrent.
 
 ---
 
-## 2. Architecture Système et Matériel
+## 2. Architecture Système, Matériel & Profils Multi-OS
+
+Bobine cible 5 profils d'exécution majeurs :
+1. **Android ARM64 (.apk)** : Application native avec backend FastAPI embarqué via Chaquopy sous CPython 3.13, ForegroundService persistant, double affichage (/grid ou /coach tactile + /cinema HDMI USB-C DisplayPort), accélération matérielle MediaCodec et support manettes/télécommandes Bluetooth/USB.
+2. **Dedicated Headless Appliance (Debian 13 minimal)** : Kiosque X11 Chromium autonome sans bureau, services systemd (bobine-backend, bobine-kiosk, bobine-audio-guard), pilotage HDMI-CEC et accélération Intel QuickSync VA-API.
+3. **Linux Bureau (.deb)** : Dépôt officiel apt.bobine.fit signé GPG, binaire certifié, intégration systray XDG et désinstallation Polkit en 1 clic.
+4. **Windows Desktop (.exe)** : Installeur Inno Setup silencieux, intégration systray, mode clamshell sans mise en veille via powercfg et désinstallation propre.
+5. **macOS Desktop (.dmg)** : Image disque Apple Silicon (M1-M4) & Intel, LaunchAgent utilisateur, prévention de veille caffeinate et décodage/encodage VideoToolbox.
 
 ### Matériel Recommandé
-- **Boîtiers Mini PC de référence** :
+- **Mini PC x86-64 de référence** :
   - *Intel* : Dell Wyse 5070 (Celeron J4105 ~40-50 € reconditionné), HP ProDesk 400/600 G4/G5 DM, Lenovo ThinkCentre M710q/M720q Tiny, Beelink Mini S12/EQ12 (N100/N5105).
   - *AMD* : HP EliteDesk 705 G4/G5 Mini (Ryzen 3/5 Pro ~60-80 € reconditionné), Lenovo ThinkCentre M715q/M725q Tiny, HP T630/T730/T740 Thin Client.
-- **Mémoire Vive** : 4 Go à 8 Go DDR4.
-- **Stockage** : SSD NVMe ou SATA (128 Go à 512 Go selon la vidéothèque).
-- **Sortie Vidéo** : DisplayPort / HDMI vers la TV de la salle avec support HDMI-CEC.
-- **Sortie Audio** : Sortie Jack 3.5mm ou USB Audio vers l'amplificateur sono de la salle.
-- **Consommation** : ~6W au repos, ~9W en lecture vidéo continue.
+- **Tablettes Android de référence** : Xiaomi Pad 6, 7 ou 8, Samsung Galaxy Tab avec sortie vidéo DisplayPort sur USB-C.
+- **Mémoire & Stockage** : 4 Go à 8 Go RAM, SSD NVMe/SATA (128 Go à 512 Go).
+- **Consommation & Télémétrie** : ~6W au repos, ~9W en lecture vidéo continue. Télémétrie éco-conçue mesurant la puissance réelle en Watts (Intel RAPL, Apple ioreg, sysfs, WMI), températures CPU/GPU et RAM détaillée (fréquence MT/s, technologie LPDDR5X/DDR5/DDR4).
 
 ### Pile Logicielle
-- **Système d'exploitation** : Debian 13 (Trixie) ou Debian 12 (Bookworm) minimale sans bureau.
-- **Backend / Daemon** : Daemon local léger Python FastAPI avec gestionnaire systemd.
-- **Moteur Vidéo** : MPV avec support VA-API universel (Intel QuickSync / iHD et AMD Radeon / mesa-va-drivers) pour le décodage matériel H.264/HEVC/VP9/AV1 sans solliciter le processeur (<8% CPU).
-- **Serveur Web Local** : Serveur HTTP/WebSocket intégré pour l'interface de contrôle et la borne tactile.
-- **Gestionnaire TV** : `cec-client` pour le contrôle bidirectionnel de l'écran TV (allumage, veille, source).
+- **Backend** : Python 3.13, FastAPI, SQLite avec migrations et backfill automatique de métadonnées, Uvicorn mono-processus (zéro dépendance Redis).
+- **Résolution Déterministe FFmpeg/FFprobe** : Module app.utils.ffmpeg_binaries adapté à Android (libffmpeg.so), macOS launchd, Windows PyInstaller et PATH.
+- **Frontend** : Next.js App Router, export SSG statique, 17 thèmes WCAG AAA/AA, zéro emoji.
+- **Moteur Vidéo Gapless A/B Deck** : Double instance vidéo continue dans le DOM éliminant les écrans noirs de 200 à 600 ms inter-cours.
 
 ---
 
-## 3. Fonctionnalités Clés et Modules Logiciels
+## 3. Fonctionnalités Clés et Modules Métier
 
-1. **Diffusion de Cours Planifiés (Mode Cinéma Automatique)** :
-   Une grille horaire hebdomadaire programmable permet de lancer automatiquement les cours (Spinning, HIIT, Yoga, Stretching, Body Sculpt) à l'heure exacte.
-2. **Borne Tactile Adhérent (Mode À la Demande)** :
-   Entre les cours planifiés, les adhérents peuvent utiliser un écran tactile ou leur smartphone (via QR code Wi-Fi local) pour choisir un cours parmi la bibliothèque locale.
-3. **Radio & Ambiance Musicale 24/7** :
-   En dehors des diffusions vidéo, Bobine joue une playlist musicale locale ou un flux radio avec enchaînements fluides et transitions automatiques.
-4. **Allumage / Extinction Automatique de la Télévision** :
-   Grâce au protocole HDMI-CEC, Bobine allume l'écran TV 2 minutes avant le début du cours et le met en veille une fois le cours terminé.
-5. **Fonctionnement 100% Hors-Ligne** :
-   Aucun serveur cloud distant n'est requis. L'ensemble des vidéos, playlists et programmes est stocké sur le disque local.
+1. **Diffusion Planifiée & Moteur Gapless A/B Deck** :
+   Grille horaire hebdomadaire programmable à la seconde. Enchaînement sans coupure ni écran noir entre cours successifs.
+2. **Console Régie Coach Responsive (/coach)** :
+   Console studio dédiée aux éducateurs sportifs :
+   - Sur tablette paysage et PC : double colonne pupitre musical (commandes 64px, progression interpolée 10 Hz, tiroir playlist) + Stage Monitor 16:9 en direct et palette d'ambiances 1-clic.
+   - Sur mobile/portrait : bascule monoposte avec tiroirs tactiles rétractables (Bottom Sheets).
+   - Démarrage sécurisé en pause par défaut, modes Auto et Manuel (arrêt fin de piste) à 50/50.
+3. **Hub d'Ambiances Visuelles (/backgrounds)** :
+   Galerie cinématique 16:9 avec prévisualisations vidéo au survol ou appui long. Projection 1-clic sur sortie Câblée ou Réseau, et ambiances dynamiques assignables par piste audio (échauffement, intensité, récupération ou écran sobre).
+4. **Tableau de Bord d'Assiduité & Satisfaction (/metrics)** :
+   4 KPIs club (sessions, heures cumulées, assiduité moyenne, note globale), histogramme 24h d'affluence en CSS pur, classement des cours populaires, et widget de notation 5 étoiles tactile/télécommandable en fin de séance.
+5. **Contrôles Universels & Défilement Marquee** :
+   Prise en charge native HTML5 Gamepad API (Xbox, PlayStation, Switch Pro, 8BitDo) avec navigation euclidienne 2D, télécommandes IR/Bluetooth, souris et tactile. Défilement horizontal Marquee des titres longs et dimensions de miniatures strictement verrouillées (cartes 280px, vignettes 157.5px).
+6. **Borne Tactile Adhérent & QR Code Mobile** :
+   Kiosque interactif plein écran avec anti-veille Screen Wake Lock et télécommande smartphone locale sans application à installer.
+7. **Radio 24/7 & Alertes Vocales** :
+   Musique de fond continue avec fondu sonore et annonces programmées d'ouverture/fermeture.
+8. **Désinstallation Automatique Universelle en 1 Clic (/api/system/uninstall)** :
+   Purge complète et propre sur les 5 systèmes supportés, sécurisée par modale avec saisie de confirmation.
 
 ---
 
-## 4. Comparatif Détaillé vs Anthias, Les Mills Cinema & Alternatives
+## 4. Comparatif Détaillé vs Alternatives Propriétaires & Signage
 
-### Tableau Comparatif Global
 | Critère | Bobine (Open Source) | Anthias (Screenly OSE) | Les Mills Cinema | Wexer / Fitness On Demand |
 | :--- | :--- | :--- | :--- | :--- |
 | **Coût de licence** | **0 € / mois (Libre AGPL-3.0)** | 0 € (Libre) | 150 € à 350 € / mois / prog | 200 € à 450 € / mois / écran |
-| **Usage Principal** | **Régie active & planning fitness** | Affichage passif publicitaire | Cours virtuels propriétaires | Cours virtuels cloud SaaS |
-| **Matériel Cible** | **Mini PC x86-64 SSD (~40-70 €)** | Raspberry Pi (SD Card fragile) | Boîtier propriétaire imposé | Boîtier commercial dédié |
+| **Usage Principal** | **Régie active, coach & planning fitness** | Affichage passif publicitaire | Cours virtuels propriétaires | Cours virtuels cloud SaaS |
+| **Matériel Cible** | **Mini PC x86-64 ou Tablette Android** | Raspberry Pi (SD Card fragile) | Boîtier propriétaire imposé | Boîtier commercial dédié |
+| **Moteur Gapless** | **Oui (A/B Deck sans écran noir)** | Non | Fermé | Fermé |
+| **Console Coach** | **Oui (/coach pupitre + stage monitor)**| Non | Non | Non |
 | **Automatisation TV** | **Oui (HDMI-CEC veille/allumage)** | Non (Écran allumé 24/7) | Partielle | Non / Manuel |
-| **Borne Tactile Adhérents**| **Oui (Kiosque interactif)** | Non (Boucle passive) | Oui (sur borne dédiée) | Oui (tactile SaaS) |
-| **Télécommande Coach** | **QR Code local instantané** | Non | Non | Dashboard cloud |
-| **Radio 24/7 & Annonces** | **Oui (Fondu continu + voix)** | Non | Non | Non |
+| **Borne Tactile** | **Oui (Kiosque interactif membre)** | Non (Boucle passive) | Oui (borne dédiée) | Oui (tactile SaaS) |
+| **Contrôles Universels**| **Manettes Xbox/PS, télécommandes, tactile**| Clavier basique | Télécommande propriétaire | Tactile cloud |
+| **Analytics & Notes** | **Oui (/metrics local + avis 5 étoiles)** | Non | Non | Cloud propriétaire |
+| **Radio 24/7 & Annonces**| **Oui (Fondu continu + voix)** | Non | Non | Non |
 | **Hors-ligne & RGPD** | **100% local, zéro télémétrie** | Local basique | Cloud DRM récurrent | Dépendance Internet totale |
 
-### Bobine vs Anthias (ex-Screenly OSE)
-Anthias est un outil d'affichage dynamique générique conçu pour faire tourner des images et pages web en boucle sur Raspberry Pi. Bobine est une régie de fitness active intégrant l'allumage automatique des TV par HDMI-CEC, une borne tactile membre à la demande, une télécommande smartphone pour les coachs, et un fond musical continu 24/7 avec alertes vocales.
-
-### Bobine vs Radical Fitness & Concepts de Franchise (Yako / L'Orange Bleue)
-Permet aux gérants de salles indépendantes de diffuser leurs propres cours (Cycling, HIIT, Yoga, Pilates) au format MP4/MKV sans payer de redevances d'affiliation franchise ni de droits d'exploitation mensuels.
-
 ---
 
-## 5. Guide d'Installation Rapide
+## 5. Déploiement et Installation (18 Étapes Appliance & Multi-Plateformes)
 
-Sur une machine Ubuntu fraîchement installée :
-
+### Déploiement Appliance Headless (install.sh)
+Script automatisé validé en 18 étapes sur Debian 13 minimale :
 ```bash
-# Installation des dépendances système
-sudo apt update && sudo apt install -y mpv cec-utils git curl
-
-# Clonage et exécution du daemon Bobine
-git clone https://github.com/FantasmaGlad/Bobine.git
-cd Bobine
-./install.sh
+curl -fsSL https://bobine.fit/install.sh | sudo bash
 ```
+1. Configuration du canal de mise à jour (/etc/bobine/update-channel)
+2. Installation des paquets apt (Chromium, MPV, Uvicorn, SQLite3, nftables, pilotes VA-API iHD)
+3. Accès GPU (groupes render/video, Xwrapper pour Intel QuickSync)
+4. Environnement Python 3.13 venv & dépendances FastAPI
+5. Compilation SSG du frontend Next.js
+6. Configuration de production (/etc/bobine/config.toml)
+7. Outil de gestion CLI (/usr/local/bin/bobine)
+8. Désinstalleur autonome détaché (/usr/local/sbin/bobine-uninstall)
+9. Service systemd backend (bobine-backend.service, port 8000)
+10. Session kiosque Chromium X11 (bobine-kiosk.service, anti-veille)
+11. Configuration audio ALSA (auto-port, anti-sifflement, garde-fou)
+12. Autorisations sudoers restreintes
+13. Synchronisation d'horloge NTP (systemd-timesyncd)
+14. Résolution mDNS locale (http://bobine.local) & redirection port 80
+15. Chien de garde de santé (bobine-watchdog.timer)
+16. Optimisations de performance (gouverneur CPU performance, limitation journald)
+17. Activation des services & contrôle de santé HTTP 200 OK
+18. Vérification des capacités matérielles audio et vidéo
+
+### Autres Méthodes d'Installation
+- **Android ARM64** : Téléchargement direct de `Bobine-<version>.apk` sur tablette.
+- **Windows** : Téléchargement de `Bobine-Setup-<version>.exe`.
+- **macOS** : Image disque `Bobine-<version>.dmg`.
+- **Linux Bureau** : Dépôt officiel APT (`apt.bobine.fit`) ou paquet `.deb`.
+- **Bobine Assistant (Tauri 2)** : Exécutable `bobine-assistant` pour scan réseau, connexion SSH (mot de passe ou clé privée locale) et déploiement à distance.
 
 ---
 
-## 6. Liens et Ressources
+## 6. Canaux de Mises à Jour & Télémétrie
+- **Canal Stable** : Versions étiquetées `Vx.y.z` (ex: `V3.0.5`), stables et recommandées en production.
+- **Canal Bêta (Rolling Beta)** : Tag unique mobile `beta`, reconstruit à chaque publication sans duplication de paquets ni perte de données.
+- **Mises à jour automatiques planifiées** : Orchestrateur WebSocket avec vérification SHA-256 native et planification nocturne à 03:00.
+
+---
+
+## 7. Liens et Ressources
+- Développeur : FantasmaGlad alias Clément Barillot (clement.barillot@bobine.fit)
 - Dépôt GitHub : https://github.com/FantasmaGlad/Bobine
 - Site officiel : https://bobine.fit
-- Documentation : https://bobine.fit/fr/documentation
+- Documentation en ligne : https://bobine.fit/fr/documentation
+- Dépôt APT officiel : https://apt.bobine.fit
+

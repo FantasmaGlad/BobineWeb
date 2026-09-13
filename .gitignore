@@ -33,3 +33,4 @@ yarn-error.log*
 # convention que Bobine (frontend/.gitignore)
 .vscode/
 .idea/
+firewall-events*.json

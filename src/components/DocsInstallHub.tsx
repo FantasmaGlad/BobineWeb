@@ -17,16 +17,16 @@ import type { ReleaseChannelInfo } from "@/app/api/github-stats/route";
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
 
 const FALLBACK_STABLE: ReleaseChannelInfo = {
-  version: "V3.0.2",
-  title: "Bobine V3.0.2 — Sortie Officielle Android Native & Accélération Matérielle",
-  publishedAt: "2026-09-09T20:00:00Z",
+  version: "V3.0.5",
+  title: "Bobine V3.0.5 — Console Régie Coach, Ambiances Visuelles & Moteur Gapless",
+  publishedAt: "2026-09-12T18:00:00Z",
   downloads: {
-    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/Bobine-Setup-3.0.2.exe",
-    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/bobine_3.0.2_amd64.deb",
-    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/Bobine-3.0.2.dmg",
-    android: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/Bobine-3.0.2.apk",
-    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/bobine-assistant",
-    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.2/install.sh",
+    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/Bobine-Setup-3.0.5.exe",
+    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/bobine_3.0.5_amd64.deb",
+    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/Bobine-3.0.5.dmg",
+    android: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/Bobine-3.0.5.apk",
+    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/bobine-assistant",
+    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/install.sh",
   },
 };
 

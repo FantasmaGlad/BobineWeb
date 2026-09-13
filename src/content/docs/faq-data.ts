@@ -58,9 +58,19 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       a: "Un chien de garde systemd surveille en continu la santé des services et relance automatiquement les composants en cas d'anomalie. Les services redémarrent instantanément et de façon autonome dès le retour du courant électrique.",
     },
     {
+      category: "hardware",
+      q: "Quelles manettes de jeu et télécommandes sont compatibles avec Bobine ?",
+      a: "Toutes les manettes standard via la spécification HTML5 Gamepad API : manettes sans fil ou filaires Microsoft Xbox Series / Xbox One, Sony PlayStation DualSense / DualShock 4, Nintendo Switch Pro, 8BitDo et manettes USB génériques. Les télécommandes multimédias USB/IR et les souris sont également reconnues nativement.",
+    },
+    {
+      category: "hardware",
+      q: "Comment Bobine mesure-t-il la puissance en Watts et la télémétrie matérielle ?",
+      a: "Bobine intègre un sous-système de télémétrie éco-conçu interrogeant les compteurs matériels bas niveau sans droits root : le sous-système noyau intel-rapl en microjoules sur mini PC Intel, l'interface ioreg sous macOS Apple Silicon, les nœuds sysfs sous Android/Linux et WMI/powercfg sous Windows. Les températures CPU/GPU et la fréquence effective de la RAM (MT/s) sont également restituées en direct.",
+    },
+    {
       category: "updates",
       q: "Quelle est la différence entre la version Stable et la version Bêta (Rolling beta) ?",
-      a: "La version Stable (ex. V3.0.0) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La version Bêta (Rolling beta) offre un accès anticipé continu aux fonctionnalités en cours de test. Elle partage les mêmes identifiants d'application, s'installe par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages → Mises à jour sans perte de données ni de médias.",
+      a: "La version Stable (ex. V3.0.5) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La version Bêta (Rolling beta) offre un accès anticipé continu aux fonctionnalités en cours de test. Elle partage les mêmes identifiants d'application, s'installe par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages → Mises à jour sans perte de données ni de médias.",
     },
     {
       category: "updates",
@@ -71,6 +81,16 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       category: "updates",
       q: "Comment installer Bobine et recevoir les mises à jour automatiques sur Linux (Debian / Ubuntu / Mint) ?",
       a: "La méthode recommandée pour les postes de bureau Linux est d'ajouter le dépôt APT officiel signé cryptographiquement (https://apt.bobine.fit). En 3 commandes dans votre terminal (import de la clé GPG, déclaration de la source apt.bobine.fit stable ou beta, puis sudo apt update && sudo apt install bobine), vous recevez automatiquement toutes les futures mises à jour via votre gestionnaire de paquets habituel (apt upgrade).",
+    },
+    {
+      category: "updates",
+      q: "Comment fonctionne la désinstallation automatique en 1 clic ?",
+      a: "Dans Réglages → Zone de danger, la désinstallation automatique déclenche le désinstalleur natif de votre plateforme (Polkit sur Linux .deb, Inno Setup sur Windows, purge des LaunchAgents sous macOS, Intent Android, script bobine-uninstall sous Debian headless). L'opération nécessite la saisie explicite du mot de passe de sécurité « DÉSINSTALLER » pour éviter toute fausse manipulation.",
+    },
+    {
+      category: "compare",
+      q: "Comment la Console Régie Coach (/coach) aide-t-elle les éducateurs sportifs ?",
+      a: "La console coach responsive s'adapte à tous les écrans : sur tablette paysage ou PC, elle offre un pupitre audio avec boutons 64px, un minuteur précis interpolé à 10 Hz, le retour vidéo direct Stage Monitor 16:9 de la salle et une palette d'ambiances visuelles 1-clic. Sur smartphone, elle bascule en vue monoposte avec tiroirs tactiles rétractables. Elle gère l'assignation d'ambiances vidéo différentes par piste musicale et démarre toujours en pause sécurisée pour laisser le coach s'installer.",
     },
   ],
   en: [
@@ -90,6 +110,11 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       a: "Same premium studio workout experience — automated weekly timetables, on-demand member touchscreen kiosk, 1080p60/4K playout — without recurring monthly fees ($0 vs $150-$400/mo) or locked catalogs. You own your devices, and playback is 100% offline from local SSD.",
     },
     {
+      category: "compare",
+      q: "How does the Responsive Coach Console (/coach) assist fitness instructors?",
+      a: "The responsive coach console adapts to all screens: on landscape tablets or desktop PCs, it features an audio desk with 64px touch targets, a precise timer interpolated at 10 Hz, a live 16:9 Stage Monitor feed of the studio screen, and a 1-click visual ambiance palette. On smartphones, it switches to a single-operator view with retractable touch drawers. It supports per-track video ambiance assignment and always starts in safe pause mode so instructors can settle in.",
+    },
+    {
       category: "offline",
       q: "Do I need an active internet connection to run Bobine for daily operations?",
       a: "No, not for daily operations. Internet is only required once during the initial setup. Afterwards, your gym plays workout videos entirely offline from local storage.",
@@ -105,9 +130,19 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       a: "A local systemd supervisor continuously monitors process health and restarts failing components automatically. All services boot autonomously upon power restoration after a blackout.",
     },
     {
+      category: "hardware",
+      q: "Which gamepads and remote controls are compatible with Bobine?",
+      a: "All standard game controllers via the HTML5 Gamepad API: wired and wireless Microsoft Xbox Series / Xbox One, Sony PlayStation DualSense / DualShock 4, Nintendo Switch Pro, 8BitDo, and generic USB controllers. USB/IR multimedia remotes and standard mice are also natively supported with 2D spatial navigation.",
+    },
+    {
+      category: "hardware",
+      q: "How does Bobine measure power in Watts and real-time hardware telemetry?",
+      a: "Bobine includes an eco-designed telemetry subsystem querying low-level hardware counters without root privileges: the intel-rapl kernel subsystem in microjoules on Intel mini PCs, the ioreg interface on macOS Apple Silicon, sysfs nodes on Android/Linux, and WMI/powercfg on Windows. CPU/GPU temperatures and effective RAM frequency (MT/s) are also reported in real time.",
+    },
+    {
       category: "updates",
       q: "What is the difference between the Stable and Beta (Rolling beta) channels?",
-      a: "The Stable release (e.g. V3.0.0) is the official tested build recommended for production gym playout. The Beta release (Rolling beta) provides continuous early access to features currently being tested. It shares identical system application IDs, installs directly over your current version without creating duplicate apps, and allows reverting back to Stable anytime from Settings → Software Updates without data loss.",
+      a: "The Stable release (e.g. V3.0.5) is the official tested build recommended for production gym playout. The Beta release (Rolling beta) provides continuous early access to features currently being tested. It shares identical system application IDs, installs directly over your current version without creating duplicate apps, and allows reverting back to Stable anytime from Settings → Software Updates without data loss.",
     },
     {
       category: "updates",
@@ -118,6 +153,11 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       category: "updates",
       q: "How do I install Bobine and receive automated updates on Linux (Debian / Ubuntu / Mint)?",
       a: "The recommended method for Linux desktop machines is adding the official cryptographically signed APT repository (https://apt.bobine.fit). In 3 simple terminal commands (import the official GPG key, add the apt.bobine.fit stable or beta source, and run sudo apt update && sudo apt install bobine), you receive seamless automated updates via your standard system package manager (apt upgrade).",
+    },
+    {
+      category: "updates",
+      q: "How does the 1-click automatic uninstaller work?",
+      a: "In Settings → Danger Zone, automatic uninstallation triggers the native uninstaller for your platform (Polkit on Linux .deb, Inno Setup on Windows, LaunchAgent purge on macOS, Android intent, or the bobine-uninstall script on headless Debian). The operation requires explicitly typing the confirmation keyword 'UNINSTALL' ('DÉSINSTALLER') to prevent accidental removals.",
     },
   ],
 };

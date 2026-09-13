@@ -147,16 +147,34 @@ const STEPS: StepItem[] = [
     labelEn: "Health watchdog timer",
     detailFr: () => "bobine-watchdog.timer actif (reprise automatique)",
     detailEn: () => "bobine-watchdog.timer active (automatic recovery)",
-    durationMs: 750,
+    durationMs: 700,
+  },
+  {
+    id: "tuning",
+    num: 16,
+    labelFr: "Optimisations système (gouverneur CPU, journal)",
+    labelEn: "System tuning (CPU governor, journald limits)",
+    detailFr: () => "Gouverneur CPU 'performance' & journald plafonné à 200 Mo",
+    detailEn: () => "CPU governor set to 'performance' & journald capped at 200MB",
+    durationMs: 700,
   },
   {
     id: "activation",
-    num: 16,
+    num: 17,
     labelFr: "Activation des services & vérification de santé",
     labelEn: "Services activation & healthcheck",
     detailFr: () => "HTTP 200 OK (http://127.0.0.1:8000/api/health — 8ms)",
     detailEn: () => "HTTP 200 OK (http://127.0.0.1:8000/api/health — 8ms)",
-    durationMs: 950,
+    durationMs: 850,
+  },
+  {
+    id: "capabilities",
+    num: 18,
+    labelFr: "Vérification des capacités audio & vidéo",
+    labelEn: "Audio & video hardware capabilities check",
+    detailFr: () => "Carte audio détectée & décodage matériel H.264 VA-API actif",
+    detailEn: () => "Audio sink detected & H.264 VA-API hardware decoding active",
+    durationMs: 750,
   },
 ];
 
@@ -200,7 +218,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
     }
   }, []);
 
-  // Démarre l'exécution des 16 étapes
+  // Démarre l'exécution des 18 étapes
   const startStepsSequence = useCallback(() => {
     setChannelPromptAnswered(true);
     setCurrentRunningStep(0);
@@ -290,7 +308,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [hasTriggered, channelPromptAnswered, triggerExecution, handleSelectChannelPrompt, startStepsSequence]);
 
-  // Déroulement des 16 étapes (vitesse posée et lisible)
+  // Déroulement des 18 étapes (vitesse posée et lisible)
   useEffect(() => {
     if (!hasTriggered || !showBanner || !channelPromptAnswered || isCompleted) return;
 
@@ -357,10 +375,10 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
               />
               <span>
                 {isCompleted
-                  ? (isEn ? "Installed (16/16)" : "Installé (16/16)")
+                  ? (isEn ? "Installed (18/18)" : "Installé (18/18)")
                   : !channelPromptAnswered
                   ? (isEn ? "Channel setup" : "Choix du canal")
-                  : (isEn ? `Step ${completedSteps + 1}/16` : `Étape ${completedSteps + 1}/16`)}
+                  : (isEn ? `Step ${completedSteps + 1}/18` : `Étape ${completedSteps + 1}/18`)}
               </span>
             </span>
           )}
@@ -516,7 +534,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
                 {isEn ? "Open-Source Gym Video Playout System" : "Régie Vidéo & Streaming Libre pour Salle de Sport"}
               </span>
               <span className="terminal-ascii-meta">
-                Debian 13 (trixie) · Dell Wyse 5070 · FastAPI + Next.js (v3.0.0)
+                Debian 13 (trixie) · Dell Wyse 5070 · FastAPI + Next.js (v3.0.5)
               </span>
             </div>
           </div>
@@ -594,7 +612,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
           </div>
         )}
 
-        {/* Défilement des 16 étapes de install.sh */}
+        {/* Défilement des 18 étapes de install.sh */}
         {showBanner && channelPromptAnswered && (
           <div className="terminal-steps-list">
             {STEPS.map((step, idx) => {
@@ -611,7 +629,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
                   }`}
                 >
                   <span className="terminal-step-num">
-                    [{step.num}/16]
+                    [{step.num}/18]
                   </span>
                   {isDone ? (
                     <span className="terminal-ok">
@@ -658,7 +676,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
               </div>
               <div className="terminal-summary-row">
                 <span className="summary-key">Admin</span>
-                <span className="summary-val">http://bobine.local <span className="summary-alt">(et http://10.0.0.30:8000)</span></span>
+                <span className="summary-val">http://bobine.local <span className="summary-alt">(et http://&lt;IP&gt;:8000)</span></span>
               </div>
               <div className="terminal-summary-row">
                 <span className="summary-key">Kiosk</span>

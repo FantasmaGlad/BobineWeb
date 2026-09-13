@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
+import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
+import FaqJsonLd from "@/components/FaqJsonLd";
 
 export async function generateMetadata({
   params,
@@ -196,9 +198,56 @@ export default async function WexerComparisonPage({
   if (!isLocale(locale)) notFound();
   const c = CONTENT[locale as Locale];
   const isEn = locale === "en";
+  const breadcrumbs = [
+    { name: isEn ? "Home" : "Accueil", url: `/${locale}` },
+    { name: isEn ? "Comparisons" : "Comparatifs", url: `/${locale}/comparatif` },
+    { name: "Wexer & Fitness On Demand", url: `/${locale}/comparatif/wexer-fitness-on-demand` },
+  ];
+
+  const faqItems = [
+    {
+      category: "compare" as const,
+      q: isEn
+        ? "How much can a gym save by choosing Bobine over Wexer or Fitness On Demand?"
+        : "Combien une salle de sport économise-t-elle en choisissant Bobine plutôt que Wexer ou Fitness On Demand ?",
+      a: isEn
+        ? "Wexer and Fitness On Demand charge between $200 and $450 per screen every month, representing $2,400 to $5,400 per year per room in software subscriptions alone. Bobine is 100% free open-source software (AGPL-3.0) with zero monthly fees, saving clubs thousands of euros every year."
+        : "Wexer et Fitness On Demand facturent entre 200 € et 450 € par écran et par mois, soit 2 400 € à 5 400 € par an et par studio en abonnement logiciel. Bobine est 100% libre et gratuit (licence AGPL-3.0) sans aucun abonnement récurrent, économisant des milliers d'euros chaque année aux clubs.",
+    },
+    {
+      category: "compare" as const,
+      q: isEn
+        ? "Why is a local-first architecture superior to cloud streaming for fitness studios?"
+        : "Pourquoi une architecture locale est-elle supérieure au streaming cloud pour un club ?",
+      a: isEn
+        ? "Cloud streaming solutions rely on external servers and high-bandwidth WAN connections. If internet drops or slows down during peak hours, workouts buffer, stutter, or fail completely. Bobine runs all media directly from the local machine's NVMe/SSD with zero cloud latency (< 2 ms LAN WebSockets) and 100% offline resilience."
+        : "Les solutions cloud dépendent de serveurs distants et de la bande passante internet. En cas de coupure ou de congestion réseau aux heures de pointe, les cours saccadent ou s'arrêtent. Bobine lit tous les flux directement depuis le SSD local de la borne, avec une latence quasi nulle (< 2 ms via WebSockets LAN) et une continuité 100% hors-ligne.",
+    },
+    {
+      category: "compare" as const,
+      q: isEn
+        ? "Can clubs host and broadcast their own custom fitness video content with Bobine?"
+        : "Les clubs peuvent-ils diffuser leurs propres contenus vidéo avec Bobine ?",
+      a: isEn
+        ? "Yes. Unlike Wexer or FOD which lock you into their curated proprietary catalogs, Bobine gives you complete freedom to import your own coach videos, cycling masterclasses, HIIT routines, and visual backgrounds in MP4/MKV up to 4K 60fps."
+        : "Oui. Contrairement à Wexer ou FOD qui imposent leurs catalogues propriétaires fermés, Bobine vous laisse libre d'importer vos propres vidéos de coachs, cours de cycling, séances de HIIT et ambiances visuelles en MP4/MKV jusqu'à la 4K 60fps.",
+    },
+    {
+      category: "compare" as const,
+      q: isEn
+        ? "Is Bobine compliant with privacy and GDPR regulations?"
+        : "Bobine est-il conforme au RGPD et au respect de la vie privée ?",
+      a: isEn
+        ? "Completely. Bobine processes everything strictly within your gym's local area network (LAN). No member viewing habits, no telemetry, and no private data are sent to third-party cloud servers, guaranteeing strict GDPR compliance."
+        : "Totalement. Bobine s'exécute exclusivement sur le réseau local (LAN) de votre salle. Aucune donnée d'assiduité des adhérents ni aucune télémétrie n'est envoyée à des tiers sur le cloud, garantissant une conformité RGPD absolue.",
+    },
+  ];
 
   return (
     <>
+      <BreadcrumbsJsonLd items={breadcrumbs} />
+      <FaqJsonLd items={faqItems} />
+
       {/* En-tête */}
       <header style={{ paddingTop: "1rem", paddingBottom: "2rem", maxWidth: "860px" }}>
         <div

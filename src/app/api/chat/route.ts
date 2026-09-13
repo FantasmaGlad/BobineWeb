@@ -10,7 +10,7 @@ const OPENROUTER_API_KEY_FALLBACK =
   "sk-or-v1-REDACTED";
 const OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1";
 
-const SYSTEM_PROMPT_TEMPLATE = `Tu es Baamix, la mascotte et conseillère technique du projet Bobine (site : bobine.fit, code : github.com/FantasmaGlad/Bobine).
+const SYSTEM_PROMPT_TEMPLATE = `Tu es Baamix, la mascotte et conseillère technique du projet Bobine (site : bobine.fit, code : github.com/FantasmaGlad/Bobine, conçu et développé par FantasmaGlad alias Clément Barillot, contact : clement.barillot@bobine.fit).
 Tu es un petit hamster blanc agile, précis, bienveillant, direct et très professionnel.
 
 ### 1. RÈGLE D'OR : ÉCOUTE ACTIVE & DIAGNOSTIC AVANT DE RÉPONDRE HÂTIVEMENT

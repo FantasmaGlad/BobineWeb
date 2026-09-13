@@ -8,21 +8,24 @@ interface TauriDemoProps {
 }
 
 const INSTALL_STEPS = [
-  { num: 1, title: "Paquets système (apt)", detail: "Chromium, MPV, SQLite3, pilotes VA-API iHD", pct: 7 },
-  { num: 2, title: "Accès GPU & Xwrapper", detail: "Groupes render/video & QuickSync activés", pct: 14 },
-  { num: 3, title: "Environnement Python", detail: "Python 3.13 venv, FastAPI, Uvicorn", pct: 21 },
-  { num: 4, title: "Build du frontend Next.js", detail: "Export statique SSG (frontend/out)", pct: 28 },
-  { num: 5, title: "Configuration de production", detail: "/etc/bobine/config.toml (mono-processus)", pct: 35 },
-  { num: 6, title: "Script de contrôle CLI 'bobine'", detail: "/usr/local/bin/bobine installé", pct: 42 },
-  { num: 7, title: "Désinstalleur détaché", detail: "Script autonome de reset usine prêt", pct: 49 },
-  { num: 8, title: "Service systemd — backend", detail: "bobine-backend.service démarré (port 8000)", pct: 56 },
-  { num: 9, title: "Kiosk Chromium", detail: "Session X11 verrouillée, anti-veille actif", pct: 64 },
-  { num: 10, title: "Audio & ALSA", detail: "Auto-port, anti-sifflement sono", pct: 71 },
-  { num: 11, title: "Autorisation sudo restreinte", detail: "Commandes de maintenance autorisées", pct: 78 },
-  { num: 12, title: "Synchronisation NTP", detail: "systemd-timesyncd synchronisé", pct: 85 },
-  { num: 13, title: "URL locale (mDNS) & port 80", detail: "http://bobine.local actif sur LAN", pct: 92 },
-  { num: 14, title: "Chien de garde (watchdog)", detail: "bobine-watchdog.timer actif", pct: 96 },
-  { num: 15, title: "Activation des services & santé", detail: "Contrôle HTTP 200 OK validé", pct: 100 },
+  { num: 1, title: "Canal de mise à jour", detail: "Canal /etc/bobine/update-channel configuré", pct: 6 },
+  { num: 2, title: "Paquets système (apt)", detail: "Chromium, MPV, SQLite3, pilotes VA-API iHD", pct: 11 },
+  { num: 3, title: "Accès GPU & Xwrapper", detail: "Groupes render/video & QuickSync activés", pct: 17 },
+  { num: 4, title: "Environnement Python", detail: "Python 3.13 venv, FastAPI, Uvicorn", pct: 22 },
+  { num: 5, title: "Build du frontend Next.js", detail: "Export statique SSG (frontend/out)", pct: 28 },
+  { num: 6, title: "Configuration de production", detail: "/etc/bobine/config.toml (mono-processus)", pct: 33 },
+  { num: 7, title: "Script de contrôle CLI 'bobine'", detail: "/usr/local/bin/bobine installé", pct: 39 },
+  { num: 8, title: "Désinstalleur détaché", detail: "Script autonome de reset usine prêt", pct: 44 },
+  { num: 9, title: "Service systemd — backend", detail: "bobine-backend.service démarré (port 8000)", pct: 50 },
+  { num: 10, title: "Kiosk Chromium", detail: "Session X11 verrouillée, anti-veille actif", pct: 56 },
+  { num: 11, title: "Audio & ALSA", detail: "Auto-port, anti-sifflement sono", pct: 61 },
+  { num: 12, title: "Autorisation sudo restreinte", detail: "Commandes de maintenance autorisées", pct: 67 },
+  { num: 13, title: "Synchronisation NTP", detail: "systemd-timesyncd synchronisé", pct: 72 },
+  { num: 14, title: "URL locale (mDNS) & port 80", detail: "http://bobine.local actif sur LAN", pct: 78 },
+  { num: 15, title: "Chien de garde (watchdog)", detail: "bobine-watchdog.timer actif", pct: 83 },
+  { num: 16, title: "Optimisations système (tuning)", detail: "Gouverneur CPU performance & journald 200 Mo", pct: 89 },
+  { num: 17, title: "Activation des services & santé", detail: "Contrôle HTTP 200 OK validé (8ms)", pct: 95 },
+  { num: 18, title: "Capacités audio & vidéo", detail: "Carte audio validée & VA-API actif", pct: 100 },
 ];
 
 export default function TauriDemo({ locale }: TauriDemoProps) {
@@ -33,10 +36,12 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
 
   // Étape 1 : Découverte
   const [isScanning, setIsScanning] = useState<boolean>(false);
-  const [selectedIp, setSelectedIp] = useState<string>("10.0.0.30");
+  const [selectedIp, setSelectedIp] = useState<string>("203.0.113.10");
 
   // Étape 2 : Connexion SSH
   const [sshConnecting, setSshConnecting] = useState<boolean>(false);
+  const [sshAuthMethod, setSshAuthMethod] = useState<"password" | "key">("password");
+  const [sshKeyImported, setSshKeyImported] = useState<boolean>(false);
 
   // Étape 4 : Options
   const [kioskEnabled, setKioskEnabled] = useState<boolean>(true);
@@ -47,7 +52,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
   const [deployStepIndex, setDeployStepIndex] = useState<number>(0);
   const [deployPct, setDeployPct] = useState<number>(0);
   const [deployLogs, setDeployLogs] = useState<string[]>([
-    "[SYS] Session SSH établie avec 10.0.0.30:22",
+    "[SYS] Session SSH établie avec 203.0.113.10:22",
     "[SYS] Lancement du déploiement automatisé : ./install.sh --channel=stable --progress=json",
   ]);
   const [isDeployCompleted, setIsDeployCompleted] = useState<boolean>(false);
@@ -93,7 +98,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
         setDeployPct(step.pct);
         setDeployLogs((prev) => [
           ...prev,
-          `[OK] Étape ${step.num}/15 : ${step.title} — ${step.detail}`,
+          `[OK] Étape ${step.num}/18 : ${step.title} — ${step.detail}`,
         ]);
         scrollLogsToBottom();
 
@@ -103,7 +108,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
           setIsDeployCompleted(true);
           setDeployLogs((prev) => [
             ...prev,
-            "[TERMINÉ] Installation terminée avec succès (15/15 étapes).",
+            "[TERMINÉ] Installation terminée avec succès (18/18 étapes).",
             "[HEALTH] API backend HTTP 200 OK — Kiosque et mDNS actifs.",
           ]);
           setTimeout(scrollLogsToBottom, 60);
@@ -119,8 +124,10 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
     clearActiveTimer();
     setWizardStep(1);
     setIsScanning(false);
-    setSelectedIp("10.0.0.30");
+    setSelectedIp("203.0.113.10");
     setSshConnecting(false);
+    setSshAuthMethod("password");
+    setSshKeyImported(false);
     setDeployStepIndex(0);
     setDeployPct(0);
     setDeployLogs([]);
@@ -136,8 +143,8 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
     setDeployLogs([
       "[SYS] Session SSH authentifiée (utilisateur 'fanta')",
       "[SYS] Lancement : ./install.sh --progress=json",
-      ...INSTALL_STEPS.map((s) => `[OK] Étape ${s.num}/15 : ${s.title} — ${s.detail}`),
-      "[TERMINÉ] Installation terminée avec succès (15/15 étapes).",
+      ...INSTALL_STEPS.map((s) => `[OK] Étape ${s.num}/18 : ${s.title} — ${s.detail}`),
+      "[TERMINÉ] Installation terminée avec succès (18/18 étapes).",
       "[HEALTH] API backend HTTP 200 OK — Kiosque et mDNS actifs.",
     ]);
     setIsDeployCompleted(true);
@@ -188,7 +195,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
               <span className={`status-dot ${selectedIp ? "connected" : "disconnected"}`} />
               <span className="status-text">
                 {wizardStep === 5 && isDeployCompleted
-                  ? (isEn ? "Online : 10.0.0.30" : "En ligne : 10.0.0.30")
+                  ? (isEn ? "Online : 203.0.113.10" : "En ligne : 203.0.113.10")
                   : selectedIp
                   ? `${isEn ? "Target" : "Cible"} : ${selectedIp}`
                   : (isEn ? "Ready" : "Prêt")}
@@ -298,7 +305,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                     type="text"
                     value={selectedIp}
                     onChange={(e) => setSelectedIp(e.target.value)}
-                    placeholder="Ex: 10.0.0.30"
+                    placeholder="Ex: 203.0.113.10"
                     className="tauri-input"
                   />
                   <button
@@ -316,8 +323,8 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                 <div className="tauri-devices-list">
                   <div className="tauri-device-row is-selected">
                     <div className="tauri-device-info">
-                      <span className="tauri-device-name">Dell Wyse 5070 — pavilion-malefique.local</span>
-                      <span className="tauri-device-ip">10.0.0.30 · Port 8000 · SSH : 22</span>
+                      <span className="tauri-device-name">Dell Wyse 5070 — bobine-appliance.local</span>
+                      <span className="tauri-device-ip">203.0.113.10 · Port 8000 · SSH : 22</span>
                       <div className="tauri-device-pills">
                         <span className="tauri-pill tauri-pill--success">Bobine Actif</span>
                         <span className="tauri-pill tauri-pill--info">SSH Ouvert</span>
@@ -328,7 +335,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                       type="button"
                       className="tauri-btn tauri-btn--primary tauri-btn--sm"
                       onClick={() => {
-                        setSelectedIp("10.0.0.30");
+                        setSelectedIp("203.0.113.10");
                         setWizardStep(2);
                       }}
                     >
@@ -338,8 +345,8 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
 
                   <div className="tauri-device-row">
                     <div className="tauri-device-info">
-                      <span className="tauri-device-name">Hôte Linux — dev-pc.local</span>
-                      <span className="tauri-device-ip">10.0.0.28 · SSH : 22</span>
+                      <span className="tauri-device-name">Hôte Linux — dev-workstation.local</span>
+                      <span className="tauri-device-ip">203.0.113.20 · SSH : 22</span>
                       <div className="tauri-device-pills">
                         <span className="tauri-pill tauri-pill--info">SSH Ouvert</span>
                         <span className="tauri-pill">Ubuntu 24.04</span>
@@ -349,7 +356,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                       type="button"
                       className="tauri-btn tauri-btn--secondary tauri-btn--sm"
                       onClick={() => {
-                        setSelectedIp("10.0.0.28");
+                        setSelectedIp("203.0.113.20");
                         setWizardStep(2);
                       }}
                     >
@@ -366,7 +373,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
             <div className="tauri-pane">
               <div className="tauri-pane-header">
                 <h3>{isEn ? "SSH target authentication" : "Connexion SSH à la cible"}</h3>
-                <p>{isEn ? "Enter the credentials configured during minimal Debian 13 installation." : "Entrez les identifiants configurés lors de l'installation minimale de Debian 13."}</p>
+                <p>{isEn ? "Enter credentials or import an SSH private key to authenticate." : "Entrez les identifiants ou importez une clé privée SSH pour vous authentifier."}</p>
               </div>
 
               <div className="tauri-form-grid">
@@ -383,8 +390,44 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                   <input type="text" defaultValue="fanta" className="tauri-input" />
                 </div>
                 <div className="tauri-form-group">
-                  <label className="tauri-label">{isEn ? "User password" : "Mot de passe utilisateur"}</label>
-                  <input type="password" defaultValue="••••••••" className="tauri-input" />
+                  <label className="tauri-label">{isEn ? "Authentication method" : "Méthode d'authentification"}</label>
+                  <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.25rem" }}>
+                    <button
+                      type="button"
+                      className={`tauri-btn tauri-btn--sm ${sshAuthMethod === "password" ? "tauri-btn--primary" : "tauri-btn--secondary"}`}
+                      onClick={() => setSshAuthMethod("password")}
+                    >
+                      {isEn ? "Password" : "Mot de passe"}
+                    </button>
+                    <button
+                      type="button"
+                      className={`tauri-btn tauri-btn--sm ${sshAuthMethod === "key" ? "tauri-btn--primary" : "tauri-btn--secondary"}`}
+                      onClick={() => {
+                        setSshAuthMethod("key");
+                        setSshKeyImported(true);
+                      }}
+                    >
+                      {isEn ? "Import SSH key" : "Importer une clé SSH"}
+                    </button>
+                  </div>
+                </div>
+                <div className="tauri-form-group" style={{ gridColumn: "1 / -1" }}>
+                  {sshAuthMethod === "password" ? (
+                    <>
+                      <label className="tauri-label">{isEn ? "User password" : "Mot de passe utilisateur"}</label>
+                      <input type="password" defaultValue="••••••••" className="tauri-input" />
+                    </>
+                  ) : (
+                    <>
+                      <label className="tauri-label">{isEn ? "Private Key" : "Clé privée"}</label>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                        <input type="text" readOnly value="~/.ssh/id_ed25519 (importée)" className="tauri-input" />
+                        <span className="tauri-pill tauri-pill--success" style={{ whiteSpace: "nowrap" }}>
+                          {isEn ? "Key Ready" : "Clé chargée"}
+                        </span>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -420,7 +463,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
             <div className="tauri-pane">
               <div className="tauri-pane-header">
                 <h3>{isEn ? "Target hardware & privilege audit" : "Analyse du système cible"}</h3>
-                <p>{isEn ? "The assistant inspected hardware capabilities, GPU acceleration, and privilege policies." : "L'assistant a sondé le matériel et la politique de privilèges de votre mini PC."}</p>
+                <p>{isEn ? "The assistant inspected hardware capabilities, GPU acceleration, power, and privilege policies." : "L'assistant a sondé le matériel, l'accélération GPU, la consommation et les privilèges de votre mini PC."}</p>
               </div>
 
               <div className="tauri-specs-grid">
@@ -430,18 +473,18 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                   <span className="tauri-pill tauri-pill--success">{isEn ? "Compatible" : "Compatible"}</span>
                 </div>
                 <div className="tauri-spec-card">
-                  <span className="tauri-spec-title">{isEn ? "Processor" : "Processeur"}</span>
-                  <span className="tauri-spec-val">Intel Celeron J4105 (4 cœurs @ 1.50GHz)</span>
-                  <span className="tauri-pill tauri-pill--info">64-bit (x86_64)</span>
+                  <span className="tauri-spec-title">{isEn ? "Processor & Power" : "Processeur & Puissance"}</span>
+                  <span className="tauri-spec-val">Intel Celeron J4105 (4 cœurs) · 4.8 W · 42°C</span>
+                  <span className="tauri-pill tauri-pill--info">intel-rapl OK</span>
                 </div>
                 <div className="tauri-spec-card">
                   <span className="tauri-spec-title">{isEn ? "Memory & Storage" : "Mémoire & Disque"}</span>
-                  <span className="tauri-spec-val">8 Go RAM / 60 Go Libre</span>
+                  <span className="tauri-spec-val">8 Go LPDDR4 @ 2400 MT/s · 60 Go Libre</span>
                   <span className="tauri-pill tauri-pill--success">{isEn ? "Adequate" : "Adéquat"}</span>
                 </div>
                 <div className="tauri-spec-card">
                   <span className="tauri-spec-title">{isEn ? "Hardware Video Playout" : "Accélération Vidéo"}</span>
-                  <span className="tauri-spec-val">Intel UHD Graphics 600 (QuickSync)</span>
+                  <span className="tauri-spec-val">Intel UHD Graphics 600 · VA-API H.264 · 39°C</span>
                   <span className="tauri-pill tauri-pill--success">{isEn ? "Supported" : "Supporté"}</span>
                 </div>
               </div>
@@ -548,8 +591,8 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                 </h3>
                 <p>
                   {isDeployCompleted
-                    ? (isEn ? "All 15 system steps were executed and validated." : "Les 15 étapes du script ont été exécutées et validées.")
-                    : (isEn ? `Step ${deployStepIndex + 1} of 15 : ${INSTALL_STEPS[deployStepIndex]?.title || "Initializing"}` : `Étape ${deployStepIndex + 1} sur 15 : ${INSTALL_STEPS[deployStepIndex]?.title || "Initialisation"}`)}
+                    ? (isEn ? "All 18 system steps were executed and validated." : "Les 18 étapes du script ont été exécutées et validées.")
+                    : (isEn ? `Step ${deployStepIndex + 1} of 18 : ${INSTALL_STEPS[deployStepIndex]?.title || "Initializing"}` : `Étape ${deployStepIndex + 1} sur 18 : ${INSTALL_STEPS[deployStepIndex]?.title || "Initialisation"}`)}
                 </p>
               </div>
 

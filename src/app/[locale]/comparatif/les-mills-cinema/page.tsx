@@ -5,6 +5,8 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import RoiCalculator from "@/components/RoiCalculator";
 import ShareButton from "@/components/ShareButton";
+import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
+import FaqJsonLd from "@/components/FaqJsonLd";
 
 export async function generateMetadata({
   params,
@@ -209,8 +211,56 @@ export default async function LesMillsComparisonPage({
   const c = CONTENT[locale as Locale];
   const isEn = locale === "en";
 
+  const breadcrumbs = [
+    { name: "Bobine", url: `/${locale}` },
+    { name: isEn ? "Comparisons" : "Comparatifs", url: `/${locale}/comparatif` },
+    { name: isEn ? "Alternative to Les Mills Cinema" : "Alternative Les Mills Cinema", url: `/${locale}/comparatif/les-mills-cinema` },
+  ];
+
+  const faqItems = [
+    {
+      category: "compare" as const,
+      q: isEn
+        ? "Why is Bobine 100% free while Les Mills Cinema costs €150 to €400 per month?"
+        : "Pourquoi Bobine est-il 100% gratuit alors que Les Mills Cinema coûte 150 € à 400 € par mois ?",
+      a: isEn
+        ? "Bobine is open-source software under the copyleft AGPL-3.0 license. There are no software subscription fees or royalties per screen. You own your standard refurbished hardware (mini PC, HDMI TV)."
+        : "Bobine est un logiciel libre sous licence AGPL-3.0. Il n'y a aucun abonnement logiciel ni redevance par écran. Vous êtes propriétaire de votre matériel standard (mini PC reconditionné, TV HDMI).",
+    },
+    {
+      category: "compare" as const,
+      q: isEn
+        ? "Can I play custom workout videos and music on Bobine instead of a locked catalog?"
+        : "Puis-je diffuser mes propres vidéos d'entraînement et musiques sur Bobine à la place d'un catalogue imposé ?",
+      a: isEn
+        ? "Yes. Bobine gives you total freedom to upload your own video files (MP4, MKV 1080p60/4K) and audio courses. There is no locked proprietary catalog or mandatory programming."
+        : "Oui. Bobine vous donne une liberté totale pour importer vos propres vidéos (MP4, MKV 1080p60/4K) et cours audio. Aucun catalogue verrouillé ou imposé.",
+    },
+    {
+      category: "compare" as const,
+      q: isEn
+        ? "How does Bobine guarantee playback during internet outages?"
+        : "Comment Bobine garantit-il la lecture en cas de coupure internet ?",
+      a: isEn
+        ? "All media files, timetables, and kiosk interfaces run 100% locally from the mini PC's SSD. The system functions entirely offline without any external cloud dependency."
+        : "Tous les médias, plannings et interfaces kiosques tournent à 100% en local sur le SSD du mini PC. La salle diffuse ses cours de manière autonome sans aucune dépendance au cloud.",
+    },
+    {
+      category: "compare" as const,
+      q: isEn
+        ? "What hardware is required to replace a Les Mills Cinema kiosk?"
+        : "Quel matériel est nécessaire pour remplacer une borne Les Mills Cinema ?",
+      a: isEn
+        ? "A standard refurbished x86-64 mini PC (such as Dell Wyse 5070 Celeron J4105 or HP EliteDesk 705 ~€40-€80), 4 to 8 GB RAM, and a standard HDMI screen."
+        : "Un mini PC x86-64 reconditionné standard (comme un Dell Wyse 5070 Celeron J4105 ou HP EliteDesk 705 ~40-80 €), 4 à 8 Go de RAM et un écran HDMI standard.",
+    },
+  ];
+
   return (
     <>
+      <BreadcrumbsJsonLd items={breadcrumbs} />
+      <FaqJsonLd items={faqItems} />
+
       {/* En-tête */}
       <header style={{ paddingTop: "1rem", paddingBottom: "2rem", maxWidth: "860px" }}>
         <div

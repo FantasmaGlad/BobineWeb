@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
+import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
+import FaqJsonLd from "@/components/FaqJsonLd";
 
 export async function generateMetadata({
   params,
@@ -200,9 +202,56 @@ export default async function SignageComparisonPage({
   if (!isLocale(locale)) notFound();
   const c = CONTENT[locale as Locale];
   const isEn = locale === "en";
+  const breadcrumbs = [
+    { name: isEn ? "Home" : "Accueil", url: `/${locale}` },
+    { name: isEn ? "Comparisons" : "Comparatifs", url: `/${locale}/comparatif` },
+    { name: isEn ? "Anthias & Digital Signage" : "Anthias & Affichage Dynamique", url: `/${locale}/comparatif/affichage-dynamique-fitness` },
+  ];
+
+  const faqItems = [
+    {
+      category: "compare" as const,
+      q: isEn
+        ? "Why is Anthias (Screenly OSE) not adapted for fitness club studios?"
+        : "Pourquoi Anthias (Screenly OSE) n'est-il pas adapté aux studios de fitness ?",
+      a: isEn
+        ? "Anthias is a digital signage slideshow/loop player, not a dedicated gym video playout system. It lacks weekly class schedule automation at fixed times, member interactive touch kiosk selection, countdown timers between classes, coach smartphone control, and 24/7 background audio radio."
+        : "Anthias est un afficheur d'écrans passif en boucle, pas une régie vidéo de fitness. Il ne gère ni le planning hebdomadaire de cours automatisé à heure fixe, ni la borne tactile à la demande pour les adhérents, ni le décompte inter-cours, ni la télécommande coach sur smartphone, ni la radio d'ambiance 24/7.",
+    },
+    {
+      category: "compare" as const,
+      q: isEn
+        ? "Can Bobine replace proprietary systems like TouchPlayer, Waves System or Yodeck?"
+        : "Bobine peut-il remplacer des systèmes comme TouchPlayer, Waves System ou Yodeck ?",
+      a: isEn
+        ? "Yes. Bobine provides the same touch kiosk interactivity, class scheduling, and audio/video playout as proprietary gym appliances, but with zero recurring SaaS subscription, zero vendor lock-in, and 100% offline local autonomy on standard refurbished mini PCs."
+        : "Oui. Bobine apporte la même interactivité tactile, la planification de cours et la diffusion audiovisuelle que les bornes propriétaires, mais sans abonnement mensuel récurrent, sans dépendance commerciale et avec une autonomie 100% locale sur mini PC standard reconditionné.",
+    },
+    {
+      category: "compare" as const,
+      q: isEn
+        ? "How does coach mobile remote control work without installing an application?"
+        : "Comment fonctionne la télécommande mobile du coach sans installer d'application ?",
+      a: isEn
+        ? "Bobine runs a local web server on your club LAN. The coach scans a QR code displayed on the screen or enters the local IP address on their smartphone to control playback (play, pause, seek, volume, visual ambiances) directly in the mobile browser."
+        : "Bobine intègre son propre serveur web local. Le coach scanne un QR code affiché à l'écran ou tape l'adresse IP locale sur son smartphone pour piloter la séance (lecture, pause, recherche, volume, ambiances) directement dans son navigateur web.",
+    },
+    {
+      category: "compare" as const,
+      q: isEn
+        ? "Does Bobine support physical remote controls and USB gamepads?"
+        : "Bobine fonctionne-t-il avec des télécommandes physiques et des manettes USB ?",
+      a: isEn
+        ? "Yes. Bobine natively supports standard 2.4 GHz wireless presentation remotes (space/arrows keyboard emulation) and USB/Bluetooth gamepads (Xbox, PlayStation, 8BitDo) via the HTML5 Gamepad API for effortless studio operation."
+        : "Oui. Bobine prend en charge nativement les télécommandes sans fil 2.4 GHz de présentation (touches clavier Espace/Flèches) et les manettes USB/Bluetooth (Xbox, PlayStation, 8BitDo) via l'API HTML5 Gamepad.",
+    },
+  ];
 
   return (
     <>
+      <BreadcrumbsJsonLd items={breadcrumbs} />
+      <FaqJsonLd items={faqItems} />
+
       {/* En-tête */}
       <header style={{ paddingTop: "1rem", paddingBottom: "2rem", maxWidth: "860px" }}>
         <div

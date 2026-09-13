@@ -46,13 +46,15 @@ Chaque pack correspond à un profil d'utilisation concret en club de fitness :
 
 ### Pack 1 : Linux Appliance (Le choix n°1 Bobine — Éco-Responsable & 24/7)
 *Cible : Studio de cycling immersif, cours virtuels quotidiens, régie autonome sans bureau.*
-- **Unité centrale** : Dell Wyse 5070 (Intel Celeron J4105 Quad-Core, 4 à 8 Go RAM, SSD SATA M.2 ou eMMC).
-  - *Points forts* : Refroidissement passif fanless (aucun ventilateur, n'aspire ni la magnésie ni la poussière de studio), consommation électrique record de 4W à 8W en diffusion continue, support matériel VA-API Intel QuickSync.
-  - *Prix indicatif* : 45 € à 75 € (reconditionné).
+- **Unité centrale recommandée** : **Dell Wyse 5070 avec processeur Intel Pentium Silver J5005** (4 cœurs jusqu'à 2.80 GHz, iGPU Intel UHD Graphics 605 à 18 unités d'exécution).
+  - *Pourquoi le J5005 est supérieur au J4105* : L'iGPU UHD 605 embarque 50% d'unités d'exécution supplémentaires (18 EUs vs 12 EUs) et une fréquence turbo plus élevée (2.8 GHz vs 2.5 GHz), assurant un fondu Gapless A/B Deck ultra-fluide et une lecture 4K 60fps sans micro-saccades. Le Celeron J4105 reste le repli d'occasion le plus économique.
+  - *Spécifications idéales* : 8 Go de mémoire vive DDR4, SSD M.2 SATA ou NVMe de 64 à 256 Go.
+  - *Points forts* : Refroidissement passif fanless (zéro ventilateur, aucun composant en rotation, n'aspire ni la magnésie ni la poussière de studio), consommation électrique record de 4W à 8W en diffusion continue, décodage matériel VA-API QuickSync natif.
+  - *Prix indicatif d'occasion* : 50 € à 80 € (eBay, Back Market, AfB Shop) / 85 € à 110 € (Amazon Renewed garanti).
 - **Câblage vidéo** : Câble DisplayPort vers HDMI 2.0 blindé 4K 60Hz (~8 € - 12 €).
 - **Réseau** : Câble Ethernet RJ45 Cat 6 blindé ou dongle Wi-Fi double bande USB Realtek/Intel (~10 €).
 - **Contrôle studio** : Télécommande sans fil 2.4 GHz de présentation avec récepteur USB plug-and-play (~12 €).
-- **Budget total estimé** : **~65 € à 99 €**.
+- **Budget total estimé** : **~65 € à 99 €** (selon le canal d'achat choisi).
 
 ### Pack 2 : Windows Desktop (Polyvalence & Performance 4K)
 *Cible : Clubs souhaitant une machine Windows 11 multitâche capable d'alimenter un mur LED ou un grand écran 4K60.*
@@ -79,7 +81,29 @@ Chaque pack correspond à un profil d'utilisation concret en club de fitness :
   - *Prix indicatif* : 150 € à 250 €.
 - **Connectique vidéo active** : Câble ou hub adaptateur USB-C vers HDMI avec port de charge Power Delivery (permet une diffusion ininterrompue 24/7 sans vider la batterie) (~18 € - 25 €).
 - **Fixation studio** : Support pupitre inclinable sécurisé pour vélo de cycling ou fixation murale VESA (~20 € - 35 €).
-- **Budget accessoires estimé** : **~40 € à 60 €** (hors tablette).
+### 3.5 Découpage en 3 Gammes par OS (Essentiel, Équilibré, Pro)
+Pour chaque profil d'OS, l'utilisateur a le choix entre 3 niveaux de puissance et de budget :
+1. **Gamme Essentielle (Premier Prix)** : Répond aux besoins fondamentaux (1080p60 fluide, 1 écran, contrôle standard).
+2. **Gamme Équilibrée (Recommandée)** : Meilleur rapport confort/durabilité (SSD plus spacieux, 8 à 16 Go de RAM, connectique renforcée).
+3. **Gamme Pro (Performance 4K & Double Écran)** : Aucun compromis technique (double sortie HDMI/DP 4K60, réencodage matériel instantané, manettes sans fil haute précision, administration fluide).
+
+### 3.6 Comparateur Direct Multi-Canaux d'Achat (Amazon vs Reconditionné/eBay vs AliExpress)
+Sur chaque carte de bundle, l'interface propose un **tableau comparatif direct en toute transparence** selon le canal d'achat préféré du gérant :
+
+| Canal d'Achat | Avantages & Profil d'Usage | Délai de Livraison | Niveau de Prix |
+|---|---|---|---|
+| **Amazon (Prime / Renewed)** | Livraison express 24-48h, garantie A à Z, retour immédiat sans friction | 1 à 2 jours | Prix standard |
+| **Reconditionné / eBay / AfB** | Économie circulaire, châssis pro déclassés d'entreprises, prix plancher d'occasion | 3 à 5 jours | Économie de 20% à 40% |
+| **AliExpress Direct Usine** | Prix ultra-compétitifs sur les câbles, télécommandes et mini PC N100 | 7 à 12 jours | Économie de 40% à 60% |
+
+#### Exemple d'affichage comparatif direct dans l'interface (Pack Linux Dell Wyse 5070 J5005) :
+- **Unité centrale** (Dell Wyse 5070 J5005 8 Go) : Amazon Renewed (89 €) · eBay / Reconditionné (59 €) · AliExpress N100 (109 €)
+- **Câble DisplayPort vers HDMI 4K** : Amazon (8,99 €) · eBay (7,50 €) · AliExpress (4,20 €)
+- **Télécommande 2.4 GHz USB** : Amazon (11,90 €) · eBay (9,90 €) · AliExpress (5,50 €)
+- **TOTAL ESTIMÉ DU PACK COMPLET** :
+  - **Option Amazon Rapide** : **~109 €** (prêt sous 24h)
+  - **Option Reconditionné Éco** : **~76 €** (meilleur rapport qualité/prix)
+  - **Option AliExpress Éco** : **~118 €** (matériel neuf direct usine)
 
 ---
 

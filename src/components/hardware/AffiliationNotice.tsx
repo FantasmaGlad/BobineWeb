@@ -3,9 +3,21 @@
 import React from "react";
 import Link from "next/link";
 import { type Locale } from "@/lib/i18n";
+import { PRICE_CHECKED_AT } from "@/content/hardware";
+
+function formatCheckedDate(iso: string, isEn: boolean) {
+  const d = new Date(`${iso}T00:00:00Z`);
+  return d.toLocaleDateString(isEn ? "en-GB" : "fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
 
 export default function AffiliationNotice({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
+  const checkedDate = formatCheckedDate(PRICE_CHECKED_AT, isEn);
 
   return (
     <div
@@ -44,8 +56,8 @@ export default function AffiliationNotice({ locale }: { locale: Locale }) {
         </p>
         <p style={{ margin: "0.25rem 0 0 0" }}>
           {isEn
-            ? "As an Amazon Associate, bobine.fit earns from qualifying purchases made through the links on this page, at absolutely no additional cost to you. Hardware pricing and availability are indicative and updated regularly. Deliveries, guarantees, and returns are handled directly by Amazon and its merchants."
-            : "En tant que Partenaire Amazon, le site bobine.fit réalise un bénéfice sur les achats remplissant les conditions requises via les liens affiliés de cette page, sans aucun surcoût pour votre établissement. Les prix et disponibilités sont indicatifs. Les garanties, livraisons et retours sont assurés directement par Amazon et ses vendeurs partenaires."}{" "}
+            ? `As an Amazon Associate, bobine.fit earns from qualifying purchases made through the links on this page, at absolutely no additional cost to you. Every product link points to a manually verified Amazon product page (real ASIN, real photo). Prices shown were checked on ${checkedDate} and may have changed since — Amazon's own page is always the source of truth, one click away. Deliveries, guarantees, and returns are handled directly by Amazon and its merchants.`
+            : `En tant que Partenaire Amazon, le site bobine.fit réalise un bénéfice sur les achats remplissant les conditions requises via les liens affiliés de cette page, sans aucun surcoût pour votre établissement. Chaque lien pointe vers une fiche Amazon vérifiée manuellement (ASIN réel, vraie photo produit). Les prix affichés ont été constatés le ${checkedDate} et peuvent avoir changé depuis : la fiche Amazon elle-même fait toujours foi, à un clic. Les garanties, livraisons et retours sont assurés directement par Amazon et ses vendeurs partenaires.`}{" "}
           <Link
             href={`/${locale}/mentions-legales`}
             style={{ color: "var(--accent-primary)", textDecoration: "underline", textUnderlineOffset: "3px" }}

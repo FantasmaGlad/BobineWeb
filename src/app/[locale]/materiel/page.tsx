@@ -115,7 +115,7 @@ export default async function HardwarePage({
   };
 
   return (
-    <div className="container" style={{ maxWidth: "74rem", paddingBottom: "3rem" }}>
+    <div className="container" style={{ maxWidth: "82rem", paddingBottom: "3rem" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
       <script

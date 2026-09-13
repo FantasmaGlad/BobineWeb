@@ -3,10 +3,21 @@
 import React from "react";
 import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
-import { STANDALONE_ACCESSORIES } from "@/content/hardware";
+import { STANDALONE_ACCESSORIES, PRICE_CHECKED_AT } from "@/content/hardware";
+
+function formatCheckedDate(iso: string, isEn: boolean) {
+  const d = new Date(`${iso}T00:00:00Z`);
+  return d.toLocaleDateString(isEn ? "en-GB" : "fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
 
 export default function HardwareAccessoriesGrid({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
+  const checkedDate = formatCheckedDate(PRICE_CHECKED_AT, isEn);
 
   return (
     <div style={{ marginTop: "3.5rem" }}>
@@ -62,6 +73,7 @@ export default function HardwareAccessoriesGrid({ locale }: { locale: Locale }) 
           return (
             <div
               key={acc.id}
+              className="hw-item-card"
               style={{
                 background: "var(--bg-card)",
                 border: "1px solid var(--border-subtle)",
@@ -71,7 +83,6 @@ export default function HardwareAccessoriesGrid({ locale }: { locale: Locale }) 
                 flexDirection: "column",
                 justifyContent: "space-between",
                 boxShadow: "0 1px 4px rgba(0, 0, 0, 0.03)",
-                transition: "border-color 0.2s ease, transform 0.2s ease",
               }}
             >
               <div>
@@ -105,7 +116,7 @@ export default function HardwareAccessoriesGrid({ locale }: { locale: Locale }) 
                       color: "var(--text-heading)",
                     }}
                   >
-                    ~{acc.priceEst.toFixed(2)} €
+                    {acc.priceAmazon.toFixed(2)} €
                   </span>
                 </div>
 
@@ -224,14 +235,8 @@ export default function HardwareAccessoriesGrid({ locale }: { locale: Locale }) 
                   <span>{isEn ? "Product Sheet (Amazon)" : "Fiche Produit (Amazon)"}</span>
                 </a>
                 <div style={{ textAlign: "center", marginTop: "0.35rem" }}>
-                  <span
-                    style={{
-                      fontSize: "0.675rem",
-                      color: "var(--text-muted)",
-                      fontFamily: "var(--font-mono, monospace)",
-                    }}
-                  >
-                    Réf {acc.asin}
+                  <span style={{ fontSize: "0.675rem", color: "var(--text-muted)" }}>
+                    {isEn ? `Price checked ${checkedDate}` : `Prix constaté le ${checkedDate}`}
                   </span>
                 </div>
               </div>

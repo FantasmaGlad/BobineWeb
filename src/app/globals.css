@@ -7616,6 +7616,95 @@ main {
 
 /* Multi-channel buttons dans DocsInstallHub */
 
+/* ==========================================================================
+   Page Matériel — navigation fluide entre packs OS/gammes & achat mobile
+   ========================================================================== */
+
+@keyframes hwFadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hw-fade-panel {
+  animation: hwFadeSlide 0.22s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hw-fade-panel {
+    animation: none;
+  }
+}
+
+.hw-item-card {
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.hw-item-card:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+}
+
+.hw-item-card--hero:hover {
+  transform: none;
+}
+
+.hw-mobile-buybar {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .hw-mobile-buybar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 90;
+    padding: 0.65rem 1rem calc(0.65rem + env(safe-area-inset-bottom));
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-subtle);
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .hw-mobile-buybar-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
+
+  .hw-mobile-buybar-price {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-heading);
+  }
+
+  .hw-mobile-buybar-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  .hw-mobile-buybar-cta {
+    flex-shrink: 0;
+    padding: 0.55rem 1.1rem !important;
+    font-size: 0.825rem !important;
+    text-decoration: none;
+  }
+
+  /* Espace pour ne pas masquer le contenu derrière la barre fixe */
+  .container:has(.hw-mobile-buybar) {
+    padding-bottom: 4.5rem;
+  }
+}
 
 
 

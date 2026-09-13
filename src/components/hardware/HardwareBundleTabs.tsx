@@ -43,7 +43,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
     {
       id: "linux",
       label: "Linux Appliance",
-      badge: isEn ? "Official Pick" : "Choix Officiel",
+      badge: isEn ? "Official" : "Officiel",
       icon: <LinuxIcon size={18} />,
     },
     {
@@ -97,8 +97,8 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
         aria-label={isEn ? "Operating System selection" : "Sélection du système d'exploitation"}
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "0.5rem",
+          gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))",
+          gap: "0.65rem",
           marginBottom: "1.25rem",
         }}
       >
@@ -120,6 +120,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
+                gap: "0.65rem",
                 padding: "0.75rem 1rem",
                 borderRadius: "0.5rem",
                 border: isActive ? "2px solid var(--accent-primary)" : "1px solid var(--border-subtle)",
@@ -130,11 +131,11 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                 transition: "all 0.15s ease",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                <span style={{ color: isActive ? "var(--accent-primary)" : "currentColor" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.55rem", minWidth: 0, flexShrink: 1 }}>
+                <span style={{ color: isActive ? "var(--accent-primary)" : "currentColor", flexShrink: 0, display: "flex" }}>
                   {item.icon}
                 </span>
-                <span style={{ fontWeight: isActive ? 700 : 500, fontSize: "0.875rem" }}>
+                <span style={{ fontWeight: isActive ? 700 : 500, fontSize: "0.875rem", whiteSpace: "nowrap" }}>
                   {item.label}
                 </span>
               </div>
@@ -145,10 +146,12 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                     fontWeight: 700,
                     textTransform: "uppercase",
                     letterSpacing: "0.04em",
-                    padding: "0.15rem 0.4rem",
+                    padding: "0.18rem 0.45rem",
                     borderRadius: "0.3rem",
                     background: isActive ? "var(--accent-primary)" : "var(--bg-inset)",
                     color: isActive ? "var(--accent-primary-fg)" : "var(--text-muted)",
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
                   }}
                 >
                   {item.badge}

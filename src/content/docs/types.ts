@@ -19,11 +19,15 @@ export interface TechChip {
   label: string;
 }
 
+export type DeviceImageKey = "windows" | "macos" | "linux" | "android";
+
 export interface DocSubsection {
   subtitle: string;
   paragraphs: string[];
   codeBlock?: string;
   techChips?: TechChip[];
+  /** Photo d'appareil réel, utilisée uniquement par le générateur PDF (illustration). */
+  deviceImage?: DeviceImageKey;
 }
 
 export interface DocChapter {

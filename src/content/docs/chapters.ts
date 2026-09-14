@@ -36,7 +36,7 @@ const fr: DocChapter[] = [
         subtitle: "1.3 La mascotte Baamix et la sobriété énergétique",
         paragraphs: [
           "Le nom Bobine rend hommage à la bobine de film 35mm. La mascotte Baamix, un hamster blanc, symbolise l'endurance et l'ingéniosité locale du projet.",
-          "La solution tourne sur des mini PC reconditionnés (environ 40 à 50 €, par exemple un Dell Wyse 5070) consommant moins de 10 Watts en pleine lecture 1080p60/4K.",
+          "La solution tourne sur des mini PC reconditionnés (à partir d'environ 160 €, par exemple un HP EliteDesk 800 Mini) ou sur un mini PC industriel 100% fanless (environ 600 €) consommant quelques Watts en pleine lecture 1080p60/4K.",
         ],
       },
     ],
@@ -50,33 +50,56 @@ const fr: DocChapter[] = [
       "Méthodes d'installation de Bobine V3.0.5 : applications de bureau en un clic (Windows, macOS, Linux), application native pour tablettes Android, ou déploiement d'une appliance dédiée 24/7 pour une salle de sport.",
     subsections: [
       {
-        subtitle: "2.1 Applications de bureau grand public & mobiles (un clic)",
+        subtitle: "2.1 Windows 11 / 10 & Windows IoT",
         paragraphs: [
-          "Windows 11 / 10 : installeur officiel Bobine-Setup-3.0.5.exe, exécution silencieuse en arrière-plan (icône près de l'horloge), mode capot fermé (clamshell) sans mise en veille via powercfg, règle de pare-feu automatique et désinstallation en 1 clic via Inno Setup.",
-          "macOS Apple Silicon (M1 à M4) & Intel : image disque Bobine-3.0.5.dmg, glisser-déposer dans Applications, menu discret dans la barre supérieure, prévention de veille native caffeinate et accélération matérielle VideoToolbox.",
-          "Linux Bureau (Debian / Ubuntu / Mint) : dépôt APT officiel signé cryptographiquement (https://apt.bobine.fit) pour des mises à jour automatiques via apt upgrade, paquet autonome bobine_3.0.5_amd64.deb pour la logithèque, et désinstallation Polkit sécurisée en 1 clic.",
-          "Tablettes Android ARM64 : paquet natif Bobine-3.0.5.apk (API 34-36), embarquant CPython 3.13 et FastAPI via Chaquopy, service de premier plan persistant, accélération MediaCodec et double affichage (/grid tactile + /cinema HDMI USB-C DisplayPort).",
+          "Installeur officiel Bobine-Setup-3.0.5.exe : exécution silencieuse en arrière-plan (icône près de l'horloge), mode capot fermé (clamshell) sans mise en veille via powercfg, règle de pare-feu automatique et désinstallation en 1 clic via Inno Setup.",
+          "Matériel de référence testé : mini PC Intel N100 ou AMD Ryzen neuf, livré avec Windows 11 Pro préinstallé (voir le hub matériel bobine.fit/materiel pour des références vérifiées et leur prix constaté).",
+        ],
+        deviceImage: "windows",
+      },
+      {
+        subtitle: "2.2 macOS Apple Silicon (M1 à M4) & Intel",
+        paragraphs: [
+          "Image disque Bobine-3.0.5.dmg : glisser-déposer dans Applications, menu discret dans la barre supérieure, prévention de veille native caffeinate et accélération matérielle VideoToolbox.",
+          "Matériel de référence testé : Mac Mini Apple Silicon en régie dédiée, ou MacBook du coach exploité fermé (mode clamshell) via un hub ou dock USB-C.",
+        ],
+        deviceImage: "macos",
+      },
+      {
+        subtitle: "2.3 Linux Bureau (Debian / Ubuntu / Mint)",
+        paragraphs: [
+          "Dépôt APT officiel signé cryptographiquement (https://apt.bobine.fit) pour des mises à jour automatiques via apt upgrade, ou paquet autonome bobine_3.0.5_amd64.deb pour la logithèque. Désinstallation Polkit sécurisée en 1 clic.",
+          "Matériel de référence testé : mini PC industriel fanless (dissipation 100% passive, zéro ventilateur), le choix Bobine pour un silence absolu en studio 24/7.",
         ],
         codeBlock:
           "# Dépôt APT officiel Linux (apt.bobine.fit)\ncurl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine",
+        deviceImage: "linux",
       },
       {
-        subtitle: "2.2 Appliance dédiée & salle 24/7 (script automatisé en 18 étapes)",
+        subtitle: "2.4 Tablettes Android ARM64",
         paragraphs: [
-          "Pour une diffusion permanente et ininterrompue sur un mini PC dédié (Dell Wyse 5070, Beelink N100, HP ProDesk) sous Debian 13 minimale sans bureau graphique parasite.",
+          "Paquet natif Bobine-3.0.5.apk (API 34-36), embarquant CPython 3.13 et FastAPI via Chaquopy, service de premier plan persistant, accélération MediaCodec et double affichage (/grid tactile + /cinema HDMI USB-C DisplayPort).",
+          "Matériel de référence testé : tablette Samsung Galaxy Tab ou Xiaomi Pad avec port USB-C compatible DisplayPort Alt Mode pour la sortie vidéo filaire vers l'écran de salle.",
+        ],
+        deviceImage: "android",
+      },
+      {
+        subtitle: "2.5 Appliance dédiée & salle 24/7 (script automatisé en 18 étapes)",
+        paragraphs: [
+          "Pour une diffusion permanente et ininterrompue sur un mini PC dédié sous Debian 13 minimale sans bureau graphique parasite.",
           "L'installation s'exécute de façon entièrement automatisée et idempotente en 18 étapes vérifiées (détection GPU, pilotes VA-API QuickSync, venv Python 3.13, build Next.js SSG, services systemd, audio ALSA, synchronisation NTP, URL mDNS, watchdog, optimisations CPU et vérification des capacités matérielles) :",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash",
       },
       {
-        subtitle: "2.3 Orchestration réseau avec Bobine Assistant (Tauri 2)",
+        subtitle: "2.6 Orchestration réseau avec Bobine Assistant (Tauri 2)",
         paragraphs: [
           "Bobine Assistant est une application graphique légère en Rust et Tauri 2 : elle balaie le sous-réseau local et répertorie tous les appareils répondants (nom d'hôte résolu en DNS inverse, IP, OS estimé, ports SSH/Bobine/partage/impression).",
           "La connexion à la cible s'opère par mot de passe ou par import d'une clé SSH privée locale (.ssh/id_ed25519) via le sélecteur natif de fichiers. L'assistant audite le matériel (puissance instantanée en Watts, RAM et fréquence MT/s) et lance le déploiement en 18 étapes avec journal d'évènements compact temps réel sans ouvrir de terminal.",
         ],
       },
       {
-        subtitle: "2.4 Canaux de version : Stable ou Bêta (Rolling beta)",
+        subtitle: "2.7 Canaux de version : Stable ou Bêta (Rolling beta)",
         paragraphs: [
           "Bobine propose deux canaux de mise à jour : le canal Stable (recommandé en production de salle, tags Vx.y.z stricts) et le canal Bêta (rolling beta sur tag unique mobile beta, déployé automatiquement à chaque push sur main).",
           "Sur tous les OS, la Bêta partage les mêmes identifiants applicatifs et s'installe par-dessus la version existante sans créer de doublon ni affecter les bases de données ou médias. Le choix s'effectue dans Réglages → Mises à jour logicielles ou via le paramètre CLI :",
@@ -293,8 +316,16 @@ const fr: DocChapter[] = [
     title: "7. Feuille de Route & Écosystème",
     icon: "roadmap",
     summary:
-      "État de l'application native Android pour tablettes tactiles et pistes d'élargissement vers d'autres supports.",
+      "Suivi des versions publiées, état de l'application native Android pour tablettes tactiles et pistes d'élargissement vers d'autres supports.",
     subsections: [
+      {
+        subtitle: "7.0 Suivi des versions & publication continue",
+        paragraphs: [
+          "Chaque nouvelle version est publiée sur GitHub Releases (github.com/FantasmaGlad/Bobine/releases) avec son changelog détaillé, ses binaires signés pour les 5 systèmes d'exploitation, et son SHA-256 de vérification d'intégrité.",
+          "Deux canaux permettent de suivre l'avancement du projet : le canal Stable (tags Vx.y.z figés, recommandé en production de salle) et le canal Bêta (rolling beta reconstruit automatiquement à chaque évolution du code sur la branche principale, pour les clubs souhaitant tester les prochaines fonctionnalités en avant-première).",
+          "Le dépôt APT officiel (apt.bobine.fit) reflète les deux canaux dans ses distributions stable et beta, permettant une mise à jour automatique via apt upgrade sans réinstallation manuelle.",
+        ],
+      },
       {
         subtitle: "7.1 Android : application native officielle pour tablettes tactiles",
         paragraphs: [
@@ -343,7 +374,7 @@ const en: DocChapter[] = [
         subtitle: "1.3 The mascot Baamix and energy frugality",
         paragraphs: [
           "The name Bobine pays tribute to 35mm film reels. The mascot Baamix, a white hamster, symbolizes the project's endurance and local ingenuity.",
-          "The software runs on refurbished mini PCs (roughly $40-50, e.g. a Dell Wyse 5070) consuming under 10 Watts at full 1080p60/4K playback.",
+          "The software runs on refurbished mini PCs (starting around $160, e.g. an HP EliteDesk 800 Mini) or a 100% fanless industrial mini PC (around $600) consuming just a few Watts at full 1080p60/4K playback.",
         ],
       },
     ],
@@ -357,33 +388,56 @@ const en: DocChapter[] = [
       "Bobine V3.0.5 installation methods: 1-click desktop applications (Windows, macOS, Linux), native Android tablet app, or a dedicated 24/7 appliance deployment for a gym studio.",
     subsections: [
       {
-        subtitle: "2.1 Consumer desktop & mobile applications (1-click)",
+        subtitle: "2.1 Windows 11 / 10 & Windows IoT",
         paragraphs: [
-          "Windows 11 / 10: official Bobine-Setup-3.0.5.exe installer, silent background execution (systray icon near clock), clamshell laptop mode without sleep via powercfg, automatic firewall rule, and 1-click uninstaller via Inno Setup.",
-          "macOS Apple Silicon (M1 to M4) & Intel: Bobine-3.0.5.dmg disk image, drag-and-drop into Applications, discreet menu bar icon, native caffeinate sleep prevention, and VideoToolbox hardware acceleration.",
-          "Linux Desktop (Debian / Ubuntu / Mint): official cryptographically signed APT repository (https://apt.bobine.fit) for automated updates via apt upgrade, standalone bobine_3.0.5_amd64.deb package for the software center, and 1-click Polkit uninstaller.",
-          "Android ARM64 Tablets: certified native Bobine-3.0.5.apk (API 34-36), embedding CPython 3.13 and FastAPI via Chaquopy, persistent ForegroundService, native MediaCodec acceleration, and dual display (touchscreen /grid + HDMI TV /cinema over USB-C DisplayPort).",
+          "Official Bobine-Setup-3.0.5.exe installer: silent background execution (systray icon near clock), clamshell laptop mode without sleep via powercfg, automatic firewall rule, and 1-click uninstaller via Inno Setup.",
+          "Reference hardware tested: a new Intel N100 or AMD Ryzen mini PC shipped with Windows 11 Pro (see the hardware hub at bobine.fit/materiel for verified picks and their checked price).",
+        ],
+        deviceImage: "windows",
+      },
+      {
+        subtitle: "2.2 macOS Apple Silicon (M1 to M4) & Intel",
+        paragraphs: [
+          "Bobine-3.0.5.dmg disk image: drag-and-drop into Applications, discreet menu bar icon, native caffeinate sleep prevention, and VideoToolbox hardware acceleration.",
+          "Reference hardware tested: a dedicated Apple Silicon Mac Mini, or the coach's MacBook run closed (clamshell mode) through a USB-C hub or dock.",
+        ],
+        deviceImage: "macos",
+      },
+      {
+        subtitle: "2.3 Linux Desktop (Debian / Ubuntu / Mint)",
+        paragraphs: [
+          "Official cryptographically signed APT repository (https://apt.bobine.fit) for automated updates via apt upgrade, or standalone bobine_3.0.5_amd64.deb package for the software center. 1-click Polkit uninstaller.",
+          "Reference hardware tested: a fanless industrial mini PC (100% passive cooling, zero fan) — the Bobine pick for absolute silence in a 24/7 studio.",
         ],
         codeBlock:
           "# Official Linux APT repository (apt.bobine.fit)\ncurl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine",
+        deviceImage: "linux",
       },
       {
-        subtitle: "2.2 Dedicated 24/7 appliance (18-step automated shell script)",
+        subtitle: "2.4 Android ARM64 Tablets",
         paragraphs: [
-          "For uninterrupted, permanent playout on a dedicated mini PC (Dell Wyse 5070, Beelink N100, HP ProDesk) running minimal, desktop-less Debian 13.",
+          "Certified native Bobine-3.0.5.apk (API 34-36), embedding CPython 3.13 and FastAPI via Chaquopy, persistent ForegroundService, native MediaCodec acceleration, and dual display (touchscreen /grid + HDMI TV /cinema over USB-C DisplayPort).",
+          "Reference hardware tested: a Samsung Galaxy Tab or Xiaomi Pad tablet with a USB-C port supporting DisplayPort Alt Mode for wired video output to the studio screen.",
+        ],
+        deviceImage: "android",
+      },
+      {
+        subtitle: "2.5 Dedicated 24/7 appliance (18-step automated shell script)",
+        paragraphs: [
+          "For uninterrupted, permanent playout on a dedicated mini PC running minimal, desktop-less Debian 13.",
           "Installation executes in 18 idempotent and verified steps (GPU detection, QuickSync VA-API drivers, Python 3.13 venv, Next.js SSG build, systemd services, ALSA audio, NTP sync, mDNS URL, watchdog, CPU tuning, and hardware playback verification):",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash",
       },
       {
-        subtitle: "2.3 Network orchestration with Bobine Assistant (Tauri 2)",
+        subtitle: "2.6 Network orchestration with Bobine Assistant (Tauri 2)",
         paragraphs: [
           "Bobine Assistant is a lightweight Rust/Tauri 2 desktop app that scans the local subnet and lists every responding device (reverse-DNS hostname, IP address, estimated OS, open ports for SSH/Bobine/Samba/printing).",
           "Connect to targets via password or by importing a local private SSH key (.ssh/id_ed25519) through the native file picker. The assistant audits hardware (real-time power in Watts, RAM and MT/s frequency) and executes the 18-step deployment with a live compact log stream without opening a terminal.",
         ],
       },
       {
-        subtitle: "2.4 Release channels: Stable or Beta (Rolling beta)",
+        subtitle: "2.7 Release channels: Stable or Beta (Rolling beta)",
         paragraphs: [
           "Bobine offers two release channels: the Stable channel (recommended for production gym playout, strict Vx.y.z tags) and the Beta channel (rolling beta on fixed mobile tag beta, rebuilt automatically on every push to main).",
           "Across all platforms, Beta shares identical application IDs and upgrades existing installations in-place without creating duplicate applications or altering media and databases. Toggle anytime in Settings → Software Updates or via CLI flag:",
@@ -600,8 +654,16 @@ const en: DocChapter[] = [
     title: "7. Roadmap & Ecosystem",
     icon: "roadmap",
     summary:
-      "Status of the native Android application for touch tablets and exploratory expansion pathways.",
+      "Release tracking, status of the native Android application for touch tablets, and exploratory expansion pathways.",
     subsections: [
+      {
+        subtitle: "7.0 Release tracking & continuous publishing",
+        paragraphs: [
+          "Every new version is published on GitHub Releases (github.com/FantasmaGlad/Bobine/releases) with a detailed changelog, signed binaries for all 5 operating systems, and a SHA-256 integrity checksum.",
+          "Two channels track the project's progress: the Stable channel (frozen Vx.y.z tags, recommended for production gym playout) and the Beta channel (rolling beta, automatically rebuilt on every change to the main branch, for clubs wanting an early look at upcoming features).",
+          "The official APT repository (apt.bobine.fit) mirrors both channels in its stable and beta distributions, enabling automatic updates via apt upgrade with no manual reinstall.",
+        ],
+      },
       {
         subtitle: "7.1 Android: official native application for touch tablets",
         paragraphs: [

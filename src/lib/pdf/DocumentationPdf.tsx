@@ -1,7 +1,8 @@
 import type { ReactElement } from "react";
-import { Document, Page, Text, View, StyleSheet, Link } from "@react-pdf/renderer";
+import { Document, Page, Text, View, StyleSheet, Link, Image } from "@react-pdf/renderer";
 import type { Locale } from "@/lib/i18n";
-import type { DocChapter, DocIconKey } from "@/content/docs/types";
+import type { DocChapter, DocIconKey, DeviceImageKey } from "@/content/docs/types";
+import { FAQ_ITEMS, FAQ_CATEGORY_LABELS, type FaqCategory } from "@/content/docs/faq-data";
 import {
   IconManifesto,
   IconInstall,
@@ -18,6 +19,33 @@ import {
   IconSmartphone,
   IconTablet,
 } from "./icons";
+
+/**
+ * Les polices de base PDF (Helvetica/Courier, encodage WinAnsi) ne couvrent pas
+ * tout Unicode : la flèche "→" utilisée dans le contenu web (ex. "Réglages →
+ * Mises à jour") s'affiche comme un caractère erroné une fois imprimée. On la
+ * remplace uniquement pour le rendu PDF, sans toucher au contenu source partagé
+ * avec le site (chapters.ts / faq-data.ts).
+ */
+function sanitizePdfText(text: string): string {
+  return text.replace(/→/g, "->");
+}
+
+function sanitizeChapterForPdf(chapter: DocChapter): DocChapter {
+  return {
+    ...chapter,
+    title: sanitizePdfText(chapter.title),
+    badge: sanitizePdfText(chapter.badge),
+    summary: sanitizePdfText(chapter.summary),
+    subsections: chapter.subsections.map((sub) => ({
+      ...sub,
+      subtitle: sanitizePdfText(sub.subtitle),
+      paragraphs: sub.paragraphs.map(sanitizePdfText),
+      codeBlock: sub.codeBlock ? sanitizePdfText(sub.codeBlock) : sub.codeBlock,
+      techChips: sub.techChips?.map((chip) => ({ ...chip, label: sanitizePdfText(chip.label) })),
+    })),
+  };
+}
 
 const ICONS: Record<DocIconKey, (props: { size?: number }) => ReactElement> = {
   manifesto: IconManifesto,
@@ -261,6 +289,46 @@ const styles = StyleSheet.create({
     letterSpacing: 0.3,
     color: GREY_700,
   },
+
+  // Illustrations d'appareils (chapitre installation)
+  deviceImageWrap: {
+    alignItems: "center",
+    marginTop: 4,
+    marginBottom: 12,
+    paddingVertical: 10,
+    border: `0.75pt solid ${RULE_LIGHT}`,
+  },
+  deviceImage: {
+    width: 110,
+    height: 110,
+    objectFit: "contain",
+  },
+  deviceCaption: {
+    fontSize: 7.5,
+    color: GREY_500,
+    marginTop: 6,
+    textAlign: "center",
+  },
+
+  // FAQ enrichie
+  faqItem: {
+    marginBottom: 8,
+  },
+  faqQuestion: {
+    fontSize: 10.5,
+    fontWeight: 700,
+    color: INK,
+    marginBottom: 2,
+    lineHeight: 1.4,
+  },
+  faqFootnote: {
+    fontSize: 8,
+    fontStyle: "italic",
+    color: GREY_500,
+    marginTop: 10,
+    borderTop: `0.75pt solid ${RULE_LIGHT}`,
+    paddingTop: 8,
+  },
 });
 
 function BrandHeader({ locale, chapterTitle }: { locale: Locale; chapterTitle: string }) {
@@ -285,6 +353,74 @@ function BrandFooter({ locale }: { locale: Locale }) {
   );
 }
 
+// Photos d'appareils réels (issues des fiches produit Amazon vérifiées du hub matériel
+// bobine.fit/materiel), utilisées uniquement pour illustrer le chapitre d'installation du PDF.
+const DEVICE_IMAGES: Record<DeviceImageKey, { src: string; captionFr: string; captionEn: string }> = {
+  windows: {
+    src: "/images/pdf/windows-device.png",
+    captionFr: "Exemple de mini PC Windows 11 (Intel N100) — photo officielle du fabricant",
+    captionEn: "Example Windows 11 mini PC (Intel N100) — official manufacturer photo",
+  },
+  macos: {
+    src: "/images/pdf/macos-device.png",
+    captionFr: "Apple Mac Mini — photo officielle Apple",
+    captionEn: "Apple Mac Mini — official Apple photo",
+  },
+  linux: {
+    src: "/images/pdf/linux-device.png",
+    captionFr: "Mini PC industriel 100% fanless recommandé pour Linux — photo officielle du fabricant",
+    captionEn: "100% fanless industrial mini PC recommended for Linux — official manufacturer photo",
+  },
+  android: {
+    src: "/images/pdf/android-device.png",
+    captionFr: "Exemple de tablette Android compatible — photo officielle du fabricant",
+    captionEn: "Example compatible Android tablet — official manufacturer photo",
+  },
+};
+
+function DeviceIllustration({ deviceKey, locale }: { deviceKey: DeviceImageKey; locale: Locale }) {
+  const isEn = locale === "en";
+  const device = DEVICE_IMAGES[deviceKey];
+  return (
+    <View style={styles.deviceImageWrap} wrap={false}>
+      <Image src={device.src} style={styles.deviceImage} />
+      <Text style={styles.deviceCaption}>{isEn ? device.captionEn : device.captionFr}</Text>
+    </View>
+  );
+}
+
+function FaqSection({ locale }: { locale: Locale }) {
+  const isEn = locale === "en";
+  const items = FAQ_ITEMS[locale];
+  const categories = Object.keys(FAQ_CATEGORY_LABELS[locale]) as FaqCategory[];
+  const labels = FAQ_CATEGORY_LABELS[locale];
+
+  return (
+    <>
+      {categories.map((cat) => {
+        const catItems = items.filter((it) => it.category === cat);
+        if (catItems.length === 0) return null;
+        return (
+          <View key={cat}>
+            <Text style={styles.subtitle}>{labels[cat]}</Text>
+            {catItems.map((item, idx) => (
+              <View key={idx} style={styles.faqItem} wrap={false}>
+                <Text style={styles.faqQuestion}>{sanitizePdfText(item.q)}</Text>
+                <Text style={styles.paragraph}>{sanitizePdfText(item.a)}</Text>
+              </View>
+            ))}
+          </View>
+        );
+      })}
+      <Text style={styles.faqFootnote}>
+        {isEn
+          ? "This FAQ is kept in sync with the live troubleshooting guide at bobine.fit/documentation/faq."
+          : "Cette FAQ est synchronisée avec le guide de dépannage en ligne sur bobine.fit/documentation/faq."}
+      </Text>
+    </>
+  );
+}
+
 export function DocumentationPdf({
   locale,
   chapters,
@@ -293,6 +429,7 @@ export function DocumentationPdf({
   chapters: DocChapter[];
 }) {
   const isEn = locale === "en";
+  chapters = chapters.map(sanitizeChapterForPdf);
   const isFullManual = chapters.length > 1;
   const dateStr = new Date().toLocaleDateString(isEn ? "en-US" : "fr-FR", {
     year: "numeric",
@@ -386,32 +523,39 @@ export function DocumentationPdf({
             </View>
             <Text style={styles.chapterSummary}>{chapter.summary}</Text>
 
-            {chapter.subsections.map((sub, idx) => (
-              <View key={idx} wrap={false}>
-                <Text style={styles.subtitle}>{sub.subtitle}</Text>
-                {sub.paragraphs.map((p, pIdx) => (
-                  <Text key={pIdx} style={styles.paragraph}>
-                    {p}
-                  </Text>
-                ))}
-                {sub.codeBlock && (
-                  <Text style={styles.codeBlock}>{sub.codeBlock}</Text>
-                )}
-                {sub.techChips && sub.techChips.length > 0 && (
-                  <View style={styles.chipRow}>
-                    {sub.techChips.map((chip, chipIdx) => {
-                      const ChipIcon = ICONS[chip.icon];
-                      return (
-                        <View key={chipIdx} style={styles.chip}>
-                          <ChipIcon size={9} />
-                          <Text style={styles.chipLabel}>{chip.label}</Text>
-                        </View>
-                      );
-                    })}
-                  </View>
-                )}
-              </View>
-            ))}
+            {chapter.id === "faq" ? (
+              <FaqSection locale={locale} />
+            ) : (
+              chapter.subsections.map((sub, idx) => (
+                <View key={idx} wrap={false}>
+                  <Text style={styles.subtitle}>{sub.subtitle}</Text>
+                  {sub.paragraphs.map((p, pIdx) => (
+                    <Text key={pIdx} style={styles.paragraph}>
+                      {p}
+                    </Text>
+                  ))}
+                  {sub.codeBlock && (
+                    <Text style={styles.codeBlock}>{sub.codeBlock}</Text>
+                  )}
+                  {sub.deviceImage && (
+                    <DeviceIllustration deviceKey={sub.deviceImage} locale={locale} />
+                  )}
+                  {sub.techChips && sub.techChips.length > 0 && (
+                    <View style={styles.chipRow}>
+                      {sub.techChips.map((chip, chipIdx) => {
+                        const ChipIcon = ICONS[chip.icon];
+                        return (
+                          <View key={chipIdx} style={styles.chip}>
+                            <ChipIcon size={9} />
+                            <Text style={styles.chipLabel}>{chip.label}</Text>
+                          </View>
+                        );
+                      })}
+                    </View>
+                  )}
+                </View>
+              ))
+            )}
 
             <BrandFooter locale={locale} />
           </Page>

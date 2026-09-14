@@ -50,7 +50,9 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const [selectedTab, setSelectedTab] = useState<InstallTab | null>(null);
   const activeTab: InstallTab = selectedTab ?? (detected as InstallTab | null) ?? "windows";
   const roadmapChapter = docChapters[locale].find((c) => c.id === "feuille-de-route");
-  const [androidRoadmap, iosRoadmap] = roadmapChapter?.subsections ?? [];
+  const roadmapSubsections = roadmapChapter?.subsections ?? [];
+  const androidRoadmap = roadmapSubsections.find((s) => s.subtitle.includes("Android"));
+  const iosRoadmap = roadmapSubsections.find((s) => s.subtitle.includes("iOS"));
   const [stable, setStable] = useState<ReleaseChannelInfo>(FALLBACK_STABLE);
   const [beta, setBeta] = useState<ReleaseChannelInfo>(FALLBACK_BETA);
   const [copiedCmd, setCopiedCmd] = useState(false);

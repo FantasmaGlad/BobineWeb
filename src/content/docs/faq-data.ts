@@ -50,7 +50,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Quel matériel informatique faut-il acheter ?",
-      a: "Un mini PC x86-64 standard : Intel (Dell Wyse 5070 Celeron J4105 ~40-50 €, Lenovo ThinkCentre Tiny, Beelink N100) ou AMD (HP EliteDesk 705 G4/G5 Ryzen 3/5 Pro ~60-80 €, Lenovo M715q), 4 à 8 Go de RAM, et un écran HDMI standard.",
+      a: "Un mini PC x86-64 standard, du reconditionné d'entrée de gamme (dès ~160 €) au mini PC industriel 100% fanless pour un silence absolu (~600 €), avec 8 à 16 Go de RAM et un écran HDMI standard. Le hub matériel bobine.fit/materiel référence des configurations vérifiées avec prix constatés et liens d'achat à jour, par système d'exploitation.",
     },
     {
       category: "hardware",
@@ -122,7 +122,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "What hardware do I need to equip my gym?",
-      a: "A standard refurbished x86-64 mini PC: Intel (Dell Wyse 5070 Celeron J4105 ~40-50 EUR, Lenovo ThinkCentre Tiny, Beelink N100) or AMD (HP EliteDesk 705 G4/G5 Ryzen 3/5 Pro ~60-80 EUR, Lenovo M715q), 4-8GB RAM, and an HDMI TV display.",
+      a: "A standard x86-64 mini PC, anywhere from an entry-level refurbished unit (from ~$160) to a 100% fanless industrial mini PC for absolute silence (~$600), with 8-16GB RAM and a standard HDMI display. The hardware hub at bobine.fit/materiel lists verified configurations with checked prices and up-to-date purchase links, organized by operating system.",
     },
     {
       category: "hardware",

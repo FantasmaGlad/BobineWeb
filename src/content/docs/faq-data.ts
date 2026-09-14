@@ -50,7 +50,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Quel matériel informatique faut-il acheter ?",
-      a: "Un mini PC x86-64 standard, du reconditionné d'entrée de gamme (dès ~160 €) au mini PC industriel 100% fanless pour un silence absolu (~600 €), avec 8 à 16 Go de RAM et un écran HDMI standard. Le hub matériel bobine.fit/materiel référence des configurations vérifiées avec prix constatés et liens d'achat à jour, par système d'exploitation.",
+      a: "Un mini PC x86-64 standard, du reconditionné d'entrée de gamme (dès ~160 €) au mini PC industriel 100% fanless pour un silence absolu (~600 €), avec 8 à 16 Go de RAM et un écran HDMI standard. Le hub matériel bobine.fit/materiel référence des configurations vérifiées avec prix constatés et liens d'achat à jour, par système d'exploitation. Un panier « Mon Pack » permet d'y construire sa propre configuration produit par produit (bouton flottant en bas de la page), et l'assistant Baamix voit ce panier en direct pour signaler un oubli probable ou recommander un accessoire compatible.",
     },
     {
       category: "hardware",
@@ -122,7 +122,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "What hardware do I need to equip my gym?",
-      a: "A standard x86-64 mini PC, anywhere from an entry-level refurbished unit (from ~$160) to a 100% fanless industrial mini PC for absolute silence (~$600), with 8-16GB RAM and a standard HDMI display. The hardware hub at bobine.fit/materiel lists verified configurations with checked prices and up-to-date purchase links, organized by operating system.",
+      a: "A standard x86-64 mini PC, anywhere from an entry-level refurbished unit (from ~€160) to a 100% fanless industrial mini PC for absolute silence (~€600), with 8-16GB RAM and a standard HDMI display. The hardware hub at bobine.fit/materiel lists verified configurations with checked prices and up-to-date purchase links, organized by operating system. A \"My Pack\" cart lets you build your own configuration product by product (floating button at the bottom of the page), and the Baamix assistant sees this cart live to flag a likely gap or recommend a compatible accessory.",
     },
     {
       category: "hardware",

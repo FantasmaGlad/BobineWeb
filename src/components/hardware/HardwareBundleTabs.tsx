@@ -287,12 +287,12 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
             </div>
           </div>
 
-          {/* SÉLECTEUR DE GAMME — positionné à droite de l'encadré titre */}
+          {/* SÉLECTEUR DE GAMME — positionné à droite de l'encadré titre sur grand écran,
+              repasse sur 2 lignes de 2 boutons sur mobile plutôt que de déborder (hw-tier-toggle) */}
           <div
-            className="stepper-mode-toggle"
+            className="stepper-mode-toggle hw-tier-toggle"
             role="tablist"
             aria-label={isEn ? "Tier level" : "Gamme de performance"}
-            style={{ flexWrap: "nowrap", flexShrink: 0, alignSelf: "center" }}
           >
             {tierList.map((tier) => {
               const isTierActive = selectedTier === tier.id;

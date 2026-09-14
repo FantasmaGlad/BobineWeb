@@ -7753,6 +7753,24 @@ main {
   }
 }
 
+.hw-tier-toggle {
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+@media (max-width: 480px) {
+  .hw-tier-toggle {
+    flex-wrap: wrap;
+    flex-shrink: 1;
+    width: 100%;
+  }
+
+  .hw-tier-toggle .stepper-mode-btn {
+    flex: 1 1 calc(50% - 2px);
+  }
+}
+
 .hw-tier-nav-arrow {
   position: absolute;
   top: 50%;
@@ -8069,6 +8087,24 @@ main {
   color: var(--text-muted);
 }
 
+.hw-cart-sheet-row-link {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.hw-cart-sheet-row-link:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
 .hw-cart-sheet-row-remove {
   flex-shrink: 0;
   display: inline-flex;
@@ -8087,6 +8123,33 @@ main {
   color: #dc2626;
   border-color: rgba(220, 38, 38, 0.3);
   background: rgba(220, 38, 38, 0.08);
+}
+
+.hw-cart-sheet-blocked {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.hw-cart-sheet-blocked-note {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.hw-cart-sheet-blocked-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.hw-cart-sheet-blocked-link {
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .hw-cart-sheet-footer {
@@ -8144,10 +8207,16 @@ main {
     right: 0;
     bottom: 0;
     z-index: 90;
+    min-height: 3.5rem;
     padding: 0.65rem 1rem calc(0.65rem + env(safe-area-inset-bottom));
     background: var(--bg-card);
     border-top: 1px solid var(--border-subtle);
     box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+    /* Fixe la barre sur son propre calque GPU : evite le redimensionnement /
+       redessin visible de certains navigateurs mobiles pendant le scroll. */
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
   .hw-mobile-buybar-info {

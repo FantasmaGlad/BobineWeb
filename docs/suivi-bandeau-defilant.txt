@@ -2,7 +2,12 @@ SUIVI DU BANDEAU DEFILANT (TechTicker) — BOBINE / ACCUEIL
 ============================================================
 Genere depuis src/components/TechTicker.tsx
 Date de revue : 2026-09-14
-Nombre d'items : 18 (identiques en structure FR/EN, traduction 1:1)
+Statut : les 4 corrections et les 4 ajouts proposes ci-dessous ont ete
+APPLIQUES le 2026-09-14 (validation utilisateur). Nombre d'items : 22
+(etait 18), identiques en structure FR/EN, traduction 1:1.
+Ce fichier est conserve comme journal de bord : la section "CONTENU ACTUEL"
+ci-dessous montre l'etat AVANT correction, les sections plus bas expliquent
+ce qui a change et pourquoi.
 
 MODE D'EMPLOI POUR UNE MISE A JOUR (à la main) :
 1. Chaque item du bandeau est un triplet {tag, label, value} duplique en FR (METRICS_FR)
@@ -14,7 +19,7 @@ MODE D'EMPLOI POUR UNE MISE A JOUR (à la main) :
    "feuille-de-route" de src/content/docs/chapters.ts (source unique de la feuille de route).
 
 ------------------------------------------------------------
-CONTENU ACTUEL COMPLET (FR — ordre d'affichage)
+CONTENU AVANT CORRECTION (FR — etat au 2026-09-14, 18 items)
 ------------------------------------------------------------
 
 1. [ECONOMIE] Gain financier :
@@ -75,7 +80,7 @@ CONTENU ACTUEL COMPLET (FR — ordre d'affichage)
 memes chiffres — voir TechTicker.tsx lignes 32-51.)
 
 ------------------------------------------------------------
-CORRECTIONS PROPOSEES (incoherences factuelles avec le catalogue reel)
+CORRECTIONS APPLIQUEES le 2026-09-14 (incoherences factuelles corrigees)
 ------------------------------------------------------------
 
 [CORRECTION #1 — item 5, MINI PC ECONOMIQUE / BUDGET MINI PCS]
@@ -117,36 +122,50 @@ catalogue reel a le champ hasFan: true (il embarque reellement un ventilateur �
 la regle du projet : ne jamais suggerer l'absence de ventilateur pour une machine qui
 en a un, deja appliquee scrupuleusement sur la page Materiel avec le badge "Ventilateur
 silencieux" vs "100% Fanless").
-Proposition : "silence quasi total" (coherent avec la description reelle du Mac Mini
+Applique : "silence quasi total" (coherent avec la description reelle du Mac Mini
 dans hardware.ts : "silence quasi total, gestion de veille intelligente native").
 
+[CORRECTION #5 — item 3 EN, MAC & MAC MINI, trouvee pendant l'implementation]
+Probleme plus grave que son equivalent FR : la version EN affirmait litteralement
+"fanless profile" (profil sans ventilateur) pour le Mac Mini, alors que hasFan: true
+dans hardware.ts. Violation directe de la regle du projet sur les allegations fanless.
+Applique : "near-total silence" (aligne sur la correction FR ci-dessus).
+
+[CORRECTION #6 — items 1, 2 et 6 EN, devise incoherente]
+Probleme : la version EN affichait des montants en dollars ($1,500, $0, $40) alors que
+tous les produits du catalogue sont vendus en euros sur Amazon.fr (les liens affilies
+menent tous a des prix EUR). Un lecteur anglophone cliquant sur un lien voyait un prix
+different de celui annonce dans le bandeau.
+Applique : tous les montants EN sont desormais en euros (€1,500 to €3,000 ; €0 / month ;
+from €161), coherents avec les prix reels affiches sur /materiel.
+
 ------------------------------------------------------------
-AMELIORATIONS / AJOUTS PROPOSES (contenu manquant ou a valoriser)
+AMELIORATIONS / AJOUTS APPLIQUES le 2026-09-14 (contenu manquant, desormais present)
 ------------------------------------------------------------
 
-[AJOUT #1] Aucun item ne mentionne la voie "PC Portable" (utiliser un ordinateur deja
-possede en mode clamshell), qui est pourtant une fonctionnalite majeure ajoutee cette
-session a chaque OS. Proposition de nouvel item :
-  [PC DEJA POSSEDE] Materiel reutilise :
+[AJOUT #1 — applique] La voie "PC Portable" (utiliser un ordinateur deja possede en
+mode clamshell) n'etait valorisee nulle part dans le bandeau alors que c'est une
+fonctionnalite majeure ajoutee cette session a chaque OS. Nouvel item ajoute :
+  [PC DEJA POSSEDE] Zero rachat :
   "Pas besoin d'acheter : fermez votre PC portable existant en mode clamshell et
-   branchez un simple hub/dock"
+   branchez un simple hub"
 
-[AJOUT #2] Aucun item ne valorise la transparence du guide materiel (prix Amazon
-verifies manuellement, pas d'ASIN invente) qui differencie le site. Proposition :
-  [GUIDE VERIFIE] Materiel Amazon :
+[AJOUT #2 — applique] La transparence du guide materiel (prix Amazon verifies
+manuellement, pas d'ASIN invente) n'etait valorisee nulle part. Nouvel item ajoute :
+  [GUIDE VERIFIE] Achats Amazon :
   "Chaque produit du guide materiel est verifie a la main : ASIN reel, prix constate,
-   photo authentique - jamais une estimation"
+   photo authentique"
 
-[AJOUT #3] Aucun item ne mentionne le depot APT officiel (apt.bobine.fit) pourtant
-documente comme canal d'installation Linux a part entiere. Proposition :
-  [DEPOT APT LINUX] Mise a jour systeme :
-  "Paquet .deb signe GPG sur apt.bobine.fit : mises a jour Linux natives via
-   apt update / apt upgrade"
+[AJOUT #3 — applique] Le depot APT officiel (apt.bobine.fit), documente comme canal
+d'installation Linux a part entiere, n'apparaissait nulle part dans le bandeau. Nouvel
+item ajoute :
+  [DEPOT APT LINUX] Mises a jour natives :
+  "Paquet .deb signe GPG sur apt.bobine.fit : mises a jour Linux via apt update"
 
-[AJOUT #4] Aucun item ne mentionne le caractere open-source / code source public du
-projet (juste "sans abonnement"), qui est pourtant un argument de confiance fort pour
-un logiciel de regie video. Proposition :
-  [CODE OUVERT] Transparence :
+[AJOUT #4 — applique] Le caractere open-source / code source public du projet n'etait
+pas mis en avant (seulement "sans abonnement"), alors que c'est un argument de
+confiance fort pour un logiciel de regie video. Nouvel item ajoute :
+  [CODE OUVERT] Transparence totale :
   "Code source public sur GitHub : auditable par n'importe qui, aucune boite noire"
 
 ------------------------------------------------------------
@@ -158,3 +177,79 @@ desormais HP EliteDesk 800 Mini (Essentiel) et un mini PC industriel N100 fanles
 (Recommande). les règles du projet n'est pas modifie par ce fichier de suivi (fichier
 d'instructions projet, hors perimetre d'une mise a jour de contenu marketing) mais
 merite une relecture humaine pour rester alignee avec le catalogue reel.
+
+------------------------------------------------------------
+CONTENU APRES CORRECTION (FR — etat au 2026-09-14, 22 items, en production)
+------------------------------------------------------------
+
+1. [ECONOMIE] Gain financier :
+   Economisez 1 500 EUR a 3 000 EUR / an par studio (Zero redevance logicielle)
+
+2. [SANS ABONNEMENT] Cout d'usage :
+   0 EUR / mois - Logiciel libre sans engagement, sans cout cache
+
+3. [CODE OUVERT] Transparence totale :
+   Code source public sur GitHub : auditable par n'importe qui, aucune boite noire
+
+4. [MAC & MAC MINI] Regie studio :
+   Ideal en studio sous macOS : silence quasi total, double ecran HDMI & demarrage automatique
+
+5. [APPLE SILICON] Puces M4 a M6 :
+   Optimise Apple Silicon : fluidite 4K instantanee sans aucune surchauffe
+
+6. [MINI PC VERIFIE] Materiel accessible :
+   Mini PC reconditionne verifie (HP EliteDesk, industriel fanless) des 161 EUR
+
+7. [GUIDE VERIFIE] Achats Amazon :
+   Chaque produit du guide materiel est verifie a la main : ASIN reel, prix constate,
+   photo authentique
+
+8. [PC DEJA POSSEDE] Zero rachat :
+   Pas besoin d'acheter : fermez votre PC portable existant en mode clamshell et
+   branchez un simple hub
+
+9. [ACCELERATION GRAPHIQUE] Decodage fluide :
+   Decodage materiel ultra-rapide : lecture 4K et 2K 60 fps sans saccade
+
+10. [100% HORS-LIGNE] Resilience fibre :
+    Fonctionne sans Internet : immunise contre les pannes de reseau
+
+11. [BORNE TACTILE] Libre acces :
+    Kiosque tactile adherents avec decompte des creneaux a la demande
+
+12. [MULTI-ECRANS] Double diffusion :
+    Diffusion simultanee : grand ecran cours en salle + televiseurs plateau
+
+13. [RADIO PLATEAU 24/7] Ambiance sonore :
+    Flux musical continu avec fondu sonore et annonces programmees
+
+14. [COURS SUR MESURE] Catalogue ouvert :
+    100% Libre : diffusez vos videos (Cycling, HIIT, Yoga, Pilates, Renfo)
+
+15. [MULTI-OS] Compatibilite :
+    Windows 10/11, macOS, Linux, tablettes Android et etude iPadOS
+
+16. [ANDROID NATIF] Application dediee :
+    Disponible sur tablette tactile pour piloter le studio du bout des doigts
+
+17. [DEPOT APT LINUX] Mises a jour natives :
+    Paquet .deb signe GPG sur apt.bobine.fit : mises a jour Linux via apt update
+
+18. [TELECOMMANDE SIMPLE] Controle en salle :
+    Au choix : telecommande sans fil 2.4 GHz ou smartphone via QR code
+
+19. [CONFIDENTIALITE] Protection RGPD :
+    100% Local : zero pistage, zero camera, vos donnees restent dans votre club
+
+20. [REPRISE SUR COUPURE] Securite electrique :
+    Retablissement autonome et automatique de la diffusion apres coupure secteur
+
+21. [SAUVEGARDE EN 1 CLIC] Export universel :
+    Sauvegardez toute votre programmation et vos cours en une archive ZIP
+
+22. [ECO-RESPONSABLE] Faible consommation :
+    Des 6 Watts en configuration fanless : discret, economique et durable
+
+(La version EN dans METRICS_EN est une traduction 1:1 de ces 22 items, meme ordre,
+montants desormais en EUR pour rester coherents avec les prix Amazon.fr reels — voir
+TechTicker.tsx.)

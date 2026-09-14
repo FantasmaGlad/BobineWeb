@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
 import { PRICE_CHECKED_AT, type StandaloneAccessory } from "@/content/hardware";
+import AddToCartButton from "@/components/hardware/AddToCartButton";
 
 function formatCheckedDate(iso: string, isEn: boolean) {
   const d = new Date(`${iso}T00:00:00Z`);
@@ -200,42 +201,56 @@ export default function HardwareAccessoriesGrid({ locale, items }: { locale: Loc
               </div>
 
               <div>
-                <a
-                  href={acc.amazonUrl}
-                  target="_blank"
-                  rel="nofollow sponsored noopener noreferrer"
-                  className="btn-secondary"
-                  title={isEn ? "Open official Amazon product sheet" : "Ouvrir la fiche produit officielle Amazon"}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "0.4rem",
-                    width: "100%",
-                    fontSize: "0.8rem",
-                    fontWeight: 600,
-                    padding: "0.5rem 0.75rem",
-                    borderRadius: "0.45rem",
-                    textDecoration: "none",
-                    textAlign: "center",
-                  }}
-                >
-                  <svg
-                    width="13"
-                    height="13"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                <div style={{ display: "flex", gap: "0.4rem" }}>
+                  <a
+                    href={acc.amazonUrl}
+                    target="_blank"
+                    rel="nofollow sponsored noopener noreferrer"
+                    className="btn-secondary"
+                    title={isEn ? "Open official Amazon product sheet" : "Ouvrir la fiche produit officielle Amazon"}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "0.4rem",
+                      flex: 1,
+                      minWidth: 0,
+                      fontSize: "0.8rem",
+                      fontWeight: 600,
+                      padding: "0.5rem 0.75rem",
+                      borderRadius: "0.45rem",
+                      textDecoration: "none",
+                      textAlign: "center",
+                    }}
                   >
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
-                  <span>{isEn ? "Product Sheet (Amazon)" : "Fiche Produit (Amazon)"}</span>
-                </a>
+                    <svg
+                      width="13"
+                      height="13"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                    <span>{isEn ? "Product Sheet (Amazon)" : "Fiche Produit (Amazon)"}</span>
+                  </a>
+                  <AddToCartButton
+                    size="sm"
+                    locale={locale}
+                    item={{
+                      asin: acc.asin,
+                      name,
+                      imageUrl: acc.imageUrl,
+                      priceAmazon: acc.priceAmazon,
+                      amazonUrl: acc.amazonUrl,
+                    }}
+                  />
+                </div>
                 <div style={{ textAlign: "center", marginTop: "0.35rem" }}>
                   <span style={{ fontSize: "0.675rem", color: "var(--text-muted)" }}>
                     {isEn ? `Price checked ${checkedDate}` : `Prix constaté le ${checkedDate}`}

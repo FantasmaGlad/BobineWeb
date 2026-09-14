@@ -18,6 +18,7 @@ import AppleIcon from "@/components/icons/AppleIcon";
 import AndroidIcon from "@/components/icons/AndroidIcon";
 import VendorBadge from "@/components/hardware/VendorBadge";
 import HardwareAccessoriesGrid from "@/components/hardware/HardwareAccessoriesGrid";
+import AddToCartButton from "@/components/hardware/AddToCartButton";
 
 interface HardwareBundleTabsProps {
   locale: Locale;
@@ -584,29 +585,41 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                       {isEn ? `checked ${checkedDate}` : `constaté le ${checkedDate}`}
                     </span>
                   </div>
-                  <a
-                    href={mainItem.amazonUrl}
-                    target="_blank"
-                    rel="nofollow sponsored noopener noreferrer"
-                    className="btn-primary"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                      fontSize: "0.85rem",
-                      fontWeight: 700,
-                      padding: "0.55rem 1rem",
-                      borderRadius: "0.45rem",
-                      textDecoration: "none",
-                    }}
-                  >
-                    <span>{isEn ? "See current price on Amazon" : "Voir le prix actuel sur Amazon"}</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                      <polyline points="15 3 21 3 21 9" />
-                      <line x1="10" y1="14" x2="21" y2="3" />
-                    </svg>
-                  </a>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
+                    <AddToCartButton
+                      locale={locale}
+                      item={{
+                        asin: mainItem.asin,
+                        name: mainItem.name,
+                        imageUrl: mainItem.imageUrl,
+                        priceAmazon: mainItem.priceAmazon,
+                        amazonUrl: mainItem.amazonUrl,
+                      }}
+                    />
+                    <a
+                      href={mainItem.amazonUrl}
+                      target="_blank"
+                      rel="nofollow sponsored noopener noreferrer"
+                      className="btn-primary"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        fontSize: "0.85rem",
+                        fontWeight: 700,
+                        padding: "0.55rem 1rem",
+                        borderRadius: "0.45rem",
+                        textDecoration: "none",
+                      }}
+                    >
+                      <span>{isEn ? "See current price on Amazon" : "Voir le prix actuel sur Amazon"}</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -683,32 +696,45 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                     <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--text-heading)" }}>
                       {item.priceAmazon.toFixed(2)} €
                     </span>
-                    <a
-                      href={item.amazonUrl}
-                      target="_blank"
-                      rel="nofollow sponsored noopener noreferrer"
-                      className="btn-secondary"
-                      title={isEn ? "Open official Amazon product sheet" : "Ouvrir la fiche produit officielle Amazon"}
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "0.3rem",
-                        fontSize: "0.7rem",
-                        fontWeight: 600,
-                        padding: "0.3rem 0.6rem",
-                        borderRadius: "0.35rem",
-                        textDecoration: "none",
-                        whiteSpace: "nowrap",
-                        flexShrink: 0,
-                      }}
-                    >
-                      <span>Amazon</span>
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                    </a>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+                      <AddToCartButton
+                        size="sm"
+                        locale={locale}
+                        item={{
+                          asin: item.asin,
+                          name: item.name,
+                          imageUrl: item.imageUrl,
+                          priceAmazon: item.priceAmazon,
+                          amazonUrl: item.amazonUrl,
+                        }}
+                      />
+                      <a
+                        href={item.amazonUrl}
+                        target="_blank"
+                        rel="nofollow sponsored noopener noreferrer"
+                        className="btn-secondary"
+                        title={isEn ? "Open official Amazon product sheet" : "Ouvrir la fiche produit officielle Amazon"}
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "0.3rem",
+                          fontSize: "0.7rem",
+                          fontWeight: 600,
+                          padding: "0.3rem 0.6rem",
+                          borderRadius: "0.35rem",
+                          textDecoration: "none",
+                          whiteSpace: "nowrap",
+                          flexShrink: 0,
+                        }}
+                      >
+                        <span>Amazon</span>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                          <polyline points="15 3 21 3 21 9" />
+                          <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg>
+                      </a>
+                    </div>
                   </div>
                 </div>
               ))}

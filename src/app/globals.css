@@ -7655,6 +7655,23 @@ main {
   transform: none;
 }
 
+.hw-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(140px, 180px) minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 560px) {
+  .hw-hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hw-hero-grid__image {
+    width: 128px;
+    margin-inline: auto;
+  }
+}
+
 .hw-mobile-buybar {
   display: none;
 }

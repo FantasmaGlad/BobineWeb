@@ -23,9 +23,9 @@ export default function Header({
 
   const links: Array<[string, string]> = [
     [`/${locale}/fonctionnalites`, dict.nav.features],
-    [`/${locale}/comparatif`, dict.nav.comparisons],
     [`/${locale}/materiel`, dict.nav.hardware],
     [`/${locale}/documentation`, dict.nav.documentation],
+    [`/${locale}/comparatif`, dict.nav.comparisons],
     [`/${locale}/blog`, dict.nav.blog],
     [`/${locale}/soutenir`, dict.nav.support],
     [`/${locale}/a-propos`, dict.nav.about],

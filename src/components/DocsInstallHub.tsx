@@ -144,15 +144,41 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
     },
   ];
 
-  const orderedTabs = reorderForPlatform(tabs, detected);
+  const desktopTabs = reorderForPlatform(
+    tabs.filter((tab) => tab.group === "desktop" || tab.group === "roadmap"),
+    detected
+  );
+  const advancedTabs = tabs.filter((tab) => tab.group === "appliance");
+
+  const renderTabButton = (tab: (typeof tabs)[number]) => {
+    const isSelected = activeTab === tab.id;
+    return (
+      <button
+        key={tab.id}
+        role="tab"
+        type="button"
+        id={`tab-${tab.id}`}
+        aria-selected={isSelected}
+        aria-controls={`panel-${tab.id}`}
+        onClick={() => setSelectedTab(tab.id)}
+        className={`docs-install-tab-btn ${isSelected ? "is-active" : ""}`}
+      >
+        <span className="docs-install-tab-icon">{tab.icon}</span>
+        <span className="docs-install-tab-text">
+          <span className="docs-install-tab-name">{tab.name}</span>
+          <span className="docs-install-tab-format">{tab.format}</span>
+        </span>
+      </button>
+    );
+  };
 
   return (
     <div className="docs-install-hub">
-      {/* Sélecteur de méthode d'installation avec logos vectoriels */}
+      {/* Sélecteur de méthode d'installation avec logos vectoriels, regroupé par nature */}
       <div className="docs-install-selector-wrap">
         <div className="docs-install-nav-header">
           <span className="docs-install-nav-label">
-            {isEn ? "Select your installation environment:" : "Sélectionnez votre environnement d'installation :"}
+            {isEn ? "1-click desktop & mobile apps:" : "Applications de bureau & mobile en 1 clic :"}
           </span>
         </div>
 
@@ -161,27 +187,21 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           aria-label={isEn ? "Installation methods" : "Méthodes d'installation"}
           className="docs-install-tabs"
         >
-          {orderedTabs.map((tab) => {
-            const isSelected = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                role="tab"
-                type="button"
-                id={`tab-${tab.id}`}
-                aria-selected={isSelected}
-                aria-controls={`panel-${tab.id}`}
-                onClick={() => setSelectedTab(tab.id)}
-                className={`docs-install-tab-btn ${isSelected ? "is-active" : ""}`}
-              >
-                <span className="docs-install-tab-icon">{tab.icon}</span>
-                <span className="docs-install-tab-text">
-                  <span className="docs-install-tab-name">{tab.name}</span>
-                  <span className="docs-install-tab-format">{tab.format}</span>
-                </span>
-              </button>
-            );
-          })}
+          {desktopTabs.map(renderTabButton)}
+        </div>
+
+        <div className="docs-install-nav-header docs-install-nav-header--secondary">
+          <span className="docs-install-nav-label docs-install-nav-label--secondary">
+            {isEn ? "Advanced & dedicated deployments:" : "Déploiements avancés & dédiés :"}
+          </span>
+        </div>
+
+        <div
+          role="tablist"
+          aria-label={isEn ? "Advanced installation methods" : "Méthodes d'installation avancées"}
+          className="docs-install-tabs docs-install-tabs--advanced"
+        >
+          {advancedTabs.map(renderTabButton)}
         </div>
       </div>
 

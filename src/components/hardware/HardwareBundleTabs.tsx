@@ -438,19 +438,17 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
           {/* 6. UNITÉ PRINCIPALE — carte hero large écran */}
           {mainItem && (
             <div
-              className="hw-item-card hw-item-card--hero"
+              className="hw-item-card hw-item-card--hero hw-hero-grid"
               style={{
                 background: "var(--bg-surface)",
                 border: "1px solid var(--border-subtle)",
                 borderRadius: "0.65rem",
                 padding: "1.25rem",
-                display: "grid",
-                gridTemplateColumns: "minmax(140px, 180px) minmax(0, 1fr)",
-                gap: "1.25rem",
                 marginBottom: "1rem",
               }}
             >
               <div
+                className="hw-hero-grid__image"
                 style={{
                   borderRadius: "0.55rem",
                   border: "1px solid var(--border-subtle)",

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { docChapters } from "@/content/docs/chapters";
 import { getBobineReleases } from "@/lib/github-releases";
+import { getAllHardwareProducts, PRICE_CHECKED_AT } from "@/content/hardware";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -12,6 +13,7 @@ const OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1";
 
 const SYSTEM_PROMPT_TEMPLATE = `Tu es Baamix, la mascotte et conseillère technique du projet Bobine (site : bobine.fit, code : github.com/FantasmaGlad/Bobine, conçu et développé par FantasmaGlad alias Clément Barillot, contact : clement.barillot@bobine.fit).
 Tu es un petit hamster blanc agile, précis, bienveillant, direct et très professionnel.
+Bobine est développé par une seule personne, pas une équipe : ne dis jamais "notre équipe" ou "nos développeurs" — dis plutôt "le créateur du projet" ou reste à la première personne du site ("Bobine propose...").
 
 ### 1. RÈGLE D'OR : ÉCOUTE ACTIVE & DIAGNOSTIC AVANT DE RÉPONDRE HÂTIVEMENT
 - Quand un utilisateur pose une question ouverte ou demande conseil sur l'équipement de sa salle (ex: "Quel matériel acheter pour ma salle ?", "Comment installer mes écrans ?", "Quelle config pour mon club ?") :
@@ -25,13 +27,10 @@ Tu es un petit hamster blanc agile, précis, bienveillant, direct et très profe
 
 ### 2. ARCHITECTURE MATÉRIELLE & MULTI-ÉCRANS :
 - **Nombre d'écrans par machine** :
-  * Un mini PC de référence (ex: Dell Wyse 5070 avec Intel UHD 600 ou HP EliteDesk 705 avec AMD Radeon Vega) dispose de sorties DisplayPort/HDMI gérant le 4K 60Hz.
+  * Un mini PC des gammes "Essentiel" ou "Recommandé" du catalogue (section 4bis ci-dessous) dispose de sorties DisplayPort/HDMI gérant le 4K 60Hz.
   * **Pour 3 écrans dans la même salle (même cours partout)** : Le mini PC se branche sur un splitter/répartiteur HDMI 1 vers 3. Une seule machine suffit.
-  * **Pour 3 salles différentes (cours différents en parallèle)** : L'architecture recommandée est 1 mini PC dédié par salle (~40-70 € pièce), chacun autonome hors-ligne avec sa propre grille horaire et sa télécommande mobile.
-- **Modèles recommandés (Intel & AMD)** :
-  * **Intel** : Dell Wyse 5070 reconditionné (~40-50 €, Celeron J4105), Lenovo ThinkCentre M710q/M720q Tiny, HP ProDesk 400 G4/G5, Beelink Mini S12/EQ12 (N100/N5105).
-  * **AMD** : HP EliteDesk 705 G4/G5 Mini (~60-80 €, Ryzen 3/5 Pro Radeon Vega), Lenovo ThinkCentre M715q/M725q Tiny, HP T630/T730 Thin Client.
-  * 4-8 Go RAM, SSD NVMe/SATA (128 à 256 Go), consommation sobre < 10 W.
+  * **Pour 3 salles différentes (cours différents en parallèle)** : L'architecture recommandée est 1 mini PC dédié par salle, chacun autonome hors-ligne avec sa propre grille horaire et sa télécommande mobile.
+- **Modèles recommandés** : ne cite QUE des produits présents dans le CATALOGUE MATÉRIEL RÉEL (section 4bis) — jamais un modèle, une marque ou un prix qui n'y figure pas explicitement, même s'il te semble familier ou plausible. Le catalogue est réaudité régulièrement ; un modèle qui te vient de mémoire peut ne plus être en vente.
 - **Coût logiciel** : 0 € (licence AGPL-3.0, sans abonnement).
 
 ### 3. MISE EN PAGE : MARKDOWN AÉRÉ & ESPACÉ (TRÈS IMPORTANT)
@@ -44,6 +43,24 @@ Tu es un petit hamster blanc agile, précis, bienveillant, direct et très profe
 ### 4. CONNAISSANCES DU PROJET (générées automatiquement depuis la documentation officielle, ne jamais contredire ces faits) :
 {{PROJECT_KNOWLEDGE}}
 
+### 4bis. CATALOGUE MATÉRIEL RÉEL & RECOMMANDATION DE PRODUITS ACHETABLES
+La liste ci-dessous est l'INTÉGRALITÉ des produits réellement en vente sur /materiel, générée en direct depuis le catalogue vérifié (ASIN, nom et prix constaté réels, jamais inventés) :
+{{HARDWARE_CATALOG}}
+
+Règles strictes :
+- N'utilise QUE les ASIN de cette liste. N'invente jamais un ASIN, un nom de produit ou un prix qui n'y figure pas, même approximatif.
+- Quand tu recommandes un produit précis de cette liste que l'utilisateur devrait ajouter à son pack (par exemple un câble qui manque, un accessoire compatible avec ce qu'il a déjà), fais-le d'abord en une phrase claire, PUIS ajoute immédiatement après, sur sa propre ligne, un bloc au format exact suivant (rien d'autre à l'intérieur du bloc, un seul objet JSON avec uniquement la clé "asin") :
+\`\`\`product
+{"asin":"ASIN_EXACT_DE_LA_LISTE"}
+\`\`\`
+- Un seul bloc par produit recommandé, jamais deux fois le même ASIN dans une même réponse. N'émets ce bloc QUE si tu recommandes activement d'ajouter ce produit précis — jamais pour un produit simplement mentionné en passant ou déjà présent dans le panier de l'utilisateur.
+- Si aucun produit précis n'a de sens à recommander dans ta réponse, n'émets aucun bloc — ce n'est pas obligatoire à chaque message.
+
+### 4ter. PANIER EN DIRECT DE L'UTILISATEUR (ce qu'il a déjà sélectionné sur /materiel)
+{{CART_CONTEXT}}
+
+Utilise ce contexte pour conseiller concrètement : signale un oubli probable (ex. un mini PC sans câble vidéo, un pack sans télécommande), évite de recommander un produit déjà présent dans le panier, et reste factuel et sobre — jamais insistant ni commercial dans le ton, une simple remarque utile suffit.
+
 ### 5. VERSION ACTUELLE (récupérée en direct depuis GitHub) :
 {{VERSION_INFO}}
 
@@ -53,6 +70,7 @@ Tu es un petit hamster blanc agile, précis, bienveillant, direct et très profe
 - Manifeste, Vision & Auteur : /fr/a-propos
 - FAQ / Dépannage : /fr/documentation/faq
 - Développeurs : /fr/documentation/developpeurs
+- Guide matériel & panier "Mon Pack" : /fr/materiel — un bouton flottant en bas de cette page permet de construire un pack à la carte (le contexte du panier actuel t'est fourni en section 4ter) puis d'ouvrir chaque produit retenu sur Amazon.
 - Dépôt APT officiel Linux (Debian / Ubuntu) : https://apt.bobine.fit (et jeu rétro Pong sur /pong)
 
 Si une question porte sur un point absent de ta base de connaissances ci-dessus, ne l'invente pas : dis que tu n'es pas certaine et renvoie vers la page de documentation la plus pertinente plutôt que de deviner.
@@ -93,13 +111,58 @@ async function buildVersionInfo(): Promise<string> {
   }
 }
 
-async function buildSystemPrompt(): Promise<string> {
+/**
+ * Construit la liste complète des produits réellement achetables (ASIN, nom,
+ * prix constaté), dédupliquée par ASIN, depuis la même source que le hub
+ * matériel et le panier "Mon Pack" — jamais de produit ou de prix inventé.
+ */
+function buildHardwareCatalogContext(): string {
+  const lines = getAllHardwareProducts("fr")
+    .map((p) => `- ${p.asin} | ${p.name} | ${p.priceAmazon.toFixed(2)} EUR`)
+    .join("\n");
+  return `(Prix constatés le ${PRICE_CHECKED_AT} — précise-le si l'utilisateur demande un prix, et invite-le à vérifier la fiche Amazon pour le tarif du jour)\n${lines}`;
+}
+
+interface RawCartItem {
+  asin?: unknown;
+  name?: unknown;
+  priceAmazon?: unknown;
+}
+
+/**
+ * Décrit le panier "Mon Pack" tel qu'il existe en direct dans le navigateur
+ * de l'utilisateur (stockage local, jamais persisté côté serveur ni transmis
+ * ailleurs qu'à cette requête) pour que Baamix puisse conseiller sur des
+ * achats déjà entamés au lieu de deviner. Entrée non fiable (vient du
+ * client) : chaque champ est validé avant usage.
+ */
+function buildCartContext(rawCart: unknown): string {
+  const empty = "Le panier « Mon Pack » de l'utilisateur est actuellement vide.";
+  if (!Array.isArray(rawCart)) return empty;
+
+  const items = (rawCart as RawCartItem[]).filter(
+    (item): item is { asin: string; name: string; priceAmazon: number } =>
+      typeof item?.asin === "string" &&
+      typeof item?.name === "string" &&
+      typeof item?.priceAmazon === "number"
+  );
+
+  if (items.length === 0) return empty;
+
+  const total = items.reduce((acc, i) => acc + i.priceAmazon, 0);
+  const lines = items.map((i) => `- ${i.name} (${i.priceAmazon.toFixed(2)} EUR)`).join("\n");
+  return `Le panier « Mon Pack » contient actuellement ${items.length} article(s), total ${total.toFixed(2)} EUR :\n${lines}`;
+}
+
+async function buildSystemPrompt(cart: unknown): Promise<string> {
   const [projectKnowledge, versionInfo] = await Promise.all([
     Promise.resolve(buildProjectKnowledge()),
     buildVersionInfo(),
   ]);
   return SYSTEM_PROMPT_TEMPLATE
     .replace("{{PROJECT_KNOWLEDGE}}", projectKnowledge)
+    .replace("{{HARDWARE_CATALOG}}", buildHardwareCatalogContext())
+    .replace("{{CART_CONTEXT}}", buildCartContext(cart))
     .replace("{{VERSION_INFO}}", versionInfo);
 }
 
@@ -114,7 +177,7 @@ export async function POST(req: Request) {
       process.env.ORCAROUTER_BASE_URL ||
       OPENROUTER_BASE_URL;
 
-    const { messages } = await req.json();
+    const { messages, cart } = await req.json();
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return NextResponse.json(
@@ -132,7 +195,7 @@ export async function POST(req: Request) {
       },
     });
 
-    const systemPrompt = await buildSystemPrompt();
+    const systemPrompt = await buildSystemPrompt(cart);
 
     const conversation = [
       { role: "system" as const, content: systemPrompt },

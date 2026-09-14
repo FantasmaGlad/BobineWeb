@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import type { Locale } from "@/lib/i18n";
+import { readCart } from "@/lib/hardwareCart";
+import ChatProductCard from "@/components/ChatProductCard";
 
 const MarkdownRenderer = dynamic(() => import("./MarkdownRenderer"), {
   loading: () => <span className="markdown-loading" />,
@@ -12,6 +14,38 @@ const MarkdownRenderer = dynamic(() => import("./MarkdownRenderer"), {
 interface Message {
   role: "user" | "assistant";
   content: string;
+}
+
+/**
+ * Baamix signale un produit reellement achetable en emettant un bloc
+ * ```product {"asin":"..."} ``` dans sa reponse (contrat defini par le prompt
+ * systeme). On l'extrait avant le rendu Markdown pour afficher une vraie
+ * carte produit (image/prix/lien resolus depuis le catalogue, jamais depuis
+ * le texte du modele) a la place du bloc brut.
+ */
+function parseProductBlocks(raw: string): { displayText: string; asins: string[] } {
+  const asins: string[] = [];
+
+  let displayText = raw.replace(/```product\s*([\s\S]*?)```/g, (_match, jsonStr: string) => {
+    try {
+      const parsed = JSON.parse(jsonStr.trim());
+      if (parsed && typeof parsed.asin === "string" && !asins.includes(parsed.asin)) {
+        asins.push(parsed.asin);
+      }
+    } catch {
+      // bloc malformé émis par le modèle : ignoré silencieusement, jamais de crash
+    }
+    return "";
+  });
+
+  // Fence encore ouverte pendant le streaming (fermeture pas encore reçue) :
+  // on tronque l'affichage avant le JSON brut plutôt que de le montrer flash.
+  const openFenceIndex = displayText.indexOf("```product");
+  if (openFenceIndex !== -1) {
+    displayText = displayText.slice(0, openFenceIndex);
+  }
+
+  return { displayText: displayText.trimEnd(), asins };
 }
 
 export default function BobineChatbot({ locale }: { locale: Locale }) {
@@ -133,6 +167,7 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
         body: JSON.stringify({
           messages: [...messages, userMessage],
           locale,
+          cart: readCart(),
         }),
       });
 
@@ -303,6 +338,8 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
                 );
               }
 
+              const parsed = m.role === "assistant" ? parseProductBlocks(m.content) : null;
+
               return (
                 <div
                   key={idx}
@@ -320,8 +357,17 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
                     </div>
                   )}
                   <div className="chatbot-message__bubble">
-                    {m.role === "assistant" ? (
-                      <MarkdownRenderer content={m.content} />
+                    {m.role === "assistant" && parsed ? (
+                      <>
+                        <MarkdownRenderer content={parsed.displayText} />
+                        {parsed.asins.length > 0 && (
+                          <div className="chatbot-product-cards">
+                            {parsed.asins.map((asin) => (
+                              <ChatProductCard key={asin} asin={asin} locale={locale} />
+                            ))}
+                          </div>
+                        )}
+                      </>
                     ) : (
                       <p style={{ margin: 0 }}>{m.content}</p>
                     )}

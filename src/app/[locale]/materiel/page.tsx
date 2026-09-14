@@ -5,7 +5,6 @@ import { buildMetadata } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import HardwareBundleTabs from "@/components/hardware/HardwareBundleTabs";
 import AffiliationNotice from "@/components/hardware/AffiliationNotice";
-import { HardwareCartProvider } from "@/lib/hardwareCart";
 import HardwareCartBar from "@/components/hardware/HardwareCartBar";
 
 export async function generateMetadata({
@@ -156,16 +155,14 @@ export default async function HardwarePage({
         </div>
       </section>
 
-      <HardwareCartProvider>
-        {/* 1. Les Bundles par OS (Linux, Windows, macOS, Android), avec accessoires filtrés intégrés */}
-        <HardwareBundleTabs locale={currentLocale} />
+      {/* 1. Les Bundles par OS (Linux, Windows, macOS, Android), avec accessoires filtrés intégrés */}
+      <HardwareBundleTabs locale={currentLocale} />
 
-        {/* 2. Avertissement d'affiliation officiel conforme Amazon & DGCCRF */}
-        <AffiliationNotice locale={currentLocale} />
+      {/* 2. Avertissement d'affiliation officiel conforme Amazon & DGCCRF */}
+      <AffiliationNotice locale={currentLocale} />
 
-        {/* 3. Panier persistant "Mon Pack" — flottant, disponible mobile & desktop */}
-        <HardwareCartBar locale={currentLocale} />
-      </HardwareCartProvider>
+      {/* 3. Panier persistant "Mon Pack" — flottant, disponible mobile & desktop */}
+      <HardwareCartBar locale={currentLocale} />
     </div>
   );
 }

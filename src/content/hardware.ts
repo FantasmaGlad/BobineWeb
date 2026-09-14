@@ -1402,3 +1402,58 @@ export const STANDALONE_ACCESSORIES: StandaloneAccessory[] = [
     compatibleOs: ["linux", "windows", "macos"],
   },
 ];
+
+// Produit resolu par ASIN : forme normalisee partagee entre le panier, le
+// widget "Mon Pack" et les cartes produit recommandees par Baamix dans le chat.
+export interface ResolvedProduct {
+  asin: string;
+  name: string;
+  imageUrl: string;
+  priceAmazon: number;
+  amazonUrl: string;
+}
+
+// Liste deduplique (par ASIN) de tous les produits reellement achetables du
+// catalogue, tous OS/gammes/accessoires confondus. Source unique utilisee a
+// la fois pour resoudre une carte produit cote client et pour construire le
+// contexte catalogue envoye a Baamix cote serveur : jamais de produit ou de
+// prix invente des deux cotes, uniquement ce qui existe reellement ici.
+export function getAllHardwareProducts(locale: "fr" | "en" = "fr"): ResolvedProduct[] {
+  const byAsin = new Map<string, ResolvedProduct>();
+
+  for (const bundle of Object.values(HARDWARE_BUNDLES)) {
+    for (const formFactor of Object.values(bundle.formFactors)) {
+      for (const tier of Object.values(formFactor.tiers)) {
+        for (const item of tier.items) {
+          if (!byAsin.has(item.asin)) {
+            byAsin.set(item.asin, {
+              asin: item.asin,
+              name: item.name,
+              imageUrl: item.imageUrl,
+              priceAmazon: item.priceAmazon,
+              amazonUrl: item.amazonUrl,
+            });
+          }
+        }
+      }
+    }
+  }
+
+  for (const acc of STANDALONE_ACCESSORIES) {
+    if (!byAsin.has(acc.asin)) {
+      byAsin.set(acc.asin, {
+        asin: acc.asin,
+        name: locale === "en" ? acc.nameEn : acc.nameFr,
+        imageUrl: acc.imageUrl,
+        priceAmazon: acc.priceAmazon,
+        amazonUrl: acc.amazonUrl,
+      });
+    }
+  }
+
+  return Array.from(byAsin.values());
+}
+
+export function findHardwareItemByAsin(asin: string, locale: "fr" | "en" = "fr"): ResolvedProduct | null {
+  return getAllHardwareProducts(locale).find((p) => p.asin === asin) ?? null;
+}

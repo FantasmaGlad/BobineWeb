@@ -3374,6 +3374,87 @@ main {
   word-break: break-all;
 }
 
+/* Cartes produit inline — Baamix recommande un article reel du catalogue */
+.chatbot-product-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.chatbot-product-card {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem;
+  border-radius: 0.55rem;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+}
+
+.chatbot-product-card__thumb {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 0.4rem;
+  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.chatbot-product-card__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.chatbot-product-card__name {
+  font-size: 0.775rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.chatbot-product-card__price {
+  font-size: 0.775rem;
+  font-weight: 800;
+  color: var(--text-heading);
+}
+
+.chatbot-product-card__actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.chatbot-product-card__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  color: var(--text-muted);
+}
+
+.chatbot-product-card__link:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
 .chatbot-message--user .chatbot-message__bubble {
   background: var(--accent-primary);
   color: var(--accent-primary-fg);

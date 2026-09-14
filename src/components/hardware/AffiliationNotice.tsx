@@ -62,7 +62,7 @@ export default function AffiliationNotice({ locale }: { locale: Locale }) {
             href={`/${locale}/mentions-legales`}
             style={{ color: "var(--accent-primary)", textDecoration: "underline", textUnderlineOffset: "3px" }}
           >
-            {isEn ? "Read legal disclosure" : "Consulter nos mentions légales"}
+            {isEn ? "Read legal disclosure" : "Consulter les mentions légales"}
           </Link>
           .
         </p>

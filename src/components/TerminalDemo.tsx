@@ -197,6 +197,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const terminalBodyRef = useRef<HTMLDivElement | null>(null);
+  const summaryRef = useRef<HTMLDivElement | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const promptTimerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -335,6 +336,17 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
       };
     }
   }, [currentRunningStep, showBanner, channelPromptAnswered, hasTriggered, isCompleted, scrollToBottom]);
+
+  // Une fois l'installation terminée, la page défile automatiquement pour révéler le
+  // bilan récapitulatif — l'utilisateur reste ensuite libre de remonter à tout moment,
+  // ce scroll n'est déclenché qu'une seule fois par exécution (pas de re-scroll forcé).
+  useEffect(() => {
+    if (!isCompleted) return;
+    const timeout = setTimeout(() => {
+      summaryRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    }, 250);
+    return () => clearTimeout(timeout);
+  }, [isCompleted]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(commandText).then(() => {
@@ -660,7 +672,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
 
         {/* Bilan final récapitulatif fidèle à install.sh */}
         {isCompleted && (
-          <div className="terminal-demo-summary-box">
+          <div ref={summaryRef} className="terminal-demo-summary-box">
             <div className="terminal-summary-header">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <polyline points="20 6 9 17 4 12" />

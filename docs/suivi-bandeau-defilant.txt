@@ -1,0 +1,160 @@
+SUIVI DU BANDEAU DEFILANT (TechTicker) — BOBINE / ACCUEIL
+============================================================
+Genere depuis src/components/TechTicker.tsx
+Date de revue : 2026-09-14
+Nombre d'items : 18 (identiques en structure FR/EN, traduction 1:1)
+
+MODE D'EMPLOI POUR UNE MISE A JOUR (à la main) :
+1. Chaque item du bandeau est un triplet {tag, label, value} duplique en FR (METRICS_FR)
+   et EN (METRICS_EN) dans TechTicker.tsx, dans le meme ordre pour les deux langues.
+2. Toute affirmation chiffree (prix, Watts, marques materielles citees) doit rester
+   coherente avec la source de verite src/content/hardware.ts (catalogue reel verifie),
+   jamais une estimation ou un exemple de marque invente/perime.
+3. Toute affirmation sur le statut Android/iOS doit rester coherente avec le chapitre
+   "feuille-de-route" de src/content/docs/chapters.ts (source unique de la feuille de route).
+
+------------------------------------------------------------
+CONTENU ACTUEL COMPLET (FR — ordre d'affichage)
+------------------------------------------------------------
+
+1. [ECONOMIE] Gain financier :
+   Economisez 1 500 EUR a 3 000 EUR / an par studio (Zero redevance logicielle)
+
+2. [SANS ABONNEMENT] Cout d'usage :
+   0 EUR / mois - Logiciel libre sans engagement, sans cout cache
+
+3. [MAC & MAC MINI] Regie studio :
+   Ideal en studio sous macOS : silence absolu, double ecran HDMI & demarrage automatique
+
+4. [APPLE SILICON] Puces M1 a M4 :
+   Optimise Apple Silicon : fluidite 4K instantanee sans aucune surchauffe
+
+5. [MINI PC ECONOMIQUE] Materiel accessible :
+   Tourne sur mini PC reconditionne (Dell Wyse, HP ProDesk) des 40 EUR
+
+6. [ACCELERATION GRAPHIQUE] Decodage fluide :
+   Decodage materiel ultra-rapide : lecture 4K et 2K 60 fps sans saccade
+
+7. [100% HORS-LIGNE] Resilience fibre :
+   Fonctionne sans Internet : immunise contre les pannes de reseau
+
+8. [BORNE TACTILE] Libre acces :
+   Kiosque tactile adherents avec decompte des creneaux a la demande
+
+9. [MULTI-ECRANS] Double diffusion :
+   Diffusion simultanee : grand ecran cours en salle + televiseurs plateau
+
+10. [RADIO PLATEAU 24/7] Ambiance sonore :
+    Flux musical continu avec fondu sonore et annonces programmees
+
+11. [COURS SUR MESURE] Catalogue ouvert :
+    100% Libre : diffusez vos videos (Cycling, HIIT, Yoga, Pilates, Renfo)
+
+12. [MULTI-OS] Compatibilite :
+    Windows 10/11, macOS, Linux, tablettes Android et etude iPadOS
+
+13. [ANDROID NATIF] Application dediee :
+    Disponible sur tablette tactile pour piloter le studio du bout des doigts
+
+14. [TELECOMMANDE SIMPLE] Controle en salle :
+    Au choix : telecommande sans fil 2.4 GHz ou smartphone via QR code
+
+15. [CONFIDENTIALITE] Protection RGPD :
+    100% Local : zero pistage, zero camera, vos donnees restent dans votre club
+
+16. [REPRISE SUR COUPURE] Securite electrique :
+    Retablissement autonome et automatique de la diffusion apres coupure secteur
+
+17. [SAUVEGARDE EN 1 CLIC] Export universel :
+    Sauvegardez toute votre programmation et vos cours en une archive ZIP
+
+18. [ECO-RESPONSABLE] Faible consommation :
+    Moins de 10 Watts en fonctionnement : discret, economique et durable
+
+(La version EN dans METRICS_EN est une traduction 1:1 de ces 18 items, meme ordre,
+memes chiffres — voir TechTicker.tsx lignes 32-51.)
+
+------------------------------------------------------------
+CORRECTIONS PROPOSEES (incoherences factuelles avec le catalogue reel)
+------------------------------------------------------------
+
+[CORRECTION #1 — item 5, MINI PC ECONOMIQUE / BUDGET MINI PCS]
+Probleme : cite "Dell Wyse" comme exemple de mini PC reconditionne. Le Dell Wyse 5070
+n'est plus le produit reel du catalogue /materiel depuis l'audit hardware (remplace par
+HP EliteDesk 800 Mini reconditionne et le mini PC industriel N100 fanless, voir
+src/content/hardware.ts). C'est la meme mention perimee deja identifiee sur 23 fichiers
+du site (tache de fond deja proposee separement : purge "Dell Wyse 5070").
+Probleme additionnel : annonce un prix plancher de "40 EUR", or le prix reel le plus bas
+verifie et actuellement affiche sur /materiel (HP EliteDesk 800 Mini, gamme Essentiel
+Linux) est 161 EUR. Le chiffre "40 EUR" ne correspond a aucun produit reellement en
+vente sur la page.
+Proposition : "Tourne sur mini PC reconditionne verifie (HP EliteDesk, mini PC
+industriel fanless) des 161 EUR" — ou plus generique et perenne (sans citer de prix qui
+se perime vite) : "Tourne sur mini PC reconditionne verifie, entree de gamme accessible,
+prix et fiches Amazon a jour sur la page Materiel".
+
+[CORRECTION #2 — item 4, APPLE SILICON]
+Probleme : annonce "Puces M1 a M4", mais le catalogue reel /materiel (audite cette
+session) recommande desormais des Mac equipes de puces M4, M5 et M6 (Mac Mini M6,
+Mac Studio M5 Max, MacBook Air/Pro M4/M5). La borne haute "M4" est donc perimee et
+sous-vend la gamme reellement recommandee.
+Proposition : "Puces M4 a M6" (ou formulation perenne : "Puces Apple Silicon les plus
+recentes") pour ne pas avoir a retoucher ce tag a chaque nouvelle generation de puce.
+
+[CORRECTION #3 — item 18, ECO-RESPONSABLE]
+Probleme : affirme "Moins de 10 Watts en fonctionnement" de facon generale, alors que
+la gamme Essentiel Linux du catalogue reel consomme 20W-35W (HP EliteDesk 800 Mini) et
+que meme la gamme Recommandee fanless va jusqu'a 15W (voir powerWatts dans
+hardware.ts). Seule la borne basse de la gamme Recommandee (6W) est reellement
+sous les 10W : l'affirmation actuelle sur-generalise et se contredit avec les fiches
+produit de la page Materiel elle-meme.
+Proposition : "Des 6 Watts en configuration fanless : discret, economique et durable"
+(reste vrai et verifiable sans generaliser a l'ensemble des gammes).
+
+[CORRECTION #4 — item 3, MAC & MAC MINI]
+Probleme : "silence absolu" est une formulation absolue, alors que le Mac Mini du
+catalogue reel a le champ hasFan: true (il embarque reellement un ventilateur — voir
+la regle du projet : ne jamais suggerer l'absence de ventilateur pour une machine qui
+en a un, deja appliquee scrupuleusement sur la page Materiel avec le badge "Ventilateur
+silencieux" vs "100% Fanless").
+Proposition : "silence quasi total" (coherent avec la description reelle du Mac Mini
+dans hardware.ts : "silence quasi total, gestion de veille intelligente native").
+
+------------------------------------------------------------
+AMELIORATIONS / AJOUTS PROPOSES (contenu manquant ou a valoriser)
+------------------------------------------------------------
+
+[AJOUT #1] Aucun item ne mentionne la voie "PC Portable" (utiliser un ordinateur deja
+possede en mode clamshell), qui est pourtant une fonctionnalite majeure ajoutee cette
+session a chaque OS. Proposition de nouvel item :
+  [PC DEJA POSSEDE] Materiel reutilise :
+  "Pas besoin d'acheter : fermez votre PC portable existant en mode clamshell et
+   branchez un simple hub/dock"
+
+[AJOUT #2] Aucun item ne valorise la transparence du guide materiel (prix Amazon
+verifies manuellement, pas d'ASIN invente) qui differencie le site. Proposition :
+  [GUIDE VERIFIE] Materiel Amazon :
+  "Chaque produit du guide materiel est verifie a la main : ASIN reel, prix constate,
+   photo authentique - jamais une estimation"
+
+[AJOUT #3] Aucun item ne mentionne le depot APT officiel (apt.bobine.fit) pourtant
+documente comme canal d'installation Linux a part entiere. Proposition :
+  [DEPOT APT LINUX] Mise a jour systeme :
+  "Paquet .deb signe GPG sur apt.bobine.fit : mises a jour Linux natives via
+   apt update / apt upgrade"
+
+[AJOUT #4] Aucun item ne mentionne le caractere open-source / code source public du
+projet (juste "sans abonnement"), qui est pourtant un argument de confiance fort pour
+un logiciel de regie video. Proposition :
+  [CODE OUVERT] Transparence :
+  "Code source public sur GitHub : auditable par n'importe qui, aucune boite noire"
+
+------------------------------------------------------------
+NOTE DE COHERENCE PROJET (a signaler, hors perimetre de ce fichier)
+------------------------------------------------------------
+les règles du projet (section 10.B) decrit encore le pack "Linux Appliance" comme base sur un
+"Dell Wyse 5070 Celeron J4105" - alors que le catalogue reel hardware.ts utilise
+desormais HP EliteDesk 800 Mini (Essentiel) et un mini PC industriel N100 fanless
+(Recommande). les règles du projet n'est pas modifie par ce fichier de suivi (fichier
+d'instructions projet, hors perimetre d'une mise a jour de contenu marketing) mais
+merite une relecture humaine pour rester alignee avec le catalogue reel.

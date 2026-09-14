@@ -291,7 +291,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
             className="stepper-mode-toggle"
             role="tablist"
             aria-label={isEn ? "Tier level" : "Gamme de performance"}
-            style={{ flexWrap: "wrap", alignSelf: "center" }}
+            style={{ flexWrap: "nowrap", flexShrink: 0, alignSelf: "center" }}
           >
             {tierList.map((tier) => {
               const isTierActive = selectedTier === tier.id;

@@ -7672,6 +7672,64 @@ main {
   }
 }
 
+.hw-tier-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.hw-tier-nav-arrow:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.hw-tier-nav-arrow--prev {
+  left: -0.6rem;
+}
+
+.hw-tier-nav-arrow--next {
+  right: -0.6rem;
+}
+
+@media (max-width: 640px) {
+  .hw-tier-nav-arrow {
+    display: none;
+  }
+}
+
+.hw-tier-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  padding-top: 1rem;
+}
+
+.hw-tier-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--border-subtle);
+  transition: background 0.2s ease, width 0.2s ease;
+}
+
+.hw-tier-dot.is-active {
+  width: 18px;
+  background: var(--accent-primary);
+}
+
 .hw-mobile-buybar {
   display: none;
 }

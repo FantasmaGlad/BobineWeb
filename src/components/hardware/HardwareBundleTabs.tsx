@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
 import {
@@ -55,6 +55,43 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
   const showFanBadge = activeFormFactorKey === "minipc" && (selectedOs === "linux" || selectedOs === "windows" || selectedOs === "macos") && mainItem;
 
   const filteredStandaloneAccessories = STANDALONE_ACCESSORIES.filter((acc) => acc.compatibleOs.includes(selectedOs));
+
+  // Navigation "shop & buy" entre gammes : glisser au doigt (mobile) ou à la souris (PC)
+  // fait défiler d'une gamme à l'autre, comme les onglets, sans dupliquer l'état sélectionné.
+  const tierOrder: TierKey[] = ["essentiel", "recommande", "pro", "premium"];
+  const tierIndex = tierOrder.indexOf(selectedTier);
+  const [dragX, setDragX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartXRef = useRef<number | null>(null);
+
+  const goToTier = (direction: 1 | -1) => {
+    const nextIndex = tierIndex + direction;
+    if (nextIndex < 0 || nextIndex >= tierOrder.length) return;
+    setSelectedTier(tierOrder[nextIndex]);
+  };
+
+  const handleSwipeStart = (clientX: number, targetEl: EventTarget) => {
+    if ((targetEl as HTMLElement).closest("a,button,input,select,textarea")) return;
+    dragStartXRef.current = clientX;
+    setIsDragging(true);
+  };
+  const handleSwipeMove = (clientX: number) => {
+    if (dragStartXRef.current === null) return;
+    let delta = clientX - dragStartXRef.current;
+    if ((tierIndex === 0 && delta > 0) || (tierIndex === tierOrder.length - 1 && delta < 0)) {
+      delta = delta / 3;
+    }
+    setDragX(delta);
+  };
+  const handleSwipeEnd = () => {
+    if (dragStartXRef.current === null) return;
+    const threshold = 64;
+    if (dragX <= -threshold) goToTier(1);
+    else if (dragX >= threshold) goToTier(-1);
+    dragStartXRef.current = null;
+    setIsDragging(false);
+    setDragX(0);
+  };
 
   const osList: Array<{ id: OsKey; label: string; badge?: string; icon: React.ReactNode }> = [
     {
@@ -194,6 +231,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
       {/* 2. BANDEAU DE L'OS SÉLECTIONNÉ */}
       <div
         style={{
+          position: "relative",
           background: "var(--bg-card)",
           border: "1px solid var(--border-subtle)",
           borderRadius: "0.75rem",
@@ -247,15 +285,42 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
               </span>
             </div>
           </div>
+
+          {/* SÉLECTEUR DE GAMME — positionné à droite de l'encadré titre */}
+          <div
+            className="stepper-mode-toggle"
+            role="tablist"
+            aria-label={isEn ? "Tier level" : "Gamme de performance"}
+            style={{ flexWrap: "wrap", alignSelf: "center" }}
+          >
+            {tierList.map((tier) => {
+              const isTierActive = selectedTier === tier.id;
+              return (
+                <button
+                key={tier.id}
+                role="tab"
+                aria-selected={isTierActive}
+                onClick={() => setSelectedTier(tier.id)}
+                className={`stepper-mode-btn ${isTierActive ? "is-active" : ""}`}
+                style={{
+                  padding: "0.45rem 0.85rem",
+                  fontSize: "0.775rem",
+                }}
+              >
+                  <span>{tier.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* 3. SÉLECTEUR MINI PC / PC PORTABLE (masqué si une seule voie disponible) */}
+        {/* SÉLECTEUR MINI PC / PC PORTABLE (masqué si une seule voie disponible) */}
         {formFactorKeys.length > 1 && (
           <div
             className="stepper-mode-toggle"
             role="tablist"
             aria-label={isEn ? "Hardware form factor" : "Type de matériel"}
-            style={{ marginBottom: "1rem", flexWrap: "wrap" }}
+            style={{ marginBottom: "1.25rem", flexWrap: "wrap" }}
           >
             {formFactorKeys.map((key) => {
               const isFormActive = activeFormFactorKey === key;
@@ -281,34 +346,46 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
           </div>
         )}
 
-        {/* 4. SÉLECTEUR DE GAMME (Essentiel, Recommandé, Pro, Premium) */}
-        <div
-          className="stepper-mode-toggle"
-          role="tablist"
-          aria-label={isEn ? "Tier level" : "Gamme de performance"}
-          style={{ marginBottom: "1.25rem", flexWrap: "wrap" }}
-        >
-          {tierList.map((tier) => {
-            const isTierActive = selectedTier === tier.id;
-            return (
-              <button
-                key={tier.id}
-                role="tab"
-                aria-selected={isTierActive}
-                onClick={() => setSelectedTier(tier.id)}
-                className={`stepper-mode-btn ${isTierActive ? "is-active" : ""}`}
-                style={{
-                  padding: "0.45rem 0.85rem",
-                  fontSize: "0.775rem",
-                }}
-              >
-                <span>{tier.label}</span>
-              </button>
-            );
-          })}
-        </div>
+        {/* Flèches de navigation entre gammes — équivalent souris du glisser tactile, masquées en bout de course */}
+        {tierIndex > 0 && (
+          <button
+            type="button"
+            aria-label={isEn ? "Previous tier" : "Gamme précédente"}
+            onClick={() => goToTier(-1)}
+            className="hw-tier-nav-arrow hw-tier-nav-arrow--prev"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+        )}
+        {tierIndex < tierOrder.length - 1 && (
+          <button
+            type="button"
+            aria-label={isEn ? "Next tier" : "Gamme suivante"}
+            onClick={() => goToTier(1)}
+            className="hw-tier-nav-arrow hw-tier-nav-arrow--next"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        )}
 
-        <div key={`${selectedOs}-${activeFormFactorKey}-${selectedTier}`} className="hw-fade-panel">
+        <div
+          key={`${selectedOs}-${activeFormFactorKey}-${selectedTier}`}
+          className="hw-fade-panel"
+          style={{
+            transform: `translateX(${dragX}px)`,
+            transition: isDragging ? "none" : "transform 0.25s ease",
+            touchAction: "pan-y",
+            cursor: isDragging ? "grabbing" : "grab",
+          }}
+          onPointerDown={(e) => handleSwipeStart(e.clientX, e.target)}
+          onPointerMove={(e) => isDragging && handleSwipeMove(e.clientX)}
+          onPointerUp={handleSwipeEnd}
+          onPointerLeave={() => isDragging && handleSwipeEnd()}
+        >
           {currentFormFactor.editorialNoteFr && (
             <div
               style={{
@@ -701,6 +778,13 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
               <span>{isEn ? "View Central Unit on Amazon" : "Voir l'Unité Centrale sur Amazon"}</span>
             </a>
           </div>
+        </div>
+
+        {/* Repère de progression entre les 4 gammes — confirme visuellement le glisser/clic */}
+        <div className="hw-tier-dots" aria-hidden="true">
+          {tierOrder.map((tier) => (
+            <span key={tier} className={`hw-tier-dot ${tier === selectedTier ? "is-active" : ""}`} />
+          ))}
         </div>
       </div>
 

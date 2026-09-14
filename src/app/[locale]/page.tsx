@@ -6,7 +6,6 @@ import { notFound } from "next/navigation";
 import OsDownloadGrid from "@/components/OsDownloadGrid";
 import HeadlessInstallSection from "@/components/HeadlessInstallSection";
 import ScrollIndicator from "@/components/ScrollIndicator";
-import AndroidIcon from "@/components/icons/AndroidIcon";
 
 const copy = {
   fr: {
@@ -68,14 +67,6 @@ export default async function HomePage({
       <section className="hero-fullscreen">
         {/* Composition décorative Android Release en fond à droite */}
         <div className="hero-fullscreen__backdrop-art" aria-hidden="true">
-          <div className="hero-fullscreen__android-badge">
-            <AndroidIcon size={16} color="var(--android-badge-fg)" className="hero-fullscreen__android-badge-icon" />
-            <span>
-              {locale === "en"
-                ? "Now available on Android! 09/09/2026"
-                : "Désormais disponible sur Android ! 09/09/2026"}
-            </span>
-          </div>
           <Image
             src="/images/AndroidRelease.webp"
             alt=""

@@ -2,7 +2,7 @@ SUIVI DES OFFRES AMAZON — BOBINE / MATERIEL
 ============================================================
 Genere automatiquement depuis src/content/hardware.ts
 Date de derniere verification des prix/liens (PRICE_CHECKED_AT) : 2026-09-13
-Nombre total de produits uniques references : 43
+Nombre total de produits uniques references : 45
 
 MODE D'EMPLOI POUR UNE MISE A JOUR (à la main) :
 1. Ouvrir chaque lien Amazon ci-dessous et relever le prix affiche a l'instant T.
@@ -12,18 +12,44 @@ MODE D'EMPLOI POUR UNE MISE A JOUR (à la main) :
    remplacement reel sur amazon.fr (jamais inventer un ASIN), et mettre a jour
    ASIN + nom + prix + image dans hardware.ts (et retelecharger l'image reelle).
 4. Mettre a jour la constante PRICE_CHECKED_AT (format AAAA-MM-JJ) apres verification.
-5. Chaque gamme 'PC Portable' recommande desormais un vrai laptop achetable (voir
-   categorie ORDINATEURS PORTABLES) : ne jamais laisser cette voie redevenir
-   accessoire-only (hub/dock seul), c'est le bug corrige le 2026-09-13.
+5. Chaque gamme 'PC Portable' recommande un vrai laptop achetable (voir categorie
+   UNITES CENTRALES) : ne jamais laisser cette voie redevenir accessoire-only.
+6. Coherence clavier/souris (corrige le 2026-09-13) : les Mini PC headless
+   recoivent clavier (G-Lab) + souris (Logitech) separement ; les PC Portable, qui ont
+   deja un clavier integre, ne recoivent qu'une souris. Ne jamais reintroduire un clavier
+   sur la voie PC Portable.
+7. Mac Mini Essentiel et Recommande (macOS / Mini PC) sont deux configurations
+   distinctes et reellement differentes (RAM/SSD, ASIN et prix propres) : ne jamais
+   les faire pointer vers le meme produit.
 
 ------------------------------------------------------------
-ORDINATEURS PORTABLES (PC Portable)
+UNITÉS CENTRALES & TABLETTES
 ------------------------------------------------------------
 
 [B0B8QYXY9H] Acer Aspire Go 17 (Intel N150 / 8 Go RAM / 128 Go UFS, Windows 11)
   Prix constate (2026-09-13) : 403.75 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0B8QYXY9H?tag=fantasmaglad-21
   Utilise dans                        : Windows / PC Portable / Essentiel
+
+[B0HGGDQ29W] Apple Mac Mini (Puce Apple M5 Pro)
+  Prix constate (2026-09-13) : 1999.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0HGGDQ29W?tag=fantasmaglad-21
+  Utilise dans                        : macOS / Mini PC / Pro
+
+[B0HGGL1RJ1] Apple Mac Mini (Puce Apple M6, configuration de base)
+  Prix constate (2026-09-13) : 1049.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0HGGL1RJ1?tag=fantasmaglad-21
+  Utilise dans                        : macOS / Mini PC / Essentiel
+
+[B0HGGBZNTT] Apple Mac Mini (Puce Apple M6, configuration supérieure RAM/SSD)
+  Prix constate (2026-09-13) : 1269.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0HGGBZNTT?tag=fantasmaglad-21
+  Utilise dans                        : macOS / Mini PC / Recommandé
+
+[B0HGS3C159] Apple Mac Studio (Puce M5 Max)
+  Prix constate (2026-09-13) : 2999.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0HGS3C159?tag=fantasmaglad-21
+  Utilise dans                        : macOS / Mini PC / Premium
 
 [B0GR1SJYGS] Apple MacBook Air 13" (Puce M5 / 24 Go RAM / 1 To SSD)
   Prix constate (2026-09-13) : 1799.00 EUR
@@ -50,6 +76,11 @@ ORDINATEURS PORTABLES (PC Portable)
   Lien direct                        : https://www.amazon.fr/dp/B0H6GZKCSW?tag=fantasmaglad-21
   Utilise dans                        : Linux / PC Portable / Pro
 
+[B0DPM4N1SL] Beelink Mini S12 Pro (Intel N100 / 16 Go RAM / 512 Go SSD)
+  Prix constate (2026-09-13) : 359.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0DPM4N1SL?tag=fantasmaglad-21
+  Utilise dans                        : Windows / Mini PC / Recommandé
+
 [B0GPN76ZSX] Dell XPS 13 (Intel Core Ultra 7 258V / 32 Go RAM / 1 To SSD)
   Prix constate (2026-09-13) : 1779.00 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0GPN76ZSX?tag=fantasmaglad-21
@@ -65,83 +96,20 @@ ORDINATEURS PORTABLES (PC Portable)
   Lien direct                        : https://www.amazon.fr/dp/B0G3XT2BLZ?tag=fantasmaglad-21
   Utilise dans                        : Windows / PC Portable / Recommandé
 
-[B0F142ZQLN] Lenovo ThinkPad X1 Carbon Gen 12 (Intel Core Ultra 5 125U / 16 Go RAM / 512 Go SSD)
-  Prix constate (2026-09-13) : 1922.29 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B0F142ZQLN?tag=fantasmaglad-21
-  Utilise dans                        : Linux / PC Portable / Premium
-
-[B0GR1DNB5G] MSI Modern 14 (AMD Ryzen 7 7730U / 16 Go RAM / 512 Go SSD, sans système d'exploitation)
-  Prix constate (2026-09-13) : 705.31 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B0GR1DNB5G?tag=fantasmaglad-21
-  Utilise dans                        : Linux / PC Portable / Recommandé
-
-[B0H3P2WZ9Z] Ordinateur Portable 15,3" (Core i5-8210Y / 24 Go RAM / 512 Go SSD, Windows 11)
-  Prix constate (2026-09-13) : 322.99 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B0H3P2WZ9Z?tag=fantasmaglad-21
-  Utilise dans                        : Linux / PC Portable / Essentiel
-
-------------------------------------------------------------
-SUPPORTS & FIXATIONS
-------------------------------------------------------------
-
-[B0876VQW4Q] AboveTEK Bras Mural Articulé Antivol à Long Bras
-  Prix constate (2026-09-13) : 53.99 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B0876VQW4Q?tag=fantasmaglad-21
-  Utilise dans                        : Android / Tablette / Pro
-
-[B087WSSRQ7] AboveTEK Support Mural Antivol Verrouillable pour Tablette
-  Prix constate (2026-09-13) : 59.99 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B087WSSRQ7?tag=fantasmaglad-21
-  Utilise dans                        : Android / Tablette / Essentiel | Accessoire autonome (Android)
-
-[B0BN28FP8D] Support de Tablette pour Vélo, Tapis de Course & Elliptique
-  Prix constate (2026-09-13) : 25.88 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B0BN28FP8D?tag=fantasmaglad-21
-  Utilise dans                        : Android / Tablette / Recommandé
-
-[B0CBPR36BF] Support Mural Renforcé Antivol pour Tablette 7-13 Pouces
-  Prix constate (2026-09-13) : 78.59 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B0CBPR36BF?tag=fantasmaglad-21
-  Utilise dans                        : Android / Tablette / Premium
-
-[B091B4SWR7] UGREEN Support Vertical en Aluminium pour Ordinateur Portable
-  Prix constate (2026-09-13) : 23.09 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B091B4SWR7?tag=fantasmaglad-21
-  Utilise dans                        : Linux / PC Portable / Recommandé | Linux / PC Portable / Pro | Linux / PC Portable / Premium | Windows / PC Portable / Recommandé | Windows / PC Portable / Pro | Windows / PC Portable / Premium | macOS / PC Portable / Recommandé | macOS / PC Portable / Pro | macOS / PC Portable / Premium | Accessoire autonome (Linux, Windows, macOS)
-
-------------------------------------------------------------
-UNITÉS CENTRALES (mini PC, Mac, tablettes)
-------------------------------------------------------------
-
-[B0HGGDQ29W] Apple Mac Mini (Puce Apple M5 Pro)
-  Prix constate (2026-09-13) : 1999.00 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B0HGGDQ29W?tag=fantasmaglad-21
-  Utilise dans                        : macOS / Mini PC / Pro
-
-[B0HGGL1RJ1] Apple Mac Mini (Puce Apple M6)
-  Prix constate (2026-09-13) : 1049.00 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B0HGGL1RJ1?tag=fantasmaglad-21
-  Utilise dans                        : macOS / Mini PC / Essentiel | macOS / Mini PC / Recommandé
-
-[B0HGS3C159] Apple Mac Studio (Puce M5 Max)
-  Prix constate (2026-09-13) : 2999.00 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B0HGS3C159?tag=fantasmaglad-21
-  Utilise dans                        : macOS / Mini PC / Premium
-
-[B0DPM4N1SL] Beelink Mini S12 Pro (Intel N100 / 16 Go RAM / 512 Go SSD)
-  Prix constate (2026-09-13) : 359.00 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B0DPM4N1SL?tag=fantasmaglad-21
-  Utilise dans                        : Windows / Mini PC / Recommandé
-
 [B0F9PF4ZC1] HP EliteDesk 800 Mini reconditionné (Core i5-7400T / 8 Go RAM / 240 Go SSD)
   Prix constate (2026-09-13) : 161.00 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0F9PF4ZC1?tag=fantasmaglad-21
   Utilise dans                        : Linux / Mini PC / Essentiel
 
+[B0F142ZQLN] Lenovo ThinkPad X1 Carbon Gen 12 (Intel Core Ultra 5 125U / 16 Go RAM / 512 Go SSD)
+  Prix constate (2026-09-13) : 1922.29 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0F142ZQLN?tag=fantasmaglad-21
+  Utilise dans                        : Linux / PC Portable / Premium
+
 [B0HDN8JQ7H] Mini PC AX9 Max (AMD Ryzen AI 9 HX 470, refroidissement chambre à vapeur)
   Prix constate (2026-09-13) : 1549.00 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0HDN8JQ7H?tag=fantasmaglad-21
-  Utilise dans                        : Linux / Mini PC / Premium | Windows / Mini PC / Premium
+  Utilise dans                        : Linux / Mini PC / Premium ; Windows / Mini PC / Premium
 
 [B0GL74YQ3C] Mini PC B20E (Pentium 6500Y / 8 Go RAM / 128 Go SSD / Windows 11 Pro)
   Prix constate (2026-09-13) : 150.90 EUR
@@ -162,6 +130,16 @@ UNITÉS CENTRALES (mini PC, Mac, tablettes)
   Prix constate (2026-09-13) : 539.00 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0GG9PF2FM?tag=fantasmaglad-21
   Utilise dans                        : Windows / Mini PC / Pro
+
+[B0GR1DNB5G] MSI Modern 14 (AMD Ryzen 7 7730U / 16 Go RAM / 512 Go SSD, sans système d'exploitation)
+  Prix constate (2026-09-13) : 705.31 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0GR1DNB5G?tag=fantasmaglad-21
+  Utilise dans                        : Linux / PC Portable / Recommandé
+
+[B0H3P2WZ9Z] Ordinateur Portable 15,3" (Core i5-8210Y / 24 Go RAM / 512 Go SSD, Windows 11)
+  Prix constate (2026-09-13) : 322.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0H3P2WZ9Z?tag=fantasmaglad-21
+  Utilise dans                        : Linux / PC Portable / Essentiel
 
 [B0CMDKCSFS] Samsung Galaxy Tab A9+ 11" (128 Go, Wi-Fi)
   Prix constate (2026-09-13) : 285.00 EUR
@@ -184,82 +162,112 @@ UNITÉS CENTRALES (mini PC, Mac, tablettes)
   Utilise dans                        : Android / Tablette / Recommandé
 
 ------------------------------------------------------------
-HUBS & DOCKS USB-C
-------------------------------------------------------------
-
-[B0FVYC8H5J] Belkin Hub USB-C vers HDMI 4K 60Hz avec Power Delivery 100W
-  Prix constate (2026-09-13) : 27.99 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B0FVYC8H5J?tag=fantasmaglad-21
-  Utilise dans                        : Linux / PC Portable / Essentiel | Linux / PC Portable / Recommandé | Windows / PC Portable / Essentiel | Windows / PC Portable / Recommandé | macOS / PC Portable / Essentiel | macOS / PC Portable / Recommandé | Android / Tablette / Recommandé | Accessoire autonome (Linux, Windows, macOS, Android)
-
-[B0G81K4C12] Hub USB-C 6-en-1 avec Ethernet RJ45 1 Gbps + HDMI 4K60 + PD 100W
-  Prix constate (2026-09-13) : 25.99 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B0G81K4C12?tag=fantasmaglad-21
-  Utilise dans                        : Linux / PC Portable / Premium | Windows / PC Portable / Premium | macOS / PC Portable / Premium | Android / Tablette / Pro | Android / Tablette / Premium
-
-[B0GHQRQ12S] WAVLINK Dock Thunderbolt 4 (40 Gbps, 96W Power Delivery)
-  Prix constate (2026-09-13) : 229.99 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B0GHQRQ12S?tag=fantasmaglad-21
-  Utilise dans                        : Linux / PC Portable / Pro | Linux / PC Portable / Premium | Windows / PC Portable / Pro | Windows / PC Portable / Premium | macOS / PC Portable / Pro | macOS / PC Portable / Premium
-
-------------------------------------------------------------
 CÂBLES VIDÉO
 ------------------------------------------------------------
 
 [B081GGNWCX] Câble DisplayPort vers HDMI 4K 60Hz Tressé (1,8 m)
   Prix constate (2026-09-13) : 10.99 EUR
   Lien direct                        : https://www.amazon.fr/dp/B081GGNWCX?tag=fantasmaglad-21
-  Utilise dans                        : Linux / Mini PC / Essentiel | Linux / Mini PC / Recommandé | Accessoire autonome (Linux, Windows)
+  Utilise dans                        : Accessoire à l'unité (Linux, Windows) ; Linux / Mini PC / Essentiel ; Linux / Mini PC / Recommandé
 
 [B0CFFFSFFN] Câble HDMI 2.1 Ultra High Speed 48 Gbps (2 m)
   Prix constate (2026-09-13) : 10.44 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0CFFFSFFN?tag=fantasmaglad-21
-  Utilise dans                        : Linux / Mini PC / Pro | Linux / Mini PC / Premium | Linux / PC Portable / Essentiel | Windows / Mini PC / Essentiel | Windows / Mini PC / Recommandé | Windows / Mini PC / Pro | Windows / Mini PC / Premium | Windows / PC Portable / Essentiel | macOS / Mini PC / Essentiel | macOS / Mini PC / Recommandé | macOS / Mini PC / Pro | macOS / Mini PC / Premium | macOS / PC Portable / Essentiel | Android / Tablette / Recommandé | Android / Tablette / Premium | Accessoire autonome (Linux, Windows, macOS, Android)
+  Utilise dans                        : Accessoire à l'unité (Linux, Windows, macOS, Android) ; Android / Tablette / Premium ; Android / Tablette / Recommandé ; Linux / Mini PC / Premium ; Linux / Mini PC / Pro ; Linux / PC Portable / Essentiel ; Windows / Mini PC / Essentiel ; Windows / Mini PC / Premium ; Windows / Mini PC / Pro ; Windows / Mini PC / Recommandé ; Windows / PC Portable / Essentiel ; macOS / Mini PC / Essentiel ; macOS / Mini PC / Premium ; macOS / Mini PC / Pro ; macOS / Mini PC / Recommandé ; macOS / PC Portable / Essentiel
 
 [B08Q2YC9LL] Câble Thunderbolt 4 / USB4 40 Gbps (1 m)
   Prix constate (2026-09-13) : 12.34 EUR
   Lien direct                        : https://www.amazon.fr/dp/B08Q2YC9LL?tag=fantasmaglad-21
-  Utilise dans                        : Linux / PC Portable / Pro | Linux / PC Portable / Premium | Windows / PC Portable / Pro | Windows / PC Portable / Premium | macOS / PC Portable / Pro | macOS / PC Portable / Premium
+  Utilise dans                        : Linux / PC Portable / Premium ; Linux / PC Portable / Pro ; Windows / PC Portable / Premium ; Windows / PC Portable / Pro ; macOS / PC Portable / Premium ; macOS / PC Portable / Pro
 
 ------------------------------------------------------------
-CÂBLES RÉSEAU
+RÉSEAU
 ------------------------------------------------------------
 
 [B00QV1F19W] Câble Réseau Cat 7 Plat 10 Gbps (2 m)
   Prix constate (2026-09-13) : 8.79 EUR
   Lien direct                        : https://www.amazon.fr/dp/B00QV1F19W?tag=fantasmaglad-21
-  Utilise dans                        : Linux / Mini PC / Pro | Linux / Mini PC / Premium | Windows / Mini PC / Pro | Windows / Mini PC / Premium | macOS / Mini PC / Pro | macOS / Mini PC / Premium
+  Utilise dans                        : Linux / Mini PC / Premium ; Linux / Mini PC / Pro ; Windows / Mini PC / Premium ; Windows / Mini PC / Pro ; macOS / Mini PC / Premium ; macOS / Mini PC / Pro
 
 [B075DKWRD6] Câble Réseau RJ45 Cat 6A Blindé S-FTP (3 m)
   Prix constate (2026-09-13) : 5.85 EUR
   Lien direct                        : https://www.amazon.fr/dp/B075DKWRD6?tag=fantasmaglad-21
-  Utilise dans                        : Linux / Mini PC / Essentiel | Linux / Mini PC / Recommandé | Linux / PC Portable / Recommandé | Windows / Mini PC / Essentiel | Windows / Mini PC / Recommandé | Windows / PC Portable / Recommandé | macOS / Mini PC / Recommandé | macOS / PC Portable / Recommandé | Android / Tablette / Pro | Accessoire autonome (Linux, Windows, macOS, Android)
+  Utilise dans                        : Accessoire à l'unité (Linux, Windows, macOS, Android) ; Android / Tablette / Pro ; Linux / Mini PC / Essentiel ; Linux / Mini PC / Recommandé ; Linux / PC Portable / Recommandé ; Windows / Mini PC / Essentiel ; Windows / Mini PC / Recommandé ; Windows / PC Portable / Recommandé ; macOS / Mini PC / Recommandé ; macOS / PC Portable / Recommandé
 
 ------------------------------------------------------------
-CÂBLES ALIMENTATION / CHARGE
+PÉRIPHÉRIQUES DE CONTRÔLE (clavier / souris / télécommande)
 ------------------------------------------------------------
+
+[B00552K0GM] Logitech M185 Souris Sans Fil 2.4 GHz avec Mini Récepteur USB
+  Prix constate (2026-09-13) : 11.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B00552K0GM?tag=fantasmaglad-21
+  Utilise dans                        : Accessoire à l'unité (Linux, Windows, macOS) ; Linux / Mini PC / Premium ; Linux / Mini PC / Pro ; Linux / PC Portable / Premium ; Linux / PC Portable / Pro ; Windows / Mini PC / Premium ; Windows / Mini PC / Pro ; Windows / PC Portable / Premium ; Windows / PC Portable / Pro ; macOS / Mini PC / Premium ; macOS / Mini PC / Pro ; macOS / PC Portable / Premium ; macOS / PC Portable / Pro
+
+[B0H4K4T2CK] Télécommande Air-Mouse Gyroscopique 2.4 GHz USB
+  Prix constate (2026-09-13) : 9.57 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0H4K4T2CK?tag=fantasmaglad-21
+  Utilise dans                        : Accessoire à l'unité (Linux, Windows, macOS) ; Linux / Mini PC / Recommandé ; Linux / PC Portable / Recommandé ; Windows / Mini PC / Recommandé ; Windows / PC Portable / Recommandé ; macOS / Mini PC / Recommandé ; macOS / PC Portable / Recommandé
+
+[B0BG2JVYY7] Télécommande de Présentation 2.4 GHz USB
+  Prix constate (2026-09-13) : 14.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0BG2JVYY7?tag=fantasmaglad-21
+  Utilise dans                        : Linux / Mini PC / Essentiel ; Linux / PC Portable / Essentiel ; Windows / Mini PC / Essentiel ; Windows / PC Portable / Essentiel ; macOS / Mini PC / Essentiel ; macOS / PC Portable / Essentiel
+
+[B0HF5JQCTG] The G-Lab Keyz Hydrogen — Clavier Gamer Semi-mécanique 60% AZERTY
+  Prix constate (2026-09-13) : 18.76 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0HF5JQCTG?tag=fantasmaglad-21
+  Utilise dans                        : Accessoire à l'unité (Linux, Windows, macOS) ; Linux / Mini PC / Premium ; Linux / Mini PC / Pro ; Windows / Mini PC / Premium ; Windows / Mini PC / Pro ; macOS / Mini PC / Premium ; macOS / Mini PC / Pro
+
+------------------------------------------------------------
+ALIMENTATION & HUBS
+------------------------------------------------------------
+
+[B0FVYC8H5J] Belkin Hub USB-C vers HDMI 4K 60Hz avec Power Delivery 100W
+  Prix constate (2026-09-13) : 27.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0FVYC8H5J?tag=fantasmaglad-21
+  Utilise dans                        : Accessoire à l'unité (Linux, Windows, macOS, Android) ; Android / Tablette / Recommandé ; Linux / PC Portable / Essentiel ; Linux / PC Portable / Recommandé ; Windows / PC Portable / Essentiel ; Windows / PC Portable / Recommandé ; macOS / PC Portable / Essentiel ; macOS / PC Portable / Recommandé
+
+[B0G81K4C12] Hub USB-C 6-en-1 avec Ethernet RJ45 1 Gbps + HDMI 4K60 + PD 100W
+  Prix constate (2026-09-13) : 25.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0G81K4C12?tag=fantasmaglad-21
+  Utilise dans                        : Android / Tablette / Premium ; Android / Tablette / Pro ; Linux / PC Portable / Premium ; Windows / PC Portable / Premium ; macOS / PC Portable / Premium
 
 [B0B27G1BZ9] UGREEN Câble USB-C 100W PD 5A Charge Rapide Tressé (2 m)
   Prix constate (2026-09-13) : 13.99 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0B27G1BZ9?tag=fantasmaglad-21
   Utilise dans                        : Android / Tablette / Essentiel
 
+[B0GHQRQ12S] WAVLINK Dock Thunderbolt 4 (40 Gbps, 96W Power Delivery)
+  Prix constate (2026-09-13) : 229.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0GHQRQ12S?tag=fantasmaglad-21
+  Utilise dans                        : Linux / PC Portable / Premium ; Linux / PC Portable / Pro ; Windows / PC Portable / Premium ; Windows / PC Portable / Pro ; macOS / PC Portable / Premium ; macOS / PC Portable / Pro
+
 ------------------------------------------------------------
-TÉLÉCOMMANDES & CLAVIERS
+SUPPORTS & FIXATIONS
 ------------------------------------------------------------
 
-[B00WQG6A8C] Mini Clavier Rétroéclairé sans Fil avec Touchpad
-  Prix constate (2026-09-13) : 24.99 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B00WQG6A8C?tag=fantasmaglad-21
-  Utilise dans                        : Linux / Mini PC / Pro | Linux / Mini PC / Premium | Linux / PC Portable / Pro | Linux / PC Portable / Premium | Windows / Mini PC / Pro | Windows / Mini PC / Premium | Windows / PC Portable / Pro | Windows / PC Portable / Premium | macOS / Mini PC / Pro | macOS / PC Portable / Pro | macOS / PC Portable / Premium | Accessoire autonome (Linux, Windows, macOS)
+[B0876VQW4Q] AboveTEK Bras Mural Articulé Antivol à Long Bras
+  Prix constate (2026-09-13) : 53.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0876VQW4Q?tag=fantasmaglad-21
+  Utilise dans                        : Android / Tablette / Pro
 
-[B0H4K4T2CK] Télécommande Air-Mouse Gyroscopique 2.4 GHz USB
-  Prix constate (2026-09-13) : 9.57 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B0H4K4T2CK?tag=fantasmaglad-21
-  Utilise dans                        : Linux / Mini PC / Recommandé | Linux / PC Portable / Recommandé | Windows / Mini PC / Recommandé | Windows / PC Portable / Recommandé | macOS / Mini PC / Recommandé | macOS / Mini PC / Premium | macOS / PC Portable / Recommandé | Accessoire autonome (Linux, Windows, macOS)
+[B087WSSRQ7] AboveTEK Support Mural Antivol Verrouillable pour Tablette
+  Prix constate (2026-09-13) : 59.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B087WSSRQ7?tag=fantasmaglad-21
+  Utilise dans                        : Accessoire à l'unité (Android) ; Android / Tablette / Essentiel
 
-[B0BG2JVYY7] Télécommande de Présentation 2.4 GHz USB
-  Prix constate (2026-09-13) : 14.99 EUR
-  Lien direct                        : https://www.amazon.fr/dp/B0BG2JVYY7?tag=fantasmaglad-21
-  Utilise dans                        : Linux / Mini PC / Essentiel | Linux / PC Portable / Essentiel | Windows / Mini PC / Essentiel | Windows / PC Portable / Essentiel | macOS / Mini PC / Essentiel | macOS / PC Portable / Essentiel
+[B0BN28FP8D] Support de Tablette pour Vélo, Tapis de Course & Elliptique
+  Prix constate (2026-09-13) : 25.88 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0BN28FP8D?tag=fantasmaglad-21
+  Utilise dans                        : Android / Tablette / Recommandé
+
+[B0CBPR36BF] Support Mural Renforcé Antivol pour Tablette 7-13 Pouces
+  Prix constate (2026-09-13) : 78.59 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0CBPR36BF?tag=fantasmaglad-21
+  Utilise dans                        : Android / Tablette / Premium
+
+[B091B4SWR7] UGREEN Support Vertical en Aluminium pour Ordinateur Portable
+  Prix constate (2026-09-13) : 23.09 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B091B4SWR7?tag=fantasmaglad-21
+  Utilise dans                        : Accessoire à l'unité (Linux, Windows, macOS) ; Linux / PC Portable / Premium ; Linux / PC Portable / Pro ; Linux / PC Portable / Recommandé ; Windows / PC Portable / Premium ; Windows / PC Portable / Pro ; Windows / PC Portable / Recommandé ; macOS / PC Portable / Premium ; macOS / PC Portable / Pro ; macOS / PC Portable / Recommandé
 

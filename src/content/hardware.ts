@@ -209,16 +209,33 @@ const cableThunderbolt4 = (id: string): HardwareItem => ({
   hasFan: false,
 });
 
-const remoteKeyboard = (id: string): HardwareItem => ({
+// Clavier filaire pour les Mini PC headless (aucun clavier natif) : jamais utilisé sur la
+// voie "PC Portable", qui dispose déjà d'un clavier intégré sur l'ordinateur lui-même.
+const glabKeyboard = (id: string): HardwareItem => ({
   id,
-  name: "Mini Clavier Rétroéclairé sans Fil avec Touchpad",
+  name: "The G-Lab Keyz Hydrogen — Clavier Gamer Semi-mécanique 60% AZERTY",
   category: "control",
-  specs: "Touchpad intégré · Rétroéclairage · Dongle USB 2.4 GHz",
-  description: "L'outil du personnel technique : navigation complète et saisie clavier pour l'administration de la régie.",
-  imageUrl: "/images/hardware/remote-keyboard.webp",
-  asin: "B00WQG6A8C",
-  amazonUrl: buildProductUrl("B00WQG6A8C"),
-  priceAmazon: 24.99,
+  specs: "Format compact 60% · Switches semi-mécaniques · Rétroéclairage · Filaire USB",
+  description: "Clavier filaire compact pour l'administration du mini PC headless (aucun clavier natif sur cette configuration).",
+  imageUrl: "/images/hardware/keyboard-glab-hydrogen.webp",
+  asin: "B0HF5JQCTG",
+  amazonUrl: buildProductUrl("B0HF5JQCTG"),
+  priceAmazon: 18.76,
+  hasFan: false,
+});
+
+// Souris pour tout usage pointeur : complète le clavier G-Lab (dépourvu de trackpad) sur
+// Mini PC, ou sert de pointeur ponctuel sur PC Portable sans dupliquer le clavier existant.
+const logitechMouse = (id: string): HardwareItem => ({
+  id,
+  name: "Logitech M185 Souris Sans Fil 2.4 GHz avec Mini Récepteur USB",
+  category: "control",
+  specs: "Sans fil 2.4 GHz · Nano-récepteur USB · Autonomie ~12 mois",
+  description: "Pointeur de précision plug-and-play pour l'administration de la régie, sans dupliquer un clavier déjà présent.",
+  imageUrl: "/images/hardware/mouse-logitech-m185.webp",
+  asin: "B00552K0GM",
+  amazonUrl: buildProductUrl("B00552K0GM"),
+  priceAmazon: 11.99,
   hasFan: false,
 });
 
@@ -309,7 +326,7 @@ function buildLaptopTiers(config: Record<TierKey, LaptopTierConfig>): Record<Tie
         dockThunderbolt4("dock-tb4-pro"),
         standVertical("stand-vertical-pro"),
         cableThunderbolt4("cable-tb4-pro"),
-        remoteKeyboard("remote-keyboard-pro"),
+        logitechMouse("mouse-laptop-pro"),
       ],
     },
     premium: {
@@ -331,7 +348,7 @@ function buildLaptopTiers(config: Record<TierKey, LaptopTierConfig>): Record<Tie
         standVertical("stand-vertical-premium"),
         cableThunderbolt4("cable-tb4-premium"),
         hubEthernetAcer("hub-ethernet-premium"),
-        remoteKeyboard("remote-keyboard-premium"),
+        logitechMouse("mouse-laptop-premium"),
       ],
     },
   };
@@ -441,7 +458,8 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               },
               cableHdmi21("linux-pro"),
               cableCat7("linux-pro"),
-              remoteKeyboard("remote-keyboard-linux-pro"),
+              glabKeyboard("keyboard-linux-pro"),
+              logitechMouse("mouse-linux-pro"),
             ],
           },
           premium: {
@@ -471,7 +489,8 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               },
               cableHdmi21("linux-premium"),
               cableCat7("linux-premium"),
-              remoteKeyboard("remote-keyboard-linux-premium"),
+              glabKeyboard("keyboard-linux-premium"),
+              logitechMouse("mouse-linux-premium"),
             ],
           },
         },
@@ -665,7 +684,8 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               },
               cableHdmi21("windows-pro"),
               cableCat7("windows-pro"),
-              remoteKeyboard("remote-keyboard-windows-pro"),
+              glabKeyboard("keyboard-windows-pro"),
+              logitechMouse("mouse-windows-pro"),
             ],
           },
           premium: {
@@ -695,7 +715,8 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               },
               cableHdmi21("windows-premium"),
               cableCat7("windows-premium"),
-              remoteKeyboard("remote-keyboard-windows-premium"),
+              glabKeyboard("keyboard-windows-premium"),
+              logitechMouse("mouse-windows-premium"),
             ],
           },
         },
@@ -824,14 +845,14 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             badgeFr: "Élégance & Silence",
             badgeEn: "Sleek & Silent",
             isPopular: true,
-            headlineFr: "Mac Mini (Puce Apple M6) Régie Dédiée — Kit complet",
-            headlineEn: "Dedicated Mac Mini (Apple M6 chip) — Full kit",
-            summaryFr: "Le même Mac Mini M6, complété par un réseau filaire et une télécommande gyroscopique pour une régie autonome complète.",
-            summaryEn: "The same M6 Mac Mini, completed with wired networking and a gyroscopic remote for a fully autonomous desk.",
+            headlineFr: "Mac Mini (Puce Apple M6, RAM/SSD supérieurs) — Kit complet",
+            headlineEn: "Mac Mini (Apple M6 chip, higher RAM/SSD) — Full kit",
+            summaryFr: "Le même châssis M6 en configuration mémoire et stockage supérieure, complété par un réseau filaire et une télécommande gyroscopique pour une régie autonome complète.",
+            summaryEn: "The same M6 chassis with a higher memory and storage configuration, completed with wired networking and a gyroscopic remote for a fully autonomous desk.",
             powerWatts: "4W - 12W",
             resolution: "4K 60fps natif",
             items: [
-              macMiniM6("recommande"),
+              macMiniM6Plus("recommande"),
               cableHdmi21("macos-recommande"),
               cableCat6a("cable-cat6a-macos-recommande"),
               remoteAirmouse("remote-airmouse-macos-recommande"),
@@ -862,7 +883,8 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               },
               cableHdmi21("macos-pro"),
               cableCat7("macos-pro"),
-              remoteKeyboard("remote-keyboard-macos-pro"),
+              glabKeyboard("keyboard-macos-pro"),
+              logitechMouse("mouse-macos-pro"),
             ],
           },
           premium: {
@@ -892,7 +914,8 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               },
               cableHdmi21("macos-premium"),
               cableCat7("macos-premium"),
-              remoteAirmouse("remote-airmouse-macos-premium"),
+              glabKeyboard("keyboard-macos-premium"),
+              logitechMouse("mouse-macos-premium"),
             ],
           },
         },
@@ -1209,7 +1232,7 @@ function cableCat7(suffix: string): HardwareItem {
 function macMiniM6(suffix: string): HardwareItem {
   return {
     id: `mac-mini-m6-${suffix}`,
-    name: "Apple Mac Mini (Puce Apple M6)",
+    name: "Apple Mac Mini (Puce Apple M6, configuration de base)",
     category: "uc",
     specs: "Puce Apple M6 · Moteur multimédia VideoToolbox · Port Ethernet Gigabit natif",
     description: "Régie haut de gamme ultra-compacte : silence quasi total, gestion de veille intelligente native Bobine, fluidité parfaite.",
@@ -1217,6 +1240,23 @@ function macMiniM6(suffix: string): HardwareItem {
     asin: "B0HGGL1RJ1",
     amazonUrl: buildProductUrl("B0HGGL1RJ1"),
     priceAmazon: 1049,
+    hasFan: true,
+  };
+}
+
+// Meme chassis M6, configuration RAM/stockage superieure : evite d'afficher le produit
+// identique sur Essentiel et Recommande (ASIN et prix reellement differents, verifies).
+function macMiniM6Plus(suffix: string): HardwareItem {
+  return {
+    id: `mac-mini-m6plus-${suffix}`,
+    name: "Apple Mac Mini (Puce Apple M6, configuration supérieure RAM/SSD)",
+    category: "uc",
+    specs: "Puce Apple M6 · RAM/SSD supérieurs à la config de base · Port Ethernet Gigabit natif",
+    description: "Le même châssis M6, avec davantage de mémoire et de stockage : plus de marge pour la bibliothèque vidéo locale et le multitâche de régie.",
+    imageUrl: "/images/hardware/mac-mini.webp",
+    asin: "B0HGGBZNTT",
+    amazonUrl: buildProductUrl("B0HGGBZNTT"),
+    priceAmazon: 1269,
     hasFan: true,
   };
 }
@@ -1272,18 +1312,33 @@ export const STANDALONE_ACCESSORIES: StandaloneAccessory[] = [
     compatibleOs: ["linux", "windows", "macos"],
   },
   {
-    id: "acc-remote-keyboard",
-    nameFr: "Mini Clavier Rétroéclairé sans Fil avec Touchpad",
-    nameEn: "Wireless Backlit Mini Keyboard with Touchpad",
+    id: "acc-keyboard-glab",
+    nameFr: "The G-Lab Keyz Hydrogen — Clavier Gamer Semi-mécanique 60% AZERTY",
+    nameEn: "The G-Lab Keyz Hydrogen — 60% Semi-Mechanical Gaming Keyboard",
     categoryFr: "Contrôle",
     categoryEn: "Control",
-    specs: "Touchpad intégré · Rétroéclairage · Dongle USB 2.4 GHz",
-    descriptionFr: "Le combiné idéal en régie : navigation au clavier et à la souris pour renommer les séances.",
-    descriptionEn: "All-in-one control: keyboard and mouse navigation for quick text input.",
-    imageUrl: "/images/hardware/remote-keyboard.webp",
-    asin: "B00WQG6A8C",
-    amazonUrl: buildProductUrl("B00WQG6A8C"),
-    priceAmazon: 24.99,
+    specs: "Format compact 60% · Switches semi-mécaniques · Rétroéclairage · Filaire USB",
+    descriptionFr: "Pour un mini PC headless sans clavier natif : administration complète de la régie au clavier, filaire pour une fiabilité maximale.",
+    descriptionEn: "For a headless mini PC with no native keyboard: full desk administration, wired for maximum reliability.",
+    imageUrl: "/images/hardware/keyboard-glab-hydrogen.webp",
+    asin: "B0HF5JQCTG",
+    amazonUrl: buildProductUrl("B0HF5JQCTG"),
+    priceAmazon: 18.76,
+    compatibleOs: ["linux", "windows", "macos"],
+  },
+  {
+    id: "acc-mouse-logitech",
+    nameFr: "Logitech M185 Souris Sans Fil 2.4 GHz",
+    nameEn: "Logitech M185 Wireless Mouse 2.4 GHz",
+    categoryFr: "Contrôle",
+    categoryEn: "Control",
+    specs: "Sans fil 2.4 GHz · Nano-récepteur USB · Autonomie ~12 mois",
+    descriptionFr: "Complète le clavier G-Lab (sans trackpad) sur mini PC, ou sert de pointeur ponctuel sur un PC portable sans dupliquer son clavier.",
+    descriptionEn: "Completes the G-Lab keyboard (no trackpad) on a mini PC, or serves as an occasional pointer on a laptop without duplicating its keyboard.",
+    imageUrl: "/images/hardware/mouse-logitech-m185.webp",
+    asin: "B00552K0GM",
+    amazonUrl: buildProductUrl("B00552K0GM"),
+    priceAmazon: 11.99,
     compatibleOs: ["linux", "windows", "macos"],
   },
   {

@@ -103,65 +103,72 @@ export default async function PrivacyPage({
   ];
 
   return (
-    <div className="container" style={{ paddingBlock: "clamp(1.25rem, 3vh, 2.5rem)", maxWidth: "52rem" }}>
+    <div className="container" style={{ paddingBlock: "clamp(2rem, 5vh, 4rem)" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
-      <div style={{ textAlign: "center", marginBottom: "clamp(1.5rem, 3vw, 2.25rem)" }}>
-        <span className="feature-category-label">{t.badge}</span>
+      <div style={{ marginBottom: "clamp(2.5rem, 6vw, 3.5rem)" }}>
+        <span
+          style={{
+            fontSize: "0.7rem",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "0.1em",
+            color: "var(--text-muted)",
+          }}
+        >
+          {t.badge}
+        </span>
         <h1
           style={{
-            fontSize: "clamp(1.65rem, 3.8vw, 2.5rem)",
+            fontSize: "clamp(1.75rem, 3.8vw, 2.5rem)",
             fontWeight: 800,
             lineHeight: 1.15,
             letterSpacing: "-0.03em",
-            marginBlock: "0.35rem 0.65rem",
+            marginBlock: "0.5rem 0.85rem",
             color: "var(--text-heading)",
           }}
         >
           {t.title}
         </h1>
-        <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", lineHeight: 1.55, margin: 0, maxWidth: "42rem", marginInline: "auto" }}>
+        <p style={{ color: "var(--text-muted)", fontSize: "1rem", lineHeight: 1.6, margin: 0, maxWidth: "42rem" }}>
           {t.subtitle}
         </p>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "1.15rem" }}>
+      <div>
         {t.sections.map((sec) => (
-          <div
+          <section
             key={sec.heading}
             style={{
-              background: "var(--bg-card)",
-              border: "1px solid var(--border-subtle)",
-              borderRadius: "0.75rem",
-              padding: "1.15rem 1.35rem",
-              boxShadow: "var(--shadow-card)",
+              paddingBlock: "clamp(1.5rem, 3vw, 2rem)",
+              borderTop: "1px solid var(--border-subtle)",
             }}
           >
             <h2
               style={{
-                fontSize: "1.05rem",
+                fontSize: "1.1rem",
                 fontWeight: 700,
                 color: "var(--text-heading)",
-                marginBottom: "0.45rem",
-                letterSpacing: "-0.02em",
+                marginBottom: "0.75rem",
+                letterSpacing: "-0.01em",
               }}
             >
               {sec.heading}
             </h2>
-            <p style={{ color: "var(--text-main)", fontSize: "0.885rem", lineHeight: 1.6, margin: 0, marginBottom: "0.45rem" }}>
+            <p style={{ color: "var(--text-main)", fontSize: "0.925rem", lineHeight: 1.7, margin: 0, maxWidth: "62rem" }}>
               {sec.body}
             </p>
             {sec.contact && (
-              <p style={{ color: "var(--accent-primary)", fontSize: "0.825rem", fontWeight: 600, margin: 0, marginBottom: "0.3rem" }}>
+              <p style={{ color: "var(--text-main)", fontSize: "0.925rem", fontWeight: 600, lineHeight: 1.7, margin: 0, marginTop: "0.75rem", maxWidth: "62rem" }}>
                 {sec.contact}
               </p>
             )}
             {sec.subtext && (
-              <p style={{ color: "var(--text-dim)", fontSize: "0.8rem", lineHeight: 1.45, margin: 0 }}>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.65, margin: 0, marginTop: "0.75rem", maxWidth: "62rem" }}>
                 {sec.subtext}
               </p>
             )}
-          </div>
+          </section>
         ))}
       </div>
     </div>

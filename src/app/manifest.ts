@@ -44,7 +44,7 @@ export default function manifest(): MetadataRoute.Manifest {
       },
       {
         name: "Matériel",
-        url: "/fr/materiel",
+        url: "/fr/materiel/amazon",
         description: "Recommandations matérielles et packs par OS pour studio fitness",
       },
       {

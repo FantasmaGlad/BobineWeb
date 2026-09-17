@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
-import { PRICE_CHECKED_AT, type StandaloneAccessory } from "@/content/hardware";
+import { PRICE_CHECKED_AT, type HardwareItem } from "@/content/hardware";
 import AddToCartButton from "@/components/hardware/AddToCartButton";
 
 function formatCheckedDate(iso: string, isEn: boolean) {
@@ -16,7 +16,17 @@ function formatCheckedDate(iso: string, isEn: boolean) {
   });
 }
 
-export default function HardwareAccessoriesGrid({ locale, items }: { locale: Locale; items: StandaloneAccessory[] }) {
+const CATEGORY_LABELS: Record<HardwareItem["category"], { fr: string; en: string }> = {
+  uc: { fr: "Unité", en: "Unit" },
+  "cable-video": { fr: "Vidéo", en: "Video" },
+  network: { fr: "Réseau", en: "Network" },
+  control: { fr: "Contrôle", en: "Control" },
+  "power-hub": { fr: "Connectique", en: "Connectivity" },
+  mount: { fr: "Fixation", en: "Mount" },
+  storage: { fr: "Stockage", en: "Storage" },
+};
+
+export default function HardwareAccessoriesGrid({ locale, items }: { locale: Locale; items: HardwareItem[] }) {
   const isEn = locale === "en";
   const checkedDate = formatCheckedDate(PRICE_CHECKED_AT, isEn);
 
@@ -25,23 +35,6 @@ export default function HardwareAccessoriesGrid({ locale, items }: { locale: Loc
   return (
     <div style={{ marginTop: "3.5rem" }}>
       <div style={{ marginBottom: "1.5rem" }}>
-        <span
-          style={{
-            fontSize: "0.725rem",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.06em",
-            padding: "0.2rem 0.5rem",
-            borderRadius: "0.35rem",
-            background: "var(--bg-inset)",
-            color: "var(--accent-primary)",
-            border: "1px solid var(--border-subtle)",
-            display: "inline-block",
-            marginBottom: "0.5rem",
-          }}
-        >
-          {isEn ? "Accessories & Cabling" : "Accessoires & Câblerie à l'Unité"}
-        </span>
         <h2
           style={{
             fontSize: "1.35rem",
@@ -69,9 +62,9 @@ export default function HardwareAccessoriesGrid({ locale, items }: { locale: Loc
         }}
       >
         {items.map((acc) => {
-          const name = isEn ? acc.nameEn : acc.nameFr;
-          const desc = isEn ? acc.descriptionEn : acc.descriptionFr;
-          const cat = isEn ? acc.categoryEn : acc.categoryFr;
+          const name = acc.name;
+          const desc = acc.description;
+          const cat = isEn ? CATEGORY_LABELS[acc.category].en : CATEGORY_LABELS[acc.category].fr;
 
           return (
             <div

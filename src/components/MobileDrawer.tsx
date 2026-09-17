@@ -29,7 +29,7 @@ export default function MobileDrawer({
   const mainLinks: Array<{ href: string; label: string; tag?: string }> = [
     { href: `/${locale}`, label: dict.nav.home },
     { href: `/${locale}/fonctionnalites`, label: dict.nav.features },
-    { href: `/${locale}/materiel`, label: dict.nav.hardware, tag: isEn ? "Selection" : "Sélection" },
+    { href: `/${locale}/materiel/amazon`, label: dict.nav.hardware, tag: isEn ? "Selection" : "Sélection" },
     { href: `/${locale}/documentation`, label: dict.nav.documentation },
     { href: `/${locale}/comparatif`, label: dict.nav.comparisons },
     { href: `/${locale}/blog`, label: dict.nav.blog },

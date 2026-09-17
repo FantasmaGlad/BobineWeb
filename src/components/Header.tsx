@@ -23,7 +23,7 @@ export default function Header({
 
   const links: Array<[string, string]> = [
     [`/${locale}/fonctionnalites`, dict.nav.features],
-    [`/${locale}/materiel`, dict.nav.hardware],
+    [`/${locale}/materiel/amazon`, dict.nav.hardware],
     [`/${locale}/documentation`, dict.nav.documentation],
     [`/${locale}/comparatif`, dict.nav.comparisons],
     [`/${locale}/blog`, dict.nav.blog],

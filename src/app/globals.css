@@ -7767,11 +7767,30 @@ main {
   background: var(--bg-surface);
 }
 
+.hw-alt-unit-card__image {
+  flex-shrink: 0;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 0.4rem;
+  overflow: hidden;
+  background: var(--bg-inset);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hw-alt-unit-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .hw-alt-unit-card__info {
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
   min-width: 0;
+  flex: 1 1 auto;
 }
 
 .hw-alt-unit-card__name {
@@ -8293,6 +8312,24 @@ main {
   width: 100%;
 }
 
+@media (min-width: 901px) {
+  /* Plaqué contre le bord droit réel de l'écran, symétrique au bandeau
+     plateforme (platform-rail) plaqué à gauche : on sort le sélecteur d'OS
+     du flux flex et on réserve la place équivalente dans le contenu. */
+  .hw-os-sidebar {
+    position: fixed;
+    top: 7.5rem;
+    right: 1.25rem;
+    max-height: calc(100vh - 9rem);
+    overflow-y: auto;
+    z-index: 40;
+  }
+
+  .hw-os-content {
+    padding-right: calc(220px + 1.5rem);
+  }
+}
+
 @media (max-width: 900px) {
   .hw-os-layout {
     flex-direction: column;
@@ -8314,6 +8351,205 @@ main {
     width: auto;
     flex: 1 1 auto;
   }
+}
+
+/* =========================================================================
+   SÉLECTEUR DE PLATEFORME (/materiel/amazon, /materiel/aliexpress, ...)
+   ========================================================================= */
+
+.platform-shell {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.platform-shell__content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.platform-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  flex-shrink: 0;
+  width: 6.5rem;
+  padding-left: clamp(0.5rem, 1.5vw, 1.25rem);
+  position: sticky;
+  top: 5.5rem;
+  padding-top: 1.5rem;
+}
+
+.platform-rail__icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  text-decoration: none;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.platform-rail__icon:hover {
+  background: var(--bg-surface-hover);
+}
+
+.platform-rail__icon-shape {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1.1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  animation: platform-icon-float 3.2s ease-in-out infinite;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.platform-rail__icon:nth-child(2) .platform-rail__icon-shape {
+  animation-delay: -1.6s;
+}
+
+.platform-rail__icon:active .platform-rail__icon-shape {
+  transform: scale(0.88);
+}
+
+.platform-rail__icon.is-active .platform-rail__icon-shape {
+  box-shadow: 0 0 0 3px var(--accent-glow), var(--shadow-card);
+}
+
+.platform-rail__icon-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.platform-rail__icon.is-active .platform-rail__icon-label {
+  color: var(--text-heading);
+}
+
+@keyframes platform-icon-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .platform-rail__icon-shape {
+    animation: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .platform-shell {
+    flex-direction: column;
+  }
+
+  .platform-shell__content {
+    width: 100%;
+  }
+
+  .platform-rail {
+    position: sticky;
+    top: 4.25rem;
+    z-index: 90;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 0.6rem 0;
+    padding-left: 0;
+    background: none;
+  }
+}
+
+/* --- Habillages de marque, scopés localement à chaque route plateforme --- */
+
+.platform-theme-amazon {
+  --bg-canvas: #faf6ee;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-surface-hover: #f1e9da;
+  --bg-inset: #f1e9da;
+  --text-heading: #131a22;
+  --text-main: #232f3e;
+  --text-muted: #5a4632;
+  --text-dim: #6b5842;
+  --accent-primary: #e47911;
+  --accent-primary-fg: #131a22;
+  --accent-hover: #c96a0d;
+  --accent-subtle: rgba(228, 121, 17, 0.1);
+  --accent-glow: rgba(228, 121, 17, 0.25);
+  --border-subtle: #e5dcc8;
+  --border-vibrant: #131a22;
+  --border-color: #e5dcc8;
+  background: var(--bg-canvas);
+  border-radius: 1.25rem;
+}
+
+.platform-theme-aliexpress {
+  --bg-canvas: #fff6f2;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-surface-hover: #ffe9de;
+  --bg-inset: #ffe9de;
+  --text-heading: #1a1a1a;
+  --text-main: #2b2b2b;
+  --text-muted: #8a3b1f;
+  --text-dim: #9c5233;
+  --accent-primary: #ff4747;
+  --accent-primary-fg: #ffffff;
+  --accent-hover: #e62e04;
+  --accent-subtle: rgba(255, 71, 71, 0.1);
+  --accent-glow: rgba(255, 71, 71, 0.25);
+  --border-subtle: #ffd9c7;
+  --border-vibrant: #ff4747;
+  --border-color: #ffd9c7;
+  background: var(--bg-canvas);
+  border-radius: 1.25rem;
+}
+
+.platform-construction {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 4rem clamp(1.5rem, 4vw, 3rem);
+  min-height: 60vh;
+  justify-content: center;
+}
+
+.platform-construction__badge {
+  display: inline-flex;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: var(--accent-subtle);
+  color: var(--accent-hover);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.platform-construction__title {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.platform-construction__text {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 34rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
 .hw-mobile-buybar {

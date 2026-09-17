@@ -1,6 +1,7 @@
 "use client";
 
 import { useHardwareCart, type CartItem } from "@/lib/hardwareCart";
+import { spawnConfettiBurst } from "@/lib/confettiBurst";
 import type { Locale } from "@/lib/i18n";
 
 interface AddToCartButtonProps {
@@ -20,6 +21,14 @@ export default function AddToCartButton({ item, locale, size = "md" }: AddToCart
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
+        if (!inCart) {
+          const styles = getComputedStyle(e.currentTarget);
+          const accent = styles.getPropertyValue("--accent-primary").trim() || "#0f172a";
+          const surface = styles.getPropertyValue("--bg-card").trim() || "#ffffff";
+          spawnConfettiBurst(e.clientX, e.clientY, {
+            colors: [accent, "#64748b", surface],
+          });
+        }
         toggleItem(item);
       }}
       aria-pressed={inCart}

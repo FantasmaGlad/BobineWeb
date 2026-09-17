@@ -5,7 +5,6 @@ import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
 import {
   HARDWARE_BUNDLES,
-  STANDALONE_ACCESSORIES,
   PRICE_CHECKED_AT,
   type OsKey,
   type TierKey,
@@ -16,7 +15,6 @@ import LinuxIcon from "@/components/icons/LinuxIcon";
 import WindowsIcon from "@/components/icons/WindowsIcon";
 import AppleIcon from "@/components/icons/AppleIcon";
 import AndroidIcon from "@/components/icons/AndroidIcon";
-import VendorBadge from "@/components/hardware/VendorBadge";
 import HardwareAccessoriesGrid from "@/components/hardware/HardwareAccessoriesGrid";
 import AddToCartButton from "@/components/hardware/AddToCartButton";
 
@@ -55,7 +53,6 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
   const accessoryItems = currentTier.items.filter((item) => item.id !== mainItem?.id);
   const showFanBadge = activeFormFactorKey === "minipc" && (selectedOs === "linux" || selectedOs === "windows" || selectedOs === "macos") && mainItem;
 
-  const filteredStandaloneAccessories = STANDALONE_ACCESSORIES.filter((acc) => acc.compatibleOs.includes(selectedOs));
 
   // Navigation "shop & buy" entre gammes : glisser au doigt (mobile) ou à la souris (PC)
   // fait défiler d'une gamme à l'autre, comme les onglets, sans dupliquer l'état sélectionné.
@@ -559,6 +556,9 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
               <div className="hw-alt-units__list">
                 {currentTier.alternativeUnits.map((alt) => (
                   <div key={alt.id} className="hw-alt-unit-card">
+                    <div className="hw-alt-unit-card__image">
+                      <Image src={alt.imageUrl} alt={alt.name} width={64} height={64} />
+                    </div>
                     <div className="hw-alt-unit-card__info">
                       <span className="hw-alt-unit-card__name">{alt.name}</span>
                       <span className="hw-alt-unit-card__price">{alt.priceAmazon.toFixed(2)} €</span>
@@ -596,185 +596,6 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
             </div>
           )}
 
-          {/* 7. ACCESSOIRES DU PACK — grille qui tire parti d'un écran large, alignement fixe */}
-          {accessoryItems.length > 0 && (
-            <div
-              className="hw-accessory-grid"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                gap: "0.75rem",
-                marginBottom: "1.5rem",
-              }}
-            >
-              {accessoryItems.map((item: HardwareItem) => (
-                <div
-                  key={item.id}
-                  className="hw-item-card"
-                  style={{
-                    background: "var(--bg-surface)",
-                    border: "1px solid var(--border-subtle)",
-                    borderRadius: "0.55rem",
-                    padding: "0.85rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.5rem",
-                    height: "100%",
-                  }}
-                >
-                  <div style={{ display: "flex", gap: "0.7rem", alignItems: "flex-start" }}>
-                    <div
-                      style={{
-                        width: "52px",
-                        height: "52px",
-                        borderRadius: "0.4rem",
-                        border: "1px solid var(--border-subtle)",
-                        background: "#ffffff",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        overflow: "hidden",
-                        flexShrink: 0,
-                      }}
-                    >
-                      <Image
-                        src={item.imageUrl}
-                        alt={item.name}
-                        width={48}
-                        height={48}
-                        style={{ objectFit: "contain", width: "100%", height: "100%", padding: "3px" }}
-                      />
-                    </div>
-                    <div style={{ minWidth: 0 }}>
-                      <h5 style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-heading)", margin: "0 0 0.2rem 0", lineHeight: 1.3 }}>
-                        {item.name}
-                      </h5>
-                      <p style={{ fontSize: "0.7rem", color: "var(--text-muted)", margin: 0, lineHeight: 1.35 }}>
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      paddingTop: "0.5rem",
-                      marginTop: "auto",
-                      borderTop: "1px dashed var(--border-subtle)",
-                    }}
-                  >
-                    <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--text-heading)" }}>
-                      {item.priceAmazon.toFixed(2)} €
-                    </span>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
-                      <AddToCartButton
-                        size="sm"
-                        locale={locale}
-                        item={{
-                          asin: item.asin,
-                          name: item.name,
-                          imageUrl: item.imageUrl,
-                          priceAmazon: item.priceAmazon,
-                          amazonUrl: item.amazonUrl,
-                        }}
-                      />
-                      <a
-                        href={item.amazonUrl}
-                        target="_blank"
-                        rel="nofollow sponsored noopener noreferrer"
-                        className="btn-secondary"
-                        title={isEn ? "Open official Amazon product sheet" : "Ouvrir la fiche produit officielle Amazon"}
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "0.3rem",
-                          fontSize: "0.7rem",
-                          fontWeight: 600,
-                          padding: "0.3rem 0.6rem",
-                          borderRadius: "0.35rem",
-                          textDecoration: "none",
-                          whiteSpace: "nowrap",
-                          flexShrink: 0,
-                        }}
-                      >
-                        <span>Amazon</span>
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                          <polyline points="15 3 21 3 21 9" />
-                          <line x1="10" y1="14" x2="21" y2="3" />
-                        </svg>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* 8. SYNTHÈSE BUDGÉTAIRE */}
-          <div
-            style={{
-              background: "var(--bg-inset)",
-              border: "1px solid var(--border-subtle)",
-              borderRadius: "0.65rem",
-              padding: "1.25rem",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              flexWrap: "wrap",
-              gap: "1rem",
-            }}
-          >
-            <div>
-              <span
-                style={{
-                  fontSize: "0.725rem",
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.05em",
-                  color: "var(--text-muted)",
-                  display: "block",
-                  marginBottom: "0.3rem",
-                }}
-              >
-                {isEn ? "Estimated Pack Total (Hardware + All Cables)" : "Total Estimé du Pack Complet (Unité + Tous Câbles)"}
-              </span>
-              <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem", flexWrap: "wrap" }}>
-                <span style={{ fontSize: "1.6rem", fontWeight: 800, color: "var(--accent-primary)", letterSpacing: "-0.02em" }}>
-                  {totalAmazon.toFixed(2)} €
-                </span>
-                <VendorBadge size="sm" />
-                <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
-                  {isEn ? `Prices checked ${checkedDate} — click through for today's price` : `Prix constatés le ${checkedDate} — cliquez pour le tarif du jour`}
-                </span>
-              </div>
-            </div>
-
-            <a
-              href={mainItem?.amazonUrl}
-              target="_blank"
-              rel="nofollow sponsored noopener noreferrer"
-              className="btn-primary"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                fontSize: "0.875rem",
-                fontWeight: 700,
-                padding: "0.6rem 1.15rem",
-                borderRadius: "0.45rem",
-                textDecoration: "none",
-              }}
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="9" cy="21" r="1" />
-                <circle cx="20" cy="21" r="1" />
-                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-              </svg>
-              <span>{isEn ? "View Central Unit on Amazon" : "Voir l'Unité Centrale sur Amazon"}</span>
-            </a>
-          </div>
         </div>
 
         {/* Repère de progression entre les 4 gammes — confirme visuellement le glisser/clic */}
@@ -786,7 +607,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
       </div>
 
       {/* 9. ACCESSOIRES & CÂBLERIE À L'UNITÉ — filtrés selon l'OS sélectionné ci-dessus */}
-      <HardwareAccessoriesGrid locale={locale} items={filteredStandaloneAccessories} />
+      <HardwareAccessoriesGrid locale={locale} items={accessoryItems} />
 
       {/* 10. BARRE D'ACHAT FIXE MOBILE — reste accessible pendant le scroll d'achat sur téléphone */}
       <div className="hw-mobile-buybar">

@@ -2,7 +2,7 @@ SUIVI DES OFFRES AMAZON — BOBINE / MATERIEL
 ============================================================
 Genere automatiquement depuis src/content/hardware.ts
 Date de derniere verification des prix/liens (PRICE_CHECKED_AT) : 2026-09-17
-Nombre total de produits uniques references : 55
+Nombre total de produits uniques references : 58
 
 MODE D'EMPLOI POUR UNE MISE A JOUR (à la main) :
 1. Ouvrir chaque lien Amazon ci-dessous et relever le prix affiche a l'instant T.
@@ -14,14 +14,20 @@ MODE D'EMPLOI POUR UNE MISE A JOUR (à la main) :
 4. Mettre a jour la constante PRICE_CHECKED_AT (format AAAA-MM-JJ) apres verification.
 5. Chaque gamme 'PC Portable' recommande un vrai laptop achetable : ne jamais
    laisser cette voie redevenir accessoire-only.
-6. Coherence clavier/souris : Mini PC headless recoivent clavier + souris ; PC
-   Portable (qui a deja un clavier) ne recoit qu'une souris.
+6. Coherence clavier/souris : Mini PC headless recoivent un clavier + souris
+   (kit budget en Essentiel/Recommande, kit sans fil dedie en Premium, kit
+   separe G-Lab+Logitech en Pro) ; PC Portable (qui a deja un clavier) ne
+   recoit qu'une souris.
 7. Chaque gamme Mini PC/Laptop/Tablette propose 0 a 2 'marques alternatives' pour
    l'unite centrale (champ alternativeUnits) : memes exigences de verification
    que l'unite principale, jamais de produit non verifie individuellement.
 8. Chaque gamme inclut desormais un accessoire de stockage (cle USB ou SSD
    externe, USB 3.0 minimum) pour l'export de sauvegarde '1 clic' de la
    programmation : ne jamais descendre sous USB 3.0 ni sous 8 Go.
+9. Le cable HDMI et le kit clavier/souris different desormais par gamme sur
+   Mini PC (Essentiel/Recommande = cable HDMI 2.1 court + kit filaire
+   budget ; Pro = cable Cat7 + kit separe G-Lab/Logitech ; Premium = cable
+   HDMI fibre optique 6m + kit sans fil Logitech MK540).
 
 ------------------------------------------------------------
 UNITÉS CENTRALES & TABLETTES (dont marques alternatives)
@@ -192,6 +198,7 @@ UNITÉS CENTRALES & TABLETTES (dont marques alternatives)
   Lien direct                        : https://www.amazon.fr/dp/B0G5LMP2YT?tag=fantasmaglad-21
   Utilise dans                        : Android / Tablette / Recommandé
 
+
 ------------------------------------------------------------
 CÂBLES VIDÉO
 ------------------------------------------------------------
@@ -201,15 +208,21 @@ CÂBLES VIDÉO
   Lien direct                        : https://www.amazon.fr/dp/B081GGNWCX?tag=fantasmaglad-21
   Utilise dans                        : Accessoire à l'unité (Linux, Windows) ; Linux / Mini PC / Essentiel ; Linux / Mini PC / Recommandé
 
+[B0GCGXRQZ5] Câble HDMI 2.1 Fibre Optique 6 m — FIBBR 48 Gbps
+  Prix constate (2026-09-17) : 29.15 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0GCGXRQZ5?tag=fantasmaglad-21
+  Utilise dans                        : Android / Tablette / Premium ; Linux / Mini PC / Premium ; Windows / Mini PC / Premium ; macOS / Mini PC / Premium
+
 [B0CFFFSFFN] Câble HDMI 2.1 Ultra High Speed 48 Gbps (2 m)
   Prix constate (2026-09-17) : 10.44 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0CFFFSFFN?tag=fantasmaglad-21
-  Utilise dans                        : Accessoire à l'unité (Linux, Windows, macOS, Android) ; Android / Tablette / Premium ; Android / Tablette / Recommandé ; Linux / Mini PC / Premium ; Linux / Mini PC / Pro ; Linux / PC Portable / Essentiel ; Windows / Mini PC / Essentiel ; Windows / Mini PC / Premium ; Windows / Mini PC / Pro ; Windows / Mini PC / Recommandé ; Windows / PC Portable / Essentiel ; macOS / Mini PC / Essentiel ; macOS / Mini PC / Premium ; macOS / Mini PC / Pro ; macOS / Mini PC / Recommandé ; macOS / PC Portable / Essentiel
+  Utilise dans                        : Accessoire à l'unité (Linux, Windows, macOS, Android) ; Android / Tablette / Recommandé ; Linux / Mini PC / Pro ; Linux / PC Portable / Essentiel ; Windows / Mini PC / Essentiel ; Windows / Mini PC / Pro ; Windows / Mini PC / Recommandé ; Windows / PC Portable / Essentiel ; macOS / Mini PC / Essentiel ; macOS / Mini PC / Pro ; macOS / Mini PC / Recommandé ; macOS / PC Portable / Essentiel
 
 [B08Q2YC9LL] Câble Thunderbolt 4 / USB4 40 Gbps (1 m)
   Prix constate (2026-09-17) : 12.34 EUR
   Lien direct                        : https://www.amazon.fr/dp/B08Q2YC9LL?tag=fantasmaglad-21
   Utilise dans                        : Linux / PC Portable / Premium ; Linux / PC Portable / Pro ; Windows / PC Portable / Premium ; Windows / PC Portable / Pro ; macOS / PC Portable / Premium ; macOS / PC Portable / Pro
+
 
 ------------------------------------------------------------
 RÉSEAU
@@ -225,6 +238,7 @@ RÉSEAU
   Lien direct                        : https://www.amazon.fr/dp/B075DKWRD6?tag=fantasmaglad-21
   Utilise dans                        : Accessoire à l'unité (Linux, Windows, macOS, Android) ; Android / Tablette / Pro ; Linux / Mini PC / Essentiel ; Linux / Mini PC / Recommandé ; Linux / PC Portable / Recommandé ; Windows / Mini PC / Essentiel ; Windows / Mini PC / Recommandé ; Windows / PC Portable / Recommandé ; macOS / Mini PC / Recommandé ; macOS / PC Portable / Recommandé
 
+
 ------------------------------------------------------------
 PÉRIPHÉRIQUES DE CONTRÔLE (clavier / souris / télécommande)
 ------------------------------------------------------------
@@ -232,7 +246,12 @@ PÉRIPHÉRIQUES DE CONTRÔLE (clavier / souris / télécommande)
 [B00552K0GM] Logitech M185 Souris Sans Fil 2.4 GHz avec Mini Récepteur USB
   Prix constate (2026-09-17) : 11.99 EUR
   Lien direct                        : https://www.amazon.fr/dp/B00552K0GM?tag=fantasmaglad-21
-  Utilise dans                        : Accessoire à l'unité (Linux, Windows, macOS) ; Linux / Mini PC / Premium ; Linux / Mini PC / Pro ; Linux / PC Portable / Premium ; Linux / PC Portable / Pro ; Windows / Mini PC / Premium ; Windows / Mini PC / Pro ; Windows / PC Portable / Premium ; Windows / PC Portable / Pro ; macOS / Mini PC / Premium ; macOS / Mini PC / Pro ; macOS / PC Portable / Premium ; macOS / PC Portable / Pro
+  Utilise dans                        : Accessoire à l'unité (Linux, Windows, macOS) ; Linux / Mini PC / Pro ; Linux / PC Portable / Premium ; Linux / PC Portable / Pro ; Windows / Mini PC / Pro ; Windows / PC Portable / Premium ; Windows / PC Portable / Pro ; macOS / Mini PC / Pro ; macOS / PC Portable / Premium ; macOS / PC Portable / Pro
+
+[B0797G6W5K] Logitech MK540 Combo Clavier et Souris Sans Fil AZERTY
+  Prix constate (2026-09-17) : 49.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0797G6W5K?tag=fantasmaglad-21
+  Utilise dans                        : Linux / Mini PC / Premium ; Windows / Mini PC / Premium ; macOS / Mini PC / Premium
 
 [B0H4K4T2CK] Télécommande Air-Mouse Gyroscopique 2.4 GHz USB
   Prix constate (2026-09-17) : 9.57 EUR
@@ -247,7 +266,13 @@ PÉRIPHÉRIQUES DE CONTRÔLE (clavier / souris / télécommande)
 [B0HF5JQCTG] The G-Lab Keyz Hydrogen — Clavier Gamer Semi-mécanique 60% AZERTY
   Prix constate (2026-09-17) : 18.76 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0HF5JQCTG?tag=fantasmaglad-21
-  Utilise dans                        : Accessoire à l'unité (Linux, Windows, macOS) ; Linux / Mini PC / Premium ; Linux / Mini PC / Pro ; Windows / Mini PC / Premium ; Windows / Mini PC / Pro ; macOS / Mini PC / Premium ; macOS / Mini PC / Pro
+  Utilise dans                        : Accessoire à l'unité (Linux, Windows, macOS) ; Linux / Mini PC / Pro ; Windows / Mini PC / Pro ; macOS / Mini PC / Pro
+
+[B08DHVYHGZ] Trust Taro Pack Clavier et Souris Filaires AZERTY
+  Prix constate (2026-09-17) : 14.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B08DHVYHGZ?tag=fantasmaglad-21
+  Utilise dans                        : Linux / Mini PC / Essentiel ; Linux / Mini PC / Recommandé ; Windows / Mini PC / Essentiel ; Windows / Mini PC / Recommandé ; macOS / Mini PC / Essentiel ; macOS / Mini PC / Recommandé
+
 
 ------------------------------------------------------------
 ALIMENTATION & HUBS
@@ -273,6 +298,7 @@ ALIMENTATION & HUBS
   Lien direct                        : https://www.amazon.fr/dp/B0GHQRQ12S?tag=fantasmaglad-21
   Utilise dans                        : Linux / PC Portable / Premium ; Linux / PC Portable / Pro ; Windows / PC Portable / Premium ; Windows / PC Portable / Pro ; macOS / PC Portable / Premium ; macOS / PC Portable / Pro
 
+
 ------------------------------------------------------------
 STOCKAGE (clés USB / SSD externes)
 ------------------------------------------------------------
@@ -296,6 +322,7 @@ STOCKAGE (clés USB / SSD externes)
   Prix constate (2026-09-17) : 24.00 EUR
   Lien direct                        : https://www.amazon.fr/dp/B07YYJRXQR?tag=fantasmaglad-21
   Utilise dans                        : Accessoire à l'unité (Linux, Windows, macOS, Android) ; Android / Tablette / Recommandé ; Linux / Mini PC / Recommandé ; Linux / PC Portable / Recommandé ; Windows / Mini PC / Recommandé ; Windows / PC Portable / Recommandé ; macOS / Mini PC / Recommandé ; macOS / PC Portable / Recommandé
+
 
 ------------------------------------------------------------
 SUPPORTS & FIXATIONS

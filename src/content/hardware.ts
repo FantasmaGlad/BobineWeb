@@ -243,6 +243,55 @@ const logitechMouse = (id: string): HardwareItem => ({
   hasFan: false,
 });
 
+// Kit clavier + souris filaire d'entree de gamme : couvre le trou fonctionnel des gammes
+// Essentiel/Recommande sur mini PC headless, qui n'incluaient jusqu'ici aucun peripherique
+// de saisie pour l'installation initiale. Un seul produit (pack), moins cher que les deux
+// pieces separees utilisees en Pro/Premium.
+const keyboardMouseBudget = (id: string): HardwareItem => ({
+  id,
+  name: "Trust Taro Pack Clavier et Souris Filaires AZERTY",
+  category: "control",
+  specs: "Clavier + souris filaires USB 1,8 m · AZERTY français · Silencieux",
+  description: "Kit d'entrée minimal pour administrer un mini PC headless sans clavier natif, au juste prix pour une gamme d'accès.",
+  imageUrl: "/images/hardware/keyboard-mouse-trust-taro.webp",
+  asin: "B08DHVYHGZ",
+  amazonUrl: buildProductUrl("B08DHVYHGZ"),
+  priceAmazon: 14.99,
+  hasFan: false,
+});
+
+// Kit clavier + souris sans fil haut de gamme reserve a la gamme Premium : remplace le
+// duo G-Lab + Logitech M185 utilise en Pro par un ensemble assorti sans fil, pour une
+// vraie difference "sans compromis" au lieu de reutiliser le meme peripherique partout.
+const keyboardMousePremium = (id: string): HardwareItem => ({
+  id,
+  name: "Logitech MK540 Combo Clavier et Souris Sans Fil AZERTY",
+  category: "control",
+  specs: "Sans fil 2.4 GHz · Récepteur USB Unifying · AZERTY français · Batterie jusqu'à 3 ans",
+  description: "Kit assorti sans fil pour la gamme Premium : plus de confort et une autonomie de plusieurs années, sans câble qui traîne en régie.",
+  imageUrl: "/images/hardware/keyboard-mouse-logitech-mk540.webp",
+  asin: "B0797G6W5K",
+  amazonUrl: buildProductUrl("B0797G6W5K"),
+  priceAmazon: 49.99,
+  hasFan: false,
+});
+
+// Cable HDMI fibre optique reserve a la gamme Premium : longueur genereuse (6 m, contre
+// 2 m sur les autres gammes) et signal actif sans perte, pour les regies ou le mini PC est
+// installe loin de l'ecran ou du videoprojecteur.
+const cableHdmiFiberPremium = (id: string): HardwareItem => ({
+  id,
+  name: "Câble HDMI 2.1 Fibre Optique 6 m — FIBBR 48 Gbps",
+  category: "cable-video",
+  specs: "Fibre optique active · 48 Gbps · 8K 60Hz / 4K 120Hz · 6 m",
+  description: "Longueur généreuse et signal fibre optique sans perte pour les régies premium où le mini PC est éloigné de l'écran.",
+  imageUrl: "/images/hardware/cable-hdmi-fibbr-fiber.webp",
+  asin: "B0GCGXRQZ5",
+  amazonUrl: buildProductUrl("B0GCGXRQZ5"),
+  priceAmazon: 29.15,
+  hasFan: false,
+});
+
 // Stockage de sauvegarde (export "1 clic" de la programmation, cf. fonctionnalite du
 // site) : une echelle de 4 gammes reutilisee partout, du plus modeste (mais jamais en
 // dessous d'USB 3.0) au disque SSD externe le plus genereux.
@@ -605,6 +654,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               cableCat6a("cable-cat6a-linux-essentiel"),
               remotePresentation("remote-presentation-linux-essentiel"),
               usbFlash64GB("usb-flash-64gb-linux-essentiel"),
+              keyboardMouseBudget("keyboard-mouse-linux-essentiel"),
             ],
           },
           recommande: {
@@ -638,6 +688,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               cableCat6a("cable-cat6a-linux-recommande"),
               remoteAirmouse("remote-airmouse-linux-recommande"),
               usbFlash128GB("usb-flash-128gb-linux-recommande"),
+              keyboardMouseBudget("keyboard-mouse-linux-recommande"),
             ],
           },
           pro: {
@@ -697,10 +748,9 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
                 priceAmazon: 1549,
                 hasFan: true,
               },
-              cableHdmi21("linux-premium"),
+              cableHdmiFiberPremium("linux-premium"),
               cableCat7("linux-premium"),
-              glabKeyboard("keyboard-linux-premium"),
-              logitechMouse("mouse-linux-premium"),
+              keyboardMousePremium("keyboard-mouse-linux-premium"),
               ssdExternal1TB("ssd-1tb-linux-premium"),
             ],
           },
@@ -839,6 +889,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               cableCat6a("cable-cat6a-windows-essentiel"),
               remotePresentation("remote-presentation-windows-essentiel"),
               usbFlash64GB("usb-flash-64gb-windows-essentiel"),
+              keyboardMouseBudget("keyboard-mouse-windows-essentiel"),
             ],
           },
           recommande: {
@@ -872,6 +923,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               cableCat6a("cable-cat6a-windows-recommande"),
               remoteAirmouse("remote-airmouse-windows-recommande"),
               usbFlash128GB("usb-flash-128gb-windows-recommande"),
+              keyboardMouseBudget("keyboard-mouse-windows-recommande"),
             ],
           },
           pro: {
@@ -931,10 +983,9 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
                 priceAmazon: 1549,
                 hasFan: true,
               },
-              cableHdmi21("windows-premium"),
+              cableHdmiFiberPremium("windows-premium"),
               cableCat7("windows-premium"),
-              glabKeyboard("keyboard-windows-premium"),
-              logitechMouse("mouse-windows-premium"),
+              keyboardMousePremium("keyboard-mouse-windows-premium"),
               ssdExternal1TB("ssd-1tb-windows-premium"),
             ],
           },
@@ -1058,6 +1109,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               cableHdmi21("macos-essentiel"),
               remotePresentation("remote-presentation-macos-essentiel"),
               usbFlash64GB("usb-flash-64gb-macos-essentiel"),
+              keyboardMouseBudget("keyboard-mouse-macos-essentiel"),
             ],
           },
           recommande: {
@@ -1079,6 +1131,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               cableCat6a("cable-cat6a-macos-recommande"),
               remoteAirmouse("remote-airmouse-macos-recommande"),
               usbFlash128GB("usb-flash-128gb-macos-recommande"),
+              keyboardMouseBudget("keyboard-mouse-macos-recommande"),
             ],
           },
           pro: {
@@ -1136,10 +1189,9 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
                 priceAmazon: 2999,
                 hasFan: true,
               },
-              cableHdmi21("macos-premium"),
+              cableHdmiFiberPremium("macos-premium"),
               cableCat7("macos-premium"),
-              glabKeyboard("keyboard-macos-premium"),
-              logitechMouse("mouse-macos-premium"),
+              keyboardMousePremium("keyboard-mouse-macos-premium"),
               ssdExternal1TB("ssd-1tb-macos-premium"),
             ],
           },
@@ -1407,7 +1459,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
                 hasFan: false,
               },
               hubEthernetAcer("android-premium"),
-              cableHdmi21("android-premium"),
+              cableHdmiFiberPremium("android-premium"),
               {
                 id: "mount-gas-spring-anti-theft-pro",
                 name: "Support Mural Renforcé Antivol pour Tablette 7-13 Pouces",
@@ -1715,7 +1767,7 @@ export function getAllHardwareProducts(locale: "fr" | "en" = "fr"): ResolvedProd
   for (const bundle of Object.values(HARDWARE_BUNDLES)) {
     for (const formFactor of Object.values(bundle.formFactors)) {
       for (const tier of Object.values(formFactor.tiers)) {
-        for (const item of tier.items) {
+        for (const item of [...tier.items, ...(tier.alternativeUnits ?? [])]) {
           if (!byAsin.has(item.asin)) {
             byAsin.set(item.asin, {
               asin: item.asin,

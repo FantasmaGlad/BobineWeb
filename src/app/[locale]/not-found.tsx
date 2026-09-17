@@ -63,7 +63,7 @@ export default function NotFound() {
           Guide d&apos;installation
         </Link>
         <Link
-          href="/fr/materiel"
+          href="/fr/materiel/amazon"
           className="btn-secondary"
           style={{
             padding: "0.5rem 1.15rem",

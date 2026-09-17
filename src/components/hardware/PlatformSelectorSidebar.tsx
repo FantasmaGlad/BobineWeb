@@ -15,14 +15,14 @@ const PLATFORMS = [
     key: "amazon",
     labelFr: "Amazon",
     labelEn: "Amazon",
-    icon: "/images/hardware/amazon-icon-mark.svg",
+    icon: "/images/hardware/amazon-icon-mark.webp",
     confettiColors: ["#FF9900", "#131A22", "#F5EFE6"],
   },
   {
     key: "aliexpress",
     labelFr: "AliExpress",
     labelEn: "AliExpress",
-    icon: "/images/hardware/aliexpress-icon-mark.svg",
+    icon: "/images/hardware/aliexpress-icon-mark.webp",
     confettiColors: ["#FF4747", "#E62E04", "#FFF6F2"],
   },
 ] as const;

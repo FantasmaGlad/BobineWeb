@@ -62,6 +62,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
   const [dragX, setDragX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const dragStartXRef = useRef<number | null>(null);
+  const altUnitsRef = useRef<HTMLDivElement | null>(null);
 
   const goToTier = (direction: 1 | -1) => {
     const nextIndex = tierIndex + direction;
@@ -343,22 +344,6 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                 >
                   {isEn ? currentTier.headlineEn : currentTier.headlineFr}
                 </h3>
-                {currentTier.badgeFr && (
-                  <span
-                    style={{
-                      fontSize: "0.675rem",
-                      fontWeight: 700,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.05em",
-                      padding: "0.15rem 0.45rem",
-                      borderRadius: "0.3rem",
-                      background: "var(--accent-primary)",
-                      color: "var(--accent-primary-fg)",
-                    }}
-                  >
-                    {isEn ? currentTier.badgeEn : currentTier.badgeFr}
-                  </span>
-                )}
                 {showFanBadge && (
                   <span
                     style={{
@@ -548,7 +533,8 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
               <span className="hw-alt-units__label">
                 {isEn ? "Other brands to consider" : "Autres marques à considérer"}
               </span>
-              <div className="hw-alt-units__list">
+              <div className="hw-alt-units__row">
+              <div ref={altUnitsRef} className="hw-alt-units__list">
                 {currentTier.alternativeUnits.map((alt) => (
                   <div key={alt.id} className="hw-alt-unit-card">
                     <div className="hw-alt-unit-card__image">
@@ -587,6 +573,21 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                     </div>
                   </div>
                 ))}
+              </div>
+              {currentTier.alternativeUnits.length > 1 && (
+                <button
+                  type="button"
+                  className="hw-alt-units__arrow"
+                  aria-label={isEn ? "Scroll to see more brands" : "Faire défiler pour voir plus de marques"}
+                  onClick={() => {
+                    altUnitsRef.current?.scrollBy({ left: 240, behavior: "smooth" });
+                  }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </button>
+              )}
               </div>
             </div>
           )}

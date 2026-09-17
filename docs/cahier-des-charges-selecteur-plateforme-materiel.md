@@ -1,8 +1,8 @@
 # CDC — Sélecteur multi-plateformes du Hub Matériel (`/materiel`)
 
-Statut : IMPLÉMENTÉ — 2026-09-17. Routes, bandeau, thèmes de marque, animations et effets de
-clic sont en production. AliExpress reste un placeholder "En construction" tant qu'aucun
-partenariat n'est signé.
+Statut : IMPLÉMENTÉ — 2026-09-17, affiné le même jour suite aux retours utilisateur (section 3/4/6
+mises à jour pour refléter l'état final, voir historique git). AliExpress reste un placeholder
+"En construction" tant qu'aucun partenariat n'est signé.
 
 ## 1. Contexte et objectif
 
@@ -27,28 +27,30 @@ persistant.
 
 ## 3. Bandeau de sélection de plateforme
 
-**Réponse à « qu'en penses-tu ? »** : un vrai bandeau `position: fixed` plein écran aurait
-empiété sur la barre panier flottante déjà présente en bas d'écran (`HardwareCartBar`) et sur
-le header sticky en haut. Le compromis retenu : un rail **sticky** (`position: sticky`) collé
-sous le header, qui suit le défilement sans jamais se superposer aux éléments flottants
-existants. Desktop : colonne verticale à gauche du contenu (largeur fixe ~104px). Le contenu
-de la page (bundles, panier) n'est jamais recouvert, seulement décalé.
+**Desktop** : rail **sticky** (`position: sticky`, largeur 4rem) collé au bord gauche du shell de
+page (`PlatformThemeShell`), sous le header. Ne recouvre jamais le contenu, seulement décalé.
 
-**Réponse à « comment transposer sur téléphone ? »** : sous 900px, le rail devient une barre
-horizontale sticky, positionnée juste sous le header (au-dessus du contenu, jamais en bas —
-le bas d'écran mobile est déjà occupé par la barre panier et la buybar tarifaire). Les deux
-icônes passent en ligne avec libellé sous chacune, réutilisant le motif déjà validé sur ce
-chantier pour le sélecteur d'OS (`hw-os-sidebar`, `order: -1` + `flex-wrap`).
+**Mobile** (< 900px) : suite aux retours utilisateur, le rail est devenu un **overlay flottant**
+(`position: fixed`, colonne verticale, centré verticalement contre le bord droit de l'écran,
+`right: 0.75rem; top: 50%`), sans fond ni bordure — juste les deux icônes flottantes. Ce choix
+évite tout bandeau de fond qui se désaccorderait visuellement de la page en dessous, et laisse le
+contenu de la page utiliser toute la largeur.
 
 ## 4. Icônes & animation
 
-- Deux nouvelles icônes vectorielles dédiées (`amazon-icon-mark.svg`, `aliexpress-icon-mark.svg`),
-  format carré arrondi type icône d'application (et non le logo texte déjà utilisé ailleurs sur
-  le site), recréées à la main en SVG filaire/plat — même convention que `amazon-logo.svg`
-  existant, jamais un fichier de marque téléchargé tel quel.
+- Les **vraies icônes officielles** de chaque application (telles que publiées sur le Google Play
+  Store) sont utilisées, récupérées et recadrées en 192×192 (`amazon-icon-mark.webp`,
+  `aliexpress-icon-mark.webp`) — remplace la première itération en SVG recréé à la main, jugée
+  insuffisamment reconnaissable par l'utilisateur.
+- Coins arrondis à 22% (`border-radius: 22%`) pour un rendu "icône Android" cohérent avec le
+  style app-icon des deux images sources.
+- Aucun fond, cercle ou ombre derrière l'icône : uniquement l'icône elle-même, toujours pleinement
+  opaque (pas d'assombrissement à l'état inactif — testé et jugé peu lisible).
 - Flottement continu léger (`translateY` oscillant, ±6px, ~3.2s, déphasé entre les deux icônes)
   pour l'effet « addictif » demandé, désactivé sous `prefers-reduced-motion: reduce`.
-- État actif : halo + léger agrandissement. État clic : compression brève (`scale(0.9)`).
+- État actif/hover : léger agrandissement (`scale`). État clic : compression brève (`scale(0.88)`).
+  Nom de la plateforme retiré de l'affichage visuel (icône seule) ; reste accessible via
+  `aria-label`/`title` sur le lien.
 
 ## 5. Effets de clic type confetti
 
@@ -62,22 +64,27 @@ boutons du site :
 
 ## 6. Palettes de marque
 
-Chaque page plateforme applique une classe wrapper (`platform-theme-amazon` /
-`platform-theme-aliexpress`) qui redéfinit localement les variables CSS déjà consommées par
-tous les composants existants (`--bg-canvas`, `--bg-card`, `--text-muted`, `--accent-primary`,
-etc.). Aucune modification du thème global du site (les 17 thèmes restent intacts partout
-ailleurs) : l'habillage de marque est strictement local à la sous-arborescence `/materiel/*`.
+Un composant client `PlatformThemeShell` lit le pathname et applique `platform-theme-amazon` /
+`platform-theme-aliexpress` sur le **shell de page entier** (bandeau + contenu), pas seulement sur
+le conteneur interne — première version avait le thème sur le conteneur interne uniquement,
+laissant une bande de fond au thème global (clair/sombre) visible derrière le bandeau plateforme
+et le sélecteur d'OS ; corrigé en remontant le thème au niveau du shell. Ces classes redéfinissent
+localement les variables CSS déjà consommées par tous les composants existants (`--bg-canvas`,
+`--bg-card`, `--text-muted`, `--accent-primary`, etc.). Aucune modification du thème global du
+site (les 17 thèmes restent intacts partout ailleurs).
 
-- **Amazon** : fond beige/parchemin, encre marine officielle (`#131A22`), texte atténué brun-moka, accent orange Amazon (`#E47911`) avec texte
-  bouton en encre sombre.
+- **Amazon** : palette exacte fournie par l'utilisateur — `#ff9900` (accent), `#333e48` (encre/
+  texte), `#ffffff` (fond). Boutons primaires en léger dégradé orange pour un rendu plus fidèle au
+  style Amazon réel (`.platform-theme-amazon .btn-primary`), sans toucher aux classes globales.
 - **AliExpress** : fond pêche très clair, encre anthracite, texte atténué brique sombre, accent
   rouge-orangé (`#FF4747`) avec texte bouton blanc.
 
 ## 7. Page AliExpress
 
-Placeholder minimal : bandeau de sélection actif sur "AliExpress", message "En construction"
-sobre (typographie soignée, aucune icône emoji), aucun faux produit, aucune promesse de date.
-Sert uniquement de repère d'arborescence pour la suite.
+Aperçu structurel (pas un simple texte) : onglets de catégorie et de gamme visibles mais inertes
+(non cliquables), carte produit en squelette avec effet "shimmer" reprenant exactement la mise en
+page Amazon, message "En construction" superposé en overlay. Objectif : montrer où le catalogue
+apparaîtra sans jamais afficher de faux produit ni de fausse promesse de date.
 
 ## 8. Hors périmètre de cette itération
 

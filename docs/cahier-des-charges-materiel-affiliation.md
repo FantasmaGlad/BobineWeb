@@ -3,7 +3,13 @@
 **Date** : 13 Septembre 2026  
 **Auteur** : Clément Barillot (FantasmaGlad)  
 **Projet** : Bobine Fit (`bobine.fit` / `FantasmaGlad/BobineWeb`)  
-**Statut** : Spécification validée & Feuille de route active  
+**Statut** : DOCUMENT HISTORIQUE — vision et stratégie générale toujours valables, mais les produits, prix et
+bundles cités ci-dessous (Pack unique par OS, Dell Wyse 5070, budgets "40-190 €", etc.) sont dépassés depuis la
+refonte du 17 septembre 2026 (catalogue à 4 gammes × alternatives par OS). Ne jamais utiliser un prix ou un ASIN
+de ce document : consulter [`src/content/hardware.ts`](../src/content/hardware.ts) (source de vérité) et
+[`docs/suivi-offres-amazon-materiel.txt`](suivi-offres-amazon-materiel.txt) (état courant régénéré). Voir aussi
+[`docs/cahier-des-charges-selecteur-plateforme-materiel.md`](cahier-des-charges-selecteur-plateforme-materiel.md)
+pour le sélecteur Amazon/AliExpress ajouté depuis.
 
 ---
 

@@ -114,7 +114,7 @@ export default async function HardwareAmazonPage({
 
   return (
     <div
-      className="container platform-theme-amazon"
+      className="container"
       style={{ maxWidth: "82rem", paddingBottom: "3rem" }}
     >
       <BreadcrumbsJsonLd items={breadcrumbs} />

@@ -42,23 +42,61 @@ export default async function HardwareAliexpressPage({
     },
   ];
 
+  const categoryLabels = isEn
+    ? ["Mini PC", "Laptop", "Tablet", "Accessories"]
+    : ["Mini PC", "PC Portable", "Tablette", "Accessoires"];
+  const tierLabels = isEn
+    ? ["Essential", "Recommended", "Pro", "Premium"]
+    : ["Essentiel", "Recommandé", "Gamme Pro", "Premium"];
+
   return (
-    <div
-      className="container platform-theme-aliexpress"
-      style={{ maxWidth: "82rem", paddingBottom: "3rem" }}
-    >
+    <div className="container" style={{ maxWidth: "82rem", paddingBottom: "3rem" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
-      <div className="platform-construction">
-        <span className="platform-construction__badge">AliExpress</span>
-        <h1 className="platform-construction__title">
-          {isEn ? "Under construction" : "En construction"}
-        </h1>
-        <p className="platform-construction__text">
-          {isEn
-            ? "The AliExpress hardware selection for Bobine is being prepared. Switch to Amazon in the meantime to browse the current bundles."
-            : "La sélection matérielle AliExpress pour Bobine est en préparation. En attendant, retrouvez les packs disponibles côté Amazon."}
-        </p>
+      <div className="platform-skeleton">
+        <div className="platform-skeleton__tabs" aria-hidden="true">
+          {categoryLabels.map((label) => (
+            <span key={label} className="platform-skeleton__pill">
+              {label}
+            </span>
+          ))}
+        </div>
+
+        <div className="platform-skeleton__card" aria-hidden="true">
+          <div className="platform-skeleton__tiers">
+            {tierLabels.map((label) => (
+              <span key={label} className="platform-skeleton__pill platform-skeleton__pill--sm">
+                {label}
+              </span>
+            ))}
+          </div>
+
+          <div className="platform-skeleton__body">
+            <div className="platform-skeleton__image platform-skeleton__shimmer" />
+            <div className="platform-skeleton__lines">
+              <div className="platform-skeleton__line platform-skeleton__shimmer" style={{ width: "70%", height: "1.1rem" }} />
+              <div className="platform-skeleton__line platform-skeleton__shimmer" style={{ width: "45%" }} />
+              <div className="platform-skeleton__line platform-skeleton__shimmer" style={{ width: "90%" }} />
+              <div className="platform-skeleton__line platform-skeleton__shimmer" style={{ width: "60%" }} />
+              <div className="platform-skeleton__actions">
+                <div className="platform-skeleton__button platform-skeleton__shimmer" />
+                <div className="platform-skeleton__button platform-skeleton__shimmer" style={{ width: "40%" }} />
+              </div>
+            </div>
+          </div>
+
+          <div className="platform-skeleton__overlay">
+            <span className="platform-construction__badge">AliExpress</span>
+            <h1 className="platform-construction__title">
+              {isEn ? "Under construction" : "En construction"}
+            </h1>
+            <p className="platform-construction__text">
+              {isEn
+                ? "This is where AliExpress bundles will appear, mirroring the Amazon layout. Switch to Amazon in the meantime to browse the current bundles."
+                : "C'est ici que les packs AliExpress apparaîtront, dans la même mise en page que côté Amazon. En attendant, retrouvez les packs disponibles côté Amazon."}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

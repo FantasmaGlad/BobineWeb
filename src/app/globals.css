@@ -8385,15 +8385,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.35rem;
   text-decoration: none;
-  padding: 0.5rem;
-  border-radius: 1rem;
-  transition: background-color 0.2s ease;
-}
-
-.platform-rail__icon:hover {
-  background: var(--bg-surface-hover);
 }
 
 .platform-rail__icon-shape {
@@ -8402,15 +8394,23 @@ main {
   justify-content: center;
   width: 3rem;
   height: 3rem;
-  border-radius: 1.1rem;
+  border-radius: 22%;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
   animation: platform-icon-float 3.2s ease-in-out infinite;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
 .platform-rail__icon:nth-child(2) .platform-rail__icon-shape {
   animation-delay: -1.6s;
+}
+
+.platform-rail__icon:not(.is-active) .platform-rail__icon-shape {
+  opacity: 0.82;
+}
+
+.platform-rail__icon:hover .platform-rail__icon-shape {
+  opacity: 1;
+  transform: scale(1.05);
 }
 
 .platform-rail__icon:active .platform-rail__icon-shape {
@@ -8418,17 +8418,8 @@ main {
 }
 
 .platform-rail__icon.is-active .platform-rail__icon-shape {
-  box-shadow: 0 0 0 3px var(--accent-glow), var(--shadow-card);
-}
-
-.platform-rail__icon-label {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--text-muted);
-}
-
-.platform-rail__icon.is-active .platform-rail__icon-label {
-  color: var(--text-heading);
+  transform: scale(1.08);
+  opacity: 1;
 }
 
 @keyframes platform-icon-float {
@@ -8451,16 +8442,23 @@ main {
     width: 100%;
   }
 
+  /* Bandeau plateforme = overlay flottant vertical à droite sur mobile, hors du
+     flux normal (position: fixed) pour ne jamais reserver d'espace ni laisser
+     apparaitre un bandeau de fond desaccorde avec le theme de la page. */
   .platform-rail {
-    position: sticky;
-    top: 4.25rem;
+    position: fixed;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+    flex-direction: column;
+    gap: 1.1rem;
+    width: auto;
+    padding: 0;
     z-index: 90;
-    width: 100%;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1.5rem;
-    padding: 0.6rem 0;
-    padding-left: 0;
+    background: none;
+  }
+
+  .platform-rail__icon:hover {
     background: none;
   }
 }
@@ -8468,27 +8466,49 @@ main {
 /* --- Habillages de marque, scopés localement à chaque route plateforme --- */
 
 .platform-theme-amazon {
-  --bg-canvas: #faf6ee;
+  --bg-canvas: #ffffff;
   --bg-card: #ffffff;
   --bg-card-hover: #ffffff;
   --bg-surface: #ffffff;
   --bg-surface-elevated: #ffffff;
-  --bg-surface-hover: #f1e9da;
-  --bg-inset: #f1e9da;
-  --text-heading: #131a22;
-  --text-main: #232f3e;
-  --text-muted: #5a4632;
-  --text-dim: #6b5842;
-  --accent-primary: #e47911;
-  --accent-primary-fg: #131a22;
-  --accent-hover: #c96a0d;
-  --accent-subtle: rgba(228, 121, 17, 0.1);
-  --accent-glow: rgba(228, 121, 17, 0.25);
-  --border-subtle: #e5dcc8;
-  --border-vibrant: #131a22;
-  --border-color: #e5dcc8;
+  --bg-surface-hover: #eef1f3;
+  --bg-inset: #eef1f3;
+  --text-heading: #333e48;
+  --text-main: #333e48;
+  --text-muted: #5b6675;
+  --text-dim: #6b7684;
+  --accent-primary: #ff9900;
+  --accent-primary-fg: #333e48;
+  --accent-hover: #e08600;
+  --accent-subtle: rgba(255, 153, 0, 0.12);
+  --accent-glow: rgba(255, 153, 0, 0.28);
+  --border-subtle: #e3e6e9;
+  --border-vibrant: #333e48;
+  --border-color: #e3e6e9;
   background: var(--bg-canvas);
-  border-radius: 1.25rem;
+  min-height: 100vh;
+}
+
+/* Traitement visuel plus fidele au style Amazon reel (boutons a degrade, liens
+   bleus), sans toucher a la mise en page ni aux classes de boutons globales
+   utilisees ailleurs sur le site. */
+.platform-theme-amazon .btn-primary {
+  background: linear-gradient(180deg, #ffc266 0%, var(--accent-primary) 100%);
+  border-color: #b56b00;
+  color: var(--accent-primary-fg) !important;
+}
+
+.platform-theme-amazon .btn-primary:hover {
+  background: linear-gradient(180deg, #ffb84d 0%, var(--accent-hover) 100%);
+}
+
+.platform-theme-amazon .btn-secondary:hover {
+  border-color: var(--accent-hover);
+  color: var(--accent-hover) !important;
+}
+
+.platform-theme-amazon .hw-cart-toggle-btn.is-added {
+  color: #067d62;
 }
 
 .platform-theme-aliexpress {
@@ -8512,17 +8532,121 @@ main {
   --border-vibrant: #ff4747;
   --border-color: #ffd9c7;
   background: var(--bg-canvas);
-  border-radius: 1.25rem;
+  min-height: 100vh;
 }
 
-.platform-construction {
+.platform-skeleton {
+  margin-top: 1rem;
+}
+
+.platform-skeleton__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.platform-skeleton__pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.platform-skeleton__pill--sm {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+.platform-skeleton__card {
+  position: relative;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.85rem;
+  background: var(--bg-card);
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+.platform-skeleton__tiers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.platform-skeleton__body {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.platform-skeleton__image {
+  width: 220px;
+  height: 220px;
+  border-radius: 0.65rem;
+  flex-shrink: 0;
+}
+
+.platform-skeleton__lines {
+  flex: 1 1 16rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.85rem;
-  padding: 4rem clamp(1.5rem, 4vw, 3rem);
-  min-height: 60vh;
+  gap: 0.75rem;
   justify-content: center;
+}
+
+.platform-skeleton__line {
+  height: 0.8rem;
+  border-radius: 0.3rem;
+}
+
+.platform-skeleton__actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.platform-skeleton__button {
+  width: 55%;
+  height: 2.4rem;
+  border-radius: 0.5rem;
+}
+
+.platform-skeleton__shimmer {
+  background: linear-gradient(90deg, var(--bg-inset) 25%, var(--border-subtle) 50%, var(--bg-inset) 75%);
+  background-size: 200% 100%;
+  animation: platform-skeleton-shimmer 1.8s ease-in-out infinite;
+}
+
+@keyframes platform-skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .platform-skeleton__shimmer {
+    animation: none;
+  }
+}
+
+.platform-skeleton__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.6rem;
+  padding: 1.5rem;
+  background: color-mix(in srgb, var(--bg-card) 88%, transparent);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 .platform-construction__badge {

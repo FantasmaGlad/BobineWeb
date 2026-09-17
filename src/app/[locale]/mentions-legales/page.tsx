@@ -115,7 +115,7 @@ export default async function LegalNoticePage({
   ];
 
   return (
-    <div className="container" style={{ paddingBlock: "clamp(2rem, 5vh, 4rem)", maxWidth: "42rem" }}>
+    <div className="container" style={{ paddingBlock: "clamp(2rem, 5vh, 4rem)" }}>
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
       <div style={{ marginBottom: "clamp(2.5rem, 6vw, 3.5rem)" }}>
@@ -142,7 +142,7 @@ export default async function LegalNoticePage({
         >
           {t.title}
         </h1>
-        <p style={{ color: "var(--text-muted)", fontSize: "1rem", lineHeight: 1.6, margin: 0, maxWidth: "36rem" }}>
+        <p style={{ color: "var(--text-muted)", fontSize: "1rem", lineHeight: 1.6, margin: 0, maxWidth: "42rem" }}>
           {t.subtitle}
         </p>
       </div>
@@ -167,16 +167,16 @@ export default async function LegalNoticePage({
             >
               {sec.heading}
             </h2>
-            <p style={{ color: "var(--text-main)", fontSize: "0.925rem", lineHeight: 1.7, margin: 0 }}>
+            <p style={{ color: "var(--text-main)", fontSize: "0.925rem", lineHeight: 1.7, margin: 0, maxWidth: "62rem" }}>
               {sec.body}
             </p>
             {sec.contact && (
-              <p style={{ color: "var(--text-main)", fontSize: "0.925rem", fontWeight: 600, lineHeight: 1.7, margin: 0, marginTop: "0.75rem" }}>
+              <p style={{ color: "var(--text-main)", fontSize: "0.925rem", fontWeight: 600, lineHeight: 1.7, margin: 0, marginTop: "0.75rem", maxWidth: "62rem" }}>
                 {sec.contact}
               </p>
             )}
             {sec.subtext && (
-              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.65, margin: 0, marginTop: "0.75rem" }}>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.65, margin: 0, marginTop: "0.75rem", maxWidth: "62rem" }}>
                 {sec.subtext}
               </p>
             )}

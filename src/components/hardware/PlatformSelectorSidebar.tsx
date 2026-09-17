@@ -47,6 +47,8 @@ export default function PlatformSelectorSidebar({ locale }: PlatformSelectorSide
             href={href}
             role="tab"
             aria-selected={isActive}
+            aria-label={isEn ? platform.labelEn : platform.labelFr}
+            title={isEn ? platform.labelEn : platform.labelFr}
             className={`platform-rail__icon ${isActive ? "is-active" : ""}`}
             onClick={(event) => {
               spawnConfettiBurst(event.clientX, event.clientY, {
@@ -56,9 +58,6 @@ export default function PlatformSelectorSidebar({ locale }: PlatformSelectorSide
           >
             <span className="platform-rail__icon-shape">
               <Image src={platform.icon} alt="" width={44} height={44} aria-hidden="true" />
-            </span>
-            <span className="platform-rail__icon-label">
-              {isEn ? platform.labelEn : platform.labelFr}
             </span>
           </Link>
         );

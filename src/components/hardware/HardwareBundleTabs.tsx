@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
 import {
@@ -67,6 +67,19 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
     if (nextIndex < 0 || nextIndex >= tierOrder.length) return;
     setSelectedTier(tierOrder[nextIndex]);
   };
+
+  // Navigation clavier : fleche gauche/droite change de gamme, comme le glisser tactile.
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (target?.closest("input,textarea,select,[contenteditable='true']")) return;
+      if (event.key === "ArrowLeft") goToTier(-1);
+      else if (event.key === "ArrowRight") goToTier(1);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tierIndex]);
 
   const handleSwipeStart = (clientX: number, targetEl: EventTarget) => {
     if ((targetEl as HTMLElement).closest("a,button,input,select,textarea")) return;
@@ -159,6 +172,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
           borderRadius: "0.75rem",
           padding: "1.5rem",
           boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
+          minHeight: "calc(100vh - 13rem)",
         }}
       >
         <div
@@ -461,7 +475,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
               >
                 <Image
                   src={mainItem.imageUrl}
-                  alt={mainItem.name}
+                  alt=""
                   width={180}
                   height={180}
                   style={{ objectFit: "contain", width: "100%", height: "100%", padding: "8px" }}
@@ -557,7 +571,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                 {currentTier.alternativeUnits.map((alt) => (
                   <div key={alt.id} className="hw-alt-unit-card">
                     <div className="hw-alt-unit-card__image">
-                      <Image src={alt.imageUrl} alt={alt.name} width={64} height={64} />
+                      <Image src={alt.imageUrl} alt="" width={64} height={64} />
                     </div>
                     <div className="hw-alt-unit-card__info">
                       <span className="hw-alt-unit-card__name">{alt.name}</span>

@@ -141,7 +141,7 @@ export default function HardwareAccessoriesGrid({ locale, items }: { locale: Loc
                   >
                     <Image
                       src={acc.imageUrl}
-                      alt={name}
+                      alt=""
                       width={56}
                       height={56}
                       style={{

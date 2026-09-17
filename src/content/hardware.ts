@@ -764,8 +764,6 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
         targetFr: "Clubs qui préfèrent un ordinateur portable polyvalent, transportable, à une appliance fixe",
         targetEn: "Gyms who prefer a versatile, portable laptop over a fixed appliance",
         defaultTier: "recommande",
-        editorialNoteFr: "Le meilleur choix communautaire n'est pas ici : la communauté Linux recommande unanimement le Framework Laptop 13 — réparable, modulaire, pièces détachées officielles. Il n'est vendu qu'en direct sur frame.work, pas sur Amazon, donc absent des cartes ci-dessous qui ne référencent que des produits Amazon vérifiés. Le kit de connectique fonctionne avec ce modèle comme avec n'importe quel autre PC portable.",
-        editorialNoteEn: "The best community pick isn't listed here: the Linux community unanimously recommends the Framework Laptop 13 — repairable, modular, official spare parts. It's sold direct at frame.work only, not on Amazon, so it's absent from the cards below, which only reference verified Amazon products. The connectivity kit works with it just as well as with any other laptop.",
         tiers: buildLaptopTiers({
           essentiel: {
             item: {

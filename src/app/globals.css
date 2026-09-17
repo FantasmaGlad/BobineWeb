@@ -7852,20 +7852,17 @@ main {
 
 .hw-tier-toggle {
   flex-wrap: nowrap;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
   align-self: center;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
 }
 
-@media (max-width: 480px) {
-  .hw-tier-toggle {
-    flex-wrap: wrap;
-    flex-shrink: 1;
-    width: 100%;
-  }
-
-  .hw-tier-toggle .stepper-mode-btn {
-    flex: 1 1 calc(50% - 2px);
-  }
+.hw-tier-toggle .stepper-mode-btn {
+  flex-shrink: 0;
 }
 
 .hw-tier-nav-arrow {
@@ -8374,8 +8371,8 @@ main {
   align-items: center;
   gap: 0.85rem;
   flex-shrink: 0;
-  width: 6.5rem;
-  padding-left: clamp(0.5rem, 1.5vw, 1.25rem);
+  width: 4rem;
+  padding-left: clamp(0.35rem, 1vw, 0.75rem);
   position: sticky;
   top: 5.5rem;
   padding-top: 1.5rem;
@@ -8396,20 +8393,16 @@ main {
   height: 3rem;
   border-radius: 22%;
   overflow: hidden;
+  opacity: 1;
   animation: platform-icon-float 3.2s ease-in-out infinite;
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  transition: transform 0.15s ease;
 }
 
 .platform-rail__icon:nth-child(2) .platform-rail__icon-shape {
   animation-delay: -1.6s;
 }
 
-.platform-rail__icon:not(.is-active) .platform-rail__icon-shape {
-  opacity: 0.82;
-}
-
 .platform-rail__icon:hover .platform-rail__icon-shape {
-  opacity: 1;
   transform: scale(1.05);
 }
 
@@ -8419,7 +8412,6 @@ main {
 
 .platform-rail__icon.is-active .platform-rail__icon-shape {
   transform: scale(1.08);
-  opacity: 1;
 }
 
 @keyframes platform-icon-float {

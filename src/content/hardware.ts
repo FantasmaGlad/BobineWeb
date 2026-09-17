@@ -482,6 +482,175 @@ const samsungTabS10LiteAlt = (id: string): HardwareItem => ({
   hasFan: false,
 });
 
+const xiaomiPad8Alt = (id: string): HardwareItem => ({
+  id,
+  name: "Xiaomi Pad 8 11.2\" (8 Go RAM, 256 Go, Snapdragon 8s Gen 4)",
+  category: "uc",
+  specs: "Snapdragon 8s Gen 4 · Écran 11,2\" · 256 Go de stockage",
+  description: "Alternative Xiaomi plus véloce que la Tab S9 FE pour qui préfère éviter Samsung, même budget.",
+  imageUrl: "/images/hardware/tablet-xiaomi-pad-8.webp",
+  asin: "B0GCNWXLZ7",
+  amazonUrl: buildProductUrl("B0GCNWXLZ7"),
+  priceAmazon: 551,
+  hasFan: false,
+});
+
+const samsungTabS11UltraAlt = (id: string): HardwareItem => ({
+  id,
+  name: "Samsung Galaxy Tab S11 Ultra 14.6\" (256 Go, S Pen inclus, Wi-Fi)",
+  category: "uc",
+  specs: "Écran 14,6\" · Galaxy AI · S Pen et chargeur 25W inclus · 256 Go",
+  description: "Génération suivante de la Tab S10 Ultra actuelle : pour qui veut la toute dernière référence Samsung, au prix d'un léger surcoût.",
+  imageUrl: "/images/hardware/tablet-galaxy-s11-ultra.webp",
+  asin: "B0FJY56WPG",
+  amazonUrl: buildProductUrl("B0FJY56WPG"),
+  priceAmazon: 1249,
+  hasFan: false,
+});
+
+const lenovoIdeapadRyzen7Alt = (id: string): HardwareItem => ({
+  id,
+  name: "Lenovo IdeaPad Slim 3 16ARP10 (AMD Ryzen 7 170 / 16 Go RAM / 512 Go SSD)",
+  category: "uc",
+  specs: "AMD Ryzen 7 170 · Écran 16\" WUXGA · AMD Radeon 680M",
+  description: "Alternative Lenovo à écran 16 pouces, AMD (bien supporté sous Linux comme sous Windows), pour qui préfère éviter la puce Intel Core Ultra de l'unité principale.",
+  imageUrl: "/images/hardware/laptop-lenovo-ideapad-slim3-ryzen7.webp",
+  asin: "B0GX1VXNVW",
+  amazonUrl: buildProductUrl("B0GX1VXNVW"),
+  priceAmazon: 899.99,
+  hasFan: true,
+});
+
+const asusZenbookS14Alt = (id: string): HardwareItem => ({
+  id,
+  name: "ASUS Zenbook S 14 OLED (Intel Core Ultra 7 / 32 Go RAM / 1 To SSD)",
+  category: "uc",
+  specs: "Intel Core Ultra 7 · Écran OLED 14\" 3K 120Hz · 32 Go RAM",
+  description: "Alternative ultrabook OLED avec le même budget mémoire que l'unité principale, pour qui préfère l'écran OLED ASUS au châssis fibre de carbone Lenovo.",
+  imageUrl: "/images/hardware/laptop-asus-zenbook-s14.webp",
+  asin: "B0DD4FCD4H",
+  amazonUrl: buildProductUrl("B0DD4FCD4H"),
+  priceAmazon: 1799.99,
+  hasFan: true,
+});
+
+const macMiniM4Alt = (id: string): HardwareItem => ({
+  id,
+  name: "Apple Mac Mini M4 16 Go / 256 Go (Reconditionné Amazon Renewed)",
+  category: "uc",
+  specs: "Puce Apple M4 · 16 Go de mémoire unifiée · 256 Go SSD · Reconditionné",
+  description: "Génération précédente du Mac Mini, reconditionnée (Amazon Renewed, retours 30 jours) : une entrée Apple Silicon moins chère que le M6 neuf.",
+  imageUrl: "/images/hardware/mac-mini-m4.webp",
+  asin: "B0DSV17HR4",
+  amazonUrl: buildProductUrl("B0DSV17HR4"),
+  priceAmazon: 998.95,
+  hasFan: true,
+});
+
+const macMiniM4ProAlt = (id: string): HardwareItem => ({
+  id,
+  name: "Apple Mac Mini M4 Pro 24 Go / 512 Go (Occasion Très Bon État)",
+  category: "uc",
+  specs: "Puce Apple M4 Pro · 24 Go de mémoire unifiée · 512 Go SSD · Occasion vérifiée",
+  description: "Puce Pro de la génération précédente, vendue et expédiée par Amazon Seconde Main (état vérifié) : plus de puissance que le M6 de base pour un budget proche.",
+  imageUrl: "/images/hardware/mac-mini-m4-pro.webp",
+  asin: "B0DLBWRZS5",
+  amazonUrl: buildProductUrl("B0DLBWRZS5"),
+  priceAmazon: 1586.27,
+  hasFan: true,
+});
+
+const imac24M4Alt = (id: string): HardwareItem => ({
+  id,
+  name: "Apple iMac 24\" M4 16 Go / 256 Go",
+  category: "uc",
+  specs: "Puce Apple M4 · Écran Retina 24\" intégré · 16 Go de mémoire unifiée",
+  description: "Même budget que le Mac Mini M5 Pro, mais tout-en-un avec écran intégré : une régie qui n'a besoin d'aucun moniteur séparé.",
+  imageUrl: "/images/hardware/imac-24-m4.webp",
+  asin: "B0DL6JGFNP",
+  amazonUrl: buildProductUrl("B0DL6JGFNP"),
+  priceAmazon: 1999,
+  hasFan: true,
+});
+
+const macStudioM5UltraAlt = (id: string): HardwareItem => ({
+  id,
+  name: "Apple Mac Studio M5 Ultra 96 Go / 1 To",
+  category: "uc",
+  specs: "Puce Apple M5 Ultra · CPU 30 cœurs · GPU 64 cœurs · 96 Go de mémoire unifiée",
+  description: "Pour les studios qui veulent aller au-delà du M5 Max : la puce Ultra, au prix d'un investissement nettement plus important.",
+  imageUrl: "/images/hardware/mac-studio-m5-ultra.webp",
+  asin: "B0HGRN2PV2",
+  amazonUrl: buildProductUrl("B0HGRN2PV2"),
+  priceAmazon: 6599,
+  hasFan: true,
+});
+
+const macbookAirM4_15Alt = (id: string): HardwareItem => ({
+  id,
+  name: "Apple MacBook Air 15\" (Puce M4 / 16 Go RAM / 256 Go SSD)",
+  category: "uc",
+  specs: "Puce Apple M4 · Écran Liquid Retina 15,3\" · Touch ID · Sans ventilateur",
+  description: "L'ancien point d'entrée Apple Silicon, écran 15 pouces plus grand que le MacBook Neo : pour qui préfère macOS \"classique\" plutôt que la puce A18 Pro.",
+  imageUrl: "/images/hardware/laptop-macbook-air-m4-15.webp",
+  asin: "B0DZDCKSD2",
+  amazonUrl: buildProductUrl("B0DZDCKSD2"),
+  priceAmazon: 1269,
+  hasFan: false,
+});
+
+const macbookAirM2Alt = (id: string): HardwareItem => ({
+  id,
+  name: "Apple MacBook Air M2 13\" 8 Go / 256 Go (Reconditionné)",
+  category: "uc",
+  specs: "Puce Apple M2 · Écran 13\" · 8 Go RAM · Reconditionné",
+  description: "MacBook Air reconditionné d'une génération antérieure au M4 : moins cher pour un usage régie qui ne sature jamais la puce.",
+  imageUrl: "/images/hardware/laptop-macbook-air-m2-13-refurb.webp",
+  asin: "B0CLHJRZKQ",
+  amazonUrl: buildProductUrl("B0CLHJRZKQ"),
+  priceAmazon: 1184.82,
+  hasFan: false,
+});
+
+const macbookAirM5_15Alt = (id: string): HardwareItem => ({
+  id,
+  name: "Apple MacBook Air 15\" M5 16 Go / 1 To",
+  category: "uc",
+  specs: "Puce Apple M5 · Écran Liquid Retina 15,3\" · 16 Go RAM · Sans ventilateur",
+  description: "Même puce M5 que l'unité principale, écran 15 pouces au lieu de 13 : pour qui préfère plus de confort visuel en régie.",
+  imageUrl: "/images/hardware/laptop-macbook-air-m5-15.webp",
+  asin: "B0GR1SMZ64",
+  amazonUrl: buildProductUrl("B0GR1SMZ64"),
+  priceAmazon: 1879,
+  hasFan: false,
+});
+
+const macbookProM1ProAlt = (id: string): HardwareItem => ({
+  id,
+  name: "Apple MacBook Pro 14\" M1 Pro 16 Go / 1 To (Reconditionné)",
+  category: "uc",
+  specs: "Puce Apple M1 Pro · Écran Liquid Retina XDR 14\" · 16 Go RAM · Reconditionné",
+  description: "Génération M1 Pro reconditionnée : écran XDR et châssis identiques, pour un budget inférieur au M5 neuf.",
+  imageUrl: "/images/hardware/laptop-macbook-pro-m1pro-14-refurb.webp",
+  asin: "B09JRSHT66",
+  amazonUrl: buildProductUrl("B09JRSHT66"),
+  priceAmazon: 2634,
+  hasFan: true,
+});
+
+const macbookProM5Pro2TBAlt = (id: string): HardwareItem => ({
+  id,
+  name: "Apple MacBook Pro 14\" M5 Pro 24 Go / 2 To",
+  category: "uc",
+  specs: "Puce Apple M5 Pro · Écran Liquid Retina XDR 14,2\" · 2 To SSD",
+  description: "Même budget que le MacBook Pro 16 pouces Premium, mais châssis 14 pouces plus compact avec deux fois plus de stockage.",
+  imageUrl: "/images/hardware/laptop-macbook-pro-m5pro-14-2tb.webp",
+  asin: "B0GR1BTFXZ",
+  amazonUrl: buildProductUrl("B0GR1BTFXZ"),
+  priceAmazon: 3099,
+  hasFan: true,
+});
+
 const hubEthernetAcer = (id: string): HardwareItem => ({
   id,
   name: "Hub USB-C 6-en-1 avec Ethernet RJ45 1 Gbps + HDMI 4K60 + PD 100W",
@@ -820,6 +989,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             headlineEn: "ASUS Vivobook Core Ultra 7 — Power and a big screen",
             summaryFr: "Seize cœurs et un écran 16 pouces pour le montage et la régie multitâche, associé au dock Thunderbolt 4.",
             summaryEn: "Sixteen cores and a 16-inch screen for editing and multitasking, paired with the Thunderbolt 4 dock.",
+            alternativeUnits: [lenovoIdeapadRyzen7Alt("alt-laptop-linux-pro")],
           },
           premium: {
             item: {
@@ -838,6 +1008,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             headlineEn: "Lenovo ThinkPad X1 Carbon — The Linux community favorite",
             summaryFr: "Le portable le plus documenté et supporté sous Linux, complété par le dock Thunderbolt 4 et un réseau filaire redondant.",
             summaryEn: "The most documented and supported laptop under Linux, completed with the Thunderbolt 4 dock and redundant wired network.",
+            alternativeUnits: [asusZenbookS14Alt("alt-laptop-linux-premium")],
           },
         }),
       },
@@ -1053,6 +1224,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             headlineEn: "HP 15 Ryzen 7 — Multitasking power",
             summaryFr: "Un portable Windows 11 puissant à écran IPS, complété par le dock Thunderbolt 4.",
             summaryEn: "A powerful Windows 11 laptop with an IPS display, completed with the Thunderbolt 4 dock.",
+            alternativeUnits: [lenovoIdeapadRyzen7Alt("alt-laptop-windows-pro")],
           },
           premium: {
             item: {
@@ -1071,6 +1243,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             headlineEn: "Dell XPS 13 — The benchmark Windows ultrabook",
             summaryFr: "32 Go de RAM et Thunderbolt 4 natif, complété par le dock et un réseau filaire redondant.",
             summaryEn: "32 GB RAM and native Thunderbolt 4, completed with the dock and redundant wired network.",
+            alternativeUnits: [asusZenbookS14Alt("alt-laptop-windows-premium")],
           },
         }),
       },
@@ -1102,6 +1275,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             summaryEn: "Apple does not offer a separate budget line: the base M6 Mac Mini IS today's Apple Silicon entry point. Minimal starter kit.",
             powerWatts: "4W - 12W",
             resolution: "4K 60fps natif",
+            alternativeUnits: [macMiniM4Alt("alt-macos-minipc-essentiel")],
             items: [
               macMiniM6("essentiel"),
               cableHdmi21("macos-essentiel"),
@@ -1123,6 +1297,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             summaryEn: "The same M6 chassis with a higher memory and storage configuration, completed with wired networking and a gyroscopic remote for a fully autonomous desk.",
             powerWatts: "4W - 12W",
             resolution: "4K 60fps natif",
+            alternativeUnits: [macMiniM4ProAlt("alt-macos-minipc-recommande")],
             items: [
               macMiniM6Plus("recommande"),
               cableHdmi21("macos-recommande"),
@@ -1142,6 +1317,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             summaryEn: "The higher tier of the current Mac Mini range. Apple-announced availability on September 22, 2026: orderable now, ships on that date.",
             powerWatts: "10W - 25W",
             resolution: "4K/6K 60fps natif",
+            alternativeUnits: [imac24M4Alt("alt-macos-minipc-pro")],
             items: [
               {
                 id: "mac-mini-m5-pro",
@@ -1174,6 +1350,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             summaryEn: "Benchmark audiovisual workstation: massive Apple Silicon power driving several simultaneous 4K/8K displays in near silence.",
             powerWatts: "15W - 55W",
             resolution: "Multi-écrans 4K/6K/8K simultanés",
+            alternativeUnits: [macStudioM5UltraAlt("alt-macos-minipc-premium")],
             items: [
               {
                 id: "mac-studio-m5max",
@@ -1207,20 +1384,21 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
           essentiel: {
             item: {
               id: "laptop-macos-essentiel",
-              name: "Apple MacBook Air 15\" (Puce M4 / 16 Go RAM / 256 Go SSD)",
+              name: "Apple MacBook Neo 13\" (Puce A18 Pro / 8 Go RAM / 512 Go SSD)",
               category: "uc",
-              specs: "Puce Apple M4 · Écran Liquid Retina 15,3\" · Touch ID · Sans ventilateur",
-              description: "Le MacBook Air le plus abordable de la gamme Apple Silicon actuelle (génération M4, une génération sous le M5) : silencieux, autonome, largement suffisant pour la régie Bobine.",
-              imageUrl: "/images/hardware/laptop-macbook-air-m4-15.webp",
-              asin: "B0DZDCKSD2",
-              amazonUrl: buildProductUrl("B0DZDCKSD2"),
-              priceAmazon: 1269,
+              specs: "Puce Apple A18 Pro · Écran Liquid Retina 13\" · Touch ID · Sans ventilateur",
+              description: "Le tout nouveau point d'entrée Mac d'Apple, moins cher qu'un MacBook Air : largement suffisant pour piloter la régie Bobine sans jamais saturer la puce.",
+              imageUrl: "/images/hardware/laptop-macbook-neo-13.webp",
+              asin: "B0GR6KJQ6P",
+              amazonUrl: buildProductUrl("B0GR6KJQ6P"),
+              priceAmazon: 899,
               hasFan: false,
             },
-            headlineFr: "MacBook Air 15\" (Puce M4) — L'entrée Apple Silicon",
-            headlineEn: "MacBook Air 15\" (M4 chip) — The Apple Silicon entry point",
-            summaryFr: "Apple ne vend pas de MacBook réellement économique : le M4 Air est le point d'entrée actuel le plus raisonnable, complété par le hub minimal.",
-            summaryEn: "Apple doesn't sell a truly budget MacBook: the M4 Air is today's most reasonable entry point, completed with the minimal hub.",
+            headlineFr: "MacBook Neo 13\" (Puce A18 Pro) — La meilleure affaire Apple actuelle",
+            headlineEn: "MacBook Neo 13\" (A18 Pro chip) — Today's best Apple deal",
+            summaryFr: "Apple vend désormais un vrai MacBook économique : le Neo, moins cher que n'importe quel MacBook Air, complété par le hub minimal.",
+            summaryEn: "Apple now sells a genuinely affordable MacBook: the Neo, cheaper than any MacBook Air, completed with the minimal hub.",
+            alternativeUnits: [macbookAirM4_15Alt("alt-laptop-macos-essentiel")],
           },
           recommande: {
             item: {
@@ -1239,6 +1417,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             headlineEn: "MacBook Air 13\" (M5 chip) — The full studio combo",
             summaryFr: "Puce M5 récente et 1 To de stockage, complété par le support vertical et le réseau filaire.",
             summaryEn: "Recent M5 chip and 1 TB storage, completed with the vertical stand and wired network.",
+            alternativeUnits: [macbookAirM5_15Alt("alt-laptop-macos-recommande")],
           },
           pro: {
             item: {
@@ -1257,6 +1436,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             headlineEn: "MacBook Pro 14\" (M5 chip) — XDR display & power",
             summaryFr: "Ventilateur actif mais quasi silencieux : puce M5 complète et écran XDR, complété par le dock Thunderbolt.",
             summaryEn: "Active but near-silent fan: full M5 chip and XDR display, completed with the Thunderbolt dock.",
+            alternativeUnits: [macbookProM1ProAlt("alt-laptop-macos-pro")],
           },
           premium: {
             item: {
@@ -1275,6 +1455,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             headlineEn: "MacBook Pro 16\" (M5 Pro chip) — The Apple summit",
             summaryFr: "18 cœurs CPU et écran géant XDR, complété par le dock Thunderbolt et un réseau filaire redondant.",
             summaryEn: "18 CPU cores and a giant XDR display, completed with the Thunderbolt dock and redundant wired network.",
+            alternativeUnits: [macbookProM5Pro2TBAlt("alt-laptop-macos-premium")],
           },
         }),
       },
@@ -1401,6 +1582,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             summaryEn: "IP68 water-resistant tablet with included S Pen, multiport hub with wired RJ45 Ethernet to eliminate Wi-Fi drops.",
             powerWatts: "8W - 20W",
             resolution: "Écran 10.9\" + HDMI 4K",
+            alternativeUnits: [xiaomiPad8Alt("alt-android-tablet-pro")],
             items: [
               {
                 id: "samsung-tab-s9-fe",
@@ -1443,6 +1625,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             summaryEn: "The most spectacular touch cockpit: giant 14.6\" display, Galaxy AI, and a heavy-duty wall mount for large tablets.",
             powerWatts: "10W - 25W",
             resolution: "Écran Géant 14.6\" + HDMI 4K",
+            alternativeUnits: [samsungTabS11UltraAlt("alt-android-tablet-premium")],
             items: [
               {
                 id: "tablet-galaxy-tab-s10-ultra",

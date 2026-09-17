@@ -2,7 +2,7 @@ SUIVI DES OFFRES AMAZON — BOBINE / MATERIEL
 ============================================================
 Genere automatiquement depuis src/content/hardware.ts
 Date de derniere verification des prix/liens (PRICE_CHECKED_AT) : 2026-09-17
-Nombre total de produits uniques references : 58
+Nombre total de produits uniques references : 70
 
 MODE D'EMPLOI POUR UNE MISE A JOUR (à la main) :
 1. Ouvrir chaque lien Amazon ci-dessous et relever le prix affiche a l'instant T.
@@ -28,6 +28,11 @@ MODE D'EMPLOI POUR UNE MISE A JOUR (à la main) :
    Mini PC (Essentiel/Recommande = cable HDMI 2.1 court + kit filaire
    budget ; Pro = cable Cat7 + kit separe G-Lab/Logitech ; Premium = cable
    HDMI fibre optique 6m + kit sans fil Logitech MK540).
+10. Chaque gamme (Mini PC / Laptop / Tablette, toutes plateformes confondues)
+    doit toujours proposer au moins 2 produits d'unite centrale (l'unite
+    principale + au moins une alternativeUnits) : ne jamais laisser une
+    gamme avec un seul choix, y compris sur macOS (alternative = un autre
+    modele/config Apple reel, pas forcement une autre marque).
 
 ------------------------------------------------------------
 UNITÉS CENTRALES & TABLETTES (dont marques alternatives)
@@ -37,6 +42,11 @@ UNITÉS CENTRALES & TABLETTES (dont marques alternatives)
   Prix constate (2026-09-17) : 403.75 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0B8QYXY9H?tag=fantasmaglad-21
   Utilise dans                        : Windows / PC Portable / Essentiel
+
+[B0DL6JGFNP] Apple iMac 24" M4 16 Go / 256 Go
+  Prix constate (2026-09-17) : 1999.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0DL6JGFNP?tag=fantasmaglad-21
+  Utilise dans                        : macOS / Mini PC / Pro (alternative)
 
 [B0HGGDQ29W] Apple Mac Mini (Puce Apple M5 Pro)
   Prix constate (2026-09-17) : 1999.00 EUR
@@ -53,10 +63,25 @@ UNITÉS CENTRALES & TABLETTES (dont marques alternatives)
   Lien direct                        : https://www.amazon.fr/dp/B0HGGBZNTT?tag=fantasmaglad-21
   Utilise dans                        : macOS / Mini PC / Recommandé
 
+[B0DSV17HR4] Apple Mac Mini M4 16 Go / 256 Go (Reconditionné Amazon Renewed)
+  Prix constate (2026-09-17) : 998.95 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0DSV17HR4?tag=fantasmaglad-21
+  Utilise dans                        : macOS / Mini PC / Essentiel (alternative)
+
+[B0DLBWRZS5] Apple Mac Mini M4 Pro 24 Go / 512 Go (Occasion Très Bon État)
+  Prix constate (2026-09-17) : 1586.27 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0DLBWRZS5?tag=fantasmaglad-21
+  Utilise dans                        : macOS / Mini PC / Recommandé (alternative)
+
 [B0HGS3C159] Apple Mac Studio (Puce M5 Max)
   Prix constate (2026-09-17) : 2999.00 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0HGS3C159?tag=fantasmaglad-21
   Utilise dans                        : macOS / Mini PC / Premium
+
+[B0HGRN2PV2] Apple Mac Studio M5 Ultra 96 Go / 1 To
+  Prix constate (2026-09-17) : 6599.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0HGRN2PV2?tag=fantasmaglad-21
+  Utilise dans                        : macOS / Mini PC / Premium (alternative)
 
 [B0GR1SJYGS] Apple MacBook Air 13" (Puce M5 / 24 Go RAM / 1 To SSD)
   Prix constate (2026-09-17) : 1799.00 EUR
@@ -66,12 +91,32 @@ UNITÉS CENTRALES & TABLETTES (dont marques alternatives)
 [B0DZDCKSD2] Apple MacBook Air 15" (Puce M4 / 16 Go RAM / 256 Go SSD)
   Prix constate (2026-09-17) : 1269.00 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0DZDCKSD2?tag=fantasmaglad-21
+  Utilise dans                        : macOS / PC Portable / Essentiel (alternative)
+
+[B0GR1SMZ64] Apple MacBook Air 15" M5 16 Go / 1 To
+  Prix constate (2026-09-17) : 1879.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0GR1SMZ64?tag=fantasmaglad-21
+  Utilise dans                        : macOS / PC Portable / Recommandé (alternative)
+
+[B0GR6KJQ6P] Apple MacBook Neo 13" (Puce A18 Pro / 8 Go RAM / 512 Go SSD)
+  Prix constate (2026-09-17) : 899.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0GR6KJQ6P?tag=fantasmaglad-21
   Utilise dans                        : macOS / PC Portable / Essentiel
 
 [B0GR1RL3W6] Apple MacBook Pro 14" (Puce M5 / 32 Go RAM / 1 To SSD)
   Prix constate (2026-09-17) : 2439.00 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0GR1RL3W6?tag=fantasmaglad-21
   Utilise dans                        : macOS / PC Portable / Pro
+
+[B09JRSHT66] Apple MacBook Pro 14" M1 Pro 16 Go / 1 To (Reconditionné)
+  Prix constate (2026-09-17) : 2634.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B09JRSHT66?tag=fantasmaglad-21
+  Utilise dans                        : macOS / PC Portable / Pro (alternative)
+
+[B0GR1BTFXZ] Apple MacBook Pro 14" M5 Pro 24 Go / 2 To
+  Prix constate (2026-09-17) : 3099.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0GR1BTFXZ?tag=fantasmaglad-21
+  Utilise dans                        : macOS / PC Portable / Premium (alternative)
 
 [B0GR1NMSKK] Apple MacBook Pro 16" (Puce M5 Pro / 24 Go RAM / 1 To SSD)
   Prix constate (2026-09-17) : 3099.00 EUR
@@ -82,6 +127,11 @@ UNITÉS CENTRALES & TABLETTES (dont marques alternatives)
   Prix constate (2026-09-17) : 1200.00 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0H6GZKCSW?tag=fantasmaglad-21
   Utilise dans                        : Linux / PC Portable / Pro
+
+[B0DD4FCD4H] ASUS Zenbook S 14 OLED (Intel Core Ultra 7 / 32 Go RAM / 1 To SSD)
+  Prix constate (2026-09-17) : 1799.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0DD4FCD4H?tag=fantasmaglad-21
+  Utilise dans                        : Linux / PC Portable / Premium (alternative) ; Windows / PC Portable / Premium (alternative)
 
 [B0DKT15LL2] BMAX B3Pro Mini PC (Intel Celeron N4500 / 8 Go RAM / 256 Go SSD / Windows 11 Pro)
   Prix constate (2026-09-17) : 209.00 EUR
@@ -132,6 +182,11 @@ UNITÉS CENTRALES & TABLETTES (dont marques alternatives)
   Prix constate (2026-09-17) : 249.99 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0FBX2LBTR?tag=fantasmaglad-21
   Utilise dans                        : Android / Tablette / Essentiel (alternative)
+
+[B0GX1VXNVW] Lenovo IdeaPad Slim 3 16ARP10 (AMD Ryzen 7 170 / 16 Go RAM / 512 Go SSD)
+  Prix constate (2026-09-17) : 899.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0GX1VXNVW?tag=fantasmaglad-21
+  Utilise dans                        : Linux / PC Portable / Pro (alternative) ; Windows / PC Portable / Pro (alternative)
 
 [B0F142ZQLN] Lenovo ThinkPad X1 Carbon Gen 12 (Intel Core Ultra 5 125U / 16 Go RAM / 512 Go SSD)
   Prix constate (2026-09-17) : 1922.29 EUR
@@ -188,6 +243,11 @@ UNITÉS CENTRALES & TABLETTES (dont marques alternatives)
   Lien direct                        : https://www.amazon.fr/dp/B0DDTQYPJS?tag=fantasmaglad-21
   Utilise dans                        : Android / Tablette / Premium
 
+[B0FJY56WPG] Samsung Galaxy Tab S11 Ultra 14.6" (256 Go, S Pen inclus, Wi-Fi)
+  Prix constate (2026-09-17) : 1249.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0FJY56WPG?tag=fantasmaglad-21
+  Utilise dans                        : Android / Tablette / Premium (alternative)
+
 [B0CHZ4BC72] Samsung Galaxy Tab S9 FE 10,9" (Étanche IP68 / S Pen inclus)
   Prix constate (2026-09-17) : 599.99 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0CHZ4BC72?tag=fantasmaglad-21
@@ -197,6 +257,11 @@ UNITÉS CENTRALES & TABLETTES (dont marques alternatives)
   Prix constate (2026-09-17) : 409.99 EUR
   Lien direct                        : https://www.amazon.fr/dp/B0G5LMP2YT?tag=fantasmaglad-21
   Utilise dans                        : Android / Tablette / Recommandé
+
+[B0GCNWXLZ7] Xiaomi Pad 8 11.2" (8 Go RAM, 256 Go, Snapdragon 8s Gen 4)
+  Prix constate (2026-09-17) : 551.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0GCNWXLZ7?tag=fantasmaglad-21
+  Utilise dans                        : Android / Tablette / Pro (alternative)
 
 
 ------------------------------------------------------------

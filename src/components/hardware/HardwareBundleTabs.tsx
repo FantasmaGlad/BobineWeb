@@ -180,14 +180,14 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
             display: "flex",
             justifyContent: "space-between",
             alignItems: "flex-start",
-            flexWrap: "wrap",
+            flexWrap: "nowrap",
             gap: "1rem",
             borderBottom: "1px solid var(--border-subtle)",
             paddingBottom: "1.25rem",
             marginBottom: "1.25rem",
           }}
         >
-          <div>
+          <div style={{ minWidth: 0, flex: "1 1 auto" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.35rem" }}>
               <h2
                 style={{

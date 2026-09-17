@@ -26,7 +26,7 @@ export const AMAZON_STORE_ID = "fantasmaglad-21";
 // Date de la dernière vérification manuelle de tous les ASIN, prix et images de ce fichier.
 // Voir la note ci-dessus : sans accès PA-API, c'est la seule donnée de fraîcheur honnête
 // que l'on puisse afficher. Mettre à jour cette date à chaque nouvelle vérification.
-export const PRICE_CHECKED_AT = "2026-09-13";
+export const PRICE_CHECKED_AT = "2026-09-17";
 
 export type OsKey = "linux" | "windows" | "macos" | "android";
 export type TierKey = "essentiel" | "recommande" | "pro" | "premium";
@@ -35,7 +35,7 @@ export type FormFactorKey = "minipc" | "laptop" | "tablet";
 export interface HardwareItem {
   id: string;
   name: string;
-  category: "uc" | "cable-video" | "network" | "control" | "power-hub" | "mount";
+  category: "uc" | "cable-video" | "network" | "control" | "power-hub" | "mount" | "storage";
   specs: string;
   description: string;
   imageUrl: string;
@@ -59,6 +59,10 @@ export interface HardwareTier {
   powerWatts: string;
   resolution: string;
   items: HardwareItem[];
+  // Marques alternatives pour l'unite centrale de cette gamme (ASIN reels verifies,
+  // memes exigences que items) : laisse le choix a l'acheteur sans dupliquer les
+  // accessoires, qui restent penses autour de l'unite principale ci-dessus.
+  alternativeUnits?: HardwareItem[];
 }
 
 export interface HardwareFormFactor {
@@ -239,6 +243,196 @@ const logitechMouse = (id: string): HardwareItem => ({
   hasFan: false,
 });
 
+// Stockage de sauvegarde (export "1 clic" de la programmation, cf. fonctionnalite du
+// site) : une echelle de 4 gammes reutilisee partout, du plus modeste (mais jamais en
+// dessous d'USB 3.0) au disque SSD externe le plus genereux.
+const usbFlash64GB = (id: string): HardwareItem => ({
+  id,
+  name: "Kingston DataTraveler Exodia 64 Go — Clé USB 3.2 Gen 1",
+  category: "storage",
+  specs: "USB 3.2 Gen 1 · 64 Go · Capuchon amovible",
+  description: "Stockage de sauvegarde minimal pour l'export \"1 clic\" de la programmation : largement au-dessus du seuil USB 3.0.",
+  imageUrl: "/images/hardware/usb-kingston-exodia-64gb.webp",
+  asin: "B08JD5PV9F",
+  amazonUrl: buildProductUrl("B08JD5PV9F"),
+  priceAmazon: 10.49,
+  hasFan: false,
+});
+
+const usbFlash128GB = (id: string): HardwareItem => ({
+  id,
+  name: "SanDisk Ultra Dual Drive Go 128 Go — Clé USB-C/USB-A 3.2",
+  category: "storage",
+  specs: "USB 3.2 · 128 Go · Double connecteur USB-C et USB-A · Jusqu'à 400 Mo/s",
+  description: "Double connecteur pratique pour sauvegarder la programmation depuis n'importe quel appareil de la régie, mini PC comme tablette.",
+  imageUrl: "/images/hardware/usb-sandisk-dual-128gb.webp",
+  asin: "B07YYJRXQR",
+  amazonUrl: buildProductUrl("B07YYJRXQR"),
+  priceAmazon: 24.0,
+  hasFan: false,
+});
+
+const ssdExternal512GB = (id: string): HardwareItem => ({
+  id,
+  name: "Netac US5 512 Go — SSD Externe USB 3.2 Gen 2",
+  category: "storage",
+  specs: "USB 3.2 Gen 2 · 512 Go · Jusqu'à 550 Mo/s · Format carte de crédit",
+  description: "De quoi archiver plusieurs mois de sauvegardes complètes et une bibliothèque vidéo locale d'appoint, en restant très compact.",
+  imageUrl: "/images/hardware/ssd-netac-us5-512gb.webp",
+  asin: "B0C1SCJC9F",
+  amazonUrl: buildProductUrl("B0C1SCJC9F"),
+  priceAmazon: 65.99,
+  hasFan: false,
+});
+
+const ssdExternal1TB = (id: string): HardwareItem => ({
+  id,
+  name: "Lexar ES3 1 To — SSD Externe USB 3.2 Gen 2",
+  category: "storage",
+  specs: "USB 3.2 Gen 2 · 1 To · Jusqu'à 1050 Mo/s en lecture",
+  description: "Marge de stockage confortable pour dupliquer l'intégralité de la bibliothèque vidéo locale en plus des sauvegardes de programmation.",
+  imageUrl: "/images/hardware/ssd-lexar-es3-1tb.webp",
+  asin: "B0F37WWYY4",
+  amazonUrl: buildProductUrl("B0F37WWYY4"),
+  priceAmazon: 159.99,
+  hasFan: false,
+});
+
+// =============================================================================
+// MARQUES ALTERNATIVES POUR L'UNITE CENTRALE (choix entre plusieurs fabricants
+// par gamme, ASIN reels verifies individuellement comme le reste du catalogue)
+// =============================================================================
+
+const nipogiE1Alt = (id: string): HardwareItem => ({
+  id,
+  name: "NiPoGi E1 Mini PC (AMD Ryzen 3150U / 8 Go RAM / 256 Go SSD)",
+  category: "uc",
+  specs: "2 cœurs 4 threads jusqu'à 3,3 GHz · HDMI + DP 1.4 · RJ45 1000M · 2x USB 3.2 + 2x USB 2.0",
+  description: "Alternative AMD très compacte et très bien notée, format ultra-réduit (270 g).",
+  imageUrl: "/images/hardware/nipogi-e1-ryzen-3150u.webp",
+  asin: "B0C1ZPND7K",
+  amazonUrl: buildProductUrl("B0C1ZPND7K"),
+  priceAmazon: 219,
+  hasFan: true,
+});
+
+const meleOverclock4C = (id: string): HardwareItem => ({
+  id,
+  name: "MeLE Overclock 4C Fanless Mini PC (Intel N100 / 16 Go RAM / 512 Go SSD)",
+  category: "uc",
+  specs: "Intel N100 · Châssis fanless · 16 Go RAM · 512 Go SSD",
+  description: "Alternative réellement fanless pour qui priorise le silence total avant tout, à budget comparable.",
+  imageUrl: "/images/hardware/mele-overclock-4c.webp",
+  asin: "B0D1XFJBJX",
+  amazonUrl: buildProductUrl("B0D1XFJBJX"),
+  priceAmazon: 249,
+  hasFan: false,
+});
+
+const minisforumUM350Alt = (id: string): HardwareItem => ({
+  id,
+  name: "Minisforum UM350 Mini PC (AMD Ryzen 5 3550H / 16 Go RAM / 512 Go SSD)",
+  category: "uc",
+  specs: "AMD Ryzen 5 3550H · Radeon Vega · DisplayPort · 16 Go RAM",
+  description: "Alternative AMD d'un second fabricant reconnu, même segment de prix.",
+  imageUrl: "/images/hardware/minisforum-um350.webp",
+  asin: "B09NPZ4L2Q",
+  amazonUrl: buildProductUrl("B09NPZ4L2Q"),
+  priceAmazon: 269,
+  hasFan: true,
+});
+
+const nipogiE3BAlt = (id: string): HardwareItem => ({
+  id,
+  name: "NiPoGi E3B Mini PC (AMD Ryzen 5 7430U / 32 Go RAM / 1 To SSD)",
+  category: "uc",
+  specs: "6 cœurs jusqu'à 4,3 GHz · HDMI + DP 1.4 + USB-C · Double LAN 2,5G",
+  description: "Alternative AMD moins chère à la même gamme de mémoire/stockage.",
+  imageUrl: "/images/hardware/nipogi-e3b-ryzen5.webp",
+  asin: "B0FS1D82MJ",
+  amazonUrl: buildProductUrl("B0FS1D82MJ"),
+  priceAmazon: 519,
+  hasFan: true,
+});
+
+const nipogiH1Alt = (id: string): HardwareItem => ({
+  id,
+  name: "NiPoGi H1 Mini PC (AMD Ryzen 7 7735HS / 32 Go RAM / 1 To SSD)",
+  category: "uc",
+  specs: "8 cœurs 16 threads jusqu'à 4,75 GHz · Radeon 680M · HDMI + DP 1.4 + USB-C",
+  description: "Alternative AMD plus puissante (Ryzen 7 contre Ryzen 5) pour le même usage multi-écran.",
+  imageUrl: "/images/hardware/nipogi-h1-ryzen7.webp",
+  asin: "B0H87VKND1",
+  amazonUrl: buildProductUrl("B0H87VKND1"),
+  priceAmazon: 589,
+  hasFan: true,
+});
+
+const geekomIT13MaxAlt = (id: string): HardwareItem => ({
+  id,
+  name: "GEEKOM IT13 Max Mini PC (Intel Core Ultra 9 185H / 24 Go RAM / 500 Go SSD)",
+  category: "uc",
+  specs: "Intel Core Ultra 9 185H · 24 Go LPDDR5 · 500 Go SSD",
+  description: "Alternative Intel nettement moins chère pour qui n'a pas besoin d'un chipset AMD spécifiquement.",
+  imageUrl: "/images/hardware/geekom-it13-max.webp",
+  asin: "B0DYHSFMJP",
+  amazonUrl: buildProductUrl("B0DYHSFMJP"),
+  priceAmazon: 799,
+  hasFan: true,
+});
+
+const hpN100LaptopAlt = (id: string): HardwareItem => ({
+  id,
+  name: "HP 15-fd0001sf (Intel Celeron N100 / 4 Go RAM / 128 Go UFS, Windows 11)",
+  category: "uc",
+  specs: "Intel Celeron N100 · Écran 15,6\" FHD · Microsoft 365 12 mois inclus",
+  description: "Alternative HP moins chère : attention, seulement 4 Go de RAM et 128 Go de stockage, marge limitée pour le multitâche.",
+  imageUrl: "/images/hardware/laptop-hp-n100.webp",
+  asin: "B0DY2T14P6",
+  amazonUrl: buildProductUrl("B0DY2T14P6"),
+  priceAmazon: 279,
+  hasFan: true,
+});
+
+const lenovoN5100LaptopAlt = (id: string): HardwareItem => ({
+  id,
+  name: "Lenovo 15,6\" (Intel Celeron N5100 / 16 Go RAM / 1 To SSD, Windows 11)",
+  category: "uc",
+  specs: "Intel Celeron N5100 quad-core · 16 Go DDR4 · 1 To SSD",
+  description: "Alternative Intel avec beaucoup de RAM et de stockage inclus, à budget comparable.",
+  imageUrl: "/images/hardware/laptop-lenovo-n5100.webp",
+  asin: "B0CL4X6ZND",
+  amazonUrl: buildProductUrl("B0CL4X6ZND"),
+  priceAmazon: 477,
+  hasFan: true,
+});
+
+const lenovoIdeaTabAlt = (id: string): HardwareItem => ({
+  id,
+  name: "Lenovo Idea Tab 11\" (MediaTek Dimensity 6300 / 8 Go RAM / 128 Go, Android 15)",
+  category: "uc",
+  specs: "MediaTek Dimensity 6300 8 cœurs · Écran 2.5K 90Hz · 128 Go UFS",
+  description: "Alternative Lenovo avec écran haute résolution 2.5K, pour qui préfère une autre marque que Samsung.",
+  imageUrl: "/images/hardware/tablet-lenovo-ideatab.webp",
+  asin: "B0FBX2LBTR",
+  amazonUrl: buildProductUrl("B0FBX2LBTR"),
+  priceAmazon: 249.99,
+  hasFan: false,
+});
+
+const samsungTabS10LiteAlt = (id: string): HardwareItem => ({
+  id,
+  name: "Samsung Galaxy Tab S10 Lite 10.9\" (128 Go, S Pen inclus, Wi-Fi)",
+  category: "uc",
+  specs: "Écran LCD 10,9\" 90Hz · S Pen inclus · 128 Go de stockage",
+  description: "Alternative Samsung plus récente que le Xiaomi Pad 7, avec S Pen inclus pour les annotations du coach.",
+  imageUrl: "/images/hardware/tablet-galaxy-s10-lite.webp",
+  asin: "B0FJY8H8TX",
+  amazonUrl: buildProductUrl("B0FJY8H8TX"),
+  priceAmazon: 399,
+  hasFan: false,
+});
+
 const hubEthernetAcer = (id: string): HardwareItem => ({
   id,
   name: "Hub USB-C 6-en-1 avec Ethernet RJ45 1 Gbps + HDMI 4K60 + PD 100W",
@@ -263,6 +457,7 @@ interface LaptopTierConfig {
   badgeFr?: string;
   badgeEn?: string;
   isPopular?: boolean;
+  alternativeUnits?: HardwareItem[];
 }
 
 function buildLaptopTiers(config: Record<TierKey, LaptopTierConfig>): Record<TierKey, HardwareTier> {
@@ -280,11 +475,13 @@ function buildLaptopTiers(config: Record<TierKey, LaptopTierConfig>): Record<Tie
       summaryEn: config.essentiel.summaryEn,
       powerWatts: "100W PD",
       resolution: "4K 60fps (via hub)",
+      alternativeUnits: config.essentiel.alternativeUnits,
       items: [
         config.essentiel.item,
         hubUsbcBelkin("hub-usbc-essentiel"),
         cableHdmi21("cable-hdmi21-essentiel"),
         remotePresentation("remote-presentation-essentiel"),
+        usbFlash64GB("usb-flash-64gb-essentiel"),
       ],
     },
     recommande: {
@@ -300,12 +497,14 @@ function buildLaptopTiers(config: Record<TierKey, LaptopTierConfig>): Record<Tie
       summaryEn: config.recommande.summaryEn,
       powerWatts: "100W PD",
       resolution: "4K 60fps (via hub)",
+      alternativeUnits: config.recommande.alternativeUnits,
       items: [
         config.recommande.item,
         hubUsbcBelkin("hub-usbc-recommande"),
         standVertical("stand-vertical-recommande"),
         cableCat6a("cable-cat6a-recommande"),
         remoteAirmouse("remote-airmouse-recommande"),
+        usbFlash128GB("usb-flash-128gb-recommande"),
       ],
     },
     pro: {
@@ -321,12 +520,14 @@ function buildLaptopTiers(config: Record<TierKey, LaptopTierConfig>): Record<Tie
       summaryEn: config.pro.summaryEn,
       powerWatts: "96W PD",
       resolution: "8K / Quad 4K (via dock)",
+      alternativeUnits: config.pro.alternativeUnits,
       items: [
         config.pro.item,
         dockThunderbolt4("dock-tb4-pro"),
         standVertical("stand-vertical-pro"),
         cableThunderbolt4("cable-tb4-pro"),
         logitechMouse("mouse-laptop-pro"),
+        ssdExternal512GB("ssd-512gb-laptop-pro"),
       ],
     },
     premium: {
@@ -342,6 +543,7 @@ function buildLaptopTiers(config: Record<TierKey, LaptopTierConfig>): Record<Tie
       summaryEn: config.premium.summaryEn,
       powerWatts: "96W PD",
       resolution: "8K / Quad 4K (via dock)",
+      alternativeUnits: config.premium.alternativeUnits,
       items: [
         config.premium.item,
         dockThunderbolt4("dock-tb4-premium"),
@@ -349,6 +551,7 @@ function buildLaptopTiers(config: Record<TierKey, LaptopTierConfig>): Record<Tie
         cableThunderbolt4("cable-tb4-premium"),
         hubEthernetAcer("hub-ethernet-premium"),
         logitechMouse("mouse-laptop-premium"),
+        ssdExternal1TB("ssd-1tb-laptop-premium"),
       ],
     },
   };
@@ -384,6 +587,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             summaryEn: "Refurbished corporate small-form-factor unit, very quiet at idle, ideal to start smoothly in 1080p60.",
             powerWatts: "20W - 35W",
             resolution: "1080p 60fps",
+            alternativeUnits: [nipogiE1Alt("alt-linux-minipc-essentiel")],
             items: [
               {
                 id: "hp-elitedesk-800-i5",
@@ -400,66 +604,71 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               cableDpHdmi("essentiel"),
               cableCat6a("cable-cat6a-linux-essentiel"),
               remotePresentation("remote-presentation-linux-essentiel"),
+              usbFlash64GB("usb-flash-64gb-linux-essentiel"),
             ],
           },
           recommande: {
             id: "recommande",
             labelFr: "Recommandé",
             labelEn: "Recommended",
-            badgeFr: "Choix Bobine — Vraiment Fanless",
-            badgeEn: "Bobine Pick — Actually Fanless",
+            badgeFr: "Meilleur Rapport Puissance/Prix",
+            badgeEn: "Best Performance-to-Price",
             isPopular: true,
-            headlineFr: "Mini PC Industriel N100 Fanless — Le seul vrai silence absolu",
-            headlineEn: "Fanless N100 Industrial Mini PC — True absolute silence",
-            summaryFr: "Le cœur de cible Bobine : châssis 100% passif à dissipateur ailetté, zéro ventilateur, double sortie HDMI + DisplayPort et double réseau filaire.",
-            summaryEn: "The Bobine sweet spot: 100% passive finned-aluminium chassis, zero fan, dual HDMI + DisplayPort output and dual wired LAN.",
-            powerWatts: "6W - 15W",
+            headlineFr: "BOSGAME E5 Ryzen 5 5300U — Vraie puissance AMD à petit prix",
+            headlineEn: "BOSGAME E5 Ryzen 5 5300U — Real AMD power, small price",
+            summaryFr: "Processeur AMD quad-core réel (pilotes graphiques libres AMDGPU/Mesa natifs sous Linux), 16 Go de RAM et 512 Go de SSD inclus, pour bien moins cher qu'un simple Intel N100 fanless.",
+            summaryEn: "A real AMD quad-core CPU (native open-source AMDGPU/Mesa drivers under Linux), 16 GB RAM and 512 GB SSD included, for much less than a plain fanless Intel N100.",
+            powerWatts: "15W - 25W",
             resolution: "1080p & 4K 60fps",
+            alternativeUnits: [meleOverclock4C("alt-linux-minipc-recommande-1"), minisforumUM350Alt("alt-linux-minipc-recommande-2")],
             items: [
               {
-                id: "fanless-mini-pc-n100",
-                name: "Mini PC Industriel Fanless N100 (8 Go DDR4 / 256 Go NVMe SSD)",
+                id: "bosgame-e5-ryzen5-linux",
+                name: "BOSGAME E5 Mini PC (AMD Ryzen 5 5300U / 16 Go RAM / 512 Go SSD)",
                 category: "uc",
-                specs: "Intel N100 4 cœurs · Châssis aluminium ailetté 100% passif · 2x HDMI + 1x DisplayPort · 2x LAN Gigabit",
-                description: "Dissipation entièrement passive par capot aluminium ailetté, confirmée par le châssis du fabricant : c'est la seule unité de cette page qui mérite vraiment le mot fanless.",
-                imageUrl: "/images/hardware/fanless-n100-histton.webp",
-                asin: "B0DMVYRPPP",
-                amazonUrl: buildProductUrl("B0DMVYRPPP"),
-                priceAmazon: 592,
-                hasFan: false,
+                specs: "AMD Ryzen 5 5300U 4 cœurs 8 threads · Radeon Graphics · HDMI + DisplayPort + USB-C · Double LAN 2,5 Gbps",
+                description: "Ventilateur discret piloté par la charge (pas un modèle fanless) : une vraie puce AMD quad-core, bien plus performante qu'un N100, pour environ la moitié du prix d'un mini PC industriel fanless.",
+                imageUrl: "/images/hardware/bosgame-e5-ryzen5.webp",
+                asin: "B0DC6V781B",
+                amazonUrl: buildProductUrl("B0DC6V781B"),
+                priceAmazon: 299,
+                hasFan: true,
               },
               cableDpHdmi("recommande"),
               cableCat6a("cable-cat6a-linux-recommande"),
               remoteAirmouse("remote-airmouse-linux-recommande"),
+              usbFlash128GB("usb-flash-128gb-linux-recommande"),
             ],
           },
           pro: {
             id: "pro",
             labelFr: "Pro",
             labelEn: "Pro",
-            headlineFr: "Minisforum MS-01 Workstation — Haute cadence & extensible",
-            headlineEn: "Minisforum MS-01 Workstation — High performance & expandable",
-            summaryFr: "Processeur Intel Core i9 vPro, double réseau 10 Gbps SFP+ et emplacement PCIe libre pour ajouter un GPU dédié si besoin.",
-            summaryEn: "Intel Core i9 vPro CPU, dual 10 Gbps SFP+ networking and a free PCIe slot to add a dedicated GPU later.",
-            powerWatts: "15W - 65W",
+            headlineFr: "NiPoGi H1 Ryzen 7 7735HS — AMD haute cadence, 32 Go & 1 To inclus",
+            headlineEn: "NiPoGi H1 Ryzen 7 7735HS — High-cadence AMD, 32 GB & 1 TB included",
+            summaryFr: "Huit cœurs AMD Ryzen 7 avec pilotes graphiques libres matures sous Linux, 32 Go de RAM et 1 To de SSD déjà inclus, HDMI + DisplayPort + USB-C pour le multi-écran.",
+            summaryEn: "Eight AMD Ryzen 7 cores with mature open-source graphics drivers under Linux, 32 GB RAM and 1 TB SSD already included, HDMI + DisplayPort + USB-C for multi-display.",
+            powerWatts: "15W - 45W",
             resolution: "Multi-écran 4K 60fps",
+            alternativeUnits: [nipogiE3BAlt("alt-linux-minipc-pro")],
             items: [
               {
-                id: "minisforum-ms01-i9",
-                name: "Minisforum MS-01 Mini Workstation (Intel Core i9-13900H vPro)",
+                id: "nipogi-h1-ryzen7",
+                name: "NiPoGi H1 Mini PC (AMD Ryzen 7 7735HS / 32 Go RAM / 1 To SSD)",
                 category: "uc",
-                specs: "vPro · 2x SFP+ 10 Gbps + 2x RJ45 2.5G · 2x USB4 · 1x PCIe 4.0 x16 libre · RAM/SSD à ajouter",
-                description: "Deux ventilateurs silencieux pilotés par la charge réelle (pas un modèle fanless) : châssis workstation compact taillé pour la vidéo multi-écran et l'extension future.",
-                imageUrl: "/images/hardware/minisforum-ms01.webp",
-                asin: "B0CT2DPBQT",
-                amazonUrl: buildProductUrl("B0CT2DPBQT"),
-                priceAmazon: 709,
+                specs: "8 cœurs 16 threads jusqu'à 4,75 GHz · Radeon 680M · HDMI + DP 1.4 + USB-C · LAN RJ45 Gigabit",
+                description: "Ventilateur silencieux piloté par la charge (pas un modèle fanless) : architecture AMD généreuse en cœurs et en mémoire pour la vidéo multi-écran sous Linux.",
+                imageUrl: "/images/hardware/nipogi-h1-ryzen7.webp",
+                asin: "B0H87VKND1",
+                amazonUrl: buildProductUrl("B0H87VKND1"),
+                priceAmazon: 589,
                 hasFan: true,
               },
               cableHdmi21("linux-pro"),
               cableCat7("linux-pro"),
               glabKeyboard("keyboard-linux-pro"),
               logitechMouse("mouse-linux-pro"),
+              ssdExternal512GB("ssd-512gb-linux-pro"),
             ],
           },
           premium: {
@@ -474,6 +683,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             summaryEn: "AMD Ryzen AI 9 HX 470 with vapour-chamber cooling, driving several simultaneous 4K displays without a single dropped frame.",
             powerWatts: "15W - 65W",
             resolution: "Multi-écran 4K 60fps",
+            alternativeUnits: [geekomIT13MaxAlt("alt-linux-minipc-premium")],
             items: [
               {
                 id: "ax9-max-ryzenai9",
@@ -491,6 +701,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               cableCat7("linux-premium"),
               glabKeyboard("keyboard-linux-premium"),
               logitechMouse("mouse-linux-premium"),
+              ssdExternal1TB("ssd-1tb-linux-premium"),
             ],
           },
         },
@@ -523,26 +734,26 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             headlineEn: "15.3\" Core i5 Laptop — Verified budget pick",
             summaryFr: "Un ordinateur portable neuf et abordable, accompagné du hub USB-C minimal pour l'afficher en grand.",
             summaryEn: "An affordable new laptop, paired with the minimal USB-C hub to display it on the big screen.",
+            alternativeUnits: [hpN100LaptopAlt("alt-laptop-linux-essentiel")],
           },
           recommande: {
             item: {
               id: "laptop-linux-recommande",
-              name: "MSI Modern 14 (AMD Ryzen 7 7730U / 16 Go RAM / 512 Go SSD, sans système d'exploitation)",
+              name: "Lenovo 15,6\" (AMD Ryzen 5 7520U / 16 Go DDR5 / 512 Go SSD, Windows 11)",
               category: "uc",
-              specs: "8 cœurs 16 threads · AMD Radeon Graphics · Livré sans OS · Clavier rétroéclairé",
-              description: "Le seul de cette page vendu réellement sans système d'exploitation : zéro licence Windows payée pour rien, votre distribution Linux s'installe directement dessus.",
-              imageUrl: "/images/hardware/laptop-msi-modern14.webp",
-              asin: "B0GR1DNB5G",
-              amazonUrl: buildProductUrl("B0GR1DNB5G"),
-              priceAmazon: 705.31,
+              specs: "4 cœurs 8 threads jusqu'à 4,3 GHz · AMD Radeon 610M · HDMI · Wi-Fi",
+              description: "Puce AMD avec pilotes graphiques libres AMDGPU/Mesa matures sous Linux. Livré sous Windows 11 (aucune offre neuve française à ce prix ne propose Linux préinstallé) : installez votre distribution par-dessus ou en dual-boot.",
+              imageUrl: "/images/hardware/laptop-lenovo-ryzen5-7520u.webp",
+              asin: "B0CPJNNLR4",
+              amazonUrl: buildProductUrl("B0CPJNNLR4"),
+              priceAmazon: 549,
               hasFan: true,
             },
-            badgeFr: "Vraiment Sans OS",
-            badgeEn: "Genuinely No OS",
-            headlineFr: "MSI Modern 14 sans OS — Fait pour Linux",
-            headlineEn: "MSI Modern 14 No-OS — Built for Linux",
-            summaryFr: "Livré sans système d'exploitation : le choix le plus honnête pour une machine 100% Linux, complété par le combo studio.",
-            summaryEn: "Shipped with no operating system: the most honest pick for an all-Linux machine, completed with the studio combo.",
+            headlineFr: "Lenovo Ryzen 5 7520U — AMD généreux en mémoire",
+            headlineEn: "Lenovo Ryzen 5 7520U — Generous AMD memory",
+            summaryFr: "AMD quad-core bien supporté sous Linux, 16 Go de RAM en DDR5, complété par le combo studio.",
+            summaryEn: "Well-supported AMD quad-core under Linux, 16 GB DDR5 RAM, completed with the studio combo.",
+            alternativeUnits: [lenovoN5100LaptopAlt("alt-laptop-linux-recommande")],
           },
           pro: {
             item: {
@@ -604,88 +815,94 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             id: "essentiel",
             labelFr: "Essentiel",
             labelEn: "Essential",
-            headlineFr: "Mini PC B20E Pentium 6500Y — L'entrée de gamme Windows",
-            headlineEn: "B20E Pentium 6500Y Mini PC — Windows entry-level",
-            summaryFr: "Châssis compact neuf avec Windows 11 Pro préinstallé, sortie 4K, budget serré.",
-            summaryEn: "Brand new compact unit with Windows 11 Pro preloaded, 4K output, tight budget.",
+            headlineFr: "BMAX B3Pro Celeron N4500 — L'entrée de gamme Windows fiable",
+            headlineEn: "BMAX B3Pro Celeron N4500 — Reliable Windows entry-level",
+            summaryFr: "Châssis compact neuf avec Windows 11 Pro préinstallé, double sortie HDMI 4K, très bien noté par de nombreux acheteurs.",
+            summaryEn: "Brand new compact unit with Windows 11 Pro preloaded, dual 4K HDMI output, very well rated by many buyers.",
             powerWatts: "10W - 15W",
             resolution: "1080p & 4K",
+            alternativeUnits: [nipogiE1Alt("alt-windows-minipc-essentiel")],
             items: [
               {
-                id: "mini-pc-b20e",
-                name: "Mini PC B20E (Pentium 6500Y / 8 Go RAM / 128 Go SSD / Windows 11 Pro)",
+                id: "bmax-b3pro-n4500",
+                name: "BMAX B3Pro Mini PC (Intel Celeron N4500 / 8 Go RAM / 256 Go SSD / Windows 11 Pro)",
                 category: "uc",
-                specs: "2 cœurs basse consommation · Sortie 4K · Format ultra-compact",
+                specs: "2 cœurs jusqu'à 2,8 GHz · Double HDMI 2.0 4K 60Hz · Wi-Fi 5 · RJ45 Gigabit",
                 description: "Machine neuve d'entrée de gamme, ventilation discrète intégrée : suffisante pour la diffusion 1080p et le pilotage de la régie Bobine sans multitâche lourd.",
-                imageUrl: "/images/hardware/mini-pc-b20e.webp",
-                asin: "B0GL74YQ3C",
-                amazonUrl: buildProductUrl("B0GL74YQ3C"),
-                priceAmazon: 150.9,
+                imageUrl: "/images/hardware/bmax-b3pro-n4500.webp",
+                asin: "B0DKT15LL2",
+                amazonUrl: buildProductUrl("B0DKT15LL2"),
+                priceAmazon: 209,
                 hasFan: true,
               },
               cableHdmi21("windows-essentiel"),
               cableCat6a("cable-cat6a-windows-essentiel"),
               remotePresentation("remote-presentation-windows-essentiel"),
+              usbFlash64GB("usb-flash-64gb-windows-essentiel"),
             ],
           },
           recommande: {
             id: "recommande",
             labelFr: "Recommandé",
             labelEn: "Recommended",
-            badgeFr: "Best-Seller",
-            badgeEn: "Top Choice",
+            badgeFr: "Meilleur Rapport Puissance/Prix",
+            badgeEn: "Best Performance-to-Price",
             isPopular: true,
-            headlineFr: "Beelink Mini S12 Pro Intel N100 — Le meilleur rapport silence/prix",
-            headlineEn: "Beelink Mini S12 Pro Intel N100 — Best silence-to-price ratio",
-            summaryFr: "Processeur Intel N100 récent, 16 Go de RAM et SSD NVMe rapide, double sortie 4K.",
-            summaryEn: "Recent Intel N100 processor, 16 GB RAM and fast NVMe storage, dual 4K output.",
-            powerWatts: "6W - 15W",
+            headlineFr: "BOSGAME E5 Ryzen 5 5300U — Vraie puissance AMD à petit prix",
+            headlineEn: "BOSGAME E5 Ryzen 5 5300U — Real AMD power, small price",
+            summaryFr: "Processeur AMD quad-core réel, 16 Go de RAM et 512 Go de SSD inclus, pour bien moins cher qu'un simple mini PC Intel N100.",
+            summaryEn: "A real AMD quad-core CPU, 16 GB RAM and 512 GB SSD included, for much less than a plain Intel N100 mini PC.",
+            powerWatts: "15W - 25W",
             resolution: "Double 4K 60fps",
+            alternativeUnits: [meleOverclock4C("alt-windows-minipc-recommande-1"), minisforumUM350Alt("alt-windows-minipc-recommande-2")],
             items: [
               {
-                id: "beelink-mini-s12-pro",
-                name: "Beelink Mini S12 Pro (Intel N100 / 16 Go RAM / 512 Go SSD)",
+                id: "bosgame-e5-ryzen5-windows",
+                name: "BOSGAME E5 Mini PC (AMD Ryzen 5 5300U / 16 Go RAM / 512 Go SSD)",
                 category: "uc",
-                specs: "4 cœurs 3.4 GHz · Wi-Fi 6 · Double sortie HDMI 4K · LAN 2.5G",
-                description: "Petit ventilateur discret (non fanless) : 16 Go de RAM pour naviguer dans l'interface sans latence, Windows 11 Pro officiel.",
-                imageUrl: "/images/hardware/mini-pc-n100.webp",
-                asin: "B0DPM4N1SL",
-                amazonUrl: buildProductUrl("B0DPM4N1SL"),
-                priceAmazon: 359,
+                specs: "AMD Ryzen 5 5300U 4 cœurs 8 threads · Radeon Graphics · HDMI + DisplayPort + USB-C · Double LAN 2,5 Gbps",
+                description: "Ventilateur discret piloté par la charge (non fanless) : 16 Go de RAM pour naviguer dans l'interface sans latence, Windows 11 officiel.",
+                imageUrl: "/images/hardware/bosgame-e5-ryzen5.webp",
+                asin: "B0DC6V781B",
+                amazonUrl: buildProductUrl("B0DC6V781B"),
+                priceAmazon: 299,
                 hasFan: true,
               },
               cableHdmi21("windows-recommande"),
               cableCat6a("cable-cat6a-windows-recommande"),
               remoteAirmouse("remote-airmouse-windows-recommande"),
+              usbFlash128GB("usb-flash-128gb-windows-recommande"),
             ],
           },
           pro: {
             id: "pro",
             labelFr: "Pro",
             labelEn: "Pro",
-            headlineFr: "Minisforum UM760 Slim Ryzen 5 — Puissance graphique & triple affichage",
-            headlineEn: "Minisforum UM760 Slim Ryzen 5 — Graphics power & triple display",
-            summaryFr: "AMD Ryzen 5 7640HS 6 cœurs, graphismes Radeon 760M et triple sortie vidéo pour les installations multi-écrans.",
-            summaryEn: "AMD Ryzen 5 7640HS 6-core, Radeon 760M graphics and triple video output for multi-screen setups.",
+            headlineFr: "NiPoGi E3B Ryzen 5 7430U — 32 Go & 1 To inclus",
+            headlineEn: "NiPoGi E3B Ryzen 5 7430U — 32 GB & 1 TB included",
+            summaryFr: "AMD Ryzen 5 7430U, graphismes Radeon et triple sortie vidéo pour les installations multi-écrans, avec 32 Go de RAM et 1 To de SSD déjà inclus.",
+            summaryEn: "AMD Ryzen 5 7430U, Radeon graphics and triple video output for multi-screen setups, with 32 GB RAM and 1 TB SSD already included.",
             powerWatts: "15W - 35W",
             resolution: "Triple 4K 60fps",
+            alternativeUnits: [nipogiH1Alt("alt-windows-minipc-pro")],
             items: [
               {
-                id: "minisforum-um760-ryzen5",
-                name: "Minisforum UM760 Slim (AMD Ryzen 5 7640HS / 16 Go DDR5 / 512 Go NVMe)",
+                id: "nipogi-e3b-ryzen5",
+                name: "NiPoGi E3B Mini PC (AMD Ryzen 5 7430U / 32 Go RAM / 1 To SSD)",
                 category: "uc",
-                specs: "6 cœurs 12 threads jusqu'à 5,0 GHz · AMD Radeon 760M · Sorties HDMI + USB4 + DP · Wi-Fi 6E",
+                specs: "6 cœurs jusqu'à 4,3 GHz · Radeon Graphics · HDMI + DP 1.4 + USB-C · Double LAN 2,5G",
                 description: "Ventilateur silencieux piloté par la charge (non fanless) : réencodage vidéo instantané et triple sortie vidéo indépendante pour les studios premium.",
-                imageUrl: "/images/hardware/mini-pc-ryzen.webp",
-                asin: "B0GG9PF2FM",
-                amazonUrl: buildProductUrl("B0GG9PF2FM"),
-                priceAmazon: 539,
+                imageUrl: "/images/hardware/nipogi-e3b-ryzen5.webp",
+                asin: "B0FS1D82MJ",
+                amazonUrl: buildProductUrl("B0FS1D82MJ"),
+                priceAmazon: 519,
                 hasFan: true,
               },
               cableHdmi21("windows-pro"),
               cableCat7("windows-pro"),
               glabKeyboard("keyboard-windows-pro"),
               logitechMouse("mouse-windows-pro"),
+              ssdExternal512GB("ssd-512gb-windows-pro"),
             ],
           },
           premium: {
@@ -700,6 +917,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             summaryEn: "The same flagship chassis as the Linux Premium pick, shipped natively with Windows 11 Pro.",
             powerWatts: "15W - 65W",
             resolution: "Multi-écran 4K 60fps",
+            alternativeUnits: [geekomIT13MaxAlt("alt-windows-minipc-premium")],
             items: [
               {
                 id: "ax9-max-ryzenai9-win",
@@ -717,6 +935,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               cableCat7("windows-premium"),
               glabKeyboard("keyboard-windows-premium"),
               logitechMouse("mouse-windows-premium"),
+              ssdExternal1TB("ssd-1tb-windows-premium"),
             ],
           },
         },
@@ -747,24 +966,26 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             headlineEn: "Acer Aspire Go 17 — Big screen, budget price",
             summaryFr: "Un portable Windows 11 neuf à écran 17 pouces, complété par le hub USB-C minimal.",
             summaryEn: "A brand new 17-inch Windows 11 laptop, completed with the minimal USB-C hub.",
+            alternativeUnits: [hpN100LaptopAlt("alt-laptop-windows-essentiel")],
           },
           recommande: {
             item: {
               id: "laptop-windows-recommande",
-              name: "HP 15-fc0012sf (AMD Ryzen 3-7320U / 8 Go RAM / 512 Go SSD, Windows 11)",
+              name: "Lenovo 15,6\" (AMD Ryzen 5 7520U / 16 Go DDR5 / 512 Go SSD, Windows 11)",
               category: "uc",
-              specs: "4 cœurs AMD Ryzen 3 · Écran 15,6\" FHD · AMD Radeon Graphics",
-              description: "Grande marque, SSD confortable de 512 Go, Windows 11 officiel : le meilleur équilibre pour une régie quotidienne.",
-              imageUrl: "/images/hardware/laptop-hp-15-ryzen3.webp",
-              asin: "B0G3XT2BLZ",
-              amazonUrl: buildProductUrl("B0G3XT2BLZ"),
-              priceAmazon: 529,
+              specs: "4 cœurs 8 threads jusqu'à 4,3 GHz · AMD Radeon 610M · HDMI · Wi-Fi",
+              description: "Grande marque, 16 Go de RAM et SSD confortable de 512 Go, Windows 11 officiel : un meilleur équilibre pour une régie quotidienne.",
+              imageUrl: "/images/hardware/laptop-lenovo-ryzen5-7520u.webp",
+              asin: "B0CPJNNLR4",
+              amazonUrl: buildProductUrl("B0CPJNNLR4"),
+              priceAmazon: 549,
               hasFan: true,
             },
-            headlineFr: "HP 15 Ryzen 3 — Le combo studio complet",
-            headlineEn: "HP 15 Ryzen 3 — The full studio combo",
-            summaryFr: "Portable HP fiable avec 512 Go de stockage, complété par le support vertical et le réseau filaire.",
-            summaryEn: "Reliable HP laptop with 512 GB storage, completed with the vertical stand and wired network.",
+            headlineFr: "Lenovo Ryzen 5 7520U — Le combo studio complet",
+            headlineEn: "Lenovo Ryzen 5 7520U — The full studio combo",
+            summaryFr: "Portable Lenovo fiable avec 16 Go de RAM et 512 Go de stockage, complété par le support vertical et le réseau filaire.",
+            summaryEn: "Reliable Lenovo laptop with 16 GB RAM and 512 GB storage, completed with the vertical stand and wired network.",
+            alternativeUnits: [lenovoN5100LaptopAlt("alt-laptop-windows-recommande")],
           },
           pro: {
             item: {
@@ -836,6 +1057,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               macMiniM6("essentiel"),
               cableHdmi21("macos-essentiel"),
               remotePresentation("remote-presentation-macos-essentiel"),
+              usbFlash64GB("usb-flash-64gb-macos-essentiel"),
             ],
           },
           recommande: {
@@ -856,6 +1078,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               cableHdmi21("macos-recommande"),
               cableCat6a("cable-cat6a-macos-recommande"),
               remoteAirmouse("remote-airmouse-macos-recommande"),
+              usbFlash128GB("usb-flash-128gb-macos-recommande"),
             ],
           },
           pro: {
@@ -885,6 +1108,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               cableCat7("macos-pro"),
               glabKeyboard("keyboard-macos-pro"),
               logitechMouse("mouse-macos-pro"),
+              ssdExternal512GB("ssd-512gb-macos-pro"),
             ],
           },
           premium: {
@@ -916,6 +1140,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               cableCat7("macos-premium"),
               glabKeyboard("keyboard-macos-premium"),
               logitechMouse("mouse-macos-premium"),
+              ssdExternal1TB("ssd-1tb-macos-premium"),
             ],
           },
         },
@@ -1025,23 +1250,24 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             id: "essentiel",
             labelFr: "Essentiel",
             labelEn: "Essential",
-            headlineFr: "Samsung Galaxy Tab A9+ + Support Mural Antivol",
-            headlineEn: "Samsung Galaxy Tab A9+ + Anti-Theft Wall Mount",
-            summaryFr: "Tablette Samsung officielle avec fixation murale antivol sécurisée pour consultation en accès libre ou pupitre de salle.",
-            summaryEn: "Official Samsung tablet with secure anti-theft wall mount for self-service kiosk or room desk.",
+            headlineFr: "Samsung Galaxy Tab A11+ + Support Mural Antivol",
+            headlineEn: "Samsung Galaxy Tab A11+ + Anti-Theft Wall Mount",
+            summaryFr: "Tablette Samsung officielle plus récente, avec fixation murale antivol sécurisée pour consultation en accès libre ou pupitre de salle.",
+            summaryEn: "Newer official Samsung tablet, with secure anti-theft wall mount for self-service kiosk or room desk.",
             powerWatts: "5W - 10W",
             resolution: "Écran tactile 1920x1200",
+            alternativeUnits: [lenovoIdeaTabAlt("alt-android-essentiel")],
             items: [
               {
-                id: "tablet-galaxy-a9-plus",
-                name: "Samsung Galaxy Tab A9+ 11\" (128 Go, Wi-Fi)",
+                id: "tablet-galaxy-a11-plus",
+                name: "Samsung Galaxy Tab A11+ 11\" (128 Go, 6 Go RAM, Wi-Fi)",
                 category: "uc",
-                specs: "Écran 11 pouces 1920x1200 · Android · Wi-Fi · 128 Go de stockage",
-                description: "Tablette officielle Samsung, fluide et lumineuse, idéale pour faire tourner Bobine en mode autonome ou borne tactile en accès libre.",
-                imageUrl: "/images/hardware/tablet.webp",
-                asin: "B0CMDKCSFS",
-                amazonUrl: buildProductUrl("B0CMDKCSFS"),
-                priceAmazon: 285,
+                specs: "Écran 11 pouces 90Hz · Android · Wi-Fi · 128 Go de stockage · 6 Go de RAM",
+                description: "Tablette officielle Samsung plus récente que la génération précédente, fluide et lumineuse, idéale pour faire tourner Bobine en mode autonome ou borne tactile en accès libre.",
+                imageUrl: "/images/hardware/tablet-galaxy-a11-plus.webp",
+                asin: "B0G4827DCM",
+                amazonUrl: buildProductUrl("B0G4827DCM"),
+                priceAmazon: 223.88,
                 hasFan: false,
               },
               {
@@ -1068,6 +1294,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
                 priceAmazon: 13.99,
                 hasFan: false,
               },
+              usbFlash64GB("usb-flash-64gb-android-essentiel"),
             ],
           },
           recommande: {
@@ -1083,6 +1310,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             summaryEn: "Highly responsive 144Hz touch display, paired with a USB-C hub to project onto the gym's big screen (check your unit's DisplayPort Alt Mode support before buying the hub).",
             powerWatts: "8W - 18W",
             resolution: "Écran 3.2K 144Hz + HDMI 4K",
+            alternativeUnits: [samsungTabS10LiteAlt("alt-android-recommande")],
             items: [
               {
                 id: "xiaomi-pad-7",
@@ -1110,6 +1338,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
                 priceAmazon: 25.88,
                 hasFan: false,
               },
+              usbFlash128GB("usb-flash-128gb-android-recommande"),
             ],
           },
           pro: {
@@ -1149,6 +1378,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
                 priceAmazon: 53.99,
                 hasFan: false,
               },
+              ssdExternal512GB("ssd-512gb-android-pro"),
             ],
           },
           premium: {
@@ -1190,6 +1420,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
                 priceAmazon: 78.59,
                 hasFan: false,
               },
+              ssdExternal1TB("ssd-1tb-android-premium"),
             ],
           },
         },
@@ -1400,6 +1631,66 @@ export const STANDALONE_ACCESSORIES: StandaloneAccessory[] = [
     amazonUrl: buildProductUrl("B091B4SWR7"),
     priceAmazon: 23.09,
     compatibleOs: ["linux", "windows", "macos"],
+  },
+  {
+    id: "acc-usb-flash-64gb",
+    nameFr: "Kingston DataTraveler Exodia 64 Go — Clé USB 3.2 Gen 1",
+    nameEn: "Kingston DataTraveler Exodia 64 GB — USB 3.2 Gen 1 Flash Drive",
+    categoryFr: "Stockage",
+    categoryEn: "Storage",
+    specs: "USB 3.2 Gen 1 · 64 Go · Capuchon amovible",
+    descriptionFr: "Stockage de sauvegarde minimal pour l'export \"1 clic\" de la programmation, largement au-dessus du seuil USB 3.0.",
+    descriptionEn: "Minimal backup storage for the \"1-click\" schedule export, well above the USB 3.0 threshold.",
+    imageUrl: "/images/hardware/usb-kingston-exodia-64gb.webp",
+    asin: "B08JD5PV9F",
+    amazonUrl: buildProductUrl("B08JD5PV9F"),
+    priceAmazon: 10.49,
+    compatibleOs: ["linux", "windows", "macos", "android"],
+  },
+  {
+    id: "acc-usb-flash-128gb",
+    nameFr: "SanDisk Ultra Dual Drive Go 128 Go — Clé USB-C/USB-A 3.2",
+    nameEn: "SanDisk Ultra Dual Drive Go 128 GB — USB-C/USB-A 3.2 Flash Drive",
+    categoryFr: "Stockage",
+    categoryEn: "Storage",
+    specs: "USB 3.2 · 128 Go · Double connecteur USB-C et USB-A · Jusqu'à 400 Mo/s",
+    descriptionFr: "Double connecteur pratique pour sauvegarder la programmation depuis n'importe quel appareil de la régie, mini PC comme tablette.",
+    descriptionEn: "Convenient dual connector to back up the schedule from any desk device, mini PC or tablet alike.",
+    imageUrl: "/images/hardware/usb-sandisk-dual-128gb.webp",
+    asin: "B07YYJRXQR",
+    amazonUrl: buildProductUrl("B07YYJRXQR"),
+    priceAmazon: 24.0,
+    compatibleOs: ["linux", "windows", "macos", "android"],
+  },
+  {
+    id: "acc-ssd-512gb",
+    nameFr: "Netac US5 512 Go — SSD Externe USB 3.2 Gen 2",
+    nameEn: "Netac US5 512 GB — USB 3.2 Gen 2 External SSD",
+    categoryFr: "Stockage",
+    categoryEn: "Storage",
+    specs: "USB 3.2 Gen 2 · 512 Go · Jusqu'à 550 Mo/s · Format carte de crédit",
+    descriptionFr: "De quoi archiver plusieurs mois de sauvegardes complètes et une bibliothèque vidéo locale d'appoint, en restant très compact.",
+    descriptionEn: "Enough room to archive months of full backups and a spare local video library, while staying very compact.",
+    imageUrl: "/images/hardware/ssd-netac-us5-512gb.webp",
+    asin: "B0C1SCJC9F",
+    amazonUrl: buildProductUrl("B0C1SCJC9F"),
+    priceAmazon: 65.99,
+    compatibleOs: ["linux", "windows", "macos", "android"],
+  },
+  {
+    id: "acc-ssd-1tb",
+    nameFr: "Lexar ES3 1 To — SSD Externe USB 3.2 Gen 2",
+    nameEn: "Lexar ES3 1 TB — USB 3.2 Gen 2 External SSD",
+    categoryFr: "Stockage",
+    categoryEn: "Storage",
+    specs: "USB 3.2 Gen 2 · 1 To · Jusqu'à 1050 Mo/s en lecture",
+    descriptionFr: "Marge de stockage confortable pour dupliquer l'intégralité de la bibliothèque vidéo locale en plus des sauvegardes de programmation.",
+    descriptionEn: "Comfortable storage headroom to mirror the entire local video library on top of schedule backups.",
+    imageUrl: "/images/hardware/ssd-lexar-es3-1tb.webp",
+    asin: "B0F37WWYY4",
+    amazonUrl: buildProductUrl("B0F37WWYY4"),
+    priceAmazon: 159.99,
+    compatibleOs: ["linux", "windows", "macos", "android"],
   },
 ];
 

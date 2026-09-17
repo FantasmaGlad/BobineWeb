@@ -151,85 +151,9 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
   ];
 
   return (
-    <div style={{ marginTop: "1rem" }}>
-      {/* 1. SÉLECTEUR D'OS (4 Onglets principaux) */}
-      <div
-        role="tablist"
-        aria-label={isEn ? "Operating System selection" : "Sélection du système d'exploitation"}
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))",
-          gap: "0.65rem",
-          marginBottom: "1.25rem",
-        }}
-      >
-        {osList.map((item) => {
-          const isActive = selectedOs === item.id;
-          return (
-            <button
-              key={item.id}
-              role="tab"
-              aria-selected={isActive}
-              onClick={() => {
-                setSelectedOs(item.id);
-                const nextKeys = Object.keys(HARDWARE_BUNDLES[item.id].formFactors) as FormFactorKey[];
-                if (!nextKeys.includes(selectedFormFactor)) {
-                  setSelectedFormFactor(nextKeys[0]);
-                }
-                const nextFormFactor = HARDWARE_BUNDLES[item.id].formFactors[nextKeys.includes(selectedFormFactor) ? selectedFormFactor : nextKeys[0]]!;
-                if (!nextFormFactor.tiers[selectedTier]) {
-                  setSelectedTier(nextFormFactor.defaultTier);
-                }
-              }}
-              style={{
-                font: "inherit",
-                display: "flex",
-                alignItems: "center",
-                flexWrap: "wrap",
-                rowGap: "0.35rem",
-                columnGap: "0.55rem",
-                padding: "0.75rem 1rem",
-                borderRadius: "0.5rem",
-                border: isActive ? "2px solid var(--accent-primary)" : "1px solid var(--border-subtle)",
-                background: isActive ? "var(--bg-card)" : "var(--bg-surface)",
-                color: isActive ? "var(--text-heading)" : "var(--text-muted)",
-                cursor: "pointer",
-                boxShadow: isActive ? "0 2px 8px rgba(0,0,0,0.06)" : "none",
-                transition: "all 0.15s ease",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: "0.55rem", minWidth: 0 }}>
-                <span style={{ color: isActive ? "var(--accent-primary)" : "currentColor", flexShrink: 0, display: "flex" }}>
-                  {item.icon}
-                </span>
-                <span style={{ fontWeight: isActive ? 700 : 500, fontSize: "0.875rem", whiteSpace: "nowrap" }}>
-                  {item.label}
-                </span>
-              </div>
-              {item.badge && (
-                <span
-                  style={{
-                    fontSize: "0.675rem",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.04em",
-                    padding: "0.18rem 0.45rem",
-                    borderRadius: "0.3rem",
-                    background: isActive ? "var(--accent-primary)" : "var(--bg-inset)",
-                    color: isActive ? "var(--accent-primary-fg)" : "var(--text-muted)",
-                    whiteSpace: "nowrap",
-                    marginLeft: "auto",
-                  }}
-                >
-                  {item.badge}
-                </span>
-              )}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* 2. BANDEAU DE L'OS SÉLECTIONNÉ */}
+    <div style={{ marginTop: "1rem" }} className="hw-os-layout">
+      <div className="hw-os-content">
+      {/* 2. BANDEAU DE L'OS SÉLECTIONNÉ — englobe tout le contenu de la gamme active */}
       <div
         style={{
           position: "relative",
@@ -625,6 +549,53 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
             </div>
           )}
 
+          {/* 6bis. AUTRES MARQUES — l'acheteur choisit entre plusieurs fabricants pour l'unité
+              centrale de cette gamme, chaque ASIN vérifié au même titre que le choix principal */}
+          {currentTier.alternativeUnits && currentTier.alternativeUnits.length > 0 && (
+            <div className="hw-alt-units">
+              <span className="hw-alt-units__label">
+                {isEn ? "Other brands to consider" : "Autres marques à considérer"}
+              </span>
+              <div className="hw-alt-units__list">
+                {currentTier.alternativeUnits.map((alt) => (
+                  <div key={alt.id} className="hw-alt-unit-card">
+                    <div className="hw-alt-unit-card__info">
+                      <span className="hw-alt-unit-card__name">{alt.name}</span>
+                      <span className="hw-alt-unit-card__price">{alt.priceAmazon.toFixed(2)} €</span>
+                    </div>
+                    <div className="hw-alt-unit-card__actions">
+                      <AddToCartButton
+                        size="sm"
+                        locale={locale}
+                        item={{
+                          asin: alt.asin,
+                          name: alt.name,
+                          imageUrl: alt.imageUrl,
+                          priceAmazon: alt.priceAmazon,
+                          amazonUrl: alt.amazonUrl,
+                        }}
+                      />
+                      <a
+                        href={alt.amazonUrl}
+                        target="_blank"
+                        rel="nofollow sponsored noopener noreferrer"
+                        className="hw-alt-unit-card__link"
+                        title={isEn ? "Open official Amazon product sheet" : "Ouvrir la fiche produit officielle Amazon"}
+                        aria-label={isEn ? `Open ${alt.name} on Amazon` : `Voir ${alt.name} sur Amazon`}
+                      >
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                          <polyline points="15 3 21 3 21 9" />
+                          <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* 7. ACCESSOIRES DU PACK — grille qui tire parti d'un écran large, alignement fixe */}
           {accessoryItems.length > 0 && (
             <div
@@ -831,6 +802,79 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
         >
           {isEn ? "Buy on Amazon" : "Voir sur Amazon"}
         </a>
+      </div>
+      </div>
+
+      {/* 1. SÉLECTEUR D'OS — colonne verticale à droite sur grand écran, ligne horizontale sur mobile */}
+      <div
+        role="tablist"
+        aria-label={isEn ? "Operating System selection" : "Sélection du système d'exploitation"}
+        className="hw-os-sidebar"
+      >
+        {osList.map((item) => {
+          const isActive = selectedOs === item.id;
+          return (
+            <button
+              key={item.id}
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => {
+                setSelectedOs(item.id);
+                const nextKeys = Object.keys(HARDWARE_BUNDLES[item.id].formFactors) as FormFactorKey[];
+                if (!nextKeys.includes(selectedFormFactor)) {
+                  setSelectedFormFactor(nextKeys[0]);
+                }
+                const nextFormFactor = HARDWARE_BUNDLES[item.id].formFactors[nextKeys.includes(selectedFormFactor) ? selectedFormFactor : nextKeys[0]]!;
+                if (!nextFormFactor.tiers[selectedTier]) {
+                  setSelectedTier(nextFormFactor.defaultTier);
+                }
+              }}
+              style={{
+                font: "inherit",
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "wrap",
+                rowGap: "0.35rem",
+                columnGap: "0.55rem",
+                padding: "0.75rem 1rem",
+                borderRadius: "0.5rem",
+                border: isActive ? "2px solid var(--accent-primary)" : "1px solid var(--border-subtle)",
+                background: isActive ? "var(--bg-card)" : "var(--bg-surface)",
+                color: isActive ? "var(--text-heading)" : "var(--text-muted)",
+                cursor: "pointer",
+                boxShadow: isActive ? "0 2px 8px rgba(0,0,0,0.06)" : "none",
+                transition: "all 0.15s ease",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "0.55rem", minWidth: 0 }}>
+                <span style={{ color: isActive ? "var(--accent-primary)" : "currentColor", flexShrink: 0, display: "flex" }}>
+                  {item.icon}
+                </span>
+                <span style={{ fontWeight: isActive ? 700 : 500, fontSize: "0.875rem", whiteSpace: "nowrap" }}>
+                  {item.label}
+                </span>
+              </div>
+              {item.badge && (
+                <span
+                  style={{
+                    fontSize: "0.675rem",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.04em",
+                    padding: "0.18rem 0.45rem",
+                    borderRadius: "0.3rem",
+                    background: isActive ? "var(--accent-primary)" : "var(--bg-inset)",
+                    color: isActive ? "var(--accent-primary-fg)" : "var(--text-muted)",
+                    whiteSpace: "nowrap",
+                    marginLeft: "auto",
+                  }}
+                >
+                  {item.badge}
+                </span>
+              )}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

@@ -122,39 +122,6 @@ export default async function HardwarePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(hardwareSchema) }}
       />
 
-      {/* Hero Section */}
-      <section style={{ paddingTop: "1.5rem", marginBottom: "2rem" }}>
-        <div style={{ maxWidth: "52rem" }}>
-          <h1
-            style={{
-              fontSize: "clamp(1.75rem, 3.2vw, 2.5rem)",
-              fontWeight: 800,
-              color: "var(--text-heading)",
-              lineHeight: 1.2,
-              letterSpacing: "-0.02em",
-              margin: "0 0 1rem 0",
-            }}
-          >
-            {isEn
-              ? "The Ideal Hardware to Run Your Studio Flawlessly"
-              : "Le Matériel Idéal pour Faire Tourner Votre Studio Sans Bug"}
-          </h1>
-
-          <p
-            style={{
-              fontSize: "1rem",
-              color: "var(--text-muted)",
-              lineHeight: 1.6,
-              margin: 0,
-            }}
-          >
-            {isEn
-              ? "Bobine is 100% free and open-source with lifetime zero subscription. To ensure your classes run 24/7 without frame drops or crashes, we vetted, tested, and assembled turnkey packs for every operating system, from budget refurbished units to studio-grade setups."
-              : "Bobine est 100% libre et gratuit à vie, sans aucun abonnement. Pour que vos séances tournent 24h/24 sans micro-coupure ni plantage, nous avons testé, chiffré et assemblé des packs complets par OS, du matériel reconditionné ultra-économique aux régies multi-écrans."}
-          </p>
-        </div>
-      </section>
-
       {/* 1. Les Bundles par OS (Linux, Windows, macOS, Android), avec accessoires filtrés intégrés */}
       <HardwareBundleTabs locale={currentLocale} />
 

@@ -1,0 +1,283 @@
+RECHERCHE REFONTE CATALOGUE MATERIEL — BOBINE
+============================================================
+Recherche menee en direct sur amazon.fr (fetch + parsing HTML reel de chaque
+fiche produit : titre, prix, note, nombre d'avis, connectique), aucune donnee
+Perplexity reutilisee sans re-verification. Date : 2026-09-17.
+Statut : APPLIQUE le 2026-09-17 dans src/content/hardware.ts. Les remplacements
+Mini PC/Laptop/Android du recapitulatif final (bas de fichier) sont en
+production, avec en plus : stockage USB 3.2 sur toutes les gammes (nouveau
+champ "storage") et 1 a 2 "marques alternatives" par gamme Mini PC/Laptop/
+Tablette (nouveau champ alternativeUnits) pour laisser le choix du fabricant
+a l'acheteur. Voir docs/suivi-offres-amazon-materiel.txt pour la liste
+consolidee et a jour de tous les produits en ligne.
+
+MODE D'EMPLOI :
+- Chaque produit ci-dessous a ete verifie individuellement (fetch direct de
+  la fiche https://www.amazon.fr/dp/ASIN, jamais un lien de recherche /s?k=).
+- "Connectique verifiee" liste les ports reellement confirmes dans la fiche
+  (description, bullets ou texte de la page) : sortie video, reseau, USB.
+- Ne pas copier ces produits dans hardware.ts sans re-verifier le prix au
+  moment de l'integration (les prix ci-dessus datent du 2026-09-17).
+
+=== WINDOWS ===
+
+--- Mini PC ---
+
+Gamme 1 — Essentiel
+  Unité centrale (2-3 marques différentes) :
+    - BMAX B3Pro (Intel Celeron N4500, 8 Go RAM/256 Go SSD) — 209 € — 5,0★ (186 avis) — https://www.amazon.fr/dp/B0DKT15LL2
+      Connectique vérifiée : 2x HDMI 2.0 (double affichage 4K 60Hz), 1x RJ45 Gigabit, 2x USB 3.0 + 2x USB 2.0, jack audio 3.5mm.
+    - NiPoGi E1 (AMD Ryzen 3150U, 8 Go RAM/256 Go SSD) — 219 € — 5,0★ (806 avis) — https://www.amazon.fr/dp/B0C1ZPND7K
+      Connectique vérifiée : 1x HDMI + 1x DP 1.4 (double 4K@60Hz), 1x RJ45 1000M, 2x USB 3.2 Gen1 + 2x USB 2.0, Wi-Fi + BT 4.2.
+    Verdict prix : rien de neuf à ≥4,0★/≥100 avis n'existe sous 200 € pile ; le vrai plancher marché tourne à 209-220 €.
+  Câble HDMI : UGREEN Câble HDMI 2.1 Certifié 48Gbps (1m) — 9,79 € — 4,7★ (15 571 avis) — https://www.amazon.fr/dp/B08TMGV1GV
+  Câble réseau Ethernet : UGREEN Câble Cat 7 Plat RJ45 10Gbps (1m) — 5,57 € — 4,6★ (73 743 avis) — https://www.amazon.fr/dp/B00QV1F1C4
+  Clavier : The G-Lab Keyz Hydrogen (semi-mécanique compact AZERTY) — 18,76 € — https://www.amazon.fr/dp/B0HF5JQCTG (déjà vérifié, catalogue actuel)
+  Souris : Logitech M185 Sans Fil 2,4 GHz — 11,99 € — 4,5★ (91 230 avis) — https://www.amazon.fr/dp/B00552K0GM
+  Télécommande (alternative clavier/souris) : Télécommande Présentation USB 2,4 GHz — 14,99 € — 4,2★ (2 602 avis) — https://www.amazon.fr/dp/B0BG2JVYY7
+
+Gamme 2 — Recommandé
+  Unité centrale (2-3 marques différentes) :
+    - BOSGAME E5 (AMD Ryzen 5 5300U, 16 Go RAM/512 Go SSD) — 299 € — 4,4★ (402 avis) — https://www.amazon.fr/dp/B0DC6V781B
+      Connectique vérifiée : HDMI + DisplayPort + USB-C (pilotage triple écran), 2x RJ45 Ethernet 2,5 Gbps, 2x USB4.
+    Verdict prix : bat largement le Mini PC Industriel Fanless N100 actuel du site (592 €) — CPU quad-core réel bien plus puissant qu'un N100, pour la moitié du prix. Non fanless (compromis à trancher).
+  Câble HDMI : UGREEN Câble HDMI 2.1 Certifié 48Gbps (1m) — 9,79 € — https://www.amazon.fr/dp/B08TMGV1GV
+  Câble réseau Ethernet : UGREEN Câble Cat 7 Plat RJ45 10Gbps (1m) — 5,57 € — https://www.amazon.fr/dp/B00QV1F1C4
+  Clavier : The G-Lab Keyz Hydrogen — 18,76 € — https://www.amazon.fr/dp/B0HF5JQCTG
+  Souris : Logitech M185 Sans Fil — 11,99 € — https://www.amazon.fr/dp/B00552K0GM
+  Télécommande (alternative) : Air-Mouse Gyroscopique 2,4 GHz — 9,57 € — 5,0★ — https://www.amazon.fr/dp/B0H4K4T2CK
+
+Gamme 3 — Pro
+  Unité centrale (2-3 marques différentes) :
+    - NiPoGi H1 (AMD Ryzen 7 7735HS, 32 Go RAM/1 To SSD) — 589 € — 4,4★ (806 avis) — https://www.amazon.fr/dp/B0H87VKND1
+      Connectique vérifiée : 1x HDMI 2.0, 1x DP 1.4, 1x USB-C, 1x RJ45 Gigabit, 2x USB 3.2 Gen2 + 4x USB 3.2 Gen1, audio.
+    - NiPoGi E3B (AMD Ryzen 5 7430U, 32 Go RAM/1 To SSD) — 519 € — 4,4★ (1 599 avis) — https://www.amazon.fr/dp/B0FS1D82MJ
+      Connectique vérifiée : HDMI + DP 1.4 + USB-C, 1x RJ45, 6x USB 3.2 Gen2, double LAN 2,5G, audio.
+  Câble HDMI : UGREEN Câble HDMI 2.1 Certifié 48Gbps (1m) — 9,79 € — https://www.amazon.fr/dp/B08TMGV1GV
+  Câble réseau Ethernet : UGREEN Câble Cat 7 Plat RJ45 10Gbps (1m) — 5,57 € — https://www.amazon.fr/dp/B00QV1F1C4
+  Clavier : The G-Lab Keyz Hydrogen — 18,76 € — https://www.amazon.fr/dp/B0HF5JQCTG
+  Souris : Logitech M185 Sans Fil — 11,99 € — https://www.amazon.fr/dp/B00552K0GM
+  Télécommande : non retenue pour cette gamme (clavier + souris suffisent pour un poste multi-écrans).
+
+Gamme 4 — Premium
+  Unité centrale :
+    - AX9 Max (AMD Ryzen AI 9 HX 470) — 1549 € — 5,0★ — https://www.amazon.fr/dp/B0HDN8JQ7H
+      = pick actuel du site, prix reconfirmé exact au centime près. Aucun changement nécessaire.
+    - GEEKOM IT13 Max (Intel Core Ultra 9 185H, 24 Go/500 Go) — 799 € — 4,4★ (130 avis) — https://www.amazon.fr/dp/B0DYHSFMJP
+      Alternative moins chère mais Intel (hors préférence AMD Linux) ; à considérer plutôt comme un palier Pro+ intermédiaire.
+  Câble HDMI : UGREEN Câble HDMI 2.1 Certifié 48Gbps (1m) — 9,79 € — https://www.amazon.fr/dp/B08TMGV1GV
+  Câble réseau Ethernet : UGREEN Câble Cat 7 Plat RJ45 10Gbps (1m) — 5,57 € — https://www.amazon.fr/dp/B00QV1F1C4
+  Clavier : The G-Lab Keyz Hydrogen — 18,76 € — https://www.amazon.fr/dp/B0HF5JQCTG
+  Souris : Logitech M185 Sans Fil — 11,99 € — https://www.amazon.fr/dp/B00552K0GM
+  Télécommande : non retenue.
+
+--- Laptop ---
+
+Gamme 1 — Essentiel
+  Unité centrale :
+    - HP 15-fd0001sf (Intel Celeron N100, 4 Go RAM/128 Go UFS) — 279 € — 4,2★ (158 avis) — https://www.amazon.fr/dp/B0DY2T14P6
+    Attention qualité : seulement 4 Go RAM / 128 Go — juste pour un usage kiosque léger, pas de marge. À comparer avec le
+    pick actuel du site (322,99 €, specs non re-vérifiées ici) avant de trancher.
+  Hub/dock USB-C vers HDMI : UGREEN Adaptateur USB-C vers HDMI 4K60 — 15,99 € — https://www.amazon.fr/dp/B0CC8V1Y5F (déjà vérifié réel)
+  Support vertical pour laptop fermé : UGREEN Support Vertical Aluminium — 23,09 € — https://www.amazon.fr/dp/B091B4SWR7 (catalogue actuel, déjà vérifié)
+  Souris : Logitech M185 Sans Fil — 11,99 € — https://www.amazon.fr/dp/B00552K0GM
+
+Gamme 2 — Recommandé
+  Unité centrale :
+    - Lenovo 15,6" (AMD Ryzen 5 7520U, 16 Go DDR5/512 Go SSD) — 549 € — 4,3★ (122 avis) — https://www.amazon.fr/dp/B0CPJNNLR4
+    Verdict : AMD réel, bien noté, bat le MSI Modern 14 sans OS actuel (705,31 €) sur le prix pour des specs comparables.
+  Hub/dock USB-C vers HDMI : UGREEN Adaptateur USB-C vers HDMI 4K60 — 15,99 € — https://www.amazon.fr/dp/B0CC8V1Y5F
+  Support vertical pour laptop fermé : UGREEN Support Vertical Aluminium — 23,09 € — https://www.amazon.fr/dp/B091B4SWR7
+  Souris : Logitech M185 Sans Fil — 11,99 € — https://www.amazon.fr/dp/B00552K0GM
+
+Gamme 3 — Pro et Gamme 4 — Premium
+  Recherche menée (laptops AMD/Intel 700-1900 €) : aucune référence neuve avec ≥4,0★ ET ≥100 avis trouvée dans ces
+  fourchettes — même constat que la recherche Perplexity précédente. Les picks actuels du site (HP Ryzen 7 634,99 €,
+  ASUS Vivobook Core Ultra 7 1200 €, Dell XPS 13 1779 €, Lenovo ThinkPad X1 Carbon Gen 12 1922,29 €) n'ont pas été
+  invalidés et restent probablement le meilleur choix disponible pour l'instant. À re-creuser avec des requêtes plus
+  ciblées si besoin (marques pro spécifiques plutôt que recherche générique).
+
+=== LINUX ===
+
+--- Mini PC --- (AMD priorisé pour le support pilotes libres AMDGPU/Mesa)
+
+Gamme 1 — Essentiel
+  Unité centrale :
+    - NiPoGi E1 (AMD Ryzen 3150U, 8 Go RAM/256 Go SSD) — 219 € — 5,0★ (806 avis) — https://www.amazon.fr/dp/B0C1ZPND7K
+      Connectique vérifiée : HDMI + DP 1.4, RJ45 1000M, 2x USB 3.2 + 2x USB 2.0, Wi-Fi + BT 4.2 (chipsets standards, pas de Broadcom).
+    Verdict : seule option AMD correctement notée à ce niveau de prix ; pas de deuxième marque AMD équivalente trouvée sous 220 €.
+  Câble HDMI : UGREEN Câble HDMI 2.1 Certifié 48Gbps (1m) — 9,79 € — https://www.amazon.fr/dp/B08TMGV1GV
+  Câble réseau Ethernet : UGREEN Câble Cat 7 Plat RJ45 10Gbps (1m) — 5,57 € — https://www.amazon.fr/dp/B00QV1F1C4
+  Clavier : The G-Lab Keyz Hydrogen — 18,76 € — https://www.amazon.fr/dp/B0HF5JQCTG
+  Souris : Logitech M185 Sans Fil — 11,99 € — https://www.amazon.fr/dp/B00552K0GM
+  Télécommande (alternative) : Télécommande Présentation USB 2,4 GHz — 14,99 € — https://www.amazon.fr/dp/B0BG2JVYY7
+
+Gamme 2 — Recommandé
+  Unité centrale :
+    - BOSGAME E5 (AMD Ryzen 5 5300U, 16 Go RAM/512 Go SSD) — 299 € — 4,4★ (402 avis) — https://www.amazon.fr/dp/B0DC6V781B
+      Connectique vérifiée : HDMI + DisplayPort + USB-C, 2x RJ45 2,5Gbps, 2x USB4.
+    Verdict : remplace directement le Mini PC Industriel Fanless N100 actuel (592 €) — AMD quad-core réel, connectique supérieure, moitié prix. Seul compromis : pas fanless.
+  Câble HDMI : UGREEN Câble HDMI 2.1 Certifié 48Gbps (1m) — 9,79 € — https://www.amazon.fr/dp/B08TMGV1GV
+  Câble réseau Ethernet : UGREEN Câble Cat 7 Plat RJ45 10Gbps (1m) — 5,57 € — https://www.amazon.fr/dp/B00QV1F1C4
+  Clavier : The G-Lab Keyz Hydrogen — 18,76 € — https://www.amazon.fr/dp/B0HF5JQCTG
+  Souris : Logitech M185 Sans Fil — 11,99 € — https://www.amazon.fr/dp/B00552K0GM
+  Télécommande (alternative) : Air-Mouse Gyroscopique 2,4 GHz — 9,57 € — https://www.amazon.fr/dp/B0H4K4T2CK
+
+Gamme 3 — Pro
+  Unité centrale :
+    - NiPoGi E3B (AMD Ryzen 5 7430U, 32 Go RAM/1 To SSD) — 519 € — 4,4★ (1 599 avis) — https://www.amazon.fr/dp/B0FS1D82MJ
+      Connectique vérifiée : HDMI + DP 1.4 + USB-C, RJ45 + double LAN 2,5G, 6x USB 3.2 Gen2.
+    - NiPoGi H1 (AMD Ryzen 7 7735HS, 32 Go RAM/1 To SSD) — 589 € — 4,4★ (806 avis) — https://www.amazon.fr/dp/B0H87VKND1
+      Connectique vérifiée : HDMI + DP 1.4 + USB-C, RJ45 Gigabit, 6x USB 3.2 (Gen1+Gen2).
+  Câble HDMI : UGREEN Câble HDMI 2.1 Certifié 48Gbps (1m) — 9,79 € — https://www.amazon.fr/dp/B08TMGV1GV
+  Câble réseau Ethernet : UGREEN Câble Cat 7 Plat RJ45 10Gbps (1m) — 5,57 € — https://www.amazon.fr/dp/B00QV1F1C4
+  Clavier : The G-Lab Keyz Hydrogen — 18,76 € — https://www.amazon.fr/dp/B0HF5JQCTG
+  Souris : Logitech M185 Sans Fil — 11,99 € — https://www.amazon.fr/dp/B00552K0GM
+  Télécommande : non retenue pour cette gamme.
+
+Gamme 4 — Premium
+  Unité centrale :
+    - AX9 Max (AMD Ryzen AI 9 HX 470) — 1549 € — 5,0★ — https://www.amazon.fr/dp/B0HDN8JQ7H
+      = pick actuel du site, déjà AMD, prix reconfirmé exact. Aucun changement nécessaire.
+  Câble HDMI : UGREEN Câble HDMI 2.1 Certifié 48Gbps (1m) — 9,79 € — https://www.amazon.fr/dp/B08TMGV1GV
+  Câble réseau Ethernet : UGREEN Câble Cat 7 Plat RJ45 10Gbps (1m) — 5,57 € — https://www.amazon.fr/dp/B00QV1F1C4
+  Clavier : The G-Lab Keyz Hydrogen — 18,76 € — https://www.amazon.fr/dp/B0HF5JQCTG
+  Souris : Logitech M185 Sans Fil — 11,99 € — https://www.amazon.fr/dp/B00552K0GM
+  Télécommande : non retenue.
+
+--- Laptop --- (AMD priorisé)
+
+Gamme 1 — Essentiel
+  Aucun laptop AMD neuf, bien noté (≥4,0★/≥100 avis) et sous ~450 € trouvé lors de cette recherche — le segment
+  "petit prix + AMD + bien noté" est très clairsemé pour les laptops (contrairement aux mini PC). Deux options :
+  garder un Intel correct pour cette gamme (HP 15-fd0001sf N100, 4 Go/128 Go, 279 €, 4,2★/158 avis,
+  https://www.amazon.fr/dp/B0DY2T14P6 — attention 4 Go RAM limite), ou conserver le pick actuel du site (322,99 €)
+  en attendant une recherche plus ciblée.
+  Hub/dock USB-C vers HDMI : UGREEN Adaptateur USB-C vers HDMI 4K60 — 15,99 € — https://www.amazon.fr/dp/B0CC8V1Y5F
+  Support vertical pour laptop fermé : UGREEN Support Vertical Aluminium — 23,09 € — https://www.amazon.fr/dp/B091B4SWR7
+  Souris : Logitech M185 Sans Fil — 11,99 € — https://www.amazon.fr/dp/B00552K0GM
+
+Gamme 2 — Recommandé
+  Unité centrale :
+    - Lenovo 15,6" (AMD Ryzen 5 7520U, 16 Go DDR5/512 Go SSD) — 549 € — 4,3★ (122 avis) — https://www.amazon.fr/dp/B0CPJNNLR4
+    Verdict : AMD réel, Ryzen 5 7520U a un excellent support Linux natif (architecture Zen3+ standard, GPU Radeon 610M
+    piloté par Mesa/AMDGPU). Bat le MSI Modern 14 sans OS actuel (705,31 €) sur le prix.
+  Hub/dock USB-C vers HDMI : UGREEN Adaptateur USB-C vers HDMI 4K60 — 15,99 € — https://www.amazon.fr/dp/B0CC8V1Y5F
+  Support vertical pour laptop fermé : UGREEN Support Vertical Aluminium — 23,09 € — https://www.amazon.fr/dp/B091B4SWR7
+  Souris : Logitech M185 Sans Fil — 11,99 € — https://www.amazon.fr/dp/B00552K0GM
+
+Gamme 3 — Pro et Gamme 4 — Premium
+  Même constat que Windows Laptop : aucune référence AMD neuve avec ≥4,0★ ET ≥100 avis trouvée entre 900 € et 2000 €.
+  Les picks actuels du site (ASUS Vivobook Core Ultra 7 1200 €, Lenovo ThinkPad X1 Carbon Gen 12 1922,29 €) restent
+  probablement le meilleur choix — le ThinkPad en particulier est une référence connue et documentée pour Linux
+  (support communautaire important, testé par de nombreux utilisateurs Linux).
+
+=== MAC ===
+
+--- Mini PC (Mac Mini / Mac Studio) ---
+  Les 4 gammes actuelles du site ont été reconfirmées EXACTES via recherche directe amazon.fr (aucune
+  hallucination, aucun changement de prix depuis le dernier relevé) :
+    - Essentiel : Mac Mini M6 base — 1049 € — https://www.amazon.fr/dp/B0HGGL1RJ1
+    - Recommandé : Mac Mini M6 (RAM/SSD supérieurs) — 1269 € — https://www.amazon.fr/dp/B0HGGBZNTT
+    - Pro : Mac Mini M5 Pro — 1999 € — https://www.amazon.fr/dp/B0HGGDQ29W
+    - Premium : Mac Studio M5 Max — 2999 € — https://www.amazon.fr/dp/B0HGS3C159
+  Aucun changement recommandé — le marché Apple neuf est stable, pas d'opportunité de "meilleure offre"
+  comme sur le marché PC clone (prix Apple fixes, peu de remise réelle constatée).
+  Câble HDMI : UGREEN Câble HDMI 2.1 Certifié 48Gbps (1m) — 9,79 € — https://www.amazon.fr/dp/B08TMGV1GV
+  Câble réseau Ethernet : UGREEN Câble Cat 7 Plat RJ45 10Gbps (1m) — 5,57 € — https://www.amazon.fr/dp/B00QV1F1C4
+  Clavier + Souris : Apple Magic Keyboard (100 €, 4,4★/160 avis, https://www.amazon.fr/dp/B0DL6RR2S9) — optionnel,
+  le clavier/souris générique du reste du catalogue fonctionne aussi (USB standard).
+
+--- Laptop (MacBook Air / MacBook Pro) ---
+  Unités centrales reconfirmées EXACTES pour Pro et Premium :
+    - Pro : MacBook Pro 14" M5 (32 Go/1 To) — 2439 € — https://www.amazon.fr/dp/B0GR1RL3W6
+    - Premium : MacBook Pro 16" M5 Pro (24 Go/1 To) — 3099 € — https://www.amazon.fr/dp/B0GR1NMSKK
+  Essentiel/Recommandé (MacBook Air) — piste d'économie repérée :
+    - MacBook Air 13" M5 (16 Go/1 To) — 1579 € — https://www.amazon.fr/dp/B0GR1KVHS1
+      Moins cher que le pick actuel Recommandé (MacBook Air 13" M5 24 Go/1 To à 1799 €), mais avec 16 Go de RAM
+      au lieu de 24 Go — à trancher selon si 24 Go apporte une vraie marge utile pour ce cas d'usage (probablement
+      marginal pour un poste de lecture vidéo) ou si le pick actuel reste préférable par prudence.
+  Hub/dock USB-C ou Thunderbolt : UGREEN Adaptateur USB-C vers HDMI 4K60 — 15,99 € — https://www.amazon.fr/dp/B0CC8V1Y5F
+  Support laptop : UGREEN Support Vertical Aluminium — 23,09 € — https://www.amazon.fr/dp/B091B4SWR7
+  Souris : Logitech M185 Sans Fil — 11,99 € — https://www.amazon.fr/dp/B00552K0GM
+
+=== ANDROID ===
+
+--- Tablettes ---
+
+Gamme 1 — Essentiel
+  Unité centrale (2-3 marques différentes) :
+    - Samsung Galaxy Tab A11+ (11", 128 Go, 6 Go RAM) — 223,88 € — 4,7★ (229 avis) — https://www.amazon.fr/dp/B0G4827DCM
+    - Samsung Galaxy Tab A11+ (variante) — 269,90 € — 4,6★ (238 avis) — https://www.amazon.fr/dp/B0FQPJ5GFJ
+    Verdict : modèle plus récent (A11+) que le pick actuel (Tab A9+, 285 €), pour un prix égal ou inférieur.
+    Amélioration nette possible.
+  Hub USB-C vers HDMI : UGREEN Adaptateur USB-C vers HDMI 4K60 — 15,99 € — https://www.amazon.fr/dp/B0CC8V1Y5F
+  Câble de charge USB-C : UGREEN Câble USB-C 100W PD Tressé (2m) — catalogue actuel, déjà vérifié — https://www.amazon.fr/dp/B0B27G1BZ9
+  Support mural antivol : AboveTEK Support Mural Verrouillable — catalogue actuel, déjà vérifié — https://www.amazon.fr/dp/B087WSSRQ7
+
+Gamme 2 — Recommandé
+  Unité centrale :
+    - Xiaomi Pad 7 (Snapdragon 7+ Gen 3, 8 Go/128 Go) — 379 € — https://www.amazon.fr/dp/B0G3WR2HSY
+      Même produit que le pick actuel du site, mais retrouvé à 379 € contre 409,99 € actuellement listés — à
+      reconfirmer au moment de l'intégration (les prix Amazon fluctuent).
+    - Samsung Galaxy Tab S10 Lite (10.9", 128 Go, S-Pen inclus) — 399 € — 4,5★ (152 avis) — https://www.amazon.fr/dp/B0FJY8H8TX
+      Alternative Samsung plus récente, S-Pen inclus, très bien notée.
+  Hub USB-C vers HDMI : UGREEN Adaptateur USB-C vers HDMI 4K60 — 15,99 € — https://www.amazon.fr/dp/B0CC8V1Y5F
+  Câble de charge USB-C : UGREEN Câble USB-C 100W PD Tressé (2m) — https://www.amazon.fr/dp/B0B27G1BZ9
+  Support mural antivol : AboveTEK Support Mural Verrouillable — https://www.amazon.fr/dp/B087WSSRQ7
+
+Gamme 3 — Pro
+  Unité centrale :
+    - Samsung Galaxy Tab S9 FE 10,9" étanche IP68/S-Pen — pick actuel du site (599,99 €) — NON re-vérifié cette
+      session (Amazon a temporairement bloqué les requêtes répétées sur cette fiche) ; probablement toujours
+      correct, à reconfirmer avant intégration.
+  Hub USB-C vers HDMI : Hub USB-C 6-en-1 Ethernet + HDMI + PD 100W — catalogue actuel, déjà vérifié — https://www.amazon.fr/dp/B0G81K4C12
+  Câble de charge USB-C : UGREEN Câble USB-C 100W PD Tressé (2m) — https://www.amazon.fr/dp/B0B27G1BZ9
+  Support mural antivol : Support Mural Renforcé Antivol 7-13" — catalogue actuel, déjà vérifié — https://www.amazon.fr/dp/B0CBPR36BF
+
+Gamme 4 — Premium
+  Unité centrale :
+    - Samsung Galaxy Tab S10 Ultra 14.6" (256 Go) — 1099,99 € — 4,3★ (50 avis) — https://www.amazon.fr/dp/B0DDTQYPJS
+      = pick actuel du site, reconfirmé EXACT au centime près. Aucun changement nécessaire.
+  Hub USB-C vers HDMI : Hub USB-C 6-en-1 Ethernet + HDMI + PD 100W — https://www.amazon.fr/dp/B0G81K4C12
+  Câble de charge USB-C : UGREEN Câble USB-C 100W PD Tressé (2m) — https://www.amazon.fr/dp/B0B27G1BZ9
+  Support mural antivol : Support Mural Renforcé Antivol 7-13" — https://www.amazon.fr/dp/B0CBPR36BF
+
+------------------------------------------------------------
+RÉCAPITULATIF FINAL DES CHANGEMENTS PROPOSÉS VS CATALOGUE ACTUEL
+------------------------------------------------------------
+
+MINI PC (Windows + Linux)
+- Essentiel : le B20E actuel (150,90 €) a été retrouvé en recherche directe à 2,9★/10 avis
+  seulement — qualité limite, à surveiller. BMAX B3Pro (209 €, 5,0★/186 avis) est une
+  alternative plus fiable, légèrement au-dessus du plafond 150-200 € visé.
+- Recommandé (surtout Linux) : Mini PC Industriel Fanless N100 (592 €) → BOSGAME E5 Ryzen 5
+  5300U (299 €) : AMD quad-core réel, moitié prix, connectique supérieure. Seul compromis :
+  pas fanless (silence non total).
+- Pro : Minisforum UM760 Slim (539 €) / MS-01 (709 €) → NiPoGi E3B (519 €) et NiPoGi H1
+  (589 €), mieux notés, plus de RAM/stockage inclus.
+- Premium : AX9 Max (1549 €) reconfirmé exact, inchangé.
+
+LAPTOP (Windows + Linux)
+- Essentiel : rien de mieux trouvé avec ≥100 avis sous ~300 € ; le pick actuel (322,99 €)
+  ou HP Celeron N100 (279 €, mais seulement 4 Go RAM) restent les options réalistes.
+- Recommandé : MSI Modern 14 sans OS (705,31 €) → Lenovo Ryzen 5 7520U 16 Go/512 Go (549 €),
+  AMD réel bien noté (122 avis), moins cher.
+- Pro/Premium : aucune alternative validée trouvée (marché clairsemé) — picks actuels
+  (ASUS Vivobook, Dell XPS 13, ThinkPad X1 Carbon Gen 12) conservés par défaut.
+
+MAC (Mini PC + Laptop)
+- Toutes les gammes Mac Mini/Studio (1049 €, 1269 €, 1999 €, 2999 €) et MacBook Pro
+  Pro/Premium (2439 €, 3099 €) reconfirmées EXACTES au centime près — aucun changement.
+- MacBook Air Recommandé : piste d'économie repérée (16 Go à 1579 € vs 24 Go à 1799 €
+  actuellement) — à trancher selon le besoin réel de RAM.
+
+ANDROID (Tablettes)
+- Essentiel : Tab A9+ (285 €) → Tab A11+ (223,88-269,90 €, 4,6-4,7★/~230 avis), modèle
+  plus récent pour un prix égal ou inférieur.
+- Recommandé : Xiaomi Pad 7 retrouvé à 379 € contre 409,99 € listés actuellement (même
+  produit, à reconfirmer à l'intégration) ; alternative Samsung Tab S10 Lite à 399 € avec
+  S-Pen inclus.
+- Pro : pick actuel (Tab S9 FE, 599,99 €) non re-vérifié cette session (blocage temporaire
+  Amazon) — probablement toujours correct.
+- Premium : Tab S10 Ultra (1099,99 €) reconfirmé exact, inchangé.

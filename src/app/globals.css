@@ -7736,6 +7736,84 @@ main {
   transform: none;
 }
 
+.hw-alt-units {
+  margin-bottom: 1.5rem;
+}
+
+.hw-alt-units__label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.hw-alt-units__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.hw-alt-unit-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 0.5rem;
+  border: 1px dashed var(--border-subtle);
+  background: var(--bg-surface);
+}
+
+.hw-alt-unit-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.hw-alt-unit-card__name {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hw-alt-unit-card__price {
+  font-size: 0.775rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.hw-alt-unit-card__actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.hw-alt-unit-card__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  color: var(--text-muted);
+}
+
+.hw-alt-unit-card__link:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
 .hw-hero-grid {
   display: grid;
   grid-template-columns: minmax(140px, 180px) minmax(0, 1fr);
@@ -8190,6 +8268,52 @@ main {
 
 .hw-cart-sheet-checkout {
   flex: 1;
+}
+
+.hw-os-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.hw-os-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.hw-os-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex-shrink: 0;
+  width: 220px;
+}
+
+.hw-os-sidebar button {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .hw-os-layout {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hw-os-content {
+    width: 100%;
+  }
+
+  .hw-os-sidebar {
+    order: -1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .hw-os-sidebar button {
+    width: auto;
+    flex: 1 1 auto;
+  }
 }
 
 .hw-mobile-buybar {

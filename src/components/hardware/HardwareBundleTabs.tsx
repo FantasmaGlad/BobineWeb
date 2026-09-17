@@ -22,6 +22,7 @@ interface HardwareBundleTabsProps {
   locale: Locale;
 }
 
+
 function formatCheckedDate(iso: string, isEn: boolean) {
   const d = new Date(`${iso}T00:00:00Z`);
   return d.toLocaleDateString(isEn ? "en-GB" : "fr-FR", {
@@ -199,26 +200,6 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
               >
                 {isEn ? currentFormFactor.titleEn : currentFormFactor.titleFr}
               </h2>
-            </div>
-            <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", margin: "0 0 0.4rem 0" }}>
-              {isEn ? currentFormFactor.subtitleEn : currentFormFactor.subtitleFr}
-            </p>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", flexWrap: "wrap" }}>
-              <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 600 }}>
-                {isEn ? "Target use-case :" : "Usage type :"}
-              </span>
-              <span
-                style={{
-                  fontSize: "0.75rem",
-                  color: "var(--text-heading)",
-                  background: "var(--bg-inset)",
-                  padding: "0.15rem 0.5rem",
-                  borderRadius: "0.3rem",
-                  border: "1px solid var(--border-subtle)",
-                }}
-              >
-                {isEn ? currentFormFactor.targetEn : currentFormFactor.targetFr}
-              </span>
             </div>
           </div>
 

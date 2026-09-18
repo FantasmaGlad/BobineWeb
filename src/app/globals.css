@@ -8641,10 +8641,6 @@ main {
   color: var(--accent-hover) !important;
 }
 
-.platform-theme-amazon .hw-cart-toggle-btn.is-added {
-  color: #067d62;
-}
-
 .platform-theme-aliexpress {
   --bg-canvas: #fff6f2;
   --bg-card: #ffffff;

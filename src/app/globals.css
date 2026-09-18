@@ -1068,6 +1068,29 @@ main {
 
 /* Boutons & Liens d'action */
 
+.gp-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.25;
+  transform: scale(0);
+  animation: gp-ripple-anim 0.55s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes gp-ripple-anim {
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gp-ripple {
+    display: none;
+  }
+}
+
 .button,
 .btn-primary {
   display: inline-flex;
@@ -2897,6 +2920,29 @@ main {
   border-bottom: 1px solid var(--border-subtle);
   text-decoration: none;
   transition: all 0.15s ease;
+}
+
+.mobile-drawer-link--enter {
+  opacity: 0;
+  animation: mobileDrawerLinkEnter 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes mobileDrawerLinkEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-drawer-link--enter {
+    animation: none;
+    opacity: 1;
+  }
 }
 
 .mobile-drawer-link:hover,
@@ -7603,6 +7649,27 @@ main {
   cursor: pointer;
   transition: all 0.2s ease;
   min-height: 44px;
+}
+
+.download-modal__action-icon--pop {
+  animation: download-modal-icon-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes download-modal-icon-pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .download-modal__action-icon--pop {
+    animation: none;
+  }
 }
 
 .download-modal__action-btn--primary {

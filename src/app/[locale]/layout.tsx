@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import BobineChatbot from "@/components/BobineChatbot";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
+import GlobalRippleEffect from "@/components/GlobalRippleEffect";
 import "../globals.css";
 
 
@@ -110,6 +111,7 @@ export default async function RootLayout({
       </head>
       <body>
         <ThemeSync />
+        <GlobalRippleEffect />
         <JsonLd locale={locale} />
         <Header locale={locale} dict={dict} />
         <TechTicker locale={locale as Locale} />

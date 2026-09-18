@@ -195,7 +195,7 @@ export default function MobileDrawer({
               {isEn ? "Navigation" : "Navigation"}
             </span>
             <nav className="mobile-drawer-nav" aria-label="Menu principal">
-              {mainLinks.map((item) => {
+              {mainLinks.map((item, index) => {
                 const isActive =
                   pathname === item.href ||
                   (item.href !== `/${locale}` && pathname.startsWith(item.href));
@@ -203,7 +203,8 @@ export default function MobileDrawer({
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`mobile-drawer-link ${isActive ? "is-active" : ""}`}
+                    className={`mobile-drawer-link mobile-drawer-link--enter ${isActive ? "is-active" : ""}`}
+                    style={{ animationDelay: `${40 + index * 30}ms` }}
                     onClick={onClose}
                   >
                     <span className="mobile-drawer-link__text">{item.label}</span>

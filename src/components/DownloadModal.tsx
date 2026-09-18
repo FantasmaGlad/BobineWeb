@@ -31,6 +31,7 @@ export default function DownloadModal({
   const isEn = locale === "en";
   const activePlatform: DownloadPlatform = initialPlatform;
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
+  const [downloadingKey, setDownloadingKey] = useState<string | null>(null);
   const isMounted = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const modalRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -312,25 +313,48 @@ export default function DownloadModal({
                   target="_blank"
                   rel="noopener noreferrer"
                   download
-                  onClick={() => setTimeout(onClose, 300)}
+                  onClick={() => {
+                    setDownloadingKey("stable");
+                    setTimeout(onClose, 300);
+                  }}
                 >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
+                  {downloadingKey === "stable" ? (
+                    <svg
+                      key="check"
+                      className="download-modal__action-icon--pop"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                  )}
                   <span>
-                    {isEn ? `Download Stable (${stable.version})` : `Télécharger la Stable (${stable.version})`}
+                    {downloadingKey === "stable"
+                      ? (isEn ? "Started" : "Lancé")
+                      : (isEn ? `Download Stable (${stable.version})` : `Télécharger la Stable (${stable.version})`)}
                   </span>
                 </a>
               </div>
@@ -363,25 +387,48 @@ export default function DownloadModal({
                   target="_blank"
                   rel="noopener noreferrer"
                   download
-                  onClick={() => setTimeout(onClose, 300)}
+                  onClick={() => {
+                    setDownloadingKey("beta");
+                    setTimeout(onClose, 300);
+                  }}
                 >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
+                  {downloadingKey === "beta" ? (
+                    <svg
+                      key="check"
+                      className="download-modal__action-icon--pop"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                  )}
                   <span>
-                    {isEn ? "Download Beta (Rolling)" : "Télécharger la Bêta (Rolling)"}
+                    {downloadingKey === "beta"
+                      ? (isEn ? "Started" : "Lancé")
+                      : (isEn ? "Download Beta (Rolling)" : "Télécharger la Bêta (Rolling)")}
                   </span>
                 </a>
               </div>

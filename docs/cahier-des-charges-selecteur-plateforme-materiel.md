@@ -91,3 +91,34 @@ apparaîtra sans jamais afficher de faux produit ni de fausse promesse de date.
 - Pas de vrai catalogue AliExpress ni de recherche produit sur cette plateforme.
 - Pas de panier partagé entre plateformes (le panier "Mon Pack" reste scopé Amazon).
 - Pas de bascule automatique de langue/devise liée à la plateforme.
+
+## 9. Stabilisation de la mise en page de la fiche produit (post-lancement)
+
+Retours utilisateur après mise en production : la hauteur et la position des éléments de la
+fiche produit variaient trop d'une gamme/OS à l'autre (titres de longueurs différentes, nombre
+variable de marques alternatives), donnant une impression de mise en page instable au changement
+de gamme. Corrections apportées (toutes dans `HardwareBundleTabs.tsx` / `globals.css`) :
+
+- **Ligne titre + badges** (`.hw-tier-specs-row`) : reste sur une seule ligne sur desktop quelle
+  que soit la longueur du titre (troncature `ellipsis`), au lieu de se replier sur 1 ou 2 lignes
+  selon le produit. Sur mobile, retour au comportement libre (titre complet, retour à la ligne).
+- **Hauteur minimale de la fiche** : `calc(100vh - 13rem)` pour les OS avec le sélecteur Mini
+  PC/PC Portable, `calc(100vh - 16.5rem)` pour Android (qui n'a qu'une seule forme de matériel,
+  donc pas ce sélecteur) — évite un vide disproportionné en bas de fiche pour Android par rapport
+  aux autres OS.
+- **"Autres marques à considérer"** : défilement horizontal avec flèche (`.hw-alt-units__row`)
+  au lieu d'un empilement vertical, pour que la fiche ne change jamais de hauteur selon qu'une
+  gamme propose 1 ou 2 marques alternatives.
+- **Badges de gamme retirés** (ex : "Cockpit Studio", "Pack Studio Mobile", "Haut de Gamme") :
+  jugés redondants avec le nom de la gamme (Essentiel/Recommandé/Pro/Premium) lui-même.
+- **Sous-titre et badge "Usage type" retirés** de l'en-tête de chaque forme de matériel : jugés
+  redondants une fois le produit affiché (l'utilisateur voit déjà quelle machine est proposée).
+
+## 10. Prochaines étapes (non planifiées à ce jour)
+
+- Signer un vrai partenariat d'affiliation AliExpress puis construire son catalogue réel
+  (mêmes exigences de vérification ASIN/prix/image que pour Amazon).
+- Étendre le sélecteur à d'autres plateformes si de nouveaux partenariats se présentent
+  (structure de route déjà prête à être dupliquée : `/materiel/<plateforme>`).
+- Réévaluer si une bascule automatique de langue/devise par plateforme devient pertinente une
+  fois AliExpress réellement actif (hors périmètre pour l'instant, cf. section 8).

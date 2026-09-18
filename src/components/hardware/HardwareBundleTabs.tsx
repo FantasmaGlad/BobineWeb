@@ -178,6 +178,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
         }}
       >
         <div
+          className="hw-tier-header-row"
           style={{
             display: "flex",
             justifyContent: "space-between",

@@ -7901,6 +7901,23 @@ main {
   flex-shrink: 0;
 }
 
+@media (max-width: 640px) {
+  .hw-tier-header-row {
+    flex-direction: column;
+  }
+
+  .hw-tier-toggle {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: visible;
+    flex-wrap: wrap;
+  }
+
+  .hw-tier-toggle .stepper-mode-btn {
+    flex: 1 1 calc(50% - 2px);
+  }
+}
+
 .hw-tier-nav-arrow {
   position: absolute;
   top: 50%;

@@ -174,7 +174,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
           borderRadius: "0.75rem",
           padding: "1.5rem",
           boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
-          minHeight: "calc(100vh - 13rem)",
+          minHeight: formFactorKeys.length > 1 ? "calc(100vh - 13rem)" : "calc(100vh - 16.5rem)",
         }}
       >
         <div
@@ -325,22 +325,26 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
           {/* 5. DÉTAILS DE LA GAMME ACTIVE */}
           <div style={{ marginBottom: "1.5rem" }}>
             <div
+              className="hw-tier-specs-row"
               style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                flexWrap: "wrap",
                 gap: "0.5rem",
                 marginBottom: "0.5rem",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
+              <div className="hw-tier-specs-row__title" style={{ display: "flex", alignItems: "center", gap: "0.5rem", minWidth: 0 }}>
                 <h3
                   style={{
                     fontSize: "1.1rem",
                     fontWeight: 700,
                     color: "var(--text-heading)",
                     margin: 0,
+                    minWidth: 0,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
                   }}
                 >
                   {isEn ? currentTier.headlineEn : currentTier.headlineFr}
@@ -348,6 +352,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                 {showFanBadge && (
                   <span
                     style={{
+                      flexShrink: 0,
                       fontSize: "0.675rem",
                       fontWeight: 700,
                       textTransform: "uppercase",
@@ -366,7 +371,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                 )}
               </div>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <div className="hw-tier-specs-row__badges" style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexShrink: 0 }}>
                 <span
                   style={{
                     fontSize: "0.725rem",

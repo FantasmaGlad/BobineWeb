@@ -7901,9 +7901,31 @@ main {
   flex-shrink: 0;
 }
 
+.hw-tier-specs-row {
+  flex-wrap: nowrap;
+}
+
+.hw-tier-specs-row__title {
+  flex: 1 1 auto;
+}
+
 @media (max-width: 640px) {
   .hw-tier-header-row {
     flex-direction: column;
+  }
+
+  .hw-tier-specs-row {
+    flex-wrap: wrap;
+  }
+
+  .hw-tier-specs-row__title {
+    width: 100%;
+  }
+
+  .hw-tier-specs-row__title h3 {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
   }
 
   .hw-tier-toggle {

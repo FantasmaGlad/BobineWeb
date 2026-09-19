@@ -1103,38 +1103,108 @@
   border-color: color-mix(in srgb, var(--accent-primary) 35%, var(--border-subtle));
 }
 
-/* Encart discret « Soutien à Tor » (coin de la barre latérale de documentation) */
+/* Encart soigné « Distribution Tor (.onion) » (barre latérale de documentation) */
 .docs-tor-note {
-  margin-top: 0.25rem;
-  padding: 0.8rem 0.9rem;
+  margin-top: 0.5rem;
+  padding: 0.85rem 0.95rem;
   border: 1px solid var(--border-subtle);
-  border-radius: 0.6rem;
+  border-radius: 0.65rem;
   background: var(--bg-card);
   font-size: 0.775rem;
   line-height: 1.45;
   color: var(--text-muted);
 }
+.docs-tor-note__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
 .docs-tor-note__title {
   display: block;
-  margin-bottom: 0.25rem;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-heading);
 }
-.docs-tor-note p {
-  margin: 0 0 0.5rem;
+.docs-tor-note__desc {
+  margin: 0 0 0.6rem;
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: var(--text-muted);
 }
-.docs-tor-note__links {
+.docs-tor-note__urls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 0.6rem;
+}
+.docs-tor-note__url-row {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
 }
-.docs-tor-note__links a {
+.docs-tor-note__url-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-dim, var(--text-muted));
+}
+.docs-tor-note__url-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+  padding: 0.25rem 0.45rem;
+  background: var(--bg-inset, rgba(0, 0, 0, 0.03));
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.4rem;
+}
+.docs-tor-note__code {
+  font-size: 0.68rem;
+  font-family: var(--font-mono, monospace);
   color: var(--text-heading);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 140px;
+}
+.docs-tor-note__copy-btn {
+  padding: 0.15rem 0.45rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  border-radius: 0.3rem;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.docs-tor-note__copy-btn:hover {
+  background: var(--bg-surface);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+.docs-tor-note__links {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+}
+.docs-tor-note__links a {
+  color: var(--text-muted);
   text-decoration: underline;
   text-underline-offset: 0.2em;
+  transition: color 0.15s ease;
+}
+.docs-tor-note__links a:hover {
+  color: var(--text-heading);
+}
+.docs-tor-note__bullet {
+  color: var(--border-subtle);
 }
 
 .docs-onion-link {
@@ -1143,3 +1213,4 @@
   text-underline-offset: 3px;
   word-break: break-all;
 }
+

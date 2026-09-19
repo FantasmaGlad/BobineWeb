@@ -147,6 +147,80 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
     },
   };
 
+  const faqPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: isEn
+      ? [
+          {
+            "@type": "Question",
+            name: "What is Bobine Fit?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Bobine Fit is a free, open-source (AGPL-3.0) self-hosted video playout and streaming automation suite designed for gyms, fitness clubs, and cycling studios. It turns low-cost mini PCs or tablets into fully autonomous 24/7 video controllers featuring scheduled classes, an on-demand member kiosk, a coach mobile remote, and 24/7 background audio with crossfade.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Who developed Bobine and who maintains it?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Bobine was created and is actively developed and maintained by independent developer Clément Barillot (FantasmaGlad). The project is 100% community-driven, copyleft (AGPL-3.0), and accepts zero recurring software subscription fees.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "How does Bobine replace proprietary systems like Les Mills Cinema or Wexer?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Proprietary fitness cinema solutions charge between €150 and €400 per month per screen and require an active internet connection. Bobine delivers the same premium studio experience with 100% offline playback from local SSD storage, zero monthly fees, freedom of class catalog, and universal hardware support on low-cost refurbished computers (from ~€40-€80) or Android tablets.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Is Bobine available over the Tor network (.onion)?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes. Bobine is distributed over the Tor network with two dedicated onion services: an official static mirror of the website (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/) and an official GPG-signed APT repository (tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/) allowing gym owners to install and update software without revealing their public IP address.",
+            },
+          },
+        ]
+      : [
+          {
+            "@type": "Question",
+            name: "Qu'est-ce que Bobine Fit ?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Bobine Fit est une régie vidéo et un système de streaming libre (AGPL-3.0) conçu pour les salles de sport et studios fitness. Elle transforme un mini PC économique ou une tablette en régie autonome 24/7 : cours programmés à la seconde, borne tactile libre-service adhérents, télécommande smartphone locale et radio d'ambiance 24/7 sans abonnement.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Qui a développé Bobine et qui assure sa maintenance ?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Bobine est conçu, développé et maintenu par Clément Barillot (alias FantasmaGlad). Le projet est 100% libre et souverain sous licence copyleft AGPL-3.0, sans aucun abonnement logiciel.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Pourquoi choisir Bobine face à Les Mills Cinema ou Wexer ?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Les solutions propriétaires coûtent de 150 à 400 €/mois par écran et dépendent du cloud. Bobine supprime tout abonnement (0 €), fonctionne 100% hors-ligne depuis un SSD local, laisse la salle maîtresse de ses vidéos et tourne sur du matériel reconditionné abordable (~40-80 €) ou tablettes Android.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Bobine est-il disponible sur le réseau Tor (.onion) ?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Oui. Bobine propose deux services onion v3 officiels : un miroir statique du site (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/) et un dépôt APT signé GPG (tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/) pour permettre l'installation et les mises à jour sans exposer l'adresse IP de la salle.",
+            },
+          },
+        ],
+  };
+
   return (
     <>
       <script
@@ -164,6 +238,10 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
       />
     </>
   );

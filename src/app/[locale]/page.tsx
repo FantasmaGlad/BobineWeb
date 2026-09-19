@@ -40,16 +40,33 @@ export async function generateMetadata({
     description: isEn
       ? "Transform standard budget mini PCs into an autonomous, 100% offline video playout suite for gyms. The free, self-hosted alternative to Les Mills Cinema."
       : "Transformez un mini PC standard en régie vidéo autonome et 100% hors-ligne pour votre salle de sport. L'alternative libre et sans abonnement à Les Mills Cinema.",
-    keywords: [
-      "Bobine",
-      "Régie vidéo salle de sport",
-      "Alternative Les Mills Cinema",
-      "Affichage dynamique fitness",
-      "Streaming vidéo salle de sport",
-      "Cours collectifs vidéo fitness",
-      "Dell Wyse 5070 streaming",
-      "Logiciel libre sport",
-    ],
+    keywords: isEn
+      ? [
+          "Bobine",
+          "Bobine Fit",
+          "Bobine playout",
+          "Gym video playout",
+          "Les Mills Cinema alternative",
+          "Les Mills Virtual alternative",
+          "Wexer alternative",
+          "Fitness digital signage",
+          "Gym streaming playout",
+          "Virtual fitness kiosk",
+          "Group fitness video player",
+          "Dell Wyse 5070 gym",
+          "Open-source fitness software",
+        ]
+      : [
+          "Bobine",
+          "Bobine Fit",
+          "Régie vidéo salle de sport",
+          "Alternative Les Mills Cinema",
+          "Affichage dynamique fitness",
+          "Streaming vidéo salle de sport",
+          "Cours collectifs vidéo fitness",
+          "Dell Wyse 5070 streaming",
+          "Logiciel libre sport",
+        ],
   });
 }
 

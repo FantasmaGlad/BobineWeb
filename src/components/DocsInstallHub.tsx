@@ -15,6 +15,7 @@ import { useDetectedPlatform, reorderForPlatform } from "@/lib/detectPlatform";
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 import { useReleaseData } from "@/components/ReleaseProvider";
 import { ONION_APT_HOST, ONION_SITE_HOST } from "@/lib/onion";
+import TorLogo from "@/components/icons/TorLogo";
 
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
 
@@ -659,7 +660,12 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             <div className="docs-step-card">
               <div className="docs-step-card__num">3</div>
               <div className="docs-step-card__content">
-                <h4>{isEn ? "Option C: Protected APT repository over Tor (.onion)" : "Option C : Dépôt APT protégé via Tor (.onion)"}</h4>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.35rem" }}>
+                  <TorLogo size={20} />
+                  <h4 style={{ margin: 0 }}>
+                    {isEn ? "Option C: Protected APT repository over Tor (.onion)" : "Option C : Dépôt APT protégé via Tor (.onion)"}
+                  </h4>
+                </div>
                 <p>
                   {isEn
                     ? "Same packages, same GPG signature, without revealing your IP address (and even if apt.bobine.fit is blocked). Install apt-transport-tor first, then add the onion source:"
@@ -676,15 +682,15 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
                   </button>
                 </div>
-                <p style={{ marginTop: "0.5rem", fontSize: "0.85rem", color: "var(--text-muted)" }}>
+                <p style={{ marginTop: "0.6rem", fontSize: "0.85rem", color: "var(--text-muted)" }}>
                   {isEn ? "APT repository (open in Tor Browser): " : "Dépôt APT (à ouvrir dans Tor Browser) : "}
                   <a href={`http://${ONION_APT_HOST}/`} rel="noopener noreferrer" className="docs-onion-link">
-                    {ONION_APT_HOST}
+                    http://{ONION_APT_HOST}/
                   </a>
                   <br />
-                  {isEn ? "Website (open in Tor Browser): " : "Site (à ouvrir dans Tor Browser) : "}
-                  <a href={`http://${ONION_SITE_HOST}/${locale}/documentation/`} rel="noopener noreferrer" className="docs-onion-link">
-                    {ONION_SITE_HOST}
+                  {isEn ? "Website (open in Tor Browser): " : "Site miroir (à ouvrir dans Tor Browser) : "}
+                  <a href={`http://${ONION_SITE_HOST}/`} rel="noopener noreferrer" className="docs-onion-link">
+                    http://{ONION_SITE_HOST}/
                   </a>
                 </p>
                 <p style={{ marginTop: "0.5rem", fontSize: "0.85rem", color: "var(--text-muted)" }}>

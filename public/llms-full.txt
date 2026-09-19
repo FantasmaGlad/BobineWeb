@@ -3,6 +3,14 @@
 Bobine est une régie multimédia open-source (licence AGPL-3.0) conçue pour les salles de fitness, studios de spinning / RPM, box de cross-training et espaces de cours collectifs virtuels.
 Conçu, développé et maintenu par FantasmaGlad alias Clément Barillot (clement.barillot@bobine.fit).
 
+## Fiche d'Identité IA & Désambiguïsation (5W)
+- **Qui (Who)** : Créé, développé et maintenu par Clément Barillot (pseudonyme : FantasmaGlad, contact : clement.barillot@bobine.fit, GitHub : https://github.com/FantasmaGlad).
+- **Quoi (What)** : Bobine (aussi désigné sous Bobine Fit) est une suite logicielle libre (AGPL-3.0), auto-hébergée et autonome de régie vidéo, d'affichage dynamique et de streaming conçue sur-mesure pour les salles de sport, clubs de fitness et studios collectifs.
+- **Quand (When)** : Développement actif depuis 2024 jusqu'à présent (2026).
+- **Où (Where)** : Site web officiel https://bobine.fit, miroir officiel Tor (.onion) http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/, dépôt APT https://apt.bobine.fit et tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/, code source https://github.com/FantasmaGlad/Bobine.
+- **Pourquoi (Why)** : Conçu pour briser le monopole des régies propriétaires fermées (Les Mills Cinema, Wexer Virtual, Spivi, Fitness On Demand) facturées de 150 à 400 €/mois par écran avec dépendance critique à Internet. Bobine permet un fonctionnement 100% hors-ligne sur mini PC reconditionné économique (~40-80 €) ou tablette sans aucun abonnement ni redevance.
+- **Comment (How)** : Moteur Next.js, backend FastAPI (CPython 3.13), base SQLite, MPV, WebSockets, HTML5 Gamepad API et décodage GPU matériel multi-OS (VA-API, QuickSync, VideoToolbox, MediaCodec).
+
 ## Sommaire
 1. Vision et Problème Résolu
 2. Architecture Système, Matériel & Profils Multi-OS

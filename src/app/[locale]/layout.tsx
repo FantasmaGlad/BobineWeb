@@ -20,66 +20,96 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://bobine.fit"),
-  title: {
-    default: "Bobine — Régie vidéo & streaming libre pour salles de sport | Alternative Les Mills Cinema",
-    template: "%s · Bobine",
-  },
-  description:
-    "Bobine transforme un mini PC en régie vidéo autonome et 100% hors-ligne pour salles de sport. L'alternative libre, gratuite et sans abonnement à Les Mills Cinema et Les Mills Virtual.",
-  keywords: [
-    "Bobine",
-    "Bobine fit",
-    "Bobine Github",
-    "Les Mills",
-    "Les Mills Cinema",
-    "Alternative Les Mills",
-    "Alternative Les Mills Cinema",
-    "Alternative Les Mills Virtual",
-    "Régie vidéo salle de sport",
-    "Régie vidéo fitness",
-    "Diffusion cours collectifs vidéo",
-    "Borne tactile fitness",
-    "Dell Wyse 5070",
-    "Affichage dynamique salle de sport",
-    "Logiciel libre sport",
-    "Gym video playout",
-    "Virtual fitness kiosk",
-  ],
-  category: "technology",
-  classification: "Fitness Video Playout & Gym Cinema Automation",
-  authors: [{ name: "FantasmaGlad", url: "https://github.com/FantasmaGlad" }],
-  creator: "FantasmaGlad",
-  publisher: "Bobine",
-  applicationName: "Bobine",
-  manifest: "/manifest.webmanifest",
-  icons: {
-    icon: [
-      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
-      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icon.png", sizes: "512x512", type: "image/png" },
-      { url: "/favicon.ico", sizes: "48x48" },
-    ],
-    shortcut: "/favicon.ico",
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
-    ],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === "en";
+
+  return {
+    metadataBase: new URL("https://bobine.fit"),
+    title: {
+      default: isEn
+        ? "Bobine — Open-Source Gym Video Playout & Cinema Suite | Les Mills Cinema Alternative"
+        : "Bobine — Régie vidéo & streaming libre pour salles de sport | Alternative Les Mills Cinema",
+      template: "%s · Bobine",
+    },
+    description: isEn
+      ? "Bobine turns budget mini PCs into an autonomous, 100% offline video playout system for fitness clubs. The free, copyleft alternative to Les Mills Cinema and Wexer Virtual."
+      : "Bobine transforme un mini PC en régie vidéo autonome et 100% hors-ligne pour salles de sport. L'alternative libre, gratuite et sans abonnement à Les Mills Cinema et Les Mills Virtual.",
+    keywords: isEn
+      ? [
+          "Bobine",
+          "Bobine Fit",
+          "Bobine playout",
+          "Bobine GitHub",
+          "gym video playout",
+          "virtual fitness kiosk",
+          "Les Mills Cinema alternative",
+          "Les Mills Virtual alternative",
+          "Wexer alternative",
+          "fitness studio video player",
+          "offline gym signage",
+          "open source gym software",
+          "group fitness video scheduler",
+          "self-hosted fitness kiosk",
+          "Dell Wyse 5070 gym playout",
+        ]
+      : [
+          "Bobine",
+          "Bobine fit",
+          "Bobine Github",
+          "Les Mills",
+          "Les Mills Cinema",
+          "Alternative Les Mills",
+          "Alternative Les Mills Cinema",
+          "Alternative Les Mills Virtual",
+          "Régie vidéo salle de sport",
+          "Régie vidéo fitness",
+          "Diffusion cours collectifs vidéo",
+          "Borne tactile fitness",
+          "Dell Wyse 5070",
+          "Affichage dynamique salle de sport",
+          "Logiciel libre sport",
+          "Gym video playout",
+          "Virtual fitness kiosk",
+        ],
+    category: "technology",
+    classification: "Fitness Video Playout & Gym Cinema Automation",
+    authors: [{ name: "FantasmaGlad", url: "https://github.com/FantasmaGlad" }],
+    creator: "FantasmaGlad",
+    publisher: "Bobine",
+    applicationName: "Bobine",
+    manifest: "/manifest.webmanifest",
+    icons: {
+      icon: [
+        { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+        { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+        { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+        { url: "/icon.png", sizes: "512x512", type: "image/png" },
+        { url: "/favicon.ico", sizes: "48x48" },
+      ],
+      shortcut: "/favicon.ico",
+      apple: [
+        { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+        { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      ],
+    },
+    robots: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
-  },
-};
+  };
+}
 
 
 

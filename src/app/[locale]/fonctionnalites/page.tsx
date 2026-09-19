@@ -142,17 +142,30 @@ export async function generateMetadata({
     description: isEn
       ? "What Bobine does for your gym day to day: classes that start on their own, a setup that backs itself up, a self-service member kiosk, and 24/7 background audio without a monthly subscription."
       : "Ce que Bobine change au quotidien pour votre salle : des cours qui se lancent tout seuls, une configuration qui se sauvegarde toute seule, une borne libre-service pour les adhérents et une ambiance sonore 24/7, sans abonnement.",
-    keywords: [
-      "Fonctionnalités Bobine",
-      "Alternative Les Mills Cinema",
-      "Alternative Les Mills Virtual",
-      "Diffusion vidéo automatique salle de sport",
-      "Contrôle TV automatique fitness",
-      "Borne tactile cours collectif",
-      "Radio ambiance salle de sport",
-      "Régie vidéo autonome",
-      "Virtual fitness player features",
-    ],
+    keywords: isEn
+      ? [
+          "Bobine features",
+          "Bobine Fit features",
+          "Les Mills Cinema alternative",
+          "Les Mills Virtual alternative",
+          "automated gym video playout",
+          "fitness studio TV automation",
+          "touchscreen fitness kiosk",
+          "gym background radio",
+          "autonomous video playout suite",
+          "virtual fitness player features",
+        ]
+      : [
+          "Fonctionnalités Bobine",
+          "Alternative Les Mills Cinema",
+          "Alternative Les Mills Virtual",
+          "Diffusion vidéo automatique salle de sport",
+          "Contrôle TV automatique fitness",
+          "Borne tactile cours collectif",
+          "Radio ambiance salle de sport",
+          "Régie vidéo autonome",
+          "Virtual fitness player features",
+        ],
   });
 }
 

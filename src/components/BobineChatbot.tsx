@@ -2,69 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
 import { readCart } from "@/lib/hardwareCart";
 import { readStoreView, subscribeStoreView, type StoreView } from "@/lib/storeView";
-import ChatProductCard from "@/components/ChatProductCard";
-import ChatCompareCard from "@/components/ChatCompareCard";
+import AssistantMessageBody from "@/components/AssistantMessageBody";
 import BaamixThinking from "@/components/BaamixThinking";
 
-const MarkdownRenderer = dynamic(() => import("./MarkdownRenderer"), {
-  loading: () => <span className="markdown-loading" />,
-});
+
 
 interface Message {
   role: "user" | "assistant";
   content: string;
-}
-
-/**
- * Baamix signale un produit achetable avec un bloc ```product {"id":"..."} ``` et une comparaison
- * avec un bloc ```compare {"ids":["...","..."]} ``` (contrat défini par le prompt système). On les
- * extrait avant le rendu Markdown pour afficher de vraies cartes (image, prix, lien, caractéristiques
- * résolus depuis le catalogue, jamais depuis le texte du modèle) à la place des blocs bruts.
- * L'ancienne clé "asin" reste acceptée.
- */
-function parseCatalogBlocks(raw: string): { displayText: string; productIds: string[]; compares: string[][] } {
-  const productIds: string[] = [];
-  const compares: string[][] = [];
-
-  let displayText = raw.replace(/```(product|compare)\s*([\s\S]*?)```/g, (_match, kind: string, jsonStr: string) => {
-    try {
-      const parsed = JSON.parse(jsonStr.trim());
-      if (kind === "product") {
-        const id = typeof parsed?.id === "string" ? parsed.id : typeof parsed?.asin === "string" ? parsed.asin : null;
-        if (id && !productIds.includes(id)) productIds.push(id);
-      } else if (Array.isArray(parsed?.ids)) {
-        const ids = [...new Set((parsed.ids as unknown[]).filter((v): v is string => typeof v === "string"))].slice(0, 4);
-        if (ids.length >= 2) compares.push(ids);
-      }
-    } catch {
-      // bloc malformé émis par le modèle : ignoré silencieusement, jamais de crash
-    }
-    return "";
-  });
-
-  // Fence encore ouverte pendant le streaming (fermeture pas encore reçue) :
-  // on tronque l'affichage avant le JSON brut plutôt que de le montrer en flash.
-  const openFence = displayText.search(/```(product|compare)/);
-  if (openFence !== -1) {
-    displayText = displayText.slice(0, openFence);
-  }
-
-  // Le comparatif fiable est affiché par la carte : on retire les tableaux Markdown que le modèle
-  // recopierait malgré la consigne, pour ne pas dupliquer (ni contredire) les données du catalogue.
-  if (compares.length > 0) {
-    displayText = displayText
-      .split("\n")
-      .filter((line) => !/^\s*\|/.test(line))
-      .join("\n")
-      .replace(/\n{3,}/g, "\n\n");
-  }
-
-  return { displayText: displayText.trimEnd(), productIds, compares };
 }
 
 /**
@@ -129,8 +78,8 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
   const suggestions = storeView ? [...storeSuggestions, baseSuggestions[1], baseSuggestions[0]] : baseSuggestions;
 
   const defaultGreeting = isEn
-    ? "Hello! I am Baamix, the Bobine mascot. Have a question about Bobine or equipping your gym?"
-    : "Bonjour, je suis Baamix la mascotte de Bobine ! Une question sur Bobine ou l'équipement de votre salle ?";
+    ? "Hello! I am Baamix, the Bobine mascot. Have a question about Bobine or equipping your gym? I recommend and compare hardware from both Amazon and AliExpress."
+    : "Bonjour, je suis Baamix la mascotte de Bobine ! Une question sur Bobine ou l'équipement de votre salle ? Je recommande et compare le matériel d'Amazon comme d'AliExpress.";
 
   useEffect(() => {
     function handleToggle() {
@@ -211,6 +160,14 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
+
+  // Suit la frappe : reste collé en bas tant que le lecteur n'a pas remonté la conversation.
+  function keepBottomVisible() {
+    const body = bodyRef.current;
+    if (body && body.scrollHeight - body.scrollTop - body.clientHeight < 160) {
+      body.scrollTop = body.scrollHeight;
+    }
+  }
 
   async function sendMessage(textToSend?: string) {
     const messageContent = (textToSend || input).trim();
@@ -423,8 +380,6 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                 );
               }
 
-              const parsed = m.role === "assistant" ? parseCatalogBlocks(m.content) : null;
-
               return (
                 <div
                   key={idx}
@@ -442,20 +397,14 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                     </div>
                   )}
                   <div className="chatbot-message__bubble">
-                    {m.role === "assistant" && parsed ? (
-                      <>
-                        <MarkdownRenderer content={parsed.displayText} />
-                        {parsed.compares.map((ids) => (
-                          <ChatCompareCard key={ids.join(",")} ids={ids} locale={locale} />
-                        ))}
-                        {parsed.productIds.length > 0 && (
-                          <div className="chatbot-product-cards">
-                            {parsed.productIds.map((id) => (
-                              <ChatProductCard key={id} id={id} locale={locale} />
-                            ))}
-                          </div>
-                        )}
-                      </>
+                    {m.role === "assistant" ? (
+                      <AssistantMessageBody
+                        raw={m.content}
+                        streaming={isLoading && idx === messages.length - 1}
+                        animate={idx === messages.length - 1}
+                        locale={locale}
+                        onGrow={keepBottomVisible}
+                      />
                     ) : (
                       <p style={{ margin: 0 }}>{m.content}</p>
                     )}
@@ -476,8 +425,8 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                 className="chatbot-input"
                 placeholder={
                   isEn
-                    ? "Ask Baamix (hardware, costs, setup)..."
-                    : "Posez votre question à Baamix (matériel, devis)..."
+                    ? "Ask Baamix (Amazon and AliExpress hardware, setup)..."
+                    : "Posez votre question à Baamix (matériel Amazon et AliExpress, installation)..."
                 }
                 value={input}
                 onChange={(e) => setInput(e.target.value)}

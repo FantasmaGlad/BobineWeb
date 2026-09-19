@@ -23,7 +23,7 @@ const copy = {
     ],
     aboutHeading: "À propos de Baamix",
     intro:
-      "Baamix est la mascotte et l'assistant IA de Bobine, le logiciel libre de régie vidéo pour salles de sport. Il répond en français et en anglais, sans compte et gratuitement, avec la documentation officielle et le catalogue matériel du site.",
+      "Baamix est la mascotte et l'assistant IA de Bobine, le logiciel libre de régie vidéo pour salles de sport. Il répond en français et en anglais, sans compte et gratuitement, avec la documentation officielle et le catalogue matériel du site, et propose aussi bien des produits Amazon que des produits AliExpress.",
     canTitle: "Ce que Baamix peut faire",
     can: [
       "Répondre sur Bobine : installation (Debian, Windows, macOS, Android), planning des cours, télécommande coach, sauvegarde en un clic, mises à jour.",
@@ -83,7 +83,7 @@ const copy = {
     ],
     aboutHeading: "About Baamix",
     intro:
-      "Baamix is the mascot and AI assistant of Bobine, the open-source video playout software for gyms. It answers in French and English, free and without an account, using the official documentation and the site's hardware catalog.",
+      "Baamix is the mascot and AI assistant of Bobine, the open-source video playout software for gyms. It answers in French and English, free and without an account, using the official documentation and the site's hardware catalog, and recommends products from both Amazon and AliExpress.",
     canTitle: "What Baamix can do",
     can: [
       "Answer questions about Bobine: installation (Debian, Windows, macOS, Android), class scheduling, coach remote, one-click backup, updates.",

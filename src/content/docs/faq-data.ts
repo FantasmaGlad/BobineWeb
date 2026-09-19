@@ -92,6 +92,11 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       q: "Comment la Console Régie Coach (/coach) aide-t-elle les éducateurs sportifs ?",
       a: "La console coach responsive s'adapte à tous les écrans : sur tablette paysage ou PC, elle offre un pupitre audio avec boutons 64px, un minuteur précis interpolé à 10 Hz, le retour vidéo direct Stage Monitor 16:9 de la salle et une palette d'ambiances visuelles 1-clic. Sur smartphone, elle bascule en vue monoposte avec tiroirs tactiles rétractables. Elle gère l'assignation d'ambiances vidéo différentes par piste musicale et démarre toujours en pause sécurisée pour laisser le coach s'installer.",
     },
+    {
+      q: "Puis-je installer et mettre à jour Bobine via Tor ?",
+      a: "Oui. Le dépôt APT et le site sont aussi disponibles en services onion (Tor), sans révéler votre adresse IP. Installez apt-transport-tor puis utilisez la source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main : les paquets restent signés par la même clé, vérifiée par apt (empreinte de la clé principale B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). Le site est aussi consultable dans Tor Browser : http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. La boutique matériel n'y est pas proposée, et l'assistant Baamix n'y répond pas.",
+      category: "updates",
+    },
   ],
   en: [
     {
@@ -158,6 +163,11 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       category: "updates",
       q: "How does the 1-click automatic uninstaller work?",
       a: "In Settings → Danger Zone, automatic uninstallation triggers the native uninstaller for your platform (Polkit on Linux .deb, Inno Setup on Windows, LaunchAgent purge on macOS, Android intent, or the bobine-uninstall script on headless Debian). The operation requires explicitly typing the confirmation keyword 'UNINSTALL' ('DÉSINSTALLER') to prevent accidental removals.",
+    },
+    {
+      q: "Can I install and update Bobine over Tor?",
+      a: "Yes. The APT repository and the website are also available as onion services (Tor), without revealing your IP address. Install apt-transport-tor, then use the source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main: packages remain signed by the same key, checked by apt (primary key fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). The site can also be browsed in Tor Browser: http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. The hardware store is not offered there, and the Baamix assistant does not answer.",
+      category: "updates",
     },
   ],
 };

@@ -2,6 +2,9 @@
 
 Statut : EN SERVICE depuis le 2026-09-19 (installation faite sur la machine hote ; site et depot APT testes via Tor,
 paquet .deb de 47,6 Mo telecharge et verifie par apt). Reference d'exploitation a jour : section 13 des règles du projet.
+Evolutions livrees depuis : Baamix visible sur le miroir en mode sans reseau (message explicatif), logos Tor, encart et liens de soutien a Tor,
+variante Tor du Pong (`deploy/onion/overlay/`), version GitHub lue cote serveur, carte d'installation « Option C » et
+script `install-tor.sh` dans la documentation.
 Ce document reste le cahier des charges d'origine (les decisions y sont notees, quelques details ont evolue :
 serveur web dedie sous le groupe `debian-tor`, site tire depuis la branche `onion-site` par cle de deploiement).
 

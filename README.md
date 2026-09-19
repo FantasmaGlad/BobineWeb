@@ -20,7 +20,8 @@ Portail web et documentation officielle de **Bobine** — régie vidéo et syst�
 
 
 - **Boutique matériel** : `/materiel/amazon` (prix constatés) et `/materiel/aliexpress` (API Affiliate, prix rafraîchis toutes les 6 h), panier « Mon Pack » commun
-- **Assistant IA Baamix** : OpenRouter, catalogue et contexte de la boutique reconstruits à chaque requête (`src/app/api/chat/route.ts`, `src/lib/catalog/`)
+- **Assistant IA Baamix** : Hugging Face puis OpenRouter en repli, catalogue et contexte de la boutique reconstruits à chaque requête (`src/app/api/chat/route.ts`, `src/lib/catalog/`)
+- **Miroir Tor (.onion)** : export statique du site + dépôt APT en services onion v3, hébergés sur le Dell Wyse 5070 du mainteneur (pas sur Vercel). Site `http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/`, dépôt APT `tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/`. Construit par le workflow `.github/workflows/onion-mirror.yml`, déployé par `deploy/onion/`. Détails : les règles du projet section 13 et `docs/cahier-des-charges-onion-tor.md`.
 
 ---
 
@@ -43,6 +44,7 @@ node --env-file=.env.local scripts/aliexpress-snapshot.mjs   # régénère l'ins
 npm install     # Installation des dépendances
 npm run dev     # Serveur de développement (http://localhost:3000)
 npm run build   # Compilation de production statique
+npm run build:onion  # Export statique du miroir Tor (RÉSERVÉ À LA CI : supprime src/app/api et src/proxy.ts)
 npm run lint    # Validation ESLint & TypeScript
 ```
 

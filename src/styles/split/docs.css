@@ -1136,3 +1136,10 @@
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }
+
+.docs-onion-link {
+  color: var(--text-heading);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  word-break: break-all;
+}

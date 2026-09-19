@@ -154,3 +154,4 @@ Page de l'assistant : /fr/baamix. Pages légales : /fr/mentions-legales et /fr/c
 Bobine is also available over Tor as onion services (v3), hosted by the maintainer, no visit log, best-effort availability. The hardware store and the Baamix assistant are not offered on the mirror.
 - Website: http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/
 - APT repository: tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ (install apt-transport-tor first; same signing key as https://apt.bobine.fit, primary fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A)
+- One-command Tor install (read it first): https://bobine.fit/install-tor.sh (checks the signing key fingerprint)

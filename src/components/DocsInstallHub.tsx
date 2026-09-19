@@ -14,8 +14,14 @@ import { useDetectedPlatform, reorderForPlatform } from "@/lib/detectPlatform";
 
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 import { useReleaseData } from "@/components/ReleaseProvider";
+import { ONION_APT_HOST, ONION_SITE_HOST } from "@/lib/onion";
 
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
+
+const TOR_APT_COMMANDS = `sudo apt install apt-transport-tor
+curl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg
+echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://${ONION_APT_HOST}/ stable main" | sudo tee /etc/apt/sources.list.d/bobine-onion.list
+sudo apt update && sudo apt install bobine`;
 
 const FALLBACK_STABLE: ReleaseChannelInfo = {
   version: "V3.0.5",
@@ -652,6 +658,51 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
             <div className="docs-step-card">
               <div className="docs-step-card__num">3</div>
+              <div className="docs-step-card__content">
+                <h4>{isEn ? "Option C: Protected APT repository over Tor (.onion)" : "Option C : Dépôt APT protégé via Tor (.onion)"}</h4>
+                <p>
+                  {isEn
+                    ? "Same packages, same GPG signature, without revealing your IP address (and even if apt.bobine.fit is blocked). Install apt-transport-tor first, then add the onion source:"
+                    : "Mêmes paquets, même signature GPG, sans révéler votre adresse IP (et même si apt.bobine.fit est bloqué). Installez d'abord apt-transport-tor, puis ajoutez la source onion :"}
+                </p>
+                <div className="docs-copyable-cmd" style={{ whiteSpace: "pre-wrap", alignItems: "flex-start" }}>
+                  <code style={{ fontSize: "0.8rem", lineHeight: "1.5" }}>{TOR_APT_COMMANDS}</code>
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard(TOR_APT_COMMANDS)}
+                    className="docs-copy-btn"
+                    aria-label={isEn ? "Copy command" : "Copier la commande"}
+                  >
+                    {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
+                  </button>
+                </div>
+                <p style={{ marginTop: "0.5rem", fontSize: "0.85rem", color: "var(--text-muted)" }}>
+                  {isEn ? "APT repository (open in Tor Browser): " : "Dépôt APT (à ouvrir dans Tor Browser) : "}
+                  <a href={`http://${ONION_APT_HOST}/`} rel="noopener noreferrer" className="docs-onion-link">
+                    {ONION_APT_HOST}
+                  </a>
+                  <br />
+                  {isEn ? "Website (open in Tor Browser): " : "Site (à ouvrir dans Tor Browser) : "}
+                  <a href={`http://${ONION_SITE_HOST}/${locale}/documentation/`} rel="noopener noreferrer" className="docs-onion-link">
+                    {ONION_SITE_HOST}
+                  </a>
+                </p>
+                <p style={{ marginTop: "0.5rem", fontSize: "0.85rem", color: "var(--text-muted)" }}>
+                  {isEn
+                    ? "One-command alternative (read it first): "
+                    : "Alternative en une commande (à lire avant de l'exécuter) : "}
+                  <a href="/install-tor.sh" className="docs-onion-link">
+                    bobine.fit/install-tor.sh
+                  </a>
+                  {isEn
+                    ? ". It checks the signing key against the published fingerprint (B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A) and stops if it differs."
+                    : ". Il vérifie la clé de signature contre l'empreinte publiée (B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A) et s'arrête si elle diffère."}
+                </p>
+              </div>
+            </div>
+
+            <div className="docs-step-card">
+              <div className="docs-step-card__num">4</div>
               <div className="docs-step-card__content">
                 <h4>{isEn ? "Desktop Integration & XDG Storage" : "Intégration au bureau & Stockage XDG"}</h4>
                 <p>

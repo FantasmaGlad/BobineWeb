@@ -57,10 +57,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const allRoutes = [...staticRoutes, ...dynamicBlogRoutes];
 
+  // Date seule (AAAA-MM-JJ), format le plus sûr pour les moteurs : pas de millisecondes ni de fuseau.
+  const lastModified = new Date().toISOString().slice(0, 10);
+
   return locales.flatMap((locale) =>
     allRoutes.map(({ path, priority, changeFrequency }) => ({
       url: `${base}/${locale}${path}`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency,
       priority,
       alternates: {

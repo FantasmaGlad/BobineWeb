@@ -189,13 +189,14 @@ export default async function BaamixPage({ params }: { params: Promise<{ locale:
   ];
 
   return (
-    <div className="container baamix-page">
+    <div className="baamix-page">
       <BreadcrumbsJsonLd items={breadcrumbs} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <BobineChatbot locale={currentLocale} variant="page" />
 
+      <div className="container">
       <section className="baamix-page__about" aria-labelledby="baamix-about">
         <h2 id="baamix-about">{t.aboutHeading}</h2>
         <p>{t.intro}</p>
@@ -234,6 +235,7 @@ export default async function BaamixPage({ params }: { params: Promise<{ locale:
           <Link href={`/${currentLocale}/mentions-legales`}>{t.legal}</Link>
         </p>
       </section>
+      </div>
     </div>
   );
 }

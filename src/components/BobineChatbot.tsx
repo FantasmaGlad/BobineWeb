@@ -316,7 +316,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
             ) : (
               <span className="chatbot-modal__title" style={{ display: "block" }}>Baamix</span>
             )}
-            <span className="chatbot-modal__subtitle">{isEn ? "Bobine Mascot" : "Mascotte de Bobine"}</span>
+            <span className="chatbot-modal__subtitle">{isEn ? "Bobine Mascot & Fanta's Daughter" : "Mascotte de Bobine & Fille de Fanta"}</span>
           </div>
         </div>
             <div style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>

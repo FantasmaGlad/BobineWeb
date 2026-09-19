@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
 
 interface TickerMetric {
@@ -59,7 +60,11 @@ const METRICS_EN: TickerMetric[] = [
 ];
 
 export default function TechTicker({ locale }: { locale: Locale }) {
+  const pathname = usePathname();
   const metrics = locale === "en" ? METRICS_EN : METRICS_FR;
+
+  // Le chat plein écran (/baamix) occupe toute la hauteur : pas de bandeau défilant sur cette page.
+  if (pathname?.includes("/baamix")) return null;
 
   return (
     <div

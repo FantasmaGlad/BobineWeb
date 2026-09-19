@@ -198,18 +198,31 @@ export async function POST(req: Request) {
       })),
     ];
 
-    const candidateModels = [
-      process.env.OPENROUTER_MODEL,
-      "google/gemma-4-26b-a4b-it:free",
-      "google/gemma-4-31b-it:free",
-      "openrouter/free",
-      "openrouter/auto",
-    ].filter(Boolean) as string[];
+    // Modèle principal : DeepSeek V4.1 Flash (payant, très bon marché). Raisonnement désactivé (sinon les
+    // jetons de réflexion consomment le budget et retardent la réponse) et fournisseurs limités à ceux qui
+    // ne collectent pas les données. En cas d'échec (crédit épuisé, indisponibilité), repli automatique
+    // sur les modèles gratuits, sans param de confidentialité (les points d'accès gratuits collectent).
+    interface Candidate {
+      model: string;
+      extra?: Record<string, unknown>;
+    }
+    const candidates = ([
+      process.env.OPENROUTER_MODEL ? { model: process.env.OPENROUTER_MODEL } : null,
+      {
+        model: "deepseek/deepseek-v4.1-flash",
+        extra: { reasoning: { enabled: false }, provider: { data_collection: "deny", sort: "latency" } },
+      },
+      { model: "deepseek/deepseek-v4-flash-0731:free", extra: { reasoning: { enabled: false } } },
+      { model: "google/gemma-4-26b-a4b-it:free" },
+      { model: "google/gemma-4-31b-it:free" },
+      { model: "openrouter/free" },
+      { model: "openrouter/auto" },
+    ] as Array<Candidate | null>).filter((c): c is Candidate => c !== null);
 
     let stream = null;
     let lastError: unknown = null;
 
-    for (const model of candidateModels) {
+    for (const { model, extra } of candidates) {
       try {
         stream = await client.chat.completions.create({
           model,
@@ -217,7 +230,8 @@ export async function POST(req: Request) {
           stream: true,
           temperature: 0.3,
           max_tokens: 2500,
-        });
+          ...(extra ?? {}),
+        } as Parameters<typeof client.chat.completions.create>[0] & { stream: true });
         if (stream) break;
       } catch (err) {
         console.warn(`Modèle ${model} indisponible, tentative avec le suivant...`, err);

@@ -9,7 +9,7 @@ const copy = {
     badge: "Vie Privée & Éthique",
     title: "Politique de Confidentialité",
     subtitle: "Ce que le site collecte, ce qui reste sur votre appareil et ce qui transite par des prestataires : zéro cookie publicitaire, zéro pistage commercial.",
-    updated: "Dernière mise à jour : 19 septembre 2026",
+    updated: "Dernière mise à jour : 20 septembre 2026",
     sections: [
       {
         heading: "1. Responsable du Traitement",
@@ -31,7 +31,7 @@ const copy = {
       },
       {
         heading: "4. Assistant Baamix (Intelligence Artificielle)",
-        body: "Lorsque vous utilisez l'assistant Baamix, le texte de vos messages, le contenu de votre panier « Mon Pack » (noms et prix des produits) et l'indication de l'onglet de la boutique que vous consultez sont envoyés à notre serveur, puis transmis à OpenRouter (OpenRouter, Inc., États-Unis), un service qui les relaie à un modèle de langage tiers pour produire la réponse.",
+        body: "Lorsque vous utilisez l'assistant Baamix, le texte de vos messages, le contenu de votre panier « Mon Pack » (noms et prix des produits) et l'indication de l'onglet de la boutique que vous consultez sont envoyés à notre serveur, puis transmis à Hugging Face (Hugging Face, Inc., États-Unis), un service d'inférence qui les relaie à un hébergeur du modèle de langage DeepSeek pour produire la réponse. Si ce service est indisponible, ils sont transmis à OpenRouter (OpenRouter, Inc., États-Unis), qui les relaie à un modèle de langage tiers.",
         contact: "Bobine ne conserve pas vos conversations : elles ne sont enregistrées ni dans une base de données ni dans votre navigateur, et disparaissent quand vous fermez ou rechargez la page. Le site ne journalise pas le contenu des échanges. Les prestataires d'IA appliquent toutefois leurs propres règles de conservation et de traitement, et peuvent traiter les données hors de l'Union européenne.",
         subtext: "N'écrivez aucune donnée personnelle ou sensible dans le chat. Base légale : votre demande d'assistance (intérêt légitime à répondre à cette demande, article 6.1.f du RGPD).",
       },
@@ -65,7 +65,7 @@ const copy = {
     badge: "Privacy & Digital Ethics",
     title: "Privacy Policy",
     subtitle: "What the site collects, what stays on your device and what goes through providers: zero advertising cookies, zero commercial tracking.",
-    updated: "Last updated: 19 September 2026",
+    updated: "Last updated: 20 September 2026",
     sections: [
       {
         heading: "1. Data Controller",
@@ -87,7 +87,7 @@ const copy = {
       },
       {
         heading: "4. Baamix Assistant (Artificial Intelligence)",
-        body: "When you use the Baamix assistant, the text of your messages, the contents of your \"My Pack\" cart (product names and prices) and the store tab you are viewing are sent to our server, then forwarded to OpenRouter (OpenRouter, Inc., USA), a service that relays them to a third-party language model to produce the answer.",
+        body: "When you use the Baamix assistant, the text of your messages, the contents of your \"My Pack\" cart (product names and prices) and the store tab you are viewing are sent to our server, then forwarded to Hugging Face (Hugging Face, Inc., USA), an inference service that relays them to a host of the DeepSeek language model to produce the answer. If that service is unavailable, they are forwarded to OpenRouter (OpenRouter, Inc., USA), which relays them to a third-party language model.",
         contact: "Bobine does not keep your conversations: they are stored neither in a database nor in your browser, and disappear when you close or reload the page. The site does not log the content of exchanges. AI providers apply their own retention and processing rules, however, and may process data outside the European Union.",
         subtext: "Do not type personal or sensitive data in the chat. Legal basis: your request for assistance (legitimate interest in answering it, Article 6(1)(f) GDPR).",
       },

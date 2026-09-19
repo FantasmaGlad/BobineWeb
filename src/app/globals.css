@@ -9522,16 +9522,74 @@ main {
   z-index: auto;
 }
 
-.chatbot-modal--page .chatbot-message__bubble {
-  font-size: 0.95rem;
+/* Vraie interface de chat : colonne de conversation centrée, réponses sans bulle, saisie ancrée en bas. */
+.chatbot-modal--page .chatbot-modal__body {
+  padding: 3.5rem max(1.25rem, calc((100% - 46rem) / 2)) 1rem;
+  gap: 1.5rem;
 }
 
-.chatbot-modal--page .chatbot-modal__body {
-  padding-inline: max(1.25rem, calc((100% - 62rem) / 2));
+.chatbot-modal--page .chatbot-modal__body--empty {
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.chatbot-modal--page .chatbot-message__bubble {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.chatbot-modal--page .chatbot-message--assistant .chatbot-message__bubble {
+  background: transparent;
+  border: none;
+  padding: 0.2rem 0;
+}
+
+.chatbot-modal--page .chatbot-message--user {
+  justify-content: flex-end;
+}
+
+.chatbot-modal--page .chatbot-message--user .chatbot-message__bubble {
+  max-width: min(85%, 34rem);
+  padding: 0.7rem 1rem;
+  border-radius: 1.25rem;
+}
+
+.chatbot-modal--page .chatbot-suggestions__list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .chatbot-modal--page .chatbot-modal__footer {
-  padding-inline: max(1rem, calc((100% - 62rem) / 2));
+  background: transparent;
+  border-top: none;
+  padding: 0.5rem max(1rem, calc((100% - 46rem) / 2)) 0.75rem;
+}
+
+.chatbot-modal--page .chatbot-input-wrapper {
+  border-radius: 1.5rem;
+  padding: 0.35rem 0.4rem 0.35rem 1.1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.chatbot-page-reset {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--text-main);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.chatbot-page-reset:hover {
+  background: var(--bg-surface-hover);
 }
 
 @media (max-width: 600px) {
@@ -9591,4 +9649,73 @@ main {
 .baamix-page__about a {
   color: var(--text-heading);
   text-decoration: underline;
+}
+
+/* --- Baamix : indicateur d'attente (roue de hamster + phrases qui changent) --- */
+.baamix-thinking {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--text-heading);
+  min-height: 2rem;
+}
+
+.baamix-wheel {
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.baamix-wheel__rim {
+  transform-origin: 16px 16px;
+  animation: baamixWheelSpin 2.2s linear infinite;
+}
+
+.baamix-wheel__hamster {
+  animation: baamixHamsterRun 0.42s ease-in-out infinite alternate;
+}
+
+.baamix-thinking__text {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  min-width: 0;
+}
+
+.baamix-thinking__phrase {
+  animation: baamixPhraseIn 0.4s ease-out, baamixPulse 2.6s ease-in-out infinite;
+}
+
+.baamix-thinking__time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes baamixWheelSpin {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes baamixHamsterRun {
+  from { transform: translateY(0); }
+  to { transform: translateY(-1.2px); }
+}
+
+@keyframes baamixPhraseIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes baamixPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .baamix-wheel__rim,
+  .baamix-wheel__hamster,
+  .baamix-thinking__phrase {
+    animation: none;
+  }
 }

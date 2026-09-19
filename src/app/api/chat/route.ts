@@ -10,6 +10,7 @@ export const runtime = "nodejs";
 export const maxDuration = 60;
 
 const OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1";
+const HF_BASE_URL = "https://router.huggingface.co/v1";
 
 const SYSTEM_PROMPT_TEMPLATE = `Tu es Baamix, la mascotte et conseillère technique du projet Bobine (site : bobine.fit, code : github.com/FantasmaGlad/Bobine, conçu et développé par FantasmaGlad alias Clément Barillot, contact : clement.barillot@bobine.fit).
 Tu es un petit hamster blanc agile, précis, bienveillant, direct et très professionnel.
@@ -155,8 +156,9 @@ async function buildSystemPrompt(cart: unknown, storeView: unknown, catalog: Ser
 export async function POST(req: Request) {
   try {
     const apiKey = process.env.OPENROUTER_API_KEY || process.env.ORCAROUTER_API_KEY;
-    if (!apiKey) {
-      console.error("OPENROUTER_API_KEY manquante : renseignez-la dans les variables d'environnement.");
+    const hfToken = process.env.HF_TOKEN;
+    if (!apiKey && !hfToken) {
+      console.error("HF_TOKEN et OPENROUTER_API_KEY manquantes : renseignez-en au moins une dans les variables d'environnement.");
       return NextResponse.json({ error: "Assistant momentanément indisponible." }, { status: 503 });
     }
     const baseURL =
@@ -173,14 +175,20 @@ export async function POST(req: Request) {
       );
     }
 
-    const client = new OpenAI({
-      baseURL,
-      apiKey,
-      defaultHeaders: {
-        "HTTP-Referer": "https://bobine.fit",
-        "X-Title": "Bobine",
-      },
-    });
+    // Deux fournisseurs : Hugging Face (principal) puis OpenRouter (repli). Pas de nouvelle tentative
+    // automatique du SDK : au moindre échec on passe tout de suite au suivant.
+    type Provider = "hf" | "openrouter";
+    const clients: Record<Provider, OpenAI | null> = {
+      hf: hfToken ? new OpenAI({ baseURL: HF_BASE_URL, apiKey: hfToken, maxRetries: 0 }) : null,
+      openrouter: apiKey
+        ? new OpenAI({
+            baseURL,
+            apiKey,
+            maxRetries: 0,
+            defaultHeaders: { "HTTP-Referer": "https://bobine.fit", "X-Title": "Bobine" },
+          })
+        : null,
+    };
 
     const catalog = await getServerCatalog();
     const systemPrompt = await buildSystemPrompt(cart, storeView, catalog);
@@ -197,41 +205,86 @@ export async function POST(req: Request) {
       })),
     ];
 
-    // Modèle principal : DeepSeek V4 Flash gratuit (aucun crédit requis). Raisonnement désactivé (sinon la
-    // réponse est deux fois plus lente). Repli automatique sur les autres modèles gratuits. Pour passer à un
-    // modèle payant plus rapide (ex. deepseek/deepseek-v4.1-flash, après avoir crédité OpenRouter), définir la
-    // variable OPENROUTER_MODEL : elle passe en tête de liste. Les points d'accès gratuits collectent les données.
+    // Schéma : 1) Hugging Face avec DeepSeek V4.1 Flash chez DeepInfra (raisonnement désactivé, sinon aucun texte n'est
+    // produit dans le budget de jetons) ; 2) en cas d'échec (crédits épuisés, indisponibilité, silence),
+    // OpenRouter avec DeepSeek V4 Flash gratuit puis les autres modèles gratuits. OPENROUTER_MODEL et
+    // HF_MODEL permettent de forcer un autre modèle. Les points d'accès gratuits collectent les données.
     interface Candidate {
+      provider: Provider;
       model: string;
       extra?: Record<string, unknown>;
+      firstTokenMs: number;
     }
     const candidates = ([
-      process.env.OPENROUTER_MODEL
-        ? { model: process.env.OPENROUTER_MODEL, extra: { reasoning: { enabled: false } } }
+      hfToken
+        ? {
+            provider: "hf",
+            // Suffixe :deepinfra = fournisseur le moins cher pour ce modèle (0,20 $ / 0,60 $ par million de jetons).
+            model: process.env.HF_MODEL || "deepseek-ai/DeepSeek-V4.1-Flash:deepinfra",
+            extra: { reasoning_effort: "none" },
+            firstTokenMs: 20000,
+          }
         : null,
-      { model: "deepseek/deepseek-v4-flash-0731:free", extra: { reasoning: { enabled: false } } },
-      { model: "google/gemma-4-26b-a4b-it:free" },
-      { model: "google/gemma-4-31b-it:free" },
-      { model: "openrouter/free" },
-      { model: "openrouter/auto" },
-    ] as Array<Candidate | null>).filter((c): c is Candidate => c !== null);
+      process.env.OPENROUTER_MODEL
+        ? { provider: "openrouter", model: process.env.OPENROUTER_MODEL, extra: { reasoning: { enabled: false } }, firstTokenMs: 60000 }
+        : null,
+      { provider: "openrouter", model: "deepseek/deepseek-v4-flash-0731:free", extra: { reasoning: { enabled: false } }, firstTokenMs: 60000 },
+      { provider: "openrouter", model: "google/gemma-4-26b-a4b-it:free", firstTokenMs: 60000 },
+      { provider: "openrouter", model: "google/gemma-4-31b-it:free", firstTokenMs: 60000 },
+      { provider: "openrouter", model: "openrouter/free", firstTokenMs: 60000 },
+      { provider: "openrouter", model: "openrouter/auto", firstTokenMs: 60000 },
+    ] as Array<Candidate | null>).filter((c): c is Candidate => c !== null && clients[c.provider] !== null);
 
-    let stream = null;
+    /** Ouvre le flux d'un candidat et attend le premier texte : erreur, silence ou délai dépassé = échec. */
+    async function openStream(c: Candidate): Promise<AsyncGenerator<string>> {
+      const client = clients[c.provider]!;
+      const abort = new AbortController();
+      const timer = setTimeout(() => abort.abort(), c.firstTokenMs);
+      try {
+        const stream = await client.chat.completions.create(
+          {
+            model: c.model,
+            messages: conversation,
+            stream: true,
+            temperature: 0.3,
+            max_tokens: 2500,
+            ...(c.extra ?? {}),
+          } as Parameters<typeof client.chat.completions.create>[0] & { stream: true },
+          { signal: abort.signal }
+        );
+        const iterator = stream[Symbol.asyncIterator]();
+        let first = "";
+        while (!first) {
+          const step = await iterator.next();
+          if (step.done) throw new Error("réponse vide");
+          first = step.value.choices[0]?.delta?.content || "";
+        }
+        clearTimeout(timer);
+        return (async function* () {
+          yield first;
+          while (true) {
+            const step = await iterator.next();
+            if (step.done) return;
+            const text = step.value.choices[0]?.delta?.content || "";
+            if (text) yield text;
+          }
+        })();
+      } catch (err) {
+        clearTimeout(timer);
+        throw err;
+      }
+    }
+
+    let stream: AsyncGenerator<string> | null = null;
     let lastError: unknown = null;
 
-    for (const { model, extra } of candidates) {
+    for (const candidate of candidates) {
       try {
-        stream = await client.chat.completions.create({
-          model,
-          messages: conversation,
-          stream: true,
-          temperature: 0.3,
-          max_tokens: 2500,
-          ...(extra ?? {}),
-        } as Parameters<typeof client.chat.completions.create>[0] & { stream: true });
-        if (stream) break;
+        stream = await openStream(candidate);
+        console.info(`Baamix : réponse via ${candidate.provider} (${candidate.model})`);
+        break;
       } catch (err) {
-        console.warn(`Modèle ${model} indisponible, tentative avec le suivant...`, err);
+        console.warn(`${candidate.provider} / ${candidate.model} indisponible, tentative suivante...`, err instanceof Error ? err.message : err);
         lastError = err;
       }
     }
@@ -245,12 +298,9 @@ export async function POST(req: Request) {
       async start(controller) {
         try {
           let full = "";
-          for await (const chunk of stream) {
-            const content = chunk.choices[0]?.delta?.content || "";
-            if (content) {
-              full += content;
-              controller.enqueue(encoder.encode(content));
-            }
+          for await (const content of stream) {
+            full += content;
+            controller.enqueue(encoder.encode(content));
           }
           const compareFallback = buildFallbackCompareBlock(lastUserText, full, storeView, catalog);
           if (compareFallback) {

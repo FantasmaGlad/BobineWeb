@@ -9,6 +9,7 @@ import { readCart } from "@/lib/hardwareCart";
 import { readStoreView, subscribeStoreView, type StoreView } from "@/lib/storeView";
 import ChatProductCard from "@/components/ChatProductCard";
 import ChatCompareCard from "@/components/ChatCompareCard";
+import BaamixThinking from "@/components/BaamixThinking";
 
 const MarkdownRenderer = dynamic(() => import("./MarkdownRenderer"), {
   loading: () => <span className="markdown-loading" />,
@@ -297,7 +298,11 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
       aria-modal={isPage ? undefined : true}
       aria-label={isPage ? (isEn ? "Baamix AI assistant" : "Assistant IA Baamix") : undefined}
     >
-      {/* En-tête */}
+      {/* Page /baamix : titre principal accessible mais invisible (le chat occupe tout l'écran, sans en-tête). */}
+      {isPage && <h1 className="sr-only">{isEn ? "Baamix, the Bobine AI assistant" : "Baamix, l'assistant IA de Bobine"}</h1>}
+
+      {/* En-tête (bulle uniquement) */}
+      {!isPage && (
       <div className="chatbot-modal__header">
         <div className="chatbot-modal__title-group">
           <div className="chatbot-avatar">
@@ -311,11 +316,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
             <span className="chatbot-avatar-status" />
           </div>
           <div>
-            {isPage ? (
-              <h1 className="chatbot-modal__title" style={{ display: "block", margin: 0 }}>Baamix</h1>
-            ) : (
-              <span className="chatbot-modal__title" style={{ display: "block" }}>Baamix</span>
-            )}
+            <span className="chatbot-modal__title" style={{ display: "block" }}>Baamix</span>
             <span className="chatbot-modal__subtitle">{isEn ? "Bobine Mascot & Fanta's Daughter" : "Mascotte de Bobine & Fille de Fanta"}</span>
           </div>
         </div>
@@ -350,9 +351,20 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
               )}
             </div>
           </div>
+      )}
+
+      {/* Page /baamix : bouton discret de nouvelle conversation */}
+      {isPage && messages.length > 0 && (
+        <button type="button" className="chatbot-page-reset" onClick={() => setMessages([])}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          {isEn ? "New conversation" : "Nouvelle conversation"}
+        </button>
+      )}
 
           {/* Corps de conversation */}
-          <div ref={bodyRef} className="chatbot-modal__body">
+          <div ref={bodyRef} className={`chatbot-modal__body${messages.length === 0 ? " chatbot-modal__body--empty" : ""}`}>
             {/* Message de bienvenue */}
             <div className="chatbot-message chatbot-message--assistant">
               <div className="chatbot-message__avatar">
@@ -405,9 +417,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                       />
                     </div>
                     <div className="chatbot-message__bubble chatbot-message__typing">
-                      <span className="typing-dot" />
-                      <span className="typing-dot" />
-                      <span className="typing-dot" />
+                      <BaamixThinking isEn={isEn} hasStoreContext={storeView !== null} />
                     </div>
                   </div>
                 );

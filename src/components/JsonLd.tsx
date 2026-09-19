@@ -178,6 +178,22 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
           },
           {
             "@type": "Question",
+            name: "What hardware does Bobine recommend and where can I buy it?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Bobine provides an interactive hardware selection guide and store at https://bobine.fit/en/materiel. It curates verified, energy-efficient equipment across 4 tiers (Essential, Recommended, Pro, Premium) on Amazon and AliExpress, including refurbished x86-64 mini PCs (~€40-€80), Android tablets, and HDMI-CEC accessories with a shared cart.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "What is Baamix and how does it help?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Baamix is Bobine's free, dedicated conversational AI assistant accessible at https://bobine.fit/en/baamix. It answers setup questions from the official documentation, provides live hardware recommendations, and compares 2 to 4 products side-by-side with objective verdicts.",
+            },
+          },
+          {
+            "@type": "Question",
             name: "Is Bobine available over the Tor network (.onion)?",
             acceptedAnswer: {
               "@type": "Answer",
@@ -199,7 +215,7 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
             name: "Qui a développé Bobine et qui assure sa maintenance ?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Bobine est conçu, développé et maintenu par Clément Barillot (alias FantasmaGlad). Le projet est 100% libre et souverain sous licence copyleft AGPL-3.0, sans aucun abonnement logiciel.",
+              text: "Bobine est conçu, développé et maintenu par Clément Barillot (alias FantasmaGlad) depuis début 2026. Le projet est 100% libre et souverain sous licence copyleft AGPL-3.0, sans aucun abonnement logiciel.",
             },
           },
           {
@@ -208,6 +224,22 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
             acceptedAnswer: {
               "@type": "Answer",
               text: "Les solutions propriétaires coûtent de 150 à 400 €/mois par écran et dépendent du cloud. Bobine supprime tout abonnement (0 €), fonctionne 100% hors-ligne depuis un SSD local, laisse la salle maîtresse de ses vidéos et tourne sur du matériel reconditionné abordable (~40-80 €) ou tablettes Android.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Quel matériel choisir pour faire tourner Bobine et où l'acheter ?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Bobine propose une boutique et un guide matériel interactif sur https://bobine.fit/fr/materiel. Il référence des configurations vérifiées et sobres en énergie réparties en 4 gammes (Essentiel, Recommandé, Pro, Premium) sur Amazon et AliExpress, incluant des mini PC reconditionnés (~40-80 €), tablettes Android et connectique HDMI-CEC avec panier partagé.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Qu'est-ce que Baamix et comment l'utiliser ?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Baamix est l'assistant IA dédié et gratuit de Bobine disponible sur https://bobine.fit/fr/baamix. Il guide les utilisateurs dans l'installation, répond d'après la documentation officielle et compare en direct 2 à 4 produits matériels avec fiches détaillées.",
             },
           },
           {

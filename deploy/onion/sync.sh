@@ -23,6 +23,8 @@ overlay_apt() {
   python3 "$OVERLAY/apt/apt-tor.py" "$1" || log "apt-tor : ignore"
 }
 overlay_none() { :; }
+# vercel.json n'est utile qu'a Vercel (desactive le deploiement de la branche onion-site) : pas sur le miroir.
+overlay_site() { rm -f "$1/vercel.json"; }
 
 verify_apt() {
   # Sous-shell : le trousseau temporaire est toujours supprime en sortie.
@@ -81,5 +83,5 @@ sync_git() {
 
 status=0
 sync_git apt  "$APT_URL"  "$APT_BRANCH"  verify_apt  overlay_apt  || status=1
-sync_git site "$SITE_URL" "$SITE_BRANCH" verify_site || status=1
+sync_git site "$SITE_URL" "$SITE_BRANCH" verify_site overlay_site || status=1
 exit $status

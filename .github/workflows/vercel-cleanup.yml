@@ -1,0 +1,63 @@
+name: Vercel cleanup
+
+# Ne garde qu'UN deploiement : la derniere production reussie. Supprime tous les autres (anciennes
+# productions, previews, deploiements en erreur ou annules) pour liberer de la place.
+# Necessite le secret GitHub VERCEL_TOKEN (jeton Vercel, portee : equipe fantasmaglads-projects).
+
+on:
+  schedule:
+    - cron: "23 3 * * 1" # chaque lundi
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: vercel-cleanup
+  cancel-in-progress: false
+
+env:
+  VERCEL_TEAM_ID: ${{ vars.VERCEL_TEAM_ID }}
+  VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete every deployment except the latest production
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${VERCEL_TOKEN:-}" ]; then
+            echo "::warning::Secret VERCEL_TOKEN absent : nettoyage ignore."
+            exit 0
+          fi
+          api="https://api.vercel.com"
+          auth=(-H "Authorization: Bearer ${VERCEL_TOKEN}")
+
+          # Derniere production reussie = celle a conserver (elle porte les domaines).
+          keep=$(curl -fsS "${auth[@]}" \
+            "$api/v6/deployments?projectId=$VERCEL_PROJECT_ID&teamId=$VERCEL_TEAM_ID&target=production&state=READY&limit=1" \
+            | jq -r '.deployments[0].uid // empty')
+          [ -n "$keep" ] || { echo "::error::Aucune production READY trouvee : rien n'est supprime."; exit 1; }
+          echo "Conserve : $keep"
+
+          # Tous les deploiements du projet, par pages de 100.
+          ids=""
+          until=""
+          while :; do
+            page=$(curl -fsS "${auth[@]}" \
+              "$api/v6/deployments?projectId=$VERCEL_PROJECT_ID&teamId=$VERCEL_TEAM_ID&limit=100${until:+&until=$until}")
+            ids="$ids $(echo "$page" | jq -r '.deployments[].uid')"
+            next=$(echo "$page" | jq -r '.pagination.next // empty')
+            [ -n "$next" ] || break
+            until=$next
+          done
+
+          deleted=0
+          for id in $ids; do
+            [ "$id" = "$keep" ] && continue
+            curl -fsS -X DELETE "${auth[@]}" "$api/v13/deployments/$id?teamId=$VERCEL_TEAM_ID" >/dev/null \
+              && deleted=$((deleted + 1)) || echo "::warning::Echec de suppression : $id"
+          done
+          echo "Supprimes : $deleted"

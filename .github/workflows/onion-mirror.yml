@@ -81,6 +81,13 @@ jobs:
             echo "Mesure d'audience présente dans le miroir"; exit 1
           fi
 
+      # Vercel construit chaque branche poussee : la branche onion-site ne contient que des fichiers statiques
+      # (pas d'application Next.js) et son build echouait. Ce vercel.json lui interdit tout deploiement.
+      # (sync.sh le retire de la copie servie sur le miroir.)
+      - name: Disable Vercel deployments for the mirror branch
+        run: |
+          echo '{"git":{"deploymentEnabled":false}}' > out/vercel.json
+
       - name: Stamp the build
         run: |
           {

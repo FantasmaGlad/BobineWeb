@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import type { Locale } from "@/lib/i18n";
-import type { ReleaseChannelInfo } from "@/app/api/github-stats/route";
+import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 
 export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "cli" | "tauri";
 

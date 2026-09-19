@@ -32,11 +32,13 @@ const securityHeaders = [
   },
 ];
 
+// Miroir Tor : export statique (voir scripts/prepare-onion.mjs et le workflow onion-mirror).
+const isOnion = process.env.NEXT_PUBLIC_BOBINE_ONION === "1";
+
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
-  images: {
-    formats: ["image/avif", "image/webp"],
-  },
+  ...(isOnion ? { output: "export" as const, trailingSlash: true } : {}),
+  images: isOnion ? { unoptimized: true } : { formats: ["image/avif", "image/webp"] },
   experimental: {
     optimizeCss: true,
     optimizePackageImports: [
@@ -49,7 +51,8 @@ const nextConfig: NextConfig = {
       "remark-gfm",
     ],
   },
-  async redirects() {
+  // Ignorés par un export statique : les redirections et en-têtes du miroir vivent dans Caddy.
+  ...(isOnion ? {} : { async redirects() {
     return [
       {
         source: "/:path*",
@@ -86,7 +89,7 @@ const nextConfig: NextConfig = {
         headers: [{ key: "X-Robots-Tag", value: "noindex" }],
       },
     ];
-  },
+  } }),
 };
 
 const withMDX = createMDX({});

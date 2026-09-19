@@ -12,7 +12,7 @@ import QuickStartStepper from "@/components/QuickStartStepper";
 import { docChapters } from "@/content/docs/chapters";
 import { useDetectedPlatform, reorderForPlatform } from "@/lib/detectPlatform";
 
-import type { ReleaseChannelInfo } from "@/app/api/github-stats/route";
+import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
 

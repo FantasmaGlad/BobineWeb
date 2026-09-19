@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
+import { IS_ONION } from "@/lib/onion";
+import OnionMirrorNotice from "@/components/OnionMirrorNotice";
 import { buildMetadata } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import BobineChatbot from "@/components/BobineChatbot";
@@ -146,6 +148,9 @@ export default async function BaamixPage({ params }: { params: Promise<{ locale:
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const currentLocale = locale as Locale;
+  if (IS_ONION) {
+    return <OnionMirrorNotice locale={currentLocale} topic="baamix" clearnetPath="/baamix" />;
+  }
   const t = copy[currentLocale];
   const url = `https://bobine.fit/${currentLocale}/baamix`;
 

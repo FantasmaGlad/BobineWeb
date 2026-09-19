@@ -30,6 +30,8 @@ const staticRoutes: RouteConfig[] = [
   { path: "/confidentialite", priority: 0.3, changeFrequency: "yearly" },
 ];
 
+export const dynamic = "force-static";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = "https://bobine.fit";
 

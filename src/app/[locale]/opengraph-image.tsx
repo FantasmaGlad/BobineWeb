@@ -1,6 +1,13 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { locales } from "@/lib/i18n";
+
+export const dynamic = "force-static";
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 export const alt = "Bobine";
 export const size = { width: 1200, height: 630 };

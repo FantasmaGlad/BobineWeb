@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:onion": "node scripts/prepare-onion.mjs && NEXT_PUBLIC_BOBINE_ONION=1 next build",
     "start": "next start",
     "lint": "eslint"
   },

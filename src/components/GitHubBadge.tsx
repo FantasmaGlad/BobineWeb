@@ -12,6 +12,8 @@ export default function GitHubBadge({ compact = false }: { compact?: boolean }) 
   const [stats, setStats] = useState<GitHubStats | null>(null);
 
   useEffect(() => {
+    // Miroir Tor : pas de route serveur, aucun appel.
+    if (process.env.NEXT_PUBLIC_BOBINE_ONION === "1") return;
     fetch("/api/github-stats")
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {

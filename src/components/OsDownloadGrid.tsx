@@ -8,7 +8,7 @@ import AppleIcon from "@/components/icons/AppleIcon";
 import AndroidIcon from "@/components/icons/AndroidIcon";
 import { useDetectedPlatform, reorderForPlatform } from "@/lib/detectPlatform";
 
-import type { ReleaseChannelInfo } from "@/app/api/github-stats/route";
+import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 import DownloadModal, { type DownloadPlatform } from "@/components/DownloadModal";
 
 const FALLBACK_STABLE: ReleaseChannelInfo = {

@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { ComponentProps } from "react";
 import Markdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { getBobineRelease, getBobineReleases } from "@/lib/github-releases";
 import { buildMetadata } from "@/lib/seo";
+import { IS_ONION } from "@/lib/onion";
 import GitHubIcon from "@/components/icons/GitHubIcon";
 import GitHubAttachmentMedia from "@/components/GitHubAttachmentMedia";
 import ShareButton from "@/components/ShareButton";
@@ -15,9 +17,32 @@ import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 const GITHUB_ATTACHMENT_PATTERN =
   /^https:\/\/github\.com\/user-attachments\/assets\//;
 
+/**
+ * Miroir Tor : aucune image ni vidéo distante n'est chargée automatiquement
+ * (GitHub, shields.io...). Le média devient un lien que le lecteur ouvre,
+ * ou non, de sa propre initiative.
+ */
+function remoteMediaLink(src: string | undefined, label?: string) {
+  if (!src) return null;
+  let host = src;
+  try {
+    host = new URL(src).hostname;
+  } catch {
+    // src relatif ou invalide : on l'affiche tel quel.
+  }
+  return (
+    <a href={src} target="_blank" rel="noopener noreferrer">
+      {label || host}
+    </a>
+  );
+}
+
 const markdownComponents: Components = {
   a({ href, children, node: _node, ...props }) {
     void _node;
+    if (IS_ONION && href && GITHUB_ATTACHMENT_PATTERN.test(href)) {
+      return remoteMediaLink(href, typeof children === "string" ? children : undefined);
+    }
     if (href && GITHUB_ATTACHMENT_PATTERN.test(href)) {
       return <GitHubAttachmentMedia href={href}>{children}</GitHubAttachmentMedia>;
     }
@@ -27,8 +52,17 @@ const markdownComponents: Components = {
       </a>
     );
   },
+  ...(IS_ONION
+    ? {
+        video({ src, node: _node }: ComponentProps<"video"> & { node?: unknown }) {
+          void _node;
+          return remoteMediaLink(typeof src === "string" ? src : undefined);
+        },
+      }
+    : {}),
   img({ src, alt, node: _node, ...props }) {
     void _node;
+    if (IS_ONION) return remoteMediaLink(typeof src === "string" ? src : undefined, alt || undefined);
     return (
       /* eslint-disable-next-line @next/next/no-img-element */
       <img

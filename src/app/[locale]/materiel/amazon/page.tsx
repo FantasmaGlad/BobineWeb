@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
+import { IS_ONION } from "@/lib/onion";
+import OnionMirrorNotice from "@/components/OnionMirrorNotice";
 import { buildMetadata } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import HardwareBundleTabs from "@/components/hardware/HardwareBundleTabs";
@@ -50,6 +52,10 @@ export default async function HardwareAmazonPage({
   if (!isLocale(locale)) notFound();
   const currentLocale = locale as Locale;
   const isEn = currentLocale === "en";
+
+  if (IS_ONION) {
+    return <OnionMirrorNotice locale={currentLocale} topic="materiel" clearnetPath="/materiel/amazon" />;
+  }
 
   const breadcrumbs = [
     { name: "Bobine", url: `/${currentLocale}` },

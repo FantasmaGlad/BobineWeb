@@ -9719,3 +9719,99 @@ main {
     animation: none;
   }
 }
+
+/* Miroir Tor : page de renvoi des routes absentes (boutique, Baamix) */
+.onion-notice {
+  padding: clamp(2.5rem, 8vw, 5rem) 0;
+}
+
+.onion-notice__inner {
+  max-width: 44rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.onion-notice__mark {
+  color: var(--text-heading);
+  padding: 1.1rem;
+  box-sizing: content-box;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+}
+
+.onion-notice__eyebrow {
+  margin: 0.25rem 0 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.onion-notice__title {
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+  line-height: 1.2;
+  color: var(--text-heading);
+}
+
+.onion-notice__lead {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--text-muted);
+}
+
+.onion-notice__points {
+  list-style: none;
+  margin: 0.5rem 0;
+  padding: 0;
+  width: 100%;
+  display: grid;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.onion-notice__points li {
+  padding: 0.9rem 1.1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--accent-primary);
+  border-radius: 0.6rem;
+  color: var(--text-main);
+  line-height: 1.55;
+}
+
+.onion-notice__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.onion-notice__clearnet {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0.75rem 0 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.onion-notice__clearnet a {
+  color: var(--text-heading);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.onion-notice__footer {
+  margin: 1rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}

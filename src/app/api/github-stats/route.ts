@@ -1,22 +1,11 @@
 import { NextResponse } from "next/server";
+import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 
 export const runtime = "nodejs";
 
 const REPO = "FantasmaGlad/Bobine";
 
-export interface ReleaseChannelInfo {
-  version: string;
-  title: string;
-  publishedAt: string;
-  downloads: {
-    windows: string;
-    linux: string;
-    macos: string;
-    android: string;
-    assistant: string;
-    installScript: string;
-  };
-}
+export type { ReleaseChannelInfo };
 
 export interface RepoStatsResponse {
   stars: number;

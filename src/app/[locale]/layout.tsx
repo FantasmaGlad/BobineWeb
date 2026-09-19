@@ -10,6 +10,7 @@ import JsonLd from "@/components/JsonLd";
 import BobineChatbot from "@/components/BobineChatbot";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import GlobalRippleEffect from "@/components/GlobalRippleEffect";
+import { IS_ONION } from "@/lib/onion";
 import "../globals.css";
 
 
@@ -120,9 +121,9 @@ export default async function RootLayout({
           <Footer locale={locale as Locale} dict={dict} />
         </main>
 
-        <BobineChatbot locale={locale as Locale} />
-        <ServiceWorkerRegistration locale={locale as Locale} />
-        <Analytics />
+        {!IS_ONION && <BobineChatbot locale={locale as Locale} />}
+        {!IS_ONION && <ServiceWorkerRegistration locale={locale as Locale} />}
+        {!IS_ONION && <Analytics />}
       </body>
     </html>
   );

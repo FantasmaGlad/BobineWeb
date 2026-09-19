@@ -9,8 +9,6 @@ import type { ServerCatalog } from "@/lib/catalog/server";
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
-const OPENROUTER_API_KEY_FALLBACK =
-  "sk-or-v1-REDACTED";
 const OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1";
 
 const SYSTEM_PROMPT_TEMPLATE = `Tu es Baamix, la mascotte et conseillère technique du projet Bobine (site : bobine.fit, code : github.com/FantasmaGlad/Bobine, conçu et développé par FantasmaGlad alias Clément Barillot, contact : clement.barillot@bobine.fit).
@@ -156,10 +154,11 @@ async function buildSystemPrompt(cart: unknown, storeView: unknown, catalog: Ser
 
 export async function POST(req: Request) {
   try {
-    const apiKey =
-      process.env.OPENROUTER_API_KEY ||
-      process.env.ORCAROUTER_API_KEY ||
-      OPENROUTER_API_KEY_FALLBACK;
+    const apiKey = process.env.OPENROUTER_API_KEY || process.env.ORCAROUTER_API_KEY;
+    if (!apiKey) {
+      console.error("OPENROUTER_API_KEY manquante : renseignez-la dans les variables d'environnement.");
+      return NextResponse.json({ error: "Assistant momentanément indisponible." }, { status: 503 });
+    }
     const baseURL =
       process.env.OPENROUTER_BASE_URL ||
       process.env.ORCAROUTER_BASE_URL ||
@@ -198,20 +197,18 @@ export async function POST(req: Request) {
       })),
     ];
 
-    // Modèle principal : DeepSeek V4.1 Flash (payant, très bon marché). Raisonnement désactivé (sinon les
-    // jetons de réflexion consomment le budget et retardent la réponse) et fournisseurs limités à ceux qui
-    // ne collectent pas les données. En cas d'échec (crédit épuisé, indisponibilité), repli automatique
-    // sur les modèles gratuits, sans param de confidentialité (les points d'accès gratuits collectent).
+    // Modèle principal : DeepSeek V4 Flash gratuit (aucun crédit requis). Raisonnement désactivé (sinon la
+    // réponse est deux fois plus lente). Repli automatique sur les autres modèles gratuits. Pour passer à un
+    // modèle payant plus rapide (ex. deepseek/deepseek-v4.1-flash, après avoir crédité OpenRouter), définir la
+    // variable OPENROUTER_MODEL : elle passe en tête de liste. Les points d'accès gratuits collectent les données.
     interface Candidate {
       model: string;
       extra?: Record<string, unknown>;
     }
     const candidates = ([
-      process.env.OPENROUTER_MODEL ? { model: process.env.OPENROUTER_MODEL } : null,
-      {
-        model: "deepseek/deepseek-v4.1-flash",
-        extra: { reasoning: { enabled: false }, provider: { data_collection: "deny", sort: "latency" } },
-      },
+      process.env.OPENROUTER_MODEL
+        ? { model: process.env.OPENROUTER_MODEL, extra: { reasoning: { enabled: false } } }
+        : null,
       { model: "deepseek/deepseek-v4-flash-0731:free", extra: { reasoning: { enabled: false } } },
       { model: "google/gemma-4-26b-a4b-it:free" },
       { model: "google/gemma-4-31b-it:free" },

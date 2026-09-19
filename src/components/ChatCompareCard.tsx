@@ -18,7 +18,15 @@ export default function ChatCompareCard({ ids, locale }: { ids: string[]; locale
   useEffect(() => {
     let cancelled = false;
     fetchCatalogProducts(ids).then((list) => {
-      if (!cancelled) setProducts(list.filter((p): p is ClientProduct => p !== null));
+      if (cancelled) return;
+      // Un comparatif n'a de sens qu'entre produits de même nature (unités entre elles, câbles entre eux...).
+      // Le modèle peut y glisser un accessoire : on ne garde que la catégorie la plus représentée
+      // (les unités centrales l'emportent à égalité).
+      const found = list.filter((p): p is ClientProduct => p !== null);
+      const count = new Map<string, number>();
+      for (const p of found) count.set(p.category, (count.get(p.category) ?? 0) + 1);
+      const best = [...count.entries()].sort((a, b) => b[1] - a[1] || (a[0] === "uc" ? -1 : 1))[0]?.[0];
+      setProducts(found.filter((p) => p.category === best));
     });
     return () => {
       cancelled = true;

@@ -9820,3 +9820,30 @@ main {
   width: min(100%, 260px);
   max-width: 260px;
 }
+
+/* Miroir Tor : Baamix court dans sa roue en bas du chat, une fois son message entierement tape */
+.baamix-idle-runner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1rem 0 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  animation: baamixIdleIn 0.5s ease both;
+}
+
+.baamix-idle-runner .baamix-wheel {
+  width: 48px;
+  height: 48px;
+  flex: none;
+}
+
+@keyframes baamixIdleIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .baamix-idle-runner { animation: none; }
+}

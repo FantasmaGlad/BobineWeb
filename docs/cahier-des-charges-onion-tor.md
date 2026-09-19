@@ -5,7 +5,8 @@ paquet .deb de 47,6 Mo telecharge et verifie par apt). Reference d'exploitation 
 Evolutions livrees depuis : Baamix visible sur le miroir en mode sans reseau (message explicatif), logos Tor, encart et liens de soutien a Tor,
 variante Tor du Pong (`deploy/onion/overlay/`), version GitHub lue cote serveur, carte d'installation « Option C » et
 script `install-tor.sh` dans la documentation, ASCII art Tor (demo terminal, script, en-tete de apt.bobine.fit
-variante Tor), mode Tor de la demo terminal, CI verte (regles React en avertissement).
+variante Tor), mode Tor de la demo terminal, CI verte (regles React en avertissement), Baamix qui court dans sa roue en fin de message et machine a ecrire
+fiabilisee sur reseau lent (attend le rendu Markdown).
 Ce document reste le cahier des charges d'origine (les decisions y sont notees, quelques details ont evolue :
 serveur web dedie sous le groupe `debian-tor`, site tire depuis la branche `onion-site` par cle de deploiement).
 

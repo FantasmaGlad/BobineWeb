@@ -7,7 +7,7 @@ import type { Locale } from "@/lib/i18n";
 import { readCart } from "@/lib/hardwareCart";
 import { readStoreView, subscribeStoreView, type StoreView } from "@/lib/storeView";
 import AssistantMessageBody from "@/components/AssistantMessageBody";
-import BaamixThinking from "@/components/BaamixThinking";
+import BaamixThinking, { HamsterWheel } from "@/components/BaamixThinking";
 import { IS_ONION, CLEARNET_URL } from "@/lib/onion";
 
 
@@ -70,11 +70,19 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
     IS_ONION ? [{ role: "assistant", content: onionIntro(locale) }] : [],
   );
   const [input, setInput] = useState("");
+  // Miroir Tor : une fois le message de Baamix entierement tape, il court dans sa roue en bas du chat.
+  const [onionTyped, setOnionTyped] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Miroir Tor : precharge le rendu Markdown des le chargement de la page (reseau lent), pour que la machine a
+  // ecrire demarre des l'ouverture du chat.
+  useEffect(() => {
+    if (IS_ONION) void import("./MarkdownRenderer");
+  }, []);
 
   // Ce que le visiteur regarde dans la boutique (publié par /materiel) : sert à proposer des questions adaptées.
   const [storeView, setStoreView] = useState<StoreView | null>(null);
@@ -447,6 +455,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                         animate={idx === messages.length - 1}
                         locale={locale}
                         onGrow={keepBottomVisible}
+                        onDone={IS_ONION ? () => setOnionTyped(true) : undefined}
                       />
                     ) : (
                       <p style={{ margin: 0 }}>{m.content}</p>
@@ -455,6 +464,15 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                 </div>
               );
             })}
+
+            {IS_ONION && onionTyped && (
+              <div className="baamix-idle-runner" role="img" aria-label={isEn ? "Baamix running in its wheel" : "Baamix court dans sa roue"}>
+                <HamsterWheel />
+                <span className="baamix-idle-runner__text">
+                  {isEn ? "Baamix keeps running while you read the documentation." : "Baamix court dans sa roue pendant que vous lisez la documentation."}
+                </span>
+              </div>
+            )}
 
             <div ref={messagesEndRef} />
           </div>

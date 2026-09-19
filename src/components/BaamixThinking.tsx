@@ -42,7 +42,7 @@ const ROTATE_MS = 2600;
 const SLOW_AFTER_S = 15;
 
 /** Roue de hamster filaire qui tourne, avec Baamix qui court dedans (SVG, aucun emoji). */
-function HamsterWheel() {
+export function HamsterWheel() {
   return (
     <svg className="baamix-wheel" viewBox="0 0 32 32" width="32" height="32" fill="none" aria-hidden="true">
       <g className="baamix-wheel__rim" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">

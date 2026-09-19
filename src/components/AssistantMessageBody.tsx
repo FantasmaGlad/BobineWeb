@@ -36,12 +36,15 @@ export default function AssistantMessageBody({
   animate,
   locale,
   onGrow,
+  onDone,
 }: {
   raw: string;
   streaming: boolean;
   animate: boolean;
   locale: Locale;
   onGrow?: () => void;
+  /** Appele une fois la frappe terminee (ex. pour afficher Baamix qui court en bas du chat). */
+  onDone?: () => void;
 }) {
   const parsed = useMemo(() => parseCatalogBlocks(raw), [raw]);
   const target = parsed.displayText;
@@ -49,6 +52,19 @@ export default function AssistantMessageBody({
   const [reduced, setReduced] = useState(false);
   useEffect(() => {
     setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
+  // Le rendu Markdown est charge a la demande. Sur un reseau lent (Tor), la frappe finissait avant son arrivee
+  // et le texte apparaissait d'un bloc : on attend que le module soit la avant de demarrer la machine a ecrire.
+  const [markdownReady, setMarkdownReady] = useState(false);
+  useEffect(() => {
+    let cancelled = false;
+    import("./MarkdownRenderer").then(() => {
+      if (!cancelled) setMarkdownReady(true);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const instant = !animate || reduced;
@@ -59,7 +75,7 @@ export default function AssistantMessageBody({
   streamingRef.current = streaming;
 
   useEffect(() => {
-    if (instant) return;
+    if (instant || !markdownReady) return;
     const timer = window.setInterval(() => {
       setShown((prev) => {
         const length = targetRef.current.length;
@@ -68,11 +84,16 @@ export default function AssistantMessageBody({
       });
     }, TICK_MS);
     return () => window.clearInterval(timer);
-  }, [instant]);
+  }, [instant, markdownReady]);
 
   const visibleCount = instant ? target.length : Math.min(shown, target.length);
   const typingDone = visibleCount >= target.length && !streaming;
   const visible = visibleCount >= target.length ? target : balanceMarkdown(target.slice(0, visibleCount));
+
+  useEffect(() => {
+    if (typingDone) onDone?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typingDone]);
 
   useEffect(() => {
     onGrow?.();

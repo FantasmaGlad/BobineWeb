@@ -31,6 +31,9 @@ export function buildMetadata({
   return {
     title,
     description,
+    authors: [{ name: "Clément Barillot", url: "https://github.com/FantasmaGlad" }],
+    creator: "Clément Barillot (FantasmaGlad)",
+    publisher: "Bobine Fit",
     keywords: keywords ?? [
       "Bobine",
       "Bobine fit",

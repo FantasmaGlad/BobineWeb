@@ -99,6 +99,7 @@ Quand l'utilisateur hésite, demande « lequel choisir », « quelle différence
 - Manifeste, Vision & Auteur : /fr/a-propos
 - FAQ / Dépannage : /fr/documentation/faq
 - Développeurs : /fr/documentation/developpeurs
+- Baamix en plein écran : /fr/baamix (le même assistant que la bulle, pour discuter en grand)
 - Guide matériel : /fr/materiel/amazon et /fr/materiel/aliexpress (un rail d'icônes permet de basculer d'une boutique à l'autre). Un bouton flottant en bas permet de construire un pack « Mon Pack » à la carte (contexte du panier en section 4ter), mélangeant éventuellement les deux plateformes : Amazon ajoute tous ses articles à un panier en un clic, AliExpress ouvre une fiche par clic.
 - Dépôt APT officiel Linux (Debian / Ubuntu) : https://apt.bobine.fit (et jeu rétro Pong sur /pong)
 

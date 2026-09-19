@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
 import { readCart } from "@/lib/hardwareCart";
 import { readStoreView, subscribeStoreView, type StoreView } from "@/lib/storeView";
@@ -65,14 +66,23 @@ function parseCatalogBlocks(raw: string): { displayText: string; productIds: str
   return { displayText: displayText.trimEnd(), productIds, compares };
 }
 
-export default function BobineChatbot({ locale }: { locale: Locale }) {
+/**
+ * Le même assistant sous deux formes : la bulle flottante (variant "bubble", montée dans toutes les
+ * pages) et la page plein écran /baamix (variant "page", toujours ouverte, sans fermeture).
+ */
+export default function BobineChatbot({ locale, variant = "bubble" }: { locale: Locale; variant?: "bubble" | "page" }) {
   const isEn = locale === "en";
-  const [isOpen, setIsOpen] = useState(false);
+  const isPage = variant === "page";
+  const pathname = usePathname();
+  // Sur la page /baamix, la bulle disparaît : une seule conversation à l'écran.
+  const hiddenBubble = !isPage && Boolean(pathname?.includes("/baamix"));
+  const [isOpen, setIsOpen] = useState(isPage);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Ce que le visiteur regarde dans la boutique (publié par /materiel) : sert à proposer des questions adaptées.
@@ -132,6 +142,7 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
       setIsOpen(false);
     }
 
+    if (isPage) return;
     window.addEventListener("toggle-baamix", handleToggle);
     window.addEventListener("open-baamix", handleOpen);
     window.addEventListener("close-baamix", handleClose);
@@ -143,13 +154,19 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
     };
   }, []);
 
+  // Défilement interne au chat (jamais de scrollIntoView : il ferait défiler toute la page /baamix).
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    const body = bodyRef.current;
+    if (body && messages.length > 0) {
+      body.scrollTo({ top: body.scrollHeight, behavior: "smooth" });
     }
   }, [messages, isLoading]);
 
   useEffect(() => {
+    if (isPage) {
+      if (inputRef.current) inputRef.current.focus({ preventScroll: true });
+      return;
+    }
     if (isOpen) {
       document.body.style.overflow = "hidden";
       if (inputRef.current) {
@@ -183,7 +200,7 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
       }
     }
 
-    if (isOpen) {
+    if (isOpen && !isPage) {
       window.addEventListener("keydown", handleKeyDown);
       document.addEventListener("mousedown", handleClickOutside);
     }
@@ -268,12 +285,18 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
     }
   }
 
-  if (!isOpen) {
+  if (!isOpen || hiddenBubble) {
     return null;
   }
 
   return (
-    <div ref={modalRef} className="chatbot-modal" role="dialog" aria-modal="true">
+    <div
+      ref={modalRef}
+      className={`chatbot-modal${isPage ? " chatbot-modal--page" : ""}`}
+      role={isPage ? "region" : "dialog"}
+      aria-modal={isPage ? undefined : true}
+      aria-label={isPage ? (isEn ? "Baamix AI assistant" : "Assistant IA Baamix") : undefined}
+    >
       {/* En-tête */}
       <div className="chatbot-modal__header">
         <div className="chatbot-modal__title-group">
@@ -288,7 +311,11 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
             <span className="chatbot-avatar-status" />
           </div>
           <div>
-            <span className="chatbot-modal__title" style={{ display: "block" }}>Baamix</span>
+            {isPage ? (
+              <h1 className="chatbot-modal__title" style={{ display: "block", margin: 0 }}>Baamix</h1>
+            ) : (
+              <span className="chatbot-modal__title" style={{ display: "block" }}>Baamix</span>
+            )}
             <span className="chatbot-modal__subtitle">{isEn ? "Bobine Mascot" : "Mascotte de Bobine"}</span>
           </div>
         </div>
@@ -307,6 +334,7 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
                   </svg>
                 </button>
               )}
+              {!isPage && (
               <button
                 type="button"
                 className="chatbot-header-btn"
@@ -319,11 +347,12 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               </button>
+              )}
             </div>
           </div>
 
           {/* Corps de conversation */}
-          <div className="chatbot-modal__body">
+          <div ref={bodyRef} className="chatbot-modal__body">
             {/* Message de bienvenue */}
             <div className="chatbot-message chatbot-message--assistant">
               <div className="chatbot-message__avatar">

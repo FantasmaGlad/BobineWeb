@@ -65,6 +65,9 @@ export default function Footer({
             <Link href={`/${locale}/materiel/amazon`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.nav.hardware}
             </Link>
+            <Link href={`/${locale}/baamix`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+              {isEn ? "Baamix AI assistant" : "Assistant IA Baamix"}
+            </Link>
             <Link href={`/${locale}/documentation`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.nav.documentation}
             </Link>

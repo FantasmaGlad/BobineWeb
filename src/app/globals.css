@@ -9476,3 +9476,107 @@ main {
   vertical-align: middle;
   margin-right: 0.3rem;
 }
+
+/* ==========================================================================
+   Baamix : bulle agrandie sur PC et page plein écran /baamix
+   ========================================================================== */
+
+@media (min-width: 601px) {
+  .chatbot-modal:not(.chatbot-modal--page) {
+    width: min(calc(100vw - 4rem), 48rem);
+    height: min(calc(100dvh - 4rem), 52rem);
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .chatbot-modal__body {
+    padding: 1.1rem 1.25rem;
+    gap: 0.9rem;
+  }
+
+  .chatbot-message__bubble {
+    font-size: 0.9rem;
+    padding: 0.65rem 0.95rem;
+  }
+
+  .chatbot-suggestions__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+}
+
+/* Page /baamix : le chat remplit la fenêtre sous l'en-tête et le bandeau du site. */
+.chatbot-modal.chatbot-modal--page {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  max-width: 72rem;
+  height: calc(100dvh - 9rem);
+  min-height: 28rem;
+  margin: 1rem auto 0;
+  border-radius: 1rem;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  animation: none;
+  z-index: auto;
+}
+
+.chatbot-modal--page .chatbot-message__bubble {
+  font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+  .chatbot-modal.chatbot-modal--page {
+    height: calc(100dvh - 8rem);
+    border-radius: 0.75rem;
+    margin-top: 0.5rem;
+  }
+}
+
+.baamix-page {
+  padding-bottom: 3rem;
+}
+
+.baamix-page__about {
+  max-width: 62rem;
+  margin: 2.5rem auto 0;
+  color: var(--text-main);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.baamix-page__about h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  margin: 0 0 0.75rem;
+}
+
+.baamix-page__about h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 1.75rem 0 0.5rem;
+}
+
+.baamix-page__about ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.baamix-page__about dt {
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-top: 0.85rem;
+}
+
+.baamix-page__about dd {
+  margin: 0.15rem 0 0;
+  color: var(--text-muted);
+}
+
+.baamix-page__about a {
+  color: var(--text-heading);
+  text-decoration: underline;
+}

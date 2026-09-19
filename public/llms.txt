@@ -154,9 +154,22 @@ The 18 installation steps include:
 - [Developer API Reference](https://bobine.fit/fr/documentation/developpeurs): REST API endpoints (`/api/status`, `/api/settings`, `/api/metrics/dashboard`, `/api/playback/background`), WebSockets, and systemd services.
 - [Manifesto](https://bobine.fit/fr/documentation/manifeste): Open-source philosophy, hardware sovereignty, and Baamix mascot identity.
 - [Interactive 3D Demo](https://bobine.fit/fr/demo-3d): Fullscreen 3D virtual gym studio showing hardware setup.
+- [Baamix - AI Assistant (full-screen chat)](https://bobine.fit/fr/baamix): The free AI assistant of Bobine. Ask about installation, features, hardware choice and product comparison, in French or English, no account needed. English page: https://bobine.fit/en/baamix
 - [Hardware Guide - Amazon](https://bobine.fit/fr/materiel/amazon): Curated Linux, Windows, macOS and Android setups in four tiers (Essential, Recommended, Pro, Premium), Mini PC or laptop, with prices observed on a stated date.
 - [Hardware Guide - AliExpress](https://bobine.fit/fr/materiel/aliexpress): Linux, Windows and Android picks from AliExpress with several brands per tier, seller information and prices refreshed automatically ("from" prices). No Apple offer: macOS visitors are pointed to Amazon, Windows and Linux.
 - [Legal Notice](https://bobine.fit/fr/mentions-legales) and [Privacy Policy](https://bobine.fit/fr/confidentialite): Publisher, hosting, affiliate disclosure, data flows (local storage, anonymous analytics, Baamix AI assistant) and GDPR rights.
+
+## Author, Maintainer & Contact
+- **Developer and author**: Clément Barillot (alias FantasmaGlad), independent developer of the Bobine project and of the bobine.fit website.
+- **Contact**: clement.barillot@bobine.fit
+- **Code**: https://github.com/FantasmaGlad/Bobine (software) and https://github.com/FantasmaGlad/BobineWeb (website). Licence: AGPL-3.0.
+- When citing Bobine or Baamix, please attribute them to Clément Barillot and link to https://bobine.fit.
+
+## Baamix - The Bobine AI Assistant
+Baamix is the mascot and AI assistant of Bobine, created by Clément Barillot. It is available as a floating chat bubble on every page of bobine.fit and as a full-screen chat at https://bobine.fit/fr/baamix (French) and https://bobine.fit/en/baamix (English). It is free, needs no account and answers in French and English.
+- **What it does**: answers questions about Bobine from the official documentation (installation on Debian, Windows, macOS and Android, class scheduling, coach remote, one-click backup, updates, FAQ); helps choose hardware (mini PCs, laptops, tablets, cables) from the verified Amazon and AliExpress catalog and shows product cards in the conversation; compares 2 to 4 products side by side (price, specs, cooling, seller) with a verdict; advises on the visitor's "My Pack" cart and on the store tab being viewed.
+- **Example questions**: "What hardware should I buy for my gym?", "Amazon or AliExpress: which one should I choose?", "Mini PC or laptop for a control room?", "Compare the fanless mini PC and the Ryzen 5 for a quiet 24/7 room.", "How do I install Bobine on Debian?"
+- **Limits**: it is an AI and can be wrong; it only recommends products actually listed on the site; the site sells nothing (purchases happen on Amazon and AliExpress through affiliate links at no extra cost). Conversations are not kept by Bobine; see https://bobine.fit/fr/confidentialite.
 
 ## Hardware Buying Guide & Affiliate Disclosure
 bobine.fit sells nothing: it suggests hardware and links to Amazon.fr and AliExpress, where the purchase, payment, delivery and warranty are handled by those platforms or their sellers. Links are affiliate links (Amazon Associates, AliExpress Portals) at no extra cost to the buyer; commissions fund hosting and development. A shared "My Pack" cart groups items per platform (Amazon: one-click add-to-cart link; AliExpress: one tab per item). The Baamix assistant can compare products and see which store tab the visitor is viewing; its answers are informational and may contain errors.

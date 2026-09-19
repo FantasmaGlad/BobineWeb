@@ -1,5 +1,19 @@
-export default function JsonLd({ locale = "fr" }: { locale?: string }) {
+import { getBobineReleases } from "@/lib/github-releases";
+
+const AUTHOR_EMAIL = "clement.barillot@bobine.fit";
+
+export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
   const isEn = locale === "en";
+
+  // Dernière version stable publiée (cache 30 min) ; absente si l'API est injoignable.
+  let latestVersion: string | undefined;
+  try {
+    const releases = await getBobineReleases();
+    const stable = releases.find((r) => !r.isPrerelease && /\d/.test(r.slug));
+    latestVersion = stable?.slug.replace(/^v/i, "");
+  } catch {
+    latestVersion = undefined;
+  }
 
   const softwareSchema = {
     "@context": "https://schema.org",
@@ -60,7 +74,7 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
     screenshot: "https://bobine.fit/opengraph-image",
     license: "https://www.gnu.org/licenses/agpl-3.0.html",
     downloadUrl: "https://github.com/FantasmaGlad/Bobine/releases/latest",
-    softwareVersion: "3.0.5",
+    ...(latestVersion ? { softwareVersion: latestVersion } : {}),
     brand: {
       "@type": "Brand",
       name: "Bobine Fit",
@@ -74,9 +88,22 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
       "@type": "Person",
       name: "Clément Barillot",
       alternateName: "FantasmaGlad",
-      email: "clement.barillot@bobine.fit",
+      email: AUTHOR_EMAIL,
       url: "https://github.com/FantasmaGlad",
     },
+  };
+
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://bobine.fit/#author",
+    name: "Clément Barillot",
+    alternateName: "FantasmaGlad",
+    jobTitle: isEn ? "Developer and author of Bobine" : "Développeur et auteur de Bobine",
+    email: AUTHOR_EMAIL,
+    url: "https://github.com/FantasmaGlad",
+    sameAs: ["https://github.com/FantasmaGlad", "https://github.com/FantasmaGlad/Bobine"],
+    worksFor: { "@type": "Organization", name: "Bobine Fit", url: "https://bobine.fit" },
   };
 
   const organizationSchema = {
@@ -89,6 +116,13 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
     description: isEn
       ? "Open-source autonomous video playout and gym entertainment systems."
       : "Système de régie vidéo autonome et open-source pour salles de sport et studios fitness.",
+    founder: { "@id": "https://bobine.fit/#author" },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      email: AUTHOR_EMAIL,
+      availableLanguage: ["fr", "en"],
+    },
     sameAs: [
       "https://github.com/FantasmaGlad/Bobine",
       "https://github.com/FantasmaGlad/BobineWeb",
@@ -118,6 +152,10 @@ export default function JsonLd({ locale = "fr" }: { locale?: string }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
       />
       <script
         type="application/ld+json"

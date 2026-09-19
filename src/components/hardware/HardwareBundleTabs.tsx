@@ -287,7 +287,7 @@ export default function HardwareBundleTabs({
             Les formes absentes du catalogue (ex. Mini PC / PC Portable sous Android, réservés aux
             futurs PC ARM Android) restent visibles mais grisées. */}
         <div
-          className="stepper-mode-toggle"
+          className="stepper-mode-toggle hw-form-toggle"
           role="tablist"
           aria-label={isEn ? "Hardware form factor" : "Type de matériel"}
           style={{ marginBottom: "1.25rem", flexWrap: "wrap" }}

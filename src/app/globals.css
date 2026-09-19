@@ -9814,3 +9814,9 @@ main {
   font-size: 0.8rem;
   color: var(--text-dim);
 }
+
+/* Banniere Tor du terminal de demonstration : l'ASCII art est un SVG, il garde ses proportions partout */
+.terminal-ascii-svg--tor {
+  width: min(100%, 260px);
+  max-width: 260px;
+}

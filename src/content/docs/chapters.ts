@@ -83,7 +83,7 @@ const fr: DocChapter[] = [
           "Le site est également consultable dans Tor Browser (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/). La boutique matériel et l'assistant Baamix n'y sont pas proposés : ils reposent sur des liens d'affiliation et des services tiers. Le miroir est hébergé par le mainteneur, sans journal de visite, avec une disponibilité au mieux. En soutien à la communauté du libre, découvrez le projet Tor : https://www.torproject.org/ (code source : https://github.com/torproject/tor).",
         ],
         codeBlock:
-          "# Dépôt APT officiel via Tor (miroir onion)\nsudo apt install apt-transport-tor\ncurl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine-onion.list\nsudo apt update && sudo apt install bobine",
+          "# Dépôt APT officiel via Tor (miroir onion)\nsudo apt install apt-transport-tor\ncurl -fsS --socks5-hostname 127.0.0.1:9050 http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine-onion.list\nsudo apt update && sudo apt install bobine",
         deviceImage: "linux",
       },
       {
@@ -432,7 +432,7 @@ const en: DocChapter[] = [
           "The site can also be browsed in Tor Browser (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/). The hardware store and the Baamix assistant are not offered there: they rely on affiliate links and third-party services. The mirror is hosted by the maintainer, keeps no visit log, and is available on a best-effort basis. In support of the free-software community, discover the Tor project: https://www.torproject.org/ (source code: https://github.com/torproject/tor).",
         ],
         codeBlock:
-          "# Official APT repository over Tor (onion mirror)\nsudo apt install apt-transport-tor\ncurl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine-onion.list\nsudo apt update && sudo apt install bobine",
+          "# Official APT repository over Tor (onion mirror)\nsudo apt install apt-transport-tor\ncurl -fsS --socks5-hostname 127.0.0.1:9050 http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine-onion.list\nsudo apt update && sudo apt install bobine",
         deviceImage: "linux",
       },
       {

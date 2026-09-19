@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react";
 import type { Locale } from "@/lib/i18n";
+import { TOR_ART } from "@/lib/torArt";
+import { ONION_APT_HOST } from "@/lib/onion";
 
 interface StepItem {
   id: string;
@@ -178,6 +180,58 @@ const STEPS: StepItem[] = [
   },
 ];
 
+const ONION_SHORT = `${ONION_APT_HOST.slice(0, 8)}…${ONION_APT_HOST.slice(-14)}`;
+
+// Variante « Tor » : reproduit public/install-tor.sh (5 etapes, cle recuperee par Tor puis empreinte verifiee).
+const TOR_STEPS: StepItem[] = [
+  {
+    id: "tor-env",
+    num: 1,
+    labelFr: "Vérification de l'environnement",
+    labelEn: "Checking the environment",
+    detailFr: () => "apt, curl et gpg présents",
+    detailEn: () => "apt, curl and gpg present",
+    durationMs: 800,
+  },
+  {
+    id: "tor-transport",
+    num: 2,
+    labelFr: "Paquet apt-transport-tor",
+    labelEn: "apt-transport-tor package",
+    detailFr: () => "Tor et le proxy SOCKS local (127.0.0.1:9050) installés",
+    detailEn: () => "Tor and the local SOCKS proxy (127.0.0.1:9050) installed",
+    durationMs: 1100,
+  },
+  {
+    id: "tor-key",
+    num: 3,
+    labelFr: "Clé de signature de Bobine",
+    labelEn: "Bobine signing key",
+    detailFr: () => "Récupérée par Tor, sans contact avec le web classique",
+    detailEn: () => "Fetched through Tor, no contact with the regular web",
+    durationMs: 1300,
+  },
+  {
+    id: "tor-fingerprint",
+    num: 4,
+    labelFr: "Vérification de l'empreinte",
+    labelEn: "Fingerprint check",
+    detailFr: () => "B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A (conforme)",
+    detailEn: () => "B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A (matches)",
+    durationMs: 900,
+  },
+  {
+    id: "tor-source",
+    num: 5,
+    labelFr: "Source APT via Tor",
+    labelEn: "APT source through Tor",
+    detailFr: () => `tor+http://${ONION_SHORT}/ — index récupéré, signature validée`,
+    detailEn: () => `tor+http://${ONION_SHORT}/ — index fetched, signature validated`,
+    durationMs: 1200,
+  },
+];
+
+const COMMAND_TOR = "curl -fsSL https://bobine.fit/install-tor.sh | bash";
 const COMMAND_STABLE = "curl -fsSL https://bobine.fit/install.sh | sudo bash";
 const COMMAND_BETA = "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta";
 
@@ -185,7 +239,10 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const [copied, setCopied] = useState(false);
   const [channel, setChannel] = useState<"stable" | "beta">("stable");
-  const commandText = channel === "stable" ? COMMAND_STABLE : COMMAND_BETA;
+  const [mode, setMode] = useState<"standard" | "tor">("standard");
+  const isTor = mode === "tor";
+  const steps = isTor ? TOR_STEPS : STEPS;
+  const commandText = isTor ? COMMAND_TOR : channel === "stable" ? COMMAND_STABLE : COMMAND_BETA;
 
   // États d'exécution
   const [hasTriggered, setHasTriggered] = useState(false);
@@ -218,6 +275,28 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
       terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
     }
   }, []);
+
+  // Toujours tout en bas : le defilement suit le DOM apres chaque changement (layout effect, donc apres le
+  // rendu et avant l'affichage), puis une boucle d'images d'animation rattrape les hauteurs qui evoluent
+  // (banniere, images, animations d'apparition) pendant l'execution et un instant apres la fin.
+  useLayoutEffect(() => {
+    scrollToBottom();
+  }, [completedSteps, currentRunningStep, showBanner, channelPromptAnswered, isCompleted, hasTriggered, mode, scrollToBottom]);
+
+  useEffect(() => {
+    if (!hasTriggered) return;
+    let raf = 0;
+    let stopAt = isCompleted ? performance.now() + 900 : Infinity;
+    const tick = () => {
+      scrollToBottom();
+      if (performance.now() < stopAt) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      stopAt = 0;
+    };
+  }, [hasTriggered, isCompleted, scrollToBottom]);
 
   // Démarre l'exécution des 18 étapes
   const startStepsSequence = useCallback(() => {
@@ -254,8 +333,8 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
     // Sinon, on affiche le prompt interactif de sélection pendant un court instant avant de lancer
     promptTimerRef.current = setTimeout(() => {
       startStepsSequence();
-    }, 2200);
-  }, [hasTriggered, startStepsSequence]);
+    }, isTor ? 1400 : 2200);
+  }, [hasTriggered, isTor, startStepsSequence]);
 
   const restartTerminal = useCallback(() => {
     clearAllTimers();
@@ -267,16 +346,31 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
     setIsCompleted(false);
   }, []);
 
+  const switchMode = useCallback(
+    (next: "standard" | "tor") => {
+      if (next === mode) return;
+      clearAllTimers();
+      setMode(next);
+      setHasTriggered(false);
+      setShowBanner(false);
+      setChannelPromptAnswered(false);
+      setCompletedSteps(0);
+      setCurrentRunningStep(-1);
+      setIsCompleted(false);
+    },
+    [mode]
+  );
+
   const skipToEnd = useCallback(() => {
     clearAllTimers();
     setHasTriggered(true);
     setShowBanner(true);
     setChannelPromptAnswered(true);
-    setCompletedSteps(STEPS.length);
+    setCompletedSteps(steps.length);
     setCurrentRunningStep(-1);
     setIsCompleted(true);
     setTimeout(scrollToBottom, 50);
-  }, [scrollToBottom]);
+  }, [scrollToBottom, steps.length]);
 
   // Écoute des touches au clavier (Entrée pour lancer, 1 ou 2 pour choisir le canal)
   useEffect(() => {
@@ -291,7 +385,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         return;
       }
 
-      if (hasTriggered && !channelPromptAnswered) {
+      if (hasTriggered && !channelPromptAnswered && !isTor) {
         if (e.key === "1") {
           e.preventDefault();
           handleSelectChannelPrompt("stable");
@@ -307,19 +401,19 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [hasTriggered, channelPromptAnswered, triggerExecution, handleSelectChannelPrompt, startStepsSequence]);
+  }, [hasTriggered, channelPromptAnswered, isTor, triggerExecution, handleSelectChannelPrompt, startStepsSequence]);
 
   // Déroulement des 18 étapes (vitesse posée et lisible)
   useEffect(() => {
     if (!hasTriggered || !showBanner || !channelPromptAnswered || isCompleted) return;
 
-    if (currentRunningStep >= 0 && currentRunningStep < STEPS.length) {
-      const step = STEPS[currentRunningStep];
+    if (currentRunningStep >= 0 && currentRunningStep < steps.length) {
+      const step = steps[currentRunningStep];
       timerRef.current = setTimeout(() => {
         setCompletedSteps((prev) => prev + 1);
         scrollToBottom();
 
-        if (currentRunningStep + 1 < STEPS.length) {
+        if (currentRunningStep + 1 < steps.length) {
           setCurrentRunningStep((prev) => prev + 1);
         } else {
           setCurrentRunningStep(-1);
@@ -335,7 +429,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         }
       };
     }
-  }, [currentRunningStep, showBanner, channelPromptAnswered, hasTriggered, isCompleted, scrollToBottom]);
+  }, [currentRunningStep, showBanner, channelPromptAnswered, hasTriggered, isCompleted, scrollToBottom, steps]);
 
   // Une fois l'installation terminée, la page défile automatiquement pour révéler le
   // bilan récapitulatif — l'utilisateur reste ensuite libre de remonter à tout moment,
@@ -376,7 +470,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
 
         <div className="terminal-demo-title-group">
           <span className="terminal-title">
-            bash — install.sh ({channel === "stable" ? "Stable" : "Bêta"})
+            {isTor ? "bash — install-tor.sh (Tor)" : `bash — install.sh (${channel === "stable" ? "Stable" : "Bêta"})`}
           </span>
           {hasTriggered && (
             <span className={`terminal-demo-status-pill ${!isCompleted ? "is-active" : ""}`}>
@@ -387,16 +481,45 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
               />
               <span>
                 {isCompleted
-                  ? (isEn ? "Installed (18/18)" : "Installé (18/18)")
+                  ? (isEn ? `Installed (${steps.length}/${steps.length})` : `Installé (${steps.length}/${steps.length})`)
                   : !channelPromptAnswered
                   ? (isEn ? "Channel setup" : "Choix du canal")
-                  : (isEn ? `Step ${completedSteps + 1}/18` : `Étape ${completedSteps + 1}/18`)}
+                  : (isEn ? `Step ${completedSteps + 1}/${steps.length}` : `Étape ${completedSteps + 1}/${steps.length}`)}
               </span>
             </span>
           )}
         </div>
 
+        {/* Sélecteur de mode : installation standard ou dépôt APT protégé via Tor */}
+        <div className="terminal-channel-tabs" role="tablist" aria-label={isEn ? "Install mode" : "Mode d'installation"}>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={!isTor}
+            className={`terminal-channel-tab ${!isTor ? "is-active" : ""}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              switchMode("standard");
+            }}
+          >
+            {isEn ? "Standard" : "Standard"}
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={isTor}
+            className={`terminal-channel-tab ${isTor ? "is-active" : ""}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              switchMode("tor");
+            }}
+          >
+            Tor
+          </button>
+        </div>
+
         {/* Sélecteur de canal Stable / Bêta */}
+        {!isTor && (
         <div className="terminal-channel-tabs" role="tablist" aria-label={isEn ? "Release channel" : "Canal de version"}>
           <button
             type="button"
@@ -423,6 +546,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
             Bêta
           </button>
         </div>
+        )}
 
         <div className="terminal-demo-actions">
           {/* Bouton Rejouer */}
@@ -527,7 +651,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         </div>
 
         {/* Bannière ASCII officielle de install.sh */}
-        {showBanner && (
+        {showBanner && !isTor && (
           <div className="terminal-ascii-container">
             <svg
               viewBox="0 0 118 40"
@@ -554,8 +678,32 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
           </div>
         )}
 
+        {/* Bannière Tor : Baamix dans l'oignon (ASCII art rendu en SVG, jamais deforme) */}
+        {showBanner && isTor && (
+          <div className="terminal-ascii-container">
+            <svg
+              viewBox={TOR_ART.viewBox}
+              preserveAspectRatio="xMidYMid meet"
+              className="terminal-ascii-svg terminal-ascii-svg--tor"
+              role="img"
+              aria-label={isEn ? "Baamix in the Tor onion, ASCII art" : "Baamix dans l'oignon Tor, ASCII art"}
+            >
+              <g transform="scale(1, 2)">
+                <path fill="#7d4698" d={TOR_ART.purple} />
+                <path fill="#68b030" d={TOR_ART.green} />
+              </g>
+            </svg>
+            <div className="terminal-ascii-caption">
+              <span className="terminal-ascii-tag">
+                {isEn ? "APT repository protected through Tor (onion service)" : "Dépôt APT protégé via Tor (service onion)"}
+              </span>
+              <span className="terminal-ascii-meta">tor+http://{ONION_SHORT}/</span>
+            </div>
+          </div>
+        )}
+
         {/* Invite interactive reproduisant select_update_channel de install.sh */}
-        {showBanner && (
+        {showBanner && !isTor && (
           <div className="terminal-channel-prompt">
             <div className="terminal-channel-prompt__header">
               <span className="terminal-channel-prompt__label">
@@ -629,7 +777,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         {/* Défilement des 18 étapes de install.sh */}
         {showBanner && channelPromptAnswered && (
           <div className="terminal-steps-list">
-            {STEPS.map((step, idx) => {
+            {steps.map((step, idx) => {
               const isDone = idx < completedSteps;
               const isCurrent = idx === currentRunningStep;
 
@@ -643,7 +791,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
                   }`}
                 >
                   <span className="terminal-step-num">
-                    [{step.num}/18]
+                    [{step.num}/{steps.length}]
                   </span>
                   {isDone ? (
                     <span className="terminal-ok">
@@ -671,7 +819,39 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         )}
 
         {/* Bilan final récapitulatif fidèle à install.sh */}
-        {isCompleted && (
+        {isCompleted && isTor && (
+          <div ref={summaryRef} className="terminal-demo-summary-box">
+            <div className="terminal-summary-header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <strong>{isEn ? "Done: Bobine repository protected by Tor" : "Terminé : dépôt Bobine protégé par Tor"}</strong>
+            </div>
+            <div className="terminal-summary-table">
+              <div className="terminal-summary-row">
+                <span className="summary-key">{isEn ? "Install" : "Installer"}</span>
+                <span className="summary-val"><code>sudo apt install bobine</code></span>
+              </div>
+              <div className="terminal-summary-row">
+                <span className="summary-key">{isEn ? "Update" : "Mettre à jour"}</span>
+                <span className="summary-val"><code>sudo apt update &amp;&amp; sudo apt upgrade</code></span>
+              </div>
+              <div className="terminal-summary-row">
+                <span className="summary-key">{isEn ? "Source" : "Source"}</span>
+                <span className="summary-val">/etc/apt/sources.list.d/bobine-onion.list</span>
+              </div>
+              <div className="terminal-summary-row">
+                <span className="summary-key">Tor</span>
+                <span className="summary-val">
+                  <a href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">torproject.org</a>
+                  <span className="summary-alt">{isEn ? "(support the Tor project)" : "(soutenez le projet Tor)"}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {isCompleted && !isTor && (
           <div ref={summaryRef} className="terminal-demo-summary-box">
             <div className="terminal-summary-header">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

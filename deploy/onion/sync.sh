@@ -18,7 +18,10 @@ OVERLAY=/usr/local/lib/bobine-onion/overlay
 log() { echo "[onion-sync] $*"; }
 
 # Personnalisations propres au miroir Tor (jamais poussees dans le depot source).
-overlay_apt() { python3 "$OVERLAY/apt/pong-tor.py" "$1" || log "pong-tor : ignore"; }
+overlay_apt() {
+  python3 "$OVERLAY/apt/pong-tor.py" "$1" || log "pong-tor : ignore"
+  python3 "$OVERLAY/apt/apt-tor.py" "$1" || log "apt-tor : ignore"
+}
 overlay_none() { :; }
 
 verify_apt() {

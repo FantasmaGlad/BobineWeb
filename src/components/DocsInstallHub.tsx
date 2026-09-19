@@ -19,7 +19,7 @@ import { ONION_APT_HOST, ONION_SITE_HOST } from "@/lib/onion";
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
 
 const TOR_APT_COMMANDS = `sudo apt install apt-transport-tor
-curl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg
+curl -fsS --socks5-hostname 127.0.0.1:9050 http://${ONION_APT_HOST}/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg
 echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://${ONION_APT_HOST}/ stable main" | sudo tee /etc/apt/sources.list.d/bobine-onion.list
 sudo apt update && sudo apt install bobine`;
 
@@ -689,14 +689,14 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 </p>
                 <p style={{ marginTop: "0.5rem", fontSize: "0.85rem", color: "var(--text-muted)" }}>
                   {isEn
-                    ? "One-command alternative (read it first): "
-                    : "Alternative en une commande (à lire avant de l'exécuter) : "}
+                    ? "One-command alternative (read it first, add --dry-run to simulate): "
+                    : "Alternative en une commande (à lire avant, ajoutez --dry-run pour simuler) : "}
                   <a href="/install-tor.sh" className="docs-onion-link">
                     bobine.fit/install-tor.sh
                   </a>
                   {isEn
-                    ? ". It checks the signing key against the published fingerprint (B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A) and stops if it differs."
-                    : ". Il vérifie la clé de signature contre l'empreinte publiée (B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A) et s'arrête si elle diffère."}
+                    ? ". It fetches the key through Tor, checks it against the published fingerprint (B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A) and stops if it differs."
+                    : ". Il récupère la clé par Tor, la compare à l'empreinte publiée (B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A) et s'arrête si elle diffère."}
                 </p>
               </div>
             </div>

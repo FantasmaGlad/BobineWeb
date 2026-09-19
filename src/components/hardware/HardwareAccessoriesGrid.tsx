@@ -5,6 +5,7 @@ import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
 import { PRICE_CHECKED_AT, type HardwareItem } from "@/content/hardware";
 import SellerLine, { type MerchantPlatform } from "@/components/hardware/SellerLine";
+import MarqueeText from "@/components/hardware/MarqueeText";
 import AddToCartButton from "@/components/hardware/AddToCartButton";
 
 function formatCheckedDate(iso: string, isEn: boolean) {
@@ -182,7 +183,6 @@ export default function HardwareAccessoriesGrid({
                     </h3>
                     <div
                       className="hw-acc-specs"
-                      title={acc.specs}
                       style={{
                         fontSize: "0.725rem",
                         fontWeight: 600,
@@ -193,7 +193,7 @@ export default function HardwareAccessoriesGrid({
                         fontFamily: "var(--font-mono, monospace)",
                       }}
                     >
-                      {acc.specs}
+                      <MarqueeText text={acc.specs} />
                     </div>
                   </div>
                 </div>

@@ -1562,7 +1562,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
                 hasFan: false,
               },
               hubUsbcBelkin("android-recommande"),
-              cableHdmi21("android-recommande"),
+              cableHdmi21("cable-hdmi21-android-recommande"),
               {
                 id: "mount-bike-treadmill",
                 name: "Support de Tablette pour Vélo, Tapis de Course & Elliptique",
@@ -1646,7 +1646,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
                 hasFan: false,
               },
               hubEthernetAcer("android-premium"),
-              cableHdmiFiberPremium("android-premium"),
+              cableHdmiFiberPremium("cable-hdmi-fiber-android-premium"),
               {
                 id: "mount-gas-spring-anti-theft-pro",
                 name: "Support Mural Renforcé Antivol pour Tablette 7-13 Pouces",

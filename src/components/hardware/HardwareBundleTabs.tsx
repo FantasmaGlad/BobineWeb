@@ -19,6 +19,7 @@ import AndroidIcon from "@/components/icons/AndroidIcon";
 import HardwareAccessoriesGrid from "@/components/hardware/HardwareAccessoriesGrid";
 import AddToCartButton from "@/components/hardware/AddToCartButton";
 import SellerLine, { type MerchantPlatform } from "@/components/hardware/SellerLine";
+import MarqueeText from "@/components/hardware/MarqueeText";
 
 interface HardwareBundleTabsProps {
   locale: Locale;
@@ -161,6 +162,7 @@ export default function HardwareBundleTabs({
     laptop: { fr: "PC Portable", en: "Laptop" },
     tablet: { fr: "Tablette", en: "Tablet" },
   };
+  const formOrder: FormFactorKey[] = selectedOs === "android" ? ["tablet", "minipc", "laptop"] : ["minipc", "laptop"];
 
   const tierList: Array<{ id: TierKey; label: string; sub: string }> = [
     {
@@ -223,7 +225,6 @@ export default function HardwareBundleTabs({
           borderRadius: "0.75rem",
           padding: "1.5rem",
           boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
-          minHeight: formFactorKeys.length > 1 ? "calc(100vh - 13rem)" : "calc(100vh - 16.5rem)",
         }}
       >
         <div
@@ -243,14 +244,13 @@ export default function HardwareBundleTabs({
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.35rem" }}>
               <h2
                 className="hw-form-title"
-                title={isEn ? currentFormFactor.titleEn : currentFormFactor.titleFr}
                 style={{
                   fontSize: "1.25rem",
                   fontWeight: 700,
                   color: "var(--text-heading)",
                 }}
               >
-                {isEn ? currentFormFactor.titleEn : currentFormFactor.titleFr}
+                <MarqueeText text={isEn ? currentFormFactor.titleEn : currentFormFactor.titleFr} />
               </h2>
             </div>
           </div>
@@ -283,37 +283,46 @@ export default function HardwareBundleTabs({
           </div>
         </div>
 
-        {/* SÉLECTEUR MINI PC / PC PORTABLE (masqué si une seule voie disponible) */}
-        {formFactorKeys.length > 1 && (
-          <div
-            className="stepper-mode-toggle"
-            role="tablist"
-            aria-label={isEn ? "Hardware form factor" : "Type de matériel"}
-            style={{ marginBottom: "1.25rem", flexWrap: "wrap" }}
-          >
-            {formFactorKeys.map((key) => {
-              const isFormActive = activeFormFactorKey === key;
-              return (
-                <button
-                  key={key}
-                  role="tab"
-                  aria-selected={isFormActive}
-                  onClick={() => {
-                    setSelectedFormFactor(key);
-                    const nextFormFactor = currentBundle.formFactors[key]!;
-                    if (!nextFormFactor.tiers[selectedTier]) {
-                      setSelectedTier(nextFormFactor.defaultTier);
-                    }
-                  }}
-                  className={`stepper-mode-btn ${isFormActive ? "is-active" : ""}`}
-                  style={{ padding: "0.45rem 0.85rem", fontSize: "0.775rem" }}
-                >
-                  <span>{isEn ? formFactorLabels[key].en : formFactorLabels[key].fr}</span>
-                </button>
-              );
-            })}
-          </div>
-        )}
+        {/* SÉLECTEUR DE FORME : toujours affiché pour garder la même mise en page sur tous les OS.
+            Les formes absentes du catalogue (ex. Mini PC / PC Portable sous Android, réservés aux
+            futurs PC ARM Android) restent visibles mais grisées. */}
+        <div
+          className="stepper-mode-toggle"
+          role="tablist"
+          aria-label={isEn ? "Hardware form factor" : "Type de matériel"}
+          style={{ marginBottom: "1.25rem", flexWrap: "wrap" }}
+        >
+          {formOrder.map((key) => {
+            const isAvailable = formFactorKeys.includes(key);
+            const isFormActive = activeFormFactorKey === key;
+            return (
+              <button
+                key={key}
+                role="tab"
+                aria-selected={isFormActive}
+                aria-disabled={!isAvailable}
+                disabled={!isAvailable}
+                title={isAvailable ? undefined : isEn ? "Coming soon" : "Bientôt disponible"}
+                onClick={() => {
+                  setSelectedFormFactor(key);
+                  const nextFormFactor = currentBundle.formFactors[key]!;
+                  if (!nextFormFactor.tiers[selectedTier]) {
+                    setSelectedTier(nextFormFactor.defaultTier);
+                  }
+                }}
+                className={`stepper-mode-btn ${isFormActive ? "is-active" : ""}`}
+                style={{
+                  padding: "0.45rem 0.85rem",
+                  fontSize: "0.775rem",
+                  opacity: isAvailable ? 1 : 0.45,
+                  cursor: isAvailable ? "pointer" : "not-allowed",
+                }}
+              >
+                <span>{isEn ? formFactorLabels[key].en : formFactorLabels[key].fr}</span>
+              </button>
+            );
+          })}
+        </div>
 
         {/* Flèches de navigation entre gammes — équivalent souris du glisser tactile, masquées en bout de course */}
         {tierIndex > 0 && (
@@ -397,7 +406,7 @@ export default function HardwareBundleTabs({
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {isEn ? currentTier.headlineEn : currentTier.headlineFr}
+                  <MarqueeText text={isEn ? currentTier.headlineEn : currentTier.headlineFr} />
                 </h3>
                 {showFanBadge && (
                   <span
@@ -465,12 +474,8 @@ export default function HardwareBundleTabs({
               </div>
             </div>
 
-            <p
-              className="hw-clamp hw-tier-summary"
-              title={isEn ? currentTier.summaryEn : currentTier.summaryFr}
-              style={{ fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: 1.5, margin: 0 }}
-            >
-              {isEn ? currentTier.summaryEn : currentTier.summaryFr}
+            <p className="hw-tier-summary" style={{ fontSize: "0.85rem", color: "var(--text-muted)", margin: 0 }}>
+              <MarqueeText text={isEn ? currentTier.summaryEn : currentTier.summaryFr} />
             </p>
           </div>
 
@@ -509,16 +514,11 @@ export default function HardwareBundleTabs({
               </div>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", minWidth: 0 }}>
-                <h4
-                  className="hw-clamp hw-hero-name"
-                  title={mainItem.name}
-                  style={{ fontSize: "1.05rem", fontWeight: 700, color: "var(--text-heading)", margin: 0 }}
-                >
-                  {mainItem.name}
+                <h4 className="hw-hero-name" style={{ fontSize: "1.05rem", fontWeight: 700, color: "var(--text-heading)", margin: 0 }}>
+                  <MarqueeText text={mainItem.name} />
                 </h4>
                 <div
-                  className="hw-clamp hw-hero-specs"
-                  title={mainItem.specs}
+                  className="hw-hero-specs"
                   style={{
                     fontSize: "0.775rem",
                     fontWeight: 600,
@@ -526,7 +526,7 @@ export default function HardwareBundleTabs({
                     fontFamily: "var(--font-mono, monospace)",
                   }}
                 >
-                  {mainItem.specs}
+                  <MarqueeText text={mainItem.specs} />
                 </div>
                 <p
                   className="hw-clamp hw-hero-desc"
@@ -551,15 +551,14 @@ export default function HardwareBundleTabs({
                     borderTop: "1px dashed var(--border-subtle)",
                   }}
                 >
-                  <div>
+                  <div className="hw-price-block">
                     <span className="hw-price" style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--text-heading)" }}>
                       {mainItem.priceAmazon.toFixed(2)} €
                     </span>
-                    {!mainItem.isLive && (
-                      <span style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginLeft: "0.4rem" }}>
-                        {isEn ? `checked ${checkedDate}` : `constaté le ${checkedDate}`}
-                      </span>
-                    )}
+                    {/* Emplacement toujours réservé : la hauteur ne change pas selon que le prix est en direct ou constaté. */}
+                    <span className="hw-price-note">
+                      {!mainItem.isLive && (isEn ? `checked ${checkedDate}` : `constaté le ${checkedDate}`)}
+                    </span>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
                     {cartEnabled && <AddToCartButton
@@ -719,6 +718,8 @@ export default function HardwareBundleTabs({
               disabled={!isEnabled}
               onClick={() => {
                 setSelectedOs(item.id);
+                // OS sans catalogue (ex. macOS sur AliExpress) : la page affiche un message, rien à préparer.
+                if (!bundles[item.id]) return;
                 const nextKeys = Object.keys(bundles[item.id]!.formFactors) as FormFactorKey[];
                 if (!nextKeys.includes(selectedFormFactor)) {
                   setSelectedFormFactor(nextKeys[0]);

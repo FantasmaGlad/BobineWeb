@@ -8869,7 +8869,7 @@ main {
 }
 
 .hw-cart-group--amazon {
-  border-color: #ff9900;
+  border-color: #adb1b8;
 }
 
 .hw-cart-group--aliexpress {
@@ -8896,7 +8896,7 @@ main {
 }
 
 .hw-cart-group--amazon .hw-cart-group__chip {
-  background: #ff9900;
+  background: #d5d9d9;
   color: #0f1111;
 }
 
@@ -8919,8 +8919,8 @@ main {
 }
 
 .hw-cart-group--amazon .hw-cart-group__cta {
-  background: #ffd814;
-  border: 1px solid #fcd200;
+  background: #d5d9d9;
+  border: 1px solid #adb1b8;
   color: #0f1111 !important;
 }
 
@@ -8941,7 +8941,7 @@ main {
    ========================================================================== */
 
 .platform-theme-amazon {
-  --bg-canvas: #eaeded;
+  --bg-canvas: #ffffff;
   --bg-card: #ffffff;
   --bg-card-hover: #ffffff;
   --bg-surface: #ffffff;
@@ -8952,13 +8952,13 @@ main {
   --text-main: #0f1111;
   --text-muted: #565959;
   --text-dim: #6f7373;
-  --accent-primary: #ff9900;
+  --accent-primary: #adb1b8;
   --accent-primary-fg: #0f1111;
-  --accent-hover: #c7511f;
-  --accent-subtle: rgba(255, 153, 0, 0.14);
-  --accent-glow: rgba(255, 153, 0, 0.3);
+  --accent-hover: #565959;
+  --accent-subtle: rgba(173, 177, 184, 0.18);
+  --accent-glow: rgba(173, 177, 184, 0.4);
   --border-subtle: #d5d9d9;
-  --border-vibrant: #232f3e;
+  --border-vibrant: #adb1b8;
   --border-color: #d5d9d9;
   background: var(--bg-canvas);
   min-height: 100vh;
@@ -9006,7 +9006,7 @@ main {
 }
 
 .platform-theme-amazon .hw-tier-card::before {
-  background: #232f3e;
+  background: #adb1b8;
 }
 
 .platform-theme-aliexpress .hw-tier-card::before {
@@ -9020,9 +9020,9 @@ main {
 
 /* Onglets actifs : aplat de marque. */
 .platform-theme-amazon .stepper-mode-btn.is-active {
-  background: #ffd814 !important;
+  background: #d5d9d9 !important;
   color: #0f1111 !important;
-  border-color: #fcd200 !important;
+  border-color: #adb1b8 !important;
   font-weight: 700;
 }
 
@@ -9063,28 +9063,28 @@ main {
 
 /* Boutons d'achat : jaune Amazon / rouge AliExpress, aplats. */
 .platform-theme-amazon .btn-primary {
-  background: #ffd814;
-  border: 1px solid #fcd200;
+  background: #d5d9d9;
+  border: 1px solid #adb1b8;
   color: #0f1111 !important;
   font-weight: 600;
   box-shadow: none;
 }
 
 .platform-theme-amazon .btn-primary:hover {
-  background: #f7ca00;
+  background: #c7cbcc;
 }
 
 .platform-theme-amazon .btn-secondary {
   background: #ffffff;
-  border: 1px solid #d5d9d9;
+  border: 1px solid #adb1b8;
   color: #0f1111 !important;
 }
 
 .platform-theme-amazon .btn-secondary:hover,
 .platform-theme-amazon .hw-alt-unit-card__link:hover {
-  background: #f7fafa;
-  border-color: #007185;
-  color: #007185 !important;
+  background: #f0f2f2;
+  border-color: #565959;
+  color: #0f1111 !important;
 }
 
 .platform-theme-aliexpress .btn-primary {
@@ -9123,12 +9123,70 @@ main {
    garde la même hauteur (texte coupé sur un nombre de lignes fixe, texte complet en infobulle).
    ========================================================================== */
 
-.hw-form-title {
-  margin: 0;
+/* Ligne défilante : hauteur fixe d'une ligne, défile en boucle seulement si le texte dépasse. */
+.marquee {
+  position: relative;
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 1.5;
+  height: 1.5em;
+}
+
+.marquee__measure {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.marquee__static {
+  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
-  line-height: 1.4;
+}
+
+.marquee__track {
+  display: inline-flex;
+  animation: marquee-scroll 20s linear infinite;
+  will-change: transform;
+}
+
+.marquee__item {
+  flex-shrink: 0;
+  padding-right: 3rem;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
+
+  .marquee.is-scrolling {
+    text-overflow: ellipsis;
+  }
+}
+
+.hw-form-title,
+.hw-tier-summary,
+.hw-hero-name,
+.hw-hero-specs {
+  min-width: 0;
+  margin: 0;
 }
 
 .hw-clamp {
@@ -9137,35 +9195,12 @@ main {
   overflow: hidden;
 }
 
-.hw-tier-summary {
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  min-height: 2.55rem;
-  max-height: 2.55rem;
-}
-
-.hw-hero-name {
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  line-height: 1.3;
-  min-height: 2.73rem;
-  max-height: 2.73rem;
-}
-
-.hw-hero-specs {
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  line-height: 1.45;
-  min-height: 2.25rem;
-  max-height: 2.25rem;
-}
-
 .hw-hero-desc {
   -webkit-line-clamp: 3;
   line-clamp: 3;
   line-height: 1.5;
-  min-height: 3.7rem;
-  max-height: 3.7rem;
+  min-height: 4.5em;
+  max-height: 4.5em;
 }
 
 .hw-seller-slot {
@@ -9227,13 +9262,8 @@ main {
 }
 
 .hw-acc-specs {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  min-width: 0;
   overflow: hidden;
-  min-height: 2.6rem;
-  max-height: 2.6rem;
 }
 
 .hw-acc-desc {
@@ -9244,22 +9274,40 @@ main {
 }
 
 @media (max-width: 560px) {
-  .hw-tier-summary {
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    min-height: 3.83rem;
-    max-height: 3.83rem;
-  }
-
   .hw-hero-desc {
     -webkit-line-clamp: 5;
     line-clamp: 5;
-    min-height: 6.2rem;
-    max-height: 6.2rem;
+    min-height: 7.5em;
+    max-height: 7.5em;
   }
 }
 
 /* Ligne titre + badges : même hauteur avec ou sans badge ventilateur. */
 .hw-tier-specs-row {
-  min-height: 2.1rem;
+  min-height: 3rem;
+}
+
+/* Bloc prix : prix + ligne de note (date de constat) toujours présents, hauteur constante. */
+.hw-price-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 2.9rem;
+}
+
+.hw-price-note {
+  display: block;
+  min-height: 1rem;
+  font-size: 0.7rem;
+  line-height: 1rem;
+  color: var(--text-muted);
+}
+
+/* Défilement des alternatives : pas de barre (la flèche suffit), pour ne jamais changer la hauteur. */
+.hw-alt-units__list {
+  scrollbar-width: none;
+}
+
+.hw-alt-units__list::-webkit-scrollbar {
+  display: none;
 }

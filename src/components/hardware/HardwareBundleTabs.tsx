@@ -242,11 +242,12 @@ export default function HardwareBundleTabs({
           <div style={{ minWidth: 0, flex: "1 1 auto" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.35rem" }}>
               <h2
+                className="hw-form-title"
+                title={isEn ? currentFormFactor.titleEn : currentFormFactor.titleFr}
                 style={{
                   fontSize: "1.25rem",
                   fontWeight: 700,
                   color: "var(--text-heading)",
-                  margin: 0,
                 }}
               >
                 {isEn ? currentFormFactor.titleEn : currentFormFactor.titleFr}
@@ -464,7 +465,11 @@ export default function HardwareBundleTabs({
               </div>
             </div>
 
-            <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: 1.5, margin: 0 }}>
+            <p
+              className="hw-clamp hw-tier-summary"
+              title={isEn ? currentTier.summaryEn : currentTier.summaryFr}
+              style={{ fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: 1.5, margin: 0 }}
+            >
               {isEn ? currentTier.summaryEn : currentTier.summaryFr}
             </p>
           </div>
@@ -504,10 +509,16 @@ export default function HardwareBundleTabs({
               </div>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", minWidth: 0 }}>
-                <h4 style={{ fontSize: "1.05rem", fontWeight: 700, color: "var(--text-heading)", margin: 0 }}>
+                <h4
+                  className="hw-clamp hw-hero-name"
+                  title={mainItem.name}
+                  style={{ fontSize: "1.05rem", fontWeight: 700, color: "var(--text-heading)", margin: 0 }}
+                >
                   {mainItem.name}
                 </h4>
                 <div
+                  className="hw-clamp hw-hero-specs"
+                  title={mainItem.specs}
                   style={{
                     fontSize: "0.775rem",
                     fontWeight: 600,
@@ -517,10 +528,16 @@ export default function HardwareBundleTabs({
                 >
                   {mainItem.specs}
                 </div>
-                <p style={{ fontSize: "0.825rem", color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}>
+                <p
+                  className="hw-clamp hw-hero-desc"
+                  title={mainItem.description}
+                  style={{ fontSize: "0.825rem", color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}
+                >
                   {mainItem.description}
                 </p>
-                <SellerLine item={mainItem} isEn={isEn} />
+                <div className="hw-seller-slot">
+                  <SellerLine item={mainItem} isEn={isEn} />
+                </div>
 
                 <div
                   style={{

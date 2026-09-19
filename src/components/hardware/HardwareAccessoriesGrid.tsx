@@ -67,6 +67,7 @@ export default function HardwareAccessoriesGrid({
       </div>
 
       <div
+        className="hw-acc-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
@@ -167,6 +168,8 @@ export default function HardwareAccessoriesGrid({
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <h3
+                      className="hw-clamp hw-acc-name"
+                      title={name}
                       style={{
                         fontSize: "0.925rem",
                         fontWeight: 700,
@@ -178,6 +181,8 @@ export default function HardwareAccessoriesGrid({
                       {name}
                     </h3>
                     <div
+                      className="hw-acc-specs"
+                      title={acc.specs}
                       style={{
                         fontSize: "0.725rem",
                         fontWeight: 600,
@@ -185,7 +190,6 @@ export default function HardwareAccessoriesGrid({
                         background: "var(--bg-inset)",
                         padding: "0.2rem 0.45rem",
                         borderRadius: "0.3rem",
-                        display: "inline-block",
                         fontFamily: "var(--font-mono, monospace)",
                       }}
                     >
@@ -195,6 +199,8 @@ export default function HardwareAccessoriesGrid({
                 </div>
 
                 <p
+                  className="hw-clamp hw-acc-desc"
+                  title={desc}
                   style={{
                     fontSize: "0.8rem",
                     color: "var(--text-muted)",
@@ -204,7 +210,7 @@ export default function HardwareAccessoriesGrid({
                 >
                   {desc}
                 </p>
-                <div style={{ marginBottom: "1rem", marginTop: "-0.5rem" }}>
+                <div className="hw-seller-slot" style={{ marginBottom: "1rem", marginTop: "-0.5rem" }}>
                   <SellerLine item={acc} isEn={isEn} />
                 </div>
               </div>

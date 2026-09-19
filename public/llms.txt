@@ -154,5 +154,11 @@ The 18 installation steps include:
 - [Developer API Reference](https://bobine.fit/fr/documentation/developpeurs): REST API endpoints (`/api/status`, `/api/settings`, `/api/metrics/dashboard`, `/api/playback/background`), WebSockets, and systemd services.
 - [Manifesto](https://bobine.fit/fr/documentation/manifeste): Open-source philosophy, hardware sovereignty, and Baamix mascot identity.
 - [Interactive 3D Demo](https://bobine.fit/fr/demo-3d): Fullscreen 3D virtual gym studio showing hardware setup.
+- [Hardware Guide - Amazon](https://bobine.fit/fr/materiel/amazon): Curated Linux, Windows, macOS and Android setups in four tiers (Essential, Recommended, Pro, Premium), Mini PC or laptop, with prices observed on a stated date.
+- [Hardware Guide - AliExpress](https://bobine.fit/fr/materiel/aliexpress): Linux, Windows and Android picks from AliExpress with several brands per tier, seller information and prices refreshed automatically ("from" prices). No Apple offer: macOS visitors are pointed to Amazon, Windows and Linux.
+- [Legal Notice](https://bobine.fit/fr/mentions-legales) and [Privacy Policy](https://bobine.fit/fr/confidentialite): Publisher, hosting, affiliate disclosure, data flows (local storage, anonymous analytics, Baamix AI assistant) and GDPR rights.
+
+## Hardware Buying Guide & Affiliate Disclosure
+bobine.fit sells nothing: it suggests hardware and links to Amazon.fr and AliExpress, where the purchase, payment, delivery and warranty are handled by those platforms or their sellers. Links are affiliate links (Amazon Associates, AliExpress Portals) at no extra cost to the buyer; commissions fund hosting and development. A shared "My Pack" cart groups items per platform (Amazon: one-click add-to-cart link; AliExpress: one tab per item). The Baamix assistant can compare products and see which store tab the visitor is viewing; its answers are informational and may contain errors.
 
 

@@ -30,7 +30,7 @@ Bobine est un logiciel de régie vidéo et d'automatisation audiovisuelle 100% l
 | Plateforme | Identifiant / Store ID | Statut | Usage principal |
 |---|---|---|---|
 | **Amazon Partenaires (FR/EU)** | `fantasmaglad-21` | **Actif & Validé** | Câbles HDMI certifiés, télécommandes 2.4 GHz, mini PC neufs/Renewed, hubs USB-C |
-| **AliExpress Portals** | En cours de validation | En cours | Mini PC Intel Alder Lake N100/N97 abordables, récepteurs, adaptateurs |
+| **AliExpress Portals** | Tracking ID `Bobine` | **Actif** (depuis le 2026-09-19) | Mini PC Intel Alder Lake N100/N97 abordables, récepteurs, adaptateurs |
 | **Reconditionneurs (Awin / Direct)** | À prospecter | Phase 2 | Dell Wyse 5070, HP EliteDesk Mini (Back Market, AfB Shop, Recommerce) |
 | **GitHub Sponsors** | `FantasmaGlad` | En validation | Paliers de mécénat pour clubs indépendants et développeurs |
 

@@ -135,6 +135,10 @@ curl -fsSL https://bobine.fit/install.sh | sudo bash
 
 ---
 
+## Guide matériel & liens d'affiliation
+Le site bobine.fit ne vend rien : le guide matériel suggère des produits (mini PC, PC portables, tablettes Android, connectique) en quatre gammes (Essentiel, Recommandé, Pro, Premium) et renvoie vers Amazon.fr (/fr/materiel/amazon, prix constatés à une date donnée) et AliExpress (/fr/materiel/aliexpress, Linux, Windows et Android, prix « à partir de » rafraîchis automatiquement, infos vendeur affichées). Aucun Mac neuf fiable n'étant proposé sur AliExpress, macOS y renvoie vers Windows et Linux. L'achat, le paiement, la livraison et la garantie relèvent d'Amazon, d'AliExpress ou de leurs vendeurs. Les liens sont des liens d'affiliation sans surcoût pour l'acheteur ; les commissions financent l'hébergement et le développement. Le panier « Mon Pack » groupe les articles par plateforme. L'assistant Baamix (IA) peut comparer des produits et connaît l'onglet de boutique consulté ; ses réponses sont indicatives.
+Pages légales : /fr/mentions-legales et /fr/confidentialite (éditeur, hébergement, affiliation, traitement des données, droits RGPD).
+
 ## 7. Liens et Ressources
 - Développeur : FantasmaGlad alias Clément Barillot (clement.barillot@bobine.fit)
 - Dépôt GitHub : https://github.com/FantasmaGlad/Bobine

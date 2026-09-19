@@ -5,7 +5,9 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import type { Locale } from "@/lib/i18n";
 import { readCart } from "@/lib/hardwareCart";
+import { readStoreView, subscribeStoreView, type StoreView } from "@/lib/storeView";
 import ChatProductCard from "@/components/ChatProductCard";
+import ChatCompareCard from "@/components/ChatCompareCard";
 
 const MarkdownRenderer = dynamic(() => import("./MarkdownRenderer"), {
   loading: () => <span className="markdown-loading" />,
@@ -17,20 +19,25 @@ interface Message {
 }
 
 /**
- * Baamix signale un produit reellement achetable en emettant un bloc
- * ```product {"asin":"..."} ``` dans sa reponse (contrat defini par le prompt
- * systeme). On l'extrait avant le rendu Markdown pour afficher une vraie
- * carte produit (image/prix/lien resolus depuis le catalogue, jamais depuis
- * le texte du modele) a la place du bloc brut.
+ * Baamix signale un produit achetable avec un bloc ```product {"id":"..."} ``` et une comparaison
+ * avec un bloc ```compare {"ids":["...","..."]} ``` (contrat défini par le prompt système). On les
+ * extrait avant le rendu Markdown pour afficher de vraies cartes (image, prix, lien, caractéristiques
+ * résolus depuis le catalogue, jamais depuis le texte du modèle) à la place des blocs bruts.
+ * L'ancienne clé "asin" reste acceptée.
  */
-function parseProductBlocks(raw: string): { displayText: string; asins: string[] } {
-  const asins: string[] = [];
+function parseCatalogBlocks(raw: string): { displayText: string; productIds: string[]; compares: string[][] } {
+  const productIds: string[] = [];
+  const compares: string[][] = [];
 
-  let displayText = raw.replace(/```product\s*([\s\S]*?)```/g, (_match, jsonStr: string) => {
+  let displayText = raw.replace(/```(product|compare)\s*([\s\S]*?)```/g, (_match, kind: string, jsonStr: string) => {
     try {
       const parsed = JSON.parse(jsonStr.trim());
-      if (parsed && typeof parsed.asin === "string" && !asins.includes(parsed.asin)) {
-        asins.push(parsed.asin);
+      if (kind === "product") {
+        const id = typeof parsed?.id === "string" ? parsed.id : typeof parsed?.asin === "string" ? parsed.asin : null;
+        if (id && !productIds.includes(id)) productIds.push(id);
+      } else if (Array.isArray(parsed?.ids)) {
+        const ids = [...new Set((parsed.ids as unknown[]).filter((v): v is string => typeof v === "string"))].slice(0, 4);
+        if (ids.length >= 2) compares.push(ids);
       }
     } catch {
       // bloc malformé émis par le modèle : ignoré silencieusement, jamais de crash
@@ -39,13 +46,23 @@ function parseProductBlocks(raw: string): { displayText: string; asins: string[]
   });
 
   // Fence encore ouverte pendant le streaming (fermeture pas encore reçue) :
-  // on tronque l'affichage avant le JSON brut plutôt que de le montrer flash.
-  const openFenceIndex = displayText.indexOf("```product");
-  if (openFenceIndex !== -1) {
-    displayText = displayText.slice(0, openFenceIndex);
+  // on tronque l'affichage avant le JSON brut plutôt que de le montrer en flash.
+  const openFence = displayText.search(/```(product|compare)/);
+  if (openFence !== -1) {
+    displayText = displayText.slice(0, openFence);
   }
 
-  return { displayText: displayText.trimEnd(), asins };
+  // Le comparatif fiable est affiché par la carte : on retire les tableaux Markdown que le modèle
+  // recopierait malgré la consigne, pour ne pas dupliquer (ni contredire) les données du catalogue.
+  if (compares.length > 0) {
+    displayText = displayText
+      .split("\n")
+      .filter((line) => !/^\s*\|/.test(line))
+      .join("\n")
+      .replace(/\n{3,}/g, "\n\n");
+  }
+
+  return { displayText: displayText.trimEnd(), productIds, compares };
 }
 
 export default function BobineChatbot({ locale }: { locale: Locale }) {
@@ -58,19 +75,47 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const suggestions = isEn
+  // Ce que le visiteur regarde dans la boutique (publié par /materiel) : sert à proposer des questions adaptées.
+  const [storeView, setStoreView] = useState<StoreView | null>(null);
+  useEffect(() => {
+    setStoreView(readStoreView());
+    return subscribeStoreView(() => setStoreView(readStoreView()));
+  }, []);
+
+  const baseSuggestions = isEn
     ? [
         "What hardware should I buy for my gym?",
+        "Amazon or AliExpress: which one should I choose?",
+        "Mini PC or laptop for a control room?",
         "How is Bobine free with no subscription?",
-        "How does the one-click backup and restore work?",
         "How do I install Bobine on Debian?",
+        "How does the one-click backup and restore work?",
       ]
     : [
         "Quel matériel acheter pour ma salle ?",
+        "Amazon ou AliExpress : que choisir ?",
+        "Mini PC ou PC portable pour une régie ?",
         "Pourquoi Bobine est gratuit sans abonnement ?",
-        "Comment fonctionne la sauvegarde en un clic ?",
         "Comment installer Bobine sur Debian ?",
+        "Comment fonctionne la sauvegarde en un clic ?",
       ];
+
+  // Sur la boutique, les questions portent sur ce qui est affiché ; sinon les questions de base.
+  const storeSuggestions = isEn
+    ? [
+        "Compare the products shown here",
+        "Which one is best for a quiet 24/7 room?",
+        "Is the cheaper option worth it?",
+        "What am I missing to complete this setup?",
+      ]
+    : [
+        "Compare les produits affichés ici",
+        "Lequel choisir pour une salle silencieuse 24 h sur 24 ?",
+        "L'option la moins chère est-elle suffisante ?",
+        "Que me manque-t-il pour compléter ce pack ?",
+      ];
+
+  const suggestions = storeView ? [...storeSuggestions, baseSuggestions[1], baseSuggestions[0]] : baseSuggestions;
 
   const defaultGreeting = isEn
     ? "Hello! I am Baamix, the Bobine mascot. Have a question about Bobine or equipping your gym?"
@@ -168,6 +213,7 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
           messages: [...messages, userMessage],
           locale,
           cart: readCart(),
+          storeView: readStoreView(),
         }),
       });
 
@@ -338,7 +384,7 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
                 );
               }
 
-              const parsed = m.role === "assistant" ? parseProductBlocks(m.content) : null;
+              const parsed = m.role === "assistant" ? parseCatalogBlocks(m.content) : null;
 
               return (
                 <div
@@ -360,10 +406,13 @@ export default function BobineChatbot({ locale }: { locale: Locale }) {
                     {m.role === "assistant" && parsed ? (
                       <>
                         <MarkdownRenderer content={parsed.displayText} />
-                        {parsed.asins.length > 0 && (
+                        {parsed.compares.map((ids) => (
+                          <ChatCompareCard key={ids.join(",")} ids={ids} locale={locale} />
+                        ))}
+                        {parsed.productIds.length > 0 && (
                           <div className="chatbot-product-cards">
-                            {parsed.asins.map((asin) => (
-                              <ChatProductCard key={asin} asin={asin} locale={locale} />
+                            {parsed.productIds.map((id) => (
+                              <ChatProductCard key={id} id={id} locale={locale} />
                             ))}
                           </div>
                         )}

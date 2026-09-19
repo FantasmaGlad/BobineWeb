@@ -1,6 +1,6 @@
 SUIVI DES OFFRES AMAZON — BOBINE / MATERIEL
 ============================================================
-Genere automatiquement depuis src/content/hardware.ts
+Liste des produits Amazon de src/content/hardware.ts (mise a jour a la main, aucun script)
 Date de derniere verification des prix/liens (PRICE_CHECKED_AT) : 2026-09-17
 Nombre total de produits uniques references : 70
 

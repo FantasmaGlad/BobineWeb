@@ -9386,3 +9386,93 @@ main {
     margin-bottom: 0.5rem !important;
   }
 }
+
+/* --- Baamix : étiquette de boutique et comparatif de produits --- */
+.chatbot-platform-tag {
+  margin-left: 0.35rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 0.3rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+}
+
+.chatbot-compare {
+  margin-top: 0.75rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.6rem;
+  background: var(--bg-card);
+  overflow: hidden;
+}
+
+.chatbot-compare__scroll {
+  overflow-x: auto;
+}
+
+.chatbot-compare__table {
+  width: 100%;
+  min-width: 100%;
+  border-collapse: collapse;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--text-main);
+}
+
+.chatbot-compare__table th,
+.chatbot-compare__table td {
+  padding: 0.5rem 0.55rem;
+  border-top: 1px solid var(--border-subtle);
+  text-align: left;
+  vertical-align: top;
+  min-width: 8.5rem;
+}
+
+.chatbot-compare__table thead th {
+  border-top: 0;
+  vertical-align: bottom;
+}
+
+.chatbot-compare__table tbody th {
+  min-width: 5.5rem;
+  width: 5.5rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-inset);
+}
+
+.chatbot-compare__thumb {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 0.35rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.chatbot-compare__name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.chatbot-compare__table .is-best {
+  color: #15803d;
+}
+
+.chatbot-compare__actions {
+  white-space: nowrap;
+}
+
+.chatbot-compare__actions > * {
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}

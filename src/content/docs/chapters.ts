@@ -214,7 +214,7 @@ const fr: DocChapter[] = [
         subtitle: "4.6 Sauvegarde Intégrale ZIP & Résilience Watchdog",
         paragraphs: [
           "Une configuration entière (vidéothèque, musiques, plannings, réglages) s'exporte en un clic en archive ZIP avec contrôle d'intégrité SQLite PRAGMA à la restauration.",
-          "Détail technique : surveillance continue par le démon bobine-audio-guard et le timer bobine-watchdog, redémarrage inconditionnel post-coupure secteur, et pilotage matériel de la télévision par HDMI-CEC (allumage 2 min avant cours, veille 5 min après).",
+          "Détail technique : surveillance continue par le démon bobine-audio-guard et le timer bobine-watchdog, redémarrage inconditionnel post-coupure secteur.",
         ],
         techChips: [{ icon: "database", label: "ZIP / SQLite" }, { icon: "terminal", label: "systemd watchdog" }],
       },
@@ -552,7 +552,7 @@ const en: DocChapter[] = [
         subtitle: "4.6 Full ZIP Backup & Watchdog Resilience",
         paragraphs: [
           "Full venue configuration (video library, music tracks, schedules, settings) exports in one click as a ZIP archive with SQLite PRAGMA integrity validation upon restoration.",
-          "Technical detail: continuous supervision by the bobine-audio-guard daemon and bobine-watchdog timer, unconditional reboot post blackout, and hardware HDMI-CEC TV automation (power on 2 min before class, standby 5 min after).",
+          "Technical detail: continuous supervision by the bobine-audio-guard daemon and bobine-watchdog timer, unconditional reboot post blackout.",
         ],
         techChips: [{ icon: "database", label: "ZIP / SQLite" }, { icon: "terminal", label: "systemd watchdog" }],
       },

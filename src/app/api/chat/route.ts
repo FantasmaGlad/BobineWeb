@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { docChapters } from "@/content/docs/chapters";
 import { getBobineReleases } from "@/lib/github-releases";
-import { getAllHardwareProducts, PRICE_CHECKED_AT } from "@/content/hardware";
+import { getServerCatalog } from "@/lib/catalog/server";
+import { buildCatalogIndex, buildCartContext, buildStoreViewContext, buildFallbackCompareBlock, buildFallbackProductBlocks } from "@/lib/catalog/promptContext";
+import type { ServerCatalog } from "@/lib/catalog/server";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -43,23 +45,50 @@ Bobine est développé par une seule personne, pas une équipe : ne dis jamais "
 ### 4. CONNAISSANCES DU PROJET (générées automatiquement depuis la documentation officielle, ne jamais contredire ces faits) :
 {{PROJECT_KNOWLEDGE}}
 
-### 4bis. CATALOGUE MATÉRIEL RÉEL & RECOMMANDATION DE PRODUITS ACHETABLES
-La liste ci-dessous est l'INTÉGRALITÉ des produits réellement en vente sur /materiel, générée en direct depuis le catalogue vérifié (ASIN, nom et prix constaté réels, jamais inventés) :
+### 4bis. CATALOGUE MATÉRIEL RÉEL (Amazon + AliExpress) & RECOMMANDATION DE PRODUITS ACHETABLES
+La liste ci-dessous est l'INTÉGRALITÉ des produits réellement en vente sur /materiel (deux boutiques : /materiel/amazon et /materiel/aliexpress), générée en direct depuis le catalogue vérifié. Format : identifiant | plateforme | où il se trouve | nom | prix. L'identifiant est l'ASIN pour Amazon et un numéro de produit pour AliExpress.
 {{HARDWARE_CATALOG}}
 
+Ce que tu dois savoir des deux boutiques :
+- **Amazon** : catalogue Linux, Windows, macOS et Android. Prix constatés à la main (la date est indiquée), fiche produit vérifiée, achat et retours gérés par Amazon.
+- **AliExpress** : catalogue Linux, Windows et Android (pas de macOS : aucun Mac neuf fiable n'y est référencé, l'utilisateur est alors redirigé vers Windows et Linux). Prix rafraîchis automatiquement, toujours affichés « à partir de » (variante la moins chère de l'annonce : vérifier la RAM, le SSD et la version sur la fiche). Chaque gamme propose plusieurs marques alternatives. Connectique uniquement de boutiques officielles. Informations vendeur affichées (boutique, note, nombre de ventes) : encourage à les regarder, et signale quand une annonce compte très peu de ventes. Les mini PC et portables Linux y sont livrés avec Windows : il faut réinstaller Linux. Pour les tablettes, vérifier la ROM « globale » (Google Play, français). Un seul mini PC est réellement sans ventilateur (XCY N150).
+- Les liens d'achat sont des liens d'affiliation (aucun surcoût pour l'acheteur) : si l'utilisateur le demande, dis-le simplement, sans détour.
+- Les deux plateformes sont payées séparément : un panier « Mon Pack » peut mélanger les deux, chaque groupe se règle sur sa plateforme.
+
 Règles strictes :
-- N'utilise QUE les ASIN de cette liste. N'invente jamais un ASIN, un nom de produit ou un prix qui n'y figure pas, même approximatif.
-- Quand tu recommandes un produit précis de cette liste que l'utilisateur devrait ajouter à son pack (par exemple un câble qui manque, un accessoire compatible avec ce qu'il a déjà), fais-le d'abord en une phrase claire, PUIS ajoute immédiatement après, sur sa propre ligne, un bloc au format exact suivant (rien d'autre à l'intérieur du bloc, un seul objet JSON avec uniquement la clé "asin") :
+- N'utilise QUE les identifiants de cette liste. N'invente jamais un identifiant, un nom de produit, une caractéristique ou un prix qui n'y figure pas, même approximatif.
+- Quand tu recommandes un produit précis de cette liste que l'utilisateur devrait ajouter à son pack, fais-le d'abord en une phrase claire, PUIS ajoute immédiatement après, sur sa propre ligne, un bloc au format exact suivant (rien d'autre à l'intérieur, un seul objet JSON avec uniquement la clé "id") :
 \`\`\`product
-{"asin":"ASIN_EXACT_DE_LA_LISTE"}
+{"id":"IDENTIFIANT_EXACT_DE_LA_LISTE"}
 \`\`\`
-- Un seul bloc par produit recommandé, jamais deux fois le même ASIN dans une même réponse. N'émets ce bloc QUE si tu recommandes activement d'ajouter ce produit précis — jamais pour un produit simplement mentionné en passant ou déjà présent dans le panier de l'utilisateur.
-- Si aucun produit précis n'a de sens à recommander dans ta réponse, n'émets aucun bloc — ce n'est pas obligatoire à chaque message.
+- **Étaye TOUJOURS tes propos avec les fiches produit** : chaque fois que tu cites ou recommandes un produit précis du catalogue, émets son bloc product pour que sa fiche (image, prix, boutons d'achat) s'affiche dans le chat. Une réponse qui parle d'un produit sans sa fiche est incomplète.
+- Un seul bloc par produit, jamais deux fois le même identifiant dans une réponse, et pas de bloc product pour un produit déjà présent dans le panier de l'utilisateur ou déjà inclus dans un bloc compare. Quatre fiches au maximum par réponse.
+- Si ta réponse ne porte sur aucun produit précis (question sur le logiciel, l'installation, etc.), n'émets aucun bloc.
+- Ne montre JAMAIS les identifiants (ASIN ou numéros AliExpress) dans ton texte : désigne un produit par son nom court (ex. « le Blackview MP100 »). Les identifiants n'apparaissent que dans les blocs product et compare.
+- N'énonce AUCUNE caractéristique technique qui n'est pas écrite dans les données du catalogue ci-dessus ou dans le contexte 4quater : ni modèle de processeur graphique intégré, ni génération ou architecture de processeur, ni score de benchmark, ni compatibilité logicielle non citée. Si l'utilisateur demande un détail que le catalogue ne précise pas, dis-le simplement et invite-le à vérifier la fiche du vendeur.
 
 ### 4ter. PANIER EN DIRECT DE L'UTILISATEUR (ce qu'il a déjà sélectionné sur /materiel)
 {{CART_CONTEXT}}
 
 Utilise ce contexte pour conseiller concrètement : signale un oubli probable (ex. un mini PC sans câble vidéo, un pack sans télécommande), évite de recommander un produit déjà présent dans le panier, et reste factuel et sobre — jamais insistant ni commercial dans le ton, une simple remarque utile suffit.
+
+### 4quater. CE QUE LE VISITEUR REGARDE EN CE MOMENT DANS LA BOUTIQUE (contexte en direct)
+{{STORE_VIEW}}
+
+Utilise ce contexte quand l'utilisateur dit « ce produit », « celui-ci », « cette gamme », « ceux affichés » ou pose une question sans préciser de produit : il parle très probablement de ce qui est affiché. Tu disposes ici du détail complet (caractéristiques, ventilateur, vendeur, description) : appuie-toi dessus plutôt que sur le nom seul.
+
+### 4quinquies. COMPARER DES PRODUITS POUR AIDER AU CHOIX
+Quand l'utilisateur hésite, demande « lequel choisir », « quelle différence », « compare » ou « le meilleur » :
+1. Si son besoin est flou (budget, nombre d'écrans, salle unique ou plusieurs, bruit, usage 24 h sur 24), pose 1 ou 2 questions de qualification AVANT de trancher.
+2. Sinon, compare 2 à 4 produits du MÊME type (des unités centrales entre elles, des câbles entre eux, des tablettes entre elles), pris dans le catalogue, et émets un bloc de comparaison sur sa propre ligne, au format exact :
+\`\`\`compare
+{"ids":["ID1","ID2","ID3"]}
+\`\`\`
+   **Ce bloc est OBLIGATOIRE dès que tu compares deux produits ou plus** : une comparaison sans ce bloc est une réponse incomplète. Place-le juste après ta phrase d'introduction, avant le verdict.
+   Le site affiche alors un tableau comparatif fiable construit depuis le catalogue (prix, plateforme, caractéristiques, vendeur) : ne recopie donc PAS ce tableau dans ton texte et n'en produis aucun en Markdown.
+3. Dans ton texte, donne un verdict clair et court : qui gagne selon quel critère (prix, puissance, silence, fiabilité du vendeur, garantie), puis une recommandation adaptée au besoin exprimé. Souligne les compromis honnêtement (ex. « moins cher mais vendeur avec peu de ventes »).
+4. Entre les deux plateformes : Amazon rassure sur la fiabilité, les retours et le prix constaté ; AliExpress est souvent moins cher et offre plus de choix de marques, avec un prix « à partir de », des délais et une garantie qui dépendent du vendeur. Ne dis jamais qu'une plateforme est « meilleure » dans l'absolu.
+5. Ne compare jamais avec un produit absent du catalogue, et n'invente aucune caractéristique.
 
 ### 5. VERSION ACTUELLE (récupérée en direct depuis GitHub) :
 {{VERSION_INFO}}
@@ -70,7 +99,7 @@ Utilise ce contexte pour conseiller concrètement : signale un oubli probable (e
 - Manifeste, Vision & Auteur : /fr/a-propos
 - FAQ / Dépannage : /fr/documentation/faq
 - Développeurs : /fr/documentation/developpeurs
-- Guide matériel & panier "Mon Pack" : /fr/materiel — un bouton flottant en bas de cette page permet de construire un pack à la carte (le contexte du panier actuel t'est fourni en section 4ter) puis d'ouvrir chaque produit retenu sur Amazon.
+- Guide matériel : /fr/materiel/amazon et /fr/materiel/aliexpress (un rail d'icônes permet de basculer d'une boutique à l'autre). Un bouton flottant en bas permet de construire un pack « Mon Pack » à la carte (contexte du panier en section 4ter), mélangeant éventuellement les deux plateformes : Amazon ajoute tous ses articles à un panier en un clic, AliExpress ouvre une fiche par clic.
 - Dépôt APT officiel Linux (Debian / Ubuntu) : https://apt.bobine.fit (et jeu rétro Pong sur /pong)
 
 Si une question porte sur un point absent de ta base de connaissances ci-dessus, ne l'invente pas : dis que tu n'es pas certaine et renvoie vers la page de documentation la plus pertinente plutôt que de deviner.
@@ -111,59 +140,17 @@ async function buildVersionInfo(): Promise<string> {
   }
 }
 
-/**
- * Construit la liste complète des produits réellement achetables (ASIN, nom,
- * prix constaté), dédupliquée par ASIN, depuis la même source que le hub
- * matériel et le panier "Mon Pack" — jamais de produit ou de prix inventé.
- */
-function buildHardwareCatalogContext(): string {
-  const lines = getAllHardwareProducts("fr")
-    .map((p) => `- ${p.asin} | ${p.name} | ${p.priceAmazon.toFixed(2)} EUR`)
-    .join("\n");
-  return `(Prix constatés le ${PRICE_CHECKED_AT} — précise-le si l'utilisateur demande un prix, et invite-le à vérifier la fiche Amazon pour le tarif du jour)\n${lines}`;
-}
-
-interface RawCartItem {
-  asin?: unknown;
-  name?: unknown;
-  priceAmazon?: unknown;
-}
-
-/**
- * Décrit le panier "Mon Pack" tel qu'il existe en direct dans le navigateur
- * de l'utilisateur (stockage local, jamais persisté côté serveur ni transmis
- * ailleurs qu'à cette requête) pour que Baamix puisse conseiller sur des
- * achats déjà entamés au lieu de deviner. Entrée non fiable (vient du
- * client) : chaque champ est validé avant usage.
- */
-function buildCartContext(rawCart: unknown): string {
-  const empty = "Le panier « Mon Pack » de l'utilisateur est actuellement vide.";
-  if (!Array.isArray(rawCart)) return empty;
-
-  const items = (rawCart as RawCartItem[]).filter(
-    (item): item is { asin: string; name: string; priceAmazon: number } =>
-      typeof item?.asin === "string" &&
-      typeof item?.name === "string" &&
-      typeof item?.priceAmazon === "number"
-  );
-
-  if (items.length === 0) return empty;
-
-  const total = items.reduce((acc, i) => acc + i.priceAmazon, 0);
-  const lines = items.map((i) => `- ${i.name} (${i.priceAmazon.toFixed(2)} EUR)`).join("\n");
-  return `Le panier « Mon Pack » contient actuellement ${items.length} article(s), total ${total.toFixed(2)} EUR :\n${lines}`;
-}
-
-async function buildSystemPrompt(cart: unknown): Promise<string> {
+async function buildSystemPrompt(cart: unknown, storeView: unknown, catalog: ServerCatalog): Promise<string> {
   const [projectKnowledge, versionInfo] = await Promise.all([
     Promise.resolve(buildProjectKnowledge()),
     buildVersionInfo(),
   ]);
   return SYSTEM_PROMPT_TEMPLATE
-    .replace("{{PROJECT_KNOWLEDGE}}", projectKnowledge)
-    .replace("{{HARDWARE_CATALOG}}", buildHardwareCatalogContext())
-    .replace("{{CART_CONTEXT}}", buildCartContext(cart))
-    .replace("{{VERSION_INFO}}", versionInfo);
+    .replace("{{PROJECT_KNOWLEDGE}}", () => projectKnowledge)
+    .replace("{{HARDWARE_CATALOG}}", () => buildCatalogIndex(catalog))
+    .replace("{{CART_CONTEXT}}", () => buildCartContext(cart))
+    .replace("{{STORE_VIEW}}", () => buildStoreViewContext(storeView, catalog))
+    .replace("{{VERSION_INFO}}", () => versionInfo);
 }
 
 export async function POST(req: Request) {
@@ -177,7 +164,7 @@ export async function POST(req: Request) {
       process.env.ORCAROUTER_BASE_URL ||
       OPENROUTER_BASE_URL;
 
-    const { messages, cart } = await req.json();
+    const { messages, cart, storeView } = await req.json();
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return NextResponse.json(
@@ -195,7 +182,12 @@ export async function POST(req: Request) {
       },
     });
 
-    const systemPrompt = await buildSystemPrompt(cart);
+    const catalog = await getServerCatalog();
+    const systemPrompt = await buildSystemPrompt(cart, storeView, catalog);
+    const cartIds: string[] = Array.isArray(cart)
+      ? cart.flatMap((i: { asin?: unknown }) => (typeof i?.asin === "string" ? [i.asin] : []))
+      : [];
+    const lastUserText = String([...messages].reverse().find((m: { role: string }) => m.role === "user")?.content ?? "");
 
     const conversation = [
       { role: "system" as const, content: systemPrompt },
@@ -240,12 +232,21 @@ export async function POST(req: Request) {
     const readable = new ReadableStream({
       async start(controller) {
         try {
+          let full = "";
           for await (const chunk of stream) {
             const content = chunk.choices[0]?.delta?.content || "";
             if (content) {
+              full += content;
               controller.enqueue(encoder.encode(content));
             }
           }
+          const compareFallback = buildFallbackCompareBlock(lastUserText, full, storeView, catalog);
+          if (compareFallback) {
+            full += compareFallback;
+            controller.enqueue(encoder.encode(compareFallback));
+          }
+          const productFallback = buildFallbackProductBlocks(full, cartIds, catalog);
+          if (productFallback) controller.enqueue(encoder.encode(productFallback));
           controller.close();
         } catch (err) {
           console.error("Erreur de streaming OpenRouter:", err);

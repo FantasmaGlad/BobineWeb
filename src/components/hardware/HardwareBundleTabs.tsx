@@ -20,6 +20,7 @@ import HardwareAccessoriesGrid from "@/components/hardware/HardwareAccessoriesGr
 import AddToCartButton from "@/components/hardware/AddToCartButton";
 import SellerLine, { type MerchantPlatform } from "@/components/hardware/SellerLine";
 import MarqueeText from "@/components/hardware/MarqueeText";
+import { publishStoreView } from "@/lib/storeView";
 
 interface HardwareBundleTabsProps {
   locale: Locale;
@@ -78,6 +79,12 @@ export default function HardwareBundleTabs({
   const accessoryItems = currentTier.items.filter((item) => item.id !== mainItem?.id);
   const showFanBadge = activeFormFactorKey === "minipc" && (selectedOs === "linux" || selectedOs === "windows" || selectedOs === "macos") && mainItem;
 
+
+  // Baamix voit ce que le visiteur regarde : on publie la sélection courante (et on la retire en quittant la page).
+  useEffect(() => {
+    publishStoreView(unavailableNotice ? null : { platform, os: selectedOs, form: activeFormFactorKey, tier: selectedTier });
+  }, [platform, selectedOs, activeFormFactorKey, selectedTier, unavailableNotice]);
+  useEffect(() => () => publishStoreView(null), []);
 
   // Navigation "shop & buy" entre gammes : glisser au doigt (mobile) ou à la souris (PC)
   // fait défiler d'une gamme à l'autre, comme les onglets, sans dupliquer l'état sélectionné.

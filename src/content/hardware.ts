@@ -3,19 +3,19 @@
  *
  * Règles strictes :
  * - ZÉRO EMOJI dans les intitulés, descriptions et badges.
- * - Amazon uniquement pour l'instant. Store ID "fantasmaglad-21" obligatoire sur chaque lien.
+ * - Catalogue Amazon uniquement (le catalogue AliExpress vit dans src/content/aliexpressHardware.ts).
+ *   Store ID "fantasmaglad-21" obligatoire sur chaque lien.
  * - Format de lien obligatoire : fiche produit directe (https://www.amazon.fr/dp/<ASIN>?tag=fantasmaglad-21).
  *   Bannissement des liens de recherche /s?k= : chaque ASIN a été vérifié individuellement
  *   (page produit réelle, en ligne, prix et image capturés à la date PRICE_CHECKED_AT ci-dessous).
- * - Amazon ne fournit pas de prix "live" sans l'API Product Advertising (PA-API), elle-même
- *   soumise à un quota de ventes qualifiantes que ce programme d'affiliation tout juste créé
- *   ne remplit pas encore (et PA-API est en cours de dépréciation côté Amazon). Le prix affiché
- *   est donc un prix CONSTATÉ à la date de vérification, jamais une estimation inventée :
- *   chaque carte renvoie vers la fiche Amazon réelle qui, elle, reste toujours à jour.
+ * - Les prix Amazon sont des prix CONSTATÉS à la date PRICE_CHECKED_AT ci-dessous, jamais des estimations
+ *   inventées : chaque carte renvoie vers la fiche Amazon réelle, qui reste toujours à jour. Le rafraîchissement
+ *   en direct passera par l'API Creators d'Amazon (PA-API est retirée), voir
+ *   docs/cahier-des-charges-amazon-creators-api.md (non implémenté, accès conditionné à des ventes qualifiantes).
  * - Ne jamais écrire "fanless" / "sans ventilateur" pour une machine qui embarque un ventilateur.
  * - Chaque OS (sauf Android) propose deux voies matérielles interchangeables via un switch :
- *   "Mini PC" (appliance dédiée achetée neuve/reconditionnée) ou "PC Portable" (kit de
- *   connectique pour exploiter un ordinateur déjà possédé, fermé en mode clamshell).
+ *   "Mini PC" (appliance dédiée achetée neuve/reconditionnée) ou "PC Portable" (un vrai portable
+ *   neuf par gamme, plus le kit de connectique pour l'exploiter fermé en mode clamshell).
  * - 4 gammes par voie matérielle : Essentiel, Recommandé, Pro, et Premium.
  * - Images produits dédiées locales (/images/hardware/*.webp), téléchargées depuis la fiche
  *   Amazon officielle de chaque ASIN (donc garanties correspondre au bon produit).

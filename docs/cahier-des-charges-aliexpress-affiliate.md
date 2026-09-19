@@ -1,10 +1,8 @@
 # CDC — Intégration AliExpress Affiliate API (`/materiel/aliexpress`)
 
-Statut : PHASES 1 A 3 IMPLEMENTEES pour Windows (Mini PC + PC portable) — 2026-09-19. Remplace le
-placeholder "En construction" décrit dans
-[`cahier-des-charges-selecteur-plateforme-materiel.md`](cahier-des-charges-selecteur-plateforme-materiel.md)
-(sections 7 et 10). Restent : Linux, macOS, Android (après validation de Windows), panier AliExpress,
-mention légale d'affiliation, rotation du secret, variables Vercel.
+Statut : IMPLÉMENTÉ et en production — 2026-09-19 (Linux, Windows, Android ; macOS redirigé vers Windows et Linux
+faute d'offre fiable). Le panier « Mon Pack » est commun avec Amazon, groupé par plateforme. Restent : mention légale
+à jour (faite le 2026-09-19), suivi des commissions dans Portals, éventuelle demande de l'API Advanced.
 
 ## 1. Contexte et objectif
 
@@ -58,7 +56,7 @@ doit **pas** en dépendre.
 ## 4. Modèle de données
 
 Fichier source de vérité : `src/content/aliexpressHardware.ts`, **parallèle** à `hardware.ts`
-(qui reste Amazon uniquement, ne jamais y mélanger les deux plateformes).
+(qui reste Amazon uniquement, ne jamais y mélanger les deux plateformes ; l'id d'un produit AliExpress est un product_id).
 
 - Même structure : OS (Linux, Windows, macOS, Android) × formes (Mini PC, PC Portable, Tablette)
   × 4 gammes (Essentiel, Recommandé, Pro, Premium). Les textes éditoriaux (titres, résumés,
@@ -157,7 +155,6 @@ utilisable pour les décorations et bordures mais pas pour du texte courant (con
   AliExpress Portals (texte exact à reprendre des conditions), sans l'afficher sur la page
   matériel (même règle que pour Amazon).
 - Métadonnées de page : retirer « Bientôt / Coming soon ».
-  y renvoyer vers ce CDC ; conserver la règle « jamais de faux produit ».
 - Baamix : à évaluer en phase 3 seulement (injecter le catalogue AliExpress dans
   `buildProjectKnowledge()` ou un module dédié, sans jamais coder de produits en dur).
 

@@ -1,8 +1,8 @@
 # CDC — Sélecteur multi-plateformes du Hub Matériel (`/materiel`)
 
-Statut : IMPLÉMENTÉ — 2026-09-17, affiné le même jour suite aux retours utilisateur (section 3/4/6
-mises à jour pour refléter l'état final, voir historique git). AliExpress reste un placeholder
-"En construction" tant qu'aucun partenariat n'est signé.
+Statut : IMPLÉMENTÉ — 2026-09-17, mis à jour le 2026-09-19. AliExpress n'est plus un placeholder : la page
+affiche un vrai catalogue (voir [`cahier-des-charges-aliexpress-affiliate.md`](cahier-des-charges-aliexpress-affiliate.md)).
+Les sections 7, 8 et 10 ci-dessous sont conservées comme historique et signalées comme dépassées.
 
 ## 1. Contexte et objectif
 
@@ -18,8 +18,8 @@ persistant.
   `/[locale]/materiel/amazon`. Conserve l'autorité SEO de l'URL historique.
 - `/[locale]/materiel/amazon` → contenu actuel (bundles par OS, panier, chatbot Baamix),
   inchangé fonctionnellement, seulement ré-habillé avec la palette de marque Amazon.
-- `/[locale]/materiel/aliexpress` → page vide "En construction", repère d'arborescence pour
-  la suite, réhabillée avec la palette de marque AliExpress.
+- `/[locale]/materiel/aliexpress` → catalogue AliExpress réel (Linux, Windows, Android ; macOS redirigé vers
+  Windows et Linux), habillé avec la palette de marque AliExpress.
 - Un layout commun `src/app/[locale]/materiel/layout.tsx` héberge le bandeau de sélection et
   encadre les deux pages enfants.
 - `sitemap.ts` référence désormais `/materiel/amazon` (remplace `/materiel`, qui redirige) et
@@ -73,20 +73,19 @@ localement les variables CSS déjà consommées par tous les composants existant
 `--bg-card`, `--text-muted`, `--accent-primary`, etc.). Aucune modification du thème global du
 site (les 17 thèmes restent intacts partout ailleurs).
 
-- **Amazon** : palette exacte fournie par l'utilisateur — `#ff9900` (accent), `#333e48` (encre/
-  texte), `#ffffff` (fond). Boutons primaires en léger dégradé orange pour un rendu plus fidèle au
-  style Amazon réel (`.platform-theme-amazon .btn-primary`), sans toucher aux classes globales.
-- **AliExpress** : fond pêche très clair, encre anthracite, texte atténué brique sombre, accent
-  rouge-orangé (`#FF4747`) avec texte bouton blanc.
+- **Amazon** (mis à jour le 2026-09-19) : fond blanc, textes `#0F1111` / `#565959`, bordures et accents en gris
+  (`#ADB1B8`, `#D5D9D9`), prix en rouge `#B12704`. Aplats uniquement, aucun dégradé.
+- **AliExpress** (mis à jour le 2026-09-19) : fond blanc, gris neutres, rouge `#E62E04` réservé à l'onglet actif,
+  au bouton d'achat, aux prix et à la bordure de la fiche. Aplats uniquement, aucun dégradé.
 
-## 7. Page AliExpress
+## 7. Page AliExpress (DÉPASSÉ : squelette initial)
 
 Aperçu structurel (pas un simple texte) : onglets de catégorie et de gamme visibles mais inertes
 (non cliquables), carte produit en squelette avec effet "shimmer" reprenant exactement la mise en
 page Amazon, message "En construction" superposé en overlay. Objectif : montrer où le catalogue
 apparaîtra sans jamais afficher de faux produit ni de fausse promesse de date.
 
-## 8. Hors périmètre de cette itération
+## 8. Hors périmètre de cette itération (DÉPASSÉ : le panier est désormais commun aux deux plateformes)
 
 - Pas de vrai catalogue AliExpress ni de recherche produit sur cette plateforme.
 - Pas de panier partagé entre plateformes (le panier "Mon Pack" reste scopé Amazon).
@@ -114,7 +113,7 @@ de gamme. Corrections apportées (toutes dans `HardwareBundleTabs.tsx` / `global
 - **Sous-titre et badge "Usage type" retirés** de l'en-tête de chaque forme de matériel : jugés
   redondants une fois le produit affiché (l'utilisateur voit déjà quelle machine est proposée).
 
-## 10. Prochaines étapes (non planifiées à ce jour)
+## 10. Prochaines étapes (DÉPASSÉ : partenariat AliExpress signé, catalogue livré)
 
 - Signer un vrai partenariat d'affiliation AliExpress puis construire son catalogue réel
   (mêmes exigences de vérification ASIN/prix/image que pour Amazon).
@@ -122,3 +121,10 @@ de gamme. Corrections apportées (toutes dans `HardwareBundleTabs.tsx` / `global
   (structure de route déjà prête à être dupliquée : `/materiel/<plateforme>`).
 - Réévaluer si une bascule automatique de langue/devise par plateforme devient pertinente une
   fois AliExpress réellement actif (hors périmètre pour l'instant, cf. section 8).
+
+## 11. Mise à jour du 2026-09-19 : hauteurs verrouillées et fiche adaptée à l'écran
+
+Remplace les règles de la section 9 sur la hauteur minimale de la fiche : chaque bloc (titre, résumé, produit
+principal, alternatives, accessoires) a une hauteur fixe, les textes trop longs défilent sur une ligne
+(`MarqueeText`), le sélecteur de forme est toujours affiché (formes absentes grisées) et la fiche se resserre
+sous 880 px puis 760 px de hauteur d'écran pour tenir dans la fenêtre malgré le bandeau défilant du site.

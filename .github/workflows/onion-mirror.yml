@@ -52,9 +52,12 @@ jobs:
 
           test -f fr/index.html || { echo "fr/index.html manquant"; exit 1; }
 
-          # Les routes retirées doivent afficher la page de renvoi.
-          for page in fr/materiel fr/materiel/amazon fr/materiel/aliexpress fr/baamix en/materiel en/baamix; do
+          # La boutique est remplacée par la page de renvoi ; Baamix par son chat (message de Baamix, sans appel réseau).
+          for page in fr/materiel fr/materiel/amazon fr/materiel/aliexpress en/materiel; do
             grep -q "onion-notice" "$page/index.html" || { echo "Page de renvoi absente : $page"; exit 1; }
+          done
+          for page in fr/baamix en/baamix; do
+            grep -q "chatbot-modal--page" "$page/index.html" || { echo "Chat Baamix absent : $page"; exit 1; }
           done
 
           # Aucun lien marchand ni suivi d'affiliation (un simple texte cité dans une note de version reste permis).

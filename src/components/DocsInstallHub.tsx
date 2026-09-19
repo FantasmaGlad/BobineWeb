@@ -13,6 +13,7 @@ import { docChapters } from "@/content/docs/chapters";
 import { useDetectedPlatform, reorderForPlatform } from "@/lib/detectPlatform";
 
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
+import { useReleaseData } from "@/components/ReleaseProvider";
 
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
 
@@ -53,8 +54,9 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const roadmapSubsections = roadmapChapter?.subsections ?? [];
   const androidRoadmap = roadmapSubsections.find((s) => s.subtitle.includes("Android"));
   const iosRoadmap = roadmapSubsections.find((s) => s.subtitle.includes("iOS"));
-  const [stable, setStable] = useState<ReleaseChannelInfo>(FALLBACK_STABLE);
-  const [beta, setBeta] = useState<ReleaseChannelInfo>(FALLBACK_BETA);
+  const initialRelease = useReleaseData();
+  const [stable, setStable] = useState<ReleaseChannelInfo>(initialRelease?.stable ?? FALLBACK_STABLE);
+  const [beta, setBeta] = useState<ReleaseChannelInfo>(initialRelease?.beta ?? FALLBACK_BETA);
   const [copiedCmd, setCopiedCmd] = useState(false);
 
   useEffect(() => {

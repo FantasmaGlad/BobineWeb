@@ -9,6 +9,7 @@ import { buildMetadata } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
 import DownloadPdfButton from "@/components/DownloadPdfButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
+import { ONION_APT_HOST, ONION_SITE_HOST, TOR_PROJECT_URL, TOR_SOURCE_URL } from "@/lib/onion";
 
 export async function generateMetadata({
   params,
@@ -252,6 +253,18 @@ export default async function DeveloppeursPage({
       <p>
         Bobine is licensed under the <strong>AGPL-3.0</strong> copyleft license. We welcome contributions, bug reports, and hardware compatibility tests.
       </p>
+
+      <h2 id="tor-distribution">Distribution over Tor (.onion)</h2>
+      <p>
+        To support the free-software community and the Tor project, Bobine is also distributed as two onion services (v3), hosted by the maintainer, with no visit log and on a best-effort basis:
+      </p>
+      <ul>
+        <li>Website: <code>http://{ONION_SITE_HOST}/</code></li>
+        <li>APT repository: <code>tor+http://{ONION_APT_HOST}/</code> (same signing key as apt.bobine.fit, checked by <code>apt</code>; install <code>apt-transport-tor</code> first)</li>
+      </ul>
+      <p>
+        The mirror is a static export of this site with no server-side route, and the hardware store and the Baamix assistant are deliberately not offered there. Learn more about Tor: <a href={TOR_PROJECT_URL} target="_blank" rel="noopener noreferrer">torproject.org</a> and its <a href={TOR_SOURCE_URL} target="_blank" rel="noopener noreferrer">source code on GitHub</a>.
+      </p>
     </>
   ) : (
     <>
@@ -450,6 +463,18 @@ export default async function DeveloppeursPage({
       <h2 id="contact-communaute">Communauté, Contact & Contribution</h2>
       <p>
         Bobine est publié sous licence <strong>AGPL-3.0</strong>. Les contributions de code, rapports de bugs et retours d&apos;expérience matériel sont les bienvenus.
+      </p>
+
+      <h2 id="distribution-tor">Distribution via Tor (.onion)</h2>
+      <p>
+        En soutien à la communauté du logiciel libre et au projet Tor, Bobine est aussi distribué en deux services onion (v3), hébergés par le mainteneur, sans journal de visite et avec une disponibilité au mieux :
+      </p>
+      <ul>
+        <li>Site : <code>http://{ONION_SITE_HOST}/</code></li>
+        <li>Dépôt APT : <code>tor+http://{ONION_APT_HOST}/</code> (même clé de signature que apt.bobine.fit, vérifiée par <code>apt</code> ; installer d&apos;abord <code>apt-transport-tor</code>)</li>
+      </ul>
+      <p>
+        Le miroir est un export statique de ce site, sans aucune route serveur ; la boutique matériel et l&apos;assistant Baamix n&apos;y sont volontairement pas proposés. Pour en savoir plus sur Tor : <a href={TOR_PROJECT_URL} target="_blank" rel="noopener noreferrer">torproject.org</a> et son <a href={TOR_SOURCE_URL} target="_blank" rel="noopener noreferrer">code source sur GitHub</a>.
       </p>
     </>
   );

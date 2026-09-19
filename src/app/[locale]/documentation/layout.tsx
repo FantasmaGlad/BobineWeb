@@ -6,6 +6,7 @@ import DocsSearch from "@/components/DocsSearch";
 import "@/styles/split/docs.css";
 import DocsMobileNav from "@/components/DocsMobileNav";
 import DocsTableOfContents from "@/components/DocsTableOfContents";
+import TorSupportNote from "@/components/TorSupportNote";
 
 const sections: Record<Locale, ReadonlyArray<readonly [string, string]>> = {
   fr: [
@@ -71,6 +72,7 @@ export default async function DocumentationLayout({
               </span>
               <DocsSidebar locale={locale} items={sections[locale]} />
             </div>
+            <TorSupportNote locale={locale} />
           </div>
         </aside>
 

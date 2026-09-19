@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import GitHubIcon from "@/components/icons/GitHubIcon";
+import { TOR_PROJECT_URL, TOR_SOURCE_URL } from "@/lib/onion";
 
 export default function Footer({
   locale,
@@ -127,7 +128,16 @@ export default function Footer({
         {/* Ligne inférieure */}
         <div style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: "0.75rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem", fontSize: "0.75rem", color: "var(--text-muted)" }}>
           <span>© {new Date().getFullYear()} Bobine · {isEn ? "All rights reserved" : "Tous droits réservés"} · AGPL-3.0</span>
-          <span>bobine.fit</span>
+          <span>
+            {isEn ? "Supporting the " : "Soutien au "}
+            <a href={TOR_PROJECT_URL} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: "0.2em" }}>
+              {isEn ? "Tor Project" : "projet Tor"}
+            </a>
+            {" · "}
+            <a href={TOR_SOURCE_URL} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: "0.2em" }}>
+              {isEn ? "source code" : "code source"}
+            </a>
+          </span>
         </div>
       </div>
     </footer>

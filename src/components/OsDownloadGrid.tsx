@@ -9,6 +9,7 @@ import AndroidIcon from "@/components/icons/AndroidIcon";
 import { useDetectedPlatform, reorderForPlatform } from "@/lib/detectPlatform";
 
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
+import { useReleaseData } from "@/components/ReleaseProvider";
 import DownloadModal, { type DownloadPlatform } from "@/components/DownloadModal";
 
 const FALLBACK_STABLE: ReleaseChannelInfo = {
@@ -47,8 +48,9 @@ export default function OsDownloadGrid({
   headerSlot?: ReactNode;
 }) {
   const isEn = locale === "en";
-  const [stableInfo, setStableInfo] = useState<ReleaseChannelInfo>(FALLBACK_STABLE);
-  const [betaInfo, setBetaInfo] = useState<ReleaseChannelInfo>(FALLBACK_BETA);
+  const initialRelease = useReleaseData();
+  const [stableInfo, setStableInfo] = useState<ReleaseChannelInfo>(initialRelease?.stable ?? FALLBACK_STABLE);
+  const [betaInfo, setBetaInfo] = useState<ReleaseChannelInfo>(initialRelease?.beta ?? FALLBACK_BETA);
   const detected = useDetectedPlatform();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalPlatform, setModalPlatform] = useState<DownloadPlatform>("windows");

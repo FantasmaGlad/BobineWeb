@@ -9735,9 +9735,8 @@ main {
 }
 
 .onion-notice__mark {
-  color: var(--text-heading);
+  display: inline-flex;
   padding: 1.1rem;
-  box-sizing: content-box;
   border-radius: 50%;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);

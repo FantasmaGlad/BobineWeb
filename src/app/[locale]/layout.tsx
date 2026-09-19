@@ -11,6 +11,8 @@ import BobineChatbot from "@/components/BobineChatbot";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import GlobalRippleEffect from "@/components/GlobalRippleEffect";
 import { IS_ONION } from "@/lib/onion";
+import { getRepoStats } from "@/lib/releaseChannels";
+import { ReleaseProvider } from "@/components/ReleaseProvider";
 import "../globals.css";
 
 
@@ -94,6 +96,7 @@ export default async function RootLayout({
   if (!isLocale(locale)) notFound();
 
   const dict = await getDictionary(locale);
+  const repoStats = await getRepoStats();
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -111,6 +114,7 @@ export default async function RootLayout({
         />
       </head>
       <body>
+        <ReleaseProvider value={repoStats}>
         <ThemeSync />
         <GlobalRippleEffect />
         <JsonLd locale={locale} />
@@ -121,9 +125,10 @@ export default async function RootLayout({
           <Footer locale={locale as Locale} dict={dict} />
         </main>
 
-        {!IS_ONION && <BobineChatbot locale={locale as Locale} />}
+        <BobineChatbot locale={locale as Locale} />
         {!IS_ONION && <ServiceWorkerRegistration locale={locale as Locale} />}
         {!IS_ONION && <Analytics />}
+        </ReleaseProvider>
       </body>
     </html>
   );

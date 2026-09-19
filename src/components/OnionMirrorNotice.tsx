@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { CLEARNET_URL } from "@/lib/onion";
@@ -65,27 +66,12 @@ const copy = {
   },
 } as const;
 
-/** Oignon filaire dessiné pour Bobine (aucune reprise du logo officiel de Tor). */
+/** Logo du projet Tor (fichier fourni par le mainteneur). */
 function OnionMark() {
   return (
-    <svg
-      className="onion-notice__mark"
-      width="72"
-      height="72"
-      viewBox="0 0 48 48"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M24 4c0 4-2 6-2 9" />
-      <path d="M24 4c0 4 2 6 2 9" />
-      <path d="M22 13c-8 3-14 10-14 18 0 8 7 13 16 13s16-5 16-13c0-8-6-15-14-18" />
-      <path d="M24 13c-5 4-8 10-8 18 0 7 3 11 8 13" />
-      <path d="M24 13c5 4 8 10 8 18 0 7-3 11-8 13" />
-    </svg>
+    <span className="onion-notice__mark">
+      <Image src="/images/tor-onion.webp" alt="Tor" width={72} height={72} unoptimized />
+    </span>
   );
 }
 

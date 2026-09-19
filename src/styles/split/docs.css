@@ -1102,3 +1102,37 @@
   background: color-mix(in srgb, var(--accent-primary) 8%, var(--bg-card));
   border-color: color-mix(in srgb, var(--accent-primary) 35%, var(--border-subtle));
 }
+
+/* Encart discret « Soutien à Tor » (coin de la barre latérale de documentation) */
+.docs-tor-note {
+  margin-top: 0.25rem;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.6rem;
+  background: var(--bg-card);
+  font-size: 0.775rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+.docs-tor-note__title {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-heading);
+}
+.docs-tor-note p {
+  margin: 0 0 0.5rem;
+}
+.docs-tor-note__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.docs-tor-note__links a {
+  color: var(--text-heading);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}

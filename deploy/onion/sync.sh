@@ -13,7 +13,13 @@ APT_FPR=941B6F526A7259F4694CF4BC1B5D18A976FAAD15
 
 export GIT_SSH_COMMAND="ssh -i /var/lib/onion/.ssh/bobineweb_onion_deploy -o IdentitiesOnly=yes -o BatchMode=yes -o UserKnownHostsFile=/var/lib/onion/.ssh/known_hosts -o StrictHostKeyChecking=yes"
 
+OVERLAY=/usr/local/lib/bobine-onion/overlay
+
 log() { echo "[onion-sync] $*"; }
+
+# Personnalisations propres au miroir Tor (jamais poussees dans le depot source).
+overlay_apt() { python3 "$OVERLAY/apt/pong-tor.py" "$1" || log "pong-tor : ignore"; }
+overlay_none() { :; }
 
 verify_apt() {
   # Sous-shell : le trousseau temporaire est toujours supprime en sortie.
@@ -45,7 +51,7 @@ verify_site() {
 }
 
 sync_git() {
-  local name=$1 url=$2 branch=$3 verify=$4
+  local name=$1 url=$2 branch=$3 verify=$4 overlay=${5:-overlay_none}
   local src="$BASE/src/$name.git" sha new cur
   mkdir -p "$BASE/src" "$BASE/releases"
   [ -d "$src" ] || git init -q --bare "$src"
@@ -60,6 +66,7 @@ sync_git() {
   rm -rf "$new.tmp"; mkdir -p "$new.tmp"
   git -C "$src" archive "$branch" | tar -x -C "$new.tmp" \
     || { rm -rf "$new.tmp"; log "$name : extraction impossible"; return 1; }
+  "$overlay" "$new.tmp"
   if ! "$verify" "$new.tmp"; then
     rm -rf "$new.tmp"; log "$name : verification echouee, ancienne copie conservee"; return 1
   fi
@@ -70,6 +77,6 @@ sync_git() {
 }
 
 status=0
-sync_git apt  "$APT_URL"  "$APT_BRANCH"  verify_apt  || status=1
+sync_git apt  "$APT_URL"  "$APT_BRANCH"  verify_apt  overlay_apt  || status=1
 sync_git site "$SITE_URL" "$SITE_BRANCH" verify_site || status=1
 exit $status

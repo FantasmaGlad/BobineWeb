@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useReleaseData } from "@/components/ReleaseProvider";
 
 interface GitHubStats {
   stars: number;
@@ -9,7 +10,10 @@ interface GitHubStats {
 }
 
 export default function GitHubBadge({ compact = false }: { compact?: boolean }) {
-  const [stats, setStats] = useState<GitHubStats | null>(null);
+  const initial = useReleaseData();
+  const [stats, setStats] = useState<GitHubStats | null>(
+    initial ? { stars: initial.stars, forks: initial.forks, latestRelease: initial.latestRelease } : null,
+  );
 
   useEffect(() => {
     // Miroir Tor : pas de route serveur, aucun appel.
@@ -22,6 +26,7 @@ export default function GitHubBadge({ compact = false }: { compact?: boolean }) 
       .catch(() => {});
   }, []);
 
+  const isOnion = process.env.NEXT_PUBLIC_BOBINE_ONION === "1";
   const starsCount = stats?.stars ?? 0;
   const releaseTag = stats?.latestRelease || "v2.0.1";
 
@@ -47,6 +52,8 @@ export default function GitHubBadge({ compact = false }: { compact?: boolean }) 
 
       <span className="github-badge__release">{releaseTag}</span>
 
+      {/* Miroir Tor : pas de compteur d'etoiles (il serait fige au dernier build). */}
+      {!isOnion && (
       <span className="github-badge__stars">
         <svg
           width="12"
@@ -59,6 +66,7 @@ export default function GitHubBadge({ compact = false }: { compact?: boolean }) 
         </svg>
         <span>{starsCount > 0 ? starsCount : "Star"}</span>
       </span>
+      )}
     </a>
   );
 }

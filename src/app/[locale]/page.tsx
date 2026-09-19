@@ -21,6 +21,7 @@ const copy = {
 } as const;
 
 import { buildMetadata } from "@/lib/seo";
+import { IS_ONION } from "@/lib/onion";
 
 export async function generateMetadata({
   params,
@@ -68,7 +69,7 @@ export default async function HomePage({
         {/* Composition décorative Android Release en fond à droite */}
         <div className="hero-fullscreen__backdrop-art" aria-hidden="true">
           <Image
-            src="/images/AndroidRelease.webp"
+            src={IS_ONION ? "/images/baamix-tor.webp" : "/images/AndroidRelease.webp"}
             alt=""
             className="hero-fullscreen__backdrop-img"
             width={720}

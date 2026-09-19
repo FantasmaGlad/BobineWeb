@@ -46,6 +46,9 @@ export interface HardwareItem {
   // Renseigné uniquement pour les places de marché tierces (AliExpress) : boutique vendeuse,
   // note et nombre de ventes issus de l'API, affichés comme signal de confiance.
   seller?: { name: string; rating: string | null; sales: number | null };
+  // Vrai lorsque le prix vient d'un rafraîchissement en direct (l'affichage "prix constaté le"
+  // est alors retiré). Absent pour un prix statique vérifié manuellement.
+  isLive?: boolean;
 }
 
 export interface HardwareTier {

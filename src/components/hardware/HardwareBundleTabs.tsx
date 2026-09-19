@@ -29,6 +29,8 @@ interface HardwareBundleTabsProps {
   checkedAt?: string;
   /** OS ouverts ; les autres restent visibles mais inertes. */
   enabledOs?: OsKey[];
+  /** OS sans catalogue : message et redirection vers d'autres OS proposés. */
+  unavailableOs?: Partial<Record<OsKey, { textFr: string; textEn: string; alternatives: OsKey[] }>>;
 }
 
 const ALL_OS: OsKey[] = ["linux", "windows", "macos", "android"];
@@ -49,17 +51,20 @@ export default function HardwareBundleTabs({
   platform = "amazon",
   checkedAt = PRICE_CHECKED_AT,
   enabledOs = ALL_OS,
+  unavailableOs,
 }: HardwareBundleTabsProps) {
   const isEn = locale === "en";
   const checkedDate = formatCheckedDate(checkedAt, isEn);
   const platformName = platform === "aliexpress" ? "AliExpress" : "Amazon";
-  const cartEnabled = platform === "amazon";
+  const cartEnabled = true;
 
   const [selectedOs, setSelectedOs] = useState<OsKey>(enabledOs[0] ?? "linux");
   const [selectedFormFactor, setSelectedFormFactor] = useState<FormFactorKey>("minipc");
   const [selectedTier, setSelectedTier] = useState<TierKey>("recommande");
 
-  const currentBundle = bundles[selectedOs] ?? bundles[enabledOs[0]]!;
+  const unavailableNotice = bundles[selectedOs] ? undefined : unavailableOs?.[selectedOs];
+  const fallbackOs = enabledOs.find((os) => bundles[os]) ?? "linux";
+  const currentBundle = bundles[selectedOs] ?? bundles[fallbackOs]!;
   const formFactorKeys = Object.keys(currentBundle.formFactors) as FormFactorKey[];
   const activeFormFactorKey = currentBundle.formFactors[selectedFormFactor]
     ? selectedFormFactor
@@ -183,6 +188,31 @@ export default function HardwareBundleTabs({
   return (
     <div style={{ marginTop: "1rem" }} className="hw-os-layout">
       <div className="hw-os-content">
+      {unavailableNotice ? (
+        <div className="hw-unavailable-os">
+          <p>{isEn ? unavailableNotice.textEn : unavailableNotice.textFr}</p>
+          <div className="hw-unavailable-os__actions">
+            {unavailableNotice.alternatives.map((os) => {
+              const label = osList.find((o) => o.id === os)!;
+              return (
+                <button
+                  key={os}
+                  type="button"
+                  className="btn-primary"
+                  onClick={() => {
+                    setSelectedOs(os);
+                    const keys = Object.keys(bundles[os]!.formFactors) as FormFactorKey[];
+                    setSelectedFormFactor(keys[0]);
+                    setSelectedTier(bundles[os]!.formFactors[keys[0]]!.defaultTier);
+                  }}
+                >
+                  {isEn ? `See ${label.label} offers` : `Voir les offres ${label.label}`}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      ) : (<>
       {/* 2. BANDEAU DE L'OS SÉLECTIONNÉ — englobe tout le contenu de la gamme active */}
       <div
         className="hw-tier-card"
@@ -508,14 +538,17 @@ export default function HardwareBundleTabs({
                     <span className="hw-price" style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--text-heading)" }}>
                       {mainItem.priceAmazon.toFixed(2)} €
                     </span>
-                    <span style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginLeft: "0.4rem" }}>
-                      {isEn ? `checked ${checkedDate}` : `constaté le ${checkedDate}`}
-                    </span>
+                    {!mainItem.isLive && (
+                      <span style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginLeft: "0.4rem" }}>
+                        {isEn ? `checked ${checkedDate}` : `constaté le ${checkedDate}`}
+                      </span>
+                    )}
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
                     {cartEnabled && <AddToCartButton
                       locale={locale}
                       item={{
+                        platform,
                         asin: mainItem.asin,
                         name: mainItem.name,
                         imageUrl: mainItem.imageUrl,
@@ -576,6 +609,7 @@ export default function HardwareBundleTabs({
                         size="sm"
                         locale={locale}
                         item={{
+                          platform,
                           asin: alt.asin,
                           name: alt.name,
                           imageUrl: alt.imageUrl,
@@ -647,6 +681,7 @@ export default function HardwareBundleTabs({
           {isEn ? `View on ${platformName}` : `Voir sur ${platformName}`}
         </a>
       </div>
+      </>)}
       </div>
 
       {/* 1. SÉLECTEUR D'OS — colonne verticale à droite sur grand écran, ligne horizontale sur mobile */}

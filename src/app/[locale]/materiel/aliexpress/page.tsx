@@ -4,7 +4,8 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import HardwareBundleTabs from "@/components/hardware/HardwareBundleTabs";
-import { ALIEXPRESS_ENABLED_OS } from "@/content/aliexpressHardware";
+import HardwareCartBar from "@/components/hardware/HardwareCartBar";
+import { ALIEXPRESS_ENABLED_OS, ALIEXPRESS_UNAVAILABLE_OS } from "@/content/aliexpressHardware";
 import { getAliexpressCatalog } from "@/lib/aliexpress/catalog";
 
 export async function generateMetadata({
@@ -20,11 +21,11 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "/materiel/aliexpress",
     title: isEn
-      ? "AliExpress Hardware Picks for Bobine — Windows Mini PC & Laptops"
-      : "Matériel AliExpress pour Bobine — Mini PC & PC Portables Windows",
+      ? "AliExpress Hardware Picks for Bobine — Mini PC, Laptops & Tablets"
+      : "Matériel AliExpress pour Bobine — Mini PC, PC Portables & Tablettes",
     description: isEn
-      ? "Windows mini PCs and laptops sourced on AliExpress for Bobine, in four tiers with several brands each, plus connectivity from brand stores. Prices refreshed live."
-      : "Mini PC et PC portables Windows trouvés sur AliExpress pour Bobine, en quatre gammes avec plusieurs marques chacune, plus la connectique de boutiques officielles. Prix rafraîchis en direct.",
+      ? "Windows and Linux mini PCs and laptops plus Android tablets sourced on AliExpress for Bobine, in four tiers with several brands each, plus connectivity from brand stores. Prices refreshed live."
+      : "Mini PC et PC portables Windows et Linux, tablettes Android trouvés sur AliExpress pour Bobine, en quatre gammes avec plusieurs marques chacune, plus la connectique de boutiques officielles. Prix rafraîchis en direct.",
     keywords: ["Bobine AliExpress", "Mini PC Windows AliExpress", "Matériel fitness AliExpress", "Mini PC Ryzen AliExpress"],
   });
 }
@@ -58,7 +59,10 @@ export default async function HardwareAliexpressPage({
         platform="aliexpress"
         checkedAt={checkedAt}
         enabledOs={ALIEXPRESS_ENABLED_OS}
+        unavailableOs={ALIEXPRESS_UNAVAILABLE_OS}
       />
+
+      <HardwareCartBar locale={currentLocale} />
     </div>
   );
 }

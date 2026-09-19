@@ -2,7 +2,12 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 
+export type CartPlatform = "amazon" | "aliexpress";
+
 export interface CartItem {
+  /** Absent sur les paniers enregistrés avant l'arrivée d'AliExpress : traité comme Amazon. */
+  platform?: CartPlatform;
+  /** ASIN (Amazon) ou product_id (AliExpress). */
   asin: string;
   name: string;
   imageUrl: string;
@@ -101,4 +106,8 @@ export function useHardwareCart() {
   const total = useMemo(() => items.reduce((acc, i) => acc + i.priceAmazon, 0), [items]);
 
   return { items, count: items.length, total, isInCart, toggleItem, removeItem, clear };
+}
+
+export function cartItemPlatform(item: CartItem): CartPlatform {
+  return item.platform ?? "amazon";
 }

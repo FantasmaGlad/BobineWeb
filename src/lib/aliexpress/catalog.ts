@@ -76,6 +76,7 @@ function mergeItem(item: HardwareItem, live: Record<string, LiveProduct>): Hardw
   if (!fresh) return item;
   return {
     ...item,
+    isLive: true,
     priceAmazon: fresh.price,
     amazonUrl: fresh.link || item.amazonUrl,
     seller: item.seller ? { ...item.seller, rating: fresh.rating ?? item.seller.rating, sales: fresh.sales ?? item.seller.sales } : item.seller,

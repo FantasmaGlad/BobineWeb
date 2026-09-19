@@ -1,5 +1,5 @@
 /**
- * Catalogue AliExpress (périmètre actuel : Windows, Mini PC et PC portable).
+ * Catalogue AliExpress (Windows, Linux, Android ; macOS redirige vers Windows et Linux).
  *
  * Voir docs/cahier-des-charges-aliexpress-affiliate.md. Ce fichier ne contient que des
  * identifiants curatés à la main et leur texte éditorial ; prix, lien affilié, image et
@@ -37,8 +37,8 @@ export interface AliSnapshotEntry {
 
 export const ALIEXPRESS_SNAPSHOT = snapshotJson as Record<string, AliSnapshotEntry>;
 
-/** OS ouverts sur la page AliExpress (les autres restent visibles mais inertes). */
-export const ALIEXPRESS_ENABLED_OS: OsKey[] = ["windows"];
+/** OS ouverts sur la page AliExpress. macOS n'a pas de catalogue : voir ALIEXPRESS_UNAVAILABLE_OS. */
+export const ALIEXPRESS_ENABLED_OS: OsKey[] = ["linux", "windows", "macos", "android"];
 
 export const ALIEXPRESS_SNAPSHOT_DATE = Object.values(ALIEXPRESS_SNAPSHOT)
   .map((e) => e.checkedAt)
@@ -490,11 +490,6 @@ const LAPTOP_TIERS: Record<TierKey, HardwareTier> = {
   },
 };
 
-const NOTE_FR =
-  "Sur AliExpress, le prix affiché est celui de la variante la moins chère de l'annonce : vérifiez la RAM et le SSD sélectionnés sur la fiche. Contrôlez aussi le pays d'expédition et la garantie du vendeur avant de commander.";
-const NOTE_EN =
-  "On AliExpress, the displayed price is the cheapest variant of the listing: check the selected RAM and SSD on the product page. Also check the shipping country and the seller's warranty before ordering.";
-
 const windowsMiniPc: HardwareFormFactor = {
   titleFr: "Windows Desktop & Mini PC",
   titleEn: "Windows Desktop & Mini PC",
@@ -503,8 +498,6 @@ const windowsMiniPc: HardwareFormFactor = {
   targetFr: "Clubs souhaitant une machine Windows polyvalente, mur LED haute résolution ou TV 4K",
   targetEn: "Clubs seeking a versatile Windows machine, high-res LED wall or 4K studio TV",
   defaultTier: "recommande",
-  editorialNoteFr: NOTE_FR,
-  editorialNoteEn: NOTE_EN,
   tiers: MINIPC_TIERS,
 };
 
@@ -516,12 +509,557 @@ const windowsLaptop: HardwareFormFactor = {
   targetFr: "Clubs qui préfèrent un ordinateur portable polyvalent à une appliance fixe",
   targetEn: "Gyms who prefer a versatile laptop over a fixed appliance",
   defaultTier: "recommande",
-  editorialNoteFr: NOTE_FR,
-  editorialNoteEn: NOTE_EN,
   tiers: LAPTOP_TIERS,
 };
 
+
+// -----------------------------------------------------------------------------
+// Accessoires supplémentaires (Android)
+// -----------------------------------------------------------------------------
+const mountOutmixLock = (k: string) =>
+  ali("1005005945494291", k, {
+    category: "mount",
+    name: "Support mural tablette antivol OUTMIX (verrou de sécurité)",
+    specs: "Bras extensible métal · verrou antivol · tablettes 7 à 13 pouces",
+    description: "Fixe la tablette au mur avec un verrou, pour un pupitre tactile en salle sans risque de vol.",
+    hasFan: false,
+  });
+const mountOutmixArm = (k: string) =>
+  ali("1005005458523230", k, {
+    category: "mount",
+    name: "Bras mural tablette OUTMIX à long bras",
+    specs: "Bras long réglable métal · 4 à 13 pouces",
+    description: "Bras articulé pour approcher ou éloigner l'écran selon la position du coach.",
+    hasFan: false,
+  });
+const cableUsbcUgreen = (k: string) =>
+  ali("1005007138811658", k, {
+    category: "power-hub",
+    name: "Câble USB-C vers USB-C UGREEN 100 W",
+    specs: "USB-C · Power Delivery 100 W · 5 A · charge rapide",
+    description: "Alimentation continue de la tablette montée au mur. Vérifiez la longueur choisie sur la fiche.",
+    hasFan: false,
+  });
+const hubUgreen6 = (k: string) =>
+  ali("1005010255498921", k, {
+    category: "power-hub",
+    name: "Hub USB-C UGREEN 6-en-1 (HDMI 4K 120 Hz, RJ45)",
+    specs: "HDMI 4K 120Hz · USB-A/C 5 Gbps · Power Delivery 100 W · Ethernet 1000 Mbps",
+    description: "Projette la tablette sur le grand écran et la relie au réseau filaire, en un seul câble USB-C.",
+    hasFan: false,
+  });
+
+// -----------------------------------------------------------------------------
+// Linux : mêmes familles de machines, à réinstaller sous Linux
+// -----------------------------------------------------------------------------
+const LINUX_MINIPC_TIERS: Record<TierKey, HardwareTier> = {
+  essentiel: {
+    id: "essentiel",
+    labelFr: "Essentiel",
+    labelEn: "Essential",
+    headlineFr: "XCY N150 sans ventilateur — La vraie appliance silencieuse",
+    headlineEn: "XCY N150 fanless — The truly silent appliance",
+    summaryFr: "Boîtier sans ventilateur, compatible Linux d'après la fiche : idéal en studio poussiéreux, en marche 24 h sur 24. Trois alternatives ventilées plus puissantes.",
+    summaryEn: "Fanless case, Linux compatible according to the listing: ideal in dusty studios, running 24/7. Three more powerful fan-cooled alternatives.",
+    powerWatts: "6W - 15W",
+    resolution: "1080p & 4K",
+    items: [
+      ali("1005007367188226", "lx-main", {
+        name: "XCY Mini PC sans ventilateur (Intel N150 / 4 x Ethernet 2,5G)",
+        specs: "Intel N150 · aucun ventilateur · 4 x Ethernet 2,5G · Windows ou Linux",
+        hasFan: false,
+        description: "Seule machine réellement fanless de la sélection. L'annonce regroupe plusieurs processeurs (N150, J4125, J1900...) : choisissez la variante N150 et la RAM/SSD voulus.",
+      }),
+      hdmiBaseus("lx-ess"),
+      ethernetUgreen("lx-ess"),
+      remoteI8("lx-ess"),
+      flashMovespeed("lx-ess"),
+    ],
+    alternativeUnits: [
+      ali("1005010678963645", "lx-alt", {
+        name: "FIREBAT R2 (Ryzen 5 3500U / 16 Go / 512 Go SSD)",
+        specs: "Ryzen 5 3500U · 16 Go · 512 Go SSD · double affichage 4K · Wi-Fi 5",
+        description: "Processeur AMD bien pris en charge par Linux. Livré avec Windows 11 : à remplacer par Ubuntu ou Debian.",
+      }),
+      ali("1005011692049187", "lx-alt", {
+        name: "Blackview MP50 (Ryzen 5 3500U / 16 Go DDR4 / 512 Go SSD)",
+        specs: "Ryzen 5 3500U · Radeon Vega 8 · 16 Go DDR4 · 512 Go SSD · expédié depuis la Pologne",
+        description: "Expédition européenne annoncée sur la fiche. Livré avec Windows 11 Pro.",
+      }),
+      ali("1005012736853392", "lx-alt", {
+        name: "BMAX B3 Pro (Intel N4500 / 8 Go / 256 Go SSD)",
+        specs: "Intel N4500 · 8 Go · 256 Go SSD · HDMI 4K 60Hz",
+        description: "Petit budget Intel, livré avec Windows 11 à remplacer par Linux.",
+      }),
+    ],
+  },
+  recommande: {
+    id: "recommande",
+    labelFr: "Recommandé",
+    labelEn: "Recommended",
+    badgeFr: "Meilleur Rapport Puissance/Prix",
+    badgeEn: "Best Performance-to-Price",
+    isPopular: true,
+    headlineFr: "MLLSE G5 Pro Ryzen 7 5800H — Huit cœurs pour un Linux confortable",
+    headlineEn: "MLLSE G5 Pro Ryzen 7 5800H — Eight cores for comfortable Linux",
+    summaryFr: "Ryzen 7 à huit cœurs, 16 Go de RAM et Wi-Fi 6 : de la marge pour la régie et le décodage vidéo. À réinstaller sous Linux.",
+    summaryEn: "Eight-core Ryzen 7, 16 GB RAM and Wi-Fi 6: plenty of headroom for playout and video decoding. Reinstall with Linux.",
+    powerWatts: "15W - 45W",
+    resolution: "4K 60fps",
+    items: [
+      ali("1005011751896307", "lx-main", {
+        name: "MLLSE G5 Pro (Ryzen 7 5800H / 16 Go / 512 Go SSD)",
+        specs: "Ryzen 7 5800H · 16 Go · 512 Go SSD · Wi-Fi 6 · Bluetooth 5.2",
+        description: "Très commandé sur AliExpress. Livré avec Windows 11 : installez Ubuntu ou Debian avant usage.",
+      }),
+      hdmiBaseus("lx-rec"),
+      ethernetUgreen("lx-rec"),
+      remoteMx3("lx-rec"),
+      flashMovespeed("lx-rec"),
+    ],
+    alternativeUnits: [
+      ali("1005011942256447", "lx-alt", {
+        name: "FIREBAT AM02 (Ryzen 5 6600H / 16 Go DDR5 / 512 Go SSD)",
+        specs: "Ryzen 5 6600H · 16 Go DDR5 · 512 Go SSD · Wi-Fi 6",
+        description: "Mémoire DDR5 et graphismes Radeon récents.",
+      }),
+      ali("1005010617748284", "lx-alt", {
+        name: "Blackview MP100 (Ryzen 5 7430U / 16 Go / 512 Go SSD)",
+        specs: "Ryzen 5 7430U 6 cœurs 12 threads · 16 Go · 512 Go · Wi-Fi 6",
+        description: "Six cœurs Zen 3, l'option la plus sobre du lot.",
+      }),
+      ali("1005010435673111", "lx-alt", {
+        name: "CHUWI UBox (Ryzen 5 6600H / 16 Go LPDDR5 / 512 Go SSD)",
+        specs: "Ryzen 5 6600H · 16 Go LPDDR5 · 512 Go · extension M.2",
+        description: "Boutique officielle CHUWI, deux emplacements M.2 pour stocker les vidéos.",
+      }),
+    ],
+  },
+  pro: {
+    id: "pro",
+    labelFr: "Pro",
+    labelEn: "Pro",
+    headlineFr: "BMAX B8 A Pro Ryzen 7 8745HS — Radeon 780M pour le multi-écran",
+    headlineEn: "BMAX B8 A Pro Ryzen 7 8745HS — Radeon 780M for multi-screen",
+    summaryFr: "Un des meilleurs processeurs graphiques intégrés AMD, parfaitement adapté aux installations multi-écrans sous Linux.",
+    summaryEn: "One of AMD's best integrated GPUs, well suited to multi-screen Linux installations.",
+    powerWatts: "25W - 65W",
+    resolution: "Triple 4K",
+    items: [
+      ali("1005010143153559", "lx-main", {
+        name: "BMAX B8 A Pro (Ryzen 7 8745HS / 16 Go DDR5 / 512 Go SSD)",
+        specs: "Ryzen 7 8745HS · Radeon 780M · 16 Go DDR5 · 512 Go NVMe",
+        description: "Livré avec Windows 11 : à remplacer par Linux. Le GPU AMD est bien pris en charge par les pilotes libres.",
+      }),
+      hdmiBaseus("lx-pro"),
+      ethernetUgreen("lx-pro"),
+      ssdKodak("lx-pro"),
+    ],
+    alternativeUnits: [
+      ali("1005012340565655", "lx-alt", {
+        name: "ACEMAGIC (Ryzen 7 H225 / 32 Go LPDDR5 / 1 To SSD)",
+        specs: "Ryzen 7 H225 · 32 Go LPDDR5 · 1 To SSD · triple écran 4K",
+        description: "Configuration généreuse, boutique officielle ACEMAGIC.",
+      }),
+      ali("1005009795110087", "lx-alt", {
+        name: "GMKtec M6 Ultra (Ryzen 5 7640HS / 16 Go / 512 Go)",
+        specs: "Ryzen 5 7640HS · 16 Go · 512 Go PCIe 3.0 · double LAN 2,5G",
+        description: "Double réseau 2,5 Gbit/s, boutique GMKtec Direct.",
+      }),
+      ali("1005011680641618", "lx-alt", {
+        name: "FIREBAT F1 P (Ryzen 7 H255 / 16 Go DDR5 / 512 Go SSD)",
+        specs: "Ryzen 7 H255 · 16 Go DDR5 · 512 Go SSD · USB4 · Wi-Fi 6",
+        description: "Très commandé, avec un port USB4.",
+      }),
+    ],
+  },
+  premium: {
+    id: "premium",
+    labelFr: "Premium",
+    labelEn: "Premium",
+    badgeFr: "Haut de Gamme",
+    badgeEn: "Flagship",
+    headlineFr: "PELADN Ryzen AI 9 HX 370 — Le sommet AMD sous Linux",
+    headlineEn: "PELADN Ryzen AI 9 HX 370 — The AMD peak on Linux",
+    summaryFr: "Douze cœurs Zen 5, 32 Go de RAM rapide et 1 To de SSD PCIe 4.0 : de quoi piloter plusieurs écrans 4K.",
+    summaryEn: "Twelve Zen 5 cores, 32 GB fast RAM and a 1 TB PCIe 4.0 SSD: enough to drive several 4K screens.",
+    powerWatts: "25W - 65W",
+    resolution: "Triple 4K",
+    items: [
+      ali("1005009305925093", "lx-main", {
+        name: "PELADN Mini PC (Ryzen AI 9 HX 370 / 32 Go LPDDR5X / 1 To SSD)",
+        specs: "Ryzen AI 9 HX 370 12 cœurs · 32 Go LPDDR5X · 1 To PCIe 4.0 · Wi-Fi 7 · USB4",
+        description: "Boutique officielle PELADN. Livré avec Windows : à remplacer par Linux (noyau récent recommandé pour ce processeur).",
+      }),
+      hdmiFiber("lx-prem"),
+      ethernetUgreen("lx-prem"),
+      ssdKodak("lx-prem"),
+    ],
+    alternativeUnits: [
+      ali("1005012474520295", "lx-alt", {
+        name: "PELADN HO5 AI (Ryzen AI 9 HX 470 / 32 Go DDR5 / 1 To SSD)",
+        specs: "Ryzen AI 9 HX 470 · 32 Go DDR5 · 1 To · Wi-Fi 7 · OCuLink",
+        description: "La génération la plus récente, encore peu vendue : lisez les avis.",
+      }),
+      ali("1005012261652447", "lx-alt", {
+        name: "FIREBAT A8 (Ryzen AI 9 365 / 32 Go DDR5 / 1 To SSD)",
+        specs: "Ryzen AI 9 365 · 32 Go DDR5 · 1 To PCIe 4.0 · OCuLink · 2 USB4",
+        description: "Boutique officielle Firebat.",
+      }),
+      ali("1005009606529991", "lx-alt", {
+        name: "BMAX B11 Power (Core Ultra 7 155H / 24 Go LPDDR5 / 1 To)",
+        specs: "Core Ultra 7 155H · 24 Go LPDDR5 · 1 To SSD · Wi-Fi 6",
+        description: "L'alternative Intel Core Ultra, nettement moins chère.",
+      }),
+    ],
+  },
+};
+
+const LINUX_LAPTOP_TIERS: Record<TierKey, HardwareTier> = {
+  essentiel: {
+    id: "essentiel",
+    labelFr: "Essentiel",
+    labelEn: "Essential",
+    headlineFr: "ACEMAGIC AX18PRO 18,5\" — Très grand écran, AMD",
+    headlineEn: "ACEMAGIC AX18PRO 18.5\" — Very large screen, AMD",
+    summaryFr: "Portable AMD à très grand écran et 16 Go de RAM, complété par le hub USB-C minimal. À réinstaller sous Linux.",
+    summaryEn: "AMD laptop with a very large screen and 16 GB RAM, completed with the minimal USB-C hub. Reinstall with Linux.",
+    powerWatts: "100W PD",
+    resolution: "4K 60fps (via hub)",
+    items: [
+      ali("1005009759927376", "lx-main", {
+        name: "ACEMAGIC AX18PRO 18,5\" (Ryzen 3 4300U / 16 Go / 512 Go / Windows 11 Pro)",
+        specs: "Ryzen 3 4300U · 16 Go LPDDR4 · 512 Go SSD · écran 18,5 pouces · batterie 7000 mAh",
+        description: "Très commandé. Livré avec Windows 11 Pro : à remplacer par Linux.",
+      }),
+      hubUgreenRj45("lx-lt-ess"),
+      hdmiBaseus("lx-lt-ess"),
+      remoteI8("lx-lt-ess"),
+      flashMovespeed("lx-lt-ess"),
+    ],
+    alternativeUnits: [
+      ali("1005011904515834", "lx-alt", {
+        name: "Ninkear 14\" (Ryzen 5 6600H / 16 Go LPDDR5 / 512 Go)",
+        specs: "Ryzen 5 6600H · 16 Go LPDDR5 · 512 Go · écran 14\" 2.2K · 1 kg",
+        description: "Plus compact et plus puissant, pour un budget supérieur.",
+      }),
+    ],
+  },
+  recommande: {
+    id: "recommande",
+    labelFr: "Recommandé",
+    labelEn: "Recommended",
+    badgeFr: "Meilleur Rapport Puissance/Prix",
+    badgeEn: "Best Performance-to-Price",
+    isPopular: true,
+    headlineFr: "Ninkear A15 Pro Ryzen 5 — 16 pouces, 16 Go & 1 To",
+    headlineEn: "Ninkear A15 Pro Ryzen 5 — 16-inch, 16 GB & 1 TB",
+    summaryFr: "Portable métal à écran 16 pouces 2.5K, complété par le hub, le support et le réseau filaire. À réinstaller sous Linux.",
+    summaryEn: "Metal 16-inch 2.5K laptop, completed with the hub, stand and wired network. Reinstall with Linux.",
+    powerWatts: "100W PD",
+    resolution: "4K 60fps (via hub)",
+    items: [
+      ali("1005012036800477", "lx-main", {
+        name: "Ninkear A15 Pro 16\" (Ryzen 5 5500U / 16 Go / 1 To SSD)",
+        specs: "Ryzen 5 5500U · 16 Go · 1 To · écran 16\" 2.5K 120Hz IPS",
+        description: "Processeur AMD bien pris en charge par Linux. Livré avec Windows 11.",
+      }),
+      hubUgreen8("lx-lt-rec"),
+      standBaseus("lx-lt-rec"),
+      ethernetUgreen("lx-lt-rec"),
+      remoteMx3("lx-lt-rec"),
+      flashMovespeed("lx-lt-rec"),
+    ],
+    alternativeUnits: [
+      ali("1005012985645862", "lx-alt", {
+        name: "CHUWI CoreBook Air Plus 16\" (Ryzen 5 6600H / 16 Go / 512 Go)",
+        specs: "Ryzen 5 6600H · 16 Go · 512 Go SSD · ultra-léger 16 pouces",
+        description: "Vendu par la boutique CHUWI EU Choice.",
+      }),
+      ali("1005011904515834", "lx-alt-b", {
+        name: "Ninkear 14\" (Ryzen 5 6600H / 16 Go LPDDR5 / 512 Go)",
+        specs: "Ryzen 5 6600H · 16 Go LPDDR5 · 512 Go · écran 14\" 2.2K · 1 kg",
+        description: "Le plus léger de la sélection.",
+      }),
+    ],
+  },
+  pro: {
+    id: "pro",
+    labelFr: "Pro",
+    labelEn: "Pro",
+    headlineFr: "ACEMAGIC LX15PRO Ryzen 7 — Puissance multitâche",
+    headlineEn: "ACEMAGIC LX15PRO Ryzen 7 — Multitasking power",
+    summaryFr: "Portable Ryzen 7 à écran IPS 15,6 pouces, complété par un dock USB4 pour le multi-écran.",
+    summaryEn: "Ryzen 7 laptop with a 15.6-inch IPS display, completed with a USB4 dock for multi-screen.",
+    powerWatts: "96W PD",
+    resolution: "Multi-écran (via dock)",
+    items: [
+      ali("1005012643971397", "lx-main", {
+        name: "ACEMAGIC LX15PRO 15,6\" (Ryzen 7 7730U / 16 Go / 512 Go)",
+        specs: "Ryzen 7 7730U · 16 Go DDR4 · 512 Go NVMe · écran IPS 15,6\"",
+        description: "Peu de ventes à ce jour sur cette annonce : lisez les avis.",
+      }),
+      dockHagibis("lx-lt-pro"),
+      standBaseus("lx-lt-pro"),
+      cableUsb4("lx-lt-pro"),
+      ssdKodak("lx-lt-pro"),
+    ],
+    alternativeUnits: [
+      ali("1005012967808954", "lx-alt", {
+        name: "ACEMAGIC S16 16\" (Ryzen 7 H255 / 24 Go LPDDR5 / 512 Go)",
+        specs: "Ryzen 7 H255 · Radeon 780M · 24 Go LPDDR5 · 512 Go NVMe",
+        description: "Nettement plus puissant côté graphique.",
+      }),
+      ali("1005006098452747", "lx-alt", {
+        name: "CHUWI CoreBook Air Plus 16\" — boutique officielle",
+        specs: "Ryzen 5 6600H · 16 Go · 512 Go SSD · ultra-léger 16 pouces",
+        description: "Très bien vendu sur la boutique officielle CHUWI.",
+      }),
+    ],
+  },
+  premium: {
+    id: "premium",
+    labelFr: "Premium",
+    labelEn: "Premium",
+    badgeFr: "Kit Complet",
+    badgeEn: "Full Kit",
+    headlineFr: "ACEMAGIC S16 Ryzen 7 H255 — 24 Go & Radeon 780M",
+    headlineEn: "ACEMAGIC S16 Ryzen 7 H255 — 24 GB & Radeon 780M",
+    summaryFr: "Le portable AMD le plus puissant de la sélection, complété par un dock 16-en-1, un câble USB4 et un réseau filaire.",
+    summaryEn: "The most powerful AMD laptop in the selection, completed with a 16-in-1 dock, a USB4 cable and wired network.",
+    powerWatts: "100W PD",
+    resolution: "4K 60fps (via dock)",
+    items: [
+      ali("1005012967808954", "lx-main-prem", {
+        name: "ACEMAGIC S16 16\" (Ryzen 7 H255 / 24 Go LPDDR5 / 512 Go / Windows 11 Pro)",
+        specs: "Ryzen 7 H255 · Radeon 780M · 24 Go LPDDR5 · 512 Go NVMe · Wi-Fi 6",
+        description: "Livré avec Windows 11 Pro : à remplacer par Linux. Le GPU AMD est bien pris en charge.",
+      }),
+      dockCabletime("lx-lt-prem"),
+      cableUsb4("lx-lt-prem"),
+      ethernetUgreen("lx-lt-prem"),
+      hdmiFiber("lx-lt-prem"),
+      ssdKodak("lx-lt-prem"),
+    ],
+    alternativeUnits: [
+      ali("1005012643971397", "lx-alt-prem", {
+        name: "ACEMAGIC LX15PRO 15,6\" (Ryzen 7 7730U / 16 Go / 512 Go)",
+        specs: "Ryzen 7 7730U · 16 Go DDR4 · 512 Go NVMe · écran IPS 15,6\"",
+        description: "Une option plus sobre et moins chère.",
+      }),
+    ],
+  },
+};
+
+// -----------------------------------------------------------------------------
+// Android : tablettes tactiles + fixation murale
+// -----------------------------------------------------------------------------
+const ANDROID_TIERS: Record<TierKey, HardwareTier> = {
+  essentiel: {
+    id: "essentiel",
+    labelFr: "Essentiel",
+    labelEn: "Essential",
+    headlineFr: "Lenovo Xiaoxin Pad 11 + Support Mural Antivol",
+    headlineEn: "Lenovo Xiaoxin Pad 11 + Anti-theft Wall Mount",
+    summaryFr: "Tablette 11 pouces 2,5K 90 Hz au prix d'une tablette d'entrée de gamme, avec support mural à verrou et câble d'alimentation.",
+    summaryEn: "11-inch 2.5K 90 Hz tablet at an entry-level price, with a locking wall mount and power cable.",
+    powerWatts: "10W - 30W",
+    resolution: "Écran 2.5K",
+    items: [
+      ali("1005010626634585", "an-main", {
+        name: "Lenovo Xiaoxin Pad 11 2025 (Dimensity 6300 / écran 11\" 2.5K 90 Hz)",
+        specs: "MediaTek Dimensity 6300 · 11\" 2.5K 90Hz · batterie 7040 mAh · ROM globale",
+        hasFan: false,
+        description: "Vérifiez que la ROM est bien « globale » (Google Play, français) sur la fiche vendeur avant de commander.",
+      }),
+      mountOutmixLock("an-ess"),
+      cableUsbcUgreen("an-ess"),
+    ],
+    alternativeUnits: [
+      ali("1005012939859854", "an-alt", {
+        name: "Xiaomi Redmi Pad 2 (Helio G100-Ultra / 11\" 90 Hz)",
+        specs: "Helio G100-Ultra · 11\" 90Hz · batterie 9000 mAh · stockage extensible",
+        hasFan: false,
+        description: "Version mondiale, très commandée sur AliExpress.",
+      }),
+      ali("1005012698634190", "an-alt", {
+        name: "Xiaomi Redmi Pad 2 WIFI (écran 2.5K 90 Hz / 9000 mAh)",
+        specs: "Helio G100-Ultra · écran 2.5K 90Hz · batterie 9000 mAh · charge rapide",
+        hasFan: false,
+        description: "Même tablette, autre vendeur.",
+      }),
+    ],
+  },
+  recommande: {
+    id: "recommande",
+    labelFr: "Recommandé",
+    labelEn: "Recommended",
+    badgeFr: "Meilleur Rapport Puissance/Prix",
+    badgeEn: "Best Performance-to-Price",
+    isPopular: true,
+    headlineFr: "Xiaomi Pad 7 144 Hz + Hub USB-C HDMI — Pupitre & projection TV",
+    headlineEn: "Xiaomi Pad 7 144 Hz + USB-C HDMI Hub — Console & TV projection",
+    summaryFr: "Snapdragon 7+ Gen 3 et écran 3,2K 144 Hz, avec hub USB-C pour projeter sur le grand écran et support mural antivol.",
+    summaryEn: "Snapdragon 7+ Gen 3 and 3.2K 144 Hz display, with a USB-C hub to project on the big screen and an anti-theft wall mount.",
+    powerWatts: "15W - 45W",
+    resolution: "3.2K 144Hz",
+    items: [
+      ali("1005012029926789", "an-main", {
+        name: "Xiaomi Pad 7 (Snapdragon 7+ Gen 3 / 11,2\" 3.2K 144 Hz)",
+        specs: "Snapdragon 7+ Gen 3 · 11,2\" 3.2K 144Hz · batterie 8850 mAh · version internationale",
+        hasFan: false,
+        description: "Même tablette que la référence recommandée Amazon, vendue en version internationale.",
+      }),
+      hubUgreen6("an-rec"),
+      mountOutmixLock("an-rec"),
+      cableUsbcUgreen("an-rec"),
+    ],
+    alternativeUnits: [
+      ali("1005011941332108", "an-alt", {
+        name: "POCO Pad M1 (Snapdragon 7s Gen 4 / 2.5K 120 Hz)",
+        specs: "Snapdragon 7s Gen 4 · écran 2.5K 120Hz · charge 33 W · version globale",
+        hasFan: false,
+        description: "Très commandée (plus de 1400 ventes), pour un prix inférieur.",
+      }),
+      ali("1005011779542897", "an-alt", {
+        name: "POCO Pad X1 (Snapdragon 7+ Gen 3 / 3.2K 144 Hz)",
+        specs: "Snapdragon 7+ Gen 3 · écran 3,2K 144Hz · batterie 8850 mAh · charge 45 W",
+        hasFan: false,
+        description: "Même processeur que le Xiaomi Pad 7, version globale.",
+      }),
+    ],
+  },
+  pro: {
+    id: "pro",
+    labelFr: "Pro",
+    labelEn: "Pro",
+    headlineFr: "Xiaomi Pad 8 Pro — Snapdragon 8 Elite & Wi-Fi 7",
+    headlineEn: "Xiaomi Pad 8 Pro — Snapdragon 8 Elite & Wi-Fi 7",
+    summaryFr: "Tablette haut de gamme 11,2\" 3,2K 144 Hz avec Wi-Fi 7, hub réseau filaire et bras mural articulé.",
+    summaryEn: "High-end 11.2\" 3.2K 144 Hz tablet with Wi-Fi 7, wired network hub and articulated wall arm.",
+    powerWatts: "15W - 45W",
+    resolution: "3.2K 144Hz",
+    items: [
+      ali("1005012569625035", "an-main", {
+        name: "Xiaomi Pad 8 Pro (Snapdragon 8 Elite / 11,2\" 3.2K 144 Hz / Wi-Fi 7)",
+        specs: "Snapdragon 8 Elite · 11,2\" 3.2K 144Hz · 9200 mAh · Wi-Fi 7 · sans chargeur",
+        hasFan: false,
+        description: "Livrée sans chargeur d'après la fiche. Peu de ventes à ce jour : lisez les avis.",
+      }),
+      hubUgreen6("an-pro"),
+      mountOutmixArm("an-pro"),
+      cableUsbcUgreen("an-pro"),
+    ],
+    alternativeUnits: [
+      ali("1005011812750575", "an-alt", {
+        name: "Xiaomi Pad 8 Pro (8 Go / 256 Go, Wi-Fi 7)",
+        specs: "Snapdragon 8 Elite · 3,2K · Wi-Fi 7 · 8 Go/256 Go ou 12 Go/512 Go",
+        hasFan: false,
+        description: "Même tablette, autre vendeur.",
+      }),
+      ali("1005010122467382", "an-alt", {
+        name: "Xiaomi Redmi Pad 2 Pro (12,1\" 2.5K / 12 000 mAh)",
+        specs: "Snapdragon 7s Gen 4 · 12,1\" 2.5K · batterie 12 000 mAh · version mondiale",
+        hasFan: false,
+        description: "Grand écran et énorme batterie, pour un prix nettement plus bas.",
+      }),
+    ],
+  },
+  premium: {
+    id: "premium",
+    labelFr: "Premium",
+    labelEn: "Premium",
+    badgeFr: "Écran Géant",
+    badgeEn: "Giant Screen",
+    headlineFr: "OnePlus Pad 4 13,2\" — Écran Géant & Bras Renforcé",
+    headlineEn: "OnePlus Pad 4 13.2\" — Giant Screen & Reinforced Arm",
+    summaryFr: "Le plus grand écran de la sélection : 13,2 pouces 3,4K 144 Hz, Snapdragon 8 Elite Gen 5 et huit haut-parleurs.",
+    summaryEn: "The largest screen in the selection: 13.2-inch 3.4K 144 Hz, Snapdragon 8 Elite Gen 5 and eight speakers.",
+    powerWatts: "15W - 55W",
+    resolution: "3.4K 144Hz",
+    items: [
+      ali("1005012387257329", "an-main", {
+        name: "OnePlus Pad 4 (Snapdragon 8 Elite Gen 5 / 13,2\" 3.4K 144 Hz)",
+        specs: "Snapdragon 8 Elite Gen 5 · 13,2\" 3.4K 144Hz · Wi-Fi 7 · Android 16 · version européenne",
+        hasFan: false,
+        description: "Peu de ventes à ce jour (annonce récente) : lisez les avis avant de commander.",
+      }),
+      hubUgreen6("an-prem"),
+      mountOutmixArm("an-prem"),
+      cableUsbcUgreen("an-prem"),
+    ],
+    alternativeUnits: [
+      ali("1005008666557560", "an-alt", {
+        name: "Xiaomi Pad 7 Pro (Snapdragon 8s Gen 3 / 11,2\" 3.2K 144 Hz)",
+        specs: "Snapdragon 8s Gen 3 · 11,2\" 3.2K 144Hz · 8850 mAh · 50 MP · version mondiale",
+        hasFan: false,
+        description: "Une option plus compacte. Très peu de ventes sur cette annonce.",
+      }),
+      ali("1005011812750575", "an-alt-prem", {
+        name: "Xiaomi Pad 8 Pro (8 Go / 256 Go, Wi-Fi 7)",
+        specs: "Snapdragon 8 Elite · 3,2K · Wi-Fi 7 · 8 Go/256 Go ou 12 Go/512 Go",
+        hasFan: false,
+        description: "L'alternative éprouvée, plus compacte.",
+      }),
+    ],
+  },
+};
+
+const linuxMiniPc: HardwareFormFactor = {
+  titleFr: "Linux Appliance Dédiée",
+  titleEn: "Dedicated Linux Appliance",
+  subtitleFr: "Mini PC autonomes à réinstaller sous Linux, dont un modèle sans ventilateur",
+  subtitleEn: "Standalone mini PCs to reinstall with Linux, including a fanless model",
+  targetFr: "Studios de cycling immersif et cours virtuels quotidiens, régie autonome sans bureau",
+  targetEn: "Immersive cycling studios and daily virtual classes, standalone control room",
+  defaultTier: "recommande",
+  tiers: LINUX_MINIPC_TIERS,
+};
+
+const linuxLaptop: HardwareFormFactor = {
+  titleFr: "PC Portable (Linux)",
+  titleEn: "Laptop (Linux)",
+  subtitleFr: "Un portable AMD par gamme à réinstaller sous Linux, plus le kit de connectique",
+  subtitleEn: "An AMD laptop for every tier to reinstall with Linux, plus the connectivity kit",
+  targetFr: "Clubs qui préfèrent un ordinateur portable polyvalent à une appliance fixe",
+  targetEn: "Gyms who prefer a versatile laptop over a fixed appliance",
+  defaultTier: "recommande",
+  tiers: LINUX_LAPTOP_TIERS,
+};
+
+const androidTablet: HardwareFormFactor = {
+  titleFr: "Android Tactile & Mobilité",
+  titleEn: "Android Touch & Mobility",
+  subtitleFr: "Pupitre tactile au doigt pour le coach avec projection vidéo directe sur grand écran",
+  subtitleEn: "Touch console for the coach with direct video projection on a big screen",
+  targetFr: "Coachs qui pilotent la séance depuis la salle, tablette fixée au mur",
+  targetEn: "Coaches driving the session from the room, tablet wall-mounted",
+  defaultTier: "recommande",
+  tiers: ANDROID_TIERS,
+};
+
+/** OS sans catalogue AliExpress : la page redirige vers les OS proposés. */
+export const ALIEXPRESS_UNAVAILABLE_OS: Partial<
+  Record<OsKey, { textFr: string; textEn: string; alternatives: OsKey[] }>
+> = {
+  macos: {
+    textFr:
+      "AliExpress ne propose pas de Mac mini ni de MacBook neufs auprès de vendeurs fiables : aucune offre Apple n'est référencée ici. Pour un poste macOS, retrouvez les Mac mini et MacBook sur Amazon. Sinon, deux alternatives sont proposées sur AliExpress.",
+    textEn:
+      "AliExpress has no brand-new Mac mini or MacBook from reliable sellers, so no Apple offer is listed here. For a macOS setup, see the Mac mini and MacBook picks on Amazon. Otherwise, two alternatives are offered on AliExpress.",
+    alternatives: ["windows", "linux"],
+  },
+};
+
 export const ALIEXPRESS_BUNDLES: Partial<Record<OsKey, HardwareOsBundle>> = {
+  linux: {
+    os: "linux",
+    formFactors: { minipc: linuxMiniPc, laptop: linuxLaptop } satisfies Partial<Record<FormFactorKey, HardwareFormFactor>>,
+  },
+  android: {
+    os: "android",
+    formFactors: { tablet: androidTablet } satisfies Partial<Record<FormFactorKey, HardwareFormFactor>>,
+  },
   windows: {
     os: "windows",
     formFactors: { minipc: windowsMiniPc, laptop: windowsLaptop } satisfies Partial<Record<FormFactorKey, HardwareFormFactor>>,

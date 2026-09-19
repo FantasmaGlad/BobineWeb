@@ -248,11 +248,12 @@ export default function HardwareAccessoriesGrid({
                     </svg>
                     <span>{isEn ? `Product Sheet (${platformName})` : `Fiche Produit (${platformName})`}</span>
                   </a>
-                  {platform === "amazon" && (
+                  {(
                     <AddToCartButton
                       size="sm"
                       locale={locale}
                       item={{
+                        platform,
                         asin: acc.asin,
                         name,
                         imageUrl: acc.imageUrl,
@@ -262,11 +263,13 @@ export default function HardwareAccessoriesGrid({
                     />
                   )}
                 </div>
-                <div style={{ textAlign: "center", marginTop: "0.35rem" }}>
-                  <span style={{ fontSize: "0.675rem", color: "var(--text-muted)" }}>
-                    {isEn ? `Price checked ${checkedDate}` : `Prix constaté le ${checkedDate}`}
-                  </span>
-                </div>
+                {!acc.isLive && (
+                  <div style={{ textAlign: "center", marginTop: "0.35rem" }}>
+                    <span style={{ fontSize: "0.675rem", color: "var(--text-muted)" }}>
+                      {isEn ? `Price checked ${checkedDate}` : `Prix constaté le ${checkedDate}`}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           );

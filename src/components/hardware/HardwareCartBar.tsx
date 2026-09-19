@@ -2,27 +2,50 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { useHardwareCart, type CartItem } from "@/lib/hardwareCart";
+import { useHardwareCart, cartItemPlatform, type CartItem, type CartPlatform } from "@/lib/hardwareCart";
+import { AMAZON_STORE_ID } from "@/content/hardware";
 import type { Locale } from "@/lib/i18n";
 
 export default function HardwareCartBar({ locale }: { locale: Locale }) {
   const { items, count, total, removeItem, clear } = useHardwareCart();
   const isEn = locale === "en";
   const [isOpen, setIsOpen] = useState(false);
-  const [blockedItems, setBlockedItems] = useState<CartItem[]>([]);
+  // Fiches AliExpress déjà ouvertes dans cette session du panier (le lien de suivi est propre à
+  // chaque produit : AliExpress n'a pas de panier partagé côté affiliation).
+  const [opened, setOpened] = useState<Record<string, boolean>>({});
 
-  // Amazon ne propose pas de panier multi-produits via lien affilie : on tente
-  // d'ouvrir un onglet par produit retenu. La plupart des navigateurs bloquent
-  // les fenetres popup au-dela de la premiere par clic utilisateur : celles qui
-  // echouent sont listees juste apres comme de vrais liens cliquables (un clic
-  // direct sur une balise <a> n'est jamais bloque, contrairement a window.open).
-  const openAllInTabs = () => {
-    const blocked: CartItem[] = [];
-    for (const item of items) {
-      const win = window.open(item.amazonUrl, "_blank", "noopener,noreferrer");
-      if (!win) blocked.push(item);
+  const groups = (["amazon", "aliexpress"] as CartPlatform[])
+    .map((platform) => {
+      const groupItems = items.filter((i) => cartItemPlatform(i) === platform);
+      return { platform, items: groupItems, total: groupItems.reduce((acc, i) => acc + i.priceAmazon, 0) };
+    })
+    .filter((g) => g.items.length > 0);
+
+  // Amazon : le formulaire officiel d'ajout au panier des Partenaires ajoute tous les articles
+  // d'un coup, avec le tag d'affiliation, dans un seul onglet.
+  const amazonCartUrl = (groupItems: CartItem[]) => {
+    const params = new URLSearchParams({ AssociateTag: AMAZON_STORE_ID, tag: AMAZON_STORE_ID });
+    groupItems.forEach((item, index) => {
+      params.set(`ASIN.${index + 1}`, item.asin);
+      params.set(`Quantity.${index + 1}`, "1");
+    });
+    return `https://www.amazon.fr/gp/aws/cart/add.html?${params.toString()}`;
+  };
+
+  // AliExpress : un onglet par clic. Chaque ouverture est un geste utilisateur direct, donc jamais
+  // bloquée comme popup, contrairement à une salve de window.open.
+  const openNextAliexpress = (groupItems: CartItem[]) => {
+    const next = groupItems.find((i) => !opened[i.asin]);
+    if (!next) {
+      setOpened((prev) => {
+        const copy = { ...prev };
+        groupItems.forEach((i) => delete copy[i.asin]);
+        return copy;
+      });
+      return;
     }
-    setBlockedItems(blocked);
+    window.open(next.amazonUrl, "_blank", "noopener,noreferrer");
+    setOpened((prev) => ({ ...prev, [next.asin]: true }));
   };
 
   if (count === 0 && !isOpen) return null;
@@ -32,10 +55,7 @@ export default function HardwareCartBar({ locale }: { locale: Locale }) {
       <button
         type="button"
         className="hw-cart-fab"
-        onClick={() => {
-          setBlockedItems([]);
-          setIsOpen(true);
-        }}
+        onClick={() => setIsOpen(true)}
         aria-label={isEn ? `Open my pack (${count} items)` : `Ouvrir mon pack (${count} articles)`}
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -74,42 +94,98 @@ export default function HardwareCartBar({ locale }: { locale: Locale }) {
                   </p>
                 </div>
               ) : (
-                items.map((item) => (
-                  <div key={item.asin} className="hw-cart-sheet-row">
-                    <div className="hw-cart-sheet-row-thumb">
-                      <Image src={item.imageUrl} alt={item.name} width={44} height={44} style={{ objectFit: "contain", width: "100%", height: "100%" }} />
-                    </div>
-                    <div className="hw-cart-sheet-row-info">
-                      <span className="hw-cart-sheet-row-name">{item.name}</span>
-                      <span className="hw-cart-sheet-row-price">{item.priceAmazon.toFixed(2)} €</span>
-                    </div>
-                    <a
-                      href={item.amazonUrl}
-                      target="_blank"
-                      rel="nofollow sponsored noopener noreferrer"
-                      className="hw-cart-sheet-row-link"
-                      title={isEn ? "Open on Amazon" : "Voir sur Amazon"}
-                      aria-label={isEn ? `Open ${item.name} on Amazon` : `Voir ${item.name} sur Amazon`}
-                    >
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                    </a>
-                    <button
-                      type="button"
-                      className="hw-cart-sheet-row-remove"
-                      onClick={() => removeItem(item.asin)}
-                      aria-label={isEn ? `Remove ${item.name}` : `Retirer ${item.name}`}
-                    >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18" />
-                        <line x1="6" y1="6" x2="18" y2="18" />
-                      </svg>
-                    </button>
-                  </div>
-                ))
+                groups.map((group) => {
+                  const name = group.platform === "aliexpress" ? "AliExpress" : "Amazon";
+                  const openedCount = group.items.filter((i) => opened[i.asin]).length;
+                  const allOpened = openedCount === group.items.length;
+                  return (
+                    <section key={group.platform} className={`hw-cart-group hw-cart-group--${group.platform}`}>
+                      <header className="hw-cart-group__head">
+                        <span className="hw-cart-group__chip">{name}</span>
+                        <span className="hw-cart-group__meta">
+                          {isEn
+                            ? `${group.items.length} item${group.items.length > 1 ? "s" : ""}`
+                            : `${group.items.length} article${group.items.length > 1 ? "s" : ""}`}
+                          {" · "}
+                          <strong>{group.total.toFixed(2)} €</strong>
+                        </span>
+                      </header>
+
+                      {group.items.map((item) => (
+                        <div key={item.asin} className={`hw-cart-sheet-row ${opened[item.asin] ? "is-opened" : ""}`}>
+                          <div className="hw-cart-sheet-row-thumb">
+                            <Image src={item.imageUrl} alt={item.name} width={44} height={44} style={{ objectFit: "contain", width: "100%", height: "100%" }} />
+                          </div>
+                          <div className="hw-cart-sheet-row-info">
+                            <span className="hw-cart-sheet-row-name">{item.name}</span>
+                            <span className="hw-cart-sheet-row-price">{item.priceAmazon.toFixed(2)} €</span>
+                          </div>
+                          <a
+                            href={item.amazonUrl}
+                            target="_blank"
+                            rel="nofollow sponsored noopener noreferrer"
+                            className="hw-cart-sheet-row-link"
+                            title={isEn ? `Open on ${name}` : `Voir sur ${name}`}
+                            aria-label={isEn ? `Open ${item.name} on ${name}` : `Voir ${item.name} sur ${name}`}
+                            onClick={() => group.platform === "aliexpress" && setOpened((prev) => ({ ...prev, [item.asin]: true }))}
+                          >
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                              <polyline points="15 3 21 3 21 9" />
+                              <line x1="10" y1="14" x2="21" y2="3" />
+                            </svg>
+                          </a>
+                          <button
+                            type="button"
+                            className="hw-cart-sheet-row-remove"
+                            onClick={() => removeItem(item.asin)}
+                            aria-label={isEn ? `Remove ${item.name}` : `Retirer ${item.name}`}
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <line x1="18" y1="6" x2="6" y2="18" />
+                              <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                          </button>
+                        </div>
+                      ))}
+
+                      {group.platform === "amazon" ? (
+                        <>
+                          <a
+                            href={amazonCartUrl(group.items)}
+                            target="_blank"
+                            rel="nofollow sponsored noopener noreferrer"
+                            className="btn-primary hw-cart-group__cta"
+                          >
+                            {isEn
+                              ? `Add ${group.items.length} item${group.items.length > 1 ? "s" : ""} to my Amazon cart`
+                              : `Ajouter ${group.items.length} article${group.items.length > 1 ? "s" : ""} à mon panier Amazon`}
+                          </a>
+                          <p className="hw-cart-sheet-note">
+                            {isEn
+                              ? "One tab only: Amazon adds every item of this group to your cart, then you check out there."
+                              : "Un seul onglet : Amazon ajoute tous les articles de ce groupe à votre panier, puis vous payez sur Amazon."}
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <button type="button" className="btn-primary hw-cart-group__cta" onClick={() => openNextAliexpress(group.items)}>
+                            {allOpened
+                              ? isEn ? "All opened - start over" : "Tout est ouvert - recommencer"
+                              : isEn
+                                ? `Open next AliExpress page (${openedCount + 1}/${group.items.length})`
+                                : `Ouvrir la fiche AliExpress suivante (${openedCount + 1}/${group.items.length})`}
+                          </button>
+                          <p className="hw-cart-sheet-note">
+                            {isEn
+                              ? "AliExpress has no shared cart: each item opens in its own tab, one per click (never blocked by your browser). Add each one to your AliExpress cart there."
+                              : "AliExpress n'a pas de panier partagé : chaque article s'ouvre dans son propre onglet, un par clic (jamais bloqué par le navigateur). Ajoutez chacun à votre panier AliExpress."}
+                          </p>
+                        </>
+                      )}
+                    </section>
+                  );
+                })
               )}
             </div>
 
@@ -119,49 +195,18 @@ export default function HardwareCartBar({ locale }: { locale: Locale }) {
                   <span>{isEn ? "Estimated total" : "Total estimé"}</span>
                   <strong>{total.toFixed(2)} €</strong>
                 </div>
-                <p className="hw-cart-sheet-note">
-                  {isEn
-                    ? `Opens ${count} Amazon tab${count > 1 ? "s" : ""} — one per product. Amazon's affiliate program has no shared multi-item cart link.`
-                    : `Ouvre ${count} onglet${count > 1 ? "s" : ""} Amazon — un par produit. Le programme d'affiliation Amazon ne permet pas de lien de panier partagé.`}
-                </p>
                 <div className="hw-cart-sheet-actions">
                   <button
                     type="button"
                     className="btn-secondary hw-cart-sheet-clear"
                     onClick={() => {
                       clear();
-                      setBlockedItems([]);
+                      setOpened({});
                     }}
                   >
                     {isEn ? "Empty" : "Vider"}
                   </button>
-                  <button type="button" className="btn-primary hw-cart-sheet-checkout" onClick={openAllInTabs}>
-                    {isEn ? `Open on Amazon (${count})` : `Ouvrir sur Amazon (${count})`}
-                  </button>
                 </div>
-
-                {blockedItems.length > 0 && (
-                  <div className="hw-cart-sheet-blocked">
-                    <p className="hw-cart-sheet-blocked-note">
-                      {isEn
-                        ? `Your browser blocked ${blockedItems.length} pop-up tab${blockedItems.length > 1 ? "s" : ""} — open ${blockedItems.length > 1 ? "them" : "it"} manually below:`
-                        : `Votre navigateur a bloqué ${blockedItems.length} onglet${blockedItems.length > 1 ? "s" : ""} — ouvrez-le${blockedItems.length > 1 ? "s" : ""} manuellement ci-dessous :`}
-                    </p>
-                    <div className="hw-cart-sheet-blocked-list">
-                      {blockedItems.map((item) => (
-                        <a
-                          key={item.asin}
-                          href={item.amazonUrl}
-                          target="_blank"
-                          rel="nofollow sponsored noopener noreferrer"
-                          className="hw-cart-sheet-blocked-link"
-                        >
-                          {item.name}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
             )}
           </div>

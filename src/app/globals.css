@@ -9736,11 +9736,6 @@ main {
 
 .onion-notice__mark {
   display: inline-flex;
-  padding: 1.1rem;
-  border-radius: 50%;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-card);
 }
 
 .onion-notice__eyebrow {

@@ -37,6 +37,7 @@ export default function AssistantMessageBody({
   locale,
   onGrow,
   onDone,
+  active = true,
 }: {
   raw: string;
   streaming: boolean;
@@ -45,6 +46,8 @@ export default function AssistantMessageBody({
   onGrow?: () => void;
   /** Appele une fois la frappe terminee (ex. pour afficher Baamix qui court en bas du chat). */
   onDone?: () => void;
+  /** Faux tant que le chat est masque (monte a l'avance) : la frappe attend l'ouverture. */
+  active?: boolean;
 }) {
   const parsed = useMemo(() => parseCatalogBlocks(raw), [raw]);
   const target = parsed.displayText;
@@ -75,7 +78,7 @@ export default function AssistantMessageBody({
   streamingRef.current = streaming;
 
   useEffect(() => {
-    if (instant || !markdownReady) return;
+    if (instant || !markdownReady || !active) return;
     const timer = window.setInterval(() => {
       setShown((prev) => {
         const length = targetRef.current.length;
@@ -84,7 +87,7 @@ export default function AssistantMessageBody({
       });
     }, TICK_MS);
     return () => window.clearInterval(timer);
-  }, [instant, markdownReady]);
+  }, [instant, markdownReady, active]);
 
   const visibleCount = instant ? target.length : Math.min(shown, target.length);
   const typingDone = visibleCount >= target.length && !streaming;

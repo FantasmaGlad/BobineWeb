@@ -72,6 +72,8 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
   const [input, setInput] = useState("");
   // Miroir Tor : une fois le message de Baamix entierement tape, il court dans sa roue en bas du chat.
   const [onionTyped, setOnionTyped] = useState(false);
+  // Miroir Tor : la frappe repart de zero a chaque ouverture du chat (le contenu reste monte, masque, des l'arrivee).
+  const [openNonce, setOpenNonce] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -178,6 +180,13 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
       document.body.style.overflow = "";
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    if (IS_ONION && !isPage && isOpen && !hiddenBubble) {
+      setOpenNonce((n) => n + 1);
+      setOnionTyped(false);
+    }
+  }, [isOpen, hiddenBubble, isPage]);
 
   // Fermeture par clic extérieur et touche Échap
   useEffect(() => {
@@ -292,7 +301,10 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
     }
   }
 
-  if (!isOpen || hiddenBubble) {
+  const hidden = !isOpen || hiddenBubble;
+  // Miroir Tor : le chat est monte des l'arrivee sur le site, simplement masque. Le rendu Markdown se charge
+  // en arriere-plan et le message est pret : a l'ouverture, seule l'animation de frappe se joue (plus de demi-bulle).
+  if (hidden && !IS_ONION) {
     return null;
   }
 
@@ -300,6 +312,8 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
     <div
       ref={modalRef}
       className={`chatbot-modal${isPage ? " chatbot-modal--page" : ""}`}
+      style={hidden ? { display: "none" } : undefined}
+      aria-hidden={hidden || undefined}
       role={isPage ? "region" : "dialog"}
       aria-modal={isPage ? undefined : true}
       aria-label={isPage ? (isEn ? "Baamix AI assistant" : "Assistant IA Baamix") : undefined}
@@ -456,6 +470,8 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                         locale={locale}
                         onGrow={keepBottomVisible}
                         onDone={IS_ONION ? () => setOnionTyped(true) : undefined}
+                        active={!hidden}
+                        key={`${idx}-${openNonce}`}
                       />
                     ) : (
                       <p style={{ margin: 0 }}>{m.content}</p>

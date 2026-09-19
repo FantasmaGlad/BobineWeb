@@ -70,7 +70,7 @@ const copy = {
 function OnionMark() {
   return (
     <span className="onion-notice__mark">
-      <Image src="/images/tor-onion.webp" alt="Tor" width={72} height={72} unoptimized />
+      <Image src="/images/tor-onion.webp" alt="Tor" width={96} height={96} unoptimized />
     </span>
   );
 }

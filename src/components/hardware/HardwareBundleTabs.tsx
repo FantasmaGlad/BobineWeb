@@ -6,6 +6,7 @@ import { type Locale } from "@/lib/i18n";
 import {
   HARDWARE_BUNDLES,
   PRICE_CHECKED_AT,
+  type HardwareOsBundle,
   type OsKey,
   type TierKey,
   type FormFactorKey,
@@ -17,11 +18,20 @@ import AppleIcon from "@/components/icons/AppleIcon";
 import AndroidIcon from "@/components/icons/AndroidIcon";
 import HardwareAccessoriesGrid from "@/components/hardware/HardwareAccessoriesGrid";
 import AddToCartButton from "@/components/hardware/AddToCartButton";
+import SellerLine, { type MerchantPlatform } from "@/components/hardware/SellerLine";
 
 interface HardwareBundleTabsProps {
   locale: Locale;
+  /** Catalogue affiché (Amazon par défaut). */
+  bundles?: Partial<Record<OsKey, HardwareOsBundle>>;
+  platform?: MerchantPlatform;
+  /** Date ISO de la dernière vérification/rafraîchissement des prix. */
+  checkedAt?: string;
+  /** OS ouverts ; les autres restent visibles mais inertes. */
+  enabledOs?: OsKey[];
 }
 
+const ALL_OS: OsKey[] = ["linux", "windows", "macos", "android"];
 
 function formatCheckedDate(iso: string, isEn: boolean) {
   const d = new Date(`${iso}T00:00:00Z`);
@@ -33,15 +43,23 @@ function formatCheckedDate(iso: string, isEn: boolean) {
   });
 }
 
-export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) {
+export default function HardwareBundleTabs({
+  locale,
+  bundles = HARDWARE_BUNDLES,
+  platform = "amazon",
+  checkedAt = PRICE_CHECKED_AT,
+  enabledOs = ALL_OS,
+}: HardwareBundleTabsProps) {
   const isEn = locale === "en";
-  const checkedDate = formatCheckedDate(PRICE_CHECKED_AT, isEn);
+  const checkedDate = formatCheckedDate(checkedAt, isEn);
+  const platformName = platform === "aliexpress" ? "AliExpress" : "Amazon";
+  const cartEnabled = platform === "amazon";
 
-  const [selectedOs, setSelectedOs] = useState<OsKey>("linux");
+  const [selectedOs, setSelectedOs] = useState<OsKey>(enabledOs[0] ?? "linux");
   const [selectedFormFactor, setSelectedFormFactor] = useState<FormFactorKey>("minipc");
   const [selectedTier, setSelectedTier] = useState<TierKey>("recommande");
 
-  const currentBundle = HARDWARE_BUNDLES[selectedOs];
+  const currentBundle = bundles[selectedOs] ?? bundles[enabledOs[0]]!;
   const formFactorKeys = Object.keys(currentBundle.formFactors) as FormFactorKey[];
   const activeFormFactorKey = currentBundle.formFactors[selectedFormFactor]
     ? selectedFormFactor
@@ -167,6 +185,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
       <div className="hw-os-content">
       {/* 2. BANDEAU DE L'OS SÉLECTIONNÉ — englobe tout le contenu de la gamme active */}
       <div
+        className="hw-tier-card"
         style={{
           position: "relative",
           background: "var(--bg-card)",
@@ -471,6 +490,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                 <p style={{ fontSize: "0.825rem", color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}>
                   {mainItem.description}
                 </p>
+                <SellerLine item={mainItem} isEn={isEn} />
 
                 <div
                   style={{
@@ -485,7 +505,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                   }}
                 >
                   <div>
-                    <span style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--text-heading)" }}>
+                    <span className="hw-price" style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--text-heading)" }}>
                       {mainItem.priceAmazon.toFixed(2)} €
                     </span>
                     <span style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginLeft: "0.4rem" }}>
@@ -493,7 +513,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                     </span>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
-                    <AddToCartButton
+                    {cartEnabled && <AddToCartButton
                       locale={locale}
                       item={{
                         asin: mainItem.asin,
@@ -502,7 +522,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                         priceAmazon: mainItem.priceAmazon,
                         amazonUrl: mainItem.amazonUrl,
                       }}
-                    />
+                    />}
                     <a
                       href={mainItem.amazonUrl}
                       target="_blank"
@@ -519,7 +539,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                         textDecoration: "none",
                       }}
                     >
-                      <span>{isEn ? "See current price on Amazon" : "Voir le prix actuel sur Amazon"}</span>
+                      <span>{isEn ? `See current price on ${platformName}` : `Voir le prix actuel sur ${platformName}`}</span>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                         <polyline points="15 3 21 3 21 9" />
@@ -549,9 +569,10 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                     <div className="hw-alt-unit-card__info">
                       <span className="hw-alt-unit-card__name">{alt.name}</span>
                       <span className="hw-alt-unit-card__price">{alt.priceAmazon.toFixed(2)} €</span>
+                      <SellerLine item={alt} isEn={isEn} />
                     </div>
                     <div className="hw-alt-unit-card__actions">
-                      <AddToCartButton
+                      {cartEnabled && <AddToCartButton
                         size="sm"
                         locale={locale}
                         item={{
@@ -561,14 +582,14 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                           priceAmazon: alt.priceAmazon,
                           amazonUrl: alt.amazonUrl,
                         }}
-                      />
+                      />}
                       <a
                         href={alt.amazonUrl}
                         target="_blank"
                         rel="nofollow sponsored noopener noreferrer"
                         className="hw-alt-unit-card__link"
-                        title={isEn ? "Open official Amazon product sheet" : "Ouvrir la fiche produit officielle Amazon"}
-                        aria-label={isEn ? `Open ${alt.name} on Amazon` : `Voir ${alt.name} sur Amazon`}
+                        title={isEn ? `Open the ${platformName} product page` : `Ouvrir la fiche produit ${platformName}`}
+                        aria-label={isEn ? `Open ${alt.name} on ${platformName}` : `Voir ${alt.name} sur ${platformName}`}
                       >
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -609,7 +630,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
       </div>
 
       {/* 9. ACCESSOIRES & CÂBLERIE À L'UNITÉ — filtrés selon l'OS sélectionné ci-dessus */}
-      <HardwareAccessoriesGrid locale={locale} items={accessoryItems} />
+      <HardwareAccessoriesGrid locale={locale} items={accessoryItems} platform={platform} checkedAt={checkedAt} />
 
       {/* 10. BARRE D'ACHAT FIXE MOBILE — reste accessible pendant le scroll d'achat sur téléphone */}
       <div className="hw-mobile-buybar">
@@ -623,7 +644,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
           rel="nofollow sponsored noopener noreferrer"
           className="btn-primary hw-mobile-buybar-cta"
         >
-          {isEn ? "Buy on Amazon" : "Voir sur Amazon"}
+          {isEn ? `View on ${platformName}` : `Voir sur ${platformName}`}
         </a>
       </div>
       </div>
@@ -636,18 +657,21 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
       >
         {osList.map((item) => {
           const isActive = selectedOs === item.id;
+          const isEnabled = enabledOs.includes(item.id);
           return (
             <button
               key={item.id}
               role="tab"
               aria-selected={isActive}
+              aria-disabled={!isEnabled}
+              disabled={!isEnabled}
               onClick={() => {
                 setSelectedOs(item.id);
-                const nextKeys = Object.keys(HARDWARE_BUNDLES[item.id].formFactors) as FormFactorKey[];
+                const nextKeys = Object.keys(bundles[item.id]!.formFactors) as FormFactorKey[];
                 if (!nextKeys.includes(selectedFormFactor)) {
                   setSelectedFormFactor(nextKeys[0]);
                 }
-                const nextFormFactor = HARDWARE_BUNDLES[item.id].formFactors[nextKeys.includes(selectedFormFactor) ? selectedFormFactor : nextKeys[0]]!;
+                const nextFormFactor = bundles[item.id]!.formFactors[nextKeys.includes(selectedFormFactor) ? selectedFormFactor : nextKeys[0]]!;
                 if (!nextFormFactor.tiers[selectedTier]) {
                   setSelectedTier(nextFormFactor.defaultTier);
                 }
@@ -664,7 +688,8 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                 border: isActive ? "2px solid var(--accent-primary)" : "1px solid var(--border-subtle)",
                 background: isActive ? "var(--bg-card)" : "var(--bg-surface)",
                 color: isActive ? "var(--text-heading)" : "var(--text-muted)",
-                cursor: "pointer",
+                cursor: isEnabled ? "pointer" : "not-allowed",
+                opacity: isEnabled ? 1 : 0.55,
                 boxShadow: isActive ? "0 2px 8px rgba(0,0,0,0.06)" : "none",
                 transition: "all 0.15s ease",
               }}
@@ -677,7 +702,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                   {item.label}
                 </span>
               </div>
-              {item.badge && (
+              {(item.badge || !isEnabled) && (
                 <span
                   style={{
                     fontSize: "0.675rem",
@@ -692,7 +717,7 @@ export default function HardwareBundleTabs({ locale }: HardwareBundleTabsProps) 
                     marginLeft: "auto",
                   }}
                 >
-                  {item.badge}
+                  {isEnabled ? item.badge : isEn ? "Soon" : "Bientôt"}
                 </span>
               )}
             </button>

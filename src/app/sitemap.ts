@@ -22,7 +22,7 @@ const staticRoutes: RouteConfig[] = [
   { path: "/comparatif/radical-fitness-yako", priority: 0.9, changeFrequency: "weekly" },
   { path: "/comparatif/affichage-dynamique-fitness", priority: 0.9, changeFrequency: "weekly" },
   { path: "/materiel/amazon", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/materiel/aliexpress", priority: 0.3, changeFrequency: "monthly" },
+  { path: "/materiel/aliexpress", priority: 0.7, changeFrequency: "weekly" },
   { path: "/a-propos", priority: 0.8, changeFrequency: "monthly" },
   { path: "/soutenir", priority: 0.7, changeFrequency: "monthly" },
   { path: "/mentions-legales", priority: 0.3, changeFrequency: "yearly" },

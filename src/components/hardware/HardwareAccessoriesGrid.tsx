@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
 import { PRICE_CHECKED_AT, type HardwareItem } from "@/content/hardware";
+import SellerLine, { type MerchantPlatform } from "@/components/hardware/SellerLine";
 import AddToCartButton from "@/components/hardware/AddToCartButton";
 
 function formatCheckedDate(iso: string, isEn: boolean) {
@@ -26,9 +27,20 @@ const CATEGORY_LABELS: Record<HardwareItem["category"], { fr: string; en: string
   storage: { fr: "Stockage", en: "Storage" },
 };
 
-export default function HardwareAccessoriesGrid({ locale, items }: { locale: Locale; items: HardwareItem[] }) {
+export default function HardwareAccessoriesGrid({
+  locale,
+  items,
+  platform = "amazon",
+  checkedAt = PRICE_CHECKED_AT,
+}: {
+  locale: Locale;
+  items: HardwareItem[];
+  platform?: MerchantPlatform;
+  checkedAt?: string;
+}) {
   const isEn = locale === "en";
-  const checkedDate = formatCheckedDate(PRICE_CHECKED_AT, isEn);
+  const checkedDate = formatCheckedDate(checkedAt, isEn);
+  const platformName = platform === "aliexpress" ? "AliExpress" : "Amazon";
 
   if (items.length === 0) return null;
 
@@ -106,6 +118,7 @@ export default function HardwareAccessoriesGrid({ locale, items }: { locale: Loc
                     {cat}
                   </span>
                   <span
+                    className="hw-price"
                     style={{
                       fontSize: "0.95rem",
                       fontWeight: 800,
@@ -191,6 +204,9 @@ export default function HardwareAccessoriesGrid({ locale, items }: { locale: Loc
                 >
                   {desc}
                 </p>
+                <div style={{ marginBottom: "1rem", marginTop: "-0.5rem" }}>
+                  <SellerLine item={acc} isEn={isEn} />
+                </div>
               </div>
 
               <div>
@@ -200,7 +216,7 @@ export default function HardwareAccessoriesGrid({ locale, items }: { locale: Loc
                     target="_blank"
                     rel="nofollow sponsored noopener noreferrer"
                     className="btn-secondary"
-                    title={isEn ? "Open official Amazon product sheet" : "Ouvrir la fiche produit officielle Amazon"}
+                    title={isEn ? `Open the ${platformName} product page` : `Ouvrir la fiche produit ${platformName}`}
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -230,19 +246,21 @@ export default function HardwareAccessoriesGrid({ locale, items }: { locale: Loc
                       <polyline points="15 3 21 3 21 9" />
                       <line x1="10" y1="14" x2="21" y2="3" />
                     </svg>
-                    <span>{isEn ? "Product Sheet (Amazon)" : "Fiche Produit (Amazon)"}</span>
+                    <span>{isEn ? `Product Sheet (${platformName})` : `Fiche Produit (${platformName})`}</span>
                   </a>
-                  <AddToCartButton
-                    size="sm"
-                    locale={locale}
-                    item={{
-                      asin: acc.asin,
-                      name,
-                      imageUrl: acc.imageUrl,
-                      priceAmazon: acc.priceAmazon,
-                      amazonUrl: acc.amazonUrl,
-                    }}
-                  />
+                  {platform === "amazon" && (
+                    <AddToCartButton
+                      size="sm"
+                      locale={locale}
+                      item={{
+                        asin: acc.asin,
+                        name,
+                        imageUrl: acc.imageUrl,
+                        priceAmazon: acc.priceAmazon,
+                        amazonUrl: acc.amazonUrl,
+                      }}
+                    />
+                  )}
                 </div>
                 <div style={{ textAlign: "center", marginTop: "0.35rem" }}>
                   <span style={{ fontSize: "0.675rem", color: "var(--text-muted)" }}>

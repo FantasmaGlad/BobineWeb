@@ -43,6 +43,9 @@ export interface HardwareItem {
   amazonUrl: string; // Lien direct fiche produit avec tag affilié
   priceAmazon: number; // Prix constaté sur la fiche Amazon à PRICE_CHECKED_AT
   hasFan: boolean; // true si l'unité embarque un ventilateur actif (jamais "fanless" si true)
+  // Renseigné uniquement pour les places de marché tierces (AliExpress) : boutique vendeuse,
+  // note et nombre de ventes issus de l'API, affichés comme signal de confiance.
+  seller?: { name: string; rating: string | null; sales: number | null };
 }
 
 export interface HardwareTier {

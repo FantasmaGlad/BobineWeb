@@ -8642,28 +8642,137 @@ main {
 }
 
 .platform-theme-aliexpress {
-  --bg-canvas: #fff6f2;
+  --bg-canvas: #ffffff;
   --bg-card: #ffffff;
   --bg-card-hover: #ffffff;
   --bg-surface: #ffffff;
   --bg-surface-elevated: #ffffff;
-  --bg-surface-hover: #ffe9de;
-  --bg-inset: #ffe9de;
-  --text-heading: #1a1a1a;
+  --bg-surface-hover: #ffe0d1;
+  --bg-inset: #ffede4;
+  --text-heading: #191919;
   --text-main: #2b2b2b;
-  --text-muted: #8a3b1f;
-  --text-dim: #9c5233;
-  --accent-primary: #ff4747;
+  --text-muted: #6b2f18;
+  --text-dim: #8a4a2e;
+  --accent-primary: #f0290a;
   --accent-primary-fg: #ffffff;
-  --accent-hover: #e62e04;
-  --accent-subtle: rgba(255, 71, 71, 0.1);
-  --accent-glow: rgba(255, 71, 71, 0.25);
-  --border-subtle: #ffd9c7;
-  --border-vibrant: #ff4747;
-  --border-color: #ffd9c7;
+  --accent-hover: #c81f00;
+  --accent-subtle: rgba(240, 41, 10, 0.12);
+  --accent-glow: rgba(240, 41, 10, 0.3);
+  --border-subtle: #ffc9b0;
+  --border-vibrant: #f0290a;
+  --border-color: #ffc9b0;
   background: var(--bg-canvas);
   min-height: 100vh;
 }
+
+/* Fiche principale : bandeau dégradé rouge vers orange en tête, bordure franche. */
+.platform-theme-aliexpress .hw-tier-card {
+  border: 2px solid var(--accent-primary) !important;
+  box-shadow: 0 6px 24px rgba(240, 41, 10, 0.18) !important;
+  overflow: hidden;
+}
+
+.platform-theme-aliexpress .hw-tier-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 0.5rem;
+  background: linear-gradient(90deg, #f0290a 0%, #ff6a00 55%, #ffb000 100%);
+}
+
+.platform-theme-aliexpress .hw-tier-card > *:not(.hw-tier-nav-arrow) {
+  position: relative;
+}
+
+/* Onglets actifs (gamme, forme) : pastille pleine dégradée, texte blanc. */
+.platform-theme-aliexpress .stepper-mode-btn.is-active {
+  background: linear-gradient(90deg, #f0290a 0%, #ff6a00 100%) !important;
+  color: #ffffff !important;
+  border-color: #f0290a !important;
+  font-weight: 700;
+}
+
+.platform-theme-aliexpress .hw-item-card--hero {
+  border: 2px solid #ffb59a !important;
+  background: linear-gradient(180deg, #fff7f3 0%, #ffffff 60%) !important;
+}
+
+/* Prix : rouge vif, gras, comme sur AliExpress. */
+.platform-theme-aliexpress .hw-price,
+.platform-theme-aliexpress .hw-alt-unit-card__price {
+  color: #f0290a !important;
+  font-weight: 800;
+}
+
+.platform-theme-aliexpress .hw-price {
+  font-size: 1.6rem !important;
+}
+
+/* Boutons d'achat : dégradé rouge vers orange, fort relief. */
+.platform-theme-aliexpress .btn-primary {
+  background: linear-gradient(90deg, #f0290a 0%, #ff7a00 100%);
+  border: 1px solid #c81f00;
+  color: #ffffff !important;
+  font-weight: 800;
+  box-shadow: 0 3px 10px rgba(240, 41, 10, 0.35);
+}
+
+.platform-theme-aliexpress .btn-primary:hover {
+  background: linear-gradient(90deg, #c81f00 0%, #e86a00 100%);
+}
+
+.platform-theme-aliexpress .btn-secondary {
+  border: 2px solid var(--accent-primary);
+  color: var(--accent-hover) !important;
+  font-weight: 700;
+}
+
+.platform-theme-aliexpress .btn-secondary:hover {
+  background: var(--accent-primary);
+  color: #ffffff !important;
+}
+
+/* Cartes d'alternatives et d'accessoires : bordure chaude, survol marqué. */
+.platform-theme-aliexpress .hw-alt-unit-card,
+.platform-theme-aliexpress .hw-item-card {
+  border-color: #ffb59a;
+}
+
+.platform-theme-aliexpress .hw-alt-unit-card:hover,
+.platform-theme-aliexpress .hw-item-card:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 4px 16px rgba(240, 41, 10, 0.22);
+}
+
+.hw-seller-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.hw-seller-badge {
+  flex-shrink: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.3rem;
+  background: #ffd60a;
+  color: #191919;
+  border: 1px solid #e6b800;
+}
+
+.hw-seller-name {
+  font-weight: 600;
+  color: var(--text-heading);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 
 .platform-skeleton {
   margin-top: 1rem;

@@ -1,0 +1,33 @@
+[Unit]
+Description=Miroir Tor de Bobine : serveur statique (sockets UNIX locaux)
+After=network.target
+
+[Service]
+User=onion
+# Groupe de Tor : le demon abandonne ses privileges et ne conserve que ce groupe,
+# il ne pourrait pas ouvrir des sockets appartenant a un autre groupe.
+Group=debian-tor
+RuntimeDirectory=onion
+RuntimeDirectoryMode=0750
+Environment=XDG_DATA_HOME=/var/lib/bobine-onion XDG_CONFIG_HOME=/var/lib/bobine-onion
+StateDirectory=bobine-onion
+ExecStart=/usr/bin/caddy run --config /etc/bobine-onion/Caddyfile --adapter caddyfile
+Restart=on-failure
+
+# Durcissement : lecture seule, aucun droit special, aucune connexion reseau sortante.
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ReadOnlyPaths=/srv/onion
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictAddressFamilies=AF_UNIX
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

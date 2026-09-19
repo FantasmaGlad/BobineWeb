@@ -76,6 +76,17 @@ const fr: DocChapter[] = [
         deviceImage: "linux",
       },
       {
+        subtitle: "2.3 bis Linux via le réseau Tor (.onion)",
+        paragraphs: [
+          "Pour installer et mettre à jour Bobine sans révéler votre adresse IP, le dépôt APT est aussi proposé en service onion (réseau Tor). C'est une copie miroir du dépôt officiel : les paquets restent signés par la même clé, et apt refuse tout paquet dont la signature ne correspond pas.",
+          "Comparez l'empreinte de la clé principale avec celle de https://apt.bobine.fit/bobine.gpg : B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A.",
+          "Le site est également consultable dans Tor Browser (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/). La boutique matériel et l'assistant Baamix n'y sont pas proposés : ils reposent sur des liens d'affiliation et des services tiers. Le miroir est hébergé par le mainteneur, sans journal de visite, avec une disponibilité au mieux.",
+        ],
+        codeBlock:
+          "# Dépôt APT officiel via Tor (miroir onion)\nsudo apt install apt-transport-tor\ncurl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine-onion.list\nsudo apt update && sudo apt install bobine",
+        deviceImage: "linux",
+      },
+      {
         subtitle: "2.4 Tablettes Android ARM64",
         paragraphs: [
           "Paquet natif Bobine-3.0.5.apk (API 34-36), embarquant CPython 3.13 et FastAPI via Chaquopy, service de premier plan persistant, accélération MediaCodec et double affichage (/grid tactile + /cinema HDMI USB-C DisplayPort).",
@@ -411,6 +422,17 @@ const en: DocChapter[] = [
         ],
         codeBlock:
           "# Official Linux APT repository (apt.bobine.fit)\ncurl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine",
+        deviceImage: "linux",
+      },
+      {
+        subtitle: "2.3 bis Linux over the Tor network (.onion)",
+        paragraphs: [
+          "To install and update Bobine without revealing your IP address, the APT repository is also offered as an onion service (Tor network). It is a mirror of the official repository: packages remain signed by the same key, and apt rejects any package whose signature does not match.",
+          "Compare the primary key fingerprint with the one at https://apt.bobine.fit/bobine.gpg: B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A.",
+          "The site can also be browsed in Tor Browser (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/). The hardware store and the Baamix assistant are not offered there: they rely on affiliate links and third-party services. The mirror is hosted by the maintainer, keeps no visit log, and is available on a best-effort basis.",
+        ],
+        codeBlock:
+          "# Official APT repository over Tor (onion mirror)\nsudo apt install apt-transport-tor\ncurl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine-onion.list\nsudo apt update && sudo apt install bobine",
         deviceImage: "linux",
       },
       {

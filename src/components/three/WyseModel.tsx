@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
+import "@/lib/gltfDecoders";
 import { useFrame, type ThreeEvent } from "@react-three/fiber";
 import type { Group } from "three";
 

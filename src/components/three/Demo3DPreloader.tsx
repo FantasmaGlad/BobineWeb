@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
+import "@/lib/gltfDecoders";
 
 const MODEL_TV = "/models/tv3d.glb";
 const MODEL_WYSE = "/models/wyse5070.glb";

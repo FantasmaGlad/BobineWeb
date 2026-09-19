@@ -19,7 +19,7 @@ const copy = {
       },
       {
         heading: "2. Hébergement & Infrastructure",
-        body: "Le site web bobine.fit est hébergé par Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis (vercel.com). Le trafic du site transite par le réseau de Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, États-Unis (cloudflare.com), qui assure la résolution DNS, l'accélération et la protection contre les attaques.",
+        body: "Le site web bobine.fit est hébergé par Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis (vercel.com). Le trafic du site transite par le réseau de Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, États-Unis (cloudflare.com), qui assure la résolution DNS, l'accélération et la protection contre les attaques. Un miroir en service onion (Tor) est hébergé par l'éditeur lui-même, sur sa propre machine.",
         contact: "Le dépôt de paquets Linux apt.bobine.fit est servi par GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis), tout comme le code source du projet.",
         subtext: "Le traitement des données par ces prestataires est décrit dans la Politique de Confidentialité.",
       },
@@ -63,7 +63,7 @@ const copy = {
       },
       {
         heading: "2. Hosting & Infrastructure",
-        body: "The website bobine.fit is hosted by Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA (vercel.com). Site traffic goes through the network of Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA (cloudflare.com), which provides DNS resolution, acceleration and protection against attacks.",
+        body: "The website bobine.fit is hosted by Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA (vercel.com). Site traffic goes through the network of Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA (cloudflare.com), which provides DNS resolution, acceleration and protection against attacks. A mirror served as an onion service (Tor) is hosted by the publisher on their own machine.",
         contact: "The apt.bobine.fit Linux package repository is served by GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA), as is the project's source code.",
         subtext: "How these providers process data is described in the Privacy Policy.",
       },

@@ -1,0 +1,16 @@
+[Unit]
+Description=Miroir Tor de Bobine : synchronisation du depot APT et du site
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=onion
+Group=onion
+Environment=HOME=/var/lib/onion
+ExecStart=/usr/local/lib/bobine-onion/sync.sh
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=/srv/onion /var/lib/onion

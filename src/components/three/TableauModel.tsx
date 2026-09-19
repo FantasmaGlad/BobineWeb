@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useGLTF, useVideoTexture } from "@react-three/drei";
+import "@/lib/gltfDecoders";
 import * as THREE from "three";
 
 const MODEL_URL = "/models/tableau.glb";

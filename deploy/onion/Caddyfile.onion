@@ -1,0 +1,47 @@
+# Serveur statique du miroir Tor. Ecoute uniquement sur des sockets UNIX locaux
+# (jamais sur le reseau), sans journal d'acces, sans HTTPS (Tor chiffre deja).
+{
+	admin off
+	auto_https off
+}
+
+# Depot APT (copie de la branche gh-pages du depot Bobine)
+http://:8081 {
+	bind unix//run/onion/apt.sock|0660
+	root * /srv/onion/apt
+	file_server
+	header {
+		-Server
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+	}
+}
+
+# Site (export statique du depot BobineWeb)
+http://:8082 {
+	bind unix//run/onion/site.sock|0660
+	root * /srv/onion/site
+
+	redir / /fr/ 308
+	redir /fr /fr/ 308
+	redir /en /en/ 308
+
+	@installsh path /install.sh
+	header @installsh Content-Type "text/plain; charset=utf-8"
+
+	# La politique de securite interdit tout chargement hors du miroir lui-meme.
+	header {
+		-Server
+		X-Content-Type-Options nosniff
+		X-Frame-Options SAMEORIGIN
+		Referrer-Policy no-referrer
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self' data:; connect-src 'self' data: blob:; worker-src 'self' blob:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+	}
+
+	handle_errors {
+		rewrite * /404.html
+		file_server
+	}
+	file_server
+}

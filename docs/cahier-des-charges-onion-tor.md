@@ -1,7 +1,9 @@
 # CDC — Miroir Tor (.onion) du site et du dépôt APT de Bobine
 
-Statut : PROJET — rédigé le 2026-09-19. Côté dépôt web : export statique, pages de renvoi et workflow GitHub Actions
-écrits et testés localement (2026-09-19). Reste à faire : installation sur la machine hôte, adresses, documentation.
+Statut : EN SERVICE depuis le 2026-09-19 (installation faite sur la machine hote ; site et depot APT testes via Tor,
+paquet .deb de 47,6 Mo telecharge et verifie par apt). Reference d'exploitation a jour : section 13 des règles du projet.
+Ce document reste le cahier des charges d'origine (les decisions y sont notees, quelques details ont evolue :
+serveur web dedie sous le groupe `debian-tor`, site tire depuis la branche `onion-site` par cle de deploiement).
 
 ## 1. Contexte et objectif
 

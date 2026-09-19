@@ -3,6 +3,7 @@
 import { Suspense, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, OrbitControls, Center } from "@react-three/drei";
+import "@/lib/gltfDecoders";
 import type { Group } from "three";
 
 const MODEL_PATH = "/models/baamix.glb";

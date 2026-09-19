@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
+import "@/lib/gltfDecoders";
 
 const MODEL_URL = "/models/velo.glb";
 

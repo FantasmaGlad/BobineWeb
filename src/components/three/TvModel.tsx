@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
+import "@/lib/gltfDecoders";
 import * as THREE from "three";
 
 const MODEL_URL = "/models/tv3d.glb";

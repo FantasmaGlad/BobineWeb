@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { defaultLocale, locales } from "@/lib/i18n";
+import { ONION_SITE_URL } from "@/lib/onion";
 
 export function proxy(request: NextRequest) {
   const host = request.headers.get("host") || "";
@@ -13,7 +14,12 @@ export function proxy(request: NextRequest) {
   const hasLocale = locales.some(
     (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)
   );
-  if (hasLocale) return NextResponse.next();
+  if (hasLocale) {
+    // Tor Browser affiche alors « .onion disponible » (ignore par les autres navigateurs).
+    const response = NextResponse.next();
+    response.headers.set("Onion-Location", `${ONION_SITE_URL}${pathname}${search}`);
+    return response;
+  }
 
   const url = request.nextUrl.clone();
   url.pathname = `/${defaultLocale}${pathname}`;

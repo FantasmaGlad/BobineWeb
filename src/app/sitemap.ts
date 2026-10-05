@@ -6,6 +6,8 @@ interface RouteConfig {
   path: string;
   priority: number;
   changeFrequency: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
+  /** Date de dernière modification réelle (AAAA-MM-JJ). Absent : date du build. */
+  lastModified?: string;
 }
 
 const staticRoutes: RouteConfig[] = [
@@ -35,7 +37,7 @@ export const dynamic = "force-static";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = "https://bobine.fit";
 
-  // Récupération des releases pour les pages de blog dynamiques
+  // Pages de blog : une par release GitHub, datée de sa publication (jamais de la date du build).
   let dynamicBlogRoutes: RouteConfig[] = [];
   try {
     const releases = await getBobineReleases();
@@ -43,12 +45,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       path: `/blog/${rel.slug}`,
       priority: rel.slug.toLowerCase() === "beta" ? 0.8 : 0.75,
       changeFrequency: rel.slug.toLowerCase() === "beta" ? "daily" : "monthly",
+      lastModified: rel.publishedAt.slice(0, 10),
     }));
   } catch {
-    // Fallback silencieux en cas de problème de connexion
+    // GitHub injoignable au build : seul /blog/beta (ajouté ci-dessous) est listé
   }
 
-  // Garantir l'indexation permanente de /blog/beta
+  // /blog/beta doit toujours figurer au sitemap, même si l'API GitHub est indisponible au build
   if (!dynamicBlogRoutes.some((r) => r.path.toLowerCase() === "/blog/beta")) {
     dynamicBlogRoutes.push({
       path: "/blog/beta",
@@ -60,12 +63,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allRoutes = [...staticRoutes, ...dynamicBlogRoutes];
 
   // Date seule (AAAA-MM-JJ), format le plus sûr pour les moteurs : pas de millisecondes ni de fuseau.
-  const lastModified = new Date().toISOString().slice(0, 10);
+  const buildDate = new Date().toISOString().slice(0, 10);
 
   return locales.flatMap((locale) =>
-    allRoutes.map(({ path, priority, changeFrequency }) => ({
+    allRoutes.map(({ path, priority, changeFrequency, lastModified }) => ({
       url: `${base}/${locale}${path}`,
-      lastModified,
+      lastModified: lastModified ?? buildDate,
       changeFrequency,
       priority,
       alternates: {

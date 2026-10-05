@@ -1,6 +1,6 @@
 /*
  * BobineWeb — Système de Design & Thèmes dynamiques
- * 18 thèmes calibrés pour une lisibilité optimale, du contraste et du relief visuel.
+ * 17 thèmes calibrés pour une lisibilité optimale, du contraste et du relief visuel.
  */
 
 :root {
@@ -46,13 +46,6 @@
   --android-badge-bg: color-mix(in srgb, var(--accent-primary) 12%, var(--bg-card));
   --android-badge-border: color-mix(in srgb, var(--accent-primary) 35%, var(--border-subtle));
   --android-badge-glow: color-mix(in srgb, var(--accent-primary) 20%, transparent);
-
-  /* Rétrocompatibilité */
-  --bg-main: var(--bg-canvas);
-  --bg: var(--bg-canvas);
-  --bg-elevated: var(--bg-card);
-  --text: var(--text-main);
-  --border: var(--border-subtle);
 }
 
 /* ==========================================================================
@@ -2149,8 +2142,6 @@ main {
   line-height: 1.45;
 }
 
-
-/* Simulateur de Terminal Linux & Démo Interactive */
 
 /* Simulateur de Terminal Linux & Démo Interactive */
 

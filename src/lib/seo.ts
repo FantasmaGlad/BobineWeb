@@ -20,7 +20,7 @@ export function buildMetadata({
   title,
   description,
   keywords,
-  image = "/logo-bobine.png",
+  image = `/${locale}/opengraph-image`,
   type = "website",
   publishedTime,
 }: SeoProps): Metadata {

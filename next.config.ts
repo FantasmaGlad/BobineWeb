@@ -62,6 +62,11 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // Même sitemap sous une seconde adresse : Search Console conserve l'état « Impossible de lire » d'une
+  // adresse déjà en échec, la soumettre sous un nouveau nom force une lecture neuve.
+  async rewrites() {
+    return [{ source: "/sitemap-bobine.xml", destination: "/sitemap.xml" }];
+  },
   async headers() {
     return [
       {
@@ -77,7 +82,7 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/sitemap.xml",
+        source: "/:sitemap(sitemap|sitemap-bobine).xml",
         headers: [
           { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
           { key: "CDN-Cache-Control", value: "max-age=0" },

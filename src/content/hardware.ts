@@ -249,10 +249,9 @@ const logitechMouse = (id: string): HardwareItem => ({
   hasFan: false,
 });
 
-// Kit clavier + souris filaire d'entree de gamme : couvre le trou fonctionnel des gammes
-// Essentiel/Recommande sur mini PC headless, qui n'incluaient jusqu'ici aucun peripherique
-// de saisie pour l'installation initiale. Un seul produit (pack), moins cher que les deux
-// pieces separees utilisees en Pro/Premium.
+// Kit clavier + souris filaire d'entree de gamme pour les gammes Essentiel/Recommande sur
+// mini PC headless (aucun peripherique de saisie pour l'installation initiale). Un seul
+// produit (pack), moins cher que les deux pieces separees utilisees en Pro/Premium.
 const keyboardMouseBudget = (id: string): HardwareItem => ({
   id,
   name: "Trust Taro Pack Clavier et Souris Filaires AZERTY",
@@ -670,8 +669,8 @@ const hubEthernetAcer = (id: string): HardwareItem => ({
   hasFan: false,
 });
 
-// Chaque gamme "PC Portable" recommande desormais un vrai laptop achetable (ASIN verifie),
-// en plus du kit de connectique : l'ordinateur n'est plus implicite, il est vendu sur la carte.
+// Chaque gamme "PC Portable" recommande un vrai laptop achetable (ASIN verifie), en plus du
+// kit de connectique : l'ordinateur est vendu sur la carte, jamais sous-entendu.
 interface LaptopTierConfig {
   item: HardwareItem;
   headlineFr: string;

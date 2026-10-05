@@ -4,7 +4,7 @@ Liste des produits Amazon de src/content/hardware.ts (mise a jour a la main, auc
 Date de derniere verification des prix/liens (PRICE_CHECKED_AT) : 2026-09-17
 Nombre total de produits uniques references : 70
 
-MODE D'EMPLOI POUR UNE MISE A JOUR (à la main) :
+MODE D'EMPLOI POUR UNE MISE A JOUR :
 1. Ouvrir chaque lien Amazon ci-dessous et relever le prix affiche a l'instant T.
 2. Si le prix a change de plus de quelques %, mettre a jour le champ priceAmazon
    correspondant dans src/content/hardware.ts (chercher l'ASIN).

@@ -125,9 +125,6 @@ Le README cible déjà une liste de mots-clés (« alternative open source à Le
 
 ```
 BobineWeb/
-│   └── launch.json              # preview du serveur de dev
-│   └── settings.json
-│                                 # (vides pour l'instant — même convention que Bobine/.gitignore)
 ├── .github/
 │   └── workflows/
 │       └── ci.yml               # lint + build sur push/PR
@@ -192,7 +189,7 @@ BobineWeb/
 └── README.md
 ```
 
-### 16.3. `package.json` (dépendances — état actuel)
+### 16.2. `package.json` (dépendances — état actuel)
 
 ```json
 {

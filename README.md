@@ -8,26 +8,40 @@ Portail web et documentation officielle de **Bobine** — régie vidéo et syst�
 
 ---
 
-## Architecture & Spécifications
+## Architecture
 
-- **Framework** : Next.js 16 (App Router, Turbopack, React 19)
-- **Rendu** : Génération statique (SSG) des pages localisées FR/EN, avec régénération incrémentale (6 h) de la boutique AliExpress
-- **Régie 3D** : Three.js / React Three Fiber / Drei (scène interactive Wyse 5070, écran HD et mascotte Baamix 360°)
-- **Design System** : CSS pur avec variables dynamiques — 17 thèmes calibrés pour des contrastes WCAG AAA/AA (8 Clairs, 9 Sombres)
-- **SEO & GEO** : Sitemap multilingue dynamique, JSON-LD enrichi, métadonnées Googlebot, favicons haute fidélité (multiples de 48px)
-- **Performances** : 100% Hors-ligne (PWA / Service Worker), polices système zéro latence
-- **Infrastructure & Sécurité** : Proxy inverse Cloudflare (Anti-DDoS, WAF, Bot Fight Mode, SSL Full Strict, HTTP/3, Brotli) en amont de Vercel Edge Network
-
-
+- **Framework** : Next.js 16 (App Router, Turbopack), React 19, TypeScript
+- **Langues** : français (défaut) et anglais, pages générées statiquement sous `/fr` et `/en`
+- **Régie 3D** : Three.js / React Three Fiber / Drei (scène Wyse 5070, écran HD, mascotte Baamix à 360°)
+- **Design system** : CSS pur à variables, 17 thèmes (8 clairs, 9 sombres) calibrés WCAG AA/AAA
+- **SEO et GEO** : sitemap multilingue (`/sitemap.xml`, alias `/sitemap-bobine.xml`), `robots.txt` ouvert aux robots classiques et IA, `public/llms.txt`, JSON-LD, hreflang, canoniques
+- **Hors-ligne** : Service Worker, polices système
+- **Hébergement** : Vercel derrière Cloudflare (WAF, SSL Full Strict, HTTP/3, Brotli)
 - **Boutique matériel** : `/materiel/amazon` (prix constatés) et `/materiel/aliexpress` (API Affiliate, prix rafraîchis toutes les 6 h), panier « Mon Pack » commun
 - **Assistant IA Baamix** : Hugging Face puis OpenRouter en repli, catalogue et contexte de la boutique reconstruits à chaque requête (`src/app/api/chat/route.ts`, `src/lib/catalog/`)
-- **Miroir Tor (.onion)** : export statique du site + dépôt APT en services onion v3, hébergés sur le Dell Wyse 5070 du mainteneur (pas sur Vercel). Site `http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/`, dépôt APT `tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/`. Construit par le workflow `.github/workflows/onion-mirror.yml`, déployé par `deploy/onion/`. Détails : les règles du projet section 13 et `docs/cahier-des-charges-onion-tor.md`.
+- **Miroir Tor (.onion)** : export statique du site + dépôt APT en services onion v3, hébergés sur le Dell Wyse 5070 du mainteneur (pas sur Vercel). Site `http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/`, dépôt APT `tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/`. Construit par le workflow `.github/workflows/onion-mirror.yml`, déployé par `deploy/onion/`. Détails : `docs/cahier-des-charges-onion-tor.md`.
+
+## Structure du dépôt
+
+| Dossier | Contenu |
+|---|---|
+| `src/app/` | Routes (App Router), `sitemap.ts`, `robots.ts`, `proxy.ts`, routes `api/` |
+| `src/components/` | Composants React (`hardware/`, `icons/`, `three/`) |
+| `src/content/` | Source de vérité : `docs/chapters.ts`, `docs/faq-data.ts`, `hardware.ts`, `aliexpressHardware.ts` |
+| `src/lib/` | SEO, i18n, thèmes, catalogue, AliExpress, PDF, miroir Tor |
+| `public/` | `llms.txt`, scripts d'installation, modèles 3D, images |
+| `scripts/` | Instantané AliExpress, préparation du miroir Tor, génération de l'art ASCII |
+| `deploy/onion/` | Déploiement reproductible du miroir Tor |
+| `docs/` | Cahiers des charges et suivi des offres Amazon |
+| `.github/workflows/` | CI, miroir Tor, nettoyage des déploiements Vercel |
+
+Le contenu produit (documentation, FAQ, PDF, assistant Baamix) vient d'une seule source : `src/content/docs/`. Ne jamais le dupliquer à la main.
 
 ---
 
 ## Variables d'environnement
 
-Voir `.env.example`. `ALIEXPRESS_APP_KEY`, `ALIEXPRESS_APP_SECRET` et `ALIEXPRESS_TRACKING_ID` alimentent le catalogue AliExpress (sans elles, le site affiche l'instantané `src/content/aliexpress-snapshot.json`). `OPENROUTER_API_KEY` alimente Baamix. Ne jamais committer de secret.
+Voir `.env.example`. `HF_TOKEN` et `OPENROUTER_API_KEY` alimentent Baamix (au moins une des deux). `ALIEXPRESS_APP_KEY`, `ALIEXPRESS_APP_SECRET` et `ALIEXPRESS_TRACKING_ID` alimentent le catalogue AliExpress (sans elles, le site affiche l'instantané `src/content/aliexpress-snapshot.json`). `GITHUB_TOKEN` est optionnel (limite de taux de l'API GitHub). Ne jamais committer de secret.
 
 ## Scripts AliExpress
 
@@ -41,10 +55,12 @@ node --env-file=.env.local scripts/aliexpress-snapshot.mjs   # régénère l'ins
 ## Commandes
 
 ```bash
-npm install     # Installation des dépendances
-npm run dev     # Serveur de développement (http://localhost:3000)
-npm run build   # Compilation de production statique
+npm install          # Installation des dépendances
+npm run dev          # Serveur de développement (http://localhost:3000)
+npx tsc --noEmit     # Vérification TypeScript (0 erreur attendue)
+npm run lint         # ESLint
+npm run build        # Compilation de production
 npm run build:onion  # Export statique du miroir Tor (RÉSERVÉ À LA CI : supprime src/app/api et src/proxy.ts)
-npm run lint    # Validation ESLint & TypeScript
 ```
 
+Avant tout commit : `npx tsc --noEmit` et `npm run build` sans erreur.

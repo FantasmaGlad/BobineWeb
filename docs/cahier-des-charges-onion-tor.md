@@ -1,7 +1,7 @@
 # CDC — Miroir Tor (.onion) du site et du dépôt APT de Bobine
 
 Statut : EN SERVICE depuis le 2026-09-19 (installation faite sur la machine hote ; site et depot APT testes via Tor,
-paquet .deb de 47,6 Mo telecharge et verifie par apt). Reference d'exploitation a jour : section 13 des règles du projet.
+paquet .deb de 47,6 Mo telecharge et verifie par apt). Ce document est la reference d'exploitation du miroir.
 Evolutions livrees depuis : Baamix visible sur le miroir en mode sans reseau (message explicatif), logos Tor, encart et liens de soutien a Tor,
 variante Tor du Pong (`deploy/onion/overlay/`), version GitHub lue cote serveur, carte d'installation « Option C » et
 script `install-tor.sh` dans la documentation, ASCII art Tor (demo terminal, script, en-tete de apt.bobine.fit
@@ -168,12 +168,12 @@ d'API tierces), avec un message adapté.
 
 Réserve sur le logo : le nom et le logo « Tor » sont des marques du Tor Project. Vérifier leur politique d'usage
 avant publication ; y faire figurer une mention du type « Bobine n'est pas affilié au Tor Project ». Solution de
-repli, cohérente avec la règle « SVG filaires » des règles du projet : un pictogramme d'oignon dessiné en filaire par nos
+repli, cohérente avec la règle « SVG filaires » du projet : un pictogramme d'oignon dessiné en filaire par nos
 soins, sans reprendre le logo officiel.
 
 ## 7. Intégration dans le dépôt web (BobineWeb)
 
-Règles des règles du projet à respecter :
+Règles du projet à respecter :
 
 1. **Source de contenu unique** : ajouter un chapitre/sous-section « Installer via Tor (.onion) » dans
    `src/content/docs/chapters.ts` (FR et EN) et des entrées dans `faq-data.ts`. Baamix et le PDF se mettent à jour
@@ -184,7 +184,7 @@ Règles des règles du projet à respecter :
    (les adresses sont publiques par nature).
 4. **Pages légales** : le miroir ne collecte rien ; l'ajouter à `confidentialite` (nouvel hébergement : machine
    personnelle de l'éditeur, service Tor, aucun journal) et mettre à jour la date « Dernière mise à jour ».
-   Ne pas promettre plus que ce qui est réel.
+   Ne pas promettre plus que ce qui est réel (règle des pages légales : ne rien promettre d'irréel).
 5. **Design** : si un badge « Tor » est affiché (pied de page, page d'installation Linux), utiliser les variables
    de thème existantes, valable sur les 17 thèmes.
 6. **Détection de plateforme** : la carte d'installation Linux peut proposer la variante onion en option

@@ -30,7 +30,7 @@ yarn-error.log*
 # seule la version optimisée dans public/models/ est versionnée et servie
 /assets/
 
-# convention que Bobine (frontend/.gitignore)
+# editeurs
 .vscode/
 .idea/
 firewall-events*.json

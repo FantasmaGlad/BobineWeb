@@ -17,7 +17,7 @@ expérience UI/UX que la page Amazon** (onglets OS, formes, gammes, fiche produi
 barre d'achat mobile), mais avec l'**identité visuelle officielle AliExpress** pour que les deux
 plateformes soient immédiatement distinguables.
 
-Contraintes héritées des règles du projet : zéro emoji (SVG filaires uniquement), jamais de faux produit,
+Contraintes du projet : zéro emoji (SVG filaires uniquement), jamais de faux produit,
 `rel="nofollow sponsored noopener noreferrer" target="_blank"` sur tout lien marchand, toute
 nouvelle route déclarée dans `src/app/sitemap.ts`, contenu FR/EN.
 
@@ -97,7 +97,7 @@ la mention « prix constaté le JJ/MM » ; un produit absent des deux est masqu�
 ### 5.3 Cache et quotas
 
 Rendu serveur avec cache (`revalidate` ou `unstable_cache`, à choisir après lecture de
-`node_modules/next/dist/docs/` conformément à les règles du projet) : rafraîchissement toutes les
+`node_modules/next/dist/docs/` conformément aux règles du projet) : rafraîchissement toutes les
 6 à 24 h, jamais par visite, pour rester sous les quotas et garder une page rapide. Les liens
 affiliés générés sont mis en cache avec le prix.
 
@@ -155,6 +155,7 @@ utilisable pour les décorations et bordures mais pas pour du texte courant (con
   AliExpress Portals (texte exact à reprendre des conditions), sans l'afficher sur la page
   matériel (même règle que pour Amazon).
 - Métadonnées de page : retirer « Bientôt / Coming soon ».
+- Documentation du projet (affiliation) : faite (état réel et renvoi vers ce CDC, règle « jamais de faux produit » conservée).
 - Baamix : à évaluer en phase 3 seulement (injecter le catalogue AliExpress dans
   `buildProjectKnowledge()` ou un module dédié, sans jamais coder de produits en dur).
 
@@ -165,7 +166,7 @@ utilisable pour les décorations et bordures mais pas pour du texte courant (con
 2. **Curation** : sélection humaine et vérification produit par produit ; création de
    `aliexpressHardware.ts` avec instantanés et images locales.
 3. **UI** : généralisation des composants, thème AliExpress affiné, page réelle, états
-   d'erreur/indisponible, FR/EN, sitemap, JSON-LD, mentions légales, mise à jour les règles du projet.
+   d'erreur/indisponible, FR/EN, sitemap, JSON-LD, mentions légales, documentation du projet.
 4. **Plus tard** : panier « Mon Pack » AliExpress (aujourd'hui scopé Amazon, clé = ASIN, à
    généraliser en `platform:id`), demande API Advanced, suivi des commissions.
 

@@ -65,7 +65,7 @@ communautaire `python-amazon-paapi`.
 4. Cas à gérer : produit indisponible ou sans offre (masquer le prix, garder le lien), prix qui varie
    fortement, respect des conditions Amazon sur l'affichage des prix (mention d'horodatage si la donnée
    a plus de quelques heures).
-5. Mettre à jour les règles du projet (section « Prix Amazon en direct ») et retirer ce statut « en attente ».
+5. Mettre à jour la section « Prix Amazon en direct » de la documentation du projet et retirer ce statut « en attente ».
 
 ## 6. Repli si l'API reste inaccessible
 

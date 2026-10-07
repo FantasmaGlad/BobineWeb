@@ -216,6 +216,18 @@ Voir `.env.example`. Aucune clé dans le code.
 | `HF_MODEL`, `OPENROUTER_MODEL` | Forcer un autre modèle (optionnel) |
 | `ALIEXPRESS_APP_KEY`, `ALIEXPRESS_APP_SECRET`, `ALIEXPRESS_TRACKING_ID` | Catalogue AliExpress en direct (sans elles : instantané) |
 | `GITHUB_TOKEN` | Limite de taux de l'API GitHub (optionnel) |
+| `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_ZONE_ID` | Gestion de la zone `bobine.fit` (Email Routing, DNS) par API. Usage local uniquement, aucune fonction du site ne les lit |
+
+### Courrier du domaine
+
+Réception : Cloudflare Email Routing (MX `route1/2/3.mx.cloudflare.net`) redirige `clement.barillot@bobine.fit`, `contact@bobine.fit` et `security@bobine.fit` vers la boîte du mainteneur. Le catch-all est désactivé : toute autre adresse est rejetée. Envoi depuis ces adresses : Resend (SMTP `smtp.resend.com`, DKIM et SPF sur `send.bobine.fit`). Le site ne publie qu'un lien `mailto:` (pied de page, tiroir mobile, `/baamix`, pages légales) : aucune route serveur n'envoie de courrier.
+
+Lister les règles de redirection :
+
+```bash
+curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+  "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/email/routing/rules"
+```
 
 Scripts AliExpress :
 

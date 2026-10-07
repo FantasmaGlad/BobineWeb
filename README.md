@@ -222,7 +222,7 @@ Voir `.env.example`. Aucune clé dans le code.
 
 ### Courrier du domaine
 
-Réception : Cloudflare Email Routing (MX `route1/2/3.mx.cloudflare.net`) redirige `clement.barillot@bobine.fit`, `contact@bobine.fit` et `security@bobine.fit` vers la boîte du mainteneur. Le catch-all est désactivé : toute autre adresse est rejetée. Envoi depuis ces adresses : Resend (SMTP `smtp.resend.com`, DKIM et SPF sur `send.bobine.fit`). Authentification : SPF, DKIM (Resend et Cloudflare) et DMARC (`p=none`, rapports agrégés vers `security@bobine.fit` ; passer à `quarantine` puis `reject` après quelques semaines de rapports propres). Le site ne publie qu'un lien `mailto:` (pied de page, tiroir mobile, `/baamix`, pages légales) : aucune route serveur n'envoie de courrier.
+Réception : Cloudflare Email Routing (MX `route1/2/3.mx.cloudflare.net`) redirige vers la boîte du mainteneur : `clement.barillot@`, `contact@`, `security@`, `info@`, `support@`, `admin@`, `webmaster@`, `postmaster@`, `abuse@`, `hostmaster@`, `privacy@` et `legal@bobine.fit`. Le catch-all est désactivé : toute autre adresse est rejetée. Envoi depuis ces adresses : Resend (SMTP `smtp.resend.com`, DKIM et SPF sur `send.bobine.fit`). Authentification : SPF, DKIM (Resend et Cloudflare) et DMARC (`p=none`, rapports agrégés vers `security@bobine.fit` ; passer à `quarantine` puis `reject` après quelques semaines de rapports propres). Le site ne publie qu'un lien `mailto:` (pied de page, tiroir mobile, `/baamix`, pages légales) : aucune route serveur n'envoie de courrier.
 
 Lister les règles de redirection :
 

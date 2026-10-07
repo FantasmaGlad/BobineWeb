@@ -30,6 +30,7 @@ const staticRoutes: RouteConfig[] = [
   { path: "/soutenir", priority: 0.7, changeFrequency: "monthly" },
   { path: "/mentions-legales", priority: 0.3, changeFrequency: "yearly" },
   { path: "/confidentialite", priority: 0.3, changeFrequency: "yearly" },
+  { path: "/securite", priority: 0.4, changeFrequency: "yearly" },
 ];
 
 export const dynamic = "force-static";

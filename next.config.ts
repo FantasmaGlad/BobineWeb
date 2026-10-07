@@ -54,6 +54,8 @@ const nextConfig: NextConfig = {
   // Ignorés par un export statique : les redirections et en-têtes du miroir vivent dans Caddy.
   ...(isOnion ? {} : { async redirects() {
     return [
+      // Emplacement historique de security.txt (RFC 9116, section 3)
+      { source: "/security.txt", destination: "/.well-known/security.txt", permanent: true },
       {
         source: "/:path*",
         has: [{ type: "host", value: "www.bobine.fit" }],

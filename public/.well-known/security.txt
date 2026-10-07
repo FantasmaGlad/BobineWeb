@@ -1,0 +1,11 @@
+# Politique de divulgation de vulnerabilites de bobine.fit (RFC 9116).
+# Vulnerability disclosure policy for bobine.fit (RFC 9116).
+
+Contact: mailto:security@bobine.fit
+Contact: https://github.com/FantasmaGlad/Bobine/security/advisories/new
+Expires: 2027-04-07T12:00:00.000Z
+Preferred-Languages: fr, en
+Canonical: https://bobine.fit/.well-known/security.txt
+Policy: https://bobine.fit/fr/securite
+Policy: https://bobine.fit/en/securite
+Acknowledgments: https://bobine.fit/fr/securite#remerciements

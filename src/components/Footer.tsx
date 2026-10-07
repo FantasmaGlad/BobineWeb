@@ -128,6 +128,9 @@ export default function Footer({
             <Link href={`/${locale}/confidentialite`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.footer.privacy}
             </Link>
+            <Link href={`/${locale}/securite`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+              {isEn ? "Security" : "Sécurité"}
+            </Link>
           </div>
         </div>
 

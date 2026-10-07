@@ -92,9 +92,10 @@ Toutes les pages existent sous `/fr` et `/en` (`src/app/[locale]/`). La racine `
 | `/blog`, `/blog/[slug]` | Une page par release GitHub (stable et bêta) |
 | `/a-propos`, `/soutenir` | Auteur et gouvernance, dons |
 | `/mentions-legales`, `/confidentialite` | Pages légales |
+| `/securite` | Politique de divulgation de vulnérabilités (contact, périmètre, délais) |
 | `/demo-3d` | Scène 3D immersive (pas dans le sitemap) |
 
-Routes serveur : `/api/chat` (Baamix), `/api/catalog`, `/api/github-stats`, `/api/aliexpress/callback`, `/install.sh`. Elles n'existent pas dans le miroir Tor. Fichiers générés : `/sitemap.xml` (alias `/sitemap-bobine.xml`), `/robots.txt`, `/manifest.webmanifest`, `/{locale}/opengraph-image`.
+Routes serveur : `/api/chat` (Baamix), `/api/catalog`, `/api/github-stats`, `/api/aliexpress/callback`, `/install.sh`. Elles n'existent pas dans le miroir Tor. Fichiers publics : `/.well-known/security.txt` (RFC 9116, `/security.txt` redirige dessus). Fichiers générés : `/sitemap.xml` (alias `/sitemap-bobine.xml`), `/robots.txt`, `/manifest.webmanifest`, `/{locale}/opengraph-image`.
 
 ---
 
@@ -147,6 +148,7 @@ Règles de contenu : ne jamais présenter une fonctionnalité non livrée (Andro
 - **Moteurs conversationnels** : `public/llms.txt` (résumé, fiche d'entité) et `public/llms-full.txt` (version longue). Garder cohérents l'auteur, les adresses et les fonctionnalités avec `JsonLd.tsx`.
 - **Favicons** : carrés, multiples de 48 px (48, 96, 192, 512), `favicon.ico` multi-résolution.
 - **Bing** : `public/BingSiteAuth.xml`.
+- **Sécurité** : `public/.well-known/security.txt` expire le 2027-04-07 (champ `Expires`) : le renouveler avant cette date, sinon les chercheurs le considèrent comme périmé.
 - **International** : les pages `/en` sont traduites mais leurs URL gardent des slugs français (`/en/fonctionnalites`). Passer à des slugs anglais, une redirection de `/` selon `Accept-Language` et des liens entrants anglophones est la piste principale pour le marché anglophone.
 
 Vérification rapide du sitemap :
@@ -220,7 +222,7 @@ Voir `.env.example`. Aucune clé dans le code.
 
 ### Courrier du domaine
 
-Réception : Cloudflare Email Routing (MX `route1/2/3.mx.cloudflare.net`) redirige `clement.barillot@bobine.fit`, `contact@bobine.fit` et `security@bobine.fit` vers la boîte du mainteneur. Le catch-all est désactivé : toute autre adresse est rejetée. Envoi depuis ces adresses : Resend (SMTP `smtp.resend.com`, DKIM et SPF sur `send.bobine.fit`). Le site ne publie qu'un lien `mailto:` (pied de page, tiroir mobile, `/baamix`, pages légales) : aucune route serveur n'envoie de courrier.
+Réception : Cloudflare Email Routing (MX `route1/2/3.mx.cloudflare.net`) redirige `clement.barillot@bobine.fit`, `contact@bobine.fit` et `security@bobine.fit` vers la boîte du mainteneur. Le catch-all est désactivé : toute autre adresse est rejetée. Envoi depuis ces adresses : Resend (SMTP `smtp.resend.com`, DKIM et SPF sur `send.bobine.fit`). Authentification : SPF, DKIM (Resend et Cloudflare) et DMARC (`p=none`, rapports agrégés vers `security@bobine.fit` ; passer à `quarantine` puis `reject` après quelques semaines de rapports propres). Le site ne publie qu'un lien `mailto:` (pied de page, tiroir mobile, `/baamix`, pages légales) : aucune route serveur n'envoie de courrier.
 
 Lister les règles de redirection :
 

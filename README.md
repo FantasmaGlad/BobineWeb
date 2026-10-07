@@ -148,7 +148,7 @@ Règles de contenu : ne jamais présenter une fonctionnalité non livrée (Andro
 - **Moteurs conversationnels** : `public/llms.txt` (résumé, fiche d'entité) et `public/llms-full.txt` (version longue). Garder cohérents l'auteur, les adresses et les fonctionnalités avec `JsonLd.tsx`.
 - **Favicons** : carrés, multiples de 48 px (48, 96, 192, 512), `favicon.ico` multi-résolution.
 - **Bing** : `public/BingSiteAuth.xml`.
-- **Sécurité** : la clé OpenPGP de réception des rapports (empreinte `8208 FFD3 F7AB 4DD3 6B0A CDD8 4726 A378 F683 265A`, expire en octobre 2028) est distincte de la clé de signature du dépôt APT ; sa partie privée ne figure jamais dans le dépôt. `public/.well-known/security.txt` expire le 2027-04-07 (champ `Expires`) : le renouveler avant cette date, sinon les chercheurs le considèrent comme périmé.
+- **Sécurité** : la clé OpenPGP de réception des rapports (empreinte `23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2`, expire en octobre 2028) est distincte de la clé de signature du dépôt APT ; sa partie privée ne figure jamais dans le dépôt. `public/.well-known/security.txt` expire le 2027-04-07 (champ `Expires`) : le renouveler avant cette date, sinon les chercheurs le considèrent comme périmé.
 - **International** : les pages `/en` sont traduites mais leurs URL gardent des slugs français (`/en/fonctionnalites`). Passer à des slugs anglais, une redirection de `/` selon `Accept-Language` et des liens entrants anglophones est la piste principale pour le marché anglophone.
 
 Vérification rapide du sitemap :

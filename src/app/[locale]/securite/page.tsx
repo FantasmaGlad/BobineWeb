@@ -8,7 +8,7 @@ import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 const SECURITY_EMAIL = "security@bobine.fit";
 const ADVISORY_URL = "https://github.com/FantasmaGlad/Bobine/security/advisories/new";
 const APT_FINGERPRINT = "B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A";
-const REPORT_KEY_FINGERPRINT = "8208 FFD3 F7AB 4DD3 6B0A CDD8 4726 A378 F683 265A";
+const REPORT_KEY_FINGERPRINT = "23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2";
 const REPORT_KEY_URL = "https://bobine.fit/.well-known/security.asc";
 
 const linkStyle = { color: "var(--text-heading)", textDecoration: "underline", textUnderlineOffset: "0.2em" } as const;

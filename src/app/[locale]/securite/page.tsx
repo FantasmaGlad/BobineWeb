@@ -8,6 +8,8 @@ import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 const SECURITY_EMAIL = "security@bobine.fit";
 const ADVISORY_URL = "https://github.com/FantasmaGlad/Bobine/security/advisories/new";
 const APT_FINGERPRINT = "B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A";
+const REPORT_KEY_FINGERPRINT = "8208 FFD3 F7AB 4DD3 6B0A CDD8 4726 A378 F683 265A";
+const REPORT_KEY_URL = "https://bobine.fit/.well-known/security.asc";
 
 const linkStyle = { color: "var(--text-heading)", textDecoration: "underline", textUnderlineOffset: "0.2em" } as const;
 
@@ -20,6 +22,16 @@ const advisory = (
   <a href={ADVISORY_URL} target="_blank" rel="noopener noreferrer" style={linkStyle}>
     {ADVISORY_URL}
   </a>
+);
+const reportKey = (
+  <a href={REPORT_KEY_URL} style={linkStyle}>
+    {REPORT_KEY_URL}
+  </a>
+);
+const code = (text: string) => (
+  <code style={{ fontFamily: "var(--font-mono, monospace)", fontSize: "0.85em", background: "var(--bg-surface)", border: "1px solid var(--border-subtle)", borderRadius: "0.3rem", padding: "0.1em 0.4em", overflowWrap: "anywhere" }}>
+    {text}
+  </code>
 );
 const securityTxt = (
   <a href="/.well-known/security.txt" style={linkStyle}>
@@ -47,7 +59,9 @@ const copy: Record<Locale, { badge: string; title: string; subtitle: string; upd
         heading: "1. Comment signaler",
         paragraphs: [
           <>Écrivez à {mail}, ou ouvrez un signalement privé de vulnérabilité sur GitHub : {advisory}. Le signalement privé GitHub est préférable pour tout détail exploitable : il n&apos;est visible que des mainteneurs.</>,
-          <>Aucune clé PGP n&apos;est publiée pour l&apos;instant. Si vous devez transmettre des détails sensibles, utilisez le signalement privé GitHub plutôt qu&apos;un e-mail en clair. Le fichier {securityTxt} décrit ces canaux de manière lisible par les machines (RFC 9116).</>,
+          <>Nous demandons de chiffrer tout rapport contenant des détails exploitables. Notre clé publique OpenPGP de réception (Ed25519 et Curve25519, expire en octobre 2028) a pour empreinte <strong>{REPORT_KEY_FINGERPRINT}</strong>. Téléchargez-la sur {reportKey} ou laissez votre client la découvrir : {code("gpg --locate-keys security@bobine.fit")}. Vérifiez l&apos;empreinte avant d&apos;envoyer.</>,
+          <>Créez votre propre paire de clés et joignez votre clé publique à votre message (ou indiquez où la récupérer) : nous répondrons chiffré avec elle. Exemple : {code('gpg --quick-generate-key "Votre Nom <vous@exemple.org>" ed25519 default 2y')} puis {code("gpg --armor --export vous@exemple.org")}. Ne partagez jamais votre clé privée.</>,
+          <>Si vous ne pouvez pas utiliser PGP, utilisez le signalement privé GitHub plutôt qu&apos;un e-mail en clair. Le fichier {securityTxt} décrit ces canaux de manière lisible par les machines (RFC 9116).</>,
           "Merci d'indiquer : l'adresse ou le composant concerné, les étapes pour reproduire, l'impact que vous observez et, si possible, une preuve de concept minimale.",
         ],
       },
@@ -94,7 +108,7 @@ const copy: Record<Locale, { badge: string; title: string; subtitle: string; upd
         id: "verification",
         heading: "6. Vérifier l'authenticité des téléchargements",
         paragraphs: [
-          `Le dépôt APT est signé. Empreinte de la clé principale : ${APT_FINGERPRINT}. Le script install-tor.sh épingle cette empreinte et s'arrête si elle diffère. Les mises à jour automatiques vérifient le condensé SHA-256 des fichiers publiés sur GitHub Releases.`,
+          `Le dépôt APT est signé. Empreinte de la clé principale : ${APT_FINGERPRINT}. Le script install-tor.sh épingle cette empreinte et s'arrête si elle diffère. Cette clé de signature est distincte de la clé de réception des rapports (section 1). Les mises à jour automatiques vérifient le condensé SHA-256 des fichiers publiés sur GitHub Releases.`,
         ],
       },
       {
@@ -116,7 +130,9 @@ const copy: Record<Locale, { badge: string; title: string; subtitle: string; upd
         heading: "1. How to report",
         paragraphs: [
           <>Write to {mail}, or open a private vulnerability report on GitHub: {advisory}. The private GitHub report is preferable for anything exploitable: only the maintainers can see it.</>,
-          <>No PGP key is published for now. If you need to send sensitive details, use the private GitHub report rather than plain email. The {securityTxt} file describes these channels in a machine-readable form (RFC 9116).</>,
+          <>We ask that any report containing exploitable details be encrypted. Our OpenPGP public key for receiving reports (Ed25519 and Curve25519, expires October 2028) has the fingerprint <strong>{REPORT_KEY_FINGERPRINT}</strong>. Download it at {reportKey} or let your client discover it: {code("gpg --locate-keys security@bobine.fit")}. Check the fingerprint before sending.</>,
+          <>Create your own key pair and attach your public key to your message (or tell us where to fetch it): we will reply encrypted to it. Example: {code('gpg --quick-generate-key "Your Name <you@example.org>" ed25519 default 2y')} then {code("gpg --armor --export you@example.org")}. Never share your private key.</>,
+          <>If you cannot use PGP, use the private GitHub report rather than plain email. The {securityTxt} file describes these channels in a machine-readable form (RFC 9116).</>,
           "Please include: the affected address or component, steps to reproduce, the impact you observe and, if possible, a minimal proof of concept.",
         ],
       },
@@ -163,7 +179,7 @@ const copy: Record<Locale, { badge: string; title: string; subtitle: string; upd
         id: "verification",
         heading: "6. Verifying the authenticity of downloads",
         paragraphs: [
-          `The APT repository is signed. Primary key fingerprint: ${APT_FINGERPRINT}. The install-tor.sh script pins this fingerprint and stops if it differs. Automatic updates verify the SHA-256 digest of the files published on GitHub Releases.`,
+          `The APT repository is signed. Primary key fingerprint: ${APT_FINGERPRINT}. The install-tor.sh script pins this fingerprint and stops if it differs. This signing key is separate from the key used to receive reports (section 1). Automatic updates verify the SHA-256 digest of the files published on GitHub Releases.`,
         ],
       },
       {

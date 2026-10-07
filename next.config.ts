@@ -92,6 +92,21 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        source: "/.well-known/security.asc",
+        headers: [
+          { key: "Content-Type", value: "application/pgp-keys" },
+          { key: "Access-Control-Allow-Origin", value: "*" },
+        ],
+      },
+      {
+        // Web Key Directory (méthode directe) : les clients PGP exigent un type binaire et CORS ouvert
+        source: "/.well-known/openpgpkey/:path*",
+        headers: [
+          { key: "Content-Type", value: "application/octet-stream" },
+          { key: "Access-Control-Allow-Origin", value: "*" },
+        ],
+      },
+      {
         source: "/install.sh",
         headers: [{ key: "X-Robots-Tag", value: "noindex" }],
       },

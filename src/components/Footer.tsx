@@ -110,6 +110,12 @@ export default function Footer({
               <GitHubIcon size={13} />
               <span>{dict.footer.github}</span>
             </a>
+            <a
+              href="mailto:clement.barillot@bobine.fit"
+              style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}
+            >
+              {isEn ? "Contact by email" : "Contact par e-mail"}
+            </a>
             <Link href={`/${locale}/soutenir`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.nav.support}
             </Link>

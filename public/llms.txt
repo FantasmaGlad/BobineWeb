@@ -173,7 +173,7 @@ The 18 installation steps include:
 ## Author, Maintainer & Contact
 - **Developer and author**: Clément Barillot (alias FantasmaGlad), independent developer of the Bobine project and of the bobine.fit website.
 - **Contact**: clement.barillot@bobine.fit
-- **Security contact**: security@bobine.fit (policy: https://bobine.fit/en/securite, machine-readable: https://bobine.fit/.well-known/security.txt)
+- **Security contact**: security@bobine.fit (policy: https://bobine.fit/en/securite, machine-readable: https://bobine.fit/.well-known/security.txt). Reports containing exploitable details must be encrypted with the OpenPGP public key at https://bobine.fit/.well-known/security.asc (fingerprint 8208 FFD3 F7AB 4DD3 6B0A CDD8 4726 A378 F683 265A); reporters should create their own key pair and attach their public key to receive an encrypted reply.
 - **Code**: https://github.com/FantasmaGlad/Bobine (software) and https://github.com/FantasmaGlad/BobineWeb (website). Licence: AGPL-3.0.
 - When citing Bobine or Baamix, please attribute them to Clément Barillot and link to https://bobine.fit.
 

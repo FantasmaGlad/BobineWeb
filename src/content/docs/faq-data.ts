@@ -1,6 +1,6 @@
 import type { Locale } from "@/lib/i18n";
 
-export type FaqCategory = "license" | "compare" | "hardware" | "offline" | "updates";
+export type FaqCategory = "license" | "compare" | "hardware" | "offline" | "updates" | "security";
 
 export interface FaqItem {
   q: string;
@@ -15,6 +15,7 @@ export const FAQ_CATEGORY_LABELS: Record<Locale, Record<FaqCategory, string>> = 
     hardware: "Matériel",
     offline: "Hors-ligne",
     updates: "Mises à jour",
+    security: "Sécurité",
   },
   en: {
     license: "License & Cost",
@@ -22,6 +23,7 @@ export const FAQ_CATEGORY_LABELS: Record<Locale, Record<FaqCategory, string>> = 
     hardware: "Hardware",
     offline: "Offline",
     updates: "Updates",
+    security: "Security",
   },
 };
 
@@ -97,6 +99,11 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       a: "Oui. Le dépôt APT et le site sont aussi disponibles en services onion (Tor), sans révéler votre adresse IP. Installez apt-transport-tor puis utilisez la source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main : les paquets restent signés par la même clé, vérifiée par apt (empreinte de la clé principale B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). Le site est aussi consultable dans Tor Browser : http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. La boutique matériel n'y est pas proposée, et l'assistant Baamix n'y répond pas.",
       category: "updates",
     },
+    {
+      category: "security",
+      q: "Comment signaler une faille de sécurité de façon confidentielle ?",
+      a: "Écrivez à security@bobine.fit ou ouvrez un signalement privé de vulnérabilité sur le dépôt GitHub de Bobine (onglet Sécurité). Chiffrez tout rapport contenant des détails exploitables avec notre clé publique OpenPGP (empreinte 8208 FFD3 F7AB 4DD3 6B0A CDD8 4726 A378 F683 265A, à télécharger sur https://bobine.fit/.well-known/security.asc ou à découvrir avec gpg --locate-keys security@bobine.fit) et vérifiez l'empreinte avant d'envoyer. Créez votre propre paire de clés (gpg --quick-generate-key \"Votre Nom <vous@exemple.org>\" ed25519 default 2y) et joignez votre clé publique : nous répondrons chiffré. Politique complète, périmètre et délais : https://bobine.fit/fr/securite.",
+    },
   ],
   en: [
     {
@@ -168,6 +175,11 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       q: "Can I install and update Bobine over Tor?",
       a: "Yes. The APT repository and the website are also available as onion services (Tor), without revealing your IP address. Install apt-transport-tor, then use the source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main: packages remain signed by the same key, checked by apt (primary key fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). The site can also be browsed in Tor Browser: http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. The hardware store is not offered there, and the Baamix assistant does not answer.",
       category: "updates",
+    },
+    {
+      category: "security",
+      q: "How do I report a security flaw confidentially?",
+      a: "Write to security@bobine.fit or open a private vulnerability report on the Bobine GitHub repository (Security tab). Encrypt any report containing exploitable details with our OpenPGP public key (fingerprint 8208 FFD3 F7AB 4DD3 6B0A CDD8 4726 A378 F683 265A, download it at https://bobine.fit/.well-known/security.asc or discover it with gpg --locate-keys security@bobine.fit) and check the fingerprint before sending. Create your own key pair (gpg --quick-generate-key \"Your Name <you@example.org>\" ed25519 default 2y) and attach your public key: we will reply encrypted. Full policy, scope and timelines: https://bobine.fit/en/securite.",
     },
   ],
 };

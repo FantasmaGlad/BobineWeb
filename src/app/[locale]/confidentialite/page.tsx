@@ -9,7 +9,7 @@ const copy = {
     badge: "Vie Privée & Éthique",
     title: "Politique de Confidentialité",
     subtitle: "Ce que le site collecte, ce qui reste sur votre appareil et ce qui transite par des prestataires : zéro cookie publicitaire, zéro pistage commercial.",
-    updated: "Dernière mise à jour : 20 septembre 2026",
+    updated: "Dernière mise à jour : 7 octobre 2026",
     sections: [
       {
         heading: "1. Responsable du Traitement",
@@ -65,7 +65,7 @@ const copy = {
     badge: "Privacy & Digital Ethics",
     title: "Privacy Policy",
     subtitle: "What the site collects, what stays on your device and what goes through providers: zero advertising cookies, zero commercial tracking.",
-    updated: "Last updated: 20 September 2026",
+    updated: "Last updated: 7 October 2026",
     sections: [
       {
         heading: "1. Data Controller",

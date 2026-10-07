@@ -102,7 +102,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "security",
       q: "Comment signaler une faille de sécurité de façon confidentielle ?",
-      a: "Écrivez à security@bobine.fit ou ouvrez un signalement privé de vulnérabilité sur le dépôt GitHub de Bobine (onglet Sécurité). Chiffrez tout rapport contenant des détails exploitables avec notre clé publique OpenPGP (empreinte 23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2, à télécharger sur https://bobine.fit/.well-known/security.asc ou à découvrir avec gpg --locate-keys security@bobine.fit) et vérifiez l'empreinte avant d'envoyer. Créez votre propre paire de clés (gpg --quick-generate-key \"Votre Nom <vous@exemple.org>\" ed25519 default 2y) et joignez votre clé publique : nous répondrons chiffré. Politique complète, périmètre et délais : https://bobine.fit/fr/securite.",
+      a: "Écrivez à security@bobine.fit ou ouvrez un signalement privé de vulnérabilité sur le dépôt GitHub de Bobine (onglet Sécurité). Chiffrez tout rapport contenant des détails exploitables avec notre clé publique OpenPGP (empreinte 23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2, à télécharger sur https://bobine.fit/.well-known/security.asc ou à découvrir avec gpg --locate-keys security@bobine.fit) et vérifiez l'empreinte avant d'envoyer. Créez votre propre paire de clés (gpg --quick-generate-key \"Votre Nom <vous@exemple.org>\" future-default default 2y) et joignez votre clé publique : nous répondrons chiffré. Politique complète, périmètre et délais : https://bobine.fit/fr/securite.",
     },
   ],
   en: [
@@ -179,7 +179,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "security",
       q: "How do I report a security flaw confidentially?",
-      a: "Write to security@bobine.fit or open a private vulnerability report on the Bobine GitHub repository (Security tab). Encrypt any report containing exploitable details with our OpenPGP public key (fingerprint 23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2, download it at https://bobine.fit/.well-known/security.asc or discover it with gpg --locate-keys security@bobine.fit) and check the fingerprint before sending. Create your own key pair (gpg --quick-generate-key \"Your Name <you@example.org>\" ed25519 default 2y) and attach your public key: we will reply encrypted. Full policy, scope and timelines: https://bobine.fit/en/securite.",
+      a: "Write to security@bobine.fit or open a private vulnerability report on the Bobine GitHub repository (Security tab). Encrypt any report containing exploitable details with our OpenPGP public key (fingerprint 23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2, download it at https://bobine.fit/.well-known/security.asc or discover it with gpg --locate-keys security@bobine.fit) and check the fingerprint before sending. Create your own key pair (gpg --quick-generate-key \"Your Name <you@example.org>\" future-default default 2y) and attach your public key: we will reply encrypted. Full policy, scope and timelines: https://bobine.fit/en/securite.",
     },
   ],
 };

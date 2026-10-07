@@ -1,3 +1,6 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
 # Politique de divulgation de vulnerabilites de bobine.fit (RFC 9116).
 # Vulnerability disclosure policy for bobine.fit (RFC 9116).
 
@@ -11,3 +14,10 @@ Canonical: https://bobine.fit/.well-known/security.txt
 Policy: https://bobine.fit/fr/securite
 Policy: https://bobine.fit/en/securite
 Acknowledgments: https://bobine.fit/fr/securite#remerciements
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQQjytMkxQf7D5fmrspuTAIO+L3+sgUCasa/PgAKCRBuTAIO+L3+
+sjPjAP4qaZGFSzbRO9sWnAaQa3NtPd4qXuJcyBOhFJYkAe5XlwEApyohMfdcR0PJ
+kpRc2QCuBzxyFRfzc4eNzF25NdN5cQw=
+=AJOR
+-----END PGP SIGNATURE-----

@@ -33,6 +33,11 @@ const code = (text: string) => (
     {text}
   </code>
 );
+const repoPolicy = (
+  <a href="https://github.com/FantasmaGlad/Bobine/blob/main/SECURITY.md" target="_blank" rel="noopener noreferrer" style={linkStyle}>
+    github.com/FantasmaGlad/Bobine/SECURITY.md
+  </a>
+);
 const securityTxt = (
   <a href="/.well-known/security.txt" style={linkStyle}>
     /.well-known/security.txt
@@ -60,7 +65,8 @@ const copy: Record<Locale, { badge: string; title: string; subtitle: string; upd
         paragraphs: [
           <>Écrivez à {mail}, ou ouvrez un signalement privé de vulnérabilité sur GitHub : {advisory}. Le signalement privé GitHub est préférable pour tout détail exploitable : il n&apos;est visible que des mainteneurs.</>,
           <>Nous demandons de chiffrer tout rapport contenant des détails exploitables. Notre clé publique OpenPGP de réception (Ed25519 et Curve25519, expire en octobre 2028) a pour empreinte <strong>{REPORT_KEY_FINGERPRINT}</strong>. Téléchargez-la sur {reportKey} ou laissez votre client la découvrir : {code("gpg --locate-keys security@bobine.fit")}. Vérifiez l&apos;empreinte avant d&apos;envoyer.</>,
-          <>Créez votre propre paire de clés et joignez votre clé publique à votre message (ou indiquez où la récupérer) : nous répondrons chiffré avec elle. Exemple : {code('gpg --quick-generate-key "Votre Nom <vous@exemple.org>" ed25519 default 2y')} puis {code("gpg --armor --export vous@exemple.org")}. Ne partagez jamais votre clé privée.</>,
+          <>Le fichier {securityTxt} est signé avec cette clé : {code("curl -s https://bobine.fit/.well-known/security.txt | gpg --verify")}. L&apos;empreinte est aussi publiée de façon indépendante dans le dépôt officiel du logiciel ({repoPolicy} et dossier docs/security) : vérifiez qu&apos;elle correspond sur au moins deux canaux avant d&apos;envoyer un rapport.</>,
+          <>Créez votre propre paire de clés et joignez votre clé publique à votre message (ou indiquez où la récupérer) : nous répondrons chiffré avec elle. Exemple : {code('gpg --quick-generate-key "Votre Nom <vous@exemple.org>" future-default default 2y')} puis {code("gpg --armor --export vous@exemple.org")}. Ne partagez jamais votre clé privée.</>,
           <>Si vous ne pouvez pas utiliser PGP, utilisez le signalement privé GitHub plutôt qu&apos;un e-mail en clair. Le fichier {securityTxt} décrit ces canaux de manière lisible par les machines (RFC 9116).</>,
           "Merci d'indiquer : l'adresse ou le composant concerné, les étapes pour reproduire, l'impact que vous observez et, si possible, une preuve de concept minimale.",
         ],
@@ -116,6 +122,16 @@ const copy: Record<Locale, { badge: string; title: string; subtitle: string; upd
         heading: "7. Remerciements",
         paragraphs: ["Aucun signalement n'a été publié à ce jour. Les personnes ayant signalé une faille corrigée seront listées ici, avec leur accord."],
       },
+      {
+        id: "historique",
+        heading: "8. Historique des clés et du document",
+        paragraphs: [
+          "7 octobre 2026 : publication de la politique avec une première clé de réception (empreinte 8208 FFD3 F7AB 4DD3 6B0A CDD8 4726 A378 F683 265A).",
+          "7 octobre 2026 : cette première clé est révoquée et retirée le jour même, quelques heures après sa publication, car sa phrase secrète était inutilisable. Aucun rapport n'avait été reçu et la clé privée n'a jamais été exposée. La clé publique révoquée, munie de sa signature de révocation, est publiée dans le dépôt officiel du logiciel.",
+          `7 octobre 2026 : création et publication de la clé actuelle (${REPORT_KEY_FINGERPRINT}) ; signature de security.txt avec cette clé.`,
+          "Tout changement de clé, d'empreinte ou d'engagement est consigné ici.",
+        ],
+      },
     ],
   },
   en: {
@@ -131,7 +147,8 @@ const copy: Record<Locale, { badge: string; title: string; subtitle: string; upd
         paragraphs: [
           <>Write to {mail}, or open a private vulnerability report on GitHub: {advisory}. The private GitHub report is preferable for anything exploitable: only the maintainers can see it.</>,
           <>We ask that any report containing exploitable details be encrypted. Our OpenPGP public key for receiving reports (Ed25519 and Curve25519, expires October 2028) has the fingerprint <strong>{REPORT_KEY_FINGERPRINT}</strong>. Download it at {reportKey} or let your client discover it: {code("gpg --locate-keys security@bobine.fit")}. Check the fingerprint before sending.</>,
-          <>Create your own key pair and attach your public key to your message (or tell us where to fetch it): we will reply encrypted to it. Example: {code('gpg --quick-generate-key "Your Name <you@example.org>" ed25519 default 2y')} then {code("gpg --armor --export you@example.org")}. Never share your private key.</>,
+          <>The {securityTxt} file is signed with this key: {code("curl -s https://bobine.fit/.well-known/security.txt | gpg --verify")}. The fingerprint is also published independently in the official software repository ({repoPolicy} and docs/security folder): check that it matches on at least two channels before sending a report.</>,
+          <>Create your own key pair and attach your public key to your message (or tell us where to fetch it): we will reply encrypted to it. Example: {code('gpg --quick-generate-key "Your Name <you@example.org>" future-default default 2y')} then {code("gpg --armor --export you@example.org")}. Never share your private key.</>,
           <>If you cannot use PGP, use the private GitHub report rather than plain email. The {securityTxt} file describes these channels in a machine-readable form (RFC 9116).</>,
           "Please include: the affected address or component, steps to reproduce, the impact you observe and, if possible, a minimal proof of concept.",
         ],
@@ -186,6 +203,16 @@ const copy: Record<Locale, { badge: string; title: string; subtitle: string; upd
         id: "remerciements",
         heading: "7. Acknowledgments",
         paragraphs: ["No report has been published so far. People who report a fixed flaw will be listed here, with their consent."],
+      },
+      {
+        id: "historique",
+        heading: "8. Key and document history",
+        paragraphs: [
+          "7 October 2026: policy published with a first report key (fingerprint 8208 FFD3 F7AB 4DD3 6B0A CDD8 4726 A378 F683 265A).",
+          "7 October 2026: this first key is revoked and removed the same day, a few hours after publication, because its passphrase could not be used. No report had been received and the private key was never exposed. The revoked public key, carrying its revocation signature, is published in the official software repository.",
+          `7 October 2026: current key created and published (${REPORT_KEY_FINGERPRINT}); security.txt signed with this key.`,
+          "Any change of key, fingerprint or commitment is recorded here.",
+        ],
       },
     ],
   },

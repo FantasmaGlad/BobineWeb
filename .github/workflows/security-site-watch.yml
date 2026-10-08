@@ -44,7 +44,10 @@ jobs:
             echo "$path -> $code"
             [ "$code" = "200" ] || { echo "::error::$SITE$path a repondu $code"; exit 1; }
           done
-          curl -sS --max-time 30 "$SITE/" | grep -q "23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2" \
+          # La page est lue entierement avant le grep : "grep -q" ferme le tube des la premiere
+          # correspondance, ce qui ferait echouer curl (code 23) sous pipefail.
+          page="$(curl -sS --max-time 30 "$SITE/")"
+          grep -q "23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2" <<< "$page" \
             || { echo "::error::l'empreinte attendue est absente de la page d'accueil"; exit 1; }
 
       - name: Meme empreinte sur tous les canaux

@@ -69,16 +69,17 @@ jobs:
         run: |
           set -euo pipefail
           curl -fsS "$MAIN_SITE/.well-known/security.asc" | gpg --import 2>/dev/null
-          for host in "$MAIN_SITE" "$SITE"; do
-            curl -fsS --max-time 30 "$host/.well-known/security.txt" -o "/tmp/sec-$(echo "$host" | tr -c 'a-z' '_').txt"
-            f="/tmp/sec-$(echo "$host" | tr -c 'a-z' '_').txt"
-            out="$(gpg --status-fd 1 --verify "$f" 2>/dev/null || true)"
-            echo "$out" | grep -q "VALIDSIG $EXPECTED_FPR" || { echo "::error::signature de $host/.well-known/security.txt invalide"; exit 1; }
-            echo "signature valide : $host"
-          done
-          cmp "/tmp/sec-https___bobine_fit.txt" "/tmp/sec-https___security_bobine_fit.txt" 2>/dev/null \
+          fetch_and_verify() {
+            curl -fsS --max-time 30 "$2/.well-known/security.txt" -o "$3"
+            out="$(gpg --status-fd 1 --verify "$3" 2>/dev/null || true)"
+            grep -q "VALIDSIG $EXPECTED_FPR" <<< "$out" || { echo "::error::signature de $2/.well-known/security.txt invalide"; exit 1; }
+            echo "signature valide : $1 ($2)"
+          }
+          fetch_and_verify "site principal" "$MAIN_SITE" /tmp/security-main.txt
+          fetch_and_verify "site dedie" "$SITE" /tmp/security-site.txt
+          cmp /tmp/security-main.txt /tmp/security-site.txt \
             || { echo "::error::les deux security.txt different"; exit 1; }
-          expires="$(sed -n 's/^Expires: //p' /tmp/sec-https___bobine_fit.txt | head -n1)"
+          expires="$(sed -n 's/^Expires: //p' /tmp/security-main.txt | head -n1)"
           left=$(( ( $(date -u -d "$expires" +%s) - $(date -u +%s) ) / 86400 ))
           echo "security.txt expire dans $left jours ($expires)"
           [ "$left" -ge 30 ] || { echo "::error::security.txt expire dans moins de 30 jours : le renouveler (scripts/security-txt/sign.sh)"; exit 1; }

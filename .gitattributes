@@ -1,0 +1,18 @@
+# Fins de ligne normalisées en LF.
+* text=auto eol=lf
+
+# Fichiers signés ou binaires : aucune conversion, sinon la signature OpenPGP devient invalide.
+public/.well-known/** -text
+security/site/.well-known/** -text
+security/site/security.asc -text
+
+# Binaires et fichiers volumineux : pas de différentiel texte.
+*.glb binary
+*.mp4 binary
+*.webp binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.wasm binary
+*.gltf -diff
+package-lock.json -diff

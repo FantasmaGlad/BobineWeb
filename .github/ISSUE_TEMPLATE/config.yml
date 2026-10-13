@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Signaler une vulnérabilité
+    url: https://github.com/FantasmaGlad/BobineWeb/security/advisories/new
+    about: "Les failles ne se signalent jamais par ticket public. Voir SECURITY.md."
+  - name: Logiciel Bobine
+    url: https://github.com/FantasmaGlad/Bobine/issues
+    about: "Bug ou idée concernant le logiciel (et non le site), dans le dépôt Bobine."

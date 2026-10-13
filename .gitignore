@@ -1,37 +1,87 @@
-# dependencies
-/node_modules
+# Ce dépôt ne publie que ce qui est nécessaire pour construire et faire tourner le site.
+# Tout ce qui est généré, secret ou propre à une machine reste hors de Git.
 
-# next.js
+# --- Dépendances ---
+/node_modules
+.pnp
+.pnp.*
+
+# --- Construction ---
 /.next/
 /out/
-next-env.d.ts.tsbuildinfo
-*.tsbuildinfo
-
-# production
 /build
+/dist
+*.tsbuildinfo
+next-env.d.ts.tsbuildinfo
+.turbo/
+coverage/
+playwright-report/
+test-results/
 
-# misc
-.DS_Store
+# --- Variables d'environnement : seul le modèle est versionné ---
+.env
+.env.*
+!.env.example
+
+# --- Clés, certificats et identifiants : jamais dans le dépôt ---
+# Les clés PUBLIQUES du site (public/.well-known/) ne sont pas concernées.
 *.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.crt
+*.csr
+id_rsa*
+id_ed25519*
+id_ecdsa*
+hs_ed25519_*
+*.kdbx
+*.secret
+*.secrets
+secrets/
+.secrets/
+credentials*.json
+service-account*.json
+*-service-account.json
+.npmrc
+.netrc
+.htpasswd
 
-# debug
+# --- Sauvegardes, archives et fichiers temporaires ---
+*.bundle
+*.tar
+*.tar.gz
+*.tgz
+*.gpg
+*.zip
+*.bak
+*.orig
+*.rej
+*.swp
+*.tmp
+*~
+
+# --- Journaux ---
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+firewall-events*.json
 
-# local env files
-.env*.local
-.env
-
-# vercel
+# --- Hébergeur ---
 .vercel
 
-# sources brutes des assets 3D (non compressées, plusieurs dizaines de Mo) —
-# seule la version optimisée dans public/models/ est versionnée et servie
+# --- Sources brutes non diffusées ---
+# Les assets 3D bruts pèsent plusieurs dizaines de Mo : seule la version optimisée
+# de public/models/ est versionnée et servie.
 /assets/
+/design-src/
 
-# editeurs
+# --- Éditeurs et système ---
 .vscode/
 .idea/
-firewall-events*.json
-/design-src/
+.DS_Store
+Thumbs.db

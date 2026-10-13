@@ -1,0 +1,32 @@
+name: Erreur ou défaut du site
+description: Information fausse ou périmée, lien cassé, problème d'accessibilité, défaut d'affichage.
+labels: ["site"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page concernée
+      description: Adresse complète, avec la langue (/fr ou /en).
+      placeholder: https://bobine.fit/fr/...
+    validations:
+      required: true
+  - type: textarea
+    id: constat
+    attributes:
+      label: Ce que vous observez
+      description: Le résultat attendu et le résultat observé. Pour une information fausse, indiquez la source qui la contredit.
+    validations:
+      required: true
+  - type: textarea
+    id: etapes
+    attributes:
+      label: Étapes pour reproduire
+    validations:
+      required: false
+  - type: input
+    id: environnement
+    attributes:
+      label: Navigateur, version et appareil
+      placeholder: Firefox 150, Linux, écran 1920x1080
+    validations:
+      required: false

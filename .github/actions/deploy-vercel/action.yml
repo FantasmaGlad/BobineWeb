@@ -1,0 +1,52 @@
+name: Déployer sur Vercel
+description: >
+  Construit le site avec le CLI Vercel puis le déploie. Seul fichier à remplacer pour changer
+  d'hébergeur : les workflows n'appellent que cette action (entrées : cible et identifiants,
+  sortie : adresse du déploiement).
+
+inputs:
+  target:
+    description: "production ou preview"
+    required: true
+  token:
+    description: "Jeton Vercel"
+    required: true
+  org-id:
+    description: "Identifiant de l'équipe Vercel"
+    required: true
+  project-id:
+    description: "Identifiant du projet Vercel"
+    required: true
+
+outputs:
+  url:
+    description: "Adresse du déploiement"
+    value: ${{ steps.deploy.outputs.url }}
+
+runs:
+  using: composite
+  steps:
+    - name: Installer le CLI
+      shell: bash
+      run: npm install --global vercel@63.1.2
+
+    - name: Construire et déployer
+      id: deploy
+      shell: bash
+      env:
+        VERCEL_TOKEN: ${{ inputs.token }}
+        VERCEL_ORG_ID: ${{ inputs.org-id }}
+        VERCEL_PROJECT_ID: ${{ inputs.project-id }}
+        TARGET: ${{ inputs.target }}
+      run: |
+        set -euo pipefail
+        if [ "$TARGET" = "production" ]; then
+          prod=(--prod)
+        else
+          prod=()
+        fi
+        vercel pull --yes --environment="$TARGET" --token "$VERCEL_TOKEN"
+        vercel build "${prod[@]}" --token "$VERCEL_TOKEN"
+        url=$(vercel deploy --prebuilt "${prod[@]}" --token "$VERCEL_TOKEN")
+        echo "Déployé : $url"
+        echo "url=$url" >> "$GITHUB_OUTPUT"

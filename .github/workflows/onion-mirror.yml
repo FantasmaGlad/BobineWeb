@@ -9,6 +9,7 @@ on:
     branches: [main]
     paths-ignore:
       - "docs/**"
+      - "security/**"
       - "**/*.md"
   schedule:
     # Rafraîchit chaque jour les données lues sur GitHub Releases (blog, version).
@@ -29,9 +30,9 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -46,40 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify the mirror is clean
-        run: |
-          set -eu
-          cd out
-
-          test -f fr/index.html || { echo "fr/index.html manquant"; exit 1; }
-
-          # La boutique est remplacée par la page de renvoi ; Baamix par son chat (message de Baamix, sans appel réseau).
-          for page in fr/materiel fr/materiel/amazon fr/materiel/aliexpress en/materiel; do
-            grep -q "onion-notice" "$page/index.html" || { echo "Page de renvoi absente : $page"; exit 1; }
-          done
-          for page in fr/baamix en/baamix; do
-            grep -q "chatbot-modal--page" "$page/index.html" || { echo "Chat Baamix absent : $page"; exit 1; }
-          done
-
-          # Aucun lien marchand ni suivi d'affiliation (un simple texte cité dans une note de version reste permis).
-          if grep -rIlE "href=\"https?://[^\"]*(amazon\.[a-z.]+|aliexpress\.[a-z.]+)[^\"]*\"" --include=*.html . | grep -q .; then
-            echo "Lien marchand trouvé dans le miroir :"
-            grep -rIlE "href=\"https?://[^\"]*(amazon\.[a-z.]+|aliexpress\.[a-z.]+)[^\"]*\"" --include=*.html . | head
-            exit 1
-          fi
-
-          # Aucune ressource externe chargée automatiquement (les simples liens cliquables restent permis).
-          EXT='<(script|img|iframe|source|video)[^>]+src="https?://|<link[^>]+rel="(stylesheet|preload|modulepreload|prefetch|icon|manifest)"[^>]+href="https?://'
-          if grep -rIhoE "$EXT" --include=*.html . | grep -q .; then
-            echo "Ressource externe chargée automatiquement :"
-            grep -rIhoE "$EXT" --include=*.html . | sort | uniq -c | head
-            exit 1
-          fi
-
-          # Aucun outil de mesure d'audience dans les pages (le composant n'est pas monté ; sa chaîne
-          # d'URL peut subsister, inerte, dans un chunk JS partagé).
-          if grep -rIl "_vercel/insights\|vercel-scripts" --include=*.html . | grep -q .; then
-            echo "Mesure d'audience présente dans le miroir"; exit 1
-          fi
+        run: bash scripts/ci/verify-onion.sh out
 
       # Vercel construit chaque branche poussee : la branche onion-site ne contient que des fichiers statiques
       # (pas d'application Next.js) et son build echouait. Ce vercel.json lui interdit tout deploiement.

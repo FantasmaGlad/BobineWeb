@@ -1,8 +1,8 @@
-name: Surveillance du site de securite
+name: Surveillance du site de sécurité
 
-# Verifie chaque jour que security.bobine.fit (GitHub Pages) pointe toujours vers le bon depot,
-# que la cle OpenPGP publiee est la bonne sur tous les canaux et que security.txt est valide.
-# Un echec fait echouer l'execution : GitHub previent alors le proprietaire du depot.
+# Vérifie chaque jour que security.bobine.fit (GitHub Pages, publié depuis ce dépôt) pointe toujours
+# vers GitHub Pages, que la clé OpenPGP publiée est la bonne sur tous les canaux et que security.txt
+# est valide. Un échec fait échouer l'exécution : GitHub prévient alors le propriétaire du dépôt.
 on:
   schedule:
     - cron: "17 6 * * *"
@@ -10,9 +10,9 @@ on:
 
 permissions:
   contents: read
+  pages: read
 
 env:
-  EXPECTED_FPR: "23CAD324C507FB0F97E6AECA6E4C020EF8BDFEB2"
   EXPECTED_CNAME: "fantasmaglad.github.io."
   SITE: "https://security.bobine.fit"
   MAIN_SITE: "https://bobine.fit"
@@ -21,8 +21,13 @@ env:
 jobs:
   watch:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
+      - uses: actions/checkout@v7
+
+      - name: Empreinte attendue (fichier unique du dépôt)
+        run: echo "EXPECTED_FPR=$(tr -d '[:space:]' < security/fingerprint.txt)" >> "$GITHUB_ENV"
+
       - name: Le CNAME pointe vers GitHub Pages (risque de reprise de sous-domaine)
         run: |
           set -euo pipefail
@@ -30,42 +35,34 @@ jobs:
           echo "CNAME actuel : ${got:-<aucun>}"
           [ "$got" = "$EXPECTED_CNAME" ] || { echo "::error::CNAME inattendu pour security.bobine.fit"; exit 1; }
 
-      - name: Le depot du site existe et est public
+      - name: Ce dépôt publie bien le domaine
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          code="$(curl -s -o /dev/null -w '%{http_code}' https://api.github.com/repos/FantasmaGlad/bobine-security)"
-          [ "$code" = "200" ] || { echo "::error::depot FantasmaGlad/bobine-security introuvable (HTTP $code) : le sous-domaine peut etre repris"; exit 1; }
+          cname="$(gh api "repos/${GITHUB_REPOSITORY}/pages" --jq '.cname')"
+          echo "domaine publié par ${GITHUB_REPOSITORY} : ${cname:-<aucun>}"
+          [ "$cname" = "security.bobine.fit" ] || { echo "::error::le domaine n'est plus servi par ce dépôt : il peut être repris"; exit 1; }
 
-      - name: Le site repond en HTTPS avec un certificat valide
-        run: |
-          set -euo pipefail
-          for path in / /fr/ /snake/ /security.asc /.well-known/security.txt; do
-            code="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 "$SITE$path")"
-            echo "$path -> $code"
-            [ "$code" = "200" ] || { echo "::error::$SITE$path a repondu $code"; exit 1; }
-          done
-          # La page est lue entierement avant le grep : "grep -q" ferme le tube des la premiere
-          # correspondance, ce qui ferait echouer curl (code 23) sous pipefail.
-          page="$(curl -sS --max-time 30 "$SITE/")"
-          grep -q "23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2" <<< "$page" \
-            || { echo "::error::l'empreinte attendue est absente de la page d'accueil"; exit 1; }
+      - name: Le site répond en HTTPS et sert exactement le contenu du dépôt
+        run: bash scripts/ci/smoke-security.sh "$SITE"
 
-      - name: Meme empreinte sur tous les canaux
+      - name: Même empreinte sur tous les canaux
         run: |
           set -euo pipefail
           check() {
             fpr="$(curl -fsS --max-time 30 "$2" | gpg --show-keys --with-colons 2>/dev/null | awk -F: '/^fpr/{print $10; exit}')"
             echo "$1 : ${fpr:-<aucune>}"
-            [ "$fpr" = "$EXPECTED_FPR" ] || { echo "::error::empreinte differente sur $1"; exit 1; }
+            [ "$fpr" = "$EXPECTED_FPR" ] || { echo "::error::empreinte différente sur $1"; exit 1; }
           }
           check "security.bobine.fit" "$SITE/security.asc"
           check "bobine.fit" "$MAIN_SITE/.well-known/security.asc"
-          check "depot Bobine (GitHub)" "$REPO_RAW"
+          check "dépôt Bobine (GitHub)" "$REPO_RAW"
           dns="$(dig +short TXT bobine.fit @1.1.1.1 | tr -d '"' | grep -c "openpgp4fpr:$EXPECTED_FPR" || true)"
           echo "DNS openpgp4fpr : $dns"
-          [ "$dns" -ge 1 ] || { echo "::error::enregistrement DNS openpgp4fpr absent ou different"; exit 1; }
+          [ "$dns" -ge 1 ] || { echo "::error::enregistrement DNS openpgp4fpr absent ou différent"; exit 1; }
 
-      - name: security.txt signe, valide et loin de son expiration
+      - name: security.txt signé, valide et loin de son expiration
         run: |
           set -euo pipefail
           curl -fsS "$MAIN_SITE/.well-known/security.asc" | gpg --import 2>/dev/null
@@ -76,18 +73,18 @@ jobs:
             echo "signature valide : $1 ($2)"
           }
           fetch_and_verify "site principal" "$MAIN_SITE" /tmp/security-main.txt
-          fetch_and_verify "site dedie" "$SITE" /tmp/security-site.txt
+          fetch_and_verify "site dédié" "$SITE" /tmp/security-site.txt
           cmp /tmp/security-main.txt /tmp/security-site.txt \
-            || { echo "::error::les deux security.txt different"; exit 1; }
+            || { echo "::error::les deux security.txt diffèrent"; exit 1; }
           expires="$(sed -n 's/^Expires: //p' /tmp/security-main.txt | head -n1)"
           left=$(( ( $(date -u -d "$expires" +%s) - $(date -u +%s) ) / 86400 ))
           echo "security.txt expire dans $left jours ($expires)"
           [ "$left" -ge 30 ] || { echo "::error::security.txt expire dans moins de 30 jours : le renouveler (scripts/security-txt/sign.sh)"; exit 1; }
 
-      - name: La cle OpenPGP n'expire pas dans moins de 90 jours
+      - name: La clé OpenPGP n'expire pas dans moins de 90 jours
         run: |
           set -euo pipefail
           exp="$(curl -fsS "$MAIN_SITE/.well-known/security.asc" | gpg --show-keys --with-colons 2>/dev/null | awk -F: '/^pub/{print $7; exit}')"
           left=$(( ( exp - $(date -u +%s) ) / 86400 ))
-          echo "la cle expire dans $left jours"
-          [ "$left" -ge 90 ] || { echo "::error::la cle OpenPGP expire dans moins de 90 jours : la renouveler"; exit 1; }
+          echo "la clé expire dans $left jours"
+          [ "$left" -ge 90 ] || { echo "::error::la clé OpenPGP expire dans moins de 90 jours : la renouveler"; exit 1; }

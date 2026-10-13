@@ -1,0 +1,114 @@
+name: Déploiement
+
+# Chaîne de livraison unique, pilotée par GitHub : validation, déploiement du site, publication
+# du site de sécurité, puis tests en direct. L'intégration Git de l'hébergeur est désactivée
+# (vercel.json) : rien n'est publié sans passer par ce workflow.
+# Changer d'hébergeur = remplacer l'action `.github/actions/deploy-vercel`.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploiement
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Validation
+    uses: ./.github/workflows/ci.yml
+    permissions:
+      contents: read
+
+  changes:
+    name: Fichiers modifiés
+    runs-on: ubuntu-latest
+    outputs:
+      security: ${{ steps.diff.outputs.security }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - id: diff
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          set -eu
+          if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ] || [ -z "${BEFORE:-}" ] \
+             || [ "$BEFORE" = "0000000000000000000000000000000000000000" ] \
+             || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            echo "security=true" >> "$GITHUB_OUTPUT"
+          elif git diff --name-only "$BEFORE" "$GITHUB_SHA" | grep -q '^security/'; then
+            echo "security=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "security=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy-web:
+    name: Déployer le site
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: production
+      url: https://bobine.fit
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - uses: ./.github/actions/deploy-vercel
+        with:
+          target: production
+          token: ${{ secrets.VERCEL_TOKEN }}
+          org-id: ${{ vars.VERCEL_TEAM_ID }}
+          project-id: ${{ vars.VERCEL_PROJECT_ID }}
+
+  smoke-web:
+    name: Tests en direct du site
+    needs: deploy-web
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - run: bash scripts/ci/smoke-web.sh https://bobine.fit --www
+
+  deploy-security:
+    name: Publier le site de sécurité
+    needs: [verify, changes]
+    if: needs.changes.outputs.security == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: https://security.bobine.fit
+    steps:
+      - uses: actions/checkout@v7
+      # Archive faite à la main : les actions de téléversement Pages écartent les fichiers cachés,
+      # or le dossier .well-known doit être servi.
+      - name: Archive du site
+        run: tar --dereference --hard-dereference --directory security/site -cf "$RUNNER_TEMP/artifact.tar" .
+      - uses: actions/upload-artifact@v7
+        with:
+          name: github-pages
+          path: ${{ runner.temp }}/artifact.tar
+          retention-days: 1
+          if-no-files-found: error
+      - id: deployment
+        uses: actions/deploy-pages@v5
+
+  smoke-security:
+    name: Tests en direct du site de sécurité
+    needs: deploy-security
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - run: bash scripts/ci/smoke-security.sh https://security.bobine.fit

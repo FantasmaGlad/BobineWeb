@@ -1,21 +1,110 @@
 name: CI
 
+# Contrôles de validation, exécutés sur chaque demande de fusion et appelés par le déploiement :
+# rien n'est publié tant que ces contrôles ne sont pas verts. Le job `ci-ok` est le statut
+# unique à exiger dans la protection de branche.
 on:
-  push:
-    branches: [main]
   pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
 
 jobs:
-  build:
+  policy:
+    name: Politique du dépôt
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Entrées, secrets, emoji, commits poussés
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          set -eu
+          range=""
+          if [ "${GITHUB_EVENT_NAME}" = "push" ] && [ -n "${BEFORE:-}" ] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            range="$BEFORE..$GITHUB_SHA"
+          fi
+          POLICY_RANGE="$range" bash scripts/ci/policy-check.sh
+      - name: Commits de la demande de fusion
+        if: github.event_name == 'pull_request'
+        run: |
+          set -euo pipefail
+          if git log --format='%B' "origin/${GITHUB_BASE_REF}..HEAD" | grep -iE '^co-authored-by:'; then
+            echo "::error::Trailer de co-auteur interdit"
+            exit 1
+          fi
 
-      - uses: actions/setup-node@v4
+  web:
+    name: Site (types, lint, build)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
-
       - run: npm ci
-      - run: npm run lint
-      - run: npm run build
+      - name: TypeScript
+        run: npx tsc --noEmit
+      - name: ESLint
+        run: npm run lint
+      - uses: actions/cache@v6
+        with:
+          path: .next/cache
+          key: next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**', 'public/**') }}
+          restore-keys: |
+            next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+      - name: Build de production
+        run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+  onion:
+    name: Miroir Tor (export statique)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Installateur identique à la copie de déploiement
+        run: cmp public/install-tor.sh deploy/onion/install-client.sh
+      - name: ShellCheck
+        run: shellcheck -S error deploy/onion/*.sh public/install-tor.sh public/install.sh scripts/ci/*.sh scripts/security-txt/sign.sh
+      - name: Export statique
+        run: npm run build:onion
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Contrôle du miroir
+        run: bash scripts/ci/verify-onion.sh out
+
+  security-site:
+    name: Site de sécurité
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - run: bash scripts/ci/check-security-site.sh
+
+  ci-ok:
+    name: ci-ok
+    if: always()
+    needs: [policy, web, onion, security-site]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tous les contrôles sont verts
+        run: |
+          set -eu
+          results='${{ join(needs.*.result, ' ') }}'
+          echo "résultats : $results"
+          for r in $results; do
+            [ "$r" = "success" ] || { echo "::error::un contrôle a échoué ou a été ignoré ($r)"; exit 1; }
+          done

@@ -1,0 +1,47 @@
+name: Contrôle en direct du miroir Tor
+
+# Interroge le vrai service onion à travers le réseau Tor : ce que les tests statiques ne voient pas
+# (machine hôte, service onion, serveur web, synchronisation). Un échec prévient le propriétaire du dépôt.
+on:
+  schedule:
+    - cron: "37 5,17 * * *"
+  workflow_run:
+    workflows: ["Onion mirror"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: live-tor
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    name: Sonde Tor
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - name: Installer et démarrer Tor
+        run: |
+          set -eu
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq tor
+          mkdir -p "$RUNNER_TEMP/tor"
+          tor --SocksPort 9050 --DataDirectory "$RUNNER_TEMP/tor" --Log "notice file $RUNNER_TEMP/tor.log" --RunAsDaemon 1
+          for _ in $(seq 1 60); do
+            grep -q "Bootstrapped 100%" "$RUNNER_TEMP/tor.log" 2>/dev/null && exit 0
+            sleep 3
+          done
+          cat "$RUNNER_TEMP/tor.log"
+          echo "::error::Tor n'a pas fini de démarrer"
+          exit 1
+      - name: Interroger le miroir
+        env:
+          # Après une publication, la machine hôte tire la nouvelle version au plus tard dans un quart d'heure.
+          EXPECTED_SHA: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || '' }}
+          ATTEMPTS: ${{ github.event_name == 'workflow_run' && '30' || '4' }}
+        run: bash scripts/ci/smoke-onion.sh

@@ -16,7 +16,7 @@ cd "$(git rev-parse --show-toplevel)"
 get() {
   local path=$1; shift
   if [ -n "${SMOKE_DEPLOYMENT:-}" ]; then
-    vercel curl "$path" --deployment "$SMOKE_DEPLOYMENT" --token "$VERCEL_TOKEN" --yes -- "$@"
+    VERCEL_TOKEN="$VERCEL_TOKEN" vercel curl "$path" --deployment "$SMOKE_DEPLOYMENT" --yes -- "$@"
   else
     curl "$@" "$BASE$path"
   fi

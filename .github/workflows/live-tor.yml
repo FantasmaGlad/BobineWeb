@@ -25,19 +25,21 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v7
-      - name: Installer et démarrer Tor
+      - name: Installer Tor et attendre le circuit
         run: |
           set -eu
           sudo apt-get update -qq
+          # Le paquet démarre lui-même le service, qui écoute en SOCKS sur 127.0.0.1:9050.
           sudo apt-get install -y -qq tor
-          mkdir -p "$RUNNER_TEMP/tor"
-          tor --SocksPort 9050 --DataDirectory "$RUNNER_TEMP/tor" --Log "notice file $RUNNER_TEMP/tor.log" --RunAsDaemon 1
           for _ in $(seq 1 60); do
-            grep -q "Bootstrapped 100%" "$RUNNER_TEMP/tor.log" 2>/dev/null && exit 0
-            sleep 3
+            if curl -fsS --max-time 20 --socks5-hostname 127.0.0.1:9050 https://check.torproject.org/api/ip | grep -q '"IsTor":true'; then
+              echo "circuit Tor établi"
+              exit 0
+            fi
+            sleep 5
           done
-          cat "$RUNNER_TEMP/tor.log"
-          echo "::error::Tor n'a pas fini de démarrer"
+          sudo journalctl -u tor@default --no-pager | tail -30 || true
+          echo "::error::Tor n'a pas établi de circuit"
           exit 1
       - name: Interroger le miroir
         env:

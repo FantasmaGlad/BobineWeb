@@ -1,0 +1,169 @@
+LICENCE DE CONSULTATION - TOUS DROITS RÉSERVÉS
+VIEW-ONLY LICENSE - ALL RIGHTS RESERVED
+
+Copyright (c) 2026 Bobine. Tous droits réservés. / All rights reserved.
+
+Ce dépôt (le « Site ») contient le code source, les textes, les données, les
+images, les modèles 3D et la documentation du site https://bobine.fit.
+Il est publié pour être LU, et uniquement pour cela. Ce n'est pas un logiciel
+libre ni un logiciel open source.
+
+La version française de cette licence fait foi. Une traduction anglaise suit.
+
+
+=========================================================================
+VERSION FRANÇAISE
+=========================================================================
+
+1. Droit accordé
+
+   Vous pouvez consulter et lire le Site, en ligne sur GitHub, à titre
+   personnel et à des fins de lecture, d'information ou d'évaluation du
+   travail réalisé. C'est le seul droit accordé.
+
+2. Ce qui est interdit
+
+   Sans autorisation écrite préalable de Bobine, il est interdit de :
+
+   a) copier, reproduire ou télécharger le Site, en tout ou en partie, autrement
+      que ce qui est strictement nécessaire à sa lecture ;
+   b) utiliser le Site : l'exécuter, le compiler, le déployer, l'héberger, le
+      mettre en ligne, l'intégrer à un autre projet ou en tirer un service ;
+   c) modifier, adapter, traduire ou créer une oeuvre dérivée du Site ;
+   d) distribuer, publier, communiquer au public, prêter, louer, vendre ou
+      sous-licencier le Site, en tout ou en partie ;
+   e) reprendre le nom, l'identité visuelle, les textes, la structure ou le
+      design du Site pour un autre site ou produit, ni créer une confusion avec
+      Bobine ou avec bobine.fit ;
+   f) retirer ou modifier les mentions de droits d'auteur et de propriété.
+
+   Rendre une copie accessible à d'autres n'est pas permis, même gratuitement.
+
+3. Conditions d'utilisation de GitHub
+
+   Les droits que les conditions d'utilisation de GitHub accordent aux
+   utilisateurs de la plateforme (consultation, copie au sein de GitHub dans
+   la mesure où elles l'imposent) subsistent uniquement dans cette mesure. Ils
+   ne donnent aucun droit d'utiliser le Site hors de GitHub.
+
+4. Recherche de vulnérabilités
+
+   La recherche de failles menée de bonne foi, dans le périmètre et selon les
+   règles de la politique SECURITY.md et de https://bobine.fit/fr/securite,
+   n'est pas une violation de la présente licence.
+
+5. Éléments tiers
+
+   Le Site contient ou utilise des éléments qui n'appartiennent pas à Bobine
+   (bibliothèques, décodeurs, marques, logos, images de produits). Ils restent
+   soumis à leurs propres licences et à leurs propres titulaires ; la présente
+   licence ne leur donne ni ne leur retire aucun droit. Voir NOTICE.md.
+
+6. Le logiciel Bobine
+
+   Le logiciel Bobine (dépôt https://github.com/FantasmaGlad/Bobine) est un
+   projet distinct, diffusé sous sa propre licence (GNU AGPL-3.0). La présente
+   licence ne s'applique pas à lui, et sa licence ne s'applique pas à ce Site.
+
+7. Contributions
+
+   Les contributions à ce dépôt sont régies par CONTRIBUTING.md, qui prévoit
+   la cession des droits sur la contribution à Bobine.
+
+8. Absence de garantie
+
+   Le Site est fourni « en l'état », sans garantie d'aucune sorte, expresse ou
+   implicite. Bobine n'est responsable d'aucun dommage résultant de sa lecture
+   ou de son utilisation non autorisée.
+
+9. Fin
+
+   Toute violation de la présente licence met fin immédiatement au droit de
+   consultation accordé au point 1, sans préjudice des autres recours.
+
+10. Droit applicable
+
+    La présente licence est régie par le droit français.
+
+11. Autorisation
+
+    Pour toute autre utilisation, écrivez à contact@bobine.fit en décrivant
+    l'usage envisagé. Une autorisation n'est valable que si elle est écrite.
+
+
+=========================================================================
+ENGLISH VERSION (courtesy translation)
+=========================================================================
+
+1. Permission granted
+
+   You may view and read the Site, online on GitHub, for personal purposes:
+   reading, information, or evaluating the work. This is the only permission
+   granted.
+
+2. What is prohibited
+
+   Without prior written permission from Bobine, you may not:
+
+   a) copy, reproduce or download the Site, in whole or in part, beyond what is
+      strictly necessary to read it;
+   b) use the Site: run it, build it, deploy it, host it, put it online,
+      integrate it into another project or derive a service from it;
+   c) modify, adapt, translate or create a derivative work of the Site;
+   d) distribute, publish, communicate to the public, lend, rent, sell or
+      sublicense the Site, in whole or in part;
+   e) reuse the name, visual identity, texts, structure or design of the Site
+      for another site or product, or create confusion with Bobine or
+      bobine.fit;
+   f) remove or alter copyright and ownership notices.
+
+   Making a copy available to others is not permitted, even free of charge.
+
+3. GitHub terms of service
+
+   The rights that GitHub's terms of service grant to users of the platform
+   (viewing, copying within GitHub to the extent those terms require) remain
+   only to that extent. They give no right to use the Site outside GitHub.
+
+4. Vulnerability research
+
+   Good-faith security research within the scope and rules of SECURITY.md and
+   https://bobine.fit/en/securite is not a violation of this license.
+
+5. Third-party components
+
+   The Site contains or uses components that do not belong to Bobine
+   (libraries, decoders, trademarks, logos, product images). They remain subject
+   to their own licenses and owners; this license neither grants nor removes
+   any right on them. See NOTICE.md.
+
+6. The Bobine software
+
+   The Bobine software (https://github.com/FantasmaGlad/Bobine) is a separate
+   project released under its own license (GNU AGPL-3.0). This license does not
+   apply to it, and its license does not apply to this Site.
+
+7. Contributions
+
+   Contributions to this repository are governed by CONTRIBUTING.md, which
+   provides for the assignment of rights in the contribution to Bobine.
+
+8. No warranty
+
+   The Site is provided "as is", without warranty of any kind, express or
+   implied. Bobine is not liable for any damage resulting from its reading or
+   from unauthorized use.
+
+9. Termination
+
+   Any violation of this license immediately ends the right to view granted in
+   section 1, without prejudice to other remedies.
+
+10. Governing law
+
+    This license is governed by French law.
+
+11. Permission
+
+    For any other use, write to contact@bobine.fit describing the intended use.
+    A permission is valid only if written.

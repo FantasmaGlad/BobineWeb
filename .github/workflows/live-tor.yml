@@ -20,7 +20,8 @@ concurrency:
 jobs:
   probe:
     name: Sonde Tor
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    # Interrupteur : la sonde ne tourne que si la variable TOR_PROBE_ENABLED vaut "true" (machine hôte en ligne).
+    if: vars.TOR_PROBE_ENABLED == 'true' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:

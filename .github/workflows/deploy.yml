@@ -55,12 +55,15 @@ jobs:
     environment:
       name: production
       url: https://bobine.fit
+    outputs:
+      url: ${{ steps.deploy.outputs.url }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version: 24
-      - uses: ./.github/actions/deploy-vercel
+      - id: deploy
+        uses: ./.github/actions/deploy-vercel
         with:
           target: production
           token: ${{ secrets.VERCEL_TOKEN }}
@@ -74,7 +77,19 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
-      - run: bash scripts/ci/smoke-web.sh https://bobine.fit --www
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: npm install --global vercel@63.1.2
+      # Le site public est derrière une protection anti-bot qui refuse les adresses des runners GitHub :
+      # le test interroge le déploiement lui-même.
+      - name: Interroger le déploiement
+        env:
+          SMOKE_DEPLOYMENT: ${{ needs.deploy-web.outputs.url }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ vars.VERCEL_TEAM_ID }}
+          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+        run: bash scripts/ci/smoke-web.sh https://bobine.fit
 
   deploy-security:
     name: Publier le site de sécurité

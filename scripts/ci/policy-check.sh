@@ -43,7 +43,7 @@ fi
 
 # 6. Commits poussés : aucun trailer de co-auteur, identité noreply.
 if [ -n "${POLICY_RANGE:-}" ]; then
-  if git log --format='%H %B' "$POLICY_RANGE" | grep -iE '^[0-9a-f]{40} |^co-authored-by:' | grep -iE 'co-authored-by:'; then
+  if git log --format='%B' "$POLICY_RANGE" | grep -iE '^co-authored-by:'; then
     err "Trailer de co-auteur interdit dans un commit"
   fi
   bad=$(git log --format='%h %ae %ce' "$POLICY_RANGE" | grep -vE '@users\.noreply\.github\.com.*@users\.noreply\.github\.com|noreply@github\.com' || true)

@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Bobine Snake</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Classic arcade Snake. Lightweight HTML5 canvas, responsive fullscreen, zero dependencies.">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="https://bobine.fit/favicon.ico">
+  <link rel="canonical" href="https://security.bobine.fit/snake/">
+  <link rel="alternate" hreflang="en" href="https://security.bobine.fit/snake/">
+  <link rel="alternate" hreflang="fr" href="https://security.bobine.fit/snake/?lang=fr">
+  <link rel="alternate" hreflang="x-default" href="https://security.bobine.fit/snake/">
+
+  <!-- OpenGraph / Social Meta -->
+  <meta property="og:title" content="Bobine Snake">
+  <meta property="og:description" content="Classic arcade Snake. Lightweight HTML5 canvas, responsive fullscreen, zero dependencies.">
+  <meta property="og:url" content="https://security.bobine.fit/snake/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Bobine Snake">
+  <meta property="og:image" content="https://bobine.fit/fr/opengraph-image">
+
+  <!-- Twitter Meta -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bobine Snake">
+  <meta name="twitter:description" content="Classic arcade Snake. Lightweight HTML5 canvas, responsive fullscreen, zero dependencies.">
+  <meta name="twitter:image" content="https://bobine.fit/fr/opengraph-image">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "Bobine Snake",
+  "description": "Minimalist fullscreen arcade Snake game.",
+  "genre": [
+    "Arcade",
+    "Retro"
+  ],
+  "playMode": "SinglePlayer",
+  "applicationCategory": "Game",
+  "operatingSystem": "Any web browser",
+  "url": "https://security.bobine.fit/snake/",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+  </script>
+
+  <style>
+    /* --------------------------------------------------------------------------
+       Bobine — Design System (Thème Clair : Albâtre & Ardoise)
+       Esthétique monochrome épurée, plein écran sans défilement
+       -------------------------------------------------------------------------- */
+    :root {
+      --bg-canvas: #f8fafc;
+      --bg-surface: #ffffff;
+      --text-heading: #0f172a;
+      --text-main: #1e293b;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
+      --border-subtle: #e2e8f0;
+      --accent-primary: #0f172a;
+      --accent-primary-fg: #ffffff;
+      --accent-hover: #1e293b;
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* En-tête persistant compact */
+    .site-header {
+      flex-shrink: 0;
+      z-index: 50;
+      background: color-mix(in srgb, var(--bg-canvas) 85%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .site-header__inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.65rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .site-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-heading);
+    }
+
+    .site-brand__logo {
+      height: 20px;
+      width: auto;
+      color: var(--text-heading);
+      display: block;
+    }
+
+    .site-brand__divider {
+      width: 1px;
+      height: 14px;
+      background: var(--border-subtle);
+    }
+
+    .site-brand__label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.15rem 0.35rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+    }
+
+    .lang-switch__btn {
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      color: var(--text-dim);
+      cursor: pointer;
+      padding: 0.1rem 0.3rem;
+      border-radius: 2px;
+      line-height: 1;
+      transition: color 0.15s ease, background 0.15s ease;
+    }
+
+    .lang-switch__btn.is-active {
+      color: var(--accent-primary-fg);
+      background: var(--text-heading);
+    }
+
+    .lang-switch__sep {
+      color: var(--border-subtle);
+      font-size: 0.65rem;
+    }
+
+    .site-nav__link {
+      font-size: 0.825rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: color 0.15s ease;
+    }
+
+    .site-nav__link:hover {
+      color: var(--text-heading);
+    }
+
+    /* Zone de Jeu Plein Écran */
+    .page-main {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--bg-surface);
+    }
+
+    /* Scoreboard minimaliste géant en haut au centre */
+    .snake-score-wrap {
+      position: absolute;
+      top: 1.25rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2.25rem;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .snake-score-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 90px;
+    }
+
+    .snake-score-label {
+      font-family: var(--font-mono);
+      font-size: 0.725rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 0.2rem;
+    }
+
+    .snake-score-val {
+      font-family: var(--font-mono);
+      font-size: clamp(2.8rem, 6.5vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--text-heading);
+    }
+
+    .snake-score-colon {
+      font-family: var(--font-mono);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      color: var(--border-subtle);
+      line-height: 1;
+      margin-top: 1rem;
+    }
+
+    /* Arène Canvas */
+    canvas#snakeCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+      cursor: crosshair;
+    }
+
+    /* Overlay de Fin de Partie (Recommencer à la défaite) */
+    .snake-end-overlay {
+      position: absolute;
+      inset: 0;
+      background: color-mix(in srgb, var(--bg-surface) 94%, transparent);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      text-align: center;
+      padding: 1.5rem;
+      z-index: 20;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .snake-end-overlay.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .snake-end-title {
+      font-size: clamp(1.8rem, 4vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-heading);
+      line-height: 1.2;
+    }
+
+    .snake-end-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 24rem;
+    }
+
+    .snake-restart-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      padding: 0.75rem 1.6rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--text-heading);
+      background: var(--text-heading);
+      color: var(--accent-primary-fg);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 10px -2px rgba(15, 23, 42, 0.15);
+      transition: all 0.15s ease;
+    }
+
+    .snake-restart-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Pied de page sobre avec recrutement à droite */
+    .site-footer {
+      flex-shrink: 0;
+      z-index: 50;
+      background: var(--bg-canvas);
+      border-top: 1px solid var(--border-subtle);
+      padding: 0.65rem 1.25rem;
+      font-size: 0.775rem;
+      color: var(--text-muted);
+    }
+
+    .site-footer__inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+    }
+
+    .site-footer__left {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .site-footer__copy strong {
+      color: var(--text-heading);
+      font-weight: 700;
+    }
+
+    .site-footer__links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .site-footer__links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .site-footer__links a:hover {
+      color: var(--text-heading);
+    }
+
+    /* Recrutement Linux en bas à droite */
+    .site-footer__right {
+      margin-left: auto;
+    }
+
+    .footer-recruit {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: color 0.15s ease;
+      line-height: 1.3;
+    }
+
+    .footer-recruit:hover {
+      color: var(--text-heading);
+    }
+
+    .footer-recruit svg {
+      flex-shrink: 0;
+      color: var(--text-dim);
+    }
+
+    .footer-recruit__email {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--text-heading);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .site-header__inner { padding: 0.5rem 1rem; }
+      .site-footer__inner { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+      .site-footer__right { margin-left: 0; width: 100%; }
+      .footer-recruit { font-size: 0.725rem; flex-wrap: wrap; }
+    }
+  
+    @media (max-width: 560px) {
+      .site-header__inner { padding: 0.6rem 0.9rem; gap: 0.5rem; }
+      .site-nav { gap: 0.7rem; }
+      #nav-home, #nav-github span, #nav-snake span { display: none; }
+      .site-brand { gap: 0.6rem; }
+    }
+</style>
+</head>
+<body>
+
+  <!-- En-tête officiel -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="/" class="site-brand" title="Bobine - Security">
+        <svg viewBox="24 20 944 280" class="site-brand__logo" fill="currentColor" role="img" aria-label="Logo Bobine">
+          <rect x="48" y="20" width="160" height="14" />
+          <rect x="32" y="34" width="208" height="14" />
+          <rect x="32" y="48" width="16" height="14" />
+          <rect x="80" y="48" width="16" height="14" />
+          <rect x="168" y="48" width="16" height="14" />
+          <rect x="208" y="48" width="40" height="14" />
+          <rect x="32" y="62" width="16" height="14" />
+          <rect x="80" y="62" width="16" height="14" />
+          <rect x="168" y="62" width="16" height="14" />
+          <rect x="208" y="62" width="48" height="14" />
+          <rect x="32" y="76" width="16" height="14" />
+          <rect x="56" y="76" width="184" height="14" />
+          <rect x="248" y="76" width="16" height="14" />
+          <rect x="32" y="90" width="232" height="14" />
+          <rect x="448" y="90" width="48" height="14" />
+          <rect x="608" y="90" width="48" height="14" />
+          <rect x="40" y="104" width="80" height="14" />
+          <rect x="184" y="104" width="56" height="14" />
+          <rect x="248" y="104" width="16" height="14" />
+          <rect x="448" y="104" width="48" height="14" />
+          <rect x="608" y="104" width="48" height="14" />
+          <rect x="48" y="118" width="176" height="14" />
+          <rect x="248" y="118" width="16" height="14" />
+          <rect x="448" y="118" width="48" height="14" />
+          <rect x="608" y="118" width="48" height="14" />
+          <rect x="48" y="132" width="80" height="14" />
+          <rect x="152" y="132" width="40" height="14" />
+          <rect x="208" y="132" width="56" height="14" />
+          <rect x="448" y="132" width="48" height="14" />
+          <rect x="48" y="146" width="48" height="14" />
+          <rect x="160" y="146" width="104" height="14" />
+          <rect x="312" y="146" width="104" height="14" />
+          <rect x="448" y="146" width="128" height="14" />
+          <rect x="608" y="146" width="48" height="14" />
+          <rect x="672" y="146" width="128" height="14" />
+          <rect x="848" y="146" width="96" height="14" />
+          <rect x="40" y="160" width="40" height="14" />
+          <rect x="160" y="160" width="16" height="14" />
+          <rect x="184" y="160" width="16" height="14" />
+          <rect x="232" y="160" width="40" height="14" />
+          <rect x="304" y="160" width="120" height="14" />
+          <rect x="448" y="160" width="136" height="14" />
+          <rect x="608" y="160" width="48" height="14" />
+          <rect x="672" y="160" width="136" height="14" />
+          <rect x="840" y="160" width="120" height="14" />
+          <rect x="32" y="174" width="40" height="14" />
+          <rect x="240" y="174" width="32" height="14" />
+          <rect x="296" y="174" width="56" height="14" />
+          <rect x="384" y="174" width="48" height="14" />
+          <rect x="448" y="174" width="64" height="14" />
+          <rect x="536" y="174" width="64" height="14" />
+          <rect x="608" y="174" width="48" height="14" />
+          <rect x="672" y="174" width="64" height="14" />
+          <rect x="760" y="174" width="56" height="14" />
+          <rect x="832" y="174" width="48" height="14" />
+          <rect x="920" y="174" width="48" height="14" />
+          <rect x="24" y="188" width="48" height="14" />
+          <rect x="128" y="188" width="16" height="14" />
+          <rect x="208" y="188" width="24" height="14" />
+          <rect x="248" y="188" width="32" height="14" />
+          <rect x="288" y="188" width="48" height="14" />
+          <rect x="392" y="188" width="48" height="14" />
+          <rect x="448" y="188" width="48" height="14" />
+          <rect x="552" y="188" width="48" height="14" />
+          <rect x="608" y="188" width="48" height="14" />
+          <rect x="672" y="188" width="56" height="14" />
+          <rect x="768" y="188" width="48" height="14" />
+          <rect x="824" y="188" width="144" height="14" />
+          <rect x="24" y="202" width="48" height="14" />
+          <rect x="136" y="202" width="16" height="14" />
+          <rect x="168" y="202" width="16" height="14" />
+          <rect x="248" y="202" width="32" height="14" />
+          <rect x="288" y="202" width="48" height="14" />
+          <rect x="392" y="202" width="48" height="14" />
+          <rect x="448" y="202" width="48" height="14" />
+          <rect x="552" y="202" width="48" height="14" />
+          <rect x="608" y="202" width="48" height="14" />
+          <rect x="672" y="202" width="48" height="14" />
+          <rect x="768" y="202" width="48" height="14" />
+          <rect x="824" y="202" width="144" height="14" />
+          <rect x="24" y="216" width="88" height="14" />
+          <rect x="144" y="216" width="24" height="14" />
+          <rect x="184" y="216" width="96" height="14" />
+          <rect x="288" y="216" width="56" height="14" />
+          <rect x="384" y="216" width="56" height="14" />
+          <rect x="448" y="216" width="56" height="14" />
+          <rect x="552" y="216" width="48" height="14" />
+          <rect x="608" y="216" width="48" height="14" />
+          <rect x="672" y="216" width="48" height="14" />
+          <rect x="768" y="216" width="48" height="14" />
+          <rect x="824" y="216" width="48" height="14" />
+          <rect x="32" y="230" width="24" height="14" />
+          <rect x="64" y="230" width="168" height="14" />
+          <rect x="240" y="230" width="40" height="14" />
+          <rect x="296" y="230" width="136" height="14" />
+          <rect x="448" y="230" width="144" height="14" />
+          <rect x="608" y="230" width="48" height="14" />
+          <rect x="672" y="230" width="48" height="14" />
+          <rect x="768" y="230" width="48" height="14" />
+          <rect x="832" y="230" width="120" height="14" />
+          <rect x="24" y="244" width="40" height="14" />
+          <rect x="72" y="244" width="8" height="14" />
+          <rect x="88" y="244" width="72" height="14" />
+          <rect x="168" y="244" width="24" height="14" />
+          <rect x="200" y="244" width="72" height="14" />
+          <rect x="304" y="244" width="120" height="14" />
+          <rect x="448" y="244" width="136" height="14" />
+          <rect x="608" y="244" width="48" height="14" />
+          <rect x="672" y="244" width="48" height="14" />
+          <rect x="768" y="244" width="48" height="14" />
+          <rect x="840" y="244" width="120" height="14" />
+          <rect x="32" y="258" width="32" height="14" />
+          <rect x="80" y="258" width="64" height="14" />
+          <rect x="152" y="258" width="24" height="14" />
+          <rect x="184" y="258" width="8" height="14" />
+          <rect x="216" y="258" width="56" height="14" />
+          <rect x="328" y="258" width="80" height="14" />
+          <rect x="448" y="258" width="120" height="14" />
+          <rect x="608" y="258" width="48" height="14" />
+          <rect x="672" y="258" width="48" height="14" />
+          <rect x="768" y="258" width="48" height="14" />
+          <rect x="864" y="258" width="80" height="14" />
+          <rect x="40" y="272" width="216" height="14" />
+          <rect x="64" y="286" width="168" height="14" />
+        </svg>
+        <span class="site-brand__divider" aria-hidden="true"></span>
+        <span class="site-brand__label" data-i18n="brand_label">SNAKE</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Main navigation">
+        <div class="lang-switch" role="group" aria-label="Language selection">
+          <button type="button" class="lang-switch__btn is-active" id="lang-btn-en" onclick="setLanguage('en')" aria-label="English">EN</button>
+          <span class="lang-switch__sep" aria-hidden="true">/</span>
+          <button type="button" class="lang-switch__btn" id="lang-btn-fr" onclick="setLanguage('fr')" aria-label="Français">FR</button>
+        </div>
+        <a href="/" class="site-nav__link" id="nav-back">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span data-i18n="nav_back">Back to Security</span>
+        </a>
+        <a href="https://github.com/FantasmaGlad/Bobine" target="_blank" rel="noopener noreferrer" class="site-nav__link" id="nav-github">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <span>GitHub</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Arène Plein Écran -->
+  <main class="page-main" id="gameArea">
+    <div class="snake-score-wrap" aria-label="Score">
+      <div class="snake-score-box">
+        <span class="snake-score-label" data-i18n="score_label">SCORE</span>
+        <span class="snake-score-val" id="scoreVal">0</span>
+      </div>
+      <span class="snake-score-colon">·</span>
+      <div class="snake-score-box">
+        <span class="snake-score-label" data-i18n="best_label">BEST</span>
+        <span class="snake-score-val" id="bestVal">0</span>
+      </div>
+    </div>
+
+    <canvas id="snakeCanvas"></canvas>
+
+    <div class="snake-end-overlay" id="endOverlay" role="dialog" aria-modal="true">
+      <h2 class="snake-end-title" data-i18n="over_title">Game over</h2>
+      <p class="snake-end-desc" id="endDesc"></p>
+      <button type="button" class="snake-restart-btn" id="restartBtn" onclick="restart()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+        <span data-i18n="btn_restart">Play Again</span>
+      </button>
+    </div>
+  </main>
+
+  <!-- Pied de page officiel -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__left">
+        <div class="site-footer__copy">
+          <strong data-i18n="footer_brand">Bobine</strong> — <span data-i18n="footer_tagline">Autonomous Playout &amp; Video Controller for Fitness Studios.</span>
+        </div>
+        <nav class="site-footer__links" aria-label="Footer links">
+          <a href="https://bobine.fit">bobine.fit</a>
+          <a href="https://bobine.fit/en/securite" id="footer-docs" data-i18n="footer_docs">Policy</a>
+          <a href="https://github.com/FantasmaGlad/Bobine" target="_blank" rel="noopener noreferrer" data-i18n="footer_source">Source Code (AGPL-3.0)</a>
+          <a href="https://github.com/FantasmaGlad/Bobine/security/advisories" target="_blank" rel="noopener noreferrer" data-i18n="footer_releases">Security advisories</a>
+        </nav>
+      </div>
+
+      <div class="site-footer__right">
+        <a href="mailto:security@bobine.fit" class="footer-recruit">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span data-i18n="footer_contrib">Report a vulnerability securely.</span>
+          <span class="footer-recruit__email">security@bobine.fit</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const I18N = {
+      "en": {
+            "page_title": "Bobine Snake",
+            "page_desc": "Classic arcade Snake. Lightweight HTML5 canvas, responsive fullscreen, zero dependencies.",
+            "brand_label": "SNAKE",
+            "nav_docs": "Policy",
+            "nav_docs_href": "https://bobine.fit/en/securite",
+            "nav_snake": "Snake",
+            "hero_category": "Vulnerability disclosure · OpenPGP",
+            "hero_title": "Report a vulnerability",
+            "hero_desc": "Report security issues in the Bobine software, website or APT repository privately. Encrypt your report with the key below and check its fingerprint on at least two channels before sending.",
+            "meta_status": "Reports open",
+            "meta_algo": "Ed25519 + Curve25519",
+            "meta_expiry": "Key expires 2028-10-06",
+            "meta_signed": "security.txt signed (RFC 9116)",
+            "flow_heading": "3-Step Private Report",
+            "step1_title": "Retrieve and verify the key",
+            "step1_desc": "Fetch the public key, then compare the fingerprint with the table below and with the copy published in the GitHub repository:",
+            "step1_callout": "<strong>Expected fingerprint:<\/strong> <code>23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2<\/code>. A key whose fingerprint differs on any channel must not be used.",
+            "step2_title": "Encrypt your report",
+            "step2_desc": "Encrypt the report for the security key. To receive an encrypted reply, attach your own public key:",
+            "step2_callout": "<strong>Your own key pair:<\/strong> <code>gpg --quick-generate-key \"Your Name &lt;you@example.org&gt;\" future-default default 2y<\/code> then <code>gpg --armor --export you@example.org<\/code>. Never share your private key. Without PGP, use the <a href=\"https://github.com/FantasmaGlad/Bobine/security/advisories/new\" target=\"_blank\" rel=\"noopener noreferrer\">private GitHub report<\/a>.",
+            "step3_title": "Send it",
+            "step3_desc": "Send the encrypted file (<code>report.txt.asc<\/code>) to the security address, or open a private report on GitHub:",
+            "specs_heading": "Key & Disclosure Details",
+            "spec_identity": "Identity",
+            "spec_fingerprint": "Fingerprint",
+            "spec_algo": "Algorithms",
+            "spec_expires": "Expires",
+            "spec_key": "Raw Public Key",
+            "spec_txt": "security.txt (signed)",
+            "spec_dns": "DNS",
+            "spec_policy": "Policy",
+            "spec_revoked": "Revoked key",
+            "footer_brand": "Bobine",
+            "footer_tagline": "Autonomous Playout & Video Controller for Fitness Studios.",
+            "footer_docs": "Policy",
+            "footer_source": "Source Code (AGPL-3.0)",
+            "footer_releases": "Security advisories",
+            "footer_contrib": "Report a vulnerability securely.",
+            "copy_btn": "Copy",
+            "copied_btn": "Copied",
+            "nav_back": "Back to Security",
+            "score_label": "SCORE",
+            "best_label": "BEST",
+            "over_title": "Game over",
+            "btn_restart": "Play Again"
+      },
+      "fr": {
+            "page_title": "Bobine Snake",
+            "page_desc": "Snake d'arcade classique. Canvas HTML5 léger, plein écran adaptatif, zéro dépendance.",
+            "brand_label": "SNAKE",
+            "nav_docs": "Politique",
+            "nav_docs_href": "https://bobine.fit/fr/securite",
+            "nav_snake": "Snake",
+            "hero_category": "Divulgation de vulnérabilités · OpenPGP",
+            "hero_title": "Signaler une vulnérabilité",
+            "hero_desc": "Signalez en privé les failles de sécurité du logiciel Bobine, du site ou du dépôt APT. Chiffrez votre rapport avec la clé ci-dessous et vérifiez son empreinte sur au moins deux canaux avant l'envoi.",
+            "meta_status": "Signalements ouverts",
+            "meta_algo": "Ed25519 + Curve25519",
+            "meta_expiry": "Clé valable jusqu'au 2028-10-06",
+            "meta_signed": "security.txt signé (RFC 9116)",
+            "flow_heading": "Signalement privé en 3 étapes",
+            "step1_title": "Récupérer et vérifier la clé",
+            "step1_desc": "Récupérez la clé publique, puis comparez l'empreinte avec le tableau ci-dessous et avec la copie publiée dans le dépôt GitHub :",
+            "step1_callout": "<strong>Empreinte attendue :<\/strong> <code>23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2<\/code>. Une clé dont l'empreinte diffère sur un canal ne doit pas être utilisée.",
+            "step2_title": "Chiffrer votre rapport",
+            "step2_desc": "Chiffrez le rapport pour la clé de sécurité. Pour recevoir une réponse chiffrée, joignez votre propre clé publique :",
+            "step2_callout": "<strong>Votre propre paire de clés :<\/strong> <code>gpg --quick-generate-key \"Votre Nom &lt;vous@exemple.org&gt;\" future-default default 2y<\/code> puis <code>gpg --armor --export vous@exemple.org<\/code>. Ne partagez jamais votre clé privée. Sans PGP, utilisez le <a href=\"https://github.com/FantasmaGlad/Bobine/security/advisories/new\" target=\"_blank\" rel=\"noopener noreferrer\">signalement privé GitHub<\/a>.",
+            "step3_title": "L'envoyer",
+            "step3_desc": "Envoyez le fichier chiffré (<code>report.txt.asc<\/code>) à l'adresse de sécurité, ou ouvrez un signalement privé sur GitHub :",
+            "specs_heading": "Détails de la clé et de la divulgation",
+            "spec_identity": "Identité",
+            "spec_fingerprint": "Empreinte",
+            "spec_algo": "Algorithmes",
+            "spec_expires": "Expiration",
+            "spec_key": "Clé publique brute",
+            "spec_txt": "security.txt (signé)",
+            "spec_dns": "DNS",
+            "spec_policy": "Politique",
+            "spec_revoked": "Clé révoquée",
+            "footer_brand": "Bobine",
+            "footer_tagline": "Régie Vidéo & Playout Libre pour Salle de Sport.",
+            "footer_docs": "Politique",
+            "footer_source": "Code Source (AGPL-3.0)",
+            "footer_releases": "Avis de sécurité",
+            "footer_contrib": "Signalez une vulnérabilité en toute sécurité.",
+            "copy_btn": "Copier",
+            "copied_btn": "Copié",
+            "nav_back": "Retour à la Sécurité",
+            "score_label": "SCORE",
+            "best_label": "RECORD",
+            "over_title": "Perdu",
+            "btn_restart": "Recommencer"
+      }
+};
+    const PAGE_LANG = "en";
+    const PAGE_PATH_LOCALIZED = false;
+
+    let currentLang = PAGE_LANG;
+
+    function setLanguage(lang, updateHistory = true) {
+      if (lang !== "en" && lang !== "fr") lang = "en";
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      const dict = I18N[lang];
+      document.title = dict.page_title;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc && dict.page_desc) metaDesc.setAttribute("content", dict.page_desc);
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key]) el.textContent = dict[key];
+      });
+      document.querySelectorAll("[data-i18n-html]").forEach(el => {
+        const key = el.getAttribute("data-i18n-html");
+        if (dict[key]) el.innerHTML = dict[key];
+      });
+      ["nav-docs", "footer-docs"].forEach(id => {
+        const a = document.getElementById(id);
+        if (a && dict.nav_docs_href) a.href = dict.nav_docs_href;
+      });
+      const btnEn = document.getElementById("lang-btn-en");
+      const btnFr = document.getElementById("lang-btn-fr");
+      if (btnEn && btnFr) {
+        btnEn.classList.toggle("is-active", lang === "en");
+        btnEn.setAttribute("aria-pressed", String(lang === "en"));
+        btnFr.classList.toggle("is-active", lang === "fr");
+        btnFr.setAttribute("aria-pressed", String(lang === "fr"));
+      }
+      try { localStorage.setItem("bobine_security_lang", lang); } catch (e) {}
+      if (updateHistory && PAGE_LANG === "en" && !PAGE_PATH_LOCALIZED) {
+        const url = new URL(window.location.href);
+        if (lang === "en") url.searchParams.delete("lang"); else url.searchParams.set("lang", "fr");
+        window.history.replaceState(null, "", url.toString());
+      }
+      if (typeof onLanguageChange === "function") onLanguageChange();
+    }
+
+    (function initLang() {
+      const paramLang = new URLSearchParams(window.location.search).get("lang");
+      let saved = null;
+      try { saved = localStorage.getItem("bobine_security_lang"); } catch (e) {}
+      let initial = PAGE_LANG;
+      if (paramLang === "fr" || paramLang === "en") initial = paramLang;
+      else if (!PAGE_PATH_LOCALIZED && saved === "fr") initial = "fr";
+      if (initial !== PAGE_LANG) setLanguage(initial, false);
+    })();
+
+    const canvas = document.getElementById("snakeCanvas");
+    const ctx = canvas.getContext("2d");
+    const area = document.getElementById("gameArea");
+    const scoreEl = document.getElementById("scoreVal");
+    const bestEl = document.getElementById("bestVal");
+    const overlay = document.getElementById("endOverlay");
+    const overDesc = document.getElementById("endDesc");
+
+    const STEP_START = 120, STEP_MIN = 60;
+    let W = 0, H = 0, CELL = 24, COLS = 0, ROWS = 0, OX = 0, OY = 0;
+    let snake = [], dir = { x: 1, y: 0 }, nextDir = { x: 1, y: 0 }, food = { x: 0, y: 0 };
+    let score = 0, best = 0, over = false, timer = null, delay = STEP_START;
+    let colors = {};
+
+    try { best = parseInt(localStorage.getItem("bobine_security_snake_best") || "0", 10) || 0; } catch (e) {}
+    bestEl.textContent = String(best);
+
+    function readColors() {
+      const s = getComputedStyle(document.documentElement);
+      colors = {
+        head: s.getPropertyValue("--text-heading").trim() || "#0f172a",
+        body: s.getPropertyValue("--text-muted").trim() || "#475569",
+        food: s.getPropertyValue("--accent-success").trim() || "#16a34a",
+        line: s.getPropertyValue("--border-subtle").trim() || "#e2e8f0"
+      };
+    }
+
+    function layout() {
+      const r = area.getBoundingClientRect();
+      W = Math.max(320, Math.floor(r.width));
+      H = Math.max(240, Math.floor(r.height));
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.floor(W * dpr);
+      canvas.height = Math.floor(H * dpr);
+      canvas.style.width = W + "px";
+      canvas.style.height = H + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const top = Math.round(Math.min(124, H * 0.22));
+      // La grille reste verrouillée tant qu'elle tient dans l'écran : un redimensionnement
+      // (barre d'adresse mobile, rotation légère) ne doit pas réinitialiser la partie.
+      const fits = COLS > 0 && Math.floor((W - 16) / CELL) >= COLS && Math.floor((H - top - 8) / CELL) >= ROWS;
+      let changed = false;
+      if (!fits) {
+        CELL = Math.max(16, Math.min(28, Math.floor(Math.min(W, H - top) / 22)));
+        COLS = Math.floor((W - 16) / CELL);
+        ROWS = Math.floor((H - top - 8) / CELL);
+        changed = true;
+      }
+      OX = Math.floor((W - COLS * CELL) / 2);
+      OY = top + Math.floor((H - top - ROWS * CELL) / 2);
+      return changed;
+    }
+
+    function placeFood() {
+      const free = [];
+      for (let x = 0; x < COLS; x++) for (let y = 0; y < ROWS; y++) {
+        if (!snake.some(s => s.x === x && s.y === y)) free.push({ x, y });
+      }
+      food = free.length ? free[Math.floor(Math.random() * free.length)] : { x: -1, y: -1 };
+    }
+
+    function restart() {
+      clearTimeout(timer);
+      const cy = Math.floor(ROWS / 2), cx = Math.max(3, Math.floor(COLS / 4));
+      snake = [{ x: cx, y: cy }, { x: cx - 1, y: cy }, { x: cx - 2, y: cy }];
+      dir = { x: 1, y: 0 }; nextDir = { x: 1, y: 0 };
+      score = 0; over = false; delay = STEP_START;
+      scoreEl.textContent = "0";
+      overlay.classList.remove("is-visible");
+      placeFood();
+      draw();
+      timer = setTimeout(tick, 500);
+    }
+
+    function gameOver() {
+      over = true;
+      if (score > best) {
+        best = score;
+        bestEl.textContent = String(best);
+        try { localStorage.setItem("bobine_security_snake_best", String(best)); } catch (e) {}
+      }
+      const dict = I18N[currentLang] || I18N.en;
+      overDesc.textContent = dict.score_label + " " + score;
+      overlay.classList.add("is-visible");
+    }
+
+    function tick() {
+      dir = nextDir;
+      const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+      const eats = head.x === food.x && head.y === food.y;
+      const body = eats ? snake : snake.slice(0, -1);
+      if (head.x < 0 || head.y < 0 || head.x >= COLS || head.y >= ROWS || body.some(s => s.x === head.x && s.y === head.y)) {
+        draw();
+        return gameOver();
+      }
+      snake.unshift(head);
+      if (eats) {
+        score++;
+        scoreEl.textContent = String(score);
+        delay = Math.max(STEP_MIN, STEP_START - score * 2.5);
+        placeFood();
+      } else {
+        snake.pop();
+      }
+      draw();
+      timer = setTimeout(tick, delay);
+    }
+
+    function cell(x, y, color) {
+      ctx.fillStyle = color;
+      ctx.fillRect(OX + x * CELL + 1, OY + y * CELL + 1, CELL - 2, CELL - 2);
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.strokeStyle = colors.line;
+      ctx.lineWidth = 1;
+      ctx.strokeRect(OX + 0.5, OY + 0.5, COLS * CELL - 1, ROWS * CELL - 1);
+      if (food.x >= 0) cell(food.x, food.y, colors.food);
+      for (let i = snake.length - 1; i >= 0; i--) cell(snake[i].x, snake[i].y, i === 0 ? colors.head : colors.body);
+    }
+
+    function turn(x, y) {
+      if (over) return;
+      if (x === -dir.x && y === -dir.y) return;
+      nextDir = { x, y };
+    }
+
+    const KEYS = {
+      ArrowUp: [0, -1], w: [0, -1], z: [0, -1],
+      ArrowDown: [0, 1], s: [0, 1],
+      ArrowLeft: [-1, 0], a: [-1, 0], q: [-1, 0],
+      ArrowRight: [1, 0], d: [1, 0]
+    };
+
+    window.addEventListener("keydown", e => {
+      const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      if (over && (k === "Enter" || k === " ")) { e.preventDefault(); return restart(); }
+      if (KEYS[k]) { e.preventDefault(); turn(KEYS[k][0], KEYS[k][1]); }
+    });
+
+    let touch = null;
+    canvas.addEventListener("touchstart", e => { const t = e.changedTouches[0]; touch = { x: t.clientX, y: t.clientY }; }, { passive: true });
+    canvas.addEventListener("touchend", e => {
+      if (!touch) return;
+      const t = e.changedTouches[0], dx = t.clientX - touch.x, dy = t.clientY - touch.y;
+      touch = null;
+      if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
+      if (Math.abs(dx) > Math.abs(dy)) turn(dx > 0 ? 1 : -1, 0); else turn(0, dy > 0 ? 1 : -1);
+    }, { passive: true });
+
+    window.addEventListener("resize", () => { if (layout()) restart(); else draw(); });
+    function onLanguageChange() { if (over) gameOver(); }
+
+    readColors();
+    layout();
+    restart();
+
+  </script>
+</body>
+</html>

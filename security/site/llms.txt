@@ -1,0 +1,19 @@
+# Bobine Security
+
+> Official vulnerability disclosure page of Bobine (https://bobine.fit), the free, open-source, offline video playout software for gyms and fitness studios.
+
+## How to report a vulnerability
+- Encrypt the report with the OpenPGP public key published here: https://security.bobine.fit/security.asc
+- Key identity: Bobine Security <security@bobine.fit> (Ed25519 and Curve25519, expires 2028-10-06)
+- Fingerprint: 23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2
+- Send to security@bobine.fit, or open a private report: https://github.com/FantasmaGlad/Bobine/security/advisories/new
+- Attach your own public key to receive an encrypted reply.
+
+## Verification
+- Check the fingerprint on at least two channels: this site, the GitHub repository (docs/security/), https://bobine.fit/.well-known/security.asc, `gpg --locate-keys security@bobine.fit`, and the DNS record `openpgp4fpr` on bobine.fit.
+- Signed policy file (RFC 9116): https://security.bobine.fit/.well-known/security.txt
+- Full policy: https://bobine.fit/en/securite and https://github.com/FantasmaGlad/Bobine/blob/main/SECURITY.md
+- Revoked key (do not use): 8208 FFD3 F7AB 4DD3 6B0A CDD8 4726 A378 F683 265A, revoked 2026-10-07.
+
+## Author
+Clément Barillot (FantasmaGlad), clement.barillot@bobine.fit

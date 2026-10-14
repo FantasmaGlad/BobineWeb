@@ -672,7 +672,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
                 {isEn ? "Open-Source Gym Video Playout System" : "Régie Vidéo & Streaming Libre pour Salle de Sport"}
               </span>
               <span className="terminal-ascii-meta">
-                Debian 13 (trixie) · Dell Wyse 5070 · FastAPI + Next.js (v3.0.5)
+                Debian 13 (trixie) · Dell Wyse 5070 · FastAPI + Next.js
               </span>
             </div>
           </div>
@@ -774,6 +774,33 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
           </div>
         )}
 
+        {/* Amorçage de install.sh lancé par un tube (curl | bash) : récupère le
+            code puis se relance depuis le dépôt cloné (fonction bootstrap_standalone). */}
+        {showBanner && channelPromptAnswered && !isTor && (
+          <div className="terminal-bootstrap">
+            <div className="terminal-line terminal-line--output terminal-bootstrap-title">
+              <span className="terminal-bootstrap-arrow" aria-hidden="true">&#9656;</span>
+              <span>
+                {isEn
+                  ? "Bootstrap — fetching the code (git and curl installed if missing)"
+                  : "Amorçage — récupération du code (git et curl installés si absents)"}
+              </span>
+            </div>
+            <div className="terminal-line terminal-line--output">
+              <span className="terminal-ok">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </span>
+              <span className="terminal-step-title">
+                {isEn
+                  ? `Code ready in ~/Bobine (${channel === "beta" ? "beta tag" : "latest stable release"})`
+                  : `Code prêt dans ~/Bobine (${channel === "beta" ? "tag beta" : "dernière version stable"})`}
+              </span>
+            </div>
+          </div>
+        )}
+
         {/* Défilement des 18 étapes de install.sh */}
         {showBanner && channelPromptAnswered && (
           <div className="terminal-steps-list">
@@ -870,7 +897,14 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
               </div>
               <div className="terminal-summary-row">
                 <span className="summary-key">Admin</span>
-                <span className="summary-val">http://bobine.local <span className="summary-alt">(et http://&lt;IP&gt;:8000)</span></span>
+                <span className="summary-val">http://bobine.local <span className="summary-alt">(et http://&lt;IP&gt;)</span></span>
+              </div>
+              <div className="terminal-summary-row">
+                <span className="summary-key">{isEn ? "Phone" : "Téléphone"}</span>
+                <span className="summary-val">
+                  {isEn ? "QR code printed at the end of the install" : "Code QR affiché en fin d'installation"}
+                  <span className="summary-alt">{isEn ? "(open the admin with one scan)" : "(un scan ouvre l'admin)"}</span>
+                </span>
               </div>
               <div className="terminal-summary-row">
                 <span className="summary-key">Kiosk</span>

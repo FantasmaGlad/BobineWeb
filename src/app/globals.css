@@ -5183,6 +5183,22 @@ main {
   opacity: 1;
 }
 
+/* Mascotte détourée (renard Firefox + Baamix) : ratio quasi carré, aucun fondu
+   sur le bord gauche — le masque dégradé du visuel 16:9 effacerait la queue. */
+.hero-fullscreen__backdrop-img--mascot {
+  width: auto;
+  max-width: 100%;
+  max-height: 210px;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+@media (min-width: 1024px) {
+  .hero-fullscreen__backdrop-img--mascot {
+    max-height: 250px;
+  }
+}
+
 .hero-fullscreen__title {
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -7033,6 +7049,94 @@ main {
 .tauri-device-row.is-selected {
   border-color: var(--accent-primary);
   background: color-mix(in srgb, var(--accent-primary) 5%, var(--bg-surface));
+}
+
+/* Scan en direct : barre de progression et apparition des appareils, calquées
+   sur l'assistant réel (évènements scan_progress / scan_device). */
+.tauri-scan-advanced {
+  margin: 0 0 0.9rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.tauri-scan-advanced summary {
+  cursor: pointer;
+  user-select: none;
+}
+
+.tauri-scan-advanced p {
+  margin: 0.4rem 0 0;
+  line-height: 1.5;
+}
+
+.tauri-scan-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0 0 0.9rem;
+}
+
+.tauri-scan-progress-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--border-subtle);
+  overflow: hidden;
+}
+
+.tauri-scan-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--accent-primary);
+  transition: width 0.07s linear;
+}
+
+.tauri-scan-progress-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono, monospace);
+}
+
+.tauri-device-row.is-entering {
+  animation: tauri-device-enter 0.35s ease both;
+}
+
+@keyframes tauri-device-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tauri-device-row.is-entering {
+    animation: none;
+  }
+
+  .tauri-scan-progress-fill {
+    transition: none;
+  }
+}
+
+/* Amorçage de install.sh (curl | bash) dans la démonstration du terminal. */
+.terminal-bootstrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.terminal-bootstrap-title {
+  color: var(--text-heading);
+  font-weight: 700;
+}
+
+.terminal-bootstrap-arrow {
+  color: var(--accent-primary);
+  margin-right: 0.4rem;
 }
 
 .tauri-device-info {

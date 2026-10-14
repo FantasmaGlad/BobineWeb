@@ -2,7 +2,7 @@ SUIVI DES OFFRES AMAZON — BOBINE / MATERIEL
 ============================================================
 Liste des produits Amazon de src/content/hardware.ts (mise a jour a la main, aucun script)
 Date de derniere verification des prix/liens (PRICE_CHECKED_AT) : 2026-09-17
-Nombre total de produits uniques references : 70
+Nombre total de produits uniques references : 76
 
 MODE D'EMPLOI POUR UNE MISE A JOUR :
 1. Ouvrir chaque lien Amazon ci-dessous et relever le prix affiche a l'instant T.
@@ -37,6 +37,36 @@ MODE D'EMPLOI POUR UNE MISE A JOUR :
 ------------------------------------------------------------
 UNITÉS CENTRALES & TABLETTES (dont marques alternatives)
 ------------------------------------------------------------
+
+[B0B9ZJ74D3] Google Chromecast avec Google TV (HD / 4K)
+  Prix constate (2026-10-14) : 39.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0B9ZJ74D3?tag=fantasmaglad-21
+  Utilise dans                        : Android / Android TV / Essentiel
+
+[B0BY8R5DC7] Xiaomi TV Box S (2nd Gen) 4K Ultra HD avec Google TV
+  Prix constate (2026-10-14) : 64.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0BY8R5DC7?tag=fantasmaglad-21
+  Utilise dans                        : Android / Android TV / Recommandé ; Android / Android TV / Essentiel (alternative)
+
+[B0BLGG31RN] Nokia Streaming Box 8010 4K Google TV
+  Prix constate (2026-10-14) : 129.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0BLGG31RN?tag=fantasmaglad-21
+  Utilise dans                        : Android / Android TV / Pro
+
+[B07Z6RD4M9] NVIDIA Shield TV Pro 4K HDR
+  Prix constate (2026-10-14) : 219.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B07Z6RD4M9?tag=fantasmaglad-21
+  Utilise dans                        : Android / Android TV / Premium
+
+[B0D7MD8175] Google TV Streamer 4K
+  Prix constate (2026-10-14) : 119.00 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0D7MD8175?tag=fantasmaglad-21
+  Utilise dans                        : Android / Android TV / Recommandé (alternative) ; Android / Android TV / Premium (alternative)
+
+[B0CJ2B8K6D] Strong LEAP-S3+ 4K Google TV Box
+  Prix constate (2026-10-14) : 79.99 EUR
+  Lien direct                        : https://www.amazon.fr/dp/B0CJ2B8K6D?tag=fantasmaglad-21
+  Utilise dans                        : Android / Android TV / Pro (alternative)
 
 [B0B8QYXY9H] Acer Aspire Go 17 (Intel N150 / 8 Go RAM / 128 Go UFS, Windows 11)
   Prix constate (2026-09-17) : 403.75 EUR

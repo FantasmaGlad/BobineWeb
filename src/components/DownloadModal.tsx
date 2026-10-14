@@ -498,8 +498,8 @@ export default function DownloadModal({
               </div>
               <p style={{ margin: "0 0 0.5rem" }}>
                 {isEn
-                  ? "• Google Play Store: Google Developer account is validated. The official 1-click Google Play release is currently being processed for store approval."
-                  : "• Google Play Store : Le compte développeur Google est validé. La parution officielle sur le catalogue Google Play de votre téléviseur est en cours de validation."}
+                  ? "• Google Play Store: The official 1-click Google Play release for your TV will be available soon."
+                  : "• Google Play Store : Bientôt disponible en installation 1 clic sur le catalogue Google Play de votre téléviseur."}
               </p>
               <p style={{ margin: "0 0 0.5rem" }}>
                 {isEn

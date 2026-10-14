@@ -16,6 +16,7 @@ import LinuxIcon from "@/components/icons/LinuxIcon";
 import WindowsIcon from "@/components/icons/WindowsIcon";
 import AppleIcon from "@/components/icons/AppleIcon";
 import AndroidIcon from "@/components/icons/AndroidIcon";
+import AndroidTvIcon from "@/components/icons/AndroidTvIcon";
 import HardwareAccessoriesGrid from "@/components/hardware/HardwareAccessoriesGrid";
 import AddToCartButton from "@/components/hardware/AddToCartButton";
 import SellerLine, { type MerchantPlatform } from "@/components/hardware/SellerLine";
@@ -158,18 +159,19 @@ export default function HardwareBundleTabs({
     },
     {
       id: "android",
-      label: "Android Tactile",
-      badge: isEn ? "Tablet" : "Tablette",
-      icon: <AndroidIcon size={18} />,
+      label: isEn ? "Android & TV" : "Android & TV",
+      badge: isEn ? "TV & Tablet" : "TV & Tablette",
+      icon: <AndroidTvIcon size={18} />,
     },
   ];
 
   const formFactorLabels: Record<FormFactorKey, { fr: string; en: string }> = {
+    tv: { fr: "Android TV & Box", en: "Android TV & Box" },
     minipc: { fr: "Mini PC", en: "Mini PC" },
     laptop: { fr: "PC Portable", en: "Laptop" },
     tablet: { fr: "Tablette", en: "Tablet" },
   };
-  const formOrder: FormFactorKey[] = selectedOs === "android" ? ["tablet", "minipc", "laptop"] : ["minipc", "laptop"];
+  const formOrder: FormFactorKey[] = selectedOs === "android" ? ["tv", "tablet", "minipc", "laptop"] : ["minipc", "laptop"];
 
   const tierList: Array<{ id: TierKey; label: string; sub: string }> = [
     {

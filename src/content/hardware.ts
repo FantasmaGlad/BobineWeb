@@ -30,7 +30,7 @@ export const PRICE_CHECKED_AT = "2026-09-17";
 
 export type OsKey = "linux" | "windows" | "macos" | "android";
 export type TierKey = "essentiel" | "recommande" | "pro" | "premium";
-export type FormFactorKey = "minipc" | "laptop" | "tablet";
+export type FormFactorKey = "minipc" | "laptop" | "tablet" | "tv";
 
 export interface HardwareItem {
   id: string;
@@ -349,6 +349,88 @@ const ssdExternal1TB = (id: string): HardwareItem => ({
   asin: "B0F37WWYY4",
   amazonUrl: buildProductUrl("B0F37WWYY4"),
   priceAmazon: 159.99,
+  hasFan: false,
+});
+
+// =============================================================================
+// UNITÉS CENTRALES ANDROID TV & GOOGLE TV (BOX TV & STREAMING)
+// =============================================================================
+
+const chromecastGoogleTv = (id: string): HardwareItem => ({
+  id,
+  name: "Google Chromecast avec Google TV (HD / 4K)",
+  category: "uc",
+  specs: "Google TV officiel · Télécommande vocale avec croix directionnelle D-Pad · Wi-Fi 5",
+  description: "Clé de streaming HDMI compacte et abordable pour diffuser Bobine Kiosque sur n'importe quel écran ou TV de salle de fitness.",
+  imageUrl: "/images/hardware/tv-chromecast-google-tv.webp",
+  asin: "B0B9ZJ74D3",
+  amazonUrl: buildProductUrl("B0B9ZJ74D3"),
+  priceAmazon: 39.99,
+  hasFan: false,
+});
+
+const xiaomiTvBoxS2ndGen = (id: string): HardwareItem => ({
+  id,
+  name: "Xiaomi TV Box S (2nd Gen) 4K Ultra HD avec Google TV",
+  category: "uc",
+  specs: "4K 60fps · Port USB 2.0 natif · HDMI 2.1 · Dolby Vision & Atmos · Télécommande Bluetooth",
+  description: "Box 4K équilibrée avec port USB intégré indispensable pour brancher une clé USB ou un disque SSD sans adaptateur.",
+  imageUrl: "/images/hardware/tv-xiaomi-box-s-2nd-gen.webp",
+  asin: "B0BY8R5DC7",
+  amazonUrl: buildProductUrl("B0BY8R5DC7"),
+  priceAmazon: 64.99,
+  hasFan: false,
+});
+
+const nokiaStreamingBox8010 = (id: string): HardwareItem => ({
+  id,
+  name: "Nokia Streaming Box 8010 4K Google TV",
+  category: "uc",
+  specs: "4 Go RAM · 32 Go Flash · Amlogic S905X4 · Ethernet Gigabit RJ45 · Ports USB 3.0 & USB-C",
+  description: "Box Android TV puissante avec port réseau Gigabit filaire et ports USB 3.0 rapides pour un flux vidéo continu et sans saccade.",
+  imageUrl: "/images/hardware/tv-nokia-streaming-box-8010.webp",
+  asin: "B0BLGG31RN",
+  amazonUrl: buildProductUrl("B0BLGG31RN"),
+  priceAmazon: 129.0,
+  hasFan: false,
+});
+
+const nvidiaShieldPro = (id: string): HardwareItem => ({
+  id,
+  name: "NVIDIA Shield TV Pro 4K HDR",
+  category: "uc",
+  specs: "Processeur Tegra X1+ · 3 Go RAM · Double port USB 3.0 · Gigabit Ethernet · Suréchantillonnage 4K IA",
+  description: "La référence absolue des régies Android TV : puissance de décodage inégalée, double port USB 3.0 pour SSD et télécommande rétroéclairée.",
+  imageUrl: "/images/hardware/tv-nvidia-shield-pro.webp",
+  asin: "B07Z6RD4M9",
+  amazonUrl: buildProductUrl("B07Z6RD4M9"),
+  priceAmazon: 219.0,
+  hasFan: true,
+});
+
+const googleTvStreamerAlt = (id: string): HardwareItem => ({
+  id,
+  name: "Google TV Streamer 4K",
+  category: "uc",
+  specs: "4K 60fps · Port Ethernet Gigabit · Port USB-C · 32 Go stockage · Télécommande",
+  description: "Le boîtier de salon Google nouvelle génération avec connectique Ethernet intégrée et design posé sur meuble régie.",
+  imageUrl: "/images/hardware/tv-google-tv-streamer.webp",
+  asin: "B0D7MD8175",
+  amazonUrl: buildProductUrl("B0D7MD8175"),
+  priceAmazon: 119.0,
+  hasFan: false,
+});
+
+const strongLeapS3Alt = (id: string): HardwareItem => ({
+  id,
+  name: "Strong LEAP-S3+ 4K Google TV Box",
+  category: "uc",
+  specs: "4K UHD · Amlogic S905Y4 · Port Ethernet · USB 2.0 · Télécommande numérique",
+  description: "Alternative certifiée Google TV complète avec port réseau filaire direct pour sécuriser la diffusion en salle.",
+  imageUrl: "/images/hardware/tv-strong-leap-s3.webp",
+  asin: "B0CJ2B8K6D",
+  amazonUrl: buildProductUrl("B0CJ2B8K6D"),
+  priceAmazon: 79.99,
   hasFan: false,
 });
 
@@ -1473,6 +1555,89 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
   android: {
     os: "android",
     formFactors: {
+      tv: {
+        titleFr: "Android TV & Kiosque Grand Écran",
+        titleEn: "Android TV & Big Screen Kiosk",
+        subtitleFr: "Boîtiers TV et streaming 100% pilotables à la télécommande, avec stockage externe USB pour vos cours",
+        subtitleEn: "Streaming boxes fully operable via remote control, with external USB storage for your classes",
+        targetFr: "Studios fitness, cours collectifs sur grand écran, régie autonome sans clavier ni souris",
+        targetEn: "Fitness studios, group classes on big screens, standalone playout without keyboard or mouse",
+        defaultTier: "recommande",
+        tiers: {
+          essentiel: {
+            id: "essentiel",
+            labelFr: "Essentiel",
+            labelEn: "Essential",
+            headlineFr: "Chromecast avec Google TV + Clé USB 64 Go",
+            headlineEn: "Chromecast with Google TV + 64GB USB Flash Drive",
+            summaryFr: "Solution économique pour transformer un téléviseur ou vidéoprojecteur en régie Bobine Kiosque, avec clé USB 64 Go pour le stockage des cours.",
+            summaryEn: "Budget setup to turn any TV or projector into a Bobine Kiosk playout, with 64GB USB storage for fitness classes.",
+            powerWatts: "5W",
+            resolution: "Full HD 1080p / 4K HDR",
+            alternativeUnits: [xiaomiTvBoxS2ndGen("alt-tv-essentiel")],
+            items: [
+              chromecastGoogleTv("tv-chromecast-essentiel"),
+              cableCat6a("cable-cat6a-tv-essentiel"),
+              usbFlash64GB("usb-tv-essentiel"),
+            ],
+          },
+          recommande: {
+            id: "recommande",
+            labelFr: "Recommandé",
+            labelEn: "Recommended",
+            isPopular: true,
+            headlineFr: "Xiaomi TV Box S 2nd Gen 4K + Câble HDMI 2.1 + Clé USB 128 Go",
+            headlineEn: "Xiaomi TV Box S 2nd Gen 4K + HDMI 2.1 Cable + 128GB USB Drive",
+            summaryFr: "Le juste équilibre 4K : port USB-A intégré pour la clé USB, câble HDMI 2.1 certifié et télécommande Bluetooth 360° avec croix directionnelle.",
+            summaryEn: "Balanced 4K setup: built-in USB-A port for flash drives, certified HDMI 2.1 cable, and 360° Bluetooth remote with directional D-Pad.",
+            powerWatts: "8W - 12W",
+            resolution: "4K Ultra HD 60Hz",
+            alternativeUnits: [googleTvStreamerAlt("alt-tv-recommande")],
+            items: [
+              xiaomiTvBoxS2ndGen("tv-xiaomi-recommande"),
+              cableHdmi21("cable-hdmi-tv-recommande"),
+              usbFlash128GB("usb-tv-recommande"),
+              cableCat6a("cable-cat6a-tv-recommande"),
+            ],
+          },
+          pro: {
+            id: "pro",
+            labelFr: "Pro",
+            labelEn: "Pro",
+            headlineFr: "Nokia Streaming Box 8010 + SSD Externe 512 Go + Ethernet Gigabit",
+            headlineEn: "Nokia Streaming Box 8010 + 512GB External SSD + Gigabit Ethernet",
+            summaryFr: "Box TV haute performance avec 4 Go de RAM, port réseau Ethernet Gigabit filaire et disque SSD externe 512 Go pour une réactivité instantanée.",
+            summaryEn: "High-performance streaming box with 4GB RAM, wired Gigabit Ethernet, and 512GB external SSD for instant video responsiveness.",
+            powerWatts: "10W - 15W",
+            resolution: "4K Ultra HD 60Hz HDR",
+            alternativeUnits: [strongLeapS3Alt("alt-tv-pro")],
+            items: [
+              nokiaStreamingBox8010("tv-nokia-pro"),
+              cableHdmi21("cable-hdmi-tv-pro"),
+              ssdExternal512GB("ssd-tv-pro"),
+              cableCat6a("cable-cat6a-tv-pro"),
+            ],
+          },
+          premium: {
+            id: "premium",
+            labelFr: "Premium",
+            labelEn: "Premium",
+            headlineFr: "NVIDIA Shield TV Pro + SSD 1 To + Câble Fibre Optique 6 m",
+            headlineEn: "NVIDIA Shield TV Pro + 1TB SSD + 6m Optical Fiber Cable",
+            summaryFr: "Le fleuron absolu des régies Android TV : puce Tegra X1+, suréchantillonnage 4K IA, SSD 1 To et câble HDMI fibre optique sans perte.",
+            summaryEn: "The undisputed flagship for Android TV playout: Tegra X1+ chip, AI 4K upscaling, 1TB SSD, and lossless optical fiber HDMI.",
+            powerWatts: "15W - 20W",
+            resolution: "4K HDR Dolby Vision & Atmos",
+            alternativeUnits: [googleTvStreamerAlt("alt-tv-premium")],
+            items: [
+              nvidiaShieldPro("tv-shield-premium"),
+              cableHdmiFiberPremium("cable-hdmi-fiber-tv-premium"),
+              ssdExternal1TB("ssd-tv-premium"),
+              cableCat6a("cable-cat6a-tv-premium"),
+            ],
+          },
+        },
+      },
       tablet: {
         titleFr: "Android Tactile & Mobilité",
         titleEn: "Android Touch & Mobility",

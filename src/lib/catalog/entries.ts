@@ -33,7 +33,7 @@ export interface CatalogEntry {
 }
 
 export const OS_LABELS: Record<OsKey, string> = { linux: "Linux", windows: "Windows", macos: "macOS", android: "Android" };
-export const FORM_LABELS: Record<FormFactorKey, string> = { minipc: "Mini PC", laptop: "PC Portable", tablet: "Tablette" };
+export const FORM_LABELS: Record<FormFactorKey, string> = { minipc: "Mini PC", laptop: "PC Portable", tablet: "Tablette", tv: "Android TV & Box" };
 export const TIER_LABELS: Record<TierKey, string> = { essentiel: "Essentiel", recommande: "Recommandé", pro: "Pro", premium: "Premium" };
 
 type Bundles = Partial<Record<OsKey, HardwareOsBundle>>;

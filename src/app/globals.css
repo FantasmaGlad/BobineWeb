@@ -5113,12 +5113,12 @@ main {
 @media (min-width: 1024px) {
 
   .hero-fullscreen__backdrop-art {
-    top: 50%;
+    top: 1rem;
     bottom: auto;
-    right: -2rem;
-    transform: translateY(-50%);
-    width: min(46vw, 640px);
-    max-height: 92%;
+    right: -1rem;
+    transform: none;
+    width: min(38vw, 480px);
+    max-height: 250px;
     opacity: 1;
   }
 
@@ -5246,15 +5246,15 @@ main {
   .hero-fullscreen__title {
     font-size: clamp(2rem, 3.2vw, 2.75rem);
     line-height: 1.18;
-    max-width: 52rem;
+    max-width: min(58vw, 44rem);
     margin-bottom: 1.25rem;
   }
 
   .hero-fullscreen__subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.25rem);
-    line-height: 1.6;
-    max-width: 48rem;
-    margin-bottom: 2rem;
+    font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+    line-height: 1.55;
+    max-width: min(56vw, 42rem);
+    margin-bottom: 1.75rem;
   }
 
   .hero-fullscreen__actions {
@@ -6174,11 +6174,58 @@ main {
 
 .os-download-desktop-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: clamp(1rem, 1.6vw, 1.4rem);
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: clamp(0.75rem, 1.2vw, 1.1rem);
   width: 100%;
   margin-top: clamp(1.25rem, 2.5vh, 2rem);
   margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
+}
+
+@media (min-width: 1024px) {
+  .os-download-desktop-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: clamp(0.5rem, 0.9vw, 0.85rem);
+  }
+
+  .os-download-card {
+    padding: clamp(0.95rem, 1.1vw, 1.25rem);
+    min-height: 195px;
+  }
+
+  .os-download-card__header {
+    gap: 0.65rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .os-download-card__icon-wrap {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-sm, 10px);
+  }
+
+  .os-download-card__icon {
+    transform: scale(0.9);
+  }
+
+  .os-download-card__name {
+    font-size: 1.05rem;
+  }
+
+  .os-download-card__subtitle {
+    font-size: 0.75rem;
+    min-height: 2.6em;
+  }
+
+  .os-download-card__meta {
+    font-size: 0.75rem;
+    min-height: 3.2rem;
+    margin-bottom: 0.75rem;
+    padding-top: 0.65rem;
+  }
+
+  .os-download-card__action {
+    font-size: 0.8rem;
+  }
 }
 
 .os-download-mobile-view {
@@ -6210,8 +6257,12 @@ main {
     order: 4;
   }
 
-  .os-download-card[data-platform="ios"] {
+  .os-download-card[data-platform="android-tv"] {
     order: 5;
+  }
+
+  .os-download-card[data-platform="ios"] {
+    order: 6;
   }
 
 }

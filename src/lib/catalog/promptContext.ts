@@ -45,7 +45,7 @@ function detailLine(e: CatalogEntry): string {
 }
 
 const VALID_OS: OsKey[] = ["linux", "windows", "macos", "android"];
-const VALID_FORM: FormFactorKey[] = ["minipc", "laptop", "tablet"];
+const VALID_FORM: FormFactorKey[] = ["minipc", "laptop", "tablet", "tv"];
 const VALID_TIER: TierKey[] = ["essentiel", "recommande", "pro", "premium"];
 
 /**

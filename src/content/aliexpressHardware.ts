@@ -1027,6 +1027,141 @@ const linuxLaptop: HardwareFormFactor = {
   tiers: LINUX_LAPTOP_TIERS,
 };
 
+const ANDROID_TV_TIERS: Record<TierKey, HardwareTier> = {
+  essentiel: {
+    id: "essentiel",
+    labelFr: "Essentiel",
+    labelEn: "Essential",
+    headlineFr: "MECOOL KM7 PLUS 4K Google TV + Clé USB + Télécommande Air Mouse",
+    headlineEn: "MECOOL KM7 PLUS 4K Google TV + USB Drive + Air Mouse Remote",
+    summaryFr: "Boîtier officiel certifié Google TV 4K avec télécommande gyroscopique air-mouse et clé USB pour le stockage des cours.",
+    summaryEn: "Official certified Google TV 4K box with gyroscopic air-mouse remote and USB drive for local fitness class storage.",
+    powerWatts: "5W - 10W",
+    resolution: "4K UHD 60Hz",
+    items: [
+      ali("1005006492898488", "tv-ali-ess", {
+        name: "MECOOL KM7 PLUS Boîtier Google TV 4K",
+        specs: "Google TV officiel · Amlogic S905Y4 · 2 Go RAM · 16 Go ROM · 4K HDR",
+        description: "Boîtier compact certifié Google TV, parfait pour installer Bobine Kiosque et diffuser en toute fluidité.",
+        hasFan: false,
+      }),
+      hdmiBaseus("tv-ali-ess"),
+      flashMovespeed("tv-ali-ess"),
+      remoteMx3("tv-ali-ess"),
+    ],
+    alternativeUnits: [
+      ali("1005012776659803", "tv-ali-ess-alt", {
+        name: "Boîtier TV X96 Max+ Ultra 4K (4 Go / 64 Go)",
+        specs: "Android 11 · Amlogic S905X4 · 4 Go RAM · 64 Go ROM · Ethernet",
+        description: "Alternative économique généreuse en mémoire vive et stockage pour les cours locaux.",
+        hasFan: false,
+      }),
+    ],
+  },
+  recommande: {
+    id: "recommande",
+    labelFr: "Recommandé",
+    labelEn: "Recommended",
+    isPopular: true,
+    headlineFr: "MECOOL KM2 PLUS Google TV 4K + Câble HDMI Baseus + Clé USB 128 Go",
+    headlineEn: "MECOOL KM2 PLUS Google TV 4K + Baseus HDMI Cable + 128GB USB Drive",
+    summaryFr: "Le juste équilibre régie TV : certifié Google TV, port USB pour clé de cours amovible et câble Ethernet Cat8 pour diffusion continue.",
+    summaryEn: "Balanced TV playout setup: certified Google TV, USB port for removable class storage, and Cat8 Ethernet cable.",
+    powerWatts: "8W - 12W",
+    resolution: "4K UHD 60Hz",
+    items: [
+      ali("1005012358422552", "tv-ali-rec", {
+        name: "MECOOL KM2 PLUS Boîtier Smart TV 4K Google TV",
+        specs: "Google TV certifié · 4K 60fps · Port USB natif · Télécommande vocale D-Pad",
+        description: "Le choix équilibré pour régie fitness grand écran : port USB pour clé de cours et navigation télécommande 100% compatible.",
+        hasFan: false,
+      }),
+      hdmiBaseus("tv-ali-rec"),
+      flashMovespeed("tv-ali-rec"),
+      ethernetUgreen("tv-ali-rec"),
+    ],
+    alternativeUnits: [
+      ali("1005012776659803", "tv-ali-rec-alt", {
+        name: "Boîtier TV X96 Max+ Ultra 4K (4 Go / 64 Go)",
+        specs: "Android 11 · Amlogic S905X4 · 4 Go RAM · 64 Go ROM · Ethernet",
+        description: "Alternative économique avec 64 Go de mémoire flash interne.",
+        hasFan: false,
+      }),
+    ],
+  },
+  pro: {
+    id: "pro",
+    labelFr: "Pro",
+    labelEn: "Pro",
+    headlineFr: "MECOOL KM2 PLUS Deluxe (Wi-Fi 6 & Gigabit) + SSD Portable KODAK",
+    headlineEn: "MECOOL KM2 PLUS Deluxe (Wi-Fi 6 & Gigabit) + KODAK Portable SSD",
+    summaryFr: "Boîtier TV haut de gamme avec Ethernet Gigabit filaire, 4 Go de RAM, Wi-Fi 6 et disque SSD portable pour une vitesse d'accès maximale.",
+    summaryEn: "High-end TV box with wired Gigabit Ethernet, 4GB RAM, Wi-Fi 6, and portable SSD drive for maximum access speed.",
+    powerWatts: "10W - 15W",
+    resolution: "4K UHD 60Hz HDR",
+    items: [
+      ali("1005006303737998", "tv-ali-pro", {
+        name: "MECOOL KM2 PLUS Deluxe 4K Google TV (Wi-Fi 6 & Gigabit)",
+        specs: "Amlogic S905X4 · 4 Go RAM · 32 Go ROM · Wi-Fi 6 · Ethernet Gigabit 1000 Mbps",
+        description: "Boîtier TV haut de gamme avec Ethernet Gigabit pour liaison filaire ultra-stable et 4 Go de mémoire pour les cours les plus exigeants.",
+        hasFan: false,
+      }),
+      hdmiBaseus("tv-ali-pro"),
+      ssdKodak("tv-ali-pro"),
+      ethernetUgreen("tv-ali-pro"),
+    ],
+    alternativeUnits: [
+      ali("1005012358422552", "tv-ali-pro-alt", {
+        name: "MECOOL KM2 PLUS Boîtier Smart TV 4K",
+        specs: "Google TV certifié · 4K 60fps · Port USB natif · Télécommande vocale D-Pad",
+        description: "La version classique éprouvée avec Google TV officiel.",
+        hasFan: false,
+      }),
+    ],
+  },
+  premium: {
+    id: "premium",
+    labelFr: "Premium",
+    labelEn: "Premium",
+    headlineFr: "MECOOL KM2 PLUS Deluxe + Câble HDMI Fibre Optique 10 m + SSD 1 To",
+    headlineEn: "MECOOL KM2 PLUS Deluxe + 10m Optical Fiber HDMI Cable + 1TB SSD",
+    summaryFr: "La solution Android TV sans compromis : boîtier Deluxe Gigabit, câble fibre optique 10 m pour régie éloignée et disque SSD 1 To pour bibliothèque illimitée.",
+    summaryEn: "The uncompromising Android TV setup: Deluxe Gigabit box, 10m fiber optic cable for distant rooms, and 1TB SSD for unlimited offline videos.",
+    powerWatts: "12W - 18W",
+    resolution: "4K UHD 60Hz Dolby Audio",
+    items: [
+      ali("1005006303737998", "tv-ali-prem", {
+        name: "MECOOL KM2 PLUS Deluxe 4K Google TV (Wi-Fi 6 & Gigabit)",
+        specs: "Amlogic S905X4 · 4 Go RAM · 32 Go ROM · Wi-Fi 6 · Ethernet Gigabit 1000 Mbps",
+        description: "Boîtier TV certifié Google TV avec puce Amlogic S905X4 et débit réseau Gigabit.",
+        hasFan: false,
+      }),
+      hdmiFiber("tv-ali-prem"),
+      ssdKodak("tv-ali-prem"),
+      ethernetUgreen("tv-ali-prem"),
+    ],
+    alternativeUnits: [
+      ali("1005012776659803", "tv-ali-prem-alt", {
+        name: "Boîtier TV X96 Max+ Ultra 4K (4 Go / 64 Go)",
+        specs: "Android 11 · Amlogic S905X4 · 4 Go RAM · 64 Go ROM · Ethernet",
+        description: "Alternative avec processeur S905X4 et 64 Go de stockage.",
+        hasFan: false,
+      }),
+    ],
+  },
+};
+
+const androidTv: HardwareFormFactor = {
+  titleFr: "Android TV & Kiosque Grand Écran",
+  titleEn: "Android TV & Big Screen Kiosk",
+  subtitleFr: "Boîtiers TV et streaming 100% pilotables à la télécommande, avec stockage externe USB pour vos cours",
+  subtitleEn: "Streaming boxes fully operable via remote control, with external USB storage for your classes",
+  targetFr: "Studios fitness, cours collectifs sur grand écran, régie autonome sans clavier ni souris",
+  targetEn: "Fitness studios, group classes on big screens, standalone playout without keyboard or mouse",
+  defaultTier: "recommande",
+  tiers: ANDROID_TV_TIERS,
+};
+
 const androidTablet: HardwareFormFactor = {
   titleFr: "Android Tactile & Mobilité",
   titleEn: "Android Touch & Mobility",
@@ -1058,7 +1193,10 @@ export const ALIEXPRESS_BUNDLES: Partial<Record<OsKey, HardwareOsBundle>> = {
   },
   android: {
     os: "android",
-    formFactors: { tablet: androidTablet } satisfies Partial<Record<FormFactorKey, HardwareFormFactor>>,
+    formFactors: {
+      tv: androidTv,
+      tablet: androidTablet,
+    } satisfies Partial<Record<FormFactorKey, HardwareFormFactor>>,
   },
   windows: {
     os: "windows",

@@ -124,16 +124,6 @@ export default function OsDownloadGrid({
       icon: <AppleIcon size={26} className="os-download-card__icon" />,
     },
     {
-      id: "android-tv",
-      name: "Android TV",
-      subtitle: isEn ? "Google TV, Shield, Xiaomi & Smart TVs" : "Google TV, Shield, Xiaomi & Smart TVs",
-      format: isEn ? "Package .apk (Leanback)" : "Paquet .apk (Leanback)",
-      badge: isEn ? "Bientôt sur Google Play" : "Bientôt sur Google Play",
-      url: stableInfo.downloads.androidTv || `https://github.com/FantasmaGlad/Bobine/releases/download/${stableInfo.version}/Bobine-TV-${stableInfo.version.replace(/^V/i, "")}.apk`,
-      isComingSoon: false,
-      icon: <AndroidTvIcon size={28} className="os-download-card__icon" />,
-    },
-    {
       id: "android",
       name: "Android",
       subtitle: isEn ? "Tablets & ARM touch kiosks" : "Tablettes & Bornes tactiles ARM",
@@ -142,6 +132,16 @@ export default function OsDownloadGrid({
       url: stableInfo.downloads.android,
       isComingSoon: false,
       icon: <AndroidIcon size={27} className="os-download-card__icon" />,
+    },
+    {
+      id: "android-tv",
+      name: "Android TV",
+      subtitle: isEn ? "Google TV, Shield, Xiaomi & Smart TVs" : "Google TV, Shield, Xiaomi & Smart TVs",
+      format: isEn ? "Package .apk" : "Paquet .apk",
+      badge: isEn ? "Bientôt sur Google Play" : "Bientôt sur Google Play",
+      url: stableInfo.downloads.androidTv || `https://github.com/FantasmaGlad/Bobine/releases/download/${stableInfo.version}/Bobine-TV-${stableInfo.version.replace(/^V/i, "")}.apk`,
+      isComingSoon: false,
+      icon: <AndroidTvIcon size={28} className="os-download-card__icon" />,
     },
     {
       id: "ios",

@@ -96,7 +96,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     },
     {
       q: "Bobine fonctionne-t-il avec Firefox ?",
-      a: "Oui. L'interface d'administration et les lecteurs ouverts depuis un autre appareil (/radio, /kiosk, /cinema, /coach) sont vérifiés sur Firefox 157 : WebSocket, envoi de fichiers, lecture par plages, audio Web, manettes et lecture H.264 y fonctionnent. Le décodage de certains formats (HEVC, AV1) dépend du système et du matériel du navigateur. Un plan de durcissement (téléversement reprenable, profil vidéo lisible partout) est publié dans la documentation technique du projet. Firefox est une marque de la Mozilla Foundation, citée ici sans affiliation.",
+      a: "Oui. Depuis la version 4.0.3, l'interface d'administration et les lecteurs ouverts depuis un autre appareil (/radio, /kiosk, /cinema, /coach) sont vérifiés de bout en bout sur Firefox 157 par des tests automatiques : envoi de fichiers repris après une coupure réseau, flux vidéo conformes au protocole HTTP, lecture H.264. Quand un navigateur ne sait pas décoder une vidéo (HEVC, 10 bits selon le système et le matériel), Bobine lui sert une version H.264 compatible produite à la demande, sans toucher à l'original ; les Réglages offrent un diagnostic local du navigateur. Windows, macOS, Firefox pour Android et la version ESR ne sont pas encore mesurés. Firefox est une marque de la Mozilla Foundation, citée ici sans affiliation.",
       category: "compare",
     },
     {
@@ -178,7 +178,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     },
     {
       q: "Does Bobine work with Firefox?",
-      a: "Yes. The admin interface and the players opened from another device (/radio, /kiosk, /cinema, /coach) are verified on Firefox 157: WebSocket, file upload, range requests, Web Audio, gamepads and H.264 playback all work. Decoding of some formats (HEVC, AV1) depends on the browser's operating system and hardware. A hardening plan (resumable upload, a play-everywhere video profile) is published in the project's technical documentation. Firefox is a trademark of the Mozilla Foundation, mentioned here without affiliation.",
+      a: "Yes. Since version 4.0.3, the admin interface and the players opened from another device (/radio, /kiosk, /cinema, /coach) are verified end to end on Firefox 157 by automated tests: file uploads that resume after a network cut, HTTP-compliant video streams, H.264 playback. When a browser cannot decode a video (HEVC, 10-bit, depending on the system and hardware), Bobine serves it a compatible H.264 version produced on demand, without touching the original; Settings offers a local browser diagnostic. Windows, macOS, Firefox for Android and the ESR release are not measured yet. Firefox is a trademark of the Mozilla Foundation, mentioned here without affiliation.",
       category: "compare",
     },
     {

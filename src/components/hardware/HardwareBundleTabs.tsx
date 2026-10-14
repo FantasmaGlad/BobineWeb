@@ -161,7 +161,7 @@ export default function HardwareBundleTabs({
       id: "android",
       label: isEn ? "Android & TV" : "Android & TV",
       badge: isEn ? "TV & Tablet" : "TV & Tablette",
-      icon: <AndroidTvIcon size={18} />,
+      icon: <AndroidIcon size={18} />,
     },
   ];
 

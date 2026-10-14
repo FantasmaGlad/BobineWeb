@@ -6183,48 +6183,48 @@ main {
 
 @media (min-width: 1024px) {
   .os-download-desktop-grid {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: clamp(0.5rem, 0.9vw, 0.85rem);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(0.75rem, 1.2vw, 1.2rem);
   }
 
   .os-download-card {
-    padding: clamp(0.95rem, 1.1vw, 1.25rem);
-    min-height: 195px;
+    padding: clamp(1.15rem, 1.4vw, 1.45rem);
+    min-height: 205px;
   }
 
   .os-download-card__header {
-    gap: 0.65rem;
-    margin-bottom: 0.75rem;
+    gap: 0.8rem;
+    margin-bottom: 0.85rem;
   }
 
   .os-download-card__icon-wrap {
-    width: 42px;
-    height: 42px;
-    border-radius: var(--radius-sm, 10px);
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md, 12px);
   }
 
   .os-download-card__icon {
-    transform: scale(0.9);
+    transform: none;
   }
 
   .os-download-card__name {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
   }
 
   .os-download-card__subtitle {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     min-height: 2.6em;
   }
 
   .os-download-card__meta {
-    font-size: 0.75rem;
-    min-height: 3.2rem;
-    margin-bottom: 0.75rem;
-    padding-top: 0.65rem;
+    font-size: 0.8rem;
+    min-height: 3.4rem;
+    margin-bottom: 0.85rem;
+    padding-top: 0.75rem;
   }
 
   .os-download-card__action {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
   }
 }
 
@@ -6259,10 +6259,6 @@ main {
 
   .os-download-card[data-platform="android-tv"] {
     order: 5;
-  }
-
-  .os-download-card[data-platform="ios"] {
-    order: 6;
   }
 
 }

@@ -143,17 +143,6 @@ export default function OsDownloadGrid({
       isComingSoon: false,
       icon: <AndroidTvIcon size={28} className="os-download-card__icon" />,
     },
-    {
-      id: "ios",
-      name: "iOS / iPadOS",
-      subtitle: isEn ? "iPad & tactile kiosks" : "iPad & bornes tactiles",
-      format: isEn ? "Explored idea" : "Piste explorée",
-      badge: isEn ? "Roadmap" : "À venir",
-      statusLabel: isEn ? "In development" : "En développement",
-      url: "#",
-      isComingSoon: true,
-      icon: <AppleIcon size={26} className="os-download-card__icon" />,
-    },
   ];
 
   const orderedCards = reorderForPlatform(cards, detected);

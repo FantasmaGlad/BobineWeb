@@ -28,6 +28,48 @@ const INSTALL_STEPS = [
   { num: 18, title: "Capacités audio & vidéo", detail: "Carte audio validée & VA-API actif", pct: 100 },
 ];
 
+/**
+ * Appareils de la démonstration. Même ordre d'apparition que l'assistant réel :
+ * le scan les révèle EN DIRECT (évènement `scan_device`) à mesure que les
+ * adresses sont sondées ; l'appareil filtré par un pare-feu n'apparaît qu'à la
+ * fin, une fois la table ARP relue. Plage 203.0.113.0/24 : documentation
+ * réservée (RFC 5737), jamais une adresse réelle.
+ */
+const DEMO_SCAN_TOTAL = 253;
+const DEMO_DEVICES = [
+  {
+    ip: "203.0.113.10",
+    appearAt: 22,
+    selected: true,
+    name: { fr: "Dell Wyse 5070 — bobine-appliance.local", en: "Dell Wyse 5070 — bobine-appliance.local" },
+    meta: "203.0.113.10 · Port 8000 · SSH : 22",
+    pills: [
+      { tone: "success", fr: "Bobine Actif", en: "Bobine Active" },
+      { tone: "info", fr: "SSH Ouvert", en: "SSH Open" },
+      { tone: "", fr: "Debian 13", en: "Debian 13" },
+    ],
+  },
+  {
+    ip: "203.0.113.20",
+    appearAt: 48,
+    selected: false,
+    name: { fr: "Hôte Linux — dev-workstation.local", en: "Linux host — dev-workstation.local" },
+    meta: "203.0.113.20 · SSH : 22",
+    pills: [
+      { tone: "info", fr: "SSH Ouvert", en: "SSH Open" },
+      { tone: "", fr: "Ubuntu 24.04", en: "Ubuntu 24.04" },
+    ],
+  },
+  {
+    ip: "203.0.113.30",
+    appearAt: 100,
+    selected: false,
+    name: { fr: "Appareil réseau — aucun port ouvert", en: "Network device — no open port" },
+    meta: "203.0.113.30 · 02:00:5e:00:53:30",
+    pills: [{ tone: "", fr: "Présent via ARP (pare-feu)", en: "Seen via ARP (firewall)" }],
+  },
+] as const;
+
 export default function TauriDemo({ locale }: TauriDemoProps) {
   const isEn = locale === "en";
 
@@ -36,6 +78,8 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
 
   // Étape 1 : Découverte
   const [isScanning, setIsScanning] = useState<boolean>(false);
+  // Progression du scan simulé, en pourcentage des adresses sondées.
+  const [scanPct, setScanPct] = useState<number>(100);
   const [selectedIp, setSelectedIp] = useState<string>("203.0.113.10");
 
   // Étape 2 : Connexion SSH
@@ -53,10 +97,12 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
   const [deployPct, setDeployPct] = useState<number>(0);
   const [deployLogs, setDeployLogs] = useState<string[]>([
     "[SYS] Session SSH établie avec 203.0.113.10:22",
-    "[SYS] Lancement du déploiement automatisé : ./install.sh --channel=stable --progress=json",
+    "[SYS] Envoi de l'installateur sur la cible…",
+    "[SYS] Lancement du déploiement automatisé : bash install.sh --channel=stable --progress=json",
   ]);
   const [isDeployCompleted, setIsDeployCompleted] = useState<boolean>(false);
 
+  const scanTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const logsContainerRef = useRef<HTMLDivElement | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -81,9 +127,11 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
     setDeployPct(5);
     const channelFlag = betaChannel ? "--channel=beta" : "--channel=stable";
     setDeployLogs([
-      "[SYS] Session SSH authentifiée (utilisateur 'fanta')",
+      "[SYS] Session SSH authentifiée (utilisateur 'admin')",
       "[SYS] Amorçage des privilèges sudo : OK",
-      `[SYS] Lancement : ./install.sh ${channelFlag} --progress=json`,
+      "[SYS] Envoi de l'installateur sur la cible…",
+      `[SYS] Amorçage : récupération du code (${betaChannel ? "beta" : "dernière version stable"})`,
+      `[SYS] Lancement : bash install.sh ${channelFlag} --progress=json`,
     ]);
     setIsDeployCompleted(false);
   }, [betaChannel]);
@@ -124,6 +172,11 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
     clearActiveTimer();
     setWizardStep(1);
     setIsScanning(false);
+    setScanPct(100);
+    if (scanTimerRef.current) {
+      clearInterval(scanTimerRef.current);
+      scanTimerRef.current = null;
+    }
     setSelectedIp("203.0.113.10");
     setSshConnecting(false);
     setSshAuthMethod("password");
@@ -141,8 +194,8 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
     setDeployStepIndex(INSTALL_STEPS.length - 1);
     setDeployPct(100);
     setDeployLogs([
-      "[SYS] Session SSH authentifiée (utilisateur 'fanta')",
-      "[SYS] Lancement : ./install.sh --progress=json",
+      "[SYS] Session SSH authentifiée (utilisateur 'admin')",
+      "[SYS] Lancement : bash install.sh --progress=json",
       ...INSTALL_STEPS.map((s) => `[OK] Étape ${s.num}/18 : ${s.title} — ${s.detail}`),
       "[TERMINÉ] Installation terminée avec succès (18/18 étapes).",
       "[HEALTH] API backend HTTP 200 OK — Kiosque et mDNS actifs.",
@@ -151,13 +204,40 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
     setTimeout(scrollLogsToBottom, 60);
   }, [scrollLogsToBottom]);
 
-  // Action scan réseau
+  // Action scan réseau : rejoue la découverte en direct (barre de progression
+  // + appareils qui apparaissent un à un). Avec `prefers-reduced-motion`, le
+  // résultat final s'affiche directement, sans animation.
   const handleScan = () => {
-    setIsScanning(true);
-    setTimeout(() => {
+    if (scanTimerRef.current) clearInterval(scanTimerRef.current);
+    const reduced =
+      typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      setScanPct(100);
       setIsScanning(false);
-    }, 700);
+      return;
+    }
+    setIsScanning(true);
+    setScanPct(0);
+    let pct = 0;
+    scanTimerRef.current = setInterval(() => {
+      pct = Math.min(100, pct + 4);
+      setScanPct(pct);
+      if (pct >= 100) {
+        if (scanTimerRef.current) clearInterval(scanTimerRef.current);
+        scanTimerRef.current = null;
+        setIsScanning(false);
+      }
+    }, 70);
   };
+
+  useEffect(() => {
+    return () => {
+      if (scanTimerRef.current) clearInterval(scanTimerRef.current);
+    };
+  }, []);
+
+  const visibleDevices = DEMO_DEVICES.filter((d) => d.appearAt <= scanPct);
+  const scannedHosts = Math.round((scanPct / 100) * DEMO_SCAN_TOTAL);
 
   // Action vérification SSH
   const handleConnectSsh = () => {
@@ -318,51 +398,62 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                 </div>
               </div>
 
+              <details className="tauri-scan-advanced">
+                <summary>{isEn ? "Scan another network" : "Scanner un autre réseau"}</summary>
+                <p>
+                  {isEn
+                    ? "Useful when the kiosk sits on another subnet (guest network, VLAN, second router): enter 203.0.113.0/24 style ranges."
+                    : "Utile si la borne est sur un autre sous-réseau (réseau invité, VLAN, second routeur) : saisissez une plage du type 203.0.113.0/24."}
+                </p>
+              </details>
+
+              {isScanning && (
+                <div className="tauri-scan-progress" aria-live="polite">
+                  <div className="tauri-scan-progress-track">
+                    <div className="tauri-scan-progress-fill" style={{ width: `${scanPct}%` }} />
+                  </div>
+                  <span className="tauri-scan-progress-text">
+                    {isEn
+                      ? `${scannedHosts}/${DEMO_SCAN_TOTAL} addresses probed · ${visibleDevices.length} device${visibleDevices.length > 1 ? "s" : ""} found · network: 203.0.113.0/24`
+                      : `${scannedHosts}/${DEMO_SCAN_TOTAL} adresses sondées · ${visibleDevices.length} appareil${visibleDevices.length > 1 ? "s" : ""} trouvé${visibleDevices.length > 1 ? "s" : ""} · réseau : 203.0.113.0/24`}
+                  </span>
+                </div>
+              )}
+
               <div className="tauri-devices-section">
                 <span className="tauri-section-label">{isEn ? "Discovered devices" : "Appareils détectés"}</span>
                 <div className="tauri-devices-list">
-                  <div className="tauri-device-row is-selected">
-                    <div className="tauri-device-info">
-                      <span className="tauri-device-name">Dell Wyse 5070 — bobine-appliance.local</span>
-                      <span className="tauri-device-ip">203.0.113.10 · Port 8000 · SSH : 22</span>
-                      <div className="tauri-device-pills">
-                        <span className="tauri-pill tauri-pill--success">Bobine Actif</span>
-                        <span className="tauri-pill tauri-pill--info">SSH Ouvert</span>
-                        <span className="tauri-pill">Debian 13</span>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      className="tauri-btn tauri-btn--primary tauri-btn--sm"
-                      onClick={() => {
-                        setSelectedIp("203.0.113.10");
-                        setWizardStep(2);
-                      }}
+                  {visibleDevices.map((device) => (
+                    <div
+                      key={device.ip}
+                      className={`tauri-device-row${device.selected ? " is-selected" : ""}${isScanning ? " is-entering" : ""}`}
                     >
-                      {isEn ? "Select" : "Sélectionner"}
-                    </button>
-                  </div>
-
-                  <div className="tauri-device-row">
-                    <div className="tauri-device-info">
-                      <span className="tauri-device-name">Hôte Linux — dev-workstation.local</span>
-                      <span className="tauri-device-ip">203.0.113.20 · SSH : 22</span>
-                      <div className="tauri-device-pills">
-                        <span className="tauri-pill tauri-pill--info">SSH Ouvert</span>
-                        <span className="tauri-pill">Ubuntu 24.04</span>
+                      <div className="tauri-device-info">
+                        <span className="tauri-device-name">{isEn ? device.name.en : device.name.fr}</span>
+                        <span className="tauri-device-ip">{device.meta}</span>
+                        <div className="tauri-device-pills">
+                          {device.pills.map((pill) => (
+                            <span
+                              key={pill.fr}
+                              className={`tauri-pill${pill.tone ? ` tauri-pill--${pill.tone}` : ""}`}
+                            >
+                              {isEn ? pill.en : pill.fr}
+                            </span>
+                          ))}
+                        </div>
                       </div>
+                      <button
+                        type="button"
+                        className={`tauri-btn tauri-btn--sm ${device.selected ? "tauri-btn--primary" : "tauri-btn--secondary"}`}
+                        onClick={() => {
+                          setSelectedIp(device.ip);
+                          setWizardStep(2);
+                        }}
+                      >
+                        {isEn ? "Select" : "Sélectionner"}
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      className="tauri-btn tauri-btn--secondary tauri-btn--sm"
-                      onClick={() => {
-                        setSelectedIp("203.0.113.20");
-                        setWizardStep(2);
-                      }}
-                    >
-                      {isEn ? "Select" : "Sélectionner"}
-                    </button>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -387,7 +478,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                 </div>
                 <div className="tauri-form-group">
                   <label className="tauri-label">{isEn ? "Target user" : "Utilisateur standard"}</label>
-                  <input type="text" defaultValue="fanta" className="tauri-input" />
+                  <input type="text" defaultValue="admin" className="tauri-input" />
                 </div>
                 <div className="tauri-form-group">
                   <label className="tauri-label">{isEn ? "Authentication method" : "Méthode d'authentification"}</label>

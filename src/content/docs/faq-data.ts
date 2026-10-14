@@ -95,6 +95,11 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       a: "La console coach responsive s'adapte à tous les écrans : sur tablette paysage ou PC, elle offre un pupitre audio avec boutons 64px, un minuteur précis interpolé à 10 Hz, le retour vidéo direct Stage Monitor 16:9 de la salle et une palette d'ambiances visuelles 1-clic. Sur smartphone, elle bascule en vue monoposte avec tiroirs tactiles rétractables. Elle gère l'assignation d'ambiances vidéo différentes par piste musicale et démarre toujours en pause sécurisée pour laisser le coach s'installer.",
     },
     {
+      q: "Bobine fonctionne-t-il avec Firefox ?",
+      a: "Oui. L'interface d'administration et les lecteurs ouverts depuis un autre appareil (/radio, /kiosk, /cinema, /coach) sont vérifiés sur Firefox 157 : WebSocket, envoi de fichiers, lecture par plages, audio Web, manettes et lecture H.264 y fonctionnent. Le décodage de certains formats (HEVC, AV1) dépend du système et du matériel du navigateur. Un plan de durcissement (téléversement reprenable, profil vidéo lisible partout) est publié dans la documentation technique du projet. Firefox est une marque de la Mozilla Foundation, citée ici sans affiliation.",
+      category: "compare",
+    },
+    {
       q: "Puis-je installer et mettre à jour Bobine via Tor ?",
       a: "Oui. Le dépôt APT et le site sont aussi disponibles en services onion (Tor), sans révéler votre adresse IP. Installez apt-transport-tor puis utilisez la source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main : les paquets restent signés par la même clé, vérifiée par apt (empreinte de la clé principale B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). Le site est aussi consultable dans Tor Browser : http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. La boutique matériel n'y est pas proposée, et l'assistant Baamix n'y répond pas.",
       category: "updates",
@@ -170,6 +175,11 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       category: "updates",
       q: "How does the 1-click automatic uninstaller work?",
       a: "In Settings → Danger Zone, automatic uninstallation triggers the native uninstaller for your platform (Polkit on Linux .deb, Inno Setup on Windows, LaunchAgent purge on macOS, Android intent, or the bobine-uninstall script on headless Debian). The operation requires explicitly typing the confirmation keyword 'UNINSTALL' ('DÉSINSTALLER') to prevent accidental removals.",
+    },
+    {
+      q: "Does Bobine work with Firefox?",
+      a: "Yes. The admin interface and the players opened from another device (/radio, /kiosk, /cinema, /coach) are verified on Firefox 157: WebSocket, file upload, range requests, Web Audio, gamepads and H.264 playback all work. Decoding of some formats (HEVC, AV1) depends on the browser's operating system and hardware. A hardening plan (resumable upload, a play-everywhere video profile) is published in the project's technical documentation. Firefox is a trademark of the Mozilla Foundation, mentioned here without affiliation.",
+      category: "compare",
     },
     {
       q: "Can I install and update Bobine over Tor?",

@@ -4,25 +4,45 @@
 # Cible par défaut : Debian 13 (trixie) sur Dell Wyse 5070, Intel Gemini Lake.
 #
 # Usage rapide :
+#   curl -fsSL https://github.com/FantasmaGlad/Bobine/releases/latest/download/install.sh | bash
+#                                     # tout-en-un : récupère le code, demande sudo, installe
 #   git clone <repo> Bobine && cd Bobine
-#   sudo ./install.sh                 # installation complète (kiosk + backend)
-#   sudo ./install.sh --help          # toutes les options
+#   ./install.sh                      # installation complète (kiosk + backend), sudo auto
+#   ./install.sh --help               # toutes les options
 #
 # Idempotent : le relancer après un 'git pull' met à jour les dépendances,
 # reconstruit le frontend et redémarre les services proprement.
 #
 set -euo pipefail
 
-SCRIPT_NAME="$(basename "${BASH_SOURCE[0]}")"
+# Arguments d'origine, conservés tels quels pour pouvoir relancer ce script
+# (élévation sudo, amorçage depuis un dépôt cloné, rechargement après un
+# changement de version) sans rien perdre de ce que l'utilisateur a demandé.
+ORIG_ARGS=("$@")
+# Vide quand le script arrive par un tube (`curl … | bash`) : bash ne le lit
+# alors pas depuis un fichier. L'ancienne écriture `${BASH_SOURCE[0]}` y
+# plantait aussitôt sous `set -u` ("variable sans liaison") — la commande
+# d'installation annoncée dans le README ne pouvait donc jamais fonctionner.
+SELF_PATH="${BASH_SOURCE[0]:-}"
+SCRIPT_NAME="$([[ -n "${SELF_PATH}" ]] && basename "${SELF_PATH}" || echo install.sh)"
 # Calculé tôt (avant tout usage root/argparse) : sert à la fois au bandeau
 # d'accueil ci-dessous et à REPO_DIR plus bas (cf. §"Cible" — même valeur,
 # lue une seule fois pour éviter toute divergence entre les deux usages).
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -n "${SELF_PATH}" && -f "${SELF_PATH}" ]]; then
+    REPO_DIR="$(cd "$(dirname "${SELF_PATH}")" && pwd)"
+else
+    REPO_DIR="${PWD}"
+fi
+# Empreinte de CE fichier : après un changement de version (étape
+# update-channel), un installateur modifié par le checkout doit se relancer
+# lui-même — sinon l'ancienne logique d'installation s'appliquerait à du code
+# plus récent.
+SELF_SHA="$([[ -f "${SELF_PATH}" ]] && sha256sum "${SELF_PATH}" 2>/dev/null | cut -d' ' -f1 || true)"
 # Source de vérité unique du numéro de version (réf. mission "canal Stable/
 # Bêta") : fichier VERSION à la racine du dépôt, lu ici et par les scripts de
 # packaging (packaging/linux/build_deb.sh, packaging/macos/build_app.sh) —
-# repli "3.0.1" si le fichier est absent (ex. script copié isolément).
-SCRIPT_VERSION="$(cat "${REPO_DIR}/VERSION" 2>/dev/null || echo "3.0.1")"
+# repli "3.0.4" si le fichier est absent (ex. script copié isolément).
+SCRIPT_VERSION="$(cat "${REPO_DIR}/VERSION" 2>/dev/null || echo "4.0.3")"
 # Déplacé ici (auparavant défini beaucoup plus bas, avec le reste du bloc
 # "Cible") : nécessaire tôt pour select_update_channel(), qui lit/écrit le
 # canal choisi (${CONFIG_DIR}/update-channel) avant même l'exécution du
@@ -126,6 +146,9 @@ ${BOLD}OPTIONS${RESET}
       --purge-data    Avec --uninstall --purge : retire EN PLUS les médias importés (destructif, confirmation requise)
 
 ${BOLD}EXEMPLES${RESET}
+  curl -fsSL https://github.com/FantasmaGlad/Bobine/releases/latest/download/install.sh | bash
+                                                Installation en une commande : récupère le code, demande sudo si besoin
+  curl -fsSL https://github.com/FantasmaGlad/Bobine/releases/download/beta/install.sh | bash -s -- --channel=beta
   sudo ./${SCRIPT_NAME}                       Installation standard (interface épurée par défaut)
   sudo ./${SCRIPT_NAME} --lang=en             Installation en anglais
   sudo ./${SCRIPT_NAME} --channel=beta        Rejoint le canal Bêta (accès anticipé)
@@ -171,6 +194,7 @@ while [[ $# -gt 0 ]]; do
         --skip-packages) SKIP_PACKAGES=true ;;
         --skip-build) SKIP_BUILD=true ;;
         --as-user) AS_USER="${2:-}"; shift ;;
+        --as-user=*) AS_USER="${1#*=}" ;;
         --progress=*) PROGRESS="${1#*=}" ;;
         --progress) PROGRESS="${2:-}"; shift ;;
         --check) DO_CHECK=true ;;
@@ -184,6 +208,16 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
+# Une saisie est-elle possible ? Vrai avec une entrée standard interactive, ET
+# aussi quand le script arrive par un tube (`curl … | bash`, stdin = le script)
+# mais qu'un terminal de contrôle existe : les questions (langue, canal) se
+# posent alors sur /dev/tty au lieu d'être sautées silencieusement. Faux dans
+# une automatisation sans terminal (CI, SSH sans PTY) : valeurs par défaut.
+has_tty() {
+    [[ -t 0 ]] && return 0
+    [[ -r /dev/tty && -w /dev/tty ]] && (: </dev/tty) 2>/dev/null
+}
+
 select_installer_language() {
     if [[ -n "${INSTALL_LANG:-}" ]]; then
         case "${INSTALL_LANG,,}" in
@@ -193,7 +227,7 @@ select_installer_language() {
         return 0
     fi
 
-    if $ASSUME_YES || [[ ! -t 0 ]]; then
+    if $ASSUME_YES || ! has_tty; then
         if [[ "${LANG:-}" =~ ^en ]]; then
             INSTALL_LANG="en"
         else
@@ -233,7 +267,7 @@ select_update_channel() {
     local previous=""
     [[ -f "${CONFIG_DIR}/update-channel" ]] && previous="$(cat "${CONFIG_DIR}/update-channel" 2>/dev/null || true)"
 
-    if $ASSUME_YES || [[ ! -t 0 ]]; then
+    if $ASSUME_YES || ! has_tty; then
         UPDATE_CHANNEL="${previous:-stable}"
         return 0
     fi
@@ -262,6 +296,55 @@ case "${PROGRESS}" in
     *)      echo "Valeur --progress inconnue : ${PROGRESS} (attendu : json)" >&2; exit 1 ;;
 esac
 
+# Texte bilingue des messages ajoutés après la sélection de langue :
+# t "français" "english".
+t() { if [[ "${INSTALL_LANG:-fr}" == "en" ]]; then printf '%s' "$2"; else printf '%s' "$1"; fi; }
+
+# Options communes à tous les appels apt-get : `Acquire::Retries` absorbe les
+# coupures réseau ponctuelles, `DPkg::Lock::Timeout` attend (jusqu'à 3 min) le
+# verrou tenu par unattended-upgrades juste après le premier démarrage d'une
+# Debian fraîche — sans ça l'installation échouait aléatoirement avec « Could
+# not get lock /var/lib/dpkg/lock-frontend ».
+APT_OPTS=(-o Acquire::Retries=3 -o DPkg::Lock::Timeout=180)
+
+# Indicateur de progression animé pour les étapes longues (apt, pip, npm…).
+# Actif uniquement sur un vrai terminal, hors mode verbeux/silencieux et hors
+# sortie machine (--progress=json) ; dessiné sur le fd 3 (terminal d'origine)
+# pour ne jamais polluer le journal. N'apparaît qu'au bout de 2 s : les
+# commandes brèves restent silencieuses, sans clignotement.
+SPINNER_ENABLED=false
+if [[ -t 1 ]] && ! $VERBOSE && ! $QUIET && ! $PROGRESS_JSON && [[ "${TERM:-dumb}" != "dumb" ]]; then
+    SPINNER_ENABLED=true
+fi
+SPIN_FRAMES=('⠋' '⠙' '⠹' '⠸' '⠼' '⠴' '⠦' '⠧' '⠇' '⠏')
+case "${LC_ALL:-${LC_CTYPE:-${LANG:-}}}" in
+    *[Uu][Tt][Ff]-8*|*[Uu][Tt][Ff]8*) ;;
+    *) SPIN_FRAMES=('|' '/' '-' '\') ;;
+esac
+
+_spin_wait() {
+    local pid="$1" i=0 started=$SECONDS shown=false activity="" cols
+    cols=$(tput cols 2>/dev/null || echo 80)
+    local width=$(( cols - 14 ))
+    (( width < 20 )) && width=20
+    while kill -0 "$pid" 2>/dev/null; do
+        if (( SECONDS - started >= 2 )); then
+            shown=true
+            # Dernière ligne utile du journal : montre que ça travaille
+            # vraiment (paquet en cours, module pip, étape npm…).
+            if (( i % 5 == 0 )); then
+                activity="$(tail -n 3 "${LOG_FILE}" 2>/dev/null | tr -d '\r' | tr -c '[:print:]\n' ' ' | grep -v '^[[:space:]]*$' | tail -n 1 | cut -c1-${width} || true)"
+            fi
+            printf '\r  %s%s%s %s%s%s %s%ds%s\033[K' "$CYAN" "${SPIN_FRAMES[i % ${#SPIN_FRAMES[@]}]}" "$RESET" \
+                "$DIM" "${activity:-${CURRENT_STEP_TITLE:-…}}" "$RESET" "$DIM" "$(( SECONDS - started ))" "$RESET" >&3
+        fi
+        i=$(( i + 1 ))
+        sleep 0.12
+    done
+    $shown && printf '\r\033[K' >&3
+    return 0
+}
+
 log()  { $QUIET && return 0; printf '\n%s%s▸%s %s\n' "$BOLD" "$CYAN" "$RESET" "$*"; }
 ok()   { $QUIET && return 0; printf '  %s %s\n' "$ICON_OK" "$*"; }
 warn() { printf '  %s %s%s%s\n' "$ICON_WARN" "$YELLOW" "$*" "$RESET" >&2; }
@@ -284,6 +367,11 @@ run() {
     fi
     if $VERBOSE; then
         "$@"
+    elif $SPINNER_ENABLED; then
+        "$@" >>"${LOG_FILE}" 2>&1 &
+        local pid=$!
+        _spin_wait "$pid"
+        wait "$pid"
     else
         "$@" >>"${LOG_FILE}" 2>&1
     fi
@@ -318,20 +406,33 @@ run_user() {
         printf '  %s[dry-run]%s (utilisateur %s) %s\n' "$DIM" "$RESET" "${TARGET_USER}" "$*"
         return 0
     fi
+    local cmd=()
     if command -v sudo >/dev/null 2>&1; then
-        if $VERBOSE; then
-            sudo -u "${TARGET_USER}" -- "$@"
-        else
-            sudo -u "${TARGET_USER}" -- "$@" >>"${LOG_FILE}" 2>&1
-        fi
+        cmd=(sudo -u "${TARGET_USER}" -- "$@")
     else
         local home
         home="$(getent passwd "${TARGET_USER}" | cut -d: -f6)"
-        if $VERBOSE; then
-            runuser -u "${TARGET_USER}" -- env "HOME=${home:-/home/${TARGET_USER}}" "$@"
-        else
-            runuser -u "${TARGET_USER}" -- env "HOME=${home:-/home/${TARGET_USER}}" "$@" >>"${LOG_FILE}" 2>&1
-        fi
+        cmd=(runuser -u "${TARGET_USER}" -- env "HOME=${home:-/home/${TARGET_USER}}" "$@")
+    fi
+    if $VERBOSE; then
+        "${cmd[@]}"
+    elif $SPINNER_ENABLED; then
+        "${cmd[@]}" >>"${LOG_FILE}" 2>&1 &
+        local pid=$!
+        _spin_wait "$pid"
+        wait "$pid"
+    else
+        "${cmd[@]}" >>"${LOG_FILE}" 2>&1
+    fi
+}
+
+# Exécute une commande en tant que TARGET_USER et laisse sa sortie à l'appelant
+# (lecture : tags git, chemins…) — pas de journalisation ni de spinner.
+user_out() {
+    if command -v sudo >/dev/null 2>&1; then
+        sudo -H -u "${TARGET_USER}" -- "$@"
+    else
+        runuser -u "${TARGET_USER}" -- env "HOME=$(getent passwd "${TARGET_USER}" | cut -d: -f6)" "$@"
     fi
 }
 
@@ -343,7 +444,7 @@ apt_optional() {
         printf '  %s[dry-run]%s installerait (optionnel) %s\n' "$DIM" "$RESET" "$*"
         return 0
     fi
-    local cmd=(apt-get install -y --no-install-recommends "$@")
+    local cmd=(apt-get "${APT_OPTS[@]}" install -y --no-install-recommends "$@")
     if $VERBOSE; then
         if "${cmd[@]}"; then
             ok "paquet installé : $*"
@@ -388,11 +489,152 @@ ensure_apt_components() {
     $changed
 }
 
+# ============================================================================
+# 0 bis. Amorçage — installation en une commande, sans dépôt local
+#    curl -fsSL https://github.com/FantasmaGlad/Bobine/releases/latest/download/install.sh | bash
+# ============================================================================
+BOBINE_REPO_URL="${BOBINE_REPO_URL:-https://github.com/FantasmaGlad/Bobine.git}"
+BOBINE_INSTALL_URL="${BOBINE_INSTALL_URL:-https://github.com/FantasmaGlad/Bobine/releases/latest/download/install.sh}"
+
+# Arguments relayés tels quels à toute relance de ce script, avec la langue et
+# le canal DÉJÀ choisis (aucune question posée deux fois).
+PASS_ARGS=(${ORIG_ARGS[@]+"${ORIG_ARGS[@]}"} "--lang=${INSTALL_LANG}" "--channel=${UPDATE_CHANNEL}")
+
+# Variables d'environnement utiles relayées à travers sudo SANS `sudo -E` (qui
+# exige un droit SETENV absent de nombreuses politiques sudoers).
+SUDO_ENV=()
+for _v in BOBINE_DIR BOBINE_REPO_URL BOBINE_INSTALL_URL NO_COLOR; do
+    [[ -n "${!_v:-}" ]] && SUDO_ENV+=("${_v}=${!_v}")
+done
+unset _v
+
+# Ce script ne se trouve pas dans une copie complète de Bobine : lancé par un
+# tube (`curl … | bash`) ou copié seul. Il lui faut alors récupérer le code.
+is_standalone() { [[ ! -d "${REPO_DIR}/backend/app" || ! -d "${REPO_DIR}/frontend" ]]; }
+
+_bootstrap_fail() {
+    local rc=$?
+    echo
+    err "$(t "Échec de l'amorçage (code ${rc}). Journal : ${LOG_FILE:-?}" "Bootstrap failed (code ${rc}). Log: ${LOG_FILE:-?}")"
+    if [[ -n "${LOG_FILE:-}" && -f "${LOG_FILE}" ]]; then
+        tail -n 15 "${LOG_FILE}" | sed 's/^/  /' >&2 || true
+    fi
+    exit "$rc"
+}
+
+bootstrap_standalone() {
+    trap _bootstrap_fail ERR
+    exec 3>&1
+    LOG_FILE="$(mktemp /tmp/bobine-bootstrap.XXXXXX.log)"
+    banner
+    log "$(t "Amorçage — ce script est lancé hors d'une copie de Bobine : récupération du code" "Bootstrap — this script runs outside a Bobine checkout: fetching the code")"
+
+    if [[ -n "${BOBINE_BOOTSTRAPPED:-}" ]]; then
+        err "$(t "Amorçage déjà effectué mais la copie obtenue est incomplète : ${REPO_DIR}" "Bootstrap already done but the checkout is incomplete: ${REPO_DIR}")"
+        exit 1
+    fi
+
+    # 1. Privilèges : sudo si disponible, sinon consigne précise.
+    if [[ $EUID -ne 0 ]]; then
+        if ! command -v sudo >/dev/null 2>&1; then
+            err "$(t "Droits root requis et sudo est absent. Relancez en root : su - -c 'curl -fsSL ${BOBINE_INSTALL_URL} | bash -s -- --as-user <votre_login>'" "Root rights required and sudo is missing. Re-run as root: su - -c 'curl -fsSL ${BOBINE_INSTALL_URL} | bash -s -- --as-user <your_login>'")"
+            exit 1
+        fi
+        local copy="${SELF_PATH}"
+        if [[ -z "${copy}" || ! -f "${copy}" ]]; then
+            # Script reçu par un tube : impossible de le relancer tel quel
+            # sous sudo, on en télécharge une copie identique.
+            copy="$(mktemp /tmp/bobine-install.XXXXXX.sh)"
+            if ! curl -fsSL --retry 3 -o "${copy}" "${BOBINE_INSTALL_URL}"; then
+                err "$(t "Téléchargement de l'installateur impossible (${BOBINE_INSTALL_URL}) — vérifiez la connexion Internet." "Could not download the installer (${BOBINE_INSTALL_URL}) — check the Internet connection.")"
+                exit 1
+            fi
+        fi
+        ok "$(t "Droits administrateur requis — demande via sudo" "Administrator rights required — asking through sudo")"
+        exec sudo env ${SUDO_ENV[@]+"${SUDO_ENV[@]}"} bash "${copy}" "${PASS_ARGS[@]}"
+    fi
+
+    # 2. Compte cible : propriétaire du code, du kiosk et des données.
+    if [[ -n "${AS_USER}" ]]; then
+        TARGET_USER="${AS_USER}"
+    elif [[ -n "${SUDO_USER:-}" && "${SUDO_USER}" != "root" ]]; then
+        TARGET_USER="${SUDO_USER}"
+    else
+        err "$(t "Compte cible introuvable : lancez via sudo depuis votre compte, ou ajoutez --as-user <login>." "Target account not found: run through sudo from your account, or add --as-user <login>.")"
+        exit 1
+    fi
+    if ! id "${TARGET_USER}" >/dev/null 2>&1; then
+        err "$(t "Le compte '${TARGET_USER}' n'existe pas sur cette machine." "The account '${TARGET_USER}' does not exist on this machine.")"
+        exit 1
+    fi
+    local home dest
+    home="$(getent passwd "${TARGET_USER}" | cut -d: -f6)"
+    dest="${BOBINE_DIR:-${home}/Bobine}"
+
+    if $DRY_RUN; then
+        printf '  %s[dry-run]%s %s\n' "$DIM" "$RESET" "$(t "clonerait ${BOBINE_REPO_URL} dans ${dest} puis relancerait l'installation" "would clone ${BOBINE_REPO_URL} into ${dest} then restart the installation")"
+        exit 0
+    fi
+
+    # 3. Prérequis minimaux (une Debian netinst n'a ni git ni curl).
+    if ! command -v git >/dev/null 2>&1 || ! command -v curl >/dev/null 2>&1 || ! [[ -d /etc/ssl/certs ]]; then
+        if ! command -v apt-get >/dev/null 2>&1; then
+            err "$(t "git et curl sont requis (gestionnaire apt introuvable : installez-les puis relancez)." "git and curl are required (apt not found: install them and re-run).")"
+            exit 1
+        fi
+        log "$(t "Installation de git et curl" "Installing git and curl")"
+        export DEBIAN_FRONTEND=noninteractive
+        run apt-get "${APT_OPTS[@]}" update -qq
+        run apt-get "${APT_OPTS[@]}" install -y -qq --no-install-recommends git curl ca-certificates
+        ok "git, curl"
+    fi
+
+    # 4. Code : clone léger (sans les blobs d'historique) ou mise à jour.
+    if [[ -d "${dest}/.git" ]]; then
+        log "$(t "Copie existante détectée : ${dest} — mise à jour" "Existing checkout found: ${dest} — updating")"
+        run_user git -C "${dest}" fetch --tags --force --quiet
+    elif [[ -e "${dest}" && -n "$(ls -A "${dest}" 2>/dev/null)" ]]; then
+        err "$(t "${dest} existe déjà et n'est pas une copie de Bobine — déplacez-le ou fixez BOBINE_DIR=/autre/chemin." "${dest} already exists and is not a Bobine checkout — move it or set BOBINE_DIR=/other/path.")"
+        exit 1
+    else
+        log "$(t "Récupération du code dans ${dest}" "Fetching the code into ${dest}")"
+        if ! run_user git clone --quiet --filter=blob:none "${BOBINE_REPO_URL}" "${dest}"; then
+            warn "$(t "Clone allégé indisponible — nouvelle tentative en clone complet." "Partial clone unavailable — retrying with a full clone.")"
+            run rm -rf "${dest}"
+            if ! run_user git clone --quiet "${BOBINE_REPO_URL}" "${dest}"; then
+                err "$(t "Impossible de cloner ${BOBINE_REPO_URL} — vérifiez Internet/DNS/proxy. Détails : ${LOG_FILE}" "Cannot clone ${BOBINE_REPO_URL} — check Internet/DNS/proxy. Details: ${LOG_FILE}")"
+                exit 1
+            fi
+        fi
+    fi
+
+    # 5. Version : dernière Stable, ou tag mobile `beta`.
+    local ref=""
+    if [[ "${UPDATE_CHANNEL}" == "beta" ]]; then
+        user_out git -C "${dest}" rev-parse --verify -q refs/tags/beta >/dev/null 2>&1 && ref="beta"
+    else
+        ref="$(user_out git -C "${dest}" tag --list 'V*' --sort=-v:refname 2>/dev/null | grep -E '^V[0-9]+\.[0-9]+\.[0-9]+$' | head -1 || true)"
+    fi
+    if [[ -n "${ref}" ]]; then
+        run_user git -C "${dest}" -c advice.detachedHead=false checkout --quiet "${ref}"
+        ok "$(t "Version ${ref} (canal ${UPDATE_CHANNEL})" "Version ${ref} (${UPDATE_CHANNEL} channel)")"
+    else
+        warn "$(t "Aucun tag de release trouvé — branche par défaut utilisée." "No release tag found — using the default branch.")"
+    fi
+
+    ok "$(t "Code prêt — lancement de l'installation" "Code ready — starting the installation")"
+    exec env BOBINE_BOOTSTRAPPED=1 bash "${dest}/install.sh" "${PASS_ARGS[@]}"
+}
+
+if is_standalone; then
+    bootstrap_standalone
+fi
+
 # Nombre d'appels à step() ci-dessous (mettre à jour si on en ajoute/retire).
 # Cohérence garantie par la CI (job « install.sh sanity ») qui compare cette
 # valeur à `grep -cE '^\s*step ' install.sh` : un ajout d'étape sans mise à jour
 # ici casse le build (et fausserait le pourcentage de --progress=json).
-STEP_TOTAL=16
+STEP_TOTAL=18
 STEP_CUR=0
 STEP_START_TS=0
 CURRENT_STEP_TITLE=""
@@ -486,6 +728,12 @@ trap on_error ERR
 # ============================================================================
 
 if [[ $EUID -ne 0 ]]; then
+    # Plutôt que d'échouer et d'obliger à retaper la commande : relance
+    # automatique sous sudo (le mot de passe est demandé par sudo lui-même).
+    if command -v sudo >/dev/null 2>&1 && [[ -n "${SELF_PATH}" && -f "${SELF_PATH}" ]]; then
+        ok "$(t "Droits administrateur requis — relance via sudo" "Administrator rights required — re-running through sudo")"
+        exec sudo env ${SUDO_ENV[@]+"${SUDO_ENV[@]}"} bash "${SELF_PATH}" "${PASS_ARGS[@]}"
+    fi
     banner
     echo
     err "Ce script doit être lancé en root :"
@@ -521,6 +769,13 @@ if [[ "${TARGET_USER}" == "root" ]]; then
     err "Le compte cible ne peut pas être root (le kiosk et les fichiers doivent appartenir à un utilisateur normal)."
     exit 1
 fi
+# Root (via `su -`, chemin --as-user) exécutant git dans un dépôt appartenant
+# au compte cible : git refuse par défaut ("detected dubious ownership") et
+# l'étape de canal échouait donc sur les Debian sans sudo. Autorisation
+# limitée à CE dépôt, par l'environnement (git >= 2.31) — la configuration
+# globale de root n'est jamais modifiée.
+export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=safe.directory GIT_CONFIG_VALUE_0="${REPO_DIR}"
+
 BACKEND_DIR="${REPO_DIR}/backend"
 FRONTEND_DIR="${REPO_DIR}/frontend"
 VENV_DIR="${BACKEND_DIR}/.venv"
@@ -560,6 +815,8 @@ if $DO_UNINSTALL; then
     # déclenchée par lui) : retirer aussi le timer.
     run systemctl disable --now bobine-watchdog.timer 2>/dev/null || true
     run rm -f /etc/systemd/system/bobine-watchdog.timer
+    run rm -f /etc/systemd/system/bobine-display-hotplug.service /etc/udev/rules.d/90-bobine-display.rules
+    run udevadm control --reload-rules 2>/dev/null || true
     run systemctl daemon-reload
 
     run rm -f /etc/sudoers.d/bobine
@@ -650,6 +907,22 @@ do_check() {
         box_line "  ✗ build frontend absent"
     fi
     [[ -d "${VENV_DIR}" ]] && box_line "  ✓ environnement Python présent" || box_line "  ✗ environnement Python absent"
+    # Réf. audit-android-2026-09-11.md (mission secondaire, écart H4) : même
+    # vérification qu'en fin d'installation, rejouable à tout moment sans
+    # réinstaller quoi que ce soit.
+    if ! $NO_KIOSK; then
+        box_mid
+        if command -v aplay >/dev/null 2>&1 && aplay -l 2>/dev/null | grep -q '^card '; then
+            box_line "  ✓ audio : $(aplay -l 2>/dev/null | grep -c '^card ') carte(s) détectée(s)"
+        else
+            box_line "  ✗ audio : aucune carte détectée (aplay -l)"
+        fi
+        if command -v vainfo >/dev/null 2>&1 && vainfo 2>&1 | grep -qi 'VAProfileH264'; then
+            box_line "  ✓ décodage matériel H.264 (VA-API) disponible"
+        else
+            box_line "  ⚠ décodage matériel indisponible — repli logiciel (voir vainfo)"
+        fi
+    fi
     if git -C "${REPO_DIR}" rev-parse --short HEAD &>/dev/null; then
         local rev dirty extra=""
         rev=$(git -C "${REPO_DIR}" rev-parse --short HEAD)
@@ -693,6 +966,46 @@ if [[ -r /etc/os-release ]]; then
     fi
 fi
 
+# Contrôles réseau AVANT toute modification : un échec ici est expliqué en une
+# phrase au lieu de surgir plus tard comme une erreur apt ou git obscure.
+preflight_network() {
+    $DRY_RUN && return 0
+
+    # Horloge : une pile CMOS à plat (fréquent sur un mini PC d'occasion) rend
+    # les certificats TLS « pas encore valides » et fait échouer apt. On lit
+    # l'en-tête Date d'un miroir Debian en HTTP simple (indépendant de TLS).
+    local hdr remote_ts local_ts skew
+    hdr="$(curl -sI -m 8 http://deb.debian.org/ 2>/dev/null | tr -d '\r' | awk -F': ' 'tolower($1)=="date"{print $2; exit}' || true)"
+    if [[ -n "${hdr}" ]] && remote_ts="$(date -u -d "${hdr}" +%s 2>/dev/null)"; then
+        local_ts="$(date -u +%s)"
+        skew=$(( remote_ts > local_ts ? remote_ts - local_ts : local_ts - remote_ts ))
+        if (( skew > 600 )); then
+            warn "$(t "Horloge système décalée de $(( skew / 60 )) min — resynchronisation." "System clock is off by $(( skew / 60 )) min — resynchronising.")"
+            timedatectl set-ntp true >/dev/null 2>&1 || true
+            sleep 3
+            local_ts="$(date -u +%s)"
+            if (( (remote_ts > local_ts ? remote_ts - local_ts : local_ts - remote_ts) > 600 )); then
+                date -u -s "@${remote_ts}" >/dev/null 2>&1 || true
+            fi
+            ok "$(t "Horloge corrigée : $(date '+%Y-%m-%d %H:%M')" "Clock fixed: $(date '+%Y-%m-%d %H:%M')")"
+        fi
+    fi
+
+    # Accès Internet : requis pour apt/git/npm sauf réinstallation locale.
+    if ! curl -fsS -m 10 -o /dev/null https://github.com 2>/dev/null; then
+        local msg
+        msg="$(t "GitHub est injoignable depuis cette machine (Internet, DNS ou proxy)." "GitHub is unreachable from this machine (Internet, DNS or proxy).")"
+        if $SKIP_PACKAGES && $SKIP_BUILD; then
+            warn "${msg}"
+        else
+            err "${msg}"
+            err "$(t "Vérifiez : câble réseau / Wi-Fi, 'ping 1.1.1.1', 'getent hosts github.com'." "Check: network cable / Wi-Fi, 'ping 1.1.1.1', 'getent hosts github.com'.")"
+            exit 1
+        fi
+    fi
+}
+preflight_network
+
 AVAIL_KB=$(df --output=avail -k "${REPO_DIR}" 2>/dev/null | tail -1 | tr -d ' ')
 if [[ -n "${AVAIL_KB:-}" ]] && (( AVAIL_KB < 2 * 1024 * 1024 )); then
     warn "Moins de 2 Go disponibles sur $(df --output=target "${REPO_DIR}" | tail -1 | tr -d ' ') — l'import de vidéos réclame nettement plus d'espace."
@@ -731,13 +1044,24 @@ if [[ -d "${REPO_DIR}/.git" ]]; then
     else
         # Dernier tag Vx.y.z, en excluant tout tag qui ne suit pas cette
         # forme stricte (garde-fou si un tag non standard existe).
-        TARGET_TAG="$(git -C "${REPO_DIR}" tag --list 'V*' --sort=-v:refname 2>/dev/null | grep -E '^V[0-9]+\.[0-9]+\.[0-9]+$' | head -1)"
+        TARGET_TAG="$(git -C "${REPO_DIR}" tag --list 'V*' --sort=-v:refname 2>/dev/null | grep -E '^V[0-9]+\.[0-9]+\.[0-9]+$' | head -1 || true)"
     fi
     if [[ -n "${TARGET_TAG:-}" ]]; then
         CURRENT_TAG="$(git -C "${REPO_DIR}" describe --tags --exact-match 2>/dev/null || true)"
         if [[ "${CURRENT_TAG}" != "${TARGET_TAG}" ]]; then
             log "Bascule sur ${TARGET_TAG} (canal ${UPDATE_CHANNEL})"
             run git -C "${REPO_DIR}" checkout "${TARGET_TAG}"
+            # Le checkout a pu remplacer ce fichier par une autre version de
+            # l'installateur (autres étapes, autres correctifs) : on repart de
+            # la bonne, une seule fois (garde BOBINE_REEXEC). Les flux sont
+            # rendus au terminal d'origine pour ne pas empiler deux tee.
+            if [[ -z "${BOBINE_REEXEC:-}" && -n "${SELF_PATH}" && -f "${SELF_PATH}" ]] && ! $DRY_RUN \
+                && [[ "$(sha256sum "${SELF_PATH}" | cut -d' ' -f1)" != "${SELF_SHA}" ]]; then
+                ok "$(t "Installateur mis à jour par ce changement de version — relance" "Installer changed by this version switch — restarting")"
+                emit_event "\"event\":\"restart\",\"reason\":\"installer_updated\""
+                exec 1>&3 2>&3
+                exec env BOBINE_REEXEC=1 bash "${SELF_PATH}" "${PASS_ARGS[@]}"
+            fi
         else
             ok "Déjà sur ${TARGET_TAG} (canal ${UPDATE_CHANNEL})"
         fi
@@ -756,9 +1080,9 @@ if $SKIP_PACKAGES; then
     step_skip "--skip-packages"
 else
     export DEBIAN_FRONTEND=noninteractive
-    run apt-get update -qq
+    run apt-get "${APT_OPTS[@]}" update -qq
 
-    run apt-get install -y --no-install-recommends \
+    run apt-get "${APT_OPTS[@]}" install -y --no-install-recommends \
         ffmpeg \
         python3 \
         python3-venv \
@@ -774,7 +1098,26 @@ else
         gnupg \
         sudo \
         avahi-daemon \
-        nftables
+        nftables \
+        alsa-utils \
+        pipewire \
+        pipewire-pulse \
+        wireplumber \
+        pulseaudio-utils
+    # Réf. mission "vérifie que l'installateur configure bien les sorties
+    # audio" (audit-android-2026-09-11.md, mission secondaire) : ni
+    # alsa-utils (amixer/aplay/alsactl) ni PipeWire/WirePlumber n'étaient
+    # jamais installés par ce script alors que l'étape "audio" plus bas
+    # écrit déjà une configuration WirePlumber dédiée
+    # (/etc/wireplumber/wireplumber.conf.d/51-fix-jack-autoport.conf) et que
+    # kiosk-xinitrc/bobine-audio-mute.sh appellent `amixer`/`pactl` sur
+    # chaque carte détectée — sur un Debian minimal (netinst, sans tâche
+    # bureau), AUCUN de ces binaires n'existe, et toutes ces commandes
+    # échouaient silencieusement (`|| true`/`2>/dev/null` partout) : le
+    # démute, le 100% matériel de référence et la coupure hors session ne
+    # s'appliquaient jamais, Chromium retombant sur ALSA direct — ce qui ne
+    # fonctionnait que par chance, tant qu'aucune autre application ne
+    # prenait la carte son en même temps.
     ok "paquets système de base installés"
 
     # ----------------------------------------------------------------------
@@ -795,9 +1138,13 @@ else
     # docs/cahier-des-charges-installeur.md §9).
     if $HAS_INTEL_GPU || $HAS_AMD_GPU || $HAS_NVIDIA_GPU; then
         if ! $DRY_RUN && ensure_apt_components; then
-            run apt-get update -qq || true
+            run apt-get "${APT_OPTS[@]}" update -qq || true
         fi
     fi
+
+    # Code QR de l'écran final (ouvrir l'admin depuis un téléphone) : confort
+    # pur, jamais bloquant.
+    command -v qrencode >/dev/null 2>&1 || apt_optional qrencode || true
 
     # Microcode CPU (stabilité/sécurité) selon le vendeur détecté.
     case "$CPU_VENDOR" in
@@ -807,7 +1154,7 @@ else
 
     # Pilote VA-API (décodage vidéo matériel) selon le GPU détecté.
     if $HAS_INTEL_GPU; then
-        apt_optional intel-media-va-driver-non-free || apt_optional i965-va-driver
+        apt_optional intel-media-va-driver-non-free || apt_optional intel-media-va-driver || apt_optional i965-va-driver
     fi
     if $HAS_AMD_GPU; then
         # radeonsi (Mesa) fournit le VA-API des GPU/APU AMD (Ryzen inclus).
@@ -837,13 +1184,8 @@ else
             echo "  ${DIM}[dry-run]${RESET} installerait Node.js 22.x LTS (NodeSource)"
         else
             log "Installation de Node.js 22.x LTS (NodeSource)"
-            if $VERBOSE; then
-                curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
-                apt-get install -y nodejs
-            else
-                curl -fsSL https://deb.nodesource.com/setup_22.x | bash - >>"${LOG_FILE}" 2>&1
-                apt-get install -y nodejs >>"${LOG_FILE}" 2>&1
-            fi
+            run bash -o pipefail -c 'curl -fsSL --retry 3 https://deb.nodesource.com/setup_22.x | bash -'
+            run apt-get "${APT_OPTS[@]}" install -y nodejs
             ok "Node.js 22.x LTS installé : $(node -v 2>/dev/null || echo 'installé')"
         fi
     else
@@ -1093,7 +1435,12 @@ fi
 # démarrage à froid : on réessaie avant de se rabattre sur l'état courant.
 OUTPUT=""
 for _ in $(seq 1 15); do
-    OUTPUT=$(xrandr --query | awk '/ connected/{print $1; exit}')
+    # Sortie retenue : une sortie EXTERNE (HDMI/DP...) de préférence à une
+    # dalle interne (eDP/LVDS/DSI) quand les deux sont connectées (mini-PC
+    # portable branché sur un projecteur), sinon la première connectée. Une
+    # reconfiguration à chaud est déclenchée par bobine-display-hotplug
+    # (règle udev DRM) qui redémarre cette session.
+    OUTPUT=$(xrandr --query | awk '/ connected/{ if ($1 !~ /^(eDP|LVDS|DSI)/) { print $1; found=1; exit } if (!first) first=$1 } END { if (!found && first) print first }')
     [ -n "${OUTPUT}" ] && break
     sleep 1
 done
@@ -1155,7 +1502,11 @@ for BOBINE_CARD in $(awk -F'[][]' '/^ *[0-9]+ \[/{print $2}' /proc/asound/cards 
     # indépendant de ces niveaux matériels de référence.
     amixer -c "${BOBINE_CARD}" scontrols 2>/dev/null | sed -n "s/^Simple mixer control '\([^']*\)'.*/\1/p" | sort -u | while IFS= read -r BOBINE_CTRL; do
         case "${BOBINE_CTRL}" in
-            *[Mm]ic*|*Boost|Capture|"Input Source"|"Auto-Mute Mode") continue ;;
+            # IEC958*/Beep/Loopback ajoutés (réf. audit-android-2026-09-11.md,
+            # écart H8) : un contrôle numérique S/PDIF ou de rebouclage
+            # démuté à 100% par erreur peut activer une sortie parasite sur
+            # certains codecs, jamais souhaitée sur ce déploiement.
+            *[Mm]ic*|*Boost|Capture|"Input Source"|"Auto-Mute Mode"|IEC958*|Beep|Loopback) continue ;;
         esac
         amixer -c "${BOBINE_CARD}" sset "${BOBINE_CTRL}" 100% unmute >/dev/null 2>&1 || true
     done
@@ -1207,8 +1558,11 @@ exec ${CHROMIUM_BIN} \
     --disable-pinch \
     --overscroll-history-navigation=0 \
     --autoplay-policy=no-user-gesture-required \
-    --enable-features=AcceleratedVideoDecodeLinuxGL \
+    --enable-features=AcceleratedVideoDecodeLinuxGL,VaapiVideoDecodeLinuxGL \
     --use-gl=egl \
+    --enable-gpu-rasterization \
+    --enable-zero-copy \
+    --ignore-gpu-blocklist \
     --start-fullscreen \
     --check-for-update-interval=31536000
 EOF
@@ -1234,12 +1588,36 @@ UtmpIdentifier=tty1
 UtmpMode=user
 Restart=always
 RestartSec=2
+# Memorise la topologie des ecrans au demarrage de la session (prefixe + = en
+# root) : bobine-display-hotplug ne redemarre le kiosque que si elle CHANGE.
+ExecStartPre=+${REPO_DIR}/scripts/bobine-display-hotplug.sh --record
 ExecStart=/usr/bin/xinit ${CONFIG_DIR}/kiosk-xinitrc -- :0 vt1 -nolisten tcp
 
 [Install]
 WantedBy=multi-user.target
 EOF
     ok "bobine-kiosk.service + kiosk-xinitrc écrits"
+
+    # Branchement/débranchement d'un projecteur ou d'une TV à chaud (plan 4.0,
+    # P1-4) : règle udev DRM -> unité oneshot -> redémarrage du kiosque si la
+    # liste des sorties connectées a changé (cf. scripts/bobine-display-hotplug.sh).
+    run chmod +x "${REPO_DIR}/scripts/bobine-display-hotplug.sh"
+    write_file /etc/systemd/system/bobine-display-hotplug.service <<EOF
+[Unit]
+Description=Bobine - Reconfiguration du kiosque au branchement d'un ecran
+After=bobine-kiosk.service
+# Les evenements HPD arrivent en rafale : le script s'anti-rebondit lui-meme.
+StartLimitIntervalSec=0
+
+[Service]
+Type=oneshot
+ExecStart=${REPO_DIR}/scripts/bobine-display-hotplug.sh
+EOF
+    write_file /etc/udev/rules.d/90-bobine-display.rules <<'EOF'
+# Bobine : evenement de branchement/debranchement d'un ecran (HPD DRM).
+ACTION=="change", SUBSYSTEM=="drm", ENV{HOTPLUG}=="1", TAG+="systemd", ENV{SYSTEMD_WANTS}+="bobine-display-hotplug.service"
+EOF
+    ok "hotplug des écrans (udev DRM + bobine-display-hotplug) écrit"
     step_done
 fi
 
@@ -1282,12 +1660,22 @@ EOF
     write_file /etc/modprobe.d/bobine-audio.conf <<'EOF'
 options snd-hda-intel power_save=0 power_save_controller=N
 EOF
-    # Application immédiate sans attendre le prochain reboot.
+    # Application immédiate sans attendre le prochain reboot. Réf.
+    # audit-android-2026-09-11.md (mission secondaire, écart H2/H3) :
+    # le chemin PCI `0000:00:0e.0` ci-dessus était figé sur celui du Wyse
+    # 5070 précis — sans effet sur tout autre modèle/chipset (AMD, autre
+    # Intel) et sur les DAC USB (snd_usb_audio, qui n'a pas de paramètre
+    # power_save propre mais expose le même mécanisme générique
+    # `power/control` sous sysfs). Boucle sur TOUTES les cartes son
+    # réellement présentes plutôt qu'un chemin unique — couvre HDA et USB
+    # de la même façon, sans avoir besoin de distinguer les deux.
     if ! $DRY_RUN; then
         echo 0 > /sys/module/snd_hda_intel/parameters/power_save 2>/dev/null || true
-        echo on > /sys/bus/pci/devices/0000:00:0e.0/power/control 2>/dev/null || true
+        for BOBINE_PC in /sys/class/sound/card*/device/power/control; do
+            [[ -e "${BOBINE_PC}" ]] && echo on > "${BOBINE_PC}" 2>/dev/null || true
+        done
     fi
-    ok "mise en veille du codec audio désactivée"
+    ok "mise en veille du codec audio désactivée (HDA et USB)"
 
     # Si un powertop.service ("powertop --auto-tune") existe sur la machine,
     # il RÉACTIVE power_save=1 à chaque boot APRÈS le chargement du module,
@@ -1299,7 +1687,7 @@ EOF
         write_file /etc/systemd/system/powertop.service.d/10-audio-nopowersave.conf <<'EOF'
 [Service]
 ExecStartPost=/bin/sh -c 'echo 0 > /sys/module/snd_hda_intel/parameters/power_save'
-ExecStartPost=/bin/sh -c 'echo on > /sys/bus/pci/devices/0000:00:0e.0/power/control'
+ExecStartPost=/bin/sh -c 'for pc in /sys/class/sound/card*/device/power/control; do [ -e "$pc" ] && echo on > "$pc"; done; true'
 EOF
         ok "garde-fou powertop installé"
     fi
@@ -1325,7 +1713,11 @@ CARDS=$(awk -F'[][]' '/^ *[0-9]+ \[/{print $2}' /proc/asound/cards 2>/dev/null |
 for CARD in ${CARDS}; do
     amixer -c "${CARD}" scontrols 2>/dev/null | sed -n "s/^Simple mixer control '\([^']*\)'.*/\1/p" | sort -u | while IFS= read -r CTRL; do
         case "${CTRL}" in
-            *[Mm]ic*|*Boost|Capture|"Input Source"|"Auto-Mute Mode") continue ;;
+            # IEC958*/Beep/Loopback ajoutés (réf. audit-android-2026-09-11.md,
+            # écart H8) : un contrôle numérique S/PDIF ou de rebouclage
+            # démuté à 100% par erreur peut activer une sortie parasite sur
+            # certains codecs, jamais souhaitée sur ce déploiement.
+            *[Mm]ic*|*Boost|Capture|"Input Source"|"Auto-Mute Mode"|IEC958*|Beep|Loopback) continue ;;
         esac
         amixer -c "${CARD}" -q sset "${CTRL}" mute 2>/dev/null || true
     done
@@ -1535,17 +1927,78 @@ ok "chien de garde santé (watchdog) écrit"
 step_done
 
 # ---------------------------------------------------------------------------
+step tuning "Optimisations système (gouverneur CPU, journal)"
+# ---------------------------------------------------------------------------
+# Réf. audit-android-2026-09-11.md (mission secondaire, écart H6) : deux
+# optimisations à faible risque, appliquées dès l'installation plutôt que
+# laissées aux valeurs par défaut Debian (pensées pour un poste de bureau
+# économe en énergie, pas une appliance branchée secteur en continu).
+if $NO_KIOSK; then
+    step_skip "--no-kiosk"
+else
+    # Gouverneur CPU "performance" : évite les changements de fréquence sous
+    # charge variable (lecture vidéo + décodage/encodage ffmpeg concurrents)
+    # qui peuvent introduire des micro-saccades — sans intérêt énergétique
+    # ici, la machine reste branchée secteur en permanence (kiosque de
+    # salle). Service oneshot plutôt qu'une simple commande ponctuelle :
+    # certains noyaux réinitialisent le gouverneur par défaut à chaque
+    # démarrage, un service WantedBy=multi-user.target le réapplique à
+    # chaque boot sans dépendre d'un fichier de config spécifique au pilote
+    # cpufreq présent (intel_pstate, acpi-cpufreq...).
+    if [[ -d /sys/devices/system/cpu/cpu0/cpufreq ]]; then
+        write_file /etc/systemd/system/bobine-cpu-governor.service <<'EOF'
+[Unit]
+Description=Bobine - Gouverneur CPU en mode performance
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c 'for g in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do [ -e "$g" ] && echo performance > "$g"; done; true'
+
+[Install]
+WantedBy=multi-user.target
+EOF
+        run systemctl daemon-reload
+        run systemctl enable --now bobine-cpu-governor.service
+        ok "gouverneur CPU réglé sur performance"
+    else
+        warn "cpufreq indisponible sur ce matériel (CPU sans scaling ou virtualisé) — gouverneur laissé tel quel"
+    fi
+
+    # Plafond du journal systemd : par défaut Debian autorise jusqu'à 10% du
+    # disque pour /var/log/journal — sans limite explicite, une appliance
+    # tournant 24/7 pendant des mois sur un stockage eMMC/SSD limité peut
+    # voir son journal grossir sans borne raisonnable.
+    run mkdir -p /etc/systemd/journald.conf.d
+    write_file /etc/systemd/journald.conf.d/bobine.conf <<'EOF'
+[Journal]
+SystemMaxUse=200M
+EOF
+    if ! $DRY_RUN; then
+        systemctl restart systemd-journald 2>/dev/null || true
+    fi
+    ok "journal systemd plafonné à 200 Mo"
+    step_done
+fi
+
+# ---------------------------------------------------------------------------
 step activation "Activation des services & vérification de santé"
 # ---------------------------------------------------------------------------
 run systemctl daemon-reload
 if ! $NO_KIOSK; then
-    run systemctl enable --now bobine-audio-guard.service
+    run systemctl enable bobine-audio-guard.service
+    run systemctl restart bobine-audio-guard.service 2>/dev/null || run systemctl start bobine-audio-guard.service
 fi
-run systemctl enable --now bobine-backend.service
+run systemctl enable bobine-backend.service
+run systemctl restart bobine-backend.service 2>/dev/null || run systemctl start bobine-backend.service
 # Chien de garde : actif dans tous les modes (surveille au moins le backend).
-run systemctl enable --now bobine-watchdog.timer
+run systemctl enable bobine-watchdog.timer
+run systemctl restart bobine-watchdog.timer 2>/dev/null || run systemctl start bobine-watchdog.timer
 if ! $NO_KIOSK; then
-    run systemctl enable --now bobine-kiosk.service
+    run systemctl enable bobine-kiosk.service
+    run systemctl restart bobine-kiosk.service 2>/dev/null || run systemctl start bobine-kiosk.service
+    # Prise en compte de la regle udev de hotplug des ecrans (sans reboot).
+    run udevadm control --reload-rules 2>/dev/null || true
 fi
 run systemctl enable bobine-redirect.service >/dev/null 2>&1 || true
 if ! $DRY_RUN && ! systemctl restart bobine-redirect.service; then
@@ -1571,14 +2024,57 @@ fi
 step_done
 
 # ---------------------------------------------------------------------------
+step capabilities "Vérification des capacités audio & vidéo"
+# ---------------------------------------------------------------------------
+# Réf. audit-android-2026-09-11.md (mission secondaire) : jusqu'ici, rien ne
+# vérifiait après coup que l'audio et le décodage matériel fonctionnent
+# RÉELLEMENT — un déploiement pouvait être déclaré "terminé" avec un son
+# muet ou un décodage logiciel, sans qu'aucun signal ne le distingue d'une
+# installation saine avant de le découvrir en salle. Purement diagnostique :
+# ne modifie rien, n'échoue jamais le script (avertissements seulement).
+AUDIO_OK=false
+VAAPI_OK=false
+if $NO_KIOSK; then
+    step_skip "--no-kiosk (aucune sortie locale attendue)"
+elif $DRY_RUN; then
+    step_skip "--dry-run"
+else
+    if command -v aplay >/dev/null 2>&1 && aplay -l 2>/dev/null | grep -q '^card '; then
+        AUDIO_OK=true
+        ok "carte(s) audio détectée(s) : $(aplay -l 2>/dev/null | grep -c '^card ')"
+    else
+        warn "aucune carte audio détectée par aplay -l — vérifier le matériel/les pilotes"
+    fi
+    if command -v vainfo >/dev/null 2>&1; then
+        VAINFO_OUT="$(vainfo 2>&1 || true)"
+        if grep -qi 'VAProfileH264' <<<"${VAINFO_OUT}"; then
+            VAAPI_OK=true
+            VAAPI_DRIVER="$(grep -oE 'Driver version: .*' <<<"${VAINFO_OUT}" | head -1)"
+            ok "décodage matériel H.264 disponible (${VAAPI_DRIVER:-pilote VA-API actif})"
+        else
+            warn "aucun profil H.264 VA-API détecté — décodage logiciel probable (voir 'vainfo' pour le détail)"
+        fi
+    else
+        warn "vainfo introuvable — impossible de vérifier le décodage matériel"
+    fi
+    step_done
+fi
+
+# ---------------------------------------------------------------------------
 # Résumé final
 # ---------------------------------------------------------------------------
 echo
 box_top
 box_line "  Bobine — installation terminée"
 box_mid
+LAN_IP="$(ip -4 route get 1.1.1.1 2>/dev/null | awk '{for (i = 1; i <= NF; i++) if ($i == "src") { print $(i + 1); exit }}' || true)"
+[[ -n "${LAN_IP}" ]] || LAN_IP="$(hostname -I 2>/dev/null | awk '{print $1}' || true)"
 box_line "  Admin      http://bobine.local"
-box_line "             http://127.0.0.1:${SERVICE_PORT}  (et http://<IP>:${SERVICE_PORT})"
+if [[ -n "${LAN_IP}" ]]; then
+    box_line "             http://${LAN_IP}  (si .local reste muet)"
+else
+    box_line "             http://127.0.0.1:${SERVICE_PORT}  (et http://<IP>:${SERVICE_PORT})"
+fi
 if ! $NO_KIOSK; then
     box_line "  Kiosk      ${KIOSK_URL}"
 fi
@@ -1586,12 +2082,24 @@ box_line "  Config     ${CONFIG_FILE}"
 box_line "  Journal    ${LOG_FILE}"
 box_line "  Contrôle   bobine {start|stop|restart|status|logs}"
 box_line "  Diagnostic sudo ./${SCRIPT_NAME} --check"
+if ! $NO_KIOSK && ! $DRY_RUN; then
+    box_mid
+    box_line "  Audio      $($AUDIO_OK && echo 'OK' || echo 'À VÉRIFIER — voir aplay -l')"
+    box_line "  Vidéo (VA-API) $($VAAPI_OK && echo 'OK (matériel)' || echo 'décodage logiciel — voir vainfo')"
+fi
 box_bottom
 echo
 
+# Code QR : un scan et l'admin s'ouvre sur le téléphone du gérant.
+if [[ -n "${LAN_IP:-}" ]] && ! $DRY_RUN && ! $QUIET && command -v qrencode >/dev/null 2>&1; then
+    printf '  %s%s%s\n' "$BOLD" "$(t "Ouvrir l'admin depuis un téléphone :" "Open the admin from a phone:")" "$RESET"
+    qrencode -t ANSIUTF8 -m 1 "http://${LAN_IP}" 2>/dev/null | sed 's/^/    /' || true
+    echo
+fi
+
 # Fin de la séquence pilotable : l'assistant peut fermer sa barre à 100 % et
 # afficher l'écran final (URL/QR). healthy reflète le contrôle /api/health.
-emit_event "\"event\":\"run_end\",\"status\":\"ok\",\"pct\":100,\"total\":${STEP_TOTAL},\"healthy\":${HEALTHY:-false},\"url\":\"http://bobine.local\",\"port\":${SERVICE_PORT},\"dry_run\":${DRY_RUN}"
+emit_event "\"event\":\"run_end\",\"status\":\"ok\",\"pct\":100,\"total\":${STEP_TOTAL},\"healthy\":${HEALTHY:-false},\"audio\":${AUDIO_OK:-false},\"vaapi\":${VAAPI_OK:-false},\"url\":\"http://bobine.local\",\"lan_ip\":\"${LAN_IP:-}\",\"port\":${SERVICE_PORT},\"dry_run\":${DRY_RUN}"
 
 if ! $DRY_RUN; then
     systemctl --no-pager --lines=0 status bobine-backend.service $($NO_KIOSK || echo bobine-kiosk.service) 2>/dev/null || true

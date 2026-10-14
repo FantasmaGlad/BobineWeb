@@ -83,14 +83,14 @@ export default async function HomePage({
     <div className="container">
       {/* 1. Hero Section — Plein écran propre sur Desktop et Mobile */}
       <section className="hero-fullscreen">
-        {/* Composition décorative Android TV Release en fond à droite */}
+        {/* Illustration décorative en fond à droite : le renard Firefox et Baamix (soutien au projet Firefox) ; le miroir Tor garde son visuel dédié */}
         <div className="hero-fullscreen__backdrop-art" aria-hidden="true">
           <Image
-            src={IS_ONION ? "/images/baamix-tor.webp" : "/images/PilateBaamix.webp"}
-            alt="Bobine sur Android TV & Grand Écran"
-            className="hero-fullscreen__backdrop-img"
-            width={1280}
-            height={720}
+            src={IS_ONION ? "/images/baamix-tor.webp" : "/images/FirefoxBaamix.webp"}
+            alt={IS_ONION ? "Bobine sur Android TV & Grand Écran" : "Le renard Firefox et Baamix, la mascotte de Bobine"}
+            className={IS_ONION ? "hero-fullscreen__backdrop-img" : "hero-fullscreen__backdrop-img hero-fullscreen__backdrop-img--mascot"}
+            width={IS_ONION ? 1280 : 1000}
+            height={IS_ONION ? 720 : 895}
             sizes="(max-width: 639px) 240px, (max-width: 1023px) 480px, 640px"
             priority
           />

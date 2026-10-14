@@ -1,12 +1,11 @@
 import { useSyncExternalStore } from "react";
 
-export type DetectedPlatform = "windows" | "macos" | "linux" | "android" | "ios" | null;
+export type DetectedPlatform = "windows" | "macos" | "linux" | "android" | "android-tv" | "ios" | null;
 
 /**
  * Détection cliente légère de la plateforme du visiteur, pour mettre en
- * avant sa méthode d'installation en priorité (surtout utile sur mobile,
- * où l'espace est limité et où faire défiler jusqu'à la bonne carte est
- * pénible). Ne doit être appelée que côté client :
+ * avant sa méthode d'installation en priorité (surtout utile sur mobile ou TV,
+ * où l'espace et la navigation sont contraints). Ne doit être appelée que côté client :
  * retourne toujours null pendant le rendu serveur pour éviter tout
  * décalage d'hydratation.
  */
@@ -16,7 +15,15 @@ export function detectPlatform(): DetectedPlatform {
   const ua = navigator.userAgent || "";
   const maxTouchPoints = navigator.maxTouchPoints || 0;
 
-  if (/Android/i.test(ua)) return "android";
+  if (/Android/i.test(ua)) {
+    if (
+      /AndroidTV|GoogleTV|Large Screen|SmartTV|HbbTV|BRAVIA|SHIELD|MIBOX|AFT/i.test(ua) ||
+      /\bTV\b/i.test(ua)
+    ) {
+      return "android-tv";
+    }
+    return "android";
+  }
   // iPadOS 13+ se présente comme "Macintosh" mais garde le support tactile.
   if (/iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && maxTouchPoints > 1)) {
     return "ios";

@@ -83,15 +83,15 @@ export default async function HomePage({
     <div className="container">
       {/* 1. Hero Section — Plein écran propre sur Desktop et Mobile */}
       <section className="hero-fullscreen">
-        {/* Composition décorative Android Release en fond à droite */}
+        {/* Composition décorative Android TV Release en fond à droite */}
         <div className="hero-fullscreen__backdrop-art" aria-hidden="true">
           <Image
-            src={IS_ONION ? "/images/baamix-tor.webp" : "/images/AndroidRelease.webp"}
-            alt=""
+            src={IS_ONION ? "/images/baamix-tor.webp" : "/images/PilateBaamix.webp"}
+            alt="Bobine sur Android TV & Grand Écran"
             className="hero-fullscreen__backdrop-img"
-            width={720}
+            width={1280}
             height={720}
-            sizes="(max-width: 639px) 240px, (max-width: 1023px) 340px, 420px"
+            sizes="(max-width: 639px) 240px, (max-width: 1023px) 480px, 640px"
             priority
           />
         </div>

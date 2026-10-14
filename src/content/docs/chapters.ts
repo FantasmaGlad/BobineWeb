@@ -89,8 +89,18 @@ const fr: DocChapter[] = [
       {
         subtitle: "2.4 Tablettes Android ARM64",
         paragraphs: [
-          "Paquet natif Bobine-3.0.5.apk (API 34-36), embarquant CPython 3.13 et FastAPI via Chaquopy, service de premier plan persistant, accélération MediaCodec et double affichage (/grid tactile + /cinema HDMI USB-C DisplayPort).",
+          "Paquet natif Bobine-4.0.2.apk (API 34-36), embarquant CPython 3.13 et FastAPI via Chaquopy, service de premier plan persistant, accélération MediaCodec et double affichage (/grid tactile + /cinema HDMI USB-C DisplayPort avec résolution robuste du branchement à chaud sans écran noir).",
           "Matériel de référence testé : tablette Samsung Galaxy Tab ou Xiaomi Pad avec port USB-C compatible DisplayPort Alt Mode pour la sortie vidéo filaire vers l'écran de salle.",
+        ],
+        deviceImage: "android",
+      },
+      {
+        subtitle: "2.4 bis Android TV & Google TV (Box TV, Clés & Smart TVs)",
+        paragraphs: [
+          "Paquet dédié officiel Bobine-TV-4.0.2.apk (com.bobine.app.tv) conçu pour les boîtiers grand public (Chromecast avec Google TV, Xiaomi TV Box S, NVIDIA Shield TV, Smart TVs sous Android TV 11+). L'application s'intègre au lanceur officiel Leanback avec sa bannière 16:9, neutralise le prérequis d'écran tactile, empêche la mise en veille (FLAG_KEEP_SCREEN_ON) et s'ouvre par défaut sur le kiosque plein écran (/kiosk) navigable à 100% à la télécommande directionnelle D-Pad.",
+          "Stockage externe USB indispensable : Les box TV n'embarquent généralement que 4 à 8 Go de stockage flash eMMC interne (largement saturé par le système). Pour stocker vos cours vidéo en mode autonome, le branchement d'une clé USB 3.0 ou d'un SSD externe (formaté en FAT32 ou exFAT) via un adaptateur USB-C OTG est indispensable. Bobine détecte et sélectionne automatiquement ce stockage amovible sans aucune manipulation technique.",
+          "Méthodes d'installation (Sideload) : Vous pouvez transférer sans fil l'APK depuis votre smartphone ou PC vers la TV grâce à l'application « Send Files to TV », l'installer depuis une clé USB via un gestionnaire de fichiers TV (File Commander), ou le pousser via le réseau local en ADB Wi-Fi (adb connect <ip_tv>:5555 && adb install Bobine-TV-4.0.2.apk).",
+          "Google Play Store : Le compte développeur Google officiel ayant été validé, Bobine pour Android TV est en cours de déploiement officiel sur le Play Store. Dès sa publication, l'installation et les futures mises à jour se feront en 1 clic directement depuis votre téléviseur.",
         ],
         deviceImage: "android",
       },
@@ -438,8 +448,18 @@ const en: DocChapter[] = [
       {
         subtitle: "2.4 Android ARM64 Tablets",
         paragraphs: [
-          "Certified native Bobine-3.0.5.apk (API 34-36), embedding CPython 3.13 and FastAPI via Chaquopy, persistent ForegroundService, native MediaCodec acceleration, and dual display (touchscreen /grid + HDMI TV /cinema over USB-C DisplayPort).",
+          "Certified native Bobine-4.0.2.apk (API 34-36), embedding CPython 3.13 and FastAPI via Chaquopy, persistent ForegroundService, native MediaCodec acceleration, and robust dual display (touchscreen /grid + HDMI TV /cinema over USB-C DisplayPort with resilient hotplug handling).",
           "Reference hardware tested: a Samsung Galaxy Tab or Xiaomi Pad tablet with a USB-C port supporting DisplayPort Alt Mode for wired video output to the studio screen.",
+        ],
+        deviceImage: "android",
+      },
+      {
+        subtitle: "2.4 bis Android TV & Google TV (Streaming Boxes, Sticks & Smart TVs)",
+        paragraphs: [
+          "Dedicated official build Bobine-TV-4.0.2.apk (com.bobine.app.tv) tailored for streaming boxes (Chromecast with Google TV, Xiaomi TV Box S, NVIDIA Shield TV, Android TV 11+ Smart TVs). The app integrates into the Leanback home screen with its 16:9 banner, eliminates touchscreen requirements, enforces FLAG_KEEP_SCREEN_ON, and launches straight into the fullscreen kiosk interface (/kiosk) fully operable with a directional D-Pad remote control.",
+          "Essential external USB storage: Streaming TV devices typically ship with meager 4 to 8 GB internal eMMC flash storage (mostly occupied by OS system files). To store your studio video classes in standalone server mode, connecting a USB 3.0 flash drive or external SSD (formatted in FAT32 or exFAT) via a USB-C OTG hub is required. Bobine automatically detects and selects this mounted removable drive.",
+          "Current Sideload Installation Methods: Wirelessly transfer the APK from your phone or PC using the 'Send Files to TV' app, install it from a USB flash drive via a TV file explorer (File Commander), or deploy it over the local network via ADB Wi-Fi (adb connect <tv_ip>:5555 && adb install Bobine-TV-4.0.2.apk).",
+          "Google Play Store: With the Google Developer account verified, Bobine for Android TV is currently queued for official Google Play Store validation. Once approved, installation and future updates will be available in 1 click directly from your TV's app store.",
         ],
         deviceImage: "android",
       },

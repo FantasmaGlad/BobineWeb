@@ -11,6 +11,7 @@ export interface RepoStatsResponse {
     linux: string;
     macos: string;
     android: string;
+    androidTv?: string;
     assistant: string;
     installScript?: string;
   };
@@ -19,16 +20,17 @@ export interface RepoStatsResponse {
 }
 
 const FALLBACK_STABLE: ReleaseChannelInfo = {
-  version: "V3.0.5",
-  title: "Bobine V3.0.5 — Console Régie Coach, Ambiances Visuelles & Moteur Gapless",
-  publishedAt: "2026-09-12T18:00:00Z",
+  version: "V4.0.2",
+  title: "Bobine V4.0.2 — Support Android TV & Google TV Natif, Hotplug HDMI Robuste & Optimisations Kiosque",
+  publishedAt: "2026-10-14T09:00:00Z",
   downloads: {
-    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/Bobine-Setup-3.0.5.exe",
-    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/bobine_3.0.5_amd64.deb",
-    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/Bobine-3.0.5.dmg",
-    android: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/Bobine-3.0.5.apk",
-    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/bobine-assistant",
-    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/install.sh",
+    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V4.0.2/Bobine-Setup-4.0.2.exe",
+    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V4.0.2/bobine_4.0.2_amd64.deb",
+    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V4.0.2/Bobine-4.0.2.dmg",
+    android: "https://github.com/FantasmaGlad/Bobine/releases/download/V4.0.2/Bobine-4.0.2.apk",
+    androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/V4.0.2/Bobine-TV-4.0.2.apk",
+    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V4.0.2/bobine-assistant",
+    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V4.0.2/install.sh",
   },
 };
 
@@ -41,6 +43,7 @@ const FALLBACK_BETA: ReleaseChannelInfo = {
     linux: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb",
     macos: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.dmg",
     android: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.apk",
+    androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-TV-beta.apk",
     assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant",
     installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/install.sh",
   },
@@ -62,6 +65,8 @@ function parseReleaseAssets(
       downloads.linux = url;
     } else if (name.endsWith(".dmg")) {
       downloads.macos = url;
+    } else if (name.includes("-tv") || name.includes("bobine-tv")) {
+      downloads.androidTv = url;
     } else if (name.endsWith(".apk")) {
       downloads.android = url;
     } else if (name.includes("assistant")) {
@@ -138,6 +143,7 @@ export async function getRepoStats(): Promise<RepoStatsResponse> {
         linux: stableInfo.downloads.linux,
         macos: stableInfo.downloads.macos,
         android: stableInfo.downloads.android,
+        androidTv: stableInfo.downloads.androidTv,
         assistant: stableInfo.downloads.assistant,
         installScript: stableInfo.downloads.installScript,
       },

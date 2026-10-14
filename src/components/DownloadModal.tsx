@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import type { Locale } from "@/lib/i18n";
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 
-export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "cli" | "tauri";
+export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "android-tv" | "cli" | "tauri";
 
 const subscribe = () => () => {};
 const getSnapshot = () => true;
@@ -102,6 +102,22 @@ export default function DownloadModal({
           betaUrl: beta.downloads.linux,
           betaFilename: "bobine_beta_amd64.deb",
           format: ".deb",
+        };
+      case "android-tv":
+        return {
+          title: isEn ? "Bobine for Android TV & Google TV" : "Bobine pour Android TV & Google TV",
+          subtitle: isEn
+            ? "Dedicated for TV boxes & Smart TVs (Chromecast, Xiaomi Box, Shield TV) — arm64-v8a"
+            : "Dédié aux box TV & Smart TVs (Chromecast, Xiaomi Box, Shield TV) — arm64-v8a",
+          stableUrl:
+            stable.downloads.androidTv ||
+            `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/Bobine-TV-${stable.version.replace(/^V/i, "")}.apk`,
+          stableFilename: `Bobine-TV-${stable.version.replace(/^V/i, "")}.apk`,
+          betaUrl:
+            beta.downloads.androidTv ||
+            "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-TV-beta.apk",
+          betaFilename: "Bobine-TV-beta.apk",
+          format: ".apk",
         };
       case "android":
         return {
@@ -432,6 +448,69 @@ export default function DownloadModal({
                   </span>
                 </a>
               </div>
+            </div>
+          )}
+
+          {activePlatform === "android-tv" && (
+            <div
+              className="download-modal__tv-note"
+              style={{
+                marginTop: "1.25rem",
+                padding: "1rem 1.25rem",
+                borderRadius: "0.75rem",
+                background: "rgba(61, 220, 132, 0.08)",
+                border: "1px solid rgba(61, 220, 132, 0.25)",
+                fontSize: "0.875rem",
+                color: "var(--text-body)",
+                lineHeight: 1.5,
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  marginBottom: "0.5rem",
+                  fontWeight: 700,
+                  color: "#3DDC84",
+                }}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <span>
+                  {isEn
+                    ? "Android TV Playout & Google Play Store"
+                    : "Diffusion Android TV & Google Play Store"}
+                </span>
+              </div>
+              <p style={{ margin: "0 0 0.5rem" }}>
+                {isEn
+                  ? "• Google Play Store: Google Developer account is validated. The official 1-click Google Play release is currently being processed for store approval."
+                  : "• Google Play Store : Le compte développeur Google est validé. La parution officielle sur le catalogue Google Play de votre téléviseur est en cours de validation."}
+              </p>
+              <p style={{ margin: "0 0 0.5rem" }}>
+                {isEn
+                  ? "• Current Installation: Download the APK above and install it wirelessly using 'Send Files to TV', via a USB flash drive (FAT32/exFAT), or over ADB Wi-Fi."
+                  : "• Installation immédiate : Téléchargez le paquet APK ci-dessus et installez-le sans fil via l'application « Send Files to TV », par clé USB (FAT32/exFAT) ou via ADB Wi-Fi."}
+              </p>
+              <p style={{ margin: 0 }}>
+                {isEn
+                  ? "• Storage Recommendation: For standalone server usage, connect a USB flash drive or SSD (128GB+) to store video classes without filling the TV's 4-8GB internal storage."
+                  : "• Recommandation stockage : En mode serveur autonome, connectez une clé USB ou un SSD externe (128 Go+) pour stocker vos cours sans saturer la mémoire interne (4-8 Go) de la TV."}
+              </p>
             </div>
           )}
         </div>

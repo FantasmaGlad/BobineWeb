@@ -7,6 +7,7 @@ export interface ReleaseChannelInfo {
     linux: string;
     macos: string;
     android: string;
+    androidTv?: string;
     assistant: string;
     installScript: string;
   };

@@ -48,6 +48,14 @@ Réservée aux utilisateurs ayant activé le canal Bêta ("Programme Bobine Beta
     isPrerelease: true,
   },
   {
+    slug: "V4.0.2",
+    title: "Bobine V4.0.2 — Support Dédié Android TV & Google TV, Résolution des Conflits HDMI et Expérience Grand Écran",
+    publishedAt: "2026-10-14T09:00:00Z",
+    url: "https://github.com/FantasmaGlad/Bobine/releases/tag/V4.0.2",
+    body: `La version 4.0.2 Stable introduit le support officiel d'Android TV & Google TV (paquet Bobine-TV-4.0.2.apk, interface kiosque Leanback 16:9 et navigation 100% télécommande), la gestion intelligente du stockage externe amovible USB (USB-OTG / SSD / clé USB pour contourner les 4-8 Go de mémoire interne des box TV), et la fiabilisation complète du double affichage HDMI sur ordinateurs portables et tablettes avec élimination définitive des écrans noirs. Préparation de la distribution automatique via Google Play Store.`,
+    isPrerelease: false,
+  },
+  {
     slug: "V3.0.5",
     title: "Bobine V3.0.5 — Console Régie Coach Responsive, Hub d'Ambiances Visuelles, Moteur Vidéo Gapless & Métriques d'Assiduité",
     publishedAt: "2026-09-12T18:00:00Z",

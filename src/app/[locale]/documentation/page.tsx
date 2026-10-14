@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
@@ -57,6 +58,18 @@ export default async function DocumentationPage({
   return (
     <>
       <BreadcrumbsJsonLd items={breadcrumbs} />
+      {/* En-tête du guide : Baamix l'inspecteur en filigrane DERRIÈRE le titre et l'introduction (décor, jamais au premier plan) */}
+      <div className="docs-intro-art-wrap">
+        <Image
+          src="/images/BaamixInspector.webp"
+          alt=""
+          aria-hidden="true"
+          className="docs-intro-art"
+          width={560}
+          height={776}
+          sizes="(max-width: 639px) 120px, 220px"
+          priority
+        />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.25rem" }}>
         <div>
           <span className="feature-category-label">
@@ -81,6 +94,7 @@ export default async function DocumentationPage({
           ? "Bobine adapts to your setup: choose between 1-click desktop applications for standard computers (Windows, Mac, Linux) or deploy a dedicated 24/7 appliance for uninterrupted studio playout with automatic recovery after power cuts."
           : "Bobine s'adapte à vos besoins : choisissez entre les applications de bureau en 1 clic pour vos ordinateurs personnels ou de régie (Windows, Mac, Linux), ou déployez une appliance dédiée 24/7 pour une diffusion ininterrompue en studio avec reprise automatique après coupure de courant."}
       </p>
+      </div>
 
       <p style={{ fontSize: "0.9rem", marginBottom: "1.75rem" }}>
         <Link href={`/${locale}/fonctionnalites`} style={{ color: "var(--accent-primary)", fontWeight: 600, textDecoration: "none" }}>

@@ -127,6 +127,13 @@ const fr: DocChapter[] = [
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta",
       },
+      {
+        subtitle: "2.8 Navigateurs supportés (Firefox, Chrome, Edge, Safari)",
+        paragraphs: [
+          "L'interface d'administration et les lecteurs ouverts depuis un autre appareil (/radio, /kiosk, /cinema, /coach) fonctionnent dans Firefox (version courante, précédente et ESR, bureau et Android), Chrome, Edge et Safari. Depuis la 4.0.3, le support de Firefox est vérifié de bout en bout sur Firefox 157 par des tests automatiques (envoi de fichiers repris après une coupure réseau, flux vidéo conformes au protocole HTTP, lecture H.264). Windows, macOS, Firefox pour Android et la version ESR ne sont pas encore mesurés.",
+          "Quand un navigateur ne sait pas décoder une vidéo (HEVC ou 10 bits, selon le système et le matériel), Bobine lui sert une version H.264 compatible produite à la demande, sans jamais modifier l'original. Réglages → Compatibilité navigateur affiche un diagnostic local (formats décodés, fonctions disponibles, mesure d'images perdues). Le verrou d'écran et les manettes exigent HTTPS ou localhost.",
+        ],
+      },
     ],
   },
   {
@@ -485,6 +492,13 @@ const en: DocChapter[] = [
           "Across all platforms, Beta shares identical application IDs and upgrades existing installations in-place without creating duplicate applications or altering media and databases. Toggle anytime in Settings → Software Updates or via CLI flag:",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta",
+      },
+      {
+        subtitle: "2.8 Supported browsers (Firefox, Chrome, Edge, Safari)",
+        paragraphs: [
+          "The admin interface and the players opened from another device (/radio, /kiosk, /cinema, /coach) work in Firefox (current, previous and ESR releases, desktop and Android), Chrome, Edge and Safari. Since 4.0.3, Firefox support is verified end to end on Firefox 157 by automated tests (file uploads that resume after a network cut, HTTP-compliant video streams, H.264 playback). Windows, macOS, Firefox for Android and the ESR release are not measured yet.",
+          "When a browser cannot decode a video (HEVC or 10-bit, depending on the system and hardware), Bobine serves it a compatible H.264 version produced on demand, without ever modifying the original. Settings → Browser compatibility shows a local diagnostic (decoded formats, available features, dropped-frame measurement). Screen wake lock and gamepads require HTTPS or localhost.",
+        ],
       },
     ],
   },

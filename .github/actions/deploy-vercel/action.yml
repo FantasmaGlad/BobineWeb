@@ -47,6 +47,6 @@ runs:
         fi
         vercel pull --yes --environment="$TARGET" --token "$VERCEL_TOKEN"
         vercel build "${prod[@]}" --token "$VERCEL_TOKEN"
-        url=$(vercel deploy --prebuilt "${prod[@]}" --token "$VERCEL_TOKEN")
+        url=$(vercel deploy --prebuilt --archive=tgz "${prod[@]}" --token "$VERCEL_TOKEN")
         echo "Déployé : $url"
         echo "url=$url" >> "$GITHUB_OUTPUT"

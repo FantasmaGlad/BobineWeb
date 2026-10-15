@@ -1,5 +1,9 @@
 # bobine.fit
 
+<p align="center">
+  <img alt="Bobine" src="public/images/LogoBanniere.png" width="100%">
+</p>
+
 The website of **Bobine**, an open-source, self-hosted and offline-first video playout system for gyms, cycling studios and fitness clubs: showcase, documentation, comparisons, hardware shop and the Baamix assistant.
 
 [![Deployment](https://github.com/FantasmaGlad/BobineWeb/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/FantasmaGlad/BobineWeb/actions/workflows/deploy.yml)

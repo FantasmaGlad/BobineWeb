@@ -1,5 +1,9 @@
 # bobine.fit
 
+<p align="center">
+  <img alt="Bobine" src="public/images/LogoBanniere.png" width="100%">
+</p>
+
 Le site de **Bobine**, système de diffusion vidéo open source, auto-hébergé et hors ligne pour salles de sport, studios de cycling et clubs de fitness : vitrine, documentation, comparatifs, boutique matériel et assistant Baamix.
 
 [![Déploiement](https://github.com/FantasmaGlad/BobineWeb/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/FantasmaGlad/BobineWeb/actions/workflows/deploy.yml)

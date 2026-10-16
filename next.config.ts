@@ -62,12 +62,48 @@ const nextConfig: NextConfig = {
         destination: "https://bobine.fit/:path*",
         permanent: true,
       },
+      // Slugs localisés EN (redirection 308 des anciens chemins français sous /en)
+      { source: "/en/fonctionnalites", destination: "/en/features", permanent: true },
+      { source: "/en/comparatif", destination: "/en/compare", permanent: true },
+      { source: "/en/comparatif/les-mills-cinema", destination: "/en/compare/les-mills-cinema", permanent: true },
+      { source: "/en/comparatif/wexer-fitness-on-demand", destination: "/en/compare/wexer-fitness-on-demand", permanent: true },
+      { source: "/en/comparatif/radical-fitness-yako", destination: "/en/compare/radical-fitness-yako", permanent: true },
+      { source: "/en/comparatif/affichage-dynamique-fitness", destination: "/en/compare/digital-signage-fitness", permanent: true },
+      { source: "/en/materiel/amazon", destination: "/en/hardware/amazon", permanent: true },
+      { source: "/en/materiel/aliexpress", destination: "/en/hardware/aliexpress", permanent: true },
+      { source: "/en/materiel", destination: "/en/hardware/amazon", permanent: true },
+      { source: "/en/documentation/utilisation", destination: "/en/documentation/user-guide", permanent: true },
+      { source: "/en/documentation/developpeurs", destination: "/en/documentation/developers", permanent: true },
+      { source: "/en/a-propos", destination: "/en/about", permanent: true },
+      { source: "/en/soutenir", destination: "/en/support", permanent: true },
+      { source: "/en/mentions-legales", destination: "/en/legal-notice", permanent: true },
+      { source: "/en/confidentialite", destination: "/en/privacy", permanent: true },
+      { source: "/en/securite", destination: "/en/security", permanent: true },
     ];
   },
   // Même sitemap sous une seconde adresse : Search Console conserve l'état « Impossible de lire » d'une
   // adresse déjà en échec, la soumettre sous un nouveau nom force une lecture neuve.
   async rewrites() {
-    return [{ source: "/sitemap-bobine.xml", destination: "/sitemap.xml" }];
+    return [
+      { source: "/sitemap-bobine.xml", destination: "/sitemap.xml" },
+      // Slugs localisés anglais mappés vers les handlers Next.js existants
+      { source: "/en/features", destination: "/en/fonctionnalites" },
+      { source: "/en/compare", destination: "/en/comparatif" },
+      { source: "/en/compare/les-mills-cinema", destination: "/en/comparatif/les-mills-cinema" },
+      { source: "/en/compare/wexer-fitness-on-demand", destination: "/en/comparatif/wexer-fitness-on-demand" },
+      { source: "/en/compare/radical-fitness-yako", destination: "/en/comparatif/radical-fitness-yako" },
+      { source: "/en/compare/digital-signage-fitness", destination: "/en/comparatif/affichage-dynamique-fitness" },
+      { source: "/en/hardware", destination: "/en/materiel/amazon" },
+      { source: "/en/hardware/amazon", destination: "/en/materiel/amazon" },
+      { source: "/en/hardware/aliexpress", destination: "/en/materiel/aliexpress" },
+      { source: "/en/documentation/user-guide", destination: "/en/documentation/utilisation" },
+      { source: "/en/documentation/developers", destination: "/en/documentation/developpeurs" },
+      { source: "/en/about", destination: "/en/a-propos" },
+      { source: "/en/support", destination: "/en/soutenir" },
+      { source: "/en/legal-notice", destination: "/en/mentions-legales" },
+      { source: "/en/privacy", destination: "/en/confidentialite" },
+      { source: "/en/security", destination: "/en/securite" },
+    ];
   },
   async headers() {
     return [
@@ -86,9 +122,10 @@ const nextConfig: NextConfig = {
       {
         source: "/:sitemap(sitemap|sitemap-bobine).xml",
         headers: [
-          { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
-          { key: "CDN-Cache-Control", value: "max-age=0" },
-          { key: "Cloudflare-CDN-Cache-Control", value: "max-age=0" },
+          { key: "Content-Type", value: "application/xml; charset=utf-8" },
+          { key: "Cache-Control", value: "public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400" },
+          { key: "CDN-Cache-Control", value: "max-age=86400" },
+          { key: "Cloudflare-CDN-Cache-Control", value: "max-age=86400" },
         ],
       },
       {

@@ -46,9 +46,13 @@ const FALLBACK_BETA: ReleaseChannelInfo = {
 export default function OsDownloadGrid({
   locale,
   headerSlot,
+  title,
+  subtitle,
 }: {
   locale: Locale;
   headerSlot?: ReactNode;
+  title?: string;
+  subtitle?: string;
 }) {
   const isEn = locale === "en";
   const initialRelease = useReleaseData();
@@ -275,9 +279,22 @@ export default function OsDownloadGrid({
       {/* VUE MOBILE (< 640px) : Premier écran dynamique 100dvh avec carte recommandée et repère de défilement ancré en bas */}
       <div className="os-download-mobile-view">
         <div className="os-download-first-screen">
-          {headerSlot && (
+          {(title || headerSlot) && (
             <div className="os-download-first-screen__header">
-              {headerSlot}
+              {title ? (
+                <>
+                  <p className="hero-fullscreen__title" aria-hidden="true" style={{ margin: 0 }}>
+                    {title}
+                  </p>
+                  {subtitle && (
+                    <p className="hero-fullscreen__subtitle">
+                      {subtitle}
+                    </p>
+                  )}
+                </>
+              ) : (
+                headerSlot
+              )}
             </div>
           )}
           <div className={`os-download-featured${detected ? " os-download-featured--detected" : ""}`}>
@@ -303,9 +320,22 @@ export default function OsDownloadGrid({
 
       {/* VUE DESKTOP (>= 640px) : Grille 5 colonnes immuable, zéro déplacement DOM, zéro CLS */}
       <div className="os-download-desktop-view">
-        {headerSlot && (
+        {(title || headerSlot) && (
           <div className="os-download-desktop-header">
-            {headerSlot}
+            {title ? (
+              <>
+                <h1 className="hero-fullscreen__title">
+                  {title}
+                </h1>
+                {subtitle && (
+                  <p className="hero-fullscreen__subtitle">
+                    {subtitle}
+                  </p>
+                )}
+              </>
+            ) : (
+              headerSlot
+            )}
           </div>
         )}
         <div className="os-download-desktop-grid" role="region" aria-label={isEn ? "Direct downloads" : "Téléchargements directs"}>

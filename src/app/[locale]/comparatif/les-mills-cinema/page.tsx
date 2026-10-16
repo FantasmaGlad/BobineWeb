@@ -374,6 +374,49 @@ export default async function LesMillsComparisonPage({
         <RoiCalculator locale={locale as Locale} />
       </div>
 
+      {/* Foire Aux Questions (FAQ) — visible pour l'utilisateur & Rich Results Google */}
+      <section style={{ marginBottom: "3.5rem", maxWidth: "860px" }}>
+        <h2 style={{ fontSize: "1.5rem", fontWeight: 700, color: "var(--text-heading)", marginBottom: "1.25rem" }}>
+          {isEn ? "Frequently Asked Questions" : "Questions Fréquentes"}
+        </h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          {faqItems.map((item, idx) => (
+            <details
+              key={idx}
+              style={{
+                background: "var(--bg-surface)",
+                border: "1px solid var(--border-subtle)",
+                borderRadius: "0.75rem",
+                padding: "1rem 1.25rem",
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  fontSize: "1.05rem",
+                  color: "var(--text-heading)",
+                  cursor: "pointer",
+                  outline: "none",
+                }}
+              >
+                {item.q}
+              </summary>
+              <p
+                style={{
+                  marginTop: "0.75rem",
+                  marginBottom: 0,
+                  fontSize: "0.95rem",
+                  color: "var(--text-body)",
+                  lineHeight: 1.6,
+                }}
+              >
+                {item.a}
+              </p>
+            </details>
+          ))}
+        </div>
+      </section>
+
       {/* Bloc CTA */}
       <section style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "1rem", padding: "2.5rem 2rem", textAlign: "center", maxWidth: "860px" }}>
         <h2 style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--text-heading)", marginBottom: "0.75rem" }}>

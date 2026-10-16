@@ -24,8 +24,8 @@ export async function generateMetadata({
       ? "Setup Guide & Documentation — Bobine | Multi-OS Playout Suite"
       : "Guide de Démarrage & Installation — Bobine | Régie Vidéo Multi-OS",
     description: isEn
-      ? "Official Bobine V3.0.0 setup guide: 1-click desktop installers for Windows, macOS, and Linux, local network orchestration with Bobine Assistant (Tauri), and 24/7 dedicated gym appliance on Debian 13."
-      : "Guide d'installation officiel de Bobine V3.0.0 : installeurs 1 clic pour Windows, macOS et Linux, orchestration réseau avec Bobine Assistant (Tauri), et régie autonome 24/7 sur mini PC Debian 13.",
+      ? "Official Bobine setup guide: 1-click installers for Windows, macOS, Linux, Android and Android TV, local network orchestration with Bobine Assistant, and 24/7 dedicated gym appliance on Debian 13."
+      : "Guide d'installation officiel de Bobine : installeurs 1 clic pour Windows, macOS, Linux, Android et Android TV, orchestration réseau avec Bobine Assistant, et régie autonome 24/7 sur mini PC Debian 13.",
     keywords: [
       "Documentation Bobine",
       "Démarrage rapide Bobine",
@@ -33,6 +33,8 @@ export async function generateMetadata({
       "Bobine Windows",
       "Bobine macOS",
       "Bobine Linux",
+      "Bobine Android",
+      "Bobine Android TV",
       "Bobine Assistant",
       "Debian 13 mini PC fitness",
       "Script install.sh Bobine",
@@ -84,7 +86,7 @@ export default async function DocumentationPage({
             locale={locale as Locale}
             pathname="/documentation"
             title={isEn ? "Bobine Installation & Quick Start Guide" : "Guide de Démarrage & Installation Bobine"}
-            description={isEn ? "Official setup guide for Bobine V3.0.0 across Windows, macOS, Linux, and dedicated appliances." : "Guide d'installation officiel de Bobine V3.0.0 sur Windows, macOS, Linux et mini PC dédiés."}
+            description={isEn ? "Official setup guide for Bobine across Windows, macOS, Linux, Android, Android TV, and dedicated appliances." : "Guide d'installation officiel de Bobine sur Windows, macOS, Linux, Android, Android TV et mini PC dédiés."}
           />
         </div>
       </div>

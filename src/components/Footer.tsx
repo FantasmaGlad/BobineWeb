@@ -38,10 +38,10 @@ export default function Footer({
           <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem" }}>
             <Link href={`/${locale}`} aria-label="Bobine - Accueil" style={{ display: "inline-block" }}>
               <Image
-                src="/logo-bobine.png"
+                src="/logo_bobine_entier.png"
                 alt="Bobine"
-                width={100}
-                height={37}
+                width={130}
+                height={48}
                 style={{ filter: "var(--logo-filter)", width: "auto", height: "36px" }}
               />
             </Link>
@@ -74,6 +74,9 @@ export default function Footer({
             </Link>
             <Link href={`/${locale}/blog`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.nav.blog}
+            </Link>
+            <Link href={`/${locale}/demo-3d`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+              {isEn ? "3D Studio Demo" : "Démo Studio 3D"}
             </Link>
           </div>
 
@@ -109,6 +112,22 @@ export default function Footer({
             >
               <GitHubIcon size={13} />
               <span>{dict.footer.github}</span>
+            </a>
+            <a
+              href="https://alternativeto.net/software/fantasmaglad-bobine/"
+              target="_blank"
+              rel="noreferrer"
+              style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}
+            >
+              AlternativeTo
+            </a>
+            <a
+              href="https://www.linkedin.com/in/clement-barillot39"
+              target="_blank"
+              rel="noreferrer"
+              style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}
+            >
+              LinkedIn
             </a>
             <a
               href="mailto:clement.barillot@bobine.fit"

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/lib/i18n";
 import { getBobineReleases } from "@/lib/github-releases";
+import { EN_SLUG_MAP } from "@/lib/seo";
 
 interface RouteConfig {
   path: string;
@@ -26,6 +27,7 @@ const staticRoutes: RouteConfig[] = [
   { path: "/materiel/amazon", priority: 0.9, changeFrequency: "weekly" },
   { path: "/materiel/aliexpress", priority: 0.7, changeFrequency: "weekly" },
   { path: "/baamix", priority: 0.85, changeFrequency: "weekly" },
+  { path: "/demo-3d", priority: 0.8, changeFrequency: "monthly" },
   { path: "/a-propos", priority: 0.8, changeFrequency: "monthly" },
   { path: "/soutenir", priority: 0.7, changeFrequency: "monthly" },
   { path: "/mentions-legales", priority: 0.3, changeFrequency: "yearly" },
@@ -40,8 +42,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Pages de blog : une par release GitHub, datée de sa publication (jamais de la date du build).
   let dynamicBlogRoutes: RouteConfig[] = [];
+  let latestReleaseDate = "2026-10-15";
   try {
     const releases = await getBobineReleases();
+    if (releases.length > 0 && releases[0].publishedAt) {
+      latestReleaseDate = releases[0].publishedAt.slice(0, 10);
+    }
     dynamicBlogRoutes = releases.map((rel) => ({
       path: `/blog/${rel.slug}`,
       priority: rel.slug.toLowerCase() === "beta" ? 0.8 : 0.75,
@@ -58,28 +64,33 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       path: "/blog/beta",
       priority: 0.8,
       changeFrequency: "daily",
+      lastModified: latestReleaseDate,
     });
   }
 
   const allRoutes = [...staticRoutes, ...dynamicBlogRoutes];
 
-  // Date seule (AAAA-MM-JJ), format le plus sûr pour les moteurs : pas de millisecondes ni de fuseau.
-  const buildDate = new Date().toISOString().slice(0, 10);
-
   return locales.flatMap((locale) =>
-    allRoutes.map(({ path, priority, changeFrequency, lastModified }) => ({
-      url: `${base}/${locale}${path}`,
-      lastModified: lastModified ?? buildDate,
-      changeFrequency,
-      priority,
-      alternates: {
-        languages: {
-          ...Object.fromEntries(
-            locales.map((loc) => [loc, `${base}/${loc}${path}`])
-          ),
-          "x-default": `${base}/fr${path}`,
+    allRoutes.map(({ path, priority, changeFrequency, lastModified }) => {
+      const frUrl = `${base}/fr${path}`;
+      const enUrl = `${base}/en${EN_SLUG_MAP[path] ?? path}`;
+      const currentUrl = locale === "en" ? enUrl : frUrl;
+
+      return {
+        url: currentUrl,
+        lastModified: lastModified ?? latestReleaseDate,
+        changeFrequency,
+        priority,
+        alternates: {
+          languages: {
+            "fr": frUrl,
+            "en": enUrl,
+            "fr-FR": frUrl,
+            "en-US": enUrl,
+            "x-default": frUrl,
+          },
         },
-      },
-    }))
+      };
+    })
   );
 }

@@ -105,7 +105,7 @@ export default function OnionMirrorNotice({
           <Link href={`/${locale}/documentation`} className="btn-primary">
             {t.docs}
           </Link>
-          <Link href={`/${locale}/documentation/manifeste`} className="btn-secondary">
+          <Link href={`/${locale}/a-propos`} className="btn-secondary">
             {t.manifest}
           </Link>
         </div>

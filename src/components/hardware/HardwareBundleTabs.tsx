@@ -251,16 +251,17 @@ export default function HardwareBundleTabs({
         >
           <div style={{ minWidth: 0, flex: "1 1 auto" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.35rem" }}>
-              <h2
+              <h1
                 className="hw-form-title"
                 style={{
                   fontSize: "1.25rem",
                   fontWeight: 700,
                   color: "var(--text-heading)",
+                  margin: 0,
                 }}
               >
                 <MarqueeText text={isEn ? currentFormFactor.titleEn : currentFormFactor.titleFr} />
-              </h2>
+              </h1>
             </div>
           </div>
 

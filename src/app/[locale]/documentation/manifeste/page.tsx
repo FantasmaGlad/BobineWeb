@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
 
 export default async function ManifesteRedirect({
@@ -7,6 +7,6 @@ export default async function ManifesteRedirect({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  if (!isLocale(locale)) redirect("/fr/a-propos");
-  redirect(`/${locale}/a-propos`);
+  if (!isLocale(locale)) permanentRedirect("/fr/a-propos");
+  permanentRedirect(`/${locale}/a-propos`);
 }

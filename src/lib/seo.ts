@@ -14,6 +14,32 @@ export interface SeoProps {
   publishedTime?: string;
 }
 
+export const EN_SLUG_MAP: Record<string, string> = {
+  "/fonctionnalites": "/features",
+  "/comparatif": "/compare",
+  "/comparatif/les-mills-cinema": "/compare/les-mills-cinema",
+  "/comparatif/wexer-fitness-on-demand": "/compare/wexer-fitness-on-demand",
+  "/comparatif/radical-fitness-yako": "/compare/radical-fitness-yako",
+  "/comparatif/affichage-dynamique-fitness": "/compare/digital-signage-fitness",
+  "/materiel": "/hardware/amazon",
+  "/materiel/amazon": "/hardware/amazon",
+  "/materiel/aliexpress": "/hardware/aliexpress",
+  "/documentation/utilisation": "/documentation/user-guide",
+  "/documentation/developpeurs": "/documentation/developers",
+  "/a-propos": "/about",
+  "/soutenir": "/support",
+  "/mentions-legales": "/legal-notice",
+  "/confidentialite": "/privacy",
+  "/securite": "/security",
+};
+
+export function getLocalizedPath(pathname: string, locale: Locale): string {
+  if (locale === "en") {
+    return EN_SLUG_MAP[pathname] ?? pathname;
+  }
+  return pathname;
+}
+
 export function buildMetadata({
   locale,
   pathname,
@@ -24,9 +50,13 @@ export function buildMetadata({
   type = "website",
   publishedTime,
 }: SeoProps): Metadata {
-  const currentUrl = `${BASE_URL}/${locale}${pathname}`;
-  const frUrl = `${BASE_URL}/fr${pathname}`;
-  const enUrl = `${BASE_URL}/en${pathname}`;
+  const cleanTitle = title.replace(/\s*([·—|]\s*Bobine.*)$/i, "").trim() || title;
+  const frPath = pathname;
+  const enPath = EN_SLUG_MAP[pathname] ?? pathname;
+  const currentPath = locale === "en" ? enPath : frPath;
+  const currentUrl = `${BASE_URL}/${locale}${currentPath}`;
+  const frUrl = `${BASE_URL}/fr${frPath}`;
+  const enUrl = `${BASE_URL}/en${enPath}`;
 
   const defaultKeywords =
     locale === "en"
@@ -89,7 +119,7 @@ export function buildMetadata({
         ];
 
   return {
-    title,
+    title: cleanTitle,
     description,
     authors: [{ name: "Clément Barillot", url: "https://github.com/FantasmaGlad" }],
     creator: "Clément Barillot (FantasmaGlad)",
@@ -108,7 +138,7 @@ export function buildMetadata({
     openGraph: {
       type,
       siteName: "Bobine",
-      title: `${title} · Bobine`,
+      title: `${cleanTitle} · Bobine`,
       description,
       url: currentUrl,
       locale: locale === "en" ? "en_US" : "fr_FR",
@@ -119,13 +149,13 @@ export function buildMetadata({
           url: image.startsWith("http") ? image : `${BASE_URL}${image}`,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: cleanTitle,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} · Bobine`,
+      title: `${cleanTitle} · Bobine`,
       description,
       images: [image.startsWith("http") ? image : `${BASE_URL}${image}`],
     },

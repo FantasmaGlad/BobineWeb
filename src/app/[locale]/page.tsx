@@ -99,17 +99,8 @@ export default async function HomePage({
         <div className="hero-fullscreen__content">
           <OsDownloadGrid
             locale={locale as Locale}
-            headerSlot={
-              <>
-                <h1 className="hero-fullscreen__title">
-                  {t.title}
-                </h1>
-
-                <p className="hero-fullscreen__subtitle">
-                  {t.subtitle}
-                </p>
-              </>
-            }
+            title={t.title}
+            subtitle={t.subtitle}
           />
         </div>
 

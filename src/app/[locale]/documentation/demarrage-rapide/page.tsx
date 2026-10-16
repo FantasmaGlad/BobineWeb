@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
 
 export default async function DemarrageRapideRedirect({
@@ -7,6 +7,6 @@ export default async function DemarrageRapideRedirect({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  if (!isLocale(locale)) redirect("/fr/documentation");
-  redirect(`/${locale}/documentation`);
+  if (!isLocale(locale)) permanentRedirect("/fr/documentation");
+  permanentRedirect(`/${locale}/documentation`);
 }

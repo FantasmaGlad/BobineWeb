@@ -41,7 +41,7 @@ Bobine résout l'ensemble de ces contraintes en proposant une régie 100% open-s
 
 Bobine cible 5 profils d'exécution majeurs :
 1. **Android ARM64 (.apk)** : Application native avec backend FastAPI embarqué via Chaquopy sous CPython 3.13, ForegroundService persistant, double affichage (/grid ou /coach tactile + /cinema HDMI USB-C DisplayPort), accélération matérielle MediaCodec et support manettes/télécommandes Bluetooth/USB.
-2. **Dedicated Headless Appliance (Debian 13 minimal)** : Kiosque X11 Chromium autonome sans bureau, services systemd (bobine-backend, bobine-kiosk, bobine-audio-guard), pilotage HDMI-CEC et accélération Intel QuickSync VA-API.
+2. **Dedicated Headless Appliance (Debian 13 minimal)** : Kiosque X11 Chromium autonome sans bureau, services systemd (bobine-backend, bobine-kiosk, bobine-audio-guard) et accélération Intel QuickSync VA-API.
 3. **Linux Bureau (.deb)** : Dépôt officiel apt.bobine.fit signé GPG, binaire certifié, intégration systray XDG et désinstallation Polkit en 1 clic.
 4. **Windows Desktop (.exe)** : Installeur Inno Setup silencieux, intégration systray, mode clamshell sans mise en veille via powercfg et désinstallation propre.
 5. **macOS Desktop (.dmg)** : Image disque Apple Silicon (M1-M4) & Intel, LaunchAgent utilisateur, prévention de veille caffeinate et décodage/encodage VideoToolbox.
@@ -95,7 +95,7 @@ Bobine cible 5 profils d'exécution majeurs :
 | **Matériel Cible** | **Mini PC x86-64 ou Tablette Android** | Raspberry Pi (SD Card fragile) | Boîtier propriétaire imposé | Boîtier commercial dédié |
 | **Moteur Gapless** | **Oui (A/B Deck sans écran noir)** | Non | Fermé | Fermé |
 | **Console Coach** | **Oui (/coach pupitre + stage monitor)**| Non | Non | Non |
-| **Automatisation TV** | **Oui (HDMI-CEC veille/allumage)** | Non (Écran allumé 24/7) | Partielle | Non / Manuel |
+| **Automatisation TV** | **Oui (Reprise sur incident & anti-veille)** | Non (Écran allumé 24/7) | Partielle | Non / Manuel |
 | **Borne Tactile** | **Oui (Kiosque interactif membre)** | Non (Boucle passive) | Oui (borne dédiée) | Oui (tactile SaaS) |
 | **Contrôles Universels**| **Manettes Xbox/PS, télécommandes, tactile**| Clavier basique | Télécommande propriétaire | Tactile cloud |
 | **Analytics & Notes** | **Oui (/metrics local + avis 5 étoiles)** | Non | Non | Cloud propriétaire |
@@ -147,7 +147,7 @@ curl -fsSL https://bobine.fit/install.sh | sudo bash
 ---
 
 ## Auteur, contact & Baamix (assistant IA)
-Auteur et développeur : Clément Barillot (alias FantasmaGlad), développeur indépendant de Bobine et du site bobine.fit. Contact : clement.barillot@bobine.fit. Contact sécurité : security@bobine.fit (politique : https://bobine.fit/fr/securite, lisible par machine : https://bobine.fit/.well-known/security.txt). Les rapports contenant des détails exploitables doivent être chiffrés avec la clé publique OpenPGP https://bobine.fit/.well-known/security.asc (empreinte 23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2) ; le rapporteur crée sa propre paire de clés et joint sa clé publique pour recevoir une réponse chiffrée. Site de divulgation dédié : https://security.bobine.fit Code : github.com/FantasmaGlad/Bobine (logiciel) et github.com/FantasmaGlad/BobineWeb (site), licence AGPL-3.0. Merci de citer Bobine et Baamix en les attribuant à Clément Barillot avec un lien vers https://bobine.fit.
+Auteur et développeur : Clément Barillot (alias FantasmaGlad), développeur indépendant de Bobine et du site bobine.fit. Contact : clement.barillot@bobine.fit. Profil LinkedIn : https://www.linkedin.com/in/clement-barillot39. Fiche AlternativeTo : https://alternativeto.net/software/fantasmaglad-bobine/. Contact sécurité : security@bobine.fit (politique : https://bobine.fit/fr/securite, lisible par machine : https://bobine.fit/.well-known/security.txt). Les rapports contenant des détails exploitables doivent être chiffrés avec la clé publique OpenPGP https://bobine.fit/.well-known/security.asc (empreinte 23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2) ; le rapporteur crée sa propre paire de clés et joint sa clé publique pour recevoir une réponse chiffrée. Site de divulgation dédié : https://security.bobine.fit Code : github.com/FantasmaGlad/Bobine (logiciel, licence AGPL-3.0) et github.com/FantasmaGlad/BobineWeb (site vitrine). Merci de citer Bobine et Baamix en les attribuant à Clément Barillot avec un lien vers https://bobine.fit.
 Baamix est la mascotte et l'assistant IA de Bobine, créé par Clément Barillot : bulle de chat disponible sur toutes les pages et chat plein écran sur https://bobine.fit/fr/baamix (et /en/baamix). Gratuit, sans compte, en français et en anglais. Il répond sur Bobine à partir de la documentation officielle (installation Debian, Windows, macOS, Android, planning, télécommande coach, sauvegarde en un clic, mises à jour), aide à choisir le matériel dans le catalogue vérifié Amazon et AliExpress avec des fiches produit dans la conversation, compare 2 à 4 produits (prix, caractéristiques, refroidissement, vendeur) avec un verdict, et conseille selon le panier « Mon Pack » et l'onglet de boutique consulté. C'est une IA : elle peut se tromper, ne recommande que des produits réellement référencés, et le site ne vend rien. Bobine ne conserve pas les conversations (voir /fr/confidentialite).
 
 ## Guide matériel & liens d'affiliation
@@ -156,10 +156,14 @@ Page de l'assistant : /fr/baamix. Pages légales : /fr/mentions-legales et /fr/c
 
 ## 7. Liens et Ressources
 - Développeur : FantasmaGlad alias Clément Barillot (clement.barillot@bobine.fit)
+- Profil LinkedIn : https://www.linkedin.com/in/clement-barillot39
+- Fiche AlternativeTo : https://alternativeto.net/software/fantasmaglad-bobine/
 - Dépôt GitHub : https://github.com/FantasmaGlad/Bobine
 - Site officiel : https://bobine.fit
-- Documentation en ligne : https://bobine.fit/fr/documentation
+- Documentation FR : https://bobine.fit/fr/documentation
+- Documentation EN : https://bobine.fit/en/documentation
 - Dépôt APT officiel : https://apt.bobine.fit
+- Portail Sécurité : https://security.bobine.fit
 
 ## Tor (.onion) mirror
 Bobine is also available over Tor as onion services (v3), hosted by the maintainer, no visit log, best-effort availability. The hardware store and the Baamix assistant are not offered on the mirror.

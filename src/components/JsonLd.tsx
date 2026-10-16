@@ -19,11 +19,16 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Bobine Fit",
-    alternateName: ["Bobine", "bobine.fit", "Bobine Playout", "Régie Bobine"],
-    operatingSystem: "Debian 13, Ubuntu, Linux, Windows 11, macOS (Apple Silicon & Intel), Android (ARM64)",
+    alternateName: ["Bobine", "bobine.fit", "Bobine Playout", "Régie Bobine", "Bobine Fitness", "Bobine Virtual Fitness"],
+    operatingSystem: "Debian 13 (Appliance Headless), Ubuntu, Linux Mint, Windows 11/10, macOS (Apple Silicon M1–M4), Android 14–16 (ARM64), Android TV, Google TV",
     applicationCategory: "MultimediaApplication",
     applicationSubCategory: "Gym Video Playout & Virtual Fitness Automation",
     url: "https://bobine.fit",
+    about: [
+      { "@type": "Thing", name: "Fitness Center", sameAs: "https://www.wikidata.org/wiki/Q1060421" },
+      { "@type": "Thing", name: "Software", sameAs: "https://www.wikidata.org/wiki/Q7397" },
+      { "@type": "Thing", name: "GNU Affero General Public License", sameAs: "https://www.wikidata.org/wiki/Q131262" },
+    ],
     description: isEn
       ? "Open-source, self-hosted streaming and video playout automation system for gyms and fitness studios. Offline alternative to Les Mills Cinema, Anthias, Screenly, and Wexer."
       : "Régie vidéo et système de streaming open-source et auto-hébergé pour salles de sport et studios fitness. Alternative 100% hors-ligne à Les Mills Cinema, Anthias, Screenly et Wexer.",
@@ -37,6 +42,8 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
           "Visual Ambiances Hub (/backgrounds) with 16:9 dynamic preview and per-track assignment",
           "One-click ZIP backup and restore of the complete database and media configuration",
           "Touchscreen member cinema kiosk on demand with 2D spatial navigation",
+          "Native Android TV & Google TV APK with D-Pad navigation for smart displays",
+          "Universal web remote control accessible on Firefox, Chrome, Safari, and Edge",
           "Universal gamepad support (Xbox, PlayStation, Switch Pro, 8BitDo) via HTML5 Gamepad API",
           "Instant mobile remote control via local QR code without application install",
           "24/7 background radio with scheduled voice announcements and audio crossfade",
@@ -50,6 +57,8 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
           "Hub d'Ambiances Visuelles (/backgrounds) avec prévisualisation dynamique et assignation par piste",
           "Sauvegarde et restauration ZIP en un clic de toute la configuration et de la médiathèque",
           "Borne cinéma membre tactile à la demande avec navigation spatiale 2D",
+          "Support natif Android TV et Google TV avec navigation à la télécommande D-Pad",
+          "Télécommande web universelle accessible sur Firefox, Chrome, Safari et Edge",
           "Support universel des manettes de jeu (Xbox, PlayStation, Switch Pro, 8BitDo) via HTML5 Gamepad API",
           "Télécommande mobile instantanée par QR code local sans application à installer",
           "Radio d'ambiance 24/7 avec alertes et annonces vocales programmées et fondu sonore",
@@ -95,7 +104,11 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
     jobTitle: isEn ? "Developer and author of Bobine" : "Développeur et auteur de Bobine",
     email: AUTHOR_EMAIL,
     url: "https://github.com/FantasmaGlad",
-    sameAs: ["https://github.com/FantasmaGlad", "https://github.com/FantasmaGlad/Bobine"],
+    sameAs: [
+      "https://github.com/FantasmaGlad",
+      "https://github.com/FantasmaGlad/Bobine",
+      "https://www.linkedin.com/in/clement-barillot39",
+    ],
     worksFor: { "@type": "Organization", name: "Bobine Fit", url: "https://bobine.fit" },
   };
 
@@ -103,7 +116,7 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Bobine Fit",
-    alternateName: ["Bobine", "bobine.fit", "Bobine Playout"],
+    alternateName: ["Bobine", "bobine.fit", "Bobine Playout", "Bobine Fitness"],
     url: "https://bobine.fit",
     logo: "https://bobine.fit/icon.png",
     description: isEn
@@ -120,6 +133,9 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
       "https://github.com/FantasmaGlad/Bobine",
       "https://github.com/FantasmaGlad/BobineWeb",
       "https://apt.bobine.fit",
+      "https://security.bobine.fit",
+      "https://alternativeto.net/software/fantasmaglad-bobine/",
+      "https://www.linkedin.com/in/clement-barillot39",
     ],
   };
 
@@ -127,7 +143,7 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Bobine Fit",
-    alternateName: ["Bobine", "bobine.fit", "Bobine Playout"],
+    alternateName: ["Bobine", "bobine.fit", "Bobine Playout", "Bobine Fitness"],
     url: "https://bobine.fit",
     inLanguage: ["fr-FR", "en-US"],
     potentialAction: {
@@ -138,112 +154,6 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
       },
       "query-input": "required name=search_term_string",
     },
-  };
-
-  const faqPageSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: isEn
-      ? [
-          {
-            "@type": "Question",
-            name: "What is Bobine Fit?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Bobine Fit is a free, open-source (AGPL-3.0) self-hosted video playout and streaming automation suite designed for gyms, fitness clubs, and cycling studios. It turns low-cost mini PCs or tablets into fully autonomous 24/7 video controllers featuring scheduled classes, an on-demand member kiosk, a coach mobile remote, and 24/7 background audio with crossfade.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Who developed Bobine and who maintains it?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Bobine was created and is actively developed and maintained by independent developer Clément Barillot (FantasmaGlad). The project is 100% community-driven, copyleft (AGPL-3.0), and accepts zero recurring software subscription fees.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "How does Bobine replace proprietary systems like Les Mills Cinema or Wexer?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Proprietary fitness cinema solutions charge between €150 and €400 per month per screen and require an active internet connection. Bobine delivers the same premium studio experience with 100% offline playback from local SSD storage, zero monthly fees, freedom of class catalog, and universal hardware support on low-cost refurbished computers (from ~€40-€80) or Android tablets.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "What hardware does Bobine recommend and where can I buy it?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Bobine provides an interactive hardware selection guide and store at https://bobine.fit/en/materiel. It curates verified, energy-efficient equipment across 4 tiers (Essential, Recommended, Pro, Premium) on Amazon and AliExpress, including refurbished x86-64 mini PCs (~€40-€80), Android tablets, and HDMI-CEC accessories with a shared cart.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "What is Baamix and how does it help?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Baamix is Bobine's free, dedicated conversational AI assistant accessible at https://bobine.fit/en/baamix. It answers setup questions from the official documentation, provides live hardware recommendations, and compares 2 to 4 products side-by-side with objective verdicts.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Is Bobine available over the Tor network (.onion)?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Yes. Bobine is distributed over the Tor network with two dedicated onion services: an official static mirror of the website (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/) and an official GPG-signed APT repository (tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/) allowing gym owners to install and update software without revealing their public IP address.",
-            },
-          },
-        ]
-      : [
-          {
-            "@type": "Question",
-            name: "Qu'est-ce que Bobine Fit ?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Bobine Fit est une régie vidéo et un système de streaming libre (AGPL-3.0) conçu pour les salles de sport et studios fitness. Elle transforme un mini PC économique ou une tablette en régie autonome 24/7 : cours programmés à la seconde, borne tactile libre-service adhérents, télécommande smartphone locale et radio d'ambiance 24/7 sans abonnement.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Qui a développé Bobine et qui assure sa maintenance ?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Bobine est conçu, développé et maintenu par Clément Barillot (alias FantasmaGlad) depuis début 2026. Le projet est 100% libre et souverain sous licence copyleft AGPL-3.0, sans aucun abonnement logiciel.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Pourquoi choisir Bobine face à Les Mills Cinema ou Wexer ?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Les solutions propriétaires coûtent de 150 à 400 €/mois par écran et dépendent du cloud. Bobine supprime tout abonnement (0 €), fonctionne 100% hors-ligne depuis un SSD local, laisse la salle maîtresse de ses vidéos et tourne sur du matériel reconditionné abordable (~40-80 €) ou tablettes Android.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Quel matériel choisir pour faire tourner Bobine et où l'acheter ?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Bobine propose une boutique et un guide matériel interactif sur https://bobine.fit/fr/materiel. Il référence des configurations vérifiées et sobres en énergie réparties en 4 gammes (Essentiel, Recommandé, Pro, Premium) sur Amazon et AliExpress, incluant des mini PC reconditionnés (~40-80 €), tablettes Android et connectique HDMI-CEC avec panier partagé.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Qu'est-ce que Baamix et comment l'utiliser ?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Baamix est l'assistant IA dédié et gratuit de Bobine disponible sur https://bobine.fit/fr/baamix. Il guide les utilisateurs dans l'installation, répond d'après la documentation officielle et compare en direct 2 à 4 produits matériels avec fiches détaillées.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Bobine est-il disponible sur le réseau Tor (.onion) ?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Oui. Bobine propose deux services onion v3 officiels : un miroir statique du site (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/) et un dépôt APT signé GPG (tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/) pour permettre l'installation et les mises à jour sans exposer l'adresse IP de la salle.",
-            },
-          },
-        ],
   };
 
   return (
@@ -263,10 +173,6 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
       />
     </>
   );

@@ -46,7 +46,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: ["https://bobine.fit/sitemap.xml", "https://bobine.fit/sitemap-bobine.xml"],
-    host: "https://bobine.fit",
+    sitemap: ["https://bobine.fit/sitemap.xml"],
   };
 }

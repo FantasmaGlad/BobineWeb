@@ -30,8 +30,8 @@ const FALLBACK_STABLE: ReleaseChannelInfo = {
 
 const FALLBACK_BETA: ReleaseChannelInfo = {
   version: "beta",
-  title: "Bobine — Bêta (build automatique)",
-  publishedAt: "2026-09-09T20:00:00Z",
+  title: "Bobine — Bêta",
+  publishedAt: "2026-10-16T20:00:00Z",
   downloads: {
     windows: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe",
     linux: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb",
@@ -40,6 +40,21 @@ const FALLBACK_BETA: ReleaseChannelInfo = {
     androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-TV-beta.apk",
     assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant",
     installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/install.sh",
+  },
+};
+
+const FALLBACK_CANARY: ReleaseChannelInfo = {
+  version: "canary",
+  title: "Bobine — Canary (build automatique)",
+  publishedAt: "2026-10-16T20:00:00Z",
+  downloads: {
+    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-Setup-canary.exe",
+    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine_canary_amd64.deb",
+    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-canary.dmg",
+    android: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-canary.apk",
+    androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-TV-canary.apk",
+    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine-assistant",
+    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/install.sh",
   },
 };
 
@@ -58,6 +73,7 @@ export default function OsDownloadGrid({
   const initialRelease = useReleaseData();
   const [stableInfo, setStableInfo] = useState<ReleaseChannelInfo>(initialRelease?.stable ?? FALLBACK_STABLE);
   const [betaInfo, setBetaInfo] = useState<ReleaseChannelInfo>(initialRelease?.beta ?? FALLBACK_BETA);
+  const [canaryInfo, setCanaryInfo] = useState<ReleaseChannelInfo>(initialRelease?.canary ?? FALLBACK_CANARY);
   const detected = useDetectedPlatform();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalPlatform, setModalPlatform] = useState<DownloadPlatform>("windows");
@@ -72,6 +88,7 @@ export default function OsDownloadGrid({
         if (!isMounted || !data) return;
         if (data.stable) setStableInfo(data.stable);
         if (data.beta) setBetaInfo(data.beta);
+        if (data.canary) setCanaryInfo(data.canary);
       })
       .catch(() => {
         // Fallback transparent déjà en place
@@ -350,6 +367,7 @@ export default function OsDownloadGrid({
         initialPlatform={modalPlatform}
         stable={stableInfo}
         beta={betaInfo}
+        canary={canaryInfo}
       />
     </div>
   );

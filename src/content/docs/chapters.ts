@@ -120,12 +120,12 @@ const fr: DocChapter[] = [
         ],
       },
       {
-        subtitle: "2.7 Canaux de version : Stable ou Bêta (Rolling beta)",
+        subtitle: "2.7 Canaux de version : Stable, Bêta ou Canary",
         paragraphs: [
-          "Bobine propose deux canaux de mise à jour : le canal Stable (recommandé en production de salle, tags Vx.y.z stricts) et le canal Bêta (rolling beta sur tag unique mobile beta, déployé automatiquement à chaque push sur main).",
-          "Sur tous les OS, la Bêta partage les mêmes identifiants applicatifs et s'installe par-dessus la version existante sans créer de doublon ni affecter les bases de données ou médias. Le choix s'effectue dans Réglages → Mises à jour logicielles ou via le paramètre CLI :",
+          "Bobine propose trois canaux de mise à jour : le canal Stable (recommandé en production de salle, tags Vx.y.z stricts), le canal Bêta (lots de fonctionnalités/correctifs curés, publiés manuellement par le mainteneur) et le canal Canary (rolling sur tag mobile canary, reconstruit automatiquement à chaque push sur main, zéro curation).",
+          "Sur tous les OS, Bêta et Canary partagent les mêmes identifiants applicatifs et s'installent par-dessus la version existante sans créer de doublon ni affecter les bases de données ou médias. Le choix s'effectue dans Réglages → Mises à jour logicielles ou via le paramètre CLI :",
         ],
-        codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta",
+        codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta   # ou --channel=canary",
       },
       {
         subtitle: "2.8 Navigateurs supportés (Firefox, Chrome, Edge, Safari)",
@@ -350,8 +350,8 @@ const fr: DocChapter[] = [
         subtitle: "7.0 Suivi des versions & publication continue",
         paragraphs: [
           "Chaque nouvelle version est publiée sur GitHub Releases (github.com/FantasmaGlad/Bobine/releases) avec son changelog détaillé, ses binaires signés pour les 5 systèmes d'exploitation, et son SHA-256 de vérification d'intégrité.",
-          "Deux canaux permettent de suivre l'avancement du projet : le canal Stable (tags Vx.y.z figés, recommandé en production de salle) et le canal Bêta (rolling beta reconstruit automatiquement à chaque évolution du code sur la branche principale, pour les clubs souhaitant tester les prochaines fonctionnalités en avant-première).",
-          "Le dépôt APT officiel (apt.bobine.fit) reflète les deux canaux dans ses distributions stable et beta, permettant une mise à jour automatique via apt upgrade sans réinstallation manuelle.",
+          "Trois canaux permettent de suivre l'avancement du projet : le canal Stable (tags Vx.y.z figés, recommandé en production de salle), le canal Bêta (lots de fonctionnalités/correctifs curés, publiés manuellement) et le canal Canary (rolling, reconstruit automatiquement à chaque évolution du code sur la branche principale, pour les clubs souhaitant tester les toutes dernières modifications sans attendre un lot).",
+          "Le dépôt APT officiel (apt.bobine.fit) reflète les trois canaux dans ses distributions stable, beta et canary, permettant une mise à jour automatique via apt upgrade sans réinstallation manuelle.",
         ],
       },
       {
@@ -486,12 +486,12 @@ const en: DocChapter[] = [
         ],
       },
       {
-        subtitle: "2.7 Release channels: Stable or Beta (Rolling beta)",
+        subtitle: "2.7 Release channels: Stable, Beta or Canary",
         paragraphs: [
-          "Bobine offers two release channels: the Stable channel (recommended for production gym playout, strict Vx.y.z tags) and the Beta channel (rolling beta on fixed mobile tag beta, rebuilt automatically on every push to main).",
-          "Across all platforms, Beta shares identical application IDs and upgrades existing installations in-place without creating duplicate applications or altering media and databases. Toggle anytime in Settings → Software Updates or via CLI flag:",
+          "Bobine offers three release channels: the Stable channel (recommended for production gym playout, strict Vx.y.z tags), the Beta channel (curated batches of features/fixes, published manually by the maintainer) and the Canary channel (rolling on fixed mobile tag canary, rebuilt automatically on every push to main, zero curation).",
+          "Across all platforms, Beta and Canary share identical application IDs and upgrade existing installations in-place without creating duplicate applications or altering media and databases. Toggle anytime in Settings → Software Updates or via CLI flag:",
         ],
-        codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta",
+        codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta   # or --channel=canary",
       },
       {
         subtitle: "2.8 Supported browsers (Firefox, Chrome, Edge, Safari)",
@@ -716,8 +716,8 @@ const en: DocChapter[] = [
         subtitle: "7.0 Release tracking & continuous publishing",
         paragraphs: [
           "Every new version is published on GitHub Releases (github.com/FantasmaGlad/Bobine/releases) with a detailed changelog, signed binaries for all 5 operating systems, and a SHA-256 integrity checksum.",
-          "Two channels track the project's progress: the Stable channel (frozen Vx.y.z tags, recommended for production gym playout) and the Beta channel (rolling beta, automatically rebuilt on every change to the main branch, for clubs wanting an early look at upcoming features).",
-          "The official APT repository (apt.bobine.fit) mirrors both channels in its stable and beta distributions, enabling automatic updates via apt upgrade with no manual reinstall.",
+          "Three channels track the project's progress: the Stable channel (frozen Vx.y.z tags, recommended for production gym playout), the Beta channel (curated batches of features/fixes, published manually) and the Canary channel (rolling, automatically rebuilt on every change to the main branch, for clubs wanting the very latest changes without waiting for a batch).",
+          "The official APT repository (apt.bobine.fit) mirrors all three channels in its stable, beta and canary distributions, enabling automatic updates via apt upgrade with no manual reinstall.",
         ],
       },
       {

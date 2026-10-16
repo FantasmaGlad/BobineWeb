@@ -7569,7 +7569,7 @@ main {
 .download-modal {
   position: relative;
   width: 100%;
-  max-width: 740px;
+  max-width: 920px;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl, 16px);
@@ -7662,8 +7662,14 @@ main {
 
 .download-modal__cards-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .download-modal__cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .download-modal__cli-grid {
@@ -7692,6 +7698,19 @@ main {
 .download-modal__channel-card--beta {
   border-color: color-mix(in srgb, var(--accent-warning, #f59e0b) 35%, var(--border-subtle));
   box-shadow: 0 4px 16px color-mix(in srgb, var(--accent-warning, #f59e0b) 6%, transparent);
+}
+
+.download-modal__channel-card--canary {
+  border-color: color-mix(in srgb, var(--accent-canary, #e11d48) 35%, var(--border-subtle));
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--accent-canary, #e11d48) 6%, transparent);
+}
+
+.download-modal__channel-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .download-modal__card-header {
@@ -7735,6 +7754,12 @@ main {
   background: color-mix(in srgb, var(--accent-warning, #f59e0b) 16%, transparent);
   color: var(--accent-warning, #f59e0b);
   border: 1px solid color-mix(in srgb, var(--accent-warning, #f59e0b) 32%, transparent);
+}
+
+.download-modal__badge--canary {
+  background: color-mix(in srgb, var(--accent-canary, #e11d48) 16%, transparent);
+  color: var(--accent-canary, #e11d48);
+  border: 1px solid color-mix(in srgb, var(--accent-canary, #e11d48) 32%, transparent);
 }
 
 .download-modal__version {

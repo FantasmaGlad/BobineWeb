@@ -40,8 +40,8 @@ const FALLBACK_STABLE: ReleaseChannelInfo = {
 
 const FALLBACK_BETA: ReleaseChannelInfo = {
   version: "beta",
-  title: "Bobine — Bêta (build automatique)",
-  publishedAt: "2026-09-09T20:00:00Z",
+  title: "Bobine — Bêta",
+  publishedAt: "2026-10-16T20:00:00Z",
   downloads: {
     windows: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe",
     linux: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb",
@@ -49,6 +49,20 @@ const FALLBACK_BETA: ReleaseChannelInfo = {
     android: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.apk",
     assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant",
     installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/install.sh",
+  },
+};
+
+const FALLBACK_CANARY: ReleaseChannelInfo = {
+  version: "canary",
+  title: "Bobine — Canary (build automatique)",
+  publishedAt: "2026-10-16T20:00:00Z",
+  downloads: {
+    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-Setup-canary.exe",
+    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine_canary_amd64.deb",
+    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-canary.dmg",
+    android: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-canary.apk",
+    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine-assistant",
+    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/install.sh",
   },
 };
 
@@ -64,6 +78,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const initialRelease = useReleaseData();
   const [stable, setStable] = useState<ReleaseChannelInfo>(initialRelease?.stable ?? FALLBACK_STABLE);
   const [beta, setBeta] = useState<ReleaseChannelInfo>(initialRelease?.beta ?? FALLBACK_BETA);
+  const [canary, setCanary] = useState<ReleaseChannelInfo>(initialRelease?.canary ?? FALLBACK_CANARY);
   const [copiedCmd, setCopiedCmd] = useState(false);
 
   useEffect(() => {
@@ -76,6 +91,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         if (!isMounted || !data) return;
         if (data.stable) setStable(data.stable);
         if (data.beta) setBeta(data.beta);
+        if (data.canary) setCanary(data.canary);
       })
       .catch(() => {});
     return () => {
@@ -276,7 +292,23 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
-                  <span>{isEn ? "Download Beta (Rolling beta)" : "Télécharger la Bêta (Rolling beta)"}</span>
+                  <span>{isEn ? "Download Beta" : "Télécharger la Bêta"}</span>
+                </a>
+
+                <a
+                  href={canary.downloads.windows}
+                  download
+                  className="btn-secondary docs-method-download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none" }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>{isEn ? "Download Canary (Rolling)" : "Télécharger la Canary (Rolling)"}</span>
                 </a>
               </div>
 
@@ -421,7 +453,23 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
-                  <span>{isEn ? "Download Beta (Rolling beta)" : "Télécharger la Bêta (Rolling beta)"}</span>
+                  <span>{isEn ? "Download Beta" : "Télécharger la Bêta"}</span>
+                </a>
+
+                <a
+                  href={canary.downloads.macos}
+                  download
+                  className="btn-secondary docs-method-download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none" }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>{isEn ? "Download Canary (Rolling)" : "Télécharger la Canary (Rolling)"}</span>
                 </a>
               </div>
 
@@ -566,7 +614,23 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
-                  <span>{isEn ? "Download Beta (Rolling beta)" : "Télécharger la Bêta (Rolling beta)"}</span>
+                  <span>{isEn ? "Download Beta" : "Télécharger la Bêta"}</span>
+                </a>
+
+                <a
+                  href={canary.downloads.linux}
+                  download
+                  className="btn-secondary docs-method-download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none" }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>{isEn ? "Download Canary (Rolling)" : "Télécharger la Canary (Rolling)"}</span>
                 </a>
               </div>
 
@@ -620,8 +684,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 </div>
                 <p style={{ marginTop: "0.5rem", fontSize: "0.85rem", color: "var(--text-muted)" }}>
                   {isEn
-                    ? "For pre-release builds, replace 'stable' with 'beta'. Repository web portal: "
-                    : "Pour tester les versions préliminaires, remplacez « stable » par « beta ». Portail du dépôt : "}
+                    ? "For pre-release builds, replace 'stable' with 'beta' (curated) or 'canary' (rolling). Repository web portal: "
+                    : "Pour tester les versions préliminaires, remplacez « stable » par « beta » (curée) ou « canary » (rolling). Portail du dépôt : "}
                   <a
                     href="https://apt.bobine.fit"
                     target="_blank"
@@ -777,7 +841,23 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
-                  <span>{isEn ? "Download Beta (Rolling beta)" : "Télécharger la Bêta (Rolling beta)"}</span>
+                  <span>{isEn ? "Download Beta" : "Télécharger la Bêta"}</span>
+                </a>
+
+                <a
+                  href={canary.downloads.android}
+                  download
+                  className="btn-secondary docs-method-download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none" }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>{isEn ? "Download Canary (Rolling)" : "Télécharger la Canary (Rolling)"}</span>
                 </a>
               </div>
 
@@ -1000,7 +1080,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
                 <div>
                   <span className="docs-quick-install-box__label">
-                    {isEn ? "Beta Channel Install (Rolling beta):" : "Canal Bêta (Rolling beta — Accès anticipé) :"}
+                    {isEn ? "Beta Channel Install (curated):" : "Canal Bêta (curée — Accès anticipé) :"}
                   </span>
                   <div className="docs-copyable-cmd">
                     <code>curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta</code>
@@ -1009,6 +1089,23 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                       onClick={() => copyToClipboard("curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta")}
                       className="docs-copy-btn"
                       aria-label={isEn ? "Copy beta install command" : "Copier la commande bêta"}
+                    >
+                      {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <span className="docs-quick-install-box__label">
+                    {isEn ? "Canary Channel Install (rolling, untested):" : "Canal Canary (rolling, non testé) :"}
+                  </span>
+                  <div className="docs-copyable-cmd">
+                    <code>curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=canary</code>
+                    <button
+                      type="button"
+                      onClick={() => copyToClipboard("curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=canary")}
+                      className="docs-copy-btn"
+                      aria-label={isEn ? "Copy canary install command" : "Copier la commande canary"}
                     >
                       {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
                     </button>

@@ -18,6 +18,7 @@ interface DownloadModalProps {
   initialPlatform?: DownloadPlatform;
   stable: ReleaseChannelInfo;
   beta: ReleaseChannelInfo;
+  canary: ReleaseChannelInfo;
 }
 
 export default function DownloadModal({
@@ -27,6 +28,7 @@ export default function DownloadModal({
   initialPlatform = "windows",
   stable,
   beta,
+  canary,
 }: DownloadModalProps) {
   const isEn = locale === "en";
   const activePlatform: DownloadPlatform = initialPlatform;
@@ -81,6 +83,8 @@ export default function DownloadModal({
           stableFilename: `Bobine-Setup-${stable.version.replace(/^V/i, "")}.exe`,
           betaUrl: beta.downloads.windows,
           betaFilename: "Bobine-Setup-beta.exe",
+          canaryUrl: canary.downloads.windows,
+          canaryFilename: "Bobine-Setup-canary.exe",
           format: ".exe",
         };
       case "macos":
@@ -91,6 +95,8 @@ export default function DownloadModal({
           stableFilename: `Bobine-${stable.version.replace(/^V/i, "")}.dmg`,
           betaUrl: beta.downloads.macos,
           betaFilename: "Bobine-beta.dmg",
+          canaryUrl: canary.downloads.macos,
+          canaryFilename: "Bobine-canary.dmg",
           format: ".dmg",
         };
       case "linux":
@@ -101,6 +107,8 @@ export default function DownloadModal({
           stableFilename: `bobine_${stable.version.replace(/^V/i, "")}_amd64.deb`,
           betaUrl: beta.downloads.linux,
           betaFilename: "bobine_beta_amd64.deb",
+          canaryUrl: canary.downloads.linux,
+          canaryFilename: "bobine_canary_amd64.deb",
           format: ".deb",
         };
       case "android-tv":
@@ -117,6 +125,10 @@ export default function DownloadModal({
             beta.downloads.androidTv ||
             "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-TV-beta.apk",
           betaFilename: "Bobine-TV-beta.apk",
+          canaryUrl:
+            canary.downloads.androidTv ||
+            "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-TV-canary.apk",
+          canaryFilename: "Bobine-TV-canary.apk",
           format: ".apk",
         };
       case "android":
@@ -127,6 +139,8 @@ export default function DownloadModal({
           stableFilename: `Bobine-${stable.version.replace(/^V/i, "")}.apk`,
           betaUrl: beta.downloads.android,
           betaFilename: "Bobine-beta.apk",
+          canaryUrl: canary.downloads.android,
+          canaryFilename: "Bobine-canary.apk",
           format: ".apk",
         };
       case "cli":
@@ -137,18 +151,21 @@ export default function DownloadModal({
             : "Installation automatisée pour mini PC dédiés (Dell Wyse, HP ProDesk, Beelink)",
           stableCmd: "curl -fsSL https://bobine.fit/install.sh | sudo bash",
           betaCmd: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta",
+          canaryCmd: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=canary",
           format: "bash",
         };
       case "tauri":
         return {
           title: isEn ? "Bobine Assistant (Tauri)" : "Bobine Assistant (Tauri)",
           subtitle: isEn
-            ? "Remote orchestrator with built-in channel selector (Stable / Beta)"
-            : "Orchestrateur réseau avec sélecteur de canal (Stable / Bêta) intégré",
+            ? "Remote orchestrator with built-in channel selector (Stable / Beta / Canary)"
+            : "Orchestrateur réseau avec sélecteur de canal (Stable / Bêta / Canary) intégré",
           stableUrl: stable.downloads.assistant,
           betaUrl: beta.downloads.assistant,
+          canaryUrl: canary.downloads.assistant,
           stableFilename: "bobine-assistant",
           betaFilename: "bobine-assistant",
+          canaryFilename: "bobine-assistant",
           format: isEn ? "Binary" : "Binaire",
         };
     }
@@ -216,6 +233,8 @@ export default function DownloadModal({
               <div className="download-modal__channel-card download-modal__channel-card--stable">
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img className="download-modal__channel-icon" src="/images/channels/stable.webp" alt="" />
                     <span className="download-modal__badge download-modal__badge--stable">
                       {isEn ? "Stable Release" : "Version Stable"}
                     </span>
@@ -259,8 +278,10 @@ export default function DownloadModal({
               <div className="download-modal__channel-card download-modal__channel-card--beta">
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img className="download-modal__channel-icon" src="/images/channels/beta.webp" alt="" />
                     <span className="download-modal__badge download-modal__badge--beta">
-                      {isEn ? "Beta Channel (Rolling beta)" : "Version Bêta (Rolling beta)"}
+                      {isEn ? "Beta Channel (curated)" : "Version Bêta (curée)"}
                     </span>
                   </div>
                   <span className="download-modal__version">{isEn ? "Rolling tag" : "Tag mobile"}</span>
@@ -268,8 +289,8 @@ export default function DownloadModal({
 
                 <p className="download-modal__card-desc">
                   {isEn
-                    ? "Version Bêta (Rolling beta) : Early access to upcoming features currently being tested."
-                    : "Version Bêta (Rolling beta) : Accès anticipé aux fonctionnalités en cours de test."}
+                    ? "Beta: batches of features/fixes selected by the maintainer, published manually when ready."
+                    : "Bêta : lots de fonctionnalités/correctifs sélectionnés par le mainteneur, publiés manuellement quand ils sont prêts."}
                 </p>
 
                 <div className="download-modal__cli-block">
@@ -294,6 +315,48 @@ export default function DownloadModal({
                   </button>
                 </div>
               </div>
+
+              {/* Carte CLI Canary */}
+              <div className="download-modal__channel-card download-modal__channel-card--canary">
+                <div className="download-modal__card-header">
+                  <div className="download-modal__card-tag-row">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img className="download-modal__channel-icon" src="/images/channels/canary.webp" alt="" />
+                    <span className="download-modal__badge download-modal__badge--canary">
+                      {isEn ? "Canary Channel (rolling)" : "Version Canary (rolling)"}
+                    </span>
+                  </div>
+                  <span className="download-modal__version">{isEn ? "Rolling tag" : "Tag mobile"}</span>
+                </div>
+
+                <p className="download-modal__card-desc">
+                  {isEn
+                    ? "Canary: rebuilt automatically on every commit to main. Earliest access, zero curation, untested."
+                    : "Canary : reconstruite automatiquement à chaque commit sur main. Accès le plus anticipé, zéro curation, non testé."}
+                </p>
+
+                <div className="download-modal__cli-block">
+                  <code>{details.canaryCmd}</code>
+                  <button
+                    type="button"
+                    className="download-modal__cli-copy-btn"
+                    onClick={() => copyToClipboard(details.canaryCmd || "", "cli-canary")}
+                    aria-label={isEn ? "Copy command" : "Copier la commande"}
+                  >
+                    {copiedCmd === "cli-canary" ? (
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    ) : (
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                      </svg>
+                    )}
+                    <span>{copiedCmd === "cli-canary" ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}</span>
+                  </button>
+                </div>
+              </div>
             </div>
           ) : (
             /* Cas normal : Binaires d'applications (Windows, macOS, Linux, Assistant) */
@@ -302,6 +365,8 @@ export default function DownloadModal({
               <div className="download-modal__channel-card download-modal__channel-card--stable">
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img className="download-modal__channel-icon" src="/images/channels/stable.webp" alt="" />
                     <span className="download-modal__badge download-modal__badge--stable">
                       {isEn ? "Stable Release" : "Version Stable"}
                     </span>
@@ -375,12 +440,14 @@ export default function DownloadModal({
                 </a>
               </div>
 
-              {/* Option 2 : VERSION BÊTA (Rolling beta) */}
+              {/* Option 2 : VERSION BÊTA (curée) */}
               <div className="download-modal__channel-card download-modal__channel-card--beta">
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img className="download-modal__channel-icon" src="/images/channels/beta.webp" alt="" />
                     <span className="download-modal__badge download-modal__badge--beta">
-                      {isEn ? "Beta Channel (Rolling beta)" : "Version Bêta (Rolling beta)"}
+                      {isEn ? "Beta Channel (curated)" : "Version Bêta (curée)"}
                     </span>
                   </div>
                   <span className="download-modal__version">{isEn ? "Rolling release" : "Release continue"}</span>
@@ -388,8 +455,8 @@ export default function DownloadModal({
 
                 <p className="download-modal__card-desc">
                   {isEn
-                    ? "Version Bêta (Rolling beta) : Early access to upcoming features currently being tested."
-                    : "Version Bêta (Rolling beta) : Accès anticipé aux fonctionnalités en cours de test."}
+                    ? "Beta: batches of features/fixes selected by the maintainer, published manually when ready."
+                    : "Bêta : lots de fonctionnalités/correctifs sélectionnés par le mainteneur, publiés manuellement quand ils sont prêts."}
                 </p>
 
                 <div className="download-modal__card-meta">
@@ -444,7 +511,83 @@ export default function DownloadModal({
                   <span>
                     {downloadingKey === "beta"
                       ? (isEn ? "Started" : "Lancé")
-                      : (isEn ? "Download Beta (Rolling)" : "Télécharger la Bêta (Rolling)")}
+                      : (isEn ? "Download Beta" : "Télécharger la Bêta")}
+                  </span>
+                </a>
+              </div>
+
+              {/* Option 3 : VERSION CANARY (rolling) */}
+              <div className="download-modal__channel-card download-modal__channel-card--canary">
+                <div className="download-modal__card-header">
+                  <div className="download-modal__card-tag-row">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img className="download-modal__channel-icon" src="/images/channels/canary.webp" alt="" />
+                    <span className="download-modal__badge download-modal__badge--canary">
+                      {isEn ? "Canary Channel (rolling)" : "Version Canary (rolling)"}
+                    </span>
+                  </div>
+                  <span className="download-modal__version">{isEn ? "Rolling release" : "Release continue"}</span>
+                </div>
+
+                <p className="download-modal__card-desc">
+                  {isEn
+                    ? "Canary: rebuilt automatically on every commit to main. Earliest access, zero curation, untested."
+                    : "Canary : reconstruite automatiquement à chaque commit sur main. Accès le plus anticipé, zéro curation, non testé."}
+                </p>
+
+                <div className="download-modal__card-meta">
+                  <span className="download-modal__filename">{details.canaryFilename}</span>
+                  <span className="download-modal__fileformat">{details.format}</span>
+                </div>
+
+                <a
+                  href={details.canaryUrl}
+                  className="download-modal__action-btn download-modal__action-btn--secondary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                  onClick={() => {
+                    setDownloadingKey("canary");
+                    setTimeout(onClose, 300);
+                  }}
+                >
+                  {downloadingKey === "canary" ? (
+                    <svg
+                      key="check"
+                      className="download-modal__action-icon--pop"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                  )}
+                  <span>
+                    {downloadingKey === "canary"
+                      ? (isEn ? "Started" : "Lancé")
+                      : (isEn ? "Download Canary" : "Télécharger la Canary")}
                   </span>
                 </a>
               </div>

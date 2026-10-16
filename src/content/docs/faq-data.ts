@@ -71,18 +71,18 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     },
     {
       category: "updates",
-      q: "Quelle est la différence entre la version Stable et la version Bêta (Rolling beta) ?",
-      a: "La version Stable (ex. V3.0.5) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La version Bêta (Rolling beta) offre un accès anticipé continu aux fonctionnalités en cours de test. Elle partage les mêmes identifiants d'application, s'installe par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages → Mises à jour sans perte de données ni de médias.",
+      q: "Quelle est la différence entre les versions Stable, Bêta et Canary ?",
+      a: "La version Stable (ex. V4.0.3) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La Bêta offre un lot de fonctionnalités/correctifs curés et publiés manuellement par le mainteneur quand il est prêt. La Canary offre un accès anticipé continu, reconstruite automatiquement à chaque commit sur la branche principale, sans curation. Les deux partagent les mêmes identifiants d'application, s'installent par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages → Mises à jour sans perte de données ni de médias.",
     },
     {
       category: "updates",
-      q: "Comment changer de canal de mise à jour (Stable / Bêta) sur mon installation ?",
-      a: "Sur le panneau d'administration web, rendez-vous dans Réglages → Mises à jour logicielles et activez ou désactivez le « Programme Bobine Bêta ». Sur une appliance dédiée CLI, vous pouvez également relancer l'installeur avec l'option --channel=beta ou --channel=stable (ex : curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta).",
+      q: "Comment changer de canal de mise à jour (Stable / Bêta / Canary) sur mon installation ?",
+      a: "Sur le panneau d'administration web, rendez-vous dans Réglages → Mises à jour logicielles et choisissez le canal souhaité. Sur une appliance dédiée CLI, vous pouvez également relancer l'installeur avec l'option --channel=stable, --channel=beta ou --channel=canary (ex : curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta).",
     },
     {
       category: "updates",
       q: "Comment installer Bobine et recevoir les mises à jour automatiques sur Linux (Debian / Ubuntu / Mint) ?",
-      a: "La méthode recommandée pour les postes de bureau Linux est d'ajouter le dépôt APT officiel signé cryptographiquement (https://apt.bobine.fit). En 3 commandes dans votre terminal (import de la clé GPG, déclaration de la source apt.bobine.fit stable ou beta, puis sudo apt update && sudo apt install bobine), vous recevez automatiquement toutes les futures mises à jour via votre gestionnaire de paquets habituel (apt upgrade).",
+      a: "La méthode recommandée pour les postes de bureau Linux est d'ajouter le dépôt APT officiel signé cryptographiquement (https://apt.bobine.fit). En 3 commandes dans votre terminal (import de la clé GPG, déclaration de la source apt.bobine.fit stable, beta ou canary, puis sudo apt update && sudo apt install bobine), vous recevez automatiquement toutes les futures mises à jour via votre gestionnaire de paquets habituel (apt upgrade).",
     },
     {
       category: "updates",
@@ -158,18 +158,18 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     },
     {
       category: "updates",
-      q: "What is the difference between the Stable and Beta (Rolling beta) channels?",
-      a: "The Stable release (e.g. V3.0.5) is the official tested build recommended for production gym playout. The Beta release (Rolling beta) provides continuous early access to features currently being tested. It shares identical system application IDs, installs directly over your current version without creating duplicate apps, and allows reverting back to Stable anytime from Settings → Software Updates without data loss.",
+      q: "What is the difference between the Stable, Beta and Canary channels?",
+      a: "The Stable release (e.g. V4.0.3) is the official tested build recommended for production gym playout. Beta offers a curated batch of features/fixes published manually by the maintainer when ready. Canary provides continuous early access, rebuilt automatically on every commit to the main branch, with no curation. Both share identical system application IDs, install directly over your current version without creating duplicate apps, and allow reverting back to Stable anytime from Settings → Software Updates without data loss.",
     },
     {
       category: "updates",
-      q: "How do I switch between Stable and Beta update channels on my setup?",
-      a: "From the web administration dashboard, go to Settings → Software Updates and toggle the 'Bobine Beta Program'. On a dedicated headless CLI appliance, you can run the installer with --channel=beta or --channel=stable (e.g. curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta).",
+      q: "How do I switch between Stable, Beta and Canary update channels on my setup?",
+      a: "From the web administration dashboard, go to Settings → Software Updates and pick the channel you want. On a dedicated headless CLI appliance, you can run the installer with --channel=stable, --channel=beta or --channel=canary (e.g. curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta).",
     },
     {
       category: "updates",
       q: "How do I install Bobine and receive automated updates on Linux (Debian / Ubuntu / Mint)?",
-      a: "The recommended method for Linux desktop machines is adding the official cryptographically signed APT repository (https://apt.bobine.fit). In 3 simple terminal commands (import the official GPG key, add the apt.bobine.fit stable or beta source, and run sudo apt update && sudo apt install bobine), you receive seamless automated updates via your standard system package manager (apt upgrade).",
+      a: "The recommended method for Linux desktop machines is adding the official cryptographically signed APT repository (https://apt.bobine.fit). In 3 simple terminal commands (import the official GPG key, add the apt.bobine.fit stable, beta or canary source, and run sudo apt update && sudo apt install bobine), you receive seamless automated updates via your standard system package manager (apt upgrade).",
     },
     {
       category: "updates",

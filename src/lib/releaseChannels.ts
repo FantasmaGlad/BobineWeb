@@ -17,6 +17,7 @@ export interface RepoStatsResponse {
   };
   stable: ReleaseChannelInfo;
   beta: ReleaseChannelInfo;
+  canary: ReleaseChannelInfo;
 }
 
 const FALLBACK_STABLE: ReleaseChannelInfo = {
@@ -34,10 +35,12 @@ const FALLBACK_STABLE: ReleaseChannelInfo = {
   },
 };
 
+// Canal curé, publié manuellement par lots (cf. .github/workflows/ci.yml,
+// job release-beta) — distinct du canal Canary (rolling, ex-"beta").
 const FALLBACK_BETA: ReleaseChannelInfo = {
   version: "beta",
-  title: "Bobine — Bêta (build automatique)",
-  publishedAt: "2026-09-09T20:00:00Z",
+  title: "Bobine — Bêta",
+  publishedAt: "2026-10-16T20:00:00Z",
   downloads: {
     windows: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe",
     linux: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb",
@@ -46,6 +49,23 @@ const FALLBACK_BETA: ReleaseChannelInfo = {
     androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-TV-beta.apk",
     assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant",
     installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/install.sh",
+  },
+};
+
+// Canal rolling, republié à chaque push sur main — ex-"beta" renommé le
+// 2026-10-16 (cf. .agents/AGENTS.md §5, migration 2 -> 3 canaux).
+const FALLBACK_CANARY: ReleaseChannelInfo = {
+  version: "canary",
+  title: "Bobine — Canary (build automatique)",
+  publishedAt: "2026-10-16T20:00:00Z",
+  downloads: {
+    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-Setup-canary.exe",
+    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine_canary_amd64.deb",
+    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-canary.dmg",
+    android: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-canary.apk",
+    androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-TV-canary.apk",
+    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine-assistant",
+    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/install.sh",
   },
 };
 
@@ -78,7 +98,21 @@ function parseReleaseAssets(
   return downloads;
 }
 
-/** Statistiques du depot et versions publiees (etoiles, canaux stable et beta), avec repli statique. */
+function parseChannelRelease(
+  res: PromiseSettledResult<Response>,
+  fallback: ReleaseChannelInfo,
+  fallbackTitle: string
+): Promise<ReleaseChannelInfo> | ReleaseChannelInfo {
+  if (res.status !== "fulfilled" || !res.value.ok) return fallback;
+  return res.value.json().then((data) => ({
+    version: data.tag_name || fallback.version,
+    title: data.name || fallbackTitle,
+    publishedAt: data.published_at || fallback.publishedAt,
+    downloads: parseReleaseAssets(data.assets, fallback.downloads),
+  }));
+}
+
+/** Statistiques du depot et versions publiees (etoiles, canaux stable, beta et canary), avec repli statique. */
 export async function getRepoStats(): Promise<RepoStatsResponse> {
   const headers: Record<string, string> = {
     Accept: "application/vnd.github+json",
@@ -88,7 +122,7 @@ export async function getRepoStats(): Promise<RepoStatsResponse> {
   }
 
   try {
-    const [repoRes, stableRes, betaRes] = await Promise.all([
+    const [repoRes, stableRes, betaRes, canaryRes] = await Promise.allSettled([
       fetch(`https://api.github.com/repos/${REPO}`, {
         headers,
         next: { revalidate: 1800 },
@@ -101,38 +135,24 @@ export async function getRepoStats(): Promise<RepoStatsResponse> {
         headers,
         next: { revalidate: 1800 },
       }),
+      fetch(`https://api.github.com/repos/${REPO}/releases/tags/canary`, {
+        headers,
+        next: { revalidate: 1800 },
+      }),
     ]);
 
     let stars = 0;
     let forks = 0;
-    let stableInfo: ReleaseChannelInfo = { ...FALLBACK_STABLE };
-    let betaInfo: ReleaseChannelInfo = { ...FALLBACK_BETA };
 
-    if (repoRes.ok) {
-      const repoData = await repoRes.json();
+    if (repoRes.status === "fulfilled" && repoRes.value.ok) {
+      const repoData = await repoRes.value.json();
       stars = repoData.stargazers_count ?? 0;
       forks = repoData.forks_count ?? 0;
     }
 
-    if (stableRes.ok) {
-      const relData = await stableRes.json();
-      stableInfo = {
-        version: relData.tag_name || FALLBACK_STABLE.version,
-        title: relData.name || relData.tag_name || FALLBACK_STABLE.title,
-        publishedAt: relData.published_at || FALLBACK_STABLE.publishedAt,
-        downloads: parseReleaseAssets(relData.assets, FALLBACK_STABLE.downloads),
-      };
-    }
-
-    if (betaRes.ok) {
-      const betaData = await betaRes.json();
-      betaInfo = {
-        version: betaData.tag_name || FALLBACK_BETA.version,
-        title: betaData.name || "Bobine — Bêta (build automatique)",
-        publishedAt: betaData.published_at || FALLBACK_BETA.publishedAt,
-        downloads: parseReleaseAssets(betaData.assets, FALLBACK_BETA.downloads),
-      };
-    }
+    const stableInfo = await parseChannelRelease(stableRes, FALLBACK_STABLE, FALLBACK_STABLE.title);
+    const betaInfo = await parseChannelRelease(betaRes, FALLBACK_BETA, "Bobine — Bêta");
+    const canaryInfo = await parseChannelRelease(canaryRes, FALLBACK_CANARY, "Bobine — Canary (build automatique)");
 
     const payload: RepoStatsResponse = {
       stars,
@@ -149,6 +169,7 @@ export async function getRepoStats(): Promise<RepoStatsResponse> {
       },
       stable: stableInfo,
       beta: betaInfo,
+      canary: canaryInfo,
     };
 
     return payload;
@@ -161,6 +182,7 @@ export async function getRepoStats(): Promise<RepoStatsResponse> {
       downloads: FALLBACK_STABLE.downloads,
       stable: FALLBACK_STABLE,
       beta: FALLBACK_BETA,
+      canary: FALLBACK_CANARY,
     };
   }
 }

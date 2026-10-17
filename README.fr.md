@@ -84,7 +84,7 @@ Rien n'est publié sans passer par le workflow de validation, qui contrôle à c
 - l'export statique du miroir Tor et ses garanties (aucune ressource externe, aucun lien marchand, aucun script de mesure) ;
 - le site de sécurité : signature de `security.txt`, empreinte, expirations, liens locaux.
 
-Après publication, des tests en direct interrogent le vrai site, le site de divulgation et le service onion à travers Tor. CodeQL et un contrôle quotidien de l'empreinte OpenPGP tournent en continu. Détails : [`docs/DEVELOPPEMENT.md`](docs/DEVELOPPEMENT.md).
+Après publication, des tests en direct interrogent le vrai site, le site de divulgation et le service onion à travers Tor. CodeQL et un contrôle quotidien de l'empreinte OpenPGP tournent en continu.
 
 ## Le lancer en local
 

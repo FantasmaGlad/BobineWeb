@@ -8,81 +8,32 @@ import LinuxIcon from "@/components/icons/LinuxIcon";
 import TauriIcon from "@/components/icons/TauriIcon";
 import TerminalIcon from "@/components/icons/TerminalIcon";
 import AndroidIcon from "@/components/icons/AndroidIcon";
+import AndroidTvIcon from "@/components/icons/AndroidTvIcon";
 import QuickStartStepper from "@/components/QuickStartStepper";
 import { docChapters } from "@/content/docs/chapters";
 import { useDetectedPlatform, reorderForPlatform } from "@/lib/detectPlatform";
 
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
+import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFallbacks";
 import { useReleaseData } from "@/components/ReleaseProvider";
 import { ONION_APT_HOST, ONION_SITE_HOST } from "@/lib/onion";
 import TorLogo from "@/components/icons/TorLogo";
 
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
+type AndroidVariant = "mobile" | "tv";
 
 const TOR_APT_COMMANDS = `sudo apt install apt-transport-tor
 curl -fsS --socks5-hostname 127.0.0.1:9050 http://${ONION_APT_HOST}/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg
 echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://${ONION_APT_HOST}/ stable main" | sudo tee /etc/apt/sources.list.d/bobine-onion.list
 sudo apt update && sudo apt install bobine`;
 
-const FALLBACK_STABLE: ReleaseChannelInfo = {
-  version: "V5.0.0",
-  title: "Bobine V5.0.0 « Orchidée » — Support Natif PC ARM64 (Snapdragon, Windows ARM, Linux ARM), Google Books, Trois Canaux de Mise à Jour & Sous-titres",
-  publishedAt: "2026-10-17T09:00:00Z",
-  downloads: {
-    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-Setup-5.0.0.exe",
-    windowsArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-Setup-5.0.0-arm64.exe",
-    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine_5.0.0_amd64.deb",
-    linuxArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine_5.0.0_arm64.deb",
-    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-5.0.0.dmg",
-    android: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-5.0.0.apk",
-    androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-TV-5.0.0.apk",
-    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine-assistant",
-    assistantArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine-assistant-arm64",
-    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/install.sh",
-  },
-};
-
-const FALLBACK_BETA: ReleaseChannelInfo = {
-  version: "beta",
-  title: "Bobine — Bêta",
-  publishedAt: "2026-10-16T20:00:00Z",
-  downloads: {
-    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe",
-    windowsArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta-arm64.exe",
-    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb",
-    linuxArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_arm64.deb",
-    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.dmg",
-    android: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.apk",
-    androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-TV-beta.apk",
-    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant",
-    assistantArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant-arm64",
-    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/install.sh",
-  },
-};
-
-const FALLBACK_CANARY: ReleaseChannelInfo = {
-  version: "canary",
-  title: "Bobine — Canary (build automatique)",
-  publishedAt: "2026-10-16T20:00:00Z",
-  downloads: {
-    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-Setup-canary.exe",
-    windowsArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-Setup-canary-arm64.exe",
-    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine_canary_amd64.deb",
-    linuxArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine_canary_arm64.deb",
-    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-canary.dmg",
-    android: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-canary.apk",
-    androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-TV-canary.apk",
-    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine-assistant",
-    assistantArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine-assistant-arm64",
-    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/install.sh",
-  },
-};
-
 export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const detected = useDetectedPlatform();
   const [selectedTab, setSelectedTab] = useState<InstallTab | null>(null);
-  const activeTab: InstallTab = selectedTab ?? (detected as InstallTab | null) ?? "windows";
+  // Un visiteur sur Android TV n'a pas d'onglet propre : il tombe sur l'onglet Android, variante TV.
+  const detectedTab: InstallTab | null = detected === "android-tv" ? "android" : (detected as InstallTab | null);
+  const activeTab: InstallTab = selectedTab ?? detectedTab ?? "windows";
   const roadmapChapter = docChapters[locale].find((c) => c.id === "feuille-de-route");
   const roadmapSubsections = roadmapChapter?.subsections ?? [];
   const androidRoadmap = roadmapSubsections.find((s) => s.subtitle.includes("Android"));
@@ -93,6 +44,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const [canary, setCanary] = useState<ReleaseChannelInfo>(initialRelease?.canary ?? FALLBACK_CANARY);
   const [copiedCmd, setCopiedCmd] = useState(false);
   const [selectedArch, setSelectedArch] = useState<"x86_64" | "arm64">("x86_64");
+  const [selectedAndroidVariant, setSelectedAndroidVariant] = useState<AndroidVariant | null>(null);
+  const androidVariant: AndroidVariant = selectedAndroidVariant ?? (detected === "android-tv" ? "tv" : "mobile");
 
   // Détection légère de l'architecture ARM64 côté client (Snapdragon, Linux aarch64, Windows ARM)
   useEffect(() => {
@@ -174,6 +127,34 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
     </div>
   );
 
+  const renderAndroidVariantSwitch = () => (
+    <div className="docs-arch-switch-wrap">
+      <span className="docs-arch-switch-label">{isEn ? "Device :" : "Appareil :"}</span>
+      <div className="docs-arch-switch-pill" role="radiogroup" aria-label={isEn ? "Android device type" : "Type d'appareil Android"}>
+        <button
+          type="button"
+          role="radio"
+          aria-checked={androidVariant === "mobile"}
+          className={`docs-arch-switch-btn ${androidVariant === "mobile" ? "is-active" : ""}`}
+          onClick={() => setSelectedAndroidVariant("mobile")}
+        >
+          <span>Android</span>
+          <span className="docs-arch-switch-sub">{isEn ? "(Tablets, Google Books)" : "(Tablettes, Google Books)"}</span>
+        </button>
+        <button
+          type="button"
+          role="radio"
+          aria-checked={androidVariant === "tv"}
+          className={`docs-arch-switch-btn ${androidVariant === "tv" ? "is-active" : ""}`}
+          onClick={() => setSelectedAndroidVariant("tv")}
+        >
+          <span>Android TV</span>
+          <span className="docs-arch-switch-sub">{isEn ? "(Google TV, Shield, Xiaomi)" : "(Google TV, Shield, Xiaomi)"}</span>
+        </button>
+      </div>
+    </div>
+  );
+
   const renderDivider = () => (
     <div className="docs-install-divider">
       <div className="docs-install-divider__line" />
@@ -194,8 +175,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   interface ChannelCardConfig {
     stableUrl: string;
     stableLabel: string;
-    secondaryStableUrl?: string;
-    secondaryStableLabel?: string;
     betaUrl: string;
     betaLabel: string;
     canaryUrl: string;
@@ -244,23 +223,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               </svg>
               <span>{cfg.stableLabel}</span>
             </a>
-
-            {cfg.secondaryStableUrl && (
-              <a
-                href={cfg.secondaryStableUrl}
-                download
-                className="docs-channel-btn docs-channel-btn--stable"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-                <span>{cfg.secondaryStableLabel}</span>
-              </a>
-            )}
           </div>
         </div>
 
@@ -1039,31 +1001,48 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           <div className="docs-method-hero">
             <div className="docs-method-hero__left">
               <div className="docs-method-hero__icon">
-                <AndroidIcon size={32} />
+                {androidVariant === "tv" ? <AndroidTvIcon size={32} /> : <AndroidIcon size={32} />}
               </div>
               <div style={{ flex: 1 }}>
                 <h2 className="docs-method-hero__title">
-                  {isEn ? "Bobine for Android Tablets, Google Books & Touch Kiosks" : "Bobine pour Tablettes Android, Google Books & Bornes Tactiles"}
+                  {androidVariant === "tv"
+                    ? (isEn ? "Bobine for Android TV, Google TV & Streaming Boxes" : "Bobine pour Android TV, Google TV & Box TV")
+                    : (isEn ? "Bobine for Android Tablets, Google Books & Touch Kiosks" : "Bobine pour Tablettes Android, Google Books & Bornes Tactiles")}
                 </h2>
                 <p className="docs-method-hero__desc">
-                  {isEn
-                    ? "Official native APK package. Direct execution on Android tablets, Google Books (Aluminium OS, with upcoming Google Play Store release) and Android TV / Google TV. Embedded FastAPI server (Chaquopy), independent dual display (/grid on tablet, /cinema on HDMI), and MediaCodec hardware acceleration."
-                    : "Paquet APK natif officiel. Exécution directe sur tablettes Android, Google Books (Aluminium OS, avec arrivée prochaine sur le Google Play Store) et Android TV / Google TV. Serveur FastAPI embarqué (Chaquopy), double affichage indépendant (/grid sur tablette, /cinema sur HDMI), et accélération matérielle MediaCodec."}
+                  {androidVariant === "tv"
+                    ? (isEn
+                        ? "Dedicated APK for TV boxes, sticks and Smart TVs (Chromecast with Google TV, Xiaomi TV Stick/Box, Nvidia Shield). Installs on 32-bit and 64-bit ARM systems, Leanback launcher, full remote-control navigation, embedded FastAPI server (Chaquopy) and MediaCodec hardware acceleration."
+                        : "APK dédié aux box TV, clés HDMI et Smart TV (Chromecast avec Google TV, Xiaomi TV Stick/Box, Nvidia Shield). S'installe sur les systèmes ARM 32 et 64 bits, lanceur Leanback, navigation complète à la télécommande, serveur FastAPI embarqué (Chaquopy) et accélération matérielle MediaCodec.")
+                    : (isEn
+                        ? "Official native APK package. Direct execution on Android tablets and Google Books (Aluminium OS, with upcoming Google Play Store release). Embedded FastAPI server (Chaquopy), independent dual display (/grid on tablet, /cinema on HDMI), and MediaCodec hardware acceleration."
+                        : "Paquet APK natif officiel. Exécution directe sur tablettes Android et Google Books (Aluminium OS, avec arrivée prochaine sur le Google Play Store). Serveur FastAPI embarqué (Chaquopy), double affichage indépendant (/grid sur tablette, /cinema sur HDMI), et accélération matérielle MediaCodec.")}
                 </p>
+                {renderAndroidVariantSwitch()}
               </div>
             </div>
 
-            {renderChannelCards({
-              stableUrl: stable.downloads.android,
-              stableLabel: isEn ? `Download Stable (${stable.version}) · .apk` : `Télécharger la Stable (${stable.version}) · .apk`,
-              secondaryStableUrl: stable.downloads.androidTv,
-              secondaryStableLabel: isEn ? `Download Android TV APK (${stable.version})` : `Télécharger APK Android TV (${stable.version})`,
-              betaUrl: beta.downloads.android,
-              betaLabel: isEn ? "Download Beta · .apk" : "Télécharger la Bêta · .apk",
-              canaryUrl: canary.downloads.android,
-              canaryLabel: isEn ? "Download Canary · .apk" : "Télécharger la Canary · .apk",
-              archText: isEn ? "Android Tablets, Google Books & Android TV (ARM64)" : "Tablettes Android, Google Books & Android TV (ARM64)",
-            })}
+            {renderChannelCards(
+              androidVariant === "tv"
+                ? {
+                    stableUrl: stable.downloads.androidTv || FALLBACK_STABLE.downloads.androidTv!,
+                    stableLabel: isEn ? `Download Stable (${stable.version}) · Android TV .apk` : `Télécharger la Stable (${stable.version}) · Android TV .apk`,
+                    betaUrl: beta.downloads.androidTv || FALLBACK_BETA.downloads.androidTv!,
+                    betaLabel: isEn ? "Download Beta · Android TV .apk" : "Télécharger la Bêta · Android TV .apk",
+                    canaryUrl: canary.downloads.androidTv || FALLBACK_CANARY.downloads.androidTv!,
+                    canaryLabel: isEn ? "Download Canary · Android TV .apk" : "Télécharger la Canary · Android TV .apk",
+                    archText: isEn ? "Android TV & Google TV (ARM 32/64-bit)" : "Android TV & Google TV (ARM 32/64 bits)",
+                  }
+                : {
+                    stableUrl: stable.downloads.android,
+                    stableLabel: isEn ? `Download Stable (${stable.version}) · Android .apk` : `Télécharger la Stable (${stable.version}) · Android .apk`,
+                    betaUrl: beta.downloads.android,
+                    betaLabel: isEn ? "Download Beta · Android .apk" : "Télécharger la Bêta · Android .apk",
+                    canaryUrl: canary.downloads.android,
+                    canaryLabel: isEn ? "Download Canary · Android .apk" : "Télécharger la Canary · Android .apk",
+                    archText: isEn ? "Android Tablets & Google Books (ARM64)" : "Tablettes Android & Google Books (ARM64)",
+                  }
+            )}
           </div>
 
           {renderDivider()}
@@ -1078,9 +1057,13 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-step-card__content">
                 <h4>{isEn ? "Download the APK package" : "Téléchargez le paquet APK"}</h4>
                 <p>
-                  {isEn
-                    ? "Download the APK directly to your tablet or computer using the buttons above."
-                    : "Téléchargez le fichier APK directement sur votre tablette ou depuis votre ordinateur via les boutons ci-dessus."}
+                  {androidVariant === "tv"
+                    ? (isEn
+                        ? "Download the Android TV APK from your computer using the buttons above (or from the browser of your TV box)."
+                        : "Téléchargez l'APK Android TV depuis votre ordinateur via les boutons ci-dessus (ou depuis le navigateur de votre box TV).")
+                    : (isEn
+                        ? "Download the APK directly to your tablet or computer using the buttons above."
+                        : "Téléchargez le fichier APK directement sur votre tablette ou depuis votre ordinateur via les boutons ci-dessus.")}
                 </p>
               </div>
             </div>
@@ -1090,9 +1073,13 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-step-card__content">
                 <h4>{isEn ? "Install on your device" : "Installez sur votre appareil"}</h4>
                 <p>
-                  {isEn
-                    ? "Open the APK file from your file manager to install. On Android TV / Google TV, transfer the APK wirelessly via 'Send Files to TV' or a FAT32/exFAT USB flash drive."
-                    : "Ouvrez le fichier APK depuis votre gestionnaire de fichiers pour lancer l'installation. Sur Android TV / Google TV, transférez le fichier sans fil via l'application « Send Files to TV » ou par clé USB."}
+                  {androidVariant === "tv"
+                    ? (isEn
+                        ? "Transfer the file with a USB drive (and a file manager app) or wirelessly with 'Send Files to TV' or 'Downloader', then allow the installation of unknown apps in the TV settings."
+                        : "Transférez le fichier par clé USB (avec un gestionnaire de fichiers) ou sans fil avec « Send Files to TV » ou « Downloader », puis autorisez l'installation d'applications inconnues dans les paramètres de la TV.")
+                    : (isEn
+                        ? "Open the APK file from your file manager to install it (allow unknown sources if your system asks)."
+                        : "Ouvrez le fichier APK depuis votre gestionnaire de fichiers pour lancer l'installation (autorisez les sources inconnues si votre système le demande).")}
                 </p>
               </div>
             </div>
@@ -1100,11 +1087,19 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             <div className="docs-step-card">
               <div className="docs-step-card__num">3</div>
               <div className="docs-step-card__content">
-                <h4>{isEn ? "Connect dual-screen display" : "Raccordez l'affichage double écran"}</h4>
+                <h4>
+                  {androidVariant === "tv"
+                    ? (isEn ? "Launch Bobine from the TV home screen" : "Lancez Bobine depuis l'écran d'accueil de la TV")
+                    : (isEn ? "Connect dual-screen display" : "Raccordez l'affichage double écran")}
+                </h4>
                 <p>
-                  {isEn
-                    ? "Connect a USB-C to HDMI cable or hub from your tablet to the gym TV or projector. The big screen displays the fullscreen workout cinema (/cinema) while the tablet displays the interactive coach desk (/grid)."
-                    : "Branchez un câble ou adaptateur USB-C vers HDMI reliant la tablette au téléviseur ou projecteur de la salle. Le grand écran diffuse le cours en plein écran (/cinema) pendant que la tablette sert de pupitre tactile interactif (/grid)."}
+                  {androidVariant === "tv"
+                    ? (isEn
+                        ? "The app appears in the apps row of Android TV / Google TV and opens the big-screen interface (/kiosk), fully usable with the remote control D-pad. Plug a FAT32/exFAT USB drive or SSD to store your classes outside the box's internal memory."
+                        : "L'application apparaît dans la ligne des applications d'Android TV / Google TV et ouvre l'interface grand écran (/kiosk), entièrement pilotable au D-Pad de la télécommande. Branchez une clé USB ou un SSD FAT32/exFAT pour stocker vos cours hors de la mémoire interne de la box.")
+                    : (isEn
+                        ? "Connect a USB-C to HDMI cable or hub from your tablet to the gym TV or projector. The big screen displays the fullscreen workout cinema (/cinema) while the tablet displays the interactive coach desk (/grid)."
+                        : "Branchez un câble ou adaptateur USB-C vers HDMI reliant la tablette au téléviseur ou projecteur de la salle. Le grand écran diffuse le cours en plein écran (/cinema) pendant que la tablette sert de pupitre tactile interactif (/grid).")}
                 </p>
               </div>
             </div>

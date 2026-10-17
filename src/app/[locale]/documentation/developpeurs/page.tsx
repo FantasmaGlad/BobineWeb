@@ -5,7 +5,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 
 import CodeBlock from "@/components/CodeBlock";
 import InteractiveTerminal from "@/components/InteractiveTerminal";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, lp } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
 import DownloadPdfButton from "@/components/DownloadPdfButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
@@ -51,7 +51,7 @@ export default async function DeveloppeursPage({
   const breadcrumbs = [
     { name: "Bobine", url: `/${locale}` },
     { name: "Documentation", url: `/${locale}/documentation` },
-    { name: isEn ? "Developers" : "Développeurs", url: `/${locale}/documentation/developpeurs` },
+    { name: isEn ? "Developers" : "Développeurs", url: lp(locale, `/documentation/developpeurs`) },
   ];
 
   return isEn ? (

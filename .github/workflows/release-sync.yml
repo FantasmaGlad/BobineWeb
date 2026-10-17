@@ -1,0 +1,24 @@
+name: Cohérence avec les releases Bobine
+
+# Vérifie chaque jour que le site reste synchronisé avec le dépôt Bobine : install.sh recopié à
+# l'identique, et fichiers de téléchargement présents pour les trois canaux. Un échec fait échouer
+# l'exécution : GitHub prévient alors le propriétaire du dépôt. Les versions affichées par le site,
+# elles, sont relues depuis GitHub toutes les deux minutes (src/lib/githubApi.ts).
+on:
+  schedule:
+    - cron: "41 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - name: Contrôler la cohérence
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: bash scripts/ci/check-release-sync.sh

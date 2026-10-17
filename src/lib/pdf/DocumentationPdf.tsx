@@ -298,6 +298,12 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     border: `0.75pt solid ${RULE_LIGHT}`,
   },
+  deviceImageRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 14,
+  },
   deviceImage: {
     width: 110,
     height: 110,
@@ -353,38 +359,62 @@ function BrandFooter({ locale }: { locale: Locale }) {
   );
 }
 
-// Photos d'appareils réels (issues des fiches produit Amazon vérifiées du hub matériel
-// bobine.fit/materiel), utilisées uniquement pour illustrer le chapitre d'installation du PDF.
-const DEVICE_IMAGES: Record<DeviceImageKey, { src: string; captionFr: string; captionEn: string }> = {
+// Illustrations du PDF : photos d'appareils réels (fiches produit vérifiées du hub matériel
+// bobine.fit/materiel), visuel Google Book, mascotte et logos des trois canaux de mise à jour.
+// react-pdf ne lit que le PNG et le JPEG : pas de WebP ici.
+const DEVICE_IMAGES: Record<DeviceImageKey, { srcs: string[]; captionFr: string; captionEn: string }> = {
   windows: {
-    src: "/images/pdf/windows-device.png",
+    srcs: ["/images/pdf/windows-device.png"],
     captionFr: "Exemple de mini PC Windows 11 (Intel N100) — photo officielle du fabricant",
     captionEn: "Example Windows 11 mini PC (Intel N100) — official manufacturer photo",
   },
   macos: {
-    src: "/images/pdf/macos-device.png",
+    srcs: ["/images/pdf/macos-device.png"],
     captionFr: "Apple Mac Mini — photo officielle Apple",
     captionEn: "Apple Mac Mini — official Apple photo",
   },
   linux: {
-    src: "/images/pdf/linux-device.png",
+    srcs: ["/images/pdf/linux-device.png"],
     captionFr: "Mini PC industriel 100% fanless recommandé pour Linux — photo officielle du fabricant",
     captionEn: "100% fanless industrial mini PC recommended for Linux — official manufacturer photo",
   },
   android: {
-    src: "/images/pdf/android-device.png",
+    srcs: ["/images/pdf/android-device.png"],
     captionFr: "Exemple de tablette Android compatible — photo officielle du fabricant",
     captionEn: "Example compatible Android tablet — official manufacturer photo",
   },
+  googlebook: {
+    srcs: ["/images/pdf/googlebook-device.png"],
+    captionFr: "Ordinateur portable Google Book (Aluminium OS), compatible avec Bobine",
+    captionEn: "Google Book laptop (Aluminium OS), compatible with Bobine",
+  },
+  mascot: {
+    srcs: ["/images/pdf/firefox-baamix.png"],
+    captionFr: "Baamix, la mascotte de Bobine, et le renard Firefox — Bobine soutient Firefox",
+    captionEn: "Baamix, Bobine's mascot, and the Firefox fox — Bobine supports Firefox",
+  },
+  channels: {
+    srcs: ["/images/channels/stable.png", "/images/channels/beta.png", "/images/channels/canary.png"],
+    captionFr: "Les trois canaux de mise à jour : Stable, Bêta (curée) et Canary (rolling)",
+    captionEn: "The three update channels: Stable, Beta (curated) and Canary (rolling)",
+  },
 };
 
-function DeviceIllustration({ deviceKey, locale }: { deviceKey: DeviceImageKey; locale: Locale }) {
+function DeviceIllustration({ deviceKeys, locale }: { deviceKeys: DeviceImageKey[]; locale: Locale }) {
   const isEn = locale === "en";
-  const device = DEVICE_IMAGES[deviceKey];
+  const devices = deviceKeys.map((key) => DEVICE_IMAGES[key]);
   return (
     <View style={styles.deviceImageWrap} wrap={false}>
-      <Image src={device.src} style={styles.deviceImage} />
-      <Text style={styles.deviceCaption}>{isEn ? device.captionEn : device.captionFr}</Text>
+      <View style={styles.deviceImageRow}>
+        {devices.flatMap((device) => device.srcs).map((src) => (
+          <Image key={src} src={src} style={styles.deviceImage} />
+        ))}
+      </View>
+      {devices.map((device, idx) => (
+        <Text key={idx} style={styles.deviceCaption}>
+          {isEn ? device.captionEn : device.captionFr}
+        </Text>
+      ))}
     </View>
   );
 }
@@ -538,7 +568,10 @@ export function DocumentationPdf({
                     <Text style={styles.codeBlock}>{sub.codeBlock}</Text>
                   )}
                   {sub.deviceImage && (
-                    <DeviceIllustration deviceKey={sub.deviceImage} locale={locale} />
+                    <DeviceIllustration
+                      deviceKeys={Array.isArray(sub.deviceImage) ? sub.deviceImage : [sub.deviceImage]}
+                      locale={locale}
+                    />
                   )}
                   {sub.techChips && sub.techChips.length > 0 && (
                     <View style={styles.chipRow}>

@@ -10,62 +10,9 @@ import AndroidTvIcon from "@/components/icons/AndroidTvIcon";
 import { useDetectedPlatform, reorderForPlatform } from "@/lib/detectPlatform";
 
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
+import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFallbacks";
 import { useReleaseData } from "@/components/ReleaseProvider";
 import DownloadModal, { type DownloadPlatform } from "@/components/DownloadModal";
-
-const FALLBACK_STABLE: ReleaseChannelInfo = {
-  version: "V5.0.0",
-  title: "Bobine V5.0.0 « Orchidée » — Support Natif PC ARM64 (Snapdragon, Windows ARM, Linux ARM), Google Books, Trois Canaux de Mise à Jour & Sous-titres",
-  publishedAt: "2026-10-17T09:00:00Z",
-  downloads: {
-    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-Setup-5.0.0.exe",
-    windowsArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-Setup-5.0.0-arm64.exe",
-    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine_5.0.0_amd64.deb",
-    linuxArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine_5.0.0_arm64.deb",
-    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-5.0.0.dmg",
-    android: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-5.0.0.apk",
-    androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-TV-5.0.0.apk",
-    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine-assistant",
-    assistantArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine-assistant-arm64",
-    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/install.sh",
-  },
-};
-
-const FALLBACK_BETA: ReleaseChannelInfo = {
-  version: "beta",
-  title: "Bobine — Bêta",
-  publishedAt: "2026-10-16T20:00:00Z",
-  downloads: {
-    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe",
-    windowsArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta-arm64.exe",
-    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb",
-    linuxArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_arm64.deb",
-    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.dmg",
-    android: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.apk",
-    androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-TV-beta.apk",
-    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant",
-    assistantArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant-arm64",
-    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/install.sh",
-  },
-};
-
-const FALLBACK_CANARY: ReleaseChannelInfo = {
-  version: "canary",
-  title: "Bobine — Canary (build automatique)",
-  publishedAt: "2026-10-16T20:00:00Z",
-  downloads: {
-    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-Setup-canary.exe",
-    windowsArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-Setup-canary-arm64.exe",
-    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine_canary_amd64.deb",
-    linuxArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine_canary_arm64.deb",
-    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-canary.dmg",
-    android: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-canary.apk",
-    androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-TV-canary.apk",
-    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine-assistant",
-    assistantArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine-assistant-arm64",
-    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/install.sh",
-  },
-};
 
 export default function OsDownloadGrid({
   locale,

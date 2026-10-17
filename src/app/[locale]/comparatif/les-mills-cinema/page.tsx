@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, lp } from "@/lib/seo";
 import RoiCalculator from "@/components/RoiCalculator";
 import ShareButton from "@/components/ShareButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
@@ -213,8 +213,8 @@ export default async function LesMillsComparisonPage({
 
   const breadcrumbs = [
     { name: "Bobine", url: `/${locale}` },
-    { name: isEn ? "Comparisons" : "Comparatifs", url: `/${locale}/comparatif` },
-    { name: isEn ? "Alternative to Les Mills Cinema" : "Alternative Les Mills Cinema", url: `/${locale}/comparatif/les-mills-cinema` },
+    { name: isEn ? "Comparisons" : "Comparatifs", url: lp(locale, `/comparatif`) },
+    { name: isEn ? "Alternative to Les Mills Cinema" : "Alternative Les Mills Cinema", url: lp(locale, `/comparatif/les-mills-cinema`) },
   ];
 
   const faqItems = [
@@ -429,7 +429,7 @@ export default async function LesMillsComparisonPage({
           <Link href={`/${locale}/documentation`} className="btn-primary">
             {c.cta.btnInstall}
           </Link>
-          <Link href={`/${locale}/fonctionnalites`} className="btn-secondary">
+          <Link href={lp(locale, `/fonctionnalites`)} className="btn-secondary">
             {c.cta.btnFeatures}
           </Link>
         </div>

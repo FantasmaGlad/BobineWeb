@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, lp } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import FaqJsonLd from "@/components/FaqJsonLd";
@@ -200,8 +200,8 @@ export default async function WexerComparisonPage({
   const isEn = locale === "en";
   const breadcrumbs = [
     { name: isEn ? "Home" : "Accueil", url: `/${locale}` },
-    { name: isEn ? "Comparisons" : "Comparatifs", url: `/${locale}/comparatif` },
-    { name: "Wexer & Fitness On Demand", url: `/${locale}/comparatif/wexer-fitness-on-demand` },
+    { name: isEn ? "Comparisons" : "Comparatifs", url: lp(locale, `/comparatif`) },
+    { name: "Wexer & Fitness On Demand", url: lp(locale, `/comparatif/wexer-fitness-on-demand`) },
   ];
 
   const faqItems = [
@@ -411,7 +411,7 @@ export default async function WexerComparisonPage({
           <Link href={`/${locale}/documentation`} className="btn-primary">
             {c.cta.btnInstall}
           </Link>
-          <Link href={`/${locale}/fonctionnalites`} className="btn-secondary">
+          <Link href={lp(locale, `/fonctionnalites`)} className="btn-secondary">
             {c.cta.btnFeatures}
           </Link>
         </div>

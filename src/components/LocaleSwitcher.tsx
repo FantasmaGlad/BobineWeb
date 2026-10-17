@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { locales } from "@/lib/i18n";
+import { lp, toFrenchPath } from "@/lib/seo";
 
 export default function LocaleSwitcher({
   locale,
@@ -15,11 +16,12 @@ export default function LocaleSwitcher({
   const pathname = usePathname() || `/${locale}`;
 
   function getTargetHref(targetLocale: Locale) {
-    if (targetLocale === locale) return pathname;
     const segments = pathname.split("/").filter(Boolean);
     if (segments.length > 0 && locales.includes(segments[0] as Locale)) {
-      segments[0] = targetLocale;
-      return "/" + segments.join("/");
+      // usePathname() rend le chemin interne (dossier français) ou celui de la barre d'adresse
+      // (slug anglais) : on repart toujours du chemin français pour viser le bon slug de la langue cible.
+      const rest = segments.length > 1 ? `/${segments.slice(1).join("/")}` : "";
+      return lp(targetLocale, toFrenchPath(rest));
     }
     return `/${targetLocale}`;
   }

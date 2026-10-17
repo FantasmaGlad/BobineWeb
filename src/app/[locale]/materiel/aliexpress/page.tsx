@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { IS_ONION } from "@/lib/onion";
 import OnionMirrorNotice from "@/components/OnionMirrorNotice";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, lp } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import HardwareBundleTabs from "@/components/hardware/HardwareBundleTabs";
 import HardwareCartBar from "@/components/hardware/HardwareCartBar";
@@ -52,7 +52,7 @@ export default async function HardwareAliexpressPage({
     { name: "Bobine", url: `/${currentLocale}` },
     {
       name: isEn ? "Hardware Guide" : "Guide Matériel",
-      url: `/${currentLocale}/materiel/aliexpress`,
+      url: lp(currentLocale, `/materiel/aliexpress`),
     },
   ];
 

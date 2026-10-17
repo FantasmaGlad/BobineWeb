@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, lp } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import DocsUtilisationView from "@/components/DocsUtilisationView";
 
@@ -47,7 +47,7 @@ export default async function UtilisationPage({
   const breadcrumbs = [
     { name: "Bobine", url: `/${locale}` },
     { name: "Documentation", url: `/${locale}/documentation` },
-    { name: isEn ? "Operations Manual" : "Utilisation & Exploitation", url: `/${locale}/documentation/utilisation` },
+    { name: isEn ? "Operations Manual" : "Utilisation & Exploitation", url: lp(locale, `/documentation/utilisation`) },
   ];
 
   return (

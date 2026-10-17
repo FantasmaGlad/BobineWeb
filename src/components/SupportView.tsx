@@ -6,6 +6,7 @@ import GitHubIcon from "@/components/icons/GitHubIcon";
 import KofiIcon from "@/components/icons/KofiIcon";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import { type Locale } from "@/lib/i18n";
+import { lp } from "@/lib/seo";
 
 export default function SupportView({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
@@ -14,7 +15,7 @@ export default function SupportView({ locale }: { locale: Locale }) {
 
   const breadcrumbs = [
     { name: "Bobine", url: `/${locale}` },
-    { name: isEn ? "Support" : "Soutenir", url: `/${locale}/soutenir` },
+    { name: isEn ? "Support" : "Soutenir", url: lp(locale, `/soutenir`) },
   ];
 
   const coffeeAmounts = [1, 3, 5, 10];

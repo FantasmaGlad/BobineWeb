@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
+import { EN_SLUG_MAP } from "./src/lib/slugs";
 
 const securityHeaders = [
   {
@@ -32,6 +33,10 @@ const securityHeaders = [
   },
 ];
 
+// Pages dont le slug anglais diffère du slug français ; `/materiel` (simple renvoi vers
+// `/materiel/amazon`) est traité à part.
+const EN_PAGES = Object.entries(EN_SLUG_MAP).filter(([fr, en]) => fr !== en && fr !== "/materiel");
+
 // Miroir Tor : export statique (voir scripts/prepare-onion.mjs et le workflow onion-mirror).
 const isOnion = process.env.NEXT_PUBLIC_BOBINE_ONION === "1";
 
@@ -62,23 +67,9 @@ const nextConfig: NextConfig = {
         destination: "https://bobine.fit/:path*",
         permanent: true,
       },
-      // Slugs localisés EN (redirection 308 des anciens chemins français sous /en)
-      { source: "/en/fonctionnalites", destination: "/en/features", permanent: true },
-      { source: "/en/comparatif", destination: "/en/compare", permanent: true },
-      { source: "/en/comparatif/les-mills-cinema", destination: "/en/compare/les-mills-cinema", permanent: true },
-      { source: "/en/comparatif/wexer-fitness-on-demand", destination: "/en/compare/wexer-fitness-on-demand", permanent: true },
-      { source: "/en/comparatif/radical-fitness-yako", destination: "/en/compare/radical-fitness-yako", permanent: true },
-      { source: "/en/comparatif/affichage-dynamique-fitness", destination: "/en/compare/digital-signage-fitness", permanent: true },
-      { source: "/en/materiel/amazon", destination: "/en/hardware/amazon", permanent: true },
-      { source: "/en/materiel/aliexpress", destination: "/en/hardware/aliexpress", permanent: true },
+      // Slugs localisés EN : l'ancien chemin français sous /en passe en 308 vers le slug anglais
+      ...EN_PAGES.map(([fr, en]) => ({ source: `/en${fr}`, destination: `/en${en}`, permanent: true })),
       { source: "/en/materiel", destination: "/en/hardware/amazon", permanent: true },
-      { source: "/en/documentation/utilisation", destination: "/en/documentation/user-guide", permanent: true },
-      { source: "/en/documentation/developpeurs", destination: "/en/documentation/developers", permanent: true },
-      { source: "/en/a-propos", destination: "/en/about", permanent: true },
-      { source: "/en/soutenir", destination: "/en/support", permanent: true },
-      { source: "/en/mentions-legales", destination: "/en/legal-notice", permanent: true },
-      { source: "/en/confidentialite", destination: "/en/privacy", permanent: true },
-      { source: "/en/securite", destination: "/en/security", permanent: true },
     ];
   },
   // Même sitemap sous une seconde adresse : Search Console conserve l'état « Impossible de lire » d'une
@@ -86,23 +77,9 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       { source: "/sitemap-bobine.xml", destination: "/sitemap.xml" },
-      // Slugs localisés anglais mappés vers les handlers Next.js existants
-      { source: "/en/features", destination: "/en/fonctionnalites" },
-      { source: "/en/compare", destination: "/en/comparatif" },
-      { source: "/en/compare/les-mills-cinema", destination: "/en/comparatif/les-mills-cinema" },
-      { source: "/en/compare/wexer-fitness-on-demand", destination: "/en/comparatif/wexer-fitness-on-demand" },
-      { source: "/en/compare/radical-fitness-yako", destination: "/en/comparatif/radical-fitness-yako" },
-      { source: "/en/compare/digital-signage-fitness", destination: "/en/comparatif/affichage-dynamique-fitness" },
+      // Slugs localisés anglais mappés vers les pages réelles (dossiers français)
+      ...EN_PAGES.map(([fr, en]) => ({ source: `/en${en}`, destination: `/en${fr}` })),
       { source: "/en/hardware", destination: "/en/materiel/amazon" },
-      { source: "/en/hardware/amazon", destination: "/en/materiel/amazon" },
-      { source: "/en/hardware/aliexpress", destination: "/en/materiel/aliexpress" },
-      { source: "/en/documentation/user-guide", destination: "/en/documentation/utilisation" },
-      { source: "/en/documentation/developers", destination: "/en/documentation/developpeurs" },
-      { source: "/en/about", destination: "/en/a-propos" },
-      { source: "/en/support", destination: "/en/soutenir" },
-      { source: "/en/legal-notice", destination: "/en/mentions-legales" },
-      { source: "/en/privacy", destination: "/en/confidentialite" },
-      { source: "/en/security", destination: "/en/securite" },
     ];
   },
   async headers() {

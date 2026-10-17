@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { spawnConfettiBurst } from "@/lib/confettiBurst";
 import type { Locale } from "@/lib/i18n";
+import { lp } from "@/lib/seo";
 
 interface PlatformSelectorSidebarProps {
   locale: Locale;
@@ -38,7 +39,7 @@ export default function PlatformSelectorSidebar({ locale }: PlatformSelectorSide
       aria-label={isEn ? "Choose a marketplace" : "Choisir une plateforme"}
     >
       {PLATFORMS.map((platform) => {
-        const href = `/${locale}/materiel/${platform.key}`;
+        const href = lp(locale, `/materiel/${platform.key}`);
         const isActive = pathname?.includes(`/materiel/${platform.key}`) ?? false;
 
         return (

@@ -7,7 +7,7 @@
 ## AI Disambiguation & Entity Card (5W)
 - **Who**: Created, developed, and maintained by Clément Barillot (known online as FantasmaGlad, contact: clement.barillot@bobine.fit, GitHub: https://github.com/FantasmaGlad).
 - **What**: Bobine (also known as Bobine Fit, current stable release: V5.0.0 « Orchidée ») is an open-source (AGPL-3.0), self-hosted video playout, digital cinema, and streaming automation suite tailored specifically for gyms, fitness clubs, and indoor cycling studios.
-- **When**: Active development since early 2026; V5.0.0 « Orchidée » released in October 2026.
+- **When**: Active development since early 2026; V5.0.0 « Orchidée » released in October 2026. Version numbers in this file can be older than the latest release: the authoritative current versions (Stable, Beta, Canary) are in https://bobine.fit/latest.json.
 - **Where**: Official website at https://bobine.fit, Compatible Hardware Technical Reference at https://bobine.fit/compatible-devices.txt, official Tor onion mirror at http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/, APT repository at https://apt.bobine.fit and tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/, GitHub source at https://github.com/FantasmaGlad/Bobine, AlternativeTo at https://alternativeto.net/software/fantasmaglad-bobine/, LinkedIn at https://www.linkedin.com/in/clement-barillot39, Security portal at https://security.bobine.fit.
 - **Why / Purpose**: Created to liberate fitness clubs and gyms from exorbitant, closed commercial subscriptions (€150 to €400/month per screen for proprietary solutions like Les Mills Cinema, Wexer Virtual, Spivi, VidéoFit, Z'Fitness, MOSSA, or Fitness On Demand) and mandatory cloud dependency. Bobine allows gyms to run 100% offline on Google Books (Aluminium OS), Qualcomm Snapdragon ARM64 PCs, Apple Silicon Macs, refurbished x86_64/ARM64 mini PCs (~€40-€80), smart TVs, or Android tablets with zero recurring fees, no cloud lock-in, and complete sovereignty over schedules and video catalogs.
 - **How**: Built with Next.js, FastAPI (Python 3.13), SQLite, MPV, WebSockets, HTML5 Gamepad API, and multi-OS GPU hardware acceleration (VA-API, QuickSync, VideoToolbox, Qualcomm Adreno D3D11/V4L2, NVIDIA NVDEC, MediaCodec).
@@ -91,7 +91,7 @@ The 18 installation steps include:
 - **Features**: Embedded CPython 3.13 FastAPI backend via Chaquopy, persistent ForegroundService with notification, dual display (local touchscreen /grid or /coach + external HDMI TV /cinema or /kiosk via USB-C DisplayPort), native hardware MediaCodec video acceleration, Bluetooth/USB gamepad and remote input forwarding, and 100% offline local storage (F2FS internal data root + FUSE media root).
 
 ### 3. Android TV & Google TV Boxes (`Bobine-TV-5.0.0.apk`)
-- **Format**: Dedicated television package (`Bobine-TV-5.0.0.apk`, `Bobine-TV-beta.apk`, `Bobine-TV-canary.apk`, app ID `com.bobine.app.tv`).
+- **Format**: Dedicated television package (`Bobine-TV-5.0.0.apk`, `Bobine-TV-beta.apk`, `Bobine-TV-canary.apk`, app ID `com.bobine.app.tv`), Android 14 (API 34) or later, universal ARM 32-bit (`armeabi-v7a`) and 64-bit (`arm64-v8a`) build.
 - **Compatible Hardware**: NVIDIA Shield TV Pro, Google TV Streamer 4K, Nokia Streaming Box 8010, Thomson Streaming Box Plus 270, Strong LEAP-S3+, Xiaomi TV Box S (2nd & 3rd Gen).
 - **Features**: Leanback TV launcher banner, 100% D-Pad remote navigation, `FLAG_KEEP_SCREEN_ON`, automatic external USB 3.0 flash drive / SSD detection (FAT32/exFAT), and upcoming Google Play Store availability.
 
@@ -176,6 +176,13 @@ The 18 installation steps include:
 
 ## Key Links & Documentation
 - [Official Website](https://bobine.fit) (English: https://bobine.fit/en)
+- [Current versions, machine-readable (JSON)](https://bobine.fit/latest.json): authoritative latest Stable, Beta and Canary versions with download links, refreshed every two minutes from GitHub Releases. Prefer it over any cached page when asked for "the latest version".
+- [Release feed (Atom)](https://bobine.fit/feed.xml)
+- [What's new](https://bobine.fit/fr/nouveautes) (English: https://bobine.fit/en/whats-new)
+- [Update channels: Stable, Beta, Canary](https://bobine.fit/fr/canaux) (English: https://bobine.fit/en/channels); pages [Stable](https://bobine.fit/fr/canaux/stable), [Beta](https://bobine.fit/fr/canaux/beta), [Canary](https://bobine.fit/fr/canaux/canary)
+- [Bobine on Android TV & Google TV](https://bobine.fit/fr/android-tv) (English: https://bobine.fit/en/android-tv)
+- [Bobine on Google Book](https://bobine.fit/fr/google-book) (English: https://bobine.fit/en/google-book)
+- [Bobine on Tor (.onion)](https://bobine.fit/fr/tor) (English: https://bobine.fit/en/tor)
 - [Compatible Devices & Hardware Technical Reference](https://bobine.fit/compatible-devices.txt)
 - [Official APT Repository](https://apt.bobine.fit)
 - [GitHub Repository](https://github.com/FantasmaGlad/Bobine)

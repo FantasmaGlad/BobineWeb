@@ -32,8 +32,16 @@ export default function DownloadModal({
   canary,
 }: DownloadModalProps) {
   const isEn = locale === "en";
-  const activePlatform: DownloadPlatform = initialPlatform;
+  // Android et Android TV partagent cette fenêtre : le choix de l'appareil ne vaut que pour la
+  // plateforme avec laquelle elle a été ouverte, et repart de zéro à la fermeture.
+  const [variantChoice, setVariantChoice] = useState<{ from: DownloadPlatform; platform: DownloadPlatform } | null>(null);
+  const activePlatform: DownloadPlatform =
+    variantChoice && variantChoice.from === initialPlatform ? variantChoice.platform : initialPlatform;
   const [selectedArch, setSelectedArch] = useState<CpuArchitecture>("x86_64");
+  const handleClose = () => {
+    setVariantChoice(null);
+    onClose();
+  };
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
   const [downloadingKey, setDownloadingKey] = useState<string | null>(null);
   const isMounted = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
@@ -69,6 +77,7 @@ export default function DownloadModal({
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        setVariantChoice(null);
         onClose();
       }
     };
@@ -103,6 +112,8 @@ export default function DownloadModal({
     activePlatform === "linux" ||
     activePlatform === "tauri" ||
     activePlatform === "assistant";
+
+  const hasAndroidSelector = activePlatform === "android" || activePlatform === "android-tv";
 
   const cleanVersion = stable.version.replace(/^V/i, "");
   const isArm = selectedArch === "arm64";
@@ -193,8 +204,8 @@ export default function DownloadModal({
         return {
           title: isEn ? "Bobine for Android TV & Google TV" : "Bobine pour Android TV & Google TV",
           subtitle: isEn
-            ? "Dedicated for TV boxes & Smart TVs (Chromecast, Xiaomi Box, Shield TV) — arm64-v8a"
-            : "Dédié aux box TV & Smart TVs (Chromecast, Xiaomi Box, Shield TV) — arm64-v8a",
+            ? "Dedicated for TV boxes & Smart TVs (Chromecast, Xiaomi Box, Shield TV) — ARM 32 & 64-bit (armeabi-v7a, arm64-v8a)"
+            : "Dédié aux box TV & Smart TVs (Chromecast, Xiaomi Box, Shield TV) — ARM 32 et 64 bits (armeabi-v7a, arm64-v8a)",
           stableUrl:
             stable.downloads.androidTv ||
             `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/Bobine-TV-${cleanVersion}.apk`,
@@ -279,7 +290,7 @@ export default function DownloadModal({
     <div
       className="download-modal-backdrop"
       onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
+        if (e.target === e.currentTarget) handleClose();
       }}
       role="presentation"
     >
@@ -300,6 +311,30 @@ export default function DownloadModal({
               <h2 id="download-modal-title" className="download-modal__title">
                 {details.title}
               </h2>
+              {hasAndroidSelector && (
+                <div
+                  className="download-modal__arch-selector"
+                  role="group"
+                  aria-label={isEn ? "Android device type" : "Type d'appareil Android"}
+                >
+                  <button
+                    type="button"
+                    className={`download-modal__arch-btn${activePlatform === "android" ? " is-active" : ""}`}
+                    aria-pressed={activePlatform === "android"}
+                    onClick={() => setVariantChoice({ from: initialPlatform, platform: "android" })}
+                  >
+                    {isEn ? "Android (Tablets, Google Books)" : "Android (Tablettes, Google Books)"}
+                  </button>
+                  <button
+                    type="button"
+                    className={`download-modal__arch-btn${activePlatform === "android-tv" ? " is-active" : ""}`}
+                    aria-pressed={activePlatform === "android-tv"}
+                    onClick={() => setVariantChoice({ from: initialPlatform, platform: "android-tv" })}
+                  >
+                    Android TV
+                  </button>
+                </div>
+              )}
               {hasArchSelector && (
                 <div
                   className="download-modal__arch-selector"
@@ -332,7 +367,7 @@ export default function DownloadModal({
             ref={closeButtonRef}
             type="button"
             className="download-modal__close-btn"
-            onClick={onClose}
+            onClick={handleClose}
             aria-label={isEn ? "Close modal" : "Fermer la fenêtre"}
           >
             <svg
@@ -523,7 +558,7 @@ export default function DownloadModal({
                   download
                   onClick={() => {
                     setDownloadingKey("stable");
-                    setTimeout(onClose, 300);
+                    setTimeout(handleClose, 300);
                   }}
                 >
                   {downloadingKey === "stable" ? (
@@ -595,7 +630,7 @@ export default function DownloadModal({
                   download
                   onClick={() => {
                     setDownloadingKey("beta");
-                    setTimeout(onClose, 300);
+                    setTimeout(handleClose, 300);
                   }}
                 >
                   {downloadingKey === "beta" ? (
@@ -667,7 +702,7 @@ export default function DownloadModal({
                   download
                   onClick={() => {
                     setDownloadingKey("canary");
-                    setTimeout(onClose, 300);
+                    setTimeout(handleClose, 300);
                   }}
                 >
                   {downloadingKey === "canary" ? (

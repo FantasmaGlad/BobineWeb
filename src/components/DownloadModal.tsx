@@ -515,11 +515,6 @@ export default function DownloadModal({
                     : "Version officielle certifiée. 100% testée, stable et recommandée pour l'exploitation en salle de sport."}
                 </p>
 
-                <div className="download-modal__card-meta">
-                  <span className="download-modal__filename">{details.stableFilename}</span>
-                  <span className="download-modal__fileformat">{details.format}</span>
-                </div>
-
                 <a
                   href={details.stableUrl}
                   className="download-modal__action-btn download-modal__action-btn--primary download-modal__action-btn--stable"
@@ -567,7 +562,7 @@ export default function DownloadModal({
                   <span>
                     {downloadingKey === "stable"
                       ? (isEn ? "Started" : "Lancé")
-                      : (isEn ? `Download Stable (${stable.version})` : `Télécharger la Stable (${stable.version})`)}
+                      : (isEn ? `Download Stable (${stable.version}) · ${details.format}` : `Télécharger la Stable (${stable.version}) · ${details.format}`)}
                   </span>
                 </a>
               </div>
@@ -591,11 +586,6 @@ export default function DownloadModal({
                     ? "Beta: batches of features/fixes I select and publish manually when ready."
                     : "Bêta : lots de fonctionnalités/correctifs que je sélectionne et publie manuellement quand ils sont prêts."}
                 </p>
-
-                <div className="download-modal__card-meta">
-                  <span className="download-modal__filename">{details.betaFilename}</span>
-                  <span className="download-modal__fileformat">{details.format}</span>
-                </div>
 
                 <a
                   href={details.betaUrl}
@@ -644,7 +634,7 @@ export default function DownloadModal({
                   <span>
                     {downloadingKey === "beta"
                       ? (isEn ? "Started" : "Lancé")
-                      : (isEn ? "Download Beta" : "Télécharger la Bêta")}
+                      : (isEn ? `Download Beta · ${details.format}` : `Télécharger la Bêta · ${details.format}`)}
                   </span>
                 </a>
               </div>
@@ -668,11 +658,6 @@ export default function DownloadModal({
                     ? "Canary: rebuilt automatically on every commit to main. Earliest access, zero curation, untested."
                     : "Canary : reconstruite automatiquement à chaque commit sur main. Accès le plus anticipé, zéro curation, non testé."}
                 </p>
-
-                <div className="download-modal__card-meta">
-                  <span className="download-modal__filename">{details.canaryFilename}</span>
-                  <span className="download-modal__fileformat">{details.format}</span>
-                </div>
 
                 <a
                   href={details.canaryUrl}
@@ -721,7 +706,7 @@ export default function DownloadModal({
                   <span>
                     {downloadingKey === "canary"
                       ? (isEn ? "Started" : "Lancé")
-                      : (isEn ? "Download Canary" : "Télécharger la Canary")}
+                      : (isEn ? `Download Canary · ${details.format}` : `Télécharger la Canary · ${details.format}`)}
                   </span>
                 </a>
               </div>

@@ -171,14 +171,14 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       id: "tauri",
       group: "appliance",
       name: "Bobine Assistant",
-      format: "Tauri 2 (mDNS & SSH)",
+      format: isEn ? "Tauri 2 · Network" : "Tauri 2 · Réseau",
       badge: isEn ? "Network" : "Réseau",
       icon: <TauriIcon size={20} />,
     },
     {
       id: "cli",
       group: "appliance",
-      name: isEn ? "Dedicated Appliance" : "Appliance Kiosque",
+      name: isEn ? "Dedicated Kiosk" : "Kiosque",
       format: "Debian 13 · CLI",
       badge: isEn ? "24/7 Gym" : "Salle 24/7",
       icon: <TerminalIcon size={18} />,
@@ -602,71 +602,141 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               </div>
             </div>
 
-            <div className="docs-method-hero__action-col">
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", width: "100%" }}>
-                <a
-                  href={stable.downloads.linux}
-                  download
-                  className="btn-primary docs-method-download-btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>{isEn ? `Download Stable x86_64 (${stable.version})` : `Télécharger Stable x86_64 (${stable.version})`}</span>
-                </a>
+            <div className="docs-method-hero__action-col" style={{ maxWidth: "100%", width: "100%" }}>
+              <div className="docs-linux-channels-grid">
+                {/* Canal Stable */}
+                <div className="download-modal__channel-card download-modal__channel-card--stable">
+                  <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/stable.webp)" }} />
+                  <div className="download-modal__card-header">
+                    <div className="download-modal__card-tag-row">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img className="download-modal__channel-icon" src="/images/channels/stable.webp" alt="" />
+                      <span className="download-modal__badge download-modal__badge--stable">
+                        {isEn ? "Stable Release" : "Version Stable"}
+                      </span>
+                      <span className="download-modal__badge download-modal__badge--rec">
+                        {isEn ? "Recommended" : "Recommandé"}
+                      </span>
+                    </div>
+                    <span className="download-modal__version">{stable.version}</span>
+                  </div>
 
-                {stable.downloads.linuxArm64 && (
-                  <a
-                    href={stable.downloads.linuxArm64}
-                    download
-                    className="btn-primary docs-method-download-btn"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                    <span>{isEn ? `Download Stable ARM64 (${stable.version})` : `Télécharger Stable ARM64 (${stable.version})`}</span>
-                  </a>
-                )}
+                  <p className="download-modal__card-desc">
+                    {isEn
+                      ? "Official production release. 100% verified, stable and recommended for fitness studio playout."
+                      : "Version officielle certifiée. 100% testée, stable et recommandée pour l'exploitation en salle de sport."}
+                  </p>
 
-                <a
-                  href={beta.downloads.linux}
-                  download
-                  className="btn-secondary docs-method-download-btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: "none" }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>{isEn ? "Download Beta" : "Télécharger la Bêta"}</span>
-                </a>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem", marginTop: "auto" }}>
+                    <a
+                      href={stable.downloads.linux}
+                      download
+                      className="download-modal__action-btn download-modal__action-btn--primary download-modal__action-btn--stable"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                      </svg>
+                      <span>{isEn ? `Download Stable x86_64 (${stable.version}) · .deb` : `Télécharger Stable x86_64 (${stable.version}) · .deb`}</span>
+                    </a>
 
-                <a
-                  href={canary.downloads.linux}
-                  download
-                  className="btn-secondary docs-method-download-btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: "none" }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>{isEn ? "Download Canary (Rolling)" : "Télécharger la Canary (Rolling)"}</span>
-                </a>
+                    {stable.downloads.linuxArm64 && (
+                      <a
+                        href={stable.downloads.linuxArm64}
+                        download
+                        className="download-modal__action-btn download-modal__action-btn--primary download-modal__action-btn--stable"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="7 10 12 15 17 10" />
+                          <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        <span>{isEn ? `Download Stable ARM64 (${stable.version}) · .deb` : `Télécharger Stable ARM64 (${stable.version}) · .deb`}</span>
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                {/* Canal Bêta */}
+                <div className="download-modal__channel-card download-modal__channel-card--beta">
+                  <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/beta.webp)" }} />
+                  <div className="download-modal__card-header">
+                    <div className="download-modal__card-tag-row">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img className="download-modal__channel-icon" src="/images/channels/beta.webp" alt="" />
+                      <span className="download-modal__badge download-modal__badge--beta">
+                        {isEn ? "Beta (curated)" : "Bêta (curée)"}
+                      </span>
+                    </div>
+                    <span className="download-modal__version">{beta.commit ? `#${beta.commit}` : (isEn ? "Rolling" : "Continue")}</span>
+                  </div>
+
+                  <p className="download-modal__card-desc">
+                    {isEn
+                      ? "Beta: batches of features/fixes I select and publish manually when ready."
+                      : "Bêta : lots de fonctionnalités/correctifs que je sélectionne et publie manuellement quand ils sont prêts."}
+                  </p>
+
+                  <div style={{ marginTop: "auto" }}>
+                    <a
+                      href={beta.downloads.linux}
+                      download
+                      className="download-modal__action-btn download-modal__action-btn--beta"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                      </svg>
+                      <span>{isEn ? "Download Beta · .deb" : "Télécharger la Bêta · .deb"}</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Canal Canary */}
+                <div className="download-modal__channel-card download-modal__channel-card--canary">
+                  <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/canary.webp)" }} />
+                  <div className="download-modal__card-header">
+                    <div className="download-modal__card-tag-row">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img className="download-modal__channel-icon" src="/images/channels/canary.webp" alt="" />
+                      <span className="download-modal__badge download-modal__badge--canary">
+                        {isEn ? "Canary (rolling)" : "Canary (rolling)"}
+                      </span>
+                    </div>
+                    <span className="download-modal__version">{canary.commit ? `#${canary.commit}` : (isEn ? "Rolling" : "Continue")}</span>
+                  </div>
+
+                  <p className="download-modal__card-desc">
+                    {isEn
+                      ? "Canary: rebuilt automatically on every commit to main. Earliest access, zero curation, untested."
+                      : "Canary : reconstruite automatiquement à chaque commit sur main. Accès le plus anticipé, zéro curation, non testé."}
+                  </p>
+
+                  <div style={{ marginTop: "auto" }}>
+                    <a
+                      href={canary.downloads.linux}
+                      download
+                      className="download-modal__action-btn download-modal__action-btn--canary"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                      </svg>
+                      <span>{isEn ? "Download Canary · .deb" : "Télécharger la Canary · .deb"}</span>
+                    </a>
+                  </div>
+                </div>
               </div>
 
               <div className="docs-method-meta-row">

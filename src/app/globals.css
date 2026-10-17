@@ -3221,10 +3221,12 @@ main {
   transform: none;
   width: min(calc(100vw - 2.5rem), 26.5rem);
   height: min(34rem, calc(100dvh - 4.5rem));
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  background: color-mix(in srgb, var(--bg-card) 78%, transparent);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 80%, rgba(255, 255, 255, 0.25));
   border-radius: 1.25rem;
-  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.5), 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.35), 0 0 1px rgba(255, 255, 255, 0.2);
   z-index: 960;
   display: flex;
   flex-direction: column;
@@ -3239,7 +3241,9 @@ main {
 
 .chatbot-modal__header {
   padding: 0.85rem 1rem;
-  background: var(--bg-surface-elevated);
+  background: color-mix(in srgb, var(--bg-surface-elevated) 65%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
@@ -3374,9 +3378,11 @@ main {
 }
 
 .chatbot-message--assistant .chatbot-message__bubble {
-  background: var(--bg-surface-hover);
+  background: color-mix(in srgb, var(--bg-surface-hover) 72%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: var(--text-main);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 80%, rgba(255, 255, 255, 0.15));
   border-top-left-radius: 0.2rem;
 }
 
@@ -3583,15 +3589,19 @@ main {
 
 .chatbot-modal__footer {
   padding: 0.75rem;
-  background: var(--bg-surface-elevated);
+  background: color-mix(in srgb, var(--bg-surface-elevated) 65%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--border-subtle);
 }
 
 .chatbot-input-wrapper {
   display: flex;
   gap: 0.35rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  background: color-mix(in srgb, var(--bg-card) 60%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 90%, rgba(255, 255, 255, 0.15));
   border-radius: 0.65rem;
   padding: 0.25rem 0.4rem;
   transition: border-color 0.15s ease;
@@ -5096,10 +5106,10 @@ main {
   box-sizing: border-box;
   max-width: 100%;
   width: 100%;
-  min-height: calc(100svh - 6.5rem);
+  min-height: calc(100dvh - 4.25rem);
   justify-content: space-between;
-  padding-top: clamp(1.5rem, 3vh, 2.5rem);
-  padding-bottom: clamp(1.25rem, 2.5vh, 2rem);
+  padding-top: clamp(0.75rem, 1.8vh, 1.35rem);
+  padding-bottom: clamp(0.5rem, 1.2vh, 0.95rem);
   flex-shrink: 0;
 }
 
@@ -5172,7 +5182,9 @@ main {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding-inline: clamp(11.5rem, 19vw, 17.5rem);
+    padding-inline: clamp(4.5rem, 9.5vw, 10.5rem);
+    max-width: 66rem;
+    margin-inline: auto;
   }
 }
 
@@ -5276,11 +5288,14 @@ main {
   gap: 0.45rem;
   color: var(--text-muted);
   font-size: 0.825rem;
-  font-weight: 500;
+  font-weight: 600;
   margin-top: auto;
-  padding: 0.35rem 0.75rem;
-  background: transparent;
-  border: 1px solid transparent;
+  margin-bottom: 0.25rem;
+  padding: 0.4rem 0.95rem;
+  background: color-mix(in srgb, var(--bg-card) 60%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border-subtle);
   border-radius: 9999px;
   cursor: pointer;
   text-decoration: none;
@@ -5288,13 +5303,14 @@ main {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  align-self: flex-start;
+  align-self: center;
 }
 
 .hero-fullscreen__scroll:hover {
   color: var(--text-heading);
-  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
-  border-color: color-mix(in srgb, var(--accent-primary) 25%, transparent);
+  background: color-mix(in srgb, var(--accent-primary) 12%, var(--bg-card));
+  border-color: color-mix(in srgb, var(--accent-primary) 35%, transparent);
+  transform: translateY(1px);
 }
 
 .hero-fullscreen__scroll:active {
@@ -6252,21 +6268,21 @@ main {
 .os-download-desktop-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: clamp(0.75rem, 1.2vw, 1.1rem);
+  gap: clamp(0.7rem, 1.1vw, 1rem);
   width: 100%;
-  margin-top: clamp(1.25rem, 2.5vh, 2rem);
-  margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
+  margin-top: clamp(0.65rem, 1.4vh, 1.15rem);
+  margin-bottom: clamp(0.65rem, 1.4vh, 1.15rem);
 }
 
 @media (min-width: 1024px) {
   .os-download-desktop-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: clamp(0.75rem, 1.2vw, 1.2rem);
+    gap: clamp(0.7rem, 1.1vw, 1.15rem);
   }
 
   .os-download-card {
-    padding: clamp(1.15rem, 1.4vw, 1.45rem);
-    min-height: 205px;
+    padding: clamp(0.95rem, 1.2vw, 1.25rem);
+    min-height: 185px;
   }
 
   .os-download-card__header {
@@ -6345,21 +6361,24 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: clamp(1.4rem, 1.8vw, 1.75rem);
+  padding: clamp(1rem, 1.4vw, 1.35rem);
   border-radius: var(--radius-lg, 16px);
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  background: color-mix(in srgb, var(--bg-card) 76%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 80%, rgba(255, 255, 255, 0.2));
   text-decoration: none;
   color: var(--text-heading);
   position: relative;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-  min-height: 205px;
+  min-height: 185px;
   height: 100%;
   box-shadow: 0 4px 20px -6px var(--shadow-color, rgba(0, 0, 0, 0.05));
 }
 
 .os-download-card:hover {
   transform: translateY(-3px);
+  background: color-mix(in srgb, var(--bg-card) 88%, transparent);
   border-color: color-mix(in srgb, var(--accent-primary) 50%, var(--border-subtle));
   box-shadow: 0 14px 32px -12px color-mix(in srgb, var(--accent-primary) 24%, transparent);
 }
@@ -6576,10 +6595,6 @@ main {
     padding: 0.35rem 0.75rem;
     font-size: 0.76rem;
     align-self: center;
-  }
-
-  .hero-fullscreen:has(.os-download-shell) > .hero-fullscreen__scroll {
-    display: none !important;
   }
 
   .hero-fullscreen__content {
@@ -7817,11 +7832,11 @@ main {
   position: absolute;
   inset: 0;
   background-repeat: no-repeat;
-  background-position: bottom -4% right -4%;
-  background-size: 36%;
-  opacity: 0.42;
-  -webkit-mask-image: linear-gradient(130deg, transparent 0%, transparent 20%, #000 65%);
-  mask-image: linear-gradient(130deg, transparent 0%, transparent 20%, #000 65%);
+  background-position: bottom 14% right -2%;
+  background-size: 38%;
+  opacity: 0.45;
+  -webkit-mask-image: linear-gradient(130deg, transparent 0%, transparent 15%, #000 60%);
+  mask-image: linear-gradient(130deg, transparent 0%, transparent 15%, #000 60%);
   pointer-events: none;
   z-index: 0;
 }

@@ -40,7 +40,7 @@ export default function ChatProductCard({ id, locale }: { id: string; locale: Lo
       <div className="chatbot-product-card__info">
         <span className="chatbot-product-card__name">{product.name}</span>
         <span className="chatbot-product-card__price">
-          {product.price.toFixed(2)} € <span className="chatbot-platform-tag">{platformName}</span>
+          {product.price !== null ? `${product.price.toFixed(2)} €` : (isEn ? "See price on Amazon" : "Voir le prix sur Amazon")} <span className="chatbot-platform-tag">{platformName}</span>
         </span>
       </div>
       <div className="chatbot-product-card__actions">

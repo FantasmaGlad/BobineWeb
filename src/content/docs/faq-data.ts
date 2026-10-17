@@ -81,8 +81,8 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     },
     {
       category: "hardware",
-      q: "Bobine fonctionne-t-il sur Android TV, Google TV et les boîtiers 32 bits (Chromecast, Xiaomi) ?",
-      a: "Oui, à partir d'Android 14 (API 34), comme tous les paquets Android de Bobine. Le paquet Bobine-TV-5.0.0.apk est universel : il s'installe sur les boîtiers 64 bits comme sur ceux dont le système est 32 bits (liste d'ABI armeabi-v7a), ce qui est le cas de nombreux Chromecast avec Google TV et boîtiers ou clés Xiaomi malgré leur processeur 64 bits. Si l'installation échoue avec le message INSTALL_FAILED_NO_MATCHING_ABIS, retéléchargez le paquet depuis la page de téléchargement : les anciennes copies ne couvraient pas les systèmes 32 bits. Un boîtier resté sous Android 11 ou 12 ne peut pas installer Bobine.",
+      q: "Bobine fonctionne-t-il sur Android TV, Google TV et les boîtiers 32 bits (Xiaomi) ?",
+      a: "Oui, à partir d'Android 14 (API 34), comme tous les paquets Android de Bobine. Le paquet Bobine-TV-5.0.0.apk est universel : il s'installe sur les boîtiers 64 bits comme sur ceux dont le système est 32 bits (liste d'ABI armeabi-v7a), ce qui est le cas de plusieurs boîtiers Xiaomi malgré leur processeur 64 bits. Si l'installation échoue avec le message INSTALL_FAILED_NO_MATCHING_ABIS, retéléchargez le paquet depuis la page de téléchargement : les anciennes copies ne couvraient pas les systèmes 32 bits. Un boîtier resté sous Android 11 ou 12 ne peut pas installer Bobine : c'est le cas du Chromecast avec Google TV et du NVIDIA Shield TV. Le Google TV Streamer (Android 14) convient.",
     },
     {
       category: "offline",
@@ -193,8 +193,8 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     },
     {
       category: "hardware",
-      q: "Does Bobine work on Android TV, Google TV and 32-bit boxes (Chromecast, Xiaomi)?",
-      a: "Yes, from Android 14 (API 34) onwards, like every Bobine Android package. Bobine-TV-5.0.0.apk is universal: it installs on 64-bit boxes as well as on those with a 32-bit system (armeabi-v7a ABI list), as is the case for many Chromecast with Google TV devices and Xiaomi boxes or sticks despite their 64-bit processor. If the installation fails with INSTALL_FAILED_NO_MATCHING_ABIS, download the package again from the download page: older copies did not cover 32-bit systems. A box still running Android 11 or 12 cannot install Bobine.",
+      q: "Does Bobine work on Android TV, Google TV and 32-bit boxes (Xiaomi)?",
+      a: "Yes, from Android 14 (API 34) onwards, like every Bobine Android package. Bobine-TV-5.0.0.apk is universal: it installs on 64-bit boxes as well as on those with a 32-bit system (armeabi-v7a ABI list), as is the case for several Xiaomi boxes despite their 64-bit processor. If the installation fails with INSTALL_FAILED_NO_MATCHING_ABIS, download the package again from the download page: older copies did not cover 32-bit systems. A box still running Android 11 or 12 cannot install Bobine.",
     },
     {
       category: "offline",

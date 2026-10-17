@@ -15,6 +15,7 @@ import { HARDWARE_BUNDLES } from "@/content/hardware";
 const PLATFORM_LABEL = { amazon: "Amazon", aliexpress: "AliExpress" } as const;
 
 function priceText(e: CatalogEntry): string {
+  if (e.price === null) return "prix a consulter sur la fiche Amazon";
   return e.platform === "aliexpress" ? `${e.price.toFixed(2)} EUR (a partir de)` : `${e.price.toFixed(2)} EUR`;
 }
 

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { formatPrice, sumPrices } from "@/lib/price";
 import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
 import {
@@ -74,7 +75,7 @@ export default function HardwareBundleTabs({
   const currentFormFactor = currentBundle.formFactors[activeFormFactorKey]!;
   const currentTier = currentFormFactor.tiers[selectedTier] || currentFormFactor.tiers[currentFormFactor.defaultTier];
 
-  const totalAmazon = currentTier.items.reduce((acc, item) => acc + item.priceAmazon, 0);
+  const { total: totalAmazon, unknown: unknownPriceCount } = sumPrices(currentTier.items);
   const mainItem = currentTier.items.find((item) => item.category === "uc") ?? currentTier.items[0];
   const accessoryItems = currentTier.items.filter((item) => item.id !== mainItem?.id);
   const showFanBadge =
@@ -607,11 +608,11 @@ export default function HardwareBundleTabs({
                 >
                   <div className="hw-price-block">
                     <span className="hw-price" style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--text-heading)" }}>
-                      {mainItem.priceAmazon.toFixed(2)} €
+                      {formatPrice(mainItem.priceAmazon) ?? (isEn ? "See price on Amazon" : "Voir le prix sur Amazon")}
                     </span>
                     {/* Emplacement toujours réservé : la hauteur ne change pas selon que le prix est en direct ou constaté. */}
                     <span className="hw-price-note">
-                      {!mainItem.isLive && (isEn ? `checked ${checkedDate}` : `constaté le ${checkedDate}`)}
+                      {!mainItem.isLive && mainItem.priceAmazon !== null && (isEn ? `checked ${checkedDate}` : `constaté le ${checkedDate}`)}
                     </span>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
@@ -671,7 +672,7 @@ export default function HardwareBundleTabs({
                     </div>
                     <div className="hw-alt-unit-card__info">
                       <span className="hw-alt-unit-card__name">{alt.name}</span>
-                      <span className="hw-alt-unit-card__price">{alt.priceAmazon.toFixed(2)} €</span>
+                      <span className="hw-alt-unit-card__price">{formatPrice(alt.priceAmazon) ?? (isEn ? "See price on Amazon" : "Voir le prix sur Amazon")}</span>
                       <SellerLine item={alt} isEn={isEn} />
                     </div>
                     <div className="hw-alt-unit-card__actions">
@@ -739,7 +740,7 @@ export default function HardwareBundleTabs({
       {/* 10. BARRE D'ACHAT FIXE MOBILE — reste accessible pendant le scroll d'achat sur téléphone */}
       <div className="hw-mobile-buybar">
         <div className="hw-mobile-buybar-info">
-          <span className="hw-mobile-buybar-price">{totalAmazon.toFixed(2)} €</span>
+          <span className="hw-mobile-buybar-price">{totalAmazon > 0 ? `${unknownPriceCount > 0 ? "≥ " : ""}${totalAmazon.toFixed(2)} €` : (isEn ? "Prices on Amazon" : "Prix sur Amazon")}</span>
           <span className="hw-mobile-buybar-label">{isEn ? "Full pack" : "Pack complet"}</span>
         </div>
         <a

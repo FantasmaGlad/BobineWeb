@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { sumPrices } from "@/lib/price";
 
 export type CartPlatform = "amazon" | "aliexpress";
 
@@ -11,7 +12,7 @@ export interface CartItem {
   asin: string;
   name: string;
   imageUrl: string;
-  priceAmazon: number;
+  priceAmazon: number | null;
   amazonUrl: string;
 }
 
@@ -103,9 +104,10 @@ export function useHardwareCart() {
   const toggleItem = useCallback((item: CartItem) => setItems(toggleCartItemStorage(item)), []);
   const removeItem = useCallback((asin: string) => setItems(removeFromCartStorage(asin)), []);
   const clear = useCallback(() => setItems(clearCartStorage()), []);
-  const total = useMemo(() => items.reduce((acc, i) => acc + i.priceAmazon, 0), [items]);
+  const total = useMemo(() => sumPrices(items).total, [items]);
+  const unknownPrices = useMemo(() => sumPrices(items).unknown, [items]);
 
-  return { items, count: items.length, total, isInCart, toggleItem, removeItem, clear };
+  return { items, count: items.length, total, unknownPrices, isInCart, toggleItem, removeItem, clear };
 }
 
 export function cartItemPlatform(item: CartItem): CartPlatform {

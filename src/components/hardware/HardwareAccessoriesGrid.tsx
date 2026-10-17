@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { formatPrice } from "@/lib/price";
 import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
 import { PRICE_CHECKED_AT, type HardwareItem } from "@/content/hardware";
@@ -127,7 +128,7 @@ export default function HardwareAccessoriesGrid({
                       color: "var(--text-heading)",
                     }}
                   >
-                    {acc.priceAmazon.toFixed(2)} €
+                    {formatPrice(acc.priceAmazon) ?? (isEn ? "See price on Amazon" : "Voir le prix sur Amazon")}
                   </span>
                 </div>
 

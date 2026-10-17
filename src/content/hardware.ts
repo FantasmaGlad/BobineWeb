@@ -41,7 +41,7 @@ export interface HardwareItem {
   imageUrl: string;
   asin: string; // ASIN Amazon officiel, vérifié individuellement (page en ligne)
   amazonUrl: string; // Lien direct fiche produit avec tag affilié
-  priceAmazon: number; // Prix constaté sur la fiche Amazon à PRICE_CHECKED_AT
+  priceAmazon: number | null; // Prix constaté sur la fiche Amazon à PRICE_CHECKED_AT ; null = prix à consulter sur Amazon
   hasFan: boolean; // true si l'unité embarque un ventilateur actif (jamais "fanless" si true)
   // Renseigné uniquement pour les places de marché tierces (AliExpress) : boutique vendeuse,
   // note et nombre de ventes issus de l'API, affichés comme signal de confiance.
@@ -101,7 +101,7 @@ export interface StandaloneAccessory {
   imageUrl: string;
   asin: string;
   amazonUrl: string;
-  priceAmazon: number;
+  priceAmazon: number | null;
   compatibleOs: OsKey[];
 }
 
@@ -130,14 +130,14 @@ const hubUsbcBelkin = (id: string): HardwareItem => ({
 
 const cableHdmi21 = (id: string): HardwareItem => ({
   id,
-  name: "Câble HDMI 2.1 Ultra High Speed 48 Gbps (2 m)",
+  name: "Câble HDMI 2.1 Ultra High Speed 48 Gbps — PremiumCord (2 m)",
   category: "cable-video",
   specs: "HDMI 2.1 certifié · 48 Gbps · 4K 120Hz / 8K 60Hz",
   description: "Relie le hub à la prise HDMI du grand écran ou du vidéoprojecteur, sans micro-coupure.",
   imageUrl: "/images/hardware/cable-hdmi.webp",
-  asin: "B0CFFFSFFN",
-  amazonUrl: buildProductUrl("B0CFFFSFFN"),
-  priceAmazon: 10.44,
+  asin: "B08LH6S6TN",
+  amazonUrl: buildProductUrl("B08LH6S6TN"),
+  priceAmazon: 9.39,
   hasFan: false,
 });
 
@@ -148,9 +148,9 @@ const remotePresentation = (id: string): HardwareItem => ({
   specs: "Sans fil 2.4 GHz · Dongle USB plug-and-play · Boutons lecture/pause/navigation",
   description: "Permet au coach de lancer, mettre en pause ou changer de cours sans toucher au clavier.",
   imageUrl: "/images/hardware/remote-control.webp",
-  asin: "B0BG2JVYY7",
-  amazonUrl: buildProductUrl("B0BG2JVYY7"),
-  priceAmazon: 14.99,
+  asin: "B0CN96CBZJ",
+  amazonUrl: buildProductUrl("B0CN96CBZJ"),
+  priceAmazon: 10.89,
   hasFan: false,
 });
 
@@ -182,14 +182,14 @@ const cableCat6a = (id: string): HardwareItem => ({
 
 const remoteAirmouse = (id: string): HardwareItem => ({
   id,
-  name: "Télécommande Air-Mouse Gyroscopique 2.4 GHz USB",
+  name: "Télécommande Air Mouse G10S 2.4 GHz (gyroscope 6 axes)",
   category: "control",
   specs: "Air-mouse gyroscopique 6 axes · Dongle USB 2.4 GHz sans configuration",
   description: "Pilote la régie au pointeur virtuel depuis l'autre bout de la salle.",
   imageUrl: "/images/hardware/remote-airmouse.webp",
-  asin: "B0H4K4T2CK",
-  amazonUrl: buildProductUrl("B0H4K4T2CK"),
-  priceAmazon: 9.57,
+  asin: "B0G7YTQT1K",
+  amazonUrl: buildProductUrl("B0G7YTQT1K"),
+  priceAmazon: 11.99,
   hasFan: false,
 });
 
@@ -208,14 +208,14 @@ const dockThunderbolt4 = (id: string): HardwareItem => ({
 
 const cableThunderbolt4 = (id: string): HardwareItem => ({
   id,
-  name: "Câble Thunderbolt 4 / USB4 40 Gbps (1 m)",
+  name: "Câble USB4 / Thunderbolt 4 40 Gbps Cable Matters (1 m)",
   category: "cable-video",
-  specs: "Certifié Thunderbolt 4 · Débit 40 Gbps · Charge 100W",
+  specs: "Certifié USB-IF · 40 Gbps · Compatible Thunderbolt 4 · 8K 60Hz",
   description: "Câble de liaison entre le portable et le dock pour transfert vidéo ultra-haute vitesse sans latence.",
   imageUrl: "/images/hardware/cable-thunderbolt4.webp",
-  asin: "B08Q2YC9LL",
-  amazonUrl: buildProductUrl("B08Q2YC9LL"),
-  priceAmazon: 12.34,
+  asin: "B094STPLX3",
+  amazonUrl: buildProductUrl("B094STPLX3"),
+  priceAmazon: 12.99,
   hasFan: false,
 });
 
@@ -286,14 +286,14 @@ const keyboardMousePremium = (id: string): HardwareItem => ({
 // installe loin de l'ecran ou du videoprojecteur.
 const cableHdmiFiberPremium = (id: string): HardwareItem => ({
   id,
-  name: "Câble HDMI 2.1 Fibre Optique 6 m — FIBBR 48 Gbps",
+  name: "Câble HDMI 2.1 Fibre Optique 1,5 m — FIBBR 48 Gbps",
   category: "cable-video",
-  specs: "Fibre optique active · 48 Gbps · 8K 60Hz / 4K 120Hz · 6 m",
-  description: "Longueur généreuse et signal fibre optique sans perte pour les régies premium où le mini PC est éloigné de l'écran.",
+  specs: "Fibre optique active · 48 Gbps · 8K 60Hz / 4K 120Hz · 1,5 m",
+  description: "Signal fibre optique sans perte et câble très fin : se glisse dans une goulotte ou derrière un support mural.",
   imageUrl: "/images/hardware/cable-hdmi-fibbr-fiber.webp",
-  asin: "B0GCGXRQZ5",
-  amazonUrl: buildProductUrl("B0GCGXRQZ5"),
-  priceAmazon: 29.15,
+  asin: "B09M7HT2T2",
+  amazonUrl: buildProductUrl("B09M7HT2T2"),
+  priceAmazon: 28.87,
   hasFan: false,
 });
 
@@ -328,9 +328,9 @@ const usbFlash128GB = (id: string): HardwareItem => ({
 
 const ssdExternal512GB = (id: string): HardwareItem => ({
   id,
-  name: "Netac US5 512 Go — SSD Externe USB 3.2 Gen 2",
+  name: "Netac US5 256 Go — SSD Externe USB 3.2 Gen 2",
   category: "storage",
-  specs: "USB 3.2 Gen 2 · 512 Go · Jusqu'à 550 Mo/s · Format carte de crédit",
+  specs: "USB 3.2 Gen 2 · 256 Go · Jusqu'à 550 Mo/s · Format carte de crédit",
   description: "De quoi archiver plusieurs mois de sauvegardes complètes et une bibliothèque vidéo locale d'appoint, en restant très compact.",
   imageUrl: "/images/hardware/ssd-netac-us5-512gb.webp",
   asin: "B0C1SCJC9F",
@@ -356,81 +356,29 @@ const ssdExternal1TB = (id: string): HardwareItem => ({
 // UNITÉS CENTRALES ANDROID TV & GOOGLE TV (BOX TV & STREAMING)
 // =============================================================================
 
-const chromecastGoogleTv = (id: string): HardwareItem => ({
-  id,
-  name: "Google Chromecast avec Google TV (HD / 4K)",
-  category: "uc",
-  specs: "Google TV officiel · Télécommande vocale avec croix directionnelle D-Pad · Wi-Fi 5",
-  description: "Clé de streaming HDMI compacte et abordable pour diffuser Bobine Kiosque sur n'importe quel écran ou TV de salle de fitness.",
-  imageUrl: "/images/hardware/tv-chromecast-google-tv.webp",
-  asin: "B0B9ZJ74D3",
-  amazonUrl: buildProductUrl("B0B9ZJ74D3"),
-  priceAmazon: 39.99,
-  hasFan: false,
-});
-
 const xiaomiTvBoxS2ndGen = (id: string): HardwareItem => ({
   id,
-  name: "Xiaomi TV Box S (2nd Gen) 4K Ultra HD avec Google TV",
+  name: "Xiaomi TV Box S (2nd Gen) 4K avec Google TV",
   category: "uc",
-  specs: "4K 60fps · Port USB 2.0 natif · HDMI 2.1 · Dolby Vision & Atmos · Télécommande Bluetooth",
-  description: "Box 4K équilibrée avec port USB intégré indispensable pour brancher une clé USB ou un disque SSD sans adaptateur.",
+  specs: "4K · 2 Go RAM / 8 Go · Port USB 2.0 · HDMI 2.1 · Dolby Vision · Android 14 requis (mise à jour système à installer)",
+  description: "Box 4K abordable avec port USB intégré pour une clé de cours. Livrée avec une version d'Android plus ancienne : installez les mises à jour système (Android 14 minimum) avant Bobine.",
   imageUrl: "/images/hardware/tv-xiaomi-box-s-2nd-gen.webp",
-  asin: "B0BY8R5DC7",
-  amazonUrl: buildProductUrl("B0BY8R5DC7"),
-  priceAmazon: 64.99,
+  asin: "B0C1DJWGYV",
+  amazonUrl: buildProductUrl("B0C1DJWGYV"),
+  priceAmazon: 99.9,
   hasFan: false,
 });
 
-const nokiaStreamingBox8010 = (id: string): HardwareItem => ({
-  id,
-  name: "Nokia Streaming Box 8010 4K Google TV",
-  category: "uc",
-  specs: "4 Go RAM · 32 Go Flash · Amlogic S905X4 · Ethernet Gigabit RJ45 · Ports USB 3.0 & USB-C",
-  description: "Box Android TV puissante avec port réseau Gigabit filaire et ports USB 3.0 rapides pour un flux vidéo continu et sans saccade.",
-  imageUrl: "/images/hardware/tv-nokia-streaming-box-8010.webp",
-  asin: "B0BLGG31RN",
-  amazonUrl: buildProductUrl("B0BLGG31RN"),
-  priceAmazon: 129.0,
-  hasFan: false,
-});
-
-const nvidiaShieldPro = (id: string): HardwareItem => ({
-  id,
-  name: "NVIDIA Shield TV Pro 4K HDR",
-  category: "uc",
-  specs: "Processeur Tegra X1+ · 3 Go RAM · Double port USB 3.0 · Gigabit Ethernet · Suréchantillonnage 4K IA",
-  description: "La référence absolue des régies Android TV : puissance de décodage inégalée, double port USB 3.0 pour SSD et télécommande rétroéclairée.",
-  imageUrl: "/images/hardware/tv-nvidia-shield-pro.webp",
-  asin: "B07Z6RD4M9",
-  amazonUrl: buildProductUrl("B07Z6RD4M9"),
-  priceAmazon: 219.0,
-  hasFan: true,
-});
-
-const googleTvStreamerAlt = (id: string): HardwareItem => ({
+const googleTvStreamer = (id: string): HardwareItem => ({
   id,
   name: "Google TV Streamer 4K",
   category: "uc",
-  specs: "4K 60fps · Port Ethernet Gigabit · Port USB-C · 32 Go stockage · Télécommande",
-  description: "Le boîtier de salon Google nouvelle génération avec connectique Ethernet intégrée et design posé sur meuble régie.",
+  specs: "Android 14 · 4 Go RAM / 32 Go · Port Ethernet Gigabit · Port USB-C · 4K HDR · Télécommande vocale",
+  description: "Boîtier Google sous Android 14, compatible Bobine dès l'installation : Ethernet intégré pour une diffusion stable en salle.",
   imageUrl: "/images/hardware/tv-google-tv-streamer.webp",
-  asin: "B0D7MD8175",
-  amazonUrl: buildProductUrl("B0D7MD8175"),
-  priceAmazon: 119.0,
-  hasFan: false,
-});
-
-const strongLeapS3Alt = (id: string): HardwareItem => ({
-  id,
-  name: "Strong LEAP-S3+ 4K Google TV Box",
-  category: "uc",
-  specs: "4K UHD · Amlogic S905Y4 · Port Ethernet · USB 2.0 · Télécommande numérique",
-  description: "Alternative certifiée Google TV complète avec port réseau filaire direct pour sécuriser la diffusion en salle.",
-  imageUrl: "/images/hardware/tv-strong-leap-s3.webp",
-  asin: "B0CJ2B8K6D",
-  amazonUrl: buildProductUrl("B0CJ2B8K6D"),
-  priceAmazon: 79.99,
+  asin: "B0D8WJYSF9",
+  amazonUrl: buildProductUrl("B0D8WJYSF9"),
+  priceAmazon: 99,
   hasFan: false,
 });
 
@@ -441,14 +389,14 @@ const strongLeapS3Alt = (id: string): HardwareItem => ({
 
 const nipogiE1Alt = (id: string): HardwareItem => ({
   id,
-  name: "NiPoGi E1 Mini PC (AMD Ryzen 3150U / 8 Go RAM / 256 Go SSD)",
+  name: "NiPoGi E1 Mini PC (Intel N150 / 8 Go RAM / 256 Go SSD)",
   category: "uc",
-  specs: "2 cœurs 4 threads jusqu'à 3,3 GHz · HDMI + DP 1.4 · RJ45 1000M · 2x USB 3.2 + 2x USB 2.0",
-  description: "Alternative AMD très compacte et très bien notée, format ultra-réduit (270 g).",
+  specs: "4 cœurs jusqu'à 3,6 GHz · HDMI + DP 1.4 · RJ45 · Wi-Fi 5 · Format tour compact",
+  description: "Entrée de gamme Intel très compacte, suffisante pour un seul écran de diffusion en 1080p.",
   imageUrl: "/images/hardware/nipogi-e1-ryzen-3150u.webp",
-  asin: "B0C1ZPND7K",
-  amazonUrl: buildProductUrl("B0C1ZPND7K"),
-  priceAmazon: 219,
+  asin: "B0DWWJJ1H5",
+  amazonUrl: buildProductUrl("B0DWWJJ1H5"),
+  priceAmazon: 359,
   hasFan: true,
 });
 
@@ -485,22 +433,22 @@ const nipogiE3BAlt = (id: string): HardwareItem => ({
   specs: "6 cœurs jusqu'à 4,3 GHz · HDMI + DP 1.4 + USB-C · Double LAN 2,5G",
   description: "Alternative AMD moins chère à la même gamme de mémoire/stockage.",
   imageUrl: "/images/hardware/nipogi-e3b-ryzen5.webp",
-  asin: "B0FS1D82MJ",
-  amazonUrl: buildProductUrl("B0FS1D82MJ"),
-  priceAmazon: 519,
+  asin: "B0FS13N9P3",
+  amazonUrl: buildProductUrl("B0FS13N9P3"),
+  priceAmazon: 474.04,
   hasFan: true,
 });
 
 const nipogiH1Alt = (id: string): HardwareItem => ({
   id,
-  name: "NiPoGi H1 Mini PC (AMD Ryzen 7 7735HS / 32 Go RAM / 1 To SSD)",
+  name: "NiPoGi H1 Mini PC (AMD Ryzen 7 7735HS / 24 Go RAM / 1 To SSD)",
   category: "uc",
   specs: "8 cœurs 16 threads jusqu'à 4,75 GHz · Radeon 680M · HDMI + DP 1.4 + USB-C",
   description: "Alternative AMD plus puissante (Ryzen 7 contre Ryzen 5) pour le même usage multi-écran.",
   imageUrl: "/images/hardware/nipogi-h1-ryzen7.webp",
-  asin: "B0H87VKND1",
-  amazonUrl: buildProductUrl("B0H87VKND1"),
-  priceAmazon: 589,
+  asin: "B0DSBN2CSH",
+  amazonUrl: buildProductUrl("B0DSBN2CSH"),
+  priceAmazon: 529.99,
   hasFan: true,
 });
 
@@ -623,14 +571,14 @@ const asusZenbookS14Alt = (id: string): HardwareItem => ({
 
 const macMiniM4Alt = (id: string): HardwareItem => ({
   id,
-  name: "Apple Mac Mini M4 16 Go / 256 Go (Reconditionné Amazon Renewed)",
+  name: "Apple Mac Mini M4 16 Go / 256 Go",
   category: "uc",
-  specs: "Puce Apple M4 · 16 Go de mémoire unifiée · 256 Go SSD · Reconditionné",
-  description: "Génération précédente du Mac Mini, reconditionnée (Amazon Renewed, retours 30 jours) : une entrée Apple Silicon moins chère que le M6 neuf.",
+  specs: "Puce Apple M4 · 16 Go de mémoire unifiée · 256 Go SSD · Ethernet Gigabit",
+  description: "Génération précédente du Mac Mini, moins chère que le M6 : entrée Apple Silicon pour une régie qui ne sature jamais la puce.",
   imageUrl: "/images/hardware/mac-mini-m4.webp",
-  asin: "B0DSV17HR4",
-  amazonUrl: buildProductUrl("B0DSV17HR4"),
-  priceAmazon: 998.95,
+  asin: "B0DLBW9GNQ",
+  amazonUrl: buildProductUrl("B0DLBW9GNQ"),
+  priceAmazon: 799,
   hasFan: true,
 });
 
@@ -654,22 +602,22 @@ const imac24M4Alt = (id: string): HardwareItem => ({
   specs: "Puce Apple M4 · Écran Retina 24\" intégré · 16 Go de mémoire unifiée",
   description: "Même budget que le Mac Mini M5 Pro, mais tout-en-un avec écran intégré : une régie qui n'a besoin d'aucun moniteur séparé.",
   imageUrl: "/images/hardware/imac-24-m4.webp",
-  asin: "B0DL6JGFNP",
-  amazonUrl: buildProductUrl("B0DL6JGFNP"),
-  priceAmazon: 1999,
+  asin: "B0DL6KQ5SP",
+  amazonUrl: buildProductUrl("B0DL6KQ5SP"),
+  priceAmazon: 1899,
   hasFan: true,
 });
 
-const macStudioM5UltraAlt = (id: string): HardwareItem => ({
+const macMiniM5ProAlt = (id: string): HardwareItem => ({
   id,
-  name: "Apple Mac Studio M5 Ultra 96 Go / 1 To",
+  name: "Apple Mac Mini (Puce Apple M5 Pro)",
   category: "uc",
-  specs: "Puce Apple M5 Ultra · CPU 30 cœurs · GPU 64 cœurs · 96 Go de mémoire unifiée",
-  description: "Pour les studios qui veulent aller au-delà du M5 Max : la puce Ultra, au prix d'un investissement nettement plus important.",
-  imageUrl: "/images/hardware/mac-studio-m5-ultra.webp",
-  asin: "B0HGRN2PV2",
-  amazonUrl: buildProductUrl("B0HGRN2PV2"),
-  priceAmazon: 6599,
+  specs: "Puce Apple M5 Pro · Port Ethernet 2,5 Gbit · 3 ports Thunderbolt 5 · HDMI",
+  description: "Pour les studios qui veulent plus de puissance qu'un Mac Mini M4 sans passer au Mac Studio : même format compact et silencieux.",
+  imageUrl: "/images/hardware/mac-mini.webp",
+  asin: "B0HGGDQ29W",
+  amazonUrl: buildProductUrl("B0HGGDQ29W"),
+  priceAmazon: 1999,
   hasFan: true,
 });
 
@@ -680,35 +628,35 @@ const macbookAirM4_15Alt = (id: string): HardwareItem => ({
   specs: "Puce Apple M4 · Écran Liquid Retina 15,3\" · Touch ID · Sans ventilateur",
   description: "L'ancien point d'entrée Apple Silicon, écran 15 pouces plus grand que le MacBook Neo : pour qui préfère macOS \"classique\" plutôt que la puce A18 Pro.",
   imageUrl: "/images/hardware/laptop-macbook-air-m4-15.webp",
-  asin: "B0DZDCKSD2",
-  amazonUrl: buildProductUrl("B0DZDCKSD2"),
-  priceAmazon: 1269,
+  asin: "B0DZDGB27W",
+  amazonUrl: buildProductUrl("B0DZDGB27W"),
+  priceAmazon: 1299,
   hasFan: false,
 });
 
 const macbookAirM2Alt = (id: string): HardwareItem => ({
   id,
-  name: "Apple MacBook Air M2 13\" 8 Go / 256 Go (Reconditionné)",
+  name: "Apple MacBook Air M2 13\" 8 Go / 256 Go (Reconditionné, AZERTY)",
   category: "uc",
   specs: "Puce Apple M2 · Écran 13\" · 8 Go RAM · Reconditionné",
   description: "MacBook Air reconditionné d'une génération antérieure au M4 : moins cher pour un usage régie qui ne sature jamais la puce.",
   imageUrl: "/images/hardware/laptop-macbook-air-m2-13-refurb.webp",
-  asin: "B0CLHJRZKQ",
-  amazonUrl: buildProductUrl("B0CLHJRZKQ"),
-  priceAmazon: 1184.82,
+  asin: "B0CJZ5CSS9",
+  amazonUrl: buildProductUrl("B0CJZ5CSS9"),
+  priceAmazon: 1135.82,
   hasFan: false,
 });
 
 const macbookAirM5_15Alt = (id: string): HardwareItem => ({
   id,
-  name: "Apple MacBook Air 15\" M5 16 Go / 1 To",
+  name: "Apple MacBook Air 15\" M5 16 Go / 512 Go",
   category: "uc",
   specs: "Puce Apple M5 · Écran Liquid Retina 15,3\" · 16 Go RAM · Sans ventilateur",
   description: "Même puce M5 que l'unité principale, écran 15 pouces au lieu de 13 : pour qui préfère plus de confort visuel en régie.",
   imageUrl: "/images/hardware/laptop-macbook-air-m5-15.webp",
-  asin: "B0GR1SMZ64",
-  amazonUrl: buildProductUrl("B0GR1SMZ64"),
-  priceAmazon: 1879,
+  asin: "B0GR1MZT36",
+  amazonUrl: buildProductUrl("B0GR1MZT36"),
+  priceAmazon: 1699,
   hasFan: false,
 });
 
@@ -727,14 +675,14 @@ const macbookProM1ProAlt = (id: string): HardwareItem => ({
 
 const macbookProM5Pro2TBAlt = (id: string): HardwareItem => ({
   id,
-  name: "Apple MacBook Pro 14\" M5 Pro 24 Go / 2 To",
+  name: "Apple MacBook Pro 14\" M5 Pro 24 Go / 1 To",
   category: "uc",
-  specs: "Puce Apple M5 Pro · Écran Liquid Retina XDR 14,2\" · 2 To SSD",
-  description: "Même budget que le MacBook Pro 16 pouces Premium, mais châssis 14 pouces plus compact avec deux fois plus de stockage.",
+  specs: "Puce Apple M5 Pro · Écran Liquid Retina XDR 14,2\" · 1 To SSD",
+  description: "Même puce M5 Pro que le MacBook Pro 16 pouces Premium, dans un châssis 14 pouces plus compact.",
   imageUrl: "/images/hardware/laptop-macbook-pro-m5pro-14-2tb.webp",
-  asin: "B0GR1BTFXZ",
-  amazonUrl: buildProductUrl("B0GR1BTFXZ"),
-  priceAmazon: 3099,
+  asin: "B0GR1RZXQN",
+  amazonUrl: buildProductUrl("B0GR1RZXQN"),
+  priceAmazon: 2699,
   hasFan: true,
 });
 
@@ -966,8 +914,8 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
                 specs: "8 cœurs 16 threads jusqu'à 4,75 GHz · Radeon 680M · HDMI + DP 1.4 + USB-C · LAN RJ45 Gigabit",
                 description: "Ventilateur silencieux piloté par la charge (pas un modèle fanless) : architecture AMD généreuse en cœurs et en mémoire pour la vidéo multi-écran sous Linux.",
                 imageUrl: "/images/hardware/nipogi-h1-ryzen7.webp",
-                asin: "B0H87VKND1",
-                amazonUrl: buildProductUrl("B0H87VKND1"),
+                asin: "B0DSBN2CSH",
+                amazonUrl: buildProductUrl("B0DSBN2CSH"),
                 priceAmazon: 589,
                 hasFan: true,
               },
@@ -1024,14 +972,14 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
           essentiel: {
             item: {
               id: "laptop-linux-essentiel",
-              name: "Ordinateur Portable 15,3\" (Core i5-8210Y / 24 Go RAM / 512 Go SSD, Windows 11)",
+              name: "Acer Aspire Go 17 (Intel N150 / 8 Go DDR5 / 128 Go UFS, Windows 11)",
               category: "uc",
               specs: "2 cœurs jusqu'à 3,6 GHz · Écran 1920x1200 100% sRGB · HDMI + USB-A",
               description: "Livré sous Windows 11 (aucune offre neuve française ne propose Linux préinstallé) : installez votre distribution par-dessus ou en dual-boot. Suffisant pour la régie Bobine en 1080p.",
               imageUrl: "/images/hardware/laptop-linux-essentiel.webp",
-              asin: "B0H3P2WZ9Z",
-              amazonUrl: buildProductUrl("B0H3P2WZ9Z"),
-              priceAmazon: 322.99,
+              asin: "B0B8QYXY9H",
+              amazonUrl: buildProductUrl("B0B8QYXY9H"),
+              priceAmazon: 399,
               hasFan: true,
             },
             headlineFr: "PC Portable 15,3\" Core i5 — Premier prix vérifié",
@@ -1201,8 +1149,8 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
                 specs: "6 cœurs jusqu'à 4,3 GHz · Radeon Graphics · HDMI + DP 1.4 + USB-C · Double LAN 2,5G",
                 description: "Ventilateur silencieux piloté par la charge (non fanless) : réencodage vidéo instantané et triple sortie vidéo indépendante pour les studios premium.",
                 imageUrl: "/images/hardware/nipogi-e3b-ryzen5.webp",
-                asin: "B0FS1D82MJ",
-                amazonUrl: buildProductUrl("B0FS1D82MJ"),
+                asin: "B0FS13N9P3",
+                amazonUrl: buildProductUrl("B0FS13N9P3"),
                 priceAmazon: 519,
                 hasFan: true,
               },
@@ -1378,15 +1326,15 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             badgeFr: "Élégance & Silence",
             badgeEn: "Sleek & Silent",
             isPopular: true,
-            headlineFr: "Mac Mini (Puce Apple M6, RAM/SSD supérieurs) — Kit complet",
-            headlineEn: "Mac Mini (Apple M6 chip, higher RAM/SSD) — Full kit",
-            summaryFr: "Le même châssis M6 en configuration mémoire et stockage supérieure, complété par un réseau filaire et une télécommande gyroscopique pour une régie autonome complète.",
-            summaryEn: "The same M6 chassis with a higher memory and storage configuration, completed with wired networking and a gyroscopic remote for a fully autonomous desk.",
+            headlineFr: "Mac Mini M4 Pro (24 Go / 512 Go) — Kit complet",
+            headlineEn: "Mac Mini M4 Pro (24GB / 512GB) — Full kit",
+            summaryFr: "Mac Mini M4 Pro avec 24 Go de mémoire, complété par un réseau filaire et une télécommande gyroscopique pour une régie autonome complète.",
+            summaryEn: "Mac Mini M4 Pro with 24GB of memory, completed with wired networking and a gyroscopic remote for a fully autonomous desk.",
             powerWatts: "4W - 12W",
             resolution: "4K 60fps natif",
-            alternativeUnits: [macMiniM4ProAlt("alt-macos-minipc-recommande")],
+            alternativeUnits: [macMiniM4Alt("alt-macos-minipc-recommande")],
             items: [
-              macMiniM6Plus("recommande"),
+              macMiniM4ProAlt("recommande"),
               cableHdmi21("macos-recommande"),
               cableCat6a("cable-cat6a-macos-recommande"),
               remoteAirmouse("remote-airmouse-macos-recommande"),
@@ -1437,7 +1385,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             summaryEn: "Benchmark audiovisual workstation: massive Apple Silicon power driving several simultaneous 4K/8K displays in near silence.",
             powerWatts: "15W - 55W",
             resolution: "Multi-écrans 4K/6K/8K simultanés",
-            alternativeUnits: [macStudioM5UltraAlt("alt-macos-minipc-premium")],
+            alternativeUnits: [macMiniM5ProAlt("alt-macos-minipc-premium")],
             items: [
               {
                 id: "mac-studio-m5max",
@@ -1471,14 +1419,14 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
           essentiel: {
             item: {
               id: "laptop-macos-essentiel",
-              name: "Apple MacBook Neo 13\" (Puce A18 Pro / 8 Go RAM / 512 Go SSD)",
+              name: "Apple MacBook Neo 13\" (Puce A18 Pro / 8 Go RAM / 256 Go SSD)",
               category: "uc",
               specs: "Puce Apple A18 Pro · Écran Liquid Retina 13\" · Touch ID · Sans ventilateur",
               description: "Le tout nouveau point d'entrée Mac d'Apple, moins cher qu'un MacBook Air : largement suffisant pour piloter la régie Bobine sans jamais saturer la puce.",
               imageUrl: "/images/hardware/laptop-macbook-neo-13.webp",
-              asin: "B0GR6KJQ6P",
-              amazonUrl: buildProductUrl("B0GR6KJQ6P"),
-              priceAmazon: 899,
+              asin: "B0GR6MBRPB",
+              amazonUrl: buildProductUrl("B0GR6MBRPB"),
+              priceAmazon: 754,
               hasFan: false,
             },
             headlineFr: "MacBook Neo 13\" (Puce A18 Pro) — La meilleure affaire Apple actuelle",
@@ -1498,8 +1446,8 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
               specs: "Puce Apple M5 · Écran Liquid Retina 13,6\" · Wi-Fi 7 · Sans ventilateur",
               description: "Dernière génération M5, 24 Go de mémoire unifiée et 1 To de stockage : confortable pour tourner Bobine et gérer les médias en local sans jamais manquer d'espace.",
               imageUrl: "/images/hardware/laptop-macbook-air-m5-13.webp",
-              asin: "B0GR1SJYGS",
-              amazonUrl: buildProductUrl("B0GR1SJYGS"),
+              asin: "B0GR1KRSWJ",
+              amazonUrl: buildProductUrl("B0GR1KRSWJ"),
               priceAmazon: 1799,
               hasFan: false,
             },
@@ -1856,10 +1804,10 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             alternativeUnits: [
               {
                 id: "alt-arm-minipc-recommande-1",
-                name: "Radxa Rock 5B RK3588 Octa-Core 16 Go RAM",
+                name: "Radxa Rock 5B RK3588 Octa-Core 32 Go RAM",
                 category: "uc",
-                specs: "Rockchip RK3588 Octa-Core · 16 Go LPDDR4X · Sortie HDMI 2.1 8K · Entrée Micro-HDMI · LAN 2.5 GbE",
-                description: "Révision classique de la Rock 5B en 16 Go de RAM, éprouvée sous Ubuntu et Debian ARM64.",
+                specs: "Rockchip RK3588 Octa-Core · 32 Go LPDDR4X · Sortie HDMI 2.1 8K · Entrée Micro-HDMI · LAN 2.5 GbE",
+                description: "Révision classique de la Rock 5B en 32 Go de RAM, éprouvée sous Ubuntu et Debian ARM64.",
                 imageUrl: "/images/hardware/arm-radxa-rock-5b-16gb.webp",
                 asin: "B0D1T9MK83",
                 amazonUrl: buildProductUrl("B0D1T9MK83"),
@@ -1910,10 +1858,10 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             alternativeUnits: [
               {
                 id: "alt-arm-minipc-pro-1",
-                name: "Orange Pi 5 Plus 32 Go RAM Rockchip RK3588 Octa-Core",
+                name: "Orange Pi 5 Plus 16 Go RAM Rockchip RK3588 Octa-Core",
                 category: "uc",
-                specs: "Rockchip RK3588 8 cœurs · 32 Go LPDDR4/4X · 2x HDMI 2.1 8K · 2x LAN 2.5 GbE · M.2 NVMe",
-                description: "Configuration 32 Go de RAM massive pour les studios exécutant simultanément Bobine, bobine-assistant-arm64 et des conteneurs locaux.",
+                specs: "Rockchip RK3588 8 cœurs · 16 Go LPDDR4/4X · 2x HDMI 2.1 8K · 2x LAN 2.5 GbE · M.2 NVMe",
+                description: "16 Go de RAM pour les studios exécutant simultanément Bobine, bobine-assistant-arm64 et quelques conteneurs locaux.",
                 imageUrl: "/images/hardware/arm-orangepi-5-plus-32gb.webp",
                 asin: "B0F5BGB1MW",
                 amazonUrl: buildProductUrl("B0F5BGB1MW"),
@@ -2034,9 +1982,9 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
                 specs: "Verrouillage à clé · Modes portrait et paysage · Compatible 7 à 11 pouces",
                 description: "Fixation murale sécurisée : protège la tablette contre le vol dans la salle tout en laissant l'écran tactile accessible.",
                 imageUrl: "/images/hardware/wall-mount-tablet.webp",
-                asin: "B087WSSRQ7",
-                amazonUrl: buildProductUrl("B087WSSRQ7"),
-                priceAmazon: 59.99,
+                asin: "B087WKMPLL",
+                amazonUrl: buildProductUrl("B087WKMPLL"),
+                priceAmazon: null,
                 hasFan: false,
               },
               {
@@ -2071,27 +2019,27 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             items: [
               {
                 id: "xiaomi-pad-7",
-                name: "Xiaomi Pad 7 (Snapdragon 7+ Gen 3 / Écran 11,2\" 3.2K 144Hz)",
+                name: "Xiaomi Pad 7 (Snapdragon 7+ Gen 3 / 8 Go RAM / 128 Go, Écran 11,2\" 3.2K 144Hz)",
                 category: "uc",
                 specs: "Snapdragon 7+ Gen 3 · Écran LCD 3.2K 144Hz · Batterie 8850 mAh · Dolby Vision",
                 description: "Tablette réactive et lumineuse pour la régie tactile `/coach`. Vérifiez la compatibilité DisplayPort Alt Mode de votre exemplaire avant d'investir dans le hub vidéo ci-dessous.",
                 imageUrl: "/images/hardware/tablet-xiaomi-pad7.webp",
-                asin: "B0G5LMP2YT",
-                amazonUrl: buildProductUrl("B0G5LMP2YT"),
-                priceAmazon: 409.99,
+                asin: "B0DZ65ZC37",
+                amazonUrl: buildProductUrl("B0DZ65ZC37"),
+                priceAmazon: 319.99,
                 hasFan: false,
               },
               hubUsbcBelkin("android-recommande"),
               cableHdmi21("cable-hdmi21-android-recommande"),
               {
                 id: "mount-bike-treadmill",
-                name: "Support de Tablette pour Vélo, Tapis de Course & Elliptique",
+                name: "Support de Tablette Guidon Oilcan pour Vélo, Tapis de Course & Elliptique",
                 category: "mount",
                 specs: "Compatible 4 à 13 pouces · Fixation guidon universelle · Mâchoires anti-vibration",
                 description: "Maintien stable sur guidon de vélo RPM ou bras de tapis de course : la tablette ne vibre pas pendant les séances intenses.",
                 imageUrl: "/images/hardware/mount-bike-treadmill.webp",
-                asin: "B0BN28FP8D",
-                amazonUrl: buildProductUrl("B0BN28FP8D"),
+                asin: "B09LXHCH5N",
+                amazonUrl: buildProductUrl("B09LXHCH5N"),
                 priceAmazon: 25.88,
                 hasFan: false,
               },
@@ -2206,16 +2154,15 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             id: "essentiel",
             labelFr: "Essentiel",
             labelEn: "Essential",
-            headlineFr: "Chromecast avec Google TV + Clé USB 64 Go",
-            headlineEn: "Chromecast with Google TV + 64GB USB Flash Drive",
-            summaryFr: "Solution économique pour transformer un téléviseur ou vidéoprojecteur en régie Bobine Kiosque, avec clé USB 64 Go pour le stockage des cours.",
-            summaryEn: "Budget setup to turn any TV or projector into a Bobine Kiosk playout, with 64GB USB storage for fitness classes.",
-            powerWatts: "5W",
-            resolution: "Full HD 1080p / 4K HDR",
-            alternativeUnits: [xiaomiTvBoxS2ndGen("alt-tv-essentiel")],
+            headlineFr: "Xiaomi TV Box S 2nd Gen + Clé USB 64 Go",
+            headlineEn: "Xiaomi TV Box S 2nd Gen + 64GB USB Flash Drive",
+            summaryFr: "Solution économique pour transformer un téléviseur ou vidéoprojecteur en régie Bobine Kiosque, avec clé USB 64 Go. Vérifiez qu'Android 14 est installé avant Bobine.",
+            summaryEn: "Budget setup to turn any TV or projector into a Bobine Kiosk playout, with 64GB USB storage. Check that Android 14 is installed before Bobine.",
+            powerWatts: "5W - 8W",
+            resolution: "4K HDR",
+            alternativeUnits: [googleTvStreamer("alt-tv-essentiel")],
             items: [
-              chromecastGoogleTv("tv-chromecast-essentiel"),
-              cableCat6a("cable-cat6a-tv-essentiel"),
+              xiaomiTvBoxS2ndGen("tv-xiaomi-essentiel"),
               usbFlash64GB("usb-tv-essentiel"),
             ],
           },
@@ -2224,15 +2171,15 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             labelFr: "Recommandé",
             labelEn: "Recommended",
             isPopular: true,
-            headlineFr: "Xiaomi TV Box S 2nd Gen 4K + Câble HDMI 2.1 + Clé USB 128 Go",
-            headlineEn: "Xiaomi TV Box S 2nd Gen 4K + HDMI 2.1 Cable + 128GB USB Drive",
-            summaryFr: "Le juste équilibre 4K : port USB-A intégré pour la clé USB, câble HDMI 2.1 certifié et télécommande Bluetooth 360° avec croix directionnelle.",
-            summaryEn: "Balanced 4K setup: built-in USB-A port for flash drives, certified HDMI 2.1 cable, and 360° Bluetooth remote with directional D-Pad.",
-            powerWatts: "8W - 12W",
-            resolution: "4K Ultra HD 60Hz",
-            alternativeUnits: [googleTvStreamerAlt("alt-tv-recommande")],
+            headlineFr: "Google TV Streamer 4K + Câble HDMI 2.1 + Clé USB 128 Go",
+            headlineEn: "Google TV Streamer 4K + HDMI 2.1 Cable + 128GB USB Drive",
+            summaryFr: "Android 14 d'origine et Ethernet Gigabit intégré : la configuration la plus simple et la plus fiable pour une régie sur grand écran, pilotée à la télécommande.",
+            summaryEn: "Android 14 out of the box and built-in Gigabit Ethernet: the simplest and most reliable setup for a big-screen playout, driven by remote.",
+            powerWatts: "6W - 10W",
+            resolution: "4K HDR 60Hz",
+            alternativeUnits: [xiaomiTvBoxS2ndGen("alt-tv-recommande")],
             items: [
-              xiaomiTvBoxS2ndGen("tv-xiaomi-recommande"),
+              googleTvStreamer("tv-streamer-recommande"),
               cableHdmi21("cable-hdmi-tv-recommande"),
               usbFlash128GB("usb-tv-recommande"),
               cableCat6a("cable-cat6a-tv-recommande"),
@@ -2242,15 +2189,15 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             id: "pro",
             labelFr: "Pro",
             labelEn: "Pro",
-            headlineFr: "Nokia Streaming Box 8010 + SSD Externe 512 Go + Ethernet Gigabit",
-            headlineEn: "Nokia Streaming Box 8010 + 512GB External SSD + Gigabit Ethernet",
-            summaryFr: "Box TV haute performance avec 4 Go de RAM, port réseau Ethernet Gigabit filaire et disque SSD externe 512 Go pour une réactivité instantanée.",
-            summaryEn: "High-performance streaming box with 4GB RAM, wired Gigabit Ethernet, and 512GB external SSD for instant video responsiveness.",
-            powerWatts: "10W - 15W",
-            resolution: "4K Ultra HD 60Hz HDR",
-            alternativeUnits: [strongLeapS3Alt("alt-tv-pro")],
+            headlineFr: "Google TV Streamer 4K + SSD Externe 256 Go + Ethernet Gigabit",
+            headlineEn: "Google TV Streamer 4K + 256GB External SSD + Gigabit Ethernet",
+            summaryFr: "Même boîtier, avec un SSD externe 256 Go pour la bibliothèque de cours en local et la liaison filaire Gigabit : réactivité maximale, aucune dépendance au Wi-Fi.",
+            summaryEn: "Same box, with a 256GB external SSD for the local class library and a wired Gigabit link: maximum responsiveness, no Wi-Fi dependency.",
+            powerWatts: "8W - 12W",
+            resolution: "4K HDR 60Hz",
+            alternativeUnits: [xiaomiTvBoxS2ndGen("alt-tv-pro")],
             items: [
-              nokiaStreamingBox8010("tv-nokia-pro"),
+              googleTvStreamer("tv-streamer-pro"),
               cableHdmi21("cable-hdmi-tv-pro"),
               ssdExternal512GB("ssd-tv-pro"),
               cableCat6a("cable-cat6a-tv-pro"),
@@ -2260,15 +2207,15 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             id: "premium",
             labelFr: "Premium",
             labelEn: "Premium",
-            headlineFr: "NVIDIA Shield TV Pro + SSD 1 To + Câble Fibre Optique 6 m",
-            headlineEn: "NVIDIA Shield TV Pro + 1TB SSD + 6m Optical Fiber Cable",
-            summaryFr: "Le fleuron absolu des régies Android TV : puce Tegra X1+, suréchantillonnage 4K IA, SSD 1 To et câble HDMI fibre optique sans perte.",
-            summaryEn: "The undisputed flagship for Android TV playout: Tegra X1+ chip, AI 4K upscaling, 1TB SSD, and lossless optical fiber HDMI.",
-            powerWatts: "15W - 20W",
+            headlineFr: "Google TV Streamer 4K + SSD 1 To + Câble HDMI Fibre Optique",
+            headlineEn: "Google TV Streamer 4K + 1TB SSD + Optical Fiber HDMI Cable",
+            summaryFr: "Pour les salles où l'écran est éloigné : SSD 1 To pour toute la bibliothèque et câble HDMI fibre optique sans perte de signal.",
+            summaryEn: "For rooms where the screen is far away: 1TB SSD for the whole library and a lossless optical fiber HDMI cable.",
+            powerWatts: "8W - 14W",
             resolution: "4K HDR Dolby Vision & Atmos",
-            alternativeUnits: [googleTvStreamerAlt("alt-tv-premium")],
+            alternativeUnits: [xiaomiTvBoxS2ndGen("alt-tv-premium")],
             items: [
-              nvidiaShieldPro("tv-shield-premium"),
+              googleTvStreamer("tv-streamer-premium"),
               cableHdmiFiberPremium("cable-hdmi-fiber-tv-premium"),
               ssdExternal1TB("ssd-tv-premium"),
               cableCat6a("cable-cat6a-tv-premium"),
@@ -2284,14 +2231,14 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
 function cableDpHdmi(suffix: string): HardwareItem {
   return {
     id: `cable-dp-hdmi-${suffix}`,
-    name: "Câble DisplayPort vers HDMI 4K 60Hz Tressé (1,8 m)",
+    name: "Câble DisplayPort vers HDMI 4K 60Hz Amazon Basics (1,8 m)",
     category: "cable-video",
-    specs: "DisplayPort mâle vers HDMI mâle · Nylon tressé plaqué or · 4K 60Hz",
+    specs: "DisplayPort mâle (source) vers HDMI mâle · 4K 60Hz · Connecteurs plaqués or",
     description: "Connecte directement la sortie DisplayPort du mini PC vers l'entrée HDMI du projecteur ou de la TV studio.",
     imageUrl: "/images/hardware/cable-dp-hdmi.webp",
-    asin: "B081GGNWCX",
-    amazonUrl: buildProductUrl("B081GGNWCX"),
-    priceAmazon: 10.99,
+    asin: "B08FBGNR8C",
+    amazonUrl: buildProductUrl("B08FBGNR8C"),
+    priceAmazon: 7.64,
     hasFan: false,
   };
 }
@@ -2326,23 +2273,6 @@ function macMiniM6(suffix: string): HardwareItem {
   };
 }
 
-// Meme chassis M6, configuration RAM/stockage superieure : evite d'afficher le produit
-// identique sur Essentiel et Recommande (ASIN et prix reellement differents, verifies).
-function macMiniM6Plus(suffix: string): HardwareItem {
-  return {
-    id: `mac-mini-m6plus-${suffix}`,
-    name: "Apple Mac Mini (Puce Apple M6, configuration supérieure RAM/SSD)",
-    category: "uc",
-    specs: "Puce Apple M6 · RAM/SSD supérieurs à la config de base · Port Ethernet Gigabit natif",
-    description: "Le même châssis M6, avec davantage de mémoire et de stockage : plus de marge pour la bibliothèque vidéo locale et le multitâche de régie.",
-    imageUrl: "/images/hardware/mac-mini.webp",
-    asin: "B0HGGBZNTT",
-    amazonUrl: buildProductUrl("B0HGGBZNTT"),
-    priceAmazon: 1269,
-    hasFan: true,
-  };
-}
-
 // =============================================================================
 // 2. ACCESSOIRES & CONNECTIQUE À L'UNITÉ (FILTRÉS PAR OS SÉLECTIONNÉ)
 // =============================================================================
@@ -2358,8 +2288,8 @@ export const STANDALONE_ACCESSORIES: StandaloneAccessory[] = [
     descriptionFr: "Idéal pour relier un mini PC fanless ou tout mini PC pro à la prise HDMI du projecteur ou de la TV studio.",
     descriptionEn: "Ideal to connect a fanless mini PC or any pro mini PC to studio TV or projector HDMI input.",
     imageUrl: "/images/hardware/cable-dp-hdmi.webp",
-    asin: "B081GGNWCX",
-    amazonUrl: buildProductUrl("B081GGNWCX"),
+    asin: "B08FBGNR8C",
+    amazonUrl: buildProductUrl("B08FBGNR8C"),
     priceAmazon: 10.99,
     compatibleOs: ["linux", "windows", "arm"],
   },
@@ -2373,8 +2303,8 @@ export const STANDALONE_ACCESSORIES: StandaloneAccessory[] = [
     descriptionFr: "Élimine les micro-coupures et les désynchronisations sur les écrans récents et les murs vidéo.",
     descriptionEn: "Eliminates signal drops and stutter on modern 4K studio displays and video walls.",
     imageUrl: "/images/hardware/cable-hdmi.webp",
-    asin: "B0CFFFSFFN",
-    amazonUrl: buildProductUrl("B0CFFFSFFN"),
+    asin: "B08LH6S6TN",
+    amazonUrl: buildProductUrl("B08LH6S6TN"),
     priceAmazon: 10.44,
     compatibleOs: ["linux", "windows", "macos", "arm", "android", "android-tv"],
   },
@@ -2388,8 +2318,8 @@ export const STANDALONE_ACCESSORIES: StandaloneAccessory[] = [
     descriptionFr: "Permet de contrôler la régie à distance sans toucher au clavier : pointeur virtuel et navigation.",
     descriptionEn: "Control the playout desk from across the room: virtual mouse pointer and navigation.",
     imageUrl: "/images/hardware/remote-airmouse.webp",
-    asin: "B0H4K4T2CK",
-    amazonUrl: buildProductUrl("B0H4K4T2CK"),
+    asin: "B0G7YTQT1K",
+    amazonUrl: buildProductUrl("B0G7YTQT1K"),
     priceAmazon: 9.57,
     compatibleOs: ["linux", "windows", "macos", "arm", "android-tv"],
   },
@@ -2463,8 +2393,8 @@ export const STANDALONE_ACCESSORIES: StandaloneAccessory[] = [
     descriptionFr: "Sécurise la tablette contre le vol en libre-service tout en gardant l'écran tactile immédiatement accessible.",
     descriptionEn: "Protects self-service tablets against theft while keeping touch screen immediately accessible.",
     imageUrl: "/images/hardware/wall-mount-tablet.webp",
-    asin: "B087WSSRQ7",
-    amazonUrl: buildProductUrl("B087WSSRQ7"),
+    asin: "B087WKMPLL",
+    amazonUrl: buildProductUrl("B087WKMPLL"),
     priceAmazon: 59.99,
     compatibleOs: ["android"],
   },
@@ -2551,7 +2481,7 @@ export interface ResolvedProduct {
   asin: string;
   name: string;
   imageUrl: string;
-  priceAmazon: number;
+  priceAmazon: number | null;
   amazonUrl: string;
 }
 

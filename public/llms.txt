@@ -19,7 +19,7 @@
 ## Overview
 Bobine V5.0.0 « Orchidée » turns Google Books (Aluminium OS), Qualcomm Snapdragon X Elite / X Plus ARM64 laptops (Surface Laptop 7, Surface Pro 11, ASUS Vivobook S 15, Lenovo Yoga Slim 7x, ThinkPad T14s Gen 6, Dell XPS 13, Samsung Galaxy Book4 Edge), ARM64 mini PCs and workstations (NVIDIA DGX Spark GB10 Grace Blackwell, NVIDIA Jetson Orin Nano Super, Raspberry Pi 5, Orange Pi 5 Max/Plus RK3588, Radxa Rock 5B), Apple Silicon Macs (Mac mini M4/M2, Mac Studio, MacBook Air/Pro), standard x86-64 mini PCs (Dell Wyse 5070 Intel J4105, Beelink Mini S12 Pro N100, HP EliteDesk 800/705, Lenovo ThinkCentre Tiny), Android tablets, and Android TV / Google TV boxes into fully autonomous, 24/7 video and audio playout controllers. It is available as native applications for:
 - **Google Books (Aluminium OS) & Android ARM64 Tablets** (`Bobine-5.0.0.apk`, Chaquopy CPython 3.13, API 34-36, standalone dual-display tablet / Google Book + HDMI playout, and upcoming native Google Play Store listing)
-- **Android TV & Google TV** (`Bobine-TV-5.0.0.apk`, D-Pad remote navigation, NVIDIA Shield TV Pro, Google TV Streamer 4K, Xiaomi TV Box S, Nokia 8010, Thomson 270, Strong LEAP-S3+)
+- **Android TV & Google TV** (`Bobine-TV-5.0.0.apk`, D-Pad remote navigation, boxes running Android 14 or later such as the Google TV Streamer 4K and the Xiaomi TV Box S 3rd Gen)
 - **Windows Desktop x86-64 & ARM64** (`Bobine-Setup-5.0.0.exe` for Intel/AMD x86-64 and `Bobine-Setup-5.0.0-arm64.exe` natively compiled for Windows 11 ARM64 on Qualcomm Snapdragon X Elite / X Plus)
 - **macOS Desktop** (`Bobine-5.0.0.dmg`, native Apple Silicon M1–M4 arm64)
 - **Linux Desktop x86-64 & ARM64** (`bobine_5.0.0_amd64.deb` and `bobine_5.0.0_arm64.deb`, plus official GPG-signed APT repository https://apt.bobine.fit for both `amd64` and `arm64`)
@@ -92,7 +92,7 @@ The 18 installation steps include:
 
 ### 3. Android TV & Google TV Boxes (`Bobine-TV-5.0.0.apk`)
 - **Format**: Dedicated television package (`Bobine-TV-5.0.0.apk`, `Bobine-TV-beta.apk`, `Bobine-TV-canary.apk`, app ID `com.bobine.app.tv`), Android 14 (API 34) or later, universal ARM 32-bit (`armeabi-v7a`) and 64-bit (`arm64-v8a`) build.
-- **Compatible Hardware**: NVIDIA Shield TV Pro, Google TV Streamer 4K, Nokia Streaming Box 8010, Thomson Streaming Box Plus 270, Strong LEAP-S3+, Xiaomi TV Box S (2nd & 3rd Gen).
+- **Compatible Hardware**: Google TV Streamer 4K and Xiaomi TV Box S 3rd Gen (Android 14), Xiaomi TV Box S 2nd Gen once updated to Android 14. Boxes stuck on Android 11 or 12 (NVIDIA Shield TV Pro, Chromecast with Google TV) cannot install Bobine.
 - **Features**: Leanback TV launcher banner, 100% D-Pad remote navigation, `FLAG_KEEP_SCREEN_ON`, automatic external USB 3.0 flash drive / SSD detection (FAT32/exFAT), and upcoming Google Play Store availability.
 
 ### 4. Windows Desktop x86-64 & Windows 11 ARM64 Snapdragon

@@ -150,7 +150,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           onClick={() => setSelectedAndroidVariant("tv")}
         >
           <span>Android TV</span>
-          <span className="docs-arch-switch-sub">{isEn ? "(Google TV, Shield, Xiaomi)" : "(Google TV, Shield, Xiaomi)"}</span>
+          <span className="docs-arch-switch-sub">{isEn ? "(Google TV, Xiaomi)" : "(Google TV, Xiaomi)"}</span>
         </button>
       </div>
     </div>
@@ -1013,8 +1013,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <p className="docs-method-hero__desc">
                   {androidVariant === "tv"
                     ? (isEn
-                        ? "Dedicated APK for TV boxes, sticks and Smart TVs (Chromecast with Google TV, Xiaomi TV Stick/Box, Nvidia Shield). Installs on 32-bit and 64-bit ARM systems, Leanback launcher, full remote-control navigation, embedded FastAPI server (Chaquopy) and MediaCodec hardware acceleration."
-                        : "APK dédié aux box TV, clés HDMI et Smart TV (Chromecast avec Google TV, Xiaomi TV Stick/Box, Nvidia Shield). S'installe sur les systèmes ARM 32 et 64 bits, lanceur Leanback, navigation complète à la télécommande, serveur FastAPI embarqué (Chaquopy) et accélération matérielle MediaCodec.")
+                        ? "Dedicated APK for TV boxes, sticks and Smart TVs running Android 14 or later, such as the Google TV Streamer or the Xiaomi TV Box S 3rd generation). Installs on 32-bit and 64-bit ARM systems, Leanback launcher, full remote-control navigation, embedded FastAPI server (Chaquopy) and MediaCodec hardware acceleration."
+                        : "APK dédié aux box TV, clés HDMI et Smart TV sous Android 14 ou supérieur, comme le Google TV Streamer ou le Xiaomi TV Box S 3e génération). S'installe sur les systèmes ARM 32 et 64 bits, lanceur Leanback, navigation complète à la télécommande, serveur FastAPI embarqué (Chaquopy) et accélération matérielle MediaCodec.")
                     : (isEn
                         ? "Official native APK package. Direct execution on Android tablets and Google Books (Aluminium OS, with upcoming Google Play Store release). Embedded FastAPI server (Chaquopy), independent dual display (/grid on tablet, /cinema on HDMI), and MediaCodec hardware acceleration."
                         : "Paquet APK natif officiel. Exécution directe sur tablettes Android et Google Books (Aluminium OS, avec arrivée prochaine sur le Google Play Store). Serveur FastAPI embarqué (Chaquopy), double affichage indépendant (/grid sur tablette, /cinema sur HDMI), et accélération matérielle MediaCodec.")}

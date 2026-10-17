@@ -201,8 +201,8 @@ export default function DownloadModal({
         return {
           title: isEn ? "Bobine for Android TV & Google TV" : "Bobine pour Android TV & Google TV",
           subtitle: isEn
-            ? "Dedicated for TV boxes & Smart TVs (Chromecast, Xiaomi Box, Shield TV) — ARM 32 & 64-bit (armeabi-v7a, arm64-v8a)"
-            : "Dédié aux box TV & Smart TVs (Chromecast, Xiaomi Box, Shield TV) — ARM 32 et 64 bits (armeabi-v7a, arm64-v8a)",
+            ? "Dedicated for TV boxes & Smart TVs (Android 14 or later, e.g. Google TV Streamer, Xiaomi TV Box S) — ARM 32 & 64-bit (armeabi-v7a, arm64-v8a)"
+            : "Dédié aux box TV & Smart TVs (Android 14 ou supérieur, ex. Google TV Streamer, Xiaomi TV Box S) — ARM 32 et 64 bits (armeabi-v7a, arm64-v8a)",
           stableUrl:
             stable.downloads.androidTv ||
             `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/Bobine-TV-${cleanVersion}.apk`,

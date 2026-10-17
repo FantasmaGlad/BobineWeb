@@ -498,7 +498,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
     fr: {
       title: "Bobine pour Android TV et Google TV : installation et téléchargement de l'APK",
       description:
-        "Bobine sur Android TV et Google TV : APK dédié pour box et clés HDMI (Chromecast avec Google TV, Xiaomi, Shield), ARM 32 et 64 bits, navigation à la télécommande. Téléchargement et installation.",
+        "Bobine sur Android TV et Google TV : APK dédié pour box et clés HDMI sous Android 14 ou supérieur (Google TV Streamer, Xiaomi TV Box S), ARM 32 et 64 bits, navigation à la télécommande. Téléchargement et installation.",
       h1: "Bobine pour Android TV et Google TV",
       lead:
         "Bobine existe en application Android TV : un APK dédié (Bobine-TV) pour les box, clés HDMI et téléviseurs sous Android TV ou Google TV. Il ouvre l'interface grand écran, pilotable à 100 % à la télécommande, et diffuse les cours de la salle sans mini PC.",
@@ -506,9 +506,9 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
       keywords: [
         "Bobine Android TV",
         "Bobine Google TV",
-        "Bobine Chromecast avec Google TV",
+        "Bobine Google TV Streamer",
         "Bobine Xiaomi TV Box",
-        "Bobine Shield TV",
+        "Bobine Xiaomi TV Box S",
         "APK Android TV salle de sport",
         "Bobine TV apk",
       ],
@@ -526,7 +526,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         {
           heading: "Boîtiers 32 bits et 64 bits",
           paragraphs: [
-            "Le paquet Android TV est universel : il s'installe sur les boîtiers dont le système est 64 bits comme sur ceux dont le système est 32 bits (ABI armeabi-v7a), ce qui est le cas de nombreux Chromecast avec Google TV et boîtiers ou clés Xiaomi malgré leur processeur 64 bits. Android 14 (API 34) ou supérieur est requis.",
+            "Le paquet Android TV est universel : il s'installe sur les boîtiers dont le système est 64 bits comme sur ceux dont le système est 32 bits (ABI armeabi-v7a), ce qui est le cas de plusieurs boîtiers Xiaomi malgré leur processeur 64 bits. Android 14 (API 34) ou supérieur est requis : un Chromecast avec Google TV ou un NVIDIA Shield resté sous Android 11 ou 12 ne peut pas installer Bobine.",
           ],
         },
         {
@@ -561,7 +561,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
     en: {
       title: "Bobine for Android TV and Google TV: APK installation and download",
       description:
-        "Bobine on Android TV and Google TV: a dedicated APK for boxes and HDMI sticks (Chromecast with Google TV, Xiaomi, Shield), 32-bit and 64-bit ARM, remote-control navigation. Download and installation.",
+        "Bobine on Android TV and Google TV: a dedicated APK for boxes and HDMI sticks running Android 14 or later (Google TV Streamer, Xiaomi TV Box S), 32-bit and 64-bit ARM, remote-control navigation. Download and installation.",
       h1: "Bobine for Android TV and Google TV",
       lead:
         "Bobine comes as an Android TV app: a dedicated APK (Bobine-TV) for boxes, HDMI sticks and TVs running Android TV or Google TV. It opens the big-screen interface, fully usable with the remote control, and plays the studio's classes without a mini PC.",
@@ -569,9 +569,9 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
       keywords: [
         "Bobine Android TV",
         "Bobine Google TV",
-        "Bobine Chromecast with Google TV",
+        "Bobine Google TV Streamer",
         "Bobine Xiaomi TV Box",
-        "Bobine Shield TV",
+        "Bobine Xiaomi TV Box S",
         "Android TV APK gym",
         "Bobine TV apk",
       ],
@@ -589,7 +589,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         {
           heading: "32-bit and 64-bit boxes",
           paragraphs: [
-            "The Android TV package is universal: it installs on boxes with a 64-bit system as well as on those with a 32-bit system (armeabi-v7a ABI), as is the case for many Chromecast with Google TV devices and Xiaomi boxes or sticks despite their 64-bit processor. Android 14 (API 34) or later is required.",
+            "The Android TV package is universal: it installs on boxes with a 64-bit system as well as on those with a 32-bit system (armeabi-v7a ABI), as is the case for several Xiaomi boxes despite their 64-bit processor. Android 14 (API 34) or later is required: a Chromecast with Google TV or an NVIDIA Shield left on Android 11 or 12 cannot install Bobine.",
           ],
         },
         {

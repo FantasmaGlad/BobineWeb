@@ -5190,6 +5190,24 @@ main {
     position: relative;
     z-index: 2;
   }
+
+  /* Le Google Book occupe 50 % de place en plus : les cartes de téléchargement
+     descendent d'autant, sans changer de hauteur ni de format. */
+  .hero-fullscreen:has(.hero-fullscreen__backdrop-art--left) .os-download-desktop-grid {
+    margin-top: clamp(4.5rem, 13vh, 8.5rem);
+  }
+}
+
+/* +50 % : agrandi depuis le milieu du bord supérieur du portable, de sorte que
+   son axe vertical et son bord haut ne bougent pas (point repéré dans l'image de
+   350 px, centrée dans le conteneur et décalée de 5 px vers le haut). Une
+   transformation ne modifie pas la mise en page. En dessous de 1500 px, la
+   colonne de texte est trop proche : taille d'origine. */
+@media (min-width: 1500px) {
+  .hero-fullscreen__backdrop-art--left {
+    transform: scale(1.5);
+    transform-origin: calc(50% + 12px) 73px;
+  }
 }
 
 

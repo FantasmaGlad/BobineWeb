@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import type { Locale } from "@/lib/i18n";
+import ScrollingCode from "@/components/ScrollingCode";
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 
 export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "android-tv" | "cli" | "tauri" | "assistant";
@@ -32,18 +33,16 @@ export default function DownloadModal({
   canary,
 }: DownloadModalProps) {
   const isEn = locale === "en";
-  // Android et Android TV partagent cette fenêtre : le choix de l'appareil ne vaut que pour la
-  // plateforme avec laquelle elle a été ouverte, et repart de zéro à la fermeture.
-  const [variantChoice, setVariantChoice] = useState<{ from: DownloadPlatform; platform: DownloadPlatform } | null>(null);
-  const activePlatform: DownloadPlatform =
-    variantChoice && variantChoice.from === initialPlatform ? variantChoice.platform : initialPlatform;
+  const activePlatform: DownloadPlatform = initialPlatform;
   const [selectedArch, setSelectedArch] = useState<CpuArchitecture>("x86_64");
+  const [downloadingKey, setDownloadingKey] = useState<string | null>(null);
+  // Chaque ouverture repart d'un bouton neuf : sans cette remise à zéro, « Lancé » restait affiché
+  // à la réouverture et bloquait un second téléchargement.
   const handleClose = () => {
-    setVariantChoice(null);
+    setDownloadingKey(null);
     onClose();
   };
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
-  const [downloadingKey, setDownloadingKey] = useState<string | null>(null);
   const isMounted = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const modalRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -77,7 +76,7 @@ export default function DownloadModal({
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setVariantChoice(null);
+        setDownloadingKey(null);
         onClose();
       }
     };
@@ -112,8 +111,6 @@ export default function DownloadModal({
     activePlatform === "linux" ||
     activePlatform === "tauri" ||
     activePlatform === "assistant";
-
-  const hasAndroidSelector = activePlatform === "android" || activePlatform === "android-tv";
 
   const cleanVersion = stable.version.replace(/^V/i, "");
   const isArm = selectedArch === "arm64";
@@ -311,30 +308,6 @@ export default function DownloadModal({
               <h2 id="download-modal-title" className="download-modal__title">
                 {details.title}
               </h2>
-              {hasAndroidSelector && (
-                <div
-                  className="download-modal__arch-selector"
-                  role="group"
-                  aria-label={isEn ? "Android device type" : "Type d'appareil Android"}
-                >
-                  <button
-                    type="button"
-                    className={`download-modal__arch-btn${activePlatform === "android" ? " is-active" : ""}`}
-                    aria-pressed={activePlatform === "android"}
-                    onClick={() => setVariantChoice({ from: initialPlatform, platform: "android" })}
-                  >
-                    {isEn ? "Android (Tablets, Google Books)" : "Android (Tablettes, Google Books)"}
-                  </button>
-                  <button
-                    type="button"
-                    className={`download-modal__arch-btn${activePlatform === "android-tv" ? " is-active" : ""}`}
-                    aria-pressed={activePlatform === "android-tv"}
-                    onClick={() => setVariantChoice({ from: initialPlatform, platform: "android-tv" })}
-                  >
-                    Android TV
-                  </button>
-                </div>
-              )}
               {hasArchSelector && (
                 <div
                   className="download-modal__arch-selector"
@@ -416,7 +389,7 @@ export default function DownloadModal({
                 </p>
 
                 <div className="download-modal__cli-block">
-                  <code>{details.stableCmd}</code>
+                  <ScrollingCode>{details.stableCmd}</ScrollingCode>
                   <button
                     type="button"
                     className="download-modal__cli-copy-btn download-modal__cli-copy-btn--stable"
@@ -459,7 +432,7 @@ export default function DownloadModal({
                 </p>
 
                 <div className="download-modal__cli-block">
-                  <code>{details.betaCmd}</code>
+                  <ScrollingCode>{details.betaCmd}</ScrollingCode>
                   <button
                     type="button"
                     className="download-modal__cli-copy-btn download-modal__cli-copy-btn--beta"
@@ -502,7 +475,7 @@ export default function DownloadModal({
                 </p>
 
                 <div className="download-modal__cli-block">
-                  <code>{details.canaryCmd}</code>
+                  <ScrollingCode>{details.canaryCmd}</ScrollingCode>
                   <button
                     type="button"
                     className="download-modal__cli-copy-btn download-modal__cli-copy-btn--canary"

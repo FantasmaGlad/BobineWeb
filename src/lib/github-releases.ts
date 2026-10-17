@@ -1,6 +1,6 @@
 import "server-only";
 
-const REPO = "FantasmaGlad/Bobine";
+import { fetchRepoReleases } from "@/lib/githubApi";
 
 export interface BobineRelease {
   slug: string;
@@ -9,16 +9,6 @@ export interface BobineRelease {
   url: string;
   body: string;
   isPrerelease?: boolean;
-}
-
-interface GitHubReleaseApiResponse {
-  tag_name: string;
-  name: string | null;
-  published_at: string | null;
-  html_url: string;
-  body: string | null;
-  draft: boolean;
-  prerelease: boolean;
 }
 
 const FALLBACK_RELEASES: BobineRelease[] = [
@@ -376,41 +366,17 @@ Bobine est distribué sous licence **AGPL-3.0**. Le code source est public et au
 ];
 
 export async function getBobineReleases(): Promise<BobineRelease[]> {
-  try {
-    const headers: Record<string, string> = {
-      Accept: "application/vnd.github+json",
-    };
-    if (process.env.GITHUB_TOKEN) {
-      headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
-    }
+  const releases = await fetchRepoReleases();
+  if (!releases || releases.length === 0) return FALLBACK_RELEASES;
 
-    const res = await fetch(`https://api.github.com/repos/${REPO}/releases`, {
-      headers,
-      next: { revalidate: 1800 },
-    });
-
-    if (!res.ok) return FALLBACK_RELEASES;
-
-    const releases = (await res.json()) as GitHubReleaseApiResponse[];
-    if (!Array.isArray(releases) || releases.length === 0) {
-      return FALLBACK_RELEASES;
-    }
-
-    const validReleases = releases
-      .filter((release) => !release.draft)
-      .map((release) => ({
-        slug: release.tag_name,
-        title: release.name || release.tag_name,
-        publishedAt: release.published_at ?? "",
-        url: release.html_url,
-        body: release.body ?? "",
-        isPrerelease: Boolean(release.prerelease || release.tag_name.toLowerCase() === "beta"),
-      }));
-
-    return validReleases.length > 0 ? validReleases : FALLBACK_RELEASES;
-  } catch {
-    return FALLBACK_RELEASES;
-  }
+  return releases.map((release) => ({
+    slug: release.tag_name,
+    title: release.name || release.tag_name,
+    publishedAt: release.published_at ?? "",
+    url: release.html_url,
+    body: release.body ?? "",
+    isPrerelease: Boolean(release.prerelease || release.tag_name.toLowerCase() === "beta"),
+  }));
 }
 
 export async function getBobineRelease(

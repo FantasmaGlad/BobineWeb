@@ -733,6 +733,9 @@
 }
 .docs-install-selector-wrap {
   margin-bottom: 2rem;
+  padding-bottom: 1.75rem;
+  /* Ligne fine entre le choix de la méthode d'installation et l'article qui suit */
+  border-bottom: 1px solid var(--border-subtle);
 }
 .docs-install-nav-header {
   margin-bottom: 0.75rem;

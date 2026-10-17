@@ -92,6 +92,30 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const [beta, setBeta] = useState<ReleaseChannelInfo>(initialRelease?.beta ?? FALLBACK_BETA);
   const [canary, setCanary] = useState<ReleaseChannelInfo>(initialRelease?.canary ?? FALLBACK_CANARY);
   const [copiedCmd, setCopiedCmd] = useState(false);
+  const [selectedArch, setSelectedArch] = useState<"x86_64" | "arm64">("x86_64");
+
+  // Détection légère de l'architecture ARM64 côté client (Snapdragon, Linux aarch64, Windows ARM)
+  useEffect(() => {
+    if (typeof navigator === "undefined") return;
+    const ua = navigator.userAgent || "";
+    if (/\b(aarch64|arm64|armv8|woa|snapdragon)\b/i.test(ua)) {
+      setSelectedArch("arm64");
+      return;
+    }
+    const navWithUAData = navigator as Navigator & {
+      userAgentData?: {
+        getHighEntropyValues?: (hints: string[]) => Promise<{ architecture?: string }>;
+      };
+    };
+    navWithUAData.userAgentData
+      ?.getHighEntropyValues?.(["architecture"])
+      .then((vals) => {
+        if (vals?.architecture && /arm/i.test(vals.architecture)) {
+          setSelectedArch("arm64");
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -118,6 +142,359 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       setTimeout(() => setCopiedCmd(false), 2200);
     }
   };
+
+  const isArm = selectedArch === "arm64";
+  const cleanVersion = stable.version.replace(/^V/i, "");
+
+  const renderArchSwitch = () => (
+    <div className="docs-arch-switch-wrap">
+      <span className="docs-arch-switch-label">{isEn ? "Architecture :" : "Architecture :"}</span>
+      <div className="docs-arch-switch-pill" role="radiogroup" aria-label={isEn ? "CPU Architecture" : "Architecture processeur"}>
+        <button
+          type="button"
+          role="radio"
+          aria-checked={selectedArch === "x86_64"}
+          className={`docs-arch-switch-btn ${selectedArch === "x86_64" ? "is-active" : ""}`}
+          onClick={() => setSelectedArch("x86_64")}
+        >
+          <span>x86_64</span>
+          <span className="docs-arch-switch-sub">{isEn ? "(Intel / AMD)" : "(Intel / AMD)"}</span>
+        </button>
+        <button
+          type="button"
+          role="radio"
+          aria-checked={selectedArch === "arm64"}
+          className={`docs-arch-switch-btn ${selectedArch === "arm64" ? "is-active" : ""}`}
+          onClick={() => setSelectedArch("arm64")}
+        >
+          <span>ARM64</span>
+          <span className="docs-arch-switch-sub">{isEn ? "(Snapdragon, Pi 5)" : "(Snapdragon, Pi 5)"}</span>
+        </button>
+      </div>
+    </div>
+  );
+
+  const renderDivider = () => (
+    <div className="docs-install-divider">
+      <div className="docs-install-divider__line" />
+      <div className="docs-install-divider__pill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+          <polyline points="10 9 9 9 8 9" />
+        </svg>
+        <span>{isEn ? "Step-by-step setup guide" : "Guide d'installation pas à pas"}</span>
+      </div>
+      <div className="docs-install-divider__line" />
+    </div>
+  );
+
+  interface ChannelCardConfig {
+    stableUrl: string;
+    stableLabel: string;
+    secondaryStableUrl?: string;
+    secondaryStableLabel?: string;
+    betaUrl: string;
+    betaLabel: string;
+    canaryUrl: string;
+    canaryLabel: string;
+    archText: string;
+  }
+
+  const renderChannelCards = (cfg: ChannelCardConfig) => (
+    <>
+      <div className="docs-channels-grid">
+        {/* Canal Stable */}
+        <div className="download-modal__channel-card download-modal__channel-card--stable">
+          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/stable.webp)" }} />
+          <div className="download-modal__card-header docs-channel-card__header">
+            <div className="download-modal__card-tag-row docs-channel-card__tag-row">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="download-modal__channel-icon" src="/images/channels/stable.webp" alt="" />
+              <span className="download-modal__badge download-modal__badge--stable">
+                {isEn ? "Stable Release" : "Version Stable"}
+              </span>
+              <span className="download-modal__badge download-modal__badge--rec">
+                {isEn ? "Recommended" : "Recommandé"}
+              </span>
+            </div>
+            <span className="download-modal__version docs-channel-card__version">{stable.version}</span>
+          </div>
+
+          <p className="download-modal__card-desc">
+            {isEn
+              ? "Official production release. 100% verified, stable and recommended for fitness studio playout."
+              : "Version officielle certifiée. 100% testée, stable et recommandée pour l'exploitation en salle de sport."}
+          </p>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem", marginTop: "auto" }}>
+            <a
+              href={cfg.stableUrl}
+              download
+              className="docs-channel-btn docs-channel-btn--stable"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span>{cfg.stableLabel}</span>
+            </a>
+
+            {cfg.secondaryStableUrl && (
+              <a
+                href={cfg.secondaryStableUrl}
+                download
+                className="docs-channel-btn docs-channel-btn--stable"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                <span>{cfg.secondaryStableLabel}</span>
+              </a>
+            )}
+          </div>
+        </div>
+
+        {/* Canal Bêta */}
+        <div className="download-modal__channel-card download-modal__channel-card--beta">
+          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/beta.webp)" }} />
+          <div className="download-modal__card-header docs-channel-card__header">
+            <div className="download-modal__card-tag-row docs-channel-card__tag-row">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="download-modal__channel-icon" src="/images/channels/beta.webp" alt="" />
+              <span className="download-modal__badge download-modal__badge--beta">
+                {isEn ? "Beta (curated)" : "Bêta (curée)"}
+              </span>
+            </div>
+            <span className="download-modal__version docs-channel-card__version">{beta.commit ? `#${beta.commit}` : (isEn ? "Rolling" : "Continue")}</span>
+          </div>
+
+          <p className="download-modal__card-desc">
+            {isEn
+              ? "Beta: batches of features/fixes I select and publish manually when ready."
+              : "Bêta : lots de fonctionnalités/correctifs que je sélectionne et publie manuellement quand ils sont prêts."}
+          </p>
+
+          <div style={{ marginTop: "auto" }}>
+            <a
+              href={cfg.betaUrl}
+              download
+              className="docs-channel-btn docs-channel-btn--beta"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span>{cfg.betaLabel}</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Canal Canary */}
+        <div className="download-modal__channel-card download-modal__channel-card--canary">
+          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/canary.webp)" }} />
+          <div className="download-modal__card-header docs-channel-card__header">
+            <div className="download-modal__card-tag-row docs-channel-card__tag-row">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="download-modal__channel-icon" src="/images/channels/canary.webp" alt="" />
+              <span className="download-modal__badge download-modal__badge--canary">
+                {isEn ? "Canary (rolling)" : "Canary (rolling)"}
+              </span>
+            </div>
+            <span className="download-modal__version docs-channel-card__version">{canary.commit ? `#${canary.commit}` : (isEn ? "Rolling" : "Continue")}</span>
+          </div>
+
+          <p className="download-modal__card-desc">
+            {isEn
+              ? "Canary: rebuilt automatically on every commit to main. Earliest access, zero curation, untested."
+              : "Canary : reconstruite automatiquement à chaque commit sur main. Accès le plus anticipé, zéro curation, non testé."}
+          </p>
+
+          <div style={{ marginTop: "auto" }}>
+            <a
+              href={cfg.canaryUrl}
+              download
+              className="docs-channel-btn docs-channel-btn--canary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span>{cfg.canaryLabel}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="docs-method-meta-row">
+        <span className="docs-method-version-text">{stable.version}</span>
+        <span className="docs-method-meta-dot">·</span>
+        <span>{cfg.archText}</span>
+        <span className="docs-method-meta-dot">·</span>
+        <a
+          href="https://github.com/FantasmaGlad/Bobine/releases"
+          target="_blank"
+          rel="noreferrer"
+          className="docs-method-source-link"
+        >
+          GitHub Releases
+        </a>
+      </div>
+    </>
+  );
+
+  const renderCliChannelCards = () => (
+    <>
+      <div className="docs-channels-grid">
+        {/* Canal Stable CLI */}
+        <div className="download-modal__channel-card download-modal__channel-card--stable">
+          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/stable.webp)" }} />
+          <div className="download-modal__card-header docs-channel-card__header">
+            <div className="download-modal__card-tag-row docs-channel-card__tag-row">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="download-modal__channel-icon" src="/images/channels/stable.webp" alt="" />
+              <span className="download-modal__badge download-modal__badge--stable">
+                {isEn ? "Stable Release" : "Version Stable"}
+              </span>
+              <span className="download-modal__badge download-modal__badge--rec">
+                {isEn ? "Recommended" : "Recommandé"}
+              </span>
+            </div>
+            <span className="download-modal__version docs-channel-card__version">{stable.version}</span>
+          </div>
+
+          <p className="download-modal__card-desc">
+            {isEn
+              ? "Official production release. 100% verified, stable and recommended for dedicated 24/7 gym kiosks."
+              : "Version officielle certifiée. 100% testée, stable et recommandée pour l'exploitation en salle de sport."}
+          </p>
+
+          <div className="download-modal__cli-block" style={{ marginTop: "auto" }}>
+            <code>curl -fsSL https://bobine.fit/install.sh | sudo bash</code>
+            <button
+              type="button"
+              className="download-modal__cli-copy-btn download-modal__cli-copy-btn--stable"
+              onClick={() => copyToClipboard("curl -fsSL https://bobine.fit/install.sh | sudo bash")}
+              aria-label={isEn ? "Copy command" : "Copier la commande"}
+            >
+              {copiedCmd ? (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              ) : (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+              )}
+              <span>{copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Canal Bêta CLI */}
+        <div className="download-modal__channel-card download-modal__channel-card--beta">
+          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/beta.webp)" }} />
+          <div className="download-modal__card-header docs-channel-card__header">
+            <div className="download-modal__card-tag-row docs-channel-card__tag-row">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="download-modal__channel-icon" src="/images/channels/beta.webp" alt="" />
+              <span className="download-modal__badge download-modal__badge--beta">
+                {isEn ? "Beta (curated)" : "Bêta (curée)"}
+              </span>
+            </div>
+            <span className="download-modal__version docs-channel-card__version">{beta.commit ? `#${beta.commit}` : (isEn ? "Rolling" : "Continue")}</span>
+          </div>
+
+          <p className="download-modal__card-desc">
+            {isEn
+              ? "Beta: batches of features/fixes I select and publish manually when ready."
+              : "Bêta : lots de fonctionnalités/correctifs que je sélectionne et publie manuellement quand ils sont prêts."}
+          </p>
+
+          <div className="download-modal__cli-block" style={{ marginTop: "auto" }}>
+            <code>curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta</code>
+            <button
+              type="button"
+              className="download-modal__cli-copy-btn download-modal__cli-copy-btn--beta"
+              onClick={() => copyToClipboard("curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta")}
+              aria-label={isEn ? "Copy command" : "Copier la commande"}
+            >
+              {copiedCmd ? (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              ) : (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+              )}
+              <span>{copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Canal Canary CLI */}
+        <div className="download-modal__channel-card download-modal__channel-card--canary">
+          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/canary.webp)" }} />
+          <div className="download-modal__card-header docs-channel-card__header">
+            <div className="download-modal__card-tag-row docs-channel-card__tag-row">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="download-modal__channel-icon" src="/images/channels/canary.webp" alt="" />
+              <span className="download-modal__badge download-modal__badge--canary">
+                {isEn ? "Canary (rolling)" : "Canary (rolling)"}
+              </span>
+            </div>
+            <span className="download-modal__version docs-channel-card__version">{canary.commit ? `#${canary.commit}` : (isEn ? "Rolling" : "Continue")}</span>
+          </div>
+
+          <p className="download-modal__card-desc">
+            {isEn
+              ? "Canary: rebuilt automatically on every commit to main. Earliest access, zero curation, untested."
+              : "Canary : reconstruite automatiquement à chaque commit sur main. Accès le plus anticipé, zéro curation, non testé."}
+          </p>
+
+          <div className="download-modal__cli-block" style={{ marginTop: "auto" }}>
+            <code>curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=canary</code>
+            <button
+              type="button"
+              className="download-modal__cli-copy-btn download-modal__cli-copy-btn--canary"
+              onClick={() => copyToClipboard("curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=canary")}
+              aria-label={isEn ? "Copy command" : "Copier la commande"}
+            >
+              {copiedCmd ? (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              ) : (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+              )}
+              <span>{copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="docs-method-meta-row">
+        <span className="docs-method-version-text">{stable.version}</span>
+        <span className="docs-method-meta-dot">·</span>
+        <span>Debian 13 (x86_64 & ARM64 auto-detect)</span>
+        <span className="docs-method-meta-dot">·</span>
+        <a
+          href="https://github.com/FantasmaGlad/Bobine/releases"
+          target="_blank"
+          rel="noreferrer"
+          className="docs-method-source-link"
+        >
+          GitHub Releases
+        </a>
+      </div>
+    </>
+  );
 
   const tabs: Array<{
     id: InstallTab;
@@ -251,7 +628,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-method-hero__icon">
                 <WindowsIcon size={32} />
               </div>
-              <div>
+              <div style={{ flex: 1 }}>
                 <h2 className="docs-method-hero__title">
                   {isEn ? "Bobine for Windows 11, 10, Windows ARM & Windows IoT" : "Bobine pour Windows 11, 10, Windows ARM et Windows IoT"}
                 </h2>
@@ -260,92 +637,34 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     ? "Native 1-click installer for x86_64 and ARM64 (Qualcomm Snapdragon X Elite / X Plus). Zero command line, runs silently in the background with a system tray companion and automatic firewall configuration."
                     : "Installation native en 1 clic pour x86_64 et ARM64 (Qualcomm Snapdragon X Elite / X Plus). Zéro ligne de commande, démarrage silencieux sans console noire avec icône en barre des tâches."}
                 </p>
+                {renderArchSwitch()}
               </div>
             </div>
 
-            <div className="docs-method-hero__action-col">
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", width: "100%" }}>
-                <a
-                  href={stable.downloads.windows}
-                  download
-                  className="btn-primary docs-method-download-btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>{isEn ? `Download Stable x86_64 (${stable.version})` : `Télécharger Stable x86_64 (${stable.version})`}</span>
-                </a>
-
-                {stable.downloads.windowsArm64 && (
-                  <a
-                    href={stable.downloads.windowsArm64}
-                    download
-                    className="btn-primary docs-method-download-btn"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                    <span>{isEn ? `Download Stable ARM64 (${stable.version})` : `Télécharger Stable ARM64 (${stable.version})`}</span>
-                  </a>
-                )}
-
-                <a
-                  href={beta.downloads.windows}
-                  download
-                  className="btn-secondary docs-method-download-btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: "none" }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>{isEn ? "Download Beta" : "Télécharger la Bêta"}</span>
-                </a>
-
-                <a
-                  href={canary.downloads.windows}
-                  download
-                  className="btn-secondary docs-method-download-btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: "none" }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>{isEn ? "Download Canary (Rolling)" : "Télécharger la Canary (Rolling)"}</span>
-                </a>
-              </div>
-
-              <div className="docs-method-meta-row">
-                <span className="docs-method-version-text">{stable.version}</span>
-                <span className="docs-method-meta-dot">·</span>
-                <span>x86-64 & ARM64</span>
-                <span className="docs-method-meta-dot">·</span>
-                <a
-                  href="https://github.com/FantasmaGlad/Bobine/releases"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="docs-method-source-link"
-                >
-                  GitHub Releases
-                </a>
-              </div>
-            </div>
+            {renderChannelCards({
+              stableUrl: isArm
+                ? (stable.downloads.windowsArm64 || `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/Bobine-Setup-${cleanVersion}-arm64.exe`)
+                : stable.downloads.windows,
+              stableLabel: isArm
+                ? (isEn ? `Download Stable (${stable.version}) · .exe ARM64` : `Télécharger la Stable (${stable.version}) · .exe ARM64`)
+                : (isEn ? `Download Stable (${stable.version}) · .exe x86_64` : `Télécharger la Stable (${stable.version}) · .exe x86_64`),
+              betaUrl: isArm
+                ? (beta.downloads.windowsArm64 || "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta-arm64.exe")
+                : beta.downloads.windows,
+              betaLabel: isArm
+                ? (isEn ? "Download Beta · .exe ARM64" : "Télécharger la Bêta · .exe ARM64")
+                : (isEn ? "Download Beta · .exe x86_64" : "Télécharger la Bêta · .exe x86_64"),
+              canaryUrl: isArm
+                ? (canary.downloads.windowsArm64 || "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-Setup-canary-arm64.exe")
+                : canary.downloads.windows,
+              canaryLabel: isArm
+                ? (isEn ? "Download Canary · .exe ARM64" : "Télécharger la Canary · .exe ARM64")
+                : (isEn ? "Download Canary · .exe x86_64" : "Télécharger la Canary · .exe x86_64"),
+              archText: isArm ? "ARM64 (Qualcomm Snapdragon X Elite / X Plus)" : "x86_64 (Intel / AMD)",
+            })}
           </div>
+
+          {renderDivider()}
 
           {/* Étapes simples grand public */}
           <div className="docs-steps-flow">
@@ -429,7 +748,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-method-hero__icon">
                 <AppleIcon size={32} />
               </div>
-              <div>
+              <div style={{ flex: 1 }}>
                 <h2 className="docs-method-hero__title">
                   {isEn ? "Bobine for Mac (Apple Silicon M1–M4)" : "Bobine pour Mac (Apple Silicon M1–M4)"}
                 </h2>
@@ -441,71 +760,15 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               </div>
             </div>
 
-            <div className="docs-method-hero__action-col">
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", width: "100%" }}>
-                <a
-                  href={stable.downloads.macos}
-                  download
-                  className="btn-primary docs-method-download-btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>{isEn ? `Download Stable (${stable.version})` : `Télécharger la Stable (${stable.version})`}</span>
-                </a>
-
-                <a
-                  href={beta.downloads.macos}
-                  download
-                  className="btn-secondary docs-method-download-btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: "none" }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>{isEn ? "Download Beta" : "Télécharger la Bêta"}</span>
-                </a>
-
-                <a
-                  href={canary.downloads.macos}
-                  download
-                  className="btn-secondary docs-method-download-btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: "none" }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>{isEn ? "Download Canary (Rolling)" : "Télécharger la Canary (Rolling)"}</span>
-                </a>
-              </div>
-
-              <div className="docs-method-meta-row">
-                <span className="docs-method-version-text">{stable.version}</span>
-                <span className="docs-method-meta-dot">·</span>
-                <span>Apple Silicon (arm64)</span>
-                <span className="docs-method-meta-dot">·</span>
-                <a
-                  href="https://github.com/FantasmaGlad/Bobine/releases"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="docs-method-source-link"
-                >
-                  GitHub Releases
-                </a>
-              </div>
-            </div>
+            {renderChannelCards({
+              stableUrl: stable.downloads.macos,
+              stableLabel: isEn ? `Download Stable (${stable.version}) · .dmg` : `Télécharger la Stable (${stable.version}) · .dmg`,
+              betaUrl: beta.downloads.macos,
+              betaLabel: isEn ? "Download Beta · .dmg" : "Télécharger la Bêta · .dmg",
+              canaryUrl: canary.downloads.macos,
+              canaryLabel: isEn ? "Download Canary · .dmg" : "Télécharger la Canary · .dmg",
+              archText: isEn ? "Apple Silicon (M1–M4 · arm64)" : "Apple Silicon (M1–M4 · arm64)",
+            })}
           </div>
 
           <div className="docs-callout docs-callout--info" style={{ marginTop: "1.25rem" }}>
@@ -520,6 +783,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               </div>
             </div>
           </div>
+
+          {renderDivider()}
 
           <div className="docs-steps-flow">
             <h3 className="docs-steps-flow__heading">
@@ -590,7 +855,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-method-hero__icon">
                 <LinuxIcon size={32} />
               </div>
-              <div>
+              <div style={{ flex: 1 }}>
                 <h2 className="docs-method-hero__title">
                   {isEn ? "Bobine for Linux Desktop (.deb package — x86_64 & ARM64)" : "Bobine pour Linux Bureau (Paquet .deb — x86_64 & ARM64)"}
                 </h2>
@@ -599,162 +864,34 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     ? "Native Debian, Ubuntu, and Linux Mint package for x86_64 and ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi). Certified AppStream metadata for Ubuntu App Center, standard XDG directory structure, and desktop integration."
                     : "Paquet natif pour Debian, Ubuntu et Linux Mint en x86_64 et ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi). Métadonnées AppStream certifiées pour les logithèques, intégration XDG et lanceur de bureau."}
                 </p>
+                {renderArchSwitch()}
               </div>
             </div>
 
-            <div className="docs-method-hero__action-col" style={{ maxWidth: "100%", width: "100%" }}>
-              <div className="docs-linux-channels-grid">
-                {/* Canal Stable */}
-                <div className="download-modal__channel-card download-modal__channel-card--stable">
-                  <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/stable.webp)" }} />
-                  <div className="download-modal__card-header">
-                    <div className="download-modal__card-tag-row">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img className="download-modal__channel-icon" src="/images/channels/stable.webp" alt="" />
-                      <span className="download-modal__badge download-modal__badge--stable">
-                        {isEn ? "Stable Release" : "Version Stable"}
-                      </span>
-                      <span className="download-modal__badge download-modal__badge--rec">
-                        {isEn ? "Recommended" : "Recommandé"}
-                      </span>
-                    </div>
-                    <span className="download-modal__version">{stable.version}</span>
-                  </div>
-
-                  <p className="download-modal__card-desc">
-                    {isEn
-                      ? "Official production release. 100% verified, stable and recommended for fitness studio playout."
-                      : "Version officielle certifiée. 100% testée, stable et recommandée pour l'exploitation en salle de sport."}
-                  </p>
-
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem", marginTop: "auto" }}>
-                    <a
-                      href={stable.downloads.linux}
-                      download
-                      className="download-modal__action-btn download-modal__action-btn--primary download-modal__action-btn--stable"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="7 10 12 15 17 10" />
-                        <line x1="12" y1="15" x2="12" y2="3" />
-                      </svg>
-                      <span>{isEn ? `Download Stable x86_64 (${stable.version}) · .deb` : `Télécharger Stable x86_64 (${stable.version}) · .deb`}</span>
-                    </a>
-
-                    {stable.downloads.linuxArm64 && (
-                      <a
-                        href={stable.downloads.linuxArm64}
-                        download
-                        className="download-modal__action-btn download-modal__action-btn--primary download-modal__action-btn--stable"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                          <polyline points="7 10 12 15 17 10" />
-                          <line x1="12" y1="15" x2="12" y2="3" />
-                        </svg>
-                        <span>{isEn ? `Download Stable ARM64 (${stable.version}) · .deb` : `Télécharger Stable ARM64 (${stable.version}) · .deb`}</span>
-                      </a>
-                    )}
-                  </div>
-                </div>
-
-                {/* Canal Bêta */}
-                <div className="download-modal__channel-card download-modal__channel-card--beta">
-                  <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/beta.webp)" }} />
-                  <div className="download-modal__card-header">
-                    <div className="download-modal__card-tag-row">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img className="download-modal__channel-icon" src="/images/channels/beta.webp" alt="" />
-                      <span className="download-modal__badge download-modal__badge--beta">
-                        {isEn ? "Beta (curated)" : "Bêta (curée)"}
-                      </span>
-                    </div>
-                    <span className="download-modal__version">{beta.commit ? `#${beta.commit}` : (isEn ? "Rolling" : "Continue")}</span>
-                  </div>
-
-                  <p className="download-modal__card-desc">
-                    {isEn
-                      ? "Beta: batches of features/fixes I select and publish manually when ready."
-                      : "Bêta : lots de fonctionnalités/correctifs que je sélectionne et publie manuellement quand ils sont prêts."}
-                  </p>
-
-                  <div style={{ marginTop: "auto" }}>
-                    <a
-                      href={beta.downloads.linux}
-                      download
-                      className="download-modal__action-btn download-modal__action-btn--beta"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="7 10 12 15 17 10" />
-                        <line x1="12" y1="15" x2="12" y2="3" />
-                      </svg>
-                      <span>{isEn ? "Download Beta · .deb" : "Télécharger la Bêta · .deb"}</span>
-                    </a>
-                  </div>
-                </div>
-
-                {/* Canal Canary */}
-                <div className="download-modal__channel-card download-modal__channel-card--canary">
-                  <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/canary.webp)" }} />
-                  <div className="download-modal__card-header">
-                    <div className="download-modal__card-tag-row">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img className="download-modal__channel-icon" src="/images/channels/canary.webp" alt="" />
-                      <span className="download-modal__badge download-modal__badge--canary">
-                        {isEn ? "Canary (rolling)" : "Canary (rolling)"}
-                      </span>
-                    </div>
-                    <span className="download-modal__version">{canary.commit ? `#${canary.commit}` : (isEn ? "Rolling" : "Continue")}</span>
-                  </div>
-
-                  <p className="download-modal__card-desc">
-                    {isEn
-                      ? "Canary: rebuilt automatically on every commit to main. Earliest access, zero curation, untested."
-                      : "Canary : reconstruite automatiquement à chaque commit sur main. Accès le plus anticipé, zéro curation, non testé."}
-                  </p>
-
-                  <div style={{ marginTop: "auto" }}>
-                    <a
-                      href={canary.downloads.linux}
-                      download
-                      className="download-modal__action-btn download-modal__action-btn--canary"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="7 10 12 15 17 10" />
-                        <line x1="12" y1="15" x2="12" y2="3" />
-                      </svg>
-                      <span>{isEn ? "Download Canary · .deb" : "Télécharger la Canary · .deb"}</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="docs-method-meta-row">
-                <span className="docs-method-version-text">{stable.version}</span>
-                <span className="docs-method-meta-dot">·</span>
-                <span>x86-64 & ARM64</span>
-                <span className="docs-method-meta-dot">·</span>
-                <a
-                  href="https://github.com/FantasmaGlad/Bobine/releases"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="docs-method-source-link"
-                >
-                  GitHub Releases
-                </a>
-              </div>
-            </div>
+            {renderChannelCards({
+              stableUrl: isArm
+                ? (stable.downloads.linuxArm64 || `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/bobine_${cleanVersion}_arm64.deb`)
+                : stable.downloads.linux,
+              stableLabel: isArm
+                ? (isEn ? `Download Stable (${stable.version}) · .deb ARM64` : `Télécharger la Stable (${stable.version}) · .deb ARM64`)
+                : (isEn ? `Download Stable (${stable.version}) · .deb x86_64` : `Télécharger la Stable (${stable.version}) · .deb x86_64`),
+              betaUrl: isArm
+                ? (beta.downloads.linuxArm64 || "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_arm64.deb")
+                : beta.downloads.linux,
+              betaLabel: isArm
+                ? (isEn ? "Download Beta · .deb ARM64" : "Télécharger la Bêta · .deb ARM64")
+                : (isEn ? "Download Beta · .deb x86_64" : "Télécharger la Bêta · .deb x86_64"),
+              canaryUrl: isArm
+                ? (canary.downloads.linuxArm64 || "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine_canary_arm64.deb")
+                : canary.downloads.linux,
+              canaryLabel: isArm
+                ? (isEn ? "Download Canary · .deb ARM64" : "Télécharger la Canary · .deb ARM64")
+                : (isEn ? "Download Canary · .deb x86_64" : "Télécharger la Canary · .deb x86_64"),
+              archText: isArm ? "ARM64 (Snapdragon, Raspberry Pi 5, Orange Pi)" : "x86_64 (Debian, Ubuntu, Mint)",
+            })}
           </div>
+
+          {renderDivider()}
 
           <div className="docs-steps-flow">
             <h3 className="docs-steps-flow__heading">
@@ -904,7 +1041,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-method-hero__icon">
                 <AndroidIcon size={32} />
               </div>
-              <div>
+              <div style={{ flex: 1 }}>
                 <h2 className="docs-method-hero__title">
                   {isEn ? "Bobine for Android Tablets, Google Books & Touch Kiosks" : "Bobine pour Tablettes Android, Google Books & Bornes Tactiles"}
                 </h2>
@@ -916,91 +1053,64 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               </div>
             </div>
 
-            <div className="docs-method-hero__action-col">
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", width: "100%" }}>
-                <a
-                  href={stable.downloads.android}
-                  download
-                  className="btn-primary docs-method-download-btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>{isEn ? `Download Stable APK (${stable.version})` : `Télécharger APK Stable (${stable.version})`}</span>
-                </a>
+            {renderChannelCards({
+              stableUrl: stable.downloads.android,
+              stableLabel: isEn ? `Download Stable (${stable.version}) · .apk` : `Télécharger la Stable (${stable.version}) · .apk`,
+              secondaryStableUrl: stable.downloads.androidTv,
+              secondaryStableLabel: isEn ? `Download Android TV APK (${stable.version})` : `Télécharger APK Android TV (${stable.version})`,
+              betaUrl: beta.downloads.android,
+              betaLabel: isEn ? "Download Beta · .apk" : "Télécharger la Bêta · .apk",
+              canaryUrl: canary.downloads.android,
+              canaryLabel: isEn ? "Download Canary · .apk" : "Télécharger la Canary · .apk",
+              archText: isEn ? "Android Tablets, Google Books & Android TV (ARM64)" : "Tablettes Android, Google Books & Android TV (ARM64)",
+            })}
+          </div>
 
-                {stable.downloads.androidTv && (
-                  <a
-                    href={stable.downloads.androidTv}
-                    download
-                    className="btn-primary docs-method-download-btn"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                    <span>{isEn ? `Download Android TV APK (${stable.version})` : `Télécharger APK Android TV (${stable.version})`}</span>
-                  </a>
-                )}
+          {renderDivider()}
 
-                <a
-                  href={beta.downloads.android}
-                  download
-                  className="btn-secondary docs-method-download-btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: "none" }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>{isEn ? "Download Beta" : "Télécharger la Bêta"}</span>
-                </a>
+          <div className="docs-steps-flow">
+            <h3 className="docs-steps-flow__heading">
+              {isEn ? "Installation steps:" : "Guide d'installation pas à pas :"}
+            </h3>
 
-                <a
-                  href={canary.downloads.android}
-                  download
-                  className="btn-secondary docs-method-download-btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: "none" }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>{isEn ? "Download Canary (Rolling)" : "Télécharger la Canary (Rolling)"}</span>
-                </a>
+            <div className="docs-step-card">
+              <div className="docs-step-card__num">1</div>
+              <div className="docs-step-card__content">
+                <h4>{isEn ? "Download the APK package" : "Téléchargez le paquet APK"}</h4>
+                <p>
+                  {isEn
+                    ? "Download the APK directly to your tablet or computer using the buttons above."
+                    : "Téléchargez le fichier APK directement sur votre tablette ou depuis votre ordinateur via les boutons ci-dessus."}
+                </p>
               </div>
+            </div>
 
-              <div className="docs-method-meta-row">
-                <span className="docs-method-version-text">{stable.version}</span>
-                <span className="docs-method-meta-dot">·</span>
-                <span>ARM64 (Tablettes, Google Books & TV)</span>
-                <span className="docs-method-meta-dot">·</span>
-                <a
-                  href="https://github.com/FantasmaGlad/Bobine/releases"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="docs-method-source-link"
-                >
-                  GitHub Releases
-                </a>
+            <div className="docs-step-card">
+              <div className="docs-step-card__num">2</div>
+              <div className="docs-step-card__content">
+                <h4>{isEn ? "Install on your device" : "Installez sur votre appareil"}</h4>
+                <p>
+                  {isEn
+                    ? "Open the APK file from your file manager to install. On Android TV / Google TV, transfer the APK wirelessly via 'Send Files to TV' or a FAT32/exFAT USB flash drive."
+                    : "Ouvrez le fichier APK depuis votre gestionnaire de fichiers pour lancer l'installation. Sur Android TV / Google TV, transférez le fichier sans fil via l'application « Send Files to TV » ou par clé USB."}
+                </p>
+              </div>
+            </div>
+
+            <div className="docs-step-card">
+              <div className="docs-step-card__num">3</div>
+              <div className="docs-step-card__content">
+                <h4>{isEn ? "Connect dual-screen display" : "Raccordez l'affichage double écran"}</h4>
+                <p>
+                  {isEn
+                    ? "Connect a USB-C to HDMI cable or hub from your tablet to the gym TV or projector. The big screen displays the fullscreen workout cinema (/cinema) while the tablet displays the interactive coach desk (/grid)."
+                    : "Branchez un câble ou adaptateur USB-C vers HDMI reliant la tablette au téléviseur ou projecteur de la salle. Le grand écran diffuse le cours en plein écran (/cinema) pendant que la tablette sert de pupitre tactile interactif (/grid)."}
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="docs-callout docs-callout--info">
+          <div className="docs-callout docs-callout--info" style={{ marginTop: "1.5rem" }}>
             <div className="docs-callout__content">
               {androidRoadmap?.paragraphs.map((p, i) => (
                 <p key={i} style={{ margin: i === 0 ? 0 : "0.6rem 0 0 0" }}>
@@ -1043,7 +1153,9 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             </div>
           </div>
 
-          <div className="docs-callout docs-callout--info">
+          {renderDivider()}
+
+          <div className="docs-callout docs-callout--info" style={{ marginTop: "1.25rem" }}>
             <div className="docs-callout__content">
               {iosRoadmap?.paragraphs.map((p, i) => (
                 <p key={i} style={{ margin: i === 0 ? 0 : "0.6rem 0 0 0" }}>
@@ -1068,7 +1180,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-method-hero__icon">
                 <TauriIcon size={32} />
               </div>
-              <div>
+              <div style={{ flex: 1 }}>
                 <h2 className="docs-method-hero__title">
                   {isEn ? "Bobine Assistant (Network Orchestrator)" : "Bobine Assistant (Orchestrateur Réseau)"}
                 </h2>
@@ -1077,59 +1189,28 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     ? "Lightweight Rust & Tauri 2 desktop tool to discover, audit, and deploy Bobine headless appliances across your local network without typing terminal commands."
                     : "Application graphique légère en Rust & Tauri 2 pour découvrir, auditer et déployer vos appliances Bobine sur le réseau local sans saisir de ligne de commande."}
                 </p>
+                {renderArchSwitch()}
               </div>
             </div>
 
-            <div className="docs-method-hero__action-col">
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", width: "100%" }}>
-                <a
-                  href={stable.downloads.assistant}
-                  download
-                  className="btn-primary docs-method-download-btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>{isEn ? "Download bobine-assistant (x86_64)" : "Télécharger bobine-assistant (x86_64)"}</span>
-                </a>
-
-                {stable.downloads.assistantArm64 && (
-                  <a
-                    href={stable.downloads.assistantArm64}
-                    download
-                    className="btn-primary docs-method-download-btn"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                    <span>{isEn ? "Download bobine-assistant (ARM64)" : "Télécharger bobine-assistant (ARM64)"}</span>
-                  </a>
-                )}
-              </div>
-              <div className="docs-method-meta-row">
-                <span className="docs-method-version-text">{stable.version}</span>
-                <span className="docs-method-meta-dot">·</span>
-                <span>Tauri 2 (Rust · x86-64 & ARM64)</span>
-                <span className="docs-method-meta-dot">·</span>
-                <a
-                  href="https://github.com/FantasmaGlad/Bobine/releases"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="docs-method-source-link"
-                >
-                  GitHub Releases
-                </a>
-              </div>
-            </div>
+            {renderChannelCards({
+              stableUrl: isArm ? (stable.downloads.assistantArm64 || stable.downloads.assistant) : stable.downloads.assistant,
+              stableLabel: isArm
+                ? (isEn ? `Download Assistant (${stable.version}) · ARM64` : `Télécharger l'Assistant (${stable.version}) · ARM64`)
+                : (isEn ? `Download Assistant (${stable.version}) · x86_64` : `Télécharger l'Assistant (${stable.version}) · x86_64`),
+              betaUrl: isArm ? (beta.downloads.assistantArm64 || beta.downloads.assistant) : beta.downloads.assistant,
+              betaLabel: isArm
+                ? (isEn ? "Download Beta · ARM64" : "Télécharger la Bêta · ARM64")
+                : (isEn ? "Download Beta · x86_64" : "Télécharger la Bêta · x86_64"),
+              canaryUrl: isArm ? (canary.downloads.assistantArm64 || canary.downloads.assistant) : canary.downloads.assistant,
+              canaryLabel: isArm
+                ? (isEn ? "Download Canary · ARM64" : "Télécharger la Canary · ARM64")
+                : (isEn ? "Download Canary · x86_64" : "Télécharger la Canary · x86_64"),
+              archText: isArm ? "ARM64 (Qualcomm Snapdragon, Raspberry Pi 5)" : "x86_64 (Intel / AMD)",
+            })}
           </div>
+
+          {renderDivider()}
 
           <div className="docs-steps-flow">
             <h3 className="docs-steps-flow__heading">
@@ -1188,7 +1269,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-method-hero__icon">
                 <TerminalIcon size={32} />
               </div>
-              <div>
+              <div style={{ flex: 1 }}>
                 <h2 className="docs-method-hero__title">
                   {isEn ? "Dedicated Gym Appliance (Debian 13 · CLI)" : "Appliance Dédiée & Kiosque 24/7 (Debian 13 · CLI)"}
                 </h2>
@@ -1200,61 +1281,10 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               </div>
             </div>
 
-            <div className="docs-method-hero__action-col">
-              <div className="docs-quick-install-box" style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
-                <div>
-                  <span className="docs-quick-install-box__label">
-                    {isEn ? "Stable Install Command (Recommended):" : "Commande d'installation Stable (Recommandé) :"}
-                  </span>
-                  <div className="docs-copyable-cmd">
-                    <code>curl -fsSL https://bobine.fit/install.sh | sudo bash</code>
-                    <button
-                      type="button"
-                      onClick={() => copyToClipboard("curl -fsSL https://bobine.fit/install.sh | sudo bash")}
-                      className="docs-copy-btn"
-                      aria-label={isEn ? "Copy stable install command" : "Copier la commande stable"}
-                    >
-                      {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
-                    </button>
-                  </div>
-                </div>
-
-                <div>
-                  <span className="docs-quick-install-box__label">
-                    {isEn ? "Beta Channel Install (curated):" : "Canal Bêta (curée — Accès anticipé) :"}
-                  </span>
-                  <div className="docs-copyable-cmd">
-                    <code>curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta</code>
-                    <button
-                      type="button"
-                      onClick={() => copyToClipboard("curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta")}
-                      className="docs-copy-btn"
-                      aria-label={isEn ? "Copy beta install command" : "Copier la commande bêta"}
-                    >
-                      {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
-                    </button>
-                  </div>
-                </div>
-
-                <div>
-                  <span className="docs-quick-install-box__label">
-                    {isEn ? "Canary Channel Install (rolling, untested):" : "Canal Canary (rolling, non testé) :"}
-                  </span>
-                  <div className="docs-copyable-cmd">
-                    <code>curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=canary</code>
-                    <button
-                      type="button"
-                      onClick={() => copyToClipboard("curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=canary")}
-                      className="docs-copy-btn"
-                      aria-label={isEn ? "Copy canary install command" : "Copier la commande canary"}
-                    >
-                      {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {renderCliChannelCards()}
           </div>
+
+          {renderDivider()}
 
           <div style={{ marginTop: "2rem" }}>
             <h3 style={{ fontSize: "1.25rem", fontWeight: 700, marginBottom: "1rem", color: "var(--text-heading)" }}>

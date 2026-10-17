@@ -5106,10 +5106,10 @@ main {
   box-sizing: border-box;
   max-width: 100%;
   width: 100%;
-  min-height: calc(100dvh - 4.25rem);
+  min-height: calc(100dvh - 6.85rem - env(safe-area-inset-bottom, 0px));
   justify-content: space-between;
-  padding-top: clamp(0.75rem, 1.8vh, 1.35rem);
-  padding-bottom: clamp(0.5rem, 1.2vh, 0.95rem);
+  padding-top: clamp(0.5rem, 1.2vh, 1.15rem);
+  padding-bottom: clamp(0.35rem, 0.8vh, 0.65rem);
   flex-shrink: 0;
 }
 
@@ -5134,20 +5134,21 @@ main {
   transform: none;
   width: min(58vw, 240px);
   max-height: 210px;
-  opacity: 1;
+  opacity: 0.95;
   transition: opacity 0.3s ease;
 }
 
 @media (min-width: 1024px) {
 
   .hero-fullscreen__backdrop-art {
-    top: 1rem;
+    top: 0.5rem;
     bottom: auto;
-    right: -1rem;
+    right: clamp(-11rem, -9vw, -5.5rem);
     transform: none;
-    width: min(38vw, 480px);
+    width: min(34vw, 420px);
     max-height: 250px;
-    opacity: 1;
+    opacity: 0.95;
+    z-index: 0;
   }
 
 }
@@ -5170,11 +5171,12 @@ main {
 @media (min-width: 1024px) {
   .hero-fullscreen__backdrop-art--left {
     right: auto;
-    left: -3.25rem;
-    top: -2.25rem;
-    width: min(44vw, 540px);
-    max-height: 360px;
-    opacity: 1;
+    left: clamp(-12.5rem, -10vw, -6.5rem);
+    top: -2.5rem;
+    width: min(38vw, 480px);
+    max-height: 340px;
+    opacity: 0.95;
+    z-index: 0;
   }
 
   .hero-fullscreen:has(.hero-fullscreen__backdrop-art--left) .os-download-desktop-header {
@@ -5182,9 +5184,11 @@ main {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding-inline: clamp(4.5rem, 9.5vw, 10.5rem);
-    max-width: 66rem;
+    padding-inline: clamp(1rem, 3.5vw, 3rem);
+    max-width: 62rem;
     margin-inline: auto;
+    position: relative;
+    z-index: 2;
   }
 }
 
@@ -5279,7 +5283,8 @@ main {
 }
 
 .hero-fullscreen__subtitle {
-  color: var(--text-muted);
+  color: var(--text-main);
+  font-weight: 550;
 }
 
 .hero-fullscreen__scroll {
@@ -5287,11 +5292,11 @@ main {
   align-items: center;
   gap: 0.45rem;
   color: var(--text-muted);
-  font-size: 0.825rem;
+  font-size: 0.8rem;
   font-weight: 600;
   margin-top: auto;
-  margin-bottom: 0.25rem;
-  padding: 0.4rem 0.95rem;
+  margin-bottom: 0.2rem;
+  padding: 0.35rem 0.85rem;
   background: color-mix(in srgb, var(--bg-card) 60%, transparent);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -5337,17 +5342,20 @@ main {
 @media (min-width: 1024px) {
 
   .hero-fullscreen__title {
-    font-size: clamp(2rem, 3.1vw, 2.7rem);
+    font-size: clamp(1.85rem, 2.5vw, 2.35rem);
     line-height: 1.2;
-    max-width: min(78vw, 56rem);
-    margin-bottom: 1.25rem;
+    max-width: min(90vw, 62rem);
+    margin-bottom: 0.65rem;
   }
 
   .hero-fullscreen__subtitle {
-    font-size: clamp(1.05rem, 1.8vw, 1.2rem);
-    line-height: 1.55;
-    max-width: min(56vw, 42rem);
-    margin-bottom: 1.75rem;
+    font-size: clamp(0.92rem, 1.12vw, 1.02rem);
+    line-height: 1.48;
+    max-width: min(92vw, 58rem);
+    margin-bottom: 0.95rem;
+    color: var(--text-main);
+    font-weight: 550;
+    text-wrap: balance;
   }
 
   .hero-fullscreen__actions {
@@ -6268,32 +6276,32 @@ main {
 .os-download-desktop-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: clamp(0.7rem, 1.1vw, 1rem);
+  gap: clamp(0.6rem, 0.9vw, 0.95rem);
   width: 100%;
-  margin-top: clamp(0.65rem, 1.4vh, 1.15rem);
-  margin-bottom: clamp(0.65rem, 1.4vh, 1.15rem);
+  margin-top: clamp(0.35rem, 0.7vh, 0.65rem);
+  margin-bottom: clamp(0.35rem, 0.7vh, 0.65rem);
 }
 
 @media (min-width: 1024px) {
   .os-download-desktop-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: clamp(0.7rem, 1.1vw, 1.15rem);
+    gap: clamp(0.6rem, 0.9vw, 0.95rem);
   }
 
   .os-download-card {
-    padding: clamp(0.95rem, 1.2vw, 1.25rem);
-    min-height: 185px;
+    padding: clamp(0.75rem, 1vw, 1.05rem);
+    min-height: 165px;
   }
 
   .os-download-card__header {
-    gap: 0.8rem;
-    margin-bottom: 0.85rem;
+    gap: 0.65rem;
+    margin-bottom: 0.55rem;
   }
 
   .os-download-card__icon-wrap {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-md, 12px);
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-md, 10px);
   }
 
   .os-download-card__icon {
@@ -6301,23 +6309,25 @@ main {
   }
 
   .os-download-card__name {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
   }
 
   .os-download-card__subtitle {
-    font-size: 0.8rem;
-    min-height: 2.6em;
+    font-size: 0.76rem;
+    min-height: 2.4em;
   }
 
   .os-download-card__meta {
-    font-size: 0.8rem;
-    min-height: 3.4rem;
-    margin-bottom: 0.85rem;
-    padding-top: 0.75rem;
+    font-size: 0.76rem;
+    min-height: 2.8rem;
+    margin-bottom: 0.55rem;
+    padding-top: 0.55rem;
   }
 
   .os-download-card__action {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
+    min-height: 38px;
+    padding: 0.45rem 0.75rem;
   }
 }
 

@@ -11,12 +11,12 @@ const copy = {
   fr: {
     title: "Bobine — La régie vidéo & streaming libre pour votre salle\u00A0de\u00A0sport",
     subtitle:
-      "Bobine transforme un Google Book, un PC ARM Snapdragon, un Mac mini ou un mini PC reconditionné en régie vidéo pour votre salle de sport : cours planifiés, borne cinéma à la demande, radio 24/7 — sans abonnement, sans cloud, sans coupure.",
+      "Bobine transforme un Google Book, un PC ARM Snapdragon, un Mac mini ou un mini PC reconditionné en régie vidéo pour votre salle de sport : cours planifiés, borne cinéma à la demande, radio 24/7 — sans abonnement, sans cloud, sans\u00A0coupure.",
   },
   en: {
     title: "Bobine — The open-source video & streaming system for your fitness club",
     subtitle:
-      "Bobine turns a Google Book, a Snapdragon ARM PC, a Mac mini, or a budget mini PC into a complete video system for your fitness club: scheduled classes, on-demand cinema kiosk, 24/7 radio — no fees, no cloud lock-in, no downtime.",
+      "Bobine turns a Google Book, a Snapdragon ARM PC, a Mac mini, or a budget mini PC into a complete video system for your fitness club: scheduled classes, on-demand cinema kiosk, 24/7 radio — no fees, no cloud lock-in, no\u00A0downtime.",
   },
 } as const;
 

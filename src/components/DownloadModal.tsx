@@ -713,63 +713,6 @@ export default function DownloadModal({
             </div>
           )}
 
-          {activePlatform === "android" && (
-            <div
-              className="download-modal__tv-note"
-              style={{
-                marginTop: "1.25rem",
-                padding: "1rem 1.25rem",
-                borderRadius: "0.75rem",
-                background: "rgba(61, 220, 132, 0.08)",
-                border: "1px solid rgba(61, 220, 132, 0.25)",
-                fontSize: "0.875rem",
-                color: "var(--text-body)",
-                lineHeight: 1.5,
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  marginBottom: "0.5rem",
-                  fontWeight: 700,
-                  color: "#3DDC84",
-                }}
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="12" y1="8" x2="12" y2="12" />
-                  <line x1="12" y1="16" x2="12.01" y2="16" />
-                </svg>
-                <span>
-                  {isEn
-                    ? "Android Tablets, Google Books & ARM64 Touch Kiosks"
-                    : "Tablettes Android, Google Books & Bornes Tactiles ARM64"}
-                </span>
-              </div>
-              <p style={{ margin: "0 0 0.5rem" }}>
-                {isEn
-                  ? "• Google Books & Android Tablets: Native support via the APK package above, and coming soon as a native 1-click install on the Google Play Store."
-                  : "• Tablettes Android, Google Books (via APK et bientôt Google Play Store natif) & Bornes tactiles ARM64 : Compatibilité native complète avec moteur FastAPI embarqué."}
-              </p>
-              <p style={{ margin: 0 }}>
-                {isEn
-                  ? "• Dual-Screen HDMI / USB-C: Use the built-in screen as the interactive Coach Console (/grid) while outputting 1080p/4K fullscreen video (/cinema) to your studio TV."
-                  : "• Double affichage HDMI / USB-C : Utilisez l'écran intégré comme pupitre coach tactile (/grid) tout en diffusant le flux vidéo plein écran (/cinema) sur le grand écran de la salle."}
-              </p>
-            </div>
-          )}
 
         </div>
       </div>

@@ -835,14 +835,229 @@
   text-overflow: ellipsis;
   line-height: 1.25;
 }
+.docs-channels-grid,
 .docs-linux-channels-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
+  gap: 1.15rem;
   width: 100%;
-  margin-top: 0.5rem;
+  margin-top: 0.85rem;
+  margin-bottom: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .docs-channels-grid,
+  .docs-linux-channels-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+}
+
+/* Sélecteur d'architecture x86_64 vs ARM64 dans la documentation */
+.docs-arch-switch-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 0.85rem;
+  margin-bottom: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.docs-arch-switch-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.docs-arch-switch-pill {
+  display: inline-flex;
+  background: var(--bg-surface-elevated, #ece8f5);
+  padding: 3px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-subtle);
+  gap: 3px;
+}
+
+.docs-arch-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: inherit;
+  user-select: none;
+}
+
+.docs-arch-switch-btn:hover {
+  color: var(--text-heading);
+}
+
+.docs-arch-switch-btn.is-active {
+  background: var(--bg-card);
+  color: var(--accent-primary);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  font-weight: 700;
+}
+
+.docs-arch-switch-sub {
+  font-size: 0.7rem;
+  opacity: 0.75;
+  font-weight: 500;
+}
+
+/* Header des cartes de canaux : empêche le chevauchement des badges */
+.docs-channel-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
   margin-bottom: 0.75rem;
 }
+
+.docs-channel-card__tag-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.docs-channel-card__version {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+  margin-left: auto;
+  padding-top: 0.15rem;
+}
+
+/* Descriptions des versions noircies pour lisibilité parfaite */
+.docs-install-panel .download-modal__card-desc {
+  color: var(--text-heading) !important;
+  font-weight: 550;
+  opacity: 0.95;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  margin-bottom: 1rem;
+}
+
+/* Boutons de téléchargement dans les cartes de doc : contraste maximal GARANTI */
+.docs-channel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-md, 8px);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+  text-decoration: none !important;
+  box-sizing: border-box;
+}
+
+.docs-channel-btn--stable {
+  background: var(--accent-primary) !important;
+  color: #ffffff !important;
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 85%, #000) !important;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--accent-primary) 28%, transparent);
+}
+.docs-channel-btn--stable *,
+.docs-channel-btn--stable svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+.docs-channel-btn--stable:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent-primary) 36%, transparent);
+}
+
+.docs-channel-btn--beta {
+  background: #0284c7 !important;
+  color: #ffffff !important;
+  border: 1px solid #0369a1 !important;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+}
+.docs-channel-btn--beta *,
+.docs-channel-btn--beta svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+.docs-channel-btn--beta:hover {
+  background: #0369a1 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+}
+
+.docs-channel-btn--canary {
+  background: #facc15 !important;
+  color: #713f12 !important;
+  border: 1px solid #eab308 !important;
+  box-shadow: 0 2px 8px rgba(234, 179, 8, 0.25);
+}
+.docs-channel-btn--canary *,
+.docs-channel-btn--canary svg {
+  color: #713f12 !important;
+  stroke: #713f12 !important;
+}
+.docs-channel-btn--canary:hover {
+  background: #eab308 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(234, 179, 8, 0.35);
+}
+
+/* Séparateur visuel propre entre les cartes de téléchargement et la documentation détaillée */
+.docs-install-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.25rem 0 1.75rem;
+  width: 100%;
+}
+
+.docs-install-divider__line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-subtle);
+}
+
+.docs-install-divider__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.15rem;
+  border-radius: 9999px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+
+.docs-install-divider__pill svg {
+  color: var(--accent-primary);
+}
+
 .docs-install-tab-badge {
   flex-shrink: 0;
   font-size: 0.685rem;
@@ -859,11 +1074,9 @@
 }
 .docs-method-hero {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  padding: 1.75rem;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 2.5vw, 1.85rem);
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl, 16px);

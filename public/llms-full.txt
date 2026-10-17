@@ -72,7 +72,7 @@ Bobine V5.0.0 cible nativement les architectures `x86_64` et `ARM64` (`aarch64` 
 - **Backend** : Python 3.13, FastAPI, SQLite avec migrations et backfill automatique de métadonnées, Uvicorn mono-processus (zéro dépendance Redis).
 - **Résolution Déterministe FFmpeg/FFprobe** : Module `app.utils.ffmpeg_binaries` adapté à Android (`libffmpeg.so`), macOS launchd, Windows x86_64/ARM64 PyInstaller et Linux PATH.
 - **Frontend** : Next.js App Router, export SSG statique, 17 thèmes WCAG AAA/AA, zéro emoji.
-- **Moteur Vidéo Gapless A/B Deck & Sous-titres** : Double instance vidéo continue dans le DOM éliminant les écrans noirs de 200 à 600 ms inter-cours, avec prise en charge native des pistes de sous-titres multi-langues (SRT, WebVTT, ASS/SSA).
+- **Moteur Vidéo Gapless A/B Deck & Sous-titres** : Double instance vidéo continue dans le DOM éliminant les écrans noirs de 200 à 600 ms inter-cours, avec prise en charge des pistes de sous-titres multi-langues (SRT et WebVTT, choix de la piste depuis l'administration) et des chapitres de cours (import JSON, WebVTT ou texte, extraction du fichier vidéo).
 
 ---
 

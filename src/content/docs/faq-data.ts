@@ -87,7 +87,17 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "offline",
       q: "Comment ajouter des sous-titres à un cours vidéo ?",
-      a: "Depuis la bibliothèque, ajoutez un fichier .srt ou .vtt (2 Mo maximum) au cours, ou joignez-le à la vidéo lors de l'import. Les .srt sont convertis en WebVTT, la langue est reconnue d'après le nom du fichier (cours.fr.srt, cours.en.vtt) et plusieurs langues peuvent coexister pour un même cours. Les sous-titres restent stockés sur votre machine et s'activent depuis le menu de sous-titres de /cinema et du lecteur de la bibliothèque.",
+      a: "Depuis la bibliothèque, ajoutez un fichier .srt ou .vtt (2 Mo maximum) au cours, ou joignez-le à la vidéo lors de l'import. Les .srt sont convertis en WebVTT, la langue est reconnue d'après le nom du fichier (cours.fr.srt, cours.en.vtt) et plusieurs langues peuvent coexister pour un même cours. Les sous-titres restent stockés sur votre machine et s'activent depuis le menu de sous-titres de /cinema et du lecteur de la bibliothèque. Depuis l'administration, vous choisissez la piste affichée sur l'écran de salle ; le choix est appliqué en direct au kiosque et à /cinema.",
+    },
+    {
+      category: "offline",
+      q: "Comment ajouter des chapitres à un cours ?",
+      a: "Depuis la fiche du cours dans la bibliothèque : saisie manuelle, import d'un fichier (JSON, WebVTT de type chapitres ou texte « 05:00 Titre » une ligne par chapitre), extraction des chapitres incorporés au fichier vidéo, ou export en JSON. Un fichier invalide est refusé avec la ligne en cause, sans rien modifier. Les chapitres apparaissent en repères sur la barre de progression, en liste pour sauter d'un chapitre à l'autre et en bandeau à l'écran au changement de chapitre.",
+    },
+    {
+      category: "hardware",
+      q: "Bobine redémarre-t-il tout seul après un redémarrage de l'appareil Android ?",
+      a: "Oui, si Réglages → « Démarrage de l'appareil » est activé : le serveur Bobine se relance au redémarrage et après une mise à jour de l'application. L'ouverture automatique de l'écran dépend d'Android (autorisation « Afficher par-dessus d'autres applications », réinitialisée à chaque redémarrage sur certains boîtiers Android TV) : le serveur et les écrans distants fonctionnent déjà, il suffit d'ouvrir l'application pour afficher l'écran local.",
     },
     {
       category: "hardware",
@@ -199,7 +209,17 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "offline",
       q: "How do I add subtitles to a video class?",
-      a: "From the library, add an .srt or .vtt file (2 MB maximum) to the class, or attach it to the video at import. .srt files are converted to WebVTT, the language is recognised from the file name (class.fr.srt, class.en.vtt) and several languages can coexist for one class. Subtitles stay stored on your machine and are switched on from the subtitles menu of /cinema and the library player.",
+      a: "From the library, add an .srt or .vtt file (2 MB maximum) to the class, or attach it to the video at import. .srt files are converted to WebVTT, the language is recognised from the file name (class.fr.srt, class.en.vtt) and several languages can coexist for one class. Subtitles stay stored on your machine and are switched on from the subtitles menu of /cinema and the library player. From the admin you choose the track shown on the studio screen; the choice is applied live to the kiosk and /cinema.",
+    },
+    {
+      category: "offline",
+      q: "How do I add chapters to a class?",
+      a: "From the class panel in the library: type them in, import a file (JSON, chapter-type WebVTT or text with one \"05:00 Title\" line per chapter), extract the chapters embedded in the video file, or export them as JSON. An invalid file is rejected with the offending line, and nothing is changed. Chapters appear as marks on the progress bar, as a list to jump from chapter to chapter and as an on-screen banner when the chapter changes.",
+    },
+    {
+      category: "hardware",
+      q: "Does Bobine restart by itself after an Android device reboot?",
+      a: "Yes, if Settings → \"Device startup\" is on: the Bobine server restarts after a reboot and after an app update. Opening the screen automatically depends on Android (the \"Display over other apps\" permission, reset at every reboot on some Android TV boxes): the server and the remote screens already work, just open the app to show the local screen.",
     },
     {
       category: "hardware",

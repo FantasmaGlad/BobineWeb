@@ -93,6 +93,8 @@ const fr: DocChapter[] = [
           "Paquet natif Bobine-5.0.0.apk (Android 14 à 16, API 34-36), embarquant CPython 3.13 et FastAPI via Chaquopy, service de premier plan persistant, accélération MediaCodec et double affichage (/grid tactile + /cinema HDMI USB-C DisplayPort avec résolution robuste du branchement à chaud sans écran noir).",
           "Compatibilité Google Books : Bobine s'exécute nativement en plein écran sur les ordinateurs portables Google Book (Aluminium OS) via l'APK avec accélération matérielle complète, et sera très prochainement disponible en téléchargement direct 1 clic sur le Google Play Store.",
           "Matériel de référence testé : tablettes Samsung Galaxy Tab ou Xiaomi Pad avec port USB-C compatible DisplayPort Alt Mode, et ordinateurs portables Google Book.",
+          "Démarrage avec l'appareil : Réglages → « Démarrage de l'appareil » (case « Lancer Bobine au démarrage de l'appareil ») relance le serveur Bobine quand l'appareil redémarre ou que l'application est mise à jour. L'ouverture automatique de l'écran dépend d'Android : elle exige l'autorisation « Afficher par-dessus d'autres applications », que certains appareils (dont des boîtiers Android TV) réinitialisent à chaque redémarrage. Dans ce cas, le serveur et les écrans distants fonctionnent déjà ; ouvrez simplement l'application pour afficher l'écran local.",
+          "Mises à jour intégrées : si Android bloque l'installation depuis l'application (source inconnue non autorisée), Bobine l'indique avant de télécharger et ouvre le réglage correspondant au lieu d'échouer en cours de route.",
         ],
         deviceImage: ["android", "googlebook"],
       },
@@ -196,6 +198,23 @@ const fr: DocChapter[] = [
         paragraphs: [
           "Chaque cours vidéo peut recevoir plusieurs pistes de sous-titres : fichiers .srt ou .vtt ajoutés depuis la bibliothèque, ou joints au fichier vidéo lors de l'import (glisser-déposer). Les fichiers .srt sont convertis automatiquement en WebVTT, la langue est reconnue d'après le nom du fichier (par exemple cours.fr.srt, cours.en.vtt ; français par défaut) et chaque fichier est limité à 2 Mo.",
           "Les sous-titres sont stockés localement avec le reste des données et s'activent depuis le menu de sous-titres de /cinema et dans le lecteur de la bibliothèque. Supprimer un cours supprime aussi ses fichiers de sous-titres.",
+          "Depuis l'administration (tableau de bord et télécommande mobile), vous choisissez la piste de sous-titres affichée sur l'écran de salle : le choix est transmis en direct au kiosque et à /cinema, sans toucher à l'écran.",
+        ],
+      },
+      {
+        subtitle: "3.8 Chapitres de cours (JSON, WebVTT, texte)",
+        paragraphs: [
+          "Un cours peut porter une liste de chapitres (début, fin, titre ; 200 chapitres et 120 caractères par titre au maximum). Depuis la fiche du cours dans la bibliothèque, vous pouvez les saisir à la main, importer un fichier, extraire ceux qui sont incorporés au fichier vidéo (lus avec FFprobe) ou exporter la liste au format JSON.",
+          "Trois formats d'import sont reconnus d'après le contenu : JSON (une liste « chapters » d'objets avec « start » ou « start_seconds », « end » facultatif et « title », éventuellement localisé {\"fr\": …, \"en\": …}), WebVTT de type chapitres, ou texte brut avec un chapitre par ligne (« 05:00 Cardio », « [1:02:10] - Étirements »). Un fichier invalide est refusé avec un message qui indique la ligne en cause, sans rien modifier.",
+          "Les chapitres apparaissent en repères sur la barre de progression du tableau de bord, de la télécommande mobile et de /cinema, en liste sur laquelle on appuie pour sauter au chapitre, et en bandeau discret à l'écran quand le cours change de chapitre (kiosque et /cinema).",
+        ],
+      },
+      {
+        subtitle: "3.9 Administration sur smartphone (télécommande mobile)",
+        paragraphs: [
+          "Sur téléphone, l'administration adopte une mise en page dédiée. Le bloc « En cours » est un widget en verre dépoli avec la miniature, le titre, la durée, la progression et les commandes à portée de pouce.",
+          "« Lancer un cours » ouvre une feuille plein écran avec trois onglets (Cours, Playlists, Fonds), une recherche instantanée et un aperçu (miniature, durée, description) avant le lancement, comme sur ordinateur. Les listes déroulantes de plus de quelques éléments (bibliothèque, planning, playlists, journaux) s'ouvrent en feuille avec recherche au lieu du sélecteur natif.",
+          "L'adresse affichée en haut de l'administration est celle du réseau Wi-Fi ou Ethernet de l'appareil (les interfaces VPN, conteneurs et réseau mobile sont écartées), et la liste complète des adresses joignables figure dans Réglages. Sur Android, l'adresse est lue directement auprès du système.",
         ],
       },
     ],
@@ -485,6 +504,8 @@ const en: DocChapter[] = [
           "Certified native Bobine-5.0.0.apk (Android 14 to 16, API 34-36), embedding CPython 3.13 and FastAPI via Chaquopy, persistent ForegroundService, native MediaCodec acceleration, and robust dual display (touchscreen /grid + HDMI TV /cinema over USB-C DisplayPort with resilient hotplug handling).",
           "Google Books compatibility: Bobine runs natively in fullscreen mode on Google Book laptops (Aluminium OS) via the APK with full hardware acceleration, and will be arriving soon as a 1-click install from the Google Play Store.",
           "Reference hardware tested: Samsung Galaxy Tab or Xiaomi Pad tablets with a USB-C port supporting DisplayPort Alt Mode, and Google Book laptops.",
+          "Starting with the device: Settings → \"Device startup\" (\"Launch Bobine when the device starts\") restarts the Bobine server when the device reboots or the app is updated. Opening the screen automatically depends on Android: it requires the \"Display over other apps\" permission, which some devices (including Android TV boxes) reset at every reboot. In that case the server and the remote screens already work; just open the app to show the local screen.",
+          "Built-in updates: if Android blocks installs from the app (unknown sources not allowed), Bobine says so before downloading and opens the matching setting instead of failing midway.",
         ],
         deviceImage: ["android", "googlebook"],
       },
@@ -588,6 +609,23 @@ const en: DocChapter[] = [
         paragraphs: [
           "Every video class can carry several subtitle tracks: .srt or .vtt files added from the library, or attached to the video file at import (drag and drop). .srt files are converted to WebVTT automatically, the language is recognised from the file name (for example class.fr.srt, class.en.vtt; French by default) and each file is limited to 2 MB.",
           "Subtitles are stored locally with the rest of the data and are switched on from the subtitles menu of /cinema and in the library player. Deleting a class also deletes its subtitle files.",
+          "From the admin (dashboard and mobile remote) you choose which subtitle track is shown on the studio screen: the choice is sent live to the kiosk and to /cinema, without touching the screen.",
+        ],
+      },
+      {
+        subtitle: "3.8 Class chapters (JSON, WebVTT, text)",
+        paragraphs: [
+          "A class can carry a list of chapters (start, end, title; at most 200 chapters and 120 characters per title). From the class panel in the library you can type them in, import a file, extract the ones embedded in the video file (read with FFprobe) or export the list as JSON.",
+          "Three import formats are recognised from the content: JSON (a \"chapters\" list of objects with \"start\" or \"start_seconds\", an optional \"end\" and a \"title\", possibly localised {\"fr\": …, \"en\": …}), chapter-type WebVTT, or plain text with one chapter per line (\"05:00 Cardio\", \"[1:02:10] - Stretching\"). An invalid file is rejected with a message that names the offending line, and nothing is changed.",
+          "Chapters show up as marks on the progress bar of the dashboard, the mobile remote and /cinema, as a list you tap to jump to a chapter, and as a discreet banner on screen when the class moves to a new chapter (kiosk and /cinema).",
+        ],
+      },
+      {
+        subtitle: "3.9 Admin on a smartphone (mobile remote)",
+        paragraphs: [
+          "On a phone the admin switches to a dedicated layout. The \"Now playing\" block is a frosted-glass widget with the thumbnail, title, duration, progress and thumb-friendly controls.",
+          "\"Launch a class\" opens a full-screen sheet with three tabs (Classes, Playlists, Backgrounds), instant search and a preview (thumbnail, duration, description) before launch, as on desktop. Drop-down lists with more than a few items (library, schedule, playlists, logs) open as a sheet with search instead of the native picker.",
+          "The address shown at the top of the admin is the one of the device's Wi-Fi or Ethernet network (VPN, container and mobile-data interfaces are ignored), and the full list of reachable addresses is in Settings. On Android the address is read directly from the system.",
         ],
       },
     ],

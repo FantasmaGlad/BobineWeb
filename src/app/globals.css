@@ -2398,6 +2398,55 @@ main {
   50% { transform: scale(1.04); opacity: 1; }
 }
 
+/* Téléphone : onglets et boutons du simulateur à taille tactile, commande qui passe à la ligne. */
+@media (max-width: 640px) {
+  .terminal-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .terminal-channel-tabs {
+    max-width: 100%;
+  }
+
+  .terminal-header {
+    padding: 0.55rem 0.75rem;
+  }
+
+  .terminal-channel-tab {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.7rem;
+    min-height: 2.25rem;
+  }
+
+  .terminal-demo-actions {
+    flex-wrap: wrap;
+  }
+
+  .terminal-ctrl-btn,
+  .terminal-copy-btn {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.65rem;
+    min-height: 2.25rem;
+    white-space: nowrap;
+  }
+
+  .terminal-demo-command-text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-all;
+  }
+
+  .terminal-enter-btn {
+    min-height: 2.25rem;
+  }
+
+  .terminal-body {
+    padding: 0.9rem;
+    font-size: 0.76rem;
+  }
+}
+
 @keyframes cursorBlink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
@@ -5153,6 +5202,14 @@ main {
 
 }
 
+/* Téléphone : la mascotte passe en filigrane pour ne pas masquer le titre et le paragraphe. */
+@media (max-width: 639px) {
+  .hero-fullscreen__backdrop-art {
+    opacity: 0.2;
+    width: min(60vw, 230px);
+  }
+}
+
 /* Visuel Google Book en grand format à gauche de l'écran d'accueil */
 .hero-fullscreen__backdrop-art--left {
   right: auto;
@@ -7875,6 +7932,12 @@ main {
   z-index: 0;
 }
 
+@media (max-width: 640px) {
+  .download-modal__card-bg {
+    opacity: 0.16;
+  }
+}
+
 .download-modal__channel-card > *:not(.download-modal__card-bg) {
   position: relative;
   z-index: 1;
@@ -9069,20 +9132,21 @@ main {
     width: 100%;
   }
 
-  /* Bandeau plateforme = overlay flottant vertical à droite sur mobile, hors du
-     flux normal (position: fixed) pour ne jamais reserver d'espace ni laisser
-     apparaitre un bandeau de fond desaccorde avec le theme de la page. */
+  /* Sur mobile le sélecteur de boutique passe dans le flux, en rangée au-dessus du contenu :
+     un panneau flottant recouvrait les listes et les boutons. */
   .platform-rail {
-    position: fixed;
-    top: 50%;
-    right: 0.75rem;
-    transform: translateY(-50%);
-    flex-direction: column;
-    gap: 1.1rem;
-    width: auto;
-    padding: 0;
-    z-index: 90;
-    background: none;
+    position: static;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.25rem;
+    width: 100%;
+    padding: 0.5rem 0 0.25rem;
+  }
+
+  .platform-rail__icon-shape {
+    width: 2.75rem;
+    height: 2.75rem;
+    animation: none;
   }
 
   .platform-rail__icon:hover {
@@ -9411,16 +9475,16 @@ main {
   cursor: pointer;
 }
 
-.hw-cart-group--amazon .hw-cart-group__cta {
-  background: #d5d9d9;
-  border: 1px solid #adb1b8;
-  color: #0f1111 !important;
+.hw-cart-group--amazon .hw-cart-group__cta,
+.hw-cart-group--aliexpress .hw-cart-group__cta {
+  background: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary-fg) !important;
 }
 
-.hw-cart-group--aliexpress .hw-cart-group__cta {
-  background: #e62e04;
-  border: 1px solid #c41f00;
-  color: #ffffff !important;
+.hw-cart-group--amazon .hw-cart-group__cta:hover,
+.hw-cart-group--aliexpress .hw-cart-group__cta:hover {
+  background: var(--accent-hover);
 }
 
 .hw-cart-sheet-row.is-opened {
@@ -9429,179 +9493,70 @@ main {
 
 
 /* ==========================================================================
-   Habillages de marque (Amazon, AliExpress) : couleurs des sites officiels,
-   aplats uniquement (aucun dégradé), portés par les variables du design system.
+   Boutique matériel : les pages Amazon et AliExpress suivent le thème général du site
+   (17 thèmes). Seuls le logo, la pastille de marque et le badge boutique gardent leurs couleurs.
    ========================================================================== */
 
-.platform-theme-amazon {
-  --bg-canvas: #ffffff;
-  --bg-card: #ffffff;
-  --bg-card-hover: #ffffff;
-  --bg-surface: #ffffff;
-  --bg-surface-elevated: #ffffff;
-  --bg-surface-hover: #f7fafa;
-  --bg-inset: #f0f2f2;
-  --text-heading: #0f1111;
-  --text-main: #0f1111;
-  --text-muted: #565959;
-  --text-dim: #6f7373;
-  --accent-primary: #adb1b8;
-  --accent-primary-fg: #0f1111;
-  --accent-hover: #565959;
-  --accent-subtle: rgba(173, 177, 184, 0.18);
-  --accent-glow: rgba(173, 177, 184, 0.4);
-  --border-subtle: #d5d9d9;
-  --border-vibrant: #adb1b8;
-  --border-color: #d5d9d9;
-  background: var(--bg-canvas);
-  min-height: 100vh;
+.platform-shell {
+  min-height: 60vh;
 }
 
-.platform-theme-aliexpress {
-  --bg-canvas: #ffffff;
-  --bg-card: #ffffff;
-  --bg-card-hover: #ffffff;
-  --bg-surface: #ffffff;
-  --bg-surface-elevated: #ffffff;
-  --bg-surface-hover: #f5f5f5;
-  --bg-inset: #f5f5f5;
-  --text-heading: #191919;
-  --text-main: #2b2b2b;
-  --text-muted: #666666;
-  --text-dim: #767676;
-  --accent-primary: #e62e04;
-  --accent-primary-fg: #ffffff;
-  --accent-hover: #c41f00;
-  --accent-subtle: rgba(230, 46, 4, 0.08);
-  --accent-glow: rgba(230, 46, 4, 0.22);
-  --border-subtle: #e6e6e6;
-  --border-vibrant: #e62e04;
-  --border-color: #e6e6e6;
-  background: var(--bg-canvas);
-  min-height: 100vh;
-}
-
-/* Fiche principale : bordure de marque et bande pleine en tête (mêmes règles des deux côtés). */
-.platform-theme-amazon .hw-tier-card,
-.platform-theme-aliexpress .hw-tier-card {
-  border: 2px solid var(--accent-primary) !important;
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08) !important;
+/* Fiche principale : liseré d'accent et bande en tête, couleurs du thème actif. */
+.platform-shell .hw-tier-card {
+  border: 1px solid var(--border-vibrant) !important;
+  border-radius: 0.9rem;
+  box-shadow: 0 8px 28px -12px var(--accent-glow) !important;
   overflow: hidden;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
-.platform-theme-amazon .hw-tier-card::before,
-.platform-theme-aliexpress .hw-tier-card::before {
+.platform-shell .hw-tier-card::before {
   content: "";
   position: absolute;
   inset: 0 0 auto 0;
-  height: 0.4rem;
+  height: 0.3rem;
+  background: var(--accent-primary);
 }
 
-.platform-theme-amazon .hw-tier-card::before {
-  background: #adb1b8;
-}
-
-.platform-theme-aliexpress .hw-tier-card::before {
-  background: #e62e04;
-}
-
-.platform-theme-amazon .hw-tier-card > *:not(.hw-tier-nav-arrow),
-.platform-theme-aliexpress .hw-tier-card > *:not(.hw-tier-nav-arrow) {
+.platform-shell .hw-tier-card > *:not(.hw-tier-nav-arrow) {
   position: relative;
 }
 
-/* Onglets actifs : aplat de marque. */
-.platform-theme-amazon .stepper-mode-btn.is-active {
-  background: #d5d9d9 !important;
-  color: #0f1111 !important;
-  border-color: #adb1b8 !important;
-  font-weight: 700;
-}
-
-.platform-theme-aliexpress .stepper-mode-btn.is-active {
-  background: #e62e04 !important;
-  color: #ffffff !important;
-  border-color: #e62e04 !important;
-  font-weight: 700;
-}
-
-/* Cartes : blanc, bordure neutre, survol discret. */
-.platform-theme-amazon .hw-item-card--hero,
-.platform-theme-aliexpress .hw-item-card--hero {
-  background: #ffffff !important;
-  border: 1px solid var(--border-subtle) !important;
-}
-
-.platform-theme-amazon .hw-alt-unit-card:hover,
-.platform-theme-amazon .hw-item-card:hover,
-.platform-theme-aliexpress .hw-alt-unit-card:hover,
-.platform-theme-aliexpress .hw-item-card:hover {
+.platform-shell .stepper-mode-btn.is-active {
+  background: var(--accent-primary);
+  color: var(--accent-primary-fg);
   border-color: var(--accent-primary);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Prix. */
-.platform-theme-amazon .hw-price,
-.platform-theme-amazon .hw-alt-unit-card__price {
-  color: #b12704 !important;
   font-weight: 700;
 }
 
-.platform-theme-aliexpress .hw-price,
-.platform-theme-aliexpress .hw-alt-unit-card__price {
-  color: #e62e04 !important;
+.platform-shell .hw-item-card--hero {
+  border: 1px solid var(--border-vibrant) !important;
+}
+
+.platform-shell .hw-alt-unit-card {
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.platform-shell .hw-alt-unit-card:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -12px var(--accent-glow);
+}
+
+.platform-shell .hw-price,
+.platform-shell .hw-alt-unit-card__price {
+  color: var(--accent-primary);
   font-weight: 700;
 }
 
-/* Boutons d'achat : jaune Amazon / rouge AliExpress, aplats. */
-.platform-theme-amazon .btn-primary {
-  background: #d5d9d9;
-  border: 1px solid #adb1b8;
-  color: #0f1111 !important;
-  font-weight: 600;
-  box-shadow: none;
-}
-
-.platform-theme-amazon .btn-primary:hover {
-  background: #c7cbcc;
-}
-
-.platform-theme-amazon .btn-secondary {
-  background: #ffffff;
-  border: 1px solid #adb1b8;
-  color: #0f1111 !important;
-}
-
-.platform-theme-amazon .btn-secondary:hover,
-.platform-theme-amazon .hw-alt-unit-card__link:hover {
-  background: #f0f2f2;
-  border-color: #565959;
-  color: #0f1111 !important;
-}
-
-.platform-theme-aliexpress .btn-primary {
-  background: #e62e04;
-  border: 1px solid #e62e04;
-  color: #ffffff !important;
-  font-weight: 600;
-  box-shadow: none;
-}
-
-.platform-theme-aliexpress .btn-primary:hover {
-  background: #c41f00;
-  border-color: #c41f00;
-}
-
-.platform-theme-aliexpress .btn-secondary {
-  background: #ffffff;
-  border: 1px solid #e62e04;
-  color: #e62e04 !important;
-  font-weight: 600;
-}
-
-.platform-theme-aliexpress .btn-secondary:hover {
-  background: #fff1ed;
+@media (prefers-reduced-motion: reduce) {
+  .platform-shell .hw-alt-unit-card,
+  .platform-shell .hw-tier-card {
+    transition: none;
+  }
+  .platform-shell .hw-alt-unit-card:hover {
+    transform: none;
+  }
 }
 
 /* Badge boutique officielle : jaune Choice d'AliExpress, à plat. */
@@ -9671,6 +9626,42 @@ main {
 
   .marquee.is-scrolling {
     text-overflow: ellipsis;
+  }
+}
+
+/* Mobile : pas de survol pour mettre en pause et un texte qui défile en continu est illisible :
+   les lignes passent à la ligne et s'affichent en entier. */
+@media (max-width: 640px) {
+  .marquee {
+    height: auto;
+    overflow: visible;
+    white-space: normal;
+  }
+
+  .marquee__track {
+    display: block;
+    animation: none;
+    will-change: auto;
+  }
+
+  .marquee__item {
+    padding-right: 0;
+  }
+
+  .marquee__item[aria-hidden="true"] {
+    display: none;
+  }
+
+  .marquee__static {
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  /* La carte d'alternative ne doit jamais dépasser la largeur du carrousel. */
+  .hw-alt-unit-card {
+    width: 100%;
+    gap: 0.5rem;
+    padding: 0.55rem 0.6rem;
   }
 }
 

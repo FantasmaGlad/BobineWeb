@@ -231,6 +231,7 @@ export default function DownloadModal({
             <div className="download-modal__cli-grid">
               {/* Carte CLI Stable */}
               <div className="download-modal__channel-card download-modal__channel-card--stable">
+                <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/stable.webp)" }} />
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -276,21 +277,22 @@ export default function DownloadModal({
 
               {/* Carte CLI Bêta */}
               <div className="download-modal__channel-card download-modal__channel-card--beta">
+                <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/beta.webp)" }} />
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img className="download-modal__channel-icon" src="/images/channels/beta.webp" alt="" />
                     <span className="download-modal__badge download-modal__badge--beta">
-                      {isEn ? "Beta Channel (curated)" : "Version Bêta (curée)"}
+                      {isEn ? "Beta (curated)" : "Bêta (curée)"}
                     </span>
                   </div>
-                  <span className="download-modal__version">{isEn ? "Rolling tag" : "Tag mobile"}</span>
+                  <span className="download-modal__version">{beta.commit ? `#${beta.commit}` : (isEn ? "Rolling" : "Continue")}</span>
                 </div>
 
                 <p className="download-modal__card-desc">
                   {isEn
-                    ? "Beta: batches of features/fixes selected by the maintainer, published manually when ready."
-                    : "Bêta : lots de fonctionnalités/correctifs sélectionnés par le mainteneur, publiés manuellement quand ils sont prêts."}
+                    ? "Beta: batches of features/fixes I select and publish manually when ready."
+                    : "Bêta : lots de fonctionnalités/correctifs que je sélectionne et publie manuellement quand ils sont prêts."}
                 </p>
 
                 <div className="download-modal__cli-block">
@@ -318,15 +320,16 @@ export default function DownloadModal({
 
               {/* Carte CLI Canary */}
               <div className="download-modal__channel-card download-modal__channel-card--canary">
+                <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/canary.webp)" }} />
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img className="download-modal__channel-icon" src="/images/channels/canary.webp" alt="" />
                     <span className="download-modal__badge download-modal__badge--canary">
-                      {isEn ? "Canary Channel (rolling)" : "Version Canary (rolling)"}
+                      {isEn ? "Canary (rolling)" : "Canary (rolling)"}
                     </span>
                   </div>
-                  <span className="download-modal__version">{isEn ? "Rolling tag" : "Tag mobile"}</span>
+                  <span className="download-modal__version">{canary.commit ? `#${canary.commit}` : (isEn ? "Rolling" : "Continue")}</span>
                 </div>
 
                 <p className="download-modal__card-desc">
@@ -363,6 +366,7 @@ export default function DownloadModal({
             <div className="download-modal__cards-grid">
               {/* Option 1 : VERSION STABLE */}
               <div className="download-modal__channel-card download-modal__channel-card--stable">
+                <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/stable.webp)" }} />
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -442,21 +446,22 @@ export default function DownloadModal({
 
               {/* Option 2 : VERSION BÊTA (curée) */}
               <div className="download-modal__channel-card download-modal__channel-card--beta">
+                <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/beta.webp)" }} />
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img className="download-modal__channel-icon" src="/images/channels/beta.webp" alt="" />
                     <span className="download-modal__badge download-modal__badge--beta">
-                      {isEn ? "Beta Channel (curated)" : "Version Bêta (curée)"}
+                      {isEn ? "Beta (curated)" : "Bêta (curée)"}
                     </span>
                   </div>
-                  <span className="download-modal__version">{isEn ? "Rolling release" : "Release continue"}</span>
+                  <span className="download-modal__version">{beta.commit ? `#${beta.commit}` : (isEn ? "Rolling" : "Continue")}</span>
                 </div>
 
                 <p className="download-modal__card-desc">
                   {isEn
-                    ? "Beta: batches of features/fixes selected by the maintainer, published manually when ready."
-                    : "Bêta : lots de fonctionnalités/correctifs sélectionnés par le mainteneur, publiés manuellement quand ils sont prêts."}
+                    ? "Beta: batches of features/fixes I select and publish manually when ready."
+                    : "Bêta : lots de fonctionnalités/correctifs que je sélectionne et publie manuellement quand ils sont prêts."}
                 </p>
 
                 <div className="download-modal__card-meta">
@@ -518,15 +523,16 @@ export default function DownloadModal({
 
               {/* Option 3 : VERSION CANARY (rolling) */}
               <div className="download-modal__channel-card download-modal__channel-card--canary">
+                <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/canary.webp)" }} />
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img className="download-modal__channel-icon" src="/images/channels/canary.webp" alt="" />
                     <span className="download-modal__badge download-modal__badge--canary">
-                      {isEn ? "Canary Channel (rolling)" : "Version Canary (rolling)"}
+                      {isEn ? "Canary (rolling)" : "Canary (rolling)"}
                     </span>
                   </div>
-                  <span className="download-modal__version">{isEn ? "Rolling release" : "Release continue"}</span>
+                  <span className="download-modal__version">{canary.commit ? `#${canary.commit}` : (isEn ? "Rolling" : "Continue")}</span>
                 </div>
 
                 <p className="download-modal__card-desc">

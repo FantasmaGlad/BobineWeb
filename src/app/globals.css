@@ -7688,6 +7688,26 @@ main {
   border: 1px solid var(--border-subtle);
   transition: all 0.2s ease;
   position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.download-modal__card-bg {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-position: bottom -8% right -12%;
+  background-size: 95%;
+  opacity: 0.38;
+  -webkit-mask-image: linear-gradient(130deg, transparent 0%, transparent 15%, #000 60%);
+  mask-image: linear-gradient(130deg, transparent 0%, transparent 15%, #000 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.download-modal__channel-card > *:not(.download-modal__card-bg) {
+  position: relative;
+  z-index: 1;
 }
 
 .download-modal__channel-card--stable {
@@ -7736,6 +7756,7 @@ main {
   padding: 0.2rem 0.55rem;
   border-radius: 999px;
   line-height: 1.2;
+  white-space: nowrap;
 }
 
 .download-modal__badge--stable {

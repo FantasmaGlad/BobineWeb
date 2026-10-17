@@ -80,7 +80,7 @@ const fr: DocChapter[] = [
         paragraphs: [
           "Pour installer et mettre à jour Bobine sans révéler votre adresse IP, le dépôt APT est aussi proposé en service onion (réseau Tor). C'est une copie miroir du dépôt officiel : les paquets restent signés par la même clé, et apt refuse tout paquet dont la signature ne correspond pas.",
           "Comparez l'empreinte de la clé principale avec celle de https://apt.bobine.fit/bobine.gpg : B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A.",
-          "Le site est également consultable dans Tor Browser (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/). La boutique matériel et l'assistant Baamix n'y sont pas proposés : ils reposent sur des liens d'affiliation et des services tiers. Le miroir est hébergé par le mainteneur, sans journal de visite, avec une disponibilité au mieux. En soutien à la communauté du libre, découvrez le projet Tor : https://www.torproject.org/ (code source : https://github.com/torproject/tor).",
+          "Le site est également consultable dans Tor Browser (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/). La boutique matériel et l'assistant Baamix n'y sont pas proposés : ils reposent sur des liens d'affiliation et des services tiers. J'héberge ce miroir moi-même, sans journal de visite, avec une disponibilité au mieux. En soutien à la communauté du libre, découvrez le projet Tor : https://www.torproject.org/ (code source : https://github.com/torproject/tor).",
         ],
         codeBlock:
           "# Dépôt APT officiel via Tor (miroir onion)\nsudo apt install apt-transport-tor\ncurl -fsS --socks5-hostname 127.0.0.1:9050 http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine-onion.list\nsudo apt update && sudo apt install bobine",
@@ -122,7 +122,7 @@ const fr: DocChapter[] = [
       {
         subtitle: "2.7 Canaux de version : Stable, Bêta ou Canary",
         paragraphs: [
-          "Bobine propose trois canaux de mise à jour : le canal Stable (recommandé en production de salle, tags Vx.y.z stricts), le canal Bêta (lots de fonctionnalités/correctifs curés, publiés manuellement par le mainteneur) et le canal Canary (rolling sur tag mobile canary, reconstruit automatiquement à chaque push sur main, zéro curation).",
+          "Bobine propose trois canaux de mise à jour : le canal Stable (recommandé en production de salle, tags Vx.y.z stricts), le canal Bêta (lots de fonctionnalités/correctifs que je curate et publie manuellement) et le canal Canary (rolling sur tag mobile canary, reconstruit automatiquement à chaque push sur main, zéro curation).",
           "Sur tous les OS, Bêta et Canary partagent les mêmes identifiants applicatifs et s'installent par-dessus la version existante sans créer de doublon ni affecter les bases de données ou médias. Le choix s'effectue dans Réglages → Mises à jour logicielles ou via le paramètre CLI :",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta   # ou --channel=canary",
@@ -446,7 +446,7 @@ const en: DocChapter[] = [
         paragraphs: [
           "To install and update Bobine without revealing your IP address, the APT repository is also offered as an onion service (Tor network). It is a mirror of the official repository: packages remain signed by the same key, and apt rejects any package whose signature does not match.",
           "Compare the primary key fingerprint with the one at https://apt.bobine.fit/bobine.gpg: B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A.",
-          "The site can also be browsed in Tor Browser (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/). The hardware store and the Baamix assistant are not offered there: they rely on affiliate links and third-party services. The mirror is hosted by the maintainer, keeps no visit log, and is available on a best-effort basis. In support of the free-software community, discover the Tor project: https://www.torproject.org/ (source code: https://github.com/torproject/tor).",
+          "The site can also be browsed in Tor Browser (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/). The hardware store and the Baamix assistant are not offered there: they rely on affiliate links and third-party services. I host this mirror myself, keep no visit log, and run it on a best-effort basis. In support of the free-software community, discover the Tor project: https://www.torproject.org/ (source code: https://github.com/torproject/tor).",
         ],
         codeBlock:
           "# Official APT repository over Tor (onion mirror)\nsudo apt install apt-transport-tor\ncurl -fsS --socks5-hostname 127.0.0.1:9050 http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine-onion.list\nsudo apt update && sudo apt install bobine",
@@ -488,7 +488,7 @@ const en: DocChapter[] = [
       {
         subtitle: "2.7 Release channels: Stable, Beta or Canary",
         paragraphs: [
-          "Bobine offers three release channels: the Stable channel (recommended for production gym playout, strict Vx.y.z tags), the Beta channel (curated batches of features/fixes, published manually by the maintainer) and the Canary channel (rolling on fixed mobile tag canary, rebuilt automatically on every push to main, zero curation).",
+          "Bobine offers three release channels: the Stable channel (recommended for production gym playout, strict Vx.y.z tags), the Beta channel (batches of features/fixes I curate and publish manually) and the Canary channel (rolling on fixed mobile tag canary, rebuilt automatically on every push to main, zero curation).",
           "Across all platforms, Beta and Canary share identical application IDs and upgrade existing installations in-place without creating duplicate applications or altering media and databases. Toggle anytime in Settings → Software Updates or via CLI flag:",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta   # or --channel=canary",

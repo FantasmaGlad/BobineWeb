@@ -256,7 +256,7 @@ export default async function DeveloppeursPage({
 
       <h2 id="tor-distribution">Distribution over Tor (.onion)</h2>
       <p>
-        To support the free-software community and the Tor project, Bobine is also distributed as two onion services (v3), hosted by the maintainer, with no visit log and on a best-effort basis:
+        To support the free-software community and the Tor project, I also distribute Bobine as two onion services (v3), with no visit log and on a best-effort basis:
       </p>
       <ul>
         <li>Website: <code>http://{ONION_SITE_HOST}/</code></li>
@@ -467,7 +467,7 @@ export default async function DeveloppeursPage({
 
       <h2 id="distribution-tor">Distribution via Tor (.onion)</h2>
       <p>
-        En soutien à la communauté du logiciel libre et au projet Tor, Bobine est aussi distribué en deux services onion (v3), hébergés par le mainteneur, sans journal de visite et avec une disponibilité au mieux :
+        En soutien à la communauté du logiciel libre et au projet Tor, je distribue aussi Bobine via deux services onion (v3), sans journal de visite et avec une disponibilité au mieux :
       </p>
       <ul>
         <li>Site : <code>http://{ONION_SITE_HOST}/</code></li>

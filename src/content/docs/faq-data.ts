@@ -72,7 +72,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "Quelle est la différence entre les versions Stable, Bêta et Canary ?",
-      a: "La version Stable (ex. V4.0.3) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La Bêta offre un lot de fonctionnalités/correctifs curés et publiés manuellement par le mainteneur quand il est prêt. La Canary offre un accès anticipé continu, reconstruite automatiquement à chaque commit sur la branche principale, sans curation. Les deux partagent les mêmes identifiants d'application, s'installent par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages → Mises à jour sans perte de données ni de médias.",
+      a: "La version Stable (ex. V4.0.3) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La Bêta offre un lot de fonctionnalités/correctifs que je sélectionne et publie manuellement quand il est prêt. La Canary offre un accès anticipé continu, reconstruite automatiquement à chaque commit sur la branche principale, sans curation. Les deux partagent les mêmes identifiants d'application, s'installent par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages → Mises à jour sans perte de données ni de médias.",
     },
     {
       category: "updates",
@@ -159,7 +159,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "What is the difference between the Stable, Beta and Canary channels?",
-      a: "The Stable release (e.g. V4.0.3) is the official tested build recommended for production gym playout. Beta offers a curated batch of features/fixes published manually by the maintainer when ready. Canary provides continuous early access, rebuilt automatically on every commit to the main branch, with no curation. Both share identical system application IDs, install directly over your current version without creating duplicate apps, and allow reverting back to Stable anytime from Settings → Software Updates without data loss.",
+      a: "The Stable release (e.g. V4.0.3) is the official tested build recommended for production gym playout. Beta offers a batch of features/fixes I select and publish manually when ready. Canary provides continuous early access, rebuilt automatically on every commit to the main branch, with no curation. Both share identical system application IDs, install directly over your current version without creating duplicate apps, and allow reverting back to Stable anytime from Settings → Software Updates without data loss.",
     },
     {
       category: "updates",

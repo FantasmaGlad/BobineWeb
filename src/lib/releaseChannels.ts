@@ -104,12 +104,16 @@ function parseChannelRelease(
   fallbackTitle: string
 ): Promise<ReleaseChannelInfo> | ReleaseChannelInfo {
   if (res.status !== "fulfilled" || !res.value.ok) return fallback;
-  return res.value.json().then((data) => ({
-    version: data.tag_name || fallback.version,
-    title: data.name || fallbackTitle,
-    publishedAt: data.published_at || fallback.publishedAt,
-    downloads: parseReleaseAssets(data.assets, fallback.downloads),
-  }));
+  return res.value.json().then((data) => {
+    const commitish = typeof data.target_commitish === "string" ? data.target_commitish : "";
+    return {
+      version: data.tag_name || fallback.version,
+      commit: /^[0-9a-f]{7,40}$/i.test(commitish) ? commitish.slice(0, 7) : fallback.commit,
+      title: data.name || fallbackTitle,
+      publishedAt: data.published_at || fallback.publishedAt,
+      downloads: parseReleaseAssets(data.assets, fallback.downloads),
+    };
+  });
 }
 
 /** Statistiques du depot et versions publiees (etoiles, canaux stable, beta et canary), avec repli statique. */

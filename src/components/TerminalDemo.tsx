@@ -5,13 +5,18 @@ import type { Locale } from "@/lib/i18n";
 import { TOR_ART } from "@/lib/torArt";
 import { ONION_APT_HOST } from "@/lib/onion";
 
+type Channel = "stable" | "beta" | "canary";
+
+const CHANNEL_LABEL: Record<Channel, string> = { stable: "Stable", beta: "Bêta", canary: "Canary" };
+const CHANNEL_KEY: Record<Channel, string> = { stable: "1", beta: "2", canary: "3" };
+
 interface StepItem {
   id: string;
   num: number;
   labelFr: string;
   labelEn: string;
-  detailFr: (channel: "stable" | "beta") => string;
-  detailEn: (channel: "stable" | "beta") => string;
+  detailFr: (channel: Channel) => string;
+  detailEn: (channel: Channel) => string;
   durationMs: number;
 }
 
@@ -19,10 +24,10 @@ const STEPS: StepItem[] = [
   {
     id: "update-channel",
     num: 1,
-    labelFr: "Canal de mise à jour (Stable / Bêta)",
-    labelEn: "Update channel (Stable / Bêta)",
-    detailFr: (c) => (c === "beta" ? "Canal 'beta' configuré (/etc/bobine/update-channel)" : "Canal 'stable' configuré (/etc/bobine/update-channel)"),
-    detailEn: (c) => (c === "beta" ? "'beta' channel configured (/etc/bobine/update-channel)" : "'stable' channel configured (/etc/bobine/update-channel)"),
+    labelFr: "Canal de mise à jour (Stable / Bêta / Canary)",
+    labelEn: "Update channel (Stable / Bêta / Canary)",
+    detailFr: (c) => `Canal '${c}' configuré (/etc/bobine/update-channel)`,
+    detailEn: (c) => `'${c}' channel configured (/etc/bobine/update-channel)`,
     durationMs: 800,
   },
   {
@@ -82,8 +87,8 @@ const STEPS: StepItem[] = [
   {
     id: "uninstaller",
     num: 8,
-    labelFr: "Désinstalleur détaché",
-    labelEn: "Detached uninstaller",
+    labelFr: "Désinstalleur détaché (bouton « Désinstaller » de l'UI)",
+    labelEn: "Detached uninstaller (UI \"Uninstall\" button)",
     detailFr: () => "Script autonome de réinitialisation d'usine prêt",
     detailEn: () => "Autonomous factory reset script ready",
     durationMs: 700,
@@ -109,8 +114,8 @@ const STEPS: StepItem[] = [
   {
     id: "audio",
     num: 11,
-    labelFr: "Audio (auto-port, anti-sifflement)",
-    labelEn: "Audio engine (auto-port, anti-hum)",
+    labelFr: "Audio (auto-port, anti-sifflement, garde-fou hors session)",
+    labelEn: "Audio (auto-port, anti-hum, out-of-session guard)",
     detailFr: () => "Garde-fou sonore hors session & profil ALSA calibré",
     detailEn: () => "Sound guard between sessions & calibrated ALSA profile",
     durationMs: 800,
@@ -118,8 +123,8 @@ const STEPS: StepItem[] = [
   {
     id: "sudoers",
     num: 12,
-    labelFr: "Autorisation sudo restreinte",
-    labelEn: "Restricted sudo authorization",
+    labelFr: "Autorisation sudo restreinte (bouton de réinitialisation)",
+    labelEn: "Restricted sudo authorization (reset button)",
     detailFr: () => "Règles ciblées pour maintenance et remise à zéro sécurisée",
     detailEn: () => "Targeted rules for maintenance & secure factory reset",
     durationMs: 700,
@@ -182,7 +187,8 @@ const STEPS: StepItem[] = [
 
 const ONION_SHORT = `${ONION_APT_HOST.slice(0, 8)}…${ONION_APT_HOST.slice(-14)}`;
 
-// Variante « Tor » : reproduit public/install-tor.sh (5 etapes, cle recuperee par Tor puis empreinte verifiee).
+// Variante « Tor » : reproduit public/install-tor.sh (5 étapes, clé récupérée par Tor puis empreinte vérifiée).
+// Le dépôt onion ne publie que la suite « stable » : aucun canal à choisir.
 const TOR_STEPS: StepItem[] = [
   {
     id: "tor-env",
@@ -207,8 +213,8 @@ const TOR_STEPS: StepItem[] = [
     num: 3,
     labelFr: "Clé de signature de Bobine",
     labelEn: "Bobine signing key",
-    detailFr: () => "Récupérée par Tor, sans contact avec le web classique",
-    detailEn: () => "Fetched through Tor, no contact with the regular web",
+    detailFr: () => "Récupérée par Tor, sans contact avec le web classique (jusqu'à 6 essais le temps que Tor s'initialise)",
+    detailEn: () => "Fetched through Tor, no contact with the regular web (up to 6 attempts while Tor starts up)",
     durationMs: 1300,
   },
   {
@@ -225,8 +231,8 @@ const TOR_STEPS: StepItem[] = [
     num: 5,
     labelFr: "Source APT via Tor",
     labelEn: "APT source through Tor",
-    detailFr: () => `tor+http://${ONION_SHORT}/ — index récupéré, signature validée`,
-    detailEn: () => `tor+http://${ONION_SHORT}/ — index fetched, signature validated`,
+    detailFr: () => `tor+http://${ONION_SHORT}/ stable main — index récupéré, signature validée`,
+    detailEn: () => `tor+http://${ONION_SHORT}/ stable main — index fetched, signature validated`,
     durationMs: 1200,
   },
 ];
@@ -234,15 +240,18 @@ const TOR_STEPS: StepItem[] = [
 const COMMAND_TOR = "curl -fsSL https://bobine.fit/install-tor.sh | bash";
 const COMMAND_STABLE = "curl -fsSL https://bobine.fit/install.sh | sudo bash";
 const COMMAND_BETA = "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta";
+const COMMAND_CANARY =
+  "curl -fsSL https://github.com/FantasmaGlad/Bobine/releases/download/canary/install.sh | bash -s -- --channel=canary";
+const COMMANDS: Record<Channel, string> = { stable: COMMAND_STABLE, beta: COMMAND_BETA, canary: COMMAND_CANARY };
 
 export default function TerminalDemo({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const [copied, setCopied] = useState(false);
-  const [channel, setChannel] = useState<"stable" | "beta">("stable");
+  const [channel, setChannel] = useState<Channel>("stable");
   const [mode, setMode] = useState<"standard" | "tor">("standard");
   const isTor = mode === "tor";
   const steps = isTor ? TOR_STEPS : STEPS;
-  const commandText = isTor ? COMMAND_TOR : channel === "stable" ? COMMAND_STABLE : COMMAND_BETA;
+  const commandText = isTor ? COMMAND_TOR : COMMANDS[channel];
 
   // États d'exécution
   const [hasTriggered, setHasTriggered] = useState(false);
@@ -307,7 +316,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
 
   // Sélection d'un canal lors du prompt interactif
   const handleSelectChannelPrompt = useCallback(
-    (selected: "stable" | "beta") => {
+    (selected: Channel) => {
       setChannel(selected);
       if (promptTimerRef.current) {
         clearTimeout(promptTimerRef.current);
@@ -372,7 +381,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
     setTimeout(scrollToBottom, 50);
   }, [scrollToBottom, steps.length]);
 
-  // Écoute des touches au clavier (Entrée pour lancer, 1 ou 2 pour choisir le canal)
+  // Écoute des touches au clavier (Entrée pour lancer, 1 à 3 pour choisir le canal)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const rect = containerRef.current?.getBoundingClientRect();
@@ -392,6 +401,9 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         } else if (e.key === "2") {
           e.preventDefault();
           handleSelectChannelPrompt("beta");
+        } else if (e.key === "3") {
+          e.preventDefault();
+          handleSelectChannelPrompt("canary");
         } else if (e.key === "Enter") {
           e.preventDefault();
           startStepsSequence();
@@ -470,7 +482,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
 
         <div className="terminal-demo-title-group">
           <span className="terminal-title">
-            {isTor ? "bash — install-tor.sh (Tor)" : `bash — install.sh (${channel === "stable" ? "Stable" : "Bêta"})`}
+            {isTor ? "bash — install-tor.sh (Tor)" : `bash — install.sh (${CHANNEL_LABEL[channel]})`}
           </span>
           {hasTriggered && (
             <span className={`terminal-demo-status-pill ${!isCompleted ? "is-active" : ""}`}>
@@ -518,33 +530,24 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
           </button>
         </div>
 
-        {/* Sélecteur de canal Stable / Bêta */}
+        {/* Sélecteur de canal Stable / Bêta / Canary */}
         {!isTor && (
         <div className="terminal-channel-tabs" role="tablist" aria-label={isEn ? "Release channel" : "Canal de version"}>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={channel === "stable"}
-            className={`terminal-channel-tab ${channel === "stable" ? "is-active" : ""}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              setChannel("stable");
-            }}
-          >
-            Stable
-          </button>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={channel === "beta"}
-            className={`terminal-channel-tab ${channel === "beta" ? "is-active" : ""}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              setChannel("beta");
-            }}
-          >
-            Bêta
-          </button>
+          {(Object.keys(CHANNEL_LABEL) as Channel[]).map((id) => (
+            <button
+              key={id}
+              type="button"
+              role="tab"
+              aria-selected={channel === id}
+              className={`terminal-channel-tab ${channel === id ? "is-active" : ""}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setChannel(id);
+              }}
+            >
+              {CHANNEL_LABEL[id]}
+            </button>
+          ))}
         </div>
         )}
 
@@ -739,8 +742,25 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
                 <span className="terminal-prompt-num">2)</span>
                 <span className="terminal-prompt-name">
                   {isEn
-                    ? "Beta — early access to features in development"
-                    : "Bêta — accès anticipé aux fonctionnalités en cours de test"}
+                    ? "Beta — feature batches selected before release"
+                    : "Bêta — lots de fonctionnalités sélectionnés avant publication"}
+                </span>
+              </button>
+
+              <button
+                type="button"
+                className={`terminal-channel-prompt__btn ${channel === "canary" ? "is-selected" : ""}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleSelectChannelPrompt("canary");
+                }}
+                disabled={channelPromptAnswered}
+              >
+                <span className="terminal-prompt-num">3)</span>
+                <span className="terminal-prompt-name">
+                  {isEn
+                    ? "Canary — latest commit of main, untested"
+                    : "Canary — tout dernier commit de main, non testé"}
                 </span>
               </button>
             </div>
@@ -748,11 +768,11 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
             <div className="terminal-channel-prompt__query">
               <span className="terminal-prompt-qtext">
                 {isEn
-                  ? `Your choice [1/2] (${channel === "beta" ? "2" : "1"}) : `
-                  : `Votre choix [1/2] (${channel === "beta" ? "2" : "1"}) : `}
+                  ? `Your choice [1/2/3] (${CHANNEL_KEY[channel]}) : `
+                  : `Votre choix [1/2/3] (${CHANNEL_KEY[channel]}) : `}
               </span>
               <span className="terminal-prompt-qval">
-                {channelPromptAnswered ? (channel === "beta" ? "2" : "1") : ""}
+                {channelPromptAnswered ? CHANNEL_KEY[channel] : ""}
               </span>
               {!channelPromptAnswered && (
                 <span className="terminal-cursor" aria-hidden="true" />
@@ -762,7 +782,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
             {channelPromptAnswered && (
               <div className="terminal-channel-prompt__confirmation">
                 <span className="terminal-channel-prompt__badge">
-                  {channel === "beta" ? "Bêta" : "Stable"}
+                  {CHANNEL_LABEL[channel]}
                 </span>
                 <span className="terminal-channel-prompt__detail">
                   {isEn
@@ -794,8 +814,8 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
               </span>
               <span className="terminal-step-title">
                 {isEn
-                  ? `Code ready in ~/Bobine (${channel === "beta" ? "beta tag" : "latest stable release"})`
-                  : `Code prêt dans ~/Bobine (${channel === "beta" ? "tag beta" : "dernière version stable"})`}
+                  ? `Code ready in ~/Bobine (${channel === "stable" ? "latest stable release" : `${channel} tag`})`
+                  : `Code prêt dans ~/Bobine (${channel === "stable" ? "dernière version stable" : `tag ${channel}`})`}
               </span>
             </div>
           </div>
@@ -891,7 +911,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
               <div className="terminal-summary-row">
                 <span className="summary-key">Canal</span>
                 <span className="summary-val">
-                  <code>{channel === "beta" ? "beta (rolling release)" : "stable (Vx.y.z)"}</code>
+                  <code>{channel === "stable" ? "stable (Vx.y.z)" : `${channel} (rolling release)`}</code>
                   <span className="summary-alt">(/etc/bobine/update-channel)</span>
                 </span>
               </div>

@@ -17,7 +17,8 @@ export interface CatalogEntry {
   id: string; // ASIN (Amazon) ou product_id (AliExpress)
   platform: CatalogPlatform;
   name: string;
-  price: number;
+  /** Absent quand le prix n'a pas pu être relevé (fiche Amazon à consulter). */
+  price: number | null;
   imageUrl: string;
   url: string;
   specs: string;

@@ -53,6 +53,8 @@ jobs:
         run: npx tsc --noEmit
       - name: ESLint
         run: npm run lint
+      - name: Simulateur d'installation aligné sur les scripts
+        run: bash scripts/ci/check-simulator-sync.sh
       - uses: actions/cache@v6
         with:
           path: .next/cache

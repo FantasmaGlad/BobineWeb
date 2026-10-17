@@ -113,7 +113,7 @@ export default function OsDownloadGrid({
     {
       id: "android-tv",
       name: "Android TV",
-      subtitle: isEn ? "Google TV, Shield, Xiaomi & Smart TVs" : "Google TV, Shield, Xiaomi & Smart TVs",
+      subtitle: isEn ? "Google TV, Xiaomi & Smart TVs (Android 14+)" : "Google TV, Xiaomi & Smart TV (Android 14+)",
       format: isEn ? "Package .apk" : "Paquet .apk",
       badge: isEn ? "Bientôt sur Google Play" : "Bientôt sur Google Play",
       url: stableInfo.downloads.androidTv || `https://github.com/FantasmaGlad/Bobine/releases/download/${stableInfo.version}/Bobine-TV-${stableInfo.version.replace(/^V/i, "")}.apk`,

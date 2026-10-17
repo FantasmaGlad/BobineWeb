@@ -36,7 +36,8 @@ export default function ChatCompareCard({ ids, locale }: { ids: string[]; locale
 
   if (!products || products.length < 2) return null;
 
-  const cheapest = Math.min(...products.map((p) => p.price));
+  const known = products.map((p) => p.price).filter((price): price is number => price !== null);
+  const cheapest = known.length > 0 ? Math.min(...known) : null;
   const isUnit = products.every((p) => p.category === "uc");
 
   const rows: Array<{ label: string; render: (p: ClientProduct) => React.ReactNode }> = [
@@ -48,7 +49,7 @@ export default function ChatCompareCard({ ids, locale }: { ids: string[]; locale
       label: isEn ? "Price" : "Prix",
       render: (p) => (
         <strong className={p.price === cheapest ? "is-best" : undefined}>
-          {p.price.toFixed(2)} €{p.platform === "aliexpress" ? (isEn ? " (from)" : " (dès)") : ""}
+          {p.price === null ? (isEn ? "See price on Amazon" : "Voir le prix sur Amazon") : `${p.price.toFixed(2)} €${p.platform === "aliexpress" ? (isEn ? " (from)" : " (dès)") : ""}`}
         </strong>
       ),
     },

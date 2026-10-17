@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { formatPrice, sumPrices } from "@/lib/price";
 import Image from "next/image";
 import { useHardwareCart, cartItemPlatform, type CartItem, type CartPlatform } from "@/lib/hardwareCart";
 import { AMAZON_STORE_ID } from "@/content/hardware";
 import type { Locale } from "@/lib/i18n";
 
 export default function HardwareCartBar({ locale }: { locale: Locale }) {
-  const { items, count, total, removeItem, clear } = useHardwareCart();
+  const { items, count, total, unknownPrices, removeItem, clear } = useHardwareCart();
   const isEn = locale === "en";
   const [isOpen, setIsOpen] = useState(false);
   // Fiches AliExpress déjà ouvertes dans cette session du panier (le lien de suivi est propre à
@@ -17,7 +18,7 @@ export default function HardwareCartBar({ locale }: { locale: Locale }) {
   const groups = (["amazon", "aliexpress"] as CartPlatform[])
     .map((platform) => {
       const groupItems = items.filter((i) => cartItemPlatform(i) === platform);
-      return { platform, items: groupItems, total: groupItems.reduce((acc, i) => acc + i.priceAmazon, 0) };
+      return { platform, items: groupItems, total: sumPrices(groupItems).total, unknown: sumPrices(groupItems).unknown };
     })
     .filter((g) => g.items.length > 0);
 
@@ -63,7 +64,7 @@ export default function HardwareCartBar({ locale }: { locale: Locale }) {
           <circle cx="20" cy="21" r="1" />
           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
         </svg>
-        <span className="hw-cart-fab-total">{total.toFixed(0)} €</span>
+        <span className="hw-cart-fab-total">{total > 0 ? `${unknownPrices > 0 ? "≥ " : ""}${total.toFixed(0)} €` : "—"}</span>
         {count > 0 && (
           <span key={count} className="hw-cart-fab-badge">
             {count}
@@ -107,7 +108,7 @@ export default function HardwareCartBar({ locale }: { locale: Locale }) {
                             ? `${group.items.length} item${group.items.length > 1 ? "s" : ""}`
                             : `${group.items.length} article${group.items.length > 1 ? "s" : ""}`}
                           {" · "}
-                          <strong>{group.total.toFixed(2)} €</strong>
+                          <strong>{group.total > 0 ? `${group.unknown > 0 ? "≥ " : ""}${group.total.toFixed(2)} €` : (isEn ? "price on the store" : "prix sur la boutique")}</strong>
                         </span>
                       </header>
 
@@ -118,7 +119,7 @@ export default function HardwareCartBar({ locale }: { locale: Locale }) {
                           </div>
                           <div className="hw-cart-sheet-row-info">
                             <span className="hw-cart-sheet-row-name">{item.name}</span>
-                            <span className="hw-cart-sheet-row-price">{item.priceAmazon.toFixed(2)} €</span>
+                            <span className="hw-cart-sheet-row-price">{formatPrice(item.priceAmazon) ?? (isEn ? "See price on Amazon" : "Voir le prix sur Amazon")}</span>
                           </div>
                           <a
                             href={item.amazonUrl}
@@ -193,7 +194,7 @@ export default function HardwareCartBar({ locale }: { locale: Locale }) {
               <div className="hw-cart-sheet-footer">
                 <div className="hw-cart-sheet-total">
                   <span>{isEn ? "Estimated total" : "Total estimé"}</span>
-                  <strong>{total.toFixed(2)} €</strong>
+                  <strong>{total > 0 ? `${unknownPrices > 0 ? "≥ " : ""}${total.toFixed(2)} €` : "—"}</strong>
                 </div>
                 <div className="hw-cart-sheet-actions">
                   <button

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, lp } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
 import ScrollIndicator from "@/components/ScrollIndicator";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
@@ -182,7 +182,7 @@ export default async function ComparatifHubPage({
   const isEn = locale === "en";
   const breadcrumbs = [
     { name: isEn ? "Home" : "Accueil", url: `/${locale}` },
-    { name: isEn ? "Comparisons" : "Comparatifs", url: `/${locale}/comparatif` },
+    { name: isEn ? "Comparisons" : "Comparatifs", url: lp(locale, `/comparatif`) },
   ];
 
   return (
@@ -287,7 +287,7 @@ export default async function ComparatifHubPage({
             </div>
 
             <Link
-              href={`/${locale}/comparatif/${card.slug}`}
+              href={lp(locale, `/comparatif/${card.slug}`)}
               className="btn-primary"
               style={{ width: "100%", textAlign: "center", justifyContent: "center" }}
             >

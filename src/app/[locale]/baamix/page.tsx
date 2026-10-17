@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { IS_ONION } from "@/lib/onion";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, lp } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import BobineChatbot from "@/components/BobineChatbot";
 
@@ -239,9 +239,9 @@ export default async function BaamixPage({ params }: { params: Promise<{ locale:
           {t.who} <a href="mailto:clement.barillot@bobine.fit">clement.barillot@bobine.fit</a>
         </p>
         <p>
-          <Link href={`/${currentLocale}/confidentialite`}>{t.privacy}</Link>
+          <Link href={lp(currentLocale, `/confidentialite`)}>{t.privacy}</Link>
           {" · "}
-          <Link href={`/${currentLocale}/mentions-legales`}>{t.legal}</Link>
+          <Link href={lp(currentLocale, `/mentions-legales`)}>{t.legal}</Link>
         </p>
       </section>
       </div>

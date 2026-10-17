@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, lp } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 const copy = {
@@ -125,7 +125,7 @@ export default async function LegalNoticePage({
 
   const breadcrumbs = [
     { name: "Bobine", url: `/${locale}` },
-    { name: isEn ? "Legal Notice" : "Mentions Légales", url: `/${locale}/mentions-legales` },
+    { name: isEn ? "Legal Notice" : "Mentions Légales", url: lp(locale, `/mentions-legales`) },
   ];
 
   return (

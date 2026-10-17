@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, lp } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
 import DownloadPdfButton from "@/components/DownloadPdfButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
@@ -113,7 +113,7 @@ export default async function DocumentationPage({
       </div>
 
       <p style={{ fontSize: "0.9rem", marginBottom: "1.75rem" }}>
-        <Link href={`/${locale}/fonctionnalites`} style={{ color: "var(--accent-primary)", fontWeight: 600, textDecoration: "none" }}>
+        <Link href={lp(locale, `/fonctionnalites`)} style={{ color: "var(--accent-primary)", fontWeight: 600, textDecoration: "none" }}>
           {isEn ? "See also: What Bobine does for your gym →" : "Voir aussi : ce que Bobine change pour votre salle →"}
         </Link>
       </p>

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { type Locale } from "./i18n";
+import { IS_ONION } from "./onion";
+import { EN_SLUG_MAP } from "./slugs";
 
 const BASE_URL = "https://bobine.fit";
 
@@ -14,24 +16,30 @@ export interface SeoProps {
   publishedTime?: string;
 }
 
-export const EN_SLUG_MAP: Record<string, string> = {
-  "/fonctionnalites": "/features",
-  "/comparatif": "/compare",
-  "/comparatif/les-mills-cinema": "/compare/les-mills-cinema",
-  "/comparatif/wexer-fitness-on-demand": "/compare/wexer-fitness-on-demand",
-  "/comparatif/radical-fitness-yako": "/compare/radical-fitness-yako",
-  "/comparatif/affichage-dynamique-fitness": "/compare/digital-signage-fitness",
-  "/materiel": "/hardware/amazon",
-  "/materiel/amazon": "/hardware/amazon",
-  "/materiel/aliexpress": "/hardware/aliexpress",
-  "/documentation/utilisation": "/documentation/user-guide",
-  "/documentation/developpeurs": "/documentation/developers",
-  "/a-propos": "/about",
-  "/soutenir": "/support",
-  "/mentions-legales": "/legal-notice",
-  "/confidentialite": "/privacy",
-  "/securite": "/security",
-};
+export { EN_SLUG_MAP };
+
+/**
+ * Adresse interne d'une page, avec le slug de sa langue : `lp("en", "/fonctionnalites")` donne
+ * `/en/features`. Un lien vers le slug français sous `/en` passe par une redirection 308, que
+ * Search Console compte comme « page avec redirection ».
+ */
+export function lp(locale: Locale, pathname: string): string {
+  // L'export statique du miroir Tor ne porte ni réécriture ni redirection : seuls les dossiers
+  // réels (slugs français) y existent.
+  if (IS_ONION) return `/${locale}${pathname}`;
+  return `/${locale}${getLocalizedPath(pathname, locale)}`;
+}
+
+const FR_FROM_EN = Object.fromEntries(
+  Object.entries(EN_SLUG_MAP)
+    .filter(([fr]) => fr !== "/materiel")
+    .map(([fr, en]) => [en, fr])
+);
+
+/** Chemin français (dossier réel) d'un chemin sans préfixe de langue, qu'il soit français ou anglais. */
+export function toFrenchPath(pathname: string): string {
+  return FR_FROM_EN[pathname] ?? pathname;
+}
 
 export function getLocalizedPath(pathname: string, locale: Locale): string {
   if (locale === "en") {
@@ -166,6 +174,7 @@ export function buildMetadata({
         "en-US": enUrl,
         "x-default": frUrl,
       },
+      types: { "application/atom+xml": `${BASE_URL}/feed.xml` },
     },
     openGraph: {
       type,

@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
+import { lp } from "@/lib/seo";
 
 interface ComparatifNavProps {
   locale: Locale;
@@ -15,8 +16,8 @@ export default function ComparatifNav({ locale, currentTitle }: ComparatifNavPro
 
   const breadcrumbs = [
     { name: "Bobine", url: `/${locale}` },
-    { name: isEn ? "Comparisons" : "Comparatifs", url: `/${locale}/comparatif` },
-    ...(pathname !== `/${locale}/comparatif`
+    { name: isEn ? "Comparisons" : "Comparatifs", url: lp(locale, `/comparatif`) },
+    ...(pathname !== lp(locale, `/comparatif`)
       ? [{ name: currentTitle || (isEn ? "Comparison" : "Comparatif"), url: pathname }]
       : []),
   ];

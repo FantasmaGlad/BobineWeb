@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, lp } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 const copy = {
@@ -149,7 +149,7 @@ export default async function PrivacyPage({
 
   const breadcrumbs = [
     { name: "Bobine", url: `/${locale}` },
-    { name: isEn ? "Privacy Policy" : "Confidentialité", url: `/${locale}/confidentialite` },
+    { name: isEn ? "Privacy Policy" : "Confidentialité", url: lp(locale, `/confidentialite`) },
   ];
 
   return (

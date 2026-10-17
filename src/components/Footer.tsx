@@ -5,6 +5,7 @@ import Image from "next/image";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import GitHubIcon from "@/components/icons/GitHubIcon";
 import { TOR_PROJECT_URL, TOR_SOURCE_URL } from "@/lib/onion";
+import { lp } from "@/lib/seo";
 
 export default function Footer({
   locale,
@@ -53,10 +54,10 @@ export default function Footer({
             <Link href={`/${locale}`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.nav.home}
             </Link>
-            <Link href={`/${locale}/fonctionnalites`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+            <Link href={lp(locale, `/fonctionnalites`)} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.nav.features}
             </Link>
-            <Link href={`/${locale}/materiel/amazon`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+            <Link href={lp(locale, `/materiel/amazon`)} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.nav.hardware}
             </Link>
             <Link href={`/${locale}/baamix`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
@@ -68,6 +69,21 @@ export default function Footer({
             <Link href={`/${locale}/blog`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.nav.blog}
             </Link>
+            <Link href={lp(locale, "/nouveautes")} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+              {isEn ? "What's new" : "Nouveautés"}
+            </Link>
+            <Link href={lp(locale, "/canaux")} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+              {isEn ? "Update channels" : "Canaux de mise à jour"}
+            </Link>
+            <Link href={lp(locale, "/android-tv")} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+              {isEn ? "Android TV" : "Android TV"}
+            </Link>
+            <Link href={lp(locale, "/google-book")} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+              {isEn ? "Google Book" : "Google Book"}
+            </Link>
+            <Link href={lp(locale, "/tor")} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+              {isEn ? "Tor (.onion)" : "Tor (.onion)"}
+            </Link>
           </div>
 
           {/* Colonne 3 : Comparatifs & Alternatives (SEO) */}
@@ -75,16 +91,16 @@ export default function Footer({
             <span style={{ fontSize: "0.775rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-heading)" }}>
               {isEn ? "Comparisons & Alternatives" : "Comparatifs & Alternatives"}
             </span>
-            <Link href={`/${locale}/comparatif/les-mills-cinema`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+            <Link href={lp(locale, `/comparatif/les-mills-cinema`)} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               Les Mills Cinema
             </Link>
-            <Link href={`/${locale}/comparatif/wexer-fitness-on-demand`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+            <Link href={lp(locale, `/comparatif/wexer-fitness-on-demand`)} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               Wexer & FOD
             </Link>
-            <Link href={`/${locale}/comparatif/radical-fitness-yako`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+            <Link href={lp(locale, `/comparatif/radical-fitness-yako`)} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               Radical Fitness & Yako
             </Link>
-            <Link href={`/${locale}/comparatif/affichage-dynamique-fitness`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+            <Link href={lp(locale, `/comparatif/affichage-dynamique-fitness`)} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               Affichage Dynamique
             </Link>
           </div>
@@ -125,19 +141,19 @@ export default function Footer({
             >
               {isEn ? "Contact by email" : "Contact par e-mail"}
             </a>
-            <Link href={`/${locale}/soutenir`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+            <Link href={lp(locale, `/soutenir`)} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.nav.support}
             </Link>
-            <Link href={`/${locale}/a-propos`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+            <Link href={lp(locale, `/a-propos`)} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.nav.about}
             </Link>
-            <Link href={`/${locale}/mentions-legales`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+            <Link href={lp(locale, `/mentions-legales`)} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.footer.legal}
             </Link>
-            <Link href={`/${locale}/confidentialite`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+            <Link href={lp(locale, `/confidentialite`)} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.footer.privacy}
             </Link>
-            <Link href={`/${locale}/securite`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
+            <Link href={lp(locale, `/securite`)} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {isEn ? "Security" : "Sécurité"}
             </Link>
           </div>

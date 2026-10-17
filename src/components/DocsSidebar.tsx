@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
+import { lp } from "@/lib/seo";
 
 export default function DocsSidebar({
   locale,
@@ -16,7 +17,7 @@ export default function DocsSidebar({
   return (
     <nav aria-label="Documentation" className="docs-sidebar">
       {items.map(([slug, label]) => {
-        const href = `/${locale}/documentation${slug ? `/${slug}` : ""}`;
+        const href = lp(locale, `/documentation${slug ? `/${slug}` : ""}`);
         const isActive = pathname === href;
         return (
           <Link

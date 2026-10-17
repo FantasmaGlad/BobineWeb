@@ -9,6 +9,7 @@ import LocaleSwitcher from "@/components/LocaleSwitcher";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import GitHubBadge from "@/components/GitHubBadge";
 import MobileDrawer from "@/components/MobileDrawer";
+import { lp } from "@/lib/seo";
 
 
 export default function Header({
@@ -22,22 +23,22 @@ export default function Header({
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const links: Array<[string, string]> = [
-    [`/${locale}/fonctionnalites`, dict.nav.features],
-    [`/${locale}/materiel/amazon`, dict.nav.hardware],
+    [lp(locale, `/fonctionnalites`), dict.nav.features],
+    [lp(locale, `/materiel/amazon`), dict.nav.hardware],
     [`/${locale}/documentation`, dict.nav.documentation],
-    [`/${locale}/comparatif`, dict.nav.comparisons],
+    [lp(locale, `/comparatif`), dict.nav.comparisons],
     [`/${locale}/blog`, dict.nav.blog],
-    [`/${locale}/soutenir`, dict.nav.support],
-    [`/${locale}/a-propos`, dict.nav.about],
+    [lp(locale, `/soutenir`), dict.nav.support],
+    [lp(locale, `/a-propos`), dict.nav.about],
   ];
 
   const isAllowedBaamix = (() => {
     if (!pathname) return false;
     const cleanPath = pathname.replace(/\/$/, "");
     if (cleanPath === `/${locale}`) return true;
-    if (cleanPath.startsWith(`/${locale}/fonctionnalites`)) return true;
-    if (cleanPath.startsWith(`/${locale}/comparatif`)) return true;
-    if (cleanPath.startsWith(`/${locale}/materiel`)) return true;
+    if (cleanPath.startsWith(lp(locale, `/fonctionnalites`))) return true;
+    if (cleanPath.startsWith(lp(locale, `/comparatif`))) return true;
+    if (cleanPath.startsWith(lp(locale, `/materiel`))) return true;
     if (cleanPath.startsWith(`/${locale}/documentation`)) return true;
     return false;
   })();

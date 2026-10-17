@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { CLEARNET_URL } from "@/lib/onion";
+import { lp } from "@/lib/seo";
 
 export type OnionTopic = "materiel" | "baamix";
 
@@ -105,7 +106,7 @@ export default function OnionMirrorNotice({
           <Link href={`/${locale}/documentation`} className="btn-primary">
             {t.docs}
           </Link>
-          <Link href={`/${locale}/a-propos`} className="btn-secondary">
+          <Link href={lp(locale, `/a-propos`)} className="btn-secondary">
             {t.manifest}
           </Link>
         </div>

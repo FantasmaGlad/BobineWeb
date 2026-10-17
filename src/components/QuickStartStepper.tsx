@@ -6,6 +6,7 @@ import Link from "next/link";
 import Shot from "@/components/Shot";
 import CodeBlock from "@/components/CodeBlock";
 import InteractiveTerminal from "@/components/InteractiveTerminal";
+import { lp } from "@/lib/seo";
 
 interface QuickStartStepperProps {
   locale: Locale;
@@ -542,7 +543,7 @@ speaker-test -t wav -c 2 -l 1`}</code>
                 </button>
               ) : (
                 <Link
-                  href={`/${locale}/documentation/utilisation`}
+                  href={lp(locale, `/documentation/utilisation`)}
                   className="btn-primary stepper-nav-btn"
                 >
                   <span>{isEn ? "Explore User Manual" : "Passer au Guide d'Utilisation"}</span>

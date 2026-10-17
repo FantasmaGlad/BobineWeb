@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
 import DocsSearch from "@/components/DocsSearch";
+import { lp } from "@/lib/seo";
 
 interface DocsMobileNavProps {
   locale: Locale;
@@ -48,7 +49,7 @@ export default function DocsMobileNav({ locale, items }: DocsMobileNavProps) {
 
   // Trouver l'index de l'item actif
   const currentIndex = items.findIndex(([sub]) => {
-    const target = sub === "" ? `/${locale}/documentation` : `/${locale}/documentation/${sub}`;
+    const target = lp(locale, sub === "" ? "/documentation" : `/documentation/${sub}`);
     return pathname === target;
   });
 
@@ -123,7 +124,7 @@ export default function DocsMobileNav({ locale, items }: DocsMobileNavProps) {
                   {locale === "en" ? "Table of Contents" : "Sommaire des guides"}
                 </span>
                 {items.map(([sub, label]) => {
-                  const href = sub === "" ? `/${locale}/documentation` : `/${locale}/documentation/${sub}`;
+                  const href = lp(locale, sub === "" ? "/documentation" : `/documentation/${sub}`);
                   const isActive = pathname === href;
                   return (
                     <Link

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
+import { lp } from "@/lib/seo";
 
 interface ProfileData {
   id: string;
@@ -51,7 +52,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
             },
           ],
           ctaText: "Calculate your savings",
-          ctaHref: `/${locale}/comparatif/les-mills-cinema`,
+          ctaHref: lp(locale, `/comparatif/les-mills-cinema`),
         },
         {
           id: "members",
@@ -79,7 +80,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
             },
           ],
           ctaText: "Discover features",
-          ctaHref: `/${locale}/fonctionnalites`,
+          ctaHref: lp(locale, `/fonctionnalites`),
         },
         {
           id: "opensource",
@@ -137,7 +138,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
             },
           ],
           ctaText: "Simuler vos économies",
-          ctaHref: `/${locale}/comparatif/les-mills-cinema`,
+          ctaHref: lp(locale, `/comparatif/les-mills-cinema`),
         },
         {
           id: "members",
@@ -165,7 +166,7 @@ export default function ProfileTabs({ locale }: { locale: Locale }) {
             },
           ],
           ctaText: "Voir le guide d'utilisation",
-          ctaHref: `/${locale}/documentation/utilisation`,
+          ctaHref: lp(locale, `/documentation/utilisation`),
         },
         {
           id: "opensource",

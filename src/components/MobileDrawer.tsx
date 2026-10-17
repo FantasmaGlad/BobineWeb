@@ -8,6 +8,7 @@ import type { Dictionary, Locale } from "@/lib/i18n";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 import GitHubBadge from "@/components/GitHubBadge";
+import { lp } from "@/lib/seo";
 
 interface MobileDrawerProps {
   isOpen: boolean;
@@ -28,13 +29,13 @@ export default function MobileDrawer({
 
   const mainLinks: Array<{ href: string; label: string; tag?: string }> = [
     { href: `/${locale}`, label: dict.nav.home },
-    { href: `/${locale}/fonctionnalites`, label: dict.nav.features },
-    { href: `/${locale}/materiel/amazon`, label: dict.nav.hardware, tag: isEn ? "Selection" : "Sélection" },
+    { href: lp(locale, `/fonctionnalites`), label: dict.nav.features },
+    { href: lp(locale, `/materiel/amazon`), label: dict.nav.hardware, tag: isEn ? "Selection" : "Sélection" },
     { href: `/${locale}/documentation`, label: dict.nav.documentation },
-    { href: `/${locale}/comparatif`, label: dict.nav.comparisons },
+    { href: lp(locale, `/comparatif`), label: dict.nav.comparisons },
     { href: `/${locale}/blog`, label: dict.nav.blog },
-    { href: `/${locale}/soutenir`, label: dict.nav.support },
-    { href: `/${locale}/a-propos`, label: dict.nav.about },
+    { href: lp(locale, `/soutenir`), label: dict.nav.support },
+    { href: lp(locale, `/a-propos`), label: dict.nav.about },
   ];
 
   useEffect(() => {
@@ -225,7 +226,7 @@ export default function MobileDrawer({
             <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem", alignItems: "center" }}>
               <div style={{ display: "flex", gap: "1.25rem", justifyContent: "center", alignItems: "center", fontSize: "0.8rem" }}>
                 <Link
-                  href={`/${locale}/mentions-legales`}
+                  href={lp(locale, `/mentions-legales`)}
                   onClick={onClose}
                   style={{ color: "var(--text-muted)", textDecoration: "none" }}
                 >
@@ -233,7 +234,7 @@ export default function MobileDrawer({
                 </Link>
                 <span style={{ color: "var(--border-subtle)" }}>•</span>
                 <Link
-                  href={`/${locale}/confidentialite`}
+                  href={lp(locale, `/confidentialite`)}
                   onClick={onClose}
                   style={{ color: "var(--text-muted)", textDecoration: "none" }}
                 >

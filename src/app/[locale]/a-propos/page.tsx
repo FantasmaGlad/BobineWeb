@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, lp } from "@/lib/seo";
 import ScrollIndicator from "@/components/ScrollIndicator";
 
 export async function generateMetadata({
@@ -46,7 +46,7 @@ export default async function AboutPage({
 
   const breadcrumbs = [
     { name: "Bobine", url: `/${locale}` },
-    { name: isEn ? "About & Manifesto" : "À propos & Manifeste", url: `/${locale}/a-propos` },
+    { name: isEn ? "About & Manifesto" : "À propos & Manifeste", url: lp(locale, `/a-propos`) },
   ];
 
   return (

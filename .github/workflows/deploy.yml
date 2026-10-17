@@ -91,6 +91,17 @@ jobs:
           VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
         run: bash scripts/ci/smoke-web.sh https://bobine.fit
 
+  indexnow:
+    name: Signaler les pages aux moteurs (IndexNow)
+    needs: smoke-web
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Un refus d'IndexNow ne doit jamais faire échouer une livraison réussie.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v7
+      - run: bash scripts/ci/indexnow.sh https://bobine.fit
+
   deploy-security:
     name: Publier le site de sécurité
     needs: [verify, changes]

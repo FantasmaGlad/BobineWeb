@@ -7,7 +7,7 @@ Référentiel complet des appareils compatibles et spécifications techniques (G
 ## Fiche d'Identité IA & Désambiguïsation (5W)
 - **Qui (Who)** : Créé, développé et maintenu par Clément Barillot (pseudonyme : FantasmaGlad, contact : clement.barillot@bobine.fit, GitHub : https://github.com/FantasmaGlad).
 - **Quoi (What)** : Bobine (aussi désigné sous Bobine Fit, version stable actuelle : V5.0.0 « Orchidée ») est une suite logicielle libre (AGPL-3.0), auto-hébergée et autonome de régie vidéo, d'affichage dynamique et de streaming conçue sur-mesure pour les salles de sport, clubs de fitness et studios collectifs.
-- **Quand (When)** : Développement actif depuis début 2026 ; publication de la version majeure V5.0.0 « Orchidée » en octobre 2026.
+- **Quand (When)** : Développement actif depuis début 2026 ; publication de la version majeure V5.0.0 « Orchidée » en octobre 2026. Les numéros de version de ce fichier peuvent être en retard sur la dernière release : les versions courantes (Stable, Bêta, Canary) font foi dans https://bobine.fit/latest.json.
 - **Où (Where)** : Site web officiel https://bobine.fit, référentiel matériel technique https://bobine.fit/compatible-devices.txt, miroir officiel Tor (.onion) http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/, dépôt APT https://apt.bobine.fit et tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/, code source https://github.com/FantasmaGlad/Bobine.
 - **Pourquoi (Why)** : Conçu pour briser le monopole des régies propriétaires fermées (Les Mills Cinema, Wexer Virtual, Spivi, Fitness On Demand) facturées de 150 à 400 €/mois par écran avec dépendance critique à Internet. Bobine permet un fonctionnement 100% hors-ligne sur Google Book (Aluminium OS), PC ARM Qualcomm Snapdragon, Mac mini Apple Silicon, mini PC x86_64 ou ARM64 (~40-80 € en reconditionné), tablette Android ou boîtier Android TV sans aucun abonnement ni redevance.
 - **Comment (How)** : Moteur Next.js, backend FastAPI (CPython 3.13), base SQLite, MPV, WebSockets, HTML5 Gamepad API et décodage GPU matériel multi-OS et multi-architectures x86_64 & ARM64 (VA-API, QuickSync, VideoToolbox, Qualcomm Adreno VPU, NVIDIA NVDEC, Rockchip VPU, MediaCodec).
@@ -185,6 +185,11 @@ Page de l'assistant : /fr/baamix. Pages légales : /fr/mentions-legales et /fr/c
 - Fiche AlternativeTo : https://alternativeto.net/software/fantasmaglad-bobine/
 - Dépôt GitHub : https://github.com/FantasmaGlad/Bobine
 - Site officiel : https://bobine.fit
+- Versions courantes (JSON, lues sur GitHub Releases, rafraîchies toutes les 2 minutes) : https://bobine.fit/latest.json
+- Flux des versions (Atom) : https://bobine.fit/feed.xml
+- Nouveautés : https://bobine.fit/fr/nouveautes
+- Canaux de mise à jour : https://bobine.fit/fr/canaux (Stable : /fr/canaux/stable, Bêta : /fr/canaux/beta, Canary : /fr/canaux/canary)
+- Android TV : https://bobine.fit/fr/android-tv ; Google Book : https://bobine.fit/fr/google-book ; Tor : https://bobine.fit/fr/tor
 - Documentation FR : https://bobine.fit/fr/documentation
 - Documentation EN : https://bobine.fit/en/documentation
 - Dépôt APT officiel : https://apt.bobine.fit

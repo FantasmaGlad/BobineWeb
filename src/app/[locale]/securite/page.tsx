@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, lp } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 
 const SECURITY_EMAIL = "security@bobine.fit";
@@ -250,7 +250,7 @@ export default async function SecurityPage({
 
   const breadcrumbs = [
     { name: "Bobine", url: `/${locale}` },
-    { name: isEn ? "Security" : "Sécurité", url: `/${locale}/securite` },
+    { name: isEn ? "Security" : "Sécurité", url: lp(locale, `/securite`) },
   ];
 
   return (

@@ -19,15 +19,22 @@ export interface TechChip {
   label: string;
 }
 
-export type DeviceImageKey = "windows" | "macos" | "linux" | "android";
+export type DeviceImageKey =
+  | "windows"
+  | "macos"
+  | "linux"
+  | "android"
+  | "googlebook"
+  | "mascot"
+  | "channels";
 
 export interface DocSubsection {
   subtitle: string;
   paragraphs: string[];
   codeBlock?: string;
   techChips?: TechChip[];
-  /** Photo d'appareil réel, utilisée uniquement par le générateur PDF (illustration). */
-  deviceImage?: DeviceImageKey;
+  /** Illustration(s) du générateur PDF uniquement : photo d'appareil, mascotte ou logos de canaux. */
+  deviceImage?: DeviceImageKey | DeviceImageKey[];
 }
 
 export interface DocChapter {

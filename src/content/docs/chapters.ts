@@ -38,6 +38,7 @@ const fr: DocChapter[] = [
           "Le nom Bobine rend hommage à la bobine de film 35mm. La mascotte Baamix, un hamster blanc, symbolise l'endurance et l'ingéniosité locale du projet.",
           "La solution tourne sur des mini PC reconditionnés (à partir d'environ 160 €, par exemple un HP EliteDesk 800 Mini) ou sur un mini PC industriel 100% fanless (environ 600 €) consommant quelques Watts en pleine lecture 1080p60/4K.",
         ],
+        deviceImage: "mascot",
       },
     ],
   },
@@ -47,7 +48,7 @@ const fr: DocChapter[] = [
     title: "2. Guide de Démarrage & Installation",
     icon: "install",
     summary:
-      "Méthodes d'installation de Bobine V5.0.0 : applications de bureau en un clic (Windows, macOS, Linux), application native pour tablettes Android, ou déploiement d'une appliance dédiée 24/7 pour une salle de sport.",
+      "Méthodes d'installation de Bobine V5.0.0 : applications de bureau en un clic (Windows, macOS, Linux), applications natives pour tablettes Android et boîtiers Android TV, ou déploiement d'une appliance dédiée 24/7 pour une salle de sport.",
     subsections: [
       {
         subtitle: "2.1 Windows 11 / 10 & Windows ARM (Qualcomm Snapdragon)",
@@ -89,21 +90,21 @@ const fr: DocChapter[] = [
       {
         subtitle: "2.4 Tablettes Android & Google Books (Aluminium OS)",
         paragraphs: [
-          "Paquet natif Bobine-5.0.0.apk (API 34-36), embarquant CPython 3.13 et FastAPI via Chaquopy, service de premier plan persistant, accélération MediaCodec et double affichage (/grid tactile + /cinema HDMI USB-C DisplayPort avec résolution robuste du branchement à chaud sans écran noir).",
+          "Paquet natif Bobine-5.0.0.apk (Android 14 à 16, API 34-36), embarquant CPython 3.13 et FastAPI via Chaquopy, service de premier plan persistant, accélération MediaCodec et double affichage (/grid tactile + /cinema HDMI USB-C DisplayPort avec résolution robuste du branchement à chaud sans écran noir).",
           "Compatibilité Google Books : Bobine s'exécute nativement en plein écran sur les ordinateurs portables Google Book (Aluminium OS) via l'APK avec accélération matérielle complète, et sera très prochainement disponible en téléchargement direct 1 clic sur le Google Play Store.",
           "Matériel de référence testé : tablettes Samsung Galaxy Tab ou Xiaomi Pad avec port USB-C compatible DisplayPort Alt Mode, et ordinateurs portables Google Book.",
         ],
-        deviceImage: "android",
+        deviceImage: ["android", "googlebook"],
       },
       {
         subtitle: "2.4 bis Android TV & Google TV (Box TV, Clés & Smart TVs)",
         paragraphs: [
-          "Paquet dédié officiel Bobine-TV-5.0.0.apk (com.bobine.app.tv) conçu pour les boîtiers grand public (Chromecast avec Google TV, Xiaomi TV Box S, NVIDIA Shield TV, Smart TVs sous Android TV 11+). L'application s'intègre au lanceur officiel Leanback avec sa bannière 16:9, neutralise le prérequis d'écran tactile, empêche la mise en veille (FLAG_KEEP_SCREEN_ON) et s'ouvre par défaut sur le kiosque plein écran (/kiosk) navigable à 100% à la télécommande directionnelle D-Pad.",
+          "Paquet dédié officiel Bobine-TV-5.0.0.apk (com.bobine.app.tv) conçu pour les boîtiers grand public (Chromecast avec Google TV, Xiaomi TV Box S, NVIDIA Shield TV, Smart TVs sous Android TV / Google TV 14 ou supérieur). L'application s'intègre au lanceur officiel Leanback avec sa bannière 16:9, neutralise le prérequis d'écran tactile, empêche la mise en veille (FLAG_KEEP_SCREEN_ON) et s'ouvre par défaut sur le kiosque plein écran (/kiosk) navigable à 100% à la télécommande directionnelle D-Pad.",
+          "Architecture : le paquet TV est universel. Il s'installe aussi bien sur les boîtiers dont le système est 64 bits que sur ceux dont le système est 32 bits (ARM armeabi-v7a), ce qui est le cas de nombreux Chromecast avec Google TV et boîtiers ou clés Xiaomi, bien que leur processeur soit 64 bits. Android 14 (API 34) ou supérieur est requis, comme pour tous les paquets Android de Bobine.",
           "Stockage externe USB indispensable : Les box TV n'embarquent généralement que 4 à 8 Go de stockage flash eMMC interne (largement saturé par le système). Pour stocker vos cours vidéo en mode autonome, le branchement d'une clé USB 3.0 ou d'un SSD externe (formaté en FAT32 ou exFAT) via un adaptateur USB-C OTG est indispensable. Bobine détecte et sélectionne automatiquement ce stockage amovible sans aucune manipulation technique.",
           "Méthodes d'installation (Sideload) : Vous pouvez transférer sans fil l'APK depuis votre smartphone ou PC vers la TV grâce à l'application « Send Files to TV », l'installer depuis une clé USB via un gestionnaire de fichiers TV (File Commander), ou le pousser via le réseau local en ADB Wi-Fi (adb connect <ip_tv>:5555 && adb install Bobine-TV-5.0.0.apk).",
           "Google Play Store : Bobine pour Android TV est en cours de déploiement officiel sur le Play Store. Dès sa publication, l'installation et les futures mises à jour se feront en 1 clic directement depuis votre téléviseur.",
         ],
-        deviceImage: "android",
       },
       {
         subtitle: "2.5 Appliance dédiée & salle 24/7 (script automatisé en 18 étapes — x86_64 & ARM64)",
@@ -127,6 +128,7 @@ const fr: DocChapter[] = [
           "Sur tous les OS, Bêta et Canary partagent les mêmes identifiants applicatifs et s'installent par-dessus la version existante sans créer de doublon ni affecter les bases de données ou médias. Le choix s'effectue dans Réglages → Mises à jour logicielles ou via le paramètre CLI :",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta   # ou --channel=canary",
+        deviceImage: "channels",
       },
       {
         subtitle: "2.8 Navigateurs supportés (Firefox, Chrome, Edge, Safari)",
@@ -189,6 +191,13 @@ const fr: DocChapter[] = [
           "Diffusion musicale continue hors séance avec fondu enchaîné sans blanc sonore (Web Audio API) et alertes vocales de sécurité ou d'horaires programmables.",
         ],
       },
+      {
+        subtitle: "3.7 Sous-titres multilingues (.srt / .vtt)",
+        paragraphs: [
+          "Chaque cours vidéo peut recevoir plusieurs pistes de sous-titres : fichiers .srt ou .vtt ajoutés depuis la bibliothèque, ou joints au fichier vidéo lors de l'import (glisser-déposer). Les fichiers .srt sont convertis automatiquement en WebVTT, la langue est reconnue d'après le nom du fichier (par exemple cours.fr.srt, cours.en.vtt ; français par défaut) et chaque fichier est limité à 2 Mo.",
+          "Les sous-titres sont stockés localement avec le reste des données et s'activent depuis le menu de sous-titres de /cinema et dans le lecteur de la bibliothèque. Supprimer un cours supprime aussi ses fichiers de sous-titres.",
+        ],
+      },
     ],
   },
   {
@@ -247,6 +256,22 @@ const fr: DocChapter[] = [
         ],
         techChips: [{ icon: "database", label: "ZIP / SQLite" }, { icon: "terminal", label: "systemd watchdog" }],
       },
+      {
+        subtitle: "4.7 Identité visuelle « glassmorphism » & 16 thèmes",
+        paragraphs: [
+          "Toute l'interface d'administration (bibliothèque, planning, audio, radio, réglages, journaux) adopte un style translucide inspiré d'Apple : cartes en verre dépoli, dégradés doux et contours marqués. Le thème Lavande est le thème par défaut ; 16 thèmes calibrés WCAG sont disponibles.",
+          "L'écran de pause de /cinema reprend le recouvrement façon Netflix, et le changement de sortie câblée/réseau est animé, sur Android (tactile et HDMI) comme sur ordinateur. Le logo officiel du menu et l'écran de démarrage Android sont déclinés selon le canal de mise à jour actif (Stable, Bêta ou Canary).",
+        ],
+        techChips: [{ icon: "film", label: "Glassmorphism" }],
+      },
+      {
+        subtitle: "4.8 Découverte réseau bobine.local & mises à jour fiabilisées",
+        paragraphs: [
+          "Le service mDNS republie périodiquement l'adresse de bobine.local et retente avec un délai croissant après un changement d'IP (DHCP, Wi-Fi) ou un échec. Son état réel est visible dans Réglages, avec une alerte si bobine.local ne répond pas.",
+          "Le pipeline de mise à jour est fiabilisé sur toutes les plateformes : le retour de Bêta ou Canary vers Stable est proposé explicitement, l'empreinte SHA-256 est vérifiée avant toute installation (y compris sous Android, qui choisit l'APK téléphone ou Android TV selon l'appareil), et l'acquittement de la notification est conservé côté serveur.",
+        ],
+        techChips: [{ icon: "server", label: "mDNS / Update Orchestrator" }],
+      },
     ],
   },
   {
@@ -302,13 +327,13 @@ const fr: DocChapter[] = [
       {
         subtitle: "6.1 Stack logicielle & modèle mono-processus",
         paragraphs: [
-          "Backend : Python 3.13 avec FastAPI et Uvicorn mono-processus (zéro dépendance externe Redis).",
+          "Backend : Python avec FastAPI et Uvicorn mono-processus (zéro dépendance externe Redis). Python 3.11 minimum : 3.13 sur Debian 13 et les tablettes Android, 3.11 dans le paquet Android TV (seul runtime embarqué disponible pour les systèmes 32 bits).",
           "Base de données : SQLite avec schéma versionné, migrations automatiques et backfill d'extraction de durées et métadonnées.",
           "Moteurs multimédias : MPV avec VA-API sous Linux, moteur Gapless A/B Deck sous HTML5 (/cinema), et module déterministe app.utils.ffmpeg_binaries pour résoudre FFmpeg/FFprobe sur tous les OS.",
           "Frontend : Next.js App Router, export SSG statique, 16 thèmes calibrés WCAG AAA/AA, aucun emoji.",
         ],
         techChips: [
-          { icon: "server", label: "FastAPI / Python 3.13" },
+          { icon: "server", label: "FastAPI / Python 3.11+" },
           { icon: "database", label: "SQLite" },
           { icon: "film", label: "Gapless A/B / MPV" },
           { icon: "code", label: "Next.js SSG" },
@@ -359,10 +384,10 @@ const fr: DocChapter[] = [
         subtitle: "7.1 Android : application native officielle pour tablettes tactiles",
         paragraphs: [
           "L'application native Android (.apk) est officiellement disponible et éprouvée en conditions réelles de cours (V5.0.0). Elle transforme n'importe quelle tablette moderne (Xiaomi Pad 6, 7 ou 8, Samsung Galaxy Tab avec port USB-C DisplayPort) en régie autonome sans PC.",
-          "Bobine embarque le moteur FastAPI sous CPython 3.13 via Chaquopy et un ForegroundService persistant. La sortie vidéo déportée vers le téléviseur ou projecteur diffuse la vitrine /cinema en HDMI sans barre système, tandis que la tablette tactile affiche le pupitre de commande /grid ou la console coach /coach.",
+          "Bobine embarque le moteur FastAPI sous CPython via Chaquopy (3.13 sur tablettes) et un ForegroundService persistant. Le paquet Android TV (Bobine-TV) reprend ce moteur pour les boîtiers ARM 32 et 64 bits, sous Android 14 ou supérieur. La sortie vidéo déportée vers le téléviseur ou projecteur diffuse la vitrine /cinema en HDMI sans barre système, tandis que la tablette tactile affiche le pupitre de commande /grid ou la console coach /coach.",
           "L'application gère l'accélération matérielle MediaCodec, le relais des touches de manettes et télécommandes vers la sortie externe, la mémorisation mDNS (bobine.local) et le double stockage partitionné (interne F2FS pour la base et externe FUSE pour les médias).",
         ],
-        techChips: [{ icon: "smartphone", label: "Android ARM64 / Chaquopy" }, { icon: "tablet", label: "Xiaomi Pad / USB-C DP" }, { icon: "film", label: "MediaCodec" }],
+        techChips: [{ icon: "smartphone", label: "Android ARM 32/64 bits / Chaquopy" }, { icon: "tablet", label: "Xiaomi Pad / USB-C DP" }, { icon: "film", label: "MediaCodec" }],
       },
       {
         subtitle: "7.2 iOS / iPadOS : piste explorée pour iPads avec sortie vidéo USB-C / Thunderbolt",
@@ -405,6 +430,7 @@ const en: DocChapter[] = [
           "The name Bobine pays tribute to 35mm film reels. The mascot Baamix, a white hamster, symbolizes the project's endurance and local ingenuity.",
           "The software runs on refurbished mini PCs (starting around $160, e.g. an HP EliteDesk 800 Mini) or a 100% fanless industrial mini PC (around $600) consuming just a few Watts at full 1080p60/4K playback.",
         ],
+        deviceImage: "mascot",
       },
     ],
   },
@@ -414,7 +440,7 @@ const en: DocChapter[] = [
     title: "2. Setup Guide & Installation",
     icon: "install",
     summary:
-      "Bobine V5.0.0 installation methods: 1-click desktop applications (Windows, macOS, Linux), native Android tablet app, or a dedicated 24/7 appliance deployment for a gym studio.",
+      "Bobine V5.0.0 installation methods: 1-click desktop applications (Windows, macOS, Linux), native apps for Android tablets and Android TV boxes, or a dedicated 24/7 appliance deployment for a gym studio.",
     subsections: [
       {
         subtitle: "2.1 Windows 11 / 10 & Windows ARM (Qualcomm Snapdragon)",
@@ -456,21 +482,21 @@ const en: DocChapter[] = [
       {
         subtitle: "2.4 Android Tablets & Google Books (Aluminium OS)",
         paragraphs: [
-          "Certified native Bobine-5.0.0.apk (API 34-36), embedding CPython 3.13 and FastAPI via Chaquopy, persistent ForegroundService, native MediaCodec acceleration, and robust dual display (touchscreen /grid + HDMI TV /cinema over USB-C DisplayPort with resilient hotplug handling).",
+          "Certified native Bobine-5.0.0.apk (Android 14 to 16, API 34-36), embedding CPython 3.13 and FastAPI via Chaquopy, persistent ForegroundService, native MediaCodec acceleration, and robust dual display (touchscreen /grid + HDMI TV /cinema over USB-C DisplayPort with resilient hotplug handling).",
           "Google Books compatibility: Bobine runs natively in fullscreen mode on Google Book laptops (Aluminium OS) via the APK with full hardware acceleration, and will be arriving soon as a 1-click install from the Google Play Store.",
           "Reference hardware tested: Samsung Galaxy Tab or Xiaomi Pad tablets with a USB-C port supporting DisplayPort Alt Mode, and Google Book laptops.",
         ],
-        deviceImage: "android",
+        deviceImage: ["android", "googlebook"],
       },
       {
         subtitle: "2.4 bis Android TV & Google TV (Streaming Boxes, Sticks & Smart TVs)",
         paragraphs: [
-          "Dedicated official build Bobine-TV-5.0.0.apk (com.bobine.app.tv) tailored for streaming boxes (Chromecast with Google TV, Xiaomi TV Box S, NVIDIA Shield TV, Android TV 11+ Smart TVs). The app integrates into the Leanback home screen with its 16:9 banner, eliminates touchscreen requirements, enforces FLAG_KEEP_SCREEN_ON, and launches straight into the fullscreen kiosk interface (/kiosk) fully operable with a directional D-Pad remote control.",
+          "Dedicated official build Bobine-TV-5.0.0.apk (com.bobine.app.tv) tailored for streaming boxes (Chromecast with Google TV, Xiaomi TV Box S, NVIDIA Shield TV, Smart TVs running Android TV / Google TV 14 or later). The app integrates into the Leanback home screen with its 16:9 banner, eliminates touchscreen requirements, enforces FLAG_KEEP_SCREEN_ON, and launches straight into the fullscreen kiosk interface (/kiosk) fully operable with a directional D-Pad remote control.",
+          "Architecture: the TV package is universal. It installs on boxes with a 64-bit system as well as on those with a 32-bit system (ARM armeabi-v7a), as is the case for many Chromecast with Google TV devices and Xiaomi boxes or sticks, even though their processor is 64-bit. Android 14 (API 34) or later is required, as for every Bobine Android package.",
           "Essential external USB storage: Streaming TV devices typically ship with meager 4 to 8 GB internal eMMC flash storage (mostly occupied by OS system files). To store your studio video classes in standalone server mode, connecting a USB 3.0 flash drive or external SSD (formatted in FAT32 or exFAT) via a USB-C OTG hub is required. Bobine automatically detects and selects this mounted removable drive.",
           "Current Sideload Installation Methods: Wirelessly transfer the APK from your phone or PC using the 'Send Files to TV' app, install it from a USB flash drive via a TV file explorer (File Commander), or deploy it over the local network via ADB Wi-Fi (adb connect <tv_ip>:5555 && adb install Bobine-TV-5.0.0.apk).",
           "Google Play Store: Bobine for Android TV will soon be available on the Google Play Store. Once published, installation and future updates will be available in 1 click directly from your TV's app store.",
         ],
-        deviceImage: "android",
       },
       {
         subtitle: "2.5 Dedicated 24/7 appliance (18-step automated shell script — x86_64 & ARM64)",
@@ -494,6 +520,7 @@ const en: DocChapter[] = [
           "Across all platforms, Beta and Canary share identical application IDs and upgrade existing installations in-place without creating duplicate applications or altering media and databases. Toggle anytime in Settings → Software Updates or via CLI flag:",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta   # or --channel=canary",
+        deviceImage: "channels",
       },
       {
         subtitle: "2.8 Supported browsers (Firefox, Chrome, Edge, Safari)",
@@ -556,6 +583,13 @@ const en: DocChapter[] = [
           "Continuous background music across the gym floor with seamless Web Audio crossfading and scheduled spoken announcements (closing time reminders, safety etiquette).",
         ],
       },
+      {
+        subtitle: "3.7 Multilingual subtitles (.srt / .vtt)",
+        paragraphs: [
+          "Every video class can carry several subtitle tracks: .srt or .vtt files added from the library, or attached to the video file at import (drag and drop). .srt files are converted to WebVTT automatically, the language is recognised from the file name (for example class.fr.srt, class.en.vtt; French by default) and each file is limited to 2 MB.",
+          "Subtitles are stored locally with the rest of the data and are switched on from the subtitles menu of /cinema and in the library player. Deleting a class also deletes its subtitle files.",
+        ],
+      },
     ],
   },
   {
@@ -614,6 +648,22 @@ const en: DocChapter[] = [
         ],
         techChips: [{ icon: "database", label: "ZIP / SQLite" }, { icon: "terminal", label: "systemd watchdog" }],
       },
+      {
+        subtitle: "4.7 \"Glassmorphism\" visual identity & 16 themes",
+        paragraphs: [
+          "The whole admin interface (library, schedule, audio, radio, settings, logs) adopts a translucent Apple-inspired style: frosted-glass cards, soft gradients and defined outlines. Lavender is the default theme; 16 WCAG-calibrated themes are available.",
+          "The /cinema pause screen uses a Netflix-style overlay, and switching between the cabled and network outputs is animated, on Android (touch and HDMI) as on desktop. The official logo in the menu and the Android startup screen follow the active update channel (Stable, Beta or Canary).",
+        ],
+        techChips: [{ icon: "film", label: "Glassmorphism" }],
+      },
+      {
+        subtitle: "4.8 bobine.local network discovery & hardened updates",
+        paragraphs: [
+          "The mDNS service periodically republishes the bobine.local address and retries with growing delays after an IP change (DHCP, Wi-Fi) or a failure. Its real state is shown in Settings, with an alert if bobine.local does not answer.",
+          "The update pipeline is hardened on every platform: going back from Beta or Canary to Stable is offered explicitly, the SHA-256 digest is verified before any installation (Android included, which picks the phone or Android TV APK according to the device), and the notification acknowledgement is kept server-side.",
+        ],
+        techChips: [{ icon: "server", label: "mDNS / Update Orchestrator" }],
+      },
     ],
   },
   {
@@ -669,13 +719,13 @@ const en: DocChapter[] = [
       {
         subtitle: "6.1 Software stack & single-process architecture",
         paragraphs: [
-          "Backend: Python 3.13 with FastAPI and single-process Uvicorn (zero external Redis dependency).",
+          "Backend: Python with FastAPI and single-process Uvicorn (zero external Redis dependency). Python 3.11 minimum: 3.13 on Debian 13 and Android tablets, 3.11 in the Android TV package (the only embedded runtime available for 32-bit systems).",
           "Database: SQLite with versioned schema, automated migrations, and duration/metadata backfills.",
           "Playout engines: MPV with VA-API on Linux, HTML5 Gapless A/B Deck on /cinema, and deterministic app.utils.ffmpeg_binaries resolution across all platforms.",
           "Frontend: Next.js App Router, static SSG export, 16 WCAG AAA/AA calibrated themes, zero emoji.",
         ],
         techChips: [
-          { icon: "server", label: "FastAPI / Python 3.13" },
+          { icon: "server", label: "FastAPI / Python 3.11+" },
           { icon: "database", label: "SQLite" },
           { icon: "film", label: "Gapless A/B / MPV" },
           { icon: "code", label: "Next.js SSG" },
@@ -726,10 +776,10 @@ const en: DocChapter[] = [
         subtitle: "7.1 Android: official native application for touch tablets",
         paragraphs: [
           "The native Android application (.apk) is officially available and battle-tested in real gym conditions (V5.0.0). It turns any modern tablet (Xiaomi Pad 6, 7, or 8, Samsung Galaxy Tab with USB-C DisplayPort) into an autonomous playout appliance without requiring a PC.",
-          "Bobine embeds FastAPI under CPython 3.13 via Chaquopy and a persistent ForegroundService. The video feed connected to the TV or projector displays the /cinema view over HDMI without system bars, while the tablet touchscreen runs the /grid desk or /coach console.",
+          "Bobine embeds FastAPI under CPython via Chaquopy (3.13 on tablets) and a persistent ForegroundService. The Android TV package (Bobine-TV) reuses this engine for 32-bit and 64-bit ARM boxes, on Android 14 or later. The video feed connected to the TV or projector displays the /cinema view over HDMI without system bars, while the tablet touchscreen runs the /grid desk or /coach console.",
           "The app includes MediaCodec hardware acceleration, gamepad and remote control forwarding to the external display, mDNS discovery (bobine.local), and dual storage partitioning (fast internal F2FS for database and external FUSE for media).",
         ],
-        techChips: [{ icon: "smartphone", label: "Android ARM64 / Chaquopy" }, { icon: "tablet", label: "Xiaomi Pad / USB-C DP" }, { icon: "film", label: "MediaCodec" }],
+        techChips: [{ icon: "smartphone", label: "Android ARM 32/64 bits / Chaquopy" }, { icon: "tablet", label: "Xiaomi Pad / USB-C DP" }, { icon: "film", label: "MediaCodec" }],
       },
       {
         subtitle: "7.2 iOS / iPadOS: explored track for iPads with USB-C / Thunderbolt video output",

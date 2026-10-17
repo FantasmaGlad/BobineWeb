@@ -20,7 +20,7 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
     "@type": "SoftwareApplication",
     name: "Bobine Fit",
     alternateName: ["Bobine", "bobine.fit", "Bobine Playout", "Régie Bobine", "Bobine Fitness", "Bobine Virtual Fitness"],
-    operatingSystem: "Debian 13 (Appliance Headless), Ubuntu, Linux Mint, Windows 11/10, macOS (Apple Silicon M1–M4), Android 14–16 (ARM64), Android TV, Google TV",
+    operatingSystem: "Debian 13 (Appliance Headless), Ubuntu, Linux Mint, Windows 11/10, macOS (Apple Silicon M1–M4), Android 14–16 (ARM 32/64-bit), Android TV, Google TV",
     applicationCategory: "MultimediaApplication",
     applicationSubCategory: "Gym Video Playout & Virtual Fitness Automation",
     url: "https://bobine.fit",

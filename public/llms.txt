@@ -91,7 +91,7 @@ The 18 installation steps include:
 - **Features**: Embedded CPython 3.13 FastAPI backend via Chaquopy, persistent ForegroundService with notification, dual display (local touchscreen /grid or /coach + external HDMI TV /cinema or /kiosk via USB-C DisplayPort), native hardware MediaCodec video acceleration, Bluetooth/USB gamepad and remote input forwarding, and 100% offline local storage (F2FS internal data root + FUSE media root).
 
 ### 3. Android TV & Google TV Boxes (`Bobine-TV-5.0.0.apk`)
-- **Format**: Dedicated television package (`Bobine-TV-5.0.0.apk`, `Bobine-TV-beta.apk`, `Bobine-TV-canary.apk`, app ID `com.bobine.app.tv`).
+- **Format**: Dedicated television package (`Bobine-TV-5.0.0.apk`, `Bobine-TV-beta.apk`, `Bobine-TV-canary.apk`, app ID `com.bobine.app.tv`), Android 14 (API 34) or later, universal ARM 32-bit (`armeabi-v7a`) and 64-bit (`arm64-v8a`) build.
 - **Compatible Hardware**: NVIDIA Shield TV Pro, Google TV Streamer 4K, Nokia Streaming Box 8010, Thomson Streaming Box Plus 270, Strong LEAP-S3+, Xiaomi TV Box S (2nd & 3rd Gen).
 - **Features**: Leanback TV launcher banner, 100% D-Pad remote navigation, `FLAG_KEEP_SCREEN_ON`, automatic external USB 3.0 flash drive / SSD detection (FAT32/exFAT), and upcoming Google Play Store availability.
 

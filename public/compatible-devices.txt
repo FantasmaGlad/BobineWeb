@@ -355,7 +355,7 @@ All Snapdragon X processors share: TSMC N4P (4 nm) fabrication node, custom Qual
 ================================================================================
 
 ### Installation & Execution Profile
-- Official Dedicated TV Package : Bobine-TV-5.0.0.apk (Application ID: com.bobine.app.tv — Android TV 11 / 12 / 14+, Leanback Launcher banner, FLAG_KEEP_SCREEN_ON, 100% D-Pad remote & Bluetooth gamepad navigation, boots directly into /kiosk).
+- Official Dedicated TV Package : Bobine-TV-5.0.0.apk (Application ID: com.bobine.app.tv — Android 14 (API 34) or later, universal ARM 32-bit (armeabi-v7a) and 64-bit (arm64-v8a) package that installs on Chromecast with Google TV and Xiaomi boxes or sticks with a 32-bit system, Leanback Launcher banner, FLAG_KEEP_SCREEN_ON, 100% D-Pad remote & Bluetooth gamepad navigation, boots directly into /kiosk).
 - Upcoming Distribution : Native 1-click installation on Google Play Store for Android TV.
 - External USB Storage Requirement : Because streaming boxes allocate most of their internal 8 GB / 16 GB / 32 GB eMMC to Android system partitions, connecting an external USB 3.0 flash drive or SSD (FAT32 / exFAT) via a native USB-A port or powered USB-C OTG hub is required to store large workout video catalogs locally. Bobine automatically detects and mounts the external USB drive.
 

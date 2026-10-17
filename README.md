@@ -84,7 +84,7 @@ Nothing is published without passing the validation workflow, which checks on ev
 - the static Tor export and its guarantees (no external resource, no marketplace link, no measurement script);
 - the security site: signature of `security.txt`, fingerprint, expirations, local links.
 
-After publication, live tests query the real website, the disclosure site and the onion service through Tor. CodeQL and a daily check of the OpenPGP fingerprint run continuously. Details: [`docs/DEVELOPPEMENT.md`](docs/DEVELOPPEMENT.md) (in French).
+After publication, live tests query the real website, the disclosure site and the onion service through Tor. CodeQL and a daily check of the OpenPGP fingerprint run continuously.
 
 ## Run it locally
 

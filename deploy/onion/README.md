@@ -1,7 +1,6 @@
 # Miroir Tor de Bobine (deploy/onion)
 
 Tout ce qu'il faut pour reproduire le miroir .onion (site + depot APT) sur une machine Debian.
-Voir aussi `docs/cahier-des-charges-onion-tor.md`.
 
 ## Principe
 

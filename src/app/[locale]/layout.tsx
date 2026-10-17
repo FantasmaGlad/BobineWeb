@@ -37,14 +37,28 @@ export async function generateMetadata({
       template: "%s · Bobine",
     },
     description: isEn
-      ? "Bobine turns budget mini PCs into an autonomous, 100% offline video playout system for fitness clubs. The free, copyleft alternative to Les Mills Cinema and Wexer Virtual."
-      : "Bobine transforme un mini PC en régie vidéo autonome et 100% hors-ligne pour salles de sport. L'alternative libre, gratuite et sans abonnement à Les Mills Cinema et Les Mills Virtual.",
+      ? "Bobine V5.0.0 turns Google Books (Aluminium OS), Qualcomm Snapdragon ARM64 PCs, Apple Silicon Macs, Android tablets, and budget x86/ARM64 mini PCs into an autonomous, 100% offline video playout system for fitness clubs. The free, copyleft alternative to Les Mills Cinema and Wexer Virtual."
+      : "Bobine V5.0.0 transforme un Google Book (Aluminium OS), un PC ARM Qualcomm Snapdragon, un Mac mini, une tablette Android ou un mini PC x86/ARM64 en régie vidéo autonome et 100% hors-ligne pour salles de sport. L'alternative libre, gratuite et sans abonnement à Les Mills Cinema et Les Mills Virtual.",
     keywords: isEn
       ? [
           "Bobine",
           "Bobine Fit",
           "Bobine playout",
           "Bobine GitHub",
+          "Google Book",
+          "Googlebook",
+          "Aluminium OS",
+          "Bobine Google Book",
+          "Google Book gym app",
+          "Qualcomm Snapdragon ARM PC",
+          "Snapdragon X Elite",
+          "Snapdragon X Plus",
+          "Windows 11 ARM64",
+          "Linux ARM64",
+          "NVIDIA DGX Spark",
+          "ARM mini PC gym",
+          "Raspberry Pi 5 gym playout",
+          "Orange Pi 5 RK3588",
           "gym video playout",
           "virtual fitness kiosk",
           "Les Mills Cinema alternative",
@@ -61,6 +75,20 @@ export async function generateMetadata({
           "Bobine",
           "Bobine fit",
           "Bobine Github",
+          "Google Book",
+          "Googlebook",
+          "Aluminium OS",
+          "Bobine Google Book",
+          "Application salle de sport Google Book",
+          "PC ARM Qualcomm Snapdragon",
+          "Snapdragon X Elite",
+          "Snapdragon X Plus",
+          "Windows 11 ARM64",
+          "Linux ARM64",
+          "NVIDIA DGX Spark",
+          "Mini PC ARM salle de sport",
+          "Raspberry Pi 5 salle de sport",
+          "Orange Pi 5 RK3588",
           "Les Mills",
           "Les Mills Cinema",
           "Alternative Les Mills",
@@ -137,9 +165,27 @@ export default async function RootLayout({
         <link rel="icon" type="image/png" sizes="512x512" href="/icon.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
+        <link
+          rel="alternate"
+          type="text/plain"
+          href="/compatible-devices.txt"
+          title="Bobine V5.0.0 Compatible Hardware & Devices Technical Reference (ARM64, Snapdragon, Google Book, NVIDIA DGX Spark, x86_64, Apple Silicon, Android, Android TV)"
+        />
+        <link
+          rel="alternate"
+          type="text/plain"
+          href="/llms.txt"
+          title="Bobine V5.0.0 Summary Reference & Overview"
+        />
+        <link
+          rel="alternate"
+          type="text/plain"
+          href="/llms-full.txt"
+          title="Bobine V5.0.0 Complete Technical Documentation & Architecture Reference"
+        />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('bobineweb-theme')||'clair';document.documentElement.setAttribute('data-theme',t);var ua=navigator.userAgent||'';var p='linux';if(/Android/i.test(ua)){p='android';}else if(/iPhone|iPad|iPod/i.test(ua)||(navigator.maxTouchPoints>1&&/Macintosh/i.test(ua))){p='ios';}else if(/Windows/i.test(ua)){p='windows';}else if(/Macintosh|Mac OS X/i.test(ua)){p='macos';}document.documentElement.setAttribute('data-platform',p);}catch(e){}})()`,
+            __html: `(function(){try{var m={aurore:'miel',glacier:'ciel',rose:'clair',foret:'menthe',abysse:'hiver'};var r=localStorage.getItem('bobineweb-theme')||'charbon';var t=m[r]||r;document.documentElement.setAttribute('data-theme',t);var ua=navigator.userAgent||'';var p='linux';if(/Android/i.test(ua)){p='android';}else if(/iPhone|iPad|iPod/i.test(ua)||(navigator.maxTouchPoints>1&&/Macintosh/i.test(ua))){p='ios';}else if(/Windows/i.test(ua)){p='windows';}else if(/Macintosh|Mac OS X/i.test(ua)){p='macos';}document.documentElement.setAttribute('data-platform',p);}catch(e){}})()`,
           }}
         />
       </head>

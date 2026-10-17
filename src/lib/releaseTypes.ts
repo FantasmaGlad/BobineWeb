@@ -6,11 +6,14 @@ export interface ReleaseChannelInfo {
   publishedAt: string;
   downloads: {
     windows: string;
+    windowsArm64?: string;
     linux: string;
+    linuxArm64?: string;
     macos: string;
     android: string;
     androidTv?: string;
     assistant: string;
+    assistantArm64?: string;
     installScript: string;
   };
 }

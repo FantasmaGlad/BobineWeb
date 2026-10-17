@@ -27,7 +27,6 @@ const staticRoutes: RouteConfig[] = [
   { path: "/materiel/amazon", priority: 0.9, changeFrequency: "weekly" },
   { path: "/materiel/aliexpress", priority: 0.7, changeFrequency: "weekly" },
   { path: "/baamix", priority: 0.85, changeFrequency: "weekly" },
-  { path: "/demo-3d", priority: 0.8, changeFrequency: "monthly" },
   { path: "/a-propos", priority: 0.8, changeFrequency: "monthly" },
   { path: "/soutenir", priority: 0.7, changeFrequency: "monthly" },
   { path: "/mentions-legales", priority: 0.3, changeFrequency: "yearly" },

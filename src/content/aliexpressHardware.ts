@@ -38,7 +38,7 @@ export interface AliSnapshotEntry {
 export const ALIEXPRESS_SNAPSHOT = snapshotJson as Record<string, AliSnapshotEntry>;
 
 /** OS ouverts sur la page AliExpress. macOS n'a pas de catalogue : voir ALIEXPRESS_UNAVAILABLE_OS. */
-export const ALIEXPRESS_ENABLED_OS: OsKey[] = ["linux", "windows", "macos", "android"];
+export const ALIEXPRESS_ENABLED_OS: OsKey[] = ["linux", "windows", "macos", "arm", "android", "android-tv"];
 
 export const ALIEXPRESS_SNAPSHOT_DATE = Object.values(ALIEXPRESS_SNAPSHOT)
   .map((e) => e.checkedAt)
@@ -1173,6 +1173,153 @@ const androidTablet: HardwareFormFactor = {
   tiers: ANDROID_TIERS,
 };
 
+// -----------------------------------------------------------------------------
+// ARM64 : cartes et kits Raspberry Pi 5 / Rock 5B RK3588 sous Linux ARM64
+// -----------------------------------------------------------------------------
+const ARM_MINIPC_TIERS: Record<TierKey, HardwareTier> = {
+  essentiel: {
+    id: "essentiel",
+    labelFr: "Essentiel",
+    labelEn: "Essential",
+    headlineFr: "Raspberry Pi 5 BCM2712 Cortex-A76 — L'entrée Linux ARM64 compacte",
+    headlineEn: "Raspberry Pi 5 BCM2712 Cortex-A76 — Compact Linux ARM64 entry",
+    summaryFr: "Carte Raspberry Pi 5 officielle à processeur Broadcom BCM2712 quad-core Cortex-A76 2,4 GHz, accompagnée du réseau filaire et de la télécommande.",
+    summaryEn: "Official Raspberry Pi 5 board with Broadcom BCM2712 quad-core 2.4 GHz Cortex-A76 processor, paired with wired networking and remote control.",
+    powerWatts: "5W - 12W",
+    resolution: "Double 4K 60fps",
+    items: [
+      ali("1005010530220745", "arm-ali-ess", {
+        name: "Raspberry Pi 5 BCM2712 Quad-Core Arm Cortex-A76 2,4 GHz (Options 4 Go / 8 Go)",
+        specs: "Broadcom BCM2712 Cortex-A76 64 bits 2,4 GHz · Double Micro-HDMI 4K60 · Gigabit Ethernet · PCIe 2.0",
+        description: "Exécute nativement le paquet bobine_5.0.0_arm64.deb sous Raspberry Pi OS / Debian ARM64. Choisissez la variante 8 Go sur la fiche vendeur.",
+        hasFan: false,
+      }),
+      ethernetUgreen("arm-ali-ess"),
+      remoteI8("arm-ali-ess"),
+      flashMovespeed("arm-ali-ess"),
+    ],
+    alternativeUnits: [
+      ali("1005009119644607", "arm-ali-ess-alt", {
+        name: "Kit Raspberry Pi 5 8 Go (Alimentation PD, Ventilateur dissipateur, Carte 64 Go)",
+        specs: "Raspberry Pi 5 · Alimentation USB-C PD · Dissipateur ventilé actif · Carte 64 Go + lecteur",
+        description: "Kit complet prêt à monter avec refroidissement actif et alimentation dédiée.",
+        hasFan: true,
+      }),
+    ],
+  },
+  recommande: {
+    id: "recommande",
+    labelFr: "Recommandé",
+    labelEn: "Recommended",
+    badgeFr: "Kit Complet ARM64",
+    badgeEn: "Full ARM64 Kit",
+    isPopular: true,
+    headlineFr: "Kit Raspberry Pi 5 8 Go Ventilé + Alimentation USB-C PD + Clé USB-C",
+    headlineEn: "Cooled Raspberry Pi 5 8GB Kit + USB-C PD Power + USB-C Drive",
+    summaryFr: "Pack complet comprenant la carte Raspberry Pi 5, son dissipateur ventilé, l'alimentation USB-C Power Delivery, une carte 64 Go et les accessoires de régie.",
+    summaryEn: "Complete pack including the Raspberry Pi 5 board, active heatsink fan, USB-C Power Delivery supply, 64GB card and control room accessories.",
+    powerWatts: "5W - 12W",
+    resolution: "Double 4K 60fps",
+    items: [
+      ali("1005009119644607", "arm-ali-rec", {
+        name: "Kit Raspberry Pi 5 8 Go / 16 Go (Alimentation PD, Ventilateur, Carte 64 Go, RTC)",
+        specs: "BCM2712 Cortex-A76 2,4 GHz · Ventilateur PWM actif · Alimentation USB-C PD · Carte 64 Go",
+        description: "Solution clé en main refroidie activement pour faire tourner Bobine Linux ARM64 24h/24 en régie.",
+        hasFan: true,
+      }),
+      ethernetUgreen("arm-ali-rec"),
+      remoteMx3("arm-ali-rec"),
+      flashMovespeed("arm-ali-rec"),
+    ],
+    alternativeUnits: [
+      ali("1005012743637315", "arm-ali-rec-alt", {
+        name: "Raspberry Pi 5 Original 8 Go / 16 Go Cortex-A76 (Board Master Store)",
+        specs: "Broadcom BCM2712 Cortex-A76 · Options jusqu'à 16 Go LPDDR4X · PCIe · Gigabit Ethernet",
+        description: "Annonce proposant la déclinaison 16 Go de RAM pour une marge mémoire doublée sous Linux ARM64.",
+        hasFan: false,
+      }),
+    ],
+  },
+  pro: {
+    id: "pro",
+    labelFr: "Pro",
+    labelEn: "Pro",
+    headlineFr: "Raspberry Pi 5 16 Go LPDDR4X + SSD Portable KODAK + Réseau Cat8",
+    headlineEn: "Raspberry Pi 5 16GB LPDDR4X + KODAK Portable SSD + Cat8 Network",
+    summaryFr: "Configuration 16 Go de mémoire vive avec stockage SSD externe haute vitesse en USB 3.0 pour héberger une large vidéothèque de cours en local.",
+    summaryEn: "16GB RAM configuration with high-speed external USB 3.0 SSD storage to host a large local class video library.",
+    powerWatts: "6W - 15W",
+    resolution: "Double 4K 60fps",
+    items: [
+      ali("1005012743637315", "arm-ali-pro", {
+        name: "Raspberry Pi 5 Original (Version 16 Go RAM Cortex-A76 Linux ARM64)",
+        specs: "Cortex-A76 Quad-Core 2,4 GHz · Jusqu'à 16 Go RAM · USB 3.0 · Gigabit Ethernet · PCIe",
+        description: "Version haute capacité mémoire du Raspberry Pi 5, idéale pour combiner Bobine et bobine-assistant-arm64.",
+        hasFan: false,
+      }),
+      ethernetUgreen("arm-ali-pro"),
+      remoteMx3("arm-ali-pro"),
+      ssdKodak("arm-ali-pro"),
+    ],
+    alternativeUnits: [
+      ali("1005012461480262", "arm-ali-pro-alt", {
+        name: "Radxa ROCK 5B+ RK3588 Octa-Core (HDMI 8K & Wi-Fi 6)",
+        specs: "Rockchip RK3588 8 cœurs · Sortie HDMI 2.1 8K · Wi-Fi 6 · M.2 NVMe · LAN 2.5 GbE",
+        description: "Passage au processeur 8 cœurs Rockchip RK3588 avec sortie HDMI 2.1 plein format.",
+        hasFan: false,
+      }),
+    ],
+  },
+  premium: {
+    id: "premium",
+    labelFr: "Premium",
+    labelEn: "Premium",
+    badgeFr: "Octa-Core RK3588 8K",
+    badgeEn: "8K Octa-Core RK3588",
+    headlineFr: "Radxa ROCK 5B+ RK3588 Octa-Core + SSD KODAK + Câble Fibre Optique 10 m",
+    headlineEn: "Radxa ROCK 5B+ RK3588 Octa-Core + KODAK SSD + 10m Optical Fiber Cable",
+    summaryFr: "Puce 8 cœurs Rockchip RK3588 (4x Cortex-A76 + 4x Cortex-A55) avec décodage matériel 8K60, Wi-Fi 6, SSD externe et liaison HDMI 2.1 fibre optique de 10 mètres.",
+    summaryEn: "8-core Rockchip RK3588 chip (4x Cortex-A76 + 4x Cortex-A55) with 8K60 hardware decoding, Wi-Fi 6, external SSD and 10-meter fiber optic HDMI 2.1 link.",
+    powerWatts: "8W - 18W",
+    resolution: "4K 120fps / 8K 60fps",
+    items: [
+      ali("1005012461480262", "arm-ali-prem", {
+        name: "Carte Radxa ROCK 5B+ RK3588 Octa-Core (HDMI 8K, Wi-Fi 6, Double NVMe)",
+        specs: "Rockchip RK3588 Octa-Core · HDMI 2.1 8K · Wi-Fi 6 · LAN 2.5 GbE · Linux ARM64",
+        description: "Puissance ARM64 8 cœurs sous Debian/Ubuntu ARM64 pour une diffusion multi-flux 4K/8K sans compromis.",
+        hasFan: false,
+      }),
+      hdmiFiber("arm-ali-prem"),
+      ethernetUgreen("arm-ali-prem"),
+      remoteMx3("arm-ali-prem"),
+      ssdKodak("arm-ali-prem"),
+    ],
+    alternativeUnits: [
+      ali("1005011544464931", "arm-ali-prem-alt", {
+        name: "Radxa ROCK 5B RK3588 Octa-Core 8K",
+        specs: "Rockchip RK3588 8 cœurs · Sortie 8K · LAN 2.5 GbE · M.2 NVMe",
+        description: "Révision ROCK 5B classique à processeur RK3588.",
+        hasFan: false,
+      }),
+    ],
+  },
+};
+
+const armMiniPc: HardwareFormFactor = {
+  titleFr: "Mini PC & Stations ARM64",
+  titleEn: "ARM64 Mini PCs & Workstations",
+  subtitleFr: "Cartes et kits Linux ARM64 (Raspberry Pi 5, RK3588) ultra-sobres pour régie 24/7",
+  subtitleEn: "Ultra-efficient Linux ARM64 boards and kits (Raspberry Pi 5, RK3588) for 24/7 playout",
+  targetFr: "Régies Linux ARM64 basse consommation compatibles avec bobine_5.0.0_arm64.deb",
+  targetEn: "Low-power Linux ARM64 control rooms compatible with bobine_5.0.0_arm64.deb",
+  defaultTier: "recommande",
+  editorialNoteFr:
+    "Installation native sous Linux ARM64 via bobine_5.0.0_arm64.deb, le dépôt apt.bobine.fit et bobine-assistant-arm64 (également compatible avec NVIDIA DGX Spark sous DGX OS Ubuntu ARM64). Pour les PC portables Qualcomm Snapdragon X Elite/Plus sous Windows 11 ARM64 et les stations NVIDIA Jetson Orin Nano Super, consultez l'onglet Amazon.",
+  editorialNoteEn:
+    "Native installation on Linux ARM64 via bobine_5.0.0_arm64.deb, the apt.bobine.fit repository and bobine-assistant-arm64 (also compatible with NVIDIA DGX Spark on DGX OS Ubuntu ARM64). For Qualcomm Snapdragon X Elite/Plus laptops running Windows 11 ARM64 and NVIDIA Jetson Orin Nano Super stations, check the Amazon tab.",
+  tiers: ARM_MINIPC_TIERS,
+};
+
 /** OS sans catalogue AliExpress : la page redirige vers les OS proposés. */
 export const ALIEXPRESS_UNAVAILABLE_OS: Partial<
   Record<OsKey, { textFr: string; textEn: string; alternatives: OsKey[] }>
@@ -1191,16 +1338,25 @@ export const ALIEXPRESS_BUNDLES: Partial<Record<OsKey, HardwareOsBundle>> = {
     os: "linux",
     formFactors: { minipc: linuxMiniPc, laptop: linuxLaptop } satisfies Partial<Record<FormFactorKey, HardwareFormFactor>>,
   },
-  android: {
-    os: "android",
-    formFactors: {
-      tv: androidTv,
-      tablet: androidTablet,
-    } satisfies Partial<Record<FormFactorKey, HardwareFormFactor>>,
-  },
   windows: {
     os: "windows",
     formFactors: { minipc: windowsMiniPc, laptop: windowsLaptop } satisfies Partial<Record<FormFactorKey, HardwareFormFactor>>,
+  },
+  arm: {
+    os: "arm",
+    formFactors: { minipc: armMiniPc } satisfies Partial<Record<FormFactorKey, HardwareFormFactor>>,
+  },
+  android: {
+    os: "android",
+    formFactors: {
+      tablet: androidTablet,
+    } satisfies Partial<Record<FormFactorKey, HardwareFormFactor>>,
+  },
+  "android-tv": {
+    os: "android-tv",
+    formFactors: {
+      tv: androidTv,
+    } satisfies Partial<Record<FormFactorKey, HardwareFormFactor>>,
   },
 };
 

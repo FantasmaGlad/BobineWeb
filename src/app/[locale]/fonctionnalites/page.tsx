@@ -140,12 +140,26 @@ export async function generateMetadata({
       ? "Features — Bobine | Les Mills Cinema Alternative"
       : "Fonctionnalités — Bobine | Alternative Les Mills Cinema",
     description: isEn
-      ? "What Bobine does for your gym day to day: classes that start on their own, a setup that backs itself up, a self-service member kiosk, and 24/7 background audio without a monthly subscription."
-      : "Ce que Bobine change au quotidien pour votre salle : des cours qui se lancent tout seuls, une configuration qui se sauvegarde toute seule, une borne libre-service pour les adhérents et une ambiance sonore 24/7, sans abonnement.",
+      ? "What Bobine V5.0.0 does for your gym day to day on Google Books (Aluminium OS), Snapdragon ARM64 PCs, Apple Silicon Macs, Android tablets, and x86/ARM mini PCs: classes that start on their own, a setup that backs itself up, a self-service member kiosk, and 24/7 background audio without a monthly subscription."
+      : "Ce que Bobine V5.0.0 change au quotidien pour votre salle sur Google Book (Aluminium OS), PC ARM Qualcomm Snapdragon, Mac mini, tablette Android ou mini PC x86/ARM : des cours qui se lancent tout seuls, une configuration qui se sauvegarde toute seule, une borne libre-service pour les adhérents et une ambiance sonore 24/7, sans abonnement.",
     keywords: isEn
       ? [
           "Bobine features",
           "Bobine Fit features",
+          "Google Book",
+          "Googlebook",
+          "Aluminium OS",
+          "Bobine Google Book",
+          "Application salle de sport Google Book",
+          "PC ARM Qualcomm Snapdragon",
+          "Snapdragon X Elite",
+          "Snapdragon X Plus",
+          "Windows 11 ARM64",
+          "Linux ARM64",
+          "NVIDIA DGX Spark",
+          "Mini PC ARM salle de sport",
+          "Raspberry Pi 5 salle de sport",
+          "Orange Pi 5 RK3588",
           "Les Mills Cinema alternative",
           "Les Mills Virtual alternative",
           "automated gym video playout",
@@ -157,6 +171,20 @@ export async function generateMetadata({
         ]
       : [
           "Fonctionnalités Bobine",
+          "Google Book",
+          "Googlebook",
+          "Aluminium OS",
+          "Bobine Google Book",
+          "Application salle de sport Google Book",
+          "PC ARM Qualcomm Snapdragon",
+          "Snapdragon X Elite",
+          "Snapdragon X Plus",
+          "Windows 11 ARM64",
+          "Linux ARM64",
+          "NVIDIA DGX Spark",
+          "Mini PC ARM salle de sport",
+          "Raspberry Pi 5 salle de sport",
+          "Orange Pi 5 RK3588",
           "Alternative Les Mills Cinema",
           "Alternative Les Mills Virtual",
           "Diffusion vidéo automatique salle de sport",

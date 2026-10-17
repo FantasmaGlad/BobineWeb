@@ -1,11 +1,16 @@
 import Link from "next/link";
-import BaamixViewerLoader from "@/components/three/BaamixViewerLoader";
+import Image from "next/image";
 
 export default function NotFound() {
   return (
     <div className="container" style={{ paddingBlock: "3rem", textAlign: "center", maxWidth: "42rem" }}>
-      {/* Mascotte Hamster Baamix 3D manipulable en 360° */}
-      <BaamixViewerLoader />
+      <Image
+        src="/images/BaamixInspector.webp"
+        alt="Baamix Inspecteur"
+        width={180}
+        height={250}
+        style={{ width: "auto", height: "180px", marginInline: "auto", marginBottom: "1rem", objectFit: "contain" }}
+      />
 
       <h1
         style={{

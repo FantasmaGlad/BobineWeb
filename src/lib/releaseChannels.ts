@@ -8,11 +8,14 @@ export interface RepoStatsResponse {
   latestRelease: string;
   downloads: {
     windows: string;
+    windowsArm64?: string;
     linux: string;
+    linuxArm64?: string;
     macos: string;
     android: string;
     androidTv?: string;
     assistant: string;
+    assistantArm64?: string;
     installScript?: string;
   };
   stable: ReleaseChannelInfo;
@@ -21,17 +24,20 @@ export interface RepoStatsResponse {
 }
 
 const FALLBACK_STABLE: ReleaseChannelInfo = {
-  version: "V4.0.2",
-  title: "Bobine V4.0.2 — Support Android TV & Google TV Natif, Hotplug HDMI Robuste & Optimisations Kiosque",
-  publishedAt: "2026-10-14T09:00:00Z",
+  version: "V5.0.0",
+  title: "Bobine V5.0.0 « Orchidée » — Support Natif PC ARM64 (Snapdragon, Windows ARM, Linux ARM), Google Books, Trois Canaux de Mise à Jour & Sous-titres",
+  publishedAt: "2026-10-17T09:00:00Z",
   downloads: {
-    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V4.0.2/Bobine-Setup-4.0.2.exe",
-    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V4.0.2/bobine_4.0.2_amd64.deb",
-    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V4.0.2/Bobine-4.0.2.dmg",
-    android: "https://github.com/FantasmaGlad/Bobine/releases/download/V4.0.2/Bobine-4.0.2.apk",
-    androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/V4.0.2/Bobine-TV-4.0.2.apk",
-    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V4.0.2/bobine-assistant",
-    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V4.0.2/install.sh",
+    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-Setup-5.0.0.exe",
+    windowsArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-Setup-5.0.0-arm64.exe",
+    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine_5.0.0_amd64.deb",
+    linuxArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine_5.0.0_arm64.deb",
+    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-5.0.0.dmg",
+    android: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-5.0.0.apk",
+    androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-TV-5.0.0.apk",
+    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine-assistant",
+    assistantArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine-assistant-arm64",
+    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/install.sh",
   },
 };
 
@@ -43,11 +49,14 @@ const FALLBACK_BETA: ReleaseChannelInfo = {
   publishedAt: "2026-10-16T20:00:00Z",
   downloads: {
     windows: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe",
+    windowsArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta-arm64.exe",
     linux: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb",
+    linuxArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_arm64.deb",
     macos: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.dmg",
     android: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.apk",
     androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-TV-beta.apk",
     assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant",
+    assistantArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant-arm64",
     installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/install.sh",
   },
 };
@@ -60,11 +69,14 @@ const FALLBACK_CANARY: ReleaseChannelInfo = {
   publishedAt: "2026-10-16T20:00:00Z",
   downloads: {
     windows: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-Setup-canary.exe",
+    windowsArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-Setup-canary-arm64.exe",
     linux: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine_canary_amd64.deb",
+    linuxArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine_canary_arm64.deb",
     macos: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-canary.dmg",
     android: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-canary.apk",
     androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-TV-canary.apk",
     assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine-assistant",
+    assistantArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine-assistant-arm64",
     installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/install.sh",
   },
 };
@@ -79,10 +91,19 @@ function parseReleaseAssets(
     const name = String(asset?.name || "").toLowerCase();
     const url = typeof asset?.browser_download_url === "string" ? asset.browser_download_url : "";
     if (!url) continue;
+    const isArm = name.includes("arm64") || name.includes("aarch64");
     if (name.endsWith(".exe")) {
-      downloads.windows = url;
+      if (isArm) {
+        downloads.windowsArm64 = url;
+      } else {
+        downloads.windows = url;
+      }
     } else if (name.endsWith(".deb")) {
-      downloads.linux = url;
+      if (isArm) {
+        downloads.linuxArm64 = url;
+      } else {
+        downloads.linux = url;
+      }
     } else if (name.endsWith(".dmg")) {
       downloads.macos = url;
     } else if (name.includes("-tv") || name.includes("bobine-tv")) {
@@ -90,7 +111,11 @@ function parseReleaseAssets(
     } else if (name.endsWith(".apk")) {
       downloads.android = url;
     } else if (name.includes("assistant")) {
-      downloads.assistant = url;
+      if (isArm) {
+        downloads.assistantArm64 = url;
+      } else {
+        downloads.assistant = url;
+      }
     } else if (name === "install.sh") {
       downloads.installScript = url;
     }
@@ -164,11 +189,14 @@ export async function getRepoStats(): Promise<RepoStatsResponse> {
       latestRelease: stableInfo.version,
       downloads: {
         windows: stableInfo.downloads.windows,
+        windowsArm64: stableInfo.downloads.windowsArm64,
         linux: stableInfo.downloads.linux,
+        linuxArm64: stableInfo.downloads.linuxArm64,
         macos: stableInfo.downloads.macos,
         android: stableInfo.downloads.android,
         androidTv: stableInfo.downloads.androidTv,
         assistant: stableInfo.downloads.assistant,
+        assistantArm64: stableInfo.downloads.assistantArm64,
         installScript: stableInfo.downloads.installScript,
       },
       stable: stableInfo,

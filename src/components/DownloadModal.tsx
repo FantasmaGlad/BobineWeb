@@ -5,7 +5,8 @@ import { createPortal } from "react-dom";
 import type { Locale } from "@/lib/i18n";
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 
-export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "android-tv" | "cli" | "tauri";
+export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "android-tv" | "cli" | "tauri" | "assistant";
+export type CpuArchitecture = "x86_64" | "arm64";
 
 const subscribe = () => () => {};
 const getSnapshot = () => true;
@@ -32,11 +33,35 @@ export default function DownloadModal({
 }: DownloadModalProps) {
   const isEn = locale === "en";
   const activePlatform: DownloadPlatform = initialPlatform;
+  const [selectedArch, setSelectedArch] = useState<CpuArchitecture>("x86_64");
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
   const [downloadingKey, setDownloadingKey] = useState<string | null>(null);
   const isMounted = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const modalRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  // Détection légère de l'architecture ARM64 côté client (Snapdragon, Linux aarch64, Windows ARM)
+  useEffect(() => {
+    if (typeof navigator === "undefined") return;
+    const ua = navigator.userAgent || "";
+    if (/\b(aarch64|arm64|armv8|woa|snapdragon)\b/i.test(ua)) {
+      setSelectedArch("arm64");
+      return;
+    }
+    const navWithUAData = navigator as Navigator & {
+      userAgentData?: {
+        getHighEntropyValues?: (hints: string[]) => Promise<{ architecture?: string }>;
+      };
+    };
+    navWithUAData.userAgentData
+      ?.getHighEntropyValues?.(["architecture"])
+      .then((vals) => {
+        if (vals?.architecture && /arm/i.test(vals.architecture)) {
+          setSelectedArch("arm64");
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   // Gestion de la touche Échap et verrouillage du défilement
   useEffect(() => {
@@ -73,26 +98,58 @@ export default function DownloadModal({
     }
   };
 
+  const hasArchSelector =
+    activePlatform === "windows" ||
+    activePlatform === "linux" ||
+    activePlatform === "tauri" ||
+    activePlatform === "assistant";
+
+  const cleanVersion = stable.version.replace(/^V/i, "");
+  const isArm = selectedArch === "arm64";
+
   const getPlatformDetails = () => {
     switch (activePlatform) {
       case "windows":
+        if (isArm) {
+          return {
+            title: isEn ? "Bobine for Windows (ARM64)" : "Bobine pour Windows (ARM64)",
+            subtitle: isEn
+              ? "Windows 11 ARM64 (Qualcomm Snapdragon X Elite / X Plus & ARM PCs)"
+              : "Windows 11 ARM64 (Qualcomm Snapdragon X Elite / X Plus & PC ARM)",
+            stableUrl:
+              stable.downloads.windowsArm64 ||
+              `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/Bobine-Setup-${cleanVersion}-arm64.exe`,
+            stableFilename: `Bobine-Setup-${cleanVersion}-arm64.exe`,
+            betaUrl:
+              beta.downloads.windowsArm64 ||
+              "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta-arm64.exe",
+            betaFilename: "Bobine-Setup-beta-arm64.exe",
+            canaryUrl:
+              canary.downloads.windowsArm64 ||
+              "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-Setup-canary-arm64.exe",
+            canaryFilename: "Bobine-Setup-canary-arm64.exe",
+            format: ".exe (ARM64)",
+          };
+        }
         return {
           title: isEn ? "Bobine for Windows" : "Bobine pour Windows",
-          subtitle: isEn ? "Windows 11, 10 & Windows IoT" : "Windows 11, 10 & Windows IoT",
+          subtitle: isEn
+            ? "Windows 11, 10 & Windows IoT (x86_64 — Intel / AMD)"
+            : "Windows 11, 10 & Windows IoT (x86_64 — Intel / AMD)",
           stableUrl: stable.downloads.windows,
-          stableFilename: `Bobine-Setup-${stable.version.replace(/^V/i, "")}.exe`,
+          stableFilename: `Bobine-Setup-${cleanVersion}.exe`,
           betaUrl: beta.downloads.windows,
           betaFilename: "Bobine-Setup-beta.exe",
           canaryUrl: canary.downloads.windows,
           canaryFilename: "Bobine-Setup-canary.exe",
-          format: ".exe",
+          format: ".exe (x86_64)",
         };
       case "macos":
         return {
           title: isEn ? "Bobine for macOS" : "Bobine pour macOS",
           subtitle: isEn ? "Apple Silicon (M1, M2, M3, M4)" : "Apple Silicon (M1, M2, M3, M4)",
           stableUrl: stable.downloads.macos,
-          stableFilename: `Bobine-${stable.version.replace(/^V/i, "")}.dmg`,
+          stableFilename: `Bobine-${cleanVersion}.dmg`,
           betaUrl: beta.downloads.macos,
           betaFilename: "Bobine-beta.dmg",
           canaryUrl: canary.downloads.macos,
@@ -100,16 +157,37 @@ export default function DownloadModal({
           format: ".dmg",
         };
       case "linux":
+        if (isArm) {
+          return {
+            title: isEn ? "Bobine for Linux Desktop (ARM64)" : "Bobine pour Linux Bureau (ARM64)",
+            subtitle: isEn
+              ? "Debian, Ubuntu, Mint ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi)"
+              : "Debian, Ubuntu, Mint ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi)",
+            stableUrl:
+              stable.downloads.linuxArm64 ||
+              `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/bobine_${cleanVersion}_arm64.deb`,
+            stableFilename: `bobine_${cleanVersion}_arm64.deb`,
+            betaUrl:
+              beta.downloads.linuxArm64 ||
+              "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_arm64.deb",
+            betaFilename: "bobine_beta_arm64.deb",
+            canaryUrl:
+              canary.downloads.linuxArm64 ||
+              "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine_canary_arm64.deb",
+            canaryFilename: "bobine_canary_arm64.deb",
+            format: ".deb (arm64)",
+          };
+        }
         return {
           title: isEn ? "Bobine for Linux Desktop" : "Bobine pour Linux Bureau",
-          subtitle: isEn ? "Debian, Ubuntu, Mint (x86_64)" : "Debian, Ubuntu, Mint (x86_64)",
+          subtitle: isEn ? "Debian, Ubuntu, Mint (x86_64 — Intel / AMD)" : "Debian, Ubuntu, Mint (x86_64 — Intel / AMD)",
           stableUrl: stable.downloads.linux,
-          stableFilename: `bobine_${stable.version.replace(/^V/i, "")}_amd64.deb`,
+          stableFilename: `bobine_${cleanVersion}_amd64.deb`,
           betaUrl: beta.downloads.linux,
           betaFilename: "bobine_beta_amd64.deb",
           canaryUrl: canary.downloads.linux,
           canaryFilename: "bobine_canary_amd64.deb",
-          format: ".deb",
+          format: ".deb (amd64)",
         };
       case "android-tv":
         return {
@@ -119,8 +197,8 @@ export default function DownloadModal({
             : "Dédié aux box TV & Smart TVs (Chromecast, Xiaomi Box, Shield TV) — arm64-v8a",
           stableUrl:
             stable.downloads.androidTv ||
-            `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/Bobine-TV-${stable.version.replace(/^V/i, "")}.apk`,
-          stableFilename: `Bobine-TV-${stable.version.replace(/^V/i, "")}.apk`,
+            `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/Bobine-TV-${cleanVersion}.apk`,
+          stableFilename: `Bobine-TV-${cleanVersion}.apk`,
           betaUrl:
             beta.downloads.androidTv ||
             "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-TV-beta.apk",
@@ -133,10 +211,12 @@ export default function DownloadModal({
         };
       case "android":
         return {
-          title: isEn ? "Bobine for Android" : "Bobine pour Android",
-          subtitle: isEn ? "Tablets & ARM touch kiosks (arm64-v8a)" : "Tablettes & Bornes tactiles ARM (arm64-v8a)",
+          title: isEn ? "Bobine for Android & Google Books" : "Bobine pour Android & Google Books",
+          subtitle: isEn
+            ? "Android Tablets, Google Books (via APK & soon native Google Play Store) & ARM64 touch kiosks"
+            : "Tablettes Android, Google Books (via APK et bientôt Google Play Store natif) & Bornes tactiles ARM64",
           stableUrl: stable.downloads.android,
-          stableFilename: `Bobine-${stable.version.replace(/^V/i, "")}.apk`,
+          stableFilename: `Bobine-${cleanVersion}.apk`,
           betaUrl: beta.downloads.android,
           betaFilename: "Bobine-beta.apk",
           canaryUrl: canary.downloads.android,
@@ -155,18 +235,40 @@ export default function DownloadModal({
           format: "bash",
         };
       case "tauri":
+      case "assistant":
+        if (isArm) {
+          return {
+            title: isEn ? "Bobine Assistant (Tauri — ARM64)" : "Bobine Assistant (Tauri — ARM64)",
+            subtitle: isEn
+              ? "Linux Desktop ARM64 (aarch64 — Snapdragon, NVIDIA Spark, Pi 5)"
+              : "Linux Bureau ARM64 (aarch64 — Snapdragon, NVIDIA Spark, Pi 5)",
+            stableUrl:
+              stable.downloads.assistantArm64 ||
+              `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/bobine-assistant-arm64`,
+            betaUrl:
+              beta.downloads.assistantArm64 ||
+              "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant-arm64",
+            canaryUrl:
+              canary.downloads.assistantArm64 ||
+              "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine-assistant-arm64",
+            stableFilename: "bobine-assistant-arm64",
+            betaFilename: "bobine-assistant-arm64",
+            canaryFilename: "bobine-assistant-arm64",
+            format: isEn ? "ARM64 Binary" : "Binaire ARM64",
+          };
+        }
         return {
           title: isEn ? "Bobine Assistant (Tauri)" : "Bobine Assistant (Tauri)",
           subtitle: isEn
-            ? "Remote orchestrator with built-in channel selector (Stable / Beta / Canary)"
-            : "Orchestrateur réseau avec sélecteur de canal (Stable / Bêta / Canary) intégré",
+            ? "Remote orchestrator with built-in channel selector (Stable / Beta / Canary) — Linux x86_64"
+            : "Orchestrateur réseau avec sélecteur de canal (Stable / Bêta / Canary) intégré — Linux x86_64",
           stableUrl: stable.downloads.assistant,
           betaUrl: beta.downloads.assistant,
           canaryUrl: canary.downloads.assistant,
           stableFilename: "bobine-assistant",
           betaFilename: "bobine-assistant",
           canaryFilename: "bobine-assistant",
-          format: isEn ? "Binary" : "Binaire",
+          format: isEn ? "x86_64 Binary" : "Binaire x86_64",
         };
     }
   };
@@ -194,9 +296,35 @@ export default function DownloadModal({
             <span className="download-modal__eyebrow">
               {isEn ? "Choose your release channel" : "Sélectionnez votre canal de version"}
             </span>
-            <h2 id="download-modal-title" className="download-modal__title">
-              {details.title}
-            </h2>
+            <div className="download-modal__title-row">
+              <h2 id="download-modal-title" className="download-modal__title">
+                {details.title}
+              </h2>
+              {hasArchSelector && (
+                <div
+                  className="download-modal__arch-selector"
+                  role="group"
+                  aria-label={isEn ? "Processor architecture" : "Architecture processeur"}
+                >
+                  <button
+                    type="button"
+                    className={`download-modal__arch-btn${selectedArch === "x86_64" ? " is-active" : ""}`}
+                    aria-pressed={selectedArch === "x86_64"}
+                    onClick={() => setSelectedArch("x86_64")}
+                  >
+                    x86_64 (Intel / AMD)
+                  </button>
+                  <button
+                    type="button"
+                    className={`download-modal__arch-btn${selectedArch === "arm64" ? " is-active" : ""}`}
+                    aria-pressed={selectedArch === "arm64"}
+                    onClick={() => setSelectedArch("arm64")}
+                  >
+                    ARM64 (Snapdragon / ARM)
+                  </button>
+                </div>
+              )}
+            </div>
             <p className="download-modal__subtitle">{details.subtitle}</p>
           </div>
 
@@ -256,7 +384,7 @@ export default function DownloadModal({
                   <code>{details.stableCmd}</code>
                   <button
                     type="button"
-                    className="download-modal__cli-copy-btn"
+                    className="download-modal__cli-copy-btn download-modal__cli-copy-btn--stable"
                     onClick={() => copyToClipboard(details.stableCmd || "", "cli-stable")}
                     aria-label={isEn ? "Copy command" : "Copier la commande"}
                   >
@@ -299,7 +427,7 @@ export default function DownloadModal({
                   <code>{details.betaCmd}</code>
                   <button
                     type="button"
-                    className="download-modal__cli-copy-btn"
+                    className="download-modal__cli-copy-btn download-modal__cli-copy-btn--beta"
                     onClick={() => copyToClipboard(details.betaCmd || "", "cli-beta")}
                     aria-label={isEn ? "Copy command" : "Copier la commande"}
                   >
@@ -342,7 +470,7 @@ export default function DownloadModal({
                   <code>{details.canaryCmd}</code>
                   <button
                     type="button"
-                    className="download-modal__cli-copy-btn"
+                    className="download-modal__cli-copy-btn download-modal__cli-copy-btn--canary"
                     onClick={() => copyToClipboard(details.canaryCmd || "", "cli-canary")}
                     aria-label={isEn ? "Copy command" : "Copier la commande"}
                   >
@@ -394,7 +522,7 @@ export default function DownloadModal({
 
                 <a
                   href={details.stableUrl}
-                  className="download-modal__action-btn download-modal__action-btn--primary"
+                  className="download-modal__action-btn download-modal__action-btn--primary download-modal__action-btn--stable"
                   target="_blank"
                   rel="noopener noreferrer"
                   download
@@ -471,7 +599,7 @@ export default function DownloadModal({
 
                 <a
                   href={details.betaUrl}
-                  className="download-modal__action-btn download-modal__action-btn--secondary"
+                  className="download-modal__action-btn download-modal__action-btn--beta"
                   target="_blank"
                   rel="noopener noreferrer"
                   download
@@ -548,7 +676,7 @@ export default function DownloadModal({
 
                 <a
                   href={details.canaryUrl}
-                  className="download-modal__action-btn download-modal__action-btn--secondary"
+                  className="download-modal__action-btn download-modal__action-btn--canary"
                   target="_blank"
                   rel="noopener noreferrer"
                   download
@@ -597,6 +725,64 @@ export default function DownloadModal({
                   </span>
                 </a>
               </div>
+            </div>
+          )}
+
+          {activePlatform === "android" && (
+            <div
+              className="download-modal__tv-note"
+              style={{
+                marginTop: "1.25rem",
+                padding: "1rem 1.25rem",
+                borderRadius: "0.75rem",
+                background: "rgba(61, 220, 132, 0.08)",
+                border: "1px solid rgba(61, 220, 132, 0.25)",
+                fontSize: "0.875rem",
+                color: "var(--text-body)",
+                lineHeight: 1.5,
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  marginBottom: "0.5rem",
+                  fontWeight: 700,
+                  color: "#3DDC84",
+                }}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <span>
+                  {isEn
+                    ? "Android Tablets, Google Books & ARM64 Touch Kiosks"
+                    : "Tablettes Android, Google Books & Bornes Tactiles ARM64"}
+                </span>
+              </div>
+              <p style={{ margin: "0 0 0.5rem" }}>
+                {isEn
+                  ? "• Google Books & Android Tablets: Native support via the APK package above, and coming soon as a native 1-click install on the Google Play Store."
+                  : "• Tablettes Android, Google Books (via APK et bientôt Google Play Store natif) & Bornes tactiles ARM64 : Compatibilité native complète avec moteur FastAPI embarqué."}
+              </p>
+              <p style={{ margin: 0 }}>
+                {isEn
+                  ? "• Dual-Screen HDMI / USB-C: Use the built-in screen as the interactive Coach Console (/grid) while outputting 1080p/4K fullscreen video (/cinema) to your studio TV."
+                  : "• Double affichage HDMI / USB-C : Utilisez l'écran intégré comme pupitre coach tactile (/grid) tout en diffusant le flux vidéo plein écran (/cinema) sur le grand écran de la salle."}
+              </p>
             </div>
           )}
 

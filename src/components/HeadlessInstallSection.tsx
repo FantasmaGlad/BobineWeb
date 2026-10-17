@@ -27,15 +27,15 @@ export default function HeadlessInstallSection({ locale }: HeadlessInstallSectio
     <section id="headless-installation" className="headless-section" aria-labelledby="headless-heading">
       <div className="headless-section__header">
         <span className="headless-section__eyebrow">
-          {isEn ? "Dedicated Servers & Headless Appliances" : "Serveurs Dédiés & Appliances Headless"}
+          {isEn ? "Dedicated Servers & Headless Appliances (x86_64 & ARM64)" : "Serveurs Dédiés & Appliances Headless (x86_64 & ARM64)"}
         </span>
         <h2 id="headless-heading" className="headless-section__title">
           {isEn ? "Advanced Installation Methods" : "Autres Méthodes d'Installation"}
         </h2>
         <p className="headless-section__subtitle">
           {isEn
-            ? "Deploy an autonomous 24/7 playout kiosk on dedicated low-cost mini PCs (Dell Wyse 5070, HP ProDesk DM...) without desktop overhead, using the 1-line script or the graphical desktop orchestrator."
-            : "Transformez un mini PC dédié (Dell Wyse 5070, HP ProDesk DM...) en borne 24/7 verrouillée sans bureau graphique parasite, grâce au script automatisé ou à l'assistant graphique d'orchestration."}
+            ? "Deploy an autonomous 24/7 playout kiosk on dedicated x86_64 mini PCs (Dell Wyse 5070, HP EliteDesk, Beelink N100) or ARM64 systems (aarch64: Snapdragon Linux PCs, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B) without desktop overhead, using the 1-line install.sh script or the graphical Bobine Assistant (bobine-assistant & bobine-assistant-arm64)."
+            : "Transformez un mini PC dédié x86_64 (Dell Wyse 5070, HP EliteDesk, Beelink N100) ou ARM64 (aarch64 : PC Snapdragon sous Linux, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B) en borne 24/7 verrouillée sans bureau graphique parasite, grâce au script automatisé install.sh ou à l'assistant graphique d'orchestration (bobine-assistant & bobine-assistant-arm64)."}
         </p>
 
         {/* Boutons d'installation séparés et découplés */}
@@ -65,7 +65,7 @@ export default function HeadlessInstallSection({ locale }: HeadlessInstallSectio
             </div>
             <div className="headless-action-btn__text">
               <span className="headless-action-btn__title">{isEn ? "Bash Installer (CLI)" : "Installateur Bash (CLI)"}</span>
-              <span className="headless-action-btn__desc">{isEn ? "One-line automated shell deploy" : "Script 1-ligne automatisé"}</span>
+              <span className="headless-action-btn__desc">{isEn ? "install.sh · x86_64 & ARM64" : "install.sh · x86_64 & ARM64"}</span>
             </div>
           </button>
 
@@ -81,7 +81,7 @@ export default function HeadlessInstallSection({ locale }: HeadlessInstallSectio
             </div>
             <div className="headless-action-btn__text">
               <span className="headless-action-btn__title">{isEn ? "Bobine Assistant (Tauri)" : "Bobine Assistant (Tauri)"}</span>
-              <span className="headless-action-btn__desc">{isEn ? "Network discovery & desktop wizard" : "Découverte réseau & wizard guidé"}</span>
+              <span className="headless-action-btn__desc">{isEn ? "bobine-assistant (x86_64 & arm64)" : "bobine-assistant (x86_64 & arm64)"}</span>
             </div>
           </button>
         </div>

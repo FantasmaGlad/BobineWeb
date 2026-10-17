@@ -25,16 +25,20 @@ echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://${ONION_APT_HOST}/
 sudo apt update && sudo apt install bobine`;
 
 const FALLBACK_STABLE: ReleaseChannelInfo = {
-  version: "V3.0.5",
-  title: "Bobine V3.0.5 — Console Régie Coach, Ambiances Visuelles & Moteur Gapless",
-  publishedAt: "2026-09-12T18:00:00Z",
+  version: "V5.0.0",
+  title: "Bobine V5.0.0 « Orchidée » — Support Natif PC ARM64 (Snapdragon, Windows ARM, Linux ARM), Google Books, Trois Canaux de Mise à Jour & Sous-titres",
+  publishedAt: "2026-10-17T09:00:00Z",
   downloads: {
-    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/Bobine-Setup-3.0.5.exe",
-    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/bobine_3.0.5_amd64.deb",
-    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/Bobine-3.0.5.dmg",
-    android: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/Bobine-3.0.5.apk",
-    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/bobine-assistant",
-    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V3.0.5/install.sh",
+    windows: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-Setup-5.0.0.exe",
+    windowsArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-Setup-5.0.0-arm64.exe",
+    linux: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine_5.0.0_amd64.deb",
+    linuxArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine_5.0.0_arm64.deb",
+    macos: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-5.0.0.dmg",
+    android: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-5.0.0.apk",
+    androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/Bobine-TV-5.0.0.apk",
+    assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine-assistant",
+    assistantArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/bobine-assistant-arm64",
+    installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/V5.0.0/install.sh",
   },
 };
 
@@ -44,10 +48,14 @@ const FALLBACK_BETA: ReleaseChannelInfo = {
   publishedAt: "2026-10-16T20:00:00Z",
   downloads: {
     windows: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe",
+    windowsArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta-arm64.exe",
     linux: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb",
+    linuxArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_arm64.deb",
     macos: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.dmg",
     android: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.apk",
+    androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-TV-beta.apk",
     assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant",
+    assistantArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant-arm64",
     installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/beta/install.sh",
   },
 };
@@ -58,10 +66,14 @@ const FALLBACK_CANARY: ReleaseChannelInfo = {
   publishedAt: "2026-10-16T20:00:00Z",
   downloads: {
     windows: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-Setup-canary.exe",
+    windowsArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-Setup-canary-arm64.exe",
     linux: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine_canary_amd64.deb",
+    linuxArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine_canary_arm64.deb",
     macos: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-canary.dmg",
     android: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-canary.apk",
+    androidTv: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-TV-canary.apk",
     assistant: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine-assistant",
+    assistantArm64: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine-assistant-arm64",
     installScript: "https://github.com/FantasmaGlad/Bobine/releases/download/canary/install.sh",
   },
 };
@@ -252,12 +264,12 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               </div>
               <div>
                 <h2 className="docs-method-hero__title">
-                  {isEn ? "Bobine for Windows 11, 10 & Windows IoT" : "Bobine pour Windows 11, 10 et Windows IoT"}
+                  {isEn ? "Bobine for Windows 11, 10, Windows ARM & Windows IoT" : "Bobine pour Windows 11, 10, Windows ARM et Windows IoT"}
                 </h2>
                 <p className="docs-method-hero__desc">
                   {isEn
-                    ? "Native 1-click installer. Zero command line, runs silently in the background with a system tray companion and automatic firewall configuration."
-                    : "Installation native en 1 clic pour le grand public. Zéro ligne de commande, démarrage silencieux sans console noire avec icône en barre des tâches."}
+                    ? "Native 1-click installer for x86_64 and ARM64 (Qualcomm Snapdragon X Elite / X Plus). Zero command line, runs silently in the background with a system tray companion and automatic firewall configuration."
+                    : "Installation native en 1 clic pour x86_64 et ARM64 (Qualcomm Snapdragon X Elite / X Plus). Zéro ligne de commande, démarrage silencieux sans console noire avec icône en barre des tâches."}
                 </p>
               </div>
             </div>
@@ -276,8 +288,25 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
-                  <span>{isEn ? `Download Stable (${stable.version})` : `Télécharger la Stable (${stable.version})`}</span>
+                  <span>{isEn ? `Download Stable x86_64 (${stable.version})` : `Télécharger Stable x86_64 (${stable.version})`}</span>
                 </a>
+
+                {stable.downloads.windowsArm64 && (
+                  <a
+                    href={stable.downloads.windowsArm64}
+                    download
+                    className="btn-primary docs-method-download-btn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    <span>{isEn ? `Download Stable ARM64 (${stable.version})` : `Télécharger Stable ARM64 (${stable.version})`}</span>
+                  </a>
+                )}
 
                 <a
                   href={beta.downloads.windows}
@@ -315,7 +344,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-method-meta-row">
                 <span className="docs-method-version-text">{stable.version}</span>
                 <span className="docs-method-meta-dot">·</span>
-                <span>x86-64</span>
+                <span>x86-64 & ARM64</span>
                 <span className="docs-method-meta-dot">·</span>
                 <a
                   href="https://github.com/FantasmaGlad/Bobine/releases"
@@ -341,8 +370,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <h4>{isEn ? "Download the installer" : "Téléchargez le programme d'installation"}</h4>
                 <p>
                   {isEn
-                    ? "Click the download button above to get Bobine-Setup-3.0.0.exe directly from the official repository."
-                    : "Cliquez sur le bouton de téléchargement ci-dessus pour récupérer l'installeur officiel Bobine-Setup-3.0.0.exe."}
+                    ? "Click the download button above to get Bobine-Setup-5.0.0.exe (for Intel / AMD) or Bobine-Setup-5.0.0-arm64.exe (for Snapdragon X Elite / X Plus)."
+                    : "Cliquez sur le bouton ci-dessus pour récupérer Bobine-Setup-5.0.0.exe (pour Intel / AMD) ou Bobine-Setup-5.0.0-arm64.exe (pour PC ARM Snapdragon X Elite / X Plus)."}
                 </p>
               </div>
             </div>
@@ -353,8 +382,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <h4>{isEn ? "Launch the setup wizard" : "Lancez l'assistant d'installation"}</h4>
                 <p>
                   {isEn
-                    ? "Double-click Bobine-Setup-3.0.0.exe. The standard Windows setup wizard will create a desktop shortcut and prepare the self-contained environment."
-                    : "Double-cliquez sur le fichier Bobine-Setup-3.0.0.exe. L'assistant prépare l'environnement autonome et crée un raccourci officiel sur votre Bureau."}
+                    ? "Double-click Bobine-Setup-5.0.0.exe. The standard Windows setup wizard will create a desktop shortcut and prepare the self-contained environment."
+                    : "Double-cliquez sur le fichier Bobine-Setup-5.0.0.exe. L'assistant prépare l'environnement autonome et crée un raccourci officiel sur votre Bureau."}
                 </p>
               </div>
             </div>
@@ -497,8 +526,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               </div>
               <div>
                 {isEn
-                  ? "Bobine 3.0.0 is compiled natively for Apple Silicon Macs (MacBook Air, MacBook Pro, Mac mini, Mac Studio with M1, M2, M3, or M4). Native support for legacy Intel Macs (x86_64) is undergoing validation and will be released in an upcoming update."
-                  : "Bobine 3.0.0 est optimisé nativement pour les Mac Apple Silicon (MacBook, Mac mini, iMac équipés de puces M1, M2, M3 ou M4). La compatibilité native avec les anciens processeurs Mac Intel (x86_64) arrivera lors d'une prochaine mise à jour."}
+                  ? "Bobine 5.0.0 is compiled natively for Apple Silicon Macs (MacBook Air, MacBook Pro, Mac mini, Mac Studio with M1, M2, M3, or M4). Native support for legacy Intel Macs (x86_64) is undergoing validation and will be released in an upcoming update."
+                  : "Bobine 5.0.0 est optimisé nativement pour les Mac Apple Silicon (MacBook, Mac mini, iMac équipés de puces M1, M2, M3 ou M4). La compatibilité native avec les anciens processeurs Mac Intel (x86_64) arrivera lors d'une prochaine mise à jour."}
               </div>
             </div>
           </div>
@@ -514,8 +543,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <h4>{isEn ? "Download the disk image" : "Téléchargez l'image disque"}</h4>
                 <p>
                   {isEn
-                    ? "Download Bobine-3.0.0.dmg using the button above."
-                    : "Téléchargez le fichier Bobine-3.0.0.dmg via le bouton de téléchargement."}
+                    ? "Download Bobine-5.0.0.dmg using the button above."
+                    : "Téléchargez le fichier Bobine-5.0.0.dmg via le bouton de téléchargement."}
                 </p>
               </div>
             </div>
@@ -574,12 +603,12 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               </div>
               <div>
                 <h2 className="docs-method-hero__title">
-                  {isEn ? "Bobine for Linux Desktop (.deb package)" : "Bobine pour Linux Bureau (Paquet .deb)"}
+                  {isEn ? "Bobine for Linux Desktop (.deb package — x86_64 & ARM64)" : "Bobine pour Linux Bureau (Paquet .deb — x86_64 & ARM64)"}
                 </h2>
                 <p className="docs-method-hero__desc">
                   {isEn
-                    ? "Native Debian, Ubuntu, and Linux Mint package. Certified AppStream metadata for Ubuntu App Center, standard XDG directory structure, and desktop integration."
-                    : "Paquet natif pour Debian, Ubuntu et Linux Mint. Métadonnées AppStream certifiées pour les logithèques, intégration XDG et lanceur de bureau."}
+                    ? "Native Debian, Ubuntu, and Linux Mint package for x86_64 and ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi). Certified AppStream metadata for Ubuntu App Center, standard XDG directory structure, and desktop integration."
+                    : "Paquet natif pour Debian, Ubuntu et Linux Mint en x86_64 et ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi). Métadonnées AppStream certifiées pour les logithèques, intégration XDG et lanceur de bureau."}
                 </p>
               </div>
             </div>
@@ -598,8 +627,25 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
-                  <span>{isEn ? `Download Stable (${stable.version})` : `Télécharger la Stable (${stable.version})`}</span>
+                  <span>{isEn ? `Download Stable x86_64 (${stable.version})` : `Télécharger Stable x86_64 (${stable.version})`}</span>
                 </a>
+
+                {stable.downloads.linuxArm64 && (
+                  <a
+                    href={stable.downloads.linuxArm64}
+                    download
+                    className="btn-primary docs-method-download-btn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    <span>{isEn ? `Download Stable ARM64 (${stable.version})` : `Télécharger Stable ARM64 (${stable.version})`}</span>
+                  </a>
+                )}
 
                 <a
                   href={beta.downloads.linux}
@@ -637,7 +683,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-method-meta-row">
                 <span className="docs-method-version-text">{stable.version}</span>
                 <span className="docs-method-meta-dot">·</span>
-                <span>x86-64 (amd64)</span>
+                <span>x86-64 & ARM64</span>
                 <span className="docs-method-meta-dot">·</span>
                 <a
                   href="https://github.com/FantasmaGlad/Bobine/releases"
@@ -659,11 +705,11 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             <div className="docs-step-card">
               <div className="docs-step-card__num">1</div>
               <div className="docs-step-card__content">
-                <h4>{isEn ? "Option A: Official APT Repository (Recommended)" : "Option A : Dépôt APT officiel (Recommandé)"}</h4>
+                <h4>{isEn ? "Option A: Official APT Repository (Recommended — x86_64 & ARM64)" : "Option A : Dépôt APT officiel (Recommandé — x86_64 & ARM64)"}</h4>
                 <p>
                   {isEn
-                    ? "Add the official GPG-signed repository (apt.bobine.fit) to receive automatic updates with your standard apt upgrade:"
-                    : "Ajoutez le dépôt officiel signé GPG (apt.bobine.fit) pour bénéficier des mises à jour automatiques lors de vos apt upgrade habituels :"}
+                    ? "Add the official GPG-signed repository (apt.bobine.fit) to receive automatic updates with your standard apt upgrade (serves amd64 and arm64 architectures):"
+                    : "Ajoutez le dépôt officiel signé GPG (apt.bobine.fit) pour bénéficier des mises à jour automatiques lors de vos apt upgrade habituels (distribue automatiquement amd64 et arm64) :"}
                 </p>
                 <div className="docs-copyable-cmd" style={{ whiteSpace: "pre-wrap", alignItems: "flex-start" }}>
                   <code style={{ fontSize: "0.8rem", lineHeight: "1.5" }}>
@@ -708,7 +754,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     : "Téléchargez le paquet autonome .deb ci-dessus et double-cliquez pour l'installer via l'App Center Ubuntu / Logithèque GNOME, ou exécutez :"}
                 </p>
                 <div className="docs-copyable-cmd">
-                  <code>sudo apt install ./bobine_*_amd64.deb</code>
+                  <code>{isEn ? "sudo apt install ./bobine_*_amd64.deb # or ./bobine_*_arm64.deb on ARM64" : "sudo apt install ./bobine_*_amd64.deb # ou ./bobine_*_arm64.deb sur ARM64"}</code>
                   <button
                     type="button"
                     onClick={() => copyToClipboard("sudo apt install ./bobine_*_amd64.deb")}
@@ -801,12 +847,12 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               </div>
               <div>
                 <h2 className="docs-method-hero__title">
-                  {isEn ? "Bobine for Android Tablets & Touch Kiosks" : "Bobine pour Tablettes Android & Bornes Tactiles"}
+                  {isEn ? "Bobine for Android Tablets, Google Books & Touch Kiosks" : "Bobine pour Tablettes Android, Google Books & Bornes Tactiles"}
                 </h2>
                 <p className="docs-method-hero__desc">
                   {isEn
-                    ? "Official native APK package. Embedded FastAPI server (Chaquopy), independent dual display (/grid on tablet, /cinema on HDMI), and MediaCodec hardware acceleration."
-                    : "Paquet APK natif officiel. Serveur FastAPI embarqué (Chaquopy), double affichage indépendant (/grid sur tablette, /cinema sur HDMI), et accélération matérielle MediaCodec."}
+                    ? "Official native APK package. Direct execution on Android tablets, Google Books (Aluminium OS, with upcoming Google Play Store release) and Android TV / Google TV. Embedded FastAPI server (Chaquopy), independent dual display (/grid on tablet, /cinema on HDMI), and MediaCodec hardware acceleration."
+                    : "Paquet APK natif officiel. Exécution directe sur tablettes Android, Google Books (Aluminium OS, avec arrivée prochaine sur le Google Play Store) et Android TV / Google TV. Serveur FastAPI embarqué (Chaquopy), double affichage indépendant (/grid sur tablette, /cinema sur HDMI), et accélération matérielle MediaCodec."}
                 </p>
               </div>
             </div>
@@ -825,8 +871,25 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
-                  <span>{isEn ? `Download Stable (${stable.version})` : `Télécharger la Stable (${stable.version})`}</span>
+                  <span>{isEn ? `Download Stable APK (${stable.version})` : `Télécharger APK Stable (${stable.version})`}</span>
                 </a>
+
+                {stable.downloads.androidTv && (
+                  <a
+                    href={stable.downloads.androidTv}
+                    download
+                    className="btn-primary docs-method-download-btn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    <span>{isEn ? `Download Android TV APK (${stable.version})` : `Télécharger APK Android TV (${stable.version})`}</span>
+                  </a>
+                )}
 
                 <a
                   href={beta.downloads.android}
@@ -864,7 +927,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-method-meta-row">
                 <span className="docs-method-version-text">{stable.version}</span>
                 <span className="docs-method-meta-dot">·</span>
-                <span>ARM64 (arm64-v8a)</span>
+                <span>ARM64 (Tablettes, Google Books & TV)</span>
                 <span className="docs-method-meta-dot">·</span>
                 <a
                   href="https://github.com/FantasmaGlad/Bobine/releases"
@@ -959,24 +1022,43 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             </div>
 
             <div className="docs-method-hero__action-col">
-              <a
-                href={stable.downloads.assistant}
-                download
-                className="btn-primary docs-method-download-btn"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-                <span>{isEn ? "Download bobine-assistant" : "Télécharger bobine-assistant"}</span>
-              </a>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", width: "100%" }}>
+                <a
+                  href={stable.downloads.assistant}
+                  download
+                  className="btn-primary docs-method-download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>{isEn ? "Download bobine-assistant (x86_64)" : "Télécharger bobine-assistant (x86_64)"}</span>
+                </a>
+
+                {stable.downloads.assistantArm64 && (
+                  <a
+                    href={stable.downloads.assistantArm64}
+                    download
+                    className="btn-primary docs-method-download-btn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    <span>{isEn ? "Download bobine-assistant (ARM64)" : "Télécharger bobine-assistant (ARM64)"}</span>
+                  </a>
+                )}
+              </div>
               <div className="docs-method-meta-row">
                 <span className="docs-method-version-text">{stable.version}</span>
                 <span className="docs-method-meta-dot">·</span>
-                <span>Tauri 2 (Rust)</span>
+                <span>Tauri 2 (Rust · x86-64 & ARM64)</span>
                 <span className="docs-method-meta-dot">·</span>
                 <a
                   href="https://github.com/FantasmaGlad/Bobine/releases"

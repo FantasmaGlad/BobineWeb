@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import GitHubIcon from "@/components/icons/GitHubIcon";
 import { TOR_PROJECT_URL, TOR_SOURCE_URL } from "@/lib/onion";
@@ -14,13 +13,7 @@ export default function Footer({
   locale: Locale;
   dict: Dictionary;
 }) {
-  const pathname = usePathname();
   const isEn = locale === "en";
-
-  // Masquer le footer sur l'écran de démo 3D pour préserver la scène immersive plein écran
-  if (pathname && pathname.includes("/demo-3d")) {
-    return null;
-  }
 
   return (
     <footer className="site-footer">
@@ -74,9 +67,6 @@ export default function Footer({
             </Link>
             <Link href={`/${locale}/blog`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
               {dict.nav.blog}
-            </Link>
-            <Link href={`/${locale}/demo-3d`} style={{ fontSize: "0.825rem", color: "var(--text-muted)", textDecoration: "none" }}>
-              {isEn ? "3D Studio Demo" : "Démo Studio 3D"}
             </Link>
           </div>
 

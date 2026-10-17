@@ -70,9 +70,24 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       a: "Bobine intègre un sous-système de télémétrie éco-conçu interrogeant les compteurs matériels bas niveau sans droits root : le sous-système noyau intel-rapl en microjoules sur mini PC Intel, l'interface ioreg sous macOS Apple Silicon, les nœuds sysfs sous Android/Linux et WMI/powercfg sous Windows. Les températures CPU/GPU et la fréquence effective de la RAM (MT/s) sont également restituées en direct.",
     },
     {
+      category: "hardware",
+      q: "Bobine est-il compatible avec les PC portables Qualcomm Snapdragon (Windows ARM & Linux ARM) ?",
+      a: "Oui. Bobine V5.0.0 propose un installeur Windows 11 ARM64 natif (Bobine-Setup-5.0.0-arm64.exe) et un paquet Debian/Ubuntu ARM64 (bobine_5.0.0_arm64.deb). Les puces Snapdragon X Elite et Snapdragon X Plus offrent une autonomie record et une consommation de 5W à 10W en lecture vidéo continue.",
+    },
+    {
+      category: "hardware",
+      q: "Bobine fonctionne-t-il sur les ordinateurs portables Google Book (Aluminium OS) ?",
+      a: "Oui. Bobine s'exécute nativement en plein écran sur les Google Books (système Aluminium OS / convergence Android) grâce au paquet Bobine-5.0.0.apk avec accélération MediaCodec/Vulkan, et sera très prochainement disponible directement sur le Google Play Store.",
+    },
+    {
+      category: "hardware",
+      q: "Quels mini PC et cartes ARM64 (NVIDIA DGX Spark, Raspberry Pi, Orange Pi) sont recommandés ?",
+      a: "Sous Linux ARM64, Bobine fonctionne parfaitement sur Raspberry Pi 5 (8 Go / 16 Go), Radxa Rock 5B/5B+ (RK3588), Orange Pi 5 Plus, NVIDIA Jetson Orin Nano Super, ainsi que sur les stations professionnelles NVIDIA DGX Spark (SoC Grace Blackwell GB10 sous DGX OS / Ubuntu ARM64). L'installation se fait en une commande via curl -fsSL https://bobine.fit/install.sh | sudo bash ou via le paquet .deb ARM64.",
+    },
+    {
       category: "updates",
       q: "Quelle est la différence entre les versions Stable, Bêta et Canary ?",
-      a: "La version Stable (ex. V4.0.3) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La Bêta offre un lot de fonctionnalités/correctifs que je sélectionne et publie manuellement quand il est prêt. La Canary offre un accès anticipé continu, reconstruite automatiquement à chaque commit sur la branche principale, sans curation. Les deux partagent les mêmes identifiants d'application, s'installent par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages → Mises à jour sans perte de données ni de médias.",
+      a: "La version Stable (ex. V5.0.0) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La Bêta offre un lot de fonctionnalités/correctifs que je sélectionne et publie manuellement quand il est prêt. La Canary offre un accès anticipé continu, reconstruite automatiquement à chaque commit sur la branche principale, sans curation. Les deux partagent les mêmes identifiants d'application, s'installent par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages → Mises à jour sans perte de données ni de médias.",
     },
     {
       category: "updates",
@@ -157,9 +172,24 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       a: "Bobine includes an eco-designed telemetry subsystem querying low-level hardware counters without root privileges: the intel-rapl kernel subsystem in microjoules on Intel mini PCs, the ioreg interface on macOS Apple Silicon, sysfs nodes on Android/Linux, and WMI/powercfg on Windows. CPU/GPU temperatures and effective RAM frequency (MT/s) are also reported in real time.",
     },
     {
+      category: "hardware",
+      q: "Is Bobine compatible with Qualcomm Snapdragon ARM laptops (Windows ARM & Linux ARM)?",
+      a: "Yes. Bobine V5.0.0 provides a native Windows 11 ARM64 installer (Bobine-Setup-5.0.0-arm64.exe) and a Debian/Ubuntu ARM64 package (bobine_5.0.0_arm64.deb). Snapdragon X Elite and Snapdragon X Plus processors deliver record battery life and ultra-low 5W-10W power draw during continuous playback.",
+    },
+    {
+      category: "hardware",
+      q: "Does Bobine work on Google Book laptops (Aluminium OS)?",
+      a: "Yes. Bobine runs natively in fullscreen on Google Book laptops (Aluminium OS / Android convergence) using the Bobine-5.0.0.apk package with full MediaCodec/Vulkan hardware acceleration, and will soon be available directly from the Google Play Store.",
+    },
+    {
+      category: "hardware",
+      q: "Which ARM64 mini PCs and single-board computers (NVIDIA DGX Spark, Raspberry Pi, Orange Pi) are supported?",
+      a: "Under Linux ARM64, Bobine runs smoothly on Raspberry Pi 5 (8GB / 16GB), Radxa Rock 5B/5B+ (RK3588), Orange Pi 5 Plus, NVIDIA Jetson Orin Nano Super, and workstation-class NVIDIA DGX Spark units (Grace Blackwell GB10 SoC running DGX OS / Ubuntu ARM64). Setup takes 1 command via curl -fsSL https://bobine.fit/install.sh | sudo bash or via the ARM64 .deb package.",
+    },
+    {
       category: "updates",
       q: "What is the difference between the Stable, Beta and Canary channels?",
-      a: "The Stable release (e.g. V4.0.3) is the official tested build recommended for production gym playout. Beta offers a batch of features/fixes I select and publish manually when ready. Canary provides continuous early access, rebuilt automatically on every commit to the main branch, with no curation. Both share identical system application IDs, install directly over your current version without creating duplicate apps, and allow reverting back to Stable anytime from Settings → Software Updates without data loss.",
+      a: "The Stable release (e.g. V5.0.0) is the official tested build recommended for production gym playout. Beta offers a batch of features/fixes I select and publish manually when ready. Canary provides continuous early access, rebuilt automatically on every commit to the main branch, with no curation. Both share identical system application IDs, install directly over your current version without creating duplicate apps, and allow reverting back to Stable anytime from Settings → Software Updates without data loss.",
     },
     {
       category: "updates",

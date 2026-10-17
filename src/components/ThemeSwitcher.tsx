@@ -5,6 +5,7 @@ import {
   THEME_STORAGE_KEY,
   defaultTheme,
   isTheme,
+  resolveTheme,
   themeMeta,
   themes,
   lightThemes,
@@ -16,8 +17,8 @@ function getCurrentTheme(): Theme {
   if (typeof window === "undefined") return defaultTheme;
   try {
     const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
-    if (stored && isTheme(stored)) {
-      return stored as Theme;
+    if (stored) {
+      return resolveTheme(stored);
     }
   } catch {}
   const attr = document.documentElement.getAttribute("data-theme");

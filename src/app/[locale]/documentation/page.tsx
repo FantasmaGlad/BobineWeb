@@ -24,12 +24,26 @@ export async function generateMetadata({
       ? "Setup Guide & Documentation — Bobine | Multi-OS Playout Suite"
       : "Guide de Démarrage & Installation — Bobine | Régie Vidéo Multi-OS",
     description: isEn
-      ? "Official Bobine setup guide: 1-click installers for Windows, macOS, Linux, Android and Android TV, local network orchestration with Bobine Assistant, and 24/7 dedicated gym appliance on Debian 13."
-      : "Guide d'installation officiel de Bobine : installeurs 1 clic pour Windows, macOS, Linux, Android et Android TV, orchestration réseau avec Bobine Assistant, et régie autonome 24/7 sur mini PC Debian 13.",
+      ? "Official Bobine V5.0.0 setup guide: native 1-click installers for Windows 11/10 (x86_64 & Snapdragon ARM64), macOS Apple Silicon, Linux (x86_64 & ARM64), Google Books (Aluminium OS), Android tablets and Android TV, local network orchestration with Bobine Assistant, and 24/7 dedicated gym appliance on Debian 13 (Mini PC x86_64, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5)."
+      : "Guide d'installation officiel de Bobine V5.0.0 : installeurs natifs 1 clic pour Windows 11/10 (x86_64 & PC ARM Snapdragon), macOS Apple Silicon, Linux (x86_64 & ARM64), Google Books (Aluminium OS), tablettes Android et Android TV, orchestration réseau avec Bobine Assistant, et régie autonome 24/7 sur mini PC Debian 13 (x86_64, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5).",
     keywords: [
       "Documentation Bobine",
       "Démarrage rapide Bobine",
       "Installation Bobine",
+      "Google Book",
+      "Googlebook",
+      "Aluminium OS",
+      "Bobine Google Book",
+      "Application salle de sport Google Book",
+      "PC ARM Qualcomm Snapdragon",
+      "Snapdragon X Elite",
+      "Snapdragon X Plus",
+      "Windows 11 ARM64",
+      "Linux ARM64",
+      "NVIDIA DGX Spark",
+      "Mini PC ARM salle de sport",
+      "Raspberry Pi 5 salle de sport",
+      "Orange Pi 5 RK3588",
       "Bobine Windows",
       "Bobine macOS",
       "Bobine Linux",
@@ -86,15 +100,15 @@ export default async function DocumentationPage({
             locale={locale as Locale}
             pathname="/documentation"
             title={isEn ? "Bobine Installation & Quick Start Guide" : "Guide de Démarrage & Installation Bobine"}
-            description={isEn ? "Official setup guide for Bobine across Windows, macOS, Linux, Android, Android TV, and dedicated appliances." : "Guide d'installation officiel de Bobine sur Windows, macOS, Linux, Android, Android TV et mini PC dédiés."}
+            description={isEn ? "Official setup guide for Bobine across Windows (x86_64 & ARM64), macOS, Linux (x86_64 & ARM64), Google Books, Android, Android TV, and dedicated appliances." : "Guide d'installation officiel de Bobine sur Windows (x86_64 & ARM64), macOS, Linux (x86_64 & ARM64), Google Books, Android, Android TV et mini PC dédiés."}
           />
         </div>
       </div>
 
       <p style={{ color: "var(--text-muted)", fontSize: "1.025rem", lineHeight: 1.6, marginBottom: "0.75rem" }}>
         {isEn
-          ? "Bobine adapts to your setup: choose between 1-click desktop applications for standard computers (Windows, Mac, Linux) or deploy a dedicated 24/7 appliance for uninterrupted studio playout with automatic recovery after power cuts."
-          : "Bobine s'adapte à vos besoins : choisissez entre les applications de bureau en 1 clic pour vos ordinateurs personnels ou de régie (Windows, Mac, Linux), ou déployez une appliance dédiée 24/7 pour une diffusion ininterrompue en studio avec reprise automatique après coupure de courant."}
+          ? "Bobine V5.0.0 adapts to your setup: choose between 1-click applications for standard computers (Windows x86_64 & Snapdragon ARM64, Mac Apple Silicon, Linux x86_64 & ARM64, Google Books under Aluminium OS, Android tablets & TV) or deploy a dedicated 24/7 appliance (x86_64 or ARM64 mini PC) for uninterrupted studio playout with automatic recovery after power cuts."
+          : "Bobine V5.0.0 s'adapte à vos besoins : choisissez entre les applications en 1 clic pour vos ordinateurs et tablettes (Windows x86_64 & PC ARM Snapdragon, Mac Apple Silicon, Linux x86_64 & ARM64, Google Books sous Aluminium OS, tablettes Android & Android TV), ou déployez une appliance dédiée 24/7 (mini PC x86_64 ou ARM64) pour une diffusion ininterrompue en studio avec reprise automatique après coupure de courant."}
       </p>
       </div>
 

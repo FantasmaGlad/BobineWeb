@@ -24,13 +24,19 @@ export async function generateMetadata({
       ? "Hardware Guide & Recommended Gym Playout Bundles — Bobine"
       : "Guide Matériel & Packs Recommandés — Bobine | Régie Fitness",
     description: isEn
-      ? "Explore vetted gym hardware for Bobine: turnkey OS bundles (Linux Wyse J5005, Windows Mini PC, Mac Mini, Android tablet), certified cabling, studio remotes, and ROI comparison vs Les Mills Cinema."
-      : "Découvrez le matériel testé pour faire tourner Bobine sans bug : packs par OS (Linux Wyse J5005, Windows Mini PC, Mac Mini, tablette Android), câblage certifié, télécommandes studio et comparatif budgétaire face à Les Mills Cinema.",
+      ? "Explore vetted gym hardware for Bobine: turnkey OS bundles (Linux Wyse J5005, Windows Mini PC, Mac Mini, ARM Snapdragon PC & Mini PC, Android tablets, Android TV), certified cabling, studio remotes, and ROI comparison vs Les Mills Cinema."
+      : "Découvrez le matériel testé pour faire tourner Bobine sans bug : packs par OS (Linux Wyse J5005, Windows Mini PC, Mac Mini, PC & Mini PC ARM Snapdragon, tablettes Android, Android TV), câblage certifié, télécommandes studio et comparatif budgétaire face à Les Mills Cinema.",
     keywords: [
       "Matériel Bobine",
       "Pack Dell Wyse 5070 J5005",
       "Dell Wyse 5070 fitness",
       "Mini PC salle de sport",
+      "PC ARM Snapdragon fitness",
+      "Snapdragon X Elite salle de sport",
+      "Raspberry Pi 5 fitness",
+      "NVIDIA DGX Spark régie",
+      "Tablettes Android salle de sport",
+      "Android TV fitness box",
       "Alternative Les Mills Cinema matériel",
       "Borne tactile fitness matériel",
       "Régie vidéo fitness équipement",
@@ -73,8 +79,8 @@ export default async function HardwareAmazonPage({
       ? "Bobine Certified Gym Playout Hardware Bundles"
       : "Packs Matériels Certifiés Régie Bobine Fit",
     description: isEn
-      ? "Curated hardware setups for gyms and fitness studios running Bobine open-source playout."
-      : "Sélection de configurations matérielles testées pour équiper les studios de fitness avec Bobine.",
+      ? "Curated hardware setups for gyms and fitness studios running Bobine open-source playout across Linux, Windows, macOS, ARM (Snapdragon / ARM64), Android Tablets, and Android TV."
+      : "Sélection de configurations matérielles testées pour équiper les studios de fitness avec Bobine sur Linux, Windows, macOS, ARM (Snapdragon / ARM64), Tablettes Android et Android TV.",
     itemListElement: [
       {
         "@type": "Product",
@@ -105,12 +111,38 @@ export default async function HardwareAmazonPage({
       {
         "@type": "Product",
         position: 3,
+        name: "Pack PC & Mini PC ARM — Snapdragon X Plus & Raspberry Pi 5",
+        description:
+          "PC portables Qualcomm Snapdragon X et Mini PC ARM64 (Raspberry Pi 5, Radxa Rock 5B, NVIDIA DGX Spark) ultra basse consommation 5W-10W.",
+        offers: {
+          "@type": "Offer",
+          price: "262.98",
+          priceCurrency: "EUR",
+          availability: "https://schema.org/InStock",
+        },
+      },
+      {
+        "@type": "Product",
+        position: 4,
         name: "Pack Android Tactile — Samsung Galaxy Tab A9+ & Support Mural Antivol",
         description:
           "Tablette Samsung Galaxy Tab A9+ 11 pouces, support mural antivol verrouillable et câble d'alimentation continue 100W.",
         offers: {
           "@type": "Offer",
           price: "285.00",
+          priceCurrency: "EUR",
+          availability: "https://schema.org/InStock",
+        },
+      },
+      {
+        "@type": "Product",
+        position: 5,
+        name: "Pack Android TV & Box — Xiaomi TV Box S & Google TV Streamer 4K",
+        description:
+          "Boîtiers 4K Google TV et Android TV certifiés pour diffusion autonome grand écran en salle de sport.",
+        offers: {
+          "@type": "Offer",
+          price: "69.00",
           priceCurrency: "EUR",
           availability: "https://schema.org/InStock",
         },

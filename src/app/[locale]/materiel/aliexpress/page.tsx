@@ -23,12 +23,12 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "/materiel/aliexpress",
     title: isEn
-      ? "AliExpress Hardware Picks for Bobine — Mini PC, Laptops & Tablets"
-      : "Matériel AliExpress pour Bobine — Mini PC, PC Portables & Tablettes",
+      ? "AliExpress Hardware Picks for Bobine — Mini PC, ARM, Laptops & Tablets"
+      : "Matériel AliExpress pour Bobine — Mini PC, ARM, PC Portables & Tablettes",
     description: isEn
-      ? "Windows and Linux mini PCs and laptops plus Android tablets sourced on AliExpress for Bobine, in four tiers with several brands each, plus connectivity from brand stores. Prices refreshed live."
-      : "Mini PC et PC portables Windows et Linux, tablettes Android trouvés sur AliExpress pour Bobine, en quatre gammes avec plusieurs marques chacune, plus la connectique de boutiques officielles. Prix rafraîchis en direct.",
-    keywords: ["Bobine AliExpress", "Mini PC Windows AliExpress", "Matériel fitness AliExpress", "Mini PC Ryzen AliExpress"],
+      ? "Windows and Linux mini PCs, ARM SBC kits (Raspberry Pi 5, Orange Pi), laptops, Android tablets and Android TV boxes sourced on AliExpress for Bobine, in four tiers with several brands each, plus connectivity from brand stores. Prices refreshed live."
+      : "Mini PC et PC portables Windows et Linux, kits SBC ARM (Raspberry Pi 5, Orange Pi), tablettes Android et boîtiers Android TV trouvés sur AliExpress pour Bobine, en quatre gammes avec plusieurs marques chacune, plus la connectique de boutiques officielles. Prix rafraîchis en direct.",
+    keywords: ["Bobine AliExpress", "Mini PC Windows AliExpress", "Mini PC ARM AliExpress", "Raspberry Pi 5 AliExpress", "Tablette Android AliExpress", "Android TV AliExpress", "Matériel fitness AliExpress", "Mini PC Ryzen AliExpress"],
   });
 }
 

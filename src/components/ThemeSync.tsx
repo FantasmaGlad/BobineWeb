@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { THEME_STORAGE_KEY, defaultTheme, isTheme, type Theme } from "@/lib/themes";
+import { THEME_STORAGE_KEY, resolveTheme } from "@/lib/themes";
 
 export default function ThemeSync() {
   const pathname = usePathname();
@@ -10,7 +10,7 @@ export default function ThemeSync() {
   useEffect(() => {
     try {
       const stored = localStorage.getItem(THEME_STORAGE_KEY);
-      const theme: Theme = stored && isTheme(stored) ? (stored as Theme) : defaultTheme;
+      const theme = resolveTheme(stored);
       document.documentElement.setAttribute("data-theme", theme);
     } catch {}
     window.scrollTo(0, 0);

@@ -10,7 +10,6 @@ import {
   type OsKey,
   type TierKey,
   type FormFactorKey,
-  type HardwareItem,
 } from "@/content/hardware";
 import LinuxIcon from "@/components/icons/LinuxIcon";
 import WindowsIcon from "@/components/icons/WindowsIcon";
@@ -36,7 +35,7 @@ interface HardwareBundleTabsProps {
   unavailableOs?: Partial<Record<OsKey, { textFr: string; textEn: string; alternatives: OsKey[] }>>;
 }
 
-const ALL_OS: OsKey[] = ["linux", "windows", "macos", "android"];
+const ALL_OS: OsKey[] = ["linux", "windows", "macos", "arm", "android", "android-tv"];
 
 function formatCheckedDate(iso: string, isEn: boolean) {
   const d = new Date(`${iso}T00:00:00Z`);
@@ -78,7 +77,10 @@ export default function HardwareBundleTabs({
   const totalAmazon = currentTier.items.reduce((acc, item) => acc + item.priceAmazon, 0);
   const mainItem = currentTier.items.find((item) => item.category === "uc") ?? currentTier.items[0];
   const accessoryItems = currentTier.items.filter((item) => item.id !== mainItem?.id);
-  const showFanBadge = activeFormFactorKey === "minipc" && (selectedOs === "linux" || selectedOs === "windows" || selectedOs === "macos") && mainItem;
+  const showFanBadge =
+    activeFormFactorKey === "minipc" &&
+    (selectedOs === "linux" || selectedOs === "windows" || selectedOs === "macos" || selectedOs === "arm") &&
+    mainItem;
 
 
   // Baamix voit ce que le visiteur regarde : on publie la sélection courante (et on la retire en quittant la page).
@@ -148,7 +150,7 @@ export default function HardwareBundleTabs({
     {
       id: "windows",
       label: "Windows Desktop",
-      badge: isEn ? "Mini PC" : "Mini PC",
+      badge: isEn ? "Mini PC & PC" : "Mini PC & PC",
       icon: <WindowsIcon size={18} />,
     },
     {
@@ -158,10 +160,45 @@ export default function HardwareBundleTabs({
       icon: <AppleIcon size={18} />,
     },
     {
+      id: "arm",
+      label: "PC & Mini PC ARM",
+      badge: "Snapdragon & ARM64",
+      icon: (
+        <svg
+          width={18}
+          height={18}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <rect x="4" y="4" width="16" height="16" rx="2" />
+          <rect x="9" y="9" width="6" height="6" />
+          <path d="M9 1v3" />
+          <path d="M15 1v3" />
+          <path d="M9 20v3" />
+          <path d="M15 20v3" />
+          <path d="M20 9h3" />
+          <path d="M20 14h3" />
+          <path d="M1 9h3" />
+          <path d="M1 14h3" />
+        </svg>
+      ),
+    },
+    {
       id: "android",
-      label: isEn ? "Android & TV" : "Android & TV",
-      badge: isEn ? "TV & Tablet" : "TV & Tablette",
+      label: isEn ? "Android Tablets" : "Android Tablettes",
+      badge: isEn ? "Touch Tablets" : "Tablettes Tactiles",
       icon: <AndroidIcon size={18} />,
+    },
+    {
+      id: "android-tv",
+      label: "Android TV & Box",
+      badge: "Google TV & 4K",
+      icon: <AndroidTvIcon size={18} />,
     },
   ];
 
@@ -171,7 +208,12 @@ export default function HardwareBundleTabs({
     laptop: { fr: "PC Portable", en: "Laptop" },
     tablet: { fr: "Tablette", en: "Tablet" },
   };
-  const formOrder: FormFactorKey[] = selectedOs === "android" ? ["tv", "tablet", "minipc", "laptop"] : ["minipc", "laptop"];
+  const formOrder: FormFactorKey[] =
+    selectedOs === "android"
+      ? ["tablet"]
+      : selectedOs === "android-tv"
+        ? ["tv"]
+        : ["minipc", "laptop"];
 
   const tierList: Array<{ id: TierKey; label: string; sub: string }> = [
     {

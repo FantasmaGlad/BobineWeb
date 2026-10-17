@@ -472,7 +472,7 @@ export function DocumentationPdf({
 
         <View style={styles.coverRuleBottom}>
           <View style={styles.coverMetaRow}>
-            <Text>VERSION 3.0.0</Text>
+            <Text>VERSION 5.0.0</Text>
             <Text>{dateStr.toUpperCase()}</Text>
           </View>
         </View>

@@ -24,28 +24,48 @@ interface GitHubReleaseApiResponse {
 const FALLBACK_RELEASES: BobineRelease[] = [
   {
     slug: "beta",
-    title: "Bobine — Bêta (build automatique)",
-    publishedAt: "2026-09-07T18:00:00Z",
+    title: "Bobine — Bêta & Canary (accès anticipé)",
+    publishedAt: "2026-10-17T09:00:00Z",
     url: "https://github.com/FantasmaGlad/Bobine/releases/tag/beta",
-    body: `Bobine — Bêta (build automatique)
+    body: `Bobine — Canaux Bêta (curé) & Canary (build automatique)
 
-Pre-release à accès anticipé aux fonctionnalités en cours de développement — reconstruite automatiquement à chaque publication et republiée en place sur ce même tag mobile beta. Une version stable équivalente ou plus récente la remplace toujours automatiquement.
+Accès anticipé aux fonctionnalités en cours de développement : le canal Bêta propose des lots sélectionnés et testés avant leur passage en Stable, tandis que le canal Canary est reconstruit automatiquement à chaque commit sur la branche principale.
 
-Réservée aux utilisateurs ayant activé le canal Bêta ("Programme Bobine Beta" dans Réglages → Mises à jour, install.sh --channel=beta, ou l'assistant Tauri).
+Réservés aux utilisateurs ayant activé un canal anticipé dans Réglages → Mises à jour logicielles, via install.sh --channel=beta|canary, ou via l'assistant Tauri.
 
 ### Téléchargements directs du canal Bêta
 
-- Android : [Bobine-beta.apk](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.apk)
-- Windows : [Bobine-Setup-beta.exe](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe)
-- Linux Bureau : [bobine_beta_amd64.deb](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb)
+- Android & Google Books : [Bobine-beta.apk](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.apk)
+- Android TV : [Bobine-TV-beta.apk](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-TV-beta.apk)
+- Windows (x86_64) : [Bobine-Setup-beta.exe](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe)
+- Windows ARM64 (Snapdragon) : [Bobine-Setup-beta-arm64.exe](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta-arm64.exe)
+- Linux Bureau (x86_64) : [bobine_beta_amd64.deb](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb)
+- Linux Bureau ARM64 (aarch64) : [bobine_beta_arm64.deb](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_arm64.deb)
 - macOS : [Bobine-beta.dmg](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.dmg)
-- Bobine Assistant : [bobine-assistant](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant)
+- Bobine Assistant (x86_64) : [bobine-assistant](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant)
+- Bobine Assistant ARM64 : [bobine-assistant-arm64](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant-arm64)
 - Script Appliance : \`curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta\`
 
 ### Retour à la version Stable
 
-À tout moment et sans perte de données : Réglages → Mises à jour logicielles → « Programme Bobine Beta » → Stable.`,
+À tout moment et sans perte de données : Réglages → Mises à jour logicielles → Canal Stable.`,
     isPrerelease: true,
+  },
+  {
+    slug: "V5.0.0",
+    title: "Bobine V5.0.0 « Orchidée » — Support Natif PC ARM64 (Snapdragon, Windows ARM, Linux ARM), Google Books, Trois Canaux de Mise à Jour & Sous-titres",
+    publishedAt: "2026-10-17T09:00:00Z",
+    url: "https://github.com/FantasmaGlad/Bobine/releases/tag/V5.0.0",
+    body: `La version 5.0.0 « Orchidée » est une version majeure : elle introduit la compatibilité native avec les PC ARM64 et processeurs Qualcomm Snapdragon X Elite / X Plus (installeur natif Windows 11 ARM64 Bobine-Setup-5.0.0-arm64.exe, paquet Linux ARM64 bobine_5.0.0_arm64.deb et binaire bobine-assistant-arm64 pour Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5 et Orange Pi), ainsi que la prise en charge des Google Books via le paquet APK Android (et bientôt en téléchargement natif sur le Google Play Store). Elle déploie également un nouveau système à trois canaux de mise à jour (Stable / Bêta / Canary) avec migration transparente et déclinaison du logo officiel par canal, une nouvelle identité visuelle glassmorphism inspirée d'Apple sur l'ensemble de l'interface (16 thèmes recalibrés, recouvrement en pause façon Netflix sur /cinema, transitions animées), le support complet des sous-titres (.srt/.vtt multilingues par cours vidéo), la consolidation de la découverte réseau mDNS (bobine.local avec boucle de ré-annonce résiliente aux changements d'IP DHCP/Wi-Fi), et le glisser-déposer avec miniatures dans le planning (/schedule) et le palmarès (/metrics).`,
+    isPrerelease: false,
+  },
+  {
+    slug: "V4.0.3",
+    title: "Bobine V4.0.3 — Compatibilité Firefox 157 Certifiée de Bout en Bout, Transcodage H.264 à la Demande & Diagnostic Navigateur",
+    publishedAt: "2026-10-15T18:00:00Z",
+    url: "https://github.com/FantasmaGlad/Bobine/releases/tag/V4.0.3",
+    body: `La version 4.0.3 Stable certifie de bout en bout l'interface d'administration et l'ensemble des lecteurs réseau (/radio, /kiosk, /cinema, /coach) sur Firefox 157 via des tests automatisés (reprise d'envoi de fichiers après coupure réseau, conformité HTTP des flux vidéo et lecture H.264), introduit la génération à la demande d'une version H.264 compatible lorsqu'un navigateur client ne peut pas décoder un flux HEVC/10 bits natif sans altérer le fichier original, et ajoute un module de diagnostic local du navigateur dans les Réglages.`,
+    isPrerelease: false,
   },
   {
     slug: "V4.0.2",
@@ -121,7 +141,6 @@ Cette version 2.0.1 apporte le support étendu de l'accélération matérielle (
 
 - **Site Web Officiel & Documentation** : [https://bobine.fit](https://bobine.fit)
 - **Guide de Démarrage Rapide** : [https://bobine.fit/fr/documentation/demarrage-rapide](https://bobine.fit/fr/documentation/demarrage-rapide)
-- **Démo Virtuelle 3D** : [https://bobine.fit/fr/demo-3d](https://bobine.fit/fr/demo-3d)
 - **Soutenir le Projet (Ko-fi)** : [https://ko-fi.com/fantasmaglad](https://ko-fi.com/fantasmaglad) ou [https://bobine.fit/fr/soutenir](https://bobine.fit/fr/soutenir)
 
 ---

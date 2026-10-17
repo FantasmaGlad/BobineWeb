@@ -32,7 +32,14 @@ export interface CatalogEntry {
   role: CatalogRole;
 }
 
-export const OS_LABELS: Record<OsKey, string> = { linux: "Linux", windows: "Windows", macos: "macOS", android: "Android" };
+export const OS_LABELS: Record<OsKey, string> = {
+  linux: "Linux",
+  windows: "Windows",
+  macos: "macOS",
+  arm: "PC & Mini PC ARM (Snapdragon / ARM64)",
+  android: "Tablettes Android",
+  "android-tv": "Android TV & Google TV",
+};
 export const FORM_LABELS: Record<FormFactorKey, string> = { minipc: "Mini PC", laptop: "PC Portable", tablet: "Tablette", tv: "Android TV & Box" };
 export const TIER_LABELS: Record<TierKey, string> = { essentiel: "Essentiel", recommande: "Recommandé", pro: "Pro", premium: "Premium" };
 

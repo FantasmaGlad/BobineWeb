@@ -1,5 +1,4 @@
 import Link from "next/link";
-import BaamixViewerLoader from "@/components/three/BaamixViewerLoader";
 import "./globals.css";
 
 export default function GlobalNotFound() {
@@ -11,7 +10,7 @@ export default function GlobalNotFound() {
         <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('bobineweb-theme')||'clair';document.documentElement.setAttribute('data-theme',t);}catch(e){}})()`,
+            __html: `(function(){try{var m={aurore:'miel',glacier:'ciel',rose:'clair',foret:'menthe',abysse:'hiver'};var r=localStorage.getItem('bobineweb-theme')||'charbon';var t=m[r]||r;document.documentElement.setAttribute('data-theme',t);}catch(e){}})()`,
           }}
         />
       </head>
@@ -28,8 +27,15 @@ export default function GlobalNotFound() {
             boxSizing: "border-box",
           }}
         >
-          {/* Modèle 3D Baamix interactif 360° */}
-          <BaamixViewerLoader />
+          {/* Illustration Baamix Inspecteur */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/BaamixInspector.webp"
+            alt="Baamix Inspecteur"
+            width={180}
+            height={250}
+            style={{ width: "auto", height: "180px", marginBottom: "1rem", objectFit: "contain" }}
+          />
 
           <h1
             style={{

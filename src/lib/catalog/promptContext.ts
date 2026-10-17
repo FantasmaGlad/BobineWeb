@@ -44,7 +44,7 @@ function detailLine(e: CatalogEntry): string {
   return `- ${e.id} | ${PLATFORM_LABEL[e.platform]} | ${role} | ${e.name} | ${priceText(e)} | ${e.specs}${fan}${seller} | ${e.description}`;
 }
 
-const VALID_OS: OsKey[] = ["linux", "windows", "macos", "android"];
+const VALID_OS: OsKey[] = ["linux", "windows", "macos", "arm", "android", "android-tv"];
 const VALID_FORM: FormFactorKey[] = ["minipc", "laptop", "tablet", "tv"];
 const VALID_TIER: TierKey[] = ["essentiel", "recommande", "pro", "premium"];
 

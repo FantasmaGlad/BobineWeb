@@ -47,32 +47,32 @@ const fr: DocChapter[] = [
     title: "2. Guide de Démarrage & Installation",
     icon: "install",
     summary:
-      "Méthodes d'installation de Bobine V3.0.5 : applications de bureau en un clic (Windows, macOS, Linux), application native pour tablettes Android, ou déploiement d'une appliance dédiée 24/7 pour une salle de sport.",
+      "Méthodes d'installation de Bobine V5.0.0 : applications de bureau en un clic (Windows, macOS, Linux), application native pour tablettes Android, ou déploiement d'une appliance dédiée 24/7 pour une salle de sport.",
     subsections: [
       {
-        subtitle: "2.1 Windows 11 / 10 & Windows IoT",
+        subtitle: "2.1 Windows 11 / 10 & Windows ARM (Qualcomm Snapdragon)",
         paragraphs: [
-          "Installeur officiel Bobine-Setup-3.0.5.exe : exécution silencieuse en arrière-plan (icône près de l'horloge), mode capot fermé (clamshell) sans mise en veille via powercfg, règle de pare-feu automatique et désinstallation en 1 clic via Inno Setup.",
-          "Matériel de référence testé : mini PC Intel N100 ou AMD Ryzen neuf, livré avec Windows 11 Pro préinstallé (voir le hub matériel bobine.fit/materiel pour des références vérifiées et leur prix constaté).",
+          "Installeurs officiels Bobine-Setup-5.0.0.exe (x86_64 pour processeurs Intel et AMD) et Bobine-Setup-5.0.0-arm64.exe (architecture native ARM64 pour puces Qualcomm Snapdragon X Elite et Snapdragon X Plus) : exécution silencieuse en arrière-plan (icône près de l'horloge), mode capot fermé (clamshell) sans mise en veille via powercfg, règle de pare-feu automatique et désinstallation en 1 clic via Inno Setup.",
+          "Matériel de référence testé : PC portables Copilot+ Snapdragon X (Surface Laptop 7, ASUS Vivobook S 15, Lenovo Yoga Slim 7x, Samsung Galaxy Book4 Edge) et mini PC Intel N100 / AMD Ryzen livrés avec Windows 11 Pro (voir le hub matériel bobine.fit/materiel pour des références vérifiées et leur prix constaté).",
         ],
         deviceImage: "windows",
       },
       {
         subtitle: "2.2 macOS Apple Silicon (M1 à M4) & Intel",
         paragraphs: [
-          "Image disque Bobine-3.0.5.dmg : glisser-déposer dans Applications, menu discret dans la barre supérieure, prévention de veille native caffeinate et accélération matérielle VideoToolbox.",
+          "Image disque Bobine-5.0.0.dmg : glisser-déposer dans Applications, menu discret dans la barre supérieure, prévention de veille native caffeinate et accélération matérielle VideoToolbox.",
           "Matériel de référence testé : Mac Mini Apple Silicon en régie dédiée, ou MacBook du coach exploité fermé (mode clamshell) via un hub ou dock USB-C.",
         ],
         deviceImage: "macos",
       },
       {
-        subtitle: "2.3 Linux Bureau (Debian / Ubuntu / Mint)",
+        subtitle: "2.3 Linux Bureau (Debian / Ubuntu / Mint — x86_64 & ARM64)",
         paragraphs: [
-          "Dépôt APT officiel signé cryptographiquement (https://apt.bobine.fit) pour des mises à jour automatiques via apt upgrade, ou paquet autonome bobine_3.0.5_amd64.deb pour la logithèque. Désinstallation Polkit sécurisée en 1 clic.",
-          "Matériel de référence testé : mini PC industriel fanless (dissipation 100% passive, zéro ventilateur), le choix Bobine pour un silence absolu en studio 24/7.",
+          "Dépôt APT officiel signé cryptographiquement (https://apt.bobine.fit) distribuant nativement les architectures amd64 et arm64 pour des mises à jour automatiques via apt upgrade. Paquets autonomes directs disponibles : bobine_5.0.0_amd64.deb et bobine_5.0.0_arm64.deb (pour PC Snapdragon sous Linux, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5 et Radxa Rock 5B). Désinstallation Polkit sécurisée en 1 clic.",
+          "Matériel de référence testé : mini PC industriel fanless x86 (Intel N100) et stations/cartes ARM64 basse consommation (NVIDIA DGX Spark, Raspberry Pi 5 8 Go), le choix Bobine pour un silence absolu en studio 24/7.",
         ],
         codeBlock:
-          "# Dépôt APT officiel Linux (apt.bobine.fit)\ncurl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine",
+          "# Dépôt APT officiel Linux (apt.bobine.fit — compatible amd64 & arm64)\ncurl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine",
         deviceImage: "linux",
       },
       {
@@ -87,35 +87,36 @@ const fr: DocChapter[] = [
         deviceImage: "linux",
       },
       {
-        subtitle: "2.4 Tablettes Android ARM64",
+        subtitle: "2.4 Tablettes Android & Google Books (Aluminium OS)",
         paragraphs: [
-          "Paquet natif Bobine-4.0.2.apk (API 34-36), embarquant CPython 3.13 et FastAPI via Chaquopy, service de premier plan persistant, accélération MediaCodec et double affichage (/grid tactile + /cinema HDMI USB-C DisplayPort avec résolution robuste du branchement à chaud sans écran noir).",
-          "Matériel de référence testé : tablette Samsung Galaxy Tab ou Xiaomi Pad avec port USB-C compatible DisplayPort Alt Mode pour la sortie vidéo filaire vers l'écran de salle.",
+          "Paquet natif Bobine-5.0.0.apk (API 34-36), embarquant CPython 3.13 et FastAPI via Chaquopy, service de premier plan persistant, accélération MediaCodec et double affichage (/grid tactile + /cinema HDMI USB-C DisplayPort avec résolution robuste du branchement à chaud sans écran noir).",
+          "Compatibilité Google Books : Bobine s'exécute nativement en plein écran sur les ordinateurs portables Google Book (Aluminium OS) via l'APK avec accélération matérielle complète, et sera très prochainement disponible en téléchargement direct 1 clic sur le Google Play Store.",
+          "Matériel de référence testé : tablettes Samsung Galaxy Tab ou Xiaomi Pad avec port USB-C compatible DisplayPort Alt Mode, et ordinateurs portables Google Book.",
         ],
         deviceImage: "android",
       },
       {
         subtitle: "2.4 bis Android TV & Google TV (Box TV, Clés & Smart TVs)",
         paragraphs: [
-          "Paquet dédié officiel Bobine-TV-4.0.2.apk (com.bobine.app.tv) conçu pour les boîtiers grand public (Chromecast avec Google TV, Xiaomi TV Box S, NVIDIA Shield TV, Smart TVs sous Android TV 11+). L'application s'intègre au lanceur officiel Leanback avec sa bannière 16:9, neutralise le prérequis d'écran tactile, empêche la mise en veille (FLAG_KEEP_SCREEN_ON) et s'ouvre par défaut sur le kiosque plein écran (/kiosk) navigable à 100% à la télécommande directionnelle D-Pad.",
+          "Paquet dédié officiel Bobine-TV-5.0.0.apk (com.bobine.app.tv) conçu pour les boîtiers grand public (Chromecast avec Google TV, Xiaomi TV Box S, NVIDIA Shield TV, Smart TVs sous Android TV 11+). L'application s'intègre au lanceur officiel Leanback avec sa bannière 16:9, neutralise le prérequis d'écran tactile, empêche la mise en veille (FLAG_KEEP_SCREEN_ON) et s'ouvre par défaut sur le kiosque plein écran (/kiosk) navigable à 100% à la télécommande directionnelle D-Pad.",
           "Stockage externe USB indispensable : Les box TV n'embarquent généralement que 4 à 8 Go de stockage flash eMMC interne (largement saturé par le système). Pour stocker vos cours vidéo en mode autonome, le branchement d'une clé USB 3.0 ou d'un SSD externe (formaté en FAT32 ou exFAT) via un adaptateur USB-C OTG est indispensable. Bobine détecte et sélectionne automatiquement ce stockage amovible sans aucune manipulation technique.",
-          "Méthodes d'installation (Sideload) : Vous pouvez transférer sans fil l'APK depuis votre smartphone ou PC vers la TV grâce à l'application « Send Files to TV », l'installer depuis une clé USB via un gestionnaire de fichiers TV (File Commander), ou le pousser via le réseau local en ADB Wi-Fi (adb connect <ip_tv>:5555 && adb install Bobine-TV-4.0.2.apk).",
+          "Méthodes d'installation (Sideload) : Vous pouvez transférer sans fil l'APK depuis votre smartphone ou PC vers la TV grâce à l'application « Send Files to TV », l'installer depuis une clé USB via un gestionnaire de fichiers TV (File Commander), ou le pousser via le réseau local en ADB Wi-Fi (adb connect <ip_tv>:5555 && adb install Bobine-TV-5.0.0.apk).",
           "Google Play Store : Bobine pour Android TV est en cours de déploiement officiel sur le Play Store. Dès sa publication, l'installation et les futures mises à jour se feront en 1 clic directement depuis votre téléviseur.",
         ],
         deviceImage: "android",
       },
       {
-        subtitle: "2.5 Appliance dédiée & salle 24/7 (script automatisé en 18 étapes)",
+        subtitle: "2.5 Appliance dédiée & salle 24/7 (script automatisé en 18 étapes — x86_64 & ARM64)",
         paragraphs: [
-          "Pour une diffusion permanente et ininterrompue sur un mini PC dédié sous Debian 13 minimale sans bureau graphique parasite.",
+          "Pour une diffusion permanente et ininterrompue sur un mini PC dédié sous Debian 13 minimale sans bureau graphique parasite, que ce soit sur architecture x86_64 ou ARM64 (aarch64 : mini PC Snapdragon sous Linux, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B).",
           "L'installation s'exécute de façon entièrement automatisée et idempotente en 18 étapes vérifiées (détection GPU, pilotes VA-API QuickSync, venv Python 3.13, build Next.js SSG, services systemd, audio ALSA, synchronisation NTP, URL mDNS, watchdog, optimisations CPU et vérification des capacités matérielles) :",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash",
       },
       {
-        subtitle: "2.6 Orchestration réseau avec Bobine Assistant (Tauri 2)",
+        subtitle: "2.6 Orchestration réseau avec Bobine Assistant (Tauri 2 — x86_64 & ARM64)",
         paragraphs: [
-          "Bobine Assistant est une application graphique légère en Rust et Tauri 2 : elle balaie le sous-réseau local et répertorie tous les appareils répondants (nom d'hôte résolu en DNS inverse, IP, OS estimé, ports SSH/Bobine/partage/impression).",
+          "Bobine Assistant est une application graphique légère en Rust et Tauri 2 disponible pour Linux en binaires x86_64 (bobine-assistant) et ARM64 (bobine-assistant-arm64) : elle balaie le sous-réseau local et répertorie tous les appareils répondants (nom d'hôte résolu en DNS inverse, IP, OS estimé, ports SSH/Bobine/partage/impression).",
           "La connexion à la cible s'opère par mot de passe ou par import d'une clé SSH privée locale (.ssh/id_ed25519) via le sélecteur natif de fichiers. L'assistant audite le matériel (puissance instantanée en Watts, RAM et fréquence MT/s) et lance le déploiement en 18 étapes avec journal d'évènements compact temps réel sans ouvrir de terminal.",
         ],
       },
@@ -196,7 +197,7 @@ const fr: DocChapter[] = [
     title: "4. Fonctionnalités & Innovations Métier",
     icon: "features",
     summary:
-      "Vue d'ensemble des modules logiciels de Bobine V3.0.5 : moteur Gapless A/B Deck, régie coach, contrôles universels, télémétrie éco-conçue et résilience système.",
+      "Vue d'ensemble des modules logiciels de Bobine V5.0.0 : moteur Gapless A/B Deck, régie coach, contrôles universels, télémétrie éco-conçue et résilience système.",
     subsections: [
       {
         subtitle: "4.1 Moteur Vidéo Gapless A/B Deck & Diffusion automatique",
@@ -304,7 +305,7 @@ const fr: DocChapter[] = [
           "Backend : Python 3.13 avec FastAPI et Uvicorn mono-processus (zéro dépendance externe Redis).",
           "Base de données : SQLite avec schéma versionné, migrations automatiques et backfill d'extraction de durées et métadonnées.",
           "Moteurs multimédias : MPV avec VA-API sous Linux, moteur Gapless A/B Deck sous HTML5 (/cinema), et module déterministe app.utils.ffmpeg_binaries pour résoudre FFmpeg/FFprobe sur tous les OS.",
-          "Frontend : Next.js App Router, export SSG statique, 17 thèmes calibrés WCAG AAA/AA, aucun emoji.",
+          "Frontend : Next.js App Router, export SSG statique, 16 thèmes calibrés WCAG AAA/AA, aucun emoji.",
         ],
         techChips: [
           { icon: "server", label: "FastAPI / Python 3.13" },
@@ -357,7 +358,7 @@ const fr: DocChapter[] = [
       {
         subtitle: "7.1 Android : application native officielle pour tablettes tactiles",
         paragraphs: [
-          "L'application native Android (.apk) est officiellement disponible et éprouvée en conditions réelles de cours (V3.0.5). Elle transforme n'importe quelle tablette moderne (Xiaomi Pad 6, 7 ou 8, Samsung Galaxy Tab avec port USB-C DisplayPort) en régie autonome sans PC.",
+          "L'application native Android (.apk) est officiellement disponible et éprouvée en conditions réelles de cours (V5.0.0). Elle transforme n'importe quelle tablette moderne (Xiaomi Pad 6, 7 ou 8, Samsung Galaxy Tab avec port USB-C DisplayPort) en régie autonome sans PC.",
           "Bobine embarque le moteur FastAPI sous CPython 3.13 via Chaquopy et un ForegroundService persistant. La sortie vidéo déportée vers le téléviseur ou projecteur diffuse la vitrine /cinema en HDMI sans barre système, tandis que la tablette tactile affiche le pupitre de commande /grid ou la console coach /coach.",
           "L'application gère l'accélération matérielle MediaCodec, le relais des touches de manettes et télécommandes vers la sortie externe, la mémorisation mDNS (bobine.local) et le double stockage partitionné (interne F2FS pour la base et externe FUSE pour les médias).",
         ],
@@ -413,32 +414,32 @@ const en: DocChapter[] = [
     title: "2. Setup Guide & Installation",
     icon: "install",
     summary:
-      "Bobine V3.0.5 installation methods: 1-click desktop applications (Windows, macOS, Linux), native Android tablet app, or a dedicated 24/7 appliance deployment for a gym studio.",
+      "Bobine V5.0.0 installation methods: 1-click desktop applications (Windows, macOS, Linux), native Android tablet app, or a dedicated 24/7 appliance deployment for a gym studio.",
     subsections: [
       {
-        subtitle: "2.1 Windows 11 / 10 & Windows IoT",
+        subtitle: "2.1 Windows 11 / 10 & Windows ARM (Qualcomm Snapdragon)",
         paragraphs: [
-          "Official Bobine-Setup-3.0.5.exe installer: silent background execution (systray icon near clock), clamshell laptop mode without sleep via powercfg, automatic firewall rule, and 1-click uninstaller via Inno Setup.",
-          "Reference hardware tested: a new Intel N100 or AMD Ryzen mini PC shipped with Windows 11 Pro (see the hardware hub at bobine.fit/materiel for verified picks and their checked price).",
+          "Official Bobine-Setup-5.0.0.exe installer (x86_64 for Intel/AMD processors) and Bobine-Setup-5.0.0-arm64.exe (native ARM64 architecture for Qualcomm Snapdragon X Elite and Snapdragon X Plus SoCs): silent background execution (systray icon near clock), clamshell laptop mode without sleep via powercfg, automatic firewall rule, and 1-click uninstaller via Inno Setup.",
+          "Reference hardware tested: Copilot+ Snapdragon X laptops (Surface Laptop 7, ASUS Vivobook S 15, Lenovo Yoga Slim 7x, Samsung Galaxy Book4 Edge) and new Intel N100 / AMD Ryzen mini PCs shipped with Windows 11 Pro (see the hardware hub at bobine.fit/materiel for verified picks and their checked price).",
         ],
         deviceImage: "windows",
       },
       {
         subtitle: "2.2 macOS Apple Silicon (M1 to M4) & Intel",
         paragraphs: [
-          "Bobine-3.0.5.dmg disk image: drag-and-drop into Applications, discreet menu bar icon, native caffeinate sleep prevention, and VideoToolbox hardware acceleration.",
+          "Bobine-5.0.0.dmg disk image: drag-and-drop into Applications, discreet menu bar icon, native caffeinate sleep prevention, and VideoToolbox hardware acceleration.",
           "Reference hardware tested: a dedicated Apple Silicon Mac Mini, or the coach's MacBook run closed (clamshell mode) through a USB-C hub or dock.",
         ],
         deviceImage: "macos",
       },
       {
-        subtitle: "2.3 Linux Desktop (Debian / Ubuntu / Mint)",
+        subtitle: "2.3 Linux Desktop (Debian / Ubuntu / Mint — x86_64 & ARM64)",
         paragraphs: [
-          "Official cryptographically signed APT repository (https://apt.bobine.fit) for automated updates via apt upgrade, or standalone bobine_3.0.5_amd64.deb package for the software center. 1-click Polkit uninstaller.",
-          "Reference hardware tested: a fanless industrial mini PC (100% passive cooling, zero fan) — the Bobine pick for absolute silence in a 24/7 studio.",
+          "Official cryptographically signed APT repository (https://apt.bobine.fit) natively serving both amd64 and arm64 architectures for automated updates via apt upgrade. Standalone direct packages available: bobine_5.0.0_amd64.deb and bobine_5.0.0_arm64.deb (for Snapdragon Linux laptops, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5, and Radxa Rock 5B). 1-click Polkit uninstaller.",
+          "Reference hardware tested: fanless industrial mini PCs (Intel N100) and ultra low power ARM64 single-board stations (NVIDIA DGX Spark, Raspberry Pi 5 8 GB) — the Bobine pick for absolute silence in a 24/7 studio.",
         ],
         codeBlock:
-          "# Official Linux APT repository (apt.bobine.fit)\ncurl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine",
+          "# Official Linux APT repository (apt.bobine.fit — amd64 & arm64 compatible)\ncurl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine",
         deviceImage: "linux",
       },
       {
@@ -453,35 +454,36 @@ const en: DocChapter[] = [
         deviceImage: "linux",
       },
       {
-        subtitle: "2.4 Android ARM64 Tablets",
+        subtitle: "2.4 Android Tablets & Google Books (Aluminium OS)",
         paragraphs: [
-          "Certified native Bobine-4.0.2.apk (API 34-36), embedding CPython 3.13 and FastAPI via Chaquopy, persistent ForegroundService, native MediaCodec acceleration, and robust dual display (touchscreen /grid + HDMI TV /cinema over USB-C DisplayPort with resilient hotplug handling).",
-          "Reference hardware tested: a Samsung Galaxy Tab or Xiaomi Pad tablet with a USB-C port supporting DisplayPort Alt Mode for wired video output to the studio screen.",
+          "Certified native Bobine-5.0.0.apk (API 34-36), embedding CPython 3.13 and FastAPI via Chaquopy, persistent ForegroundService, native MediaCodec acceleration, and robust dual display (touchscreen /grid + HDMI TV /cinema over USB-C DisplayPort with resilient hotplug handling).",
+          "Google Books compatibility: Bobine runs natively in fullscreen mode on Google Book laptops (Aluminium OS) via the APK with full hardware acceleration, and will be arriving soon as a 1-click install from the Google Play Store.",
+          "Reference hardware tested: Samsung Galaxy Tab or Xiaomi Pad tablets with a USB-C port supporting DisplayPort Alt Mode, and Google Book laptops.",
         ],
         deviceImage: "android",
       },
       {
         subtitle: "2.4 bis Android TV & Google TV (Streaming Boxes, Sticks & Smart TVs)",
         paragraphs: [
-          "Dedicated official build Bobine-TV-4.0.2.apk (com.bobine.app.tv) tailored for streaming boxes (Chromecast with Google TV, Xiaomi TV Box S, NVIDIA Shield TV, Android TV 11+ Smart TVs). The app integrates into the Leanback home screen with its 16:9 banner, eliminates touchscreen requirements, enforces FLAG_KEEP_SCREEN_ON, and launches straight into the fullscreen kiosk interface (/kiosk) fully operable with a directional D-Pad remote control.",
+          "Dedicated official build Bobine-TV-5.0.0.apk (com.bobine.app.tv) tailored for streaming boxes (Chromecast with Google TV, Xiaomi TV Box S, NVIDIA Shield TV, Android TV 11+ Smart TVs). The app integrates into the Leanback home screen with its 16:9 banner, eliminates touchscreen requirements, enforces FLAG_KEEP_SCREEN_ON, and launches straight into the fullscreen kiosk interface (/kiosk) fully operable with a directional D-Pad remote control.",
           "Essential external USB storage: Streaming TV devices typically ship with meager 4 to 8 GB internal eMMC flash storage (mostly occupied by OS system files). To store your studio video classes in standalone server mode, connecting a USB 3.0 flash drive or external SSD (formatted in FAT32 or exFAT) via a USB-C OTG hub is required. Bobine automatically detects and selects this mounted removable drive.",
-          "Current Sideload Installation Methods: Wirelessly transfer the APK from your phone or PC using the 'Send Files to TV' app, install it from a USB flash drive via a TV file explorer (File Commander), or deploy it over the local network via ADB Wi-Fi (adb connect <tv_ip>:5555 && adb install Bobine-TV-4.0.2.apk).",
+          "Current Sideload Installation Methods: Wirelessly transfer the APK from your phone or PC using the 'Send Files to TV' app, install it from a USB flash drive via a TV file explorer (File Commander), or deploy it over the local network via ADB Wi-Fi (adb connect <tv_ip>:5555 && adb install Bobine-TV-5.0.0.apk).",
           "Google Play Store: Bobine for Android TV will soon be available on the Google Play Store. Once published, installation and future updates will be available in 1 click directly from your TV's app store.",
         ],
         deviceImage: "android",
       },
       {
-        subtitle: "2.5 Dedicated 24/7 appliance (18-step automated shell script)",
+        subtitle: "2.5 Dedicated 24/7 appliance (18-step automated shell script — x86_64 & ARM64)",
         paragraphs: [
-          "For uninterrupted, permanent playout on a dedicated mini PC running minimal, desktop-less Debian 13.",
+          "For uninterrupted, permanent playout on a dedicated mini PC running minimal, desktop-less Debian 13, on either x86_64 or ARM64 hardware (aarch64: Snapdragon Linux PCs, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B).",
           "Installation executes in 18 idempotent and verified steps (GPU detection, QuickSync VA-API drivers, Python 3.13 venv, Next.js SSG build, systemd services, ALSA audio, NTP sync, mDNS URL, watchdog, CPU tuning, and hardware playback verification):",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash",
       },
       {
-        subtitle: "2.6 Network orchestration with Bobine Assistant (Tauri 2)",
+        subtitle: "2.6 Network orchestration with Bobine Assistant (Tauri 2 — x86_64 & ARM64)",
         paragraphs: [
-          "Bobine Assistant is a lightweight Rust/Tauri 2 desktop app that scans the local subnet and lists every responding device (reverse-DNS hostname, IP address, estimated OS, open ports for SSH/Bobine/Samba/printing).",
+          "Bobine Assistant is a lightweight Rust/Tauri 2 desktop app available for Linux in both x86_64 (bobine-assistant) and ARM64 (bobine-assistant-arm64) binaries: it scans the local subnet and lists every responding device (reverse-DNS hostname, IP address, estimated OS, open ports for SSH/Bobine/Samba/printing).",
           "Connect to targets via password or by importing a local private SSH key (.ssh/id_ed25519) through the native file picker. The assistant audits hardware (real-time power in Watts, RAM and MT/s frequency) and executes the 18-step deployment with a live compact log stream without opening a terminal.",
         ],
       },
@@ -562,7 +564,7 @@ const en: DocChapter[] = [
     title: "4. Features & Studio Innovations",
     icon: "features",
     summary:
-      "Overview of Bobine V3.0.5 software modules: Gapless A/B Deck video engine, coach console, universal controls, eco-designed telemetry, and system resilience.",
+      "Overview of Bobine V5.0.0 software modules: Gapless A/B Deck video engine, coach console, universal controls, eco-designed telemetry, and system resilience.",
     subsections: [
       {
         subtitle: "4.1 Gapless A/B Deck Video Engine & Automated Playout",
@@ -670,7 +672,7 @@ const en: DocChapter[] = [
           "Backend: Python 3.13 with FastAPI and single-process Uvicorn (zero external Redis dependency).",
           "Database: SQLite with versioned schema, automated migrations, and duration/metadata backfills.",
           "Playout engines: MPV with VA-API on Linux, HTML5 Gapless A/B Deck on /cinema, and deterministic app.utils.ffmpeg_binaries resolution across all platforms.",
-          "Frontend: Next.js App Router, static SSG export, 17 WCAG AAA/AA calibrated themes, zero emoji.",
+          "Frontend: Next.js App Router, static SSG export, 16 WCAG AAA/AA calibrated themes, zero emoji.",
         ],
         techChips: [
           { icon: "server", label: "FastAPI / Python 3.13" },
@@ -723,7 +725,7 @@ const en: DocChapter[] = [
       {
         subtitle: "7.1 Android: official native application for touch tablets",
         paragraphs: [
-          "The native Android application (.apk) is officially available and battle-tested in real gym conditions (V3.0.5). It turns any modern tablet (Xiaomi Pad 6, 7, or 8, Samsung Galaxy Tab with USB-C DisplayPort) into an autonomous playout appliance without requiring a PC.",
+          "The native Android application (.apk) is officially available and battle-tested in real gym conditions (V5.0.0). It turns any modern tablet (Xiaomi Pad 6, 7, or 8, Samsung Galaxy Tab with USB-C DisplayPort) into an autonomous playout appliance without requiring a PC.",
           "Bobine embeds FastAPI under CPython 3.13 via Chaquopy and a persistent ForegroundService. The video feed connected to the TV or projector displays the /cinema view over HDMI without system bars, while the tablet touchscreen runs the /grid desk or /coach console.",
           "The app includes MediaCodec hardware acceleration, gamepad and remote control forwarding to the external display, mDNS discovery (bobine.local), and dual storage partitioning (fast internal F2FS for database and external FUSE for media).",
         ],

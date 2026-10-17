@@ -1,0 +1,8 @@
+:HL["/_next/static/chunks/1lf-aba08mw2s.css","style"]
+:HL["/_next/static/chunks/1nfw6z0g1yx5k.css","style"]
+:HL["/images/BaamixInspector.webp","image"]
+4:[["children",{"s":"__PAGE__","h":160}]]
+3:[["children",{"s":"affichage-dynamique-fitness","h":96,"c":"$Q4"}]]
+2:[["children",{"s":"comparatif","h":64,"c":"$Q3"}]]
+1:[["children",{"s":{"n":"locale","t":"d","k":"en","s":["feed.xml","install.sh","latest.json"]},"h":48,"c":"$Q2"}]]
+0:{"b":"WHkHaA65ECGMImuJbHxKZ","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

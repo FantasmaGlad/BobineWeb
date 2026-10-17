@@ -1,0 +1,39 @@
+3:"$Sreact.fragment"
+4:"/_next/static/chunks/0itxzratd941t.js"
+5:"/_next/static/chunks/1avmknlzhilza.js"
+6:"/_next/static/chunks/1qdxj226w4x65.js"
+7:"/_next/static/chunks/171nkjfz0tsup.js"
+8:I[5500,["$4","$5","$6","$7"],"Image"]
+9:I[14592,["$4","$5","$6","$7"],"default"]
+a:I[44473,["$4","$5","$6","$7"],"default"]
+b:I[76241,["$4","$5","$6","$7"],"default"]
+c:"/_next/static/chunks/3o9prkr3c09lm.js"
+d:I[97367,["$c"],"OutletBoundary"]
+e:"$Sreact.suspense"
+12:"ViewportBoundary"
+13:I[97367,["$c"],"$12"]
+14:"MetadataBoundary"
+15:I[97367,["$c"],"$14"]
+11:X
+2:[["children",{"s":"__PAGE__","h":128,"d":{"r":["$","$3","c",{"children":[["$","div",null,{"className":"container","children":[["$","section",null,{"className":"hero-fullscreen","children":[false,["$","div",null,{"className":"hero-fullscreen__backdrop-art","aria-hidden":"true","children":["$","$L8",null,{"src":"/images/baamix-tor.webp","alt":"Bobine sur Android TV & Grand Écran","className":"hero-fullscreen__backdrop-img","width":1280,"height":720,"sizes":"(max-width: 639px) 240px, (max-width: 1023px) 480px, 640px","priority":true}]}],["$","div",null,{"className":"hero-fullscreen__content","children":["$","$L9",null,{"locale":"fr","title":"Bobine — La régie vidéo & streaming libre pour votre salle de sport","subtitle":"Bobine transforme un Google Book, un PC ARM Snapdragon, un Mac mini ou un mini PC reconditionné en régie vidéo pour votre salle de sport : cours planifiés, borne cinéma à la demande, radio 24/7 — sans abonnement, sans cloud, sans coupure."}]}],["$","$La",null,{"locale":"fr","label":"Autres méthodes d'installation","targetId":"headless-installation"}]]}],["$","$Lb",null,{"locale":"fr"}]]}],[["$","script","script-0",{"src":"/_next/static/chunks/171nkjfz0tsup.js","async":true}]],["$","$Ld",null,{"children":["$","$e",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]]}],"p":"$@10","v":null,"s":"$11"}}]]
+1:[["children",{"s":{"n":"locale","t":"d","k":"fr","s":["feed.xml","install.sh","latest.json"]},"h":48,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":80,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$L13",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L15",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$e",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Bobine Fit — Régie vidéo & streaming open-source pour salle de sport"}],["$","meta","1",{"name":"description","content":"Transformez un Google Book (Aluminium OS), un PC ARM Qualcomm Snapdragon, un Mac mini, une tablette Android ou un mini PC standard en régie vidéo autonome et 100% hors-ligne pour votre salle de sport. L'alternative libre et sans abonnement à Les Mills Cinema."}],["$","meta","2",{"name":"application-name","content":"Bobine"}],["$","link","3",{"rel":"author","href":"https://github.com/FantasmaGlad"}],["$","meta","4",{"name":"author","content":"Clément Barillot"}],["$","link","5",{"rel":"manifest","href":"/manifest.webmanifest"}],["$","meta","6",{"name":"keywords","content":"Bobine,Bobine Fit,Google Book,Googlebook,Aluminium OS,Bobine Google Book,Application salle de sport Google Book,PC ARM Qualcomm Snapdragon,Snapdragon X Elite,Snapdragon X Plus,Windows 11 ARM64,Linux ARM64,NVIDIA DGX Spark,Mini PC ARM salle de sport,Raspberry Pi 5 salle de sport,Orange Pi 5 RK3588,Régie vidéo salle de sport,Alternative Les Mills Cinema,Affichage dynamique fitness,Streaming vidéo salle de sport,Cours collectifs vidéo fitness,Dell Wyse 5070 streaming,Logiciel libre sport"}],["$","meta","7",{"name":"creator","content":"Clément Barillot (FantasmaGlad)"}],["$","meta","8",{"name":"publisher","content":"Bobine Fit"}],["$","meta","9",{"name":"robots","content":"index, follow"}],["$","meta","10",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","meta","11",{"name":"category","content":"technology"}],["$","meta","12",{"name":"classification","content":"Fitness Video Playout & Gym Cinema Automation"}],["$","link","13",{"rel":"canonical","href":"https://bobine.fit/fr/"}],["$","link","14",{"rel":"alternate","hrefLang":"fr","href":"https://bobine.fit/fr/"}],["$","link","15",{"rel":"alternate","hrefLang":"en","href":"https://bobine.fit/en/"}],["$","link","16",{"rel":"alternate","hrefLang":"fr-FR","href":"https://bobine.fit/fr/"}],["$","link","17",{"rel":"alternate","hrefLang":"en-US","href":"https://bobine.fit/en/"}],["$","link","18",{"rel":"alternate","hrefLang":"x-default","href":"https://bobine.fit/fr/"}],["$","link","19",{"rel":"alternate","type":"application/atom+xml","href":"https://bobine.fit/feed.xml"}],["$","meta","20",{"property":"og:title","content":"Bobine Fit — Régie vidéo & streaming open-source pour salle de sport · Bobine"}],["$","meta","21",{"property":"og:description","content":"Transformez un Google Book (Aluminium OS), un PC ARM Qualcomm Snapdragon, un Mac mini, une tablette Android ou un mini PC standard en régie vidéo autonome et 100% hors-ligne pour votre salle de sport. L'alternative libre et sans abonnement à Les Mills Cinema."}],["$","meta","22",{"property":"og:url","content":"https://bobine.fit/fr/"}],["$","meta","23",{"property":"og:site_name","content":"Bobine"}],["$","meta","24",{"property":"og:locale","content":"fr_FR"}],["$","meta","25",{"property":"og:image","content":"https://bobine.fit/fr/opengraph-image"}],["$","meta","26",{"property":"og:image:width","content":"1200"}],["$","meta","27",{"property":"og:image:height","content":"630"}],["$","meta","28",{"property":"og:image:alt","content":"Bobine Fit — Régie vidéo & streaming open-source pour salle de sport"}],["$","meta","29",{"property":"og:locale:alternate","content":"en_US"}],["$","meta","30",{"property":"og:type","content":"website"}],["$","meta","31",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","32",{"name":"twitter:title","content":"Bobine Fit — Régie vidéo & streaming open-source pour salle de sport · Bobine"}],["$","meta","33",{"name":"twitter:description","content":"Transformez un Google Book (Aluminium OS), un PC ARM Qualcomm Snapdragon, un Mac mini, une tablette Android ou un mini PC standard en régie vidéo autonome et 100% hors-ligne pour votre salle de sport. L'alternative libre et sans abonnement à Les Mills Cinema."}],"$L16","$L17","$L18","$L19","$L1a","$L1b","$L1c","$L1d","$L1e","$L1f","$L20"]}]}],null]}],null]}],"p":"$@21","v":null,"s":"$11"}},"a":"$@22","u":"$@23","b":"WHkHaA65ECGMImuJbHxKZ"}
+24:I[27201,["$c"],"IconMark"]
+f:null
+16:["$","meta","34",{"name":"twitter:image","content":"https://bobine.fit/fr/opengraph-image"}]
+17:["$","link","35",{"rel":"shortcut icon","href":"/favicon.ico"}]
+18:["$","link","36",{"rel":"icon","href":"/favicon.ico?favicon.084wvoryi_91c.ico","sizes":"48x48","type":"image/x-icon"}]
+19:["$","link","37",{"rel":"icon","href":"/favicon-48x48.png","sizes":"48x48","type":"image/png"}]
+1a:["$","link","38",{"rel":"icon","href":"/favicon-96x96.png","sizes":"96x96","type":"image/png"}]
+1b:["$","link","39",{"rel":"icon","href":"/icon-192.png","sizes":"192x192","type":"image/png"}]
+1c:["$","link","40",{"rel":"icon","href":"/icon.png","sizes":"512x512","type":"image/png"}]
+1d:["$","link","41",{"rel":"icon","href":"/favicon.ico","sizes":"48x48"}]
+1e:["$","link","42",{"rel":"apple-touch-icon","href":"/apple-touch-icon.png","sizes":"180x180","type":"image/png"}]
+1f:["$","link","43",{"rel":"apple-touch-icon","href":"/icon-192.png","sizes":"192x192","type":"image/png"}]
+20:["$","$L24","44",{}]
+23:true
+11:300
+11:C
+22:0
+10:"$undefined"
+21:"$undefined"

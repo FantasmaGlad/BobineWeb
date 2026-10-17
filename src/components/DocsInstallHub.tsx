@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import type { Locale } from "@/lib/i18n";
+import ScrollingCode from "@/components/ScrollingCode";
 import WindowsIcon from "@/components/icons/WindowsIcon";
 import AppleIcon from "@/components/icons/AppleIcon";
 import LinuxIcon from "@/components/icons/LinuxIcon";
@@ -347,7 +348,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           </p>
 
           <div className="download-modal__cli-block" style={{ marginTop: "auto" }}>
-            <code>curl -fsSL https://bobine.fit/install.sh | sudo bash</code>
+            <ScrollingCode>curl -fsSL https://bobine.fit/install.sh | sudo bash</ScrollingCode>
             <button
               type="button"
               className="download-modal__cli-copy-btn download-modal__cli-copy-btn--stable"
@@ -385,7 +386,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           </p>
 
           <div className="download-modal__cli-block" style={{ marginTop: "auto" }}>
-            <code>curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta</code>
+            <ScrollingCode>curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta</ScrollingCode>
             <button
               type="button"
               className="download-modal__cli-copy-btn download-modal__cli-copy-btn--beta"
@@ -423,7 +424,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           </p>
 
           <div className="download-modal__cli-block" style={{ marginTop: "auto" }}>
-            <code>curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=canary</code>
+            <ScrollingCode>curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=canary</ScrollingCode>
             <button
               type="button"
               className="download-modal__cli-copy-btn download-modal__cli-copy-btn--canary"

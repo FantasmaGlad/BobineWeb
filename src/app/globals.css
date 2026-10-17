@@ -5376,6 +5376,12 @@ main {
     text-wrap: balance;
   }
 
+  /* Le texte anglais est plus court que le français : sans cette largeur il tient sur 2 lignes
+     au lieu des 3 de la version française. */
+  html:lang(en) .hero-fullscreen__subtitle {
+    max-width: min(92vw, 40rem);
+  }
+
   .hero-fullscreen__actions {
     display: flex;
     gap: 1rem;
@@ -8126,6 +8132,8 @@ main {
 }
 
 .download-modal__cli-block {
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -8138,11 +8146,31 @@ main {
   font-size: 0.8rem;
 }
 
-.download-modal__cli-block code {
-  color: var(--text-main);
-  white-space: nowrap;
-  overflow-x: auto;
+.download-modal__cli-block .cli-scroll {
   flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text-main);
+}
+
+.cli-scroll__inner {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.cli-scroll[data-scroll="true"] .cli-scroll__inner {
+  animation: cli-scroll var(--cli-duration, 10s) ease-in-out 1.5s infinite alternate;
+}
+
+@keyframes cli-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--cli-shift, 0)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cli-scroll[data-scroll="true"] .cli-scroll__inner {
+    animation: none;
+  }
 }
 
 .download-modal__cli-copy-btn {

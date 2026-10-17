@@ -9,7 +9,7 @@ import ScrollIndicator from "@/components/ScrollIndicator";
 
 const copy = {
   fr: {
-    title: "Bobine — La régie vidéo & streaming libre pour votre salle de sport",
+    title: "Bobine — La régie vidéo & streaming libre pour votre salle\u00A0de\u00A0sport",
     subtitle:
       "Bobine transforme un Google Book, un PC ARM Snapdragon, un Mac mini ou un mini PC reconditionné en régie vidéo pour votre salle de sport : cours planifiés, borne cinéma à la demande, radio 24/7 — sans abonnement, sans cloud, sans coupure.",
   },

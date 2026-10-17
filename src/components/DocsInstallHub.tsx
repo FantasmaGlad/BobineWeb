@@ -185,11 +185,14 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
     },
   ];
 
-  const desktopTabs = reorderForPlatform(
-    tabs.filter((tab) => tab.group === "desktop" || tab.group === "roadmap"),
+  const orderedTabs = reorderForPlatform(
+    [
+      ...tabs.filter((tab) => tab.group === "desktop"),
+      ...tabs.filter((tab) => tab.group === "appliance"),
+      ...tabs.filter((tab) => tab.group === "roadmap"),
+    ],
     detected
   );
-  const advancedTabs = tabs.filter((tab) => tab.group === "appliance");
 
   const renderTabButton = (tab: (typeof tabs)[number]) => {
     const isSelected = activeTab === tab.id;
@@ -215,11 +218,11 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
   return (
     <div className="docs-install-hub">
-      {/* Sélecteur de méthode d'installation avec logos vectoriels, regroupé par nature */}
+      {/* Sélecteur de méthode d'installation avec logos vectoriels */}
       <div className="docs-install-selector-wrap">
         <div className="docs-install-nav-header">
           <span className="docs-install-nav-label">
-            {isEn ? "1-click desktop & mobile apps:" : "Applications de bureau & mobile en 1 clic :"}
+            {isEn ? "Installation methods :" : "Méthodes d'installations :"}
           </span>
         </div>
 
@@ -228,21 +231,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           aria-label={isEn ? "Installation methods" : "Méthodes d'installation"}
           className="docs-install-tabs"
         >
-          {desktopTabs.map(renderTabButton)}
-        </div>
-
-        <div className="docs-install-nav-header docs-install-nav-header--secondary">
-          <span className="docs-install-nav-label docs-install-nav-label--secondary">
-            {isEn ? "Advanced & dedicated deployments:" : "Déploiements avancés & dédiés :"}
-          </span>
-        </div>
-
-        <div
-          role="tablist"
-          aria-label={isEn ? "Advanced installation methods" : "Méthodes d'installation avancées"}
-          className="docs-install-tabs docs-install-tabs--advanced"
-        >
-          {advancedTabs.map(renderTabButton)}
+          {orderedTabs.map(renderTabButton)}
         </div>
       </div>
 

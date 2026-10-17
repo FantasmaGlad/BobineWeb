@@ -10,7 +10,7 @@ export default function GlobalNotFound() {
         <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var m={aurore:'miel',glacier:'ciel',rose:'clair',foret:'menthe',abysse:'hiver'};var r=localStorage.getItem('bobineweb-theme')||'charbon';var t=m[r]||r;document.documentElement.setAttribute('data-theme',t);}catch(e){}})()`,
+            __html: `(function(){try{var m={aurore:'miel',glacier:'ciel',rose:'clair',foret:'menthe',abysse:'hiver'};var r=localStorage.getItem('bobineweb-theme')||'lavande';var t=m[r]||r;document.documentElement.setAttribute('data-theme',t);}catch(e){}})()`,
           }}
         />
       </head>

@@ -26,8 +26,8 @@ export type Theme = (typeof themes)[number];
 export type LightTheme = (typeof lightThemes)[number];
 export type DarkTheme = (typeof darkThemes)[number];
 
-// Charbon — thème par défaut épuré noir et blanc (Charbon Clair)
-export const defaultTheme: Theme = "charbon";
+// Lavande — thème par défaut nacre irisée et améthyste profonde (clair)
+export const defaultTheme: Theme = "lavande";
 
 // Table de migration pour les anciennes clés de thèmes BobineWeb
 const LEGACY_THEME_MAP: Record<string, Theme> = {

@@ -786,68 +786,6 @@ export default function DownloadModal({
             </div>
           )}
 
-          {activePlatform === "android-tv" && (
-            <div
-              className="download-modal__tv-note"
-              style={{
-                marginTop: "1.25rem",
-                padding: "1rem 1.25rem",
-                borderRadius: "0.75rem",
-                background: "rgba(61, 220, 132, 0.08)",
-                border: "1px solid rgba(61, 220, 132, 0.25)",
-                fontSize: "0.875rem",
-                color: "var(--text-body)",
-                lineHeight: 1.5,
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  marginBottom: "0.5rem",
-                  fontWeight: 700,
-                  color: "#3DDC84",
-                }}
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="12" y1="8" x2="12" y2="12" />
-                  <line x1="12" y1="16" x2="12.01" y2="16" />
-                </svg>
-                <span>
-                  {isEn
-                    ? "Android TV Playout & Google Play Store"
-                    : "Diffusion Android TV & Google Play Store"}
-                </span>
-              </div>
-              <p style={{ margin: "0 0 0.5rem" }}>
-                {isEn
-                  ? "• Google Play Store: The official 1-click Google Play release for your TV will be available soon."
-                  : "• Google Play Store : Bientôt disponible en installation 1 clic sur le catalogue Google Play de votre téléviseur."}
-              </p>
-              <p style={{ margin: "0 0 0.5rem" }}>
-                {isEn
-                  ? "• Current Installation: Download the APK above and install it wirelessly using 'Send Files to TV', via a USB flash drive (FAT32/exFAT), or over ADB Wi-Fi."
-                  : "• Installation immédiate : Téléchargez le paquet APK ci-dessus et installez-le sans fil via l'application « Send Files to TV », par clé USB (FAT32/exFAT) ou via ADB Wi-Fi."}
-              </p>
-              <p style={{ margin: 0 }}>
-                {isEn
-                  ? "• Storage Recommendation: For standalone server usage, connect a USB flash drive or SSD (128GB+) to store video classes without filling the TV's 4-8GB internal storage."
-                  : "• Recommandation stockage : En mode serveur autonome, connectez une clé USB ou un SSD externe (128 Go+) pour stocker vos cours sans saturer la mémoire interne (4-8 Go) de la TV."}
-              </p>
-            </div>
-          )}
         </div>
       </div>
     </div>,

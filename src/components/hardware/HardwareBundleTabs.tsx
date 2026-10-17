@@ -213,7 +213,9 @@ export default function HardwareBundleTabs({
       ? ["tablet"]
       : selectedOs === "android-tv"
         ? ["tv"]
-        : ["minipc", "laptop"];
+        : selectedOs === "arm"
+          ? ["laptop", "minipc"]
+          : ["minipc", "laptop"];
 
   const tierList: Array<{ id: TierKey; label: string; sub: string }> = [
     {
@@ -773,10 +775,9 @@ export default function HardwareBundleTabs({
                 // OS sans catalogue (ex. macOS sur AliExpress) : la page affiche un message, rien à préparer.
                 if (!bundles[item.id]) return;
                 const nextKeys = Object.keys(bundles[item.id]!.formFactors) as FormFactorKey[];
-                if (!nextKeys.includes(selectedFormFactor)) {
-                  setSelectedFormFactor(nextKeys[0]);
-                }
-                const nextFormFactor = bundles[item.id]!.formFactors[nextKeys.includes(selectedFormFactor) ? selectedFormFactor : nextKeys[0]]!;
+                const targetForm = item.id === "arm" ? "laptop" : nextKeys.includes(selectedFormFactor) ? selectedFormFactor : nextKeys[0];
+                setSelectedFormFactor(targetForm);
+                const nextFormFactor = bundles[item.id]!.formFactors[targetForm]!;
                 if (!nextFormFactor.tiers[selectedTier]) {
                   setSelectedTier(nextFormFactor.defaultTier);
                 }

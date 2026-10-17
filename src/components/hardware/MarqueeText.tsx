@@ -28,8 +28,8 @@ export default function MarqueeText({ text, className = "" }: MarqueeTextProps) 
     return () => observer.disconnect();
   }, [text]);
 
-  // ~0,09 s par caractère, avec un plancher pour rester lisible sur les textes courts.
-  const duration = Math.max(10, Math.round(text.length * 0.09));
+  // ~0,18 s par caractère (vitesse ralentie de 50% pour un confort de lecture optimal).
+  const duration = Math.max(20, Math.round(text.length * 0.18));
 
   return (
     <span ref={boxRef} className={`marquee ${overflowing ? "is-scrolling" : ""} ${className}`} title={text}>

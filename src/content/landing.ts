@@ -52,7 +52,7 @@ export interface LandingContent {
   id: LandingId;
   /** Chemin français sans préfixe de langue. */
   path: string;
-  /** Canal affiché dans le tableau des téléchargements, le cas échéant. */
+  /** Canal imposé à l'encart de téléchargement, le cas échéant. */
   channel?: "stable" | "beta" | "canary";
   fr: LandingLocale;
   en: LandingLocale;
@@ -76,6 +76,56 @@ const CHANNEL_RELATED_EN: LandingLink[] = [
   { label: "Installation guide", path: "/documentation" },
   { label: "What's new in Bobine", path: "/nouveautes" },
 ];
+
+/** Blocs communs à toutes les pages : configuration requise, vérification du fichier, mises à jour. */
+export const LANDING_COMMON: Record<
+  Locale,
+  {
+    requirementsTitle: string;
+    requirementsNote: (androidMin: number) => string;
+    verify: { heading: string; paragraphs: string[] };
+    update: { heading: string; paragraphs: string[] };
+  }
+> = {
+  fr: {
+    requirementsTitle: "Configuration requise",
+    requirementsNote: (androidMin) =>
+      `Bobine s'exécute en local : aucun compte ni cloud n'est nécessaire. Les paquets Android exigent Android ${androidMin} ou supérieur.`,
+    verify: {
+      heading: "Vérifier le fichier téléchargé",
+      paragraphs: [
+        "GitHub affiche l'empreinte SHA-256 de chaque fichier sur la page de la release : comparez-la à celle de votre téléchargement (sha256sum sous Linux et macOS, Get-FileHash sous Windows).",
+        "L'application revérifie elle-même l'empreinte SHA-256 de toute mise à jour avant de l'installer.",
+      ],
+    },
+    update: {
+      heading: "Mettre à jour et changer de canal",
+      paragraphs: [
+        "Les mises à jour se lancent depuis Réglages, Mises à jour logicielles, où l'on choisit aussi le canal : Stable, Bêta ou Canary. Changer de canal conserve la base de données et les médias.",
+        "Depuis la Bêta ou la Canary, la dernière version Stable est proposée explicitement pour revenir en arrière.",
+      ],
+    },
+  },
+  en: {
+    requirementsTitle: "System requirements",
+    requirementsNote: (androidMin) =>
+      `Bobine runs locally: no account or cloud is needed. Android packages require Android ${androidMin} or later.`,
+    verify: {
+      heading: "Verify the downloaded file",
+      paragraphs: [
+        "GitHub shows the SHA-256 checksum of every file on the release page: compare it with your download (sha256sum on Linux and macOS, Get-FileHash on Windows).",
+        "The application re-checks the SHA-256 checksum of every update itself before installing it.",
+      ],
+    },
+    update: {
+      heading: "Update and switch channel",
+      paragraphs: [
+        "Updates start from Settings, Software updates, where you also choose the channel: Stable, Beta or Canary. Switching channel keeps the database and the media.",
+        "From Beta or Canary, the latest Stable release is offered explicitly to go back.",
+      ],
+    },
+  },
+};
 
 export const LANDING_PAGES: Record<LandingId, LandingContent> = {
   canaux: {
@@ -250,7 +300,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
       faq: [
         {
           q: "Comment savoir quelle est la dernière version stable de Bobine ?",
-          a: "Le tableau de cette page est lu directement depuis GitHub Releases et indique la version, sa date de publication et ses fichiers.",
+          a: "L'encart de téléchargement de cette page est lu directement depuis GitHub Releases et indique la version, sa date de publication et ses fichiers.",
         },
         {
           q: "Les mises à jour de la Stable sont-elles automatiques ?",
@@ -288,7 +338,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
       faq: [
         {
           q: "How do I find the latest stable version of Bobine?",
-          a: "The table on this page is read straight from GitHub Releases and shows the version, its publication date and its files.",
+          a: "The download card on this page is read straight from GitHub Releases and shows the version, its publication date and its files.",
         },
         {
           q: "Are Stable updates automatic?",
@@ -433,7 +483,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         },
         {
           q: "Où télécharger Bobine Canary ?",
-          a: "Les fichiers de la Canary (Windows, macOS, Linux, Android, Android TV) sont listés dans le tableau de cette page, lu depuis GitHub Releases.",
+          a: "Les fichiers de la Canary (Windows, macOS, Linux, Android, Android TV) sont listés dans l'encart de téléchargement de cette page, lu depuis GitHub Releases.",
         },
         {
           q: "La Canary est-elle adaptée à une salle de sport en exploitation ?",
@@ -482,7 +532,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         },
         {
           q: "Where can I download Bobine Canary?",
-          a: "The Canary files (Windows, macOS, Linux, Android, Android TV) are listed in the table on this page, read from GitHub Releases.",
+          a: "The Canary files (Windows, macOS, Linux, Android, Android TV) are listed in the download card on this page, read from GitHub Releases.",
         },
         {
           q: "Is the Canary suitable for a studio in daily operation?",
@@ -533,9 +583,15 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         {
           heading: "Installer l'APK sur la TV",
           paragraphs: [
-            "Téléchargez Bobine-TV-<version>.apk depuis le tableau ci-dessous, puis transférez-le sur la TV avec une clé USB et un gestionnaire de fichiers, sans fil avec Send Files to TV ou Downloader, ou par ADB sur le réseau local. Autorisez l'installation d'applications inconnues dans les paramètres de la TV.",
+            "Téléchargez Bobine-TV-<version>.apk depuis l'encart de téléchargement ci-dessus, puis transférez-le sur la TV avec une clé USB et un gestionnaire de fichiers, sans fil avec Send Files to TV ou Downloader, ou par ADB sur le réseau local. Autorisez l'installation d'applications inconnues dans les paramètres de la TV.",
           ],
           code: "adb connect <ip_de_la_tv>:5555\nadb install Bobine-TV-<version>.apk",
+        },
+        {
+          heading: "Piloter la TV depuis un autre appareil",
+          paragraphs: [
+            "Depuis un téléphone, une tablette ou un ordinateur du même réseau Wi-Fi ou Ethernet, ouvrez http://bobine.local:8000 (ou l'adresse IP de la TV, port 8000) : vous accédez à la télécommande et au panneau d'administration de la salle sans toucher à la box.",
+          ],
         },
       ],
       faq: [
@@ -596,9 +652,15 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         {
           heading: "Installing the APK on the TV",
           paragraphs: [
-            "Download Bobine-TV-<version>.apk from the table below, then move it to the TV with a USB drive and a file manager, wirelessly with Send Files to TV or Downloader, or through ADB on the local network. Allow the installation of unknown apps in the TV settings.",
+            "Download Bobine-TV-<version>.apk from the download card above, then move it to the TV with a USB drive and a file manager, wirelessly with Send Files to TV or Downloader, or through ADB on the local network. Allow the installation of unknown apps in the TV settings.",
           ],
           code: "adb connect <tv_ip>:5555\nadb install Bobine-TV-<version>.apk",
+        },
+        {
+          heading: "Control the TV from another device",
+          paragraphs: [
+            "From a phone, tablet or computer on the same Wi-Fi or Ethernet network, open http://bobine.local:8000 (or the TV's IP address, port 8000): you reach the room's remote control and admin panel without touching the box.",
+          ],
         },
       ],
       faq: [
@@ -655,7 +717,13 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         {
           heading: "Installer",
           paragraphs: [
-            "Téléchargez Bobine-<version>.apk depuis le tableau ci-dessous et ouvrez-le depuis le gestionnaire de fichiers. Sur Google Book, le paquet .deb du sous-système Linux reste une alternative.",
+            "Téléchargez Bobine-<version>.apk depuis l'encart de téléchargement ci-dessus et ouvrez-le depuis le gestionnaire de fichiers. Sur Google Book, le paquet .deb du sous-système Linux reste une alternative.",
+          ],
+        },
+        {
+          heading: "Piloter depuis un autre appareil",
+          paragraphs: [
+            "Depuis un téléphone, une tablette ou un ordinateur du même réseau, ouvrez http://bobine.local:8000 pour accéder à la télécommande et au panneau d'administration de la salle.",
           ],
         },
       ],
@@ -697,7 +765,13 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         {
           heading: "Installing",
           paragraphs: [
-            "Download Bobine-<version>.apk from the table below and open it from the file manager. On Google Book, the .deb package of the Linux subsystem remains an alternative.",
+            "Download Bobine-<version>.apk from the download card above and open it from the file manager. On Google Book, the .deb package of the Linux subsystem remains an alternative.",
+          ],
+        },
+        {
+          heading: "Control it from another device",
+          paragraphs: [
+            "From a phone, tablet or computer on the same network, open http://bobine.local:8000 to reach the room's remote control and admin panel.",
           ],
         },
       ],

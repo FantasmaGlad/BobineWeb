@@ -112,6 +112,8 @@
 
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   --text-on-accent: var(--accent-primary-fg);
+  /* Accent utilisable comme couleur de texte (liens) : rapproché de l'encre du thème pour tenir >= 4,5:1 sur chaque matériau de verre. */
+  --accent-text: color-mix(in srgb, var(--accent-primary) 60%, var(--text-heading));
 
   /* Badge d'annonce Android — Couleurs dérivées dynamiquement du thème actif */
   --android-badge-fg: var(--accent-primary);

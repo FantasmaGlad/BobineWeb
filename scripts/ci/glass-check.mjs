@@ -104,7 +104,7 @@ for (const theme of themes) {
       for (const backdrop of [canvas, hotspot]) {
         for (const fill of materialColors(vars[material], vars)) {
           const surface = over(fill, backdrop);
-          for (const [token, min] of [["text-heading", 7], ["text-body", 7], ["text-muted", 4.5]]) {
+          for (const [token, min] of [["text-heading", 7], ["text-body", 7], ["text-muted", 4.5], ["accent-text", 4.5]]) {
             measured++;
             const r = ratio(evaluate(`var(--${token})`, vars), surface);
             if (r < min) fail(`${theme} : ${token} sur ${material} = ${r.toFixed(2)}:1 (min ${min})`);

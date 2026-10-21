@@ -2,17 +2,28 @@ import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { lp, SITE_NAME, AUTHOR_NAME } from "@/lib/seo";
 import { CLEARNET_URL } from "@/lib/onion";
-import { OPERATING_SYSTEMS } from "@/lib/productFacts";
-import { LANDING_PAGES, getLanding, type LandingId } from "@/content/landing";
+import { OPERATING_SYSTEMS, REQUIREMENTS, ANDROID, type PlatformId } from "@/lib/productFacts";
+import { LANDING_PAGES, LANDING_COMMON, getLanding, type LandingId } from "@/content/landing";
 import { getRepoStats } from "@/lib/releaseChannels";
 import { getBobineReleases } from "@/lib/github-releases";
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import FaqJsonLd from "@/components/FaqJsonLd";
+import LandingDownload, { type LandingChannelData } from "@/components/LandingDownload";
 import "@/styles/split/landing.css";
 
 const BASE_URL = CLEARNET_URL;
 const CHANNELS = ["stable", "beta", "canary"] as const;
+
+/** Plateforme proposée quand l'appareil du visiteur n'est pas reconnu. */
+const FALLBACK_PLATFORM: Partial<Record<LandingId, PlatformId>> = {
+  "android-tv": "android-tv",
+  "google-book": "android",
+  tor: "linux",
+};
+/** Plateformes détaillées dans « Configuration requise » : celle de la page d'abord. */
+const DOWNLOAD_KEY = { windows: "windows", macos: "macos", linux: "linux", android: "android", "android-tv": "androidTv" } as const;
+const REQUIREMENT_ORDER: PlatformId[] = ["windows", "macos", "linux", "android", "android-tv"];
 type Channel = (typeof CHANNELS)[number];
 
 function formatDate(iso: string, locale: Locale): string {
@@ -27,56 +38,9 @@ function channelLabel(channel: Channel, isEn: boolean): string {
   return "Canary";
 }
 
-function fileName(url: string): string {
-  return decodeURIComponent(url.split("/").pop() ?? url);
-}
-
 /** Version lisible d'un canal : numéro pour la Stable, tag et commit pour les canaux mobiles. */
 function versionOf(info: ReleaseChannelInfo): string {
   return info.commit ? `${info.version} (${info.commit})` : info.version;
-}
-
-function DownloadRows({ rows, isEn }: { rows: Array<{ label: string; url?: string }>; isEn: boolean }) {
-  return (
-    <div className="landing-table-wrap">
-      <table className="landing-table">
-        <thead>
-          <tr>
-            <th scope="col">{isEn ? "Platform" : "Plateforme"}</th>
-            <th scope="col">{isEn ? "File" : "Fichier"}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.filter((r) => r.url).map((r) => (
-            <tr key={r.label}>
-              <td>{r.label}</td>
-              <td>
-                <a href={r.url} rel="noopener noreferrer" className="landing-link">
-                  {fileName(r.url!)}
-                </a>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-function channelRows(info: ReleaseChannelInfo, isEn: boolean) {
-  const d = info.downloads;
-  return [
-    { label: "Windows x86-64", url: d.windows },
-    { label: "Windows ARM64", url: d.windowsArm64 },
-    { label: isEn ? "Linux .deb amd64" : "Linux .deb amd64", url: d.linux },
-    { label: isEn ? "Linux .deb arm64" : "Linux .deb arm64", url: d.linuxArm64 },
-    { label: "macOS Apple Silicon", url: d.macos },
-    { label: isEn ? "Android (tablets, Google Book)" : "Android (tablettes, Google Book)", url: d.android },
-    { label: "Android TV", url: d.androidTv },
-    { label: "Bobine Assistant", url: d.assistant },
-    { label: "Bobine Assistant ARM64", url: d.assistantArm64 },
-    { label: isEn ? "Installer script" : "Script d'installation", url: d.installScript },
-  ];
 }
 
 export default async function LandingPage({ locale, id }: { locale: Locale; id: LandingId }) {
@@ -86,6 +50,14 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
   const [stats, releases] = await Promise.all([getRepoStats(), getBobineReleases()]);
   const infos: Record<Channel, ReleaseChannelInfo> = { stable: stats.stable, beta: stats.beta, canary: stats.canary };
   const channel = page.channel;
+  const common = LANDING_COMMON[locale];
+  const channelsData = Object.fromEntries(
+    CHANNELS.map((ch) => [ch, { label: channelLabel(ch, isEn), version: versionOf(infos[ch]), downloads: infos[ch].downloads }]),
+  ) as Record<Channel, LandingChannelData>;
+  const fallbackPlatform = FALLBACK_PLATFORM[id] ?? "windows";
+  // Les pages de canal expliquent déjà les mises à jour : seul le contrôle d'intégrité s'y ajoute.
+  const commonBlocks = id.startsWith("canal") ? [common.verify] : [common.verify, common.update];
+  const requirementIds = [fallbackPlatform, ...REQUIREMENT_ORDER.filter((p) => p !== fallbackPlatform)];
 
   // Date de dernière mise à jour affichée et publiée en JSON-LD : celle de la release concernée.
   const reference = channel ? infos[channel] : stats.stable;
@@ -114,28 +86,28 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
     publisher: { "@type": "Organization", name: SITE_NAME, url: BASE_URL, logo: `${BASE_URL}/icon.png` },
     isPartOf: { "@type": "WebSite", name: SITE_NAME, url: BASE_URL },
   };
-  const appSchema = channel
-    ? {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        name: `Bobine ${channelLabel(channel, isEn)}`,
-        applicationCategory: "MultimediaApplication",
-        operatingSystem: OPERATING_SYSTEMS.join(", "),
-        softwareVersion: infos[channel].version,
-        dateModified: updated,
-        downloadUrl: infos[channel].downloads.windows,
-        license: "https://www.gnu.org/licenses/agpl-3.0.html",
-        url,
-        offers: { "@type": "Offer", price: "0.00", priceCurrency: "EUR" },
-      }
-    : null;
+  const schemaChannel: Channel = channel ?? "stable";
+  const appSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: `Bobine ${channel ? channelLabel(channel, isEn) : c.breadcrumb}`,
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: OPERATING_SYSTEMS.join(", "),
+    softwareRequirements: requirementIds.map((p) => REQUIREMENTS[p][isEn ? "en" : "fr"]).join(" "),
+    softwareVersion: infos[schemaChannel].version,
+    dateModified: updated,
+    downloadUrl: infos[schemaChannel].downloads[DOWNLOAD_KEY[fallbackPlatform]] ?? infos[schemaChannel].downloads.windows,
+    license: "https://www.gnu.org/licenses/agpl-3.0.html",
+    url,
+    offers: { "@type": "Offer", price: "0.00", priceCurrency: "EUR" },
+  };
 
   return (
     <div className="container landing">
       <BreadcrumbsJsonLd items={breadcrumbs} />
       <FaqJsonLd items={c.faq.map((f) => ({ ...f, category: "updates" as const }))} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
-      {appSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
 
       <nav aria-label={isEn ? "Breadcrumb" : "Fil d'Ariane"} className="landing-breadcrumb">
         {breadcrumbs.map((b, i) => (
@@ -157,6 +129,8 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
           </p>
         )}
       </header>
+
+      <LandingDownload locale={locale} channels={channelsData} lockedChannel={channel} fallback={fallbackPlatform} />
 
       {id === "canaux" || id === "nouveautes" ? (
         <section className="landing-card landing-section">
@@ -187,31 +161,6 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
           </div>
         </section>
       ) : null}
-
-      {channel && (
-        <section className="landing-card landing-section">
-          <h2 className="landing-h2">
-            {isEn ? `Download Bobine ${channelLabel(channel, isEn)}` : `Télécharger Bobine ${channelLabel(channel, isEn)}`}
-          </h2>
-          <p className="landing-note">
-            {isEn ? "Version" : "Version"} : <strong>{versionOf(infos[channel])}</strong>
-          </p>
-          <DownloadRows isEn={isEn} rows={channelRows(infos[channel], isEn)} />
-        </section>
-      )}
-
-      {(id === "android-tv" || id === "google-book") && (
-        <section className="landing-card landing-section">
-          <h2 className="landing-h2">{isEn ? "Download" : "Téléchargement"}</h2>
-          <DownloadRows
-            isEn={isEn}
-            rows={CHANNELS.map((ch) => ({
-              label: `${id === "android-tv" ? "Android TV" : "Android"} - ${channelLabel(ch, isEn)} (${versionOf(infos[ch])})`,
-              url: id === "android-tv" ? infos[ch].downloads.androidTv : infos[ch].downloads.android,
-            }))}
-          />
-        </section>
-      )}
 
       {id === "nouveautes" && (
         <section className="landing-card landing-section">
@@ -252,6 +201,40 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
                 <code>{s.code}</code>
               </pre>
             )}
+          </article>
+        ))}
+      </div>
+
+      <section className="landing-card landing-section" aria-labelledby="landing-req-title">
+        <h2 id="landing-req-title" className="landing-h2">{common.requirementsTitle}</h2>
+        <div className="landing-table-wrap">
+          <table className="landing-table">
+            <thead>
+              <tr>
+                <th scope="col">{isEn ? "Platform" : "Plateforme"}</th>
+                <th scope="col">{isEn ? "Requirement" : "Configuration"}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {requirementIds.map((p) => (
+                <tr key={p}>
+                  <td>{REQUIREMENTS[p].name}</td>
+                  <td>{REQUIREMENTS[p][isEn ? "en" : "fr"]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="landing-note">{common.requirementsNote(ANDROID.minVersion)}</p>
+      </section>
+
+      <div className="landing-stack">
+        {commonBlocks.map((b) => (
+          <article key={b.heading} className="landing-card">
+            <h2 className="landing-h2">{b.heading}</h2>
+            {b.paragraphs.map((para) => (
+              <p key={para} className="landing-prose">{para}</p>
+            ))}
           </article>
         ))}
       </div>

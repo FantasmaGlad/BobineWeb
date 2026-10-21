@@ -1,5 +1,6 @@
 import type { Locale } from "@/lib/i18n";
 import type { DocChapter } from "./types";
+import { ANDROID } from "@/lib/productFacts";
 
 /**
  * Source de contenu unique pour la documentation Bobine : consommée à la
@@ -48,12 +49,12 @@ const fr: DocChapter[] = [
     title: "2. Guide de Démarrage & Installation",
     icon: "install",
     summary:
-      "Méthodes d'installation de Bobine V5.0.0 : applications de bureau en un clic (Windows, macOS, Linux), applications natives pour tablettes Android et boîtiers Android TV, ou déploiement d'une appliance dédiée 24/7 pour une salle de sport.",
+      "Méthodes d'installation de Bobine : applications de bureau en un clic (Windows, macOS, Linux), applications natives pour tablettes Android et boîtiers Android TV, ou déploiement d'une appliance dédiée 24/7 pour une salle de sport.",
     subsections: [
       {
         subtitle: "2.1 Windows 11 / 10 & Windows ARM (Qualcomm Snapdragon)",
         paragraphs: [
-          "Installeurs officiels Bobine-Setup-5.0.0.exe (x86_64 pour processeurs Intel et AMD) et Bobine-Setup-5.0.0-arm64.exe (architecture native ARM64 pour puces Qualcomm Snapdragon X Elite et Snapdragon X Plus) : exécution silencieuse en arrière-plan (icône près de l'horloge), mode capot fermé (clamshell) sans mise en veille via powercfg, règle de pare-feu automatique et désinstallation en 1 clic via Inno Setup.",
+          "Installeurs officiels Bobine-Setup-x.y.z.exe (x86_64 pour processeurs Intel et AMD) et Bobine-Setup-x.y.z-arm64.exe (architecture native ARM64 pour puces Qualcomm Snapdragon X Elite et Snapdragon X Plus) : exécution silencieuse en arrière-plan (icône près de l'horloge), mode capot fermé (clamshell) sans mise en veille via powercfg, règle de pare-feu automatique et désinstallation en 1 clic via Inno Setup.",
           "Matériel de référence testé : PC portables Copilot+ Snapdragon X (Surface Laptop 7, ASUS Vivobook S 15, Lenovo Yoga Slim 7x, Samsung Galaxy Book4 Edge) et mini PC Intel N100 / AMD Ryzen livrés avec Windows 11 Pro (voir le hub matériel bobine.fit/materiel pour des références vérifiées et leur prix constaté).",
         ],
         deviceImage: "windows",
@@ -61,7 +62,7 @@ const fr: DocChapter[] = [
       {
         subtitle: "2.2 macOS Apple Silicon (M1 à M4) & Intel",
         paragraphs: [
-          "Image disque Bobine-5.0.0.dmg : glisser-déposer dans Applications, menu discret dans la barre supérieure, prévention de veille native caffeinate et accélération matérielle VideoToolbox.",
+          "Image disque Bobine-x.y.z.dmg : glisser-déposer dans Applications, menu discret dans la barre supérieure, prévention de veille native caffeinate et accélération matérielle VideoToolbox.",
           "Matériel de référence testé : Mac Mini Apple Silicon en régie dédiée, ou MacBook du coach exploité fermé (mode clamshell) via un hub ou dock USB-C.",
         ],
         deviceImage: "macos",
@@ -69,7 +70,7 @@ const fr: DocChapter[] = [
       {
         subtitle: "2.3 Linux Bureau (Debian / Ubuntu / Mint — x86_64 & ARM64)",
         paragraphs: [
-          "Dépôt APT officiel signé cryptographiquement (https://apt.bobine.fit) distribuant nativement les architectures amd64 et arm64 pour des mises à jour automatiques via apt upgrade. Paquets autonomes directs disponibles : bobine_5.0.0_amd64.deb et bobine_5.0.0_arm64.deb (pour PC Snapdragon sous Linux, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5 et Radxa Rock 5B). Désinstallation Polkit sécurisée en 1 clic.",
+          "Dépôt APT officiel signé cryptographiquement (https://apt.bobine.fit) distribuant nativement les architectures amd64 et arm64 pour des mises à jour automatiques via apt upgrade. Paquets autonomes directs disponibles : bobine_x.y.z_amd64.deb et bobine_x.y.z_arm64.deb (pour PC Snapdragon sous Linux, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5 et Radxa Rock 5B). Désinstallation Polkit sécurisée en 1 clic.",
           "Matériel de référence testé : mini PC industriel fanless x86 (Intel N100) et stations/cartes ARM64 basse consommation (NVIDIA DGX Spark, Raspberry Pi 5 8 Go), le choix Bobine pour un silence absolu en studio 24/7.",
         ],
         codeBlock:
@@ -90,7 +91,7 @@ const fr: DocChapter[] = [
       {
         subtitle: "2.4 Tablettes Android & Google Books (Aluminium OS)",
         paragraphs: [
-          "Paquet natif Bobine-5.0.0.apk (Android 14 à 16, API 34-36), embarquant CPython 3.13 et FastAPI via Chaquopy, service de premier plan persistant, accélération MediaCodec et double affichage (/grid tactile + /cinema HDMI USB-C DisplayPort avec résolution robuste du branchement à chaud sans écran noir).",
+          `Paquet natif Bobine-x.y.z.apk (Android ${ANDROID.minVersion} à ${ANDROID.maxVersion}, API ${ANDROID.minApi}-${ANDROID.maxApi}), embarquant CPython 3.13 et FastAPI via Chaquopy, service de premier plan persistant, accélération MediaCodec et double affichage (/grid tactile + /cinema HDMI USB-C DisplayPort avec résolution robuste du branchement à chaud sans écran noir).`,
           "Compatibilité Google Books : Bobine s'exécute nativement en plein écran sur les ordinateurs portables Google Book (Aluminium OS) via l'APK avec accélération matérielle complète, et sera très prochainement disponible en téléchargement direct 1 clic sur le Google Play Store.",
           "Matériel de référence testé : tablettes Samsung Galaxy Tab ou Xiaomi Pad avec port USB-C compatible DisplayPort Alt Mode, et ordinateurs portables Google Book.",
           "Démarrage avec l'appareil : Réglages → « Démarrage de l'appareil » (case « Lancer Bobine au démarrage de l'appareil ») relance le serveur Bobine quand l'appareil redémarre ou que l'application est mise à jour. L'ouverture automatique de l'écran dépend d'Android : elle exige l'autorisation « Afficher par-dessus d'autres applications », que certains appareils (dont des boîtiers Android TV) réinitialisent à chaque redémarrage. Dans ce cas, le serveur et les écrans distants fonctionnent déjà ; ouvrez simplement l'application pour afficher l'écran local.",
@@ -101,10 +102,10 @@ const fr: DocChapter[] = [
       {
         subtitle: "2.4 bis Android TV & Google TV (Box TV, Clés & Smart TVs)",
         paragraphs: [
-          "Paquet dédié officiel Bobine-TV-5.0.0.apk (com.bobine.app.tv) conçu pour les boîtiers grand public (Google TV Streamer, Xiaomi TV Box S, Smart TVs et boîtiers sous Android TV / Google TV 14 ou supérieur). L'application s'intègre au lanceur officiel Leanback avec sa bannière 16:9, neutralise le prérequis d'écran tactile, empêche la mise en veille (FLAG_KEEP_SCREEN_ON) et s'ouvre par défaut sur le kiosque plein écran (/kiosk) navigable à 100% à la télécommande directionnelle D-Pad.",
-          "Architecture : le paquet TV est universel. Il s'installe aussi bien sur les boîtiers dont le système est 64 bits que sur ceux dont le système est 32 bits (ARM armeabi-v7a), ce qui est le cas de plusieurs boîtiers Xiaomi, bien que leur processeur soit 64 bits. Android 14 (API 34) ou supérieur est requis, comme pour tous les paquets Android de Bobine.",
+          "Paquet dédié officiel Bobine-TV-x.y.z.apk (com.bobine.app.tv) conçu pour les boîtiers grand public (Google TV Streamer, Xiaomi TV Box S, Smart TVs et boîtiers sous Android TV / Google TV 14 ou supérieur). L'application s'intègre au lanceur officiel Leanback avec sa bannière 16:9, neutralise le prérequis d'écran tactile, empêche la mise en veille (FLAG_KEEP_SCREEN_ON) et s'ouvre par défaut sur le kiosque plein écran (/kiosk) navigable à 100% à la télécommande directionnelle D-Pad.",
+          `Architecture : le paquet TV est universel. Il s'installe aussi bien sur les boîtiers dont le système est 64 bits que sur ceux dont le système est 32 bits (ARM armeabi-v7a), ce qui est le cas de plusieurs boîtiers Xiaomi, bien que leur processeur soit 64 bits. Android ${ANDROID.minVersion} (API ${ANDROID.minApi}) ou supérieur est requis, comme pour tous les paquets Android de Bobine.`,
           "Stockage externe USB indispensable : Les box TV n'embarquent généralement que 4 à 8 Go de stockage flash eMMC interne (largement saturé par le système). Pour stocker vos cours vidéo en mode autonome, le branchement d'une clé USB 3.0 ou d'un SSD externe (formaté en FAT32 ou exFAT) via un adaptateur USB-C OTG est indispensable. Bobine détecte et sélectionne automatiquement ce stockage amovible sans aucune manipulation technique.",
-          "Méthodes d'installation (Sideload) : Vous pouvez transférer sans fil l'APK depuis votre smartphone ou PC vers la TV grâce à l'application « Send Files to TV », l'installer depuis une clé USB via un gestionnaire de fichiers TV (File Commander), ou le pousser via le réseau local en ADB Wi-Fi (adb connect <ip_tv>:5555 && adb install Bobine-TV-5.0.0.apk).",
+          "Méthodes d'installation (Sideload) : Vous pouvez transférer sans fil l'APK depuis votre smartphone ou PC vers la TV grâce à l'application « Send Files to TV », l'installer depuis une clé USB via un gestionnaire de fichiers TV (File Commander), ou le pousser via le réseau local en ADB Wi-Fi (adb connect <ip_tv>:5555 && adb install Bobine-TV-x.y.z.apk).",
           "Google Play Store : Bobine pour Android TV est en cours de déploiement officiel sur le Play Store. Dès sa publication, l'installation et les futures mises à jour se feront en 1 clic directement depuis votre téléviseur.",
         ],
       },
@@ -225,7 +226,7 @@ const fr: DocChapter[] = [
     title: "4. Fonctionnalités & Innovations Métier",
     icon: "features",
     summary:
-      "Vue d'ensemble des modules logiciels de Bobine V5.0.0 : moteur Gapless A/B Deck, régie coach, contrôles universels, télémétrie éco-conçue et résilience système.",
+      "Vue d'ensemble des modules logiciels de Bobine : moteur Gapless A/B Deck, régie coach, contrôles universels, télémétrie éco-conçue et résilience système.",
     subsections: [
       {
         subtitle: "4.1 Moteur Vidéo Gapless A/B Deck & Diffusion automatique",
@@ -402,8 +403,8 @@ const fr: DocChapter[] = [
       {
         subtitle: "7.1 Android : application native officielle pour tablettes tactiles",
         paragraphs: [
-          "L'application native Android (.apk) est officiellement disponible et éprouvée en conditions réelles de cours (V5.0.0). Elle transforme n'importe quelle tablette moderne (Xiaomi Pad 6, 7 ou 8, Samsung Galaxy Tab avec port USB-C DisplayPort) en régie autonome sans PC.",
-          "Bobine embarque le moteur FastAPI sous CPython via Chaquopy (3.13 sur tablettes) et un ForegroundService persistant. Le paquet Android TV (Bobine-TV) reprend ce moteur pour les boîtiers ARM 32 et 64 bits, sous Android 14 ou supérieur. La sortie vidéo déportée vers le téléviseur ou projecteur diffuse la vitrine /cinema en HDMI sans barre système, tandis que la tablette tactile affiche le pupitre de commande /grid ou la console coach /coach.",
+          "L'application native Android (.apk) est officiellement disponible et éprouvée en conditions réelles de cours. Elle transforme n'importe quelle tablette moderne (Xiaomi Pad 6, 7 ou 8, Samsung Galaxy Tab avec port USB-C DisplayPort) en régie autonome sans PC.",
+          `Bobine embarque le moteur FastAPI sous CPython via Chaquopy (3.13 sur tablettes) et un ForegroundService persistant. Le paquet Android TV (Bobine-TV) reprend ce moteur pour les boîtiers ARM 32 et 64 bits, sous Android ${ANDROID.minVersion} ou supérieur. La sortie vidéo déportée vers le téléviseur ou projecteur diffuse la vitrine /cinema en HDMI sans barre système, tandis que la tablette tactile affiche le pupitre de commande /grid ou la console coach /coach.`,
           "L'application gère l'accélération matérielle MediaCodec, le relais des touches de manettes et télécommandes vers la sortie externe, la mémorisation mDNS (bobine.local) et le double stockage partitionné (interne F2FS pour la base et externe FUSE pour les médias).",
         ],
         techChips: [{ icon: "smartphone", label: "Android ARM 32/64 bits / Chaquopy" }, { icon: "tablet", label: "Xiaomi Pad / USB-C DP" }, { icon: "film", label: "MediaCodec" }],
@@ -459,12 +460,12 @@ const en: DocChapter[] = [
     title: "2. Setup Guide & Installation",
     icon: "install",
     summary:
-      "Bobine V5.0.0 installation methods: 1-click desktop applications (Windows, macOS, Linux), native apps for Android tablets and Android TV boxes, or a dedicated 24/7 appliance deployment for a gym studio.",
+      "Bobine installation methods: 1-click desktop applications (Windows, macOS, Linux), native apps for Android tablets and Android TV boxes, or a dedicated 24/7 appliance deployment for a gym studio.",
     subsections: [
       {
         subtitle: "2.1 Windows 11 / 10 & Windows ARM (Qualcomm Snapdragon)",
         paragraphs: [
-          "Official Bobine-Setup-5.0.0.exe installer (x86_64 for Intel/AMD processors) and Bobine-Setup-5.0.0-arm64.exe (native ARM64 architecture for Qualcomm Snapdragon X Elite and Snapdragon X Plus SoCs): silent background execution (systray icon near clock), clamshell laptop mode without sleep via powercfg, automatic firewall rule, and 1-click uninstaller via Inno Setup.",
+          "Official Bobine-Setup-x.y.z.exe installer (x86_64 for Intel/AMD processors) and Bobine-Setup-x.y.z-arm64.exe (native ARM64 architecture for Qualcomm Snapdragon X Elite and Snapdragon X Plus SoCs): silent background execution (systray icon near clock), clamshell laptop mode without sleep via powercfg, automatic firewall rule, and 1-click uninstaller via Inno Setup.",
           "Reference hardware tested: Copilot+ Snapdragon X laptops (Surface Laptop 7, ASUS Vivobook S 15, Lenovo Yoga Slim 7x, Samsung Galaxy Book4 Edge) and new Intel N100 / AMD Ryzen mini PCs shipped with Windows 11 Pro (see the hardware hub at bobine.fit/materiel for verified picks and their checked price).",
         ],
         deviceImage: "windows",
@@ -472,7 +473,7 @@ const en: DocChapter[] = [
       {
         subtitle: "2.2 macOS Apple Silicon (M1 to M4) & Intel",
         paragraphs: [
-          "Bobine-5.0.0.dmg disk image: drag-and-drop into Applications, discreet menu bar icon, native caffeinate sleep prevention, and VideoToolbox hardware acceleration.",
+          "Bobine-x.y.z.dmg disk image: drag-and-drop into Applications, discreet menu bar icon, native caffeinate sleep prevention, and VideoToolbox hardware acceleration.",
           "Reference hardware tested: a dedicated Apple Silicon Mac Mini, or the coach's MacBook run closed (clamshell mode) through a USB-C hub or dock.",
         ],
         deviceImage: "macos",
@@ -480,7 +481,7 @@ const en: DocChapter[] = [
       {
         subtitle: "2.3 Linux Desktop (Debian / Ubuntu / Mint — x86_64 & ARM64)",
         paragraphs: [
-          "Official cryptographically signed APT repository (https://apt.bobine.fit) natively serving both amd64 and arm64 architectures for automated updates via apt upgrade. Standalone direct packages available: bobine_5.0.0_amd64.deb and bobine_5.0.0_arm64.deb (for Snapdragon Linux laptops, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5, and Radxa Rock 5B). 1-click Polkit uninstaller.",
+          "Official cryptographically signed APT repository (https://apt.bobine.fit) natively serving both amd64 and arm64 architectures for automated updates via apt upgrade. Standalone direct packages available: bobine_x.y.z_amd64.deb and bobine_x.y.z_arm64.deb (for Snapdragon Linux laptops, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5, and Radxa Rock 5B). 1-click Polkit uninstaller.",
           "Reference hardware tested: fanless industrial mini PCs (Intel N100) and ultra low power ARM64 single-board stations (NVIDIA DGX Spark, Raspberry Pi 5 8 GB) — the Bobine pick for absolute silence in a 24/7 studio.",
         ],
         codeBlock:
@@ -501,7 +502,7 @@ const en: DocChapter[] = [
       {
         subtitle: "2.4 Android Tablets & Google Books (Aluminium OS)",
         paragraphs: [
-          "Certified native Bobine-5.0.0.apk (Android 14 to 16, API 34-36), embedding CPython 3.13 and FastAPI via Chaquopy, persistent ForegroundService, native MediaCodec acceleration, and robust dual display (touchscreen /grid + HDMI TV /cinema over USB-C DisplayPort with resilient hotplug handling).",
+          `Certified native Bobine-x.y.z.apk (Android ${ANDROID.minVersion} to ${ANDROID.maxVersion}, API ${ANDROID.minApi}-${ANDROID.maxApi}), embedding CPython 3.13 and FastAPI via Chaquopy, persistent ForegroundService, native MediaCodec acceleration, and robust dual display (touchscreen /grid + HDMI TV /cinema over USB-C DisplayPort with resilient hotplug handling).`,
           "Google Books compatibility: Bobine runs natively in fullscreen mode on Google Book laptops (Aluminium OS) via the APK with full hardware acceleration, and will be arriving soon as a 1-click install from the Google Play Store.",
           "Reference hardware tested: Samsung Galaxy Tab or Xiaomi Pad tablets with a USB-C port supporting DisplayPort Alt Mode, and Google Book laptops.",
           "Starting with the device: Settings → \"Device startup\" (\"Launch Bobine when the device starts\") restarts the Bobine server when the device reboots or the app is updated. Opening the screen automatically depends on Android: it requires the \"Display over other apps\" permission, which some devices (including Android TV boxes) reset at every reboot. In that case the server and the remote screens already work; just open the app to show the local screen.",
@@ -512,10 +513,10 @@ const en: DocChapter[] = [
       {
         subtitle: "2.4 bis Android TV & Google TV (Streaming Boxes, Sticks & Smart TVs)",
         paragraphs: [
-          "Dedicated official build Bobine-TV-5.0.0.apk (com.bobine.app.tv) tailored for streaming boxes (Google TV Streamer, Xiaomi TV Box S, Smart TVs and boxes running Android TV / Google TV 14 or later). The app integrates into the Leanback home screen with its 16:9 banner, eliminates touchscreen requirements, enforces FLAG_KEEP_SCREEN_ON, and launches straight into the fullscreen kiosk interface (/kiosk) fully operable with a directional D-Pad remote control.",
-          "Architecture: the TV package is universal. It installs on boxes with a 64-bit system as well as on those with a 32-bit system (ARM armeabi-v7a), as is the case for several Xiaomi boxes, even though their processor is 64-bit. Android 14 (API 34) or later is required, as for every Bobine Android package.",
+          "Dedicated official build Bobine-TV-x.y.z.apk (com.bobine.app.tv) tailored for streaming boxes (Google TV Streamer, Xiaomi TV Box S, Smart TVs and boxes running Android TV / Google TV 14 or later). The app integrates into the Leanback home screen with its 16:9 banner, eliminates touchscreen requirements, enforces FLAG_KEEP_SCREEN_ON, and launches straight into the fullscreen kiosk interface (/kiosk) fully operable with a directional D-Pad remote control.",
+          `Architecture: the TV package is universal. It installs on boxes with a 64-bit system as well as on those with a 32-bit system (ARM armeabi-v7a), as is the case for several Xiaomi boxes, even though their processor is 64-bit. Android ${ANDROID.minVersion} (API ${ANDROID.minApi}) or later is required, as for every Bobine Android package.`,
           "Essential external USB storage: Streaming TV devices typically ship with meager 4 to 8 GB internal eMMC flash storage (mostly occupied by OS system files). To store your studio video classes in standalone server mode, connecting a USB 3.0 flash drive or external SSD (formatted in FAT32 or exFAT) via a USB-C OTG hub is required. Bobine automatically detects and selects this mounted removable drive.",
-          "Current Sideload Installation Methods: Wirelessly transfer the APK from your phone or PC using the 'Send Files to TV' app, install it from a USB flash drive via a TV file explorer (File Commander), or deploy it over the local network via ADB Wi-Fi (adb connect <tv_ip>:5555 && adb install Bobine-TV-5.0.0.apk).",
+          "Current Sideload Installation Methods: Wirelessly transfer the APK from your phone or PC using the 'Send Files to TV' app, install it from a USB flash drive via a TV file explorer (File Commander), or deploy it over the local network via ADB Wi-Fi (adb connect <tv_ip>:5555 && adb install Bobine-TV-x.y.z.apk).",
           "Google Play Store: Bobine for Android TV will soon be available on the Google Play Store. Once published, installation and future updates will be available in 1 click directly from your TV's app store.",
         ],
       },
@@ -636,7 +637,7 @@ const en: DocChapter[] = [
     title: "4. Features & Studio Innovations",
     icon: "features",
     summary:
-      "Overview of Bobine V5.0.0 software modules: Gapless A/B Deck video engine, coach console, universal controls, eco-designed telemetry, and system resilience.",
+      "Overview of Bobine software modules: Gapless A/B Deck video engine, coach console, universal controls, eco-designed telemetry, and system resilience.",
     subsections: [
       {
         subtitle: "4.1 Gapless A/B Deck Video Engine & Automated Playout",
@@ -813,8 +814,8 @@ const en: DocChapter[] = [
       {
         subtitle: "7.1 Android: official native application for touch tablets",
         paragraphs: [
-          "The native Android application (.apk) is officially available and battle-tested in real gym conditions (V5.0.0). It turns any modern tablet (Xiaomi Pad 6, 7, or 8, Samsung Galaxy Tab with USB-C DisplayPort) into an autonomous playout appliance without requiring a PC.",
-          "Bobine embeds FastAPI under CPython via Chaquopy (3.13 on tablets) and a persistent ForegroundService. The Android TV package (Bobine-TV) reuses this engine for 32-bit and 64-bit ARM boxes, on Android 14 or later. The video feed connected to the TV or projector displays the /cinema view over HDMI without system bars, while the tablet touchscreen runs the /grid desk or /coach console.",
+          "The native Android application (.apk) is officially available and battle-tested in real gym conditions. It turns any modern tablet (Xiaomi Pad 6, 7, or 8, Samsung Galaxy Tab with USB-C DisplayPort) into an autonomous playout appliance without requiring a PC.",
+          `Bobine embeds FastAPI under CPython via Chaquopy (3.13 on tablets) and a persistent ForegroundService. The Android TV package (Bobine-TV) reuses this engine for 32-bit and 64-bit ARM boxes, on Android ${ANDROID.minVersion} or later. The video feed connected to the TV or projector displays the /cinema view over HDMI without system bars, while the tablet touchscreen runs the /grid desk or /coach console.`,
           "The app includes MediaCodec hardware acceleration, gamepad and remote control forwarding to the external display, mDNS discovery (bobine.local), and dual storage partitioning (fast internal F2FS for database and external FUSE for media).",
         ],
         techChips: [{ icon: "smartphone", label: "Android ARM 32/64 bits / Chaquopy" }, { icon: "tablet", label: "Xiaomi Pad / USB-C DP" }, { icon: "film", label: "MediaCodec" }],

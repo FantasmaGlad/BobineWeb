@@ -1,5 +1,6 @@
 import type { Locale } from "@/lib/i18n";
 import { ONION_APT_HOST, ONION_SITE_HOST, TOR_PROJECT_URL, TOR_SOURCE_URL } from "@/lib/onion";
+import { ANDROID } from "@/lib/productFacts";
 
 /**
  * Pages d'atterrissage thématiques (canaux de mise à jour, Android TV, Google Book, Tor,
@@ -498,7 +499,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
     fr: {
       title: "Bobine pour Android TV et Google TV : installation et téléchargement de l'APK",
       description:
-        "Bobine sur Android TV et Google TV : APK dédié pour box et clés HDMI sous Android 14 ou supérieur (Google TV Streamer, Xiaomi TV Box S), ARM 32 et 64 bits, navigation à la télécommande. Téléchargement et installation.",
+        `Bobine sur Android TV et Google TV : APK dédié pour box et clés HDMI sous Android ${ANDROID.minVersion} ou supérieur (Google TV Streamer, Xiaomi TV Box S), ARM 32 et 64 bits, navigation à la télécommande. Téléchargement et installation.`,
       h1: "Bobine pour Android TV et Google TV",
       lead:
         "Bobine existe en application Android TV : un APK dédié (Bobine-TV) pour les box, clés HDMI et téléviseurs sous Android TV ou Google TV. Il ouvre l'interface grand écran, pilotable à 100 % à la télécommande, et diffuse les cours de la salle sans mini PC.",
@@ -526,7 +527,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         {
           heading: "Boîtiers 32 bits et 64 bits",
           paragraphs: [
-            "Le paquet Android TV est universel : il s'installe sur les boîtiers dont le système est 64 bits comme sur ceux dont le système est 32 bits (ABI armeabi-v7a), ce qui est le cas de plusieurs boîtiers Xiaomi malgré leur processeur 64 bits. Android 14 (API 34) ou supérieur est requis : un Chromecast avec Google TV ou un NVIDIA Shield resté sous Android 11 ou 12 ne peut pas installer Bobine.",
+            `Le paquet Android TV est universel : il s'installe sur les boîtiers dont le système est 64 bits comme sur ceux dont le système est 32 bits (ABI armeabi-v7a), ce qui est le cas de plusieurs boîtiers Xiaomi malgré leur processeur 64 bits. Android ${ANDROID.minVersion} (API ${ANDROID.minApi}) ou supérieur est requis : un Chromecast avec Google TV ou un NVIDIA Shield resté sous Android 11 ou 12 ne peut pas installer Bobine.`,
           ],
         },
         {
@@ -540,7 +541,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
       faq: [
         {
           q: "Bobine fonctionne-t-il sur Android TV ?",
-          a: "Oui, depuis Android 14 (API 34) : un paquet dédié, Bobine-TV, s'installe sur les box et clés Android TV et Google TV, en ARM 32 comme en 64 bits.",
+          a: `Oui, depuis Android ${ANDROID.minVersion} (API ${ANDROID.minApi}) : un paquet dédié, Bobine-TV, s'installe sur les box et clés Android TV et Google TV, en ARM 32 comme en 64 bits.`,
         },
         {
           q: "Faut-il un mini PC en plus de la box Android TV ?",
@@ -561,7 +562,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
     en: {
       title: "Bobine for Android TV and Google TV: APK installation and download",
       description:
-        "Bobine on Android TV and Google TV: a dedicated APK for boxes and HDMI sticks running Android 14 or later (Google TV Streamer, Xiaomi TV Box S), 32-bit and 64-bit ARM, remote-control navigation. Download and installation.",
+        `Bobine on Android TV and Google TV: a dedicated APK for boxes and HDMI sticks running Android ${ANDROID.minVersion} or later (Google TV Streamer, Xiaomi TV Box S), 32-bit and 64-bit ARM, remote-control navigation. Download and installation.`,
       h1: "Bobine for Android TV and Google TV",
       lead:
         "Bobine comes as an Android TV app: a dedicated APK (Bobine-TV) for boxes, HDMI sticks and TVs running Android TV or Google TV. It opens the big-screen interface, fully usable with the remote control, and plays the studio's classes without a mini PC.",
@@ -589,7 +590,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         {
           heading: "32-bit and 64-bit boxes",
           paragraphs: [
-            "The Android TV package is universal: it installs on boxes with a 64-bit system as well as on those with a 32-bit system (armeabi-v7a ABI), as is the case for several Xiaomi boxes despite their 64-bit processor. Android 14 (API 34) or later is required: a Chromecast with Google TV or an NVIDIA Shield left on Android 11 or 12 cannot install Bobine.",
+            `The Android TV package is universal: it installs on boxes with a 64-bit system as well as on those with a 32-bit system (armeabi-v7a ABI), as is the case for several Xiaomi boxes despite their 64-bit processor. Android ${ANDROID.minVersion} (API ${ANDROID.minApi}) or later is required: a Chromecast with Google TV or an NVIDIA Shield left on Android 11 or 12 cannot install Bobine.`,
           ],
         },
         {
@@ -603,7 +604,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
       faq: [
         {
           q: "Does Bobine work on Android TV?",
-          a: "Yes, from Android 14 (API 34): a dedicated package, Bobine-TV, installs on Android TV and Google TV boxes and sticks, in 32-bit as well as 64-bit ARM.",
+          a: `Yes, from Android ${ANDROID.minVersion} (API ${ANDROID.minApi}): a dedicated package, Bobine-TV, installs on Android TV and Google TV boxes and sticks, in 32-bit as well as 64-bit ARM.`,
         },
         {
           q: "Do I need a mini PC in addition to the Android TV box?",
@@ -645,7 +646,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         {
           heading: "Comment ça fonctionne",
           bullets: [
-            "L'APK Bobine (Android 14 à 16, ARM64) embarque le serveur et l'interface : aucun cloud requis.",
+            `L'APK Bobine (Android ${ANDROID.minVersion} à ${ANDROID.maxVersion}, ARM64) embarque le serveur et l'interface : aucun cloud requis.`,
             "Double affichage indépendant : l'écran du portable pour piloter (/grid), la sortie HDMI pour diffuser le cours (/cinema).",
             "Décodage matériel via MediaCodec et service de premier plan persistant.",
             "Disponibilité sur le Google Play Store annoncée prochainement ; en attendant, l'APK se télécharge depuis cette page.",
@@ -687,7 +688,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         {
           heading: "How it works",
           bullets: [
-            "The Bobine APK (Android 14 to 16, ARM64) embeds the server and the interface: no cloud required.",
+            `The Bobine APK (Android ${ANDROID.minVersion} to ${ANDROID.maxVersion}, ARM64) embeds the server and the interface: no cloud required.`,
             "Independent dual display: the laptop screen to drive the session (/grid), the HDMI output to play the class (/cinema).",
             "Hardware decoding through MediaCodec and a persistent foreground service.",
             "Google Play Store availability is announced as upcoming; meanwhile the APK can be downloaded from this page.",
@@ -844,7 +845,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
       lead:
         "Cette page résume l'état du projet : la version stable en cours, l'état des canaux Bêta et Canary, et les dernières versions publiées. Les dates et les numéros sont lus directement depuis GitHub Releases.",
       breadcrumb: "Nouveautés",
-      keywords: ["Bobine nouveautés", "Bobine changelog", "Bobine dernière version", "Bobine release notes", "Bobine 5.0.0"],
+      keywords: ["Bobine nouveautés", "Bobine changelog", "Bobine dernière version", "Bobine release notes", "Bobine 5"],
       sections: [
         {
           heading: "Plateformes prises en charge",
@@ -852,11 +853,11 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
             "Windows 11 et 10 : x86-64 et ARM64 (Snapdragon).",
             "macOS : Apple Silicon.",
             "Linux : Debian, Ubuntu et Mint en x86-64 et ARM64, dépôt APT officiel ; appliance dédiée Debian 13.",
-            "Android 14 à 16 : tablettes et Google Book (APK), Android TV et Google TV (APK dédié, ARM 32 et 64 bits).",
+            `Android ${ANDROID.minVersion} à ${ANDROID.maxVersion} : tablettes et Google Book (APK), Android TV et Google TV (APK dédié, ARM 32 et 64 bits).`,
           ],
         },
         {
-          heading: "Principaux ajouts de la version 5.0.0",
+          heading: "Principaux ajouts de la version 5",
           bullets: [
             "Trois canaux de mise à jour : Stable, Bêta et Canary.",
             "Prise en charge native d'ARM64 : PC Snapdragon sous Windows et Linux, stations Linux ARM64, Google Book.",
@@ -890,7 +891,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
       lead:
         "This page sums up the state of the project: the current stable version, the state of the Beta and Canary channels, and the latest releases. Dates and numbers are read straight from GitHub Releases.",
       breadcrumb: "What's new",
-      keywords: ["Bobine what's new", "Bobine changelog", "Bobine latest version", "Bobine release notes", "Bobine 5.0.0"],
+      keywords: ["Bobine what's new", "Bobine changelog", "Bobine latest version", "Bobine release notes", "Bobine 5"],
       sections: [
         {
           heading: "Supported platforms",
@@ -898,11 +899,11 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
             "Windows 11 and 10: x86-64 and ARM64 (Snapdragon).",
             "macOS: Apple Silicon.",
             "Linux: Debian, Ubuntu and Mint on x86-64 and ARM64, official APT repository; dedicated Debian 13 appliance.",
-            "Android 14 to 16: tablets and Google Book (APK), Android TV and Google TV (dedicated APK, 32-bit and 64-bit ARM).",
+            `Android ${ANDROID.minVersion} to ${ANDROID.maxVersion}: tablets and Google Book (APK), Android TV and Google TV (dedicated APK, 32-bit and 64-bit ARM).`,
           ],
         },
         {
-          heading: "Main additions of version 5.0.0",
+          heading: "Main additions of version 5",
           bullets: [
             "Three update channels: Stable, Beta and Canary.",
             "Native ARM64 support: Snapdragon PCs on Windows and Linux, ARM64 Linux workstations, Google Book.",

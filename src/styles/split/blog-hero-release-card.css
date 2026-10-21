@@ -4,16 +4,18 @@
   gap: 0.85rem;
   max-width: 52rem;
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-card-bg);
+  border: 1px solid var(--glass-card-border);
   border-radius: var(--radius-lg, 16px);
-  box-shadow: 0 4px 20px -4px var(--shadow-color, rgba(0, 0, 0, 0.05));
+  box-shadow: var(--glass-card-highlight), 0 4px 20px -4px var(--shadow-color, color-mix(in srgb, var(--ink) 5%, transparent));
   margin-bottom: 1.5rem;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
 }
 .blog-hero-release-card:hover {
   border-color: var(--border-hover, var(--accent-primary));
-  box-shadow: 0 8px 28px -6px var(--shadow-color, rgba(0, 0, 0, 0.08));
+  box-shadow: 0 8px 28px -6px var(--shadow-color, color-mix(in srgb, var(--ink) 8%, transparent));
 }
 .blog-hero-release-card--stable {
   border: 1px solid color-mix(in srgb, var(--accent-primary) 35%, var(--border-subtle));

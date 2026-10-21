@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import type { Locale } from "@/lib/i18n";
 import ScrollingCode from "@/components/ScrollingCode";
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
+import { ANDROID } from "@/lib/productFacts";
 
 export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "android-tv" | "cli" | "tauri" | "assistant";
 export type CpuArchitecture = "x86_64" | "arm64";
@@ -201,8 +202,8 @@ export default function DownloadModal({
         return {
           title: isEn ? "Bobine for Android TV & Google TV" : "Bobine pour Android TV & Google TV",
           subtitle: isEn
-            ? "Dedicated for TV boxes & Smart TVs (Android 14 or later, e.g. Google TV Streamer, Xiaomi TV Box S) — ARM 32 & 64-bit (armeabi-v7a, arm64-v8a)"
-            : "Dédié aux box TV & Smart TVs (Android 14 ou supérieur, ex. Google TV Streamer, Xiaomi TV Box S) — ARM 32 et 64 bits (armeabi-v7a, arm64-v8a)",
+            ? `Dedicated for TV boxes & Smart TVs (Android ${ANDROID.minVersion} or later, e.g. Google TV Streamer, Xiaomi TV Box S) — ARM 32 & 64-bit (armeabi-v7a, arm64-v8a)`
+            : `Dédié aux box TV & Smart TVs (Android ${ANDROID.minVersion} ou supérieur, ex. Google TV Streamer, Xiaomi TV Box S) — ARM 32 et 64 bits (armeabi-v7a, arm64-v8a)`,
           stableUrl:
             stable.downloads.androidTv ||
             `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/Bobine-TV-${cleanVersion}.apk`,
@@ -367,7 +368,6 @@ export default function DownloadModal({
             <div className="download-modal__cli-grid">
               {/* Carte CLI Stable */}
               <div className="download-modal__channel-card download-modal__channel-card--stable">
-                <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/stable.webp)" }} />
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -413,7 +413,6 @@ export default function DownloadModal({
 
               {/* Carte CLI Bêta */}
               <div className="download-modal__channel-card download-modal__channel-card--beta">
-                <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/beta.webp)" }} />
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -456,7 +455,6 @@ export default function DownloadModal({
 
               {/* Carte CLI Canary */}
               <div className="download-modal__channel-card download-modal__channel-card--canary">
-                <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/canary.webp)" }} />
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -502,7 +500,6 @@ export default function DownloadModal({
             <div className="download-modal__cards-grid">
               {/* Option 1 : VERSION STABLE */}
               <div className="download-modal__channel-card download-modal__channel-card--stable">
-                <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/stable.webp)" }} />
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -577,7 +574,6 @@ export default function DownloadModal({
 
               {/* Option 2 : VERSION BÊTA (curée) */}
               <div className="download-modal__channel-card download-modal__channel-card--beta">
-                <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/beta.webp)" }} />
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -649,7 +645,6 @@ export default function DownloadModal({
 
               {/* Option 3 : VERSION CANARY (rolling) */}
               <div className="download-modal__channel-card download-modal__channel-card--canary">
-                <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/canary.webp)" }} />
                 <div className="download-modal__card-header">
                   <div className="download-modal__card-tag-row">
                     {/* eslint-disable-next-line @next/next/no-img-element */}

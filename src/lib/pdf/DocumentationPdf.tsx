@@ -454,9 +454,12 @@ function FaqSection({ locale }: { locale: Locale }) {
 export function DocumentationPdf({
   locale,
   chapters,
+  version,
 }: {
   locale: Locale;
   chapters: DocChapter[];
+  /** Version Stable courante, lue sur GitHub ; absente si elle n'est pas connue. */
+  version?: string;
 }) {
   const isEn = locale === "en";
   chapters = chapters.map(sanitizeChapterForPdf);
@@ -502,7 +505,7 @@ export function DocumentationPdf({
 
         <View style={styles.coverRuleBottom}>
           <View style={styles.coverMetaRow}>
-            <Text>VERSION 5.0.0</Text>
+            <Text>{version ? `VERSION ${version.replace(/^v/i, "")}` : ""}</Text>
             <Text>{dateStr.toUpperCase()}</Text>
           </View>
         </View>

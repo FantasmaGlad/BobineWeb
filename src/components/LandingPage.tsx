@@ -1,26 +1,19 @@
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
-import { lp } from "@/lib/seo";
+import { lp, SITE_NAME, AUTHOR_NAME } from "@/lib/seo";
+import { CLEARNET_URL } from "@/lib/onion";
+import { OPERATING_SYSTEMS } from "@/lib/productFacts";
 import { LANDING_PAGES, getLanding, type LandingId } from "@/content/landing";
 import { getRepoStats } from "@/lib/releaseChannels";
 import { getBobineReleases } from "@/lib/github-releases";
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import FaqJsonLd from "@/components/FaqJsonLd";
+import "@/styles/split/landing.css";
 
-const BASE_URL = "https://bobine.fit";
+const BASE_URL = CLEARNET_URL;
 const CHANNELS = ["stable", "beta", "canary"] as const;
 type Channel = (typeof CHANNELS)[number];
-
-const CARD: React.CSSProperties = {
-  background: "var(--bg-surface)",
-  border: "1px solid var(--border-subtle)",
-  borderRadius: "0.85rem",
-  padding: "1.5rem",
-};
-const H2: React.CSSProperties = { fontSize: "1.45rem", fontWeight: 700, color: "var(--text-heading)", marginBottom: "1rem" };
-const TH: React.CSSProperties = { textAlign: "left", padding: "0.6rem 0.75rem", fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.04em", color: "var(--text-muted)", borderBottom: "1px solid var(--border-subtle)" };
-const TD: React.CSSProperties = { padding: "0.65rem 0.75rem", fontSize: "0.95rem", color: "var(--text-body)", borderBottom: "1px solid var(--border-subtle)" };
 
 function formatDate(iso: string, locale: Locale): string {
   const d = new Date(iso);
@@ -45,20 +38,20 @@ function versionOf(info: ReleaseChannelInfo): string {
 
 function DownloadRows({ rows, isEn }: { rows: Array<{ label: string; url?: string }>; isEn: boolean }) {
   return (
-    <div style={{ overflowX: "auto" }}>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+    <div className="landing-table-wrap">
+      <table className="landing-table">
         <thead>
           <tr>
-            <th scope="col" style={TH}>{isEn ? "Platform" : "Plateforme"}</th>
-            <th scope="col" style={TH}>{isEn ? "File" : "Fichier"}</th>
+            <th scope="col">{isEn ? "Platform" : "Plateforme"}</th>
+            <th scope="col">{isEn ? "File" : "Fichier"}</th>
           </tr>
         </thead>
         <tbody>
           {rows.filter((r) => r.url).map((r) => (
             <tr key={r.label}>
-              <td style={TD}>{r.label}</td>
-              <td style={TD}>
-                <a href={r.url} rel="noopener noreferrer" style={{ color: "var(--accent-primary)", fontWeight: 600 }}>
+              <td>{r.label}</td>
+              <td>
+                <a href={r.url} rel="noopener noreferrer" className="landing-link">
                   {fileName(r.url!)}
                 </a>
               </td>
@@ -117,9 +110,9 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
     url,
     inLanguage: locale,
     dateModified: updated,
-    author: { "@type": "Person", name: "Clément Barillot", url: `${BASE_URL}/${locale}${isEn ? "/about" : "/a-propos"}` },
-    publisher: { "@type": "Organization", name: "Bobine Fit", url: BASE_URL, logo: `${BASE_URL}/icon.png` },
-    isPartOf: { "@type": "WebSite", name: "Bobine Fit", url: BASE_URL },
+    author: { "@type": "Person", name: AUTHOR_NAME, url: `${BASE_URL}/${locale}${isEn ? "/about" : "/a-propos"}` },
+    publisher: { "@type": "Organization", name: SITE_NAME, url: BASE_URL, logo: `${BASE_URL}/icon.png` },
+    isPartOf: { "@type": "WebSite", name: SITE_NAME, url: BASE_URL },
   };
   const appSchema = channel
     ? {
@@ -127,7 +120,7 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
         "@type": "SoftwareApplication",
         name: `Bobine ${channelLabel(channel, isEn)}`,
         applicationCategory: "MultimediaApplication",
-        operatingSystem: "Windows, macOS, Linux, Android, Android TV",
+        operatingSystem: OPERATING_SYSTEMS.join(", "),
         softwareVersion: infos[channel].version,
         dateModified: updated,
         downloadUrl: infos[channel].downloads.windows,
@@ -138,55 +131,55 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
     : null;
 
   return (
-    <div className="container" style={{ paddingBottom: "2rem" }}>
+    <div className="container landing">
       <BreadcrumbsJsonLd items={breadcrumbs} />
       <FaqJsonLd items={c.faq.map((f) => ({ ...f, category: "updates" as const }))} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
       {appSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />}
 
-      <nav aria-label={isEn ? "Breadcrumb" : "Fil d'Ariane"} style={{ fontSize: "0.85rem", color: "var(--text-muted)", paddingTop: "0.5rem" }}>
+      <nav aria-label={isEn ? "Breadcrumb" : "Fil d'Ariane"} className="landing-breadcrumb">
         {breadcrumbs.map((b, i) => (
           <span key={b.url}>
             {i > 0 && " / "}
-            {i < breadcrumbs.length - 1 ? <Link href={b.url} style={{ color: "var(--text-muted)" }}>{b.name}</Link> : <span aria-current="page">{b.name}</span>}
+            {i < breadcrumbs.length - 1 ? <Link href={b.url}>{b.name}</Link> : <span aria-current="page">{b.name}</span>}
           </span>
         ))}
       </nav>
 
-      <header style={{ paddingTop: "1rem", paddingBottom: "2rem", maxWidth: "860px" }}>
-        <h1 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.75rem)", fontWeight: 800, marginBottom: "1rem", color: "var(--text-heading)", lineHeight: 1.2 }}>
+      <header className="landing-header">
+        <h1 className="landing-title">
           {c.h1}
         </h1>
-        <p style={{ fontSize: "1.1rem", color: "var(--text-muted)", lineHeight: 1.6 }}>{c.lead}</p>
+        <p className="landing-lead">{c.lead}</p>
         {updated && (
-          <p style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
+          <p className="landing-updated">
             {isEn ? "Updated" : "Mis à jour"} : <time dateTime={updated.slice(0, 10)}>{formatDate(updated, locale)}</time>
           </p>
         )}
       </header>
 
       {id === "canaux" || id === "nouveautes" ? (
-        <section style={{ ...CARD, marginBottom: "2.5rem", maxWidth: "860px" }}>
-          <h2 style={H2}>{isEn ? "Current versions" : "Versions en cours"}</h2>
-          <div style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+        <section className="landing-card landing-section">
+          <h2 className="landing-h2">{isEn ? "Current versions" : "Versions en cours"}</h2>
+          <div className="landing-table-wrap">
+            <table className="landing-table">
               <thead>
                 <tr>
-                  <th scope="col" style={TH}>{isEn ? "Channel" : "Canal"}</th>
-                  <th scope="col" style={TH}>Version</th>
-                  <th scope="col" style={TH}>{isEn ? "Published" : "Publiée le"}</th>
+                  <th scope="col">{isEn ? "Channel" : "Canal"}</th>
+                  <th scope="col">Version</th>
+                  <th scope="col">{isEn ? "Published" : "Publiée le"}</th>
                 </tr>
               </thead>
               <tbody>
                 {CHANNELS.map((ch) => (
                   <tr key={ch}>
-                    <td style={TD}>
-                      <Link href={lp(locale, `/canaux/${ch}`)} style={{ color: "var(--accent-primary)", fontWeight: 600 }}>
+                    <td>
+                      <Link href={lp(locale, `/canaux/${ch}`)} className="landing-link">
                         {`Bobine ${channelLabel(ch, isEn)}`}
                       </Link>
                     </td>
-                    <td style={TD}>{versionOf(infos[ch])}</td>
-                    <td style={TD}>{formatDate(infos[ch].publishedAt, locale)}</td>
+                    <td>{versionOf(infos[ch])}</td>
+                    <td>{formatDate(infos[ch].publishedAt, locale)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -196,11 +189,11 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
       ) : null}
 
       {channel && (
-        <section style={{ ...CARD, marginBottom: "2.5rem", maxWidth: "860px" }}>
-          <h2 style={H2}>
+        <section className="landing-card landing-section">
+          <h2 className="landing-h2">
             {isEn ? `Download Bobine ${channelLabel(channel, isEn)}` : `Télécharger Bobine ${channelLabel(channel, isEn)}`}
           </h2>
-          <p style={{ color: "var(--text-muted)", marginTop: 0 }}>
+          <p className="landing-note">
             {isEn ? "Version" : "Version"} : <strong>{versionOf(infos[channel])}</strong>
           </p>
           <DownloadRows isEn={isEn} rows={channelRows(infos[channel], isEn)} />
@@ -208,8 +201,8 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
       )}
 
       {(id === "android-tv" || id === "google-book") && (
-        <section style={{ ...CARD, marginBottom: "2.5rem", maxWidth: "860px" }}>
-          <h2 style={H2}>{isEn ? "Download" : "Téléchargement"}</h2>
+        <section className="landing-card landing-section">
+          <h2 className="landing-h2">{isEn ? "Download" : "Téléchargement"}</h2>
           <DownloadRows
             isEn={isEn}
             rows={CHANNELS.map((ch) => ({
@@ -221,41 +214,41 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
       )}
 
       {id === "nouveautes" && (
-        <section style={{ ...CARD, marginBottom: "2.5rem", maxWidth: "860px" }}>
-          <h2 style={H2}>{isEn ? "Latest releases" : "Dernières versions publiées"}</h2>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+        <section className="landing-card landing-section">
+          <h2 className="landing-h2">{isEn ? "Latest releases" : "Dernières versions publiées"}</h2>
+          <ul className="landing-releases">
             {releases
               .filter((r) => !r.isPrerelease)
               .slice(0, 8)
               .map((r) => (
                 <li key={r.slug}>
-                  <Link href={`/${locale}/blog/${r.slug}`} style={{ color: "var(--accent-primary)", fontWeight: 600 }}>
+                  <Link href={`/${locale}/blog/${r.slug}`} className="landing-link">
                     {r.slug}
                   </Link>
                   {r.publishedAt ? ` - ${formatDate(r.publishedAt, locale)}` : ""}
-                  <div style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>{r.title}</div>
+                  <small>{r.title}</small>
                 </li>
               ))}
           </ul>
         </section>
       )}
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", marginBottom: "3rem", maxWidth: "860px" }}>
+      <div className="landing-stack">
         {c.sections.map((s) => (
-          <article key={s.heading} style={CARD}>
-            <h2 style={H2}>{s.heading}</h2>
+          <article key={s.heading} className="landing-card">
+            <h2 className="landing-h2">{s.heading}</h2>
             {s.paragraphs?.map((p) => (
-              <p key={p} style={{ color: "var(--text-body)", lineHeight: 1.65 }}>{p}</p>
+              <p key={p} className="landing-prose">{p}</p>
             ))}
             {s.bullets && (
-              <ul style={{ color: "var(--text-body)", lineHeight: 1.65, paddingLeft: "1.25rem", margin: 0 }}>
+              <ul className="landing-list">
                 {s.bullets.map((b) => (
-                  <li key={b} style={{ marginBottom: "0.4rem", wordBreak: "break-word" }}>{b}</li>
+                  <li key={b}>{b}</li>
                 ))}
               </ul>
             )}
             {s.code && (
-              <pre style={{ background: "var(--bg-code, rgba(0,0,0,0.06))", borderRadius: "0.5rem", padding: "0.9rem 1rem", overflowX: "auto", fontSize: "0.85rem", margin: "0.75rem 0 0" }}>
+              <pre className="landing-code">
                 <code>{s.code}</code>
               </pre>
             )}
@@ -263,24 +256,24 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
         ))}
       </div>
 
-      <section style={{ marginBottom: "3rem", maxWidth: "860px" }}>
-        <h2 style={H2}>{isEn ? "Frequently asked questions" : "Questions fréquentes"}</h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+      <section className="landing-section">
+        <h2 className="landing-h2">{isEn ? "Frequently asked questions" : "Questions fréquentes"}</h2>
+        <div className="landing-faq">
           {c.faq.map((item) => (
-            <details key={item.q} style={{ ...CARD, padding: "1rem 1.25rem" }}>
-              <summary style={{ fontWeight: 600, fontSize: "1.05rem", color: "var(--text-heading)", cursor: "pointer" }}>{item.q}</summary>
-              <p style={{ margin: "0.75rem 0 0", color: "var(--text-body)", lineHeight: 1.6 }}>{item.a}</p>
+            <details key={item.q} className="landing-card">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
             </details>
           ))}
         </div>
       </section>
 
-      <nav aria-label={isEn ? "Related pages" : "Pages liées"} style={{ marginBottom: "3rem", maxWidth: "860px" }}>
-        <h2 style={H2}>{isEn ? "Related pages" : "Pages liées"}</h2>
-        <ul style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem 1.5rem", listStyle: "none", padding: 0, margin: 0 }}>
+      <nav aria-label={isEn ? "Related pages" : "Pages liées"} className="landing-section">
+        <h2 className="landing-h2">{isEn ? "Related pages" : "Pages liées"}</h2>
+        <ul className="landing-related">
           {c.related.map((l) => (
             <li key={l.path}>
-              <Link href={lp(locale, l.path)} style={{ color: "var(--accent-primary)", fontWeight: 600 }}>{l.label}</Link>
+              <Link href={lp(locale, l.path)} className="landing-link">{l.label}</Link>
             </li>
           ))}
         </ul>

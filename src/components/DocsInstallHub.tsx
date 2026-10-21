@@ -19,6 +19,7 @@ import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFa
 import { useReleaseData } from "@/components/ReleaseProvider";
 import { ONION_APT_HOST, ONION_SITE_HOST } from "@/lib/onion";
 import TorLogo from "@/components/icons/TorLogo";
+import { ANDROID } from "@/lib/productFacts";
 
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
 type AndroidVariant = "mobile" | "tv";
@@ -188,7 +189,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       <div className="docs-channels-grid">
         {/* Canal Stable */}
         <div className="download-modal__channel-card download-modal__channel-card--stable">
-          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/stable.webp)" }} />
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -229,7 +229,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
         {/* Canal Bêta */}
         <div className="download-modal__channel-card download-modal__channel-card--beta">
-          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/beta.webp)" }} />
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -267,7 +266,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
         {/* Canal Canary */}
         <div className="download-modal__channel-card download-modal__channel-card--canary">
-          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/canary.webp)" }} />
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -326,7 +324,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       <div className="docs-channels-grid">
         {/* Canal Stable CLI */}
         <div className="download-modal__channel-card download-modal__channel-card--stable">
-          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/stable.webp)" }} />
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -367,7 +364,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
         {/* Canal Bêta CLI */}
         <div className="download-modal__channel-card download-modal__channel-card--beta">
-          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/beta.webp)" }} />
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -405,7 +401,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
         {/* Canal Canary CLI */}
         <div className="download-modal__channel-card download-modal__channel-card--canary">
-          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/canary.webp)" }} />
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -641,8 +636,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <h4>{isEn ? "Download the installer" : "Téléchargez le programme d'installation"}</h4>
                 <p>
                   {isEn
-                    ? "Click the download button above to get Bobine-Setup-5.0.0.exe (for Intel / AMD) or Bobine-Setup-5.0.0-arm64.exe (for Snapdragon X Elite / X Plus)."
-                    : "Cliquez sur le bouton ci-dessus pour récupérer Bobine-Setup-5.0.0.exe (pour Intel / AMD) ou Bobine-Setup-5.0.0-arm64.exe (pour PC ARM Snapdragon X Elite / X Plus)."}
+                    ? "Click the download button above to get Bobine-Setup-x.y.z.exe (for Intel / AMD) or Bobine-Setup-x.y.z-arm64.exe (for Snapdragon X Elite / X Plus)."
+                    : "Cliquez sur le bouton ci-dessus pour récupérer Bobine-Setup-x.y.z.exe (pour Intel / AMD) ou Bobine-Setup-x.y.z-arm64.exe (pour PC ARM Snapdragon X Elite / X Plus)."}
                 </p>
               </div>
             </div>
@@ -653,8 +648,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <h4>{isEn ? "Launch the setup wizard" : "Lancez l'assistant d'installation"}</h4>
                 <p>
                   {isEn
-                    ? "Double-click Bobine-Setup-5.0.0.exe. The standard Windows setup wizard will create a desktop shortcut and prepare the self-contained environment."
-                    : "Double-cliquez sur le fichier Bobine-Setup-5.0.0.exe. L'assistant prépare l'environnement autonome et crée un raccourci officiel sur votre Bureau."}
+                    ? "Double-click Bobine-Setup-x.y.z.exe. The standard Windows setup wizard will create a desktop shortcut and prepare the self-contained environment."
+                    : "Double-cliquez sur le fichier Bobine-Setup-x.y.z.exe. L'assistant prépare l'environnement autonome et crée un raccourci officiel sur votre Bureau."}
                 </p>
               </div>
             </div>
@@ -741,8 +736,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               </div>
               <div>
                 {isEn
-                  ? "Bobine 5.0.0 is compiled natively for Apple Silicon Macs (MacBook Air, MacBook Pro, Mac mini, Mac Studio with M1, M2, M3, or M4). Native support for legacy Intel Macs (x86_64) is undergoing validation and will be released in an upcoming update."
-                  : "Bobine 5.0.0 est optimisé nativement pour les Mac Apple Silicon (MacBook, Mac mini, iMac équipés de puces M1, M2, M3 ou M4). La compatibilité native avec les anciens processeurs Mac Intel (x86_64) arrivera lors d'une prochaine mise à jour."}
+                  ? "Bobine is compiled natively for Apple Silicon Macs (MacBook Air, MacBook Pro, Mac mini, Mac Studio with M1, M2, M3, or M4). Native support for legacy Intel Macs (x86_64) is undergoing validation and will be released in an upcoming update."
+                  : "Bobine est optimisé nativement pour les Mac Apple Silicon (MacBook, Mac mini, iMac équipés de puces M1, M2, M3 ou M4). La compatibilité native avec les anciens processeurs Mac Intel (x86_64) arrivera lors d'une prochaine mise à jour."}
               </div>
             </div>
           </div>
@@ -760,8 +755,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <h4>{isEn ? "Download the disk image" : "Téléchargez l'image disque"}</h4>
                 <p>
                   {isEn
-                    ? "Download Bobine-5.0.0.dmg using the button above."
-                    : "Téléchargez le fichier Bobine-5.0.0.dmg via le bouton de téléchargement."}
+                    ? "Download Bobine-x.y.z.dmg using the button above."
+                    : "Téléchargez le fichier Bobine-x.y.z.dmg via le bouton de téléchargement."}
                 </p>
               </div>
             </div>
@@ -1013,8 +1008,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <p className="docs-method-hero__desc">
                   {androidVariant === "tv"
                     ? (isEn
-                        ? "Dedicated APK for TV boxes, sticks and Smart TVs running Android 14 or later, such as the Google TV Streamer or the Xiaomi TV Box S 3rd generation). Installs on 32-bit and 64-bit ARM systems, Leanback launcher, full remote-control navigation, embedded FastAPI server (Chaquopy) and MediaCodec hardware acceleration."
-                        : "APK dédié aux box TV, clés HDMI et Smart TV sous Android 14 ou supérieur, comme le Google TV Streamer ou le Xiaomi TV Box S 3e génération). S'installe sur les systèmes ARM 32 et 64 bits, lanceur Leanback, navigation complète à la télécommande, serveur FastAPI embarqué (Chaquopy) et accélération matérielle MediaCodec.")
+                        ? `Dedicated APK for TV boxes, sticks and Smart TVs running Android ${ANDROID.minVersion} or later, such as the Google TV Streamer or the Xiaomi TV Box S 3rd generation). Installs on 32-bit and 64-bit ARM systems, Leanback launcher, full remote-control navigation, embedded FastAPI server (Chaquopy) and MediaCodec hardware acceleration.`
+                        : `APK dédié aux box TV, clés HDMI et Smart TV sous Android ${ANDROID.minVersion} ou supérieur, comme le Google TV Streamer ou le Xiaomi TV Box S 3e génération). S'installe sur les systèmes ARM 32 et 64 bits, lanceur Leanback, navigation complète à la télécommande, serveur FastAPI embarqué (Chaquopy) et accélération matérielle MediaCodec.`)
                     : (isEn
                         ? "Official native APK package. Direct execution on Android tablets and Google Books (Aluminium OS, with upcoming Google Play Store release). Embedded FastAPI server (Chaquopy), independent dual display (/grid on tablet, /cinema on HDMI), and MediaCodec hardware acceleration."
                         : "Paquet APK natif officiel. Exécution directe sur tablettes Android et Google Books (Aluminium OS, avec arrivée prochaine sur le Google Play Store). Serveur FastAPI embarqué (Chaquopy), double affichage indépendant (/grid sur tablette, /cinema sur HDMI), et accélération matérielle MediaCodec.")}

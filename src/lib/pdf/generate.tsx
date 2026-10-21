@@ -16,9 +16,11 @@ function downloadBlob(blob: Blob, filename: string) {
 export async function generateDocumentationPdf({
   locale,
   chapterId,
+  version,
 }: {
   locale: Locale;
   chapterId?: string;
+  version?: string;
 }) {
   const allChapters = docChapters[locale];
   const chapters = chapterId
@@ -31,7 +33,7 @@ export async function generateDocumentationPdf({
 
   const { pdf } = await import("@react-pdf/renderer");
   const blob = await pdf(
-    <DocumentationPdf locale={locale} chapters={chapters} />
+    <DocumentationPdf locale={locale} chapters={chapters} version={version} />
   ).toBlob();
 
   const filename = chapterId

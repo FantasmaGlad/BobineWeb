@@ -216,7 +216,7 @@ export default function ThemeSwitcher() {
                       className="theme-card-option__swatch"
                       style={{
                         background: `linear-gradient(135deg, ${meta.bg} 50%, ${meta.accent} 50%)`,
-                        boxShadow: `0 0 0 1px var(--border-subtle), 0 2px 4px rgba(0,0,0,0.15)`,
+                        boxShadow: `0 0 0 1px var(--border-subtle), 0 2px 4px color-mix(in srgb, var(--ink) 15%, transparent)`,
                       }}
                     />
                   </div>

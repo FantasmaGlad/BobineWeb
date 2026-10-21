@@ -1,0 +1,161 @@
+/* Pages d'atterrissage (canaux, Android TV, Google Book, Tor, nouveautés) : même matériau de verre que le reste
+   du site, aucune valeur figée dans les composants. */
+.landing {
+  --landing-measure: 54rem;
+  --landing-gap: 1.5rem;
+  --landing-section-gap: 2.5rem;
+  padding-bottom: 2rem;
+}
+
+.landing-breadcrumb {
+  padding-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.landing-breadcrumb a {
+  color: var(--text-muted);
+}
+
+.landing-header {
+  max-width: var(--landing-measure);
+  padding-block: 1rem 2rem;
+}
+.landing-title {
+  margin-bottom: 1rem;
+  font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-heading);
+}
+.landing-lead {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.landing-updated {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.landing-card {
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  background: var(--glass-card-bg);
+  border: 1px solid var(--glass-card-border);
+  box-shadow: var(--glass-card-highlight), var(--shadow-card);
+}
+.landing-section {
+  max-width: var(--landing-measure);
+  margin-bottom: var(--landing-section-gap);
+}
+.landing-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--landing-gap);
+  max-width: var(--landing-measure);
+  margin-bottom: 3rem;
+}
+.landing-h2 {
+  margin-bottom: 1rem;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+.landing-note {
+  margin-top: 0;
+  color: var(--text-muted);
+}
+.landing-prose {
+  line-height: 1.65;
+  color: var(--text-body);
+}
+.landing-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  line-height: 1.65;
+  color: var(--text-body);
+}
+.landing-list li {
+  margin-bottom: 0.4rem;
+  word-break: break-word;
+}
+.landing-link {
+  font-weight: 600;
+  color: var(--accent-primary);
+}
+
+.landing-table-wrap {
+  overflow-x: auto;
+}
+.landing-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.landing-table th {
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.landing-table td {
+  padding: 0.65rem 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-body);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.landing-code {
+  margin: 0.75rem 0 0;
+  padding: 0.9rem 1rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  border-radius: var(--radius-md);
+  background: var(--glass-inset-bg);
+  border: 1px solid var(--border-subtle);
+}
+
+.landing-releases {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.landing-releases small {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.landing-faq {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.landing-faq details {
+  padding: 1rem 1.25rem;
+}
+.landing-faq summary {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  cursor: pointer;
+}
+.landing-faq p {
+  margin: 0.75rem 0 0;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+.landing-related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

@@ -7,12 +7,10 @@ jamais selon la police ou l'appareil.
 
 Sorties (versionnees) :
   - src/lib/torArt.ts                       : chemins SVG pour le site (demo terminal)
-  - deploy/onion/overlay/apt/tor-art.json   : memes chemins pour la variante Tor de apt.bobine.fit
   - scripts/tor-art/quadrants.txt           : version compacte 59x40 (quadrants ANSI) pour install-tor.sh
 
 Usage : python3 scripts/tor-art/generate.py
 """
-import json
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -57,9 +55,6 @@ view_box = f"0 0 {W} {H * 2}"
     f"export const TOR_ART = {{\n  cols: {W},\n  rows: {H},\n  viewBox: \"{view_box}\",\n"
     f"  purple: \"{purple}\",\n  green: \"{green}\",\n}} as const;\n",
     encoding="utf-8",
-)
-(ROOT / "deploy/onion/overlay/apt/tor-art.json").write_text(
-    json.dumps({"viewBox": view_box, "purple": purple, "green": green}), encoding="utf-8"
 )
 
 # ---- version compacte pour le shell : 2x2 sous-pixels par caractere (quadrants) ----

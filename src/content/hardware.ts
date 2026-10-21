@@ -1,3 +1,4 @@
+import { ANDROID } from "@/lib/productFacts";
 /**
  * Catalogue canonique des recommandations matérielles et bundles Bobine.
  *
@@ -360,8 +361,8 @@ const xiaomiTvBoxS2ndGen = (id: string): HardwareItem => ({
   id,
   name: "Xiaomi TV Box S (2nd Gen) 4K avec Google TV",
   category: "uc",
-  specs: "4K · 2 Go RAM / 8 Go · Port USB 2.0 · HDMI 2.1 · Dolby Vision · Android 14 requis (mise à jour système à installer)",
-  description: "Box 4K abordable avec port USB intégré pour une clé de cours. Livrée avec une version d'Android plus ancienne : installez les mises à jour système (Android 14 minimum) avant Bobine.",
+  specs: `4K · 2 Go RAM / 8 Go · Port USB 2.0 · HDMI 2.1 · Dolby Vision · Android ${ANDROID.minVersion} requis (mise à jour système à installer)`,
+  description: `Box 4K abordable avec port USB intégré pour une clé de cours. Livrée avec une version d'Android plus ancienne : installez les mises à jour système (Android ${ANDROID.minVersion} minimum) avant Bobine.`,
   imageUrl: "/images/hardware/tv-xiaomi-box-s-2nd-gen.webp",
   asin: "B0C1DJWGYV",
   amazonUrl: buildProductUrl("B0C1DJWGYV"),
@@ -1515,9 +1516,9 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
         targetEn: "Gyms and coaches seeking maximum ARM64 power efficiency on Windows 11 ARM, Linux ARM64, or Google Books",
         defaultTier: "recommande",
         editorialNoteFr:
-          "Compatibles nativement avec Windows 11 ARM64 (Bobine-Setup-5.0.0-arm64.exe) et Linux ARM64 (bobine_5.0.0_arm64.deb). Les puces Qualcomm Snapdragon X (architecture Oryon ARM64) offrent une efficacité énergétique record (5W à 10W en lecture vidéo continue) et un silence quasi total en régie. Cette section couvre également les nouveaux Google Books (Aluminium OS), compatibles via l'APK natif Bobine.",
+          "Compatibles nativement avec Windows 11 ARM64 (Bobine-Setup-x.y.z-arm64.exe) et Linux ARM64 (bobine_x.y.z_arm64.deb). Les puces Qualcomm Snapdragon X (architecture Oryon ARM64) offrent une efficacité énergétique record (5W à 10W en lecture vidéo continue) et un silence quasi total en régie. Cette section couvre également les nouveaux Google Books (Aluminium OS), compatibles via l'APK natif Bobine.",
         editorialNoteEn:
-          "Natively compatible with Windows 11 ARM64 (Bobine-Setup-5.0.0-arm64.exe) and Linux ARM64 (bobine_5.0.0_arm64.deb). Qualcomm Snapdragon X chips (Oryon ARM64 architecture) deliver record-breaking energy efficiency (5W to 10W during continuous video playback) and near-total silence in the control room. This section also covers the new Google Books (Aluminium OS), supported via the native Bobine APK.",
+          "Natively compatible with Windows 11 ARM64 (Bobine-Setup-x.y.z-arm64.exe) and Linux ARM64 (bobine_x.y.z_arm64.deb). Qualcomm Snapdragon X chips (Oryon ARM64 architecture) deliver record-breaking energy efficiency (5W to 10W during continuous video playback) and near-total silence in the control room. This section also covers the new Google Books (Aluminium OS), supported via the native Bobine APK.",
         tiers: {
           essentiel: {
             id: "essentiel",
@@ -1535,7 +1536,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
                 name: "Lenovo IdeaPad Slim 3 15Q8X10 15,3\" WUXGA Copilot+ (Qualcomm Snapdragon X X1-26-100 8 cœurs, 16 Go LPDDR5x, 512 Go SSD, Windows 11 ARM)",
                 category: "uc",
                 specs: "Snapdragon X X1-26-100 8 cœurs · NPU 45 TOPS · 16 Go LPDDR5x · 512 Go SSD · Écran 15,3\" WUXGA",
-                description: "Point d'entrée Snapdragon X avec 16 Go de mémoire vive LPDDR5x : lance nativement Bobine-Setup-5.0.0-arm64.exe avec une consommation minimale en diffusion continue.",
+                description: "Point d'entrée Snapdragon X avec 16 Go de mémoire vive LPDDR5x : lance nativement Bobine-Setup-x.y.z-arm64.exe avec une consommation minimale en diffusion continue.",
                 imageUrl: "/images/hardware/laptop-lenovo-ideapad-slim3-arm.webp",
                 asin: "B0F548517S",
                 amazonUrl: buildProductUrl("B0F548517S"),
@@ -1731,9 +1732,9 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
         targetEn: "Low-power Linux ARM64 playout rooms, 24/7 connected studios and NVIDIA DGX Spark workstations",
         defaultTier: "recommande",
         editorialNoteFr:
-          "Déploiement natif sous Linux ARM64 via le paquet officiel bobine_5.0.0_arm64.deb, le dépôt apt.bobine.fit, le script install.sh et le binaire bobine-assistant-arm64. Compatible nativement avec les stations NVIDIA DGX Spark (puce Grace Blackwell GB10) sous DGX OS (Ubuntu ARM64).",
+          "Déploiement natif sous Linux ARM64 via le paquet officiel bobine_x.y.z_arm64.deb, le dépôt apt.bobine.fit, le script install.sh et le binaire bobine-assistant-arm64. Compatible nativement avec les stations NVIDIA DGX Spark (puce Grace Blackwell GB10) sous DGX OS (Ubuntu ARM64).",
         editorialNoteEn:
-          "Native deployment on Linux ARM64 via the official bobine_5.0.0_arm64.deb package, the apt.bobine.fit repository, the install.sh script, and the bobine-assistant-arm64 binary. Natively compatible with NVIDIA DGX Spark workstations (Grace Blackwell GB10 chip) running DGX OS (Ubuntu ARM64).",
+          "Native deployment on Linux ARM64 via the official bobine_x.y.z_arm64.deb package, the apt.bobine.fit repository, the install.sh script, and the bobine-assistant-arm64 binary. Natively compatible with NVIDIA DGX Spark workstations (Grace Blackwell GB10 chip) running DGX OS (Ubuntu ARM64).",
         tiers: {
           essentiel: {
             id: "essentiel",
@@ -1777,7 +1778,7 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
                 name: "Raspberry Pi 5 Kit de démarrage 8 Go — Édition Ultra 128 Go (Alim 45W USB-C, Boîtier ventilé, Câble Micro-HDMI 4K)",
                 category: "uc",
                 specs: "Broadcom BCM2712 Cortex-A76 Quad-Core 2,4 GHz · 8 Go RAM · 128 Go · Alim 45W USB-C · Boîtier ventilé",
-                description: "Appliance ARM64 compacte et complète : exécute nativement le paquet bobine_5.0.0_arm64.deb sous Debian/Ubuntu ARM64 avec une consommation électrique dérisoire.",
+                description: "Appliance ARM64 compacte et complète : exécute nativement le paquet bobine_x.y.z_arm64.deb sous Debian/Ubuntu ARM64 avec une consommation électrique dérisoire.",
                 imageUrl: "/images/hardware/arm-rpi5-kit-ultra.webp",
                 asin: "B0GXJVBZGV",
                 amazonUrl: buildProductUrl("B0GXJVBZGV"),
@@ -2156,8 +2157,8 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
             labelEn: "Essential",
             headlineFr: "Xiaomi TV Box S 2nd Gen + Clé USB 64 Go",
             headlineEn: "Xiaomi TV Box S 2nd Gen + 64GB USB Flash Drive",
-            summaryFr: "Solution économique pour transformer un téléviseur ou vidéoprojecteur en régie Bobine Kiosque, avec clé USB 64 Go. Vérifiez qu'Android 14 est installé avant Bobine.",
-            summaryEn: "Budget setup to turn any TV or projector into a Bobine Kiosk playout, with 64GB USB storage. Check that Android 14 is installed before Bobine.",
+            summaryFr: `Solution économique pour transformer un téléviseur ou vidéoprojecteur en régie Bobine Kiosque, avec clé USB 64 Go. Vérifiez qu'Android ${ANDROID.minVersion} est installé avant Bobine.`,
+            summaryEn: `Budget setup to turn any TV or projector into a Bobine Kiosk playout, with 64GB USB storage. Check that Android ${ANDROID.minVersion} is installed before Bobine.`,
             powerWatts: "5W - 8W",
             resolution: "4K HDR",
             alternativeUnits: [googleTvStreamer("alt-tv-essentiel")],

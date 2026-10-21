@@ -25,11 +25,10 @@ function channelDownloads(tag: string, fileVersion: string): ReleaseChannelInfo[
 }
 
 export const FALLBACK_STABLE: ReleaseChannelInfo = {
-  version: "V5.0.0",
-  title:
-    "Bobine V5.0.0 « Orchidée » — Support Natif PC ARM64 (Snapdragon, Windows ARM, Linux ARM), Google Books, Trois Canaux de Mise à Jour & Sous-titres",
-  publishedAt: "2026-10-17T09:00:00Z",
-  downloads: channelDownloads("V5.0.0", "5.0.0"),
+  version: "V5.0.2",
+  title: "Bobine V5.0.2",
+  publishedAt: "2026-10-20T07:21:23Z",
+  downloads: channelDownloads("V5.0.2", "5.0.2"),
 };
 
 // Canal curé, publié manuellement par lots (job release-beta du dépôt Bobine).

@@ -93,7 +93,7 @@ export default function HardwareAccessoriesGrid({
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                boxShadow: "0 1px 4px rgba(0, 0, 0, 0.03)",
+                boxShadow: "0 1px 4px color-mix(in srgb, var(--ink) 3%, transparent)",
               }}
             >
               <div>

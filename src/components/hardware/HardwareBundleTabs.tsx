@@ -278,7 +278,7 @@ export default function HardwareBundleTabs({
           border: "1px solid var(--border-subtle)",
           borderRadius: "0.75rem",
           padding: "1.5rem",
-          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
+          boxShadow: "0 2px 8px color-mix(in srgb, var(--ink) 4%, transparent)",
         }}
       >
         <div
@@ -797,7 +797,7 @@ export default function HardwareBundleTabs({
                 color: isActive ? "var(--text-heading)" : "var(--text-muted)",
                 cursor: isEnabled ? "pointer" : "not-allowed",
                 opacity: isEnabled ? 1 : 0.55,
-                boxShadow: isActive ? "0 2px 8px rgba(0,0,0,0.06)" : "none",
+                boxShadow: isActive ? "0 2px 8px color-mix(in srgb, var(--ink) 6%, transparent)" : "none",
                 transition: "all 0.15s ease",
               }}
             >

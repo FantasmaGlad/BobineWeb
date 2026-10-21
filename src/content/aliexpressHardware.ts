@@ -1191,7 +1191,7 @@ const ARM_MINIPC_TIERS: Record<TierKey, HardwareTier> = {
       ali("1005010530220745", "arm-ali-ess", {
         name: "Raspberry Pi 5 BCM2712 Quad-Core Arm Cortex-A76 2,4 GHz (Options 4 Go / 8 Go)",
         specs: "Broadcom BCM2712 Cortex-A76 64 bits 2,4 GHz · Double Micro-HDMI 4K60 · Gigabit Ethernet · PCIe 2.0",
-        description: "Exécute nativement le paquet bobine_5.0.0_arm64.deb sous Raspberry Pi OS / Debian ARM64. Choisissez la variante 8 Go sur la fiche vendeur.",
+        description: "Exécute nativement le paquet bobine_x.y.z_arm64.deb sous Raspberry Pi OS / Debian ARM64. Choisissez la variante 8 Go sur la fiche vendeur.",
         hasFan: false,
       }),
       ethernetUgreen("arm-ali-ess"),
@@ -1310,13 +1310,13 @@ const armMiniPc: HardwareFormFactor = {
   titleEn: "ARM64 Mini PCs & Workstations",
   subtitleFr: "Cartes et kits Linux ARM64 (Raspberry Pi 5, RK3588) ultra-sobres pour régie 24/7",
   subtitleEn: "Ultra-efficient Linux ARM64 boards and kits (Raspberry Pi 5, RK3588) for 24/7 playout",
-  targetFr: "Régies Linux ARM64 basse consommation compatibles avec bobine_5.0.0_arm64.deb",
-  targetEn: "Low-power Linux ARM64 control rooms compatible with bobine_5.0.0_arm64.deb",
+  targetFr: "Régies Linux ARM64 basse consommation compatibles avec bobine_x.y.z_arm64.deb",
+  targetEn: "Low-power Linux ARM64 control rooms compatible with bobine_x.y.z_arm64.deb",
   defaultTier: "recommande",
   editorialNoteFr:
-    "Installation native sous Linux ARM64 via bobine_5.0.0_arm64.deb, le dépôt apt.bobine.fit et bobine-assistant-arm64 (également compatible avec NVIDIA DGX Spark sous DGX OS Ubuntu ARM64). Pour les PC portables Qualcomm Snapdragon X Elite/Plus sous Windows 11 ARM64 et les stations NVIDIA Jetson Orin Nano Super, consultez l'onglet Amazon.",
+    "Installation native sous Linux ARM64 via bobine_x.y.z_arm64.deb, le dépôt apt.bobine.fit et bobine-assistant-arm64 (également compatible avec NVIDIA DGX Spark sous DGX OS Ubuntu ARM64). Pour les PC portables Qualcomm Snapdragon X Elite/Plus sous Windows 11 ARM64 et les stations NVIDIA Jetson Orin Nano Super, consultez l'onglet Amazon.",
   editorialNoteEn:
-    "Native installation on Linux ARM64 via bobine_5.0.0_arm64.deb, the apt.bobine.fit repository and bobine-assistant-arm64 (also compatible with NVIDIA DGX Spark on DGX OS Ubuntu ARM64). For Qualcomm Snapdragon X Elite/Plus laptops running Windows 11 ARM64 and NVIDIA Jetson Orin Nano Super stations, check the Amazon tab.",
+    "Native installation on Linux ARM64 via bobine_x.y.z_arm64.deb, the apt.bobine.fit repository and bobine-assistant-arm64 (also compatible with NVIDIA DGX Spark on DGX OS Ubuntu ARM64). For Qualcomm Snapdragon X Elite/Plus laptops running Windows 11 ARM64 and NVIDIA Jetson Orin Nano Super stations, check the Amazon tab.",
   tiers: ARM_MINIPC_TIERS,
 };
 

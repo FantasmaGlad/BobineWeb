@@ -6,6 +6,7 @@ import { IS_ONION } from "@/lib/onion";
 import { buildMetadata, lp } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import BobineChatbot from "@/components/BobineChatbot";
+import { CLEARNET_URL } from "@/lib/onion";
 
 const copy = {
   fr: {
@@ -172,7 +173,7 @@ export default async function BaamixPage({ params }: { params: Promise<{ locale:
     isAccessibleForFree: true,
     offers: { "@type": "Offer", price: "0.00", priceCurrency: "EUR" },
     featureList: [...t.can],
-    isPartOf: { "@type": "SoftwareApplication", name: "Bobine Fit", url: "https://bobine.fit" },
+    isPartOf: { "@type": "SoftwareApplication", name: "Bobine Fit", url: CLEARNET_URL },
     creator: {
       "@type": "Person",
       name: "Clément Barillot",

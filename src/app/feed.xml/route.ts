@@ -1,10 +1,11 @@
 import { getBobineReleases } from "@/lib/github-releases";
+import { CLEARNET_URL } from "@/lib/onion";
 
 export const dynamic = "force-static";
 // Même fenêtre que GITHUB_REVALIDATE_SECONDS : Next.js exige une valeur littérale ici.
 export const revalidate = 120;
 
-const BASE_URL = "https://bobine.fit";
+const BASE_URL = CLEARNET_URL;
 
 function escapeXml(value: string): string {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");

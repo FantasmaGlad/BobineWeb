@@ -1,26 +1,30 @@
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
-import { lp } from "@/lib/seo";
-import { LANDING_PAGES, getLanding, type LandingId } from "@/content/landing";
+import { lp, SITE_NAME, AUTHOR_NAME } from "@/lib/seo";
+import { CLEARNET_URL } from "@/lib/onion";
+import { OPERATING_SYSTEMS, REQUIREMENTS, ANDROID, type PlatformId } from "@/lib/productFacts";
+import { LANDING_PAGES, LANDING_COMMON, getLanding, type LandingId } from "@/content/landing";
 import { getRepoStats } from "@/lib/releaseChannels";
 import { getBobineReleases } from "@/lib/github-releases";
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import FaqJsonLd from "@/components/FaqJsonLd";
+import LandingDownload, { type LandingChannelData } from "@/components/LandingDownload";
+import "@/styles/split/landing.css";
 
-const BASE_URL = "https://bobine.fit";
+const BASE_URL = CLEARNET_URL;
 const CHANNELS = ["stable", "beta", "canary"] as const;
-type Channel = (typeof CHANNELS)[number];
 
-const CARD: React.CSSProperties = {
-  background: "var(--bg-surface)",
-  border: "1px solid var(--border-subtle)",
-  borderRadius: "0.85rem",
-  padding: "1.5rem",
+/** Plateforme proposée quand l'appareil du visiteur n'est pas reconnu. */
+const FALLBACK_PLATFORM: Partial<Record<LandingId, PlatformId>> = {
+  "android-tv": "android-tv",
+  "google-book": "android",
+  tor: "linux",
 };
-const H2: React.CSSProperties = { fontSize: "1.45rem", fontWeight: 700, color: "var(--text-heading)", marginBottom: "1rem" };
-const TH: React.CSSProperties = { textAlign: "left", padding: "0.6rem 0.75rem", fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.04em", color: "var(--text-muted)", borderBottom: "1px solid var(--border-subtle)" };
-const TD: React.CSSProperties = { padding: "0.65rem 0.75rem", fontSize: "0.95rem", color: "var(--text-body)", borderBottom: "1px solid var(--border-subtle)" };
+/** Plateformes détaillées dans « Configuration requise » : celle de la page d'abord. */
+const DOWNLOAD_KEY = { windows: "windows", macos: "macos", linux: "linux", android: "android", "android-tv": "androidTv" } as const;
+const REQUIREMENT_ORDER: PlatformId[] = ["windows", "macos", "linux", "android", "android-tv"];
+type Channel = (typeof CHANNELS)[number];
 
 function formatDate(iso: string, locale: Locale): string {
   const d = new Date(iso);
@@ -34,56 +38,9 @@ function channelLabel(channel: Channel, isEn: boolean): string {
   return "Canary";
 }
 
-function fileName(url: string): string {
-  return decodeURIComponent(url.split("/").pop() ?? url);
-}
-
 /** Version lisible d'un canal : numéro pour la Stable, tag et commit pour les canaux mobiles. */
 function versionOf(info: ReleaseChannelInfo): string {
   return info.commit ? `${info.version} (${info.commit})` : info.version;
-}
-
-function DownloadRows({ rows, isEn }: { rows: Array<{ label: string; url?: string }>; isEn: boolean }) {
-  return (
-    <div style={{ overflowX: "auto" }}>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr>
-            <th scope="col" style={TH}>{isEn ? "Platform" : "Plateforme"}</th>
-            <th scope="col" style={TH}>{isEn ? "File" : "Fichier"}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.filter((r) => r.url).map((r) => (
-            <tr key={r.label}>
-              <td style={TD}>{r.label}</td>
-              <td style={TD}>
-                <a href={r.url} rel="noopener noreferrer" style={{ color: "var(--accent-primary)", fontWeight: 600 }}>
-                  {fileName(r.url!)}
-                </a>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-function channelRows(info: ReleaseChannelInfo, isEn: boolean) {
-  const d = info.downloads;
-  return [
-    { label: "Windows x86-64", url: d.windows },
-    { label: "Windows ARM64", url: d.windowsArm64 },
-    { label: isEn ? "Linux .deb amd64" : "Linux .deb amd64", url: d.linux },
-    { label: isEn ? "Linux .deb arm64" : "Linux .deb arm64", url: d.linuxArm64 },
-    { label: "macOS Apple Silicon", url: d.macos },
-    { label: isEn ? "Android (tablets, Google Book)" : "Android (tablettes, Google Book)", url: d.android },
-    { label: "Android TV", url: d.androidTv },
-    { label: "Bobine Assistant", url: d.assistant },
-    { label: "Bobine Assistant ARM64", url: d.assistantArm64 },
-    { label: isEn ? "Installer script" : "Script d'installation", url: d.installScript },
-  ];
 }
 
 export default async function LandingPage({ locale, id }: { locale: Locale; id: LandingId }) {
@@ -93,6 +50,14 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
   const [stats, releases] = await Promise.all([getRepoStats(), getBobineReleases()]);
   const infos: Record<Channel, ReleaseChannelInfo> = { stable: stats.stable, beta: stats.beta, canary: stats.canary };
   const channel = page.channel;
+  const common = LANDING_COMMON[locale];
+  const channelsData = Object.fromEntries(
+    CHANNELS.map((ch) => [ch, { label: channelLabel(ch, isEn), version: versionOf(infos[ch]), downloads: infos[ch].downloads }]),
+  ) as Record<Channel, LandingChannelData>;
+  const fallbackPlatform = FALLBACK_PLATFORM[id] ?? "windows";
+  // Les pages de canal expliquent déjà les mises à jour : seul le contrôle d'intégrité s'y ajoute.
+  const commonBlocks = id.startsWith("canal") ? [common.verify] : [common.verify, common.update];
+  const requirementIds = [fallbackPlatform, ...REQUIREMENT_ORDER.filter((p) => p !== fallbackPlatform)];
 
   // Date de dernière mise à jour affichée et publiée en JSON-LD : celle de la release concernée.
   const reference = channel ? infos[channel] : stats.stable;
@@ -117,76 +82,78 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
     url,
     inLanguage: locale,
     dateModified: updated,
-    author: { "@type": "Person", name: "Clément Barillot", url: `${BASE_URL}/${locale}${isEn ? "/about" : "/a-propos"}` },
-    publisher: { "@type": "Organization", name: "Bobine Fit", url: BASE_URL, logo: `${BASE_URL}/icon.png` },
-    isPartOf: { "@type": "WebSite", name: "Bobine Fit", url: BASE_URL },
+    author: { "@type": "Person", name: AUTHOR_NAME, url: `${BASE_URL}/${locale}${isEn ? "/about" : "/a-propos"}` },
+    publisher: { "@type": "Organization", name: SITE_NAME, url: BASE_URL, logo: `${BASE_URL}/icon.png` },
+    isPartOf: { "@type": "WebSite", name: SITE_NAME, url: BASE_URL },
   };
-  const appSchema = channel
-    ? {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        name: `Bobine ${channelLabel(channel, isEn)}`,
-        applicationCategory: "MultimediaApplication",
-        operatingSystem: "Windows, macOS, Linux, Android, Android TV",
-        softwareVersion: infos[channel].version,
-        dateModified: updated,
-        downloadUrl: infos[channel].downloads.windows,
-        license: "https://www.gnu.org/licenses/agpl-3.0.html",
-        url,
-        offers: { "@type": "Offer", price: "0.00", priceCurrency: "EUR" },
-      }
-    : null;
+  const schemaChannel: Channel = channel ?? "stable";
+  const appSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: `Bobine ${channel ? channelLabel(channel, isEn) : c.breadcrumb}`,
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: OPERATING_SYSTEMS.join(", "),
+    softwareRequirements: requirementIds.map((p) => REQUIREMENTS[p][isEn ? "en" : "fr"]).join(" "),
+    softwareVersion: infos[schemaChannel].version,
+    dateModified: updated,
+    downloadUrl: infos[schemaChannel].downloads[DOWNLOAD_KEY[fallbackPlatform]] ?? infos[schemaChannel].downloads.windows,
+    license: "https://www.gnu.org/licenses/agpl-3.0.html",
+    url,
+    offers: { "@type": "Offer", price: "0.00", priceCurrency: "EUR" },
+  };
 
   return (
-    <div className="container" style={{ paddingBottom: "2rem" }}>
+    <div className="container landing">
       <BreadcrumbsJsonLd items={breadcrumbs} />
       <FaqJsonLd items={c.faq.map((f) => ({ ...f, category: "updates" as const }))} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
-      {appSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
 
-      <nav aria-label={isEn ? "Breadcrumb" : "Fil d'Ariane"} style={{ fontSize: "0.85rem", color: "var(--text-muted)", paddingTop: "0.5rem" }}>
+      <nav aria-label={isEn ? "Breadcrumb" : "Fil d'Ariane"} className="landing-breadcrumb">
         {breadcrumbs.map((b, i) => (
           <span key={b.url}>
             {i > 0 && " / "}
-            {i < breadcrumbs.length - 1 ? <Link href={b.url} style={{ color: "var(--text-muted)" }}>{b.name}</Link> : <span aria-current="page">{b.name}</span>}
+            {i < breadcrumbs.length - 1 ? <Link href={b.url}>{b.name}</Link> : <span aria-current="page">{b.name}</span>}
           </span>
         ))}
       </nav>
 
-      <header style={{ paddingTop: "1rem", paddingBottom: "2rem", maxWidth: "860px" }}>
-        <h1 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.75rem)", fontWeight: 800, marginBottom: "1rem", color: "var(--text-heading)", lineHeight: 1.2 }}>
+      <header className="landing-header">
+        <h1 className="landing-title">
           {c.h1}
         </h1>
-        <p style={{ fontSize: "1.1rem", color: "var(--text-muted)", lineHeight: 1.6 }}>{c.lead}</p>
+        <p className="landing-lead">{c.lead}</p>
         {updated && (
-          <p style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
+          <p className="landing-updated">
             {isEn ? "Updated" : "Mis à jour"} : <time dateTime={updated.slice(0, 10)}>{formatDate(updated, locale)}</time>
           </p>
         )}
       </header>
 
+      <LandingDownload locale={locale} channels={channelsData} lockedChannel={channel} fallback={fallbackPlatform} />
+
       {id === "canaux" || id === "nouveautes" ? (
-        <section style={{ ...CARD, marginBottom: "2.5rem", maxWidth: "860px" }}>
-          <h2 style={H2}>{isEn ? "Current versions" : "Versions en cours"}</h2>
-          <div style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+        <section className="landing-card landing-section">
+          <h2 className="landing-h2">{isEn ? "Current versions" : "Versions en cours"}</h2>
+          <div className="landing-table-wrap">
+            <table className="landing-table">
               <thead>
                 <tr>
-                  <th scope="col" style={TH}>{isEn ? "Channel" : "Canal"}</th>
-                  <th scope="col" style={TH}>Version</th>
-                  <th scope="col" style={TH}>{isEn ? "Published" : "Publiée le"}</th>
+                  <th scope="col">{isEn ? "Channel" : "Canal"}</th>
+                  <th scope="col">Version</th>
+                  <th scope="col">{isEn ? "Published" : "Publiée le"}</th>
                 </tr>
               </thead>
               <tbody>
                 {CHANNELS.map((ch) => (
                   <tr key={ch}>
-                    <td style={TD}>
-                      <Link href={lp(locale, `/canaux/${ch}`)} style={{ color: "var(--accent-primary)", fontWeight: 600 }}>
+                    <td>
+                      <Link href={lp(locale, `/canaux/${ch}`)} className="landing-link">
                         {`Bobine ${channelLabel(ch, isEn)}`}
                       </Link>
                     </td>
-                    <td style={TD}>{versionOf(infos[ch])}</td>
-                    <td style={TD}>{formatDate(infos[ch].publishedAt, locale)}</td>
+                    <td>{versionOf(infos[ch])}</td>
+                    <td>{formatDate(infos[ch].publishedAt, locale)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -195,67 +162,42 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
         </section>
       ) : null}
 
-      {channel && (
-        <section style={{ ...CARD, marginBottom: "2.5rem", maxWidth: "860px" }}>
-          <h2 style={H2}>
-            {isEn ? `Download Bobine ${channelLabel(channel, isEn)}` : `Télécharger Bobine ${channelLabel(channel, isEn)}`}
-          </h2>
-          <p style={{ color: "var(--text-muted)", marginTop: 0 }}>
-            {isEn ? "Version" : "Version"} : <strong>{versionOf(infos[channel])}</strong>
-          </p>
-          <DownloadRows isEn={isEn} rows={channelRows(infos[channel], isEn)} />
-        </section>
-      )}
-
-      {(id === "android-tv" || id === "google-book") && (
-        <section style={{ ...CARD, marginBottom: "2.5rem", maxWidth: "860px" }}>
-          <h2 style={H2}>{isEn ? "Download" : "Téléchargement"}</h2>
-          <DownloadRows
-            isEn={isEn}
-            rows={CHANNELS.map((ch) => ({
-              label: `${id === "android-tv" ? "Android TV" : "Android"} - ${channelLabel(ch, isEn)} (${versionOf(infos[ch])})`,
-              url: id === "android-tv" ? infos[ch].downloads.androidTv : infos[ch].downloads.android,
-            }))}
-          />
-        </section>
-      )}
-
       {id === "nouveautes" && (
-        <section style={{ ...CARD, marginBottom: "2.5rem", maxWidth: "860px" }}>
-          <h2 style={H2}>{isEn ? "Latest releases" : "Dernières versions publiées"}</h2>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+        <section className="landing-card landing-section">
+          <h2 className="landing-h2">{isEn ? "Latest releases" : "Dernières versions publiées"}</h2>
+          <ul className="landing-releases">
             {releases
               .filter((r) => !r.isPrerelease)
               .slice(0, 8)
               .map((r) => (
                 <li key={r.slug}>
-                  <Link href={`/${locale}/blog/${r.slug}`} style={{ color: "var(--accent-primary)", fontWeight: 600 }}>
+                  <Link href={`/${locale}/blog/${r.slug}`} className="landing-link">
                     {r.slug}
                   </Link>
                   {r.publishedAt ? ` - ${formatDate(r.publishedAt, locale)}` : ""}
-                  <div style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>{r.title}</div>
+                  <small>{r.title}</small>
                 </li>
               ))}
           </ul>
         </section>
       )}
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", marginBottom: "3rem", maxWidth: "860px" }}>
+      <div className="landing-stack">
         {c.sections.map((s) => (
-          <article key={s.heading} style={CARD}>
-            <h2 style={H2}>{s.heading}</h2>
+          <article key={s.heading} className="landing-card">
+            <h2 className="landing-h2">{s.heading}</h2>
             {s.paragraphs?.map((p) => (
-              <p key={p} style={{ color: "var(--text-body)", lineHeight: 1.65 }}>{p}</p>
+              <p key={p} className="landing-prose">{p}</p>
             ))}
             {s.bullets && (
-              <ul style={{ color: "var(--text-body)", lineHeight: 1.65, paddingLeft: "1.25rem", margin: 0 }}>
+              <ul className="landing-list">
                 {s.bullets.map((b) => (
-                  <li key={b} style={{ marginBottom: "0.4rem", wordBreak: "break-word" }}>{b}</li>
+                  <li key={b}>{b}</li>
                 ))}
               </ul>
             )}
             {s.code && (
-              <pre style={{ background: "var(--bg-code, rgba(0,0,0,0.06))", borderRadius: "0.5rem", padding: "0.9rem 1rem", overflowX: "auto", fontSize: "0.85rem", margin: "0.75rem 0 0" }}>
+              <pre className="landing-code">
                 <code>{s.code}</code>
               </pre>
             )}
@@ -263,24 +205,58 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
         ))}
       </div>
 
-      <section style={{ marginBottom: "3rem", maxWidth: "860px" }}>
-        <h2 style={H2}>{isEn ? "Frequently asked questions" : "Questions fréquentes"}</h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+      <section className="landing-card landing-section" aria-labelledby="landing-req-title">
+        <h2 id="landing-req-title" className="landing-h2">{common.requirementsTitle}</h2>
+        <div className="landing-table-wrap">
+          <table className="landing-table">
+            <thead>
+              <tr>
+                <th scope="col">{isEn ? "Platform" : "Plateforme"}</th>
+                <th scope="col">{isEn ? "Requirement" : "Configuration"}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {requirementIds.map((p) => (
+                <tr key={p}>
+                  <td>{REQUIREMENTS[p].name}</td>
+                  <td>{REQUIREMENTS[p][isEn ? "en" : "fr"]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="landing-note">{common.requirementsNote(ANDROID.minVersion)}</p>
+      </section>
+
+      <div className="landing-stack">
+        {commonBlocks.map((b) => (
+          <article key={b.heading} className="landing-card">
+            <h2 className="landing-h2">{b.heading}</h2>
+            {b.paragraphs.map((para) => (
+              <p key={para} className="landing-prose">{para}</p>
+            ))}
+          </article>
+        ))}
+      </div>
+
+      <section className="landing-section">
+        <h2 className="landing-h2">{isEn ? "Frequently asked questions" : "Questions fréquentes"}</h2>
+        <div className="landing-faq">
           {c.faq.map((item) => (
-            <details key={item.q} style={{ ...CARD, padding: "1rem 1.25rem" }}>
-              <summary style={{ fontWeight: 600, fontSize: "1.05rem", color: "var(--text-heading)", cursor: "pointer" }}>{item.q}</summary>
-              <p style={{ margin: "0.75rem 0 0", color: "var(--text-body)", lineHeight: 1.6 }}>{item.a}</p>
+            <details key={item.q} className="landing-card">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
             </details>
           ))}
         </div>
       </section>
 
-      <nav aria-label={isEn ? "Related pages" : "Pages liées"} style={{ marginBottom: "3rem", maxWidth: "860px" }}>
-        <h2 style={H2}>{isEn ? "Related pages" : "Pages liées"}</h2>
-        <ul style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem 1.5rem", listStyle: "none", padding: 0, margin: 0 }}>
+      <nav aria-label={isEn ? "Related pages" : "Pages liées"} className="landing-section">
+        <h2 className="landing-h2">{isEn ? "Related pages" : "Pages liées"}</h2>
+        <ul className="landing-related">
           {c.related.map((l) => (
             <li key={l.path}>
-              <Link href={lp(locale, l.path)} style={{ color: "var(--accent-primary)", fontWeight: 600 }}>{l.label}</Link>
+              <Link href={lp(locale, l.path)} className="landing-link">{l.label}</Link>
             </li>
           ))}
         </ul>

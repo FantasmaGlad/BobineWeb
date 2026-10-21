@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import PdfIcon from "@/components/icons/PdfIcon";
 import { generateDocumentationPdf } from "@/lib/pdf/generate";
+import { useReleaseData } from "@/components/ReleaseProvider";
 
 export default function DownloadPdfButton({
   locale,
@@ -15,6 +16,7 @@ export default function DownloadPdfButton({
   variant?: "chapter" | "manual";
 }) {
   const isEn = locale === "en";
+  const version = useReleaseData()?.stable.version;
   const [isGenerating, setIsGenerating] = useState(false);
   const [hasError, setHasError] = useState(false);
 
@@ -23,7 +25,7 @@ export default function DownloadPdfButton({
     try {
       setIsGenerating(true);
       setHasError(false);
-      await generateDocumentationPdf({ locale, chapterId });
+      await generateDocumentationPdf({ locale, chapterId, version });
     } catch (err) {
       console.error("Failed to generate PDF:", err);
       setHasError(true);

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getRepoStats } from "@/lib/releaseChannels";
+import { CLEARNET_URL } from "@/lib/onion";
 
 export const dynamic = "force-static";
 // Même fenêtre que GITHUB_REVALIDATE_SECONDS : Next.js exige une valeur littérale ici.
@@ -21,7 +22,7 @@ export async function GET() {
   return NextResponse.json(
     {
       name: "Bobine",
-      homepage: "https://bobine.fit",
+      homepage: CLEARNET_URL,
       repository: "https://github.com/FantasmaGlad/Bobine",
       license: "AGPL-3.0",
       latest_stable: stats.stable.version,

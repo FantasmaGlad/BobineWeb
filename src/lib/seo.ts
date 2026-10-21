@@ -3,7 +3,13 @@ import { type Locale } from "./i18n";
 import { IS_ONION } from "./onion";
 import { EN_SLUG_MAP } from "./slugs";
 
-const BASE_URL = "https://bobine.fit";
+import { CLEARNET_URL } from "./onion";
+
+const BASE_URL = CLEARNET_URL;
+
+/** Identité du site pour les données structurées. */
+export const SITE_NAME = "Bobine Fit";
+export const AUTHOR_NAME = "Clément Barillot";
 
 export interface SeoProps {
   locale: Locale;

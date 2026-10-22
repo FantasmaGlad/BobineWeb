@@ -15,9 +15,6 @@ export const ANDROID = {
 /** Systèmes d'exploitation déclarés dans les données structurées. */
 export const OPERATING_SYSTEMS = ["Windows", "macOS", "Linux", "Android", "Android TV"] as const;
 
-/** « x.y.z » : emplacement de la version dans un nom de fichier cité en exemple. */
-export const FILE_VERSION_PLACEHOLDER = "x.y.z";
-
 export type PlatformId = "windows" | "macos" | "linux" | "android" | "android-tv";
 
 /** Configuration requise par plateforme, affichée sur les pages de téléchargement et de référencement. */

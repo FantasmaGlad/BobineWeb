@@ -23,8 +23,6 @@ export const darkThemes = [
 export const themes = [...lightThemes, ...darkThemes] as const;
 
 export type Theme = (typeof themes)[number];
-export type LightTheme = (typeof lightThemes)[number];
-export type DarkTheme = (typeof darkThemes)[number];
 
 // Lavande — thème par défaut nacre irisée et améthyste profonde (clair)
 export const defaultTheme: Theme = "lavande";
@@ -36,27 +34,6 @@ const LEGACY_THEME_MAP: Record<string, Theme> = {
   rose: "clair",
   foret: "menthe",
   abysse: "hiver",
-};
-
-export const themeLabels: Record<Theme, string> = {
-  // Thèmes Clairs
-  charbon: "Charbon",
-  clair: "Carmin",
-  miel: "Ambre",
-  menthe: "Sauge",
-  ciel: "Azur",
-  lavande: "Lavande",
-  beige: "Sable",
-  coco: "Cacao",
-  // Thèmes Sombres
-  "les-mills-sombre": "Onyx",
-  "charbon-sombre": "Graphite",
-  automne: "Cuivre",
-  hiver: "Abysse",
-  lune: "Indigo",
-  chili: "Rubis",
-  orchidee: "Orchidée",
-  taupe: "Moka",
 };
 
 export interface ThemeMeta {

@@ -9,6 +9,7 @@ import HardwareBundleTabs from "@/components/hardware/HardwareBundleTabs";
 import HardwareCartBar from "@/components/hardware/HardwareCartBar";
 import { ALIEXPRESS_ENABLED_OS, ALIEXPRESS_UNAVAILABLE_OS } from "@/content/aliexpressHardware";
 import { getAliexpressCatalog } from "@/lib/aliexpress/catalog";
+import "@/styles/split/pages-hardware.css";
 
 export async function generateMetadata({
   params,
@@ -57,7 +58,7 @@ export default async function HardwareAliexpressPage({
   ];
 
   return (
-    <div className="container" style={{ maxWidth: "82rem", paddingBottom: "3rem" }}>
+    <div className="container hw-div-1">
       <BreadcrumbsJsonLd items={breadcrumbs} />
       <HardwareBundleTabs
         locale={currentLocale}

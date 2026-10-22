@@ -37,7 +37,7 @@ verify_apt() {
     gpg --homedir "$gh" --batch --with-colons --fingerprint | grep -q "^fpr:::::::::${APT_FPR}:" \
       || { log "empreinte de la cle inattendue"; exit 1; }
     seen=0
-    for d in stable beta; do
+    for d in stable beta canary; do
       if [ -f "$dir/dists/$d/InRelease" ]; then
         gpg --homedir "$gh" --batch --quiet --verify "$dir/dists/$d/InRelease" 2>/dev/null \
           || { log "signature invalide : dists/$d/InRelease"; exit 1; }

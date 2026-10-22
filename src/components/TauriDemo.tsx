@@ -70,6 +70,31 @@ const DEMO_DEVICES = [
   },
 ] as const;
 
+type Channel = "stable" | "beta" | "canary";
+const CHANNELS: Channel[] = ["stable", "beta", "canary"];
+
+// Textes repris de l'assistant réel (assistant/ui/index.html, étape « Options »).
+const CHANNEL_META: Record<Channel, { label: { fr: string; en: string }; desc: { fr: string; en: string } }> = {
+  stable: {
+    label: { fr: "Stable", en: "Stable" },
+    desc: { fr: "Releases taguées et vérifiées. Recommandé.", en: "Tagged, verified releases. Recommended." },
+  },
+  beta: {
+    label: { fr: "Bêta", en: "Beta" },
+    desc: {
+      fr: "Lots de fonctionnalités sélectionnés avant publication. Une version stable équivalente ou plus récente remplace toujours automatiquement la Bêta.",
+      en: "Feature batches picked before release. An equivalent or newer stable always replaces the Beta automatically.",
+    },
+  },
+  canary: {
+    label: { fr: "Canary", en: "Canary" },
+    desc: {
+      fr: "Tout dernier commit de main, non testé, toujours le plus à jour. Une version stable équivalente ou plus récente remplace toujours automatiquement la Canary.",
+      en: "Latest commit of main, untested, always the most up to date. An equivalent or newer stable always replaces the Canary automatically.",
+    },
+  },
+};
+
 export default function TauriDemo({ locale }: TauriDemoProps) {
   const isEn = locale === "en";
 
@@ -89,8 +114,8 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
 
   // Étape 4 : Options
   const [kioskEnabled, setKioskEnabled] = useState<boolean>(true);
-  const [mockEnabled, setMockEnabled] = useState<boolean>(true);
-  const [betaChannel, setBetaChannel] = useState<boolean>(false);
+  const [mockEnabled, setMockEnabled] = useState<boolean>(false);
+  const [channel, setChannel] = useState<Channel>("stable");
 
   // Étape 5 : Déploiement
   const [deployStepIndex, setDeployStepIndex] = useState<number>(0);
@@ -125,16 +150,16 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
     setWizardStep(5);
     setDeployStepIndex(0);
     setDeployPct(5);
-    const channelFlag = betaChannel ? "--channel=beta" : "--channel=stable";
+    const channelFlag = `--channel=${channel}`;
     setDeployLogs([
       "[SYS] Session SSH authentifiée (utilisateur 'admin')",
       "[SYS] Amorçage des privilèges sudo : OK",
       "[SYS] Envoi de l'installateur sur la cible…",
-      `[SYS] Amorçage : récupération du code (${betaChannel ? "beta" : "dernière version stable"})`,
+      `[SYS] Amorçage : récupération du code (${channel === "stable" ? "dernière version stable" : channel})`,
       `[SYS] Lancement : bash install.sh ${channelFlag} --progress=json`,
     ]);
     setIsDeployCompleted(false);
-  }, [betaChannel]);
+  }, [channel]);
 
   // Avance les étapes de déploiement
   useEffect(() => {
@@ -634,22 +659,27 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                   />
                 </label>
 
-                <label className="tauri-toggle-card">
-                  <div className="tauri-toggle-text">
-                    <span className="tauri-toggle-title">{isEn ? "Bobine Beta Program" : "Programme Bobine Beta"}</span>
-                    <span className="tauri-toggle-desc">
-                      {isEn
-                        ? "Early access to upcoming features. Automatically replaced by equivalent or newer stable. Disabled = Stable channel (recommended)."
-                        : "Accès anticipé aux fonctionnalités en cours de développement. Une version stable équivalente ou plus récente la remplace toujours. Désactivé = canal Stable (recommandé)."}
-                    </span>
-                  </div>
-                  <input
-                    type="checkbox"
-                    checked={betaChannel}
-                    onChange={(e) => setBetaChannel(e.target.checked)}
-                    className="tauri-checkbox"
-                  />
-                </label>
+                {CHANNELS.map((id) => (
+                  <label key={id} className={`tauri-toggle-card ${channel === id ? "is-selected" : ""}`}>
+                    <div className="tauri-toggle-left">
+                      <img className="tauri-toggle-icon" src={`/images/channels/${id}.webp`} alt="" width={36} height={36} />
+                      <div className="tauri-toggle-text">
+                        <span className="tauri-toggle-title">
+                          {isEn ? "Update channel" : "Canal de mise à jour"} — {CHANNEL_META[id].label[isEn ? "en" : "fr"]}
+                        </span>
+                        <span className="tauri-toggle-desc">{CHANNEL_META[id].desc[isEn ? "en" : "fr"]}</span>
+                      </div>
+                    </div>
+                    <input
+                      type="radio"
+                      name="update-channel"
+                      value={id}
+                      checked={channel === id}
+                      onChange={() => setChannel(id)}
+                      className="tauri-checkbox"
+                    />
+                  </label>
+                ))}
               </div>
 
               <div className="tauri-pane-actions">

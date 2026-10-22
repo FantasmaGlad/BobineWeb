@@ -2353,7 +2353,8 @@ main {
 
 /* Corps du terminal pré-dimensionné (hauteur stable 0 tressautement) */
 .terminal-body {
-  padding: 1.15rem 1.25rem;
+  padding: 1.15rem 1.25rem 1.5rem;
+  scroll-padding-block-end: 1.5rem; /* le défilement automatique vers le bilan garde sa marge basse */
   font-family: var(--font-mono, monospace);
   font-size: 0.8rem;
   color: var(--text-body);
@@ -2471,7 +2472,7 @@ main {
   }
 
   .terminal-body {
-    padding: 0.9rem;
+    padding: 0.9rem 0.9rem 1.25rem;
     font-size: 0.76rem;
   }
 }
@@ -7111,10 +7112,12 @@ main {
   flex-direction: column;
 }
 
+/* Grandit avec son contenu (au lieu de lui imposer la hauteur de la fenêtre) : le contenu qui dépasse ne mange
+   plus le remplissage bas de la zone défilante. */
 .tauri-pane {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1 0 auto;
 }
 
 .tauri-pane-header h3 {

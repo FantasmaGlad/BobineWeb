@@ -2527,8 +2527,9 @@ main {
 .terminal-channel-prompt {
   margin-top: 0.85rem;
   padding: 0.75rem 0.95rem;
-  background: color-mix(in srgb, var(--accent-primary) 5%, var(--bg-surface));
+  background: color-mix(in srgb, var(--accent-primary) 6%, var(--glass-inset-bg));
   border: 1px solid color-mix(in srgb, var(--accent-primary) 22%, transparent);
+  box-shadow: var(--glass-edge);
   border-radius: var(--radius-md, 8px);
   display: flex;
   flex-direction: column;
@@ -2697,7 +2698,8 @@ main {
 .terminal-demo-summary-box {
   margin-top: 0.95rem;
   padding: 0.85rem 1.15rem;
-  background: color-mix(in srgb, var(--accent-success, #16a34a) 8%, var(--bg-surface));
+  background: color-mix(in srgb, var(--accent-success, #16a34a) 8%, var(--glass-inset-bg));
+  box-shadow: var(--glass-edge);
   border: 1px solid color-mix(in srgb, var(--accent-success, #16a34a) 30%, transparent);
   border-left: 4px solid var(--accent-success, #16a34a);
   border-radius: var(--radius-md, 8px);
@@ -7443,6 +7445,26 @@ main {
   border-radius: var(--radius-md, 8px);
   cursor: pointer;
   gap: 1rem;
+}
+
+.tauri-toggle-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.tauri-toggle-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm, 8px);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.tauri-toggle-card.is-selected {
+  border-color: color-mix(in srgb, var(--accent-primary) 55%, var(--glass-card-border));
+  box-shadow: var(--glass-card-highlight);
 }
 
 .tauri-toggle-title {

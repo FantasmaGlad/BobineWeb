@@ -8,8 +8,10 @@
 #
 #   curl -fsSL https://bobine.fit/install-tor.sh | bash
 #   curl -fsSL https://bobine.fit/install-tor.sh | bash -s -- --dry-run     # ne modifie rien
+#   curl -fsSL https://bobine.fit/install-tor.sh | bash -s -- --channel=beta
 #
 # Options : --dry-run   simule (télécharge et vérifie la clé, n'installe rien)
+#           --channel=stable|beta|canary   canal de mise à jour (sans l'option : question sur un terminal, sinon stable)
 #           --lang=en   messages en anglais
 #           --clearnet-key   récupère la clé sur https://apt.bobine.fit (révèle votre IP à ce serveur)
 #
@@ -21,7 +23,7 @@ KEY_DEST="/etc/apt/keyrings/bobine.gpg"
 LIST_DEST="/etc/apt/sources.list.d/bobine-onion.list"
 TOTAL=5
 
-DRY_RUN=0; CLEARNET_KEY=0; LANG_OUT="fr"
+DRY_RUN=0; CLEARNET_KEY=0; LANG_OUT="fr"; CHANNEL=""
 [[ "${LANG:-}" == en* ]] && LANG_OUT="en"
 for arg in "$@"; do
     case "$arg" in
@@ -29,7 +31,8 @@ for arg in "$@"; do
         --lang=en) LANG_OUT="en" ;;
         --lang=fr) LANG_OUT="fr" ;;
         --clearnet-key) CLEARNET_KEY=1 ;;
-        -h|--help) sed -n '2,16p' "$0" 2>/dev/null || true; exit 0 ;;
+        --channel=*) CHANNEL="${arg#*=}" ;;
+        -h|--help) sed -n '2,18p' "$0" 2>/dev/null || true; exit 0 ;;
         *) echo "Option inconnue : $arg" >&2; exit 2 ;;
     esac
 done
@@ -114,6 +117,11 @@ ART
     printf '%s  tor+http://%s%s\n\n' "$DIM" "$APT_ONION" "$RESET"
 }
 
+case "${CHANNEL,,}" in
+    ""|stable|beta|canary) CHANNEL="${CHANNEL,,}" ;;
+    *) echo "Canal inconnu : ${CHANNEL} (stable, beta ou canary)" >&2; exit 2 ;;
+esac
+
 n=0
 step() { n=$((n + 1)); printf '%s[%d/%d]%s %s%s%s\n' "$DIM" "$n" "$TOTAL" "$RESET" "$BOLD" "$1" "$RESET"; }
 ok()   { printf '      %s %s\n' "$ICON_OK" "$1"; }
@@ -127,6 +135,25 @@ run() { # exécute (ou simule) une commande privilégiée
 TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
 
 banner
+
+# Canal de mise à jour : option, sinon question sur un vrai terminal, sinon stable.
+select_channel() {
+    [[ -n "$CHANNEL" ]] && return 0
+    CHANNEL="stable"
+    [[ -t 1 ]] && (: </dev/tty) 2>/dev/null || return 0
+    local reply
+    printf '%s%s  %s%s\n' "$BOLD" "$PURPLE" "$(t "Canal de mise à jour :" "Update channel:")" "$RESET"
+    printf '    %s1%s) %s\n' "$PURPLE" "$RESET" "$(t "Stable (par défaut, recommandé)" "Stable (default, recommended)")"
+    printf '    %s2%s) %s\n' "$PURPLE" "$RESET" "$(t "Bêta : lots de fonctionnalités sélectionnés avant publication" "Beta: feature batches picked before release")"
+    printf '    %s3%s) %s\n' "$PURPLE" "$RESET" "$(t "Canary : dernier commit de la branche principale, non testé" "Canary: latest commit of the main branch, untested")"
+    read -r -p "$(printf '%s  %s%s' "$YELLOW" "$(t "Votre choix [1/2/3] (1) : " "Your choice [1/2/3] (1): ")" "$RESET")" reply </dev/tty || reply="1"
+    case "${reply:-1}" in
+        2) CHANNEL="beta" ;;
+        3) CHANNEL="canary" ;;
+    esac
+    echo
+}
+select_channel
 (( DRY_RUN )) && info "$(t "Mode simulation : rien ne sera installé ni modifié." "Dry-run mode: nothing will be installed or changed.")" && echo
 
 # ---------------------------------------------------------------- 1. environnement
@@ -185,7 +212,7 @@ if [[ -s "$KEY_FILE" ]]; then
     run sudo install -d -m 755 /etc/apt/keyrings
     if (( DRY_RUN )); then info "${DIM}[dry-run] gpg --dearmor -> $KEY_DEST${RESET}"; else sudo gpg --yes --dearmor -o "$KEY_DEST" "$KEY_FILE"; fi
 fi
-LINE="deb [signed-by=${KEY_DEST}] tor+http://${APT_ONION}/ stable main"
+LINE="deb [signed-by=${KEY_DEST}] tor+http://${APT_ONION}/ ${CHANNEL} main"
 if (( DRY_RUN )); then info "${DIM}[dry-run] $LINE${RESET}"; else printf '%s\n' "$LINE" | sudo tee "$LIST_DEST" >/dev/null; fi
 if (( DRY_RUN )); then
     ok "$(t "Simulation terminée" "Dry-run complete")"
@@ -196,6 +223,7 @@ fi
 
 # ---------------------------------------------------------------- bilan
 printf '\n%s%s  %s%s\n\n' "$BOLD" "$GREEN" "$(t "Terminé : dépôt Bobine protégé par Tor" "Done: Bobine repository protected by Tor")" "$RESET"
+printf '  %s%s%s  %s\n' "$BOLD" "$(t "Canal          :" "Channel        :")" "$RESET" "$CHANNEL"
 printf '  %s%s%s  sudo apt install bobine\n' "$BOLD" "$(t "Installer      :" "Install        :")" "$RESET"
 printf '  %s%s%s  sudo apt update && sudo apt upgrade\n' "$BOLD" "$(t "Mettre à jour  :" "Update         :")" "$RESET"
 printf '  %s%s%s  %s\n\n' "$BOLD" "$(t "Retirer        :" "Remove         :")" "$RESET" "sudo rm $LIST_DEST"

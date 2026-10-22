@@ -14,6 +14,7 @@ import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFa
 import { useReleaseData } from "@/components/ReleaseProvider";
 import DownloadModal, { type DownloadPlatform } from "@/components/DownloadModal";
 import { ANDROID } from "@/lib/productFacts";
+import "@/styles/split/pages-misc.css";
 
 export default function OsDownloadGrid({
   locale,
@@ -257,7 +258,7 @@ export default function OsDownloadGrid({
             <div className="os-download-first-screen__header">
               {title ? (
                 <>
-                  <p className="hero-fullscreen__title" aria-hidden="true" style={{ margin: 0 }}>
+                  <p className="hero-fullscreen__title os-download-grid-p-1" aria-hidden="true">
                     {title}
                   </p>
                   {subtitle && (

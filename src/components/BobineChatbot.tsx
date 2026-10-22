@@ -9,6 +9,7 @@ import { readStoreView, subscribeStoreView, type StoreView } from "@/lib/storeVi
 import AssistantMessageBody from "@/components/AssistantMessageBody";
 import BaamixThinking, { HamsterWheel } from "@/components/BaamixThinking";
 import { IS_ONION, CLEARNET_URL } from "@/lib/onion";
+import "@/styles/split/pages-misc.css";
 
 
 
@@ -312,7 +313,6 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
     <div
       ref={modalRef}
       className={`chatbot-modal${isPage ? " chatbot-modal--page" : ""}`}
-      style={hidden ? { display: "none" } : undefined}
       aria-hidden={hidden || undefined}
       role={isPage ? "region" : "dialog"}
       aria-modal={isPage ? undefined : true}
@@ -336,11 +336,11 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
             <span className="chatbot-avatar-status" />
           </div>
           <div>
-            <span className="chatbot-modal__title" style={{ display: "block" }}>Baamix</span>
+            <span className="chatbot-modal__title bobine-chatbot-span-1">Baamix</span>
             <span className="chatbot-modal__subtitle">{isEn ? "Bobine Mascot & Fanta's Daughter" : "Mascotte de Bobine & Fille de Fanta"}</span>
           </div>
         </div>
-            <div style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
+            <div className="bobine-chatbot-div-1">
               {messages.length > 0 && (
                 <button
                   type="button"
@@ -398,7 +398,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                 />
               </div>
               <div className="chatbot-message__bubble">
-                <p style={{ margin: 0 }}>{defaultGreeting}</p>
+                <p className="bobine-chatbot-p-1">{defaultGreeting}</p>
               </div>
             </div></>
             )}
@@ -474,7 +474,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                         key={`${idx}-${openNonce}`}
                       />
                     ) : (
-                      <p style={{ margin: 0 }}>{m.content}</p>
+                      <p className="bobine-chatbot-p-1">{m.content}</p>
                     )}
                   </div>
                 </div>

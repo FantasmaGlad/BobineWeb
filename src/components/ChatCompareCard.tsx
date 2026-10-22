@@ -5,6 +5,7 @@ import Image from "next/image";
 import AddToCartButton from "@/components/hardware/AddToCartButton";
 import { fetchCatalogProducts, type ClientProduct } from "@/lib/catalog/client";
 import type { Locale } from "@/lib/i18n";
+import "@/styles/split/pages-misc.css";
 
 /**
  * Tableau comparatif affiché dans le chat. Toutes les données viennent du catalogue réel (résolues
@@ -83,7 +84,7 @@ export default function ChatCompareCard({ ids, locale }: { ids: string[]; locale
               {products.map((p) => (
                 <th key={p.id} scope="col">
                   <div className="chatbot-compare__thumb">
-                    <Image src={p.imageUrl} alt="" width={56} height={56} style={{ objectFit: "contain", width: "100%", height: "100%" }} />
+                    <Image src={p.imageUrl} alt="" width={56} height={56} className="chat-compare-card-image-1" />
                   </div>
                   <span className="chatbot-compare__name" title={p.name}>
                     {p.name}

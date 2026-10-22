@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import type { Locale } from "@/lib/i18n";
+import "@/styles/split/pages-misc.css";
 
 interface TauriDemoProps {
   locale: Locale;
@@ -396,7 +397,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                   disabled={isScanning}
                 >
                   {isScanning && (
-                    <span className="terminal-spinner" style={{ marginRight: 6 }}>
+                    <span className="terminal-spinner tauri-demo-span-1">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeDasharray="32" strokeDashoffset="12" className="terminal-spinner-icon" aria-hidden="true">
                         <circle cx="12" cy="12" r="10" />
                       </svg>
@@ -507,7 +508,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                 </div>
                 <div className="tauri-form-group">
                   <label className="tauri-label">{isEn ? "Authentication method" : "Méthode d'authentification"}</label>
-                  <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.25rem" }}>
+                  <div className="tauri-demo-div-1">
                     <button
                       type="button"
                       className={`tauri-btn tauri-btn--sm ${sshAuthMethod === "password" ? "tauri-btn--primary" : "tauri-btn--secondary"}`}
@@ -527,7 +528,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                     </button>
                   </div>
                 </div>
-                <div className="tauri-form-group" style={{ gridColumn: "1 / -1" }}>
+                <div className="tauri-form-group tauri-demo-div-2">
                   {sshAuthMethod === "password" ? (
                     <>
                       <label className="tauri-label">{isEn ? "User password" : "Mot de passe utilisateur"}</label>
@@ -536,9 +537,9 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                   ) : (
                     <>
                       <label className="tauri-label">{isEn ? "Private Key" : "Clé privée"}</label>
-                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                      <div className="tauri-demo-div-3">
                         <input type="text" readOnly value="~/.ssh/id_ed25519 (importée)" className="tauri-input" />
-                        <span className="tauri-pill tauri-pill--success" style={{ whiteSpace: "nowrap" }}>
+                        <span className="tauri-pill tauri-pill--success tauri-demo-span-2">
                           {isEn ? "Key Ready" : "Clé chargée"}
                         </span>
                       </div>
@@ -562,7 +563,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                   disabled={sshConnecting}
                 >
                   {sshConnecting && (
-                    <span className="terminal-spinner" style={{ marginRight: 6 }}>
+                    <span className="terminal-spinner tauri-demo-span-1">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeDasharray="32" strokeDashoffset="12" className="terminal-spinner-icon" aria-hidden="true">
                         <circle cx="12" cy="12" r="10" />
                       </svg>

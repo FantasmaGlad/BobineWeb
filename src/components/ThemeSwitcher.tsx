@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
 import {
   THEME_STORAGE_KEY,
   defaultTheme,
@@ -120,9 +120,7 @@ export default function ThemeSwitcher() {
         >
           <span
             className="theme-swatch-icon"
-            style={{
-              background: `linear-gradient(135deg, ${currentMeta.bg} 50%, ${currentMeta.accent} 50%)`,
-            }}
+            style={{ "--swatch-bg": currentMeta.bg, "--swatch-accent": currentMeta.accent } as CSSProperties}
           />
           <span className="theme-switcher-btn__label">
             {currentMeta.label}
@@ -147,10 +145,7 @@ export default function ThemeSwitcher() {
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
-            style={{
-              transition: "transform 0.2s ease",
-              transform: isOpen ? "rotate(180deg)" : "rotate(0)",
-            }}
+            className={`chevron-flip${isOpen ? " is-open" : ""}`}
           >
             <polyline points="6 9 12 15 18 9" />
           </svg>
@@ -214,10 +209,7 @@ export default function ThemeSwitcher() {
                   <div className="theme-card-option__swatch-wrapper">
                     <span
                       className="theme-card-option__swatch"
-                      style={{
-                        background: `linear-gradient(135deg, ${meta.bg} 50%, ${meta.accent} 50%)`,
-                        boxShadow: `0 0 0 1px var(--border-subtle), 0 2px 4px color-mix(in srgb, var(--ink) 15%, transparent)`,
-                      }}
+                      style={{ "--swatch-bg": meta.bg, "--swatch-accent": meta.accent } as CSSProperties}
                     />
                   </div>
                   <div className="theme-card-option__info">

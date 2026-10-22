@@ -11,6 +11,7 @@ import {
   TROUBLESHOOTING_ROWS,
   type FaqCategory,
 } from "@/content/docs/faq-data";
+import "@/styles/split/pages-docs.css";
 
 const CATEGORY_ORDER: FaqCategory[] = ["license", "compare", "hardware", "offline", "updates"];
 
@@ -39,16 +40,16 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
   return (
     <>
       {/* En-tête */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.25rem" }}>
+      <div className="dx-div-4">
         <div>
           <span className="feature-category-label">
             {isEn ? "Support & Knowledge Base" : "Support & Connaissances"}
           </span>
-          <h1 style={{ margin: 0, fontSize: "clamp(1.75rem, 3.5vw, 2.4rem)", fontWeight: 800, color: "var(--text-heading)", letterSpacing: "-0.02em" }}>
+          <h1 className="dx-h1-2">
             {isEn ? "FAQ & Troubleshooting" : "FAQ & Dépannage"}
           </h1>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+        <div className="dx-div-2">
           <DownloadPdfButton locale={locale} chapterId="faq" />
           <ShareButton
             locale={locale}
@@ -59,7 +60,7 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      <p style={{ color: "var(--text-muted)", fontSize: "1.025rem", lineHeight: 1.6, margin: "0 0 1.5rem 0" }}>
+      <p className="dx-p-4">
         {isEn
           ? "Find fast answers to frequently asked questions and step-by-step diagnostic solutions for common hardware and network inquiries."
           : "Retrouvez les réponses aux questions fréquentes ainsi que les solutions pas-à-pas pour diagnostiquer et résoudre rapidement vos besoins d'exploitation."}
@@ -68,42 +69,14 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
       {/* Onglets principaux de navigation */}
       <div
         role="tablist"
-        aria-label={isEn ? "FAQ Sections" : "Sections FAQ"}
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "0.35rem",
-          padding: "4px",
-          marginBottom: "1.75rem",
-          background: "var(--bg-inset)",
-          border: "1px solid var(--border-subtle)",
-          borderRadius: "0.6rem",
-          maxWidth: "100%",
-          overflowX: "auto",
-          WebkitOverflowScrolling: "touch",
-        }}
+        aria-label={isEn ? "FAQ Sections" : "Sections FAQ"} className="dx-div-6"
       >
         <button
           type="button"
           role="tab"
           aria-selected={mainTab === "faq"}
           onClick={() => setMainTab("faq")}
-          style={{
-            padding: "0.4rem 0.8rem",
-            borderRadius: "0.45rem",
-            fontSize: "0.825rem",
-            fontWeight: 600,
-            cursor: "pointer",
-            background: mainTab === "faq" ? "var(--bg-card)" : "transparent",
-            color: mainTab === "faq" ? "var(--text-heading)" : "var(--text-muted)",
-            border: mainTab === "faq" ? "1px solid var(--border-subtle)" : "1px solid transparent",
-            boxShadow: mainTab === "faq" ? "var(--shadow-sm)" : "none",
-            transition: "all 0.15s ease",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.4rem",
-            whiteSpace: "nowrap",
-          }}
+          className="dx-tab"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="12" cy="12" r="10" />
@@ -118,22 +91,7 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
           role="tab"
           aria-selected={mainTab === "troubleshoot"}
           onClick={() => setMainTab("troubleshoot")}
-          style={{
-            padding: "0.4rem 0.8rem",
-            borderRadius: "0.45rem",
-            fontSize: "0.825rem",
-            fontWeight: 600,
-            cursor: "pointer",
-            background: mainTab === "troubleshoot" ? "var(--bg-card)" : "transparent",
-            color: mainTab === "troubleshoot" ? "var(--text-heading)" : "var(--text-muted)",
-            border: mainTab === "troubleshoot" ? "1px solid var(--border-subtle)" : "1px solid transparent",
-            boxShadow: mainTab === "troubleshoot" ? "var(--shadow-sm)" : "none",
-            transition: "all 0.15s ease",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.4rem",
-            whiteSpace: "nowrap",
-          }}
+          className="dx-tab"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
@@ -146,22 +104,7 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
           role="tab"
           aria-selected={mainTab === "all"}
           onClick={() => setMainTab("all")}
-          style={{
-            padding: "0.4rem 0.8rem",
-            borderRadius: "0.45rem",
-            fontSize: "0.825rem",
-            fontWeight: 600,
-            cursor: "pointer",
-            background: mainTab === "all" ? "var(--bg-card)" : "transparent",
-            color: mainTab === "all" ? "var(--text-heading)" : "var(--text-muted)",
-            border: mainTab === "all" ? "1px solid var(--border-subtle)" : "1px solid transparent",
-            boxShadow: mainTab === "all" ? "var(--shadow-sm)" : "none",
-            transition: "all 0.15s ease",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.4rem",
-            whiteSpace: "nowrap",
-          }}
+          className="dx-tab"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="8" y1="6" x2="21" y2="6" />
@@ -177,10 +120,10 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
 
       {/* SECTION 1 : QUESTIONS FRÉQUENTES */}
       {(mainTab === "faq" || mainTab === "all") && (
-        <section style={{ marginBottom: "3rem" }}>
+        <section className="dx-section-1">
           {mainTab === "all" && (
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.25rem", borderBottom: "2px solid var(--accent-primary)", paddingBottom: "0.5rem" }}>
-              <h2 style={{ margin: 0, fontSize: "1.35rem", fontWeight: 800, color: "var(--text-heading)" }}>
+            <div className="dx-div-7">
+              <h2 className="dx-h2-1">
                 {isEn ? "Part 1 — Frequently Asked Questions" : "Partie 1 — Questions Fréquemment Posées"}
               </h2>
             </div>
@@ -212,37 +155,21 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
           </div>
 
           {/* Liste épurée des questions/réponses sans boîte-dans-une-boîte */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <div className="dx-div-8">
             {filteredFaqList.map((item, idx) => {
               const isOpen = !!openIndexes[idx];
               return (
                 <article
-                  key={item.q}
-                  style={{
-                    borderBottom: "1px solid var(--border-subtle)",
-                    paddingBottom: "1rem",
-                  }}
+                  key={item.q} className="dx-article-1"
                 >
                   <button
                     type="button"
                     onClick={() => toggleQuestion(idx)}
-                    aria-expanded={isOpen}
-                    style={{
-                      width: "100%",
-                      textAlign: "left",
-                      background: "transparent",
-                      border: "none",
-                      padding: "0.35rem 0",
-                      cursor: "pointer",
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      gap: "1rem",
-                    }}
+                    aria-expanded={isOpen} className="dx-button-1"
                   >
                     <span>
                       <span className="docs-faq-item-category">{categoryLabels[item.category]}</span>
-                      <h3 style={{ margin: 0, fontSize: "1.05rem", fontWeight: 700, color: "var(--text-heading)", lineHeight: 1.4 }}>
+                      <h3 className="dx-h3-1">
                         {item.q}
                       </h3>
                     </span>
@@ -253,27 +180,22 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
-                      style={{
-                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                        transition: "transform 0.2s ease",
-                        flexShrink: 0,
-                        color: "var(--text-muted)",
-                      }}
+                      className={`chevron-flip dx-chevron${isOpen ? " is-open" : ""}`}
                     >
                       <polyline points="6 9 12 15 18 9" />
                     </svg>
                   </button>
 
                   {isOpen && (
-                    <div style={{ marginTop: "0.65rem", color: "var(--text-base)", fontSize: "0.95rem", lineHeight: 1.65 }}>
-                      <p style={{ margin: 0 }}>{item.a}</p>
+                    <div className="dx-div-9">
+                      <p className="dx-h1-1">{item.a}</p>
                     </div>
                   )}
                 </article>
               );
             })}
             {filteredFaqList.length === 0 && (
-              <p style={{ color: "var(--text-muted)", fontSize: "0.95rem" }}>
+              <p className="dx-p-5">
                 {isEn ? "No questions in this category yet." : "Aucune question dans cette catégorie pour le moment."}
               </p>
             )}
@@ -283,16 +205,16 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
 
       {/* SECTION 2 : TABLEAU DE DÉPANNAGE & DIAGNOSTICS */}
       {(mainTab === "troubleshoot" || mainTab === "all") && (
-        <section style={{ marginBottom: "3rem" }}>
+        <section className="dx-section-1">
           {mainTab === "all" && (
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.25rem", borderBottom: "2px solid var(--accent-primary)", paddingBottom: "0.5rem", paddingTop: "1rem" }}>
-              <h2 style={{ margin: 0, fontSize: "1.35rem", fontWeight: 800, color: "var(--text-heading)" }}>
+            <div className="dx-div-10">
+              <h2 className="dx-h2-1">
                 {isEn ? "Part 2 — Troubleshooting Matrix & Diagnostics" : "Partie 2 — Dépannage & Diagnostics"}
               </h2>
             </div>
           )}
 
-          <h2 id="troubleshooting-matrix" style={{ fontSize: "1.3rem", fontWeight: 750, color: "var(--text-heading)", marginBottom: "0.75rem" }}>
+          <h2 id="troubleshooting-matrix" className="dx-h2-2">
             {isEn ? "Common Error Resolution Matrix" : "Tableau de Résolution des Erreurs Courantes"}
           </h2>
 
@@ -317,10 +239,10 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
             </table>
           </div>
 
-          <h2 id="diagnostic-commands" style={{ fontSize: "1.3rem", fontWeight: 750, color: "var(--text-heading)", marginTop: "2rem", marginBottom: "0.75rem" }}>
+          <h2 id="diagnostic-commands" className="dx-h2-3">
             {isEn ? "Interactive Diagnostic Console" : "Commandes de Diagnostic & Résolution Interactive"}
           </h2>
-          <p style={{ color: "var(--text-muted)", fontSize: "0.95rem" }}>
+          <p className="dx-p-5">
             {isEn
               ? "Simulate diagnostic checks or run them over SSH directly on your Bobine mini PC:"
               : "Simulez les vérifications de diagnostic ou exécutez-les via SSH directement sur votre mini PC Bobine :"}
@@ -332,7 +254,7 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
             title={isEn ? "bash — bobine diagnostic console" : "bash — console de diagnostic bobine"}
           />
 
-          <div className="docs-callout docs-callout--tip" style={{ marginTop: "2rem" }}>
+          <div className="docs-callout docs-callout--tip dx-div-11">
             <div className="docs-callout__content">
               <div className="docs-callout__title">{isEn ? "Interactive AI Assistant & Community Support" : "Assistant IA Baamix & Support Communautaire"}</div>
               <div>

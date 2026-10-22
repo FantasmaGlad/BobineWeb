@@ -10,6 +10,7 @@ import ShareButton from "@/components/ShareButton";
 import DownloadPdfButton from "@/components/DownloadPdfButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import { ONION_APT_HOST, ONION_SITE_HOST, TOR_PROJECT_URL, TOR_SOURCE_URL } from "@/lib/onion";
+import "@/styles/split/pages-docs.css";
 
 export async function generateMetadata({
   params,
@@ -57,12 +58,12 @@ export default async function DeveloppeursPage({
   return isEn ? (
     <>
       <BreadcrumbsJsonLd items={breadcrumbs} />
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+      <div className="dx-div-1">
         <div>
           <span className="feature-category-label">Architecture & API Reference</span>
-          <h1 style={{ margin: 0 }}>Developer Documentation & Architecture</h1>
+          <h1 className="dx-h1-1">Developer Documentation & Architecture</h1>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+        <div className="dx-div-2">
           <DownloadPdfButton locale={locale as Locale} chapterId="developpeurs" />
           <ShareButton
             locale={locale as Locale}
@@ -220,7 +221,7 @@ export default async function DeveloppeursPage({
       </div>
 
       <h2 id="websocket-events">Real-Time WebSocket Protocol</h2>
-      <div className="docs-api-header" style={{ marginBottom: "0.65rem" }}>
+      <div className="docs-api-header dx-div-3">
         <span className="docs-method-badge docs-method--ws">WS</span>
         <span className="docs-api-endpoint">/ws/events</span>
       </div>
@@ -268,12 +269,12 @@ export default async function DeveloppeursPage({
     </>
   ) : (
     <>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+      <div className="dx-div-1">
         <div>
           <span className="feature-category-label">Architecture & Référence API</span>
-          <h1 style={{ margin: 0 }}>Documentation Développeurs & Architecture</h1>
+          <h1 className="dx-h1-1">Documentation Développeurs & Architecture</h1>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+        <div className="dx-div-2">
           <DownloadPdfButton locale={locale as Locale} chapterId="developpeurs" />
           <ShareButton
             locale={locale as Locale}
@@ -431,7 +432,7 @@ export default async function DeveloppeursPage({
       </div>
 
       <h2 id="flux-websockets">Protocole d&apos;Événements WebSockets</h2>
-      <div className="docs-api-header" style={{ marginBottom: "0.65rem" }}>
+      <div className="docs-api-header dx-div-3">
         <span className="docs-method-badge docs-method--ws">WS</span>
         <span className="docs-api-endpoint">/ws/events</span>
       </div>

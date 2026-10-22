@@ -7,6 +7,7 @@ import Shot from "@/components/Shot";
 import CodeBlock from "@/components/CodeBlock";
 import InteractiveTerminal from "@/components/InteractiveTerminal";
 import { lp } from "@/lib/seo";
+import "@/styles/split/pages-docs.css";
 
 interface QuickStartStepperProps {
   locale: Locale;
@@ -368,7 +369,7 @@ speaker-test -t wav -c 2 -l 1`}</code>
           </p>
           <Shot caption={isEn ? "Administration panel: Drag-and-drop batch video upload in library" : "Panneau d'administration : Glisser-déposer de vidéos par lot dans la médiathèque"} />
 
-          <div className="docs-callout docs-callout--tip" style={{ marginTop: "1.5rem" }}>
+          <div className="docs-callout docs-callout--tip dx-div-18">
             <div className="docs-callout__content">
               <div className="docs-callout__title">
                 {isEn ? "Ready for Daily Playout!" : "Votre régie est opérationnelle !"}

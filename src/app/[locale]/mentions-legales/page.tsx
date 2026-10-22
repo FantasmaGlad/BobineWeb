@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata, lp } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
+import "@/styles/split/pages-legal.css";
 
 const copy = {
   fr: {
@@ -129,69 +130,43 @@ export default async function LegalNoticePage({
   ];
 
   return (
-    <div className="container" style={{ paddingBlock: "clamp(2rem, 5vh, 4rem)" }}>
+    <div className="container legal-div-1">
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
-      <div style={{ marginBottom: "clamp(2.5rem, 6vw, 3.5rem)" }}>
-        <span
-          style={{
-            fontSize: "0.7rem",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-            color: "var(--text-muted)",
-          }}
+      <div className="legal-div-2">
+        <span className="legal-span-1"
         >
           {t.badge}
         </span>
-        <h1
-          style={{
-            fontSize: "clamp(1.75rem, 3.8vw, 2.5rem)",
-            fontWeight: 800,
-            lineHeight: 1.15,
-            letterSpacing: "-0.03em",
-            marginBlock: "0.5rem 0.85rem",
-            color: "var(--text-heading)",
-          }}
+        <h1 className="legal-h1-1"
         >
           {t.title}
         </h1>
-        <p style={{ color: "var(--text-muted)", fontSize: "1rem", lineHeight: 1.6, margin: 0, maxWidth: "42rem" }}>
+        <p className="legal-p-1">
           {t.subtitle}
         </p>
-        <p style={{ color: "var(--text-muted)", fontSize: "0.8rem", margin: "0.75rem 0 0" }}>{t.updated}</p>
+        <p className="legal-p-2">{t.updated}</p>
       </div>
 
       <div>
         {t.sections.map((sec) => (
           <section
-            key={sec.heading}
-            style={{
-              paddingBlock: "clamp(1.5rem, 3vw, 2rem)",
-              borderTop: "1px solid var(--border-subtle)",
-            }}
+            key={sec.heading} className="legal-section-1"
           >
-            <h2
-              style={{
-                fontSize: "1.1rem",
-                fontWeight: 700,
-                color: "var(--text-heading)",
-                marginBottom: "0.75rem",
-                letterSpacing: "-0.01em",
-              }}
+            <h2 className="legal-h2-1"
             >
               {sec.heading}
             </h2>
-            <p style={{ color: "var(--text-main)", fontSize: "0.925rem", lineHeight: 1.7, margin: 0, maxWidth: "62rem" }}>
+            <p className="legal-p-3">
               {sec.body}
             </p>
             {sec.contact && (
-              <p style={{ color: "var(--text-main)", fontSize: "0.925rem", fontWeight: 600, lineHeight: 1.7, margin: 0, marginTop: "0.75rem", maxWidth: "62rem" }}>
+              <p className="legal-p-4">
                 {sec.contact}
               </p>
             )}
             {sec.subtext && (
-              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.65, margin: 0, marginTop: "0.75rem", maxWidth: "62rem" }}>
+              <p className="legal-p-5">
                 {sec.subtext}
               </p>
             )}

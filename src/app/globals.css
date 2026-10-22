@@ -947,6 +947,7 @@ img {
   height: 0.8rem;
   border-radius: 999px;
   border: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+  background: linear-gradient(135deg, var(--swatch-bg) 50%, var(--swatch-accent) 50%);
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--specular) 20%, transparent);
   flex-shrink: 0;
 }
@@ -1081,7 +1082,8 @@ img {
   height: 1.15rem;
   border-radius: 999px;
   display: block;
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--specular) 15%, transparent), 0 1px 3px color-mix(in srgb, var(--ink) 20%, transparent);
+  background: linear-gradient(135deg, var(--swatch-bg) 50%, var(--swatch-accent) 50%);
+  box-shadow: 0 0 0 1px var(--border-subtle), 0 2px 4px color-mix(in srgb, var(--ink) 15%, transparent);
 }
 
 .theme-card-option__info {
@@ -10680,4 +10682,18 @@ main {
     --glass-inset-bg: var(--bg-inset);
     --glass-chip-bg: color-mix(in srgb, var(--ink) 88%, transparent);
   }
+}
+
+
+/* ==========================================================================
+   Utilitaires partagés (états pilotés par une classe, sans style en ligne)
+   ========================================================================== */
+
+/* Chevron de menu déroulant : pivote d'un demi-tour à l'ouverture */
+.chevron-flip {
+  transition: transform 0.2s ease;
+  transform: rotate(0);
+}
+.chevron-flip.is-open {
+  transform: rotate(180deg);
 }

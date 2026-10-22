@@ -10,6 +10,7 @@ import ThemeSwitcher from "@/components/ThemeSwitcher";
 import GitHubBadge from "@/components/GitHubBadge";
 import MobileDrawer from "@/components/MobileDrawer";
 import { lp } from "@/lib/seo";
+import "@/styles/split/site-chrome.css";
 
 
 export default function Header({
@@ -53,8 +54,7 @@ export default function Header({
               alt="Bobine"
               width={160}
               height={90}
-              priority
-              style={{ filter: "var(--logo-filter)" }}
+              priority className="site-image-2"
             />
           </Link>
 

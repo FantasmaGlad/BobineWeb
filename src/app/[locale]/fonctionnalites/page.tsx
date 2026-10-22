@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import ScrollIndicator from "@/components/ScrollIndicator";
+import "@/styles/split/pages-misc.css";
 
 const copy = {
   fr: {
@@ -212,7 +213,7 @@ export default async function FeaturesPage({
       {/* 1. Hero Section — Plein écran propre sur Desktop et Mobile */}
       <section className="hero-fullscreen">
         <div>
-          <span className="feature-category-label" style={{ marginBottom: "0.75rem", display: "inline-block" }}>
+          <span className="feature-category-label page-span-1">
             {isEn ? "Features" : "Fonctionnalités"}
           </span>
 
@@ -229,7 +230,7 @@ export default async function FeaturesPage({
       </section>
 
       {/* 2. Modules Techniques Épurés — Séparation par traits fins */}
-      <div className="features-list" style={{ paddingTop: "2rem" }}>
+      <div className="features-list page-div-1">
         {t.modules.map((mod) => (
           <section key={mod.id} id={mod.id} className="feature-section">
             <div className="feature-section__header">

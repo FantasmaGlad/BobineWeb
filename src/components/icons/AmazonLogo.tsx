@@ -1,4 +1,5 @@
 import React from "react";
+import "@/styles/split/pages-misc.css";
 
 export default function AmazonLogo({ height = 16 }: { height?: number }) {
   const width = (height * 230) / 82;
@@ -8,8 +9,7 @@ export default function AmazonLogo({ height = 16 }: { height?: number }) {
       height={height}
       viewBox="0 10 230 82"
       role="img"
-      aria-label="Amazon"
-      style={{ flexShrink: 0, display: "block" }}
+      aria-label="Amazon" className="amazon-logo-svg-1"
     >
       <text
         x="4"

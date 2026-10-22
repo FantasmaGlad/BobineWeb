@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useHardwareCart, cartItemPlatform, type CartItem, type CartPlatform } from "@/lib/hardwareCart";
 import { AMAZON_STORE_ID } from "@/content/hardware";
 import type { Locale } from "@/lib/i18n";
+import "@/styles/split/pages-hardware.css";
 
 export default function HardwareCartBar({ locale }: { locale: Locale }) {
   const { items, count, total, unknownPrices, removeItem, clear } = useHardwareCart();
@@ -115,7 +116,7 @@ export default function HardwareCartBar({ locale }: { locale: Locale }) {
                       {group.items.map((item) => (
                         <div key={item.asin} className={`hw-cart-sheet-row ${opened[item.asin] ? "is-opened" : ""}`}>
                           <div className="hw-cart-sheet-row-thumb">
-                            <Image src={item.imageUrl} alt={item.name} width={44} height={44} style={{ objectFit: "contain", width: "100%", height: "100%" }} />
+                            <Image src={item.imageUrl} alt={item.name} width={44} height={44} className="hw-image-3" />
                           </div>
                           <div className="hw-cart-sheet-row-info">
                             <span className="hw-cart-sheet-row-name">{item.name}</span>

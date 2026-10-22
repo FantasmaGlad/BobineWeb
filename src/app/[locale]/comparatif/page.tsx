@@ -6,6 +6,7 @@ import { buildMetadata, lp } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
 import ScrollIndicator from "@/components/ScrollIndicator";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
+import "@/styles/split/pages-comparison.css";
 
 export async function generateMetadata({
   params,
@@ -192,17 +193,9 @@ export default async function ComparatifHubPage({
       {/* 1. Hero Section — Plein écran propre sur Desktop et Mobile */}
       <section className="hero-fullscreen">
         <div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "0.75rem",
-              flexWrap: "wrap",
-              marginBottom: "0.85rem",
-            }}
+          <div className="cmp-div-8"
           >
-            <span className="feature-category-label" style={{ display: "inline-block" }}>
+            <span className="feature-category-label cmp-span-2">
               {data.badge}
             </span>
             <ShareButton
@@ -226,58 +219,34 @@ export default async function ComparatifHubPage({
       </section>
 
       {/* 2. Grille 2x2 des études comparatives */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
-          gap: "1.75rem",
-        }}
+      <div className="cmp-div-9"
       >
         {data.cards.map((card) => (
           <article
-            key={card.slug}
-            style={{
-              background: "var(--bg-card)",
-              border: "1px solid var(--border-subtle)",
-              borderRadius: "0.75rem",
-              padding: "1.75rem",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              boxShadow: "var(--shadow-sm)",
-            }}
+            key={card.slug} className="cmp-article-2"
           >
             <div>
-              <span
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.05em",
-                  color: "var(--accent-primary)",
-                  display: "inline-block",
-                  marginBottom: "0.5rem",
-                }}
+              <span className="cmp-span-3"
               >
                 {card.badge}
               </span>
 
-              <h2 style={{ fontSize: "1.25rem", fontWeight: 800, color: "var(--text-heading)", marginBottom: "0.6rem", lineHeight: 1.25 }}>
+              <h2 className="cmp-h2-3">
                 {card.target}
               </h2>
 
-              <p style={{ fontSize: "0.925rem", fontWeight: 600, color: "var(--text-main)", marginBottom: "0.6rem", lineHeight: 1.45 }}>
+              <p className="cmp-p-6">
                 {card.headline}
               </p>
 
-              <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "1.25rem", lineHeight: 1.55 }}>
+              <p className="cmp-p-7">
                 {card.description}
               </p>
 
-              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem 0", display: "flex", flexDirection: "column", gap: "0.45rem" }}>
+              <ul className="cmp-ul-1">
                 {card.points.map((pt, pIdx) => (
-                  <li key={pIdx} style={{ fontSize: "0.825rem", color: "var(--text-main)", display: "flex", alignItems: "flex-start", gap: "0.5rem" }}>
-                    <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" style={{ color: "var(--accent-primary)", flexShrink: 0, marginTop: "2px" }}>
+                  <li key={pIdx} className="cmp-li-1">
+                    <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" className="cmp-svg-1">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                     <span>{pt}</span>
@@ -288,8 +257,7 @@ export default async function ComparatifHubPage({
 
             <Link
               href={lp(locale, `/comparatif/${card.slug}`)}
-              className="btn-primary"
-              style={{ width: "100%", textAlign: "center", justifyContent: "center" }}
+              className="btn-primary cmp-link-1"
             >
               {isEn ? "Read full comparison" : "Lire le comparatif complet"}
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

@@ -1,0 +1,185 @@
+.page-span-1 {
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+.page-div-1 {
+  padding-top: 2rem;
+}
+.not-found-div-1 {
+  padding-block: 3rem;
+  text-align: center;
+  max-width: 42rem;
+}
+.not-found-image-1 {
+  width: auto;
+  height: 180px;
+  margin-inline: auto;
+  margin-bottom: 1rem;
+  object-fit: contain;
+}
+.not-found-h1-1 {
+  font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 0.6rem;
+  line-height: 1.25;
+}
+.not-found-p-1 {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+}
+.not-found-div-2 {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.not-found-link-1 {
+  padding: 0.5rem 1.15rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+}
+.not-found-div-3 {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+.not-found-img-1 {
+  width: auto;
+  height: 180px;
+  margin-bottom: 1rem;
+  object-fit: contain;
+}
+.not-found-h1-2 {
+  font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0 0 0.6rem 0;
+  line-height: 1.25;
+}
+.not-found-p-2 {
+  color: var(--text-muted);
+  max-width: 34rem;
+  margin: 0 0 1.5rem 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.bobine-chatbot-span-1 {
+  display: block;
+}
+.bobine-chatbot-div-1 {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+.bobine-chatbot-p-1 {
+  margin: 0;
+}
+.chat-compare-card-image-1 {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+.chat-product-card-image-1 {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+.download-pdf-button-div-1 {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.download-pdf-button-span-1 {
+  font-size: 0.75rem;
+  color: var(--accent-primary);
+}
+.os-download-grid-p-1 {
+  margin: 0;
+}
+.roi-calculator-label-1 {
+  font-weight: 600;
+  color: var(--text-heading);
+}
+.roi-calculator-div-1 {
+  max-width: 34rem;
+}
+.roi-calculator-p-1 {
+  margin: 0;
+  font-size: 0.925rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+.shot-figure-1 {
+  margin-block: 1.25rem;
+}
+.shot-img-1 {
+  width: 100%;
+  height: auto;
+  border-radius: 0.65rem;
+  border: 1px solid var(--glass-card-border);
+  box-shadow: var(--shadow-card);
+}
+.shot-figcaption-1 {
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  margin-top: 0.45rem;
+  text-align: center;
+}
+.tauri-demo-span-1 {
+  margin-right: 6px;
+}
+.tauri-demo-div-1 {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+.tauri-demo-div-2 {
+  grid-column: 1 / -1;
+}
+.tauri-demo-div-3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.tauri-demo-span-2 {
+  white-space: nowrap;
+}
+.amazon-logo-svg-1 {
+  flex-shrink: 0;
+  display: block;
+}
+.chatbot-modal[aria-hidden="true"] {
+  display: none;
+}
+.download-pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  opacity: 1;
+}
+.download-pdf-btn:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+.tor-logo {
+  display: inline-flex;
+  width: var(--tor-logo-size);
+  height: var(--tor-logo-size);
+  vertical-align: middle;
+}
+.tor-logo__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}

@@ -1,3 +1,4 @@
+import "../globals.css"; // en premier : les feuilles de src/styles/split/*.css importées par les composants doivent venir après
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
@@ -13,7 +14,6 @@ import GlobalRippleEffect from "@/components/GlobalRippleEffect";
 import { IS_ONION } from "@/lib/onion";
 import { getRepoStats } from "@/lib/releaseChannels";
 import { ReleaseProvider } from "@/components/ReleaseProvider";
-import "../globals.css";
 import { CLEARNET_URL } from "@/lib/onion";
 
 

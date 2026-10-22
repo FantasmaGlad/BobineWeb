@@ -1,5 +1,6 @@
 import Link from "next/link";
 import "./globals.css";
+import "@/styles/split/pages-misc.css";
 
 export default function GlobalNotFound() {
   return (
@@ -15,17 +16,7 @@ export default function GlobalNotFound() {
         />
       </head>
       <body>
-        <div
-          style={{
-            minHeight: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "2rem 1.5rem",
-            textAlign: "center",
-            boxSizing: "border-box",
-          }}
+        <div className="not-found-div-3"
         >
           {/* Illustration Baamix Inspecteur */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -33,56 +24,29 @@ export default function GlobalNotFound() {
             src="/images/BaamixInspector.webp"
             alt="Baamix Inspecteur"
             width={180}
-            height={250}
-            style={{ width: "auto", height: "180px", marginBottom: "1rem", objectFit: "contain" }}
+            height={250} className="not-found-img-1"
           />
 
-          <h1
-            style={{
-              fontSize: "clamp(1.5rem, 3.5vw, 2.1rem)",
-              fontWeight: 700,
-              color: "var(--text-heading)",
-              margin: "0 0 0.6rem 0",
-              lineHeight: 1.25,
-            }}
+          <h1 className="not-found-h1-2"
           >
             Erreur 404 · Page introuvable
           </h1>
 
-          <p
-            style={{
-              color: "var(--text-muted)",
-              maxWidth: "34rem",
-              margin: "0 0 1.5rem 0",
-              fontSize: "0.95rem",
-              lineHeight: 1.6,
-            }}
+          <p className="not-found-p-2"
           >
             La page demandée n&apos;existe pas ou a été déplacée. / The requested page does not exist or has been moved.
           </p>
 
-          <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
+          <div className="not-found-div-2">
             <Link
               href="/fr"
-              className="btn-secondary"
-              style={{
-                padding: "0.5rem 1.15rem",
-                fontSize: "0.875rem",
-                fontWeight: 500,
-                borderRadius: "0.5rem",
-              }}
+              className="btn-secondary not-found-link-1"
             >
               Retour à l&apos;accueil
             </Link>
             <Link
               href="/en"
-              className="btn-secondary"
-              style={{
-                padding: "0.5rem 1.15rem",
-                fontSize: "0.875rem",
-                fontWeight: 500,
-                borderRadius: "0.5rem",
-              }}
+              className="btn-secondary not-found-link-1"
             >
               Go to English Home
             </Link>

@@ -1,4 +1,6 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
+import "@/styles/split/pages-misc.css";
 
 interface TorLogoProps {
   size?: number;
@@ -8,8 +10,8 @@ interface TorLogoProps {
 export default function TorLogo({ size = 20, className = "" }: TorLogoProps) {
   return (
     <span
-      className={`inline-flex items-center justify-center shrink-0 ${className}`}
-      style={{ width: size, height: size, verticalAlign: "middle", display: "inline-flex" }}
+      className={`tor-logo ${className}`.trim()}
+      style={{ "--tor-logo-size": `${size}px` } as CSSProperties}
       aria-hidden="true"
     >
       <Image
@@ -18,7 +20,7 @@ export default function TorLogo({ size = 20, className = "" }: TorLogoProps) {
         width={size}
         height={size}
         unoptimized
-        style={{ width: size, height: size, objectFit: "contain", display: "block" }}
+        className="tor-logo__img"
       />
     </span>
   );

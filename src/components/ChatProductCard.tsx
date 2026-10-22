@@ -5,6 +5,7 @@ import Image from "next/image";
 import AddToCartButton from "@/components/hardware/AddToCartButton";
 import { fetchCatalogProducts, type ClientProduct } from "@/lib/catalog/client";
 import type { Locale } from "@/lib/i18n";
+import "@/styles/split/pages-misc.css";
 
 export default function ChatProductCard({ id, locale }: { id: string; locale: Locale }) {
   const isEn = locale === "en";
@@ -33,8 +34,7 @@ export default function ChatProductCard({ id, locale }: { id: string; locale: Lo
           src={product.imageUrl}
           alt={product.name}
           width={44}
-          height={44}
-          style={{ objectFit: "contain", width: "100%", height: "100%" }}
+          height={44} className="chat-product-card-image-1"
         />
       </div>
       <div className="chatbot-product-card__info">

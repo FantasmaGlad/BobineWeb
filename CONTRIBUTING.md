@@ -56,6 +56,16 @@ npm run lint        # ESLint, 0 error
 npm run build       # production build
 ```
 
+If you touch styles, the installation simulators or the shell scripts, also run the guards that CI runs on them:
+
+```bash
+node scripts/ci/glass-check.mjs          # glass tokens, no frozen value, text contrast on the 16 themes
+bash scripts/ci/check-simulator-sync.sh  # simulators aligned with public/install.sh and public/install-tor.sh
+bash scripts/ci/policy-check.sh          # repository policy (root entries, secrets, emoji)
+```
+
+`public/install-tor.sh` must stay identical to its deployment copy `deploy/onion/install-client.sh` (`cmp`, checked by CI).
+
 `npm run build:onion` builds the static Tor mirror and is reserved to CI: it deletes `src/app/api` and `src/proxy.ts` and refuses to run elsewhere. To test the mirror locally, copy the repository, with its `node_modules`, to a temporary folder.
 
 Next.js 16 has breaking changes compared with earlier versions: read the relevant guide in `node_modules/next/dist/docs/` before writing code.

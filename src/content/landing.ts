@@ -818,13 +818,13 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         {
           heading: "Installer Bobine par Tor sur Debian, Ubuntu ou Mint",
           paragraphs: [
-            "Le script install-tor.sh fait les cinq étapes et s'arrête si l'empreinte de la clé diffère de celle publiée ; l'option --dry-run n'installe rien. À lire avant de l'exécuter :",
+            "Le script install-tor.sh fait les cinq étapes et s'arrête si l'empreinte de la clé diffère de celle publiée ; l'option --dry-run n'installe rien. Le canal de mise à jour (Stable, Bêta ou Canary) se choisit avec --channel=stable, --channel=beta ou --channel=canary ; sans l'option, le script pose la question sur un terminal et prend Stable sinon. À lire avant de l'exécuter :",
           ],
           code: "curl -fsSL https://bobine.fit/install-tor.sh | bash",
         },
         {
           heading: "Ou à la main",
-          paragraphs: ["Les mêmes étapes, une par une :"],
+          paragraphs: ["Les mêmes étapes, une par une. Le dernier mot de la ligne deb est la suite APT, donc le canal : stable, beta ou canary, les trois étant publiées par le dépôt onion :"],
           code: TOR_COMMANDS,
         },
         {
@@ -839,6 +839,10 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         {
           q: "Peut-on installer Bobine via Tor ?",
           a: "Oui, sur Debian, Ubuntu et Linux Mint : le dépôt APT officiel est aussi servi en .onion, avec les mêmes paquets signés par la même clé.",
+        },
+        {
+          q: "Peut-on suivre la Bêta ou la Canary par Tor ?",
+          a: "Oui : le dépôt APT en .onion publie les trois suites, stable, beta et canary. install-tor.sh --channel=beta (ou canary) configure la source correspondante.",
         },
         {
           q: "Le miroir Tor est-il complet ?",
@@ -873,13 +877,13 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         {
           heading: "Installing Bobine over Tor on Debian, Ubuntu or Mint",
           paragraphs: [
-            "The install-tor.sh script performs the five steps and stops if the key fingerprint differs from the published one; the --dry-run option installs nothing. Read it before running it:",
+            "The install-tor.sh script performs the five steps and stops if the key fingerprint differs from the published one; the --dry-run option installs nothing. The update channel (Stable, Beta or Canary) is chosen with --channel=stable, --channel=beta or --channel=canary; without the option, the script asks on a terminal and falls back to Stable otherwise. Read it before running it:",
           ],
           code: "curl -fsSL https://bobine.fit/install-tor.sh | bash",
         },
         {
           heading: "Or by hand",
-          paragraphs: ["The same steps, one at a time:"],
+          paragraphs: ["The same steps, one at a time. The last word of the deb line is the APT suite, hence the channel: stable, beta or canary, all three being published by the onion repository:"],
           code: TOR_COMMANDS,
         },
         {
@@ -894,6 +898,10 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         {
           q: "Can Bobine be installed over Tor?",
           a: "Yes, on Debian, Ubuntu and Linux Mint: the official APT repository is also served over .onion, with the same packages signed by the same key.",
+        },
+        {
+          q: "Can the Beta or Canary channel be followed over Tor?",
+          a: "Yes: the .onion APT repository publishes all three suites, stable, beta and canary. install-tor.sh --channel=beta (or canary) sets up the matching source.",
         },
         {
           q: "Is the Tor mirror complete?",
@@ -1005,8 +1013,6 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
     },
   },
 };
-
-export const LANDING_IDS = Object.keys(LANDING_PAGES) as LandingId[];
 
 export function getLanding(id: LandingId, locale: Locale): LandingLocale {
   return LANDING_PAGES[id][locale];

@@ -11,6 +11,7 @@ import { buildMetadata } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import GitHubIcon from "@/components/icons/GitHubIcon";
 import ScrollIndicator from "@/components/ScrollIndicator";
+import "@/styles/split/pages-blog.css";
 
 const copy = {
   fr: {
@@ -100,57 +101,39 @@ export default async function BlogIndexPage({
   );
 
   return (
-    <div className="container" style={{ maxWidth: "60rem" }}>
+    <div className="container blog-div-5">
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
       {/* 1. Hero Section — Plein écran avec la dernière release Stable en vedette */}
       <section className="blog-hero-section">
         <div>
-          <span className="feature-category-label" style={{ marginBottom: "0.5rem", display: "inline-block" }}>
+          <span className="feature-category-label blog-span-2">
             {t.badge}
           </span>
 
-          <h1 className="hero-fullscreen__title" style={{ marginBottom: "0.5rem" }}>
+          <h1 className="hero-fullscreen__title blog-h1-2">
             {t.title}
           </h1>
 
-          <p className="hero-fullscreen__subtitle" style={{ marginBottom: "1.5rem" }}>
+          <p className="hero-fullscreen__subtitle blog-p-1">
             {t.intro}
           </p>
 
           {/* DERNIÈRE RELEASE STABLE EN GROS DANS LE HERO */}
           {latestStable && (
             <div className="blog-hero-release-card blog-hero-release-card--stable">
-              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
+              <div className="blog-div-6">
                 <span
-                  className="badge"
-                  style={{
-                    fontSize: "0.85rem",
-                    padding: "0.25rem 0.65rem",
-                    fontWeight: 800,
-                    fontFamily: "monospace",
-                    color: "var(--accent-primary)",
-                    borderColor: "var(--accent-primary)",
-                  }}
+                  className="badge blog-span-3"
                 >
                   {latestStable.slug}
                 </span>
-                <span
-                  style={{
-                    fontSize: "0.75rem",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.05em",
-                    padding: "0.2rem 0.55rem",
-                    borderRadius: "4px",
-                    background: "var(--accent-subtle)",
-                    color: "var(--text-heading)",
-                  }}
+                <span className="blog-span-4"
                 >
                   {t.featuredReleaseBadge}
                 </span>
                 {latestStable.publishedAt && (
-                  <time style={{ color: "var(--text-dim)", fontSize: "0.85rem", fontWeight: 500 }}>
+                  <time className="blog-time-1">
                     {new Date(latestStable.publishedAt).toLocaleDateString(
                       locale === "fr" ? "fr-FR" : "en-US",
                       { year: "numeric", month: "long", day: "numeric" }
@@ -159,40 +142,38 @@ export default async function BlogIndexPage({
                 )}
               </div>
 
-              <h2 style={{ fontSize: "clamp(1.35rem, 2.8vw, 1.85rem)", fontWeight: 800, color: "var(--text-heading)", margin: 0, lineHeight: 1.25 }}>
+              <h2 className="blog-h2-1">
                 <Link
-                  href={`/${locale}/blog/${encodeURIComponent(latestStable.slug)}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
+                  href={`/${locale}/blog/${encodeURIComponent(latestStable.slug)}`} className="blog-link-2"
                 >
                   {latestStable.title}
                 </Link>
               </h2>
 
               {latestStable.slug.startsWith("V3") || latestStable.slug.startsWith("v3") ? (
-                <ul style={{ margin: 0, paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.925rem", lineHeight: 1.6 }}>
+                <ul className="blog-ul-1">
                   <li>{locale === "en" ? "Official native Android release (.apk): dual-screen touch & HDMI output with standalone embedded FastAPI server" : "Sortie officielle de l'application native Android (.apk) : double affichage tactile / HDMI et serveur FastAPI autonome embarqué"}</li>
                   <li>{locale === "en" ? "Multi-OS hardware accelerated transcoding (MediaCodec, Apple Silicon VideoToolbox, Linux VA-API)" : "Accélération matérielle multi-OS pour le réencodage vidéo (MediaCodec, Apple Silicon VideoToolbox, VA-API Linux)"}</li>
                   <li>{locale === "en" ? "Native 2K and 4K quality preservation without downscaling, reactive 1-click import cancellation & sharp 1080p thumbnails" : "Conservation intégrale des flux 2K et 4K natifs sans sous-échantillonnage, annulation réactive d'importation et miniatures nettes 1080p"}</li>
                 </ul>
               ) : latestStable.slug.startsWith("V2.0.1") || latestStable.slug.startsWith("v2.0.1") ? (
-                <ul style={{ margin: 0, paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.925rem", lineHeight: 1.6 }}>
+                <ul className="blog-ul-1">
                   <li>{locale === "en" ? "Full hardware video acceleration for both Intel QuickSync (iHD) and AMD Radeon (mesa-va-drivers) under 8% CPU" : "Accélération matérielle complète pour Intel QuickSync (iHD) et AMD Radeon (mesa-va-drivers) sous 8% CPU"}</li>
                   <li>{locale === "en" ? "New 1-line auto-installer (curl -sSL https://bobine.fit/install.sh | bash) with clean & verbose (-v) modes" : "Nouvel installateur automatique en 1 ligne (curl -sSL https://bobine.fit/install.sh | bash) avec modes épuré et verbeux (-v)"}</li>
                   <li>{locale === "en" ? "Smart update handling for existing directories without conflicts, auto hardware driver setup" : "Gestion intelligente des mises à jour des dossiers existants sans collision et installation automatique des pilotes"}</li>
                 </ul>
               ) : (
-                <ul style={{ margin: 0, paddingLeft: "1.25rem", color: "var(--text-main)", fontSize: "0.925rem", lineHeight: 1.6 }}>
+                <ul className="blog-ul-1">
                   <li>{locale === "en" ? "Full MPV video playback with Intel QuickSync & VA-API hardware decoding" : "Moteur vidéo MPV avec décodage matériel Intel QuickSync et VA-API (moins de 8% CPU)"}</li>
                   <li>{locale === "en" ? "One-click ZIP backup and restore of the full configuration" : "Sauvegarde et restauration ZIP en un clic de toute la configuration"}</li>
                   <li>{locale === "en" ? "On-demand member touch kiosk and instant smartphone remote via local QR code" : "Borne tactile membre à la demande & télécommande smartphone via QR code local"}</li>
                 </ul>
               )}
 
-              <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center", marginTop: "0.25rem" }}>
+              <div className="blog-div-7">
                 <Link
                   href={`/${locale}/blog/${encodeURIComponent(latestStable.slug)}`}
-                  className="btn-primary"
-                  style={{ textDecoration: "none" }}
+                  className="btn-primary blog-link-3"
                 >
                   <span>{t.readMore}</span>
                 </Link>
@@ -200,8 +181,7 @@ export default async function BlogIndexPage({
                   href={latestStable.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="btn-secondary"
-                  style={{ textDecoration: "none" }}
+                  className="btn-secondary blog-link-3"
                 >
                   <GitHubIcon size={16} />
                   <span>{t.viewOnGithub}</span>
@@ -223,39 +203,20 @@ export default async function BlogIndexPage({
 
       {/* 2. CARTE DÉDIÉE : CANAL BÊTA (ROLLING BETA) — PLACÉE HORS DU PREMIER ÉCRAN */}
       {betaRelease && (
-        <section id="beta-release" style={{ scrollMarginTop: "6.85rem", paddingTop: "1.25rem", paddingBottom: "0.5rem" }}>
+        <section id="beta-release" className="blog-section-1">
           <div className="blog-hero-release-card blog-hero-release-card--beta">
-            <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", flexWrap: "wrap" }}>
+            <div className="blog-div-8">
               <span
-                className="badge"
-                style={{
-                  fontSize: "0.8rem",
-                  padding: "0.2rem 0.6rem",
-                  fontWeight: 800,
-                  fontFamily: "monospace",
-                  background: "var(--accent-subtle)",
-                  borderColor: "var(--accent-primary)",
-                  color: "var(--text-heading)",
-                }}
+                className="badge blog-span-5"
               >
                 beta
               </span>
-              <span
-                style={{
-                  fontSize: "0.725rem",
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.04em",
-                  padding: "0.15rem 0.5rem",
-                  borderRadius: "4px",
-                  border: "1px solid var(--border-subtle)",
-                  color: "var(--text-muted)",
-                }}
+              <span className="blog-span-6"
               >
                 {t.betaBadge}
               </span>
               {betaRelease.publishedAt && (
-                <time style={{ color: "var(--text-dim)", fontSize: "0.825rem" }}>
+                <time className="blog-time-2">
                   {new Date(betaRelease.publishedAt).toLocaleDateString(
                     locale === "fr" ? "fr-FR" : "en-US",
                     { year: "numeric", month: "long", day: "numeric" }
@@ -264,24 +225,22 @@ export default async function BlogIndexPage({
               )}
             </div>
 
-            <h3 style={{ fontSize: "1.15rem", fontWeight: 700, color: "var(--text-heading)", margin: 0, lineHeight: 1.35 }}>
+            <h3 className="blog-h3-1">
               <Link
-                href={`/${locale}/blog/beta`}
-                style={{ textDecoration: "none", color: "inherit" }}
+                href={`/${locale}/blog/beta`} className="blog-link-2"
               >
                 {t.betaTitle}
               </Link>
             </h3>
 
-            <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: 1.55 }}>
+            <p className="blog-p-2">
               {t.betaDesc}
             </p>
 
-            <div style={{ display: "flex", gap: "0.65rem", flexWrap: "wrap", alignItems: "center", marginTop: "0.25rem" }}>
+            <div className="blog-div-9">
               <Link
                 href={`/${locale}/blog/beta`}
-                className="btn-secondary"
-                style={{ textDecoration: "none", fontSize: "0.85rem", padding: "0.45rem 0.9rem" }}
+                className="btn-secondary blog-link-4"
               >
                 <span>{t.betaAction}</span>
               </Link>
@@ -289,8 +248,7 @@ export default async function BlogIndexPage({
                 href={betaRelease.url}
                 target="_blank"
                 rel="noreferrer"
-                className="btn-secondary"
-                style={{ textDecoration: "none", fontSize: "0.85rem", padding: "0.45rem 0.9rem" }}
+                className="btn-secondary blog-link-4"
               >
                 <GitHubIcon size={15} />
                 <span>{t.viewOnGithub}</span>
@@ -302,55 +260,34 @@ export default async function BlogIndexPage({
 
       {/* 2. HISTORIQUE DES VERSIONS / RELEASES GITHUB */}
       {historyReleases.length > 0 && (
-        <div id="release-history" style={{ paddingTop: "1.25rem", paddingBottom: "4rem", scrollMarginTop: "6.85rem" }}>
-          <div style={{ marginBottom: "0.85rem", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "0.4rem" }}>
-            <h2 style={{ fontSize: "1.15rem", fontWeight: 700, color: "var(--text-heading)", margin: 0 }}>
+        <div id="release-history" className="blog-div-10">
+          <div className="blog-div-11">
+            <h2 className="blog-h2-2">
               {t.releasesHeading}
             </h2>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="blog-div-12">
             {historyReleases.map((release) => {
               const isBeta = release.isPrerelease || release.slug.toLowerCase() === "beta";
               return (
                 <Link
                   key={release.slug}
                   href={`/${locale}/blog/${encodeURIComponent(release.slug)}`}
-                  className="doc-open-row"
-                  style={{
-                    textDecoration: "none",
-                    paddingBlock: "0.85rem",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                    gap: "0.65rem",
-                  }}
+                  className="doc-open-row blog-link-5"
                 >
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
-                    <span className="badge" style={{ fontSize: "0.725rem" }}>
+                  <div className="blog-div-13">
+                    <span className="badge blog-span-7">
                       {release.slug}
                     </span>
-                    <span
-                      style={{
-                        fontSize: "0.675rem",
-                        fontWeight: 700,
-                        textTransform: "uppercase",
-                        letterSpacing: "0.04em",
-                        padding: "0.1rem 0.4rem",
-                        borderRadius: "3px",
-                        border: "1px solid var(--border-subtle)",
-                        color: isBeta ? "var(--text-heading)" : "var(--text-dim)",
-                        background: isBeta ? "var(--accent-subtle)" : "transparent",
-                      }}
-                    >
+                    <span className={isBeta ? "blog-channel-tag blog-channel-tag--beta" : "blog-channel-tag"}>
                       {isBeta ? t.betaLabel : t.stableLabel}
                     </span>
-                    <span style={{ fontWeight: 600, color: "var(--text-heading)", fontSize: "0.9rem" }}>
+                    <span className="blog-span-8">
                       {release.title}
                     </span>
                   </div>
-                  <span style={{ color: "var(--accent-primary)", fontSize: "0.825rem", fontWeight: 600 }}>
+                  <span className="blog-span-9">
                     {t.readMore}
                   </span>
                 </Link>

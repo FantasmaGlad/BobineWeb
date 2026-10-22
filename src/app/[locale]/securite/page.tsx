@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata, lp } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
+import "@/styles/split/pages-legal.css";
 
 const SECURITY_EMAIL = "security@bobine.fit";
 const ADVISORY_URL = "https://github.com/FantasmaGlad/Bobine/security/advisories/new";
@@ -11,35 +12,33 @@ const APT_FINGERPRINT = "B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A";
 const REPORT_KEY_FINGERPRINT = "23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2";
 const REPORT_KEY_URL = "https://bobine.fit/.well-known/security.asc";
 
-const linkStyle = { color: "var(--text-heading)", textDecoration: "underline", textUnderlineOffset: "0.2em" } as const;
-
 const mail = (
-  <a href={`mailto:${SECURITY_EMAIL}?subject=Vulnerability%20report`} style={linkStyle}>
+  <a href={`mailto:${SECURITY_EMAIL}?subject=Vulnerability%20report`} className="legal-link">
     {SECURITY_EMAIL}
   </a>
 );
 const advisory = (
-  <a href={ADVISORY_URL} target="_blank" rel="noopener noreferrer" style={linkStyle}>
+  <a href={ADVISORY_URL} target="_blank" rel="noopener noreferrer" className="legal-link">
     {ADVISORY_URL}
   </a>
 );
 const reportKey = (
-  <a href={REPORT_KEY_URL} style={linkStyle}>
+  <a href={REPORT_KEY_URL} className="legal-link">
     {REPORT_KEY_URL}
   </a>
 );
 const code = (text: string) => (
-  <code style={{ fontFamily: "var(--font-mono, monospace)", fontSize: "0.85em", background: "var(--bg-surface)", border: "1px solid var(--border-subtle)", borderRadius: "0.3rem", padding: "0.1em 0.4em", overflowWrap: "anywhere" }}>
+  <code className="legal-code-1">
     {text}
   </code>
 );
 const repoPolicy = (
-  <a href="https://github.com/FantasmaGlad/Bobine/blob/main/SECURITY.md" target="_blank" rel="noopener noreferrer" style={linkStyle}>
+  <a href="https://github.com/FantasmaGlad/Bobine/blob/main/SECURITY.md" target="_blank" rel="noopener noreferrer" className="legal-link">
     github.com/FantasmaGlad/Bobine/SECURITY.md
   </a>
 );
 const securityTxt = (
-  <a href="/.well-known/security.txt" style={linkStyle}>
+  <a href="/.well-known/security.txt" className="legal-link">
     /.well-known/security.txt
   </a>
 );
@@ -254,46 +253,37 @@ export default async function SecurityPage({
   ];
 
   return (
-    <div className="container" style={{ paddingBlock: "clamp(2rem, 5vh, 4rem)" }}>
+    <div className="container legal-div-1">
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
-      <div style={{ marginBottom: "clamp(2.5rem, 6vw, 3.5rem)" }}>
-        <span style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-muted)" }}>
+      <div className="legal-div-2">
+        <span className="legal-span-1">
           {t.badge}
         </span>
-        <h1
-          style={{
-            fontSize: "clamp(1.75rem, 3.8vw, 2.5rem)",
-            fontWeight: 800,
-            lineHeight: 1.15,
-            letterSpacing: "-0.03em",
-            marginBlock: "0.5rem 0.85rem",
-            color: "var(--text-heading)",
-          }}
+        <h1 className="legal-h1-1"
         >
           {t.title}
         </h1>
-        <p style={{ color: "var(--text-muted)", fontSize: "1rem", lineHeight: 1.6, margin: 0, maxWidth: "42rem" }}>{t.subtitle}</p>
-        <p style={{ color: "var(--text-muted)", fontSize: "0.8rem", margin: "0.75rem 0 0" }}>{t.updated}</p>
+        <p className="legal-p-1">{t.subtitle}</p>
+        <p className="legal-p-2">{t.updated}</p>
       </div>
 
       <div>
         {t.sections.map((sec) => (
           <section
             key={sec.id}
-            id={sec.id}
-            style={{ paddingBlock: "clamp(1.5rem, 3vw, 2rem)", borderTop: "1px solid var(--border-subtle)", scrollMarginTop: "6rem" }}
+            id={sec.id} className="legal-section-2"
           >
-            <h2 style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--text-heading)", marginBottom: "0.75rem", letterSpacing: "-0.01em" }}>
+            <h2 className="legal-h2-1">
               {sec.heading}
             </h2>
             {sec.paragraphs.map((p, i) => (
-              <p key={i} style={{ color: "var(--text-main)", fontSize: "0.925rem", lineHeight: 1.7, margin: i === 0 ? 0 : "0.75rem 0 0", maxWidth: "62rem" }}>
+              <p key={i} className={i === 0 ? "legal-para legal-para--first" : "legal-para"}>
                 {p}
               </p>
             ))}
             {sec.items && (
-              <ul style={{ color: "var(--text-main)", fontSize: "0.925rem", lineHeight: 1.7, margin: "0.5rem 0 0", paddingLeft: "1.25rem", maxWidth: "62rem" }}>
+              <ul className="legal-ul-1">
                 {sec.items.map((item, i) => (
                   <li key={i}>{item}</li>
                 ))}

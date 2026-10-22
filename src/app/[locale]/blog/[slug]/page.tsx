@@ -13,6 +13,7 @@ import GitHubIcon from "@/components/icons/GitHubIcon";
 import GitHubAttachmentMedia from "@/components/GitHubAttachmentMedia";
 import ShareButton from "@/components/ShareButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
+import "@/styles/split/pages-blog.css";
 
 const GITHUB_ATTACHMENT_PATTERN =
   /^https:\/\/github\.com\/user-attachments\/assets\//;
@@ -67,14 +68,7 @@ const markdownComponents: Components = {
       /* eslint-disable-next-line @next/next/no-img-element */
       <img
         src={src}
-        alt={alt || ""}
-        style={{
-          maxWidth: "100%",
-          height: "auto",
-          borderRadius: "8px",
-          display: "block",
-          margin: "1.25rem auto",
-        }}
+        alt={alt || ""} className="blog-img-1"
         {...props}
       />
     );
@@ -174,56 +168,32 @@ export default async function BlogPostPage({
   ];
 
   return (
-    <div className="container" style={{ paddingBlock: "clamp(1.25rem, 3vw, 2.5rem)", maxWidth: "56rem" }}>
+    <div className="container blog-div-1">
       <BreadcrumbsJsonLd items={breadcrumbs} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
-      <div style={{ marginBottom: "1.25rem" }}>
+      <div className="blog-div-2">
         <Link
-          href={`/${locale}/blog`}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.4rem",
-            color: "var(--text-muted)",
-            fontSize: "0.85rem",
-            fontWeight: 600,
-            textDecoration: "none",
-            transition: "color 0.15s ease",
-          }}
+          href={`/${locale}/blog`} className="blog-link-1"
         >
           &larr; {locale === "fr" ? "Retour aux versions" : "Back to releases"}
         </Link>
       </div>
 
-      <article style={{ width: "100%" }}>
-        <header
-          style={{
-            paddingBottom: "1.25rem",
-            borderBottom: "1px solid var(--border-subtle)",
-            marginBottom: "1.75rem",
-          }}
+      <article className="blog-article-1">
+        <header className="blog-header-1"
         >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: "1rem",
-              flexWrap: "wrap",
-              gap: "0.75rem",
-            }}
+          <div className="blog-div-3"
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-              <span className="badge" style={{ fontSize: "0.775rem", padding: "0.2rem 0.6rem" }}>
+            <div className="blog-div-4">
+              <span className="badge blog-span-1">
                 {release.slug}
               </span>
               {release.publishedAt && (
-                <time
-                  style={{ color: "var(--text-dim)", fontSize: "0.85rem", fontWeight: 500 }}
+                <time className="blog-time-1"
                   dateTime={release.publishedAt}
                 >
                   {new Date(release.publishedAt).toLocaleDateString(
@@ -242,15 +212,7 @@ export default async function BlogPostPage({
             />
           </div>
 
-          <h1
-            style={{
-              fontSize: "clamp(1.4rem, 3.2vw, 2.2rem)",
-              fontWeight: 800,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.22,
-              color: "var(--text-heading)",
-              margin: 0,
-            }}
+          <h1 className="blog-h1-1"
           >
             {release.title}
           </h1>
@@ -266,24 +228,13 @@ export default async function BlogPostPage({
           </Markdown>
         </div>
 
-        <footer
-          style={{
-            marginTop: "2.5rem",
-            paddingTop: "1.5rem",
-            borderTop: "1px solid var(--border-subtle)",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: "1rem",
-          }}
+        <footer className="blog-footer-1"
         >
           <a
             href={release.url}
             target="_blank"
             rel="noreferrer"
-            className="btn-secondary"
-            style={{ display: "inline-flex" }}
+            className="btn-secondary blog-a-1"
           >
             <GitHubIcon size={16} />
             {locale === "fr" ? "Voir la release officielle sur GitHub" : "View official release on GitHub"}

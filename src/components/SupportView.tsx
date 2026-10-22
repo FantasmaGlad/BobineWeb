@@ -7,6 +7,7 @@ import KofiIcon from "@/components/icons/KofiIcon";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import { type Locale } from "@/lib/i18n";
 import { lp } from "@/lib/seo";
+import "@/styles/split/pages-support.css";
 
 export default function SupportView({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
@@ -21,7 +22,7 @@ export default function SupportView({ locale }: { locale: Locale }) {
   const coffeeAmounts = [1, 3, 5, 10];
 
   return (
-    <div className="container" style={{ maxWidth: "72rem" }}>
+    <div className="container support-div-1">
       <BreadcrumbsJsonLd items={breadcrumbs} />
       <h1 className="sr-only">
         {isEn
@@ -130,11 +131,10 @@ export default function SupportView({ locale }: { locale: Locale }) {
 
             <div className="github-pr-card__footer">
               <a
-                className="btn-secondary"
+                className="btn-secondary support-a-1"
                 href="https://github.com/FantasmaGlad/Bobine"
                 target="_blank"
                 rel="noreferrer"
-                style={{ width: "100%", justifyContent: "center", minHeight: "44px" }}
               >
                 <GitHubIcon size={18} />
                 {isEn ? "Open Pull Request on GitHub" : "Rejoindre le Dépôt GitHub"}
@@ -202,11 +202,10 @@ export default function SupportView({ locale }: { locale: Locale }) {
 
             <div className="kofi-widget-card__footer">
               <a
-                className="btn-primary"
+                className="btn-primary support-a-1"
                 href="https://ko-fi.com/fantasmaglad"
                 target="_blank"
                 rel="noreferrer"
-                style={{ width: "100%", justifyContent: "center", minHeight: "44px" }}
               >
                 <KofiIcon size={18} />
                 {isEn
@@ -221,58 +220,50 @@ export default function SupportView({ locale }: { locale: Locale }) {
       {/* =========================================================================
           2. SECTION EXPLICATIVE AU SCROLL : POURQUOI SOUTENIR BOBINE
           ========================================================================= */}
-      <section style={{ maxWidth: "56rem", marginInline: "auto", paddingTop: "2.5rem", paddingBottom: "4rem" }}>
-        <div style={{ marginBottom: "2rem" }}>
+      <section className="support-section-1">
+        <div className="support-div-2">
           <span className="feature-category-label">
             {isEn ? "Independence & Open Source" : "Indépendance & Logiciel Libre"}
           </span>
-          <h2
-            style={{
-              fontSize: "clamp(1.85rem, 3.8vw, 2.6rem)",
-              fontWeight: 800,
-              lineHeight: 1.2,
-              letterSpacing: "-0.03em",
-              marginBlock: "0.5rem 0.85rem",
-              color: "var(--text-heading)",
-            }}
+          <h2 className="support-h2-1"
           >
             {isEn ? "Supporting the Bobine Project" : "Soutenir le Projet Bobine"}
           </h2>
-          <p style={{ color: "var(--text-muted)", fontSize: "1.05rem", lineHeight: 1.6, margin: 0 }}>
+          <p className="support-p-1">
             {isEn
               ? "Bobine is 100% free and open-source software (AGPL-3.0), with zero subscriptions, zero ads, and zero vendor lock-in."
               : "Bobine est un logiciel 100% libre et gratuit (AGPL-3.0), sans abonnement récurrent, sans publicité et sans dépendance propriétaire."}
           </p>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-          <div style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: "1.5rem" }}>
-            <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text-heading)", marginBottom: "0.5rem" }}>
+        <div className="support-div-3">
+          <div className="support-div-4">
+            <h3 className="support-h3-1">
               {isEn ? "1. Why Free & Self-Hosted Playout?" : "1. Pourquoi une Régie Libre & Auto-Hébergée ?"}
             </h3>
-            <p style={{ color: "var(--text-main)", fontSize: "0.975rem", lineHeight: 1.65, margin: 0 }}>
+            <p className="support-p-2">
               {isEn
                 ? "Proprietary fitness cinema solutions charge recurring subscriptions between $150 and $400 monthly per display. Bobine gives sports clubs, studio coaches, and gym owners total digital sovereignty by eliminating software rents and running 100% offline on standard affordable mini PCs."
                 : "Les régies vidéo propriétaires imposent des abonnements mensuels récurrents de 150 € à 400 € par écran. Bobine redonne une souveraineté numérique totale aux clubs, gérants et coachs en supprimant toute rente logicielle et en fonctionnant à 100% hors-ligne sur du matériel standard reconditionné."}
             </p>
           </div>
 
-          <div style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: "1.5rem" }}>
-            <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text-heading)", marginBottom: "0.5rem" }}>
+          <div className="support-div-4">
+            <h3 className="support-h3-1">
               {isEn ? "2. Financial Transparency & Independence" : "2. Transparence Budgétaire & Indépendance"}
             </h3>
-            <p style={{ color: "var(--text-main)", fontSize: "0.975rem", lineHeight: 1.65, margin: 0 }}>
+            <p className="support-p-2">
               {isEn
                 ? "Bobine has no external corporate investors and collects zero user data. Every donation received via Ko-fi directly pays for hardware testing benches (Dell Wyse units, Intel Celeron mini PCs, sound cards), domain renewals, and automated CI/CD runners."
                 : "Bobine ne dépend d'aucun investisseur privé et ne collecte aucune donnée personnelle. Chaque euro reçu sur Ko-fi sert exclusivement à financer le banc d'essai matériel (mini PC Dell Wyse, cartes son), le renouvellement du nom de domaine et les serveurs de compilation continue."}
             </p>
           </div>
 
-          <div style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: "1.5rem" }}>
-            <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text-heading)", marginBottom: "0.5rem" }}>
+          <div className="support-div-4">
+            <h3 className="support-h3-1">
               {isEn ? "3. How You Can Help the Project" : "3. Comment Contribuer Concrètement ?"}
             </h3>
-            <p style={{ color: "var(--text-main)", fontSize: "0.975rem", lineHeight: 1.65, margin: 0 }}>
+            <p className="support-p-2">
               {isEn
                 ? "Whether you are a developer, gym manager, or fitness enthusiast, starring our GitHub repository, reporting compatibility with TV screens, improving the Debian install script, or translating documentation helps the ecosystem grow."
                 : "Que vous soyez développeur, gérant de salle ou passionné de fitness, ajouter une étoile sur GitHub, tester la compatibilité d'un téléviseur, traduire la documentation ou optimiser les scripts d'installation aide directement la communauté."}

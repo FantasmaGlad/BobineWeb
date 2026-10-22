@@ -1,0 +1,105 @@
+.legal-div-1 {
+  padding-block: clamp(2rem, 5vh, 4rem);
+}
+.legal-div-2 {
+  margin-bottom: clamp(2.5rem, 6vw, 3.5rem);
+}
+.legal-span-1 {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+.legal-h1-1 {
+  font-size: clamp(1.75rem, 3.8vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-block: 0.5rem 0.85rem;
+  color: var(--text-heading);
+}
+.legal-p-1 {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 42rem;
+}
+.legal-p-2 {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin: 0.75rem 0 0;
+}
+.legal-section-1 {
+  padding-block: clamp(1.5rem, 3vw, 2rem);
+  border-top: 1px solid var(--border-subtle);
+}
+.legal-h2-1 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+.legal-p-3 {
+  color: var(--text-main);
+  font-size: 0.925rem;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 62rem;
+}
+.legal-p-4 {
+  color: var(--text-main);
+  font-size: 0.925rem;
+  font-weight: 600;
+  line-height: 1.7;
+  margin: 0;
+  margin-top: 0.75rem;
+  max-width: 62rem;
+}
+.legal-p-5 {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.65;
+  margin: 0;
+  margin-top: 0.75rem;
+  max-width: 62rem;
+}
+.legal-code-1 {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85em;
+  background: var(--glass-inset-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.3rem;
+  padding: 0.1em 0.4em;
+  overflow-wrap: anywhere;
+}
+.legal-section-2 {
+  padding-block: clamp(1.5rem, 3vw, 2rem);
+  border-top: 1px solid var(--border-subtle);
+  scroll-margin-top: 6rem;
+}
+.legal-ul-1 {
+  color: var(--text-main);
+  font-size: 0.925rem;
+  line-height: 1.7;
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+  max-width: 62rem;
+}
+.legal-link {
+  color: var(--text-heading);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.legal-para {
+  color: var(--text-main);
+  font-size: 0.925rem;
+  line-height: 1.7;
+  margin: 0.75rem 0 0;
+  max-width: 62rem;
+}
+.legal-para--first {
+  margin: 0;
+}

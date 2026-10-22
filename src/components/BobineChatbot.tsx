@@ -14,9 +14,9 @@ import "@/styles/split/pages-misc.css";
 
 
 /**
- * Miroir Tor : Baamix ne peut pas repondre (aucun serveur, et les services d'IA tiers feraient sortir
- * les messages du reseau Tor). Le chat s'ouvre donc sur un message deja "envoye" par Baamix, qui
- * explique pourquoi. Aucun appel reseau n'est fait dans ce mode.
+ * Miroir Tor : Baamix ne peut pas répondre (aucun serveur, et les services d'IA tiers feraient sortir
+ * les messages du réseau Tor). Le chat s'ouvre donc sur un message déjà "envoyé" par Baamix, qui
+ * explique pourquoi. Aucun appel réseau n'est fait dans ce mode.
  */
 function onionIntro(locale: Locale): string {
   if (locale === "en") {
@@ -71,9 +71,9 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
     IS_ONION ? [{ role: "assistant", content: onionIntro(locale) }] : [],
   );
   const [input, setInput] = useState("");
-  // Miroir Tor : une fois le message de Baamix entierement tape, il court dans sa roue en bas du chat.
+  // Miroir Tor : une fois le message de Baamix entièrement tapé, il court dans sa roue en bas du chat.
   const [onionTyped, setOnionTyped] = useState(false);
-  // Miroir Tor : la frappe repart de zero a chaque ouverture du chat (le contenu reste monte, masque, des l'arrivee).
+  // Miroir Tor : la frappe repart de zéro à chaque ouverture du chat (le contenu reste monté, masqué, dès l'arrivée).
   const [openNonce, setOpenNonce] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -81,8 +81,8 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Miroir Tor : precharge le rendu Markdown des le chargement de la page (reseau lent), pour que la machine a
-  // ecrire demarre des l'ouverture du chat.
+  // Miroir Tor : précharge le rendu Markdown dès le chargement de la page (réseau lent), pour que la machine à
+  // écrire démarre dès l'ouverture du chat.
   useEffect(() => {
     if (IS_ONION) void import("./MarkdownRenderer");
   }, []);
@@ -303,8 +303,8 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
   }
 
   const hidden = !isOpen || hiddenBubble;
-  // Miroir Tor : le chat est monte des l'arrivee sur le site, simplement masque. Le rendu Markdown se charge
-  // en arriere-plan et le message est pret : a l'ouverture, seule l'animation de frappe se joue (plus de demi-bulle).
+  // Miroir Tor : le chat est monté dès l'arrivée sur le site, simplement masqué. Le rendu Markdown se charge
+  // en arrière-plan et le message est prêt : à l'ouverture, seule l'animation de frappe se joue (plus de demi-bulle).
   if (hidden && !IS_ONION) {
     return null;
   }

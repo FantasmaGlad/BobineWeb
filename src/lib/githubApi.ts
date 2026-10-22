@@ -5,7 +5,7 @@ const REPO = "FantasmaGlad/Bobine";
 /**
  * Fenêtre de rafraîchissement des données GitHub (versions, téléchargements, étoiles). Deux minutes :
  * une release publiée par le workflow du dépôt Bobine apparaît sur le site à la requête suivante
- * passé ce délai, sans redéploiement. Les deux appels ci-dessous (au lieu de cinq) tiennent dans
+ * passé ce délai, sans redéploiement. Les deux appels ci-dessous tiennent dans
  * la limite de 60 requêtes/heure sans jeton, `GITHUB_TOKEN` la porte à 5 000.
  */
 export const GITHUB_REVALIDATE_SECONDS = 120;

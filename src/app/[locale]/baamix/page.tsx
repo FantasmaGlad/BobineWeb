@@ -149,7 +149,7 @@ export default async function BaamixPage({ params }: { params: Promise<{ locale:
   if (!isLocale(locale)) notFound();
   const currentLocale = locale as Locale;
   if (IS_ONION) {
-    // Miroir Tor : le chat s'ouvre sur le message de Baamix qui explique pourquoi il ne peut pas repondre.
+    // Miroir Tor : le chat s'ouvre sur le message de Baamix qui explique pourquoi il ne peut pas répondre.
     return (
       <div className="baamix-page">
         <BobineChatbot locale={currentLocale} variant="page" />

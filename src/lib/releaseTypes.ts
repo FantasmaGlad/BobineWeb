@@ -1,6 +1,6 @@
 export interface ReleaseChannelInfo {
   version: string;
-  /** Commit court (7 car.) vise par le tag mobile d'un canal rolling (Beta/Canary) — absent pour Stable. */
+  /** Commit court (7 car.) visé par le tag mobile d'un canal rolling (Beta/Canary) — absent pour Stable. */
   commit?: string;
   title: string;
   publishedAt: string;

@@ -286,9 +286,9 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
     }
   }, []);
 
-  // Toujours tout en bas : le defilement suit le DOM apres chaque changement (layout effect, donc apres le
-  // rendu et avant l'affichage), puis une boucle d'images d'animation rattrape les hauteurs qui evoluent
-  // (banniere, images, animations d'apparition) pendant l'execution et un instant apres la fin.
+  // Toujours tout en bas : le défilement suit le DOM après chaque changement (layout effect, donc après le
+  // rendu et avant l'affichage), puis une boucle d'images d'animation rattrape les hauteurs qui évoluent
+  // (bannière, images, animations d'apparition) pendant l'exécution et un instant après la fin.
   useLayoutEffect(() => {
     scrollToBottom();
   }, [completedSteps, currentRunningStep, showBanner, channelPromptAnswered, isCompleted, hasTriggered, mode, scrollToBottom]);
@@ -680,7 +680,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
           </div>
         )}
 
-        {/* Bannière Tor : Baamix dans l'oignon (ASCII art rendu en SVG, jamais deforme) */}
+        {/* Bannière Tor : Baamix dans l'oignon (ASCII art rendu en SVG, jamais déformé) */}
         {showBanner && isTor && (
           <div className="terminal-ascii-container">
             <svg

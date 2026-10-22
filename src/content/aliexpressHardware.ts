@@ -1,9 +1,8 @@
 /**
  * Catalogue AliExpress (Windows, Linux, Android ; macOS redirige vers Windows et Linux).
  *
- * Voir docs/cahier-des-charges-aliexpress-affiliate.md. Ce fichier ne contient que des
- * identifiants curatés à la main et leur texte éditorial ; prix, lien affilié, image et
- * vendeur viennent de l'instantané `aliexpress-snapshot.json` (généré par
+ * Ce fichier ne contient que des identifiants curatés à la main et leur texte éditorial ;
+ * prix, lien affilié, image et vendeur viennent de l'instantané `aliexpress-snapshot.json` (généré par
  * scripts/aliexpress-snapshot.mjs) puis, côté serveur, sont rafraîchis en direct par l'API.
  *
  * Convention : les objets réutilisent le type HardwareItem d'Amazon pour partager les composants

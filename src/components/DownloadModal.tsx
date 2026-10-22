@@ -361,7 +361,7 @@ export default function DownloadModal({
           </button>
         </div>
 
-        {/* Corps de la modale avec les deux canaux de version */}
+        {/* Corps de la modale avec les trois canaux de version */}
         <div className="download-modal__body">
           {activePlatform === "cli" ? (
             /* Cas particulier : CLI Appliance */

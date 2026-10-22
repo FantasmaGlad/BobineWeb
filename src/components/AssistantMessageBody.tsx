@@ -44,9 +44,9 @@ export default function AssistantMessageBody({
   animate: boolean;
   locale: Locale;
   onGrow?: () => void;
-  /** Appele une fois la frappe terminee (ex. pour afficher Baamix qui court en bas du chat). */
+  /** Appelé une fois la frappe terminée (ex. pour afficher Baamix qui court en bas du chat). */
   onDone?: () => void;
-  /** Faux tant que le chat est masque (monte a l'avance) : la frappe attend l'ouverture. */
+  /** Faux tant que le chat est masqué (monté à l'avance) : la frappe attend l'ouverture. */
   active?: boolean;
 }) {
   const parsed = useMemo(() => parseCatalogBlocks(raw), [raw]);
@@ -57,8 +57,8 @@ export default function AssistantMessageBody({
     setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   }, []);
 
-  // Le rendu Markdown est charge a la demande. Sur un reseau lent (Tor), la frappe finissait avant son arrivee
-  // et le texte apparaissait d'un bloc : on attend que le module soit la avant de demarrer la machine a ecrire.
+  // Le rendu Markdown est chargé à la demande. Sur un réseau lent (Tor), la frappe finissait avant son arrivée
+  // et le texte apparaissait d'un bloc : on attend que le module soit là avant de démarrer la machine à écrire.
   const [markdownReady, setMarkdownReady] = useState(false);
   useEffect(() => {
     let cancelled = false;

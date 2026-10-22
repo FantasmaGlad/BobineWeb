@@ -7,7 +7,7 @@
 
 :root,
 :root[data-theme="charbon"] {
-  /* Défaut officiel : Thème Charbon Clair — Albâtre & Carbone (Référence) */
+  /* Valeurs de repli sans attribut data-theme : thème Charbon (Albâtre & Carbone). Le thème par défaut du site, Lavande, est posé par data-theme dès le premier rendu. */
   --bg-canvas: #f4f4f5;
   --bg-main: #f4f4f5;
   --bg-card: #ffffff;
@@ -3522,7 +3522,7 @@ main {
   word-break: break-all;
 }
 
-/* Cartes produit inline — Baamix recommande un article reel du catalogue */
+/* Cartes produit inline — Baamix recommande un article réel du catalogue */
 .chatbot-product-cards {
   display: flex;
   flex-direction: column;
@@ -9295,7 +9295,7 @@ main {
     background: var(--bg-card);
     border-top: 1px solid var(--border-subtle);
     box-shadow: 0 -4px 16px color-mix(in srgb, var(--ink) 8%, transparent);
-    /* Fixe la barre sur son propre calque GPU : evite le redimensionnement /
+    /* Fixe la barre sur son propre calque GPU : évite le redimensionnement /
        redessin visible de certains navigateurs mobiles pendant le scroll. */
     transform: translateZ(0);
     will-change: transform;
@@ -9444,7 +9444,7 @@ main {
 
 /* ==========================================================================
    Boutique matériel : les pages Amazon et AliExpress suivent le thème général du site
-   (17 thèmes). Seuls le logo, la pastille de marque et le badge boutique gardent leurs couleurs.
+   (16 thèmes). Seuls le logo, la pastille de marque et le badge boutique gardent leurs couleurs.
    ========================================================================== */
 
 .platform-shell {
@@ -10244,13 +10244,13 @@ main {
   color: var(--text-dim);
 }
 
-/* Banniere Tor du terminal de demonstration : l'ASCII art est un SVG, il garde ses proportions partout */
+/* Bannière Tor du terminal de démonstration : l'ASCII art est un SVG, il garde ses proportions partout */
 .terminal-ascii-svg--tor {
   width: min(100%, 260px);
   max-width: 260px;
 }
 
-/* Miroir Tor : Baamix court dans sa roue en bas du chat, une fois son message entierement tape */
+/* Miroir Tor : Baamix court dans sa roue en bas du chat, une fois son message entièrement tapé */
 .baamix-idle-runner {
   display: flex;
   align-items: center;
@@ -10310,7 +10310,7 @@ main {
 
 /* ==========================================================================
    COUCHE FINALE — GLASSMORPHISM APPLE PREMIUM, CONTOURS MARQUÉS & ANIMATIONS
-   Harmonisation complète avec l'application Bobine V5.0.0 « Orchidée » :
+   Harmonisation complète avec l'application Bobine :
    - Surfaces vitrées translucides à double liseré spéculaire (--glass-card-bg)
    - Boutons primaires avec reflet spéculaire (--glass-gloss) et halo d'accent
    - Boutons secondaires en verre dépoli à contour marqué (--glass-edge)

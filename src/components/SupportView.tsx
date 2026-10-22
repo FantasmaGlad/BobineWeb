@@ -30,14 +30,10 @@ export default function SupportView({ locale }: { locale: Locale }) {
           : "Soutenir le Projet Bobine — Régie Vidéo Libre"}
       </h1>
 
-      {/* =========================================================================
-          1. ÉCRAN INITIAL SANS SCROLL : LES DEUX INTERFACES CÔTE À CÔTE
-          ========================================================================= */}
+      {/* 1. ÉCRAN INITIAL SANS SCROLL : LES DEUX INTERFACES CÔTE À CÔTE */}
       <section className="support-hero-viewport">
         <div className="support-dual-grid">
-          {/* =====================================================================
-              COLONNE GAUCHE : Style GitHub Pull Request / Profil Maintainer
-              ===================================================================== */}
+          {/* COLONNE GAUCHE : Style GitHub Pull Request / Profil Maintainer */}
           <div className="github-pr-card">
             <div className="github-pr-card__header">
               <div className="github-pr-card__status-row">
@@ -142,9 +138,7 @@ export default function SupportView({ locale }: { locale: Locale }) {
             </div>
           </div>
 
-          {/* =====================================================================
-              COLONNE DROITE : Style Widget Créateur Ko-fi
-              ===================================================================== */}
+          {/* COLONNE DROITE : Style Widget Créateur Ko-fi */}
           <div className="kofi-widget-card">
             <div className="kofi-widget-card__header">
               <div className="kofi-widget-avatar-row">
@@ -217,9 +211,7 @@ export default function SupportView({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* =========================================================================
-          2. SECTION EXPLICATIVE AU SCROLL : POURQUOI SOUTENIR BOBINE
-          ========================================================================= */}
+      {/* 2. SECTION EXPLICATIVE AU SCROLL : POURQUOI SOUTENIR BOBINE */}
       <section className="support-section-1">
         <div className="support-div-2">
           <span className="feature-category-label">

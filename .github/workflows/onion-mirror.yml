@@ -2,7 +2,8 @@ name: Onion mirror
 
 # Construit l'export statique du site pour le miroir Tor (.onion) et le publie
 # sur la branche orpheline `onion-site`. La machine hôte du service onion tire
-# cette branche (git fetch) : aucun accès entrant vers elle n'est nécessaire.
+# cette branche (git fetch, deploy/onion/sync.sh) : aucun accès entrant vers elle
+# n'est nécessaire. Le nom du workflow est repris par `live-tor.yml` (workflow_run).
 
 on:
   push:
@@ -41,29 +42,29 @@ jobs:
 
       # Retire les routes serveur et le proxy (copie de travail jetable du runner),
       # puis exporte en statique avec NEXT_PUBLIC_BOBINE_ONION=1.
-      - name: Build static export
+      - name: Export statique
         run: npm run build:onion
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Verify the mirror is clean
+      - name: Contrôle du miroir
         run: bash scripts/ci/verify-onion.sh out
 
-      # Vercel construit chaque branche poussee : la branche onion-site ne contient que des fichiers statiques
-      # (pas d'application Next.js) et son build echouait. Ce vercel.json lui interdit tout deploiement.
+      # Vercel construit chaque branche poussée : la branche onion-site ne contient que des fichiers statiques
+      # (pas d'application Next.js) et son build échouait. Ce vercel.json lui interdit tout déploiement.
       # (sync.sh le retire de la copie servie sur le miroir.)
-      - name: Disable Vercel deployments for the mirror branch
+      - name: Interdire le déploiement Vercel de la branche du miroir
         run: |
           echo '{"git":{"deploymentEnabled":false}}' > out/vercel.json
 
-      - name: Stamp the build
+      - name: Horodater l'export
         run: |
           {
             echo "source: ${GITHUB_REPOSITORY}@${GITHUB_SHA}"
             echo "built: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           } > out/mirror-info.txt
 
-      - name: Publish to the onion-site branch
+      - name: Publier sur la branche onion-site
         run: |
           set -eu
           cd out

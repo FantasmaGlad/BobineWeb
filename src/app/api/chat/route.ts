@@ -125,9 +125,9 @@ function buildProjectKnowledge(): string {
 }
 
 /**
- * Récupère la dernière version publiée sur GitHub (avec mise en cache
- * 30 min côté Next.js) pour que Baamix cite toujours le bon numéro de
- * version sans qu'un humain ait à éditer ce fichier à chaque sortie.
+ * Récupère la dernière version publiée sur GitHub (mise en cache de deux minutes
+ * côté Next.js, `GITHUB_REVALIDATE_SECONDS`) pour que Baamix cite toujours le bon
+ * numéro de version sans qu'un humain ait à éditer ce fichier à chaque sortie.
  */
 async function buildVersionInfo(): Promise<string> {
   try {
@@ -312,7 +312,7 @@ export async function POST(req: Request) {
           if (productFallback) controller.enqueue(encoder.encode(productFallback));
           controller.close();
         } catch (err) {
-          console.error("Erreur de streaming OpenRouter:", err);
+          console.error("Erreur de streaming de la réponse :", err);
           controller.error(err);
         }
       },

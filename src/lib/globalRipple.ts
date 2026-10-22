@@ -36,7 +36,7 @@ export function initGlobalRipple(): () => void {
     };
 
     ripple.addEventListener("animationend", cleanup, { once: true });
-    // Filet de securite si l'animation ne se declenche jamais (element retire du DOM, etc.)
+    // Filet de sécurité si l'animation ne se déclenche jamais (élément retiré du DOM, etc.)
     window.setTimeout(cleanup, 700);
   }
 

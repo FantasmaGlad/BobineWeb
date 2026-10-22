@@ -52,7 +52,7 @@ export default function GitHubBadge({ compact = false }: { compact?: boolean }) 
 
       <span className="github-badge__release">{releaseTag}</span>
 
-      {/* Miroir Tor : pas de compteur d'etoiles (il serait fige au dernier build). */}
+      {/* Miroir Tor : pas de compteur d'étoiles (il serait figé au dernier build). */}
       {!isOnion && (
       <span className="github-badge__stars">
         <svg

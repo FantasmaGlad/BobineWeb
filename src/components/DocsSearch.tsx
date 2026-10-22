@@ -334,7 +334,7 @@ export default function DocsSearch({ locale }: { locale: Locale }) {
         const excerpt = normalize(item.excerpt);
         const tags = item.tags.map(normalize);
 
-        // Chaque mot de la requête doit correspondre a au moins un champ (recherche "ET").
+        // Chaque mot de la requête doit correspondre à au moins un champ (recherche "ET").
         let score = 0;
         for (const term of terms) {
           if (title === term) score += 12;
@@ -344,7 +344,7 @@ export default function DocsSearch({ locale }: { locale: Locale }) {
           else if (tags.some((tag) => tag.includes(term))) score += 3;
           else if (category.includes(term)) score += 2;
           else if (excerpt.includes(term)) score += 1;
-          else return null; // Un des mots ne correspond a rien : on exclut l'entree.
+          else return null; // Un des mots ne correspond à rien : on exclut l'entrée.
         }
         return { item, score };
       })

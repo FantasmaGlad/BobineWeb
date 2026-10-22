@@ -9,6 +9,7 @@ import ThemeSwitcher from "@/components/ThemeSwitcher";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 import GitHubBadge from "@/components/GitHubBadge";
 import { lp } from "@/lib/seo";
+import "@/styles/split/site-chrome.css";
 
 interface MobileDrawerProps {
   isOpen: boolean;
@@ -75,8 +76,7 @@ export default function MobileDrawer({
               alt="Bobine"
               width={125}
               height={46}
-              priority
-              style={{ filter: "var(--logo-filter)" }}
+              priority className="site-image-2"
             />
           </Link>
           <button
@@ -99,7 +99,7 @@ export default function MobileDrawer({
             <span className="mobile-drawer-section-title">
               {isEn ? "Assistance & Support" : "Assistance"}
             </span>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+            <div className="site-div-6">
               {/* Bouton Baamix */}
               <button
                 type="button"
@@ -114,49 +114,40 @@ export default function MobileDrawer({
                     src="/images/baamix.jpg"
                     alt="Baamix"
                     width={32}
-                    height={32}
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    height={32} className="site-image-3"
                   />
                   <span className="baamix-header-dot" />
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", textAlign: "left" }}>
-                  <span style={{ fontWeight: 700, fontSize: "0.925rem", color: "var(--text-heading)" }}>
+                <div className="site-div-7">
+                  <span className="site-span-2">
                     Baamix
                   </span>
-                  <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
+                  <span className="site-span-3">
                     {isEn ? "Interactive AI Assistant" : "Mascotte & Assistant IA"}
                   </span>
                 </div>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: "auto", color: "var(--text-muted)" }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="site-svg-1">
                   <polyline points="9 18 15 12 9 6" />
                 </svg>
               </button>
 
               {/* Module contact */}
               <div className="mobile-drawer-contact-card">
-                <span style={{ fontWeight: 600, fontSize: "0.85rem", color: "var(--text-heading)", display: "flex", alignItems: "center", gap: "0.45rem" }}>
+                <span className="site-span-4">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect width="20" height="16" x="2" y="4" rx="2" />
                     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                   </svg>
                   {isEn ? "Direct Developer Contact" : "Contact Développeur"}
                 </span>
-                <p style={{ fontSize: "0.775rem", color: "var(--text-muted)", margin: "0 0 0.5rem 0", lineHeight: 1.4 }}>
+                <p className="site-p-2">
                   {isEn
                     ? "Question, feedback, or custom feature request?"
                     : "Une question, un retour de club ou une suggestion ?"}
                 </p>
                 <a
                   href="mailto:clement.barillot@bobine.fit?subject=Contact%20Bobine"
-                  className="btn-secondary"
-                  style={{
-                    width: "100%",
-                    padding: "0.45rem 0.65rem",
-                    fontSize: "0.8rem",
-                    justifyContent: "center",
-                    borderRadius: "0.45rem",
-                    textDecoration: "none",
-                  }}
+                  className="btn-secondary site-a-3"
                   onClick={onClose}
                 >
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -209,7 +200,7 @@ export default function MobileDrawer({
                     onClick={onClose}
                   >
                     <span className="mobile-drawer-link__text">{item.label}</span>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                    <div className="site-div-8">
                       {item.tag && (
                         <span className="mobile-drawer-link__tag">{item.tag}</span>
                       )}
@@ -222,26 +213,24 @@ export default function MobileDrawer({
           </div>
 
           {/* 4. Communauté & Légal — Tout en bas */}
-          <div className="mobile-drawer-section" style={{ borderBottom: "none", paddingBottom: "1.25rem" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem", alignItems: "center" }}>
-              <div style={{ display: "flex", gap: "1.25rem", justifyContent: "center", alignItems: "center", fontSize: "0.8rem" }}>
+          <div className="mobile-drawer-section site-div-9">
+            <div className="site-div-10">
+              <div className="site-div-11">
                 <Link
                   href={lp(locale, `/mentions-legales`)}
-                  onClick={onClose}
-                  style={{ color: "var(--text-muted)", textDecoration: "none" }}
+                  onClick={onClose} className="site-link-3"
                 >
                   {dict.footer.legal}
                 </Link>
-                <span style={{ color: "var(--border-subtle)" }}>•</span>
+                <span className="site-span-5">•</span>
                 <Link
                   href={lp(locale, `/confidentialite`)}
-                  onClick={onClose}
-                  style={{ color: "var(--text-muted)", textDecoration: "none" }}
+                  onClick={onClose} className="site-link-3"
                 >
                   {dict.footer.privacy}
                 </Link>
               </div>
-              <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+              <div className="site-div-12">
                 <GitHubBadge />
               </div>
             </div>

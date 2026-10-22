@@ -19,6 +19,8 @@ import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFa
 import { useReleaseData } from "@/components/ReleaseProvider";
 import { ONION_APT_HOST, ONION_SITE_HOST } from "@/lib/onion";
 import TorLogo from "@/components/icons/TorLogo";
+import { ANDROID } from "@/lib/productFacts";
+import "@/styles/split/pages-docs.css";
 
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
 type AndroidVariant = "mobile" | "tv";
@@ -188,7 +190,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       <div className="docs-channels-grid">
         {/* Canal Stable */}
         <div className="download-modal__channel-card download-modal__channel-card--stable">
-          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/stable.webp)" }} />
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -209,7 +210,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               : "Version officielle certifiée. 100% testée, stable et recommandée pour l'exploitation en salle de sport."}
           </p>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem", marginTop: "auto" }}>
+          <div className="dx-div-12">
             <a
               href={cfg.stableUrl}
               download
@@ -229,7 +230,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
         {/* Canal Bêta */}
         <div className="download-modal__channel-card download-modal__channel-card--beta">
-          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/beta.webp)" }} />
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -247,7 +247,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               : "Bêta : lots de fonctionnalités/correctifs que je sélectionne et publie manuellement quand ils sont prêts."}
           </p>
 
-          <div style={{ marginTop: "auto" }}>
+          <div className="dx-div-13">
             <a
               href={cfg.betaUrl}
               download
@@ -267,7 +267,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
         {/* Canal Canary */}
         <div className="download-modal__channel-card download-modal__channel-card--canary">
-          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/canary.webp)" }} />
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -285,7 +284,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               : "Canary : reconstruite automatiquement à chaque commit sur main. Accès le plus anticipé, zéro curation, non testé."}
           </p>
 
-          <div style={{ marginTop: "auto" }}>
+          <div className="dx-div-13">
             <a
               href={cfg.canaryUrl}
               download
@@ -326,7 +325,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       <div className="docs-channels-grid">
         {/* Canal Stable CLI */}
         <div className="download-modal__channel-card download-modal__channel-card--stable">
-          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/stable.webp)" }} />
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -347,7 +345,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               : "Version officielle certifiée. 100% testée, stable et recommandée pour l'exploitation en salle de sport."}
           </p>
 
-          <div className="download-modal__cli-block" style={{ marginTop: "auto" }}>
+          <div className="download-modal__cli-block dx-div-13">
             <ScrollingCode>curl -fsSL https://bobine.fit/install.sh | sudo bash</ScrollingCode>
             <button
               type="button"
@@ -367,7 +365,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
         {/* Canal Bêta CLI */}
         <div className="download-modal__channel-card download-modal__channel-card--beta">
-          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/beta.webp)" }} />
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -385,7 +382,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               : "Bêta : lots de fonctionnalités/correctifs que je sélectionne et publie manuellement quand ils sont prêts."}
           </p>
 
-          <div className="download-modal__cli-block" style={{ marginTop: "auto" }}>
+          <div className="download-modal__cli-block dx-div-13">
             <ScrollingCode>curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta</ScrollingCode>
             <button
               type="button"
@@ -405,7 +402,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
         {/* Canal Canary CLI */}
         <div className="download-modal__channel-card download-modal__channel-card--canary">
-          <div className="download-modal__card-bg" style={{ backgroundImage: "url(/images/channels/canary.webp)" }} />
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -423,7 +419,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               : "Canary : reconstruite automatiquement à chaque commit sur main. Accès le plus anticipé, zéro curation, non testé."}
           </p>
 
-          <div className="download-modal__cli-block" style={{ marginTop: "auto" }}>
+          <div className="download-modal__cli-block dx-div-13">
             <ScrollingCode>curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=canary</ScrollingCode>
             <button
               type="button"
@@ -591,7 +587,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-method-hero__icon">
                 <WindowsIcon size={32} />
               </div>
-              <div style={{ flex: 1 }}>
+              <div className="dx-div-14">
                 <h2 className="docs-method-hero__title">
                   {isEn ? "Bobine for Windows 11, 10, Windows ARM & Windows IoT" : "Bobine pour Windows 11, 10, Windows ARM et Windows IoT"}
                 </h2>
@@ -641,8 +637,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <h4>{isEn ? "Download the installer" : "Téléchargez le programme d'installation"}</h4>
                 <p>
                   {isEn
-                    ? "Click the download button above to get Bobine-Setup-5.0.0.exe (for Intel / AMD) or Bobine-Setup-5.0.0-arm64.exe (for Snapdragon X Elite / X Plus)."
-                    : "Cliquez sur le bouton ci-dessus pour récupérer Bobine-Setup-5.0.0.exe (pour Intel / AMD) ou Bobine-Setup-5.0.0-arm64.exe (pour PC ARM Snapdragon X Elite / X Plus)."}
+                    ? "Click the download button above to get Bobine-Setup-x.y.z.exe (for Intel / AMD) or Bobine-Setup-x.y.z-arm64.exe (for Snapdragon X Elite / X Plus)."
+                    : "Cliquez sur le bouton ci-dessus pour récupérer Bobine-Setup-x.y.z.exe (pour Intel / AMD) ou Bobine-Setup-x.y.z-arm64.exe (pour PC ARM Snapdragon X Elite / X Plus)."}
                 </p>
               </div>
             </div>
@@ -653,8 +649,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <h4>{isEn ? "Launch the setup wizard" : "Lancez l'assistant d'installation"}</h4>
                 <p>
                   {isEn
-                    ? "Double-click Bobine-Setup-5.0.0.exe. The standard Windows setup wizard will create a desktop shortcut and prepare the self-contained environment."
-                    : "Double-cliquez sur le fichier Bobine-Setup-5.0.0.exe. L'assistant prépare l'environnement autonome et crée un raccourci officiel sur votre Bureau."}
+                    ? "Double-click Bobine-Setup-x.y.z.exe. The standard Windows setup wizard will create a desktop shortcut and prepare the self-contained environment."
+                    : "Double-cliquez sur le fichier Bobine-Setup-x.y.z.exe. L'assistant prépare l'environnement autonome et crée un raccourci officiel sur votre Bureau."}
                 </p>
               </div>
             </div>
@@ -711,7 +707,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-method-hero__icon">
                 <AppleIcon size={32} />
               </div>
-              <div style={{ flex: 1 }}>
+              <div className="dx-div-14">
                 <h2 className="docs-method-hero__title">
                   {isEn ? "Bobine for Mac (Apple Silicon M1–M4)" : "Bobine pour Mac (Apple Silicon M1–M4)"}
                 </h2>
@@ -734,15 +730,15 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             })}
           </div>
 
-          <div className="docs-callout docs-callout--info" style={{ marginTop: "1.25rem" }}>
+          <div className="docs-callout docs-callout--info dx-div-15">
             <div className="docs-callout__content">
               <div className="docs-callout__title">
                 {isEn ? "Apple Silicon Architecture & Intel Mac Roadmap" : "Architecture Apple Silicon & Précision Mac Intel"}
               </div>
               <div>
                 {isEn
-                  ? "Bobine 5.0.0 is compiled natively for Apple Silicon Macs (MacBook Air, MacBook Pro, Mac mini, Mac Studio with M1, M2, M3, or M4). Native support for legacy Intel Macs (x86_64) is undergoing validation and will be released in an upcoming update."
-                  : "Bobine 5.0.0 est optimisé nativement pour les Mac Apple Silicon (MacBook, Mac mini, iMac équipés de puces M1, M2, M3 ou M4). La compatibilité native avec les anciens processeurs Mac Intel (x86_64) arrivera lors d'une prochaine mise à jour."}
+                  ? "Bobine is compiled natively for Apple Silicon Macs (MacBook Air, MacBook Pro, Mac mini, Mac Studio with M1, M2, M3, or M4). Native support for legacy Intel Macs (x86_64) is undergoing validation and will be released in an upcoming update."
+                  : "Bobine est optimisé nativement pour les Mac Apple Silicon (MacBook, Mac mini, iMac équipés de puces M1, M2, M3 ou M4). La compatibilité native avec les anciens processeurs Mac Intel (x86_64) arrivera lors d'une prochaine mise à jour."}
               </div>
             </div>
           </div>
@@ -760,8 +756,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <h4>{isEn ? "Download the disk image" : "Téléchargez l'image disque"}</h4>
                 <p>
                   {isEn
-                    ? "Download Bobine-5.0.0.dmg using the button above."
-                    : "Téléchargez le fichier Bobine-5.0.0.dmg via le bouton de téléchargement."}
+                    ? "Download Bobine-x.y.z.dmg using the button above."
+                    : "Téléchargez le fichier Bobine-x.y.z.dmg via le bouton de téléchargement."}
                 </p>
               </div>
             </div>
@@ -818,7 +814,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-method-hero__icon">
                 <LinuxIcon size={32} />
               </div>
-              <div style={{ flex: 1 }}>
+              <div className="dx-div-14">
                 <h2 className="docs-method-hero__title">
                   {isEn ? "Bobine for Linux Desktop (.deb package — x86_64 & ARM64)" : "Bobine pour Linux Bureau (Paquet .deb — x86_64 & ARM64)"}
                 </h2>
@@ -870,8 +866,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     ? "Add the official GPG-signed repository (apt.bobine.fit) to receive automatic updates with your standard apt upgrade (serves amd64 and arm64 architectures):"
                     : "Ajoutez le dépôt officiel signé GPG (apt.bobine.fit) pour bénéficier des mises à jour automatiques lors de vos apt upgrade habituels (distribue automatiquement amd64 et arm64) :"}
                 </p>
-                <div className="docs-copyable-cmd" style={{ whiteSpace: "pre-wrap", alignItems: "flex-start" }}>
-                  <code style={{ fontSize: "0.8rem", lineHeight: "1.5" }}>
+                <div className="docs-copyable-cmd dx-div-16">
+                  <code className="dx-code-1">
                     {`curl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho "deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine`}
                   </code>
                   <button
@@ -887,15 +883,14 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
                   </button>
                 </div>
-                <p style={{ marginTop: "0.5rem", fontSize: "0.85rem", color: "var(--text-muted)" }}>
+                <p className="dx-p-6">
                   {isEn
                     ? "For pre-release builds, replace 'stable' with 'beta' (curated) or 'canary' (rolling). Repository web portal: "
                     : "Pour tester les versions préliminaires, remplacez « stable » par « beta » (curée) ou « canary » (rolling). Portail du dépôt : "}
                   <a
                     href="https://apt.bobine.fit"
                     target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: "var(--text-heading)", textDecoration: "underline", textUnderlineOffset: "3px" }}
+                    rel="noopener noreferrer" className="dx-a-1"
                   >
                     apt.bobine.fit
                   </a>
@@ -929,9 +924,9 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             <div className="docs-step-card">
               <div className="docs-step-card__num">3</div>
               <div className="docs-step-card__content">
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.35rem" }}>
+                <div className="dx-div-17">
                   <TorLogo size={20} />
-                  <h4 style={{ margin: 0 }}>
+                  <h4 className="dx-h1-1">
                     {isEn ? "Option C: Protected APT repository over Tor (.onion)" : "Option C : Dépôt APT protégé via Tor (.onion)"}
                   </h4>
                 </div>
@@ -940,8 +935,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     ? "Same packages, same GPG signature, without revealing your IP address (and even if apt.bobine.fit is blocked). Install apt-transport-tor first, then add the onion source:"
                     : "Mêmes paquets, même signature GPG, sans révéler votre adresse IP (et même si apt.bobine.fit est bloqué). Installez d'abord apt-transport-tor, puis ajoutez la source onion :"}
                 </p>
-                <div className="docs-copyable-cmd" style={{ whiteSpace: "pre-wrap", alignItems: "flex-start" }}>
-                  <code style={{ fontSize: "0.8rem", lineHeight: "1.5" }}>{TOR_APT_COMMANDS}</code>
+                <div className="docs-copyable-cmd dx-div-16">
+                  <code className="dx-code-1">{TOR_APT_COMMANDS}</code>
                   <button
                     type="button"
                     onClick={() => copyToClipboard(TOR_APT_COMMANDS)}
@@ -951,7 +946,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
                   </button>
                 </div>
-                <p style={{ marginTop: "0.6rem", fontSize: "0.85rem", color: "var(--text-muted)" }}>
+                <p className="dx-p-7">
                   {isEn ? "APT repository (open in Tor Browser): " : "Dépôt APT (à ouvrir dans Tor Browser) : "}
                   <a href={`http://${ONION_APT_HOST}/`} rel="noopener noreferrer" className="docs-onion-link">
                     http://{ONION_APT_HOST}/
@@ -962,7 +957,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     http://{ONION_SITE_HOST}/
                   </a>
                 </p>
-                <p style={{ marginTop: "0.5rem", fontSize: "0.85rem", color: "var(--text-muted)" }}>
+                <p className="dx-p-6">
                   {isEn
                     ? "One-command alternative (read it first, add --dry-run to simulate): "
                     : "Alternative en une commande (à lire avant, ajoutez --dry-run pour simuler) : "}
@@ -1004,7 +999,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-method-hero__icon">
                 {androidVariant === "tv" ? <AndroidTvIcon size={32} /> : <AndroidIcon size={32} />}
               </div>
-              <div style={{ flex: 1 }}>
+              <div className="dx-div-14">
                 <h2 className="docs-method-hero__title">
                   {androidVariant === "tv"
                     ? (isEn ? "Bobine for Android TV, Google TV & Streaming Boxes" : "Bobine pour Android TV, Google TV & Box TV")
@@ -1013,8 +1008,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <p className="docs-method-hero__desc">
                   {androidVariant === "tv"
                     ? (isEn
-                        ? "Dedicated APK for TV boxes, sticks and Smart TVs running Android 14 or later, such as the Google TV Streamer or the Xiaomi TV Box S 3rd generation). Installs on 32-bit and 64-bit ARM systems, Leanback launcher, full remote-control navigation, embedded FastAPI server (Chaquopy) and MediaCodec hardware acceleration."
-                        : "APK dédié aux box TV, clés HDMI et Smart TV sous Android 14 ou supérieur, comme le Google TV Streamer ou le Xiaomi TV Box S 3e génération). S'installe sur les systèmes ARM 32 et 64 bits, lanceur Leanback, navigation complète à la télécommande, serveur FastAPI embarqué (Chaquopy) et accélération matérielle MediaCodec.")
+                        ? `Dedicated APK for TV boxes, sticks and Smart TVs running Android ${ANDROID.minVersion} or later, such as the Google TV Streamer or the Xiaomi TV Box S 3rd generation). Installs on 32-bit and 64-bit ARM systems, Leanback launcher, full remote-control navigation, embedded FastAPI server (Chaquopy) and MediaCodec hardware acceleration.`
+                        : `APK dédié aux box TV, clés HDMI et Smart TV sous Android ${ANDROID.minVersion} ou supérieur, comme le Google TV Streamer ou le Xiaomi TV Box S 3e génération). S'installe sur les systèmes ARM 32 et 64 bits, lanceur Leanback, navigation complète à la télécommande, serveur FastAPI embarqué (Chaquopy) et accélération matérielle MediaCodec.`)
                     : (isEn
                         ? "Official native APK package. Direct execution on Android tablets and Google Books (Aluminium OS, with upcoming Google Play Store release). Embedded FastAPI server (Chaquopy), independent dual display (/grid on tablet, /cinema on HDMI), and MediaCodec hardware acceleration."
                         : "Paquet APK natif officiel. Exécution directe sur tablettes Android et Google Books (Aluminium OS, avec arrivée prochaine sur le Google Play Store). Serveur FastAPI embarqué (Chaquopy), double affichage indépendant (/grid sur tablette, /cinema sur HDMI), et accélération matérielle MediaCodec.")}
@@ -1106,10 +1101,10 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             </div>
           </div>
 
-          <div className="docs-callout docs-callout--info" style={{ marginTop: "1.5rem" }}>
+          <div className="docs-callout docs-callout--info dx-div-18">
             <div className="docs-callout__content">
               {androidRoadmap?.paragraphs.map((p, i) => (
-                <p key={i} style={{ margin: i === 0 ? 0 : "0.6rem 0 0 0" }}>
+                <p key={i} className="dx-para-stack">
                   {p}
                 </p>
               ))}
@@ -1151,10 +1146,10 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
           {renderDivider()}
 
-          <div className="docs-callout docs-callout--info" style={{ marginTop: "1.25rem" }}>
+          <div className="docs-callout docs-callout--info dx-div-15">
             <div className="docs-callout__content">
               {iosRoadmap?.paragraphs.map((p, i) => (
-                <p key={i} style={{ margin: i === 0 ? 0 : "0.6rem 0 0 0" }}>
+                <p key={i} className="dx-para-stack">
                   {p}
                 </p>
               ))}
@@ -1176,7 +1171,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-method-hero__icon">
                 <TauriIcon size={32} />
               </div>
-              <div style={{ flex: 1 }}>
+              <div className="dx-div-14">
                 <h2 className="docs-method-hero__title">
                   {isEn ? "Bobine Assistant (Network Orchestrator)" : "Bobine Assistant (Orchestrateur Réseau)"}
                 </h2>
@@ -1265,7 +1260,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               <div className="docs-method-hero__icon">
                 <TerminalIcon size={32} />
               </div>
-              <div style={{ flex: 1 }}>
+              <div className="dx-div-14">
                 <h2 className="docs-method-hero__title">
                   {isEn ? "Dedicated Gym Appliance (Debian 13 · CLI)" : "Appliance Dédiée & Kiosque 24/7 (Debian 13 · CLI)"}
                 </h2>
@@ -1282,11 +1277,11 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
           {renderDivider()}
 
-          <div style={{ marginTop: "2rem" }}>
-            <h3 style={{ fontSize: "1.25rem", fontWeight: 700, marginBottom: "1rem", color: "var(--text-heading)" }}>
+          <div className="dx-div-11">
+            <h3 className="dx-h3-2">
               {isEn ? "Interactive Step-by-Step Appliance Guide & Terminal Simulator" : "Guide Étape par Étape & Simulateur de Terminal Interactif"}
             </h3>
-            <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", lineHeight: 1.6, marginBottom: "1.5rem" }}>
+            <p className="dx-p-8">
               {isEn
                 ? "Follow the 10 steps below from hardware preparation to automated class playout in your studio. Test installer options live in the terminal emulator at Step 6."
                 : "Suivez les 10 étapes ci-dessous, de la préparation du matériel jusqu'à la diffusion automatisée des cours. Testez les options d'installation en direct dans le terminal à l'étape 6."}

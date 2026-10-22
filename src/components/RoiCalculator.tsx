@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
+import "@/styles/split/pages-misc.css";
 
 export default function RoiCalculator({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
@@ -48,7 +49,7 @@ export default function RoiCalculator({ locale }: { locale: Locale }) {
         <div className="roi-sliders-grid">
           <div className="roi-slider-group">
             <div className="roi-slider-label">
-              <label htmlFor={screensInputId} style={{ fontWeight: 600, color: "var(--text-heading)" }}>
+              <label htmlFor={screensInputId} className="roi-calculator-label-1">
                 {isEn ? "Number of gym screens / studios:" : "Nombre d'écrans / studios équipés :"}
               </label>
               <span className="roi-slider-value">{screens} {isEn ? (screens > 1 ? "screens" : "screen") : (screens > 1 ? "écrans" : "écran")}</span>
@@ -74,7 +75,7 @@ export default function RoiCalculator({ locale }: { locale: Locale }) {
 
           <div className="roi-slider-group">
             <div className="roi-slider-label">
-              <label htmlFor={costInputId} style={{ fontWeight: 600, color: "var(--text-heading)" }}>
+              <label htmlFor={costInputId} className="roi-calculator-label-1">
                 {isEn ? "Current monthly cost per screen:" : "Coût mensuel actuel par écran (Les Mills / SaaS) :"}
               </label>
               <span className="roi-slider-value">{costPerScreen} € / mois</span>
@@ -129,8 +130,8 @@ export default function RoiCalculator({ locale }: { locale: Locale }) {
 
         {/* Pied de carte avec CTA */}
         <div className="roi-card-footer">
-          <div style={{ maxWidth: "34rem" }}>
-            <p style={{ margin: 0, fontSize: "0.925rem", color: "var(--text-muted)", lineHeight: 1.45 }}>
+          <div className="roi-calculator-div-1">
+            <p className="roi-calculator-p-1">
               {isEn
                 ? "With Bobine, you retain 100% of your gym's margin and own your video playback equipment for life."
                 : "Avec Bobine, vous conservez 100% de votre marge et devenez propriétaire définitif de votre matériel de diffusion."}

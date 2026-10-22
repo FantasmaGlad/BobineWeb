@@ -62,26 +62,59 @@
   --ease-spring-hover: cubic-bezier(0.2, 0.8, 0.2, 1.2);
   --ease-spring-pill: cubic-bezier(0.2, 0.9, 0.3, 1.2);
 
-  /* Tokens Glassmorphism Apple Premium — Collection Claire (par défaut) */
+  /* Tokens de verre — Collection Claire (par défaut). Le verre est translucide : l'arrière-plan (maillage ambiant,
+     illustrations, autres éléments) reste lisible, flouté et saturé ; le contraste du texte est vérifié sur les
+     16 thèmes par scripts/ci/glass-check.mjs. */
   --bg-ambient-mesh:
-    radial-gradient(circle at 12% 6%, color-mix(in srgb, var(--accent-primary) 9%, transparent) 0%, transparent 46%),
-    radial-gradient(circle at 88% 18%, color-mix(in srgb, var(--accent-primary) 6%, transparent) 0%, transparent 52%),
-    radial-gradient(circle at 50% 95%, color-mix(in srgb, var(--accent-primary) 4%, transparent) 0%, transparent 48%);
-  --glass-surface-bg: color-mix(in srgb, #ffffff 84%, var(--bg-canvas) 16%);
-  --glass-surface-border: color-mix(in srgb, #000000 15%, var(--border-subtle));
-  --glass-surface-blur: 24px;
+    radial-gradient(circle at 12% 6%, color-mix(in srgb, var(--accent-primary) 12%, transparent) 0%, transparent 46%),
+    radial-gradient(circle at 88% 18%, color-mix(in srgb, var(--accent-primary) 8%, transparent) 0%, transparent 52%),
+    radial-gradient(circle at 50% 95%, color-mix(in srgb, var(--accent-primary) 6%, transparent) 0%, transparent 48%);
+  --glass-surface-bg: color-mix(in srgb, var(--bg-card) 58%, transparent);
+  --glass-surface-border: color-mix(in srgb, var(--ink) 12%, var(--border-subtle));
+  --glass-surface-blur: var(--blur-xl);
   --glass-card-bg: linear-gradient(
     145deg,
-    rgba(255, 255, 255, 0.92) 0%,
-    color-mix(in srgb, #ffffff 82%, color-mix(in srgb, var(--accent-primary) 2%, var(--bg-canvas))) 100%
+    color-mix(in srgb, var(--bg-card) 74%, transparent) 0%,
+    color-mix(in srgb, var(--bg-card) 52%, color-mix(in srgb, var(--accent-primary) 3%, transparent)) 100%
   );
-  --glass-card-border: color-mix(in srgb, #000000 18%, var(--border-subtle));
-  --glass-card-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.96), inset 0 0 0 0.5px rgba(255, 255, 255, 0.65);
-  --glass-floating-bg: color-mix(in srgb, #ffffff 88%, var(--bg-canvas) 12%);
-  --glass-floating-border: color-mix(in srgb, #000000 20%, var(--border-subtle));
-  --glass-floating-blur: 28px;
-  --glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.65), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
-  --glass-gloss: linear-gradient(180deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.08) 46%, rgba(255, 255, 255, 0) 52%, rgba(0, 0, 0, 0.12) 100%);
+  --glass-card-border: color-mix(in srgb, var(--ink) 14%, var(--border-subtle));
+  --glass-card-blur: var(--blur-lg);
+  --glass-card-highlight: inset 0 1px 0 0 color-mix(in srgb, var(--specular) 90%, transparent), inset 0 0 0 0.5px color-mix(in srgb, var(--specular) 55%, transparent);
+  --glass-floating-bg: color-mix(in srgb, var(--bg-card) 78%, transparent);
+  --glass-modal-bg: color-mix(in srgb, var(--bg-card) 58%, transparent);
+  --glass-floating-border: color-mix(in srgb, var(--ink) 16%, var(--border-subtle));
+  --glass-floating-blur: var(--blur-2xl);
+  --glass-inset-bg: color-mix(in srgb, var(--bg-inset) 62%, transparent);
+  --glass-edge: inset 0 1px 0 color-mix(in srgb, var(--specular) 65%, transparent), inset 0 -1px 0 color-mix(in srgb, var(--ink) 7%, transparent);
+  --glass-gloss: linear-gradient(180deg, color-mix(in srgb, var(--specular) 34%, transparent) 0%, color-mix(in srgb, var(--specular) 8%, transparent) 46%, transparent 52%, color-mix(in srgb, var(--ink) 12%, transparent) 100%);
+
+  /* Échelle de flou du verre : un seul réglage pour tout le site.
+     --blur-scale : 1 = normal ; 0 supprime les flous (« transparence réduite »). */
+  --blur-scale: 1;
+  --blur-xs: calc(4px * var(--blur-scale));
+  --blur-sm: calc(8px * var(--blur-scale));
+  --blur-md: calc(14px * var(--blur-scale));
+  --blur-lg: calc(22px * var(--blur-scale));
+  --blur-xl: calc(30px * var(--blur-scale));
+  --blur-2xl: calc(36px * var(--blur-scale));
+  --saturate-soft: 165%;
+  --saturate-rich: 190%;
+
+  /* Neutres physiques : ombres (--ink) et reflets (--specular), repris par toutes les ombres, bords et
+     reflets via color-mix. Un thème peut les surcharger en un seul endroit. */
+  --ink: #000000;
+  --specular: #ffffff;
+
+  /* Voiles sous les fenêtres et tiroirs ; pastilles posées sur une image ou une vidéo. */
+  --scrim-soft: color-mix(in srgb, var(--ink) 40%, transparent);
+  --scrim: color-mix(in srgb, var(--ink) 62%, transparent);
+  --glass-chip-bg: color-mix(in srgb, var(--ink) 70%, transparent);
+  --glass-chip-blur: var(--blur-sm);
+
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --text-on-accent: var(--accent-primary-fg);
+  /* Accent utilisable comme couleur de texte (liens) : rapproché de l'encre du thème pour tenir >= 4,5:1 sur chaque matériau de verre. */
+  --accent-text: color-mix(in srgb, var(--accent-primary) 60%, var(--text-heading));
 
   /* Badge d'annonce Android — Couleurs dérivées dynamiquement du thème actif */
   --android-badge-fg: var(--accent-primary);
@@ -146,8 +179,8 @@
   --text-muted: #574e42;
   --text-dim: #73685a;
   --accent-primary: #d97706;
-  --accent-primary-fg: #ffffff;
-  --accent-hover: #b45309;
+  --accent-primary-fg: #140e08;
+  --accent-hover: #f59e0b;
   --accent-subtle: rgba(217, 119, 6, 0.09);
   --accent-glow: rgba(217, 119, 6, 0.22);
   --border-subtle: #e4ddd2;
@@ -181,8 +214,8 @@
   --text-muted: #43594e;
   --text-dim: #5e766a;
   --accent-primary: #059669;
-  --accent-primary-fg: #ffffff;
-  --accent-hover: #047857;
+  --accent-primary-fg: #08090a;
+  --accent-hover: #10b981;
   --accent-subtle: rgba(5, 150, 105, 0.09);
   --accent-glow: rgba(5, 150, 105, 0.22);
   --border-subtle: #d5e2db;
@@ -351,26 +384,26 @@
 :root[data-theme="chili"],
 :root[data-theme="orchidee"],
 :root[data-theme="taupe"] {
-  --shadow-color: rgba(0, 0, 0, 0.55);
-  --shadow-md: 0 10px 28px -4px rgba(0, 0, 0, 0.65);
+  --shadow-color: color-mix(in srgb, var(--ink) 55%, transparent);
+  --shadow-md: 0 10px 28px -4px color-mix(in srgb, var(--ink) 65%, transparent);
   --bg-ambient-mesh:
-    radial-gradient(circle at 14% 6%, color-mix(in srgb, var(--accent-primary) 16%, transparent) 0%, transparent 48%),
-    radial-gradient(circle at 88% 22%, color-mix(in srgb, var(--accent-primary) 10%, transparent) 0%, transparent 54%),
-    radial-gradient(circle at 50% 96%, color-mix(in srgb, var(--accent-primary) 7%, transparent) 0%, transparent 50%);
-  --glass-surface-bg: color-mix(in srgb, var(--bg-surface) 76%, rgba(255, 255, 255, 0.03));
-  --glass-surface-border: color-mix(in srgb, #ffffff 18%, var(--border-subtle));
-  --glass-surface-blur: 28px;
+    radial-gradient(circle at 14% 6%, color-mix(in srgb, var(--accent-primary) 20%, transparent) 0%, transparent 48%),
+    radial-gradient(circle at 88% 22%, color-mix(in srgb, var(--accent-primary) 12%, transparent) 0%, transparent 54%),
+    radial-gradient(circle at 50% 96%, color-mix(in srgb, var(--accent-primary) 9%, transparent) 0%, transparent 50%);
+  --glass-surface-bg: color-mix(in srgb, var(--bg-surface) 58%, transparent);
+  --glass-surface-border: color-mix(in srgb, var(--specular) 14%, var(--border-subtle));
   --glass-card-bg: linear-gradient(
     145deg,
-    color-mix(in srgb, var(--bg-surface-elevated) 82%, rgba(255, 255, 255, 0.05)) 0%,
-    color-mix(in srgb, var(--bg-surface) 74%, color-mix(in srgb, var(--accent-primary) 4%, transparent)) 100%
+    color-mix(in srgb, var(--bg-surface-elevated) 66%, transparent) 0%,
+    color-mix(in srgb, var(--bg-surface) 52%, color-mix(in srgb, var(--accent-primary) 4%, transparent)) 100%
   );
-  --glass-card-border: color-mix(in srgb, #ffffff 22%, var(--border-subtle));
-  --glass-card-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.22), inset 0 0 0 0.5px rgba(255, 255, 255, 0.08);
-  --glass-floating-bg: color-mix(in srgb, var(--bg-surface-elevated) 84%, rgba(255, 255, 255, 0.04));
-  --glass-floating-border: color-mix(in srgb, #ffffff 26%, var(--border-subtle));
-  --glass-floating-blur: 32px;
-  --glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+  --glass-card-border: color-mix(in srgb, var(--specular) 18%, var(--border-subtle));
+  --glass-card-highlight: inset 0 1px 0 0 color-mix(in srgb, var(--specular) 20%, transparent), inset 0 0 0 0.5px color-mix(in srgb, var(--specular) 7%, transparent);
+  --glass-floating-bg: color-mix(in srgb, var(--bg-surface-elevated) 74%, transparent);
+  --glass-modal-bg: color-mix(in srgb, var(--bg-surface-elevated) 54%, transparent);
+  --glass-floating-border: color-mix(in srgb, var(--specular) 22%, var(--border-subtle));
+  --glass-inset-bg: color-mix(in srgb, var(--bg-inset) 55%, transparent);
+  --glass-edge: inset 0 1px 0 color-mix(in srgb, var(--specular) 26%, transparent), inset 0 -1px 0 color-mix(in srgb, var(--ink) 35%, transparent);
 
   --android-badge-fg: var(--accent-primary);
   --android-badge-bg: color-mix(in srgb, var(--accent-primary) 15%, var(--bg-card));
@@ -403,9 +436,9 @@
   --border-vibrant: color-mix(in srgb, #e4002b 65%, #242832);
   --border-color: #242832;
   --border-focus: #e4002b;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.6);
-  --shadow-card: 0 8px 26px -4px rgba(0, 0, 0, 0.72), 0 0 0 1px rgba(255, 255, 255, 0.04);
-  --shadow-card-hover: 0 16px 38px -6px rgba(0, 0, 0, 0.88), 0 0 20px rgba(228, 0, 43, 0.20);
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 60%, transparent);
+  --shadow-card: 0 8px 26px -4px color-mix(in srgb, var(--ink) 72%, transparent), 0 0 0 1px color-mix(in srgb, var(--specular) 4%, transparent);
+  --shadow-card-hover: 0 16px 38px -6px color-mix(in srgb, var(--ink) 88%, transparent), 0 0 20px rgba(228, 0, 43, 0.20);
   --ambient-glow: rgba(228, 0, 43, 0.07);
   --badge-bg: rgba(228, 0, 43, 0.14);
   --badge-fg: #fda4af;
@@ -438,9 +471,9 @@
   --border-vibrant: color-mix(in srgb, #e2e8f0 65%, #232b38);
   --border-color: #232b38;
   --border-focus: #e2e8f0;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.6);
-  --shadow-card: 0 8px 26px -4px rgba(0, 0, 0, 0.72), 0 0 0 1px rgba(255, 255, 255, 0.04);
-  --shadow-card-hover: 0 16px 38px -6px rgba(0, 0, 0, 0.88), 0 0 18px rgba(226, 232, 240, 0.12);
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 60%, transparent);
+  --shadow-card: 0 8px 26px -4px color-mix(in srgb, var(--ink) 72%, transparent), 0 0 0 1px color-mix(in srgb, var(--specular) 4%, transparent);
+  --shadow-card-hover: 0 16px 38px -6px color-mix(in srgb, var(--ink) 88%, transparent), 0 0 18px rgba(226, 232, 240, 0.12);
   --ambient-glow: rgba(226, 232, 240, 0.05);
   --badge-bg: rgba(226, 232, 240, 0.12);
   --badge-fg: #f1f5f9;
@@ -465,7 +498,7 @@
   --text-muted: #a89f96;
   --text-dim: #7c736a;
   --accent-primary: #f97316;
-  --accent-primary-fg: #ffffff;
+  --accent-primary-fg: #140e08;
   --accent-hover: #fb923c;
   --accent-subtle: rgba(249, 115, 22, 0.14);
   --accent-glow: rgba(249, 115, 22, 0.24);
@@ -473,9 +506,9 @@
   --border-vibrant: color-mix(in srgb, #f97316 65%, #2c241d);
   --border-color: #2c241d;
   --border-focus: #f97316;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.55);
-  --shadow-card: 0 8px 26px -4px rgba(0, 0, 0, 0.72), 0 0 0 1px rgba(249, 115, 22, 0.06);
-  --shadow-card-hover: 0 16px 38px -6px rgba(0, 0, 0, 0.88), 0 0 20px rgba(249, 115, 22, 0.20);
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 55%, transparent);
+  --shadow-card: 0 8px 26px -4px color-mix(in srgb, var(--ink) 72%, transparent), 0 0 0 1px rgba(249, 115, 22, 0.06);
+  --shadow-card-hover: 0 16px 38px -6px color-mix(in srgb, var(--ink) 88%, transparent), 0 0 20px rgba(249, 115, 22, 0.20);
   --ambient-glow: rgba(249, 115, 22, 0.07);
   --badge-bg: rgba(249, 115, 22, 0.14);
   --badge-fg: #fdba74;
@@ -508,9 +541,9 @@
   --border-vibrant: color-mix(in srgb, #06b6d4 65%, #1e2d3b);
   --border-color: #1e2d3b;
   --border-focus: #06b6d4;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.55);
-  --shadow-card: 0 8px 26px -4px rgba(0, 0, 0, 0.72), 0 0 0 1px rgba(6, 182, 212, 0.06);
-  --shadow-card-hover: 0 16px 38px -6px rgba(0, 0, 0, 0.88), 0 0 20px rgba(6, 182, 212, 0.20);
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 55%, transparent);
+  --shadow-card: 0 8px 26px -4px color-mix(in srgb, var(--ink) 72%, transparent), 0 0 0 1px rgba(6, 182, 212, 0.06);
+  --shadow-card-hover: 0 16px 38px -6px color-mix(in srgb, var(--ink) 88%, transparent), 0 0 20px rgba(6, 182, 212, 0.20);
   --ambient-glow: rgba(6, 182, 212, 0.07);
   --badge-bg: rgba(6, 182, 212, 0.14);
   --badge-fg: #67e8f9;
@@ -535,7 +568,7 @@
   --text-muted: #9aa2bc;
   --text-dim: #6e7691;
   --accent-primary: #6366f1;
-  --accent-primary-fg: #ffffff;
+  --accent-primary-fg: #000000;
   --accent-hover: #818cf8;
   --accent-subtle: rgba(99, 102, 241, 0.14);
   --accent-glow: rgba(99, 102, 241, 0.24);
@@ -543,9 +576,9 @@
   --border-vibrant: color-mix(in srgb, #6366f1 65%, #232842);
   --border-color: #232842;
   --border-focus: #6366f1;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.55);
-  --shadow-card: 0 8px 26px -4px rgba(0, 0, 0, 0.72), 0 0 0 1px rgba(99, 102, 241, 0.06);
-  --shadow-card-hover: 0 16px 38px -6px rgba(0, 0, 0, 0.88), 0 0 20px rgba(99, 102, 241, 0.20);
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 55%, transparent);
+  --shadow-card: 0 8px 26px -4px color-mix(in srgb, var(--ink) 72%, transparent), 0 0 0 1px rgba(99, 102, 241, 0.06);
+  --shadow-card-hover: 0 16px 38px -6px color-mix(in srgb, var(--ink) 88%, transparent), 0 0 20px rgba(99, 102, 241, 0.20);
   --ambient-glow: rgba(99, 102, 241, 0.07);
   --badge-bg: rgba(99, 102, 241, 0.14);
   --badge-fg: #a5b4fc;
@@ -570,7 +603,7 @@
   --text-muted: #ad9ca1;
   --text-dim: #7f6e73;
   --accent-primary: #f43f5e;
-  --accent-primary-fg: #ffffff;
+  --accent-primary-fg: #08090a;
   --accent-hover: #fb7185;
   --accent-subtle: rgba(244, 63, 94, 0.14);
   --accent-glow: rgba(244, 63, 94, 0.24);
@@ -578,9 +611,9 @@
   --border-vibrant: color-mix(in srgb, #f43f5e 65%, #2e2025);
   --border-color: #2e2025;
   --border-focus: #f43f5e;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.55);
-  --shadow-card: 0 8px 26px -4px rgba(0, 0, 0, 0.72), 0 0 0 1px rgba(244, 63, 94, 0.06);
-  --shadow-card-hover: 0 16px 38px -6px rgba(0, 0, 0, 0.88), 0 0 20px rgba(244, 63, 94, 0.22);
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 55%, transparent);
+  --shadow-card: 0 8px 26px -4px color-mix(in srgb, var(--ink) 72%, transparent), 0 0 0 1px rgba(244, 63, 94, 0.06);
+  --shadow-card-hover: 0 16px 38px -6px color-mix(in srgb, var(--ink) 88%, transparent), 0 0 20px rgba(244, 63, 94, 0.22);
   --ambient-glow: rgba(244, 63, 94, 0.07);
   --badge-bg: rgba(244, 63, 94, 0.14);
   --badge-fg: #fda4af;
@@ -605,7 +638,7 @@
   --text-muted: #a39bb3;
   --text-dim: #766e87;
   --accent-primary: #d946ef;
-  --accent-primary-fg: #ffffff;
+  --accent-primary-fg: #08090a;
   --accent-hover: #e879f9;
   --accent-subtle: rgba(217, 70, 239, 0.14);
   --accent-glow: rgba(217, 70, 239, 0.24);
@@ -613,9 +646,9 @@
   --border-vibrant: color-mix(in srgb, #d946ef 65%, #292238);
   --border-color: #292238;
   --border-focus: #d946ef;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.55);
-  --shadow-card: 0 8px 26px -4px rgba(0, 0, 0, 0.72), 0 0 0 1px rgba(217, 70, 239, 0.06);
-  --shadow-card-hover: 0 16px 38px -6px rgba(0, 0, 0, 0.88), 0 0 20px rgba(217, 70, 239, 0.22);
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 55%, transparent);
+  --shadow-card: 0 8px 26px -4px color-mix(in srgb, var(--ink) 72%, transparent), 0 0 0 1px rgba(217, 70, 239, 0.06);
+  --shadow-card-hover: 0 16px 38px -6px color-mix(in srgb, var(--ink) 88%, transparent), 0 0 20px rgba(217, 70, 239, 0.22);
   --ambient-glow: rgba(217, 70, 239, 0.07);
   --badge-bg: rgba(217, 70, 239, 0.14);
   --badge-fg: #f0abfc;
@@ -648,9 +681,9 @@
   --border-vibrant: color-mix(in srgb, #eab308 65%, #2c2722);
   --border-color: #2c2722;
   --border-focus: #eab308;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.55);
-  --shadow-card: 0 8px 26px -4px rgba(0, 0, 0, 0.72), 0 0 0 1px rgba(234, 179, 8, 0.06);
-  --shadow-card-hover: 0 16px 38px -6px rgba(0, 0, 0, 0.88), 0 0 20px rgba(234, 179, 8, 0.20);
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 55%, transparent);
+  --shadow-card: 0 8px 26px -4px color-mix(in srgb, var(--ink) 72%, transparent), 0 0 0 1px rgba(234, 179, 8, 0.06);
+  --shadow-card-hover: 0 16px 38px -6px color-mix(in srgb, var(--ink) 88%, transparent), 0 0 20px rgba(234, 179, 8, 0.20);
   --ambient-glow: rgba(234, 179, 8, 0.07);
   --badge-bg: rgba(234, 179, 8, 0.14);
   --badge-fg: #fde047;
@@ -730,8 +763,6 @@ img {
   width: 100%;
   z-index: 100;
   background: color-mix(in srgb, var(--bg-canvas) 96%, transparent);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
@@ -915,8 +946,9 @@ img {
   width: 0.8rem;
   height: 0.8rem;
   border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  border: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+  background: linear-gradient(135deg, var(--swatch-bg) 50%, var(--swatch-accent) 50%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--specular) 20%, transparent);
   flex-shrink: 0;
 }
 
@@ -971,7 +1003,7 @@ img {
 .theme-segment-btn.is-active {
   background: var(--bg-card);
   color: var(--text-heading);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 10%, transparent);
 }
 
 .theme-segment-count {
@@ -1050,7 +1082,8 @@ img {
   height: 1.15rem;
   border-radius: 999px;
   display: block;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15), 0 1px 3px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, var(--swatch-bg) 50%, var(--swatch-accent) 50%);
+  box-shadow: 0 0 0 1px var(--border-subtle), 0 2px 4px color-mix(in srgb, var(--ink) 15%, transparent);
 }
 
 .theme-card-option__info {
@@ -2324,7 +2357,8 @@ main {
 
 /* Corps du terminal pré-dimensionné (hauteur stable 0 tressautement) */
 .terminal-body {
-  padding: 1.15rem 1.25rem;
+  padding: 1.15rem 1.25rem 1.5rem;
+  scroll-padding-block-end: 1.5rem; /* le défilement automatique vers le bilan garde sa marge basse */
   font-family: var(--font-mono, monospace);
   font-size: 0.8rem;
   color: var(--text-body);
@@ -2442,7 +2476,7 @@ main {
   }
 
   .terminal-body {
-    padding: 0.9rem;
+    padding: 0.9rem 0.9rem 1.25rem;
     font-size: 0.76rem;
   }
 }
@@ -2498,8 +2532,9 @@ main {
 .terminal-channel-prompt {
   margin-top: 0.85rem;
   padding: 0.75rem 0.95rem;
-  background: color-mix(in srgb, var(--accent-primary) 5%, var(--bg-surface));
+  background: color-mix(in srgb, var(--accent-primary) 6%, var(--glass-inset-bg));
   border: 1px solid color-mix(in srgb, var(--accent-primary) 22%, transparent);
+  box-shadow: var(--glass-edge);
   border-radius: var(--radius-md, 8px);
   display: flex;
   flex-direction: column;
@@ -2668,7 +2703,8 @@ main {
 .terminal-demo-summary-box {
   margin-top: 0.95rem;
   padding: 0.85rem 1.15rem;
-  background: color-mix(in srgb, var(--accent-success, #16a34a) 8%, var(--bg-surface));
+  background: color-mix(in srgb, var(--accent-success, #16a34a) 8%, var(--glass-inset-bg));
+  box-shadow: var(--glass-edge);
   border: 1px solid color-mix(in srgb, var(--accent-success, #16a34a) 30%, transparent);
   border-left: 4px solid var(--accent-success, #16a34a);
   border-radius: var(--radius-md, 8px);
@@ -2885,9 +2921,9 @@ main {
 .mobile-drawer-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--scrim);
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+  backdrop-filter: blur(var(--blur-sm));
   z-index: 999;
   display: flex;
   justify-content: flex-end;
@@ -2901,7 +2937,7 @@ main {
   border-left: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
-  box-shadow: -10px 0 35px rgba(0, 0, 0, 0.35);
+  box-shadow: -10px 0 35px color-mix(in srgb, var(--ink) 35%, transparent);
   animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-y: auto;
 }
@@ -3096,7 +3132,7 @@ main {
   right: 0;
   width: min(19.5rem, calc(100vw - 3rem));
   z-index: 150;
-  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 -8px 30px color-mix(in srgb, var(--ink) 45%, transparent);
 }
 
 .mobile-drawer-setting-title {
@@ -3271,11 +3307,11 @@ main {
   width: min(calc(100vw - 2.5rem), 26.5rem);
   height: min(34rem, calc(100dvh - 4.5rem));
   background: color-mix(in srgb, var(--bg-card) 78%, transparent);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid color-mix(in srgb, var(--border-subtle) 80%, rgba(255, 255, 255, 0.25));
+  -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate-rich));
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 80%, color-mix(in srgb, var(--specular) 25%, transparent));
   border-radius: 1.25rem;
-  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.35), 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 24px 60px -12px color-mix(in srgb, var(--ink) 35%, transparent), 0 0 1px color-mix(in srgb, var(--specular) 20%, transparent);
   z-index: 960;
   display: flex;
   flex-direction: column;
@@ -3291,8 +3327,6 @@ main {
 .chatbot-modal__header {
   padding: 0.85rem 1rem;
   background: color-mix(in srgb, var(--bg-surface-elevated) 65%, transparent);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
@@ -3428,10 +3462,8 @@ main {
 
 .chatbot-message--assistant .chatbot-message__bubble {
   background: color-mix(in srgb, var(--bg-surface-hover) 72%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   color: var(--text-main);
-  border: 1px solid color-mix(in srgb, var(--border-subtle) 80%, rgba(255, 255, 255, 0.15));
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 80%, color-mix(in srgb, var(--specular) 15%, transparent));
   border-top-left-radius: 0.2rem;
 }
 
@@ -3639,8 +3671,6 @@ main {
 .chatbot-modal__footer {
   padding: 0.75rem;
   background: color-mix(in srgb, var(--bg-surface-elevated) 65%, transparent);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--border-subtle);
 }
 
@@ -3648,9 +3678,7 @@ main {
   display: flex;
   gap: 0.35rem;
   background: color-mix(in srgb, var(--bg-card) 60%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid color-mix(in srgb, var(--border-subtle) 90%, rgba(255, 255, 255, 0.15));
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 90%, color-mix(in srgb, var(--specular) 15%, transparent));
   border-radius: 0.65rem;
   padding: 0.25rem 0.4rem;
   transition: border-color 0.15s ease;
@@ -3799,7 +3827,7 @@ main {
   border: 1px solid var(--border-subtle);
   background: #0d1117;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--ink) 6%, transparent);
 }
 
 .terminal-code-block__header {
@@ -3854,23 +3882,24 @@ main {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  background: rgba(30, 41, 59, 0.8);
-  color: #e2e8f0;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--glass-chip-bg);
+  color: var(--specular);
+  border: 1px solid color-mix(in srgb, var(--specular) 15%, transparent);
   border-radius: 0.4rem;
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
-  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(var(--glass-chip-blur));
+  backdrop-filter: blur(var(--glass-chip-blur));
   transition: all 0.15s ease;
   z-index: 10;
 }
 
 .code-block-copy-btn:hover {
-  background: rgba(51, 65, 85, 0.95);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.3);
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  color: var(--specular);
+  border-color: color-mix(in srgb, var(--specular) 30%, transparent);
 }
 
 /* ==========================================================================
@@ -4026,7 +4055,7 @@ main {
   border-radius: 50%;
   background: var(--accent-primary);
   border: 2px solid var(--bg-card);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px color-mix(in srgb, var(--ink) 20%, transparent);
   cursor: pointer;
   transition: transform 0.1s ease;
 }
@@ -4219,8 +4248,8 @@ main {
   box-shadow: var(--shadow-card-hover);
   max-width: 24rem;
   animation: slideToastUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(var(--blur-md));
+  backdrop-filter: blur(var(--blur-md));
 }
 
 @keyframes slideToastUp {
@@ -4541,9 +4570,9 @@ main {
     display: block;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    background: var(--scrim-soft);
+    -webkit-backdrop-filter: blur(var(--blur-xs));
+    backdrop-filter: blur(var(--blur-xs));
     z-index: 950;
   }
 
@@ -4572,7 +4601,7 @@ main {
     max-width: 24rem;
     margin: 0 auto;
     z-index: 960;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 20px 50px color-mix(in srgb, var(--ink) 40%, transparent);
     animation: slideUpMobileShare 0.2s ease-out;
   }
 
@@ -5282,8 +5311,8 @@ main {
   border: 1px solid var(--android-badge-border);
   color: var(--android-badge-fg);
   box-shadow: 0 4px 18px -2px var(--android-badge-glow);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+  backdrop-filter: blur(var(--blur-sm));
   margin-bottom: 0.85rem;
   pointer-events: auto;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -5313,8 +5342,8 @@ main {
   height: auto;
   object-fit: contain;
   opacity: 1;
-  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.4) 8%, black 28%, black 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.4) 8%, black 28%, black 100%);
+  mask-image: linear-gradient(to right, transparent 0%, color-mix(in srgb, var(--ink) 40%, transparent) 8%, black 28%, black 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, color-mix(in srgb, var(--ink) 40%, transparent) 8%, black 28%, black 100%);
   transition: opacity 0.3s ease;
 }
 
@@ -5341,7 +5370,7 @@ main {
   max-height: 220px;
   mask-image: none;
   -webkit-mask-image: none;
-  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.28));
+  filter: drop-shadow(0 18px 34px color-mix(in srgb, var(--ink) 28%, transparent));
 }
 
 @media (min-width: 1024px) {
@@ -5373,8 +5402,8 @@ main {
   margin-bottom: 0.2rem;
   padding: 0.35rem 0.85rem;
   background: color-mix(in srgb, var(--bg-card) 60%, transparent);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+  backdrop-filter: blur(var(--blur-sm));
   border: 1px solid var(--border-subtle);
   border-radius: 9999px;
   cursor: pointer;
@@ -5706,7 +5735,7 @@ main {
   border: 1px solid var(--border-subtle);
   border-radius: 0.75rem;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--ink) 5%, transparent);
 }
 
 .interactive-terminal-topbar {
@@ -5754,7 +5783,7 @@ main {
   color: var(--text-heading);
   background: var(--bg-card);
   border-color: var(--border-subtle);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 6%, transparent);
 }
 
 .interactive-terminal-tab-badge {
@@ -5922,7 +5951,7 @@ main {
   gap: 0.5rem;
   margin-bottom: 0.65rem;
   padding-bottom: 0.45rem;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  border-bottom: 1px dashed color-mix(in srgb, var(--specular) 10%, transparent);
   flex-wrap: wrap;
 }
 
@@ -6042,7 +6071,7 @@ main {
   background: var(--bg-card);
   color: var(--text-heading);
   border-color: var(--border-subtle);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 5%, transparent);
 }
 
 .stepper-progress-track {
@@ -6102,7 +6131,7 @@ main {
   background: var(--bg-card);
   color: var(--text-heading);
   border-color: var(--accent-primary);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--ink) 6%, transparent);
 }
 
 .stepper-nav-pill.is-done {
@@ -6141,7 +6170,7 @@ main {
   border: 1px solid var(--border-subtle);
   border-radius: 0.75rem;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--ink) 5%, transparent);
 }
 
 .stepper-continuous-list {
@@ -6312,8 +6341,8 @@ main {
 }
 
 .interactive-terminal-cmd-row.is-clickable:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-bottom-color: rgba(255, 255, 255, 0.3);
+  background: color-mix(in srgb, var(--specular) 6%, transparent);
+  border-bottom-color: color-mix(in srgb, var(--specular) 30%, transparent);
 }
 
 .terminal-cursor {
@@ -6455,16 +6484,14 @@ main {
   padding: clamp(1rem, 1.4vw, 1.35rem);
   border-radius: var(--radius-lg, 16px);
   background: color-mix(in srgb, var(--bg-card) 76%, transparent);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid color-mix(in srgb, var(--border-subtle) 80%, rgba(255, 255, 255, 0.2));
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 80%, color-mix(in srgb, var(--specular) 20%, transparent));
   text-decoration: none;
   color: var(--text-heading);
   position: relative;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   min-height: 185px;
   height: 100%;
-  box-shadow: 0 4px 20px -6px var(--shadow-color, rgba(0, 0, 0, 0.05));
+  box-shadow: 0 4px 20px -6px var(--shadow-color, color-mix(in srgb, var(--ink) 5%, transparent));
 }
 
 .os-download-card:hover {
@@ -6856,7 +6883,7 @@ main {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
   color: var(--text-muted);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 6px color-mix(in srgb, var(--ink) 4%, transparent);
 }
 
 .headless-action-btn:hover {
@@ -7089,10 +7116,12 @@ main {
   flex-direction: column;
 }
 
+/* Grandit avec son contenu (au lieu de lui imposer la hauteur de la fenêtre) : le contenu qui dépasse ne mange
+   plus le remplissage bas de la zone défilante. */
 .tauri-pane {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1 0 auto;
 }
 
 .tauri-pane-header h3 {
@@ -7425,6 +7454,26 @@ main {
   gap: 1rem;
 }
 
+.tauri-toggle-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.tauri-toggle-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm, 8px);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.tauri-toggle-card.is-selected {
+  border-color: color-mix(in srgb, var(--accent-primary) 55%, var(--glass-card-border));
+  box-shadow: var(--glass-card-highlight);
+}
+
 .tauri-toggle-title {
   font-size: 0.85rem;
   font-weight: 700;
@@ -7726,9 +7775,9 @@ main {
   align-items: center;
   justify-content: center;
   padding: 1.25rem;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: var(--scrim-soft);
+  -webkit-backdrop-filter: blur(var(--blur-xs));
+  backdrop-filter: blur(var(--blur-xs));
   overflow-y: auto;
   animation: fadeInModal 0.2s ease-out;
 }
@@ -7740,7 +7789,7 @@ main {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl, 16px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 20px 50px color-mix(in srgb, var(--ink) 35%, transparent);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -7809,9 +7858,9 @@ main {
   border-radius: 9999px;
   background: color-mix(in srgb, var(--bg-inset, var(--bg-card)) 82%, transparent);
   border: 1px solid var(--border-subtle);
-  backdrop-filter: blur(14px) saturate(160%);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.14);
+  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-soft));
+  backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-soft));
+  box-shadow: inset 0 1px 2px color-mix(in srgb, var(--ink) 14%, transparent);
 }
 
 .download-modal__arch-btn {
@@ -7846,7 +7895,7 @@ main {
   border-color: color-mix(in srgb, var(--accent-primary) 48%, var(--border-subtle));
   box-shadow:
     0 2px 10px -2px color-mix(in srgb, var(--accent-primary) 30%, transparent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    inset 0 1px 0 color-mix(in srgb, var(--specular) 12%, transparent);
 }
 
 .download-modal__subtitle {
@@ -7919,30 +7968,6 @@ main {
   isolation: isolate;
 }
 
-.download-modal__card-bg {
-  position: absolute;
-  inset: 0;
-  background-repeat: no-repeat;
-  background-position: bottom 14% right -2%;
-  background-size: 38%;
-  opacity: 0.45;
-  -webkit-mask-image: linear-gradient(130deg, transparent 0%, transparent 15%, #000 60%);
-  mask-image: linear-gradient(130deg, transparent 0%, transparent 15%, #000 60%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-@media (max-width: 640px) {
-  .download-modal__card-bg {
-    opacity: 0.16;
-  }
-}
-
-.download-modal__channel-card > *:not(.download-modal__card-bg) {
-  position: relative;
-  z-index: 1;
-}
-
 .download-modal__channel-card.download-modal__channel-card--stable {
   border-color: color-mix(in srgb, var(--accent-primary) 42%, var(--border-subtle));
   box-shadow: var(--glass-card-highlight), 0 6px 20px color-mix(in srgb, var(--accent-primary) 10%, transparent);
@@ -7977,9 +8002,9 @@ main {
 }
 
 .download-modal__channel-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: var(--radius-sm);
   object-fit: contain;
   flex-shrink: 0;
 }
@@ -8145,7 +8170,7 @@ main {
 .download-modal__action-btn--stable {
   background: var(--accent-primary);
   color: var(--text-on-accent, #ffffff);
-  border: 1px solid color-mix(in srgb, var(--accent-primary) 85%, #000);
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 85%, var(--ink));
   box-shadow: 0 2px 6px color-mix(in srgb, var(--accent-primary) 20%, transparent);
 }
 
@@ -8352,7 +8377,7 @@ main {
 .hw-item-card:hover {
   border-color: var(--accent-primary);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--ink) 7%, transparent);
 }
 
 .hw-item-card--hero:hover {
@@ -8578,7 +8603,7 @@ main {
   background: var(--bg-card);
   color: var(--text-muted);
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--ink) 10%, transparent);
   transition: color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
 
@@ -8695,7 +8720,7 @@ main {
   background: var(--bg-card);
   color: var(--text-heading);
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--ink) 16%, transparent);
   transition: transform 0.15s ease, border-color 0.15s ease;
 }
 
@@ -8749,7 +8774,7 @@ main {
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(0, 0, 0, 0.45);
+  background: color-mix(in srgb, var(--ink) 45%, transparent);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -8770,14 +8795,14 @@ main {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: 0.85rem 0.85rem 0 0;
-  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 -8px 32px color-mix(in srgb, var(--ink) 20%, transparent);
   animation: cartSheetSlideUp 0.2s ease;
 }
 
 @media (min-width: 641px) {
   .hw-cart-sheet {
     border-radius: 0.85rem;
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 16px 48px color-mix(in srgb, var(--ink) 24%, transparent);
     margin-bottom: 0;
   }
 }
@@ -9294,8 +9319,8 @@ main {
   gap: 0.6rem;
   padding: 1.5rem;
   background: color-mix(in srgb, var(--bg-card) 88%, transparent);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(var(--blur-xs));
+  backdrop-filter: blur(var(--blur-xs));
 }
 
 .platform-construction__badge {
@@ -9344,7 +9369,7 @@ main {
     padding: 0.65rem 1rem calc(0.65rem + env(safe-area-inset-bottom));
     background: var(--bg-card);
     border-top: 1px solid var(--border-subtle);
-    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 -4px 16px color-mix(in srgb, var(--ink) 8%, transparent);
     /* Fixe la barre sur son propre calque GPU : evite le redimensionnement /
        redessin visible de certains navigateurs mobiles pendant le scroll. */
     transform: translateZ(0);
@@ -10051,7 +10076,7 @@ main {
 .chatbot-modal--page .chatbot-input-wrapper {
   border-radius: 1.5rem;
   padding: 0.35rem 0.4rem 0.35rem 1.1rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--ink) 8%, transparent);
 }
 
 .chatbot-page-reset {
@@ -10368,20 +10393,26 @@ main {
    - Préservation intégrale des thèmes marchands (/materiel) et @media print
    ========================================================================== */
 
-/* Navigation, Barre supérieure & Sélecteurs flottants en verre dépoli */
-.site-header {
+/* Matériaux de verre. Le flou n'est posé que là où du contenu passe derrière (en-tête qui défile, fenêtres, tiroirs,
+   menus, cartes posées sur une illustration) ; les autres surfaces gardent le même matériau (translucidité, reflet
+   spéculaire, bord) sans le coût du flou. Tout vient des jetons --glass-* et --blur-*. */
+
+/* Surface : barres collées en haut de page */
+.site-header,
+.docs-mobile-nav-wrapper {
   background: var(--glass-surface-bg);
-  backdrop-filter: blur(var(--glass-surface-blur)) saturate(185%);
-  -webkit-backdrop-filter: blur(var(--glass-surface-blur)) saturate(185%);
+  -webkit-backdrop-filter: blur(var(--glass-surface-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-surface-blur)) saturate(var(--saturate-rich));
   border-bottom: 1px solid var(--glass-surface-border);
-  box-shadow: var(--glass-card-highlight), 0 4px 20px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--glass-card-highlight), 0 4px 20px color-mix(in srgb, var(--ink) 4%, transparent);
 }
 
+/* Contrôles : pastilles et sélecteurs */
 .locale-switcher,
 .theme-switcher-pill-group {
   background: var(--glass-card-bg);
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
   border: 1px solid var(--glass-card-border);
   box-shadow: var(--glass-edge), var(--shadow-sm);
   transition: transform 0.22s var(--ease-spring-pill), border-color 0.2s ease, box-shadow 0.2s ease;
@@ -10393,10 +10424,15 @@ main {
   box-shadow: var(--glass-edge), 0 6px 18px color-mix(in srgb, var(--accent-primary) 14%, transparent);
 }
 
-.theme-dropdown-modal {
+/* Flottant : menus, fenêtres, tiroirs, notifications */
+.theme-dropdown-modal,
+.share-dropdown-panel,
+.docs-search-results,
+.docs-mobile-nav-dropdown,
+.offline-toast {
   background: var(--glass-floating-bg);
-  backdrop-filter: blur(var(--glass-floating-blur)) saturate(190%);
-  -webkit-backdrop-filter: blur(var(--glass-floating-blur)) saturate(190%);
+  -webkit-backdrop-filter: blur(var(--glass-floating-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-floating-blur)) saturate(var(--saturate-rich));
   border: 1px solid var(--glass-floating-border);
   box-shadow: var(--glass-card-highlight), var(--shadow-card-hover);
 }
@@ -10406,7 +10442,7 @@ main {
 .btn-primary:not(:disabled) {
   background-color: var(--accent-primary);
   background-image: none;
-  border: 1px solid color-mix(in srgb, var(--accent-primary) 85%, #000);
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 85%, var(--ink));
   box-shadow: 0 2px 8px -1px color-mix(in srgb, var(--accent-primary) 28%, transparent);
   transition:
     transform 0.18s ease,
@@ -10428,10 +10464,10 @@ main {
     color-mix(in srgb, var(--bg-surface-elevated) 86%, transparent) 0%,
     color-mix(in srgb, var(--bg-surface) 64%, transparent) 100%
   );
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-rich));
   border: 1px solid var(--glass-card-border);
-  box-shadow: var(--glass-edge), 0 6px 18px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--glass-edge), 0 6px 18px color-mix(in srgb, var(--ink) 6%, transparent);
   transition:
     transform 0.24s var(--ease-spring-hover),
     box-shadow 0.22s ease,
@@ -10451,24 +10487,41 @@ main {
   transform: translateY(-2px) scale(1.025);
   box-shadow:
     var(--glass-edge),
-    0 10px 24px rgba(0, 0, 0, 0.10),
+    0 10px 24px color-mix(in srgb, var(--ink) 10%, transparent),
     0 0 0 3px color-mix(in srgb, var(--accent-primary) 10%, transparent);
 }
 
-/* Cartes & Conteneurs en Verre Dépoli à Contours Marqués */
+/* Cartes : même matériau partout. Le flou ne concerne que les cartes qui recouvrent une illustration ou le contenu
+   défilant ; les cartes internes à une fenêtre ou à un autre verre n'ajoutent pas de flou. */
 .card-interactive,
 .os-download-card,
 .docs-card,
 .docs-method-hero,
 .docs-step-card,
+.docs-api-card,
+.docs-callout,
+.docs-contact-box,
+.docs-tor-note,
+.docs-table-wrapper,
 .blog-hero-release-card,
 .roi-calculator-card,
+.roi-result-card,
 .github-pr-card,
 .kofi-widget-card,
+.studio-rpm-container,
+.terminal-wrapper,
+.interactive-terminal-card,
+.tauri-demo-window,
+.stepper-focused-card,
+.stepper-continuous-item,
+.comparison-table-wrapper,
+.comparison-card-mobile,
+.mobile-drawer-contact-card,
+.release-body__attachment,
+.chatbot-product-card,
+.chatbot-compare,
 .download-modal__channel-card {
   background: var(--glass-card-bg);
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
   border: 1px solid var(--glass-card-border);
   box-shadow: var(--glass-card-highlight), var(--shadow-card);
   transition:
@@ -10476,6 +10529,34 @@ main {
     border-color 0.22s ease,
     box-shadow 0.24s ease,
     background 0.22s ease;
+}
+
+.card-interactive,
+.os-download-card,
+.docs-card,
+.docs-method-hero,
+.blog-hero-release-card,
+.roi-calculator-card,
+.github-pr-card,
+.kofi-widget-card {
+  -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+}
+
+/* Éléments en creux à l'intérieur d'un verre : même teinte, sans flou */
+.docs-install-divider__pill,
+.stepper-mode-bar,
+.stepper-nav-pill,
+.docs-faq-filter-chip,
+.headless-action-btn,
+.terminal-channel-tabs,
+.terminal-demo-status-pill,
+.tauri-demo-status-pill,
+.tauri-spec-card,
+.tauri-toggle-card,
+.tauri-device-row,
+.hw-alt-unit-card {
+  background: var(--glass-inset-bg);
 }
 
 /* Survol avec élévation, grossissement subtil et contour illuminé */
@@ -10506,13 +10587,21 @@ main {
   transform: scale(1.12);
 }
 
-/* Modales & Panneaux flottants en verre haute densité */
-.download-modal,
+/* Fenêtre de téléchargement : plus transparente que les autres fenêtres, le fond de la page reste visible derrière */
+.download-modal {
+  background: var(--glass-modal-bg);
+  -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--blur-xl)) saturate(var(--saturate-rich));
+  border: 1px solid var(--glass-floating-border);
+  box-shadow: var(--glass-card-highlight), var(--shadow-card-hover);
+}
+
+/* Fenêtres et panneaux latéraux */
 .chatbot-modal:not(.chatbot-modal--page),
 .hw-cart-sheet {
   background: var(--glass-floating-bg);
-  backdrop-filter: blur(var(--glass-floating-blur)) saturate(190%);
-  -webkit-backdrop-filter: blur(var(--glass-floating-blur)) saturate(190%);
+  -webkit-backdrop-filter: blur(var(--glass-floating-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-floating-blur)) saturate(var(--saturate-rich));
   border: 1px solid var(--glass-floating-border);
   box-shadow: var(--glass-card-highlight), var(--shadow-card-hover);
 }
@@ -10577,3 +10666,34 @@ main {
   }
 }
 
+
+/* ==========================================================================
+   « Transparence réduite » (réglage du système) : plus aucun flou, surfaces de
+   verre remplacées par les surfaces pleines du thème. Tout passe par les jetons.
+   ========================================================================== */
+@media (prefers-reduced-transparency: reduce) {
+  :root,
+  :root[data-theme] {
+    --blur-scale: 0;
+    --glass-surface-bg: var(--bg-card);
+    --glass-card-bg: var(--bg-card);
+    --glass-floating-bg: var(--bg-surface-elevated);
+    --glass-modal-bg: var(--bg-surface-elevated);
+    --glass-inset-bg: var(--bg-inset);
+    --glass-chip-bg: color-mix(in srgb, var(--ink) 88%, transparent);
+  }
+}
+
+
+/* ==========================================================================
+   Utilitaires partagés (états pilotés par une classe, sans style en ligne)
+   ========================================================================== */
+
+/* Chevron de menu déroulant : pivote d'un demi-tour à l'ouverture */
+.chevron-flip {
+  transition: transform 0.2s ease;
+  transform: rotate(0);
+}
+.chevron-flip.is-open {
+  transform: rotate(180deg);
+}

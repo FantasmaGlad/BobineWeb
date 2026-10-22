@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { locales } from "@/lib/i18n";
 import { getBobineReleases } from "@/lib/github-releases";
 import { EN_SLUG_MAP } from "@/lib/seo";
+import { CLEARNET_URL } from "@/lib/onion";
 
 interface RouteConfig {
   path: string;
@@ -45,7 +46,7 @@ const staticRoutes: RouteConfig[] = [
 export const dynamic = "force-static";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = "https://bobine.fit";
+  const base = CLEARNET_URL;
 
   // Pages de blog : une par release GitHub, datée de sa publication (jamais de la date du build).
   let dynamicBlogRoutes: RouteConfig[] = [];

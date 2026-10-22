@@ -1,3 +1,4 @@
+import "../globals.css"; // en premier : les feuilles de src/styles/split/*.css importées par les composants doivent venir après
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
@@ -13,7 +14,7 @@ import GlobalRippleEffect from "@/components/GlobalRippleEffect";
 import { IS_ONION } from "@/lib/onion";
 import { getRepoStats } from "@/lib/releaseChannels";
 import { ReleaseProvider } from "@/components/ReleaseProvider";
-import "../globals.css";
+import { CLEARNET_URL } from "@/lib/onion";
 
 
 export function generateStaticParams() {
@@ -29,7 +30,7 @@ export async function generateMetadata({
   const isEn = locale === "en";
 
   return {
-    metadataBase: new URL("https://bobine.fit"),
+    metadataBase: new URL(CLEARNET_URL),
     title: {
       default: isEn
         ? "Bobine — Open-Source Gym Video Playout & Cinema Suite | Les Mills Cinema Alternative"
@@ -37,8 +38,8 @@ export async function generateMetadata({
       template: "%s · Bobine",
     },
     description: isEn
-      ? "Bobine V5.0.0 turns Google Books (Aluminium OS), Qualcomm Snapdragon ARM64 PCs, Apple Silicon Macs, Android tablets, and budget x86/ARM64 mini PCs into an autonomous, 100% offline video playout system for fitness clubs. The free, copyleft alternative to Les Mills Cinema and Wexer Virtual."
-      : "Bobine V5.0.0 transforme un Google Book (Aluminium OS), un PC ARM Qualcomm Snapdragon, un Mac mini, une tablette Android ou un mini PC x86/ARM64 en régie vidéo autonome et 100% hors-ligne pour salles de sport. L'alternative libre, gratuite et sans abonnement à Les Mills Cinema et Les Mills Virtual.",
+      ? "Bobine turns Google Books (Aluminium OS), Qualcomm Snapdragon ARM64 PCs, Apple Silicon Macs, Android tablets, and budget x86/ARM64 mini PCs into an autonomous, 100% offline video playout system for fitness clubs. The free, copyleft alternative to Les Mills Cinema and Wexer Virtual."
+      : "Bobine transforme un Google Book (Aluminium OS), un PC ARM Qualcomm Snapdragon, un Mac mini, une tablette Android ou un mini PC x86/ARM64 en régie vidéo autonome et 100% hors-ligne pour salles de sport. L'alternative libre, gratuite et sans abonnement à Les Mills Cinema et Les Mills Virtual.",
     keywords: isEn
       ? [
           "Bobine",
@@ -169,19 +170,19 @@ export default async function RootLayout({
           rel="alternate"
           type="text/plain"
           href="/compatible-devices.txt"
-          title="Bobine V5.0.0 Compatible Hardware & Devices Technical Reference (ARM64, Snapdragon, Google Book, NVIDIA DGX Spark, x86_64, Apple Silicon, Android, Android TV)"
+          title="Bobine Compatible Hardware & Devices Technical Reference (ARM64, Snapdragon, Google Book, NVIDIA DGX Spark, x86_64, Apple Silicon, Android, Android TV)"
         />
         <link
           rel="alternate"
           type="text/plain"
           href="/llms.txt"
-          title="Bobine V5.0.0 Summary Reference & Overview"
+          title="Bobine Summary Reference & Overview"
         />
         <link
           rel="alternate"
           type="text/plain"
           href="/llms-full.txt"
-          title="Bobine V5.0.0 Complete Technical Documentation & Architecture Reference"
+          title="Bobine Complete Technical Documentation & Architecture Reference"
         />
         <script
           dangerouslySetInnerHTML={{

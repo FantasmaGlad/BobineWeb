@@ -6,6 +6,7 @@ import InteractiveTerminal from "@/components/InteractiveTerminal";
 import DownloadPdfButton from "@/components/DownloadPdfButton";
 import ShareButton from "@/components/ShareButton";
 import type { Locale } from "@/lib/i18n";
+import "@/styles/split/pages-docs.css";
 
 interface DocsUtilisationViewProps {
   locale: Locale;
@@ -18,16 +19,16 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
   return (
     <>
       {/* En-tête de la page */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.25rem" }}>
+      <div className="dx-div-4">
         <div>
           <span className="feature-category-label">
             {isEn ? "User Manual & Daily Operations" : "Guide Pratique & Exploitation"}
           </span>
-          <h1 style={{ margin: 0, fontSize: "clamp(1.75rem, 3.5vw, 2.4rem)", fontWeight: 800, color: "var(--text-heading)", letterSpacing: "-0.02em" }}>
+          <h1 className="dx-h1-2">
             {isEn ? "Usage Guide & Operations" : "Utilisation & Guide Pratique"}
           </h1>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+        <div className="dx-div-2">
           <DownloadPdfButton locale={locale} chapterId="utilisation" />
           <ShareButton
             locale={locale}
@@ -38,7 +39,7 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
         </div>
       </div>
 
-      <p style={{ color: "var(--text-muted)", fontSize: "1.025rem", lineHeight: 1.6, margin: "0 0 1.5rem 0" }}>
+      <p className="dx-p-4">
         {isEn
           ? "Master every screen and tool in Bobine once installed. Choose a category below or browse the full reference."
           : "Maîtrisez chaque écran et outil de Bobine après son installation. Choisissez une rubrique ci-dessous ou parcourez l'ensemble du guide."}
@@ -47,42 +48,14 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
       {/* Barre d'onglets segmentée épurée */}
       <div
         role="tablist"
-        aria-label={isEn ? "Documentation sections" : "Sections de la documentation"}
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "0.35rem",
-          padding: "4px",
-          marginBottom: "2rem",
-          background: "var(--bg-inset)",
-          border: "1px solid var(--border-subtle)",
-          borderRadius: "0.6rem",
-          maxWidth: "100%",
-          overflowX: "auto",
-          WebkitOverflowScrolling: "touch",
-        }}
+        aria-label={isEn ? "Documentation sections" : "Sections de la documentation"} className="dx-div-19"
       >
         <button
           type="button"
           role="tab"
           aria-selected={activeTab === "basics"}
           onClick={() => setActiveTab("basics")}
-          style={{
-            padding: "0.4rem 0.8rem",
-            borderRadius: "0.45rem",
-            fontSize: "0.825rem",
-            fontWeight: 600,
-            cursor: "pointer",
-            background: activeTab === "basics" ? "var(--bg-card)" : "transparent",
-            color: activeTab === "basics" ? "var(--text-heading)" : "var(--text-muted)",
-            border: activeTab === "basics" ? "1px solid var(--border-subtle)" : "1px solid transparent",
-            boxShadow: activeTab === "basics" ? "var(--shadow-sm)" : "none",
-            transition: "all 0.15s ease",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.4rem",
-            whiteSpace: "nowrap",
-          }}
+          className="dx-tab"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -97,22 +70,7 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           role="tab"
           aria-selected={activeTab === "features"}
           onClick={() => setActiveTab("features")}
-          style={{
-            padding: "0.4rem 0.8rem",
-            borderRadius: "0.45rem",
-            fontSize: "0.825rem",
-            fontWeight: 600,
-            cursor: "pointer",
-            background: activeTab === "features" ? "var(--bg-card)" : "transparent",
-            color: activeTab === "features" ? "var(--text-heading)" : "var(--text-muted)",
-            border: activeTab === "features" ? "1px solid var(--border-subtle)" : "1px solid transparent",
-            boxShadow: activeTab === "features" ? "var(--shadow-sm)" : "none",
-            transition: "all 0.15s ease",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.4rem",
-            whiteSpace: "nowrap",
-          }}
+          className="dx-tab"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polygon points="5 3 19 12 5 21 5 3" />
@@ -125,22 +83,7 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           role="tab"
           aria-selected={activeTab === "all"}
           onClick={() => setActiveTab("all")}
-          style={{
-            padding: "0.4rem 0.8rem",
-            borderRadius: "0.45rem",
-            fontSize: "0.825rem",
-            fontWeight: 600,
-            cursor: "pointer",
-            background: activeTab === "all" ? "var(--bg-card)" : "transparent",
-            color: activeTab === "all" ? "var(--text-heading)" : "var(--text-muted)",
-            border: activeTab === "all" ? "1px solid var(--border-subtle)" : "1px solid transparent",
-            boxShadow: activeTab === "all" ? "var(--shadow-sm)" : "none",
-            transition: "all 0.15s ease",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.4rem",
-            whiteSpace: "nowrap",
-          }}
+          className="dx-tab"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="8" y1="6" x2="21" y2="6" />
@@ -156,10 +99,10 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
 
       {/* CONTENU : 1. BASES & PRISE EN MAIN */}
       {(activeTab === "basics" || activeTab === "all") && (
-        <section style={{ marginBottom: "3rem" }}>
+        <section className="dx-section-1">
           {activeTab === "all" && (
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.5rem", borderBottom: "2px solid var(--accent-primary)", paddingBottom: "0.5rem" }}>
-              <h2 style={{ margin: 0, fontSize: "1.35rem", fontWeight: 800, color: "var(--text-heading)" }}>
+            <div className="dx-div-20">
+              <h2 className="dx-h2-1">
                 {isEn ? "Part 1 — Basics & First Connection" : "Partie 1 — Bases & Prise en Main"}
               </h2>
             </div>
@@ -249,10 +192,10 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
 
       {/* CONTENU : 2. FONCTIONNALITÉS AVANCÉES & MOTEURS */}
       {(activeTab === "features" || activeTab === "all") && (
-        <section style={{ marginBottom: "3rem" }}>
+        <section className="dx-section-1">
           {activeTab === "all" && (
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.5rem", borderBottom: "2px solid var(--accent-primary)", paddingBottom: "0.5rem", paddingTop: "1rem" }}>
-              <h2 style={{ margin: 0, fontSize: "1.35rem", fontWeight: 800, color: "var(--text-heading)" }}>
+            <div className="dx-div-21">
+              <h2 className="dx-h2-1">
                 {isEn ? "Part 2 — Advanced Playout Engines & Features" : "Partie 2 — Fonctionnalités & Moteurs Multimédia"}
               </h2>
             </div>

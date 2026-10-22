@@ -188,7 +188,7 @@ const STEPS: StepItem[] = [
 const ONION_SHORT = `${ONION_APT_HOST.slice(0, 8)}…${ONION_APT_HOST.slice(-14)}`;
 
 // Variante « Tor » : reproduit public/install-tor.sh (5 étapes, clé récupérée par Tor puis empreinte vérifiée).
-// Le dépôt onion ne publie que la suite « stable » : aucun canal à choisir.
+// Le dépôt onion publie les trois suites (stable, beta, canary) : le canal choisi devient la suite de la source APT.
 const TOR_STEPS: StepItem[] = [
   {
     id: "tor-env",
@@ -231,13 +231,14 @@ const TOR_STEPS: StepItem[] = [
     num: 5,
     labelFr: "Source APT via Tor",
     labelEn: "APT source through Tor",
-    detailFr: () => `tor+http://${ONION_SHORT}/ stable main — index récupéré, signature validée`,
-    detailEn: () => `tor+http://${ONION_SHORT}/ stable main — index fetched, signature validated`,
+    detailFr: (c) => `tor+http://${ONION_SHORT}/ ${c} main — index récupéré, signature validée`,
+    detailEn: (c) => `tor+http://${ONION_SHORT}/ ${c} main — index fetched, signature validated`,
     durationMs: 1200,
   },
 ];
 
 const COMMAND_TOR = "curl -fsSL https://bobine.fit/install-tor.sh | bash";
+const COMMAND_TOR_CHANNEL = (c: Channel) => (c === "stable" ? COMMAND_TOR : `${COMMAND_TOR} -s -- --channel=${c}`);
 const COMMAND_STABLE = "curl -fsSL https://bobine.fit/install.sh | sudo bash";
 const COMMAND_BETA = "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta";
 const COMMAND_CANARY =
@@ -251,7 +252,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
   const [mode, setMode] = useState<"standard" | "tor">("standard");
   const isTor = mode === "tor";
   const steps = isTor ? TOR_STEPS : STEPS;
-  const commandText = isTor ? COMMAND_TOR : COMMANDS[channel];
+  const commandText = isTor ? COMMAND_TOR_CHANNEL(channel) : COMMANDS[channel];
 
   // États d'exécution
   const [hasTriggered, setHasTriggered] = useState(false);
@@ -394,7 +395,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         return;
       }
 
-      if (hasTriggered && !channelPromptAnswered && !isTor) {
+      if (hasTriggered && !channelPromptAnswered) {
         if (e.key === "1") {
           e.preventDefault();
           handleSelectChannelPrompt("stable");
@@ -413,7 +414,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [hasTriggered, channelPromptAnswered, isTor, triggerExecution, handleSelectChannelPrompt, startStepsSequence]);
+  }, [hasTriggered, channelPromptAnswered, triggerExecution, handleSelectChannelPrompt, startStepsSequence]);
 
   // Déroulement des 18 étapes (vitesse posée et lisible)
   useEffect(() => {
@@ -531,7 +532,6 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         </div>
 
         {/* Sélecteur de canal Stable / Bêta / Canary */}
-        {!isTor && (
         <div className="terminal-channel-tabs" role="tablist" aria-label={isEn ? "Release channel" : "Canal de version"}>
           {(Object.keys(CHANNEL_LABEL) as Channel[]).map((id) => (
             <button
@@ -549,7 +549,6 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
             </button>
           ))}
         </div>
-        )}
 
         <div className="terminal-demo-actions">
           {/* Bouton Rejouer */}
@@ -705,8 +704,8 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
           </div>
         )}
 
-        {/* Invite interactive reproduisant select_update_channel de install.sh */}
-        {showBanner && !isTor && (
+        {/* Invite interactive reproduisant select_update_channel (install.sh) et select_channel (install-tor.sh) */}
+        {showBanner && (
           <div className="terminal-channel-prompt">
             <div className="terminal-channel-prompt__header">
               <span className="terminal-channel-prompt__label">
@@ -785,9 +784,13 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
                   {CHANNEL_LABEL[channel]}
                 </span>
                 <span className="terminal-channel-prompt__detail">
-                  {isEn
-                    ? `Update channel set to '${channel}' (/etc/bobine/update-channel)`
-                    : `Canal configuré sur '${channel}' (/etc/bobine/update-channel)`}
+                  {isTor
+                    ? isEn
+                      ? `APT suite '${channel}' selected (bobine-onion.list)`
+                      : `Suite APT '${channel}' sélectionnée (bobine-onion.list)`
+                    : isEn
+                      ? `Update channel set to '${channel}' (/etc/bobine/update-channel)`
+                      : `Canal configuré sur '${channel}' (/etc/bobine/update-channel)`}
                 </span>
               </div>
             )}
@@ -875,6 +878,10 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
               <strong>{isEn ? "Done: Bobine repository protected by Tor" : "Terminé : dépôt Bobine protégé par Tor"}</strong>
             </div>
             <div className="terminal-summary-table">
+              <div className="terminal-summary-row">
+                <span className="summary-key">{isEn ? "Channel" : "Canal"}</span>
+                <span className="summary-val"><code>{channel}</code></span>
+              </div>
               <div className="terminal-summary-row">
                 <span className="summary-key">{isEn ? "Install" : "Installer"}</span>
                 <span className="summary-val"><code>sudo apt install bobine</code></span>

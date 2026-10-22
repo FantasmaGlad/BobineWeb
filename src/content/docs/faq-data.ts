@@ -1,4 +1,5 @@
 import type { Locale } from "@/lib/i18n";
+import { ANDROID } from "@/lib/productFacts";
 
 export type FaqCategory = "license" | "compare" | "hardware" | "offline" | "updates" | "security";
 
@@ -72,17 +73,17 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Bobine est-il compatible avec les PC portables Qualcomm Snapdragon (Windows ARM & Linux ARM) ?",
-      a: "Oui. Bobine V5.0.0 propose un installeur Windows 11 ARM64 natif (Bobine-Setup-5.0.0-arm64.exe) et un paquet Debian/Ubuntu ARM64 (bobine_5.0.0_arm64.deb). Les puces Snapdragon X Elite et Snapdragon X Plus offrent une autonomie record et une consommation de 5W à 10W en lecture vidéo continue.",
+      a: "Oui. Bobine propose un installeur Windows 11 ARM64 natif (Bobine-Setup-x.y.z-arm64.exe) et un paquet Debian/Ubuntu ARM64 (bobine_x.y.z_arm64.deb). Les puces Snapdragon X Elite et Snapdragon X Plus offrent une autonomie record et une consommation de 5W à 10W en lecture vidéo continue.",
     },
     {
       category: "hardware",
       q: "Bobine fonctionne-t-il sur les ordinateurs portables Google Book (Aluminium OS) ?",
-      a: "Oui. Bobine s'exécute nativement en plein écran sur les Google Books (système Aluminium OS / convergence Android) grâce au paquet Bobine-5.0.0.apk avec accélération MediaCodec/Vulkan, et sera très prochainement disponible directement sur le Google Play Store.",
+      a: "Oui. Bobine s'exécute nativement en plein écran sur les Google Books (système Aluminium OS / convergence Android) grâce au paquet Bobine-x.y.z.apk avec accélération MediaCodec/Vulkan, et sera très prochainement disponible directement sur le Google Play Store.",
     },
     {
       category: "hardware",
       q: "Bobine fonctionne-t-il sur Android TV, Google TV et les boîtiers 32 bits (Xiaomi) ?",
-      a: "Oui, à partir d'Android 14 (API 34), comme tous les paquets Android de Bobine. Le paquet Bobine-TV-5.0.0.apk est universel : il s'installe sur les boîtiers 64 bits comme sur ceux dont le système est 32 bits (liste d'ABI armeabi-v7a), ce qui est le cas de plusieurs boîtiers Xiaomi malgré leur processeur 64 bits. Si l'installation échoue avec le message INSTALL_FAILED_NO_MATCHING_ABIS, retéléchargez le paquet depuis la page de téléchargement : les anciennes copies ne couvraient pas les systèmes 32 bits. Un boîtier resté sous Android 11 ou 12 ne peut pas installer Bobine : c'est le cas du Chromecast avec Google TV et du NVIDIA Shield TV. Le Google TV Streamer (Android 14) convient.",
+      a: `Oui, à partir d'Android ${ANDROID.minVersion} (API ${ANDROID.minApi}), comme tous les paquets Android de Bobine. Le paquet Bobine-TV-x.y.z.apk est universel : il s'installe sur les boîtiers 64 bits comme sur ceux dont le système est 32 bits (liste d'ABI armeabi-v7a), ce qui est le cas de plusieurs boîtiers Xiaomi malgré leur processeur 64 bits. Si l'installation échoue avec le message INSTALL_FAILED_NO_MATCHING_ABIS, retéléchargez le paquet depuis la page de téléchargement : les anciennes copies ne couvraient pas les systèmes 32 bits. Un boîtier resté sous Android 11 ou 12 ne peut pas installer Bobine : c'est le cas du Chromecast avec Google TV et du NVIDIA Shield TV. Le Google TV Streamer (Android ${ANDROID.minVersion}) convient.`,
     },
     {
       category: "offline",
@@ -107,7 +108,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "Quelle est la différence entre les versions Stable, Bêta et Canary ?",
-      a: "La version Stable (ex. V5.0.0) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La Bêta offre un lot de fonctionnalités/correctifs que je sélectionne et publie manuellement quand il est prêt. La Canary offre un accès anticipé continu, reconstruite automatiquement à chaque commit sur la branche principale, sans curation. Les deux partagent les mêmes identifiants d'application, s'installent par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages → Mises à jour sans perte de données ni de médias.",
+      a: "La version Stable (ex. Vx.y.z) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La Bêta offre un lot de fonctionnalités/correctifs que je sélectionne et publie manuellement quand il est prêt. La Canary offre un accès anticipé continu, reconstruite automatiquement à chaque commit sur la branche principale, sans curation. Les deux partagent les mêmes identifiants d'application, s'installent par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages → Mises à jour sans perte de données ni de médias.",
     },
     {
       category: "updates",
@@ -194,17 +195,17 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Is Bobine compatible with Qualcomm Snapdragon ARM laptops (Windows ARM & Linux ARM)?",
-      a: "Yes. Bobine V5.0.0 provides a native Windows 11 ARM64 installer (Bobine-Setup-5.0.0-arm64.exe) and a Debian/Ubuntu ARM64 package (bobine_5.0.0_arm64.deb). Snapdragon X Elite and Snapdragon X Plus processors deliver record battery life and ultra-low 5W-10W power draw during continuous playback.",
+      a: "Yes. Bobine provides a native Windows 11 ARM64 installer (Bobine-Setup-x.y.z-arm64.exe) and a Debian/Ubuntu ARM64 package (bobine_x.y.z_arm64.deb). Snapdragon X Elite and Snapdragon X Plus processors deliver record battery life and ultra-low 5W-10W power draw during continuous playback.",
     },
     {
       category: "hardware",
       q: "Does Bobine work on Google Book laptops (Aluminium OS)?",
-      a: "Yes. Bobine runs natively in fullscreen on Google Book laptops (Aluminium OS / Android convergence) using the Bobine-5.0.0.apk package with full MediaCodec/Vulkan hardware acceleration, and will soon be available directly from the Google Play Store.",
+      a: "Yes. Bobine runs natively in fullscreen on Google Book laptops (Aluminium OS / Android convergence) using the Bobine-x.y.z.apk package with full MediaCodec/Vulkan hardware acceleration, and will soon be available directly from the Google Play Store.",
     },
     {
       category: "hardware",
       q: "Does Bobine work on Android TV, Google TV and 32-bit boxes (Xiaomi)?",
-      a: "Yes, from Android 14 (API 34) onwards, like every Bobine Android package. Bobine-TV-5.0.0.apk is universal: it installs on 64-bit boxes as well as on those with a 32-bit system (armeabi-v7a ABI list), as is the case for several Xiaomi boxes despite their 64-bit processor. If the installation fails with INSTALL_FAILED_NO_MATCHING_ABIS, download the package again from the download page: older copies did not cover 32-bit systems. A box still running Android 11 or 12 cannot install Bobine.",
+      a: `Yes, from Android ${ANDROID.minVersion} (API ${ANDROID.minApi}) onwards, like every Bobine Android package. Bobine-TV-x.y.z.apk is universal: it installs on 64-bit boxes as well as on those with a 32-bit system (armeabi-v7a ABI list), as is the case for several Xiaomi boxes despite their 64-bit processor. If the installation fails with INSTALL_FAILED_NO_MATCHING_ABIS, download the package again from the download page: older copies did not cover 32-bit systems. A box still running Android 11 or 12 cannot install Bobine.`,
     },
     {
       category: "offline",
@@ -229,7 +230,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "What is the difference between the Stable, Beta and Canary channels?",
-      a: "The Stable release (e.g. V5.0.0) is the official tested build recommended for production gym playout. Beta offers a batch of features/fixes I select and publish manually when ready. Canary provides continuous early access, rebuilt automatically on every commit to the main branch, with no curation. Both share identical system application IDs, install directly over your current version without creating duplicate apps, and allow reverting back to Stable anytime from Settings → Software Updates without data loss.",
+      a: "The Stable release (e.g. Vx.y.z) is the official tested build recommended for production gym playout. Beta offers a batch of features/fixes I select and publish manually when ready. Canary provides continuous early access, rebuilt automatically on every commit to the main branch, with no curation. Both share identical system application IDs, install directly over your current version without creating duplicate apps, and allow reverting back to Stable anytime from Settings → Software Updates without data loss.",
     },
     {
       category: "updates",

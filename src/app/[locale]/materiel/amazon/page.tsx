@@ -7,6 +7,7 @@ import { buildMetadata, lp } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import HardwareBundleTabs from "@/components/hardware/HardwareBundleTabs";
 import HardwareCartBar from "@/components/hardware/HardwareCartBar";
+import "@/styles/split/pages-hardware.css";
 
 export async function generateMetadata({
   params,
@@ -152,8 +153,7 @@ export default async function HardwareAmazonPage({
 
   return (
     <div
-      className="container"
-      style={{ maxWidth: "82rem", paddingBottom: "3rem" }}
+      className="container hw-div-1"
     >
       <BreadcrumbsJsonLd items={breadcrumbs} />
 

@@ -6,9 +6,10 @@
   max-height: 34rem;
   margin-inline: auto;
   border-radius: 0.75rem;
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--glass-card-border);
   margin-block: 1.5rem;
-  background: var(--bg-card);
+  background: var(--glass-card-bg);
+  box-shadow: var(--glass-card-highlight), var(--shadow-card);
 }
 .release-body img {
   max-width: 100%;

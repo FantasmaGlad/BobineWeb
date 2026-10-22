@@ -4,6 +4,8 @@ import { useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import PdfIcon from "@/components/icons/PdfIcon";
 import { generateDocumentationPdf } from "@/lib/pdf/generate";
+import { useReleaseData } from "@/components/ReleaseProvider";
+import "@/styles/split/pages-misc.css";
 
 export default function DownloadPdfButton({
   locale,
@@ -15,6 +17,7 @@ export default function DownloadPdfButton({
   variant?: "chapter" | "manual";
 }) {
   const isEn = locale === "en";
+  const version = useReleaseData()?.stable.version;
   const [isGenerating, setIsGenerating] = useState(false);
   const [hasError, setHasError] = useState(false);
 
@@ -23,7 +26,7 @@ export default function DownloadPdfButton({
     try {
       setIsGenerating(true);
       setHasError(false);
-      await generateDocumentationPdf({ locale, chapterId });
+      await generateDocumentationPdf({ locale, chapterId, version });
     } catch (err) {
       console.error("Failed to generate PDF:", err);
       setHasError(true);
@@ -33,7 +36,7 @@ export default function DownloadPdfButton({
   };
 
   return (
-    <div style={{ display: "inline-flex", flexDirection: "column", gap: "0.35rem" }}>
+    <div className="download-pdf-button-div-1">
       <button
         type="button"
         className="share-trigger-btn download-pdf-btn"
@@ -57,13 +60,6 @@ export default function DownloadPdfButton({
             ? "Download this chapter as PDF"
             : "Télécharger ce chapitre en PDF"
         }
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "0.5rem",
-          cursor: isGenerating ? "wait" : "pointer",
-          opacity: isGenerating ? 0.7 : 1,
-        }}
       >
         <PdfIcon size={15} />
         <span className="download-pdf-label--full">
@@ -84,7 +80,7 @@ export default function DownloadPdfButton({
         </span>
       </button>
       {hasError && (
-        <span role="alert" style={{ fontSize: "0.75rem", color: "var(--accent-primary)" }}>
+        <span role="alert" className="download-pdf-button-span-1">
           {isEn
             ? "PDF generation failed. Please retry."
             : "Échec de la génération du PDF. Veuillez réessayer."}

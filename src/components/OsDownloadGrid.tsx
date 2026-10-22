@@ -13,6 +13,8 @@ import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFallbacks";
 import { useReleaseData } from "@/components/ReleaseProvider";
 import DownloadModal, { type DownloadPlatform } from "@/components/DownloadModal";
+import { ANDROID } from "@/lib/productFacts";
+import "@/styles/split/pages-misc.css";
 
 export default function OsDownloadGrid({
   locale,
@@ -113,7 +115,7 @@ export default function OsDownloadGrid({
     {
       id: "android-tv",
       name: "Android TV",
-      subtitle: isEn ? "Google TV, Xiaomi & Smart TVs (Android 14+)" : "Google TV, Xiaomi & Smart TV (Android 14+)",
+      subtitle: isEn ? `Google TV, Xiaomi & Smart TVs (Android ${ANDROID.minVersion}+)` : `Google TV, Xiaomi & Smart TV (Android ${ANDROID.minVersion}+)`,
       format: isEn ? "Package .apk" : "Paquet .apk",
       badge: isEn ? "Bientôt sur Google Play" : "Bientôt sur Google Play",
       url: stableInfo.downloads.androidTv || `https://github.com/FantasmaGlad/Bobine/releases/download/${stableInfo.version}/Bobine-TV-${stableInfo.version.replace(/^V/i, "")}.apk`,
@@ -256,7 +258,7 @@ export default function OsDownloadGrid({
             <div className="os-download-first-screen__header">
               {title ? (
                 <>
-                  <p className="hero-fullscreen__title" aria-hidden="true" style={{ margin: 0 }}>
+                  <p className="hero-fullscreen__title os-download-grid-p-1" aria-hidden="true">
                     {title}
                   </p>
                   {subtitle && (

@@ -6,6 +6,7 @@ import { buildMetadata, lp } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import FaqJsonLd from "@/components/FaqJsonLd";
+import "@/styles/split/pages-comparison.css";
 
 export async function generateMetadata({
   params,
@@ -249,16 +250,8 @@ export default async function WexerComparisonPage({
       <FaqJsonLd items={faqItems} />
 
       {/* En-tête */}
-      <header style={{ paddingTop: "1rem", paddingBottom: "2rem", maxWidth: "860px" }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "0.75rem",
-            flexWrap: "wrap",
-            marginBottom: "0.75rem",
-          }}
+      <header className="cmp-header-1">
+        <div className="cmp-div-1"
         >
           <span className="feature-category-label">{c.badge}</span>
           <ShareButton
@@ -268,34 +261,27 @@ export default async function WexerComparisonPage({
             description={c.subtitle}
           />
         </div>
-        <h1 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.75rem)", fontWeight: 800, marginTop: "0.5rem", marginBottom: "1rem", color: "var(--text-heading)", lineHeight: 1.2 }}>
+        <h1 className="cmp-h1-1">
           {c.title}
         </h1>
-        <p style={{ fontSize: "1.1rem", color: "var(--text-muted)", lineHeight: 1.6 }}>
+        <p className="cmp-p-1">
           {c.subtitle}
         </p>
       </header>
 
       {/* Cartes Chiffres Clés */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1rem", marginBottom: "3rem" }}>
+      <div className="cmp-div-2">
         {c.summaryCards.map((sc, idx) => (
           <div
-            key={idx}
-            style={{
-              background: "var(--bg-card)",
-              border: "1px solid var(--border-subtle)",
-              borderRadius: "0.75rem",
-              padding: "1.25rem",
-              boxShadow: "var(--shadow-sm)",
-            }}
+            key={idx} className="cmp-div-3"
           >
-            <span style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted)" }}>
+            <span className="cmp-span-1">
               {sc.label}
             </span>
-            <div style={{ fontSize: "1.45rem", fontWeight: 800, color: "var(--accent-primary)", margin: "0.35rem 0" }}>
+            <div className="cmp-div-4">
               {sc.value}
             </div>
-            <p style={{ fontSize: "0.825rem", color: "var(--text-body)", margin: 0 }}>
+            <p className="cmp-p-2">
               {sc.desc}
             </p>
           </div>
@@ -303,8 +289,8 @@ export default async function WexerComparisonPage({
       </div>
 
       {/* Tableau Comparatif */}
-      <section style={{ marginBottom: "3.5rem" }}>
-        <h2 style={{ fontSize: "1.5rem", fontWeight: 700, color: "var(--text-heading)", marginBottom: "1.25rem" }}>
+      <section className="cmp-section-1">
+        <h2 className="cmp-h2-1">
           {c.table.title}
         </h2>
         <div className="comparison-table-wrapper">
@@ -343,13 +329,13 @@ export default async function WexerComparisonPage({
       </section>
 
       {/* Sections d'analyse textuelle */}
-      <section style={{ display: "flex", flexDirection: "column", gap: "2rem", marginBottom: "3.5rem", maxWidth: "860px" }}>
+      <section className="cmp-section-2">
         {c.sections.map((sec, sIdx) => (
-          <article key={sIdx} style={{ background: "var(--bg-surface)", border: "1px solid var(--border-subtle)", borderRadius: "0.85rem", padding: "1.75rem" }}>
-            <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text-heading)", marginBottom: "0.75rem" }}>
+          <article key={sIdx} className="cmp-article-1">
+            <h3 className="cmp-h3-1">
               {sec.title}
             </h3>
-            <p style={{ fontSize: "0.95rem", color: "var(--text-body)", lineHeight: 1.65, margin: 0 }}>
+            <p className="cmp-p-3">
               {sec.text}
             </p>
           </article>
@@ -357,40 +343,20 @@ export default async function WexerComparisonPage({
       </section>
 
       {/* Foire Aux Questions (FAQ) — visible pour l'utilisateur & Rich Results Google */}
-      <section style={{ marginBottom: "3.5rem", maxWidth: "860px" }}>
-        <h2 style={{ fontSize: "1.5rem", fontWeight: 700, color: "var(--text-heading)", marginBottom: "1.25rem" }}>
+      <section className="cmp-section-3">
+        <h2 className="cmp-h2-1">
           {isEn ? "Frequently Asked Questions" : "Questions Fréquentes"}
         </h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <div className="cmp-div-5">
           {faqItems.map((item, idx) => (
             <details
-              key={idx}
-              style={{
-                background: "var(--bg-surface)",
-                border: "1px solid var(--border-subtle)",
-                borderRadius: "0.75rem",
-                padding: "1rem 1.25rem",
-              }}
+              key={idx} className="cmp-details-1"
             >
-              <summary
-                style={{
-                  fontWeight: 600,
-                  fontSize: "1.05rem",
-                  color: "var(--text-heading)",
-                  cursor: "pointer",
-                  outline: "none",
-                }}
+              <summary className="cmp-summary-1"
               >
                 {item.q}
               </summary>
-              <p
-                style={{
-                  marginTop: "0.75rem",
-                  marginBottom: 0,
-                  fontSize: "0.95rem",
-                  color: "var(--text-body)",
-                  lineHeight: 1.6,
-                }}
+              <p className="cmp-p-4"
               >
                 {item.a}
               </p>
@@ -400,14 +366,14 @@ export default async function WexerComparisonPage({
       </section>
 
       {/* Bloc CTA */}
-      <section style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "1rem", padding: "2.5rem 2rem", textAlign: "center", maxWidth: "860px" }}>
-        <h2 style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--text-heading)", marginBottom: "0.75rem" }}>
+      <section className="cmp-section-4">
+        <h2 className="cmp-h2-2">
           {c.cta.title}
         </h2>
-        <p style={{ fontSize: "1rem", color: "var(--text-muted)", marginBottom: "1.5rem", maxWidth: "600px", margin: "0 auto 1.5rem auto" }}>
+        <p className="cmp-p-5">
           {c.cta.desc}
         </p>
-        <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
+        <div className="cmp-div-6">
           <Link href={`/${locale}/documentation`} className="btn-primary">
             {c.cta.btnInstall}
           </Link>

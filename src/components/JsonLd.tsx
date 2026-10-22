@@ -1,4 +1,6 @@
 import { getBobineReleases } from "@/lib/github-releases";
+import { ANDROID } from "@/lib/productFacts";
+import { CLEARNET_URL } from "@/lib/onion";
 
 const AUTHOR_EMAIL = "clement.barillot@bobine.fit";
 
@@ -20,10 +22,10 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
     "@type": "SoftwareApplication",
     name: "Bobine Fit",
     alternateName: ["Bobine", "bobine.fit", "Bobine Playout", "Régie Bobine", "Bobine Fitness", "Bobine Virtual Fitness"],
-    operatingSystem: "Debian 13 (Appliance Headless), Ubuntu, Linux Mint, Windows 11/10, macOS (Apple Silicon M1–M4), Android 14–16 (ARM 32/64-bit), Android TV, Google TV",
+    operatingSystem: `Debian 13 (Appliance Headless), Ubuntu, Linux Mint, Windows 11/10, macOS (Apple Silicon M1–M4), Android ${ANDROID.minVersion}–${ANDROID.maxVersion} (ARM 32/64-bit), Android TV, Google TV`,
     applicationCategory: "MultimediaApplication",
     applicationSubCategory: "Gym Video Playout & Virtual Fitness Automation",
-    url: "https://bobine.fit",
+    url: CLEARNET_URL,
     about: [
       { "@type": "Thing", name: "Fitness Center", sameAs: "https://www.wikidata.org/wiki/Q1060421" },
       { "@type": "Thing", name: "Software", sameAs: "https://www.wikidata.org/wiki/Q7397" },
@@ -80,7 +82,7 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
     brand: {
       "@type": "Brand",
       name: "Bobine Fit",
-      url: "https://bobine.fit",
+      url: CLEARNET_URL,
       logo: "https://bobine.fit/icon.png",
       slogan: isEn
         ? "Open-source gym video playout & streaming system"
@@ -109,7 +111,7 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
       "https://github.com/FantasmaGlad/Bobine",
       "https://www.linkedin.com/in/clement-barillot39",
     ],
-    worksFor: { "@type": "Organization", name: "Bobine Fit", url: "https://bobine.fit" },
+    worksFor: { "@type": "Organization", name: "Bobine Fit", url: CLEARNET_URL },
   };
 
   const organizationSchema = {
@@ -117,7 +119,7 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
     "@type": "Organization",
     name: "Bobine Fit",
     alternateName: ["Bobine", "bobine.fit", "Bobine Playout", "Bobine Fitness"],
-    url: "https://bobine.fit",
+    url: CLEARNET_URL,
     logo: "https://bobine.fit/icon.png",
     description: isEn
       ? "Open-source autonomous video playout and gym entertainment systems."
@@ -144,7 +146,7 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
     "@type": "WebSite",
     name: "Bobine Fit",
     alternateName: ["Bobine", "bobine.fit", "Bobine Playout", "Bobine Fitness"],
-    url: "https://bobine.fit",
+    url: CLEARNET_URL,
     inLanguage: ["fr-FR", "en-US"],
     potentialAction: {
       "@type": "SearchAction",

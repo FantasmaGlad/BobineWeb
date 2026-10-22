@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Locale } from "@/lib/i18n";
+import "@/styles/split/pages-docs.css";
 
 export default function QuickInstallSnippet({ locale }: { locale: Locale }) {
   const [copied, setCopied] = useState(false);
@@ -23,76 +24,33 @@ export default function QuickInstallSnippet({ locale }: { locale: Locale }) {
   };
 
   return (
-    <div
-      style={{
-        marginBlock: "0.85rem 1.35rem",
-        padding: "0.55rem 0.85rem",
-        background: "var(--bg-surface)",
-        border: "1px solid var(--border-subtle)",
-        borderRadius: "0.55rem",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        flexWrap: "wrap",
-        gap: "0.75rem",
-      }}
+    <div className="dx-div-23"
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", minWidth: 0, flexWrap: "wrap" }}>
+      <div className="dx-div-24">
         {/* Toggle Mode Épuré vs Verbeux */}
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            background: "var(--bg-inset)",
-            border: "1px solid var(--border-subtle)",
-            borderRadius: "0.35rem",
-            padding: "2px",
-            gap: "2px",
-          }}
+        <div className="dx-div-25"
         >
           <button
             type="button"
             onClick={() => setIsVerbose(false)}
-            style={{
-              background: !isVerbose ? "var(--bg-card)" : "transparent",
-              color: !isVerbose ? "var(--text-heading)" : "var(--text-muted)",
-              fontWeight: !isVerbose ? 700 : 500,
-              fontSize: "0.68rem",
-              padding: "0.15rem 0.45rem",
-              borderRadius: "0.25rem",
-              border: !isVerbose ? "1px solid var(--border-subtle)" : "1px solid transparent",
-              cursor: "pointer",
-            }}
+            aria-pressed={!isVerbose}
+            className="dx-seg-btn"
           >
             {isEn ? "Clean" : "Épuré"}
           </button>
           <button
             type="button"
             onClick={() => setIsVerbose(true)}
-            style={{
-              background: isVerbose ? "var(--bg-card)" : "transparent",
-              color: isVerbose ? "var(--text-heading)" : "var(--text-muted)",
-              fontWeight: isVerbose ? 700 : 500,
-              fontSize: "0.68rem",
-              padding: "0.15rem 0.45rem",
-              borderRadius: "0.25rem",
-              border: isVerbose ? "1px solid var(--border-subtle)" : "1px solid transparent",
-              cursor: "pointer",
-            }}
+            aria-pressed={isVerbose}
+            className="dx-seg-btn"
           >
             {isEn ? "Verbose (-v)" : "Verbeux (-v)"}
           </button>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", overflowX: "auto" }}>
-          <span style={{ color: "var(--accent-primary)", fontWeight: 700, fontFamily: "monospace", fontSize: "0.85rem" }}>$</span>
-          <code
-            style={{
-              fontFamily: "monospace",
-              fontSize: "0.825rem",
-              color: "var(--text-heading)",
-              whiteSpace: "nowrap",
-            }}
+        <div className="dx-div-26">
+          <span className="dx-span-1">$</span>
+          <code className="dx-code-2"
           >
             {command}
           </code>
@@ -102,16 +60,7 @@ export default function QuickInstallSnippet({ locale }: { locale: Locale }) {
       <button
         type="button"
         onClick={handleCopy}
-        className="btn-secondary"
-        style={{
-          padding: "0.25rem 0.6rem",
-          fontSize: "0.75rem",
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "0.35rem",
-          cursor: "pointer",
-          flexShrink: 0,
-        }}
+        className="btn-secondary dx-button-2"
         title={isEn ? "Copy command to clipboard" : "Copier la commande dans le presse-papier"}
         aria-label={isEn ? "Copy command to clipboard" : "Copier la commande dans le presse-papier"}
       >

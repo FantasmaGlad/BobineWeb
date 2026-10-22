@@ -53,6 +53,8 @@ jobs:
         run: npx tsc --noEmit
       - name: ESLint
         run: npm run lint
+      - name: Verre, jetons de style et contraste des 16 thèmes
+        run: node scripts/ci/glass-check.mjs
       - name: Simulateur d'installation aligné sur les scripts
         run: bash scripts/ci/check-simulator-sync.sh
       - uses: actions/cache@v6

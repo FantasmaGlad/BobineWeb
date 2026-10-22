@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, type CSSProperties } from "react";
 import { formatPrice, sumPrices } from "@/lib/price";
 import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
@@ -22,6 +22,7 @@ import AddToCartButton from "@/components/hardware/AddToCartButton";
 import SellerLine, { type MerchantPlatform } from "@/components/hardware/SellerLine";
 import MarqueeText from "@/components/hardware/MarqueeText";
 import { publishStoreView } from "@/lib/storeView";
+import "@/styles/split/pages-hardware.css";
 
 interface HardwareBundleTabsProps {
   locale: Locale;
@@ -242,7 +243,7 @@ export default function HardwareBundleTabs({
   ];
 
   return (
-    <div style={{ marginTop: "1rem" }} className="hw-os-layout">
+    <div className="hw-os-layout hw-div-14">
       <div className="hw-os-content">
       {unavailableNotice ? (
         <div className="hw-unavailable-os">
@@ -271,39 +272,15 @@ export default function HardwareBundleTabs({
       ) : (<>
       {/* 2. BANDEAU DE L'OS SÉLECTIONNÉ — englobe tout le contenu de la gamme active */}
       <div
-        className="hw-tier-card"
-        style={{
-          position: "relative",
-          background: "var(--bg-card)",
-          border: "1px solid var(--border-subtle)",
-          borderRadius: "0.75rem",
-          padding: "1.5rem",
-          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
-        }}
+        className="hw-tier-card hw-div-15"
       >
         <div
-          className="hw-tier-header-row"
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            flexWrap: "nowrap",
-            gap: "1rem",
-            borderBottom: "1px solid var(--border-subtle)",
-            paddingBottom: "1.25rem",
-            marginBottom: "1.25rem",
-          }}
+          className="hw-tier-header-row hw-div-16"
         >
-          <div style={{ minWidth: 0, flex: "1 1 auto" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.35rem" }}>
+          <div className="hw-div-17">
+            <div className="hw-div-18">
               <h1
-                className="hw-form-title"
-                style={{
-                  fontSize: "1.25rem",
-                  fontWeight: 700,
-                  color: "var(--text-heading)",
-                  margin: 0,
-                }}
+                className="hw-form-title hw-h1-1"
               >
                 <MarqueeText text={isEn ? currentFormFactor.titleEn : currentFormFactor.titleFr} />
               </h1>
@@ -325,11 +302,7 @@ export default function HardwareBundleTabs({
                 role="tab"
                 aria-selected={isTierActive}
                 onClick={() => setSelectedTier(tier.id)}
-                className={`stepper-mode-btn ${isTierActive ? "is-active" : ""}`}
-                style={{
-                  padding: "0.45rem 0.85rem",
-                  fontSize: "0.775rem",
-                }}
+                className={`stepper-mode-btn ${isTierActive ? "is-active" : ""} hw-button-1`}
               >
                   <span>{tier.label}</span>
                 </button>
@@ -342,10 +315,9 @@ export default function HardwareBundleTabs({
             Les formes absentes du catalogue (ex. Mini PC / PC Portable sous Android, réservés aux
             futurs PC ARM Android) restent visibles mais grisées. */}
         <div
-          className="stepper-mode-toggle hw-form-toggle"
+          className="stepper-mode-toggle hw-form-toggle hw-div-19"
           role="tablist"
           aria-label={isEn ? "Hardware form factor" : "Type de matériel"}
-          style={{ marginBottom: "1.25rem", flexWrap: "wrap" }}
         >
           {formOrder.map((key) => {
             const isAvailable = formFactorKeys.includes(key);
@@ -365,13 +337,7 @@ export default function HardwareBundleTabs({
                     setSelectedTier(nextFormFactor.defaultTier);
                   }
                 }}
-                className={`stepper-mode-btn ${isFormActive ? "is-active" : ""}`}
-                style={{
-                  padding: "0.45rem 0.85rem",
-                  fontSize: "0.775rem",
-                  opacity: isAvailable ? 1 : 0.45,
-                  cursor: isAvailable ? "pointer" : "not-allowed",
-                }}
+                className={`stepper-mode-btn hw-formfactor-btn ${isFormActive ? "is-active" : ""} ${isAvailable ? "" : "is-unavailable"}`}
               >
                 <span>{isEn ? formFactorLabels[key].en : formFactorLabels[key].fr}</span>
               </button>
@@ -407,77 +373,32 @@ export default function HardwareBundleTabs({
 
         <div
           key={`${selectedOs}-${activeFormFactorKey}-${selectedTier}`}
-          className="hw-fade-panel"
-          style={{
-            transform: `translateX(${dragX}px)`,
-            transition: isDragging ? "none" : "transform 0.25s ease",
-            touchAction: "pan-y",
-            cursor: isDragging ? "grabbing" : "grab",
-          }}
+          className={`hw-fade-panel hw-swipe-panel${isDragging ? " is-dragging" : ""}`}
+          style={{ "--drag-x": `${dragX}px` } as CSSProperties}
           onPointerDown={(e) => handleSwipeStart(e.clientX, e.target)}
           onPointerMove={(e) => isDragging && handleSwipeMove(e.clientX)}
           onPointerUp={handleSwipeEnd}
           onPointerLeave={() => isDragging && handleSwipeEnd()}
         >
           {currentFormFactor.editorialNoteFr && (
-            <div
-              style={{
-                marginBottom: "1.25rem",
-                padding: "0.85rem 1rem",
-                borderRadius: "0.5rem",
-                background: "var(--bg-inset)",
-                border: "1px solid var(--border-subtle)",
-                fontSize: "0.8rem",
-                color: "var(--text-muted)",
-                lineHeight: 1.55,
-              }}
+            <div className="hw-div-20"
             >
               {isEn ? currentFormFactor.editorialNoteEn : currentFormFactor.editorialNoteFr}
             </div>
           )}
 
           {/* 5. DÉTAILS DE LA GAMME ACTIVE */}
-          <div style={{ marginBottom: "1.5rem" }}>
+          <div className="hw-div-3">
             <div
-              className="hw-tier-specs-row"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: "0.5rem",
-                marginBottom: "0.5rem",
-              }}
+              className="hw-tier-specs-row hw-div-21"
             >
-              <div className="hw-tier-specs-row__title" style={{ display: "flex", alignItems: "center", gap: "0.5rem", minWidth: 0 }}>
-                <h3
-                  style={{
-                    fontSize: "1.1rem",
-                    fontWeight: 700,
-                    color: "var(--text-heading)",
-                    margin: 0,
-                    minWidth: 0,
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                  }}
+              <div className="hw-tier-specs-row__title hw-div-22">
+                <h3 className="hw-h3-2"
                 >
                   <MarqueeText text={isEn ? currentTier.headlineEn : currentTier.headlineFr} />
                 </h3>
                 {showFanBadge && (
-                  <span
-                    style={{
-                      flexShrink: 0,
-                      fontSize: "0.675rem",
-                      fontWeight: 700,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.03em",
-                      padding: "0.15rem 0.45rem",
-                      borderRadius: "0.3rem",
-                      background: mainItem!.hasFan ? "var(--bg-inset)" : "rgba(16, 185, 129, 0.14)",
-                      color: mainItem!.hasFan ? "var(--text-muted)" : "#059669",
-                      border: mainItem!.hasFan ? "1px solid var(--border-subtle)" : "1px solid rgba(16, 185, 129, 0.35)",
-                    }}
-                  >
+                  <span className={`hw-fan-badge${mainItem!.hasFan ? "" : " hw-fan-badge--fanless"}`}>
                     {mainItem!.hasFan
                       ? (isEn ? "Quiet fan" : "Ventilateur silencieux")
                       : (isEn ? "100% Fanless" : "100% Fanless")}
@@ -485,39 +406,15 @@ export default function HardwareBundleTabs({
                 )}
               </div>
 
-              <div className="hw-tier-specs-row__badges" style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexShrink: 0 }}>
-                <span
-                  style={{
-                    fontSize: "0.725rem",
-                    fontWeight: 600,
-                    padding: "0.2rem 0.5rem",
-                    borderRadius: "0.3rem",
-                    background: "var(--bg-inset)",
-                    border: "1px solid var(--border-subtle)",
-                    color: "var(--text-heading)",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.3rem",
-                  }}
+              <div className="hw-tier-specs-row__badges hw-div-23">
+                <span className="hw-span-4"
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
                   </svg>
                   <span>{currentTier.powerWatts}</span>
                 </span>
-                <span
-                  style={{
-                    fontSize: "0.725rem",
-                    fontWeight: 600,
-                    padding: "0.2rem 0.5rem",
-                    borderRadius: "0.3rem",
-                    background: "var(--bg-inset)",
-                    border: "1px solid var(--border-subtle)",
-                    color: "var(--text-heading)",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.3rem",
-                  }}
+                <span className="hw-span-4"
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
@@ -529,7 +426,7 @@ export default function HardwareBundleTabs({
               </div>
             </div>
 
-            <p className="hw-tier-summary" style={{ fontSize: "0.85rem", color: "var(--text-muted)", margin: 0 }}>
+            <p className="hw-tier-summary hw-p-3">
               <MarqueeText text={isEn ? currentTier.summaryEn : currentTier.summaryFr} />
             </p>
           </div>
@@ -537,56 +434,31 @@ export default function HardwareBundleTabs({
           {/* 6. UNITÉ PRINCIPALE — carte hero large écran */}
           {mainItem && (
             <div
-              className="hw-item-card hw-item-card--hero hw-hero-grid"
-              style={{
-                background: "var(--bg-surface)",
-                border: "1px solid var(--border-subtle)",
-                borderRadius: "0.65rem",
-                padding: "1.25rem",
-                marginBottom: "1rem",
-              }}
+              className="hw-item-card hw-item-card--hero hw-hero-grid hw-div-24"
             >
               <div
-                className="hw-hero-grid__image"
-                style={{
-                  borderRadius: "0.55rem",
-                  border: "1px solid var(--border-subtle)",
-                  background: "#ffffff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  overflow: "hidden",
-                  aspectRatio: "1 / 1",
-                }}
+                className="hw-hero-grid__image hw-div-25"
               >
                 <Image
                   src={mainItem.imageUrl}
                   alt=""
                   width={180}
-                  height={180}
-                  style={{ objectFit: "contain", width: "100%", height: "100%", padding: "8px" }}
+                  height={180} className="hw-image-2"
                 />
               </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", minWidth: 0 }}>
-                <h4 className="hw-hero-name" style={{ fontSize: "1.05rem", fontWeight: 700, color: "var(--text-heading)", margin: 0 }}>
+              <div className="hw-div-26">
+                <h4 className="hw-hero-name hw-h4-1">
                   <MarqueeText text={mainItem.name} />
                 </h4>
                 <div
-                  className="hw-hero-specs"
-                  style={{
-                    fontSize: "0.775rem",
-                    fontWeight: 600,
-                    color: "var(--text-heading)",
-                    fontFamily: "var(--font-mono, monospace)",
-                  }}
+                  className="hw-hero-specs hw-div-27"
                 >
                   <MarqueeText text={mainItem.specs} />
                 </div>
                 <p
-                  className="hw-clamp hw-hero-desc"
+                  className="hw-clamp hw-hero-desc hw-p-4"
                   title={mainItem.description}
-                  style={{ fontSize: "0.825rem", color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}
                 >
                   {mainItem.description}
                 </p>
@@ -594,20 +466,10 @@ export default function HardwareBundleTabs({
                   <SellerLine item={mainItem} isEn={isEn} />
                 </div>
 
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    flexWrap: "wrap",
-                    gap: "0.75rem",
-                    marginTop: "0.35rem",
-                    paddingTop: "0.75rem",
-                    borderTop: "1px dashed var(--border-subtle)",
-                  }}
+                <div className="hw-div-28"
                 >
                   <div className="hw-price-block">
-                    <span className="hw-price" style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--text-heading)" }}>
+                    <span className="hw-price hw-span-5">
                       {formatPrice(mainItem.priceAmazon) ?? (isEn ? "See price on Amazon" : "Voir le prix sur Amazon")}
                     </span>
                     {/* Emplacement toujours réservé : la hauteur ne change pas selon que le prix est en direct ou constaté. */}
@@ -615,7 +477,7 @@ export default function HardwareBundleTabs({
                       {!mainItem.isLive && mainItem.priceAmazon !== null && (isEn ? `checked ${checkedDate}` : `constaté le ${checkedDate}`)}
                     </span>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
+                  <div className="hw-div-29">
                     {cartEnabled && <AddToCartButton
                       locale={locale}
                       item={{
@@ -631,17 +493,7 @@ export default function HardwareBundleTabs({
                       href={mainItem.amazonUrl}
                       target="_blank"
                       rel="nofollow sponsored noopener noreferrer"
-                      className="btn-primary"
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "0.5rem",
-                        fontSize: "0.85rem",
-                        fontWeight: 700,
-                        padding: "0.55rem 1rem",
-                        borderRadius: "0.45rem",
-                        textDecoration: "none",
-                      }}
+                      className="btn-primary hw-a-2"
                     >
                       <span>{isEn ? `See current price on ${platformName}` : `Voir le prix actuel sur ${platformName}`}</span>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -783,47 +635,18 @@ export default function HardwareBundleTabs({
                   setSelectedTier(nextFormFactor.defaultTier);
                 }
               }}
-              style={{
-                font: "inherit",
-                display: "flex",
-                alignItems: "center",
-                flexWrap: "wrap",
-                rowGap: "0.35rem",
-                columnGap: "0.55rem",
-                padding: "0.75rem 1rem",
-                borderRadius: "0.5rem",
-                border: isActive ? "2px solid var(--accent-primary)" : "1px solid var(--border-subtle)",
-                background: isActive ? "var(--bg-card)" : "var(--bg-surface)",
-                color: isActive ? "var(--text-heading)" : "var(--text-muted)",
-                cursor: isEnabled ? "pointer" : "not-allowed",
-                opacity: isEnabled ? 1 : 0.55,
-                boxShadow: isActive ? "0 2px 8px rgba(0,0,0,0.06)" : "none",
-                transition: "all 0.15s ease",
-              }}
+              className="hw-os-btn"
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "0.55rem", minWidth: 0 }}>
-                <span style={{ color: isActive ? "var(--accent-primary)" : "currentColor", flexShrink: 0, display: "flex" }}>
+              <div className="hw-div-30">
+                <span className="hw-os-btn__icon">
                   {item.icon}
                 </span>
-                <span style={{ fontWeight: isActive ? 700 : 500, fontSize: "0.875rem", whiteSpace: "nowrap" }}>
+                <span className="hw-os-btn__label">
                   {item.label}
                 </span>
               </div>
               {(item.badge || !isEnabled) && (
-                <span
-                  style={{
-                    fontSize: "0.675rem",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.04em",
-                    padding: "0.18rem 0.45rem",
-                    borderRadius: "0.3rem",
-                    background: isActive ? "var(--accent-primary)" : "var(--bg-inset)",
-                    color: isActive ? "var(--accent-primary-fg)" : "var(--text-muted)",
-                    whiteSpace: "nowrap",
-                    marginLeft: "auto",
-                  }}
-                >
+                <span className="hw-os-btn__badge">
                   {isEnabled ? item.badge : isEn ? "Soon" : "Bientôt"}
                 </span>
               )}

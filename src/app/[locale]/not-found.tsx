@@ -1,81 +1,44 @@
 import Link from "next/link";
 import Image from "next/image";
+import "@/styles/split/pages-misc.css";
 
 export default function NotFound() {
   return (
-    <div className="container" style={{ paddingBlock: "3rem", textAlign: "center", maxWidth: "42rem" }}>
+    <div className="container not-found-div-1">
       <Image
         src="/images/BaamixInspector.webp"
         alt="Baamix Inspecteur"
         width={180}
-        height={250}
-        style={{ width: "auto", height: "180px", marginInline: "auto", marginBottom: "1rem", objectFit: "contain" }}
+        height={250} className="not-found-image-1"
       />
 
-      <h1
-        style={{
-          fontSize: "clamp(1.5rem, 3.5vw, 2.1rem)",
-          fontWeight: 700,
-          color: "var(--text-heading)",
-          marginBottom: "0.6rem",
-          lineHeight: 1.25,
-        }}
+      <h1 className="not-found-h1-1"
       >
         Erreur 404 · Page introuvable
       </h1>
 
-      <p
-        style={{
-          color: "var(--text-muted)",
-          fontSize: "0.95rem",
-          lineHeight: 1.6,
-          marginBottom: "1.75rem",
-        }}
+      <p className="not-found-p-1"
       >
         La ressource que vous recherchez semble introuvable ou a été déplacée. Vous pouvez reprendre votre navigation :
       </p>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "0.75rem",
-          justifyContent: "center",
-          flexWrap: "wrap",
-        }}
+      <div className="not-found-div-2"
       >
         <Link
           href="/fr"
-          className="btn-secondary"
-          style={{
-            padding: "0.5rem 1.15rem",
-            fontSize: "0.875rem",
-            fontWeight: 500,
-            borderRadius: "0.5rem",
-          }}
+          className="btn-secondary not-found-link-1"
         >
           Retour à l&apos;accueil
         </Link>
         <Link
           href="/fr/documentation"
-          className="btn-secondary"
-          style={{
-            padding: "0.5rem 1.15rem",
-            fontSize: "0.875rem",
-            fontWeight: 500,
-            borderRadius: "0.5rem",
-          }}
+          className="btn-secondary not-found-link-1"
         >
           Guide d&apos;installation
         </Link>
         <Link
           href="/fr/materiel/amazon"
-          className="btn-secondary"
-          style={{
-            padding: "0.5rem 1.15rem",
-            fontSize: "0.875rem",
-            fontWeight: 500,
-            borderRadius: "0.5rem",
-          }}
+          className="btn-secondary not-found-link-1"
         >
           Guide Matériel
         </Link>

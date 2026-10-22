@@ -4,15 +4,16 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import type { Locale } from "@/lib/i18n";
 import NetworkIcon from "@/components/icons/NetworkIcon";
+import "@/styles/split/pages-docs.css";
 
 const TerminalDemo = dynamic(() => import("@/components/TerminalDemo"), {
   ssr: false,
-  loading: () => <div className="terminal-demo-placeholder" style={{ minHeight: "380px" }} />,
+  loading: () => <div className="terminal-demo-placeholder dx-div-22" />,
 });
 
 const TauriDemo = dynamic(() => import("@/components/TauriDemo"), {
   ssr: false,
-  loading: () => <div className="tauri-demo-placeholder" style={{ minHeight: "380px" }} />,
+  loading: () => <div className="tauri-demo-placeholder dx-div-22" />,
 });
 
 interface HeadlessInstallSectionProps {

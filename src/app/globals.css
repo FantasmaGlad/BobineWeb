@@ -81,6 +81,7 @@
   --glass-card-blur: var(--blur-lg);
   --glass-card-highlight: inset 0 1px 0 0 color-mix(in srgb, var(--specular) 90%, transparent), inset 0 0 0 0.5px color-mix(in srgb, var(--specular) 55%, transparent);
   --glass-floating-bg: color-mix(in srgb, var(--bg-card) 78%, transparent);
+  --glass-modal-bg: color-mix(in srgb, var(--bg-card) 58%, transparent);
   --glass-floating-border: color-mix(in srgb, var(--ink) 16%, var(--border-subtle));
   --glass-floating-blur: var(--blur-2xl);
   --glass-inset-bg: color-mix(in srgb, var(--bg-inset) 62%, transparent);
@@ -399,6 +400,7 @@
   --glass-card-border: color-mix(in srgb, var(--specular) 18%, var(--border-subtle));
   --glass-card-highlight: inset 0 1px 0 0 color-mix(in srgb, var(--specular) 20%, transparent), inset 0 0 0 0.5px color-mix(in srgb, var(--specular) 7%, transparent);
   --glass-floating-bg: color-mix(in srgb, var(--bg-surface-elevated) 74%, transparent);
+  --glass-modal-bg: color-mix(in srgb, var(--bg-surface-elevated) 54%, transparent);
   --glass-floating-border: color-mix(in srgb, var(--specular) 22%, var(--border-subtle));
   --glass-inset-bg: color-mix(in srgb, var(--bg-inset) 55%, transparent);
   --glass-edge: inset 0 1px 0 color-mix(in srgb, var(--specular) 26%, transparent), inset 0 -1px 0 color-mix(in srgb, var(--ink) 35%, transparent);
@@ -7771,9 +7773,9 @@ main {
   align-items: center;
   justify-content: center;
   padding: 1.25rem;
-  background: var(--scrim);
-  -webkit-backdrop-filter: blur(var(--blur-sm));
-  backdrop-filter: blur(var(--blur-sm));
+  background: var(--scrim-soft);
+  -webkit-backdrop-filter: blur(var(--blur-xs));
+  backdrop-filter: blur(var(--blur-xs));
   overflow-y: auto;
   animation: fadeInModal 0.2s ease-out;
 }
@@ -10583,8 +10585,16 @@ main {
   transform: scale(1.12);
 }
 
+/* Fenêtre de téléchargement : plus transparente que les autres fenêtres, le fond de la page reste visible derrière */
+.download-modal {
+  background: var(--glass-modal-bg);
+  -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--blur-xl)) saturate(var(--saturate-rich));
+  border: 1px solid var(--glass-floating-border);
+  box-shadow: var(--glass-card-highlight), var(--shadow-card-hover);
+}
+
 /* Fenêtres et panneaux latéraux */
-.download-modal,
 .chatbot-modal:not(.chatbot-modal--page),
 .hw-cart-sheet {
   background: var(--glass-floating-bg);
@@ -10666,6 +10676,7 @@ main {
     --glass-surface-bg: var(--bg-card);
     --glass-card-bg: var(--bg-card);
     --glass-floating-bg: var(--bg-surface-elevated);
+    --glass-modal-bg: var(--bg-surface-elevated);
     --glass-inset-bg: var(--bg-inset);
     --glass-chip-bg: color-mix(in srgb, var(--ink) 88%, transparent);
   }

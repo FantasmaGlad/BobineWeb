@@ -45,7 +45,7 @@ if (undef.length) fail(`variables non définies : ${undef.join(", ")}`);
 
 // 3. Transparence réduite -----------------------------------------------------------------------------------------
 const reduced = /@media \(prefers-reduced-transparency: reduce\)\s*\{([\s\S]*?)\n\}/.exec(noComments)?.[1] ?? "";
-for (const t of ["--blur-scale: 0", "--glass-surface-bg", "--glass-card-bg", "--glass-floating-bg"]) if (!reduced.includes(t)) fail(`mode transparence réduite : ${t} absent`);
+for (const t of ["--blur-scale: 0", "--glass-surface-bg", "--glass-card-bg", "--glass-floating-bg", "--glass-modal-bg"]) if (!reduced.includes(t)) fail(`mode transparence réduite : ${t} absent`);
 
 // 4. Contraste sur les matériaux de verre, thème par thème -------------------------------------------------------
 const rules = [...noComments.matchAll(/(^|\n)(:root[^{}]*)\{([^{}]*)\}/g)].map((m) => {
@@ -100,7 +100,7 @@ for (const theme of themes) {
   try {
     const canvas = evaluate("var(--bg-canvas)", vars);
     const hotspot = over(evaluate("color-mix(in srgb, var(--accent-primary) 22%, transparent)", vars), canvas);
-    for (const material of ["glass-surface-bg", "glass-card-bg", "glass-floating-bg", "glass-inset-bg"]) {
+    for (const material of ["glass-surface-bg", "glass-card-bg", "glass-floating-bg", "glass-modal-bg", "glass-inset-bg"]) {
       for (const backdrop of [canvas, hotspot]) {
         for (const fill of materialColors(vars[material], vars)) {
           const surface = over(fill, backdrop);

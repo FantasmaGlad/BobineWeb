@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
+import { PACKAGE_REPOS_LIVE } from "@/lib/linuxPackages";
 
 interface TickerMetric {
   tag: string;
@@ -26,7 +27,13 @@ const METRICS_FR: TickerMetric[] = [
   { tag: "COURS SUR MESURE", label: "Catalogue ouvert", value: "100% Libre : diffusez vos vidéos (Cycling, HIIT, Yoga, Pilates, Renfo)" },
   { tag: "MULTI-OS", label: "Compatibilité", value: "Windows 10/11, macOS, Linux, tablettes Android et étude iPadOS" },
   { tag: "ANDROID NATIF", label: "Application dédiée", value: "Disponible sur tablette tactile pour piloter le studio du bout des doigts" },
-  { tag: "DÉPÔT APT LINUX", label: "Mises à jour natives", value: "Paquet .deb signé GPG sur apt.bobine.fit : mises à jour Linux via apt update" },
+  {
+    tag: "DÉPÔTS LINUX",
+    label: "Mises à jour natives",
+    value: PACKAGE_REPOS_LIVE
+      ? "Paquets signés GPG : .deb sur apt.bobine.fit, .rpm sur rpm.bobine.fit, pacman sur arch.bobine.fit"
+      : "Paquet .deb signé GPG sur apt.bobine.fit : mises à jour Linux via apt update ; Fedora et Arch bientôt",
+  },
   { tag: "TÉLÉCOMMANDE SIMPLE", label: "Contrôle en salle", value: "Au choix : télécommande sans fil 2.4 GHz ou smartphone via QR code" },
   { tag: "CONFIDENTIALITÉ", label: "Protection RGPD", value: "100% Local : zéro pistage, zéro caméra, vos données restent dans votre club" },
   { tag: "REPRISE SUR COUPURE", label: "Sécurité électrique", value: "Rétablissement autonome et automatique de la diffusion après coupure secteur" },
@@ -51,7 +58,13 @@ const METRICS_EN: TickerMetric[] = [
   { tag: "CUSTOM CONTENT", label: "Catalog freedom", value: "100% Agnostic: play your own workouts (Cycling, HIIT, Yoga, Pilates)" },
   { tag: "MULTI-OS", label: "Cross-platform", value: "Windows 10/11, macOS, Linux, Android tablets and iPadOS exploration" },
   { tag: "NATIVE ANDROID", label: "Dedicated app", value: "Available on touchscreen tablets to control your fitness studio seamlessly" },
-  { tag: "LINUX APT REPO", label: "Native updates", value: "GPG-signed .deb package on apt.bobine.fit: native Linux updates via apt update" },
+  {
+    tag: "LINUX REPOS",
+    label: "Native updates",
+    value: PACKAGE_REPOS_LIVE
+      ? "GPG-signed packages: .deb on apt.bobine.fit, .rpm on rpm.bobine.fit, pacman on arch.bobine.fit"
+      : "GPG-signed .deb package on apt.bobine.fit: native Linux updates via apt update; Fedora and Arch coming soon",
+  },
   { tag: "SIMPLE REMOTE", label: "Easy control", value: "Choice of 2.4 GHz wireless clicker or local smartphone QR web app" },
   { tag: "PRIVACY & GDPR", label: "Data sovereignty", value: "100% Local: zero analytics, zero cameras, your data stays in your club" },
   { tag: "BLACKOUT RECOVERY", label: "Electrical resilience", value: "Autonomous auto-recovery and instant playout resume after power outage" },

@@ -1,6 +1,21 @@
 import type { Locale } from "@/lib/i18n";
 import type { DocChapter } from "./types";
 import { ANDROID } from "@/lib/productFacts";
+import {
+  FAMILY_NOTES,
+  NOT_VALIDATED_NOTE,
+  SIGNING_KEY_FINGERPRINT,
+  archCommands,
+  archInstallScript,
+  fedoraCommands,
+  fedoraInstallScript,
+  packageFileName,
+  repoStatusNote,
+} from "@/lib/linuxPackages";
+
+const rpmName = (arch: "x86_64" | "arm64") => packageFileName("fedora", "stable", arch, "x.y.z");
+const archName = (arch: "x86_64" | "arm64") => packageFileName("arch", "stable", arch, "x.y.z");
+const noteList = (items: Array<{ fr: string; en: string }>, l: "fr" | "en") => items.map((i) => i[l]).join(" ");
 
 /**
  * Source de contenu unique pour la documentation Bobine : consommée à la
@@ -68,7 +83,7 @@ const fr: DocChapter[] = [
         deviceImage: "macos",
       },
       {
-        subtitle: "2.3 Linux Bureau (Debian / Ubuntu / Mint — x86_64 & ARM64)",
+        subtitle: "2.3 Linux Bureau Debian / Ubuntu / Mint (paquet .deb — x86_64 & ARM64)",
         paragraphs: [
           "Dépôt APT officiel signé cryptographiquement (https://apt.bobine.fit) distribuant nativement les architectures amd64 et arm64 pour des mises à jour automatiques via apt upgrade. Paquets autonomes directs disponibles : bobine_x.y.z_amd64.deb et bobine_x.y.z_arm64.deb (pour PC Snapdragon sous Linux, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5 et Radxa Rock 5B). Désinstallation Polkit sécurisée en 1 clic.",
           "Matériel de référence testé : mini PC industriel fanless x86 (Intel N100) et stations/cartes ARM64 basse consommation (NVIDIA DGX Spark, Raspberry Pi 5 8 Go), le choix Bobine pour un silence absolu en studio 24/7.",
@@ -78,7 +93,27 @@ const fr: DocChapter[] = [
         deviceImage: "linux",
       },
       {
-        subtitle: "2.3 bis Linux via le réseau Tor (.onion)",
+        subtitle: "2.3 bis Linux Bureau Fedora, RHEL et dérivés (paquet .rpm — x86_64 & ARM64)",
+        paragraphs: [
+          `Dépôt dnf officiel signé cryptographiquement (https://rpm.bobine.fit) pour Fedora, Nobara et, via EPEL, RHEL, AlmaLinux et Rocky Linux, en x86_64 et aarch64. Une fois le dépôt ajouté, ${fedoraCommands().upgrade} met Bobine à jour avec le reste du système. Paquets autonomes directs : ${rpmName("x86_64")} et ${rpmName("arm64")}, à installer avec sudo dnf install ./fichier.rpm. Sur dnf 4 (RHEL, AlmaLinux, Rocky Linux), la commande d'ajout est ${fedoraCommands().addRepoLegacy}.`,
+          `Le fichier bobine-stable.repo suit la Stable ; bobine-beta.repo et bobine-canary.repo suivent la Bêta et la Canary, avec la même clé de signature. Au premier dnf install, dnf affiche l'empreinte de la clé : comparez-la à ${SIGNING_KEY_FINGERPRINT} avant d'accepter.`,
+          `ffmpeg : Fedora ne fournit que ffmpeg-free, privé de plusieurs codecs. Pour lire tous les formats de cours, ajoutez RPM Fusion puis remplacez-le par le ffmpeg complet (commandes ci-dessous). ${noteList(FAMILY_NOTES.fedora.derivatives.slice(1), "fr")} ${FAMILY_NOTES.fedora.limits[1].fr}`,
+          [repoStatusNote("fedora", "fr"), NOT_VALIDATED_NOTE.fr].filter(Boolean).join(" "),
+        ],
+        codeBlock: `# Dépôt dnf officiel (rpm.bobine.fit — x86_64 & aarch64)\n${fedoraInstallScript()}\n\n# ffmpeg complet via RPM Fusion (recommandé)\n${fedoraCommands().ffmpeg}\n\n# Mise à jour\n${fedoraCommands().upgrade}`,
+      },
+      {
+        subtitle: "2.3 ter Linux Bureau Arch Linux et dérivés (paquet pacman — x86_64 & ARM64)",
+        paragraphs: [
+          `Dépôt pacman officiel [bobine] (https://arch.bobine.fit) pour Arch Linux, EndeavourOS, CachyOS et Manjaro en x86_64, et Arch Linux ARM en aarch64. Importez et approuvez la clé de signature, puis ajoutez la section [bobine] à /etc/pacman.conf avec SigLevel = Required DatabaseOptional : pacman refuse alors tout paquet dont la signature ne correspond pas. ${archCommands().upgrade} met ensuite Bobine à jour avec le système.`,
+          `Pour suivre la Bêta ou la Canary, remplacez stable par beta ou canary dans la ligne Server. Paquets autonomes directs : ${archName("x86_64")} et ${archName("arm64")}, à installer avec sudo pacman -U ./fichier. Avant d'approuver la clé, comparez son empreinte avec ${SIGNING_KEY_FINGERPRINT}.`,
+          `${noteList(FAMILY_NOTES.arch.derivatives.slice(1), "fr")} ${FAMILY_NOTES.arch.limits[0].fr}`,
+          [repoStatusNote("arch", "fr"), NOT_VALIDATED_NOTE.fr].filter(Boolean).join(" "),
+        ],
+        codeBlock: `# Dépôt pacman officiel (arch.bobine.fit — x86_64 & aarch64)\n${archInstallScript()}\n\n# Mise à jour\n${archCommands().upgrade}`,
+      },
+      {
+        subtitle: "2.3 quater Linux via le réseau Tor (.onion)",
         paragraphs: [
           "Pour installer et mettre à jour Bobine sans révéler votre adresse IP, le dépôt APT est aussi proposé en service onion (réseau Tor). C'est une copie miroir du dépôt officiel : les paquets restent signés par la même clé, et apt refuse tout paquet dont la signature ne correspond pas.",
           "Le script https://bobine.fit/install-tor.sh (à lire avant de l'exécuter) fait ces étapes à votre place et s'arrête si l'empreinte de la clé diffère de celle publiée. Le dépôt onion publie les trois suites, stable, beta et canary : l'option --channel=stable|beta|canary choisit le canal de mise à jour (sans l'option, le script pose la question sur un terminal et prend stable sinon), et --dry-run n'installe rien. Les commandes ci-dessous sont la version manuelle, sur le canal stable ; remplacez le dernier mot de la ligne deb par beta ou canary pour suivre un autre canal.",
@@ -407,7 +442,7 @@ const fr: DocChapter[] = [
         paragraphs: [
           "Chaque nouvelle version est publiée sur GitHub Releases (github.com/FantasmaGlad/Bobine/releases) avec son changelog détaillé, ses binaires signés pour les 5 systèmes d'exploitation, et son SHA-256 de vérification d'intégrité.",
           "Trois canaux permettent de suivre l'avancement du projet : le canal Stable (tags Vx.y.z figés, recommandé en production de salle), le canal Bêta (lots de fonctionnalités/correctifs curés, publiés manuellement) et le canal Canary (rolling, reconstruit automatiquement à chaque évolution du code sur la branche principale, pour les clubs souhaitant tester les toutes dernières modifications sans attendre un lot).",
-          "Le dépôt APT officiel (apt.bobine.fit) reflète les trois canaux dans ses distributions stable, beta et canary, permettant une mise à jour automatique via apt upgrade sans réinstallation manuelle. Le dépôt APT du miroir Tor (.onion) publie les mêmes trois suites.",
+          "Le dépôt APT officiel (apt.bobine.fit) reflète les trois canaux dans ses distributions stable, beta et canary, permettant une mise à jour automatique via apt upgrade sans réinstallation manuelle. Le dépôt APT du miroir Tor (.onion) publie les mêmes trois suites. Les dépôts Fedora (rpm.bobine.fit, dnf) et Arch Linux (arch.bobine.fit, pacman) suivent les mêmes trois canaux, avec la même clé de signature.",
         ],
       },
       {
@@ -489,7 +524,7 @@ const en: DocChapter[] = [
         deviceImage: "macos",
       },
       {
-        subtitle: "2.3 Linux Desktop (Debian / Ubuntu / Mint — x86_64 & ARM64)",
+        subtitle: "2.3 Linux Desktop Debian / Ubuntu / Mint (.deb package — x86_64 & ARM64)",
         paragraphs: [
           "Official cryptographically signed APT repository (https://apt.bobine.fit) natively serving both amd64 and arm64 architectures for automated updates via apt upgrade. Standalone direct packages available: bobine_x.y.z_amd64.deb and bobine_x.y.z_arm64.deb (for Snapdragon Linux laptops, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5, and Radxa Rock 5B). 1-click Polkit uninstaller.",
           "Reference hardware tested: fanless industrial mini PCs (Intel N100) and ultra low power ARM64 single-board stations (NVIDIA DGX Spark, Raspberry Pi 5 8 GB) — the Bobine pick for absolute silence in a 24/7 studio.",
@@ -499,7 +534,27 @@ const en: DocChapter[] = [
         deviceImage: "linux",
       },
       {
-        subtitle: "2.3 bis Linux over the Tor network (.onion)",
+        subtitle: "2.3 bis Linux Desktop Fedora, RHEL and derivatives (.rpm package — x86_64 & ARM64)",
+        paragraphs: [
+          `Official cryptographically signed dnf repository (https://rpm.bobine.fit) for Fedora, Nobara and, through EPEL, RHEL, AlmaLinux and Rocky Linux, on x86_64 and aarch64. Once the repository is added, ${fedoraCommands().upgrade} updates Bobine along with the rest of the system. Standalone direct packages: ${rpmName("x86_64")} and ${rpmName("arm64")}, installed with sudo dnf install ./file.rpm. On dnf 4 (RHEL, AlmaLinux, Rocky Linux) the command to add it is ${fedoraCommands().addRepoLegacy}.`,
+          `The bobine-stable.repo file follows Stable; bobine-beta.repo and bobine-canary.repo follow Beta and Canary, with the same signing key. At the first dnf install, dnf shows the key fingerprint: compare it with ${SIGNING_KEY_FINGERPRINT} before accepting.`,
+          `ffmpeg: Fedora only ships ffmpeg-free, stripped of several codecs. To play every class format, add RPM Fusion and swap it for the full ffmpeg (commands below). ${noteList(FAMILY_NOTES.fedora.derivatives.slice(1), "en")} ${FAMILY_NOTES.fedora.limits[1].en}`,
+          [repoStatusNote("fedora", "en"), NOT_VALIDATED_NOTE.en].filter(Boolean).join(" "),
+        ],
+        codeBlock: `# Official dnf repository (rpm.bobine.fit — x86_64 & aarch64)\n${fedoraInstallScript()}\n\n# Full ffmpeg through RPM Fusion (recommended)\n${fedoraCommands().ffmpeg}\n\n# Update\n${fedoraCommands().upgrade}`,
+      },
+      {
+        subtitle: "2.3 ter Linux Desktop Arch Linux and derivatives (pacman package — x86_64 & ARM64)",
+        paragraphs: [
+          `Official pacman repository [bobine] (https://arch.bobine.fit) for Arch Linux, EndeavourOS, CachyOS and Manjaro on x86_64, and Arch Linux ARM on aarch64. Import and trust the signing key, then add the [bobine] section to /etc/pacman.conf with SigLevel = Required DatabaseOptional: pacman then rejects any package whose signature does not match. ${archCommands().upgrade} then updates Bobine along with the system.`,
+          `To follow Beta or Canary, replace stable with beta or canary in the Server line. Standalone direct packages: ${archName("x86_64")} and ${archName("arm64")}, installed with sudo pacman -U ./file. Before trusting the key, compare its fingerprint with ${SIGNING_KEY_FINGERPRINT}.`,
+          `${noteList(FAMILY_NOTES.arch.derivatives.slice(1), "en")} ${FAMILY_NOTES.arch.limits[0].en}`,
+          [repoStatusNote("arch", "en"), NOT_VALIDATED_NOTE.en].filter(Boolean).join(" "),
+        ],
+        codeBlock: `# Official pacman repository (arch.bobine.fit — x86_64 & aarch64)\n${archInstallScript()}\n\n# Update\n${archCommands().upgrade}`,
+      },
+      {
+        subtitle: "2.3 quater Linux over the Tor network (.onion)",
         paragraphs: [
           "To install and update Bobine without revealing your IP address, the APT repository is also offered as an onion service (Tor network). It is a mirror of the official repository: packages remain signed by the same key, and apt rejects any package whose signature does not match.",
           "The https://bobine.fit/install-tor.sh script (read it before running it) performs these steps for you and stops if the key fingerprint differs from the published one. The onion repository publishes all three suites, stable, beta and canary: the --channel=stable|beta|canary option picks the update channel (without it, the script asks on a terminal and falls back to stable otherwise), and --dry-run installs nothing. The commands below are the manual version, on the stable channel; replace the last word of the deb line with beta or canary to follow another channel.",
@@ -828,7 +883,7 @@ const en: DocChapter[] = [
         paragraphs: [
           "Every new version is published on GitHub Releases (github.com/FantasmaGlad/Bobine/releases) with a detailed changelog, signed binaries for all 5 operating systems, and a SHA-256 integrity checksum.",
           "Three channels track the project's progress: the Stable channel (frozen Vx.y.z tags, recommended for production gym playout), the Beta channel (curated batches of features/fixes, published manually) and the Canary channel (rolling, automatically rebuilt on every change to the main branch, for clubs wanting the very latest changes without waiting for a batch).",
-          "The official APT repository (apt.bobine.fit) mirrors all three channels in its stable, beta and canary distributions, enabling automatic updates via apt upgrade with no manual reinstall. The APT repository of the Tor mirror (.onion) publishes the same three suites.",
+          "The official APT repository (apt.bobine.fit) mirrors all three channels in its stable, beta and canary distributions, enabling automatic updates via apt upgrade with no manual reinstall. The APT repository of the Tor mirror (.onion) publishes the same three suites. The Fedora (rpm.bobine.fit, dnf) and Arch Linux (arch.bobine.fit, pacman) repositories follow the same three channels, with the same signing key.",
         ],
       },
       {

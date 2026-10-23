@@ -1,5 +1,12 @@
 import type { Locale } from "@/lib/i18n";
 import { ANDROID } from "@/lib/productFacts";
+import { SIGNING_KEY_FINGERPRINT, archCommands, fedoraCommands, repoStatusNote } from "@/lib/linuxPackages";
+
+/** Mention de statut des dépôts Fedora et Arch : vide une fois qu'ils sont en ligne. */
+const soon = (family: "fedora" | "arch", l: "fr" | "en") => {
+  const note = repoStatusNote(family, l);
+  return note ? `${note} ` : "";
+};
 
 export type FaqCategory = "license" | "compare" | "hardware" | "offline" | "updates" | "security";
 
@@ -122,6 +129,16 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     },
     {
       category: "updates",
+      q: "Bobine fonctionne-t-il sur Fedora, RHEL, AlmaLinux ou Rocky Linux, et comment recevoir les mises à jour ?",
+      a: `${soon("fedora", "fr")}Oui, sur Fedora et Nobara : un paquet .rpm (x86_64 et aarch64) et un dépôt dnf signé (https://rpm.bobine.fit). Deux commandes, ${fedoraCommands().addRepo} puis ${fedoraCommands().install}, et ${fedoraCommands().upgrade} met ensuite Bobine à jour avec le système ; bobine-beta.repo et bobine-canary.repo suivent les canaux Bêta et Canary. Fedora ne fournit qu'un ffmpeg amputé de codecs : ajoutez RPM Fusion pour le ffmpeg complet. Sur RHEL, AlmaLinux et Rocky Linux, passez par EPEL (ffmpeg limité sans RPM Fusion). Les distributions immuables comme Bazzite ne conviennent pas à l'appliance kiosque. Empreinte de la clé : ${SIGNING_KEY_FINGERPRINT}.`,
+    },
+    {
+      category: "updates",
+      q: "Bobine fonctionne-t-il sur Arch Linux, EndeavourOS, CachyOS ou Manjaro, et comment recevoir les mises à jour ?",
+      a: `${soon("arch", "fr")}Oui, sur Arch Linux, EndeavourOS et CachyOS : un paquet pacman (x86_64) et un dépôt [bobine] signé (https://arch.bobine.fit). Importez et approuvez la clé, ajoutez la section [bobine] à /etc/pacman.conf (SigLevel = Required DatabaseOptional), puis ${archCommands().install} ; ${archCommands().upgrade} met ensuite Bobine à jour avec le système. Manjaro a des dépôts décalés de ceux d'Arch : à vos risques. Pour aarch64, la voie prévue est Arch Linux ARM, pas encore essayée. Empreinte de la clé : ${SIGNING_KEY_FINGERPRINT}.`,
+    },
+    {
+      category: "updates",
       q: "Comment fonctionne la désinstallation automatique en 1 clic ?",
       a: "Dans Réglages → Zone de danger, la désinstallation automatique déclenche le désinstalleur natif de votre plateforme (Polkit sur Linux .deb, Inno Setup sur Windows, purge des LaunchAgents sous macOS, Intent Android, script bobine-uninstall sous Debian headless). L'opération nécessite la saisie explicite du mot de passe de sécurité « DÉSINSTALLER » pour éviter toute fausse manipulation.",
     },
@@ -241,6 +258,16 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       category: "updates",
       q: "How do I install Bobine and receive automated updates on Linux (Debian / Ubuntu / Mint)?",
       a: "The recommended method for Linux desktop machines is adding the official cryptographically signed APT repository (https://apt.bobine.fit). In 3 simple terminal commands (import the official GPG key, add the apt.bobine.fit stable, beta or canary source, and run sudo apt update && sudo apt install bobine), you receive seamless automated updates via your standard system package manager (apt upgrade).",
+    },
+    {
+      category: "updates",
+      q: "Does Bobine run on Fedora, RHEL, AlmaLinux or Rocky Linux, and how do I get updates?",
+      a: `${soon("fedora", "en")}Yes, on Fedora and Nobara: an .rpm package (x86_64 and aarch64) and a signed dnf repository (https://rpm.bobine.fit). Two commands, ${fedoraCommands().addRepo} then ${fedoraCommands().install}, and ${fedoraCommands().upgrade} then updates Bobine along with the system; bobine-beta.repo and bobine-canary.repo follow the Beta and Canary channels. Fedora only ships a codec-stripped ffmpeg: add RPM Fusion for the full ffmpeg. On RHEL, AlmaLinux and Rocky Linux, go through EPEL (limited ffmpeg without RPM Fusion). Immutable distributions such as Bazzite do not suit the kiosk appliance. Key fingerprint: ${SIGNING_KEY_FINGERPRINT}.`,
+    },
+    {
+      category: "updates",
+      q: "Does Bobine run on Arch Linux, EndeavourOS, CachyOS or Manjaro, and how do I get updates?",
+      a: `${soon("arch", "en")}Yes, on Arch Linux, EndeavourOS and CachyOS: a pacman package (x86_64) and a signed [bobine] repository (https://arch.bobine.fit). Import and trust the key, add the [bobine] section to /etc/pacman.conf (SigLevel = Required DatabaseOptional), then ${archCommands().install}; ${archCommands().upgrade} then updates Bobine along with the system. Manjaro's repositories lag behind Arch's: at your own risk. For aarch64 the intended route is Arch Linux ARM, not yet tried. Key fingerprint: ${SIGNING_KEY_FINGERPRINT}.`,
     },
     {
       category: "updates",

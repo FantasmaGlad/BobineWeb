@@ -2,13 +2,16 @@
 # Cohérence entre le dépôt Bobine et ce site : install.sh servi par le site identique à celui de
 # Bobine (branche main), et chaque canal (Stable, Bêta, Canary) publié avec tous les fichiers que
 # les téléchargements du site désignent (src/lib/githubApi.ts, src/lib/releaseChannels.ts).
-# Les noms attendus sont ceux de scripts/ci/verify-release-assets.sh du dépôt Bobine.
+# Les noms attendus sont ceux de scripts/ci/verify-release-assets.sh du dépôt Bobine. Les paquets Fedora (.rpm) et
+# Arch (.pkg.tar.zst) ne sont exigés que lorsque src/lib/linuxPackages.ts déclare PACKAGE_REPOS_LIVE à true ; leurs noms
+# reprennent les conventions de ce module (scripts/ci/check-linux-packages.sh vérifie qu'elles n'ont pas changé).
 # Variable facultative : GITHUB_TOKEN (limite de débit de l'API GitHub).
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
 REPO="FantasmaGlad/Bobine"
 fail=0
+repos_live="$(sed -n 's/^export const PACKAGE_REPOS_LIVE = \(true\|false\);$/\1/p' src/lib/linuxPackages.ts)"
 err() { echo "::error::$*"; fail=1; }
 
 api() {
@@ -31,6 +34,22 @@ check_channel() {
     err "$label : aucune release publiée sous le tag $tag"
     return
   fi
+  local packages=()
+  case "$tag" in
+    V*) packages=("bobine-${suffix}-1.x86_64.rpm" "bobine-${suffix}-1.aarch64.rpm" "bobine-${suffix}-1-x86_64.pkg.tar.zst" "bobine-${suffix}-1-aarch64.pkg.tar.zst") ;;
+    *) packages=("bobine-${suffix}.x86_64.rpm" "bobine-${suffix}.aarch64.rpm" "bobine-${suffix}-x86_64.pkg.tar.zst" "bobine-${suffix}-aarch64.pkg.tar.zst") ;;
+  esac
+  case "$repos_live" in
+    true)
+      for name in "${packages[@]}"; do
+        grep -qxF "$name" <<<"$names" || err "$label ($tag) : paquet $name absent alors que PACKAGE_REPOS_LIVE est vrai"
+      done ;;
+    false)
+      present=0
+      for name in "${packages[@]}"; do grep -qxF "$name" <<<"$names" && present=$((present + 1)); done
+      [ "$present" -eq 0 ] || echo "::notice::$label ($tag) : $present paquet(s) Fedora ou Arch déjà publié(s), PACKAGE_REPOS_LIVE encore faux" ;;
+    *) err "PACKAGE_REPOS_LIVE introuvable ou illisible dans src/lib/linuxPackages.ts" ;;
+  esac
   for name in \
     "Bobine-Setup-${suffix}.exe" "Bobine-Setup-${suffix}-arm64.exe" \
     "bobine_${suffix}_amd64.deb" "bobine_${suffix}_arm64.deb" \

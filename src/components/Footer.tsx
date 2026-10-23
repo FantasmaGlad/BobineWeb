@@ -69,6 +69,9 @@ export default function Footer({
             <Link href={lp(locale, "/canaux")} className="site-link-2">
               {isEn ? "Update channels" : "Canaux de mise à jour"}
             </Link>
+            <Link href={lp(locale, "/linux")} className="site-link-2">
+              Linux
+            </Link>
             <Link href={lp(locale, "/android-tv")} className="site-link-2">
               {isEn ? "Android TV" : "Android TV"}
             </Link>

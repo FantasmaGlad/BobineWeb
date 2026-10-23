@@ -1,6 +1,21 @@
 import type { Locale } from "@/lib/i18n";
 import { ONION_APT_HOST, ONION_SITE_HOST, TOR_PROJECT_URL, TOR_SOURCE_URL } from "@/lib/onion";
 import { ANDROID } from "@/lib/productFacts";
+import {
+  FAMILY_NOTES,
+  NOT_VALIDATED_NOTE,
+  SIGNING_KEY_FINGERPRINT,
+  archInstallScript,
+  aptInstallScript,
+  fedoraCommands,
+  fedoraInstallScript,
+  keyCheckCommand,
+  linuxFormatsShort,
+  linuxFormatsSummary,
+  packageFileName,
+  repoStatusNote,
+  slidingChannelPackageNames,
+} from "@/lib/linuxPackages";
 
 /**
  * Pages d'atterrissage thématiques (canaux de mise à jour, Android TV, Google Book, Tor,
@@ -13,6 +28,7 @@ export type LandingId =
   | "canal-stable"
   | "canal-beta"
   | "canal-canary"
+  | "linux"
   | "android-tv"
   | "google-book"
   | "tor"
@@ -66,14 +82,23 @@ curl -fsS --socks5-hostname 127.0.0.1:9050 http://${ONION_APT_HOST}/bobine.gpg |
 echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://${ONION_APT_HOST}/ stable main" | sudo tee /etc/apt/sources.list.d/bobine-onion.list
 sudo apt update && sudo apt install bobine`;
 
+/** Phrase ajoutée tant que les dépôts Fedora et Arch ne sont pas en ligne, vide ensuite. */
+const soonSuffix = (l: "fr" | "en") => {
+  const note = repoStatusNote("fedora", l);
+  return note ? ` ${note}` : "";
+};
+const slidingNames = (channel: "beta" | "canary") => slidingChannelPackageNames(channel).join(", ");
+
 const CHANNEL_RELATED_FR: LandingLink[] = [
   { label: "Tous les canaux de mise à jour", path: "/canaux" },
   { label: "Guide d'installation", path: "/documentation" },
+  { label: "Bobine pour Linux (Debian, Fedora, Arch)", path: "/linux" },
   { label: "Nouveautés de Bobine", path: "/nouveautes" },
 ];
 const CHANNEL_RELATED_EN: LandingLink[] = [
   { label: "All update channels", path: "/canaux" },
   { label: "Installation guide", path: "/documentation" },
+  { label: "Bobine for Linux (Debian, Fedora, Arch)", path: "/linux" },
   { label: "What's new in Bobine", path: "/nouveautes" },
 ];
 
@@ -174,6 +199,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "Dépôt APT et fichiers",
           paragraphs: [
             "Le dépôt APT officiel (apt.bobine.fit) expose trois distributions, stable, beta et canary. Sur GitHub, chaque canal Bêta et Canary est une release unique dont le tag mobile est republié en place (beta et canary) ; les fichiers portent un nom fixe, par exemple Bobine-canary.apk ou bobine_beta_amd64.deb.",
+            `Les dépôts Fedora (rpm.bobine.fit, dnf) et Arch Linux (arch.bobine.fit, pacman) suivent les mêmes trois canaux, avec la même clé de signature.${soonSuffix("fr")}`,
           ],
         },
       ],
@@ -241,6 +267,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "APT repository and files",
           paragraphs: [
             "The official APT repository (apt.bobine.fit) exposes three distributions: stable, beta and canary. On GitHub, each of the Beta and Canary channels is a single release whose moving tag (beta and canary) is republished in place; files carry fixed names, for example Bobine-canary.apk or bobine_beta_amd64.deb.",
+            `The Fedora (rpm.bobine.fit, dnf) and Arch Linux (arch.bobine.fit, pacman) repositories follow the same three channels, with the same signing key.${soonSuffix("en")}`,
           ],
         },
       ],
@@ -285,7 +312,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "Ce que garantit le canal Stable",
           bullets: [
             "Une version par tag Vx.y.z strict, publiée sur GitHub Releases avec ses notes.",
-            "Les mêmes fichiers sur toutes les plateformes : Windows (x86-64 et ARM64), macOS Apple Silicon, Linux (.deb amd64 et arm64), Android, Android TV, assistant Bobine Assistant.",
+            `Les mêmes fichiers sur toutes les plateformes : Windows (x86-64 et ARM64), macOS Apple Silicon, ${linuxFormatsShort("fr")}, Android, Android TV, assistant Bobine Assistant.`,
             "Une empreinte SHA-256 vérifiée avant toute installation lancée depuis l'application.",
           ],
         },
@@ -304,7 +331,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         },
         {
           q: "Les mises à jour de la Stable sont-elles automatiques ?",
-          a: "L'application propose la mise à jour en un clic et peut la planifier la nuit ; sur Debian et Ubuntu, le dépôt APT officiel la rend disponible via apt upgrade.",
+          a: `L'application propose la mise à jour en un clic et peut la planifier la nuit ; sur Debian et Ubuntu, le dépôt APT officiel la rend disponible via apt upgrade, et les dépôts dnf (Fedora) et pacman (Arch Linux) font de même avec dnf upgrade et pacman -Syu.${soonSuffix("fr")}`,
         },
       ],
       related: CHANNEL_RELATED_FR,
@@ -323,7 +350,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "What the Stable channel guarantees",
           bullets: [
             "One release per strict Vx.y.z tag, published on GitHub Releases with its notes.",
-            "The same files on every platform: Windows (x86-64 and ARM64), macOS Apple Silicon, Linux (.deb amd64 and arm64), Android, Android TV, and the Bobine Assistant.",
+            `The same files on every platform: Windows (x86-64 and ARM64), macOS Apple Silicon, ${linuxFormatsShort("en")}, Android, Android TV, and the Bobine Assistant.`,
             "A SHA-256 digest verified before any installation started from the application.",
           ],
         },
@@ -342,7 +369,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         },
         {
           q: "Are Stable updates automatic?",
-          a: "The application offers one-click updates and can schedule them overnight; on Debian and Ubuntu, the official APT repository makes them available through apt upgrade.",
+          a: `The application offers one-click updates and can schedule them overnight; on Debian and Ubuntu, the official APT repository makes them available through apt upgrade, and the dnf (Fedora) and pacman (Arch Linux) repositories do the same with dnf upgrade and pacman -Syu.${soonSuffix("en")}`,
         },
       ],
       related: CHANNEL_RELATED_EN,
@@ -368,7 +395,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           bullets: [
             "Publication uniquement sur décision manuelle, jamais sur un simple commit.",
             "Une seule release GitHub, au tag mobile beta, republiée en place à chaque lot.",
-            "Fichiers à nom fixe (Bobine-beta.apk, Bobine-TV-beta.apk, bobine_beta_amd64.deb, Bobine-Setup-beta.exe, Bobine-beta.dmg).",
+            `Fichiers à nom fixe (Bobine-beta.apk, Bobine-TV-beta.apk, ${slidingNames("beta")}, Bobine-Setup-beta.exe, Bobine-beta.dmg).`,
             "Mise à jour détectée par comparaison de commit, puisqu'aucun numéro de version n'avance à chaque lot.",
           ],
         },
@@ -407,7 +434,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           bullets: [
             "Published only on a manual decision, never on a plain commit.",
             "A single GitHub release, on the moving tag beta, republished in place for each batch.",
-            "Fixed file names (Bobine-beta.apk, Bobine-TV-beta.apk, bobine_beta_amd64.deb, Bobine-Setup-beta.exe, Bobine-beta.dmg).",
+            `Fixed file names (Bobine-beta.apk, Bobine-TV-beta.apk, ${slidingNames("beta")}, Bobine-Setup-beta.exe, Bobine-beta.dmg).`,
             "Updates are detected by comparing commits, since no version number moves with each batch.",
           ],
         },
@@ -457,7 +484,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "Comment fonctionne la Canary",
           bullets: [
             "Une release GitHub unique, au tag mobile canary, republiée en place à chaque push sur la branche principale.",
-            "Fichiers à nom fixe (Bobine-canary.apk, Bobine-TV-canary.apk, bobine_canary_amd64.deb, Bobine-Setup-canary.exe, Bobine-canary.dmg).",
+            `Fichiers à nom fixe (Bobine-canary.apk, Bobine-TV-canary.apk, ${slidingNames("canary")}, Bobine-Setup-canary.exe, Bobine-canary.dmg).`,
             "Notes de version générées automatiquement : le journal des commits depuis la dernière Stable.",
             "Mise à jour détectée par comparaison de commit.",
           ],
@@ -506,7 +533,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "How the Canary works",
           bullets: [
             "A single GitHub release, on the moving tag canary, republished in place on every push to the main branch.",
-            "Fixed file names (Bobine-canary.apk, Bobine-TV-canary.apk, bobine_canary_amd64.deb, Bobine-Setup-canary.exe, Bobine-canary.dmg).",
+            `Fixed file names (Bobine-canary.apk, Bobine-TV-canary.apk, ${slidingNames("canary")}, Bobine-Setup-canary.exe, Bobine-canary.dmg).`,
             "Automatically generated release notes: the commit log since the latest Stable.",
             "Updates are detected by comparing commits.",
           ],
@@ -540,6 +567,199 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         },
       ],
       related: CHANNEL_RELATED_EN,
+    },
+  },
+
+  linux: {
+    id: "linux",
+    path: "/linux",
+    fr: {
+      title: "Bobine pour Linux : Debian, Ubuntu, Fedora et Arch Linux (paquets .deb, .rpm, pacman)",
+      description:
+        "Bobine sur Linux : paquet .deb pour Debian, Ubuntu et Mint, paquet .rpm et dépôt dnf pour Fedora et dérivés, paquet et dépôt pacman pour Arch Linux et dérivés, en x86-64 et ARM64. Commandes d'installation, mises à jour et clé de signature.",
+      h1: "Bobine pour Linux : Debian, Ubuntu, Fedora et Arch",
+      lead:
+        "Bobine s'installe sur Linux avec un paquet natif par famille de distribution : .deb pour Debian, Ubuntu et Mint, .rpm pour Fedora et dérivés, paquet pacman pour Arch Linux et dérivés, en x86-64 et ARM64. Chaque famille a son dépôt signé : les mises à jour arrivent avec celles du système.",
+      breadcrumb: "Linux",
+      keywords: [
+        "Bobine Linux",
+        "Bobine Debian",
+        "Bobine Ubuntu",
+        "Bobine Fedora",
+        "Bobine Arch Linux",
+        "Bobine rpm",
+        "Bobine pacman",
+        "dépôt dnf Bobine",
+        "dépôt APT Bobine",
+        "paquet .deb Bobine",
+      ],
+      sections: [
+        {
+          heading: "Choisir sa famille de distribution",
+          bullets: [
+            "Debian, Ubuntu, Linux Mint : paquet .deb, dépôt APT apt.bobine.fit, mises à jour avec apt upgrade.",
+            "Fedora, Nobara, RHEL, AlmaLinux, Rocky Linux : paquet .rpm, dépôt dnf rpm.bobine.fit, mises à jour avec dnf upgrade.",
+            "Arch Linux, EndeavourOS, CachyOS, Manjaro : paquet pacman, dépôt arch.bobine.fit, mises à jour avec pacman -Syu.",
+            "Les trois dépôts publient les canaux Stable, Bêta et Canary, signés par la même clé.",
+          ],
+        },
+        {
+          heading: "Debian, Ubuntu et Linux Mint",
+          paragraphs: [
+            "Le dépôt APT est en ligne : ajoutez la clé et la source, puis installez. Remplacez stable par beta ou canary pour suivre un autre canal.",
+          ],
+          code: aptInstallScript(),
+        },
+        {
+          heading: "Fedora et dérivés",
+          paragraphs: [
+            `Ajoutez le dépôt dnf, puis installez. Sur dnf 4 (RHEL, AlmaLinux, Rocky Linux), la première commande devient ${fedoraCommands().addRepoLegacy}. bobine-beta.repo et bobine-canary.repo suivent la Bêta et la Canary.${soonSuffix("fr")}`,
+            "Fedora ne fournit qu'un ffmpeg amputé de plusieurs codecs : pour lire tous les formats de cours, ajoutez RPM Fusion et installez le ffmpeg complet.",
+          ],
+          code: `${fedoraInstallScript()}\n\n# ffmpeg complet\n${fedoraCommands().ffmpeg}`,
+        },
+        {
+          heading: "Arch Linux et dérivés",
+          paragraphs: [
+            `Importez et approuvez la clé, ajoutez la section [bobine] à /etc/pacman.conf, puis installez. Remplacez stable par beta ou canary dans la ligne Server pour suivre un autre canal. L'installation passe par -Syu : sur Arch, un paquet ne se met jamais à jour seul.${soonSuffix("fr")}`,
+          ],
+          code: archInstallScript(),
+        },
+        {
+          heading: "Vérifier la clé de signature",
+          paragraphs: [
+            `Empreinte de la clé principale : ${SIGNING_KEY_FINGERPRINT}. Lisez celle de la clé publiée avant de l'approuver : apt, dnf et pacman refusent ensuite tout paquet dont la signature ne correspond pas.`,
+          ],
+          code: keyCheckCommand("debian"),
+        },
+        {
+          heading: "Dérivés et limites",
+          bullets: [
+            ...FAMILY_NOTES.fedora.derivatives.map((d) => d.fr),
+            ...FAMILY_NOTES.arch.derivatives.map((d) => d.fr),
+            ...FAMILY_NOTES.fedora.limits.map((d) => d.fr),
+            NOT_VALIDATED_NOTE.fr,
+          ],
+        },
+      ],
+      faq: [
+        {
+          q: "Bobine existe-t-il en paquet pour Fedora ?",
+          a: `Oui : un paquet .rpm (${packageFileName("fedora", "stable", "x86_64", "x.y.z")}) et un dépôt dnf signé, en x86_64 et aarch64.${soonSuffix("fr")}`,
+        },
+        {
+          q: "Bobine existe-t-il en paquet pour Arch Linux ?",
+          a: `Oui : un paquet pacman (${packageFileName("arch", "stable", "x86_64", "x.y.z")}) et un dépôt [bobine] signé, en x86_64 (aarch64 pour Arch Linux ARM).${soonSuffix("fr")}`,
+        },
+        {
+          q: "Quelle distribution choisir pour une appliance dédiée 24/7 ?",
+          a: "Debian 13 minimale reste la référence : c'est elle que cible le script install.sh. Les paquets .rpm et pacman sont destinés aux postes de bureau Linux.",
+        },
+        {
+          q: "Bobine fonctionne-t-il sur Bazzite ou Fedora Silverblue ?",
+          a: "Les distributions immuables ne conviennent pas à l'appliance kiosque, car le système y est en lecture seule.",
+        },
+      ],
+      related: [
+        { label: "Documentation d'installation", path: "/documentation" },
+        { label: "Canaux de mise à jour", path: "/canaux" },
+        { label: "Bobine sur Tor : dépôt APT anonyme", path: "/tor" },
+        { label: "Sécurité et clé de signature", path: "/securite" },
+      ],
+    },
+    en: {
+      title: "Bobine for Linux: Debian, Ubuntu, Fedora and Arch Linux (.deb, .rpm and pacman packages)",
+      description:
+        "Bobine on Linux: .deb package for Debian, Ubuntu and Mint, .rpm package and dnf repository for Fedora and derivatives, pacman package and repository for Arch Linux and derivatives, on x86-64 and ARM64. Installation commands, updates and signing key.",
+      h1: "Bobine for Linux: Debian, Ubuntu, Fedora and Arch",
+      lead:
+        "Bobine installs on Linux with one native package per distribution family: .deb for Debian, Ubuntu and Mint, .rpm for Fedora and derivatives, pacman package for Arch Linux and derivatives, on x86-64 and ARM64. Each family has its own signed repository: updates arrive with the system's.",
+      breadcrumb: "Linux",
+      keywords: [
+        "Bobine Linux",
+        "Bobine Debian",
+        "Bobine Ubuntu",
+        "Bobine Fedora",
+        "Bobine Arch Linux",
+        "Bobine rpm",
+        "Bobine pacman",
+        "Bobine dnf repository",
+        "Bobine APT repository",
+        "Bobine .deb package",
+      ],
+      sections: [
+        {
+          heading: "Choosing your distribution family",
+          bullets: [
+            "Debian, Ubuntu, Linux Mint: .deb package, APT repository apt.bobine.fit, updates with apt upgrade.",
+            "Fedora, Nobara, RHEL, AlmaLinux, Rocky Linux: .rpm package, dnf repository rpm.bobine.fit, updates with dnf upgrade.",
+            "Arch Linux, EndeavourOS, CachyOS, Manjaro: pacman package, arch.bobine.fit repository, updates with pacman -Syu.",
+            "All three repositories publish the Stable, Beta and Canary channels, signed by the same key.",
+          ],
+        },
+        {
+          heading: "Debian, Ubuntu and Linux Mint",
+          paragraphs: [
+            "The APT repository is online: add the key and the source, then install. Replace stable with beta or canary to follow another channel.",
+          ],
+          code: aptInstallScript(),
+        },
+        {
+          heading: "Fedora and derivatives",
+          paragraphs: [
+            `Add the dnf repository, then install. On dnf 4 (RHEL, AlmaLinux, Rocky Linux) the first command becomes ${fedoraCommands().addRepoLegacy}. bobine-beta.repo and bobine-canary.repo follow Beta and Canary.${soonSuffix("en")}`,
+            "Fedora only ships a ffmpeg stripped of several codecs: to play every class format, add RPM Fusion and install the full ffmpeg.",
+          ],
+          code: `${fedoraInstallScript()}\n\n# full ffmpeg\n${fedoraCommands().ffmpeg}`,
+        },
+        {
+          heading: "Arch Linux and derivatives",
+          paragraphs: [
+            `Import and trust the key, add the [bobine] section to /etc/pacman.conf, then install. Replace stable with beta or canary in the Server line to follow another channel. Installation uses -Syu: on Arch a package is never updated alone.${soonSuffix("en")}`,
+          ],
+          code: archInstallScript(),
+        },
+        {
+          heading: "Verify the signing key",
+          paragraphs: [
+            `Primary key fingerprint: ${SIGNING_KEY_FINGERPRINT}. Read the one of the published key before trusting it: apt, dnf and pacman then reject any package whose signature does not match.`,
+          ],
+          code: keyCheckCommand("debian"),
+        },
+        {
+          heading: "Derivatives and limits",
+          bullets: [
+            ...FAMILY_NOTES.fedora.derivatives.map((d) => d.en),
+            ...FAMILY_NOTES.arch.derivatives.map((d) => d.en),
+            ...FAMILY_NOTES.fedora.limits.map((d) => d.en),
+            NOT_VALIDATED_NOTE.en,
+          ],
+        },
+      ],
+      faq: [
+        {
+          q: "Is there a Bobine package for Fedora?",
+          a: `Yes: an .rpm package (${packageFileName("fedora", "stable", "x86_64", "x.y.z")}) and a signed dnf repository, on x86_64 and aarch64.${soonSuffix("en")}`,
+        },
+        {
+          q: "Is there a Bobine package for Arch Linux?",
+          a: `Yes: a pacman package (${packageFileName("arch", "stable", "x86_64", "x.y.z")}) and a signed [bobine] repository, on x86_64 (aarch64 for Arch Linux ARM).${soonSuffix("en")}`,
+        },
+        {
+          q: "Which distribution for a dedicated 24/7 appliance?",
+          a: "Minimal Debian 13 remains the reference: it is what the install.sh script targets. The .rpm and pacman packages are meant for Linux desktops.",
+        },
+        {
+          q: "Does Bobine run on Bazzite or Fedora Silverblue?",
+          a: "Immutable distributions do not suit the kiosk appliance, because the system is read-only there.",
+        },
+      ],
+      related: [
+        { label: "Installation documentation", path: "/documentation" },
+        { label: "Update channels", path: "/canaux" },
+        { label: "Bobine over Tor: anonymous APT repository", path: "/tor" },
+        { label: "Security and signing key", path: "/securite" },
+      ],
     },
   },
 
@@ -845,6 +1065,10 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           a: "Oui : le dépôt APT en .onion publie les trois suites, stable, beta et canary. install-tor.sh --channel=beta (ou canary) configure la source correspondante.",
         },
         {
+          q: "Et sur Fedora ou Arch Linux ?",
+          a: "Pour l'instant, le miroir Tor ne publie que le dépôt APT (Debian, Ubuntu, Linux Mint). Les dépôts Fedora (rpm.bobine.fit) et Arch Linux (arch.bobine.fit) sont servis en clair uniquement.",
+        },
+        {
           q: "Le miroir Tor est-il complet ?",
           a: "Il reprend le site statique (documentation, comparatifs, blog) ; la boutique matériel et l'assistant Baamix en sont exclus.",
         },
@@ -904,6 +1128,10 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           a: "Yes: the .onion APT repository publishes all three suites, stable, beta and canary. install-tor.sh --channel=beta (or canary) sets up the matching source.",
         },
         {
+          q: "What about Fedora or Arch Linux?",
+          a: "For now the Tor mirror only publishes the APT repository (Debian, Ubuntu, Linux Mint). The Fedora (rpm.bobine.fit) and Arch Linux (arch.bobine.fit) repositories are served over the clear web only.",
+        },
+        {
           q: "Is the Tor mirror complete?",
           a: "It carries the static site (documentation, comparisons, blog); the hardware store and the Baamix assistant are left out.",
         },
@@ -934,7 +1162,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           bullets: [
             "Windows 11 et 10 : x86-64 et ARM64 (Snapdragon).",
             "macOS : Apple Silicon.",
-            "Linux : Debian, Ubuntu et Mint en x86-64 et ARM64, dépôt APT officiel ; appliance dédiée Debian 13.",
+            `${linuxFormatsSummary("fr")}, dépôts officiels signés ; appliance dédiée Debian 13.`,
             `Android ${ANDROID.minVersion} à ${ANDROID.maxVersion} : tablettes et Google Book (APK), Android TV et Google TV (APK dédié, ARM 32 et 64 bits).`,
           ],
         },
@@ -980,7 +1208,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           bullets: [
             "Windows 11 and 10: x86-64 and ARM64 (Snapdragon).",
             "macOS: Apple Silicon.",
-            "Linux: Debian, Ubuntu and Mint on x86-64 and ARM64, official APT repository; dedicated Debian 13 appliance.",
+            `${linuxFormatsSummary("en")}, official signed repositories; dedicated Debian 13 appliance.`,
             `Android ${ANDROID.minVersion} to ${ANDROID.maxVersion}: tablets and Google Book (APK), Android TV and Google TV (dedicated APK, 32-bit and 64-bit ARM).`,
           ],
         },

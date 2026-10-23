@@ -20,6 +20,27 @@ import { useReleaseData } from "@/components/ReleaseProvider";
 import { ONION_APT_HOST, ONION_SITE_HOST } from "@/lib/onion";
 import TorLogo from "@/components/icons/TorLogo";
 import { ANDROID } from "@/lib/productFacts";
+import DistroLogo from "@/components/icons/DistroLogo";
+import {
+  FAMILY_NOTES,
+  LINUX_FAMILIES,
+  LINUX_FAMILY_IDS,
+  NOT_VALIDATED_NOTE,
+  SIGNING_KEY_FINGERPRINT,
+  archCommands,
+  archInstallScript,
+  downloadKey,
+  fedoraCommands,
+  fedoraInstallScript,
+  keyCheckCommand,
+  packageFileName,
+  packageLink,
+  packageUrl,
+  repoStatusNote,
+  updateCommand,
+  type LinuxFamilyId,
+  type PackageChannel,
+} from "@/lib/linuxPackages";
 import "@/styles/split/pages-docs.css";
 
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
@@ -47,6 +68,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const [canary, setCanary] = useState<ReleaseChannelInfo>(initialRelease?.canary ?? FALLBACK_CANARY);
   const [copiedCmd, setCopiedCmd] = useState(false);
   const [selectedArch, setSelectedArch] = useState<"x86_64" | "arm64">("x86_64");
+  const [selectedFamily, setSelectedFamily] = useState<LinuxFamilyId>("debian");
   const [selectedAndroidVariant, setSelectedAndroidVariant] = useState<AndroidVariant | null>(null);
   const androidVariant: AndroidVariant = selectedAndroidVariant ?? (detected === "android-tv" ? "tv" : "mobile");
 
@@ -130,6 +152,97 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
     </div>
   );
 
+  const renderFamilySwitch = () => (
+    <div className="docs-arch-switch-wrap">
+      <span className="docs-arch-switch-label">{isEn ? "Distribution :" : "Distribution :"}</span>
+      <div className="docs-arch-switch-pill" role="radiogroup" aria-label={isEn ? "Linux distribution family" : "Famille de distribution Linux"}>
+        {LINUX_FAMILY_IDS.map((id) => {
+          const family = LINUX_FAMILIES[id];
+          return (
+            <button
+              key={id}
+              type="button"
+              role="radio"
+              aria-checked={selectedFamily === id}
+              className={`docs-arch-switch-btn ${selectedFamily === id ? "is-active" : ""}`}
+              onClick={() => setSelectedFamily(id)}
+            >
+              <DistroLogo id={family.logo} />
+              <span>{family.label[isEn ? "en" : "fr"]}</span>
+              {!family.live && <span className="docs-soon-tag">{isEn ? "Soon" : "Bientôt"}</span>}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+
+  const renderCopyBlock = (text: string) => (
+    <div className="docs-copyable-cmd dx-div-16">
+      <code className="dx-code-1">{text}</code>
+      <button
+        type="button"
+        onClick={() => copyToClipboard(text)}
+        className="docs-copy-btn"
+        aria-label={isEn ? "Copy command" : "Copier la commande"}
+      >
+        {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
+      </button>
+    </div>
+  );
+
+  /** Mention « dès la mise en ligne des dépôts » : absente dès que l'interrupteur des dépôts est vrai. */
+  const renderRepoNote = (family: LinuxFamilyId) => {
+    const note = repoStatusNote(family, isEn ? "en" : "fr");
+    return note ? <p className="docs-soon-note" role="note">{note}</p> : null;
+  };
+
+  const renderStep = (num: number, title: React.ReactNode, body: React.ReactNode) => (
+    <div className="docs-step-card">
+      <div className="docs-step-card__num">{num}</div>
+      <div className="docs-step-card__content">
+        <h4>{title}</h4>
+        {body}
+      </div>
+    </div>
+  );
+
+  const renderDistroTable = () => (
+    <div className="docs-distro-table-wrap">
+      <table className="docs-distro-table">
+        <caption>{isEn ? "Supported Linux distributions" : "Distributions Linux prises en charge"}</caption>
+        <thead>
+          <tr>
+            <th scope="col">{isEn ? "Family" : "Famille"}</th>
+            <th scope="col">{isEn ? "Distributions" : "Distributions"}</th>
+            <th scope="col">{isEn ? "Package" : "Paquet"}</th>
+            <th scope="col">{isEn ? "Update" : "Mise à jour"}</th>
+            <th scope="col">{isEn ? "Status" : "Statut"}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {LINUX_FAMILY_IDS.map((id) => {
+            const family = LINUX_FAMILIES[id];
+            return (
+              <tr key={id} className={selectedFamily === id ? "is-active" : undefined}>
+                <th scope="row">
+                  <button type="button" className="docs-distro-table__pick" aria-pressed={selectedFamily === id} onClick={() => setSelectedFamily(id)}>
+                    <DistroLogo id={family.logo} />
+                    <span>{family.label[isEn ? "en" : "fr"]}</span>
+                  </button>
+                </th>
+                <td>{family.distros[isEn ? "en" : "fr"]}</td>
+                <td><code>{family.extension}</code> · {family.manager}</td>
+                <td><code>{updateCommand(id)}</code></td>
+                <td>{family.live ? (isEn ? "Available" : "Disponible") : (isEn ? "Soon" : "Bientôt")}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+
   const renderAndroidVariantSwitch = () => (
     <div className="docs-arch-switch-wrap">
       <span className="docs-arch-switch-label">{isEn ? "Device :" : "Appareil :"}</span>
@@ -176,11 +289,12 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   );
 
   interface ChannelCardConfig {
-    stableUrl: string;
+    /** Absent : le fichier n'est pas (encore) publié, le bouton devient un « Bientôt » inactif. */
+    stableUrl?: string;
     stableLabel: string;
-    betaUrl: string;
+    betaUrl?: string;
     betaLabel: string;
-    canaryUrl: string;
+    canaryUrl?: string;
     canaryLabel: string;
     archText: string;
   }
@@ -211,20 +325,26 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           </p>
 
           <div className="dx-div-12">
-            <a
-              href={cfg.stableUrl}
-              download
-              className="docs-channel-btn docs-channel-btn--stable"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              <span>{cfg.stableLabel}</span>
-            </a>
+            {cfg.stableUrl ? (
+              <a
+                href={cfg.stableUrl}
+                download
+                className="docs-channel-btn docs-channel-btn--stable"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                <span>{cfg.stableLabel}</span>
+              </a>
+            ) : (
+              <button type="button" className="docs-channel-btn docs-channel-btn--soon" disabled>
+                {isEn ? "Soon" : "Bientôt"}
+              </button>
+            )}
           </div>
         </div>
 
@@ -248,20 +368,26 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           </p>
 
           <div className="dx-div-13">
-            <a
-              href={cfg.betaUrl}
-              download
-              className="docs-channel-btn docs-channel-btn--beta"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              <span>{cfg.betaLabel}</span>
-            </a>
+            {cfg.betaUrl ? (
+              <a
+                href={cfg.betaUrl}
+                download
+                className="docs-channel-btn docs-channel-btn--beta"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                <span>{cfg.betaLabel}</span>
+              </a>
+            ) : (
+              <button type="button" className="docs-channel-btn docs-channel-btn--soon" disabled>
+                {isEn ? "Soon" : "Bientôt"}
+              </button>
+            )}
           </div>
         </div>
 
@@ -285,20 +411,26 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           </p>
 
           <div className="dx-div-13">
-            <a
-              href={cfg.canaryUrl}
-              download
-              className="docs-channel-btn docs-channel-btn--canary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              <span>{cfg.canaryLabel}</span>
-            </a>
+            {cfg.canaryUrl ? (
+              <a
+                href={cfg.canaryUrl}
+                download
+                className="docs-channel-btn docs-channel-btn--canary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                <span>{cfg.canaryLabel}</span>
+              </a>
+            ) : (
+              <button type="button" className="docs-channel-btn docs-channel-btn--soon" disabled>
+                {isEn ? "Soon" : "Bientôt"}
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -455,6 +587,176 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
     </>
   );
 
+  // Onglet Linux : famille choisie (Debian / Ubuntu, Fedora, Arch Linux), lien du paquet de chaque canal.
+  const linuxArch = isArm ? "arm64" : "x86_64";
+  const linuxFormat = `${LINUX_FAMILIES[selectedFamily].extension} ${isArm ? "ARM64" : "x86_64"}`;
+  const linuxLink = (info: ReleaseChannelInfo, channel: PackageChannel, tag: string) =>
+    selectedFamily === "debian"
+      ? info.downloads[downloadKey("debian", linuxArch)] || packageUrl("debian", channel, linuxArch, tag)
+      : packageLink(info.downloads, selectedFamily, linuxArch);
+  const linuxHero = {
+    debian: {
+      title: isEn ? "Bobine for Linux Desktop (.deb package — x86_64 & ARM64)" : "Bobine pour Linux Bureau (Paquet .deb — x86_64 & ARM64)",
+      desc: isEn
+        ? "Native Debian, Ubuntu, and Linux Mint package for x86_64 and ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi). Certified AppStream metadata for Ubuntu App Center, standard XDG directory structure, and desktop integration."
+        : "Paquet natif pour Debian, Ubuntu et Linux Mint en x86_64 et ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi). Métadonnées AppStream certifiées pour les logithèques, intégration XDG et lanceur de bureau.",
+    },
+    fedora: {
+      title: isEn ? "Bobine for Fedora and derivatives (.rpm package — x86_64 & ARM64)" : "Bobine pour Fedora et dérivés (Paquet .rpm — x86_64 & ARM64)",
+      desc: isEn
+        ? "Native package and dnf repository for Fedora, Nobara and, through EPEL, RHEL, AlmaLinux and Rocky Linux, on x86_64 and aarch64."
+        : "Paquet natif et dépôt dnf pour Fedora, Nobara et, via EPEL, RHEL, AlmaLinux et Rocky Linux, en x86_64 et aarch64.",
+    },
+    arch: {
+      title: isEn ? "Bobine for Arch Linux and derivatives (pacman package — x86_64 & ARM64)" : "Bobine pour Arch Linux et dérivés (Paquet pacman — x86_64 & ARM64)",
+      desc: isEn
+        ? "Native package and pacman repository for Arch Linux, EndeavourOS, CachyOS and Manjaro on x86_64, and Arch Linux ARM on aarch64."
+        : "Paquet natif et dépôt pacman pour Arch Linux, EndeavourOS, CachyOS et Manjaro en x86_64, et Arch Linux ARM en aarch64.",
+    },
+  }[selectedFamily];
+
+  const renderDerivatives = (family: "fedora" | "arch") => {
+    const l = isEn ? "en" : "fr";
+    return (
+      <>
+        <ul className="docs-plain-list">
+          {FAMILY_NOTES[family].derivatives.map((d) => (
+            <li key={d.fr}>{d[l]}</li>
+          ))}
+        </ul>
+        <ul className="docs-plain-list">
+          {/* La limite ffmpeg de Fedora a déjà son étape : seules les autres limites sont rappelées ici. */}
+          {FAMILY_NOTES[family].limits.slice(family === "fedora" ? 1 : 0).map((d) => (
+            <li key={d.fr}>{d[l]}</li>
+          ))}
+        </ul>
+        <p className="dx-p-6">{NOT_VALIDATED_NOTE[l]}</p>
+      </>
+    );
+  };
+
+  const renderFedoraSteps = () => {
+    const c = fedoraCommands();
+    return (
+      <div className="docs-steps-flow">
+        <h3 className="docs-steps-flow__heading">{isEn ? "Installation options:" : "Options d'installation :"}</h3>
+        {renderStep(
+          1,
+          isEn ? "Option A: Official dnf repository (Recommended — x86_64 & aarch64)" : "Option A : Dépôt dnf officiel (Recommandé — x86_64 & aarch64)",
+          <>
+            <p>
+              {isEn
+                ? "Add the signed repository (rpm.bobine.fit) to receive Bobine with your regular dnf upgrade. The first install shows the signing key fingerprint: compare it with the one below before accepting."
+                : "Ajoutez le dépôt signé (rpm.bobine.fit) pour recevoir Bobine avec votre dnf upgrade habituel. La première installation affiche l'empreinte de la clé de signature : comparez-la à celle ci-dessous avant d'accepter."}
+            </p>
+            {renderRepoNote("fedora")}
+            {renderCopyBlock(fedoraInstallScript())}
+            <p className="dx-p-6">
+              {isEn ? "On dnf 4 (RHEL, AlmaLinux, Rocky Linux) the first command is: " : "Sur dnf 4 (RHEL, AlmaLinux, Rocky Linux), la première commande est : "}
+              <code>{c.addRepoLegacy}</code>
+              {isEn
+                ? ". For pre-release builds, replace stable with beta (curated) or canary (rolling) in the repo file name."
+                : ". Pour les versions préliminaires, remplacez stable par beta (curée) ou canary (rolling) dans le nom du fichier .repo."}
+            </p>
+          </>
+        )}
+        {renderStep(
+          2,
+          isEn ? "Option B: Direct .rpm package (Offline / 1-Click)" : "Option B : Paquet direct .rpm (Hors ligne / 1 clic)",
+          <>
+            <p>
+              {isEn
+                ? "Download the .rpm above and install it from the software center (GNOME Software, KDE Discover) or with:"
+                : "Téléchargez le .rpm ci-dessus et installez-le depuis la logithèque (GNOME Logiciels, KDE Discover) ou avec :"}
+            </p>
+            {renderCopyBlock(`sudo dnf install ./${packageFileName("fedora", "stable", linuxArch, "*")}`)}
+          </>
+        )}
+        {renderStep(
+          3,
+          isEn ? "Full ffmpeg through RPM Fusion" : "ffmpeg complet via RPM Fusion",
+          <>
+            <p>
+              {isEn
+                ? "Fedora ships ffmpeg-free, without several codecs. To play every class format, add RPM Fusion and swap it for the full ffmpeg:"
+                : "Fedora fournit ffmpeg-free, privé de plusieurs codecs. Pour lire tous les formats de cours, ajoutez RPM Fusion et remplacez-le par le ffmpeg complet :"}
+            </p>
+            {renderCopyBlock(c.ffmpeg)}
+          </>
+        )}
+        {renderStep(
+          4,
+          isEn ? "Check the key and update" : "Vérifier la clé et mettre à jour",
+          <>
+            <p>
+              {isEn ? "Signing key fingerprint: " : "Empreinte de la clé de signature : "}
+              <code>{SIGNING_KEY_FINGERPRINT}</code>
+              {isEn ? ". To read it before installing:" : ". Pour la lire avant d'installer :"}
+            </p>
+            {renderCopyBlock(keyCheckCommand("fedora"))}
+            <p className="dx-p-6">
+              {isEn ? "Updates come with the rest of the system: " : "Les mises à jour arrivent avec le reste du système : "}
+              <code>{c.upgrade}</code>
+            </p>
+          </>
+        )}
+        {renderStep(5, isEn ? "Derivatives and limits" : "Dérivés et limites", renderDerivatives("fedora"))}
+      </div>
+    );
+  };
+
+  const renderArchSteps = () => {
+    const c = archCommands();
+    return (
+      <div className="docs-steps-flow">
+        <h3 className="docs-steps-flow__heading">{isEn ? "Installation options:" : "Options d'installation :"}</h3>
+        {renderStep(
+          1,
+          isEn ? "Option A: Official pacman repository (Recommended — x86_64 & aarch64)" : "Option A : Dépôt pacman officiel (Recommandé — x86_64 & aarch64)",
+          <>
+            <p>
+              {isEn
+                ? "Import and trust the signing key, add the [bobine] section to /etc/pacman.conf, then install. With SigLevel = Required DatabaseOptional, pacman rejects any package whose signature does not match."
+                : "Importez et approuvez la clé de signature, ajoutez la section [bobine] à /etc/pacman.conf, puis installez. Avec SigLevel = Required DatabaseOptional, pacman refuse tout paquet dont la signature ne correspond pas."}
+            </p>
+            {renderRepoNote("arch")}
+            {renderCopyBlock(archInstallScript())}
+            <p className="dx-p-6">
+              {isEn
+                ? "For pre-release builds, replace stable with beta (curated) or canary (rolling) in the Server line. Install and update use -Syu: on Arch a package is never updated alone."
+                : "Pour les versions préliminaires, remplacez stable par beta (curée) ou canary (rolling) dans la ligne Server. L'installation et la mise à jour passent par -Syu : sur Arch, un paquet ne se met jamais à jour seul."}
+            </p>
+          </>
+        )}
+        {renderStep(
+          2,
+          isEn ? "Option B: Direct package (Offline)" : "Option B : Paquet direct (Hors ligne)",
+          <>
+            <p>{isEn ? "Download the .pkg.tar.zst above and install it with:" : "Téléchargez le .pkg.tar.zst ci-dessus et installez-le avec :"}</p>
+            {renderCopyBlock(`sudo pacman -U ./${packageFileName("arch", "stable", linuxArch, "*")}`)}
+          </>
+        )}
+        {renderStep(
+          3,
+          isEn ? "Check the key and update" : "Vérifier la clé et mettre à jour",
+          <>
+            <p>
+              {isEn ? "Signing key fingerprint: " : "Empreinte de la clé de signature : "}
+              <code>{SIGNING_KEY_FINGERPRINT}</code>
+              {isEn ? ". To read it before trusting the key:" : ". Pour la lire avant d'approuver la clé :"}
+            </p>
+            {renderCopyBlock(keyCheckCommand("arch"))}
+            <p className="dx-p-6">
+              {isEn ? "Updates come with the rest of the system: " : "Les mises à jour arrivent avec le reste du système : "}
+              <code>{c.upgrade}</code>
+            </p>
+          </>
+        )}
+        {renderStep(4, isEn ? "Derivatives and limits" : "Dérivés et limites", renderDerivatives("arch"))}
+      </div>
+    );
+  };
+
   const tabs: Array<{
     id: InstallTab;
     group: "desktop" | "appliance" | "roadmap";
@@ -483,7 +785,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       id: "linux",
       group: "desktop",
       name: isEn ? "Linux Desktop" : "Linux Bureau",
-      format: ".deb (Debian, Ubuntu)",
+      format: ".deb · .rpm · Arch",
       badge: isEn ? "1-click" : "1 clic",
       icon: <LinuxIcon size={20} />,
     },
@@ -801,7 +1103,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      {/* 3. LINUX DESKTOP (.deb) */}
+      {/* 3. LINUX BUREAU : Debian / Ubuntu (.deb), Fedora (.rpm), Arch Linux (.pkg.tar.zst) */}
       {activeTab === "linux" && (
         <div
           id="panel-linux"
@@ -812,177 +1114,168 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           <div className="docs-method-hero">
             <div className="docs-method-hero__left">
               <div className="docs-method-hero__icon">
-                <LinuxIcon size={32} />
+                <DistroLogo id={LINUX_FAMILIES[selectedFamily].logo} className="distro-logo--hero" />
               </div>
               <div className="dx-div-14">
-                <h2 className="docs-method-hero__title">
-                  {isEn ? "Bobine for Linux Desktop (.deb package — x86_64 & ARM64)" : "Bobine pour Linux Bureau (Paquet .deb — x86_64 & ARM64)"}
-                </h2>
-                <p className="docs-method-hero__desc">
-                  {isEn
-                    ? "Native Debian, Ubuntu, and Linux Mint package for x86_64 and ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi). Certified AppStream metadata for Ubuntu App Center, standard XDG directory structure, and desktop integration."
-                    : "Paquet natif pour Debian, Ubuntu et Linux Mint en x86_64 et ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi). Métadonnées AppStream certifiées pour les logithèques, intégration XDG et lanceur de bureau."}
-                </p>
+                <h2 className="docs-method-hero__title">{linuxHero.title}</h2>
+                <p className="docs-method-hero__desc">{linuxHero.desc}</p>
+                {renderFamilySwitch()}
                 {renderArchSwitch()}
               </div>
             </div>
 
             {renderChannelCards({
-              stableUrl: isArm
-                ? (stable.downloads.linuxArm64 || `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/bobine_${cleanVersion}_arm64.deb`)
-                : stable.downloads.linux,
-              stableLabel: isArm
-                ? (isEn ? `Download Stable (${stable.version}) · .deb ARM64` : `Télécharger la Stable (${stable.version}) · .deb ARM64`)
-                : (isEn ? `Download Stable (${stable.version}) · .deb x86_64` : `Télécharger la Stable (${stable.version}) · .deb x86_64`),
-              betaUrl: isArm
-                ? (beta.downloads.linuxArm64 || "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_arm64.deb")
-                : beta.downloads.linux,
-              betaLabel: isArm
-                ? (isEn ? "Download Beta · .deb ARM64" : "Télécharger la Bêta · .deb ARM64")
-                : (isEn ? "Download Beta · .deb x86_64" : "Télécharger la Bêta · .deb x86_64"),
-              canaryUrl: isArm
-                ? (canary.downloads.linuxArm64 || "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine_canary_arm64.deb")
-                : canary.downloads.linux,
-              canaryLabel: isArm
-                ? (isEn ? "Download Canary · .deb ARM64" : "Télécharger la Canary · .deb ARM64")
-                : (isEn ? "Download Canary · .deb x86_64" : "Télécharger la Canary · .deb x86_64"),
-              archText: isArm ? "ARM64 (Snapdragon, Raspberry Pi 5, Orange Pi)" : "x86_64 (Debian, Ubuntu, Mint)",
+              stableUrl: linuxLink(stable, "stable", stable.version),
+              stableLabel: isEn ? `Download Stable (${stable.version}) · ${linuxFormat}` : `Télécharger la Stable (${stable.version}) · ${linuxFormat}`,
+              betaUrl: linuxLink(beta, "beta", "beta"),
+              betaLabel: isEn ? `Download Beta · ${linuxFormat}` : `Télécharger la Bêta · ${linuxFormat}`,
+              canaryUrl: linuxLink(canary, "canary", "canary"),
+              canaryLabel: isEn ? `Download Canary · ${linuxFormat}` : `Télécharger la Canary · ${linuxFormat}`,
+              archText: isArm ? "ARM64 (Snapdragon, Raspberry Pi 5, Orange Pi)" : `x86_64 (${LINUX_FAMILIES[selectedFamily].distros[isEn ? "en" : "fr"]})`,
             })}
           </div>
 
+          {renderDistroTable()}
+
           {renderDivider()}
 
-          <div className="docs-steps-flow">
-            <h3 className="docs-steps-flow__heading">
-              {isEn ? "Installation options:" : "Options d'installation :"}
-            </h3>
+          {selectedFamily === "debian" && (
+            <div className="docs-steps-flow">
+              <h3 className="docs-steps-flow__heading">
+                {isEn ? "Installation options:" : "Options d'installation :"}
+              </h3>
 
-            <div className="docs-step-card">
-              <div className="docs-step-card__num">1</div>
-              <div className="docs-step-card__content">
-                <h4>{isEn ? "Option A: Official APT Repository (Recommended — x86_64 & ARM64)" : "Option A : Dépôt APT officiel (Recommandé — x86_64 & ARM64)"}</h4>
-                <p>
-                  {isEn
-                    ? "Add the official GPG-signed repository (apt.bobine.fit) to receive automatic updates with your standard apt upgrade (serves amd64 and arm64 architectures):"
-                    : "Ajoutez le dépôt officiel signé GPG (apt.bobine.fit) pour bénéficier des mises à jour automatiques lors de vos apt upgrade habituels (distribue automatiquement amd64 et arm64) :"}
-                </p>
-                <div className="docs-copyable-cmd dx-div-16">
-                  <code className="dx-code-1">
-                    {`curl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho "deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine`}
-                  </code>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      copyToClipboard(
-                        "curl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine"
-                      )
-                    }
-                    className="docs-copy-btn"
-                    aria-label={isEn ? "Copy command" : "Copier la commande"}
-                  >
-                    {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
-                  </button>
-                </div>
-                <p className="dx-p-6">
-                  {isEn
-                    ? "For pre-release builds, replace 'stable' with 'beta' (curated) or 'canary' (rolling). Repository web portal: "
-                    : "Pour tester les versions préliminaires, remplacez « stable » par « beta » (curée) ou « canary » (rolling). Portail du dépôt : "}
-                  <a
-                    href="https://apt.bobine.fit"
-                    target="_blank"
-                    rel="noopener noreferrer" className="dx-a-1"
-                  >
-                    apt.bobine.fit
-                  </a>
-                </p>
-              </div>
-            </div>
-
-            <div className="docs-step-card">
-              <div className="docs-step-card__num">2</div>
-              <div className="docs-step-card__content">
-                <h4>{isEn ? "Option B: Direct .deb Package (Offline / 1-Click)" : "Option B : Paquet direct .deb (Hors ligne / 1 clic)"}</h4>
-                <p>
-                  {isEn
-                    ? "Download the standalone .deb package above and double-click to install via Ubuntu App Center or GNOME Software, or run:"
-                    : "Téléchargez le paquet autonome .deb ci-dessus et double-cliquez pour l'installer via l'App Center Ubuntu / Logithèque GNOME, ou exécutez :"}
-                </p>
-                <div className="docs-copyable-cmd">
-                  <code>{isEn ? "sudo apt install ./bobine_*_amd64.deb # or ./bobine_*_arm64.deb on ARM64" : "sudo apt install ./bobine_*_amd64.deb # ou ./bobine_*_arm64.deb sur ARM64"}</code>
-                  <button
-                    type="button"
-                    onClick={() => copyToClipboard("sudo apt install ./bobine_*_amd64.deb")}
-                    className="docs-copy-btn"
-                    aria-label={isEn ? "Copy command" : "Copier la commande"}
-                  >
-                    {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
-                  </button>
+              <div className="docs-step-card">
+                <div className="docs-step-card__num">1</div>
+                <div className="docs-step-card__content">
+                  <h4>{isEn ? "Option A: Official APT Repository (Recommended — x86_64 & ARM64)" : "Option A : Dépôt APT officiel (Recommandé — x86_64 & ARM64)"}</h4>
+                  <p>
+                    {isEn
+                      ? "Add the official GPG-signed repository (apt.bobine.fit) to receive automatic updates with your standard apt upgrade (serves amd64 and arm64 architectures):"
+                      : "Ajoutez le dépôt officiel signé GPG (apt.bobine.fit) pour bénéficier des mises à jour automatiques lors de vos apt upgrade habituels (distribue automatiquement amd64 et arm64) :"}
+                  </p>
+                  <div className="docs-copyable-cmd dx-div-16">
+                    <code className="dx-code-1">
+                      {`curl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho "deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine`}
+                    </code>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        copyToClipboard(
+                          "curl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine"
+                        )
+                      }
+                      className="docs-copy-btn"
+                      aria-label={isEn ? "Copy command" : "Copier la commande"}
+                    >
+                      {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
+                    </button>
+                  </div>
+                  <p className="dx-p-6">
+                    {isEn
+                      ? "For pre-release builds, replace 'stable' with 'beta' (curated) or 'canary' (rolling). Repository web portal: "
+                      : "Pour tester les versions préliminaires, remplacez « stable » par « beta » (curée) ou « canary » (rolling). Portail du dépôt : "}
+                    <a
+                      href="https://apt.bobine.fit"
+                      target="_blank"
+                      rel="noopener noreferrer" className="dx-a-1"
+                    >
+                      apt.bobine.fit
+                    </a>
+                  </p>
                 </div>
               </div>
-            </div>
 
-            <div className="docs-step-card">
-              <div className="docs-step-card__num">3</div>
-              <div className="docs-step-card__content">
-                <div className="dx-div-17">
-                  <TorLogo size={20} />
-                  <h4 className="dx-h1-1">
-                    {isEn ? "Option C: Protected APT repository over Tor (.onion)" : "Option C : Dépôt APT protégé via Tor (.onion)"}
-                  </h4>
+              <div className="docs-step-card">
+                <div className="docs-step-card__num">2</div>
+                <div className="docs-step-card__content">
+                  <h4>{isEn ? "Option B: Direct .deb Package (Offline / 1-Click)" : "Option B : Paquet direct .deb (Hors ligne / 1 clic)"}</h4>
+                  <p>
+                    {isEn
+                      ? "Download the standalone .deb package above and double-click to install via Ubuntu App Center or GNOME Software, or run:"
+                      : "Téléchargez le paquet autonome .deb ci-dessus et double-cliquez pour l'installer via l'App Center Ubuntu / Logithèque GNOME, ou exécutez :"}
+                  </p>
+                  <div className="docs-copyable-cmd">
+                    <code>{isEn ? "sudo apt install ./bobine_*_amd64.deb # or ./bobine_*_arm64.deb on ARM64" : "sudo apt install ./bobine_*_amd64.deb # ou ./bobine_*_arm64.deb sur ARM64"}</code>
+                    <button
+                      type="button"
+                      onClick={() => copyToClipboard("sudo apt install ./bobine_*_amd64.deb")}
+                      className="docs-copy-btn"
+                      aria-label={isEn ? "Copy command" : "Copier la commande"}
+                    >
+                      {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
+                    </button>
+                  </div>
                 </div>
-                <p>
-                  {isEn
-                    ? "Same packages, same GPG signature, without revealing your IP address (and even if apt.bobine.fit is blocked). Install apt-transport-tor first, then add the onion source:"
-                    : "Mêmes paquets, même signature GPG, sans révéler votre adresse IP (et même si apt.bobine.fit est bloqué). Installez d'abord apt-transport-tor, puis ajoutez la source onion :"}
-                </p>
-                <div className="docs-copyable-cmd dx-div-16">
-                  <code className="dx-code-1">{TOR_APT_COMMANDS}</code>
-                  <button
-                    type="button"
-                    onClick={() => copyToClipboard(TOR_APT_COMMANDS)}
-                    className="docs-copy-btn"
-                    aria-label={isEn ? "Copy command" : "Copier la commande"}
-                  >
-                    {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
-                  </button>
+              </div>
+
+              <div className="docs-step-card">
+                <div className="docs-step-card__num">3</div>
+                <div className="docs-step-card__content">
+                  <div className="dx-div-17">
+                    <TorLogo size={20} />
+                    <h4 className="dx-h1-1">
+                      {isEn ? "Option C: Protected APT repository over Tor (.onion)" : "Option C : Dépôt APT protégé via Tor (.onion)"}
+                    </h4>
+                  </div>
+                  <p>
+                    {isEn
+                      ? "Same packages, same GPG signature, without revealing your IP address (and even if apt.bobine.fit is blocked). Install apt-transport-tor first, then add the onion source:"
+                      : "Mêmes paquets, même signature GPG, sans révéler votre adresse IP (et même si apt.bobine.fit est bloqué). Installez d'abord apt-transport-tor, puis ajoutez la source onion :"}
+                  </p>
+                  <div className="docs-copyable-cmd dx-div-16">
+                    <code className="dx-code-1">{TOR_APT_COMMANDS}</code>
+                    <button
+                      type="button"
+                      onClick={() => copyToClipboard(TOR_APT_COMMANDS)}
+                      className="docs-copy-btn"
+                      aria-label={isEn ? "Copy command" : "Copier la commande"}
+                    >
+                      {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
+                    </button>
+                  </div>
+                  <p className="dx-p-7">
+                    {isEn ? "APT repository (open in Tor Browser): " : "Dépôt APT (à ouvrir dans Tor Browser) : "}
+                    <a href={`http://${ONION_APT_HOST}/`} rel="noopener noreferrer" className="docs-onion-link">
+                      http://{ONION_APT_HOST}/
+                    </a>
+                    <br />
+                    {isEn ? "Website (open in Tor Browser): " : "Site miroir (à ouvrir dans Tor Browser) : "}
+                    <a href={`http://${ONION_SITE_HOST}/`} rel="noopener noreferrer" className="docs-onion-link">
+                      http://{ONION_SITE_HOST}/
+                    </a>
+                  </p>
+                  <p className="dx-p-6">
+                    {isEn
+                      ? "One-command alternative (read it first, add --dry-run to simulate): "
+                      : "Alternative en une commande (à lire avant, ajoutez --dry-run pour simuler) : "}
+                    <a href="/install-tor.sh" className="docs-onion-link">
+                      bobine.fit/install-tor.sh
+                    </a>
+                    {isEn
+                      ? ". It fetches the key through Tor, checks it against the published fingerprint (B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A) and stops if it differs."
+                      : ". Il récupère la clé par Tor, la compare à l'empreinte publiée (B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A) et s'arrête si elle diffère."}
+                  </p>
                 </div>
-                <p className="dx-p-7">
-                  {isEn ? "APT repository (open in Tor Browser): " : "Dépôt APT (à ouvrir dans Tor Browser) : "}
-                  <a href={`http://${ONION_APT_HOST}/`} rel="noopener noreferrer" className="docs-onion-link">
-                    http://{ONION_APT_HOST}/
-                  </a>
-                  <br />
-                  {isEn ? "Website (open in Tor Browser): " : "Site miroir (à ouvrir dans Tor Browser) : "}
-                  <a href={`http://${ONION_SITE_HOST}/`} rel="noopener noreferrer" className="docs-onion-link">
-                    http://{ONION_SITE_HOST}/
-                  </a>
-                </p>
-                <p className="dx-p-6">
-                  {isEn
-                    ? "One-command alternative (read it first, add --dry-run to simulate): "
-                    : "Alternative en une commande (à lire avant, ajoutez --dry-run pour simuler) : "}
-                  <a href="/install-tor.sh" className="docs-onion-link">
-                    bobine.fit/install-tor.sh
-                  </a>
-                  {isEn
-                    ? ". It fetches the key through Tor, checks it against the published fingerprint (B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A) and stops if it differs."
-                    : ". Il récupère la clé par Tor, la compare à l'empreinte publiée (B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A) et s'arrête si elle diffère."}
-                </p>
+              </div>
+
+              <div className="docs-step-card">
+                <div className="docs-step-card__num">4</div>
+                <div className="docs-step-card__content">
+                  <h4>{isEn ? "Desktop Integration & XDG Storage" : "Intégration au bureau & Stockage XDG"}</h4>
+                  <p>
+                    {isEn
+                      ? "Bobine is integrated into your application menu with high-resolution icons. All SQLite databases, logs, and workout media are safely stored in ~/.local/share/bobine/."
+                      : "Bobine est présent dans vos menus d'applications avec son icône haute résolution. Vos bases SQLite et vos médias sont conservés dans ~/.local/share/bobine/ conformément aux standards Linux XDG."}
+                  </p>
+                </div>
               </div>
             </div>
+          )}
 
-            <div className="docs-step-card">
-              <div className="docs-step-card__num">4</div>
-              <div className="docs-step-card__content">
-                <h4>{isEn ? "Desktop Integration & XDG Storage" : "Intégration au bureau & Stockage XDG"}</h4>
-                <p>
-                  {isEn
-                    ? "Bobine is integrated into your application menu with high-resolution icons. All SQLite databases, logs, and workout media are safely stored in ~/.local/share/bobine/."
-                    : "Bobine est présent dans vos menus d'applications avec son icône haute résolution. Vos bases SQLite et vos médias sont conservés dans ~/.local/share/bobine/ conformément aux standards Linux XDG."}
-                </p>
-              </div>
-            </div>
-          </div>
+          {selectedFamily === "fedora" && renderFedoraSteps()}
+
+          {selectedFamily === "arch" && renderArchSteps()}
         </div>
       )}
 

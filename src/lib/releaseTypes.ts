@@ -9,6 +9,11 @@ export interface ReleaseChannelInfo {
     windowsArm64?: string;
     linux: string;
     linuxArm64?: string;
+    /** Paquets Fedora (.rpm) et Arch Linux (.pkg.tar.zst) : présents seulement une fois publiés dans la release. */
+    linuxRpm?: string;
+    linuxRpmArm64?: string;
+    linuxArch?: string;
+    linuxArchArm64?: string;
     macos: string;
     android: string;
     androidTv?: string;

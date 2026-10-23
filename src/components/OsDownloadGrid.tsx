@@ -14,6 +14,8 @@ import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFa
 import { useReleaseData } from "@/components/ReleaseProvider";
 import DownloadModal, { type DownloadPlatform } from "@/components/DownloadModal";
 import { ANDROID } from "@/lib/productFacts";
+import DistroLogo from "@/components/icons/DistroLogo";
+import { LINUX_FAMILIES, LINUX_FAMILY_IDS } from "@/lib/linuxPackages";
 import "@/styles/split/pages-misc.css";
 
 export default function OsDownloadGrid({
@@ -61,10 +63,18 @@ export default function OsDownloadGrid({
     setIsModalOpen(true);
   };
 
+  // Debian, Ubuntu, Fedora et Arch Linux : les deux dernières restent atténuées tant que leurs dépôts ne sont pas en ligne.
+  const linuxDistros = [
+    { name: "Debian", logo: "debian" as const, live: LINUX_FAMILIES.debian.live },
+    { name: "Ubuntu", logo: "ubuntu" as const, live: LINUX_FAMILIES.debian.live },
+    { name: "Fedora", logo: "fedora" as const, live: LINUX_FAMILIES.fedora.live },
+    { name: "Arch", logo: "arch" as const, live: LINUX_FAMILIES.arch.live },
+  ];
+
   const cards: Array<{
     id: string;
     name: string;
-    subtitle: string;
+    subtitle: ReactNode;
     format: string;
     badge: string;
     statusLabel?: string;
@@ -75,8 +85,22 @@ export default function OsDownloadGrid({
     {
       id: "linux",
       name: "Linux",
-      subtitle: isEn ? "Debian, Ubuntu, Mint (x86_64 & ARM64)" : "Debian, Ubuntu, Mint (x86_64 & ARM64)",
-      format: isEn ? "Package .deb" : "Paquet .deb",
+      subtitle: (
+        <>
+          <span className="os-download-card__distros">
+            {linuxDistros.map((d) => (
+              <span key={d.name} className={`os-download-card__distro${d.live ? "" : " is-soon"}`} title={d.live ? d.name : `${d.name} (${isEn ? "soon" : "bientôt"})`}>
+                <DistroLogo id={d.logo} />
+                <span className="sr-only">{d.name}</span>
+              </span>
+            ))}
+          </span>
+          <span className="os-download-card__distro-arch">x86_64 &amp; ARM64</span>
+        </>
+      ),
+      format: `${isEn ? "Package" : "Paquet"} ${LINUX_FAMILY_IDS.filter((id) => LINUX_FAMILIES[id].live)
+        .map((id) => LINUX_FAMILIES[id].extension)
+        .join(" · ")}`,
       badge: isEn ? "1-click install" : "Installation 1 clic",
       url: stableInfo.downloads.linux,
       isComingSoon: false,

@@ -23,6 +23,9 @@ Official Binary Artifacts (V5.0.2 Stable) :
 - Windows 11 ARM64 (Snapdragon) : Bobine-Setup-5.0.2-arm64.exe
 - Linux Desktop x86_64 (.deb) : bobine_5.0.2_amd64.deb (or APT repo https://apt.bobine.fit)
 - Linux Desktop & Server ARM64 (.deb) : bobine_5.0.2_arm64.deb (or APT repo https://apt.bobine.fit)
+- Fedora / Nobara / RHEL-family (.rpm, x86_64 & aarch64) : COMING SOON, dnf repository https://rpm.bobine.fit not online yet (files: bobine-<version>-1.x86_64.rpm, bobine-<version>-1.aarch64.rpm)
+- Arch Linux / EndeavourOS / CachyOS (pacman, x86_64; aarch64 for Arch Linux ARM) : COMING SOON, repository https://arch.bobine.fit not online yet (files: bobine-<version>-1-x86_64.pkg.tar.zst, bobine-<version>-1-aarch64.pkg.tar.zst)
+- Status and commands for Debian, Ubuntu, Fedora and Arch families : https://bobine.fit/en/linux (nothing is validated yet on Fedora or Arch hardware)
 - Dedicated Headless Appliance (Debian 13/12 x86_64 & ARM64) : https://bobine.fit/install.sh
 - macOS Apple Silicon (M1/M2/M3/M4 ARM64) : Bobine-5.0.2.dmg
 - Android ARM64 Tablets & Google Books (Aluminium OS) : Bobine-5.0.2.apk
@@ -271,6 +274,7 @@ All Snapdragon X processors share: TSMC N4P (4 nm) fabrication node, custom Qual
 ### Installation & Execution Profile
 - Dedicated 24/7 Headless Kiosk (Debian 13/12 minimal) : curl -fsSL https://bobine.fit/install.sh | sudo bash
 - Linux Desktop (Debian, Ubuntu, Linux Mint) : bobine_5.0.2_amd64.deb or Official APT Repository https://apt.bobine.fit
+- Linux Desktop (Fedora, Arch Linux and derivatives) : packages coming soon, see https://bobine.fit/en/linux
 - Windows 11 / 10 / IoT Enterprise LTSC (x86_64) : Bobine-Setup-5.0.2.exe
 - Network Orchestrator : bobine-assistant
 - Hardware Acceleration : Intel QuickSync VA-API (intel-media-va-driver-non-free iHD) & AMD Radeon VA-API (mesa-va-drivers radeonsi) for <8% CPU utilization at 1080p60 and 4K60.
@@ -394,6 +398,8 @@ Bobine requires Android 14 (API 34) or later. A box left on an older Android ver
 - Baamix AI Hardware & Setup Assistant : https://bobine.fit/fr/baamix | https://bobine.fit/en/baamix
 - Documentation & Setup Guide : https://bobine.fit/fr/documentation | https://bobine.fit/en/documentation
 - Official Signed APT Repository : https://apt.bobine.fit
+- Fedora dnf repository https://rpm.bobine.fit and Arch Linux pacman repository https://arch.bobine.fit (coming soon, not online yet; same signing key, primary fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A)
+- Linux installation by distribution family : https://bobine.fit/fr/linux | https://bobine.fit/en/linux
 - GitHub Repository & Releases : https://github.com/FantasmaGlad/Bobine/releases
 - Current versions (Stable, Beta, Canary), machine-readable : https://bobine.fit/latest.json
 - Update channels : https://bobine.fit/fr/canaux | https://bobine.fit/en/channels

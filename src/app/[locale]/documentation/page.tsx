@@ -48,6 +48,8 @@ export async function generateMetadata({
       "Bobine Windows",
       "Bobine macOS",
       "Bobine Linux",
+      "Bobine Fedora",
+      "Bobine Arch Linux",
       "Bobine Android",
       "Bobine Android TV",
       "Bobine Assistant",

@@ -77,7 +77,7 @@ const copy: Record<Locale, { badge: string; title: string; subtitle: string; upd
         items: [
           "le site bobine.fit et ses routes serveur (assistant Baamix, catalogue) ;",
           "le miroir Tor du site et du dépôt APT ;",
-          "le dépôt de paquets apt.bobine.fit et sa chaîne de signature ;",
+          "les dépôts de paquets apt.bobine.fit, rpm.bobine.fit et arch.bobine.fit (ces deux derniers dès leur ouverture) et leur chaîne de signature ;",
           "le logiciel Bobine (dépôt github.com/FantasmaGlad/Bobine) et ses installateurs (install.sh, install-tor.sh, paquets Windows, macOS, Linux et Android).",
         ],
       },
@@ -113,7 +113,7 @@ const copy: Record<Locale, { badge: string; title: string; subtitle: string; upd
         id: "verification",
         heading: "6. Vérifier l'authenticité des téléchargements",
         paragraphs: [
-          `Le dépôt APT est signé. Empreinte de la clé principale : ${APT_FINGERPRINT}. Le script install-tor.sh épingle cette empreinte et s'arrête si elle diffère. Cette clé de signature est distincte de la clé de réception des rapports (section 1). Les mises à jour automatiques vérifient le condensé SHA-256 des fichiers publiés sur GitHub Releases.`,
+          `Le dépôt APT est signé, et la même clé signera les dépôts Fedora (dnf) et Arch Linux (pacman) dès leur ouverture. Empreinte de la clé principale : ${APT_FINGERPRINT}. Le script install-tor.sh épingle cette empreinte et s'arrête si elle diffère. Cette clé de signature est distincte de la clé de réception des rapports (section 1). Les mises à jour automatiques vérifient le condensé SHA-256 des fichiers publiés sur GitHub Releases.`,
         ],
       },
       {
@@ -160,7 +160,7 @@ const copy: Record<Locale, { badge: string; title: string; subtitle: string; upd
         items: [
           "the bobine.fit website and its server routes (Baamix assistant, catalog);",
           "the Tor mirror of the site and of the APT repository;",
-          "the apt.bobine.fit package repository and its signing chain;",
+          "the apt.bobine.fit, rpm.bobine.fit and arch.bobine.fit package repositories (the last two once they open) and their signing chain;",
           "the Bobine software (github.com/FantasmaGlad/Bobine) and its installers (install.sh, install-tor.sh, Windows, macOS, Linux and Android packages).",
         ],
       },
@@ -196,7 +196,7 @@ const copy: Record<Locale, { badge: string; title: string; subtitle: string; upd
         id: "verification",
         heading: "6. Verifying the authenticity of downloads",
         paragraphs: [
-          `The APT repository is signed. Primary key fingerprint: ${APT_FINGERPRINT}. The install-tor.sh script pins this fingerprint and stops if it differs. This signing key is separate from the key used to receive reports (section 1). Automatic updates verify the SHA-256 digest of the files published on GitHub Releases.`,
+          `The APT repository is signed, and the same key will sign the Fedora (dnf) and Arch Linux (pacman) repositories once they open. Primary key fingerprint: ${APT_FINGERPRINT}. The install-tor.sh script pins this fingerprint and stops if it differs. This signing key is separate from the key used to receive reports (section 1). Automatic updates verify the SHA-256 digest of the files published on GitHub Releases.`,
         ],
       },
       {

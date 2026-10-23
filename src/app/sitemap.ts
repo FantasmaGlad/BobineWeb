@@ -25,6 +25,7 @@ const staticRoutes: RouteConfig[] = [
   { path: "/canaux/stable", priority: 0.85, changeFrequency: "daily" },
   { path: "/canaux/beta", priority: 0.85, changeFrequency: "daily" },
   { path: "/canaux/canary", priority: 0.85, changeFrequency: "daily" },
+  { path: "/linux", priority: 0.9, changeFrequency: "weekly" },
   { path: "/android-tv", priority: 0.9, changeFrequency: "weekly" },
   { path: "/google-book", priority: 0.9, changeFrequency: "weekly" },
   { path: "/tor", priority: 0.8, changeFrequency: "monthly" },

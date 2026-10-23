@@ -21,14 +21,14 @@ const copy = {
       {
         heading: "2. Hébergement & Infrastructure",
         body: "Le site web bobine.fit est hébergé par Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis (vercel.com). Le trafic du site transite par le réseau de Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, États-Unis (cloudflare.com), qui assure la résolution DNS, l'accélération et la protection contre les attaques. Un miroir en service onion (Tor) est hébergé par l'éditeur lui-même, sur sa propre machine.",
-        contact: "Le dépôt de paquets Linux apt.bobine.fit est servi par GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis), tout comme le code source du projet.",
+        contact: "Les dépôts de paquets Linux apt.bobine.fit (et, dès leur ouverture, rpm.bobine.fit et arch.bobine.fit) sont servis par GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis), tout comme le code source du projet.",
         subtext: "Le traitement des données par ces prestataires est décrit dans la Politique de Confidentialité.",
       },
       {
         heading: "3. Propriété Intellectuelle & Licence Logicielle",
         body: "L'ensemble du code source du logiciel Bobine est mis à disposition sous licence libre GNU Affero General Public License v3.0 (AGPL-3.0).",
         contact: "Liberté d'usage : vous êtes libre d'utiliser, d'étudier, de modifier, de compiler et de redistribuer Bobine sans redevance, dans le respect de cette licence.",
-        subtext: "Les marques, noms de produits et logos cités (ex : HP, Intel, AMD, Apple, Amazon, AliExpress, Les Mills) appartiennent à leurs propriétaires respectifs et sont utilisés uniquement pour identifier des produits, à des fins d'interopérabilité technique et de comparaison descriptive. Les images de produits proviennent des fiches des vendeurs.",
+        subtext: "Les marques, noms de produits et logos cités (ex : HP, Intel, AMD, Apple, Amazon, AliExpress, Les Mills, Fedora, Arch Linux, Debian, Ubuntu) appartiennent à leurs propriétaires respectifs et sont utilisés uniquement pour identifier des produits, à des fins d'interopérabilité technique et de comparaison descriptive. Les images de produits proviennent des fiches des vendeurs.",
       },
       {
         heading: "4. Rôle du Site : Information et Suggestions, Aucune Vente",
@@ -65,14 +65,14 @@ const copy = {
       {
         heading: "2. Hosting & Infrastructure",
         body: "The website bobine.fit is hosted by Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA (vercel.com). Site traffic goes through the network of Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA (cloudflare.com), which provides DNS resolution, acceleration and protection against attacks. A mirror served as an onion service (Tor) is hosted by the publisher on their own machine.",
-        contact: "The apt.bobine.fit Linux package repository is served by GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA), as is the project's source code.",
+        contact: "The apt.bobine.fit Linux package repositories (and, once they open, rpm.bobine.fit and arch.bobine.fit) are served by GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA), as is the project's source code.",
         subtext: "How these providers process data is described in the Privacy Policy.",
       },
       {
         heading: "3. Intellectual Property & Software License",
         body: "The entire source code of Bobine is distributed under the GNU Affero General Public License v3.0 (AGPL-3.0).",
         contact: "Freedom of use: you are free to run, study, adapt, compile, and redistribute Bobine without license fees, in accordance with that license.",
-        subtext: "Third-party trademarks, product names and logos mentioned (e.g., HP, Intel, AMD, Apple, Amazon, AliExpress, Les Mills) remain the property of their respective owners and are used solely to identify products, for technical interoperability and descriptive comparison. Product images come from the sellers' product pages.",
+        subtext: "Third-party trademarks, product names and logos mentioned (e.g., HP, Intel, AMD, Apple, Amazon, AliExpress, Les Mills, Fedora, Arch Linux, Debian, Ubuntu) remain the property of their respective owners and are used solely to identify products, for technical interoperability and descriptive comparison. Product images come from the sellers' product pages.",
       },
       {
         heading: "4. Role of the Site: Information and Suggestions, No Sales",

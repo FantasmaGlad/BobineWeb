@@ -30,7 +30,7 @@ if git ls-files | grep -E "$forbidden" | grep -vE '(^|/)\.env\.example$' | grep 
 fi
 
 # 4. Secrets : motifs connus dans les fichiers texte suivis.
-excl=(':!package-lock.json' ':!public/draco' ':!public/models' ':!public/sw.js' ':!scripts/ci/policy-check.sh')
+excl=(':!package-lock.json' ':!public/sw.js' ':!scripts/ci/policy-check.sh')
 secret='sk-or-v1-[0-9a-f]{20,}|sk-[A-Za-z0-9]{32,}|hf_[A-Za-z0-9]{30,}|gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{35}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN ([A-Z]+ )?PRIVATE KEY'
 if git grep -InE "$secret" -- . "${excl[@]}"; then
   err "Secret probable dans un fichier suivi (liste ci-dessus)"

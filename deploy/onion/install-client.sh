@@ -32,7 +32,7 @@ for arg in "$@"; do
         --lang=fr) LANG_OUT="fr" ;;
         --clearnet-key) CLEARNET_KEY=1 ;;
         --channel=*) CHANNEL="${arg#*=}" ;;
-        -h|--help) sed -n '2,18p' "$0" 2>/dev/null || true; exit 0 ;;
+        -h|--help) sed -n '2,16p' "$0" 2>/dev/null || true; exit 0 ;;
         *) echo "Option inconnue : $arg" >&2; exit 2 ;;
     esac
 done

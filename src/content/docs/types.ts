@@ -45,11 +45,3 @@ export interface DocChapter {
   icon: DocIconKey;
   subsections: DocSubsection[];
 }
-
-export interface RoadmapPlatform {
-  id: string;
-  label: string;
-  status: string;
-  title: string;
-  paragraphs: string[];
-}

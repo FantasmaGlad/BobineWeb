@@ -56,6 +56,16 @@ npm run lint        # ESLint, 0 erreur
 npm run build       # compilation de production
 ```
 
+Si vous touchez aux styles, aux simulateurs d'installation ou aux scripts shell, lancez aussi les garde-fous que la CI leur applique :
+
+```bash
+node scripts/ci/glass-check.mjs          # jetons de verre, aucune valeur figée, contraste du texte sur les 16 thèmes
+bash scripts/ci/check-simulator-sync.sh  # simulateurs alignés sur public/install.sh et public/install-tor.sh
+bash scripts/ci/policy-check.sh          # politique du dépôt (entrées de racine, secrets, emoji)
+```
+
+`public/install-tor.sh` doit rester identique à sa copie de déploiement `deploy/onion/install-client.sh` (`cmp`, contrôlé par la CI).
+
 `npm run build:onion` construit le miroir Tor statique et est réservé à la CI : il supprime `src/app/api` et `src/proxy.ts` et refuse de tourner ailleurs. Pour tester le miroir en local, copiez le dépôt, avec son `node_modules`, dans un dossier temporaire.
 
 Next.js 16 comporte des ruptures par rapport aux versions précédentes : lisez le guide pertinent dans `node_modules/next/dist/docs/` avant d'écrire du code.

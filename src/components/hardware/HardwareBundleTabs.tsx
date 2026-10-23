@@ -106,7 +106,7 @@ export default function HardwareBundleTabs({
     setSelectedTier(tierOrder[nextIndex]);
   };
 
-  // Navigation clavier : fleche gauche/droite change de gamme, comme le glisser tactile.
+  // Navigation clavier : flèche gauche/droite change de gamme, comme le glisser tactile.
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null;

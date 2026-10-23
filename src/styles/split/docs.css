@@ -502,16 +502,9 @@
   box-shadow: var(--glass-card-highlight), var(--shadow-card);
 }
 .docs-callout--tip,
-.docs-callout--info,
-.docs-callout--warning,
-.docs-callout--danger {
+.docs-callout--info {
   border-left: 3px solid var(--accent-primary);
   background: color-mix(in srgb, var(--accent-primary) 6%, var(--bg-card));
-}
-.docs-callout__icon {
-  flex-shrink: 0;
-  font-size: 1.15rem;
-  line-height: 1.4;
 }
 .docs-callout__content {
   flex: 1;
@@ -668,11 +661,6 @@
   color: var(--accent-success, #16a34a);
   border: 1px solid color-mix(in srgb, var(--accent-success, #16a34a) 30%, transparent);
 }
-.docs-method--delete {
-  background: color-mix(in srgb, #dc2626 10%, var(--bg-card));
-  color: #dc2626;
-  border: 1px solid color-mix(in srgb, #dc2626 30%, transparent);
-}
 .docs-method--ws {
   background: color-mix(in srgb, #7c3aed 10%, var(--bg-card));
   color: #7c3aed;
@@ -683,42 +671,6 @@
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--text-heading);
-}
-.docs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-.docs-card {
-  border: 1px solid var(--glass-card-border);
-  border-radius: 0.65rem;
-  padding: 1.25rem;
-  background: var(--glass-card-bg);
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-  display: flex;
-  flex-direction: column;
-  box-shadow: var(--glass-card-highlight), var(--shadow-card);
-  -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
-  backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
-}
-.docs-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent-primary);
-  box-shadow: var(--shadow-md);
-}
-.docs-contact-box {
-  border: 1px solid var(--glass-card-border);
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  background: var(--glass-card-bg);
-  margin: 2rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  box-shadow: var(--glass-card-highlight), var(--shadow-card);
 }
 @media print {
 .docs-page-wrapper,
@@ -762,14 +714,6 @@
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 0.75rem;
   width: 100%;
-}
-.docs-install-nav-header--secondary {
-  margin-top: 1.5rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--border-subtle);
-}
-.docs-install-nav-label--secondary {
-  color: var(--text-dim, var(--text-muted));
 }
 .docs-install-tab-btn {
   display: grid;
@@ -823,13 +767,6 @@
   min-width: 0;
   overflow: hidden;
 }
-.docs-install-tab-name-row {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem 0.4rem;
-  min-width: 0;
-  overflow: hidden;
-}
 .docs-install-tab-name {
   font-size: 0.92rem;
   font-weight: 700;
@@ -848,8 +785,7 @@
   text-overflow: ellipsis;
   line-height: 1.25;
 }
-.docs-channels-grid,
-.docs-linux-channels-grid {
+.docs-channels-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.15rem;
@@ -859,8 +795,7 @@
 }
 
 @media (max-width: 640px) {
-  .docs-channels-grid,
-  .docs-linux-channels-grid {
+  .docs-channels-grid {
     grid-template-columns: 1fr;
     gap: 0.85rem;
   }
@@ -1070,21 +1005,6 @@
 .docs-install-divider__pill svg {
   color: var(--accent-primary);
 }
-
-.docs-install-tab-badge {
-  flex-shrink: 0;
-  font-size: 0.685rem;
-  font-weight: 600;
-  padding: 0.15rem 0.45rem;
-  border-radius: 9999px;
-  background: color-mix(in srgb, var(--text-muted) 12%, transparent);
-  color: var(--text-muted);
-  white-space: nowrap;
-}
-.docs-install-tab-btn.is-active .docs-install-tab-badge {
-  background: color-mix(in srgb, var(--accent-primary) 15%, transparent);
-  color: var(--accent-primary);
-}
 .docs-method-hero {
   display: flex;
   flex-direction: column;
@@ -1134,18 +1054,6 @@
   align-items: flex-end;
   gap: 0.6rem;
 }
-.docs-method-download-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding: 0.75rem 1.4rem;
-  font-size: 0.95rem;
-  font-weight: 700;
-  min-height: 48px;
-  text-decoration: none;
-  border-radius: var(--radius-md, 8px);
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent-primary) 25%, transparent);
-}
 .docs-method-meta-row {
   display: flex;
   align-items: center;
@@ -1169,17 +1077,6 @@
 }
 .docs-method-source-link:hover {
   color: var(--accent-primary);
-}
-.docs-quick-install-box {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  width: 100%;
-}
-.docs-quick-install-box__label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--text-muted);
 }
 .docs-copyable-cmd {
   display: flex;
@@ -1359,10 +1256,6 @@
 .docs-method-hero__action-col {
     align-items: stretch;
   }
-.docs-method-download-btn {
-    justify-content: center;
-    width: 100%;
-  }
 .docs-method-meta-row {
     justify-content: center;
   }
@@ -1387,24 +1280,6 @@
   color: var(--text-muted);
   background: color-mix(in srgb, var(--text-muted) 12%, transparent);
   border-color: var(--border-subtle);
-}
-.docs-method-actions-row {
-  display: flex;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.docs-method-btn--stable {
-  /* Aligné sur docs-method-download-btn */
-}
-.docs-method-btn--beta {
-  background: transparent;
-  color: var(--text-heading);
-  border: 1px solid var(--border-subtle);
-}
-.docs-method-btn--beta:hover {
-  background: color-mix(in srgb, var(--accent-primary) 8%, var(--bg-card));
-  border-color: color-mix(in srgb, var(--accent-primary) 35%, var(--border-subtle));
 }
 
 /* Encart soigné « Distribution Tor (.onion) » (barre latérale de documentation) */

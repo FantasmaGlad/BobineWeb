@@ -12,7 +12,7 @@
 ## Verification
 - Check the fingerprint on at least two channels: this site, the GitHub repository (docs/security/), https://bobine.fit/.well-known/security.asc, `gpg --locate-keys security@bobine.fit`, and the DNS record `openpgp4fpr` on bobine.fit.
 - Signed policy file (RFC 9116): https://security.bobine.fit/.well-known/security.txt
-- Full policy: https://bobine.fit/en/securite and https://github.com/FantasmaGlad/Bobine/blob/main/SECURITY.md
+- Full policy: https://bobine.fit/en/security and https://github.com/FantasmaGlad/Bobine/blob/main/SECURITY.md
 - Revoked key (do not use): 8208 FFD3 F7AB 4DD3 6B0A CDD8 4726 A378 F683 265A, revoked 2026-10-07.
 
 ## Author

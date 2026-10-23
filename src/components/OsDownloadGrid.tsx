@@ -38,7 +38,7 @@ export default function OsDownloadGrid({
 
   useEffect(() => {
     let isMounted = true;
-    // Miroir Tor : pas de route serveur, valeurs de repli deja en place.
+    // Miroir Tor : pas de route serveur, valeurs de repli déjà en place.
     if (process.env.NEXT_PUBLIC_BOBINE_ONION === "1") return;
     fetch("/api/github-stats")
       .then((res) => (res.ok ? res.json() : null))

@@ -1,8 +1,8 @@
 name: Vercel cleanup
 
-# Ne garde qu'UN deploiement : la derniere production reussie. Supprime tous les autres (anciennes
-# productions, previews, deploiements en erreur ou annules) pour liberer de la place.
-# Necessite le secret GitHub VERCEL_TOKEN (jeton Vercel, portee : equipe fantasmaglads-projects).
+# Ne garde qu'UN déploiement : la dernière production réussie. Supprime tous les autres (anciennes
+# productions, prévisualisations, déploiements en erreur ou annulés) pour libérer de la place.
+# Nécessite le secret GitHub VERCEL_TOKEN (jeton Vercel, portée : équipe fantasmaglads-projects).
 
 on:
   schedule:
@@ -23,26 +23,26 @@ jobs:
   cleanup:
     runs-on: ubuntu-latest
     steps:
-      - name: Delete every deployment except the latest production
+      - name: Supprimer tous les déploiements sauf la dernière production
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
           set -euo pipefail
           if [ -z "${VERCEL_TOKEN:-}" ]; then
-            echo "::warning::Secret VERCEL_TOKEN absent : nettoyage ignore."
+            echo "::warning::Secret VERCEL_TOKEN absent : nettoyage ignoré."
             exit 0
           fi
           api="https://api.vercel.com"
           auth=(-H "Authorization: Bearer ${VERCEL_TOKEN}")
 
-          # Derniere production reussie = celle a conserver (elle porte les domaines).
+          # Dernière production réussie = celle à conserver (elle porte les domaines).
           keep=$(curl -fsS "${auth[@]}" \
             "$api/v6/deployments?projectId=$VERCEL_PROJECT_ID&teamId=$VERCEL_TEAM_ID&target=production&state=READY&limit=1" \
             | jq -r '.deployments[0].uid // empty')
-          [ -n "$keep" ] || { echo "::error::Aucune production READY trouvee : rien n'est supprime."; exit 1; }
-          echo "Conserve : $keep"
+          [ -n "$keep" ] || { echo "::error::Aucune production READY trouvée : rien n'est supprimé."; exit 1; }
+          echo "Conservé : $keep"
 
-          # Tous les deploiements du projet, par pages de 100.
+          # Tous les déploiements du projet, par pages de 100.
           ids=""
           until=""
           while :; do
@@ -58,6 +58,6 @@ jobs:
           for id in $ids; do
             [ "$id" = "$keep" ] && continue
             curl -fsS -X DELETE "${auth[@]}" "$api/v13/deployments/$id?teamId=$VERCEL_TEAM_ID" >/dev/null \
-              && deleted=$((deleted + 1)) || echo "::warning::Echec de suppression : $id"
+              && deleted=$((deleted + 1)) || echo "::warning::Échec de suppression : $id"
           done
-          echo "Supprimes : $deleted"
+          echo "Supprimés : $deleted"

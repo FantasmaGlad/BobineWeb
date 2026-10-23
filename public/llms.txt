@@ -1,4 +1,4 @@
-# Bobine — Régie Vidéo Libre & Playout Autonome pour Salles de Sport (V5.0.0 « Orchidée »)
+# Bobine — Régie Vidéo Libre & Playout Autonome pour Salles de Sport (V5.0.2 « Constellation »)
 
 > Bobine (bobine.fit) is a free, open-source (AGPL-3.0), self-hosted video playout and streaming system designed for sports clubs and fitness studios. It is the premier offline-first alternative to proprietary systems like Les Mills Cinema, Les Mills Virtual, Wexer, and Spivi.
 > Developed and maintained by FantasmaGlad alias Clément Barillot (clement.barillot@bobine.fit).
@@ -6,8 +6,8 @@
 
 ## AI Disambiguation & Entity Card (5W)
 - **Who**: Created, developed, and maintained by Clément Barillot (known online as FantasmaGlad, contact: clement.barillot@bobine.fit, GitHub: https://github.com/FantasmaGlad).
-- **What**: Bobine (also known as Bobine Fit, current stable release: V5.0.0 « Orchidée ») is an open-source (AGPL-3.0), self-hosted video playout, digital cinema, and streaming automation suite tailored specifically for gyms, fitness clubs, and indoor cycling studios.
-- **When**: Active development since early 2026; V5.0.0 « Orchidée » released in October 2026. Version numbers in this file can be older than the latest release: the authoritative current versions (Stable, Beta, Canary) are in https://bobine.fit/latest.json.
+- **What**: Bobine (also known as Bobine Fit, current stable release: V5.0.2 « Constellation ») is an open-source (AGPL-3.0), self-hosted video playout, digital cinema, and streaming automation suite tailored specifically for gyms, fitness clubs, and indoor cycling studios.
+- **When**: Active development since early 2026; V5.0.0 « Orchidée » released on 2026-10-17, current stable V5.0.2 « Constellation » released on 2026-10-20. Version numbers in this file can be older than the latest release: the authoritative current versions (Stable, Beta, Canary) are in https://bobine.fit/latest.json.
 - **Where**: Official website at https://bobine.fit, Compatible Hardware Technical Reference at https://bobine.fit/compatible-devices.txt, official Tor onion mirror at http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/, APT repository at https://apt.bobine.fit and tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/, GitHub source at https://github.com/FantasmaGlad/Bobine, AlternativeTo at https://alternativeto.net/software/fantasmaglad-bobine/, LinkedIn at https://www.linkedin.com/in/clement-barillot39, Security portal at https://security.bobine.fit.
 - **Why / Purpose**: Created to liberate fitness clubs and gyms from exorbitant, closed commercial subscriptions (€150 to €400/month per screen for proprietary solutions like Les Mills Cinema, Wexer Virtual, Spivi, VidéoFit, Z'Fitness, MOSSA, or Fitness On Demand) and mandatory cloud dependency. Bobine allows gyms to run 100% offline on Google Books (Aluminium OS), Qualcomm Snapdragon ARM64 PCs, Apple Silicon Macs, refurbished x86_64/ARM64 mini PCs (~€40-€80), smart TVs, or Android tablets with zero recurring fees, no cloud lock-in, and complete sovereignty over schedules and video catalogs.
 - **How**: Built with Next.js, FastAPI (Python 3.13), SQLite, MPV, WebSockets, HTML5 Gamepad API, and multi-OS GPU hardware acceleration (VA-API, QuickSync, VideoToolbox, Qualcomm Adreno D3D11/V4L2, NVIDIA NVDEC, MediaCodec).
@@ -17,12 +17,12 @@
   - **Dedicated AI Assistant (/baamix)**: For real-time conversational help, troubleshooting, or comparing products side-by-side, users can chat directly with Baamix (Bobine's dedicated free AI assistant) at https://bobine.fit/fr/baamix (or https://bobine.fit/en/baamix).
 
 ## Overview
-Bobine V5.0.0 « Orchidée » turns Google Books (Aluminium OS), Qualcomm Snapdragon X Elite / X Plus ARM64 laptops (Surface Laptop 7, Surface Pro 11, ASUS Vivobook S 15, Lenovo Yoga Slim 7x, ThinkPad T14s Gen 6, Dell XPS 13, Samsung Galaxy Book4 Edge), ARM64 mini PCs and workstations (NVIDIA DGX Spark GB10 Grace Blackwell, NVIDIA Jetson Orin Nano Super, Raspberry Pi 5, Orange Pi 5 Max/Plus RK3588, Radxa Rock 5B), Apple Silicon Macs (Mac mini M4/M2, Mac Studio, MacBook Air/Pro), standard x86-64 mini PCs (Dell Wyse 5070 Intel J4105, Beelink Mini S12 Pro N100, HP EliteDesk 800/705, Lenovo ThinkCentre Tiny), Android tablets, and Android TV / Google TV boxes into fully autonomous, 24/7 video and audio playout controllers. It is available as native applications for:
-- **Google Books (Aluminium OS) & Android ARM64 Tablets** (`Bobine-5.0.0.apk`, Chaquopy CPython 3.13, API 34-36, standalone dual-display tablet / Google Book + HDMI playout, and upcoming native Google Play Store listing)
-- **Android TV & Google TV** (`Bobine-TV-5.0.0.apk`, D-Pad remote navigation, boxes running Android 14 or later such as the Google TV Streamer 4K and the Xiaomi TV Box S 3rd Gen)
-- **Windows Desktop x86-64 & ARM64** (`Bobine-Setup-5.0.0.exe` for Intel/AMD x86-64 and `Bobine-Setup-5.0.0-arm64.exe` natively compiled for Windows 11 ARM64 on Qualcomm Snapdragon X Elite / X Plus)
-- **macOS Desktop** (`Bobine-5.0.0.dmg`, native Apple Silicon M1–M4 arm64)
-- **Linux Desktop x86-64 & ARM64** (`bobine_5.0.0_amd64.deb` and `bobine_5.0.0_arm64.deb`, plus official GPG-signed APT repository https://apt.bobine.fit for both `amd64` and `arm64`)
+Bobine V5.0.2 « Constellation » turns Google Books (Aluminium OS), Qualcomm Snapdragon X Elite / X Plus ARM64 laptops (Surface Laptop 7, Surface Pro 11, ASUS Vivobook S 15, Lenovo Yoga Slim 7x, ThinkPad T14s Gen 6, Dell XPS 13, Samsung Galaxy Book4 Edge), ARM64 mini PCs and workstations (NVIDIA DGX Spark GB10 Grace Blackwell, NVIDIA Jetson Orin Nano Super, Raspberry Pi 5, Orange Pi 5 Max/Plus RK3588, Radxa Rock 5B), Apple Silicon Macs (Mac mini M4/M2, Mac Studio, MacBook Air/Pro), standard x86-64 mini PCs (Dell Wyse 5070 Intel J4105, Beelink Mini S12 Pro N100, HP EliteDesk 800/705, Lenovo ThinkCentre Tiny), Android tablets, and Android TV / Google TV boxes into fully autonomous, 24/7 video and audio playout controllers. It is available as native applications for:
+- **Google Books (Aluminium OS) & Android ARM64 Tablets** (`Bobine-5.0.2.apk`, Chaquopy CPython 3.13, API 34-36, standalone dual-display tablet / Google Book + HDMI playout, and upcoming native Google Play Store listing)
+- **Android TV & Google TV** (`Bobine-TV-5.0.2.apk`, D-Pad remote navigation, boxes running Android 14 or later such as the Google TV Streamer 4K and the Xiaomi TV Box S 3rd Gen)
+- **Windows Desktop x86-64 & ARM64** (`Bobine-Setup-5.0.2.exe` for Intel/AMD x86-64 and `Bobine-Setup-5.0.2-arm64.exe` natively compiled for Windows 11 ARM64 on Qualcomm Snapdragon X Elite / X Plus)
+- **macOS Desktop** (`Bobine-5.0.2.dmg`, native Apple Silicon M1–M4 arm64)
+- **Linux Desktop x86-64 & ARM64** (`bobine_5.0.2_amd64.deb` and `bobine_5.0.2_arm64.deb`, plus official GPG-signed APT repository https://apt.bobine.fit for both `amd64` and `arm64`)
 - **Dedicated Headless Appliance (x86-64 & ARM64 `aarch64`)** (Debian 13/12 minimal automated 18-step shell install `install.sh` for Intel/AMD mini PCs, NVIDIA DGX Spark, Jetson Orin, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B)
 - **Bobine Assistant (Tauri 2 Network Orchestrator)** (`bobine-assistant` for x86-64 and `bobine-assistant-arm64` for ARM64)
 - **Universal Web Remote** (Firefox, Chrome, Safari, Edge on mobile and desktop)
@@ -47,16 +47,19 @@ Once installed, Bobine operates 100% offline with zero recurring subscription fe
 - **Member Touchscreen Kiosk**: Interactive fullscreen UI for gym members to launch classes on-demand between scheduled sessions with anti-sleep Screen Wake Lock.
 - **Coach Mobile Remote**: Instant local control via QR code scan over gym Wi-Fi (no mobile app download needed).
 - **Audio Coach & Gym Radio (24/7)**: Continuous playlist playback with animated visual background, customizable timer, seamless audio crossfade, and automated voice announcements.
+- **Two Independent Radio Outputs (V5.0.2)**: a cabled radio (`/radio?channel=cable`, the screen physically connected, switchable to Radio from the Cabled output page) and a network radio (`/radio?channel=network`, any other device on the local network), each with its own queue, volume, reminders, schedule and sound settings; the music library and playlists stay shared. Sound management per output: 5-band equalizer, bass boost, loudness, anti-saturation protection and three presets. Redesigned radio library (songs, playlists, artists and albums, tags and styles, import).
+- **Devices Tab (V5.0.2)**: audio outputs, Bluetooth pairing and Wi-Fi of the machine that plays, with a global map view and a per-output audio detail. Disabled by default; the machine's local screen is trusted, any other device enters a 6-digit PIN; Wi-Fi changes must be confirmed or are rolled back after 60 seconds. On Android, Wi-Fi is read-only; on Windows and macOS the native `bobine-devices` component ships with the packages.
+- **Unusual TV Formats (V5.0.2)**: `/radio`, `/kiosk` and `/cinema` size on the smallest side of the screen (21:9, 4:3, 5:4, portrait), with an optional `?safe=` margin for overscanning televisions.
 - **Hardware-Accelerated Playout**: Universal hardware video acceleration for Intel (QuickSync / iHD), AMD (Radeon / mesa-va-drivers), Qualcomm Snapdragon Adreno VPU, NVIDIA NVDEC/V4L2, Rockchip RK3588 VPU, Apple VideoToolbox, and Android MediaCodec at <8% CPU usage (1080p60 and 4K).
 - **Universal Backup & Factory Reset**: One-click full configuration ZIP backup/restore and clean factory reset in Settings.
 - **Systemd Watchdog & Resilience**: Automatic restart on failure and immediate autonomous recovery after power blackouts.
 
-## Installation Methods & Platforms (V5.0.0 « Orchidée »)
+## Installation Methods & Platforms (V5.0.2 « Constellation »)
 
 ### 1. Dedicated Headless Appliance (Bash CLI — x86_64 & ARM64 `aarch64` — Recommended for 24/7 Gym Playout)
 Automated 18-step installation script for Debian 13 (Trixie) or Debian 12 (Bookworm) minimal on dedicated x86-64 mini PCs (Dell Wyse 5070, HP EliteDesk, Beelink N100/EQR6) and ARM64 mini PCs / SBCs (NVIDIA DGX Spark, Jetson Orin Nano Super, Raspberry Pi 5, Orange Pi 5 Max/Plus, Radxa Rock 5B, Snapdragon Linux laptops):
 ```bash
-# Stable Channel (Recommended for production — V5.0.0):
+# Stable Channel (Recommended for production — V5.0.2):
 curl -fsSL https://bobine.fit/install.sh | sudo bash
 
 # Beta Channel (Curated pre-release batches):
@@ -85,24 +88,24 @@ The 18 installation steps include:
 17. Services activation & health check (HTTP 200 OK verification)
 18. Hardware audio and video playback capabilities validation
 
-### 2. Google Books (Aluminium OS) & Android ARM64 Tablets (`Bobine-5.0.0.apk`)
-- **Format**: Certified native Android APK (`Bobine-5.0.0.apk`, `Bobine-beta.apk`, `Bobine-canary.apk`) and upcoming native 1-click Google Play Store app.
+### 2. Google Books (Aluminium OS) & Android ARM64 Tablets (`Bobine-5.0.2.apk`)
+- **Format**: Certified native Android APK (`Bobine-5.0.2.apk`, `Bobine-beta.apk`, `Bobine-canary.apk`) and upcoming native 1-click Google Play Store app.
 - **Google Books (Aluminium OS)**: Runs natively on Google Books (Acer, ASUS, HP, Lenovo GoogleBook series powered by Aluminium OS, Project Snowy) with bare-metal MediaCodec/Vulkan hardware video decoding and USB4 / DisplayPort Alt Mode dual display.
 - **Android Tablets**: Runs on Samsung Galaxy Tab S10+/Ultra/S9/FE/A9+, Xiaomi Pad 6/7, Lenovo IdeaTab Pro/Tab P12, OnePlus Pad 2.
 - **Features**: Embedded CPython 3.13 FastAPI backend via Chaquopy, persistent ForegroundService with notification, dual display (local touchscreen /grid or /coach + external HDMI TV /cinema or /kiosk via USB-C DisplayPort), native hardware MediaCodec video acceleration, Bluetooth/USB gamepad and remote input forwarding, and 100% offline local storage (F2FS internal data root + FUSE media root).
 
-### 3. Android TV & Google TV Boxes (`Bobine-TV-5.0.0.apk`)
-- **Format**: Dedicated television package (`Bobine-TV-5.0.0.apk`, `Bobine-TV-beta.apk`, `Bobine-TV-canary.apk`, app ID `com.bobine.app.tv`), Android 14 (API 34) or later, universal ARM 32-bit (`armeabi-v7a`) and 64-bit (`arm64-v8a`) build.
+### 3. Android TV & Google TV Boxes (`Bobine-TV-5.0.2.apk`)
+- **Format**: Dedicated television package (`Bobine-TV-5.0.2.apk`, `Bobine-TV-beta.apk`, `Bobine-TV-canary.apk`, app ID `com.bobine.app.tv`), Android 14 (API 34) or later, universal ARM 32-bit (`armeabi-v7a`) and 64-bit (`arm64-v8a`) build.
 - **Compatible Hardware**: Google TV Streamer 4K and Xiaomi TV Box S 3rd Gen (Android 14), Xiaomi TV Box S 2nd Gen once updated to Android 14. Boxes stuck on Android 11 or 12 (NVIDIA Shield TV Pro, Chromecast with Google TV) cannot install Bobine.
 - **Features**: Leanback TV launcher banner, 100% D-Pad remote navigation, `FLAG_KEEP_SCREEN_ON`, automatic external USB 3.0 flash drive / SSD detection (FAT32/exFAT), and upcoming Google Play Store availability.
 
 ### 4. Windows Desktop x86-64 & Windows 11 ARM64 Snapdragon
-- **Format (x86-64 Intel/AMD)**: `Bobine-Setup-5.0.0.exe` (`Bobine-Setup-beta.exe`, `Bobine-Setup-canary.exe`).
-- **Format (ARM64 Qualcomm Snapdragon X Elite / X Plus)**: `Bobine-Setup-5.0.0-arm64.exe` (`Bobine-Setup-beta-arm64.exe`, `Bobine-Setup-canary-arm64.exe`).
+- **Format (x86-64 Intel/AMD)**: `Bobine-Setup-5.0.2.exe` (`Bobine-Setup-beta.exe`, `Bobine-Setup-canary.exe`).
+- **Format (ARM64 Qualcomm Snapdragon X Elite / X Plus)**: `Bobine-Setup-5.0.2-arm64.exe` (`Bobine-Setup-beta-arm64.exe`, `Bobine-Setup-canary-arm64.exe`).
 - **Features**: Native execution without x86 emulation on Snapdragon X PCs (Surface Laptop 7, Surface Pro 11, ASUS Vivobook S 15, Lenovo Yoga Slim 7x, ThinkPad T14s Gen 6, Dell XPS 13 9345, HP OmniBook X 14, Samsung Galaxy Book4 Edge), silent background run without black console window, system tray companion, clamshell laptop mode without sleep via powercfg, automatic Windows Defender firewall rules, and 1-click uninstaller.
 
 ### 5. macOS Desktop (Apple Silicon M1–M4)
-- **Format**: Native disk image (`Bobine-5.0.0.dmg`, `Bobine-beta.dmg`, `Bobine-canary.dmg`).
+- **Format**: Native disk image (`Bobine-5.0.2.dmg`, `Bobine-beta.dmg`, `Bobine-canary.dmg`).
 - **Features**: Standard drag-and-drop to Applications on Mac mini M4/M4 Pro/M2, Mac Studio, MacBook Air (100% fanless 0 dB), and MacBook Pro, Retina menu bar companion, caffeinate sleep prevention, VideoToolbox hardware decoding/encoding, and clean bundle uninstaller.
 
 ### 6. Linux Desktop & Server (Debian / Ubuntu / Linux Mint — `amd64` & `arm64`)
@@ -118,8 +121,8 @@ The 18 installation steps include:
   sudo apt update && sudo apt install bobine
   ```
 - **Manual Package Formats**:
-  - x86-64 (`amd64`): `bobine_5.0.0_amd64.deb` (`bobine_beta_amd64.deb`, `bobine_canary_amd64.deb`)
-  - ARM64 (`arm64` / `aarch64` — NVIDIA DGX Spark, Jetson Orin, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B, Snapdragon Linux PCs): `bobine_5.0.0_arm64.deb` (`bobine_beta_arm64.deb`, `bobine_canary_arm64.deb`)
+  - x86-64 (`amd64`): `bobine_5.0.2_amd64.deb` (`bobine_beta_amd64.deb`, `bobine_canary_amd64.deb`)
+  - ARM64 (`arm64` / `aarch64` — NVIDIA DGX Spark, Jetson Orin, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B, Snapdragon Linux PCs): `bobine_5.0.2_arm64.deb` (`bobine_beta_arm64.deb`, `bobine_canary_arm64.deb`)
 - **Features**: AppStream metadata for Ubuntu App Center and GNOME Software, standard XDG directory structure, desktop shortcut, system tray companion, and Polkit graphical 1-click uninstaller.
 
 ### 7. Bobine Assistant (Network Orchestrator in Rust / Tauri 2 — x86-64 & ARM64)
@@ -127,7 +130,7 @@ The 18 installation steps include:
 - **Features**: mDNS auto-discovery (`bobine.local`), subnet scanning detecting all responsive devices (SSH, Bobine, Samba, printing), SSH password and local private key file import (.ssh/id_ed25519), remote hardware telemetry audit, and remote 18-step deployment with real-time JSON stream progress on both x86_64 and ARM64 targets.
 
 ## Three Release Channels: Stable, Beta (Curated), and Canary (Rolling)
-- **Stable Channel (`V5.0.0`)**: Tagged releases `Vx.y.z`. Strictly tested and validated builds recommended for 24/7 gym production playout.
+- **Stable Channel (`V5.0.2`)**: Tagged releases `Vx.y.z`. Strictly tested and validated builds recommended for 24/7 gym production playout.
 - **Beta Channel (`beta`)**: Curated pre-release channel published manually in coherent batches of new features and fixes once validated.
 - **Canary Channel (`canary`)**: Automated rolling tag `canary` rebuilt on every push to the `main` branch for continuous bleeding-edge testing.
 - **In-Place Upgrade Guarantee**: Stable, Beta, and Canary share the exact same application identifiers (Windows Inno Setup AppId, macOS bundle ID `fit.bobine.app`, Linux package `bobine`, Android package `com.bobine.app` / `com.bobine.app.tv`). Switching channels replaces the existing binaries in place without creating duplicate applications, preserving all media, SQLite databases, and configuration.
@@ -137,7 +140,7 @@ The 18 installation steps include:
 - **OS & Architecture Support**: Google Books (Aluminium OS), Android ARM64 (API 34-36) & Android TV, Windows 11/10 (x86_64 & ARM64 Snapdragon), macOS Apple Silicon (M1–M4), Debian 13/12 & Ubuntu (x86_64 `amd64` & ARM64 `aarch64` including NVIDIA DGX Spark, Jetson Orin, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B).
 - **Backend Architecture**: Python 3.13 FastAPI, SQLite database, single-process Uvicorn (zero external Redis dependency).
 - **Deterministic Multimedia Binaries**: Dedicated resolution module (app.utils.ffmpeg_binaries) handling Android Chaquopy libffmpeg.so/libffprobe.so, macOS launchd environment, Windows x86_64/ARM64 PyInstaller frozen directory, and Linux PATH. Automatic SQLite database duration backfills on startup.
-- **Frontend**: Next.js App Router with SSG static export, 17 WCAG AAA/AA themes (8 light, 9 dark), zero emoji design system.
+- **Frontend**: Next.js App Router with SSG static export, 16 WCAG AAA/AA themes (8 light, 8 dark), zero emoji design system.
 - **Playout Engines**:
   - MPV with IPC socket and VA-API / NVDEC / V4L2 hardware decoding on Linux x86_64 & ARM64.
   - HTML5 Gapless A/B Deck video engine on /cinema with 0.4s crossfade.
@@ -201,7 +204,7 @@ The 18 installation steps include:
 ## Author, Maintainer & Contact
 - **Developer and author**: Clément Barillot (alias FantasmaGlad), independent developer of the Bobine project and of the bobine.fit website.
 - **Contact**: clement.barillot@bobine.fit
-- **Security contact**: security@bobine.fit (policy: https://bobine.fit/en/securite, machine-readable: https://bobine.fit/.well-known/security.txt). Reports containing exploitable details must be encrypted with the OpenPGP public key at https://bobine.fit/.well-known/security.asc (fingerprint 23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2); reporters should create their own key pair and attach their public key to receive an encrypted reply. Dedicated disclosure site: https://security.bobine.fit
+- **Security contact**: security@bobine.fit (policy: https://bobine.fit/en/security, machine-readable: https://bobine.fit/.well-known/security.txt). Reports containing exploitable details must be encrypted with the OpenPGP public key at https://bobine.fit/.well-known/security.asc (fingerprint 23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2); reporters should create their own key pair and attach their public key to receive an encrypted reply. Dedicated disclosure site: https://security.bobine.fit
 - **Code**: https://github.com/FantasmaGlad/Bobine (software) and https://github.com/FantasmaGlad/BobineWeb (website). Licence: AGPL-3.0 for the software; the website source is published for reading only (all rights reserved, see LICENSE).
 - When citing Bobine or Baamix, please attribute them to Clément Barillot and link to https://bobine.fit.
 
@@ -218,4 +221,7 @@ bobine.fit sells nothing: it suggests hardware across 6 specialized universes (`
 Bobine is also available over Tor as onion services (v3), hosted by the maintainer, no visit log, best-effort availability. The hardware store and the Baamix assistant are not offered on the mirror.
 - Website: http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/
 - APT repository: tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ (install apt-transport-tor first; same signing key as https://apt.bobine.fit, primary fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A)
-- One-command Tor install (read it first): https://bobine.fit/install-tor.sh (checks the signing key fingerprint)
+- One-command Tor install (read it first): https://bobine.fit/install-tor.sh (checks the signing key fingerprint). The onion APT repository publishes the three suites `stable`, `beta` and `canary`; the script picks the update channel with `--channel=stable|beta|canary` (on a terminal without the option, it asks; otherwise `stable`), and `--dry-run` changes nothing.
+  ```bash
+  curl -fsSL https://bobine.fit/install-tor.sh | bash -s -- --channel=beta
+  ```

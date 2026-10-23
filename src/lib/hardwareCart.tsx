@@ -16,15 +16,15 @@ export interface CartItem {
   amazonUrl: string;
 }
 
-// Cle de stockage local : le panier reste prive au navigateur du visiteur,
-// jamais transmis a un serveur (coherent avec la politique zero-tracking du
-// site) - seul son CONTENU est envoye a l'API de chat pour que Baamix puisse
-// conseiller sur des achats deja selectionnes, jamais persiste cote serveur.
+// Clé de stockage local : le panier reste privé au navigateur du visiteur,
+// jamais transmis à un serveur (cohérent avec la politique zéro-tracking du
+// site) - seul son CONTENU est envoyé à l'API de chat pour que Baamix puisse
+// conseiller sur des achats déjà sélectionnés, jamais persisté côté serveur.
 const STORAGE_KEY = "bobine-hardware-cart-v1";
 
-// Evenement local diffuse a chaque ecriture, pour que tout composant monte
-// n'importe ou sur le site (le widget panier sur /materiel, le chatbot
-// Baamix affiche globalement) reste synchronise sans dependre d'un Provider
+// Évènement local diffusé à chaque écriture, pour que tout composant monté
+// n'importe où sur le site (le widget panier sur /materiel, le chatbot
+// Baamix affiché globalement) reste synchronisé sans dépendre d'un Provider
 // React unique - important car Baamix vit dans le layout racine, hors de la
 // page /materiel.
 const CART_EVENT = "bobine-cart-changed";
@@ -52,7 +52,7 @@ function writeCart(items: CartItem[]): CartItem[] {
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   } catch {
-    // stockage plein ou indisponible (navigation privee) : on ignore silencieusement
+    // stockage plein ou indisponible (navigation privée) : on ignore silencieusement
   }
   window.dispatchEvent(new CustomEvent(CART_EVENT));
   return items;
@@ -81,9 +81,9 @@ export function clearCartStorage(): CartItem[] {
 }
 
 /**
- * Hook reactif utilisable depuis n'importe quel composant client, sans
+ * Hook réactif utilisable depuis n'importe quel composant client, sans
  * Provider : se resynchronise sur tout changement local (autre composant,
- * Baamix qui ajoute un produit) ou distant (autre onglet, via l'evenement
+ * Baamix qui ajoute un produit) ou distant (autre onglet, via l'évènement
  * navigateur "storage").
  */
 export function useHardwareCart() {

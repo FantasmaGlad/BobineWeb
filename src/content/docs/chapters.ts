@@ -60,7 +60,7 @@ const fr: DocChapter[] = [
         deviceImage: "windows",
       },
       {
-        subtitle: "2.2 macOS Apple Silicon (M1 à M4) & Intel",
+        subtitle: "2.2 macOS Apple Silicon (M1 à M4)",
         paragraphs: [
           "Image disque Bobine-x.y.z.dmg : glisser-déposer dans Applications, menu discret dans la barre supérieure, prévention de veille native caffeinate et accélération matérielle VideoToolbox.",
           "Matériel de référence testé : Mac Mini Apple Silicon en régie dédiée, ou MacBook du coach exploité fermé (mode clamshell) via un hub ou dock USB-C.",
@@ -81,6 +81,7 @@ const fr: DocChapter[] = [
         subtitle: "2.3 bis Linux via le réseau Tor (.onion)",
         paragraphs: [
           "Pour installer et mettre à jour Bobine sans révéler votre adresse IP, le dépôt APT est aussi proposé en service onion (réseau Tor). C'est une copie miroir du dépôt officiel : les paquets restent signés par la même clé, et apt refuse tout paquet dont la signature ne correspond pas.",
+          "Le script https://bobine.fit/install-tor.sh (à lire avant de l'exécuter) fait ces étapes à votre place et s'arrête si l'empreinte de la clé diffère de celle publiée. Le dépôt onion publie les trois suites, stable, beta et canary : l'option --channel=stable|beta|canary choisit le canal de mise à jour (sans l'option, le script pose la question sur un terminal et prend stable sinon), et --dry-run n'installe rien. Les commandes ci-dessous sont la version manuelle, sur le canal stable ; remplacez le dernier mot de la ligne deb par beta ou canary pour suivre un autre canal.",
           "Comparez l'empreinte de la clé principale avec celle de https://apt.bobine.fit/bobine.gpg : B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A.",
           "Le site est également consultable dans Tor Browser (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/). La boutique matériel et l'assistant Baamix n'y sont pas proposés : ils reposent sur des liens d'affiliation et des services tiers. J'héberge ce miroir moi-même, sans journal de visite, avec une disponibilité au mieux. En soutien à la communauté du libre, découvrez le projet Tor : https://www.torproject.org/ (code source : https://github.com/torproject/tor).",
         ],
@@ -128,7 +129,7 @@ const fr: DocChapter[] = [
         subtitle: "2.7 Canaux de version : Stable, Bêta ou Canary",
         paragraphs: [
           "Bobine propose trois canaux de mise à jour : le canal Stable (recommandé en production de salle, tags Vx.y.z stricts), le canal Bêta (lots de fonctionnalités/correctifs que je curate et publie manuellement) et le canal Canary (rolling sur tag mobile canary, reconstruit automatiquement à chaque push sur main, zéro curation).",
-          "Sur tous les OS, Bêta et Canary partagent les mêmes identifiants applicatifs et s'installent par-dessus la version existante sans créer de doublon ni affecter les bases de données ou médias. Le choix s'effectue dans Réglages → Mises à jour logicielles ou via le paramètre CLI :",
+          "Sur tous les OS, Bêta et Canary partagent les mêmes identifiants applicatifs et s'installent par-dessus la version existante sans créer de doublon ni affecter les bases de données ou médias. Le choix s'effectue dans Réglages → Mises à jour logicielles ou via le paramètre CLI (l'installeur Tor, install-tor.sh, accepte la même option --channel et pose la question sur un terminal quand elle est absente) :",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta   # ou --channel=canary",
         deviceImage: "channels",
@@ -192,6 +193,7 @@ const fr: DocChapter[] = [
         subtitle: "3.6 Radio d'ambiance 24/7 & alertes vocales",
         paragraphs: [
           "Diffusion musicale continue hors séance avec fondu enchaîné sans blanc sonore (Web Audio API) et alertes vocales de sécurité ou d'horaires programmables.",
+          "Depuis la 5.0.2, la radio compte deux sorties indépendantes : la radio câblée (/radio?channel=cable), jouée sur l'écran physiquement connecté une fois celui-ci basculé sur Radio depuis la page Sortie Câblé, et la radio réseau (/radio?channel=network), pour tout autre appareil du réseau local (/radio seul reste un alias de la radio réseau). Chaque sortie a sa file d'attente, son volume, ses rappels, son planning et ses réglages du son (égaliseur 5 bandes, renfort des basses, loudness, protection anti-saturation, trois préréglages) ; la bibliothèque musicale et les playlists restent communes.",
         ],
       },
       {
@@ -216,6 +218,14 @@ const fr: DocChapter[] = [
           "Sur téléphone, l'administration adopte une mise en page dédiée. Le bloc « En cours » est un widget en verre dépoli avec la miniature, le titre, la durée, la progression et les commandes à portée de pouce.",
           "« Lancer un cours » ouvre une feuille plein écran avec trois onglets (Cours, Playlists, Fonds), une recherche instantanée et un aperçu (miniature, durée, description) avant le lancement, comme sur ordinateur. Les listes déroulantes de plus de quelques éléments (bibliothèque, planning, playlists, journaux) s'ouvrent en feuille avec recherche au lieu du sélecteur natif.",
           "L'adresse affichée en haut de l'administration est celle du réseau Wi-Fi ou Ethernet de l'appareil (les interfaces VPN, conteneurs et réseau mobile sont écartées), et la liste complète des adresses joignables figure dans Réglages. Sur Android, l'adresse est lue directement auprès du système.",
+        ],
+      },
+      {
+        subtitle: "3.10 Périphériques : audio, Bluetooth et Wi-Fi (5.0.2)",
+        paragraphs: [
+          "L'entrée Périphériques regroupe les sorties audio, le Bluetooth et le Wi-Fi de la machine qui diffuse. Le premier onglet est une vue globale en carte (la machine au centre, ses connexions autour : sorties audio, appareils Bluetooth, réseau, écrans et télécommandes Bobine connectés) ; un clic sur une sortie audio ouvre son détail (niveau, balance, son de test, analyse, profil, nom personnalisé, masquage).",
+          "La fonction est désactivée par défaut. L'écran local de la machine est de confiance ; tout autre appareil saisit un code PIN à 6 chiffres défini depuis l'écran local (jamais stocké en clair, session de 15 minutes, blocage temporaire après 5 essais). Toute modification du Wi-Fi est à confirmer : sans confirmation sous 60 secondes, l'ancien réseau est rétabli. Le réseau local étant en HTTP, le PIN y circule en clair : il se saisit sur un réseau de confiance.",
+          "Selon le système : Linux (bureau et appliance) gère tout via PipeWire, BlueZ et NetworkManager ; Android gère les sorties audio et le volume, le Bluetooth, et affiche l'état du Wi-Fi en lecture seule avec un accès aux réglages d'Android ; sous Windows et macOS, le composant natif bobine-devices est embarqué avec les paquets.",
         ],
       },
     ],
@@ -397,7 +407,7 @@ const fr: DocChapter[] = [
         paragraphs: [
           "Chaque nouvelle version est publiée sur GitHub Releases (github.com/FantasmaGlad/Bobine/releases) avec son changelog détaillé, ses binaires signés pour les 5 systèmes d'exploitation, et son SHA-256 de vérification d'intégrité.",
           "Trois canaux permettent de suivre l'avancement du projet : le canal Stable (tags Vx.y.z figés, recommandé en production de salle), le canal Bêta (lots de fonctionnalités/correctifs curés, publiés manuellement) et le canal Canary (rolling, reconstruit automatiquement à chaque évolution du code sur la branche principale, pour les clubs souhaitant tester les toutes dernières modifications sans attendre un lot).",
-          "Le dépôt APT officiel (apt.bobine.fit) reflète les trois canaux dans ses distributions stable, beta et canary, permettant une mise à jour automatique via apt upgrade sans réinstallation manuelle.",
+          "Le dépôt APT officiel (apt.bobine.fit) reflète les trois canaux dans ses distributions stable, beta et canary, permettant une mise à jour automatique via apt upgrade sans réinstallation manuelle. Le dépôt APT du miroir Tor (.onion) publie les mêmes trois suites.",
         ],
       },
       {
@@ -471,7 +481,7 @@ const en: DocChapter[] = [
         deviceImage: "windows",
       },
       {
-        subtitle: "2.2 macOS Apple Silicon (M1 to M4) & Intel",
+        subtitle: "2.2 macOS Apple Silicon (M1 to M4)",
         paragraphs: [
           "Bobine-x.y.z.dmg disk image: drag-and-drop into Applications, discreet menu bar icon, native caffeinate sleep prevention, and VideoToolbox hardware acceleration.",
           "Reference hardware tested: a dedicated Apple Silicon Mac Mini, or the coach's MacBook run closed (clamshell mode) through a USB-C hub or dock.",
@@ -492,6 +502,7 @@ const en: DocChapter[] = [
         subtitle: "2.3 bis Linux over the Tor network (.onion)",
         paragraphs: [
           "To install and update Bobine without revealing your IP address, the APT repository is also offered as an onion service (Tor network). It is a mirror of the official repository: packages remain signed by the same key, and apt rejects any package whose signature does not match.",
+          "The https://bobine.fit/install-tor.sh script (read it before running it) performs these steps for you and stops if the key fingerprint differs from the published one. The onion repository publishes all three suites, stable, beta and canary: the --channel=stable|beta|canary option picks the update channel (without it, the script asks on a terminal and falls back to stable otherwise), and --dry-run installs nothing. The commands below are the manual version, on the stable channel; replace the last word of the deb line with beta or canary to follow another channel.",
           "Compare the primary key fingerprint with the one at https://apt.bobine.fit/bobine.gpg: B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A.",
           "The site can also be browsed in Tor Browser (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/). The hardware store and the Baamix assistant are not offered there: they rely on affiliate links and third-party services. I host this mirror myself, keep no visit log, and run it on a best-effort basis. In support of the free-software community, discover the Tor project: https://www.torproject.org/ (source code: https://github.com/torproject/tor).",
         ],
@@ -539,7 +550,7 @@ const en: DocChapter[] = [
         subtitle: "2.7 Release channels: Stable, Beta or Canary",
         paragraphs: [
           "Bobine offers three release channels: the Stable channel (recommended for production gym playout, strict Vx.y.z tags), the Beta channel (batches of features/fixes I curate and publish manually) and the Canary channel (rolling on fixed mobile tag canary, rebuilt automatically on every push to main, zero curation).",
-          "Across all platforms, Beta and Canary share identical application IDs and upgrade existing installations in-place without creating duplicate applications or altering media and databases. Toggle anytime in Settings → Software Updates or via CLI flag:",
+          "Across all platforms, Beta and Canary share identical application IDs and upgrade existing installations in-place without creating duplicate applications or altering media and databases. Toggle anytime in Settings → Software Updates or via CLI flag (the Tor installer, install-tor.sh, accepts the same --channel option and asks on a terminal when it is missing):",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta   # or --channel=canary",
         deviceImage: "channels",
@@ -603,6 +614,7 @@ const en: DocChapter[] = [
         subtitle: "3.6 Background radio 24/7 & voice announcements",
         paragraphs: [
           "Continuous background music across the gym floor with seamless Web Audio crossfading and scheduled spoken announcements (closing time reminders, safety etiquette).",
+          "Since 5.0.2 the radio has two independent outputs: the cabled radio (/radio?channel=cable), played on the physically connected screen once it is switched to Radio from the Cabled Output page, and the network radio (/radio?channel=network), for any other device on the local network (plain /radio remains an alias of the network radio). Each output has its own queue, volume, reminders, schedule and sound settings (5-band equalizer, bass boost, loudness, anti-saturation protection, three presets); the music library and the playlists stay shared.",
         ],
       },
       {
@@ -627,6 +639,14 @@ const en: DocChapter[] = [
           "On a phone the admin switches to a dedicated layout. The \"Now playing\" block is a frosted-glass widget with the thumbnail, title, duration, progress and thumb-friendly controls.",
           "\"Launch a class\" opens a full-screen sheet with three tabs (Classes, Playlists, Backgrounds), instant search and a preview (thumbnail, duration, description) before launch, as on desktop. Drop-down lists with more than a few items (library, schedule, playlists, logs) open as a sheet with search instead of the native picker.",
           "The address shown at the top of the admin is the one of the device's Wi-Fi or Ethernet network (VPN, container and mobile-data interfaces are ignored), and the full list of reachable addresses is in Settings. On Android the address is read directly from the system.",
+        ],
+      },
+      {
+        subtitle: "3.10 Devices: audio, Bluetooth and Wi-Fi (5.0.2)",
+        paragraphs: [
+          "The Devices entry gathers the audio outputs, Bluetooth and Wi-Fi of the machine that plays. The first tab is a global map view (the machine at the centre, its connections around it: audio outputs, Bluetooth devices, network, connected Bobine screens and remotes); clicking an audio output opens its detail (level, balance, test sound, analysis, profile, custom name, hiding).",
+          "The feature is disabled by default. The machine's local screen is trusted; any other device enters a 6-digit PIN set from the local screen (never stored in clear text, 15-minute session, temporary lockout after 5 attempts). Every Wi-Fi change must be confirmed: without confirmation within 60 seconds the previous network is restored. The local network is plain HTTP, so the PIN travels in clear text: enter it on a trusted network.",
+          "Depending on the system: Linux (desktop and appliance) handles everything through PipeWire, BlueZ and NetworkManager; Android handles audio outputs and volume and Bluetooth, and shows the Wi-Fi state read-only with a shortcut to Android's settings; on Windows and macOS the native bobine-devices component ships with the packages.",
         ],
       },
     ],
@@ -808,7 +828,7 @@ const en: DocChapter[] = [
         paragraphs: [
           "Every new version is published on GitHub Releases (github.com/FantasmaGlad/Bobine/releases) with a detailed changelog, signed binaries for all 5 operating systems, and a SHA-256 integrity checksum.",
           "Three channels track the project's progress: the Stable channel (frozen Vx.y.z tags, recommended for production gym playout), the Beta channel (curated batches of features/fixes, published manually) and the Canary channel (rolling, automatically rebuilt on every change to the main branch, for clubs wanting the very latest changes without waiting for a batch).",
-          "The official APT repository (apt.bobine.fit) mirrors all three channels in its stable, beta and canary distributions, enabling automatic updates via apt upgrade with no manual reinstall.",
+          "The official APT repository (apt.bobine.fit) mirrors all three channels in its stable, beta and canary distributions, enabling automatic updates via apt upgrade with no manual reinstall. The APT repository of the Tor mirror (.onion) publishes the same three suites.",
         ],
       },
       {

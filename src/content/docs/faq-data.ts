@@ -108,12 +108,12 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "Quelle est la différence entre les versions Stable, Bêta et Canary ?",
-      a: "La version Stable (ex. Vx.y.z) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La Bêta offre un lot de fonctionnalités/correctifs que je sélectionne et publie manuellement quand il est prêt. La Canary offre un accès anticipé continu, reconstruite automatiquement à chaque commit sur la branche principale, sans curation. Les deux partagent les mêmes identifiants d'application, s'installent par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages → Mises à jour sans perte de données ni de médias.",
+      a: "La version Stable (ex. Vx.y.z) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La Bêta offre un lot de fonctionnalités/correctifs que je sélectionne et publie manuellement quand il est prêt. La Canary offre un accès anticipé continu, reconstruite automatiquement à chaque commit sur la branche principale, sans curation. Les trois canaux partagent les mêmes identifiants d'application, s'installent par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages → Mises à jour sans perte de données ni de médias.",
     },
     {
       category: "updates",
       q: "Comment changer de canal de mise à jour (Stable / Bêta / Canary) sur mon installation ?",
-      a: "Sur le panneau d'administration web, rendez-vous dans Réglages → Mises à jour logicielles et choisissez le canal souhaité. Sur une appliance dédiée CLI, vous pouvez également relancer l'installeur avec l'option --channel=stable, --channel=beta ou --channel=canary (ex : curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta).",
+      a: "Sur le panneau d'administration web, rendez-vous dans Réglages → Mises à jour logicielles et choisissez le canal souhaité. Sur une appliance dédiée CLI, vous pouvez également relancer l'installeur avec l'option --channel=stable, --channel=beta ou --channel=canary (ex : curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta). Le script du dépôt APT par Tor (install-tor.sh) accepte la même option --channel et pose la question sur un terminal quand elle est absente.",
     },
     {
       category: "updates",
@@ -137,7 +137,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     },
     {
       q: "Puis-je installer et mettre à jour Bobine via Tor ?",
-      a: "Oui. Le dépôt APT et le site sont aussi disponibles en services onion (Tor), sans révéler votre adresse IP. Installez apt-transport-tor puis utilisez la source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main : les paquets restent signés par la même clé, vérifiée par apt (empreinte de la clé principale B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). Le site est aussi consultable dans Tor Browser : http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. La boutique matériel n'y est pas proposée, et l'assistant Baamix n'y répond pas.",
+      a: "Oui. Le dépôt APT et le site sont aussi disponibles en services onion (Tor), sans révéler votre adresse IP. Le plus simple est le script https://bobine.fit/install-tor.sh (à lire avant de l'exécuter), qui vérifie l'empreinte de la clé et accepte --channel=stable, --channel=beta ou --channel=canary : le dépôt onion publie les trois suites. À la main, installez apt-transport-tor puis utilisez la source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main (ou beta, canary) : les paquets restent signés par la même clé, vérifiée par apt (empreinte de la clé principale B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). Le site est aussi consultable dans Tor Browser : http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. La boutique matériel n'y est pas proposée, et l'assistant Baamix n'y répond pas.",
       category: "updates",
     },
     {
@@ -230,12 +230,12 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "What is the difference between the Stable, Beta and Canary channels?",
-      a: "The Stable release (e.g. Vx.y.z) is the official tested build recommended for production gym playout. Beta offers a batch of features/fixes I select and publish manually when ready. Canary provides continuous early access, rebuilt automatically on every commit to the main branch, with no curation. Both share identical system application IDs, install directly over your current version without creating duplicate apps, and allow reverting back to Stable anytime from Settings → Software Updates without data loss.",
+      a: "The Stable release (e.g. Vx.y.z) is the official tested build recommended for production gym playout. Beta offers a batch of features/fixes I select and publish manually when ready. Canary provides continuous early access, rebuilt automatically on every commit to the main branch, with no curation. All three share identical system application IDs, install directly over your current version without creating duplicate apps, and allow reverting back to Stable anytime from Settings → Software Updates without data loss.",
     },
     {
       category: "updates",
       q: "How do I switch between Stable, Beta and Canary update channels on my setup?",
-      a: "From the web administration dashboard, go to Settings → Software Updates and pick the channel you want. On a dedicated headless CLI appliance, you can run the installer with --channel=stable, --channel=beta or --channel=canary (e.g. curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta).",
+      a: "From the web administration dashboard, go to Settings → Software Updates and pick the channel you want. On a dedicated headless CLI appliance, you can run the installer with --channel=stable, --channel=beta or --channel=canary (e.g. curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta). The script for the APT repository over Tor (install-tor.sh) accepts the same --channel option and asks on a terminal when it is missing.",
     },
     {
       category: "updates",
@@ -254,13 +254,13 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     },
     {
       q: "Can I install and update Bobine over Tor?",
-      a: "Yes. The APT repository and the website are also available as onion services (Tor), without revealing your IP address. Install apt-transport-tor, then use the source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main: packages remain signed by the same key, checked by apt (primary key fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). The site can also be browsed in Tor Browser: http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. The hardware store is not offered there, and the Baamix assistant does not answer.",
+      a: "Yes. The APT repository and the website are also available as onion services (Tor), without revealing your IP address. The simplest way is the https://bobine.fit/install-tor.sh script (read it before running it), which checks the key fingerprint and accepts --channel=stable, --channel=beta or --channel=canary: the onion repository publishes all three suites. By hand, install apt-transport-tor, then use the source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main (or beta, canary): packages remain signed by the same key, checked by apt (primary key fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). The site can also be browsed in Tor Browser: http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. The hardware store is not offered there, and the Baamix assistant does not answer.",
       category: "updates",
     },
     {
       category: "security",
       q: "How do I report a security flaw confidentially?",
-      a: "Write to security@bobine.fit or open a private vulnerability report on the Bobine GitHub repository (Security tab). Encrypt any report containing exploitable details with our OpenPGP public key (fingerprint 23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2, download it at https://bobine.fit/.well-known/security.asc or discover it with gpg --locate-keys security@bobine.fit) and check the fingerprint before sending. Create your own key pair (gpg --quick-generate-key \"Your Name <you@example.org>\" future-default default 2y) and attach your public key: we will reply encrypted. Full policy, scope and timelines: https://bobine.fit/en/securite.",
+      a: "Write to security@bobine.fit or open a private vulnerability report on the Bobine GitHub repository (Security tab). Encrypt any report containing exploitable details with our OpenPGP public key (fingerprint 23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2, download it at https://bobine.fit/.well-known/security.asc or discover it with gpg --locate-keys security@bobine.fit) and check the fingerprint before sending. Create your own key pair (gpg --quick-generate-key \"Your Name <you@example.org>\" future-default default 2y) and attach your public key: we will reply encrypted. Full policy, scope and timelines: https://bobine.fit/en/security.",
     },
   ],
 };

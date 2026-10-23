@@ -159,8 +159,8 @@ export default async function AboutPage({
             <p className="about-p-1">
               <strong>{isEn ? "Visual Discipline : " : "Épure Visuelle : "}</strong>
               {isEn
-                ? "A dark cinema studio atmosphere, 17 contrasted dual-tone themes. An iconic logo."
-                : "Une atmosphère studio cinéma sombre, 17 thèmes bicolores contrastés. Un logo iconique."}
+                ? "A dark cinema studio atmosphere, 16 contrasted dual-tone themes. An iconic logo."
+                : "Une atmosphère studio cinéma sombre, 16 thèmes bicolores contrastés. Un logo iconique."}
             </p>
           </div>
         </section>

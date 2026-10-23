@@ -137,7 +137,7 @@ export default function InteractiveTerminal({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Fallback
+      // presse-papiers refusé par le navigateur : le bouton reste inchangé
     }
   };
 
@@ -154,7 +154,7 @@ export default function InteractiveTerminal({
 
   return (
     <div className="interactive-terminal-card">
-      {/* Header & Scenario Selection Tabs */}
+      {/* En-tête et onglets de scénario */}
       <div className="interactive-terminal-topbar">
         <div className="interactive-terminal-tabs-wrap">
           {scenarios.map((sc) => {
@@ -185,7 +185,7 @@ export default function InteractiveTerminal({
         </div>
       </div>
 
-      {/* Description & Interactive Option Switches */}
+      {/* Description et options interactives */}
       <div className="interactive-terminal-desc-bar">
         <div className="interactive-terminal-desc-content">
           <strong className="interactive-terminal-scenario-title">
@@ -196,7 +196,7 @@ export default function InteractiveTerminal({
           </p>
         </div>
 
-        {/* Flag Checkboxes / Toggles if available */}
+        {/* Cases à cocher des options, quand le scénario en propose */}
         {activeScenario.availableFlags && activeScenario.availableFlags.length > 0 && (
           <div className="interactive-terminal-flags-group">
             <span className="interactive-terminal-flags-label">
@@ -230,9 +230,9 @@ export default function InteractiveTerminal({
         )}
       </div>
 
-      {/* Terminal Window */}
+      {/* Fenêtre de terminal */}
       <div className="interactive-terminal-window">
-        {/* Terminal Header */}
+        {/* Barre de titre du terminal */}
         <div className="interactive-terminal-header">
           <div className="terminal-dots">
             <span className="dot dot--red" />
@@ -272,9 +272,9 @@ export default function InteractiveTerminal({
           </div>
         </div>
 
-        {/* Terminal Body */}
+        {/* Corps du terminal */}
         <div className={`interactive-terminal-body ${isExecuting ? "is-animating" : ""}`}>
-          {/* Command Prompt Line (Clickable to re-execute) */}
+          {/* Ligne de commande (un clic la relance) */}
           <div
             className="interactive-terminal-cmd-row is-clickable"
             onClick={handleSimulate}
@@ -287,7 +287,7 @@ export default function InteractiveTerminal({
             <span className="terminal-cursor" />
           </div>
 
-          {/* Output Lines */}
+          {/* Lignes de sortie */}
           <div className="interactive-terminal-output">
             {outputLines.map((line, idx) => {
               let lineClass = "terminal-line--stdout";

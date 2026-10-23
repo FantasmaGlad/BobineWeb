@@ -11,8 +11,8 @@ import { ANDROID } from "@/lib/productFacts";
  *   (page produit réelle, en ligne, prix et image capturés à la date PRICE_CHECKED_AT ci-dessous).
  * - Les prix Amazon sont des prix CONSTATÉS à la date PRICE_CHECKED_AT ci-dessous, jamais des estimations
  *   inventées : chaque carte renvoie vers la fiche Amazon réelle, qui reste toujours à jour. Le rafraîchissement
- *   en direct passera par l'API Creators d'Amazon (PA-API est retirée), voir
- *   docs/cahier-des-charges-amazon-creators-api.md (non implémenté, accès conditionné à des ventes qualifiantes).
+ *   en direct passera par l'API Creators d'Amazon (PA-API est retirée) ; non implémenté, accès conditionné à des
+ *   ventes qualifiantes.
  * - Ne jamais écrire "fanless" / "sans ventilateur" pour une machine qui embarque un ventilateur.
  * - Chaque OS (sauf Android) propose deux voies matérielles interchangeables via un switch :
  *   "Mini PC" (appliance dédiée achetée neuve/reconditionnée) ou "PC Portable" (un vrai portable
@@ -66,9 +66,9 @@ export interface HardwareTier {
   powerWatts: string;
   resolution: string;
   items: HardwareItem[];
-  // Marques alternatives pour l'unite centrale de cette gamme (ASIN reels verifies,
-  // memes exigences que items) : laisse le choix a l'acheteur sans dupliquer les
-  // accessoires, qui restent penses autour de l'unite principale ci-dessus.
+  // Marques alternatives pour l'unité centrale de cette gamme (ASIN réels vérifiés,
+  // mêmes exigences que items) : laisse le choix à l'acheteur sans dupliquer les
+  // accessoires, qui restent pensés autour de l'unité principale ci-dessus.
   alternativeUnits?: HardwareItem[];
 }
 
@@ -250,9 +250,9 @@ const logitechMouse = (id: string): HardwareItem => ({
   hasFan: false,
 });
 
-// Kit clavier + souris filaire d'entree de gamme pour les gammes Essentiel/Recommande sur
-// mini PC headless (aucun peripherique de saisie pour l'installation initiale). Un seul
-// produit (pack), moins cher que les deux pieces separees utilisees en Pro/Premium.
+// Kit clavier + souris filaire d'entrée de gamme pour les gammes Essentiel/Recommandé sur
+// mini PC headless (aucun périphérique de saisie pour l'installation initiale). Un seul
+// produit (pack), moins cher que les deux pièces séparées utilisées en Pro/Premium.
 const keyboardMouseBudget = (id: string): HardwareItem => ({
   id,
   name: "Trust Taro Pack Clavier et Souris Filaires AZERTY",
@@ -266,9 +266,9 @@ const keyboardMouseBudget = (id: string): HardwareItem => ({
   hasFan: false,
 });
 
-// Kit clavier + souris sans fil haut de gamme reserve a la gamme Premium : remplace le
-// duo G-Lab + Logitech M185 utilise en Pro par un ensemble assorti sans fil, pour une
-// vraie difference "sans compromis" au lieu de reutiliser le meme peripherique partout.
+// Kit clavier + souris sans fil haut de gamme réservé à la gamme Premium : remplace le
+// duo G-Lab + Logitech M185 utilisé en Pro par un ensemble assorti sans fil, pour une
+// vraie différence "sans compromis" au lieu de réutiliser le même périphérique partout.
 const keyboardMousePremium = (id: string): HardwareItem => ({
   id,
   name: "Logitech MK540 Combo Clavier et Souris Sans Fil AZERTY",
@@ -282,9 +282,9 @@ const keyboardMousePremium = (id: string): HardwareItem => ({
   hasFan: false,
 });
 
-// Cable HDMI fibre optique reserve a la gamme Premium : longueur genereuse (6 m, contre
-// 2 m sur les autres gammes) et signal actif sans perte, pour les regies ou le mini PC est
-// installe loin de l'ecran ou du videoprojecteur.
+// Câble HDMI fibre optique réservé à la gamme Premium : longueur généreuse (6 m, contre
+// 2 m sur les autres gammes) et signal actif sans perte, pour les régies où le mini PC est
+// installé loin de l'écran ou du vidéoprojecteur.
 const cableHdmiFiberPremium = (id: string): HardwareItem => ({
   id,
   name: "Câble HDMI 2.1 Fibre Optique 1,5 m — FIBBR 48 Gbps",
@@ -298,9 +298,9 @@ const cableHdmiFiberPremium = (id: string): HardwareItem => ({
   hasFan: false,
 });
 
-// Stockage de sauvegarde (export "1 clic" de la programmation, cf. fonctionnalite du
-// site) : une echelle de 4 gammes reutilisee partout, du plus modeste (mais jamais en
-// dessous d'USB 3.0) au disque SSD externe le plus genereux.
+// Stockage de sauvegarde (export "1 clic" de la programmation, cf. fonctionnalité du
+// site) : une échelle de 4 gammes réutilisée partout, du plus modeste (mais jamais en
+// dessous d'USB 3.0) au disque SSD externe le plus généreux.
 const usbFlash64GB = (id: string): HardwareItem => ({
   id,
   name: "Kingston DataTraveler Exodia 64 Go — Clé USB 3.2 Gen 1",
@@ -385,7 +385,7 @@ const googleTvStreamer = (id: string): HardwareItem => ({
 
 // =============================================================================
 // MARQUES ALTERNATIVES POUR L'UNITE CENTRALE (choix entre plusieurs fabricants
-// par gamme, ASIN reels verifies individuellement comme le reste du catalogue)
+// par gamme, ASIN réels vérifiés individuellement comme le reste du catalogue)
 // =============================================================================
 
 const nipogiE1Alt = (id: string): HardwareItem => ({
@@ -700,7 +700,7 @@ const hubEthernetAcer = (id: string): HardwareItem => ({
   hasFan: false,
 });
 
-// Chaque gamme "PC Portable" recommande un vrai laptop achetable (ASIN verifie), en plus du
+// Chaque gamme "PC Portable" recommande un vrai laptop achetable (ASIN vérifié), en plus du
 // kit de connectique : l'ordinateur est vendu sur la carte, jamais sous-entendu.
 interface LaptopTierConfig {
   item: HardwareItem;
@@ -2476,8 +2476,8 @@ export const STANDALONE_ACCESSORIES: StandaloneAccessory[] = [
   },
 ];
 
-// Produit resolu par ASIN : forme normalisee partagee entre le panier, le
-// widget "Mon Pack" et les cartes produit recommandees par Baamix dans le chat.
+// Produit résolu par ASIN : forme normalisée partagée entre le panier, le
+// widget "Mon Pack" et les cartes produit recommandées par Baamix dans le chat.
 export interface ResolvedProduct {
   asin: string;
   name: string;
@@ -2486,11 +2486,11 @@ export interface ResolvedProduct {
   amazonUrl: string;
 }
 
-// Liste deduplique (par ASIN) de tous les produits reellement achetables du
-// catalogue, tous OS/gammes/accessoires confondus. Source unique utilisee a
-// la fois pour resoudre une carte produit cote client et pour construire le
-// contexte catalogue envoye a Baamix cote serveur : jamais de produit ou de
-// prix invente des deux cotes, uniquement ce qui existe reellement ici.
+// Liste dédupliquée (par ASIN) de tous les produits réellement achetables du
+// catalogue, tous OS/gammes/accessoires confondus. Source unique utilisée à
+// la fois pour résoudre une carte produit côté client et pour construire le
+// contexte catalogue envoyé à Baamix côté serveur : jamais de produit ou de
+// prix inventé des deux côtés, uniquement ce qui existe réellement ici.
 export function getAllHardwareProducts(locale: "fr" | "en" = "fr"): ResolvedProduct[] {
   const byAsin = new Map<string, ResolvedProduct>();
 
@@ -2525,8 +2525,4 @@ export function getAllHardwareProducts(locale: "fr" | "en" = "fr"): ResolvedProd
   }
 
   return Array.from(byAsin.values());
-}
-
-export function findHardwareItemByAsin(asin: string, locale: "fr" | "en" = "fr"): ResolvedProduct | null {
-  return getAllHardwareProducts(locale).find((p) => p.asin === asin) ?? null;
 }

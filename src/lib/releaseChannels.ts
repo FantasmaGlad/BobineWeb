@@ -85,7 +85,7 @@ function channelInfoFromRelease(
   };
 }
 
-/** Statistiques du depot et versions publiees (etoiles, canaux stable, beta et canary), avec repli statique. */
+/** Statistiques du dépôt et versions publiées (étoiles, canaux stable, beta et canary), avec repli statique. */
 export async function getRepoStats(): Promise<RepoStatsResponse> {
   const [releases, counts] = await Promise.all([fetchRepoReleases(), fetchRepoCounts()]);
   const channels = releases ? pickChannelReleases(releases) : {};

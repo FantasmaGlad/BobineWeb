@@ -75,8 +75,8 @@ firewall-events*.json
 .vercel
 
 # --- Sources brutes non diffusées ---
-# Les assets 3D bruts pèsent plusieurs dizaines de Mo : seule la version optimisée
-# de public/models/ est versionnée et servie.
+# Les visuels sources, trop lourds, restent hors du dépôt : seules les versions
+# optimisées de public/ sont versionnées et servies.
 /assets/
 /design-src/
 

@@ -5498,6 +5498,29 @@ main {
   min-height: 2.7em; /* 2 lignes pleines (1.35 x 2) : évite un décalage de quelques px entre sous-titres 1 et 2 lignes */
 }
 
+/* Carte Linux : un logo par famille de distribution, atténué tant que son dépôt n'est pas en ligne. */
+.os-download-card__distros {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.4rem;
+  margin: 0.15rem 0 0.35rem;
+  font-size: 0.95rem;
+  color: var(--text-heading);
+}
+
+.os-download-card__distro {
+  display: inline-flex;
+}
+
+.os-download-card__distro.is-soon {
+  opacity: 0.45;
+}
+
+.os-download-card__distro-arch {
+  display: block;
+}
+
 .os-download-card__meta {
   display: flex;
   align-items: center;
@@ -6721,6 +6744,120 @@ main {
   background: var(--bg-surface-elevated, var(--bg-card));
   color: var(--text-heading);
   box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
+/* Logos de distributions : masque rempli de currentColor, donc de la couleur du texte du thème. */
+.distro-logo {
+  display: inline-block;
+  flex: none;
+  width: 1.15em;
+  height: 1.15em;
+  background-color: currentColor;
+  -webkit-mask: var(--distro-src) center / contain no-repeat;
+  mask: var(--distro-src) center / contain no-repeat;
+}
+
+.distro-logo--debian { --distro-src: url("/images/distros/debian.svg"); }
+.distro-logo--ubuntu { --distro-src: url("/images/distros/ubuntu.svg"); }
+.distro-logo--fedora { --distro-src: url("/images/distros/fedora.svg"); }
+.distro-logo--arch { --distro-src: url("/images/distros/arch.svg"); }
+
+/* Famille de distribution (Linux) : même pastille segmentée que l'architecture, avec logo et mention « Bientôt ». */
+.download-modal__selectors {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.download-modal__family-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.download-modal__family-ext {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+/* Téléphone : les sélecteurs prennent toute la largeur, chaque famille s'empile (logo, nom, « Bientôt »). */
+@media (max-width: 560px) {
+  .download-modal__selectors,
+  .download-modal__selectors .download-modal__arch-selector {
+    width: 100%;
+  }
+
+  .download-modal__selectors .download-modal__arch-selector {
+    border-radius: 1.1rem;
+    overflow-x: visible;
+  }
+
+  .download-modal__selectors .download-modal__arch-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0.45rem 0.4rem;
+    font-size: 0.75rem;
+    line-height: 1.25;
+    white-space: normal;
+    text-align: center;
+    border-radius: 0.9rem;
+  }
+
+  .download-modal__family-btn {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.2rem;
+  }
+
+  .download-modal__family-ext {
+    display: none;
+  }
+}
+
+.download-modal__arch-btn.is-soon,
+.download-modal__arch-btn.is-soon:hover {
+  cursor: not-allowed;
+  opacity: 0.6;
+  color: var(--text-muted);
+}
+
+.download-modal__soon-tag {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.08rem 0.4rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--glass-inset-bg);
+}
+
+/* Action pas encore disponible (paquet non publié) : jamais de lien, jamais de survol. */
+.download-modal__action-btn.is-soon,
+.download-modal__action-btn.is-soon:hover {
+  background: var(--glass-inset-bg);
+  color: var(--text-muted);
+  border: 1px dashed var(--border-subtle);
+  cursor: not-allowed;
+  filter: none;
+}
+
+.download-modal__hint {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.download-modal__hint a {
+  color: var(--text-heading);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .download-modal__subtitle {

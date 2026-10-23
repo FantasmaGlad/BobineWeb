@@ -1,4 +1,5 @@
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
+import { assignPackageAsset, withoutNewPackages } from "@/lib/linuxPackages";
 import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFallbacks";
 import {
   fetchRepoCounts,
@@ -16,6 +17,10 @@ export interface RepoStatsResponse {
     windowsArm64?: string;
     linux: string;
     linuxArm64?: string;
+    linuxRpm?: string;
+    linuxRpmArm64?: string;
+    linuxArch?: string;
+    linuxArchArm64?: string;
     macos: string;
     android: string;
     androidTv?: string;
@@ -32,8 +37,10 @@ function parseReleaseAssets(
   assets: unknown,
   fallback: ReleaseChannelInfo["downloads"]
 ): ReleaseChannelInfo["downloads"] {
-  const downloads = { ...fallback };
-  if (!Array.isArray(assets)) return downloads;
+  if (!Array.isArray(assets)) return { ...fallback };
+  // Une release lue sur GitHub n'offre que ce qu'elle contient : les paquets Fedora et Arch du repli ne sont
+  // gardés que s'ils y figurent vraiment, pour ne jamais proposer un fichier qui n'existe pas encore.
+  const downloads = withoutNewPackages(fallback);
   for (const asset of assets) {
     const name = String(asset?.name || "").toLowerCase();
     const url = typeof asset?.browser_download_url === "string" ? asset.browser_download_url : "";
@@ -51,6 +58,8 @@ function parseReleaseAssets(
       } else {
         downloads.linux = url;
       }
+    } else if (assignPackageAsset(downloads, name, url)) {
+      // .rpm et .pkg.tar.zst rangés par le module des paquets Linux
     } else if (name.endsWith(".dmg")) {
       downloads.macos = url;
     } else if (name.includes("-tv") || name.includes("bobine-tv")) {

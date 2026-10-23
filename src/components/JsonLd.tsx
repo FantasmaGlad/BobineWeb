@@ -1,5 +1,6 @@
 import { getBobineReleases } from "@/lib/github-releases";
 import { ANDROID } from "@/lib/productFacts";
+import { PACKAGE_REPOS_LIVE } from "@/lib/linuxPackages";
 import { CLEARNET_URL } from "@/lib/onion";
 
 const AUTHOR_EMAIL = "clement.barillot@bobine.fit";
@@ -22,7 +23,7 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
     "@type": "SoftwareApplication",
     name: "Bobine Fit",
     alternateName: ["Bobine", "bobine.fit", "Bobine Playout", "Régie Bobine", "Bobine Fitness", "Bobine Virtual Fitness"],
-    operatingSystem: `Debian 13 (Appliance Headless), Ubuntu, Linux Mint, Windows 11/10, macOS (Apple Silicon M1–M4), Android ${ANDROID.minVersion}–${ANDROID.maxVersion} (ARM 32/64-bit), Android TV, Google TV`,
+    operatingSystem: `Debian 13 (Appliance Headless), Ubuntu, Linux Mint${PACKAGE_REPOS_LIVE ? ", Fedora, Arch Linux" : ""}, Windows 11/10, macOS (Apple Silicon M1–M4), Android ${ANDROID.minVersion}–${ANDROID.maxVersion} (ARM 32/64-bit), Android TV, Google TV`,
     applicationCategory: "MultimediaApplication",
     applicationSubCategory: "Gym Video Playout & Virtual Fitness Automation",
     url: CLEARNET_URL,
@@ -135,6 +136,7 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
       "https://github.com/FantasmaGlad/Bobine",
       "https://github.com/FantasmaGlad/BobineWeb",
       "https://apt.bobine.fit",
+      ...(PACKAGE_REPOS_LIVE ? ["https://rpm.bobine.fit", "https://arch.bobine.fit"] : []),
       "https://security.bobine.fit",
       "https://alternativeto.net/software/fantasmaglad-bobine/",
       "https://www.linkedin.com/in/clement-barillot39",

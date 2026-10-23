@@ -10,6 +10,7 @@ import AppleIcon from "@/components/icons/AppleIcon";
 import LinuxIcon from "@/components/icons/LinuxIcon";
 import AndroidIcon from "@/components/icons/AndroidIcon";
 import AndroidTvIcon from "@/components/icons/AndroidTvIcon";
+import { LINUX_FAMILIES, LINUX_FAMILY_IDS, packageLink } from "@/lib/linuxPackages";
 
 type Channel = "stable" | "beta" | "canary";
 
@@ -49,7 +50,11 @@ function filesFor(platform: PlatformId, d: ReleaseChannelInfo["downloads"]): Arr
     case "windows":
       return [{ arch: "x86-64", url: d.windows }, { arch: "ARM64", url: d.windowsArm64 }];
     case "linux":
-      return [{ arch: "x86-64 (amd64)", url: d.linux }, { arch: "ARM64", url: d.linuxArm64 }];
+      // Debian et Ubuntu toujours ; Fedora et Arch seulement une fois leurs paquets publiés (jamais de lien mort).
+      return LINUX_FAMILY_IDS.flatMap((id) => [
+        { arch: `${LINUX_FAMILIES[id].label.en} x86-64`, url: id === "debian" ? d.linux : packageLink(d, id, "x86_64") },
+        { arch: `${LINUX_FAMILIES[id].label.en} ARM64`, url: id === "debian" ? d.linuxArm64 : packageLink(d, id, "arm64") },
+      ]);
     case "macos":
       return [{ arch: "Apple Silicon", url: d.macos }];
     case "android":
@@ -87,7 +92,11 @@ export default function LandingDownload({ locale, channels, lockedChannel, fallb
       : "iPhone et iPad : l'application ne s'installe pas (piste explorée, non engagée). Une fois Bobine installé sur un autre appareil, vous pouvez piloter la salle depuis le navigateur du téléphone.",
     all: isEn ? "All files of this version" : "Tous les fichiers de cette version",
     platformLabel: isEn ? "Platform" : "Plateforme",
+    linuxSoon: isEn
+      ? "Fedora (.rpm) and Arch Linux (.pkg.tar.zst) packages: coming soon."
+      : "Paquets Fedora (.rpm) et Arch Linux (.pkg.tar.zst) : bientôt.",
   };
+  const linuxSoon = platform === "linux" && LINUX_FAMILY_IDS.some((id) => !LINUX_FAMILIES[id].live);
 
   return (
     <section className="landing-dl landing-card landing-section" aria-labelledby="landing-dl-title">
@@ -136,6 +145,8 @@ export default function LandingDownload({ locale, channels, lockedChannel, fallb
       ) : (
         <p className="landing-dl__note">{t.unavailable}</p>
       )}
+
+      {linuxSoon && <p className="landing-dl__note">{t.linuxSoon}</p>}
 
       <details className="landing-dl__all">
         <summary>{t.all}</summary>

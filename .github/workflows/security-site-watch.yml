@@ -28,12 +28,28 @@ jobs:
       - name: Empreinte attendue (fichier unique du dépôt)
         run: echo "EXPECTED_FPR=$(tr -d '[:space:]' < security/fingerprint.txt)" >> "$GITHUB_ENV"
 
-      - name: Le CNAME pointe vers GitHub Pages (risque de reprise de sous-domaine)
+      - name: Le domaine pointe vers l'infrastructure officielle (GitHub Pages ou Proxy Cloudflare)
         run: |
           set -euo pipefail
-          got="$(dig +short CNAME security.bobine.fit @1.1.1.1 | head -n1)"
-          echo "CNAME actuel : ${got:-<aucun>}"
-          [ "$got" = "$EXPECTED_CNAME" ] || { echo "::error::CNAME inattendu pour security.bobine.fit"; exit 1; }
+          got_cname="$(dig +short CNAME security.bobine.fit @1.1.1.1 | head -n1 || true)"
+          echo "CNAME DNS direct : ${got_cname:-<aucun ou aplati par Cloudflare>}"
+          if [ -n "$got_cname" ]; then
+            if [ "$got_cname" != "$EXPECTED_CNAME" ]; then
+              echo "::error::CNAME inattendu pour security.bobine.fit : $got_cname"
+              exit 1
+            fi
+            echo "Validation CNAME GitHub Pages réussie ($got_cname)"
+          else
+            ips="$(dig +short A security.bobine.fit @1.1.1.1 || true)"
+            echo "Adresses IP résolues : $ips"
+            [ -n "$ips" ] || { echo "::error::Impossible de résoudre security.bobine.fit"; exit 1; }
+            hdr="$(curl -fsSI --max-time 15 "https://security.bobine.fit" | tr -d '\r')"
+            if ! grep -qiE 'server: (cloudflare|github\.com)' <<< "$hdr"; then
+              echo "::error::Le serveur ne correspond ni à Cloudflare ni à GitHub Pages"
+              exit 1
+            fi
+            echo "Validation de la résolution DNS proxifiée réussie."
+          fi
 
       - name: Ce dépôt publie bien le domaine
         env:

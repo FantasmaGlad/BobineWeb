@@ -845,6 +845,10 @@
   user-select: none;
 }
 
+.docs-arch-switch-btn {
+  white-space: nowrap;
+}
+
 .docs-arch-switch-btn:hover {
   color: var(--text-heading);
 }
@@ -1394,3 +1398,113 @@
   word-break: break-all;
 }
 
+
+/* Linux : logo de distribution du héros, mention « Bientôt », note de dépôt, tableau des distributions. */
+.distro-logo--hero {
+  font-size: 2rem;
+}
+
+.docs-soon-tag {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.06rem 0.38rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--glass-inset-bg);
+  color: var(--text-muted);
+}
+
+.docs-channel-btn--soon {
+  background: var(--glass-inset-bg);
+  color: var(--text-muted);
+  border: 1px dashed var(--border-subtle);
+  cursor: not-allowed;
+}
+
+.docs-soon-note {
+  margin: 0.25rem 0 0.6rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: var(--radius-md, 8px);
+  border: 1px dashed var(--border-subtle);
+  background: var(--glass-inset-bg);
+  color: var(--text-body, var(--text-heading));
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.docs-plain-list {
+  margin: 0.4rem 0 0.4rem 1.1rem;
+  padding: 0;
+  color: var(--text-body, var(--text-heading));
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.docs-distro-table-wrap {
+  margin: 1.25rem 0 0.5rem;
+  overflow-x: auto;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg, 12px);
+  background: var(--bg-card);
+}
+
+.docs-distro-table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  text-align: left;
+}
+
+.docs-distro-table caption {
+  padding: 0.8rem 1rem 0.2rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  text-align: left;
+}
+
+.docs-distro-table th,
+.docs-distro-table td {
+  padding: 0.65rem 1rem;
+  border-top: 1px solid var(--border-subtle);
+  vertical-align: middle;
+  color: var(--text-body, var(--text-heading));
+}
+
+.docs-distro-table thead th {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.docs-distro-table tbody tr.is-active {
+  background: color-mix(in srgb, var(--accent-primary) 7%, transparent);
+}
+
+.docs-distro-table tbody th {
+  white-space: nowrap;
+}
+
+.docs-distro-table__pick {
+  display: inline-flex;
+  text-align: left;
+  white-space: nowrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-heading);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.docs-distro-table__pick:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}

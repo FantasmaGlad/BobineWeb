@@ -22,7 +22,7 @@ Bobine V5.0.2 « Constellation » turns Google Books (Aluminium OS), Qualcomm Sn
 - **Android TV & Google TV** (`Bobine-TV-5.0.2.apk`, D-Pad remote navigation, boxes running Android 14 or later such as the Google TV Streamer 4K and the Xiaomi TV Box S 3rd Gen)
 - **Windows Desktop x86-64 & ARM64** (`Bobine-Setup-5.0.2.exe` for Intel/AMD x86-64 and `Bobine-Setup-5.0.2-arm64.exe` natively compiled for Windows 11 ARM64 on Qualcomm Snapdragon X Elite / X Plus)
 - **macOS Desktop** (`Bobine-5.0.2.dmg`, native Apple Silicon M1–M4 arm64)
-- **Linux Desktop x86-64 & ARM64** (`bobine_5.0.2_amd64.deb` and `bobine_5.0.2_arm64.deb`, plus official GPG-signed APT repository https://apt.bobine.fit for both `amd64` and `arm64`)
+- **Linux Desktop x86-64 & ARM64** (`bobine_5.0.2_amd64.deb` and `bobine_5.0.2_arm64.deb`, plus official GPG-signed APT repository https://apt.bobine.fit for both `amd64` and `arm64`); **coming soon, repositories not yet online**: Fedora and derivatives (`.rpm`, dnf repository https://rpm.bobine.fit) and Arch Linux and derivatives (pacman package, repository https://arch.bobine.fit), on x86_64 and aarch64
 - **Dedicated Headless Appliance (x86-64 & ARM64 `aarch64`)** (Debian 13/12 minimal automated 18-step shell install `install.sh` for Intel/AMD mini PCs, NVIDIA DGX Spark, Jetson Orin, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B)
 - **Bobine Assistant (Tauri 2 Network Orchestrator)** (`bobine-assistant` for x86-64 and `bobine-assistant-arm64` for ARM64)
 - **Universal Web Remote** (Firefox, Chrome, Safari, Edge on mobile and desktop)
@@ -125,6 +125,24 @@ The 18 installation steps include:
   - ARM64 (`arm64` / `aarch64` — NVIDIA DGX Spark, Jetson Orin, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B, Snapdragon Linux PCs): `bobine_5.0.2_arm64.deb` (`bobine_beta_arm64.deb`, `bobine_canary_arm64.deb`)
 - **Features**: AppStream metadata for Ubuntu App Center and GNOME Software, standard XDG directory structure, desktop shortcut, system tray companion, and Polkit graphical 1-click uninstaller.
 
+### 6 bis. Linux Desktop — Fedora and derivatives (`.rpm`, dnf) and Arch Linux and derivatives (pacman) — COMING SOON
+Status: the repositories https://rpm.bobine.fit and https://arch.bobine.fit are not online yet and no package has been validated on Fedora or Arch hardware. Do not present the commands below as working today; they apply as soon as the repositories go live (see https://bobine.fit/en/linux for the current status). Same signing key as the APT repository, primary fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A.
+- **Fedora, Nobara, RHEL / AlmaLinux / Rocky Linux (via EPEL)**, x86_64 and aarch64:
+  ```bash
+  sudo dnf config-manager addrepo --from-repofile=https://rpm.bobine.fit/bobine-stable.repo   # dnf 4: sudo dnf config-manager --add-repo <same URL>
+  sudo dnf install bobine
+  sudo dnf upgrade   # updates
+  ```
+  Channels: `bobine-stable.repo`, `bobine-beta.repo`, `bobine-canary.repo`. Files: `bobine-5.0.2-1.x86_64.rpm`, `bobine-5.0.2-1.aarch64.rpm` (sliding channels: `bobine-beta.x86_64.rpm`, `bobine-canary.aarch64.rpm`). Fedora only ships ffmpeg-free: the full ffmpeg comes from RPM Fusion. Immutable distributions (Bazzite, Silverblue) do not suit the kiosk appliance.
+- **Arch Linux, EndeavourOS, CachyOS** (Manjaro at your own risk: lagging repositories; Arch Linux ARM for aarch64, not yet tried):
+  ```bash
+  curl -fsSL https://arch.bobine.fit/bobine.gpg | sudo pacman-key --add -
+  sudo pacman-key --lsign-key B77D96D72F84F36ACAA3F8729CBF497D829EE15A
+  # add to /etc/pacman.conf:  [bobine]  /  SigLevel = Required DatabaseOptional  /  Server = https://arch.bobine.fit/stable/$arch
+  sudo pacman -Syu bobine   # installs; later updates: sudo pacman -Syu
+  ```
+  Channels: replace `stable` with `beta` or `canary` in the Server line. Files: `bobine-5.0.2-1-x86_64.pkg.tar.zst`, `bobine-5.0.2-1-aarch64.pkg.tar.zst` (sliding channels: `bobine-beta-x86_64.pkg.tar.zst`, `bobine-canary-aarch64.pkg.tar.zst`).
+
 ### 7. Bobine Assistant (Network Orchestrator in Rust / Tauri 2 — x86-64 & ARM64)
 - **Format**: Standalone desktop binary `bobine-assistant` (x86-64) and `bobine-assistant-arm64` (ARM64).
 - **Features**: mDNS auto-discovery (`bobine.local`), subnet scanning detecting all responsive devices (SSH, Bobine, Samba, printing), SSH password and local private key file import (.ssh/id_ed25519), remote hardware telemetry audit, and remote 18-step deployment with real-time JSON stream progress on both x86_64 and ARM64 targets.
@@ -137,7 +155,7 @@ The 18 installation steps include:
 - **Channel Switching**: Users can toggle between Stable, Beta, and Canary at any time from the Web Admin Settings (Settings -> Software Updates) or via CLI (`install.sh --channel=stable|beta|canary`).
 
 ## Technical Architecture & APIs
-- **OS & Architecture Support**: Google Books (Aluminium OS), Android ARM64 (API 34-36) & Android TV, Windows 11/10 (x86_64 & ARM64 Snapdragon), macOS Apple Silicon (M1–M4), Debian 13/12 & Ubuntu (x86_64 `amd64` & ARM64 `aarch64` including NVIDIA DGX Spark, Jetson Orin, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B).
+- **OS & Architecture Support**: Google Books (Aluminium OS), Android ARM64 (API 34-36) & Android TV, Windows 11/10 (x86_64 & ARM64 Snapdragon), macOS Apple Silicon (M1–M4), Fedora and Arch Linux packages coming soon (x86_64 & aarch64), Debian 13/12 & Ubuntu (x86_64 `amd64` & ARM64 `aarch64` including NVIDIA DGX Spark, Jetson Orin, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B).
 - **Backend Architecture**: Python 3.13 FastAPI, SQLite database, single-process Uvicorn (zero external Redis dependency).
 - **Deterministic Multimedia Binaries**: Dedicated resolution module (app.utils.ffmpeg_binaries) handling Android Chaquopy libffmpeg.so/libffprobe.so, macOS launchd environment, Windows x86_64/ARM64 PyInstaller frozen directory, and Linux PATH. Automatic SQLite database duration backfills on startup.
 - **Frontend**: Next.js App Router with SSG static export, 16 WCAG AAA/AA themes (8 light, 8 dark), zero emoji design system.
@@ -187,8 +205,10 @@ The 18 installation steps include:
 - [Bobine on Android TV & Google TV](https://bobine.fit/fr/android-tv) (English: https://bobine.fit/en/android-tv)
 - [Bobine on Google Book](https://bobine.fit/fr/google-book) (English: https://bobine.fit/en/google-book)
 - [Bobine on Tor (.onion)](https://bobine.fit/fr/tor) (English: https://bobine.fit/en/tor)
+- [Bobine on Linux: Debian, Ubuntu, Fedora, Arch Linux](https://bobine.fit/fr/linux) (English: https://bobine.fit/en/linux)
 - [Compatible Devices & Hardware Technical Reference](https://bobine.fit/compatible-devices.txt)
 - [Official APT Repository](https://apt.bobine.fit)
+- Fedora dnf repository https://rpm.bobine.fit and Arch Linux pacman repository https://arch.bobine.fit (coming soon, not online yet)
 - [GitHub Repository](https://github.com/FantasmaGlad/Bobine)
 - [Web Documentation](https://bobine.fit/fr/documentation) (English: https://bobine.fit/en/documentation)
 - [Usage Manual](https://bobine.fit/fr/documentation/utilisation) (English: https://bobine.fit/en/documentation/user-guide)

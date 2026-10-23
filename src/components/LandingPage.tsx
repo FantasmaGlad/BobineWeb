@@ -17,6 +17,7 @@ const CHANNELS = ["stable", "beta", "canary"] as const;
 
 /** Plateforme proposée quand l'appareil du visiteur n'est pas reconnu. */
 const FALLBACK_PLATFORM: Partial<Record<LandingId, PlatformId>> = {
+  linux: "linux",
   "android-tv": "android-tv",
   "google-book": "android",
   tor: "linux",

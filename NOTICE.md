@@ -8,7 +8,9 @@ Les dépendances de [`package.json`](package.json) sont installées depuis le re
 
 ## Marques et logos
 
-Les noms, logos et marques cités appartiennent à leurs titulaires respectifs et ne sont utilisés que pour les identifier : Tor Project (logo d'oignon de la page du miroir et mention « non affilié au Tor Project »), Amazon, AliExpress, Vercel, Cloudflare, GitHub, Hugging Face, OpenRouter, Debian, Ubuntu, Microsoft, Apple, Google, Les Mills, Wexer, Spivi. Leur présence n'implique aucune affiliation, sauf mention contraire sur le site.
+Les noms, logos et marques cités appartiennent à leurs titulaires respectifs et ne sont utilisés que pour les identifier : Tor Project (logo d'oignon de la page du miroir et mention « non affilié au Tor Project »), Amazon, AliExpress, Vercel, Cloudflare, GitHub, Hugging Face, OpenRouter, Debian, Ubuntu, Fedora, Arch Linux, Microsoft, Apple, Google, Les Mills, Wexer, Spivi. Leur présence n'implique aucune affiliation, sauf mention contraire sur le site.
+
+Les logos des distributions Linux de `public/images/distros/` (Debian, Ubuntu, Fedora, Arch Linux) sont les dessins du dépôt [simple-icons](https://github.com/simple-icons/simple-icons) (licence CC0 pour le dessin vectoriel), copiés sans modification ; les marques qu'ils représentent restent la propriété de leurs titulaires et ne servent qu'à désigner la distribution concernée.
 
 ## Images de produits
 

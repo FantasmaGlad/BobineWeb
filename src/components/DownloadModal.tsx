@@ -2,10 +2,22 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
+import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import ScrollingCode from "@/components/ScrollingCode";
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 import { ANDROID } from "@/lib/productFacts";
+import DistroLogo from "@/components/icons/DistroLogo";
+import {
+  LINUX_FAMILIES,
+  LINUX_FAMILY_IDS,
+  downloadKey,
+  packageFileName,
+  packageLink,
+  packageUrl,
+  type LinuxFamilyId,
+  type PackageChannel,
+} from "@/lib/linuxPackages";
 
 export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "android-tv" | "cli" | "tauri" | "assistant";
 export type CpuArchitecture = "x86_64" | "arm64";
@@ -36,6 +48,7 @@ export default function DownloadModal({
   const isEn = locale === "en";
   const activePlatform: DownloadPlatform = initialPlatform;
   const [selectedArch, setSelectedArch] = useState<CpuArchitecture>("x86_64");
+  const [selectedFamily, setSelectedFamily] = useState<LinuxFamilyId>("debian");
   const [downloadingKey, setDownloadingKey] = useState<string | null>(null);
   // Chaque ouverture repart d'un bouton neuf : sans cette remise à zéro, « Lancé » restait affiché
   // à la réouverture et bloquait un second téléchargement.
@@ -107,6 +120,7 @@ export default function DownloadModal({
     }
   };
 
+  const hasFamilySelector = activePlatform === "linux";
   const hasArchSelector =
     activePlatform === "windows" ||
     activePlatform === "linux" ||
@@ -165,39 +179,29 @@ export default function DownloadModal({
           canaryFilename: "Bobine-canary.dmg",
           format: ".dmg",
         };
-      case "linux":
-        if (isArm) {
-          return {
-            title: isEn ? "Bobine for Linux Desktop (ARM64)" : "Bobine pour Linux Bureau (ARM64)",
-            subtitle: isEn
-              ? "Debian, Ubuntu, Mint ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi)"
-              : "Debian, Ubuntu, Mint ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi)",
-            stableUrl:
-              stable.downloads.linuxArm64 ||
-              `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/bobine_${cleanVersion}_arm64.deb`,
-            stableFilename: `bobine_${cleanVersion}_arm64.deb`,
-            betaUrl:
-              beta.downloads.linuxArm64 ||
-              "https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_arm64.deb",
-            betaFilename: "bobine_beta_arm64.deb",
-            canaryUrl:
-              canary.downloads.linuxArm64 ||
-              "https://github.com/FantasmaGlad/Bobine/releases/download/canary/bobine_canary_arm64.deb",
-            canaryFilename: "bobine_canary_arm64.deb",
-            format: ".deb (arm64)",
-          };
-        }
+      case "linux": {
+        const family = LINUX_FAMILIES[selectedFamily];
+        const arch = isArm ? "arm64" : "x86_64";
+        const archLabel = isArm ? "ARM64" : "x86_64";
+        const channelLink = (info: ReleaseChannelInfo, channel: PackageChannel, tag: string) =>
+          selectedFamily === "debian"
+            ? info.downloads[downloadKey("debian", arch)] || packageUrl("debian", channel, arch, tag)
+            : packageLink(info.downloads, selectedFamily, arch);
+        const cpu = isArm
+          ? isEn ? "ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi)" : "ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi)"
+          : "x86_64 — Intel / AMD";
         return {
-          title: isEn ? "Bobine for Linux Desktop" : "Bobine pour Linux Bureau",
-          subtitle: isEn ? "Debian, Ubuntu, Mint (x86_64 — Intel / AMD)" : "Debian, Ubuntu, Mint (x86_64 — Intel / AMD)",
-          stableUrl: stable.downloads.linux,
-          stableFilename: `bobine_${cleanVersion}_amd64.deb`,
-          betaUrl: beta.downloads.linux,
-          betaFilename: "bobine_beta_amd64.deb",
-          canaryUrl: canary.downloads.linux,
-          canaryFilename: "bobine_canary_amd64.deb",
-          format: ".deb (amd64)",
+          title: isEn ? `Bobine for Linux Desktop${isArm ? " (ARM64)" : ""}` : `Bobine pour Linux Bureau${isArm ? " (ARM64)" : ""}`,
+          subtitle: `${family.distros[isEn ? "en" : "fr"]} · ${cpu}`,
+          stableUrl: channelLink(stable, "stable", stable.version),
+          stableFilename: packageFileName(selectedFamily, "stable", arch, cleanVersion),
+          betaUrl: channelLink(beta, "beta", "beta"),
+          betaFilename: packageFileName(selectedFamily, "beta", arch, "beta"),
+          canaryUrl: channelLink(canary, "canary", "canary"),
+          canaryFilename: packageFileName(selectedFamily, "canary", arch, "canary"),
+          format: `${family.extension} (${archLabel})`,
         };
+      }
       case "android-tv":
         return {
           title: isEn ? "Bobine for Android TV & Google TV" : "Bobine pour Android TV & Google TV",
@@ -310,27 +314,56 @@ export default function DownloadModal({
                 {details.title}
               </h2>
               {hasArchSelector && (
-                <div
-                  className="download-modal__arch-selector"
-                  role="group"
-                  aria-label={isEn ? "Processor architecture" : "Architecture processeur"}
-                >
-                  <button
-                    type="button"
-                    className={`download-modal__arch-btn${selectedArch === "x86_64" ? " is-active" : ""}`}
-                    aria-pressed={selectedArch === "x86_64"}
-                    onClick={() => setSelectedArch("x86_64")}
+                <div className="download-modal__selectors">
+                  {hasFamilySelector && (
+                    <div
+                      className="download-modal__arch-selector"
+                      role="group"
+                      aria-label={isEn ? "Linux distribution family" : "Famille de distribution Linux"}
+                    >
+                      {LINUX_FAMILY_IDS.map((id) => {
+                        const family = LINUX_FAMILIES[id];
+                        const soon = !family.live;
+                        return (
+                          <button
+                            key={id}
+                            type="button"
+                            className={`download-modal__arch-btn download-modal__family-btn${selectedFamily === id ? " is-active" : ""}${soon ? " is-soon" : ""}`}
+                            aria-pressed={selectedFamily === id}
+                            disabled={soon}
+                            onClick={() => setSelectedFamily(id)}
+                          >
+                            <DistroLogo id={family.logo} />
+                            <span>{family.label[isEn ? "en" : "fr"]}</span>
+                            <span className="download-modal__family-ext">{family.extension}</span>
+                            {soon && <span className="download-modal__soon-tag">{isEn ? "Soon" : "Bientôt"}</span>}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                  <div
+                    className="download-modal__arch-selector"
+                    role="group"
+                    aria-label={isEn ? "Processor architecture" : "Architecture processeur"}
                   >
-                    x86_64 (Intel / AMD)
-                  </button>
-                  <button
-                    type="button"
-                    className={`download-modal__arch-btn${selectedArch === "arm64" ? " is-active" : ""}`}
-                    aria-pressed={selectedArch === "arm64"}
-                    onClick={() => setSelectedArch("arm64")}
-                  >
-                    ARM64 (Snapdragon / ARM)
-                  </button>
+                    <button
+                      type="button"
+                      className={`download-modal__arch-btn${selectedArch === "x86_64" ? " is-active" : ""}`}
+                      aria-pressed={selectedArch === "x86_64"}
+                      onClick={() => setSelectedArch("x86_64")}
+                    >
+                      x86_64 (Intel / AMD)
+                    </button>
+                    <button
+                      type="button"
+                      className={`download-modal__arch-btn${selectedArch === "arm64" ? " is-active" : ""}`}
+                      aria-pressed={selectedArch === "arm64"}
+                      onClick={() => setSelectedArch("arm64")}
+                    >
+                      ARM64 (Snapdragon / ARM)
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
@@ -520,56 +553,62 @@ export default function DownloadModal({
                     : "Version officielle certifiée. 100% testée, stable et recommandée pour l'exploitation en salle de sport."}
                 </p>
 
-                <a
-                  href={details.stableUrl}
-                  className="download-modal__action-btn download-modal__action-btn--primary download-modal__action-btn--stable"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  download
-                  onClick={() => {
-                    setDownloadingKey("stable");
-                    setTimeout(handleClose, 300);
-                  }}
-                >
-                  {downloadingKey === "stable" ? (
-                    <svg
-                      key="check"
-                      className="download-modal__action-icon--pop"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                  ) : (
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                  )}
-                  <span>
-                    {downloadingKey === "stable"
-                      ? (isEn ? "Started" : "Lancé")
-                      : (isEn ? `Download Stable (${stable.version}) · ${details.format}` : `Télécharger la Stable (${stable.version}) · ${details.format}`)}
-                  </span>
-                </a>
+                {details.stableUrl ? (
+                  <a
+                    href={details.stableUrl}
+                    className="download-modal__action-btn download-modal__action-btn--primary download-modal__action-btn--stable"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download
+                    onClick={() => {
+                      setDownloadingKey("stable");
+                      setTimeout(handleClose, 300);
+                    }}
+                  >
+                    {downloadingKey === "stable" ? (
+                      <svg
+                        key="check"
+                        className="download-modal__action-icon--pop"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    ) : (
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                      </svg>
+                    )}
+                    <span>
+                      {downloadingKey === "stable"
+                        ? (isEn ? "Started" : "Lancé")
+                        : (isEn ? `Download Stable (${stable.version}) · ${details.format}` : `Télécharger la Stable (${stable.version}) · ${details.format}`)}
+                    </span>
+                  </a>
+                ) : (
+                  <button type="button" className="download-modal__action-btn download-modal__action-btn--primary download-modal__action-btn--stable is-soon" disabled>
+                    <span>{isEn ? "Soon" : "Bientôt"}</span>
+                  </button>
+                )}
               </div>
 
               {/* Option 2 : VERSION BÊTA (curée) */}
@@ -591,56 +630,62 @@ export default function DownloadModal({
                     : "Bêta : lots de fonctionnalités/correctifs que je sélectionne et publie manuellement quand ils sont prêts."}
                 </p>
 
-                <a
-                  href={details.betaUrl}
-                  className="download-modal__action-btn download-modal__action-btn--beta"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  download
-                  onClick={() => {
-                    setDownloadingKey("beta");
-                    setTimeout(handleClose, 300);
-                  }}
-                >
-                  {downloadingKey === "beta" ? (
-                    <svg
-                      key="check"
-                      className="download-modal__action-icon--pop"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                  ) : (
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                  )}
-                  <span>
-                    {downloadingKey === "beta"
-                      ? (isEn ? "Started" : "Lancé")
-                      : (isEn ? `Download Beta · ${details.format}` : `Télécharger la Bêta · ${details.format}`)}
-                  </span>
-                </a>
+                {details.betaUrl ? (
+                  <a
+                    href={details.betaUrl}
+                    className="download-modal__action-btn download-modal__action-btn--beta"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download
+                    onClick={() => {
+                      setDownloadingKey("beta");
+                      setTimeout(handleClose, 300);
+                    }}
+                  >
+                    {downloadingKey === "beta" ? (
+                      <svg
+                        key="check"
+                        className="download-modal__action-icon--pop"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    ) : (
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                      </svg>
+                    )}
+                    <span>
+                      {downloadingKey === "beta"
+                        ? (isEn ? "Started" : "Lancé")
+                        : (isEn ? `Download Beta · ${details.format}` : `Télécharger la Bêta · ${details.format}`)}
+                    </span>
+                  </a>
+                ) : (
+                  <button type="button" className="download-modal__action-btn download-modal__action-btn--beta is-soon" disabled>
+                    <span>{isEn ? "Soon" : "Bientôt"}</span>
+                  </button>
+                )}
               </div>
 
               {/* Option 3 : VERSION CANARY (rolling) */}
@@ -662,61 +707,76 @@ export default function DownloadModal({
                     : "Canary : reconstruite automatiquement à chaque commit sur main. Accès le plus anticipé, zéro curation, non testé."}
                 </p>
 
-                <a
-                  href={details.canaryUrl}
-                  className="download-modal__action-btn download-modal__action-btn--canary"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  download
-                  onClick={() => {
-                    setDownloadingKey("canary");
-                    setTimeout(handleClose, 300);
-                  }}
-                >
-                  {downloadingKey === "canary" ? (
-                    <svg
-                      key="check"
-                      className="download-modal__action-icon--pop"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                  ) : (
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                  )}
-                  <span>
-                    {downloadingKey === "canary"
-                      ? (isEn ? "Started" : "Lancé")
-                      : (isEn ? `Download Canary · ${details.format}` : `Télécharger la Canary · ${details.format}`)}
-                  </span>
-                </a>
+                {details.canaryUrl ? (
+                  <a
+                    href={details.canaryUrl}
+                    className="download-modal__action-btn download-modal__action-btn--canary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download
+                    onClick={() => {
+                      setDownloadingKey("canary");
+                      setTimeout(handleClose, 300);
+                    }}
+                  >
+                    {downloadingKey === "canary" ? (
+                      <svg
+                        key="check"
+                        className="download-modal__action-icon--pop"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    ) : (
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                      </svg>
+                    )}
+                    <span>
+                      {downloadingKey === "canary"
+                        ? (isEn ? "Started" : "Lancé")
+                        : (isEn ? `Download Canary · ${details.format}` : `Télécharger la Canary · ${details.format}`)}
+                    </span>
+                  </a>
+                ) : (
+                  <button type="button" className="download-modal__action-btn download-modal__action-btn--canary is-soon" disabled>
+                    <span>{isEn ? "Soon" : "Bientôt"}</span>
+                  </button>
+                )}
               </div>
             </div>
           )}
 
-
+          {activePlatform === "linux" && (
+            <p className="download-modal__hint">
+              {isEn
+                ? `To receive updates with the system, use the ${LINUX_FAMILIES[selectedFamily].manager} repository: `
+                : `Pour recevoir les mises à jour avec le système, utilisez le dépôt ${LINUX_FAMILIES[selectedFamily].manager} : `}
+              <Link href={`/${locale}/documentation`} onClick={handleClose}>
+                {isEn ? "installation guide" : "guide d'installation"}
+              </Link>
+            </p>
+          )}
         </div>
       </div>
     </div>,

@@ -1,3 +1,5 @@
+import { PACKAGE_REPOS_LIVE } from "@/lib/linuxPackages";
+
 /**
  * Faits produit réutilisés dans plusieurs pages (landing, documentation, FAQ, boutique, JSON-LD) : un seul
  * endroit à changer quand la version minimale d'Android évolue. Les numéros de version de Bobine, eux, ne
@@ -31,8 +33,12 @@ export const REQUIREMENTS: Record<PlatformId, { name: string; fr: string; en: st
   },
   linux: {
     name: "Linux",
-    fr: "Debian, Ubuntu ou Mint, paquet .deb en x86-64 ou ARM64 ; dépôt APT officiel disponible.",
-    en: "Debian, Ubuntu or Mint, .deb package for x86-64 or ARM64; official APT repository available.",
+    fr: PACKAGE_REPOS_LIVE
+      ? "Debian, Ubuntu ou Mint (.deb), Fedora et dérivés (.rpm), Arch Linux et dérivés (pacman), en x86-64 ou ARM64 ; dépôts officiels signés."
+      : "Debian, Ubuntu ou Mint, paquet .deb en x86-64 ou ARM64 ; dépôt APT officiel disponible. Paquets Fedora (.rpm) et Arch Linux (pacman) bientôt.",
+    en: PACKAGE_REPOS_LIVE
+      ? "Debian, Ubuntu or Mint (.deb), Fedora and derivatives (.rpm), Arch Linux and derivatives (pacman), on x86-64 or ARM64; official signed repositories."
+      : "Debian, Ubuntu or Mint, .deb package for x86-64 or ARM64; official APT repository available. Fedora (.rpm) and Arch Linux (pacman) packages coming soon.",
   },
   android: {
     name: "Android",

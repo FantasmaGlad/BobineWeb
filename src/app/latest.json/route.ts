@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getRepoStats } from "@/lib/releaseChannels";
 import { CLEARNET_URL } from "@/lib/onion";
+import { PACKAGE_REPOS_LIVE, withoutNewPackages } from "@/lib/linuxPackages";
 
 export const dynamic = "force-static";
 // Même fenêtre que GITHUB_REVALIDATE_SECONDS : Next.js exige une valeur littérale ici.
@@ -17,7 +18,8 @@ export async function GET() {
     commit: info.commit ?? null,
     title: info.title,
     published_at: info.publishedAt,
-    downloads: info.downloads,
+    // Les paquets Fedora et Arch ne sont annoncés qu'une fois leurs dépôts en ligne (PACKAGE_REPOS_LIVE).
+    downloads: PACKAGE_REPOS_LIVE ? info.downloads : withoutNewPackages(info.downloads),
   });
   return NextResponse.json(
     {

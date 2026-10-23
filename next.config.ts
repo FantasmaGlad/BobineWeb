@@ -47,10 +47,6 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizeCss: true,
     optimizePackageImports: [
-      "@react-three/drei",
-      "@react-three/fiber",
-      "three",
-      "jspdf",
       "openai",
       "react-markdown",
       "remark-gfm",

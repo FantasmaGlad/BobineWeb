@@ -153,10 +153,6 @@
 .tauri-demo-span-2 {
   white-space: nowrap;
 }
-.amazon-logo-svg-1 {
-  flex-shrink: 0;
-  display: block;
-}
 .chatbot-modal[aria-hidden="true"] {
   display: none;
 }

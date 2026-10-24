@@ -22,11 +22,11 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "/materiel/amazon",
     title: isEn
-      ? "Hardware Guide & Recommended Gym Playout Bundles — Bobine"
-      : "Guide Matériel & Packs Recommandés — Bobine | Régie Fitness",
+      ? "Hardware Guide & Gym Playout Bundles — Bobine"
+      : "Guide Matériel & Packs — Bobine | Régie Fitness",
     description: isEn
-      ? "Explore vetted gym hardware for Bobine: turnkey OS bundles (Linux Wyse J5005, Windows Mini PC, Mac Mini, ARM Snapdragon PC & Mini PC, Android tablets, Android TV), certified cabling, studio remotes, and ROI comparison vs Les Mills Cinema."
-      : "Découvrez le matériel testé pour faire tourner Bobine sans bug : packs par OS (Linux Wyse J5005, Windows Mini PC, Mac Mini, PC & Mini PC ARM Snapdragon, tablettes Android, Android TV), câblage certifié, télécommandes studio et comparatif budgétaire face à Les Mills Cinema.",
+      ? "Browse hardware ideas for Bobine by operating system and budget. Catalogue under review: check specifications, compatibility, prices and availability before buying."
+      : "Parcourez des idées de matériel pour Bobine par système et budget. Catalogue en révision : caractéristiques, compatibilité, prix et disponibilité à vérifier avant achat.",
     keywords: [
       "Matériel Bobine",
       "Pack Dell Wyse 5070 J5005",
@@ -72,84 +72,6 @@ export default async function HardwareAmazonPage({
     },
   ];
 
-  // Schéma structuré ItemList Schema.org pour le SEO / GEO
-  const hardwareSchema = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: isEn
-      ? "Bobine Certified Gym Playout Hardware Bundles"
-      : "Packs Matériels Certifiés Régie Bobine Fit",
-    description: isEn
-      ? "Curated hardware setups for gyms and fitness studios running Bobine open-source playout across Linux, Windows, macOS, ARM (Snapdragon / ARM64), Android Tablets, and Android TV."
-      : "Sélection de configurations matérielles testées pour équiper les studios de fitness avec Bobine sur Linux, Windows, macOS, ARM (Snapdragon / ARM64), Tablettes Android et Android TV.",
-    itemListElement: [
-      {
-        "@type": "Product",
-        position: 1,
-        name: "Pack Linux Appliance — Mini PC Industriel Fanless N100",
-        description:
-          "Mini PC industriel 100% fanless Intel N100, 8 Go DDR4, 256 Go NVMe SSD, double sortie HDMI + DisplayPort, câble vidéo et télécommande 2.4 GHz USB.",
-        offers: {
-          "@type": "Offer",
-          price: "592.00",
-          priceCurrency: "EUR",
-          availability: "https://schema.org/InStock",
-        },
-      },
-      {
-        "@type": "Product",
-        position: 2,
-        name: "Pack Windows Desktop — Beelink Mini S12 Pro Intel N100",
-        description:
-          "Mini PC Intel N100, 16 Go RAM, 512 Go SSD NVMe, Windows 11 Pro, câble HDMI 2.1 48 Gbps et télécommande 2.4 GHz USB.",
-        offers: {
-          "@type": "Offer",
-          price: "359.00",
-          priceCurrency: "EUR",
-          availability: "https://schema.org/InStock",
-        },
-      },
-      {
-        "@type": "Product",
-        position: 3,
-        name: "Pack PC & Mini PC ARM — Snapdragon X Plus & Raspberry Pi 5",
-        description:
-          "PC portables Qualcomm Snapdragon X et Mini PC ARM64 (Raspberry Pi 5, Radxa Rock 5B, NVIDIA DGX Spark) ultra basse consommation 5W-10W.",
-        offers: {
-          "@type": "Offer",
-          price: "262.98",
-          priceCurrency: "EUR",
-          availability: "https://schema.org/InStock",
-        },
-      },
-      {
-        "@type": "Product",
-        position: 4,
-        name: "Pack Android Tactile — Samsung Galaxy Tab A9+ & Support Mural Antivol",
-        description:
-          "Tablette Samsung Galaxy Tab A9+ 11 pouces, support mural antivol verrouillable et câble d'alimentation continue 100W.",
-        offers: {
-          "@type": "Offer",
-          price: "285.00",
-          priceCurrency: "EUR",
-          availability: "https://schema.org/InStock",
-        },
-      },
-      {
-        "@type": "Product",
-        position: 5,
-        name: "Pack Android TV & Box — Xiaomi TV Box S & Google TV Streamer 4K",
-        description:
-          "Boîtiers 4K Google TV et Android TV certifiés pour diffusion autonome grand écran en salle de sport.",
-        offers: {
-          "@type": "Offer",
-          price: "69.00",
-          priceCurrency: "EUR",
-          availability: "https://schema.org/InStock",
-        },
-      },
-    ],
-  };
 
   return (
     <div
@@ -157,10 +79,19 @@ export default async function HardwareAmazonPage({
     >
       <BreadcrumbsJsonLd items={breadcrumbs} />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(hardwareSchema) }}
-      />
+      <aside className="hw-div-20" aria-label={isEn ? "Amazon affiliate disclosure" : "Affiliation Amazon"}>
+        <p>
+          <strong>{isEn ? "Affiliate links. " : "Liens d’affiliation. "}</strong>
+          {isEn
+            ? "As an Amazon Associate, bobine.fit earns from qualifying purchases."
+            : "En tant que Partenaire Amazon, le site bobine.fit réalise un bénéfice sur les achats remplissant les conditions requises."}
+        </p>
+        <p>
+          {isEn
+            ? "This catalogue is being reviewed. Check prices, availability and specifications on the seller’s page before buying. A listing here does not mean the device has been tested with Bobine."
+            : "Ce catalogue est en cours de révision. Vérifiez les prix, la disponibilité et les caractéristiques sur la fiche du vendeur avant tout achat. Une présence dans ce guide ne signifie pas que l’appareil a été testé avec Bobine."}
+        </p>
+      </aside>
 
       {/* 1. Les Bundles par OS (Linux, Windows, macOS, Android), avec accessoires filtrés intégrés */}
       <HardwareBundleTabs locale={currentLocale} />

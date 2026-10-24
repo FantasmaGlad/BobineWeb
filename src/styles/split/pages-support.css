@@ -16,7 +16,7 @@
   margin-bottom: 2rem;
 }
 .support-h2-1 {
-  font-size: clamp(1.85rem, 3.8vw, 2.6rem);
+  font-size: var(--fs-clamp-1-85rem-3-8vw-2-6rem);
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.03em;
@@ -25,7 +25,7 @@
 }
 .support-p-1 {
   color: var(--text-muted);
-  font-size: 1.05rem;
+  font-size: var(--fs-1-05rem);
   line-height: 1.6;
   margin: 0;
 }
@@ -39,14 +39,14 @@
   padding-top: 1.5rem;
 }
 .support-h3-1 {
-  font-size: 1.25rem;
+  font-size: var(--fs-1-25rem);
   font-weight: 700;
   color: var(--text-heading);
   margin-bottom: 0.5rem;
 }
 .support-p-2 {
   color: var(--text-main);
-  font-size: 0.975rem;
+  font-size: var(--fs-0-975rem);
   line-height: 1.65;
   margin: 0;
 }

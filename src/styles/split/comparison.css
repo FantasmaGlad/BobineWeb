@@ -11,7 +11,7 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 0.9rem;
+  font-size: var(--fs-0-9rem);
 }
 .comparison-table th,
 .comparison-table td {
@@ -24,7 +24,7 @@
 }
 .comparison-table thead th {
   background: var(--glass-inset-bg);
-  font-size: 0.82rem;
+  font-size: var(--fs-0-82rem);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -33,7 +33,7 @@
 .comparison-table thead th span {
   display: block;
   margin-top: 0.15rem;
-  font-size: 0.74rem;
+  font-size: var(--fs-0-74rem);
   font-weight: 500;
   text-transform: none;
   letter-spacing: 0;

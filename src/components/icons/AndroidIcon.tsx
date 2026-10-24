@@ -23,9 +23,9 @@ export default function AndroidIcon({
         fill={color || "currentColor"}
       />
       {/* Œil droit */}
-      <circle cx="16.5" cy="14.5" r="1.5" fill="var(--bg-canvas, #ffffff)" />
+      <circle cx="16.5" cy="14.5" r="1.5" fill="var(--bg-canvas)" />
       {/* Œil gauche */}
-      <circle cx="7.5" cy="14.5" r="1.5" fill="var(--bg-canvas, #ffffff)" />
+      <circle cx="7.5" cy="14.5" r="1.5" fill="var(--bg-canvas)" />
     </svg>
   );
 }

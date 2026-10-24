@@ -18,7 +18,7 @@
   object-fit: contain;
 }
 .not-found-h1-1 {
-  font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+  font-size: var(--fs-clamp-1-5rem-3-5vw-2-1rem);
   font-weight: 700;
   color: var(--text-heading);
   margin-bottom: 0.6rem;
@@ -26,7 +26,7 @@
 }
 .not-found-p-1 {
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: var(--fs-0-95rem);
   line-height: 1.6;
   margin-bottom: 1.75rem;
 }
@@ -38,9 +38,9 @@
 }
 .not-found-link-1 {
   padding: 0.5rem 1.15rem;
-  font-size: 0.875rem;
+  font-size: var(--fs-0-875rem);
   font-weight: 500;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-0-5rem);
 }
 .not-found-div-3 {
   min-height: 100vh;
@@ -59,7 +59,7 @@
   object-fit: contain;
 }
 .not-found-h1-2 {
-  font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+  font-size: var(--fs-clamp-1-5rem-3-5vw-2-1rem);
   font-weight: 700;
   color: var(--text-heading);
   margin: 0 0 0.6rem 0;
@@ -69,7 +69,7 @@
   color: var(--text-muted);
   max-width: 34rem;
   margin: 0 0 1.5rem 0;
-  font-size: 0.95rem;
+  font-size: var(--fs-0-95rem);
   line-height: 1.6;
 }
 .bobine-chatbot-span-1 {
@@ -99,7 +99,7 @@
   gap: 0.35rem;
 }
 .download-pdf-button-span-1 {
-  font-size: 0.75rem;
+  font-size: var(--fs-0-75rem);
   color: var(--accent-primary);
 }
 .os-download-grid-p-1 {
@@ -114,7 +114,7 @@
 }
 .roi-calculator-p-1 {
   margin: 0;
-  font-size: 0.925rem;
+  font-size: var(--fs-0-925rem);
   color: var(--text-muted);
   line-height: 1.45;
 }
@@ -124,12 +124,12 @@
 .shot-img-1 {
   width: 100%;
   height: auto;
-  border-radius: 0.65rem;
+  border-radius: var(--radius-0-65rem);
   border: 1px solid var(--glass-card-border);
   box-shadow: var(--shadow-card);
 }
 .shot-figcaption-1 {
-  font-size: 0.825rem;
+  font-size: var(--fs-0-825rem);
   color: var(--text-muted);
   margin-top: 0.45rem;
   text-align: center;

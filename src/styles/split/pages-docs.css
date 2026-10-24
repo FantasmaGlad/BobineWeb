@@ -30,12 +30,12 @@
 }
 .dx-p-1.dx-p-1 {
   color: var(--text-muted);
-  font-size: 1.025rem;
+  font-size: var(--fs-1-025rem);
   line-height: 1.6;
   margin-bottom: 0.75rem;
 }
 .dx-p-2.dx-p-2 {
-  font-size: 0.9rem;
+  font-size: var(--fs-0-9rem);
   margin-bottom: 1.75rem;
 }
 .dx-link-1.dx-link-1 {
@@ -54,14 +54,14 @@
 }
 .dx-h1-2.dx-h1-2 {
   margin: 0;
-  font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+  font-size: var(--fs-clamp-1-75rem-3-5vw-2-4rem);
   font-weight: 800;
   color: var(--text-heading);
   letter-spacing: -0.02em;
 }
 .dx-p-4.dx-p-4 {
   color: var(--text-muted);
-  font-size: 1.025rem;
+  font-size: var(--fs-1-025rem);
   line-height: 1.6;
   margin: 0 0 1.5rem 0;
 }
@@ -73,7 +73,7 @@
   margin-bottom: 1.75rem;
   background: var(--glass-inset-bg);
   border: 1px solid var(--border-subtle);
-  border-radius: 0.6rem;
+  border-radius: var(--radius-0-6rem);
   max-width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -91,7 +91,7 @@
 }
 .dx-h2-1.dx-h2-1 {
   margin: 0;
-  font-size: 1.35rem;
+  font-size: var(--fs-1-35rem);
   font-weight: 800;
   color: var(--text-heading);
 }
@@ -118,7 +118,7 @@
 }
 .dx-h3-1.dx-h3-1 {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: var(--fs-1-05rem);
   font-weight: 700;
   color: var(--text-heading);
   line-height: 1.4;
@@ -126,12 +126,12 @@
 .dx-div-9.dx-div-9 {
   margin-top: 0.65rem;
   color: var(--text-base);
-  font-size: 0.95rem;
+  font-size: var(--fs-0-95rem);
   line-height: 1.65;
 }
 .dx-p-5.dx-p-5 {
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: var(--fs-0-95rem);
 }
 .dx-div-10.dx-div-10 {
   display: flex;
@@ -143,13 +143,13 @@
   padding-top: 1rem;
 }
 .dx-h2-2.dx-h2-2 {
-  font-size: 1.3rem;
+  font-size: var(--fs-1-3rem);
   font-weight: 750;
   color: var(--text-heading);
   margin-bottom: 0.75rem;
 }
 .dx-h2-3.dx-h2-3 {
-  font-size: 1.3rem;
+  font-size: var(--fs-1-3rem);
   font-weight: 750;
   color: var(--text-heading);
   margin-top: 2rem;
@@ -178,12 +178,12 @@
   align-items: flex-start;
 }
 .dx-code-1.dx-code-1 {
-  font-size: 0.8rem;
+  font-size: var(--fs-0-8rem);
   line-height: 1.5;
 }
 .dx-p-6.dx-p-6 {
   margin-top: 0.5rem;
-  font-size: 0.85rem;
+  font-size: var(--fs-0-85rem);
   color: var(--text-muted);
 }
 .dx-a-1.dx-a-1 {
@@ -199,21 +199,21 @@
 }
 .dx-p-7.dx-p-7 {
   margin-top: 0.6rem;
-  font-size: 0.85rem;
+  font-size: var(--fs-0-85rem);
   color: var(--text-muted);
 }
 .dx-div-18.dx-div-18 {
   margin-top: 1.5rem;
 }
 .dx-h3-2.dx-h3-2 {
-  font-size: 1.25rem;
+  font-size: var(--fs-1-25rem);
   font-weight: 700;
   margin-bottom: 1rem;
   color: var(--text-heading);
 }
 .dx-p-8.dx-p-8 {
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: var(--fs-0-95rem);
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
@@ -225,7 +225,7 @@
   margin-bottom: 2rem;
   background: var(--glass-inset-bg);
   border: 1px solid var(--border-subtle);
-  border-radius: 0.6rem;
+  border-radius: var(--radius-0-6rem);
   max-width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -252,8 +252,8 @@
 }
 .dx-tab.dx-tab {
   padding: 0.4rem 0.8rem;
-  border-radius: 0.45rem;
-  font-size: 0.825rem;
+  border-radius: var(--radius-0-45rem);
+  font-size: var(--fs-0-825rem);
   font-weight: 600;
   cursor: pointer;
   background: transparent;

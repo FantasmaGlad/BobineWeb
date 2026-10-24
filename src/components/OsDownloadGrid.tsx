@@ -12,7 +12,7 @@ import { useDetectedPlatform, reorderForPlatform } from "@/lib/detectPlatform";
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFallbacks";
 import { useReleaseData } from "@/components/ReleaseProvider";
-import DownloadModal, { type DownloadPlatform } from "@/components/DownloadModal";
+import DownloadPanel, { type DownloadPlatform } from "@/components/download/DownloadPanel";
 import { ANDROID } from "@/lib/productFacts";
 import DistroLogo from "@/components/icons/DistroLogo";
 import { LINUX_FAMILIES, LINUX_FAMILY_IDS } from "@/lib/linuxPackages";
@@ -342,7 +342,7 @@ export default function OsDownloadGrid({
         </div>
       </div>
 
-      <DownloadModal
+      <DownloadPanel
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         locale={locale}

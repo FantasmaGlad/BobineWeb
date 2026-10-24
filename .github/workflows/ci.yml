@@ -59,6 +59,10 @@ jobs:
         run: |
           node scripts/ci/check-assets.mjs
           node --test scripts/ci/check-assets.test.mjs
+      - name: Plan du site (hiérarchie, hubs, pied de page)
+        run: |
+          node scripts/ci/check-site-graph.mjs
+          node --test scripts/ci/check-site-graph.test.mjs
       - name: Cliquet de jetons (tests d’injection)
         run: node --test scripts/ci/style-tokens.test.mjs
       - name: Export des jetons à jour

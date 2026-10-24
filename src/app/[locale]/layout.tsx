@@ -1,5 +1,5 @@
 import "../globals.css"; // en premier : les feuilles de src/styles/split/*.css importées par les composants doivent venir après
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
@@ -20,6 +20,9 @@ import { CLEARNET_URL } from "@/lib/onion";
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
+
+/** Fenêtre d'affichage : le contenu passe sous les encoches (viewport-fit=cover), l'en-tête et le pied de page les évitent. */
+export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 export async function generateMetadata({
   params,
@@ -197,10 +200,8 @@ export default async function RootLayout({
         <JsonLd locale={locale} />
         <Header locale={locale} dict={dict} />
         <TechTicker locale={locale as Locale} />
-        <main>
-          {children}
-          <Footer locale={locale as Locale} dict={dict} />
-        </main>
+        <main>{children}</main>
+        <Footer locale={locale as Locale} dict={dict} />
 
         <BobineChatbot locale={locale as Locale} />
         {!IS_ONION && <ServiceWorkerRegistration locale={locale as Locale} />}

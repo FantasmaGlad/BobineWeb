@@ -9,7 +9,9 @@ import LocaleSwitcher from "@/components/LocaleSwitcher";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import GitHubBadge from "@/components/GitHubBadge";
 import MobileDrawer from "@/components/MobileDrawer";
+import Icon from "@/components/ui/Icon";
 import { lp } from "@/lib/seo";
+import { navRoutes, routeHref, routeLabel } from "@/lib/siteMap";
 import "@/styles/split/site-chrome.css";
 
 
@@ -23,15 +25,10 @@ export default function Header({
   const pathname = usePathname();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const links: Array<[string, string]> = [
-    [lp(locale, `/fonctionnalites`), dict.nav.features],
-    [lp(locale, `/materiel/aliexpress`), dict.nav.hardware],
-    [`/${locale}/documentation`, dict.nav.documentation],
-    [lp(locale, `/comparatif`), dict.nav.comparisons],
-    [`/${locale}/blog`, dict.nav.blog],
-    [lp(locale, `/soutenir`), dict.nav.support],
-    [lp(locale, `/a-propos`), dict.nav.about],
-  ];
+  // Le bouton « Télécharger » est mis en avant à droite : les liens de navigation sont les autres entrées du plan du site.
+  const links: Array<[string, string]> = navRoutes()
+    .filter((route) => route.id !== "download")
+    .map((route) => [routeHref(locale, route.id), route.label[locale]]);
 
   const isAllowedBaamix = (() => {
     if (!pathname) return false;
@@ -97,6 +94,9 @@ export default function Header({
                 <span>Baamix</span>
               </button>
             )}
+            <Link href={routeHref(locale, "download")} className="btn-primary site-header__cta">
+              {routeLabel(locale, "download")}
+            </Link>
             <GitHubBadge />
             <ThemeSwitcher />
             <LocaleSwitcher locale={locale} dict={dict} />
@@ -111,11 +111,7 @@ export default function Header({
             aria-label="Ouvrir le menu de navigation"
             aria-expanded={isDrawerOpen}
           >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="3" y1="12" x2="21" y2="12" />
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
+            <Icon name="menu" size={22} />
           </button>
         </div>
       </header>

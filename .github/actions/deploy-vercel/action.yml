@@ -34,6 +34,7 @@ runs:
       id: deploy
       shell: bash
       env:
+        GITHUB_TOKEN: ${{ github.token }}
         VERCEL_TOKEN: ${{ inputs.token }}
         VERCEL_ORG_ID: ${{ inputs.org-id }}
         VERCEL_PROJECT_ID: ${{ inputs.project-id }}

@@ -59,6 +59,12 @@ jobs:
         run: node --test scripts/ci/style-tokens.test.mjs
       - name: Export des jetons à jour
         run: node scripts/ci/export-tokens.mjs --check
+      - name: Installer Stable depuis la source canonique
+        run: node scripts/ci/sync-install.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Vérification de l’installateur et des corruptions
+        run: node --test scripts/ci/sync-install.test.mjs
       - name: Simulateur d'installation aligné sur les scripts
         run: bash scripts/ci/check-simulator-sync.sh
       - name: Transparence des visuels détourés
@@ -101,6 +107,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Installer Stable depuis la source canonique
+        run: node scripts/ci/sync-install.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       - name: ShellCheck
         run: shellcheck -S error deploy/onion/*.sh public/install-tor.sh public/install.sh scripts/ci/*.sh scripts/security-txt/sign.sh
       - name: Export statique

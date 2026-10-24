@@ -195,10 +195,10 @@ Nothing is published without passing the validation workflow, which checks on ev
 - `tsc --noEmit`, ESLint and the production build;
 - the glass and style tokens, and text contrast on every glass material of the 16 themes (`glass-check.mjs`);
 - the installation simulators against the published scripts (`check-simulator-sync.sh`: same step titles, same three channels);
-- the static Tor export and its guarantees (no external resource, no marketplace link, no measurement script), ShellCheck on the shell scripts, and the identity of `public/install-tor.sh` with its deployment copy;
+- the static Tor export and its guarantees (no external resource, no marketplace link, no measurement script), ShellCheck on the shell scripts, and the shared source of `install-tor.sh` used by the site and the mirror;
 - the security site: signature of `security.txt`, fingerprint, expirations, local links (`check-security-site.sh`).
 
-After publication, live tests query the real website, the disclosure site and the onion service through Tor. CodeQL, a daily check of the OpenPGP fingerprint and a daily consistency check with the Bobine releases (`check-release-sync.sh`: `install.sh` identical to the software's, download files present for Stable, Beta and Canary, Fedora and Arch packages included once `PACKAGE_REPOS_LIVE` is true) run continuously.
+After publication, live tests query the real website, the disclosure site and the onion service through Tor. CodeQL, a daily check of the OpenPGP fingerprint and a daily consistency check with the Bobine releases (`check-release-sync.sh`: the Stable `install.sh` asset verified against its GitHub SHA-256 digest, download files present for Stable, Beta and Canary, Fedora and Arch packages included once `PACKAGE_REPOS_LIVE` is true) run continuously.
 
 ## Run it locally
 
@@ -209,6 +209,8 @@ npm ci
 cp .env.example .env.local   # optional: the site works without any key
 npm run dev                  # http://localhost:3000
 ```
+
+Production builds fetch `install.sh` from the latest published Stable release of Bobine and verify the asset’s SHA-256 digest before writing `public/install.sh` and `public/install-source.json`. These generated files are excluded from Git. The build requires network access; `GITHUB_TOKEN` can raise the GitHub API rate limit. To serve the installer in development, run `node scripts/ci/sync-install.mjs` once. Live deployment checks compare the served bytes and provenance against the canonical release asset.
 
 ## Security
 

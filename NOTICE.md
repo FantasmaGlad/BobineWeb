@@ -14,7 +14,7 @@ Les logos des distributions Linux de `public/images/distros/` (Debian, Ubuntu, F
 
 ## Images de produits
 
-Les photographies et visuels des produits de la boutique matériel (`public/images/hardware/`) sont la propriété de leurs fabricants ou vendeurs. Ils illustrent des offres de partenaires d'affiliation et ne sont pas couverts par la licence de ce dépôt.
+Les photographies et visuels des produits de la boutique matériel (`public/images/hardware/`) sont la propriété de leurs fabricants ou vendeurs. Ils illustrent des offres de programmes d'affiliation tiers et ne sont pas couverts par la licence de ce dépôt.
 
 ## Identité Bobine
 

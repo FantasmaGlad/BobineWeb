@@ -304,7 +304,7 @@ export const LINUX_SHOWCASE_CONTENT = {
       ],
     },
     framework: {
-      sectionTag: "Partenariat Matériel Recommandé",
+      sectionTag: "Matériel Recommandé & Éprouvé",
       title: "Framework Laptop : Le matériel idéal pour Bobine.",
       desc: "Nous recommandons chaleureusement le Framework Laptop (13 et 16 pouces) pour déployer Bobine en salle ou en régie. Son châssis en aluminium usiné, sa réparabilité exemplaire (indice 10/10) et ses cartes d'extension interchangeables permettent de brancher deux écrans HDMI directs sans adaptateur fragile.",
       specs: [

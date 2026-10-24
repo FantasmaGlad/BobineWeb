@@ -85,7 +85,7 @@ export default async function LinuxShowcasePage({ locale }: { locale: Locale }) 
       {/* 4. Bento Grid : 4 Piliers Performance et Résilience 24/7 */}
       <LinuxBento locale={locale} />
 
-      {/* 5. Showcase Matériel Partenaire Framework Laptop */}
+      {/* 5. Showcase Matériel Recommandé Framework Laptop */}
       <FrameworkShowcase locale={locale} />
 
       {/* 6. Sécurité Cryptographique OpenPGP */}

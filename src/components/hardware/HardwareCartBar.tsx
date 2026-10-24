@@ -23,8 +23,8 @@ export default function HardwareCartBar({ locale }: { locale: Locale }) {
     })
     .filter((g) => g.items.length > 0);
 
-  // Amazon : le formulaire officiel d'ajout au panier des Partenaires ajoute tous les articles
-  // d'un coup, avec le tag d'affiliation, dans un seul onglet.
+  // Amazon : le formulaire officiel d'ajout au panier multi-produits avec tag d'affiliation
+  // ajoute tous les articles d'un coup dans un seul onglet.
   const amazonCartUrl = (groupItems: CartItem[]) => {
     const params = new URLSearchParams({ AssociateTag: AMAZON_STORE_ID, tag: AMAZON_STORE_ID });
     groupItems.forEach((item, index) => {

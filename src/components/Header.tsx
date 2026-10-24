@@ -86,7 +86,7 @@ export default function Header({
               >
                 <div className="baamix-header-avatar">
                   <Image
-                    src="/images/baamix.jpg"
+                    src="/images/baamix-cutout.webp"
                     alt="Baamix"
                     width={20}
                     height={20}

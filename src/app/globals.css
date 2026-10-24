@@ -2277,7 +2277,7 @@ main {
   color: var(--accent-primary);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
 
   .site-header__nav {
     display: none;
@@ -2860,7 +2860,7 @@ main {
   flex-shrink: 0;
   border-radius: 0.4rem;
   border: 1px solid var(--border-subtle);
-  background: #ffffff;
+  background: var(--glass-inset-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7717,7 +7717,7 @@ main {
   flex-shrink: 0;
   border-radius: 0.4rem;
   border: 1px solid var(--border-subtle);
-  background: #ffffff;
+  background: var(--glass-inset-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8625,7 +8625,7 @@ main {
   margin-bottom: 0.35rem;
   border-radius: 0.4rem;
   border: 1px solid var(--border-subtle);
-  background: #ffffff;
+  background: var(--glass-inset-bg);
   overflow: hidden;
 }
 

@@ -16,7 +16,7 @@ const PLATFORMS = [
     key: "aliexpress",
     labelFr: "AliExpress",
     labelEn: "AliExpress",
-    icon: "/images/hardware/aliexpress-icon-mark.webp",
+    icon: "/images/hardware/aliexpress-icon-mark-cutout.webp",
     confettiColors: ["#FF4747", "#E62E04", "#FFF6F2"],
   },
 ] as const;

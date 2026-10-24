@@ -111,7 +111,7 @@ export default function MobileDrawer({
               >
                 <div className="mobile-drawer-baamix-avatar">
                   <Image
-                    src="/images/baamix.jpg"
+                    src="/images/baamix-cutout.webp"
                     alt="Baamix"
                     width={32}
                     height={32} className="site-image-3"

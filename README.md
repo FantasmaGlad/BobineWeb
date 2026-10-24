@@ -92,15 +92,53 @@ Bobine provides seamless compatibility across the distributions and hardware arc
 | <img src="public/images/icons/distros/cachyos.svg" width="22" height="22" alt="CachyOS"> **CachyOS** | Performance-tuned x86-64-v3/v4 kernel with ultra-responsive BORE scheduler | [cachyos.org](https://cachyos.org/) |
 | <img src="public/images/icons/distros/manjaro.svg" width="22" height="22" alt="Manjaro Linux"> **Manjaro Linux** | User-friendly desktop distribution with stabilized package curation | [manjaro.org](https://manjaro.org/) |
 
-#### 4. Operating Systems & Hardware Partners
-| System / Hardware | Description & Support Details | Official Website |
+#### 4. Supported Operating Systems & Recommended Compatible Devices
+
+> [!NOTE]
+> **Independent Hardware Recommendations & Equipment Shop**: Bobine has **no commercial partnerships, sponsorships, or brand affiliations** with device manufacturers: these are strictly independent recommendations tested and proven for reliable 24/7 fitness studio and gym operations.
+>
+> **Recommendation Shop**: Explore our complete curated selection of tested playout units, cabling, and studio kits at [**bobine.fit/en/materiel**](https://bobine.fit/en/materiel).
+
+| System / Recommended Ecosystem | Description & Support Details | Official Website |
 | :--- | :--- | :---: |
-| <img src="public/images/icons/os/framework.svg" width="22" height="22" alt="Framework"> **Framework Laptop** | Modular, upgradeable laptops (AMD Ryzen, Intel Core Ultra, Qualcomm Snapdragon ARM64) | [frame.work](https://frame.work/) |
+| <img src="public/images/icons/os/framework.svg" width="22" height="22" alt="Framework"> **Framework Laptop** | Modular, upgradeable laptops (AMD Ryzen, Intel Core Ultra, Qualcomm Snapdragon ARM64) recommended for durability | [frame.work](https://frame.work/) |
 | <img src="public/images/icons/os/windows.svg" width="22" height="22" alt="Windows"> **Windows 11 / 10** | Native standalone installer for x86-64 and Qualcomm Snapdragon X ARM64 laptops | [microsoft.com/windows](https://www.microsoft.com/windows) |
 | <img src="public/images/icons/os/apple.svg" width="22" height="22" alt="Apple"> **macOS** | Universal disk image `.dmg` for Apple Silicon (M1–M4) and Intel Macs | [apple.com/macos](https://www.apple.com/macos/) |
 | <img src="public/images/icons/os/android.svg" width="22" height="22" alt="Android"> **Android & Android TV** | Touch application for coach tablets, Google Books and Android TV / Google TV boxes | [android.com](https://www.android.com/) |
 | <img src="public/images/icons/os/tor.svg" width="22" height="22" alt="Tor"> **Tor Network (.onion)** | Sovereign, anonymous APT repository and static mirror without IP exposure | [torproject.org](https://www.torproject.org/) |
 | <img src="public/images/icons/os/linux.svg" width="22" height="22" alt="Linux"> **Linux Appliance (Debian 13)** | Dedicated locked-in kiosk appliance for 24/7 gym playout PCs (Dell Wyse 5070, DGX Spark) | [kernel.org](https://kernel.org/) |
+
+##### Popular Recommended Device Categories & Brands
+
+Beyond operating system environments, here are the popular device categories and brands extensively tested and recommended for Bobine:
+
+- **Mini PCs & 24/7 Playout Appliances** *(Discreet, fanless or whisper-quiet, low energy consumption)*:
+  - **Dell**: Wyse 5070 (reference fanless ultra-economical Debian 13 appliance), OptiPlex Micro (3000, 5000, 7000 series).
+  - **HP**: ProDesk Mini, EliteDesk Mini.
+  - **Lenovo**: ThinkCentre Tiny (M70q, M90q, ThinkCentre neo).
+  - **NiPoGi & MeLE**: NiPoGi E1 (Intel N150), E3B (AMD Ryzen 5), H1 (Ryzen 7), MeLE Overclock 4C (ultra-thin fanless).
+  - **Minisforum & GEEKOM**: Minisforum UM series (Ryzen), GEEKOM IT13 Max (Intel Core Ultra).
+  - **ASUS & Intel**: ASUS NUC, Intel NUC (compact 10x10 cm square form factor).
+  - **ARM64 SBCs**: Raspberry Pi 5 (8 GB / 16 GB), Orange Pi 5 Max, NVIDIA DGX Spark (Grace Blackwell GB10), Jetson Orin.
+- **Laptops & Mobile Workstations** *(Touch console `/grid` dual-screen or rack clamshell playout)*:
+  - **Framework Laptop**: Framework Laptop 13 & 16 (10/10 repairability index, modular hot-swappable HDMI cards, AMD Ryzen, Intel Core Ultra, Snapdragon X Elite ARM64).
+  - **Apple**: MacBook Air & MacBook Pro (Apple Silicon M1, M2, M3, M4), Mac mini M4 / M4 Pro.
+  - **Lenovo**: ThinkPad (T, X, E, L series), IdeaPad Slim, Yoga.
+  - **Dell**: XPS 13 / 15 / 16, Latitude, Inspiron.
+  - **HP & ASUS**: HP EliteBook, ProBook, OmniBook; ASUS Zenbook OLED, Vivobook S 15.
+- **TV Boxes & Playout Media Players** *(Affordable large-screen streaming via Android TV / Google TV)*:
+  - **Google**: Google TV Streamer 4K, Chromecast with Google TV (HD & 4K).
+  - **Xiaomi**: Xiaomi TV Box S (2nd Gen) 4K, Xiaomi TV Stick 4K.
+  - **Nokia & Strong**: Nokia Streaming Box 8000 / 8010, Strong LEAP-S3.
+  - **NVIDIA**: Nvidia Shield TV & Shield TV Pro.
+- **Tablets & Touch Kiosks** *(Coach touch console `/grid`, interactive member kiosk `/kiosk`, and remote voting)*:
+  - **Samsung**: Galaxy Tab S9 / S10 Lite / S11 Ultra, Galaxy Tab A9+.
+  - **Xiaomi**: Xiaomi Pad 6 / 7 / 8 (studio reference tablet with USB-C DisplayPort output).
+  - **Lenovo**: Lenovo Idea Tab 11", Tab P11 / P12 Pro.
+  - **Google Books**: Chromebooks with Google Play Store and touch screen (HP Chromebook x360, Acer Spin, Lenovo Duet, ASUS Chromebook Flip).
+  - **Apple**: iPad (10th gen, iPad Air, iPad Pro) via fullscreen Safari / PWA.
+
+> *Technical note: Find configuration guides, verified HDMI/USB-C cables, and wall-mount brackets in our [hardware recommendation shop](https://bobine.fit/en/materiel).*
 
 #### 5. Supported Web Browsers
 | Browser | Engine | Support Status & Validation | Official Website |

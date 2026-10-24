@@ -7,7 +7,9 @@ import { buildMetadata, lp } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
 import RoiCalculator from "@/components/RoiCalculator";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
+import BrandIcon from "@/components/ui/BrandIcon";
 import "@/styles/split/pages-comparison.css";
+import Icon from "@/components/ui/Icon";
 
 export async function generateMetadata({
   params,
@@ -46,35 +48,19 @@ function CardIcon({ slug }: { slug: string }) {
   switch (slug) {
     case "les-mills-cinema":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <rect x="2" y="3" width="20" height="14" rx="2" />
-          <polygon points="10 7 15 10 10 13 10 7" />
-          <line x1="8" y1="21" x2="16" y2="21" />
-          <line x1="12" y1="17" x2="12" y2="21" />
-        </svg>
+        <Icon name="video" size={20} />
       );
     case "wexer-fitness-on-demand":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          <path d="m9 12 2 2 4-4" />
-        </svg>
+        <Icon name="shield" size={20} />
       );
     case "radical-fitness-yako":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <polygon points="12 2 2 7 12 12 22 7 12 2" />
-          <polyline points="2 17 12 22 22 17" />
-          <polyline points="2 12 12 17 22 12" />
-        </svg>
+        <Icon name="layers" size={20} />
       );
     default:
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <rect x="4" y="4" width="16" height="16" rx="2" />
-          <rect x="9" y="9" width="6" height="6" />
-          <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3" />
-        </svg>
+        <Icon name="cpu" size={20} />
       );
   }
 }
@@ -386,23 +372,19 @@ export default async function ComparatifHubPage({
           </p>
           <div className="cmp-platform-pills">
             <Link href={lp(locale, "/ordinateur")} className="cmp-platform-pill">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/icons/os/windows.svg" alt="" width={16} height={16} />
+              <BrandIcon name="os.windows" size={16} />
               <span>{isEn ? "PC & Mac" : "Ordinateur (PC & Mac)"}</span>
             </Link>
             <Link href={lp(locale, "/linux")} className="cmp-platform-pill">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/icons/os/linux.svg" alt="" width={16} height={16} />
+              <BrandIcon name="os.linux" size={16} />
               <span>Linux (.deb, .rpm, pacman)</span>
             </Link>
             <Link href={lp(locale, "/google-book")} className="cmp-platform-pill">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/icons/os/android.svg" alt="" width={16} height={16} />
+              <BrandIcon name="os.googlebook" size={16} />
               <span>{isEn ? "Google Book & Tablets" : "Google Book & Tablettes"}</span>
             </Link>
             <Link href={lp(locale, "/android-tv")} className="cmp-platform-pill">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/icons/os/android.svg" alt="" width={16} height={16} />
+              <BrandIcon name="os.androidtv" size={16} />
               <span>Android TV & Google TV</span>
             </Link>
           </div>
@@ -448,9 +430,7 @@ export default async function ComparatifHubPage({
               <ul className="cmp-ul-1">
                 {card.points.map((pt, pIdx) => (
                   <li key={pIdx} className="cmp-li-1">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="cmp-svg-1" aria-hidden="true">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
+                    <Icon name="check" size={15} className="cmp-svg-1" />
                     <span>{pt}</span>
                   </li>
                 ))}
@@ -462,10 +442,7 @@ export default async function ComparatifHubPage({
               className="btn-primary cmp-link-1"
             >
               <span>{isEn ? "Read full comparison" : "Lire le comparatif complet"}</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
+              <Icon name="arrow-right" size={14} />
             </Link>
           </article>
         ))}
@@ -491,9 +468,7 @@ export default async function ComparatifHubPage({
                   <td className="cell-feature">{row.label}</td>
                   <td className="cell-bobine">
                     <div className="cell-bobine-content">
-                      <svg className="icon-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
+                      <Icon name="check" size={16} className="icon-check" />
                       <strong>{row.bobine}</strong>
                     </div>
                   </td>

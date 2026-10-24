@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Locale } from "@/lib/i18n";
 import { LINUX_SHOWCASE_CONTENT } from "@/content/linuxShowcase";
+import BrandIcon from "@/components/ui/BrandIcon";
 
 export default function LinuxHero({ locale }: { locale: Locale }) {
   const t = LINUX_SHOWCASE_CONTENT[locale].hero;
@@ -45,8 +46,7 @@ export default function LinuxHero({ locale }: { locale: Locale }) {
         </span>
         {chips.map((chip) => (
           <div key={chip.name} className="linux-chips__item">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={chip.icon} alt="" width={18} height={18} className="linux-chips__icon" aria-hidden="true" />
+            <BrandIcon name={chip.icon} className="linux-chips__icon" />
             <span>
               <strong>{chip.name}</strong> ({chip.note})
             </span>

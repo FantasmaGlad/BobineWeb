@@ -4,6 +4,7 @@ import { useMemo, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
+import Icon from "@/components/ui/Icon";
 
 const MAX_RESULTS = 8;
 
@@ -388,21 +389,7 @@ export default function DocsSearch({ locale }: { locale: Locale }) {
   return (
     <div className="docs-search-container">
       <div className="docs-search-input-wrapper">
-        <svg
-          className="docs-search-icon"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <circle cx="11" cy="11" r="8" />
-          <line x1="21" y1="21" x2="16.65" y2="16.65" />
-        </svg>
+        <Icon name="search" size={16} className="docs-search-icon" />
 
         <input
           type="text"
@@ -429,10 +416,7 @@ export default function DocsSearch({ locale }: { locale: Locale }) {
             onClick={() => setQuery("")}
             aria-label={isEn ? "Clear search" : "Effacer la recherche"}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
+            <Icon name="close" size={14} />
           </button>
         )}
       </div>

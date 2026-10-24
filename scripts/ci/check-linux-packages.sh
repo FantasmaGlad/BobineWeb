@@ -23,7 +23,7 @@ fp='B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A'
 grep -qF "SIGNING_KEY_FINGERPRINT = \"$fp\"" "$MOD" || err "$MOD : empreinte de la clé de signature différente de $fp"
 # 4. Logos de distributions.
 for logo in debian ubuntu fedora arch; do
-  [ -s "public/images/distros/$logo.svg" ] || err "public/images/distros/$logo.svg manquant"
+  [ -s "public/images/icons/distros/$logo.svg" ] || err "public/images/icons/distros/$logo.svg manquant"
 done
 
 # 5. Les adresses des dépôts rpm. et arch. ne s'écrivent en dur que dans le module et les textes de référencement.

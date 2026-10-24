@@ -1,0 +1,21 @@
+/* Icônes de marque : masque rempli d'une couleur, donc lisible dans les 16 thèmes (couleur officielle seulement si le
+   contraste le permet, sinon la couleur du texte). Voir src/lib/assets.ts. Spécificité nulle : une classe du site peut
+   imposer sa taille. */
+:where(.brand-icon) {
+  --brand-icon-color: currentColor;
+  display: inline-block;
+  flex: none;
+  width: 1.15em;
+  height: 1.15em;
+  background-color: var(--brand-icon-color);
+  -webkit-mask: var(--brand-icon-src) center / contain no-repeat;
+  mask: var(--brand-icon-src) center / contain no-repeat;
+}
+
+:where(.brand-icon--image) {
+  display: inline-block;
+  flex: none;
+  width: 1.15em;
+  height: 1.15em;
+  object-fit: contain;
+}

@@ -6747,22 +6747,6 @@ main {
   box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 14%, transparent);
 }
 
-/* Logos de distributions : masque rempli de currentColor, donc de la couleur du texte du thème. */
-.distro-logo {
-  display: inline-block;
-  flex: none;
-  width: 1.15em;
-  height: 1.15em;
-  background-color: currentColor;
-  -webkit-mask: var(--distro-src) center / contain no-repeat;
-  mask: var(--distro-src) center / contain no-repeat;
-}
-
-.distro-logo--debian { --distro-src: url("/images/distros/debian.svg"); }
-.distro-logo--ubuntu { --distro-src: url("/images/distros/ubuntu.svg"); }
-.distro-logo--fedora { --distro-src: url("/images/distros/fedora.svg"); }
-.distro-logo--arch { --distro-src: url("/images/distros/arch.svg"); }
-
 /* Famille de distribution (Linux) : même pastille segmentée que l'architecture, avec logo et mention « Bientôt ». */
 .download-modal__selectors {
   display: flex;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import BrandIcon from "@/components/ui/BrandIcon";
 import type { Locale } from "@/lib/i18n";
 import { LINUX_SHOWCASE_CONTENT, getTerminalCommand } from "@/content/linuxShowcase";
 
@@ -93,8 +94,7 @@ export default function LinuxTerminal({ locale }: { locale: Locale }) {
             onClick={() => setFamily("debian")}
             className="linux-terminal__tab"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/icons/distros/debian.svg" alt="" width={18} height={18} className="linux-terminal__tab-icon" aria-hidden="true" />
+            <BrandIcon name="distro.debian" className="linux-terminal__tab-icon" />
             <span>{t.tabs.debian}</span>
           </button>
 
@@ -105,8 +105,7 @@ export default function LinuxTerminal({ locale }: { locale: Locale }) {
             onClick={() => setFamily("fedora")}
             className="linux-terminal__tab"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/icons/distros/fedora.svg" alt="" width={18} height={18} className="linux-terminal__tab-icon" aria-hidden="true" />
+            <BrandIcon name="distro.fedora" className="linux-terminal__tab-icon" />
             <span>{t.tabs.fedora}</span>
           </button>
 
@@ -117,8 +116,7 @@ export default function LinuxTerminal({ locale }: { locale: Locale }) {
             onClick={() => setFamily("arch")}
             className="linux-terminal__tab"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/icons/distros/arch.svg" alt="" width={18} height={18} className="linux-terminal__tab-icon" aria-hidden="true" />
+            <BrandIcon name="distro.arch" className="linux-terminal__tab-icon" />
             <span>{t.tabs.arch}</span>
           </button>
 
@@ -129,8 +127,7 @@ export default function LinuxTerminal({ locale }: { locale: Locale }) {
             onClick={() => setFamily("appliance")}
             className="linux-terminal__tab"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/icons/os/linux.svg" alt="" width={18} height={18} className="linux-terminal__tab-icon" aria-hidden="true" />
+            <BrandIcon name="os.linux" className="linux-terminal__tab-icon" />
             <span>{t.tabs.appliance}</span>
           </button>
         </div>

@@ -225,10 +225,10 @@ export const LINUX_SHOWCASE_CONTENT = {
       chipsLabel: "Validé sur architectures certifiées :",
     },
     chips: [
-      { name: "AMD Ryzen", note: "Zen 3, Zen 4, Hawk Point", icon: "/images/icons/chips/amd.svg" },
-      { name: "Intel Core", note: "Gen 12+, Core Ultra", icon: "/images/icons/chips/intel.svg" },
-      { name: "Qualcomm Snapdragon", note: "ARM64 X Elite & X Plus", icon: "/images/icons/chips/snapdragon.svg" },
-      { name: "Framework Laptop", note: "Modulaire 13 & 16", icon: "/images/icons/os/framework.svg" },
+      { name: "AMD Ryzen", note: "Zen 3/4/5, Ryzen AI 300, Radeon VA-API", icon: "/images/icons/chips/amd.svg" },
+      { name: "Intel Core & N-Series", note: "Core Ultra, Gen 12–15, N100 / N305 QSV", icon: "/images/icons/chips/intel.svg" },
+      { name: "Qualcomm Snapdragon", note: "ARM64 X Elite / X Plus, 8 Gen 2 / 8 Gen 3", icon: "/images/icons/chips/snapdragon.svg" },
+      { name: "Framework & SBC ARM64", note: "Framework 13/16, Raspberry Pi 5, DGX Spark", icon: "/images/icons/os/framework.svg" },
     ],
     terminal: {
       sectionTag: "Installation Express & Dépôts",
@@ -246,10 +246,10 @@ export const LINUX_SHOWCASE_CONTENT = {
         canary: "Canary (En continu)",
       },
       copyBtn: "Copier la commande",
-      copiedText: "Commande copiée !",
-      repoNote: "Dépôts officiels hébergés sur",
+      copiedText: "Commande copiée",
+      repoNote: "Portail interactif des dépôts officiels :",
       viewRepoLink: "packages.bobine.fit",
-      keyVerifiedNote: "Toutes les signatures sont vérifiables avec l'empreinte OpenPGP",
+      keyVerifiedNote: "Signatures vérifiées par clé OpenPGP",
     },
     distros: {
       sectionTag: "Écosystème Certifié",
@@ -264,7 +264,7 @@ export const LINUX_SHOWCASE_CONTENT = {
         {
           badge: "Accélération Matérielle 4K",
           title: "Décodage direct VA-API & NVDEC à 60 fps",
-          desc: "Déchargez intégralement le processeur grâce au décodage vidéo par la puce graphique Intel, AMD ou NVIDIA. Même sur un mini-PC fanless ou un vieux portable reconditionné, la lecture reste d'une fluidité parfaite sans chauffer.",
+          desc: "Déchargez intégralement le processeur grâce au décodage vidéo par la puce graphique Intel, AMD, Qualcomm Adreno ou NVIDIA. Même sur un mini-PC fanless ou un portable reconditionné, la lecture reste d'une fluidité parfaite sans chauffer.",
           features: [
             "Support matériel H.264, HEVC / H.265, VP9 et AV1",
             "Sortie multi-écrans HDMI indépendante en plein écran natif",
@@ -297,8 +297,8 @@ export const LINUX_SHOWCASE_CONTENT = {
           desc: "Fini les installeurs manuels ou les binaires dispersés : Bobine se met à jour naturellement lors de vos `apt upgrade`, `dnf upgrade` ou `pacman -Syu` réguliers.",
           features: [
             "Contrôle strict de parité binaire FHS (/usr/lib/bobine)",
-            "Packages signés cryptographiquement par clé OpenPGP",
-            "Rollback sans douleur vers la version Stable à tout moment",
+            "Paquets signés cryptographiquement par clé OpenPGP",
+            "Retour sans perte vers la version Stable à tout moment",
           ],
         },
       ],
@@ -308,7 +308,7 @@ export const LINUX_SHOWCASE_CONTENT = {
       title: "Framework Laptop : Le matériel idéal pour Bobine.",
       desc: "Nous recommandons chaleureusement le Framework Laptop (13 et 16 pouces) pour déployer Bobine en salle ou en régie. Son châssis en aluminium usiné, sa réparabilité exemplaire (indice 10/10) et ses cartes d'extension interchangeables permettent de brancher deux écrans HDMI directs sans adaptateur fragile.",
       specs: [
-        { title: "Processeurs supportés", value: "AMD Ryzen & Intel Core" },
+        { title: "Processeurs supportés", value: "AMD Ryzen, Intel Core Ultra & Snapdragon" },
         { title: "Sorties d'affichage", value: "Cartes HDMI & DP modulaires" },
         { title: "Indice de réparabilité", value: "10 / 10 (Pièces remplaçables)" },
         { title: "Compatibilité Linux", value: "100% native avec Bobine" },
@@ -319,7 +319,7 @@ export const LINUX_SHOWCASE_CONTENT = {
       title: "Clé de signature OpenPGP officielle",
       desc: "Tous les paquets, dépôts APT, dépôts DNF et bases de données Pacman sont signés par la clé OpenPGP officielle de Bobine. Vérifiez systématiquement cette empreinte avant d'autoriser l'installation :",
       fingerprint: "B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A",
-      downloadKeyText: "Télécharger la clé publique binaire (bobine.gpg)",
+      downloadKeyText: "Télécharger la clé publique (bobine.gpg)",
     },
   },
   en: {
@@ -332,10 +332,10 @@ export const LINUX_SHOWCASE_CONTENT = {
       chipsLabel: "Validated on certified architectures:",
     },
     chips: [
-      { name: "AMD Ryzen", note: "Zen 3, Zen 4, Hawk Point", icon: "/images/icons/chips/amd.svg" },
-      { name: "Intel Core", note: "Gen 12+, Core Ultra", icon: "/images/icons/chips/intel.svg" },
-      { name: "Qualcomm Snapdragon", note: "ARM64 X Elite & X Plus", icon: "/images/icons/chips/snapdragon.svg" },
-      { name: "Framework Laptop", note: "Modular 13 & 16", icon: "/images/icons/os/framework.svg" },
+      { name: "AMD Ryzen", note: "Zen 3/4/5, Ryzen AI 300, Radeon VA-API", icon: "/images/icons/chips/amd.svg" },
+      { name: "Intel Core & N-Series", note: "Core Ultra, Gen 12–15, N100 / N305 QSV", icon: "/images/icons/chips/intel.svg" },
+      { name: "Qualcomm Snapdragon", note: "ARM64 X Elite / X Plus, 8 Gen 2 / 8 Gen 3", icon: "/images/icons/chips/snapdragon.svg" },
+      { name: "Framework & ARM64 SBC", note: "Framework 13/16, Raspberry Pi 5, DGX Spark", icon: "/images/icons/os/framework.svg" },
     ],
     terminal: {
       sectionTag: "Quick Installation & Repositories",
@@ -353,10 +353,10 @@ export const LINUX_SHOWCASE_CONTENT = {
         canary: "Canary (Nightly)",
       },
       copyBtn: "Copy command",
-      copiedText: "Command copied!",
-      repoNote: "Official package hub hosted on",
+      copiedText: "Command copied",
+      repoNote: "Official interactive repository portal:",
       viewRepoLink: "packages.bobine.fit",
-      keyVerifiedNote: "All signatures are verified against the Bobine OpenPGP key",
+      keyVerifiedNote: "All signatures verified against the Bobine OpenPGP key",
     },
     distros: {
       sectionTag: "Certified Ecosystem",
@@ -371,7 +371,7 @@ export const LINUX_SHOWCASE_CONTENT = {
         {
           badge: "4K Hardware Acceleration",
           title: "Direct VA-API & NVDEC decoding at 60 fps",
-          desc: "Offload the entire video decoding pipeline to your Intel, AMD or NVIDIA GPU. Even on silent fanless mini-PCs or refurbished laptops, playback remains buttery-smooth with minimal thermal footprint.",
+          desc: "Offload the entire video decoding pipeline to your Intel, AMD, Qualcomm Adreno or NVIDIA GPU. Even on silent fanless mini-PCs or refurbished laptops, playback remains buttery-smooth with minimal thermal footprint.",
           features: [
             "Hardware decoding for H.264, HEVC / H.265, VP9 and AV1",
             "Independent multi-screen HDMI output in native fullscreen",
@@ -415,7 +415,7 @@ export const LINUX_SHOWCASE_CONTENT = {
       title: "Framework Laptop: The ideal hardware for Bobine.",
       desc: "We enthusiastically recommend Framework Laptops (13 and 16 inches) for studio and control room deployments. Its machined aluminum chassis, 10/10 reparability score, and hot-swappable I/O cards allow connecting dual independent HDMI displays without fragile dongles.",
       specs: [
-        { title: "Processors supported", value: "AMD Ryzen & Intel Core" },
+        { title: "Processors supported", value: "AMD Ryzen, Intel Core Ultra & Snapdragon" },
         { title: "Display outputs", value: "Modular HDMI & DP expansion cards" },
         { title: "Reparability score", value: "10 / 10 (Replaceable parts)" },
         { title: "Linux compatibility", value: "100% native with Bobine" },
@@ -426,7 +426,7 @@ export const LINUX_SHOWCASE_CONTENT = {
       title: "Official OpenPGP Signing Key",
       desc: "All packages, APT repositories, DNF repositories, and Pacman databases are signed by the official Bobine OpenPGP key. Always verify this fingerprint before trusting installation:",
       fingerprint: "B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A",
-      downloadKeyText: "Download public binary key (bobine.gpg)",
+      downloadKeyText: "Download public key (bobine.gpg)",
     },
   },
 };
@@ -434,38 +434,42 @@ export const LINUX_SHOWCASE_CONTENT = {
 export function getTerminalCommand(family: string, channel: string): string {
   if (family === "debian") {
     return [
-      "# 1. Importer la clé de signature OpenPGP",
+      "# 1. Importer la clé de signature OpenPGP officielle",
       "sudo install -m 0755 -d /etc/apt/keyrings",
-      "curl -fsSL https://packages.bobine.fit/bobine.gpg | sudo tee /etc/apt/keyrings/bobine.gpg > /dev/null",
+      "curl -fsSL https://packages.bobine.fit/bobine.gpg \\",
+      "  | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg",
       "",
-      `# 2. Configurer le dépôt officiel Bobine (${channel})`,
-      `echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://packages.bobine.fit/debian ${channel} main" | sudo tee /etc/apt/sources.list.d/bobine.list`,
+      `# 2. Configurer le dépôt APT officiel Bobine (${channel})`,
+      `echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://packages.bobine.fit/debian/ ${channel} main" \\`,
+      "  | sudo tee /etc/apt/sources.list.d/bobine.list",
       "",
-      "# 3. Mettre à jour et installer",
+      "# 3. Mettre à jour et installer Bobine",
       "sudo apt update && sudo apt install bobine",
     ].join("\n");
   }
 
   if (family === "fedora") {
     return [
-      `# 1. Ajouter le dépôt DNF Bobine (${channel})`,
-      `sudo dnf config-manager addrepo --from-repofile=https://packages.bobine.fit/fedora/bobine-${channel}.repo`,
+      "# 1. Importer la clé OpenPGP et ajouter le dépôt DNF Bobine",
+      "sudo rpm --import https://packages.bobine.fit/bobine.gpg",
+      `sudo dnf config-manager addrepo \\`,
+      `  --from-repofile=https://packages.bobine.fit/fedora/bobine-${channel}.repo`,
       "",
       "# 2. Installer Bobine",
       "sudo dnf install bobine",
       "",
-      "# Note pour RHEL / AlmaLinux / Rocky (dnf 4) :",
+      "# Note RHEL / AlmaLinux / Rocky Linux (dnf 4) :",
       `# sudo dnf config-manager --add-repo https://packages.bobine.fit/fedora/bobine-${channel}.repo`,
     ].join("\n");
   }
 
   if (family === "arch") {
     return [
-      "# 1. Importer et approuver la clé de signature",
+      "# 1. Importer et certifier localement la clé OpenPGP Bobine",
       "curl -fsSL https://packages.bobine.fit/bobine.gpg | sudo pacman-key --add -",
       "sudo pacman-key --lsign-key B77D96D72F84F36ACAA3F8729CBF497D829EE15A",
       "",
-      "# 2. Ajouter le dépôt Bobine à /etc/pacman.conf",
+      "# 2. Ajouter le dépôt [bobine] à /etc/pacman.conf",
       "sudo tee -a /etc/pacman.conf << 'EOF'",
       "",
       "[bobine]",
@@ -473,14 +477,14 @@ export function getTerminalCommand(family: string, channel: string): string {
       `Server = https://packages.bobine.fit/arch/${channel}/$arch`,
       "EOF",
       "",
-      "# 3. Synchroniser les bases et installer",
-      "sudo pacman -Sy bobine",
+      "# 3. Synchroniser et installer Bobine",
+      "sudo pacman -Syu bobine",
     ].join("\n");
   }
 
   // appliance direct script
   return [
-    "# Script d'installation automatique pour appliance dédiée (Debian minimale)",
-    "curl -fsSL https://bobine.fit/install.sh | bash",
+    "# Script d'installation automatique pour appliance dédiée (Debian 13 minimale)",
+    `curl -fsSL https://bobine.fit/install.sh | bash${channel !== "stable" ? ` -s -- --channel=${channel}` : ""}`,
   ].join("\n");
 }

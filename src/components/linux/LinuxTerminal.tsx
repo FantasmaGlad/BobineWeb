@@ -41,22 +41,48 @@ export default function LinuxTerminal({ locale }: { locale: Locale }) {
             <span className="linux-terminal__dot linux-terminal__dot--green" />
           </div>
 
-          {family !== "appliance" && (
-            <div className="linux-terminal__pills" role="radiogroup" aria-label="Canal de mise à jour">
-              {(["stable", "beta", "canary"] as const).map((ch) => (
-                <button
-                  key={ch}
-                  type="button"
-                  role="radio"
-                  aria-checked={channel === ch}
-                  onClick={() => setChannel(ch)}
-                  className="linux-terminal__pill"
-                >
-                  {t.channels[ch]}
-                </button>
-              ))}
-            </div>
-          )}
+          <div className="linux-terminal__bar-actions">
+            {family !== "appliance" && (
+              <div className="linux-terminal__pills" role="radiogroup" aria-label="Canal de mise à jour">
+                {(["stable", "beta", "canary"] as const).map((ch) => (
+                  <button
+                    key={ch}
+                    type="button"
+                    role="radio"
+                    aria-checked={channel === ch}
+                    onClick={() => setChannel(ch)}
+                    className="linux-terminal__pill"
+                  >
+                    {t.channels[ch]}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="linux-terminal__copy-btn"
+              aria-label={copied ? t.copiedText : t.copyBtn}
+            >
+              {copied ? (
+                <>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-success)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  <span className="linux-terminal__copied-text">{t.copiedText}</span>
+                </>
+              ) : (
+                <>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                  </svg>
+                  <span>{t.copyBtn}</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
 
         <div className="linux-terminal__tabs" role="tablist" aria-label="Famille de distribution">
@@ -110,30 +136,6 @@ export default function LinuxTerminal({ locale }: { locale: Locale }) {
         </div>
 
         <div className="linux-terminal__body">
-          <button
-            type="button"
-            onClick={handleCopy}
-            className="linux-terminal__copy-btn"
-            aria-label={copied ? t.copiedText : t.copyBtn}
-          >
-            {copied ? (
-              <>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                <span style={{ color: "#22c55e" }}>{t.copiedText}</span>
-              </>
-            ) : (
-              <>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                </svg>
-                <span>{t.copyBtn}</span>
-              </>
-            )}
-          </button>
-
           <pre className="linux-terminal__code">
             <code>{currentCommand}</code>
           </pre>

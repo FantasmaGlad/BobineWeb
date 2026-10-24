@@ -15,13 +15,13 @@ const FALLBACK_RELEASES: BobineRelease[] = [
   {
     slug: "beta",
     title: "Bobine — Bêta & Canary (accès anticipé)",
-    publishedAt: "2026-10-17T09:00:00Z",
+    publishedAt: "2026-10-24T09:00:00Z",
     url: "https://github.com/FantasmaGlad/Bobine/releases/tag/beta",
     body: `Bobine — Canaux Bêta (curé) & Canary (build automatique)
 
 Accès anticipé aux fonctionnalités en cours de développement : le canal Bêta propose des lots sélectionnés et testés avant leur passage en Stable, tandis que le canal Canary est reconstruit automatiquement à chaque commit sur la branche principale.
 
-Réservés aux utilisateurs ayant activé un canal anticipé dans Réglages → Mises à jour logicielles, via install.sh --channel=beta|canary, ou via l'assistant Tauri.
+Réservés aux utilisateurs ayant activé un canal anticipé dans Réglages > Mises à jour logicielles, via install.sh --channel=beta|canary, ou via l'assistant Tauri.
 
 ### Téléchargements directs du canal Bêta
 
@@ -29,8 +29,11 @@ Réservés aux utilisateurs ayant activé un canal anticipé dans Réglages → 
 - Android TV : [Bobine-TV-beta.apk](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-TV-beta.apk)
 - Windows (x86_64) : [Bobine-Setup-beta.exe](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta.exe)
 - Windows ARM64 (Snapdragon) : [Bobine-Setup-beta-arm64.exe](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-Setup-beta-arm64.exe)
-- Linux Bureau (x86_64) : [bobine_beta_amd64.deb](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb)
-- Linux Bureau ARM64 (aarch64) : [bobine_beta_arm64.deb](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_arm64.deb)
+- Linux Bureau Debian/Ubuntu (x86_64) : [bobine_beta_amd64.deb](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_amd64.deb)
+- Linux Bureau Debian/Ubuntu ARM64 : [bobine_beta_arm64.deb](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine_beta_arm64.deb)
+- Linux Bureau Fedora/RHEL (x86_64) : [bobine-beta.x86_64.rpm](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-beta.x86_64.rpm)
+- Linux Bureau Fedora/RHEL ARM64 : [bobine-beta.aarch64.rpm](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-beta.aarch64.rpm)
+- Linux Bureau Arch Linux (x86_64) : [bobine-beta-x86_64.pkg.tar.zst](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-beta-x86_64.pkg.tar.zst)
 - macOS : [Bobine-beta.dmg](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.dmg)
 - Bobine Assistant (x86_64) : [bobine-assistant](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant)
 - Bobine Assistant ARM64 : [bobine-assistant-arm64](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant-arm64)
@@ -38,8 +41,16 @@ Réservés aux utilisateurs ayant activé un canal anticipé dans Réglages → 
 
 ### Retour à la version Stable
 
-À tout moment et sans perte de données : Réglages → Mises à jour logicielles → Canal Stable.`,
+À tout moment et sans perte de données : Réglages > Mises à jour logicielles > Canal Stable.`,
     isPrerelease: true,
+  },
+  {
+    slug: "V5.0.5",
+    title: "Bobine V5.0.5 « Résonance » — Unification des Dépôts Linux (packages.bobine.fit), Mises à Jour Multi-Distributions (.deb, .rpm, pacman), Support Étendu des Puces & Raffinement Apple Liquid Glass",
+    publishedAt: "2026-10-24T12:00:00Z",
+    url: "https://github.com/FantasmaGlad/Bobine/releases/tag/V5.0.5",
+    body: `La version 5.0.5 « Résonance » unifie l'ensemble des dépôts de paquets Linux signés sous https://packages.bobine.fit (/debian, /fedora, /arch) pour les 16 distributions prises en charge en x86_64 et ARM64, ajoute la détection et l'installation natives des mises à jour .deb, .rpm et .pkg.tar.zst directement depuis l'application, étend la matrice de compatibilité matérielle (Qualcomm Snapdragon 8 Gen 2 / Gen 3 / 8 Elite, Snapdragon X Elite / Plus, Apple Silicon M1–M4, Intel Core Ultra / N100, AMD Ryzen, MediaTek Dimensity, Google Tensor, Raspberry Pi 5) et parachève le design Apple Liquid Glass sur les interfaces de périphériques (/devices) et de stockage (/storage).`,
+    isPrerelease: false,
   },
   {
     slug: "V5.0.0",

@@ -135,8 +135,7 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
     sameAs: [
       "https://github.com/FantasmaGlad/Bobine",
       "https://github.com/FantasmaGlad/BobineWeb",
-      "https://apt.bobine.fit",
-      ...(PACKAGE_REPOS_LIVE ? ["https://rpm.bobine.fit", "https://arch.bobine.fit"] : []),
+      "https://packages.bobine.fit",
       "https://security.bobine.fit",
       "https://alternativeto.net/software/fantasmaglad-bobine/",
       "https://www.linkedin.com/in/clement-barillot39",

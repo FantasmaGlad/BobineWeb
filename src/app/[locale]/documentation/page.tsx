@@ -117,7 +117,7 @@ export default async function DocumentationPage({
 
       <p className="dx-p-2">
         <Link href={lp(locale, `/fonctionnalites`)} className="dx-link-1">
-          {isEn ? "See also: What Bobine does for your gym →" : "Voir aussi : ce que Bobine change pour votre salle →"}
+          {isEn ? "See also: What Bobine does for your gym >" : "Voir aussi : ce que Bobine change pour votre salle >"}
         </Link>
       </p>
 

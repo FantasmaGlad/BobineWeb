@@ -31,8 +31,8 @@ const METRICS_FR: TickerMetric[] = [
     tag: "DÉPÔTS LINUX",
     label: "Mises à jour natives",
     value: PACKAGE_REPOS_LIVE
-      ? "Paquets signés GPG : .deb sur apt.bobine.fit, .rpm sur rpm.bobine.fit, pacman sur arch.bobine.fit"
-      : "Paquet .deb signé GPG sur apt.bobine.fit : mises à jour Linux via apt update ; Fedora et Arch bientôt",
+      ? "Paquets signés GPG : APT (Debian/Ubuntu), DNF (Fedora/RHEL) et Pacman (Arch) sur packages.bobine.fit"
+      : "Paquet .deb signé GPG sur packages.bobine.fit : mises à jour Linux via apt update ; Fedora et Arch disponibles",
   },
   { tag: "TÉLÉCOMMANDE SIMPLE", label: "Contrôle en salle", value: "Au choix : télécommande sans fil 2.4 GHz ou smartphone via QR code" },
   { tag: "CONFIDENTIALITÉ", label: "Protection RGPD", value: "100% Local : zéro pistage, zéro caméra, vos données restent dans votre club" },
@@ -62,8 +62,8 @@ const METRICS_EN: TickerMetric[] = [
     tag: "LINUX REPOS",
     label: "Native updates",
     value: PACKAGE_REPOS_LIVE
-      ? "GPG-signed packages: .deb on apt.bobine.fit, .rpm on rpm.bobine.fit, pacman on arch.bobine.fit"
-      : "GPG-signed .deb package on apt.bobine.fit: native Linux updates via apt update; Fedora and Arch coming soon",
+      ? "GPG-signed packages: APT (Debian/Ubuntu), DNF (Fedora/RHEL) and Pacman (Arch) on packages.bobine.fit"
+      : "GPG-signed .deb package on packages.bobine.fit: native Linux updates via apt update; Fedora and Arch available",
   },
   { tag: "SIMPLE REMOTE", label: "Easy control", value: "Choice of 2.4 GHz wireless clicker or local smartphone QR web app" },
   { tag: "PRIVACY & GDPR", label: "Data sovereignty", value: "100% Local: zero analytics, zero cameras, your data stays in your club" },

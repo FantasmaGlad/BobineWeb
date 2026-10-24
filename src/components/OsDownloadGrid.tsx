@@ -129,7 +129,7 @@ export default function OsDownloadGrid({
     {
       id: "android",
       name: "Android",
-      subtitle: isEn ? "Tablets, Google Books & ARM kiosks" : "Tablettes, Google Books & Bornes ARM",
+      subtitle: isEn ? "Tablets (Snapdragon 8 Gen 2/3, Tensor), Google Books & ARM kiosks" : "Tablettes (Snapdragon 8 Gen 2/3, Tensor), Google Books & Bornes ARM",
       format: isEn ? "Package .apk" : "Paquet .apk",
       badge: isEn ? "1-click install" : "Installation 1 clic",
       url: stableInfo.downloads.android,
@@ -141,7 +141,7 @@ export default function OsDownloadGrid({
       name: "Android TV",
       subtitle: isEn ? `Google TV, Xiaomi & Smart TVs (Android ${ANDROID.minVersion}+)` : `Google TV, Xiaomi & Smart TV (Android ${ANDROID.minVersion}+)`,
       format: isEn ? "Package .apk" : "Paquet .apk",
-      badge: isEn ? "Bientôt sur Google Play" : "Bientôt sur Google Play",
+      badge: isEn ? "Soon on Google Play" : "Bientôt sur Google Play",
       url: stableInfo.downloads.androidTv || `https://github.com/FantasmaGlad/Bobine/releases/download/${stableInfo.version}/Bobine-TV-${stableInfo.version.replace(/^V/i, "")}.apk`,
       isComingSoon: false,
       icon: <AndroidTvIcon size={28} className="os-download-card__icon" />,

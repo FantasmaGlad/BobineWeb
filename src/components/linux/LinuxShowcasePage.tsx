@@ -64,7 +64,7 @@ export default async function LinuxShowcasePage({ locale }: { locale: Locale }) 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
 
-      <nav aria-label={isEn ? "Breadcrumb" : "Fil d'Ariane"} className="landing-breadcrumb" style={{ paddingTop: "1rem" }}>
+      <nav aria-label={isEn ? "Breadcrumb" : "Fil d'Ariane"} className="landing-breadcrumb linux-showcase__breadcrumb">
         {breadcrumbs.map((b, i) => (
           <span key={b.url}>
             {i > 0 && " / "}
@@ -92,7 +92,7 @@ export default async function LinuxShowcasePage({ locale }: { locale: Locale }) 
       <LinuxSecurityCard locale={locale} />
 
       {/* 7. Questions Fréquentes */}
-      <section className="linux-section" style={{ marginBottom: "var(--showcase-section-gap)" }}>
+      <section className="linux-section linux-showcase__faq">
         <header className="linux-section-header">
           <h2 className="linux-section-header__title">{isEn ? "Frequently asked questions" : "Questions fréquentes"}</h2>
         </header>
@@ -107,11 +107,11 @@ export default async function LinuxShowcasePage({ locale }: { locale: Locale }) 
       </section>
 
       {/* 8. Pages Liées */}
-      <nav aria-label={isEn ? "Related pages" : "Pages liées"} className="linux-section" style={{ textAlign: "center" }}>
-        <h2 className="linux-section-header__tag" style={{ marginBottom: "1rem" }}>
+      <nav aria-label={isEn ? "Related pages" : "Pages liées"} className="linux-section linux-showcase__related-nav">
+        <h2 className="linux-section-header__tag linux-showcase__related-title">
           {isEn ? "Explore more" : "Pour aller plus loin"}
         </h2>
-        <ul className="landing-related" style={{ justifyContent: "center" }}>
+        <ul className="landing-related linux-showcase__related-list">
           {c.related.map((l) => (
             <li key={l.path}>
               <Link href={lp(locale, l.path)} className="landing-link">

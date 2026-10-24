@@ -8,7 +8,6 @@ export default function LinuxHero({ locale }: { locale: Locale }) {
 
   return (
     <section className="linux-hero">
-      <div className="linux-hero__badge">{t.badge}</div>
       <h1 className="linux-hero__title">{t.title}</h1>
       <p className="linux-hero__lead">{t.lead}</p>
 
@@ -41,7 +40,7 @@ export default function LinuxHero({ locale }: { locale: Locale }) {
       </div>
 
       <div className="linux-chips">
-        <span className="linux-chips__item" style={{ opacity: 0.75 }}>
+        <span className="linux-chips__label">
           {t.chipsLabel}
         </span>
         {chips.map((chip) => (

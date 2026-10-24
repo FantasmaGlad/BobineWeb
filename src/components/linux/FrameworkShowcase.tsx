@@ -9,7 +9,7 @@ export default function FrameworkShowcase({ locale }: { locale: Locale }) {
     <section className="linux-framework-section">
       <div className="linux-framework__content">
         <div>
-          <div className="linux-section-header__tag" style={{ textAlign: "left" }}>
+          <div className="linux-section-header__tag linux-section-header__tag--left">
             {t.sectionTag}
           </div>
           <h2 className="linux-framework__title">{t.title}</h2>
@@ -38,14 +38,13 @@ export default function FrameworkShowcase({ locale }: { locale: Locale }) {
           </a>
         </div>
 
-        <div style={{ position: "relative" }}>
+        <div className="linux-framework__visual-wrap">
           <Image
             src="/images/FrameworkBaamix.webp"
             alt="Framework Laptop modulaire sous Linux pour Bobine"
             width={640}
             height={480}
-            className="linux-hero__image"
-            style={{ borderRadius: "var(--radius-lg)" }}
+            className="linux-hero__image linux-framework__image"
             loading="lazy"
           />
         </div>

@@ -26,17 +26,18 @@ export const PACKAGE_CHANNELS: readonly PackageChannel[] = ["stable", "beta", "c
 
 export const RELEASES_BASE = "https://github.com/FantasmaGlad/Bobine/releases/download";
 
-/** Hôtes des dépôts : le .deb est déjà en ligne, le .rpm et le paquet Arch suivent l'interrupteur ci-dessus. */
+/** Hôtes des dépôts unifiés sous packages.bobine.fit : .deb (APT), .rpm (DNF) et .pkg.tar.zst (pacman). */
 export const REPO_HOSTS: Record<LinuxFamilyId, string> = {
-  debian: "apt.bobine.fit",
-  fedora: "rpm.bobine.fit",
-  arch: "arch.bobine.fit",
+  debian: "packages.bobine.fit/debian",
+  fedora: "packages.bobine.fit/fedora",
+  arch: "packages.bobine.fit/arch",
 };
 
 /** Clé de signature commune aux trois dépôts. */
 export const SIGNING_KEY_FINGERPRINT = "B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A";
 export const SIGNING_KEY_FINGERPRINT_COMPACT = SIGNING_KEY_FINGERPRINT.replace(/\s+/g, "");
-export const SIGNING_KEY_URL = (family: LinuxFamilyId) => `https://${REPO_HOSTS[family]}/bobine.gpg`;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const SIGNING_KEY_URL = (_family?: LinuxFamilyId) => "https://packages.bobine.fit/bobine.gpg";
 
 interface Localized {
   fr: string;
@@ -65,7 +66,7 @@ export const LINUX_FAMILIES: Record<LinuxFamilyId, LinuxFamily> = {
     logo: "debian",
     label: { fr: "Debian / Ubuntu", en: "Debian / Ubuntu" },
     extension: ".deb",
-    distros: { fr: "Debian, Ubuntu, Linux Mint", en: "Debian, Ubuntu, Linux Mint" },
+    distros: { fr: "Debian, Ubuntu, Linux Mint, Pop!_OS, Zorin OS", en: "Debian, Ubuntu, Linux Mint, Pop!_OS, Zorin OS" },
     manager: "apt",
     live: true,
   },

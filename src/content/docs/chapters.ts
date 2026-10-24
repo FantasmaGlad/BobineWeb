@@ -85,39 +85,39 @@ const fr: DocChapter[] = [
       {
         subtitle: "2.3 Linux Bureau Debian / Ubuntu / Mint (paquet .deb — x86_64 & ARM64)",
         paragraphs: [
-          "Dépôt APT officiel signé cryptographiquement (https://apt.bobine.fit) distribuant nativement les architectures amd64 et arm64 pour des mises à jour automatiques via apt upgrade. Paquets autonomes directs disponibles : bobine_x.y.z_amd64.deb et bobine_x.y.z_arm64.deb (pour PC Snapdragon sous Linux, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5 et Radxa Rock 5B). Désinstallation Polkit sécurisée en 1 clic.",
+          "Dépôt APT officiel signé cryptographiquement (https://packages.bobine.fit/debian) distribuant nativement les architectures amd64 et arm64 pour des mises à jour automatiques via apt upgrade. Paquets autonomes directs disponibles : bobine_x.y.z_amd64.deb et bobine_x.y.z_arm64.deb (pour PC Snapdragon sous Linux, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5 et Radxa Rock 5B). Désinstallation Polkit sécurisée en 1 clic.",
           "Matériel de référence testé : mini PC industriel fanless x86 (Intel N100) et stations/cartes ARM64 basse consommation (NVIDIA DGX Spark, Raspberry Pi 5 8 Go), le choix Bobine pour un silence absolu en studio 24/7.",
         ],
         codeBlock:
-          "# Dépôt APT officiel Linux (apt.bobine.fit — compatible amd64 & arm64)\ncurl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine",
+          "# Dépôt APT officiel Linux (packages.bobine.fit/debian — compatible amd64 & arm64)\ncurl -fsSL https://packages.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://packages.bobine.fit/debian stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine",
         deviceImage: "linux",
       },
       {
         subtitle: "2.3 bis Linux Bureau Fedora, RHEL et dérivés (paquet .rpm — x86_64 & ARM64)",
         paragraphs: [
-          `Dépôt dnf officiel signé cryptographiquement (https://rpm.bobine.fit) pour Fedora, Nobara et, via EPEL, RHEL, AlmaLinux et Rocky Linux, en x86_64 et aarch64. Une fois le dépôt ajouté, ${fedoraCommands().upgrade} met Bobine à jour avec le reste du système. Paquets autonomes directs : ${rpmName("x86_64")} et ${rpmName("arm64")}, à installer avec sudo dnf install ./fichier.rpm. Sur dnf 4 (RHEL, AlmaLinux, Rocky Linux), la commande d'ajout est ${fedoraCommands().addRepoLegacy}.`,
+          `Dépôt dnf officiel signé cryptographiquement (https://packages.bobine.fit/fedora) pour Fedora, Nobara et, via EPEL, RHEL, AlmaLinux et Rocky Linux, en x86_64 et aarch64. Une fois le dépôt ajouté, ${fedoraCommands().upgrade} met Bobine à jour avec le reste du système. Paquets autonomes directs : ${rpmName("x86_64")} et ${rpmName("arm64")}, à installer avec sudo dnf install ./fichier.rpm. Sur dnf 4 (RHEL, AlmaLinux, Rocky Linux), la commande d'ajout est ${fedoraCommands().addRepoLegacy}.`,
           `Le fichier bobine-stable.repo suit la Stable ; bobine-beta.repo et bobine-canary.repo suivent la Bêta et la Canary, avec la même clé de signature. Au premier dnf install, dnf affiche l'empreinte de la clé : comparez-la à ${SIGNING_KEY_FINGERPRINT} avant d'accepter.`,
           `ffmpeg : Fedora ne fournit que ffmpeg-free, privé de plusieurs codecs. Pour lire tous les formats de cours, ajoutez RPM Fusion puis remplacez-le par le ffmpeg complet (commandes ci-dessous). ${noteList(FAMILY_NOTES.fedora.derivatives.slice(1), "fr")} ${FAMILY_NOTES.fedora.limits[1].fr}`,
           [repoStatusNote("fedora", "fr"), NOT_VALIDATED_NOTE.fr].filter(Boolean).join(" "),
         ],
-        codeBlock: `# Dépôt dnf officiel (rpm.bobine.fit — x86_64 & aarch64)\n${fedoraInstallScript()}\n\n# ffmpeg complet via RPM Fusion (recommandé)\n${fedoraCommands().ffmpeg}\n\n# Mise à jour\n${fedoraCommands().upgrade}`,
+        codeBlock: `# Dépôt dnf officiel (packages.bobine.fit/fedora — x86_64 & aarch64)\n${fedoraInstallScript()}\n\n# ffmpeg complet via RPM Fusion (recommandé)\n${fedoraCommands().ffmpeg}\n\n# Mise à jour\n${fedoraCommands().upgrade}`,
       },
       {
         subtitle: "2.3 ter Linux Bureau Arch Linux et dérivés (paquet pacman — x86_64 & ARM64)",
         paragraphs: [
-          `Dépôt pacman officiel [bobine] (https://arch.bobine.fit) pour Arch Linux, EndeavourOS, CachyOS et Manjaro en x86_64, et Arch Linux ARM en aarch64. Importez et approuvez la clé de signature, puis ajoutez la section [bobine] à /etc/pacman.conf avec SigLevel = Required DatabaseOptional : pacman refuse alors tout paquet dont la signature ne correspond pas. ${archCommands().upgrade} met ensuite Bobine à jour avec le système.`,
+          `Dépôt pacman officiel [bobine] (https://packages.bobine.fit/arch) pour Arch Linux, EndeavourOS, CachyOS et Manjaro en x86_64, et Arch Linux ARM en aarch64. Importez et approuvez la clé de signature, puis ajoutez la section [bobine] à /etc/pacman.conf avec SigLevel = Required DatabaseOptional : pacman refuse alors tout paquet dont la signature ne correspond pas. ${archCommands().upgrade} met ensuite Bobine à jour avec le système.`,
           `Pour suivre la Bêta ou la Canary, remplacez stable par beta ou canary dans la ligne Server. Paquets autonomes directs : ${archName("x86_64")} et ${archName("arm64")}, à installer avec sudo pacman -U ./fichier. Avant d'approuver la clé, comparez son empreinte avec ${SIGNING_KEY_FINGERPRINT}.`,
           `${noteList(FAMILY_NOTES.arch.derivatives.slice(1), "fr")} ${FAMILY_NOTES.arch.limits[0].fr}`,
           [repoStatusNote("arch", "fr"), NOT_VALIDATED_NOTE.fr].filter(Boolean).join(" "),
         ],
-        codeBlock: `# Dépôt pacman officiel (arch.bobine.fit — x86_64 & aarch64)\n${archInstallScript()}\n\n# Mise à jour\n${archCommands().upgrade}`,
+        codeBlock: `# Dépôt pacman officiel (packages.bobine.fit/arch — x86_64 & aarch64)\n${archInstallScript()}\n\n# Mise à jour\n${archCommands().upgrade}`,
       },
       {
         subtitle: "2.3 quater Linux via le réseau Tor (.onion)",
         paragraphs: [
           "Pour installer et mettre à jour Bobine sans révéler votre adresse IP, le dépôt APT est aussi proposé en service onion (réseau Tor). C'est une copie miroir du dépôt officiel : les paquets restent signés par la même clé, et apt refuse tout paquet dont la signature ne correspond pas.",
           "Le script https://bobine.fit/install-tor.sh (à lire avant de l'exécuter) fait ces étapes à votre place et s'arrête si l'empreinte de la clé diffère de celle publiée. Le dépôt onion publie les trois suites, stable, beta et canary : l'option --channel=stable|beta|canary choisit le canal de mise à jour (sans l'option, le script pose la question sur un terminal et prend stable sinon), et --dry-run n'installe rien. Les commandes ci-dessous sont la version manuelle, sur le canal stable ; remplacez le dernier mot de la ligne deb par beta ou canary pour suivre un autre canal.",
-          "Comparez l'empreinte de la clé principale avec celle de https://apt.bobine.fit/bobine.gpg : B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A.",
+          "Comparez l'empreinte de la clé principale avec celle de https://packages.bobine.fit/bobine.gpg : B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A.",
           "Le site est également consultable dans Tor Browser (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/). La boutique matériel et l'assistant Baamix n'y sont pas proposés : ils reposent sur des liens d'affiliation et des services tiers. J'héberge ce miroir moi-même, sans journal de visite, avec une disponibilité au mieux. En soutien à la communauté du libre, découvrez le projet Tor : https://www.torproject.org/ (code source : https://github.com/torproject/tor).",
         ],
         codeBlock:
@@ -128,9 +128,9 @@ const fr: DocChapter[] = [
         subtitle: "2.4 Tablettes Android & Google Books (Aluminium OS)",
         paragraphs: [
           `Paquet natif Bobine-x.y.z.apk (Android ${ANDROID.minVersion} à ${ANDROID.maxVersion}, API ${ANDROID.minApi}-${ANDROID.maxApi}), embarquant CPython 3.13 et FastAPI via Chaquopy, service de premier plan persistant, accélération MediaCodec et double affichage (/grid tactile + /cinema HDMI USB-C DisplayPort avec résolution robuste du branchement à chaud sans écran noir).`,
-          "Compatibilité Google Books : Bobine s'exécute nativement en plein écran sur les ordinateurs portables Google Book (Aluminium OS) via l'APK avec accélération matérielle complète, et sera très prochainement disponible en téléchargement direct 1 clic sur le Google Play Store.",
-          "Matériel de référence testé : tablettes Samsung Galaxy Tab ou Xiaomi Pad avec port USB-C compatible DisplayPort Alt Mode, et ordinateurs portables Google Book.",
-          "Démarrage avec l'appareil : Réglages → « Démarrage de l'appareil » (case « Lancer Bobine au démarrage de l'appareil ») relance le serveur Bobine quand l'appareil redémarre ou que l'application est mise à jour. L'ouverture automatique de l'écran dépend d'Android : elle exige l'autorisation « Afficher par-dessus d'autres applications », que certains appareils (dont des boîtiers Android TV) réinitialisent à chaque redémarrage. Dans ce cas, le serveur et les écrans distants fonctionnent déjà ; ouvrez simplement l'application pour afficher l'écran local.",
+          "Compatibilité Google Books & puces ARM64 : Bobine s'exécute nativement en plein écran sur les ordinateurs portables Google Book (Aluminium OS) et les tablettes équipées de SoC Qualcomm Snapdragon 8 Gen 2, 8 Gen 3, 8 Elite, Snapdragon X Plus/Elite, MediaTek Dimensity 8300/9300+, Kompanio et Google Tensor.",
+          "Matériel de référence testé : tablettes Samsung Galaxy Tab ou Xiaomi Pad avec port USB-C compatible DisplayPort Alt Mode, et ordinateurs portables Google Book (voir bobine.fit/fr/google-book et bobine.fit/fr/materiel/amazon).",
+          "Démarrage avec l'appareil : Réglages > « Démarrage de l'appareil » (case « Lancer Bobine au démarrage de l'appareil ») relance le serveur Bobine quand l'appareil redémarre ou que l'application est mise à jour. L'ouverture automatique de l'écran dépend d'Android : elle exige l'autorisation « Afficher par-dessus d'autres applications », que certains appareils (dont des boîtiers Android TV) réinitialisent à chaque redémarrage. Dans ce cas, le serveur et les écrans distants fonctionnent déjà ; ouvrez simplement l'application pour afficher l'écran local.",
           "Mises à jour intégrées : si Android bloque l'installation depuis l'application (source inconnue non autorisée), Bobine l'indique avant de télécharger et ouvre le réglage correspondant au lieu d'échouer en cours de route.",
         ],
         deviceImage: ["android", "googlebook"],
@@ -138,7 +138,7 @@ const fr: DocChapter[] = [
       {
         subtitle: "2.4 bis Android TV & Google TV (Box TV, Clés & Smart TVs)",
         paragraphs: [
-          "Paquet dédié officiel Bobine-TV-x.y.z.apk (com.bobine.app.tv) conçu pour les boîtiers grand public (Google TV Streamer, Xiaomi TV Box S, Smart TVs et boîtiers sous Android TV / Google TV 14 ou supérieur). L'application s'intègre au lanceur officiel Leanback avec sa bannière 16:9, neutralise le prérequis d'écran tactile, empêche la mise en veille (FLAG_KEEP_SCREEN_ON) et s'ouvre par défaut sur le kiosque plein écran (/kiosk) navigable à 100% à la télécommande directionnelle D-Pad.",
+          "Paquet dédié officiel Bobine-TV-x.y.z.apk (com.bobine.app.tv) conçu pour les boîtiers grand public (Google TV Streamer 4K, Xiaomi TV Box S 2nd & 3rd Gen, Smart TVs et boîtiers sous Android TV / Google TV 14 ou supérieur). L'application s'intègre au lanceur officiel Leanback avec sa bannière 16:9, neutralise le prérequis d'écran tactile, empêche la mise en veille (FLAG_KEEP_SCREEN_ON) et s'ouvre par défaut sur le kiosque plein écran (/kiosk) navigable à 100% à la télécommande directionnelle D-Pad.",
           `Architecture : le paquet TV est universel. Il s'installe aussi bien sur les boîtiers dont le système est 64 bits que sur ceux dont le système est 32 bits (ARM armeabi-v7a), ce qui est le cas de plusieurs boîtiers Xiaomi, bien que leur processeur soit 64 bits. Android ${ANDROID.minVersion} (API ${ANDROID.minApi}) ou supérieur est requis, comme pour tous les paquets Android de Bobine.`,
           "Stockage externe USB indispensable : Les box TV n'embarquent généralement que 4 à 8 Go de stockage flash eMMC interne (largement saturé par le système). Pour stocker vos cours vidéo en mode autonome, le branchement d'une clé USB 3.0 ou d'un SSD externe (formaté en FAT32 ou exFAT) via un adaptateur USB-C OTG est indispensable. Bobine détecte et sélectionne automatiquement ce stockage amovible sans aucune manipulation technique.",
           "Méthodes d'installation (Sideload) : Vous pouvez transférer sans fil l'APK depuis votre smartphone ou PC vers la TV grâce à l'application « Send Files to TV », l'installer depuis une clé USB via un gestionnaire de fichiers TV (File Commander), ou le pousser via le réseau local en ADB Wi-Fi (adb connect <ip_tv>:5555 && adb install Bobine-TV-x.y.z.apk).",
@@ -164,16 +164,18 @@ const fr: DocChapter[] = [
         subtitle: "2.7 Canaux de version : Stable, Bêta ou Canary",
         paragraphs: [
           "Bobine propose trois canaux de mise à jour : le canal Stable (recommandé en production de salle, tags Vx.y.z stricts), le canal Bêta (lots de fonctionnalités/correctifs que je curate et publie manuellement) et le canal Canary (rolling sur tag mobile canary, reconstruit automatiquement à chaque push sur main, zéro curation).",
-          "Sur tous les OS, Bêta et Canary partagent les mêmes identifiants applicatifs et s'installent par-dessus la version existante sans créer de doublon ni affecter les bases de données ou médias. Le choix s'effectue dans Réglages → Mises à jour logicielles ou via le paramètre CLI (l'installeur Tor, install-tor.sh, accepte la même option --channel et pose la question sur un terminal quand elle est absente) :",
+          "Sur tous les OS, Bêta et Canary partagent les mêmes identifiants applicatifs et s'installent par-dessus la version existante sans créer de doublon ni affecter les bases de données ou médias. Le choix s'effectue dans Réglages > Mises à jour logicielles ou via le paramètre CLI (l'installeur Tor, install-tor.sh, accepte la même option --channel et pose la question sur un terminal quand elle est absente) :",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta   # ou --channel=canary",
         deviceImage: "channels",
       },
       {
-        subtitle: "2.8 Navigateurs supportés (Firefox, Chrome, Edge, Safari)",
+        subtitle: "2.8 Navigateurs pris en charge par famille de moteur (Chromium, Gecko, WebKit)",
         paragraphs: [
-          "L'interface d'administration et les lecteurs ouverts depuis un autre appareil (/radio, /kiosk, /cinema, /coach) fonctionnent dans Firefox (version courante, précédente et ESR, bureau et Android), Chrome, Edge et Safari. Depuis la 4.0.3, le support de Firefox est vérifié de bout en bout sur Firefox 157 par des tests automatiques (envoi de fichiers repris après une coupure réseau, flux vidéo conformes au protocole HTTP, lecture H.264). Windows, macOS, Firefox pour Android et la version ESR ne sont pas encore mesurés.",
-          "Quand un navigateur ne sait pas décoder une vidéo (HEVC ou 10 bits, selon le système et le matériel), Bobine lui sert une version H.264 compatible produite à la demande, sans jamais modifier l'original. Réglages → Compatibilité navigateur affiche un diagnostic local (formats décodés, fonctions disponibles, mesure d'images perdues). Le verrou d'écran et les manettes exigent HTTPS ou localhost.",
+          "Famille Chromium / Blink (Google Chrome 109+, Brave, Microsoft Edge, Vivaldi, Chromium Linux) : prise en charge intégrale de l'interface d'administration, des lecteurs plein écran (/cinema, /kiosk, /radio, /coach), de l'accélération matérielle vidéo, de la synthèse vocale hors-ligne et du mode kiosque multi-écran sur PC Windows, macOS et Linux (voir bobine.fit/fr/ordinateur et bobine.fit/fr/linux).",
+          "Famille Gecko (Mozilla Firefox 115+ Desktop, Firefox 157+ certifié de bout en bout, Firefox ESR, Firefox pour Android et Tor Browser) : compatibilité certifiée par tests automatisés sur les téléversements repris après coupure réseau, le streaming HTTP Range H.264 et l'assistant IA local Baamix.",
+          "Famille WebKit (Apple Safari 16+ sur macOS, iPadOS et iOS) : prise en charge native du pupitre coach mobile, de la télécommande par QR code (http://bobine.local:8000) et du décodage matériel VideoToolbox sur Mac, iPad et iPhone.",
+          "Quand un navigateur client ne sait pas décoder nativement un flux HEVC ou 10 bits, Bobine génère et sert automatiquement une version H.264 compatible à la demande sans altérer le fichier original. Le panneau Réglages > Compatibilité navigateur affiche en direct les codecs matériels décodés, l'état de l'API Screen Wake Lock, la prise en charge des manettes HTML5 Gamepad et le compteur d'images perdues.",
         ],
       },
     ],
@@ -350,7 +352,7 @@ const fr: DocChapter[] = [
       {
         subtitle: "5.1 Comment sauvegarder ma configuration avant une réinstallation ?",
         paragraphs: [
-          "Depuis le panneau d'administration (Réglages → Sauvegarde & Restauration), exportez une archive ZIP complète en un clic, puis réimportez-la sur la nouvelle machine.",
+          "Depuis le panneau d'administration (Réglages > Sauvegarde & Restauration), exportez une archive ZIP complète en un clic, puis réimportez-la sur la nouvelle machine.",
           "Vérifiez l'intégrité de la base de données restaurée avec la commande SQLite suivante :",
         ],
         codeBlock: "sqlite3 bobine.db 'PRAGMA integrity_check;'",
@@ -370,7 +372,7 @@ const fr: DocChapter[] = [
       {
         subtitle: "5.4 Comment fonctionne la désinstallation automatique en 1 clic ?",
         paragraphs: [
-          "Dans Réglages → Zone de danger, la section « Désinstaller Bobine » déclenche le processus adapté au système (Polkit sur Linux .deb, Inno Setup sur Windows, purge de bundle et LaunchAgent sur Mac, intent Android, script bobine-uninstall sur headless). L'opération nécessite la saisie explicite du mot de confirmation « DÉSINSTALLER ».",
+          "Dans Réglages > Zone de danger, la section « Désinstaller Bobine » déclenche le processus adapté au système (Polkit sur Linux .deb, Inno Setup sur Windows, purge de bundle et LaunchAgent sur Mac, intent Android, script bobine-uninstall sur headless). L'opération nécessite la saisie explicite du mot de confirmation « DÉSINSTALLER ».",
         ],
       },
       {
@@ -442,7 +444,7 @@ const fr: DocChapter[] = [
         paragraphs: [
           "Chaque nouvelle version est publiée sur GitHub Releases (github.com/FantasmaGlad/Bobine/releases) avec son changelog détaillé, ses binaires signés pour les 5 systèmes d'exploitation, et son SHA-256 de vérification d'intégrité.",
           "Trois canaux permettent de suivre l'avancement du projet : le canal Stable (tags Vx.y.z figés, recommandé en production de salle), le canal Bêta (lots de fonctionnalités/correctifs curés, publiés manuellement) et le canal Canary (rolling, reconstruit automatiquement à chaque évolution du code sur la branche principale, pour les clubs souhaitant tester les toutes dernières modifications sans attendre un lot).",
-          "Le dépôt APT officiel (apt.bobine.fit) reflète les trois canaux dans ses distributions stable, beta et canary, permettant une mise à jour automatique via apt upgrade sans réinstallation manuelle. Le dépôt APT du miroir Tor (.onion) publie les mêmes trois suites. Les dépôts Fedora (rpm.bobine.fit, dnf) et Arch Linux (arch.bobine.fit, pacman) suivent les mêmes trois canaux, avec la même clé de signature.",
+          "Le hub de paquets Linux unifié (packages.bobine.fit) reflète les trois canaux dans ses distributions stable, beta et canary pour Debian/Ubuntu (packages.bobine.fit/debian, apt), Fedora/RHEL (packages.bobine.fit/fedora, dnf) et Arch Linux (packages.bobine.fit/arch, pacman), avec la même clé de signature GPG. Le dépôt APT du miroir Tor (.onion) publie les mêmes trois suites.",
         ],
       },
       {
@@ -526,39 +528,39 @@ const en: DocChapter[] = [
       {
         subtitle: "2.3 Linux Desktop Debian / Ubuntu / Mint (.deb package — x86_64 & ARM64)",
         paragraphs: [
-          "Official cryptographically signed APT repository (https://apt.bobine.fit) natively serving both amd64 and arm64 architectures for automated updates via apt upgrade. Standalone direct packages available: bobine_x.y.z_amd64.deb and bobine_x.y.z_arm64.deb (for Snapdragon Linux laptops, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5, and Radxa Rock 5B). 1-click Polkit uninstaller.",
+          "Official cryptographically signed APT repository (https://packages.bobine.fit/debian) natively serving both amd64 and arm64 architectures for automated updates via apt upgrade. Standalone direct packages available: bobine_x.y.z_amd64.deb and bobine_x.y.z_arm64.deb (for Snapdragon Linux laptops, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5, and Radxa Rock 5B). 1-click Polkit uninstaller.",
           "Reference hardware tested: fanless industrial mini PCs (Intel N100) and ultra low power ARM64 single-board stations (NVIDIA DGX Spark, Raspberry Pi 5 8 GB) — the Bobine pick for absolute silence in a 24/7 studio.",
         ],
         codeBlock:
-          "# Official Linux APT repository (apt.bobine.fit — amd64 & arm64 compatible)\ncurl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine",
+          "# Official Linux APT repository (packages.bobine.fit/debian — amd64 & arm64 compatible)\ncurl -fsSL https://packages.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://packages.bobine.fit/debian stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine",
         deviceImage: "linux",
       },
       {
         subtitle: "2.3 bis Linux Desktop Fedora, RHEL and derivatives (.rpm package — x86_64 & ARM64)",
         paragraphs: [
-          `Official cryptographically signed dnf repository (https://rpm.bobine.fit) for Fedora, Nobara and, through EPEL, RHEL, AlmaLinux and Rocky Linux, on x86_64 and aarch64. Once the repository is added, ${fedoraCommands().upgrade} updates Bobine along with the rest of the system. Standalone direct packages: ${rpmName("x86_64")} and ${rpmName("arm64")}, installed with sudo dnf install ./file.rpm. On dnf 4 (RHEL, AlmaLinux, Rocky Linux) the command to add it is ${fedoraCommands().addRepoLegacy}.`,
+          `Official cryptographically signed dnf repository (https://packages.bobine.fit/fedora) for Fedora, Nobara and, through EPEL, RHEL, AlmaLinux and Rocky Linux, on x86_64 and aarch64. Once the repository is added, ${fedoraCommands().upgrade} updates Bobine along with the rest of the system. Standalone direct packages: ${rpmName("x86_64")} and ${rpmName("arm64")}, installed with sudo dnf install ./file.rpm. On dnf 4 (RHEL, AlmaLinux, Rocky Linux) the command to add it is ${fedoraCommands().addRepoLegacy}.`,
           `The bobine-stable.repo file follows Stable; bobine-beta.repo and bobine-canary.repo follow Beta and Canary, with the same signing key. At the first dnf install, dnf shows the key fingerprint: compare it with ${SIGNING_KEY_FINGERPRINT} before accepting.`,
           `ffmpeg: Fedora only ships ffmpeg-free, stripped of several codecs. To play every class format, add RPM Fusion and swap it for the full ffmpeg (commands below). ${noteList(FAMILY_NOTES.fedora.derivatives.slice(1), "en")} ${FAMILY_NOTES.fedora.limits[1].en}`,
           [repoStatusNote("fedora", "en"), NOT_VALIDATED_NOTE.en].filter(Boolean).join(" "),
         ],
-        codeBlock: `# Official dnf repository (rpm.bobine.fit — x86_64 & aarch64)\n${fedoraInstallScript()}\n\n# Full ffmpeg through RPM Fusion (recommended)\n${fedoraCommands().ffmpeg}\n\n# Update\n${fedoraCommands().upgrade}`,
+        codeBlock: `# Official dnf repository (packages.bobine.fit/fedora — x86_64 & aarch64)\n${fedoraInstallScript()}\n\n# Full ffmpeg through RPM Fusion (recommended)\n${fedoraCommands().ffmpeg}\n\n# Update\n${fedoraCommands().upgrade}`,
       },
       {
         subtitle: "2.3 ter Linux Desktop Arch Linux and derivatives (pacman package — x86_64 & ARM64)",
         paragraphs: [
-          `Official pacman repository [bobine] (https://arch.bobine.fit) for Arch Linux, EndeavourOS, CachyOS and Manjaro on x86_64, and Arch Linux ARM on aarch64. Import and trust the signing key, then add the [bobine] section to /etc/pacman.conf with SigLevel = Required DatabaseOptional: pacman then rejects any package whose signature does not match. ${archCommands().upgrade} then updates Bobine along with the system.`,
+          `Official pacman repository [bobine] (https://packages.bobine.fit/arch) for Arch Linux, EndeavourOS, CachyOS and Manjaro on x86_64, and Arch Linux ARM on aarch64. Import and trust the signing key, then add the [bobine] section to /etc/pacman.conf with SigLevel = Required DatabaseOptional: pacman then rejects any package whose signature does not match. ${archCommands().upgrade} then updates Bobine along with the system.`,
           `To follow Beta or Canary, replace stable with beta or canary in the Server line. Standalone direct packages: ${archName("x86_64")} and ${archName("arm64")}, installed with sudo pacman -U ./file. Before trusting the key, compare its fingerprint with ${SIGNING_KEY_FINGERPRINT}.`,
           `${noteList(FAMILY_NOTES.arch.derivatives.slice(1), "en")} ${FAMILY_NOTES.arch.limits[0].en}`,
           [repoStatusNote("arch", "en"), NOT_VALIDATED_NOTE.en].filter(Boolean).join(" "),
         ],
-        codeBlock: `# Official pacman repository (arch.bobine.fit — x86_64 & aarch64)\n${archInstallScript()}\n\n# Update\n${archCommands().upgrade}`,
+        codeBlock: `# Official pacman repository (packages.bobine.fit/arch — x86_64 & aarch64)\n${archInstallScript()}\n\n# Update\n${archCommands().upgrade}`,
       },
       {
         subtitle: "2.3 quater Linux over the Tor network (.onion)",
         paragraphs: [
           "To install and update Bobine without revealing your IP address, the APT repository is also offered as an onion service (Tor network). It is a mirror of the official repository: packages remain signed by the same key, and apt rejects any package whose signature does not match.",
           "The https://bobine.fit/install-tor.sh script (read it before running it) performs these steps for you and stops if the key fingerprint differs from the published one. The onion repository publishes all three suites, stable, beta and canary: the --channel=stable|beta|canary option picks the update channel (without it, the script asks on a terminal and falls back to stable otherwise), and --dry-run installs nothing. The commands below are the manual version, on the stable channel; replace the last word of the deb line with beta or canary to follow another channel.",
-          "Compare the primary key fingerprint with the one at https://apt.bobine.fit/bobine.gpg: B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A.",
+          "Compare the primary key fingerprint with the one at https://packages.bobine.fit/bobine.gpg: B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A.",
           "The site can also be browsed in Tor Browser (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/). The hardware store and the Baamix assistant are not offered there: they rely on affiliate links and third-party services. I host this mirror myself, keep no visit log, and run it on a best-effort basis. In support of the free-software community, discover the Tor project: https://www.torproject.org/ (source code: https://github.com/torproject/tor).",
         ],
         codeBlock:
@@ -571,7 +573,7 @@ const en: DocChapter[] = [
           `Certified native Bobine-x.y.z.apk (Android ${ANDROID.minVersion} to ${ANDROID.maxVersion}, API ${ANDROID.minApi}-${ANDROID.maxApi}), embedding CPython 3.13 and FastAPI via Chaquopy, persistent ForegroundService, native MediaCodec acceleration, and robust dual display (touchscreen /grid + HDMI TV /cinema over USB-C DisplayPort with resilient hotplug handling).`,
           "Google Books compatibility: Bobine runs natively in fullscreen mode on Google Book laptops (Aluminium OS) via the APK with full hardware acceleration, and will be arriving soon as a 1-click install from the Google Play Store.",
           "Reference hardware tested: Samsung Galaxy Tab or Xiaomi Pad tablets with a USB-C port supporting DisplayPort Alt Mode, and Google Book laptops.",
-          "Starting with the device: Settings → \"Device startup\" (\"Launch Bobine when the device starts\") restarts the Bobine server when the device reboots or the app is updated. Opening the screen automatically depends on Android: it requires the \"Display over other apps\" permission, which some devices (including Android TV boxes) reset at every reboot. In that case the server and the remote screens already work; just open the app to show the local screen.",
+          "Starting with the device: Settings > \"Device startup\" (\"Launch Bobine when the device starts\") restarts the Bobine server when the device reboots or the app is updated. Opening the screen automatically depends on Android: it requires the \"Display over other apps\" permission, which some devices (including Android TV boxes) reset at every reboot. In that case the server and the remote screens already work; just open the app to show the local screen.",
           "Built-in updates: if Android blocks installs from the app (unknown sources not allowed), Bobine says so before downloading and opens the matching setting instead of failing midway.",
         ],
         deviceImage: ["android", "googlebook"],
@@ -605,16 +607,24 @@ const en: DocChapter[] = [
         subtitle: "2.7 Release channels: Stable, Beta or Canary",
         paragraphs: [
           "Bobine offers three release channels: the Stable channel (recommended for production gym playout, strict Vx.y.z tags), the Beta channel (batches of features/fixes I curate and publish manually) and the Canary channel (rolling on fixed mobile tag canary, rebuilt automatically on every push to main, zero curation).",
-          "Across all platforms, Beta and Canary share identical application IDs and upgrade existing installations in-place without creating duplicate applications or altering media and databases. Toggle anytime in Settings → Software Updates or via CLI flag (the Tor installer, install-tor.sh, accepts the same --channel option and asks on a terminal when it is missing):",
+          "Across all platforms, Beta and Canary share identical application IDs and upgrade existing installations in-place without creating duplicate applications or altering media and databases. Toggle anytime in Settings > Software Updates or via CLI flag (the Tor installer, install-tor.sh, accepts the same --channel option and asks on a terminal when it is missing):",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta   # or --channel=canary",
         deviceImage: "channels",
       },
       {
-        subtitle: "2.8 Supported browsers (Firefox, Chrome, Edge, Safari)",
+        subtitle: "2.8 Supported browsers by engine family (Chromium, Gecko, WebKit)",
         paragraphs: [
-          "The admin interface and the players opened from another device (/radio, /kiosk, /cinema, /coach) work in Firefox (current, previous and ESR releases, desktop and Android), Chrome, Edge and Safari. Since 4.0.3, Firefox support is verified end to end on Firefox 157 by automated tests (file uploads that resume after a network cut, HTTP-compliant video streams, H.264 playback). Windows, macOS, Firefox for Android and the ESR release are not measured yet.",
-          "When a browser cannot decode a video (HEVC or 10-bit, depending on the system and hardware), Bobine serves it a compatible H.264 version produced on demand, without ever modifying the original. Settings → Browser compatibility shows a local diagnostic (decoded formats, available features, dropped-frame measurement). Screen wake lock and gamepads require HTTPS or localhost.",
+          "The admin dashboard (/dashboard, /library, /schedule, /devices, /storage) and the remote display views (/radio, /kiosk, /cinema, /coach) are validated across all three major browser engine families:",
+          "Chromium / Blink family (Google Chrome, Chromium, Brave, Microsoft Edge, Vivaldi): reference engine for the local 24/7 studio kiosk (Chromium X11 VA-API on Debian 13, WebView2 on Windows, Android System WebView on tablets and Android TV). Full support for HTML5 Gamepad API, Screen Wake Lock, Web Audio API (5-band equalizer and crossfade), and hardware-accelerated H.264 / HEVC decoding.",
+          "Gecko family (Mozilla Firefox Desktop, Firefox ESR, Firefox for Android, Tor Browser): verified end to end by automated tests up to Firefox 157 (resumable chunked file uploads after network drops, HTTP 206 byte-range video streaming, Gapless A/B Deck H.264 playback, and strict CSS backdrop-filter rendering). Note on Brave and Tor Browser: disable aggressive fingerprinting/autoplay shields for the local studio address (bobine.local or LAN IP) to allow continuous audio/video chaining.",
+          "WebKit family (Apple Safari on macOS, iPadOS and iOS): native support for coach tablets and smartphones on the local Wi-Fi (/coach console, /grid mobile remote, and /cinema showcase), with hardware VideoToolbox decoding and full -webkit-backdrop-filter glassmorphism parity.",
+          "Automatic codec fallback & local diagnostics: when a browser cannot decode a video container or profile natively (such as HEVC 10-bit on browsers without hardware licensing), Bobine transparently serves an on-demand H.264 stream without altering the original file. Settings > Browser compatibility provides a real-time local diagnostic (supported codecs, Wake Lock/Gamepad APIs, and dropped-frame counters).",
+        ],
+        techChips: [
+          { icon: "code", label: "Chromium / Blink (Chrome, Brave, Edge)" },
+          { icon: "code", label: "Gecko (Firefox Desktop, ESR, Android, Tor)" },
+          { icon: "code", label: "WebKit (Safari macOS, iPadOS, iOS)" },
         ],
       },
     ],
@@ -791,7 +801,7 @@ const en: DocChapter[] = [
       {
         subtitle: "5.1 How do I back up my configuration before reinstalling?",
         paragraphs: [
-          "From the administration panel (Settings → Backup & Restore), export a full ZIP archive in one click, then restore it on the new machine.",
+          "From the administration panel (Settings > Backup & Restore), export a full ZIP archive in one click, then restore it on the new machine.",
           "Verify the restored database integrity using the following SQLite command:",
         ],
         codeBlock: "sqlite3 bobine.db 'PRAGMA integrity_check;'",
@@ -811,7 +821,7 @@ const en: DocChapter[] = [
       {
         subtitle: "5.4 How does the 1-click automatic uninstaller work?",
         paragraphs: [
-          "In Settings → Danger Zone, clicking 'Uninstall Bobine' executes the OS-specific purge process (Polkit on Linux .deb, Inno Setup on Windows, bundle and LaunchAgent removal on macOS, Android delete intent, bobine-uninstall script on headless). The action requires typing the confirmation keyword 'DÉSINSTALLER' (or UNINSTALL).",
+          "In Settings > Danger Zone, clicking 'Uninstall Bobine' executes the OS-specific purge process (Polkit on Linux .deb, Inno Setup on Windows, bundle and LaunchAgent removal on macOS, Android delete intent, bobine-uninstall script on headless). The action requires typing the confirmation keyword 'DÉSINSTALLER' (or UNINSTALL).",
         ],
       },
       {
@@ -883,7 +893,7 @@ const en: DocChapter[] = [
         paragraphs: [
           "Every new version is published on GitHub Releases (github.com/FantasmaGlad/Bobine/releases) with a detailed changelog, signed binaries for all 5 operating systems, and a SHA-256 integrity checksum.",
           "Three channels track the project's progress: the Stable channel (frozen Vx.y.z tags, recommended for production gym playout), the Beta channel (curated batches of features/fixes, published manually) and the Canary channel (rolling, automatically rebuilt on every change to the main branch, for clubs wanting the very latest changes without waiting for a batch).",
-          "The official APT repository (apt.bobine.fit) mirrors all three channels in its stable, beta and canary distributions, enabling automatic updates via apt upgrade with no manual reinstall. The APT repository of the Tor mirror (.onion) publishes the same three suites. The Fedora (rpm.bobine.fit, dnf) and Arch Linux (arch.bobine.fit, pacman) repositories follow the same three channels, with the same signing key.",
+          "The unified Linux package hub (packages.bobine.fit) mirrors all three channels in its stable, beta and canary distributions for Debian/Ubuntu (packages.bobine.fit/debian, apt), Fedora/RHEL (packages.bobine.fit/fedora, dnf) and Arch Linux (packages.bobine.fit/arch, pacman), with the same GPG signing key. The APT repository of the Tor mirror (.onion) publishes the same three suites.",
         ],
       },
       {

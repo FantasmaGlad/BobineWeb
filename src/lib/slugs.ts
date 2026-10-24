@@ -27,4 +27,5 @@ export const EN_SLUG_MAP: Record<string, string> = {
   "/mentions-legales": "/legal-notice",
   "/confidentialite": "/privacy",
   "/securite": "/security",
+  "/ordinateur": "/computer",
 };

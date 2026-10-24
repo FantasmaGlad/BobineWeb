@@ -105,7 +105,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Bobine redémarre-t-il tout seul après un redémarrage de l'appareil Android ?",
-      a: "Oui, si Réglages → « Démarrage de l'appareil » est activé : le serveur Bobine se relance au redémarrage et après une mise à jour de l'application. L'ouverture automatique de l'écran dépend d'Android (autorisation « Afficher par-dessus d'autres applications », réinitialisée à chaque redémarrage sur certains boîtiers Android TV) : le serveur et les écrans distants fonctionnent déjà, il suffit d'ouvrir l'application pour afficher l'écran local.",
+      a: "Oui, si Réglages > « Démarrage de l'appareil » est activé : le serveur Bobine se relance au redémarrage et après une mise à jour de l'application. L'ouverture automatique de l'écran dépend d'Android (autorisation « Afficher par-dessus d'autres applications », réinitialisée à chaque redémarrage sur certains boîtiers Android TV) : le serveur et les écrans distants fonctionnent déjà, il suffit d'ouvrir l'application pour afficher l'écran local.",
     },
     {
       category: "hardware",
@@ -115,32 +115,32 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "Quelle est la différence entre les versions Stable, Bêta et Canary ?",
-      a: "La version Stable (ex. Vx.y.z) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La Bêta offre un lot de fonctionnalités/correctifs que je sélectionne et publie manuellement quand il est prêt. La Canary offre un accès anticipé continu, reconstruite automatiquement à chaque commit sur la branche principale, sans curation. Les trois canaux partagent les mêmes identifiants d'application, s'installent par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages → Mises à jour sans perte de données ni de médias.",
+      a: "La version Stable (ex. Vx.y.z) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La Bêta offre un lot de fonctionnalités/correctifs que je sélectionne et publie manuellement quand il est prêt. La Canary offre un accès anticipé continu, reconstruite automatiquement à chaque commit sur la branche principale, sans curation. Les trois canaux partagent les mêmes identifiants d'application, s'installent par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages > Mises à jour sans perte de données ni de médias.",
     },
     {
       category: "updates",
       q: "Comment changer de canal de mise à jour (Stable / Bêta / Canary) sur mon installation ?",
-      a: "Sur le panneau d'administration web, rendez-vous dans Réglages → Mises à jour logicielles et choisissez le canal souhaité. Sur une appliance dédiée CLI, vous pouvez également relancer l'installeur avec l'option --channel=stable, --channel=beta ou --channel=canary (ex : curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta). Le script du dépôt APT par Tor (install-tor.sh) accepte la même option --channel et pose la question sur un terminal quand elle est absente.",
+      a: "Sur le panneau d'administration web, rendez-vous dans Réglages > Mises à jour logicielles et choisissez le canal souhaité. Sur une appliance dédiée CLI, vous pouvez également relancer l'installeur avec l'option --channel=stable, --channel=beta ou --channel=canary (ex : curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta). Le script du dépôt APT par Tor (install-tor.sh) accepte la même option --channel et pose la question sur un terminal quand elle est absente.",
     },
     {
       category: "updates",
       q: "Comment installer Bobine et recevoir les mises à jour automatiques sur Linux (Debian / Ubuntu / Mint) ?",
-      a: "La méthode recommandée pour les postes de bureau Linux est d'ajouter le dépôt APT officiel signé cryptographiquement (https://apt.bobine.fit). En 3 commandes dans votre terminal (import de la clé GPG, déclaration de la source apt.bobine.fit stable, beta ou canary, puis sudo apt update && sudo apt install bobine), vous recevez automatiquement toutes les futures mises à jour via votre gestionnaire de paquets habituel (apt upgrade).",
+      a: "La méthode recommandée pour les postes de bureau Debian, Ubuntu, Linux Mint, Pop!_OS et Zorin OS est d'ajouter le dépôt APT officiel signé cryptographiquement (https://packages.bobine.fit/debian). En 3 commandes dans votre terminal (import de la clé GPG depuis https://packages.bobine.fit/bobine.gpg, déclaration de la source packages.bobine.fit/debian stable, beta ou canary, puis sudo apt update && sudo apt install bobine), vous recevez automatiquement toutes les futures mises à jour sur x86_64 (amd64) et ARM64 (arm64) via apt upgrade.",
     },
     {
       category: "updates",
       q: "Bobine fonctionne-t-il sur Fedora, RHEL, AlmaLinux ou Rocky Linux, et comment recevoir les mises à jour ?",
-      a: `${soon("fedora", "fr")}Oui, sur Fedora et Nobara : un paquet .rpm (x86_64 et aarch64) et un dépôt dnf signé (https://rpm.bobine.fit). Deux commandes, ${fedoraCommands().addRepo} puis ${fedoraCommands().install}, et ${fedoraCommands().upgrade} met ensuite Bobine à jour avec le système ; bobine-beta.repo et bobine-canary.repo suivent les canaux Bêta et Canary. Fedora ne fournit qu'un ffmpeg amputé de codecs : ajoutez RPM Fusion pour le ffmpeg complet. Sur RHEL, AlmaLinux et Rocky Linux, passez par EPEL (ffmpeg limité sans RPM Fusion). Les distributions immuables comme Bazzite ne conviennent pas à l'appliance kiosque. Empreinte de la clé : ${SIGNING_KEY_FINGERPRINT}.`,
+      a: `${soon("fedora", "fr")}Oui, sur Fedora et Nobara : un paquet .rpm (x86_64 et aarch64) et un dépôt dnf signé (https://packages.bobine.fit/fedora). Deux commandes, ${fedoraCommands().addRepo} puis ${fedoraCommands().install}, et ${fedoraCommands().upgrade} met ensuite Bobine à jour avec le système ; bobine-beta.repo et bobine-canary.repo suivent les canaux Bêta et Canary. Fedora ne fournit qu'un ffmpeg amputé de codecs : ajoutez RPM Fusion pour le ffmpeg complet. Sur RHEL, AlmaLinux et Rocky Linux, passez par EPEL (ffmpeg limité sans RPM Fusion). Les distributions immuables comme Bazzite ne conviennent pas à l'appliance kiosque. Empreinte de la clé : ${SIGNING_KEY_FINGERPRINT}.`,
     },
     {
       category: "updates",
       q: "Bobine fonctionne-t-il sur Arch Linux, EndeavourOS, CachyOS ou Manjaro, et comment recevoir les mises à jour ?",
-      a: `${soon("arch", "fr")}Oui, sur Arch Linux, EndeavourOS et CachyOS : un paquet pacman (x86_64) et un dépôt [bobine] signé (https://arch.bobine.fit). Importez et approuvez la clé, ajoutez la section [bobine] à /etc/pacman.conf (SigLevel = Required DatabaseOptional), puis ${archCommands().install} ; ${archCommands().upgrade} met ensuite Bobine à jour avec le système. Manjaro a des dépôts décalés de ceux d'Arch : à vos risques. Pour aarch64, la voie prévue est Arch Linux ARM, pas encore essayée. Empreinte de la clé : ${SIGNING_KEY_FINGERPRINT}.`,
+      a: `${soon("arch", "fr")}Oui, sur Arch Linux, EndeavourOS et CachyOS : un paquet pacman (x86_64 et aarch64) et un dépôt [bobine] signé (https://packages.bobine.fit/arch). Importez et approuvez la clé, ajoutez la section [bobine] à /etc/pacman.conf (SigLevel = Required DatabaseOptional), puis ${archCommands().install} ; ${archCommands().upgrade} met ensuite Bobine à jour avec le système. Manjaro a des dépôts décalés de ceux d'Arch : à vos risques. Empreinte de la clé : ${SIGNING_KEY_FINGERPRINT}.`,
     },
     {
       category: "updates",
       q: "Comment fonctionne la désinstallation automatique en 1 clic ?",
-      a: "Dans Réglages → Zone de danger, la désinstallation automatique déclenche le désinstalleur natif de votre plateforme (Polkit sur Linux .deb, Inno Setup sur Windows, purge des LaunchAgents sous macOS, Intent Android, script bobine-uninstall sous Debian headless). L'opération nécessite la saisie explicite du mot de passe de sécurité « DÉSINSTALLER » pour éviter toute fausse manipulation.",
+      a: "Dans Réglages > Zone de danger, la désinstallation automatique déclenche le désinstalleur natif de votre plateforme (Polkit sur Linux .deb/.rpm/.pkg.tar.zst, Inno Setup sur Windows, purge des LaunchAgents sous macOS, Intent Android, script bobine-uninstall sous Debian headless). L'opération nécessite la saisie explicite du mot de passe de sécurité « DÉSINSTALLER » pour éviter toute fausse manipulation.",
     },
     {
       category: "compare",
@@ -148,13 +148,13 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       a: "La console coach responsive s'adapte à tous les écrans : sur tablette paysage ou PC, elle offre un pupitre audio avec boutons 64px, un minuteur précis interpolé à 10 Hz, le retour vidéo direct Stage Monitor 16:9 de la salle et une palette d'ambiances visuelles 1-clic. Sur smartphone, elle bascule en vue monoposte avec tiroirs tactiles rétractables. Elle gère l'assignation d'ambiances vidéo différentes par piste musicale et démarre toujours en pause sécurisée pour laisser le coach s'installer.",
     },
     {
-      q: "Bobine fonctionne-t-il avec Firefox ?",
-      a: "Oui. Depuis la version 4.0.3, l'interface d'administration et les lecteurs ouverts depuis un autre appareil (/radio, /kiosk, /cinema, /coach) sont vérifiés de bout en bout sur Firefox 157 par des tests automatiques : envoi de fichiers repris après une coupure réseau, flux vidéo conformes au protocole HTTP, lecture H.264. Quand un navigateur ne sait pas décoder une vidéo (HEVC, 10 bits selon le système et le matériel), Bobine lui sert une version H.264 compatible produite à la demande, sans toucher à l'original ; les Réglages offrent un diagnostic local du navigateur. Windows, macOS, Firefox pour Android et la version ESR ne sont pas encore mesurés. Firefox est une marque de la Mozilla Foundation, citée ici sans affiliation.",
+      q: "Quels navigateurs web sont pris en charge par famille (Chromium, Gecko/Firefox, WebKit/Safari) ?",
+      a: "Bobine prend en charge les trois grandes familles de moteurs web pour l'administration, la régie coach (/coach) et les écrans réseau (/cinema, /kiosk, /radio) : 1) Famille Chromium / Blink (Google Chrome, Chromium, Microsoft Edge, Brave, Vivaldi sur Linux, Windows, macOS, Android et Google Book) avec Screen Wake Lock natif et décodage matériel ; 2) Famille Gecko (Mozilla Firefox 157+ sur bureau, Firefox pour Android, Firefox ESR et Tor Browser) vérifiée de bout en bout par des tests automatiques (reprise d'envoi de fichiers après coupure réseau, flux HTTP Range, transcodage H.264 automatique à la demande si une vidéo HEVC/10 bits n'est pas décodée matériellement) ; 3) Famille WebKit (Apple Safari sur macOS, iPadOS et iOS) idéale pour piloter le pupitre coach depuis un iPhone, un iPad ou un Mac. Un diagnostic local du navigateur est intégré dans les Réglages de Bobine.",
       category: "compare",
     },
     {
       q: "Puis-je installer et mettre à jour Bobine via Tor ?",
-      a: "Oui. Le dépôt APT et le site sont aussi disponibles en services onion (Tor), sans révéler votre adresse IP. Le plus simple est le script https://bobine.fit/install-tor.sh (à lire avant de l'exécuter), qui vérifie l'empreinte de la clé et accepte --channel=stable, --channel=beta ou --channel=canary : le dépôt onion publie les trois suites. À la main, installez apt-transport-tor puis utilisez la source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main (ou beta, canary) : les paquets restent signés par la même clé, vérifiée par apt (empreinte de la clé principale B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). Le site est aussi consultable dans Tor Browser : http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. La boutique matériel n'y est pas proposée, et l'assistant Baamix n'y répond pas.",
+      a: "Oui. Le dépôt APT et le site sont aussi disponibles en services onion (Tor), sans révéler votre adresse IP. Le plus simple est le script https://bobine.fit/install-tor.sh (à lire avant de l'exécuter), qui vérifie l'empreinte de la clé et accepte --channel=stable, --channel=beta ou --channel=canary : le dépôt onion publie les trois suites. À la main, installez apt-transport-tor puis utilisez la source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main (ou beta, canary) : les paquets restent signés par la même clé que https://packages.bobine.fit/bobine.gpg, vérifiée par apt (empreinte de la clé principale B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). Le site est aussi consultable dans Tor Browser : http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. La boutique matériel n'y est pas proposée, et l'assistant Baamix n'y répond pas.",
       category: "updates",
     },
     {
@@ -237,7 +237,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Does Bobine restart by itself after an Android device reboot?",
-      a: "Yes, if Settings → \"Device startup\" is on: the Bobine server restarts after a reboot and after an app update. Opening the screen automatically depends on Android (the \"Display over other apps\" permission, reset at every reboot on some Android TV boxes): the server and the remote screens already work, just open the app to show the local screen.",
+      a: "Yes, if Settings > \"Device startup\" is on: the Bobine server restarts after a reboot and after an app update. Opening the screen automatically depends on Android (the \"Display over other apps\" permission, reset at every reboot on some Android TV boxes): the server and the remote screens already work, just open the app to show the local screen.",
     },
     {
       category: "hardware",
@@ -247,36 +247,36 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "What is the difference between the Stable, Beta and Canary channels?",
-      a: "The Stable release (e.g. Vx.y.z) is the official tested build recommended for production gym playout. Beta offers a batch of features/fixes I select and publish manually when ready. Canary provides continuous early access, rebuilt automatically on every commit to the main branch, with no curation. All three share identical system application IDs, install directly over your current version without creating duplicate apps, and allow reverting back to Stable anytime from Settings → Software Updates without data loss.",
+      a: "The Stable release (e.g. Vx.y.z) is the official tested build recommended for production gym playout. Beta offers a batch of features/fixes I select and publish manually when ready. Canary provides continuous early access, rebuilt automatically on every commit to the main branch, with no curation. All three share identical system application IDs, install directly over your current version without creating duplicate apps, and allow reverting back to Stable anytime from Settings > Software Updates without data loss.",
     },
     {
       category: "updates",
       q: "How do I switch between Stable, Beta and Canary update channels on my setup?",
-      a: "From the web administration dashboard, go to Settings → Software Updates and pick the channel you want. On a dedicated headless CLI appliance, you can run the installer with --channel=stable, --channel=beta or --channel=canary (e.g. curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta). The script for the APT repository over Tor (install-tor.sh) accepts the same --channel option and asks on a terminal when it is missing.",
+      a: "From the web administration dashboard, go to Settings > Software Updates and pick the channel you want. On a dedicated headless CLI appliance, you can run the installer with --channel=stable, --channel=beta or --channel=canary (e.g. curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta). The script for the APT repository over Tor (install-tor.sh) accepts the same --channel option and asks on a terminal when it is missing.",
     },
     {
       category: "updates",
       q: "How do I install Bobine and receive automated updates on Linux (Debian / Ubuntu / Mint)?",
-      a: "The recommended method for Linux desktop machines is adding the official cryptographically signed APT repository (https://apt.bobine.fit). In 3 simple terminal commands (import the official GPG key, add the apt.bobine.fit stable, beta or canary source, and run sudo apt update && sudo apt install bobine), you receive seamless automated updates via your standard system package manager (apt upgrade).",
+      a: "The recommended method for Debian, Ubuntu, Linux Mint, Pop!_OS and Zorin OS desktop machines is adding the official cryptographically signed APT repository (https://packages.bobine.fit/debian). In 3 simple terminal commands (import the official GPG key from https://packages.bobine.fit/bobine.gpg, add the packages.bobine.fit/debian stable, beta or canary source, and run sudo apt update && sudo apt install bobine), you receive seamless automated updates on both x86_64 (amd64) and ARM64 (arm64) via your standard system package manager (apt upgrade).",
     },
     {
       category: "updates",
       q: "Does Bobine run on Fedora, RHEL, AlmaLinux or Rocky Linux, and how do I get updates?",
-      a: `${soon("fedora", "en")}Yes, on Fedora and Nobara: an .rpm package (x86_64 and aarch64) and a signed dnf repository (https://rpm.bobine.fit). Two commands, ${fedoraCommands().addRepo} then ${fedoraCommands().install}, and ${fedoraCommands().upgrade} then updates Bobine along with the system; bobine-beta.repo and bobine-canary.repo follow the Beta and Canary channels. Fedora only ships a codec-stripped ffmpeg: add RPM Fusion for the full ffmpeg. On RHEL, AlmaLinux and Rocky Linux, go through EPEL (limited ffmpeg without RPM Fusion). Immutable distributions such as Bazzite do not suit the kiosk appliance. Key fingerprint: ${SIGNING_KEY_FINGERPRINT}.`,
+      a: `${soon("fedora", "en")}Yes, on Fedora and Nobara: an .rpm package (x86_64 and aarch64) and a signed dnf repository (https://packages.bobine.fit/fedora). Two commands, ${fedoraCommands().addRepo} then ${fedoraCommands().install}, and ${fedoraCommands().upgrade} then updates Bobine along with the system; bobine-beta.repo and bobine-canary.repo follow the Beta and Canary channels. Fedora only ships a codec-stripped ffmpeg: add RPM Fusion for the full ffmpeg. On RHEL, AlmaLinux and Rocky Linux, go through EPEL (limited ffmpeg without RPM Fusion). Immutable distributions such as Bazzite do not suit the kiosk appliance. Key fingerprint: ${SIGNING_KEY_FINGERPRINT}.`,
     },
     {
       category: "updates",
       q: "Does Bobine run on Arch Linux, EndeavourOS, CachyOS or Manjaro, and how do I get updates?",
-      a: `${soon("arch", "en")}Yes, on Arch Linux, EndeavourOS and CachyOS: a pacman package (x86_64) and a signed [bobine] repository (https://arch.bobine.fit). Import and trust the key, add the [bobine] section to /etc/pacman.conf (SigLevel = Required DatabaseOptional), then ${archCommands().install}; ${archCommands().upgrade} then updates Bobine along with the system. Manjaro's repositories lag behind Arch's: at your own risk. For aarch64 the intended route is Arch Linux ARM, not yet tried. Key fingerprint: ${SIGNING_KEY_FINGERPRINT}.`,
+      a: `${soon("arch", "en")}Yes, on Arch Linux, EndeavourOS and CachyOS: a pacman package (x86_64 and aarch64) and a signed [bobine] repository (https://packages.bobine.fit/arch). Import and trust the key, add the [bobine] section to /etc/pacman.conf (SigLevel = Required DatabaseOptional), then ${archCommands().install}; ${archCommands().upgrade} then updates Bobine along with the system. Manjaro's repositories lag behind Arch's: at your own risk. Key fingerprint: ${SIGNING_KEY_FINGERPRINT}.`,
     },
     {
       category: "updates",
       q: "How does the 1-click automatic uninstaller work?",
-      a: "In Settings → Danger Zone, automatic uninstallation triggers the native uninstaller for your platform (Polkit on Linux .deb, Inno Setup on Windows, LaunchAgent purge on macOS, Android intent, or the bobine-uninstall script on headless Debian). The operation requires explicitly typing the confirmation keyword 'UNINSTALL' ('DÉSINSTALLER') to prevent accidental removals.",
+      a: "In Settings > Danger Zone, automatic uninstallation triggers the native uninstaller for your platform (Polkit on Linux .deb/.rpm/.pkg.tar.zst, Inno Setup on Windows, LaunchAgent purge on macOS, Android intent, or the bobine-uninstall script on headless Debian). The operation requires explicitly typing the confirmation keyword 'UNINSTALL' ('DÉSINSTALLER') to prevent accidental removals.",
     },
     {
-      q: "Does Bobine work with Firefox?",
-      a: "Yes. Since version 4.0.3, the admin interface and the players opened from another device (/radio, /kiosk, /cinema, /coach) are verified end to end on Firefox 157 by automated tests: file uploads that resume after a network cut, HTTP-compliant video streams, H.264 playback. When a browser cannot decode a video (HEVC, 10-bit, depending on the system and hardware), Bobine serves it a compatible H.264 version produced on demand, without touching the original; Settings offers a local browser diagnostic. Windows, macOS, Firefox for Android and the ESR release are not measured yet. Firefox is a trademark of the Mozilla Foundation, mentioned here without affiliation.",
+      q: "Which web browsers are supported by engine family (Chromium, Gecko/Firefox, WebKit/Safari)?",
+      a: "Bobine supports all three major browser engine families for administration, the coach console (/coach), and network screens (/cinema, /kiosk, /radio): 1) Chromium / Blink family (Google Chrome, Chromium, Microsoft Edge, Brave, Vivaldi on Linux, Windows, macOS, Android, and Google Book) with native Screen Wake Lock and hardware decoding; 2) Gecko family (Mozilla Firefox 157+ on desktop, Firefox for Android, Firefox ESR, and Tor Browser) verified end-to-end by automated tests (resumable file uploads after network drops, HTTP Range video streams, on-demand H.264 fallback transcoding when a browser cannot hardware-decode HEVC/10-bit); 3) WebKit family (Apple Safari on macOS, iPadOS, and iOS), ideal for controlling the coach desk from an iPhone, iPad, or Mac. A local browser diagnostic tool is built into Bobine Settings.",
       category: "compare",
     },
     {

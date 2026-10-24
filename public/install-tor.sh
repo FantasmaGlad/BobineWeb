@@ -13,7 +13,7 @@
 # Options : --dry-run   simule (télécharge et vérifie la clé, n'installe rien)
 #           --channel=stable|beta|canary   canal de mise à jour (sans l'option : question sur un terminal, sinon stable)
 #           --lang=en   messages en anglais
-#           --clearnet-key   récupère la clé sur https://apt.bobine.fit (révèle votre IP à ce serveur)
+#           --clearnet-key   récupère la clé sur https://packages.bobine.fit (révèle votre IP à ce serveur)
 #
 set -euo pipefail
 
@@ -51,9 +51,9 @@ else
     BOLD=""; DIM=""; RESET=""; RED=""; YELLOW=""; PURPLE=""; LEAF=""; GREEN=""
 fi
 
-ICON_OK="${GREEN}✓${RESET}"
-ICON_FAIL="${RED}✗${RESET}"
-ICON_INFO="${PURPLE}→${RESET}"
+ICON_OK="${GREEN}[OK]${RESET}"
+ICON_FAIL="${RED}[ERREUR]${RESET}"
+ICON_INFO="${PURPLE}->${RESET}"
 
 t() { [[ "$LANG_OUT" == "en" ]] && printf '%s' "$2" || printf '%s' "$1"; }
 
@@ -179,8 +179,8 @@ fi
 step "$(t "Clé de signature de Bobine" "Bobine signing key")"
 KEY_FILE="$TMP/bobine.gpg"
 if (( CLEARNET_KEY )); then
-    curl -fsSL https://apt.bobine.fit/bobine.gpg -o "$KEY_FILE" || die "$(t "Téléchargement de la clé impossible" "Could not download the key")"
-    ok "$(t "Clé téléchargée depuis apt.bobine.fit (web classique)" "Key downloaded from apt.bobine.fit (regular web)")"
+    curl -fsSL https://packages.bobine.fit/bobine.gpg -o "$KEY_FILE" || die "$(t "Téléchargement de la clé impossible" "Could not download the key")"
+    ok "$(t "Clé téléchargée depuis packages.bobine.fit (web classique)" "Key downloaded from packages.bobine.fit (regular web)")"
 elif (( DRY_RUN )) && ! (exec 3<>/dev/tcp/127.0.0.1/9050) 2>/dev/null; then
     info "$(t "Aucun proxy Tor local (127.0.0.1:9050) : étape réseau ignorée en simulation" "No local Tor proxy (127.0.0.1:9050): network step skipped in dry-run")"
 else

@@ -28,23 +28,6 @@
   padding-bottom: clamp(3rem, 6vw, 4.5rem);
 }
 
-.linux-hero__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 1rem;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  border-radius: 9999px;
-  color: var(--text-heading);
-  background: color-mix(in srgb, var(--accent-primary) 15%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent-primary) 35%, var(--glass-card-border));
-  box-shadow: var(--glass-edge);
-  margin-bottom: 1.5rem;
-}
-
 .linux-hero__title {
   max-width: var(--showcase-hero-measure);
   font-size: clamp(2.35rem, 5.2vw, 4.15rem);
@@ -153,10 +136,14 @@
   justify-content: center;
   gap: 0.85rem 1.5rem;
   margin-top: 2rem;
-  padding: 0.85rem 1.5rem;
-  border-radius: 9999px;
-  background: var(--glass-inset-bg);
-  border: 1px solid var(--border-subtle);
+  padding: 0.5rem 0;
+}
+
+.linux-chips__label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  opacity: 0.8;
 }
 
 .linux-chips__item {
@@ -183,6 +170,7 @@
    2. Terminal Glassmorphic Interactif ("1-Clic Install")
    -------------------------------------------------------------------------- */
 .linux-terminal-section {
+  scroll-margin-top: 5.5rem;
   margin-bottom: var(--showcase-section-gap);
 }
 
@@ -217,7 +205,7 @@
 }
 
 .linux-terminal {
-  max-width: 52rem;
+  max-width: 54rem;
   margin-inline: auto;
   border-radius: var(--radius-lg);
   background: var(--glass-card-bg);
@@ -234,9 +222,16 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem 1rem;
-  padding: 0.85rem 1.25rem;
+  padding: 0.75rem 1.25rem;
   background: var(--glass-inset-bg);
   border-bottom: 1px solid var(--border-subtle);
+}
+
+.linux-terminal__bar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .linux-terminal__dots {
@@ -259,14 +254,18 @@
 .linux-terminal__pills {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 0.35rem;
+  padding: 0.2rem;
+  border-radius: 9999px;
+  background: var(--glass-card-bg);
+  border: 1px solid var(--border-subtle);
 }
 
 .linux-terminal__pill {
   font: inherit;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 0.7rem;
   border-radius: 9999px;
   cursor: pointer;
   color: var(--text-muted);
@@ -288,9 +287,9 @@
 
 .linux-terminal__tabs {
   display: flex;
-  overflow-x: auto;
-  padding: 0.5rem 1rem 0;
-  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.45rem 1rem 0;
+  gap: 0.35rem;
   border-bottom: 1px solid var(--border-subtle);
   background: color-mix(in srgb, var(--glass-inset-bg) 60%, transparent);
 }
@@ -328,7 +327,7 @@
 
 .linux-terminal__body {
   position: relative;
-  padding: 1.5rem;
+  padding: 1.35rem 1.5rem;
   background: var(--glass-inset-bg);
 }
 
@@ -336,23 +335,21 @@
   margin: 0;
   padding: 0;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.88rem;
-  line-height: 1.65;
+  font-size: 0.86rem;
+  line-height: 1.7;
   color: var(--text-heading);
-  overflow-x: auto;
-  white-space: pre;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: hidden;
 }
 
 .linux-terminal__copy-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.45rem 0.85rem;
+  padding: 0.4rem 0.85rem;
   font: inherit;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-body);
   background: var(--glass-card-bg);
@@ -411,16 +408,6 @@
   font-weight: 700;
   color: var(--text-heading);
   margin-bottom: 1.25rem;
-}
-
-.linux-distros-family__badge {
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 0.2rem 0.65rem;
-  border-radius: 9999px;
-  color: var(--text-muted);
-  background: var(--glass-inset-bg);
-  border: 1px solid var(--border-subtle);
 }
 
 .linux-distros-grid {
@@ -484,20 +471,15 @@
 
 .linux-distro-card__meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 0.65rem;
-  font-size: 0.78rem;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
 }
 
-.linux-distro-card__tag {
-  display: inline-block;
-  padding: 0.1rem 0.45rem;
-  border-radius: 4px;
-  background: var(--glass-inset-bg);
-  border: 1px solid var(--border-subtle);
-  font-size: 0.72rem;
+.linux-distro-card__status {
   font-weight: 600;
+  color: var(--accent-text);
 }
 
 /* --------------------------------------------------------------------------
@@ -540,21 +522,6 @@
   border-color: color-mix(in srgb, var(--accent-primary) 45%, var(--glass-card-border));
 }
 
-.linux-bento-card__badge {
-  display: inline-block;
-  align-self: flex-start;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  color: var(--accent-text);
-  background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent-primary) 30%, transparent);
-  margin-bottom: 1.25rem;
-}
-
 .linux-bento-card__title {
   font-size: clamp(1.35rem, 2.2vw, 1.75rem);
   font-weight: 800;
@@ -587,9 +554,8 @@
   color: var(--text-muted);
 }
 
-.linux-bento-card__feature::before {
-  content: "✓";
-  font-weight: 800;
+.linux-bento-card__check {
+  flex-shrink: 0;
   color: var(--accent-primary);
 }
 
@@ -733,4 +699,44 @@
   .linux-terminal__copy-btn {
     transition: none;
   }
+}
+
+.linux-section-header__tag--left {
+  text-align: left;
+}
+
+.linux-framework__visual-wrap {
+  position: relative;
+}
+
+.linux-framework__image {
+  border-radius: var(--radius-lg);
+}
+
+.linux-security-card__btn {
+  position: static;
+}
+
+.linux-terminal__copied-text {
+  color: var(--accent-success);
+}
+
+.linux-showcase__breadcrumb {
+  padding-top: 1rem;
+}
+
+.linux-showcase__faq {
+  margin-bottom: var(--showcase-section-gap);
+}
+
+.linux-showcase__related-nav {
+  text-align: center;
+}
+
+.linux-showcase__related-title {
+  margin-bottom: 1rem;
+}
+
+.linux-showcase__related-list {
+  justify-content: center;
 }

@@ -8,9 +8,17 @@ import ScrollingCode from "@/components/ScrollingCode";
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 import { ANDROID } from "@/lib/productFacts";
 import DistroLogo from "@/components/icons/DistroLogo";
+import WindowsIcon from "@/components/icons/WindowsIcon";
+import LinuxIcon from "@/components/icons/LinuxIcon";
+import AppleIcon from "@/components/icons/AppleIcon";
+import AndroidIcon from "@/components/icons/AndroidIcon";
+import AndroidTvIcon from "@/components/icons/AndroidTvIcon";
 import {
   LINUX_FAMILIES,
   LINUX_FAMILY_IDS,
+  aptInstallScript,
+  fedoraInstallScript,
+  archInstallScript,
   downloadKey,
   packageFileName,
   packageUrl,
@@ -46,18 +54,22 @@ export default function DownloadModal({
   canary,
 }: DownloadModalProps) {
   const isEn = locale === "en";
-  const activePlatform: DownloadPlatform = initialPlatform;
+  const [activePlatform, setActivePlatform] = useState<DownloadPlatform>(initialPlatform);
   const [selectedArch, setSelectedArch] = useState<CpuArchitecture>("x86_64");
   const [selectedFamily, setSelectedFamily] = useState<LinuxFamilyId>("debian");
   const [selectedChannel, setSelectedChannel] = useState<PackageChannel>("stable");
   const [downloadingKey, setDownloadingKey] = useState<string | null>(null);
-  // Chaque ouverture repart d'un bouton neuf : sans cette remise à zéro, « Lancé » restait affiché
-  // à la réouverture et bloquait un second téléchargement.
+  const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
+
+  useEffect(() => {
+    setActivePlatform(initialPlatform);
+  }, [initialPlatform, isOpen]);
+
   const handleClose = () => {
     setDownloadingKey(null);
     onClose();
   };
-  const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
+
   const isMounted = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const modalRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -100,7 +112,6 @@ export default function DownloadModal({
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    // Focus automatique sur le bouton de fermeture
     setTimeout(() => {
       closeButtonRef.current?.focus();
     }, 50);
@@ -138,8 +149,8 @@ export default function DownloadModal({
           return {
             title: isEn ? "Bobine for Windows (ARM64)" : "Bobine pour Windows (ARM64)",
             subtitle: isEn
-              ? "Windows 11 ARM64 (Qualcomm Snapdragon X Elite / X Plus & ARM PCs)"
-              : "Windows 11 ARM64 (Qualcomm Snapdragon X Elite / X Plus & PC ARM)",
+              ? "Windows 11 ARM64 — Qualcomm Snapdragon X Elite / X Plus & ARM PCs"
+              : "Windows 11 ARM64 — Qualcomm Snapdragon X Elite / X Plus & PC ARM",
             stableUrl:
               stable.downloads.windowsArm64 ||
               `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/Bobine-Setup-${cleanVersion}-arm64.exe`,
@@ -158,8 +169,8 @@ export default function DownloadModal({
         return {
           title: isEn ? "Bobine for Windows" : "Bobine pour Windows",
           subtitle: isEn
-            ? "Windows 11, 10 & Windows IoT (x86_64 — Intel / AMD)"
-            : "Windows 11, 10 & Windows IoT (x86_64 — Intel / AMD)",
+            ? "Windows 11, 10 & Windows IoT — x86_64 (Intel Core / N100 / AMD Ryzen)"
+            : "Windows 11, 10 & Windows IoT — x86_64 (Intel Core / N100 / AMD Ryzen)",
           stableUrl: stable.downloads.windows,
           stableFilename: `Bobine-Setup-${cleanVersion}.exe`,
           betaUrl: beta.downloads.windows,
@@ -171,14 +182,14 @@ export default function DownloadModal({
       case "macos":
         return {
           title: isEn ? "Bobine for macOS" : "Bobine pour macOS",
-          subtitle: isEn ? "Apple Silicon (M1, M2, M3, M4)" : "Apple Silicon (M1, M2, M3, M4)",
+          subtitle: isEn ? "Apple Silicon (M1, M2, M3, M4 — MacBook Air, MacBook Pro, Mac mini, iMac)" : "Apple Silicon (M1, M2, M3, M4 — MacBook Air, MacBook Pro, Mac mini, iMac)",
           stableUrl: stable.downloads.macos,
           stableFilename: `Bobine-${cleanVersion}.dmg`,
           betaUrl: beta.downloads.macos,
           betaFilename: "Bobine-beta.dmg",
           canaryUrl: canary.downloads.macos,
           canaryFilename: "Bobine-canary.dmg",
-          format: ".dmg",
+          format: ".dmg (arm64)",
         };
       case "linux": {
         const family = LINUX_FAMILIES[selectedFamily];
@@ -187,8 +198,10 @@ export default function DownloadModal({
         const channelLink = (info: ReleaseChannelInfo, channel: PackageChannel, tag: string) =>
           info.downloads[downloadKey(selectedFamily, arch)] || packageUrl(selectedFamily, channel, arch, tag);
         const cpu = isArm
-          ? isEn ? "ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi)" : "ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi)"
-          : "x86_64 — Intel / AMD";
+          ? isEn
+            ? "ARM64 (Snapdragon X / 8 Gen 2, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi)"
+            : "ARM64 (Snapdragon X / 8 Gen 2, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi)"
+          : "x86_64 (Intel Core / N100 / AMD Ryzen)";
         return {
           title: isEn ? `Bobine for Linux Desktop${isArm ? " (ARM64)" : ""}` : `Bobine pour Linux Bureau${isArm ? " (ARM64)" : ""}`,
           subtitle: `${family.distros[isEn ? "en" : "fr"]} · ${cpu}`,
@@ -205,8 +218,8 @@ export default function DownloadModal({
         return {
           title: isEn ? "Bobine for Android TV & Google TV" : "Bobine pour Android TV & Google TV",
           subtitle: isEn
-            ? `Dedicated for TV boxes & Smart TVs (Android ${ANDROID.minVersion} or later, e.g. Google TV Streamer, Xiaomi TV Box S) — ARM 32 & 64-bit (armeabi-v7a, arm64-v8a)`
-            : `Dédié aux box TV & Smart TVs (Android ${ANDROID.minVersion} ou supérieur, ex. Google TV Streamer, Xiaomi TV Box S) — ARM 32 et 64 bits (armeabi-v7a, arm64-v8a)`,
+            ? `TV boxes & Smart TVs (Android ${ANDROID.minVersion}+, Google TV Streamer, Xiaomi TV Box S, Nvidia Shield) — ARM 32 & 64-bit`
+            : `Box TV & Smart TVs (Android ${ANDROID.minVersion}+, Google TV Streamer, Xiaomi TV Box S, Nvidia Shield) — ARM 32 et 64 bits`,
           stableUrl:
             stable.downloads.androidTv ||
             `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/Bobine-TV-${cleanVersion}.apk`,
@@ -219,28 +232,28 @@ export default function DownloadModal({
             canary.downloads.androidTv ||
             "https://github.com/FantasmaGlad/Bobine/releases/download/canary/Bobine-TV-canary.apk",
           canaryFilename: "Bobine-TV-canary.apk",
-          format: ".apk",
+          format: ".apk (TV)",
         };
       case "android":
         return {
           title: isEn ? "Bobine for Android & Google Books" : "Bobine pour Android & Google Books",
           subtitle: isEn
-            ? "Android Tablets, Google Books (via APK & soon native Google Play Store) & ARM64 touch kiosks"
-            : "Tablettes Android, Google Books (via APK et bientôt Google Play Store natif) & Bornes tactiles ARM64",
+            ? "Android Tablets (Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite, MediaTek Dimensity, Google Tensor), Google Books & ARM64 kiosks"
+            : "Tablettes Android (Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite, MediaTek Dimensity, Google Tensor), Google Books & Bornes ARM64",
           stableUrl: stable.downloads.android,
           stableFilename: `Bobine-${cleanVersion}.apk`,
           betaUrl: beta.downloads.android,
           betaFilename: "Bobine-beta.apk",
           canaryUrl: canary.downloads.android,
           canaryFilename: "Bobine-canary.apk",
-          format: ".apk",
+          format: ".apk (ARM64)",
         };
       case "cli":
         return {
           title: isEn ? "Headless Appliance (Bash CLI)" : "Appliance Headless (Bash CLI)",
           subtitle: isEn
-            ? "Automated install for dedicated mini PCs (Dell Wyse, HP ProDesk, Beelink)"
-            : "Installation automatisée pour mini PC dédiés (Dell Wyse, HP ProDesk, Beelink)",
+            ? "Automated 18-step install for dedicated mini PCs (Dell Wyse 5070, HP ProDesk, Beelink, Raspberry Pi 5)"
+            : "Installation automatisée en 18 étapes pour mini PC dédiés (Dell Wyse 5070, HP ProDesk, Beelink, Raspberry Pi 5)",
           stableCmd: "curl -fsSL https://bobine.fit/install.sh | sudo bash",
           betaCmd: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta",
           canaryCmd: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=canary",
@@ -252,8 +265,8 @@ export default function DownloadModal({
           return {
             title: isEn ? "Bobine Assistant (Tauri — ARM64)" : "Bobine Assistant (Tauri — ARM64)",
             subtitle: isEn
-              ? "Linux Desktop ARM64 (aarch64 — Snapdragon, NVIDIA Spark, Pi 5)"
-              : "Linux Bureau ARM64 (aarch64 — Snapdragon, NVIDIA Spark, Pi 5)",
+              ? "Linux Desktop ARM64 (aarch64 — Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5)"
+              : "Linux Bureau ARM64 (aarch64 — Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5)",
             stableUrl:
               stable.downloads.assistantArm64 ||
               `https://github.com/FantasmaGlad/Bobine/releases/download/${stable.version}/bobine-assistant-arm64`,
@@ -272,8 +285,8 @@ export default function DownloadModal({
         return {
           title: isEn ? "Bobine Assistant (Tauri)" : "Bobine Assistant (Tauri)",
           subtitle: isEn
-            ? "Remote orchestrator with built-in channel selector (Stable / Beta / Canary) — Linux x86_64"
-            : "Orchestrateur réseau avec sélecteur de canal (Stable / Bêta / Canary) intégré — Linux x86_64",
+            ? "Remote SSH orchestrator with network discovery & built-in channel selector — Linux x86_64"
+            : "Orchestrateur SSH à distance avec découverte réseau et sélecteur de canal intégré — Linux x86_64",
           stableUrl: stable.downloads.assistant,
           betaUrl: beta.downloads.assistant,
           canaryUrl: canary.downloads.assistant,
@@ -286,6 +299,13 @@ export default function DownloadModal({
   };
 
   const details = getPlatformDetails();
+
+  const linuxRepoScript =
+    selectedFamily === "debian"
+      ? aptInstallScript(selectedChannel)
+      : selectedFamily === "fedora"
+      ? fedoraInstallScript(selectedChannel)
+      : archInstallScript(selectedChannel);
 
   const channelData = {
     stable: {
@@ -301,10 +321,10 @@ export default function DownloadModal({
       desc:
         activePlatform === "cli"
           ? isEn
-            ? "Official tested build recommended for gym production playout."
-            : "Version officielle éprouvée, recommandée pour l'exploitation en production."
+            ? "Official tested build recommended for 24/7 gym production playout."
+            : "Version officielle éprouvée, recommandée pour l'exploitation 24/7 en salle."
           : isEn
-          ? "Official production release. 100% verified, sovereign offline-first, stable and certified for commercial gym playout."
+          ? "Official production release. 100% verified, sovereign offline-first, and certified for commercial gym playout."
           : "Version officielle certifiée. 100% testée, souveraineté hors-ligne et stabilité garantie pour l'exploitation en salle de sport.",
     },
     beta: {
@@ -337,6 +357,24 @@ export default function DownloadModal({
     },
   }[selectedChannel];
 
+  const platformTabs: Array<{ id: DownloadPlatform; label: string; icon: React.ReactNode }> = [
+    { id: "linux", label: "Linux", icon: <LinuxIcon size={15} /> },
+    { id: "windows", label: "Windows", icon: <WindowsIcon size={14} /> },
+    { id: "macos", label: "macOS", icon: <AppleIcon size={14} /> },
+    { id: "android", label: "Android", icon: <AndroidIcon size={15} /> },
+    { id: "android-tv", label: "Android TV", icon: <AndroidTvIcon size={15} /> },
+    {
+      id: "cli",
+      label: "Appliance CLI",
+      icon: (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <polyline points="4 17 10 11 4 5" />
+          <line x1="12" y1="19" x2="20" y2="19" />
+        </svg>
+      ),
+    },
+  ];
+
   return createPortal(
     <div
       className="download-modal-backdrop"
@@ -352,70 +390,15 @@ export default function DownloadModal({
         aria-modal="true"
         aria-labelledby="download-modal-title"
       >
-        {/* En-tête de la modale */}
+        {/* En-tête épuré de la modale */}
         <div className="download-modal__header">
           <div className="download-modal__title-group">
             <span className="download-modal__eyebrow">
-              {isEn ? "Choose your release channel" : "Sélectionnez votre canal de version"}
+              {isEn ? "Direct Download & Official Repositories" : "Téléchargement direct & Dépôts officiels"}
             </span>
-            <div className="download-modal__title-row">
-              <h2 id="download-modal-title" className="download-modal__title">
-                {details.title}
-              </h2>
-              {hasArchSelector && (
-                <div className="download-modal__selectors">
-                  {hasFamilySelector && (
-                    <div
-                      className="download-modal__arch-selector"
-                      role="group"
-                      aria-label={isEn ? "Linux distribution family" : "Famille de distribution Linux"}
-                    >
-                      {LINUX_FAMILY_IDS.map((id) => {
-                        const family = LINUX_FAMILIES[id];
-                        const soon = !family.live;
-                        return (
-                          <button
-                            key={id}
-                            type="button"
-                            className={`download-modal__arch-btn download-modal__family-btn${selectedFamily === id ? " is-active" : ""}${soon ? " is-soon" : ""}`}
-                            aria-pressed={selectedFamily === id}
-                            disabled={soon}
-                            onClick={() => setSelectedFamily(id)}
-                          >
-                            <DistroLogo id={family.logo} />
-                            <span>{family.label[isEn ? "en" : "fr"]}</span>
-                            <span className="download-modal__family-ext">{family.extension}</span>
-                            {soon && <span className="download-modal__soon-tag">{isEn ? "Soon" : "Bientôt"}</span>}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                  <div
-                    className="download-modal__arch-selector"
-                    role="group"
-                    aria-label={isEn ? "Processor architecture" : "Architecture processeur"}
-                  >
-                    <button
-                      type="button"
-                      className={`download-modal__arch-btn${selectedArch === "x86_64" ? " is-active" : ""}`}
-                      aria-pressed={selectedArch === "x86_64"}
-                      onClick={() => setSelectedArch("x86_64")}
-                    >
-                      x86_64 (Intel / AMD)
-                    </button>
-                    <button
-                      type="button"
-                      className={`download-modal__arch-btn${selectedArch === "arm64" ? " is-active" : ""}`}
-                      aria-pressed={selectedArch === "arm64"}
-                      onClick={() => setSelectedArch("arm64")}
-                    >
-                      ARM64 (Snapdragon / ARM)
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
+            <h2 id="download-modal-title" className="download-modal__title">
+              {details.title}
+            </h2>
             <p className="download-modal__subtitle">{details.subtitle}</p>
           </div>
 
@@ -443,61 +426,172 @@ export default function DownloadModal({
           </button>
         </div>
 
-        {/* Corps de la modale avec Hero Unifié et Sélecteur Segmenté (Option 1 Apple-Grade) */}
         <div className="download-modal__body">
-          {/* 1. Sélecteur segmenté de canal (Apple Glass Switcher) */}
+          {/* 0. Barre de navigation rapide par système */}
           <div
-            className="download-modal__channel-switcher"
-            role="radiogroup"
-            aria-label={isEn ? "Select release channel" : "Sélectionner le canal de version"}
+            className="download-modal__os-bar"
+            role="tablist"
+            aria-label={isEn ? "Operating system" : "Système d'exploitation"}
           >
-            <button
-              type="button"
-              role="radio"
-              aria-checked={selectedChannel === "stable"}
-              className={`download-modal__channel-tab${selectedChannel === "stable" ? " is-active" : ""}`}
-              onClick={() => setSelectedChannel("stable")}
-            >
-              <span className="download-modal__channel-tab-dot download-modal__channel-tab-dot--stable" aria-hidden="true" />
-              <span className="download-modal__channel-tab-title">{isEn ? "Stable Release" : "Version Stable"}</span>
-              <span className="download-modal__channel-tab-rec">{isEn ? "Recommended" : "Recommandé"}</span>
-            </button>
-            <button
-              type="button"
-              role="radio"
-              aria-checked={selectedChannel === "beta"}
-              className={`download-modal__channel-tab${selectedChannel === "beta" ? " is-active" : ""}`}
-              onClick={() => setSelectedChannel("beta")}
-            >
-              <span className="download-modal__channel-tab-dot download-modal__channel-tab-dot--beta" aria-hidden="true" />
-              <span className="download-modal__channel-tab-title">{isEn ? "Beta (preview)" : "Bêta (aperçu)"}</span>
-            </button>
-            <button
-              type="button"
-              role="radio"
-              aria-checked={selectedChannel === "canary"}
-              className={`download-modal__channel-tab${selectedChannel === "canary" ? " is-active" : ""}`}
-              onClick={() => setSelectedChannel("canary")}
-            >
-              <span className="download-modal__channel-tab-dot download-modal__channel-tab-dot--canary" aria-hidden="true" />
-              <span className="download-modal__channel-tab-title">Canary</span>
-            </button>
+            {platformTabs.map((tab) => {
+              const isCurrent =
+                activePlatform === tab.id ||
+                ((activePlatform === "tauri" || activePlatform === "assistant") && tab.id === "linux");
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isCurrent}
+                  className={`download-modal__os-pill${isCurrent ? " is-active" : ""}`}
+                  onClick={() => setActivePlatform(tab.id)}
+                >
+                  {tab.icon}
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* 2. Carte Hero Unique */}
+          {/* 1. Grille de configuration (Distribution Linux + Architecture Processeur) */}
+          {hasArchSelector && (
+            <div className={`download-modal__config-grid${hasFamilySelector ? " download-modal__config-grid--split" : ""}`}>
+              {hasFamilySelector && (
+                <div className="download-modal__config-group">
+                  <span className="download-modal__config-label">
+                    {isEn ? "1. Distribution Family" : "1. Famille de distribution"}
+                  </span>
+                  <div
+                    className="download-modal__arch-selector"
+                    role="group"
+                    aria-label={isEn ? "Linux distribution family" : "Famille de distribution Linux"}
+                  >
+                    {LINUX_FAMILY_IDS.map((id) => {
+                      const family = LINUX_FAMILIES[id];
+                      const soon = !family.live;
+                      return (
+                        <button
+                          key={id}
+                          type="button"
+                          className={`download-modal__arch-btn download-modal__family-btn${selectedFamily === id ? " is-active" : ""}${soon ? " is-soon" : ""}`}
+                          aria-pressed={selectedFamily === id}
+                          disabled={soon}
+                          onClick={() => setSelectedFamily(id)}
+                        >
+                          <DistroLogo id={family.logo} />
+                          <span>{family.label[isEn ? "en" : "fr"]}</span>
+                          <span className="download-modal__family-ext">{family.extension}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              <div className="download-modal__config-group">
+                <span className="download-modal__config-label">
+                  {hasFamilySelector
+                    ? isEn
+                      ? "2. Processor Architecture"
+                      : "2. Architecture processeur"
+                    : isEn
+                    ? "1. Processor Architecture"
+                    : "1. Architecture processeur"}
+                </span>
+                <div
+                  className="download-modal__arch-selector"
+                  role="group"
+                  aria-label={isEn ? "Processor architecture" : "Architecture processeur"}
+                >
+                  <button
+                    type="button"
+                    className={`download-modal__arch-btn${selectedArch === "x86_64" ? " is-active" : ""}`}
+                    aria-pressed={selectedArch === "x86_64"}
+                    onClick={() => setSelectedArch("x86_64")}
+                  >
+                    <span>x86_64</span>
+                    <span className="download-modal__family-ext">Intel / AMD</span>
+                  </button>
+                  <button
+                    type="button"
+                    className={`download-modal__arch-btn${selectedArch === "arm64" ? " is-active" : ""}`}
+                    aria-pressed={selectedArch === "arm64"}
+                    onClick={() => setSelectedArch("arm64")}
+                  >
+                    <span>ARM64</span>
+                    <span className="download-modal__family-ext">Snapdragon / Pi 5</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 2. Sélecteur segmenté de canal (Apple Glass Switcher — sans duplication de badge dans la carte) */}
+          <div className="download-modal__config-group">
+            <span className="download-modal__config-label">
+              {hasFamilySelector
+                ? isEn
+                  ? "3. Release Channel"
+                  : "3. Canal de publication"
+                : hasArchSelector
+                ? isEn
+                  ? "2. Release Channel"
+                  : "2. Canal de publication"
+                : isEn
+                ? "Release Channel"
+                : "Canal de publication"}
+            </span>
+            <div
+              className="download-modal__channel-switcher"
+              role="radiogroup"
+              aria-label={isEn ? "Select release channel" : "Sélectionner le canal de version"}
+            >
+              <button
+                type="button"
+                role="radio"
+                aria-checked={selectedChannel === "stable"}
+                className={`download-modal__channel-tab${selectedChannel === "stable" ? " is-active" : ""}`}
+                onClick={() => setSelectedChannel("stable")}
+              >
+                <span className="download-modal__channel-tab-dot download-modal__channel-tab-dot--stable" aria-hidden="true" />
+                <span className="download-modal__channel-tab-title">{isEn ? "Stable" : "Stable"}</span>
+                <span className="download-modal__channel-tab-rec">{isEn ? "Recommended" : "Recommandé"}</span>
+              </button>
+              <button
+                type="button"
+                role="radio"
+                aria-checked={selectedChannel === "beta"}
+                className={`download-modal__channel-tab${selectedChannel === "beta" ? " is-active" : ""}`}
+                onClick={() => setSelectedChannel("beta")}
+              >
+                <span className="download-modal__channel-tab-dot download-modal__channel-tab-dot--beta" aria-hidden="true" />
+                <span className="download-modal__channel-tab-title">{isEn ? "Beta (preview)" : "Bêta (aperçu)"}</span>
+              </button>
+              <button
+                type="button"
+                role="radio"
+                aria-checked={selectedChannel === "canary"}
+                className={`download-modal__channel-tab${selectedChannel === "canary" ? " is-active" : ""}`}
+                onClick={() => setSelectedChannel("canary")}
+              >
+                <span className="download-modal__channel-tab-dot download-modal__channel-tab-dot--canary" aria-hidden="true" />
+                <span className="download-modal__channel-tab-title">Canary (rolling)</span>
+              </button>
+            </div>
+          </div>
+
+          {/* 3. Carte Hero Unique */}
           <div className={`download-modal__hero-card download-modal__hero-card--${selectedChannel}`}>
             <div className="download-modal__hero-header">
               <div className="download-modal__hero-tag-row">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img className="download-modal__channel-icon" src={channelData.icon} alt="" />
-                <span className={`download-modal__badge ${channelData.badgeClass}`}>
-                  {channelData.badgeText}
-                </span>
-                {channelData.isRecommended && (
-                  <span className="download-modal__badge download-modal__badge--rec">
-                    {isEn ? "Recommended" : "Recommandé"}
-                  </span>
-                )}
+                <div className="download-modal__hero-meta">
+                  <span className="download-modal__hero-channel-name">{channelData.badgeText}</span>
+                  {channelData.filename && (
+                    <code className="download-modal__filename-pill">{channelData.filename}</code>
+                  )}
+                </div>
               </div>
               <span className="download-modal__version">{channelData.version}</span>
             </div>
@@ -579,8 +673,8 @@ export default function DownloadModal({
                           ? "Download Started"
                           : "Téléchargement lancé"
                         : isEn
-                        ? `Download ${channelData.badgeText} (${channelData.version}) · ${details.format}`
-                        : `Télécharger ${channelData.badgeText} (${channelData.version}) · ${details.format}`}
+                        ? `Download ${channelData.filename || channelData.badgeText} · ${channelData.version}`
+                        : `Télécharger ${channelData.filename || channelData.badgeText} · ${channelData.version}`}
                     </span>
                   </a>
                 ) : (
@@ -591,6 +685,50 @@ export default function DownloadModal({
                   >
                     <span>{isEn ? "Soon" : "Bientôt"}</span>
                   </button>
+                )}
+
+                {activePlatform === "linux" && (
+                  <div className="download-modal__repo-drawer">
+                    <div className="download-modal__repo-drawer-header">
+                      <span className="download-modal__repo-drawer-title">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                          <polyline points="4 17 10 11 4 5" />
+                          <line x1="12" y1="19" x2="20" y2="19" />
+                        </svg>
+                        {isEn
+                          ? `Or install via GPG-signed ${LINUX_FAMILIES[selectedFamily].manager.toUpperCase()} repository (automatic updates)`
+                          : `Ou installer via le dépôt ${LINUX_FAMILIES[selectedFamily].manager.toUpperCase()} signé GPG (mises à jour automatiques)`}
+                      </span>
+                      <button
+                        type="button"
+                        className="download-modal__repo-copy-btn"
+                        onClick={() => copyToClipboard(linuxRepoScript, `repo-${selectedFamily}-${selectedChannel}`)}
+                      >
+                        {copiedCmd === `repo-${selectedFamily}-${selectedChannel}` ? (
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                        ) : (
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                          </svg>
+                        )}
+                        <span>
+                          {copiedCmd === `repo-${selectedFamily}-${selectedChannel}`
+                            ? isEn
+                              ? "Copied"
+                              : "Copié"
+                            : isEn
+                            ? "Copy commands"
+                            : "Copier les commandes"}
+                        </span>
+                      </button>
+                    </div>
+                    <pre className="download-modal__repo-code">
+                      <code>{linuxRepoScript}</code>
+                    </pre>
+                  </div>
                 )}
 
                 {/* Bandeau de réassurance (Trust Strip) */}
@@ -618,16 +756,20 @@ export default function DownloadModal({
             )}
           </div>
 
-          {/* 3. Pied de modale */}
+          {/* 4. Pied de modale */}
           <div className="download-modal__footer-links">
             {activePlatform === "linux" && (
               <p className="download-modal__hint">
                 {isEn
-                  ? `To receive updates with your system, use the ${LINUX_FAMILIES[selectedFamily].manager} repository: `
-                  : `Pour recevoir les mises à jour avec votre système, utilisez le dépôt ${LINUX_FAMILIES[selectedFamily].manager} : `}
+                  ? "Browse the interactive Linux repository portal: "
+                  : "Accéder au portail interactif des dépôts Linux : "}
                 <a href="https://packages.bobine.fit" target="_blank" rel="noopener noreferrer">
                   packages.bobine.fit
                 </a>
+                {" · "}
+                <Link href={`/${locale}/linux`} onClick={handleClose}>
+                  {isEn ? "Linux showcase" : "page Linux"}
+                </Link>
                 {" · "}
                 <Link href={`/${locale}/documentation`} onClick={handleClose}>
                   {isEn ? "installation guide" : "guide d'installation"}
@@ -641,9 +783,15 @@ export default function DownloadModal({
                 rel="noopener noreferrer"
                 className="download-modal__extra-link"
               >
-                {isEn
-                  ? "Browse all releases & source code on GitHub ↗"
-                  : "Consulter toutes les releases et le code source sur GitHub ↗"}
+                <span>
+                  {isEn
+                    ? "Browse all releases & source code on GitHub"
+                    : "Consulter toutes les releases et le code source sur GitHub"}
+                </span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M7 17L17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
               </a>
             </div>
           </div>

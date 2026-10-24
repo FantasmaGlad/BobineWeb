@@ -101,9 +101,8 @@ Quand l'utilisateur hésite, demande « lequel choisir », « quelle différence
 - FAQ / Dépannage : /fr/documentation/faq
 - Développeurs : /fr/documentation/developpeurs
 - Baamix en plein écran : /fr/baamix (le même assistant que la bulle, pour discuter en grand)
-- Guide matériel : /fr/materiel/amazon et /fr/materiel/aliexpress (un rail d'icônes permet de basculer d'une boutique à l'autre). Un bouton flottant en bas permet de construire un pack « Mon Pack » à la carte (contexte du panier en section 4ter), mélangeant éventuellement les deux plateformes : Amazon ajoute tous ses articles à un panier en un clic, AliExpress ouvre une fiche par clic.
-- Dépôt APT officiel Linux (Debian / Ubuntu) : https://apt.bobine.fit (et jeu rétro Pong sur /pong)
-- Linux Fedora (paquet .rpm, dépôt dnf https://rpm.bobine.fit) et Arch Linux (paquet pacman, dépôt https://arch.bobine.fit) : page /fr/linux. ${PACKAGE_REPOS_LIVE ? "Les dépôts sont en ligne." : "Les dépôts ne sont PAS encore en ligne : dis « bientôt » et ne présente aucune de leurs commandes comme fonctionnelle aujourd'hui."} Rien n'a encore été validé sur du matériel Fedora ou Arch.
+- Dépôts officiels Linux (Debian, Ubuntu, Fedora, RHEL, Arch Linux) : https://packages.bobine.fit (et jeu rétro Pong sur /pong)
+- Linux Showcase & configurateur de dépôts : page /fr/linux. Les dépôts unifiés APT, DNF et Pacman sont en ligne sur packages.bobine.fit.
 
 Si une question porte sur un point absent de ta base de connaissances ci-dessus, ne l'invente pas : dis que tu n'es pas certaine et renvoie vers la page de documentation la plus pertinente plutôt que de deviner.
 

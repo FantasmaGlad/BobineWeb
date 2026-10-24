@@ -1732,9 +1732,9 @@ export const HARDWARE_BUNDLES: Record<OsKey, HardwareOsBundle> = {
         targetEn: "Low-power Linux ARM64 playout rooms, 24/7 connected studios and NVIDIA DGX Spark workstations",
         defaultTier: "recommande",
         editorialNoteFr:
-          "Déploiement natif sous Linux ARM64 via le paquet officiel bobine_x.y.z_arm64.deb, le dépôt apt.bobine.fit, le script install.sh et le binaire bobine-assistant-arm64. Compatible nativement avec les stations NVIDIA DGX Spark (puce Grace Blackwell GB10) sous DGX OS (Ubuntu ARM64).",
+          "Déploiement natif sous Linux ARM64 via le paquet officiel bobine_x.y.z_arm64.deb, le dépôt packages.bobine.fit/debian, le script install.sh et le binaire bobine-assistant-arm64. Compatible nativement avec les stations NVIDIA DGX Spark (puce Grace Blackwell GB10) sous DGX OS (Ubuntu ARM64).",
         editorialNoteEn:
-          "Native deployment on Linux ARM64 via the official bobine_x.y.z_arm64.deb package, the apt.bobine.fit repository, the install.sh script, and the bobine-assistant-arm64 binary. Natively compatible with NVIDIA DGX Spark workstations (Grace Blackwell GB10 chip) running DGX OS (Ubuntu ARM64).",
+          "Native deployment on Linux ARM64 via the official bobine_x.y.z_arm64.deb package, the packages.bobine.fit/debian repository, the install.sh script, and the bobine-assistant-arm64 binary. Natively compatible with NVIDIA DGX Spark workstations (Grace Blackwell GB10 chip) running DGX OS (Ubuntu ARM64).",
         tiers: {
           essentiel: {
             id: "essentiel",

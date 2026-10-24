@@ -16,7 +16,6 @@ export default function LinuxDistroGrid({ locale }: { locale: Locale }) {
         <div key={family.id} className="linux-distros-family">
           <div className="linux-distros-family__title">
             <span>{family.title[locale]}</span>
-            <span className="linux-distros-family__badge">{family.badge[locale]}</span>
           </div>
 
           <div className="linux-distros-grid">
@@ -44,11 +43,9 @@ export default function LinuxDistroGrid({ locale }: { locale: Locale }) {
                 <div className="linux-distro-card__info">
                   <div className="linux-distro-card__name">{distro.name}</div>
                   <div className="linux-distro-card__meta">
-                    <span className="linux-distro-card__tag">{distro.pkgFormat}</span>
-                    <span className="linux-distro-card__tag">{distro.architectures.join(" · ")}</span>
-                    <span className="linux-distro-card__tag" style={{ color: "var(--accent-text)" }}>
-                      {distro.status[locale]}
-                    </span>
+                    <span className="linux-distro-card__status">{distro.status[locale]}</span>
+                    <span>·</span>
+                    <span>{distro.pkgFormat}</span>
                   </div>
                 </div>
               </a>

@@ -1151,18 +1151,18 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                   <h4>{isEn ? "Option A: Official APT Repository (Recommended — x86_64 & ARM64)" : "Option A : Dépôt APT officiel (Recommandé — x86_64 & ARM64)"}</h4>
                   <p>
                     {isEn
-                      ? "Add the official GPG-signed repository (apt.bobine.fit) to receive automatic updates with your standard apt upgrade (serves amd64 and arm64 architectures):"
-                      : "Ajoutez le dépôt officiel signé GPG (apt.bobine.fit) pour bénéficier des mises à jour automatiques lors de vos apt upgrade habituels (distribue automatiquement amd64 et arm64) :"}
+                      ? "Add the official GPG-signed repository (packages.bobine.fit/debian) to receive automatic updates with your standard apt upgrade (serves amd64 and arm64 architectures):"
+                      : "Ajoutez le dépôt officiel signé GPG (packages.bobine.fit/debian) pour bénéficier des mises à jour automatiques lors de vos apt upgrade habituels (distribue automatiquement amd64 et arm64) :"}
                   </p>
                   <div className="docs-copyable-cmd dx-div-16">
                     <code className="dx-code-1">
-                      {`curl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho "deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine`}
+                      {`sudo install -m 0755 -d /etc/apt/keyrings\ncurl -fsSL https://packages.bobine.fit/bobine.gpg | sudo gpg --dearmor --yes -o /etc/apt/keyrings/bobine.gpg\necho "deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://packages.bobine.fit/debian stable main" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine`}
                     </code>
                     <button
                       type="button"
                       onClick={() =>
                         copyToClipboard(
-                          "curl -fsSL https://apt.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://apt.bobine.fit/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine"
+                          "sudo install -m 0755 -d /etc/apt/keyrings\ncurl -fsSL https://packages.bobine.fit/bobine.gpg | sudo gpg --dearmor --yes -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://packages.bobine.fit/debian stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine"
                         )
                       }
                       className="docs-copy-btn"
@@ -1176,11 +1176,11 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                       ? "For pre-release builds, replace 'stable' with 'beta' (curated) or 'canary' (rolling). Repository web portal: "
                       : "Pour tester les versions préliminaires, remplacez « stable » par « beta » (curée) ou « canary » (rolling). Portail du dépôt : "}
                     <a
-                      href="https://apt.bobine.fit"
+                      href="https://packages.bobine.fit"
                       target="_blank"
                       rel="noopener noreferrer" className="dx-a-1"
                     >
-                      apt.bobine.fit
+                      packages.bobine.fit
                     </a>
                   </p>
                 </div>
@@ -1220,8 +1220,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                   </div>
                   <p>
                     {isEn
-                      ? "Same packages, same GPG signature, without revealing your IP address (and even if apt.bobine.fit is blocked). Install apt-transport-tor first, then add the onion source:"
-                      : "Mêmes paquets, même signature GPG, sans révéler votre adresse IP (et même si apt.bobine.fit est bloqué). Installez d'abord apt-transport-tor, puis ajoutez la source onion :"}
+                      ? "Same packages, same GPG signature, without revealing your IP address (and even if packages.bobine.fit is blocked). Install apt-transport-tor first, then add the onion source:"
+                      : "Mêmes paquets, même signature GPG, sans révéler votre adresse IP (et même si packages.bobine.fit est bloqué). Installez d'abord apt-transport-tor, puis ajoutez la source onion :"}
                   </p>
                   <div className="docs-copyable-cmd dx-div-16">
                     <code className="dx-code-1">{TOR_APT_COMMANDS}</code>

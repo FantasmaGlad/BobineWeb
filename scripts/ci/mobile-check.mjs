@@ -74,5 +74,7 @@ try {
 } finally {
   socket?.close(); chrome.kill("SIGTERM");
   if (chrome.pid) await new Promise((resolve) => chrome.exitCode !== null ? resolve() : chrome.once("exit", resolve));
-  rmSync(profile, { recursive: true, force: true });
+  // Les processus fils de Chromium écrivent encore dans le profil un court instant après l'arrêt du parent : on
+  // réessaie, et un nettoyage impossible ne doit pas masquer le verdict de la mesure.
+  try { rmSync(profile, { recursive: true, force: true, maxRetries: 20, retryDelay: 250 }); } catch (err) { console.warn(`Profil Chromium non supprimé : ${err.message}`); }
 }

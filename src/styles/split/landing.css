@@ -9,7 +9,7 @@
 
 .landing-breadcrumb {
   padding-top: 0.75rem;
-  font-size: 0.85rem;
+  font-size: var(--fs-0-85rem);
   color: var(--text-muted);
 }
 .landing-breadcrumb a {
@@ -27,7 +27,7 @@
 
 .landing-title {
   margin-bottom: 1rem;
-  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-size: var(--fs-clamp-2rem-3-8vw-3rem);
   font-weight: 800;
   letter-spacing: -0.025em;
   line-height: 1.15;
@@ -35,13 +35,13 @@
 }
 .landing-lead {
   max-width: 52rem;
-  font-size: 1.12rem;
+  font-size: var(--fs-1-12rem);
   line-height: 1.65;
   color: var(--text-muted);
 }
 .landing-updated {
   margin-top: 0.65rem;
-  font-size: 0.85rem;
+  font-size: var(--fs-0-85rem);
   color: var(--text-muted);
 }
 
@@ -106,12 +106,12 @@
   min-width: 0;
 }
 .landing-chip__label {
-  font-size: 0.92rem;
+  font-size: var(--fs-0-92rem);
   font-weight: 700;
   color: var(--text-heading);
 }
 .landing-chip__note {
-  font-size: 0.8rem;
+  font-size: var(--fs-0-8rem);
   color: var(--text-muted);
 }
 
@@ -162,14 +162,14 @@
 }
 .landing-showcase-card__title {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: var(--fs-1-1rem);
   font-weight: 750;
   color: var(--text-heading);
 }
 .landing-showcase-card__desc {
   flex: 1;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: var(--fs-0-9rem);
   line-height: 1.55;
   color: var(--text-muted);
 }
@@ -178,7 +178,7 @@
   align-items: center;
   gap: 0.4rem;
   margin-top: 0.35rem;
-  font-size: 0.88rem;
+  font-size: var(--fs-0-88rem);
   font-weight: 700;
   color: var(--accent-text);
 }
@@ -227,14 +227,14 @@
 }
 .landing-h2 {
   margin-bottom: 1rem;
-  font-size: 1.4rem;
+  font-size: var(--fs-1-4rem);
   font-weight: 750;
   color: var(--text-heading);
 }
 .landing-note {
   margin-top: 0.75rem;
   margin-bottom: 0;
-  font-size: 0.9rem;
+  font-size: var(--fs-0-9rem);
   color: var(--text-muted);
 }
 .landing-prose {
@@ -290,21 +290,21 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
-  font-size: 0.92rem;
+  font-size: var(--fs-0-92rem);
   font-weight: 700;
   text-decoration: none;
-  border-radius: 9999px;
+  border-radius: var(--radius-9999px);
 }
 .landing-hardware-cta__btn-secondary {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
   padding: 0.75rem 1.2rem;
-  font-size: 0.92rem;
+  font-size: var(--fs-0-92rem);
   font-weight: 650;
   text-decoration: none;
   color: var(--text-heading);
-  border-radius: 9999px;
+  border-radius: var(--radius-9999px);
   background: var(--glass-inset-bg);
   border: 1px solid var(--glass-card-border);
   box-shadow: var(--glass-edge);
@@ -325,7 +325,7 @@
 .landing-table th {
   padding: 0.6rem 0.75rem;
   text-align: left;
-  font-size: 0.8rem;
+  font-size: var(--fs-0-8rem);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--text-muted);
@@ -333,7 +333,7 @@
 }
 .landing-table td {
   padding: 0.65rem 0.75rem;
-  font-size: 0.95rem;
+  font-size: var(--fs-0-95rem);
   color: var(--text-body);
   border-bottom: 1px solid var(--border-subtle);
 }
@@ -342,7 +342,7 @@
   margin: 0.75rem 0 0;
   padding: 0.95rem 1.1rem;
   overflow-x: auto;
-  font-size: 0.85rem;
+  font-size: var(--fs-0-85rem);
   white-space: pre-wrap;
   word-break: break-word;
   border-radius: var(--radius-md);
@@ -360,7 +360,7 @@
 }
 .landing-releases small {
   display: block;
-  font-size: 0.9rem;
+  font-size: var(--fs-0-9rem);
   color: var(--text-muted);
 }
 
@@ -373,7 +373,7 @@
   padding: 1.1rem 1.35rem;
 }
 .landing-faq summary {
-  font-size: 1.05rem;
+  font-size: var(--fs-1-05rem);
   font-weight: 650;
   color: var(--text-heading);
   cursor: pointer;
@@ -396,11 +396,11 @@
   display: inline-flex;
   align-items: center;
   padding: 0.5rem 1rem;
-  font-size: 0.9rem;
+  font-size: var(--fs-0-9rem);
   font-weight: 600;
   text-decoration: none;
   color: var(--text-heading);
-  border-radius: 9999px;
+  border-radius: var(--radius-9999px);
   background: var(--glass-card-bg);
   border: 1px solid var(--glass-card-border);
   box-shadow: var(--glass-edge);
@@ -431,9 +431,9 @@
 }
 .landing-dl__badge {
   padding: 0.2rem 0.7rem;
-  font-size: 0.78rem;
+  font-size: var(--fs-0-78rem);
   font-weight: 700;
-  border-radius: 9999px;
+  border-radius: var(--radius-9999px);
   color: var(--text-heading);
   background: color-mix(in srgb, var(--accent-primary) 16%, transparent);
   border: 1px solid color-mix(in srgb, var(--accent-primary) 40%, var(--glass-card-border));
@@ -449,11 +449,11 @@
   gap: 0.45rem;
   padding: 0.45rem 0.9rem;
   font: inherit;
-  font-size: 0.9rem;
+  font-size: var(--fs-0-9rem);
   font-weight: 600;
   color: var(--text-body);
   cursor: pointer;
-  border-radius: 9999px;
+  border-radius: var(--radius-9999px);
   background: var(--glass-inset-bg);
   border: 1px solid var(--glass-card-border);
   box-shadow: var(--glass-edge);
@@ -469,13 +469,13 @@
   border-color: var(--accent-primary);
 }
 .landing-dl__pills--channels .landing-dl__pill {
-  font-size: 0.82rem;
+  font-size: var(--fs-0-82rem);
   padding-block: 0.3rem;
 }
 .landing-dl__meta,
 .landing-dl__note {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: var(--fs-0-9rem);
   color: var(--text-muted);
 }
 .landing-dl__actions {
@@ -494,16 +494,16 @@
   border-radius: var(--radius-md);
 }
 .landing-dl__cta-label {
-  font-size: 1rem;
+  font-size: var(--fs-1rem);
   font-weight: 700;
 }
 .landing-dl__cta small {
-  font-size: 0.75rem;
+  font-size: var(--fs-0-75rem);
   opacity: 0.85;
   word-break: break-all;
 }
 .landing-dl__all summary {
-  font-size: 0.9rem;
+  font-size: var(--fs-0-9rem);
   font-weight: 600;
   color: var(--text-muted);
   cursor: pointer;
@@ -520,7 +520,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 0.25rem 1rem;
-  font-size: 0.88rem;
+  font-size: var(--fs-0-88rem);
   color: var(--text-body);
 }
 .landing-dl__all a {

@@ -30,7 +30,7 @@
 
 .linux-hero__title {
   max-width: var(--showcase-hero-measure);
-  font-size: clamp(2.35rem, 5.2vw, 4.15rem);
+  font-size: var(--fs-clamp-2-35rem-5-2vw-4-15rem);
   font-weight: 800;
   line-height: 1.12;
   letter-spacing: -0.035em;
@@ -40,7 +40,7 @@
 
 .linux-hero__lead {
   max-width: 46rem;
-  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  font-size: var(--fs-clamp-1-1rem-1-8vw-1-35rem);
   line-height: 1.6;
   color: var(--text-muted);
   margin-bottom: 2.25rem;
@@ -60,10 +60,10 @@
   align-items: center;
   gap: 0.6rem;
   padding: 0.85rem 1.75rem;
-  font-size: 1.05rem;
+  font-size: var(--fs-1-05rem);
   font-weight: 700;
   text-decoration: none;
-  border-radius: 9999px;
+  border-radius: var(--radius-9999px);
   color: var(--accent-primary-fg);
   background: var(--accent-primary);
   box-shadow: var(--shadow-card);
@@ -80,10 +80,10 @@
   align-items: center;
   gap: 0.6rem;
   padding: 0.85rem 1.65rem;
-  font-size: 1.05rem;
+  font-size: var(--fs-1-05rem);
   font-weight: 600;
   text-decoration: none;
-  border-radius: 9999px;
+  border-radius: var(--radius-9999px);
   color: var(--text-body);
   background: var(--glass-card-bg);
   border: 1px solid var(--glass-card-border);
@@ -115,7 +115,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: var(--z-1);
   background: radial-gradient(circle, color-mix(in srgb, var(--accent-primary) 12%, transparent) 0%, transparent 70%);
   pointer-events: none;
 }
@@ -140,7 +140,7 @@
 }
 
 .linux-chips__label {
-  font-size: 0.88rem;
+  font-size: var(--fs-0-88rem);
   font-weight: 600;
   color: var(--text-muted);
   opacity: 0.8;
@@ -150,7 +150,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.88rem;
+  font-size: var(--fs-0-88rem);
   font-weight: 600;
   color: var(--text-muted);
 }
@@ -182,7 +182,7 @@
 }
 
 .linux-section-header__tag {
-  font-size: 0.82rem;
+  font-size: var(--fs-0-82rem);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -191,7 +191,7 @@
 }
 
 .linux-section-header__title {
-  font-size: clamp(1.85rem, 3.5vw, 2.75rem);
+  font-size: var(--fs-clamp-1-85rem-3-5vw-2-75rem);
   font-weight: 800;
   line-height: 1.2;
   color: var(--text-heading);
@@ -199,7 +199,7 @@
 }
 
 .linux-section-header__desc {
-  font-size: 1.05rem;
+  font-size: var(--fs-1-05rem);
   line-height: 1.6;
   color: var(--text-muted);
 }
@@ -243,7 +243,7 @@
 .linux-terminal__dot {
   width: 0.75rem;
   height: 0.75rem;
-  border-radius: 9999px;
+  border-radius: var(--radius-9999px);
   opacity: 0.85;
 }
 
@@ -256,17 +256,17 @@
   flex-wrap: wrap;
   gap: 0.35rem;
   padding: 0.2rem;
-  border-radius: 9999px;
+  border-radius: var(--radius-9999px);
   background: var(--glass-card-bg);
   border: 1px solid var(--border-subtle);
 }
 
 .linux-terminal__pill {
   font: inherit;
-  font-size: 0.78rem;
+  font-size: var(--fs-0-78rem);
   font-weight: 600;
   padding: 0.25rem 0.7rem;
-  border-radius: 9999px;
+  border-radius: var(--radius-9999px);
   cursor: pointer;
   color: var(--text-muted);
   background: transparent;
@@ -300,7 +300,7 @@
   gap: 0.5rem;
   padding: 0.6rem 1rem;
   font: inherit;
-  font-size: 0.9rem;
+  font-size: var(--fs-0-9rem);
   font-weight: 600;
   color: var(--text-muted);
   background: transparent;
@@ -335,7 +335,7 @@
   margin: 0;
   padding: 0;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.86rem;
+  font-size: var(--fs-0-86rem);
   line-height: 1.7;
   color: var(--text-heading);
   white-space: pre-wrap;
@@ -349,7 +349,7 @@
   gap: 0.45rem;
   padding: 0.4rem 0.85rem;
   font: inherit;
-  font-size: 0.8rem;
+  font-size: var(--fs-0-8rem);
   font-weight: 600;
   color: var(--text-body);
   background: var(--glass-card-bg);
@@ -373,7 +373,7 @@
   justify-content: space-between;
   gap: 0.75rem 1.5rem;
   padding: 0.85rem 1.5rem;
-  font-size: 0.85rem;
+  font-size: var(--fs-0-85rem);
   color: var(--text-muted);
   border-top: 1px solid var(--border-subtle);
   background: var(--glass-card-bg);
@@ -404,7 +404,7 @@
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  font-size: 1.3rem;
+  font-size: var(--fs-1-3rem);
   font-weight: 700;
   color: var(--text-heading);
   margin-bottom: 1.25rem;
@@ -460,7 +460,7 @@
 }
 
 .linux-distro-card__name {
-  font-size: 1rem;
+  font-size: var(--fs-1rem);
   font-weight: 700;
   color: var(--text-heading);
   margin-bottom: 0.2rem;
@@ -473,7 +473,7 @@
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  font-size: 0.8rem;
+  font-size: var(--fs-0-8rem);
   color: var(--text-muted);
 }
 
@@ -523,7 +523,7 @@
 }
 
 .linux-bento-card__title {
-  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  font-size: var(--fs-clamp-1-35rem-2-2vw-1-75rem);
   font-weight: 800;
   line-height: 1.25;
   color: var(--text-heading);
@@ -531,7 +531,7 @@
 }
 
 .linux-bento-card__desc {
-  font-size: 1rem;
+  font-size: var(--fs-1rem);
   line-height: 1.65;
   color: var(--text-body);
   margin-bottom: 1.5rem;
@@ -550,7 +550,7 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.92rem;
+  font-size: var(--fs-0-92rem);
   color: var(--text-muted);
 }
 
@@ -587,7 +587,7 @@
 }
 
 .linux-framework__title {
-  font-size: clamp(1.85rem, 3.2vw, 2.5rem);
+  font-size: var(--fs-clamp-1-85rem-3-2vw-2-5rem);
   font-weight: 800;
   line-height: 1.2;
   color: var(--text-heading);
@@ -595,7 +595,7 @@
 }
 
 .linux-framework__desc {
-  font-size: 1.05rem;
+  font-size: var(--fs-1-05rem);
   line-height: 1.65;
   color: var(--text-body);
   margin-bottom: 1.75rem;
@@ -616,7 +616,7 @@
 }
 
 .linux-framework__spec-title {
-  font-size: 0.8rem;
+  font-size: var(--fs-0-8rem);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--text-muted);
@@ -624,7 +624,7 @@
 }
 
 .linux-framework__spec-value {
-  font-size: 1rem;
+  font-size: var(--fs-1rem);
   font-weight: 700;
   color: var(--text-heading);
 }
@@ -657,14 +657,14 @@
 }
 
 .linux-security-card__title {
-  font-size: 1.4rem;
+  font-size: var(--fs-1-4rem);
   font-weight: 700;
   color: var(--text-heading);
   margin-bottom: 0.75rem;
 }
 
 .linux-security-card__desc {
-  font-size: 1rem;
+  font-size: var(--fs-1rem);
   line-height: 1.6;
   color: var(--text-body);
   margin-bottom: 1.5rem;
@@ -684,7 +684,7 @@
 
 .linux-security-card__fpr-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 1rem;
+  font-size: var(--fs-1rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--text-heading);

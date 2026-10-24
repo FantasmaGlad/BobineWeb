@@ -5,14 +5,14 @@
   margin-bottom: clamp(2.5rem, 6vw, 3.5rem);
 }
 .legal-span-1 {
-  font-size: 0.7rem;
+  font-size: var(--fs-0-7rem);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-muted);
 }
 .legal-h1-1 {
-  font-size: clamp(1.75rem, 3.8vw, 2.5rem);
+  font-size: var(--fs-clamp-1-75rem-3-8vw-2-5rem);
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.03em;
@@ -21,14 +21,14 @@
 }
 .legal-p-1 {
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: var(--fs-1rem);
   line-height: 1.6;
   margin: 0;
   max-width: 42rem;
 }
 .legal-p-2 {
   color: var(--text-muted);
-  font-size: 0.8rem;
+  font-size: var(--fs-0-8rem);
   margin: 0.75rem 0 0;
 }
 .legal-section-1 {
@@ -36,7 +36,7 @@
   border-top: 1px solid var(--border-subtle);
 }
 .legal-h2-1 {
-  font-size: 1.1rem;
+  font-size: var(--fs-1-1rem);
   font-weight: 700;
   color: var(--text-heading);
   margin-bottom: 0.75rem;
@@ -44,14 +44,14 @@
 }
 .legal-p-3 {
   color: var(--text-main);
-  font-size: 0.925rem;
+  font-size: var(--fs-0-925rem);
   line-height: 1.7;
   margin: 0;
   max-width: 62rem;
 }
 .legal-p-4 {
   color: var(--text-main);
-  font-size: 0.925rem;
+  font-size: var(--fs-0-925rem);
   font-weight: 600;
   line-height: 1.7;
   margin: 0;
@@ -60,18 +60,18 @@
 }
 .legal-p-5 {
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: var(--fs-0-85rem);
   line-height: 1.65;
   margin: 0;
   margin-top: 0.75rem;
   max-width: 62rem;
 }
 .legal-code-1 {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.85em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-0-85em);
   background: var(--glass-inset-bg);
   border: 1px solid var(--border-subtle);
-  border-radius: 0.3rem;
+  border-radius: var(--radius-0-3rem);
   padding: 0.1em 0.4em;
   overflow-wrap: anywhere;
 }
@@ -82,7 +82,7 @@
 }
 .legal-ul-1 {
   color: var(--text-main);
-  font-size: 0.925rem;
+  font-size: var(--fs-0-925rem);
   line-height: 1.7;
   margin: 0.5rem 0 0;
   padding-left: 1.25rem;
@@ -95,7 +95,7 @@
 }
 .legal-para {
   color: var(--text-main);
-  font-size: 0.925rem;
+  font-size: var(--fs-0-925rem);
   line-height: 1.7;
   margin: 0.75rem 0 0;
   max-width: 62rem;

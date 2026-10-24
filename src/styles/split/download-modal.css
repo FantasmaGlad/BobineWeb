@@ -15,7 +15,7 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.3rem;
-  border-radius: 14px;
+  border-radius: var(--radius-14px);
   background: var(--glass-inset-bg);
   border: 1px solid var(--border-subtle);
   overflow-x: auto;
@@ -28,12 +28,12 @@
   align-items: center;
   gap: 0.45rem;
   padding: 0.45rem 0.85rem;
-  border-radius: 10px;
+  border-radius: var(--radius-10px);
   background: transparent;
   border: 1px solid transparent;
   color: var(--text-muted);
   font-family: inherit;
-  font-size: 0.8rem;
+  font-size: var(--fs-0-8rem);
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
@@ -46,7 +46,7 @@
 }
 
 .download-modal__os-pill.is-active {
-  background: var(--bg-surface-elevated, var(--bg-card));
+  background: var(--bg-surface-elevated);
   color: var(--text-heading);
   border-color: color-mix(in srgb, var(--accent-primary) 35%, var(--border-subtle));
   box-shadow: 0 2px 8px color-mix(in srgb, var(--ink) 10%, transparent);
@@ -75,7 +75,7 @@
 }
 
 .download-modal__config-label {
-  font-size: 0.72rem;
+  font-size: var(--fs-0-72rem);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -89,7 +89,7 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.3rem;
-  border-radius: 12px;
+  border-radius: var(--radius-12px);
   background: var(--glass-inset-bg);
   border: 1px solid var(--border-subtle);
   max-width: 100%;
@@ -105,12 +105,12 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 0.52rem 1rem;
-  border-radius: 9px;
+  border-radius: var(--radius-9px);
   background: transparent;
   border: 1px solid transparent;
   color: var(--text-muted);
   font-family: inherit;
-  font-size: 0.83rem;
+  font-size: var(--fs-0-83rem);
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
@@ -124,7 +124,7 @@
 }
 
 .download-modal__channel-tab.is-active {
-  background: var(--bg-surface-elevated, var(--bg-card));
+  background: var(--bg-surface-elevated);
   color: var(--text-heading);
   box-shadow: 0 2px 8px color-mix(in srgb, var(--ink) 12%, transparent);
   border-color: var(--border-subtle);
@@ -133,7 +133,7 @@
 .download-modal__channel-tab-dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border-radius: var(--radius-50);
   flex-shrink: 0;
   display: inline-block;
 }
@@ -154,12 +154,12 @@
 }
 
 .download-modal__channel-tab-rec {
-  font-size: 0.66rem;
+  font-size: var(--fs-0-66rem);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 0.14rem 0.45rem;
-  border-radius: 9999px;
+  border-radius: var(--radius-9999px);
   background: color-mix(in srgb, var(--accent-success) 16%, transparent);
   color: var(--accent-success);
   border: 1px solid color-mix(in srgb, var(--accent-success) 30%, transparent);
@@ -171,7 +171,7 @@
   display: flex;
   flex-direction: column;
   padding: 1.65rem 1.85rem 1.5rem;
-  border-radius: var(--radius-xl, 16px);
+  border-radius: var(--radius-xl);
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   position: relative;
@@ -229,26 +229,26 @@
 }
 
 .download-modal__hero-channel-name {
-  font-size: 0.95rem;
+  font-size: var(--fs-0-95rem);
   font-weight: 700;
   color: var(--text-heading);
 }
 
 .download-modal__filename-pill {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.76rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-0-76rem);
   font-weight: 600;
   padding: 0.2rem 0.55rem;
-  border-radius: 6px;
+  border-radius: var(--radius-6px);
   background: var(--glass-inset-bg);
   border: 1px solid var(--border-subtle);
   color: var(--accent-text);
 }
 
 .download-modal__hero-desc {
-  font-size: 0.94rem;
+  font-size: var(--fs-0-94rem);
   line-height: 1.6;
-  color: var(--text-body, var(--text-heading));
+  color: var(--text-body);
   margin: 0 0 1.25rem 0;
   max-width: 68ch;
 }
@@ -261,8 +261,8 @@
   width: 100%;
   gap: 0.7rem;
   padding: 0.88rem 1.5rem;
-  border-radius: var(--radius-lg, 12px);
-  font-size: 0.98rem;
+  border-radius: var(--radius-lg);
+  font-size: var(--fs-0-98rem);
   font-weight: 700;
   letter-spacing: -0.01em;
   white-space: nowrap;
@@ -313,7 +313,7 @@
 .download-modal__repo-drawer {
   margin-top: 1rem;
   padding: 0.85rem 1rem;
-  border-radius: 12px;
+  border-radius: var(--radius-12px);
   background: var(--glass-inset-bg);
   border: 1px solid var(--border-subtle);
 }
@@ -331,7 +331,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  font-size: 0.78rem;
+  font-size: var(--fs-0-78rem);
   font-weight: 600;
   color: var(--text-heading);
 }
@@ -347,12 +347,12 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.28rem 0.65rem;
-  border-radius: 7px;
-  background: var(--bg-surface-elevated, var(--bg-card));
+  border-radius: var(--radius-7px);
+  background: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
   color: var(--text-heading);
   font-family: inherit;
-  font-size: 0.74rem;
+  font-size: var(--fs-0-74rem);
   font-weight: 600;
   cursor: pointer;
   transition: border-color 0.18s ease, background 0.18s ease;
@@ -366,11 +366,11 @@
 .download-modal__repo-code {
   margin: 0;
   padding: 0.65rem 0.8rem;
-  border-radius: 8px;
+  border-radius: var(--radius-8px);
   background: color-mix(in srgb, var(--ink) 6%, var(--bg-canvas));
   border: 1px solid color-mix(in srgb, var(--border-subtle) 70%, transparent);
-  font-family: var(--font-mono, monospace);
-  font-size: 0.74rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-0-74rem);
   line-height: 1.55;
   color: var(--text-body);
   overflow-x: auto;
@@ -394,7 +394,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.76rem;
+  font-size: var(--fs-0-76rem);
   font-weight: 500;
   color: var(--text-muted);
 }
@@ -423,7 +423,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-size: 0.8rem;
+  font-size: var(--fs-0-8rem);
   color: var(--text-muted);
   text-decoration: none;
   transition: color 0.18s ease;
@@ -445,7 +445,7 @@
     padding: 1.35rem 1.15rem;
   }
   .download-modal__hero-action-btn {
-    font-size: 0.88rem;
+    font-size: var(--fs-0-88rem);
     padding: 0.8rem 1rem;
     white-space: normal;
     text-align: center;
@@ -459,6 +459,6 @@
   }
   .download-modal__channel-tab {
     padding: 0.45rem 0.75rem;
-    font-size: 0.76rem;
+    font-size: var(--fs-0-76rem);
   }
 }

@@ -15,14 +15,14 @@
   border-bottom: 1px solid var(--border-subtle);
 }
 .about-h2-1 {
-  font-size: 1.45rem;
+  font-size: var(--fs-1-45rem);
   font-weight: 700;
   color: var(--text-heading);
   margin: 0 0 0.85rem 0;
 }
 .about-div-3 {
   color: var(--text-base);
-  font-size: 1rem;
+  font-size: var(--fs-1rem);
   line-height: 1.7;
   display: flex;
   flex-direction: column;
@@ -37,7 +37,7 @@
   color: var(--text-heading);
 }
 .about-h2-2 {
-  font-size: 1.45rem;
+  font-size: var(--fs-1-45rem);
   font-weight: 700;
   color: var(--text-heading);
   margin: 0 0 1.25rem 0;
@@ -54,17 +54,17 @@
 .about-strong-1 {
   display: block;
   color: var(--text-heading);
-  font-size: 1.05rem;
+  font-size: var(--fs-1-05rem);
   margin-bottom: 0.35rem;
 }
 .about-p-3 {
   margin: 0;
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: var(--fs-0-95rem);
   line-height: 1.6;
 }
 .about-h2-3 {
-  font-size: 1.45rem;
+  font-size: var(--fs-1-45rem);
   font-weight: 700;
   color: var(--text-heading);
   margin: 0 0 1rem 0;
@@ -74,7 +74,7 @@
 }
 .about-p-4 {
   color: var(--text-base);
-  font-size: 1rem;
+  font-size: var(--fs-1rem);
   line-height: 1.7;
   margin: 0;
 }

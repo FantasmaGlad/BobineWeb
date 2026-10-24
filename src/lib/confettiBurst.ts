@@ -16,13 +16,13 @@ interface Particle {
   spin: number;
 }
 
-const DEFAULT_COLORS = ["#0f172a", "#64748b", "#e2e8f0"];
 
 export function spawnConfettiBurst(x: number, y: number, options: ConfettiOptions = {}) {
   if (typeof window === "undefined") return;
   if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
 
-  const colors = options.colors ?? DEFAULT_COLORS;
+  const styles = getComputedStyle(document.documentElement);
+  const colors = options.colors ?? ["--accent-primary", "--text-muted", "--bg-card"].map((token) => styles.getPropertyValue(token).trim());
   const particleCount = options.particleCount ?? 18;
 
   const canvas = document.createElement("canvas");
@@ -32,7 +32,7 @@ export function spawnConfettiBurst(x: number, y: number, options: ConfettiOption
   canvas.style.width = "100vw";
   canvas.style.height = "100vh";
   canvas.style.pointerEvents = "none";
-  canvas.style.zIndex = "9999";
+  canvas.style.zIndex = "var(--z-9999)";
 
   const dpr = window.devicePixelRatio || 1;
   canvas.width = window.innerWidth * dpr;

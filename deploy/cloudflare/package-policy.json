@@ -1,0 +1,135 @@
+{
+  "http_request_cache_settings": [
+    {
+      "ref": "bobine_packages_immutable",
+      "description": "Paquets stables versionnés : cache 30 jours, jamais les erreurs",
+      "expression": "(http.host eq \"packages.bobine.fit\") and ((starts_with(http.request.uri.path, \"/debian/pool/\") and ends_with(http.request.uri.path, \".deb\")) or ((starts_with(http.request.uri.path, \"/fedora/stable/\") or starts_with(http.request.uri.path, \"/arch/stable/\")) and (ends_with(http.request.uri.path, \".rpm\") or ends_with(http.request.uri.path, \".pkg.tar.zst\"))))",
+      "action": "set_cache_settings",
+      "action_parameters": {
+        "cache": true,
+        "edge_ttl": {
+          "mode": "override_origin",
+          "default": 2592000,
+          "status_code_ttl": [
+            {
+              "status_code_range": {
+                "from": 400,
+                "to": 599
+              },
+              "value": -1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ref": "bobine_packages_mutable",
+      "description": "Métadonnées et canaux mobiles toujours frais",
+      "expression": "(http.host eq \"packages.bobine.fit\") and not ((starts_with(http.request.uri.path, \"/debian/pool/\") and ends_with(http.request.uri.path, \".deb\")) or ((starts_with(http.request.uri.path, \"/fedora/stable/\") or starts_with(http.request.uri.path, \"/arch/stable/\")) and (ends_with(http.request.uri.path, \".rpm\") or ends_with(http.request.uri.path, \".pkg.tar.zst\"))))",
+      "action": "set_cache_settings",
+      "action_parameters": {
+        "cache": false
+      }
+    }
+  ],
+  "http_config_settings": [
+    {
+      "ref": "bobine_machine_clients",
+      "description": "Installateurs et clients de dépôts sans transformation navigateur",
+      "expression": "(http.host eq \"packages.bobine.fit\") or (http.request.uri.path in {\"/install.sh\" \"/install-tor.sh\" \"/latest.json\" \"/feed.xml\"}) or starts_with(http.request.uri.path, \"/.well-known/\")",
+      "action": "set_config",
+      "action_parameters": {
+        "bic": false,
+        "email_obfuscation": false,
+        "rocket_loader": false,
+        "disable_rum": true
+      }
+    }
+  ],
+  "http_request_firewall_custom": [
+    {
+      "ref": "bobine_package_clients",
+      "description": "Clients de dépôts et fichiers de confiance sans défi JavaScript",
+      "expression": "(http.host eq \"packages.bobine.fit\") or (http.request.uri.path in {\"/install.sh\" \"/install-tor.sh\" \"/latest.json\" \"/feed.xml\"}) or starts_with(http.request.uri.path, \"/.well-known/\")",
+      "action": "skip",
+      "action_parameters": {
+        "phases": [
+          "http_request_firewall_managed"
+        ],
+        "products": [
+          "bic",
+          "securityLevel",
+          "uaBlock",
+          "hot"
+        ]
+      },
+      "logging": {
+        "enabled": true
+      }
+    }
+  ],
+  "http_response_headers_transform": [
+    {
+      "ref": "bobine_pages_security",
+      "description": "En-têtes des sites statiques GitHub Pages",
+      "expression": "http.host in {\"packages.bobine.fit\" \"security.bobine.fit\"}",
+      "action": "rewrite",
+      "action_parameters": {
+        "headers": {
+          "X-Content-Type-Options": {
+            "operation": "set",
+            "value": "nosniff"
+          },
+          "Referrer-Policy": {
+            "operation": "set",
+            "value": "no-referrer"
+          },
+          "Permissions-Policy": {
+            "operation": "set",
+            "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+          },
+          "X-Frame-Options": {
+            "operation": "set",
+            "value": "SAMEORIGIN"
+          },
+          "Strict-Transport-Security": {
+            "operation": "set",
+            "value": "max-age=31536000; includeSubDomains"
+          },
+          "Content-Security-Policy": {
+            "operation": "set",
+            "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+          }
+        }
+      }
+    },
+    {
+      "ref": "bobine_csp_observe",
+      "description": "Observer la politique de contenu avant application stricte du site",
+      "expression": "http.host eq \"bobine.fit\"",
+      "action": "rewrite",
+      "action_parameters": {
+        "headers": {
+          "Content-Security-Policy-Report-Only": {
+            "operation": "set",
+            "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; font-src 'self' data:; frame-ancestors 'self'; base-uri 'self'"
+          }
+        }
+      }
+    },
+    {
+      "ref": "bobine_packages_onion",
+      "description": "Adresse Tor du dépôt signé multi-distribution",
+      "expression": "http.host eq \"packages.bobine.fit\"",
+      "action": "rewrite",
+      "action_parameters": {
+        "headers": {
+          "Onion-Location": {
+            "operation": "set",
+            "value": "http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/"
+          }
+        }
+      }
+    }
+  ]
+}

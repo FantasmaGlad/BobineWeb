@@ -13,11 +13,11 @@ import {
   LINUX_FAMILY_IDS,
   downloadKey,
   packageFileName,
-  packageLink,
   packageUrl,
   type LinuxFamilyId,
   type PackageChannel,
 } from "@/lib/linuxPackages";
+import "@/styles/split/download-modal.css";
 
 export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "android-tv" | "cli" | "tauri" | "assistant";
 export type CpuArchitecture = "x86_64" | "arm64";
@@ -49,6 +49,7 @@ export default function DownloadModal({
   const activePlatform: DownloadPlatform = initialPlatform;
   const [selectedArch, setSelectedArch] = useState<CpuArchitecture>("x86_64");
   const [selectedFamily, setSelectedFamily] = useState<LinuxFamilyId>("debian");
+  const [selectedChannel, setSelectedChannel] = useState<PackageChannel>("stable");
   const [downloadingKey, setDownloadingKey] = useState<string | null>(null);
   // Chaque ouverture repart d'un bouton neuf : sans cette remise à zéro, « Lancé » restait affiché
   // à la réouverture et bloquait un second téléchargement.
@@ -184,9 +185,7 @@ export default function DownloadModal({
         const arch = isArm ? "arm64" : "x86_64";
         const archLabel = isArm ? "ARM64" : "x86_64";
         const channelLink = (info: ReleaseChannelInfo, channel: PackageChannel, tag: string) =>
-          selectedFamily === "debian"
-            ? info.downloads[downloadKey("debian", arch)] || packageUrl("debian", channel, arch, tag)
-            : packageLink(info.downloads, selectedFamily, arch);
+          info.downloads[downloadKey(selectedFamily, arch)] || packageUrl(selectedFamily, channel, arch, tag);
         const cpu = isArm
           ? isEn ? "ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi)" : "ARM64 (Snapdragon, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi)"
           : "x86_64 — Intel / AMD";
@@ -288,6 +287,56 @@ export default function DownloadModal({
 
   const details = getPlatformDetails();
 
+  const channelData = {
+    stable: {
+      info: stable,
+      url: details.stableUrl,
+      cmd: details.stableCmd,
+      filename: details.stableFilename,
+      version: stable.version,
+      icon: "/images/channels/stable.webp",
+      badgeClass: "download-modal__badge--stable",
+      badgeText: isEn ? "Stable Release" : "Version Stable",
+      isRecommended: true,
+      desc:
+        activePlatform === "cli"
+          ? isEn
+            ? "Official tested build recommended for gym production playout."
+            : "Version officielle éprouvée, recommandée pour l'exploitation en production."
+          : isEn
+          ? "Official production release. 100% verified, sovereign offline-first, stable and certified for commercial gym playout."
+          : "Version officielle certifiée. 100% testée, souveraineté hors-ligne et stabilité garantie pour l'exploitation en salle de sport.",
+    },
+    beta: {
+      info: beta,
+      url: details.betaUrl,
+      cmd: details.betaCmd,
+      filename: details.betaFilename,
+      version: beta.commit ? `#${beta.commit}` : isEn ? "Rolling" : "Continue",
+      icon: "/images/channels/beta.webp",
+      badgeClass: "download-modal__badge--beta",
+      badgeText: isEn ? "Beta (preview)" : "Bêta (aperçu)",
+      isRecommended: false,
+      desc: isEn
+        ? "Curated batches of features and fixes ready for preview and community testing before official release."
+        : "Lots de fonctionnalités et correctifs en avant-première pour tester les nouveautés avant la version officielle.",
+    },
+    canary: {
+      info: canary,
+      url: details.canaryUrl,
+      cmd: details.canaryCmd,
+      filename: details.canaryFilename,
+      version: canary.commit ? `#${canary.commit}` : isEn ? "Rolling" : "Continue",
+      icon: "/images/channels/canary.webp",
+      badgeClass: "download-modal__badge--canary",
+      badgeText: "Canary (rolling)",
+      isRecommended: false,
+      desc: isEn
+        ? "Rebuilt automatically on every commit to main. Earliest access, experimental, zero curation, untested."
+        : "Reconstruite automatiquement à chaque commit sur main. Accès ultra-anticipé, expérimental, non testé.",
+    },
+  }[selectedChannel];
+
   return createPortal(
     <div
       className="download-modal-backdrop"
@@ -298,7 +347,7 @@ export default function DownloadModal({
     >
       <div
         ref={modalRef}
-        className="download-modal"
+        className="download-modal download-modal--apple-grade"
         role="dialog"
         aria-modal="true"
         aria-labelledby="download-modal-title"
@@ -394,183 +443,109 @@ export default function DownloadModal({
           </button>
         </div>
 
-        {/* Corps de la modale avec les trois canaux de version */}
+        {/* Corps de la modale avec Hero Unifié et Sélecteur Segmenté (Option 1 Apple-Grade) */}
         <div className="download-modal__body">
-          {activePlatform === "cli" ? (
-            /* Cas particulier : CLI Appliance */
-            <div className="download-modal__cli-grid">
-              {/* Carte CLI Stable */}
-              <div className="download-modal__channel-card download-modal__channel-card--stable">
-                <div className="download-modal__card-header">
-                  <div className="download-modal__card-tag-row">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img className="download-modal__channel-icon" src="/images/channels/stable.webp" alt="" />
-                    <span className="download-modal__badge download-modal__badge--stable">
-                      {isEn ? "Stable Release" : "Version Stable"}
-                    </span>
-                    <span className="download-modal__badge download-modal__badge--rec">
-                      {isEn ? "Recommended" : "Recommandé"}
-                    </span>
-                  </div>
-                  <span className="download-modal__version">{stable.version}</span>
-                </div>
+          {/* 1. Sélecteur segmenté de canal (Apple Glass Switcher) */}
+          <div
+            className="download-modal__channel-switcher"
+            role="radiogroup"
+            aria-label={isEn ? "Select release channel" : "Sélectionner le canal de version"}
+          >
+            <button
+              type="button"
+              role="radio"
+              aria-checked={selectedChannel === "stable"}
+              className={`download-modal__channel-tab${selectedChannel === "stable" ? " is-active" : ""}`}
+              onClick={() => setSelectedChannel("stable")}
+            >
+              <span className="download-modal__channel-tab-dot download-modal__channel-tab-dot--stable" aria-hidden="true" />
+              <span className="download-modal__channel-tab-title">{isEn ? "Stable Release" : "Version Stable"}</span>
+              <span className="download-modal__channel-tab-rec">{isEn ? "Recommended" : "Recommandé"}</span>
+            </button>
+            <button
+              type="button"
+              role="radio"
+              aria-checked={selectedChannel === "beta"}
+              className={`download-modal__channel-tab${selectedChannel === "beta" ? " is-active" : ""}`}
+              onClick={() => setSelectedChannel("beta")}
+            >
+              <span className="download-modal__channel-tab-dot download-modal__channel-tab-dot--beta" aria-hidden="true" />
+              <span className="download-modal__channel-tab-title">{isEn ? "Beta (preview)" : "Bêta (aperçu)"}</span>
+            </button>
+            <button
+              type="button"
+              role="radio"
+              aria-checked={selectedChannel === "canary"}
+              className={`download-modal__channel-tab${selectedChannel === "canary" ? " is-active" : ""}`}
+              onClick={() => setSelectedChannel("canary")}
+            >
+              <span className="download-modal__channel-tab-dot download-modal__channel-tab-dot--canary" aria-hidden="true" />
+              <span className="download-modal__channel-tab-title">Canary</span>
+            </button>
+          </div>
 
-                <p className="download-modal__card-desc">
-                  {isEn
-                    ? "Official tested build recommended for gym production playout."
-                    : "Version officielle éprouvée, recommandée pour l'exploitation en production."}
-                </p>
-
-                <div className="download-modal__cli-block">
-                  <ScrollingCode>{details.stableCmd}</ScrollingCode>
-                  <button
-                    type="button"
-                    className="download-modal__cli-copy-btn download-modal__cli-copy-btn--stable"
-                    onClick={() => copyToClipboard(details.stableCmd || "", "cli-stable")}
-                    aria-label={isEn ? "Copy command" : "Copier la commande"}
-                  >
-                    {copiedCmd === "cli-stable" ? (
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    ) : (
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                      </svg>
-                    )}
-                    <span>{copiedCmd === "cli-stable" ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}</span>
-                  </button>
-                </div>
+          {/* 2. Carte Hero Unique */}
+          <div className={`download-modal__hero-card download-modal__hero-card--${selectedChannel}`}>
+            <div className="download-modal__hero-header">
+              <div className="download-modal__hero-tag-row">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="download-modal__channel-icon" src={channelData.icon} alt="" />
+                <span className={`download-modal__badge ${channelData.badgeClass}`}>
+                  {channelData.badgeText}
+                </span>
+                {channelData.isRecommended && (
+                  <span className="download-modal__badge download-modal__badge--rec">
+                    {isEn ? "Recommended" : "Recommandé"}
+                  </span>
+                )}
               </div>
-
-              {/* Carte CLI Bêta */}
-              <div className="download-modal__channel-card download-modal__channel-card--beta">
-                <div className="download-modal__card-header">
-                  <div className="download-modal__card-tag-row">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img className="download-modal__channel-icon" src="/images/channels/beta.webp" alt="" />
-                    <span className="download-modal__badge download-modal__badge--beta">
-                      {isEn ? "Beta (curated)" : "Bêta (curée)"}
-                    </span>
-                  </div>
-                  <span className="download-modal__version">{beta.commit ? `#${beta.commit}` : (isEn ? "Rolling" : "Continue")}</span>
-                </div>
-
-                <p className="download-modal__card-desc">
-                  {isEn
-                    ? "Beta: batches of features/fixes I select and publish manually when ready."
-                    : "Bêta : lots de fonctionnalités/correctifs que je sélectionne et publie manuellement quand ils sont prêts."}
-                </p>
-
-                <div className="download-modal__cli-block">
-                  <ScrollingCode>{details.betaCmd}</ScrollingCode>
-                  <button
-                    type="button"
-                    className="download-modal__cli-copy-btn download-modal__cli-copy-btn--beta"
-                    onClick={() => copyToClipboard(details.betaCmd || "", "cli-beta")}
-                    aria-label={isEn ? "Copy command" : "Copier la commande"}
-                  >
-                    {copiedCmd === "cli-beta" ? (
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    ) : (
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                      </svg>
-                    )}
-                    <span>{copiedCmd === "cli-beta" ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Carte CLI Canary */}
-              <div className="download-modal__channel-card download-modal__channel-card--canary">
-                <div className="download-modal__card-header">
-                  <div className="download-modal__card-tag-row">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img className="download-modal__channel-icon" src="/images/channels/canary.webp" alt="" />
-                    <span className="download-modal__badge download-modal__badge--canary">
-                      {isEn ? "Canary (rolling)" : "Canary (rolling)"}
-                    </span>
-                  </div>
-                  <span className="download-modal__version">{canary.commit ? `#${canary.commit}` : (isEn ? "Rolling" : "Continue")}</span>
-                </div>
-
-                <p className="download-modal__card-desc">
-                  {isEn
-                    ? "Canary: rebuilt automatically on every commit to main. Earliest access, zero curation, untested."
-                    : "Canary : reconstruite automatiquement à chaque commit sur main. Accès le plus anticipé, zéro curation, non testé."}
-                </p>
-
-                <div className="download-modal__cli-block">
-                  <ScrollingCode>{details.canaryCmd}</ScrollingCode>
-                  <button
-                    type="button"
-                    className="download-modal__cli-copy-btn download-modal__cli-copy-btn--canary"
-                    onClick={() => copyToClipboard(details.canaryCmd || "", "cli-canary")}
-                    aria-label={isEn ? "Copy command" : "Copier la commande"}
-                  >
-                    {copiedCmd === "cli-canary" ? (
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    ) : (
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                      </svg>
-                    )}
-                    <span>{copiedCmd === "cli-canary" ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}</span>
-                  </button>
-                </div>
-              </div>
+              <span className="download-modal__version">{channelData.version}</span>
             </div>
-          ) : (
-            /* Cas normal : Binaires d'applications (Windows, macOS, Linux, Assistant) */
-            <div className="download-modal__cards-grid">
-              {/* Option 1 : VERSION STABLE */}
-              <div className="download-modal__channel-card download-modal__channel-card--stable">
-                <div className="download-modal__card-header">
-                  <div className="download-modal__card-tag-row">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img className="download-modal__channel-icon" src="/images/channels/stable.webp" alt="" />
-                    <span className="download-modal__badge download-modal__badge--stable">
-                      {isEn ? "Stable Release" : "Version Stable"}
-                    </span>
-                    <span className="download-modal__badge download-modal__badge--rec">
-                      {isEn ? "Recommended" : "Recommandé"}
-                    </span>
-                  </div>
-                  <span className="download-modal__version">{stable.version}</span>
-                </div>
 
-                <p className="download-modal__card-desc">
-                  {isEn
-                    ? "Official production release. 100% verified, stable and recommended for fitness studio playout."
-                    : "Version officielle certifiée. 100% testée, stable et recommandée pour l'exploitation en salle de sport."}
-                </p>
+            <p className="download-modal__hero-desc">{channelData.desc}</p>
 
-                {details.stableUrl ? (
+            {activePlatform === "cli" ? (
+              <div className="download-modal__cli-block">
+                <ScrollingCode>{channelData.cmd}</ScrollingCode>
+                <button
+                  type="button"
+                  className={`download-modal__cli-copy-btn download-modal__cli-copy-btn--${selectedChannel}`}
+                  onClick={() => copyToClipboard(channelData.cmd || "", `cli-${selectedChannel}`)}
+                  aria-label={isEn ? "Copy command" : "Copier la commande"}
+                >
+                  {copiedCmd === `cli-${selectedChannel}` ? (
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  ) : (
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                  )}
+                  <span>{copiedCmd === `cli-${selectedChannel}` ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}</span>
+                </button>
+              </div>
+            ) : (
+              <>
+                {channelData.url ? (
                   <a
-                    href={details.stableUrl}
-                    className="download-modal__action-btn download-modal__action-btn--primary download-modal__action-btn--stable"
+                    href={channelData.url}
+                    className={`download-modal__hero-action-btn download-modal__hero-action-btn--${selectedChannel}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     download
                     onClick={() => {
-                      setDownloadingKey("stable");
+                      setDownloadingKey(selectedChannel);
                       setTimeout(handleClose, 300);
                     }}
                   >
-                    {downloadingKey === "stable" ? (
+                    {downloadingKey === selectedChannel ? (
                       <svg
                         key="check"
                         className="download-modal__action-icon--pop"
-                        width="16"
-                        height="16"
+                        width="18"
+                        height="18"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -583,8 +558,8 @@ export default function DownloadModal({
                       </svg>
                     ) : (
                       <svg
-                        width="16"
-                        height="16"
+                        width="18"
+                        height="18"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -599,184 +574,79 @@ export default function DownloadModal({
                       </svg>
                     )}
                     <span>
-                      {downloadingKey === "stable"
-                        ? (isEn ? "Started" : "Lancé")
-                        : (isEn ? `Download Stable (${stable.version}) · ${details.format}` : `Télécharger la Stable (${stable.version}) · ${details.format}`)}
+                      {downloadingKey === selectedChannel
+                        ? isEn
+                          ? "Download Started"
+                          : "Téléchargement lancé"
+                        : isEn
+                        ? `Download ${channelData.badgeText} (${channelData.version}) · ${details.format}`
+                        : `Télécharger ${channelData.badgeText} (${channelData.version}) · ${details.format}`}
                     </span>
                   </a>
                 ) : (
-                  <button type="button" className="download-modal__action-btn download-modal__action-btn--primary download-modal__action-btn--stable is-soon" disabled>
-                    <span>{isEn ? "Soon" : "Bientôt"}</span>
-                  </button>
-                )}
-              </div>
-
-              {/* Option 2 : VERSION BÊTA (curée) */}
-              <div className="download-modal__channel-card download-modal__channel-card--beta">
-                <div className="download-modal__card-header">
-                  <div className="download-modal__card-tag-row">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img className="download-modal__channel-icon" src="/images/channels/beta.webp" alt="" />
-                    <span className="download-modal__badge download-modal__badge--beta">
-                      {isEn ? "Beta (curated)" : "Bêta (curée)"}
-                    </span>
-                  </div>
-                  <span className="download-modal__version">{beta.commit ? `#${beta.commit}` : (isEn ? "Rolling" : "Continue")}</span>
-                </div>
-
-                <p className="download-modal__card-desc">
-                  {isEn
-                    ? "Beta: batches of features/fixes I select and publish manually when ready."
-                    : "Bêta : lots de fonctionnalités/correctifs que je sélectionne et publie manuellement quand ils sont prêts."}
-                </p>
-
-                {details.betaUrl ? (
-                  <a
-                    href={details.betaUrl}
-                    className="download-modal__action-btn download-modal__action-btn--beta"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    download
-                    onClick={() => {
-                      setDownloadingKey("beta");
-                      setTimeout(handleClose, 300);
-                    }}
+                  <button
+                    type="button"
+                    className="download-modal__hero-action-btn download-modal__hero-action-btn--stable is-soon"
+                    disabled
                   >
-                    {downloadingKey === "beta" ? (
-                      <svg
-                        key="check"
-                        className="download-modal__action-icon--pop"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    ) : (
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="7 10 12 15 17 10" />
-                        <line x1="12" y1="15" x2="12" y2="3" />
-                      </svg>
-                    )}
-                    <span>
-                      {downloadingKey === "beta"
-                        ? (isEn ? "Started" : "Lancé")
-                        : (isEn ? `Download Beta · ${details.format}` : `Télécharger la Bêta · ${details.format}`)}
-                    </span>
-                  </a>
-                ) : (
-                  <button type="button" className="download-modal__action-btn download-modal__action-btn--beta is-soon" disabled>
                     <span>{isEn ? "Soon" : "Bientôt"}</span>
                   </button>
                 )}
-              </div>
 
-              {/* Option 3 : VERSION CANARY (rolling) */}
-              <div className="download-modal__channel-card download-modal__channel-card--canary">
-                <div className="download-modal__card-header">
-                  <div className="download-modal__card-tag-row">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img className="download-modal__channel-icon" src="/images/channels/canary.webp" alt="" />
-                    <span className="download-modal__badge download-modal__badge--canary">
-                      {isEn ? "Canary (rolling)" : "Canary (rolling)"}
-                    </span>
-                  </div>
-                  <span className="download-modal__version">{canary.commit ? `#${canary.commit}` : (isEn ? "Rolling" : "Continue")}</span>
+                {/* Bandeau de réassurance (Trust Strip) */}
+                <div className="download-modal__trust-strip">
+                  <span className="download-modal__trust-item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {isEn ? "100% Offline Sovereign" : "100% Hors-ligne souverain"}
+                  </span>
+                  <span className="download-modal__trust-item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {isEn ? "OpenPGP Signed" : "Signé cryptographiquement OpenPGP"}
+                  </span>
+                  <span className="download-modal__trust-item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {isEn ? "SHA-256 Verified" : "SHA-256 certifié"}
+                  </span>
                 </div>
+              </>
+            )}
+          </div>
 
-                <p className="download-modal__card-desc">
-                  {isEn
-                    ? "Canary: rebuilt automatically on every commit to main. Earliest access, zero curation, untested."
-                    : "Canary : reconstruite automatiquement à chaque commit sur main. Accès le plus anticipé, zéro curation, non testé."}
-                </p>
-
-                {details.canaryUrl ? (
-                  <a
-                    href={details.canaryUrl}
-                    className="download-modal__action-btn download-modal__action-btn--canary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    download
-                    onClick={() => {
-                      setDownloadingKey("canary");
-                      setTimeout(handleClose, 300);
-                    }}
-                  >
-                    {downloadingKey === "canary" ? (
-                      <svg
-                        key="check"
-                        className="download-modal__action-icon--pop"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    ) : (
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="7 10 12 15 17 10" />
-                        <line x1="12" y1="15" x2="12" y2="3" />
-                      </svg>
-                    )}
-                    <span>
-                      {downloadingKey === "canary"
-                        ? (isEn ? "Started" : "Lancé")
-                        : (isEn ? `Download Canary · ${details.format}` : `Télécharger la Canary · ${details.format}`)}
-                    </span>
-                  </a>
-                ) : (
-                  <button type="button" className="download-modal__action-btn download-modal__action-btn--canary is-soon" disabled>
-                    <span>{isEn ? "Soon" : "Bientôt"}</span>
-                  </button>
-                )}
-              </div>
+          {/* 3. Pied de modale */}
+          <div className="download-modal__footer-links">
+            {activePlatform === "linux" && (
+              <p className="download-modal__hint">
+                {isEn
+                  ? `To receive updates with your system, use the ${LINUX_FAMILIES[selectedFamily].manager} repository: `
+                  : `Pour recevoir les mises à jour avec votre système, utilisez le dépôt ${LINUX_FAMILIES[selectedFamily].manager} : `}
+                <a href="https://packages.bobine.fit" target="_blank" rel="noopener noreferrer">
+                  packages.bobine.fit
+                </a>
+                {" · "}
+                <Link href={`/${locale}/documentation`} onClick={handleClose}>
+                  {isEn ? "installation guide" : "guide d'installation"}
+                </Link>
+              </p>
+            )}
+            <div className="download-modal__extra-row">
+              <a
+                href="https://github.com/FantasmaGlad/Bobine/releases"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="download-modal__extra-link"
+              >
+                {isEn
+                  ? "Browse all releases & source code on GitHub ↗"
+                  : "Consulter toutes les releases et le code source sur GitHub ↗"}
+              </a>
             </div>
-          )}
-
-          {activePlatform === "linux" && (
-            <p className="download-modal__hint">
-              {isEn
-                ? `To receive updates with the system, use the ${LINUX_FAMILIES[selectedFamily].manager} repository: `
-                : `Pour recevoir les mises à jour avec le système, utilisez le dépôt ${LINUX_FAMILIES[selectedFamily].manager} : `}
-              <Link href={`/${locale}/documentation`} onClick={handleClose}>
-                {isEn ? "installation guide" : "guide d'installation"}
-              </Link>
-            </p>
-          )}
+          </div>
         </div>
       </div>
     </div>,

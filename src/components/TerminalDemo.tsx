@@ -94,8 +94,17 @@ const STEPS: StepItem[] = [
     durationMs: 700,
   },
   {
-    id: "backend-service",
+    id: "storage-access",
     num: 9,
+    labelFr: "Autorisation des supports amovibles",
+    labelEn: "Removable media authorization",
+    detailFr: () => "Accès udisks2 & clés USB sécurisé pour les cours vidéo",
+    detailEn: () => "Secure udisks2 & USB drive access for video courses",
+    durationMs: 700,
+  },
+  {
+    id: "backend-service",
+    num: 10,
     labelFr: "Service systemd — backend FastAPI",
     labelEn: "Systemd service — FastAPI backend",
     detailFr: () => "bobine-backend.service actif (port 8000)",
@@ -104,7 +113,7 @@ const STEPS: StepItem[] = [
   },
   {
     id: "kiosk",
-    num: 10,
+    num: 11,
     labelFr: "Kiosk Chromium (écran cinéma câblé)",
     labelEn: "Chromium Kiosk (cabled cinema display)",
     detailFr: () => "Session X11 verrouillée, anti-veille Screen Wake Lock actif",
@@ -113,7 +122,7 @@ const STEPS: StepItem[] = [
   },
   {
     id: "audio",
-    num: 11,
+    num: 12,
     labelFr: "Audio (auto-port, anti-sifflement, garde-fou hors session)",
     labelEn: "Audio (auto-port, anti-hum, out-of-session guard)",
     detailFr: () => "Garde-fou sonore hors session & profil ALSA calibré",
@@ -122,7 +131,7 @@ const STEPS: StepItem[] = [
   },
   {
     id: "sudoers",
-    num: 12,
+    num: 13,
     labelFr: "Autorisation sudo restreinte (bouton de réinitialisation)",
     labelEn: "Restricted sudo authorization (reset button)",
     detailFr: () => "Règles ciblées pour maintenance et remise à zéro sécurisée",
@@ -131,7 +140,7 @@ const STEPS: StepItem[] = [
   },
   {
     id: "ntp",
-    num: 13,
+    num: 14,
     labelFr: "Synchronisation NTP",
     labelEn: "NTP clock synchronization",
     detailFr: () => "systemd-timesyncd configuré pour calendrier précis",
@@ -140,7 +149,7 @@ const STEPS: StepItem[] = [
   },
   {
     id: "mdns-redirect",
-    num: 14,
+    num: 15,
     labelFr: "URL locale (mDNS) & redirection du port 80",
     labelEn: "Local URL (mDNS) & port 80 redirection",
     detailFr: () => "http://bobine.local accessible sur tout le réseau local",
@@ -149,7 +158,7 @@ const STEPS: StepItem[] = [
   },
   {
     id: "watchdog",
-    num: 15,
+    num: 16,
     labelFr: "Chien de garde de santé (watchdog)",
     labelEn: "Health watchdog timer",
     detailFr: () => "bobine-watchdog.timer actif (reprise automatique)",
@@ -158,7 +167,7 @@ const STEPS: StepItem[] = [
   },
   {
     id: "tuning",
-    num: 16,
+    num: 17,
     labelFr: "Optimisations système (gouverneur CPU, journal)",
     labelEn: "System tuning (CPU governor, journald limits)",
     detailFr: () => "Gouverneur CPU 'performance' & journald plafonné à 200 Mo",
@@ -167,7 +176,7 @@ const STEPS: StepItem[] = [
   },
   {
     id: "activation",
-    num: 17,
+    num: 18,
     labelFr: "Activation des services & vérification de santé",
     labelEn: "Services activation & healthcheck",
     detailFr: () => "HTTP 200 OK (http://127.0.0.1:8000/api/health — 8ms)",
@@ -176,7 +185,7 @@ const STEPS: StepItem[] = [
   },
   {
     id: "capabilities",
-    num: 18,
+    num: 19,
     labelFr: "Vérification des capacités audio & vidéo",
     labelEn: "Audio & video hardware capabilities check",
     detailFr: () => "Carte audio détectée & décodage matériel H.264 VA-API actif",

@@ -85,3 +85,7 @@ firewall-events*.json
 .idea/
 .DS_Store
 Thumbs.db
+
+# Installateur fourni par la release Stable et provenance vérifiée au build.
+/public/install.sh
+/public/install-source.json

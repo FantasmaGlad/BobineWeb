@@ -60,9 +60,13 @@ check_security_txt() {
 }
 
 check_install_script() {
-  local first
-  first=$(get /install.sh -fsS --max-time 30) || return 1
-  [ "${first:0:2}" = "#!" ] || { echo "install.sh ne commence pas par un shebang"; return 1; }
+  local proof result=0
+  proof=$(mktemp -d)
+  get /install.sh -fsS --max-time 30 -o "$proof/install.sh" &&
+    get /install-source.json -fsS --max-time 30 -o "$proof/install-source.json" &&
+    node scripts/ci/sync-install.mjs --verify-served "$proof/install.sh" "$proof/install-source.json" || result=1
+  rm -rf "$proof"
+  return "$result"
 }
 
 # Redirection www vers l'apex : uniquement depuis une machine que Cloudflare laisse passer.

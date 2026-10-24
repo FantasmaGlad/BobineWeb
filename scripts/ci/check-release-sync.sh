@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
-# Cohérence entre le dépôt Bobine et ce site : install.sh servi par le site identique à celui de
-# Bobine (branche main), et chaque canal (Stable, Bêta, Canary) publié avec tous les fichiers que
-# les téléchargements du site désignent (src/lib/githubApi.ts, src/lib/releaseChannels.ts).
-# Les noms attendus sont ceux de scripts/ci/verify-release-assets.sh du dépôt Bobine. Les paquets Fedora (.rpm) et
-# Arch (.pkg.tar.zst) ne sont exigés que lorsque src/lib/linuxPackages.ts déclare PACKAGE_REPOS_LIVE à true ; leurs noms
-# reprennent les conventions de ce module (scripts/ci/check-linux-packages.sh vérifie qu'elles n'ont pas changé).
+# Cohérence des assets publiés et de l’installateur Stable vérifié par son digest GitHub.
 # Variable facultative : GITHUB_TOKEN (limite de débit de l'API GitHub).
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
@@ -19,11 +14,8 @@ api() {
     ${GITHUB_TOKEN:+-H "Authorization: Bearer ${GITHUB_TOKEN}"} "https://api.github.com/repos/${REPO}/$1"
 }
 
-upstream="$(curl -fsS --retry 3 --max-time 30 "https://raw.githubusercontent.com/${REPO}/main/install.sh" | sha256sum | cut -d' ' -f1)"
-local_sum="$(sha256sum public/install.sh | cut -d' ' -f1)"
-if [ "$upstream" != "$local_sum" ]; then
-  err "public/install.sh diffère de install.sh sur la branche main de ${REPO} : le recopier"
-fi
+node scripts/ci/sync-install.mjs
+node scripts/ci/sync-install.mjs --verify-served public/install.sh public/install-source.json
 
 releases="$(api "releases?per_page=100")"
 

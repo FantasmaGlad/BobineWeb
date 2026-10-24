@@ -85,6 +85,7 @@ jobs:
       # le test interroge le déploiement lui-même.
       - name: Interroger le déploiement
         env:
+          GITHUB_TOKEN: ${{ github.token }}
           SMOKE_DEPLOYMENT: ${{ needs.deploy-web.outputs.url }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ vars.VERCEL_TEAM_ID }}

@@ -13,6 +13,7 @@ import LinuxDistroGrid from "@/components/linux/LinuxDistroGrid";
 import LinuxBento from "@/components/linux/LinuxBento";
 import FrameworkShowcase from "@/components/linux/FrameworkShowcase";
 import LinuxSecurityCard from "@/components/linux/LinuxSecurityCard";
+import "@/styles/split/landing.css";
 import "@/styles/split/linux-showcase.css";
 
 const BASE_URL = CLEARNET_URL;

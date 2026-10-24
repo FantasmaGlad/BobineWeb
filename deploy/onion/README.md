@@ -24,7 +24,6 @@ signature invalide, ou aucune suite signée, garde l'ancienne copie en service.
 | `bobine-onion-sync.service`, `bobine-onion-sync.timer` | synchronisation et vérification toutes les 15 minutes |
 | `sync.sh` | tire les deux branches, vérifie, applique les personnalisations du miroir, bascule par lien symbolique |
 | `overlay/apt/` | personnalisations de la page du dépôt APT propres au miroir (jamais poussées dans le dépôt source) |
-| `install-client.sh` | copie de `public/install-tor.sh` (script `curl ... \| bash` du client, option `--channel=stable\|beta\|canary`) ; la CI contrôle qu'elle reste identique |
 
 ## Installation (résumé)
 
@@ -38,7 +37,7 @@ signature invalide, ou aucune suite signée, garde l'ancienne copie en service.
 
 ## Côté client
 
-Un poste Debian ou Ubuntu s'abonne au dépôt par Tor avec `install-client.sh` (publié sur le site sous `/install-tor.sh`) : il installe
+Un poste Debian ou Ubuntu s'abonne au dépôt par Tor avec `/install-tor.sh` (source unique : `public/install-tor.sh`) : il installe
 `apt-transport-tor`, récupère la clé par Tor, vérifie son empreinte puis écrit la source
 `deb [signed-by=...] tor+http://<adresse onion>/ <canal> main`. Le canal est la suite APT : `--channel=stable|beta|canary`
 (sans l'option, le script pose la question sur un terminal, sinon il prend `stable`).

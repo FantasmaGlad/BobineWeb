@@ -13,13 +13,6 @@ interface PlatformSelectorSidebarProps {
 
 const PLATFORMS = [
   {
-    key: "amazon",
-    labelFr: "Amazon",
-    labelEn: "Amazon",
-    icon: "/images/hardware/amazon-icon-mark.webp",
-    confettiColors: ["#FF9900", "#131A22", "#F5EFE6"],
-  },
-  {
     key: "aliexpress",
     labelFr: "AliExpress",
     labelEn: "AliExpress",

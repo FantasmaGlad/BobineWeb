@@ -1,3 +1,4 @@
+import { NOT_VALIDATED_NOTE } from "@/lib/linuxPackages";
 import type { Locale } from "@/lib/i18n";
 import { LINUX_DISTRO_FAMILIES, LINUX_SHOWCASE_CONTENT } from "@/content/linuxShowcase";
 
@@ -10,6 +11,7 @@ export default function LinuxDistroGrid({ locale }: { locale: Locale }) {
         <div className="linux-section-header__tag">{t.sectionTag}</div>
         <h2 className="linux-section-header__title">{t.sectionTitle}</h2>
         <p className="linux-section-header__desc">{t.sectionDesc}</p>
+        <p className="linux-section-header__desc">{NOT_VALIDATED_NOTE[locale]}</p>
       </header>
 
       {LINUX_DISTRO_FAMILIES.map((family) => (

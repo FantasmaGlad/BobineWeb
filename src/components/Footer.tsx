@@ -51,7 +51,7 @@ export default function Footer({
             <Link href={lp(locale, `/fonctionnalites`)} className="site-link-2">
               {dict.nav.features}
             </Link>
-            <Link href={lp(locale, `/materiel/amazon`)} className="site-link-2">
+            <Link href={lp(locale, `/materiel/aliexpress`)} className="site-link-2">
               {dict.nav.hardware}
             </Link>
             <Link href={`/${locale}/baamix`} className="site-link-2">

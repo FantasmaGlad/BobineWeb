@@ -14,5 +14,5 @@ export default async function HardwarePage({
   if (IS_ONION) {
     return <OnionMirrorNotice locale={locale} topic="materiel" clearnetPath="/materiel" />;
   }
-  permanentRedirect(lp(locale, `/materiel/amazon`));
+  permanentRedirect(lp(locale, `/materiel/aliexpress`));
 }

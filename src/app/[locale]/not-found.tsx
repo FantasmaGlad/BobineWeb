@@ -37,7 +37,7 @@ export default function NotFound() {
           Guide d&apos;installation
         </Link>
         <Link
-          href="/fr/materiel/amazon"
+          href="/fr/materiel/aliexpress"
           className="btn-secondary not-found-link-1"
         >
           Guide Matériel

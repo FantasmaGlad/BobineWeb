@@ -31,7 +31,7 @@ export default function MobileDrawer({
   const mainLinks: Array<{ href: string; label: string; tag?: string }> = [
     { href: `/${locale}`, label: dict.nav.home },
     { href: lp(locale, `/fonctionnalites`), label: dict.nav.features },
-    { href: lp(locale, `/materiel/amazon`), label: dict.nav.hardware, tag: isEn ? "Selection" : "Sélection" },
+    { href: lp(locale, `/materiel/aliexpress`), label: dict.nav.hardware, tag: isEn ? "Selection" : "Sélection" },
     { href: `/${locale}/documentation`, label: dict.nav.documentation },
     { href: lp(locale, `/comparatif`), label: dict.nav.comparisons },
     { href: `/${locale}/blog`, label: dict.nav.blog },

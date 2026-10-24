@@ -44,7 +44,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/debian.svg",
         pkgFormat: ".deb",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Référence Appliance", en: "Appliance Baseline" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://www.debian.org",
       },
       {
@@ -53,7 +53,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/ubuntu.svg",
         pkgFormat: ".deb",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Certifié LTS", en: "LTS Certified" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://ubuntu.com",
       },
       {
@@ -62,7 +62,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/linuxmint.svg",
         pkgFormat: ".deb",
         architectures: ["x86_64"],
-        status: { fr: "Validé Bureau", en: "Desktop Validated" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://linuxmint.com",
       },
       {
@@ -71,7 +71,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/popos.svg",
         pkgFormat: ".deb",
         architectures: ["x86_64"],
-        status: { fr: "Validé GPU", en: "GPU Validated" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://system76.com/pop",
       },
       {
@@ -80,7 +80,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/zorin.svg",
         pkgFormat: ".deb",
         architectures: ["x86_64"],
-        status: { fr: "Validé Bureau", en: "Desktop Validated" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://zorin.com",
       },
       {
@@ -89,7 +89,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/raspberrypi.svg",
         pkgFormat: ".deb",
         architectures: ["aarch64"],
-        status: { fr: "Validé ARM64", en: "ARM64 Validated" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://www.raspberrypi.com/software/",
       },
     ],
@@ -112,7 +112,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/fedora.svg",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Certifié Natif", en: "Natively Certified" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://fedoraproject.org",
       },
       {
@@ -121,7 +121,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/nobara.svg",
         pkgFormat: ".rpm",
         architectures: ["x86_64"],
-        status: { fr: "Validé Multimédia", en: "Media Validated" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://nobaraproject.org",
       },
       {
@@ -130,7 +130,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/rhel.svg",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Entreprise", en: "Enterprise" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://www.redhat.com",
       },
       {
@@ -139,7 +139,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/almalinux.svg",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Validé Serveur", en: "Server Validated" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://almalinux.org",
       },
       {
@@ -148,7 +148,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/rockylinux.svg",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Validé Serveur", en: "Server Validated" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://rockylinux.org",
       },
       {
@@ -157,7 +157,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/opensuse.svg",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Zypper Compatible", en: "Zypper Compatible" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://www.opensuse.org",
       },
     ],
@@ -180,7 +180,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/arch.svg",
         pkgFormat: "pacman",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Dépôt Dédié [bobine]", en: "Dedicated [bobine] Repo" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://archlinux.org",
       },
       {
@@ -189,7 +189,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/endeavouros.svg",
         pkgFormat: "pacman",
         architectures: ["x86_64"],
-        status: { fr: "Rolling Release", en: "Rolling Release" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://endeavouros.com",
       },
       {
@@ -198,7 +198,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/cachyos.svg",
         pkgFormat: "pacman",
         architectures: ["x86_64"],
-        status: { fr: "Optimisé Performance", en: "Performance Tuned" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://cachyos.org",
       },
       {
@@ -207,7 +207,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "/images/icons/distros/manjaro.svg",
         pkgFormat: "pacman",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Validé Bureau", en: "Desktop Validated" },
+        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
         siteUrl: "https://manjaro.org",
       },
     ],
@@ -222,7 +222,7 @@ export const LINUX_SHOWCASE_CONTENT = {
       lead: "Conçu pour les salles de sport, cinémas associatifs et régies audiovisuelles exigeantes : découvrez l'appliance autonome et le logiciel de diffusion le plus complet sur Linux. Paquets natifs signés pour Debian, Fedora et Arch.",
       ctaPrimary: "Installer sur votre machine",
       ctaSecondary: "Explorer les dépôts officiels",
-      chipsLabel: "Validé sur architectures certifiées :",
+      chipsLabel: "Architectures ciblées (matériel non validé) :",
     },
     chips: [
       { name: "AMD Ryzen", note: "Zen 3/4/5, Ryzen AI 300, Radeon VA-API", icon: "/images/icons/chips/amd.svg" },
@@ -242,7 +242,7 @@ export const LINUX_SHOWCASE_CONTENT = {
       },
       channels: {
         stable: "Stable (Production)",
-        beta: "Bêta (Validée)",
+        beta: "Bêta (Préversion)",
         canary: "Canary (En continu)",
       },
       copyBtn: "Copier la commande",
@@ -252,8 +252,8 @@ export const LINUX_SHOWCASE_CONTENT = {
       keyVerifiedNote: "Signatures vérifiées par clé OpenPGP",
     },
     distros: {
-      sectionTag: "Écosystème Certifié",
-      sectionTitle: "16 distributions Linux prises en charge.",
+      sectionTag: "Familles de distributions",
+      sectionTitle: "16 distributions Linux à explorer.",
       sectionDesc: "Qu'il s'agisse d'une appliance Debian dédiée tournant en continu 24h/24 ou de votre station de travail de montage Fedora ou Arch, Bobine s'intègre comme un paquet système natif.",
     },
     bento: {
@@ -329,7 +329,7 @@ export const LINUX_SHOWCASE_CONTENT = {
       lead: "Engineered for fitness studios, community cinemas and demanding audiovisual desks: experience the most reliable autonomous playout system on Linux. Native signed packages for Debian, Fedora and Arch Linux.",
       ctaPrimary: "Install on your machine",
       ctaSecondary: "Explore official package repositories",
-      chipsLabel: "Validated on certified architectures:",
+      chipsLabel: "Target architectures (hardware not validated):",
     },
     chips: [
       { name: "AMD Ryzen", note: "Zen 3/4/5, Ryzen AI 300, Radeon VA-API", icon: "/images/icons/chips/amd.svg" },
@@ -359,8 +359,8 @@ export const LINUX_SHOWCASE_CONTENT = {
       keyVerifiedNote: "All signatures verified against the Bobine OpenPGP key",
     },
     distros: {
-      sectionTag: "Certified Ecosystem",
-      sectionTitle: "16 Linux distributions fully supported.",
+      sectionTag: "Distribution families",
+      sectionTitle: "Explore 16 Linux distributions.",
       sectionDesc: "Whether running on a dedicated 24/7 Debian appliance or on your Fedora or Arch production workstation, Bobine integrates as a native system package.",
     },
     bento: {

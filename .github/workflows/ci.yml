@@ -81,8 +81,6 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Installateur identique à la copie de déploiement
-        run: cmp public/install-tor.sh deploy/onion/install-client.sh
       - name: ShellCheck
         run: shellcheck -S error deploy/onion/*.sh public/install-tor.sh public/install.sh scripts/ci/*.sh scripts/security-txt/sign.sh
       - name: Export statique

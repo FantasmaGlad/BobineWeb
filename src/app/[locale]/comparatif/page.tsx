@@ -525,7 +525,7 @@ export default async function ComparatifHubPage({
             : "Découvrez nos fiches matériel vérifiées (mini-PC, Mac Apple Silicon, tablettes, box Android TV) ou suivez notre guide d'installation en 15 minutes."}
         </p>
         <div className="cmp-div-6">
-          <Link href={lp(locale, "/materiel/amazon")} className="btn-primary">
+          <Link href={lp(locale, "/materiel/aliexpress")} className="btn-primary">
             {isEn ? "Recommended Hardware" : "Matériel Recommandé"}
           </Link>
           <Link href={lp(locale, "/ordinateur")} className="btn-secondary">

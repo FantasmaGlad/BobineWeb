@@ -1,0 +1,285 @@
+/*
+ * BobineWeb — Modale de Téléchargement Apple-Grade (Option 1 : Hero Unifié & Sélecteur Segmenté)
+ * Architecture épurée, suppression des colonnes concurrentes, priorité absolue à la clarté.
+ * Règle d'or : -webkit-backdrop-filter TOUJOURS avant backdrop-filter.
+ */
+
+/* Conteneur principal de la modale modernisée */
+.download-modal--apple-grade {
+  max-width: 860px;
+}
+
+/* Sélecteur de canal segmenté en pastilles de verre (Apple Glass Switcher) */
+.download-modal__channel-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem;
+  border-radius: 9999px;
+  background: var(--glass-inset-bg);
+  border: 1px solid var(--border-subtle);
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-bottom: 0.25rem;
+}
+
+.download-modal__channel-tab {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: 9999px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.download-modal__channel-tab:hover:not(.is-active) {
+  color: var(--text-heading);
+  background: color-mix(in srgb, var(--accent-subtle) 40%, transparent);
+}
+
+.download-modal__channel-tab.is-active {
+  background: var(--bg-surface-elevated, var(--bg-card));
+  color: var(--text-heading);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--ink) 12%, transparent);
+  border-color: var(--border-subtle);
+}
+
+.download-modal__channel-tab-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.download-modal__channel-tab-dot--stable {
+  background: var(--accent-primary);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--accent-primary) 50%, transparent);
+}
+
+.download-modal__channel-tab-dot--beta {
+  background: var(--accent-beta);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--accent-beta) 50%, transparent);
+}
+
+.download-modal__channel-tab-dot--canary {
+  background: var(--accent-canary);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--accent-canary) 50%, transparent);
+}
+
+.download-modal__channel-tab-rec {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--accent-success) 16%, transparent);
+  color: var(--accent-success);
+  border: 1px solid color-mix(in srgb, var(--accent-success) 30%, transparent);
+}
+
+/* La carte Hero Unique */
+.download-modal__hero-card {
+  --channel-accent: var(--accent-primary);
+  display: flex;
+  flex-direction: column;
+  padding: 2.25rem 2.25rem 2rem;
+  border-radius: var(--radius-xl, 16px);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 8px 30px color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+.download-modal__hero-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: var(--channel-accent);
+  opacity: 0.85;
+}
+
+.download-modal__hero-card--stable {
+  --channel-accent: var(--accent-primary);
+  border-color: color-mix(in srgb, var(--accent-primary) 32%, var(--border-subtle));
+}
+
+.download-modal__hero-card--beta {
+  --channel-accent: var(--channel-beta);
+  border-color: color-mix(in srgb, var(--channel-beta) 35%, var(--border-subtle));
+}
+
+.download-modal__hero-card--canary {
+  --channel-accent: var(--channel-canary);
+  border-color: color-mix(in srgb, var(--channel-canary) 35%, var(--border-subtle));
+}
+
+.download-modal__hero-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.download-modal__hero-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.download-modal__hero-desc {
+  font-size: 1.02rem;
+  line-height: 1.68;
+  color: var(--text-body, var(--text-heading));
+  margin: 0 0 1.75rem 0;
+  max-width: 65ch;
+}
+
+/* Bouton d'action Hero XXL */
+.download-modal__hero-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 0.75rem;
+  padding: 0.95rem 1.75rem;
+  border-radius: var(--radius-lg, 12px);
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: 52px;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--ink) 12%, transparent);
+}
+
+.download-modal__hero-action-btn--stable {
+  background: var(--accent-primary);
+  color: var(--accent-primary-fg, #ffffff);
+  border: 1px solid transparent;
+}
+
+.download-modal__hero-action-btn--stable:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent-primary) 28%, transparent);
+}
+
+.download-modal__hero-action-btn--beta {
+  background: color-mix(in srgb, var(--channel-beta) 14%, var(--bg-surface));
+  color: var(--text-heading);
+  border: 1px solid color-mix(in srgb, var(--channel-beta) 45%, var(--border-subtle));
+}
+
+.download-modal__hero-action-btn--beta:hover {
+  background: color-mix(in srgb, var(--channel-beta) 22%, var(--bg-surface));
+  border-color: var(--channel-beta);
+  transform: translateY(-1px);
+}
+
+.download-modal__hero-action-btn--canary {
+  background: color-mix(in srgb, var(--channel-canary) 14%, var(--bg-surface));
+  color: var(--text-heading);
+  border: 1px solid color-mix(in srgb, var(--channel-canary) 45%, var(--border-subtle));
+}
+
+.download-modal__hero-action-btn--canary:hover {
+  background: color-mix(in srgb, var(--channel-canary) 22%, var(--bg-surface));
+  border-color: var(--channel-canary);
+  transform: translateY(-1px);
+}
+
+/* Bandeau de réassurance (Trust Strip) */
+.download-modal__trust-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid color-mix(in srgb, var(--border-subtle) 65%, transparent);
+}
+
+.download-modal__trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.download-modal__trust-item svg {
+  color: var(--accent-success);
+  flex-shrink: 0;
+}
+
+/* Pied de modale aéré */
+.download-modal__footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.download-modal__extra-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.download-modal__extra-link {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.download-modal__extra-link:hover {
+  color: var(--text-heading);
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .download-modal__hero-card {
+    padding: 1.5rem 1.25rem;
+  }
+  .download-modal__hero-action-btn {
+    font-size: 0.92rem;
+    padding: 0.85rem 1.15rem;
+  }
+  .download-modal__trust-strip {
+    gap: 0.85rem;
+    justify-content: flex-start;
+  }
+  .download-modal__channel-switcher {
+    width: 100%;
+  }
+  .download-modal__channel-tab {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.78rem;
+  }
+}

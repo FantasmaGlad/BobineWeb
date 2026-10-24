@@ -15,7 +15,7 @@ import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
  * `true` active d'un coup la fenêtre de téléchargement, la documentation et les pages de référencement.
  * `scripts/ci/check-release-sync.sh` lit cette ligne : à `true`, les paquets doivent exister dans les trois canaux.
  */
-export const PACKAGE_REPOS_LIVE = false;
+export const PACKAGE_REPOS_LIVE = true;
 
 export type LinuxFamilyId = "debian" | "fedora" | "arch";
 export type PackageChannel = "stable" | "beta" | "canary";

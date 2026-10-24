@@ -1,6 +1,7 @@
 import { NOT_VALIDATED_NOTE } from "@/lib/linuxPackages";
 import type { Locale } from "@/lib/i18n";
 import { LINUX_DISTRO_FAMILIES, LINUX_SHOWCASE_CONTENT } from "@/content/linuxShowcase";
+import BrandIcon from "@/components/ui/BrandIcon";
 
 export default function LinuxDistroGrid({ locale }: { locale: Locale }) {
   const t = LINUX_SHOWCASE_CONTENT[locale].distros;
@@ -31,15 +32,7 @@ export default function LinuxDistroGrid({ locale }: { locale: Locale }) {
                 title={`${distro.name} — ${distro.status[locale]}`}
               >
                 <div className="linux-distro-card__icon-wrap">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={distro.icon}
-                    alt={distro.name}
-                    width={32}
-                    height={32}
-                    className="linux-distro-card__icon"
-                    loading="lazy"
-                  />
+                  <BrandIcon name={distro.icon} className="linux-distro-card__icon" />
                 </div>
 
                 <div className="linux-distro-card__info">

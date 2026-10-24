@@ -15,7 +15,7 @@ export const contentType = "image/png";
 
 export default async function Image() {
   const iconData = await readFile(
-    join(process.cwd(), "public/logo-bobine-icon.png")
+    join(process.cwd(), "public/icon.png")
   );
   const iconSrc = `data:image/png;base64,${iconData.toString("base64")}`;
 

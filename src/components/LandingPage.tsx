@@ -11,7 +11,9 @@ import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import FaqJsonLd from "@/components/FaqJsonLd";
 import LandingDownload, { type LandingChannelData } from "@/components/LandingDownload";
+import BrandIcon from "@/components/ui/BrandIcon";
 import "@/styles/split/landing.css";
+import Icon from "@/components/ui/Icon";
 
 const BASE_URL = CLEARNET_URL;
 const CHANNELS = ["stable", "beta", "canary"] as const;
@@ -50,64 +52,36 @@ function SectionIcon({ name }: { name?: LandingSectionIcon }) {
   switch (name) {
     case "cpu":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <rect x="4" y="4" width="16" height="16" rx="2" />
-          <rect x="9" y="9" width="6" height="6" />
-          <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3" />
-        </svg>
+        <Icon name="cpu" size={20} />
       );
     case "display":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <rect x="2" y="3" width="20" height="14" rx="2" />
-          <line x1="8" y1="21" x2="16" y2="21" />
-          <line x1="12" y1="17" x2="12" y2="21" />
-        </svg>
+        <Icon name="display" size={20} />
       );
     case "shield":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          <path d="m9 12 2 2 4-4" />
-        </svg>
+        <Icon name="shield" size={20} />
       );
     case "terminal":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <polyline points="4 17 10 11 4 5" />
-          <line x1="12" y1="19" x2="20" y2="19" />
-        </svg>
+        <Icon name="terminal" size={20} />
       );
     case "download":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-          <polyline points="7 10 12 15 17 10" />
-          <line x1="12" y1="15" x2="12" y2="3" />
-        </svg>
+        <Icon name="download" size={20} />
       );
     case "network":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="10" />
-          <line x1="2" y1="12" x2="22" y2="12" />
-          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-        </svg>
+        <Icon name="globe" size={20} />
       );
     case "spark":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-        </svg>
+        <Icon name="zap" size={20} />
       );
     case "layers":
     default:
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <polygon points="12 2 2 7 12 12 22 7 12 2" />
-          <polyline points="2 17 12 22 22 17" />
-          <polyline points="2 12 12 17 22 12" />
-        </svg>
+        <Icon name="layers" size={20} />
       );
   }
 }
@@ -219,8 +193,7 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
               <div key={chip.label} className="landing-chip">
                 {chip.icon && (
                   <span className="landing-chip__icon-wrap" aria-hidden="true">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={chip.icon} alt="" width={20} height={20} className="landing-chip__icon" />
+                    <BrandIcon name={chip.icon} className="landing-chip__icon" />
                   </span>
                 )}
                 <div className="landing-chip__body">
@@ -254,10 +227,7 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
                   <p className="landing-showcase-card__desc">{card.subtitle}</p>
                   <span className="landing-showcase-card__cta">
                     <span>{card.cta}</span>
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                      <polyline points="12 5 19 12 12 19" />
-                    </svg>
+                    <Icon name="arrow-right" size={15} />
                   </span>
                 </div>
               </Link>
@@ -353,10 +323,7 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
           <div className="landing-hardware-cta__actions">
             <Link href={lp(locale, c.hardwareCta.primaryHref)} className="btn-primary landing-hardware-cta__btn">
               <span>{c.hardwareCta.primaryLabel}</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
+              <Icon name="arrow-right" size={15} />
             </Link>
             <Link href={lp(locale, c.hardwareCta.secondaryHref)} className="landing-hardware-cta__btn-secondary">
               <span>{c.hardwareCta.secondaryLabel}</span>

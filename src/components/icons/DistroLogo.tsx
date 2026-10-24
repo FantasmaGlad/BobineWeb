@@ -1,10 +1,10 @@
+import BrandIcon from "@/components/ui/BrandIcon";
 import type { LinuxFamily } from "@/lib/linuxPackages";
 
 /**
- * Logo d'une distribution Linux (public/images/distros/*.svg, dessin simple-icons inchangé). Il est dessiné comme un
- * masque rempli de `currentColor` : il prend la couleur du texte du thème et reste lisible dans les 16 thèmes.
- * Décoratif : le nom de la distribution est toujours écrit à côté.
+ * Logo d'une famille de distributions Linux, tiré du registre `src/lib/assets.ts` (dessin simple-icons inchangé, couleur du
+ * texte du thème). Décoratif : le nom de la distribution est toujours écrit à côté.
  */
 export default function DistroLogo({ id, className }: { id: LinuxFamily["logo"]; className?: string }) {
-  return <span className={`distro-logo distro-logo--${id}${className ? ` ${className}` : ""}`} aria-hidden="true" />;
+  return <BrandIcon name={`distro.${id}`} className={`distro-logo${className ? ` ${className}` : ""}`} />;
 }

@@ -1,7 +1,9 @@
+import type { AssetKey } from "@/lib/assets";
+
 export interface DistroItem {
   id: string;
   name: string;
-  icon: string;
+  icon: AssetKey;
   pkgFormat: string;
   architectures: string[];
   status: {
@@ -41,7 +43,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "debian",
         name: "Debian 12 / 13",
-        icon: "/images/icons/distros/debian.svg",
+        icon: "distro.debian",
         pkgFormat: ".deb",
         architectures: ["x86_64", "aarch64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -50,7 +52,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "ubuntu",
         name: "Ubuntu 22.04 / 24.04 LTS",
-        icon: "/images/icons/distros/ubuntu.svg",
+        icon: "distro.ubuntu",
         pkgFormat: ".deb",
         architectures: ["x86_64", "aarch64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -59,7 +61,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "linuxmint",
         name: "Linux Mint 21 / 22",
-        icon: "/images/icons/distros/linuxmint.svg",
+        icon: "distro.linuxmint",
         pkgFormat: ".deb",
         architectures: ["x86_64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -68,7 +70,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "popos",
         name: "Pop!_OS 22.04 / 24.04",
-        icon: "/images/icons/distros/popos.svg",
+        icon: "distro.popos",
         pkgFormat: ".deb",
         architectures: ["x86_64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -77,7 +79,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "zorin",
         name: "Zorin OS 17",
-        icon: "/images/icons/distros/zorin.svg",
+        icon: "distro.zorin",
         pkgFormat: ".deb",
         architectures: ["x86_64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -86,7 +88,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "raspberrypi",
         name: "Raspberry Pi OS (64-bit)",
-        icon: "/images/icons/distros/raspberrypi.svg",
+        icon: "distro.raspberrypi",
         pkgFormat: ".deb",
         architectures: ["aarch64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -109,7 +111,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "fedora",
         name: "Fedora 39 / 40 / 41",
-        icon: "/images/icons/distros/fedora.svg",
+        icon: "distro.fedora",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -118,7 +120,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "nobara",
         name: "Nobara Linux",
-        icon: "/images/icons/distros/nobara.svg",
+        icon: "distro.nobara",
         pkgFormat: ".rpm",
         architectures: ["x86_64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -127,7 +129,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "rhel",
         name: "Red Hat Enterprise Linux",
-        icon: "/images/icons/distros/rhel.svg",
+        icon: "distro.rhel",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -136,7 +138,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "almalinux",
         name: "AlmaLinux 9",
-        icon: "/images/icons/distros/almalinux.svg",
+        icon: "distro.almalinux",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -145,7 +147,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "rockylinux",
         name: "Rocky Linux 9",
-        icon: "/images/icons/distros/rockylinux.svg",
+        icon: "distro.rockylinux",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -154,7 +156,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "opensuse",
         name: "openSUSE Tumbleweed & Leap",
-        icon: "/images/icons/distros/opensuse.svg",
+        icon: "distro.opensuse",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -177,7 +179,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "arch",
         name: "Arch Linux",
-        icon: "/images/icons/distros/arch.svg",
+        icon: "distro.arch",
         pkgFormat: "pacman",
         architectures: ["x86_64", "aarch64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -186,7 +188,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "endeavouros",
         name: "EndeavourOS",
-        icon: "/images/icons/distros/endeavouros.svg",
+        icon: "distro.endeavouros",
         pkgFormat: "pacman",
         architectures: ["x86_64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -195,7 +197,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "cachyos",
         name: "CachyOS",
-        icon: "/images/icons/distros/cachyos.svg",
+        icon: "distro.cachyos",
         pkgFormat: "pacman",
         architectures: ["x86_64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -204,7 +206,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       {
         id: "manjaro",
         name: "Manjaro Linux",
-        icon: "/images/icons/distros/manjaro.svg",
+        icon: "distro.manjaro",
         pkgFormat: "pacman",
         architectures: ["x86_64", "aarch64"],
         status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
@@ -225,10 +227,10 @@ export const LINUX_SHOWCASE_CONTENT = {
       chipsLabel: "Architectures ciblées (matériel non validé) :",
     },
     chips: [
-      { name: "AMD Ryzen", note: "Zen 3/4/5, Ryzen AI 300, Radeon VA-API", icon: "/images/icons/chips/amd.svg" },
-      { name: "Intel Core & N-Series", note: "Core Ultra, Gen 12–15, N100 / N305 QSV", icon: "/images/icons/chips/intel.svg" },
-      { name: "Qualcomm Snapdragon", note: "ARM64 X Elite / X Plus, 8 Gen 2 / 8 Gen 3", icon: "/images/icons/chips/snapdragon.svg" },
-      { name: "Framework & SBC ARM64", note: "Framework 13/16, Raspberry Pi 5, DGX Spark", icon: "/images/icons/os/framework.svg" },
+      { name: "AMD Ryzen", note: "Zen 3/4/5, Ryzen AI 300, Radeon VA-API", icon: "chip.amd" as const },
+      { name: "Intel Core & N-Series", note: "Core Ultra, Gen 12–15, N100 / N305 QSV", icon: "chip.intel" as const },
+      { name: "Qualcomm Snapdragon", note: "ARM64 X Elite / X Plus, 8 Gen 2 / 8 Gen 3", icon: "chip.snapdragon" as const },
+      { name: "Framework & SBC ARM64", note: "Framework 13/16, Raspberry Pi 5, DGX Spark", icon: "os.framework" as const },
     ],
     terminal: {
       sectionTag: "Installation Express & Dépôts",
@@ -332,10 +334,10 @@ export const LINUX_SHOWCASE_CONTENT = {
       chipsLabel: "Target architectures (hardware not validated):",
     },
     chips: [
-      { name: "AMD Ryzen", note: "Zen 3/4/5, Ryzen AI 300, Radeon VA-API", icon: "/images/icons/chips/amd.svg" },
-      { name: "Intel Core & N-Series", note: "Core Ultra, Gen 12–15, N100 / N305 QSV", icon: "/images/icons/chips/intel.svg" },
-      { name: "Qualcomm Snapdragon", note: "ARM64 X Elite / X Plus, 8 Gen 2 / 8 Gen 3", icon: "/images/icons/chips/snapdragon.svg" },
-      { name: "Framework & ARM64 SBC", note: "Framework 13/16, Raspberry Pi 5, DGX Spark", icon: "/images/icons/os/framework.svg" },
+      { name: "AMD Ryzen", note: "Zen 3/4/5, Ryzen AI 300, Radeon VA-API", icon: "chip.amd" as const },
+      { name: "Intel Core & N-Series", note: "Core Ultra, Gen 12–15, N100 / N305 QSV", icon: "chip.intel" as const },
+      { name: "Qualcomm Snapdragon", note: "ARM64 X Elite / X Plus, 8 Gen 2 / 8 Gen 3", icon: "chip.snapdragon" as const },
+      { name: "Framework & ARM64 SBC", note: "Framework 13/16, Raspberry Pi 5, DGX Spark", icon: "os.framework" as const },
     ],
     terminal: {
       sectionTag: "Quick Installation & Repositories",

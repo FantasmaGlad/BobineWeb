@@ -46,7 +46,7 @@ interface Localized {
 
 export interface LinuxFamily {
   id: LinuxFamilyId;
-  /** Nom du fichier de logo dans public/images/distros/ (sans extension). */
+  /** Identifiant du logo dans le registre des icônes (`distro.<logo>` de src/lib/assets.ts). */
   logo: "debian" | "ubuntu" | "fedora" | "arch";
   /** Libellé court du sélecteur. */
   label: Localized;

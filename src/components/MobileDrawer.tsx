@@ -10,6 +10,7 @@ import LocaleSwitcher from "@/components/LocaleSwitcher";
 import GitHubBadge from "@/components/GitHubBadge";
 import { lp } from "@/lib/seo";
 import "@/styles/split/site-chrome.css";
+import Icon from "@/components/ui/Icon";
 
 interface MobileDrawerProps {
   isOpen: boolean;
@@ -72,7 +73,7 @@ export default function MobileDrawer({
         <div className="mobile-drawer-header">
           <Link href={`/${locale}`} onClick={onClose} className="site-header__brand">
             <Image
-              src="/logo-bobine.png"
+              src="/icon.png"
               alt="Bobine"
               width={125}
               height={46}
@@ -85,10 +86,7 @@ export default function MobileDrawer({
             onClick={onClose}
             aria-label="Fermer le menu"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
+            <Icon name="close" size={20} />
           </button>
         </div>
 
@@ -126,18 +124,13 @@ export default function MobileDrawer({
                     {isEn ? "Interactive AI Assistant" : "Mascotte & Assistant IA"}
                   </span>
                 </div>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="site-svg-1">
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
+                <Icon name="chevron-right" size={16} className="site-svg-1" />
               </button>
 
               {/* Module contact */}
               <div className="mobile-drawer-contact-card">
                 <span className="site-span-4">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect width="20" height="16" x="2" y="4" rx="2" />
-                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                  </svg>
+                  <Icon name="mail" size={14} />
                   {isEn ? "Direct Developer Contact" : "Contact Développeur"}
                 </span>
                 <p className="site-p-2">
@@ -150,10 +143,7 @@ export default function MobileDrawer({
                   className="btn-secondary site-a-3"
                   onClick={onClose}
                 >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="22" y1="2" x2="11" y2="13" />
-                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                  </svg>
+                  <Icon name="send" size={13} />
                   <span>{isEn ? "Send an email" : "Envoyer un e-mail"}</span>
                 </a>
               </div>

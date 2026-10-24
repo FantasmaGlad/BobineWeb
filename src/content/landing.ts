@@ -1,3 +1,4 @@
+import type { AssetKey } from "@/lib/assets";
 import type { Locale } from "@/lib/i18n";
 import { ONION_APT_HOST, ONION_SITE_HOST, TOR_PROJECT_URL, TOR_SOURCE_URL } from "@/lib/onion";
 import { ANDROID } from "@/lib/productFacts";
@@ -67,7 +68,7 @@ export interface LandingLink {
 export interface LandingChip {
   label: string;
   note: string;
-  icon?: string;
+  icon?: AssetKey;
 }
 
 export interface LandingShowcaseCard {
@@ -717,12 +718,12 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         height: 675,
       },
       chips: [
-        { label: "Intel Core Ultra & N100 / N95", note: "Windows 11/10 & Linux x86-64", icon: "/images/icons/chips/intel.svg" },
-        { label: "AMD Ryzen 5 / 7 / 9 & Ryzen AI", note: "Windows 11/10 & Linux x86-64", icon: "/images/icons/chips/amd.svg" },
-        { label: "Qualcomm Snapdragon X Elite / X Plus", note: "Windows 11 ARM64 & Linux aarch64", icon: "/images/icons/chips/snapdragon.svg" },
-        { label: "Apple Silicon M1, M2, M3 & M4", note: "macOS 12+ natif arm64", icon: "/images/icons/os/apple.svg" },
-        { label: "Framework Laptop 13 & 16", note: "Windows & Linux modulaire", icon: "/images/icons/os/framework.svg" },
-        { label: "Raspberry Pi 5 & NVIDIA DGX Spark", note: "Linux ARM64 (aarch64)", icon: "/images/icons/distros/raspberrypi.svg" },
+        { label: "Intel Core Ultra & N100 / N95", note: "Windows 11/10 & Linux x86-64", icon: "chip.intel" },
+        { label: "AMD Ryzen 5 / 7 / 9 & Ryzen AI", note: "Windows 11/10 & Linux x86-64", icon: "chip.amd" },
+        { label: "Qualcomm Snapdragon X Elite / X Plus", note: "Windows 11 ARM64 & Linux aarch64", icon: "chip.snapdragon" },
+        { label: "Apple Silicon M1, M2, M3 & M4", note: "macOS 12+ natif arm64", icon: "os.macos" },
+        { label: "Framework Laptop 13 & 16", note: "Windows & Linux modulaire", icon: "os.framework" },
+        { label: "Raspberry Pi 5 & NVIDIA DGX Spark", note: "Linux ARM64 (aarch64)", icon: "distro.raspberrypi" },
       ],
       showcaseCards: [
         {
@@ -854,12 +855,12 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         height: 675,
       },
       chips: [
-        { label: "Intel Core Ultra & N100 / N95", note: "Windows 11/10 & Linux x86-64", icon: "/images/icons/chips/intel.svg" },
-        { label: "AMD Ryzen 5 / 7 / 9 & Ryzen AI", note: "Windows 11/10 & Linux x86-64", icon: "/images/icons/chips/amd.svg" },
-        { label: "Qualcomm Snapdragon X Elite / X Plus", note: "Windows 11 ARM64 & Linux aarch64", icon: "/images/icons/chips/snapdragon.svg" },
-        { label: "Apple Silicon M1, M2, M3 & M4", note: "Native arm64 macOS 12+", icon: "/images/icons/os/apple.svg" },
-        { label: "Framework Laptop 13 & 16", note: "Modular Windows & Linux", icon: "/images/icons/os/framework.svg" },
-        { label: "Raspberry Pi 5 & NVIDIA DGX Spark", note: "Linux ARM64 (aarch64)", icon: "/images/icons/distros/raspberrypi.svg" },
+        { label: "Intel Core Ultra & N100 / N95", note: "Windows 11/10 & Linux x86-64", icon: "chip.intel" },
+        { label: "AMD Ryzen 5 / 7 / 9 & Ryzen AI", note: "Windows 11/10 & Linux x86-64", icon: "chip.amd" },
+        { label: "Qualcomm Snapdragon X Elite / X Plus", note: "Windows 11 ARM64 & Linux aarch64", icon: "chip.snapdragon" },
+        { label: "Apple Silicon M1, M2, M3 & M4", note: "Native arm64 macOS 12+", icon: "os.macos" },
+        { label: "Framework Laptop 13 & 16", note: "Modular Windows & Linux", icon: "os.framework" },
+        { label: "Raspberry Pi 5 & NVIDIA DGX Spark", note: "Linux ARM64 (aarch64)", icon: "distro.raspberrypi" },
       ],
       showcaseCards: [
         {
@@ -1196,10 +1197,10 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         "Bobine TV apk",
       ],
       chips: [
-        { label: "Google TV Streamer (4K)", note: "MediaTek MT8696 · Android TV 14", icon: "/images/icons/os/android.svg" },
-        { label: "Xiaomi TV Box S (2nd & 3rd Gen)", note: "Amlogic S905X4 / S905X5M · Google TV", icon: "/images/icons/os/android.svg" },
-        { label: "Amlogic S905X4 / S905Y4 & Realtek", note: "ABI universelle arm64-v8a & armeabi-v7a", icon: "/images/icons/os/android.svg" },
-        { label: "Téléviseurs Sony Bravia, TCL & Philips", note: "Google TV intégré (Android 13 / 14+)", icon: "/images/icons/os/android.svg" },
+        { label: "Google TV Streamer (4K)", note: "MediaTek MT8696 · Android TV 14", icon: "os.android" },
+        { label: "Xiaomi TV Box S (2nd & 3rd Gen)", note: "Amlogic S905X4 / S905X5M · Google TV", icon: "os.android" },
+        { label: "Amlogic S905X4 / S905Y4 & Realtek", note: "ABI universelle arm64-v8a & armeabi-v7a", icon: "os.android" },
+        { label: "Téléviseurs Sony Bravia, TCL & Philips", note: "Google TV intégré (Android 13 / 14+)", icon: "os.android" },
       ],
       showcaseCards: [
         {
@@ -1307,10 +1308,10 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         "Bobine TV apk",
       ],
       chips: [
-        { label: "Google TV Streamer (4K)", note: "MediaTek MT8696 · Android TV 14", icon: "/images/icons/os/android.svg" },
-        { label: "Xiaomi TV Box S (2nd & 3rd Gen)", note: "Amlogic S905X4 / S905X5M · Google TV", icon: "/images/icons/os/android.svg" },
-        { label: "Amlogic S905X4 / S905Y4 & Realtek", note: "Universal arm64-v8a & armeabi-v7a ABI", icon: "/images/icons/os/android.svg" },
-        { label: "Sony Bravia, TCL & Philips TVs", note: "Built-in Google TV (Android 13 / 14+)", icon: "/images/icons/os/android.svg" },
+        { label: "Google TV Streamer (4K)", note: "MediaTek MT8696 · Android TV 14", icon: "os.android" },
+        { label: "Xiaomi TV Box S (2nd & 3rd Gen)", note: "Amlogic S905X4 / S905X5M · Google TV", icon: "os.android" },
+        { label: "Amlogic S905X4 / S905Y4 & Realtek", note: "Universal arm64-v8a & armeabi-v7a ABI", icon: "os.android" },
+        { label: "Sony Bravia, TCL & Philips TVs", note: "Built-in Google TV (Android 13 / 14+)", icon: "os.android" },
       ],
       showcaseCards: [
         {
@@ -1431,10 +1432,10 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         height: 675,
       },
       chips: [
-        { label: "Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite", note: "Galaxy Tab S9/S10/S11, Xiaomi Pad 7 Pro, OnePlus Pad 2", icon: "/images/icons/chips/snapdragon.svg" },
-        { label: "Snapdragon X Elite / X Plus & 7s Gen 2", note: "Google Book ARM64 & tablettes grand public", icon: "/images/icons/chips/snapdragon.svg" },
-        { label: "MediaTek Kompanio & Dimensity 9300+ / 8300", note: "Google Book & Lenovo IdeaTab / Tab P12", icon: "/images/icons/os/android.svg" },
-        { label: "Google Tensor G2 / G3 / G4 & Exynos", note: "Pixel Tablet, Google Book & Galaxy Tab S FE", icon: "/images/icons/os/android.svg" },
+        { label: "Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite", note: "Galaxy Tab S9/S10/S11, Xiaomi Pad 7 Pro, OnePlus Pad 2", icon: "chip.snapdragon" },
+        { label: "Snapdragon X Elite / X Plus & 7s Gen 2", note: "Google Book ARM64 & tablettes grand public", icon: "chip.snapdragon" },
+        { label: "MediaTek Kompanio & Dimensity 9300+ / 8300", note: "Google Book & Lenovo IdeaTab / Tab P12", icon: "os.android" },
+        { label: "Google Tensor G2 / G3 / G4 & Exynos", note: "Pixel Tablet, Google Book & Galaxy Tab S FE", icon: "os.android" },
       ],
       showcaseCards: [
         {
@@ -1551,10 +1552,10 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
         height: 675,
       },
       chips: [
-        { label: "Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite", note: "Galaxy Tab S9/S10/S11, Xiaomi Pad 7 Pro, OnePlus Pad 2", icon: "/images/icons/chips/snapdragon.svg" },
-        { label: "Snapdragon X Elite / X Plus & 7s Gen 2", note: "ARM64 Google Book & mainstream tablets", icon: "/images/icons/chips/snapdragon.svg" },
-        { label: "MediaTek Kompanio & Dimensity 9300+ / 8300", note: "Google Book & Lenovo IdeaTab / Tab P12", icon: "/images/icons/os/android.svg" },
-        { label: "Google Tensor G2 / G3 / G4 & Exynos", note: "Pixel Tablet, Google Book & Galaxy Tab S FE", icon: "/images/icons/os/android.svg" },
+        { label: "Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite", note: "Galaxy Tab S9/S10/S11, Xiaomi Pad 7 Pro, OnePlus Pad 2", icon: "chip.snapdragon" },
+        { label: "Snapdragon X Elite / X Plus & 7s Gen 2", note: "ARM64 Google Book & mainstream tablets", icon: "chip.snapdragon" },
+        { label: "MediaTek Kompanio & Dimensity 9300+ / 8300", note: "Google Book & Lenovo IdeaTab / Tab P12", icon: "os.android" },
+        { label: "Google Tensor G2 / G3 / G4 & Exynos", note: "Pixel Tablet, Google Book & Galaxy Tab S FE", icon: "os.android" },
       ],
       showcaseCards: [
         {

@@ -9,7 +9,6 @@ const PRECACHE_ASSETS = [
   "/fr/fonctionnalites",
   "/en/features",
   "/icon.png",
-  "/Bobine_icon.png",
   "/manifest.webmanifest",
 ];
 

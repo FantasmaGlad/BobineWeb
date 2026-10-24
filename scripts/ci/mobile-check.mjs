@@ -1,23 +1,32 @@
 #!/usr/bin/env node
 // Audit de géométrie sur le build servi : Chromium mesure des mises en page, pas du matériel Android.
 import { spawn } from "node:child_process";
-import { mkdtempSync, rmSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 const origin = process.env.MOBILE_CHECK_URL ?? "http://127.0.0.1:3102";
-const port = 9337;
+let port;
 const profile = mkdtempSync(join(tmpdir(), "bobine-mobile-"));
-const chrome = spawn(process.env.CHROME_BIN ?? "google-chrome", ["--headless=new", "--no-sandbox", "--disable-gpu", `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, "about:blank"], { stdio: "ignore" });
-chrome.on("error", (err) => { console.error(err); process.exitCode = 1; });
+const chrome = spawn(process.env.CHROME_BIN ?? "google-chrome", ["--headless=new", "--no-sandbox", "--disable-gpu", "--remote-debugging-port=0", `--user-data-dir=${profile}`, "about:blank"], { stdio: ["ignore", "ignore", "pipe"] });
+let diagnostics = "";
+let launchError;
+chrome.stderr.on("data", chunk => { diagnostics = (diagnostics + chunk.toString()).slice(-6000); });
+chrome.on("error", (err) => { launchError = err; });
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
 let socket;
 try {
   let target;
-  for (let attempt = 0; attempt < 100; attempt++) {
-    try { target = (await (await fetch(`http://127.0.0.1:${port}/json/list`)).json()).find((t) => t.type === "page"); if (target) break; } catch { /* Le port n’est disponible qu’après l’initialisation du navigateur. */ }
+  for (let attempt = 0; attempt < 300; attempt++) {
+    if (launchError) throw launchError;
+    if (chrome.exitCode !== null) throw new Error(`Chromium arrêté (${chrome.exitCode}) : ${diagnostics}`);
+    try {
+      port = Number(readFileSync(join(profile, "DevToolsActivePort"), "utf8").split("\n")[0]);
+      target = (await (await fetch(`http://127.0.0.1:${port}/json/list`, { signal: AbortSignal.timeout(1000) })).json()).find((t) => t.type === "page");
+      if (target) break;
+    } catch { /* Le port n’est disponible qu’après l’initialisation du navigateur. */ }
     await delay(100);
   }
-  if (!target) throw new Error("Chromium indisponible");
+  if (!target) throw new Error(`Chromium indisponible : ${diagnostics}`);
   socket = new WebSocket(target.webSocketDebuggerUrl);
   await new Promise((resolve, reject) => { socket.onopen = resolve; socket.onerror = reject; });
   let id = 0;
@@ -64,6 +73,6 @@ try {
   if (failures.length) throw new Error(JSON.stringify(failures, null, 2));
 } finally {
   socket?.close(); chrome.kill("SIGTERM");
-  await new Promise((resolve) => chrome.exitCode !== null ? resolve() : chrome.once("exit", resolve));
+  if (chrome.pid) await new Promise((resolve) => chrome.exitCode !== null ? resolve() : chrome.once("exit", resolve));
   rmSync(profile, { recursive: true, force: true });
 }

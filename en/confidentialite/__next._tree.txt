@@ -1,0 +1,9 @@
+:HL["/_next/static/chunks/1zn4d81uuxpn4.css","style"]
+:HL["/_next/static/chunks/1t9-f83y8hyso.css","style"]
+:HL["/_next/static/chunks/1ct3-7eityrj0.css","style"]
+:HL["/_next/static/chunks/38ms5fyza03-p.css","style"]
+:HL["/images/BaamixInspector.webp","image"]
+3:[["children",{"s":"__PAGE__","h":160}]]
+2:[["children",{"s":"confidentialite","h":64,"c":"$Q3"}]]
+1:[["children",{"s":{"n":"locale","t":"d","k":"en","s":["feed.xml","install.sh","latest.json"]},"h":48,"c":"$Q2"}]]
+0:{"b":"4vExxGzEJczhIyLCqPpaz","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

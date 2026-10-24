@@ -1,0 +1,11 @@
+:HL["/_next/static/chunks/1zn4d81uuxpn4.css","style"]
+:HL["/_next/static/chunks/1t9-f83y8hyso.css","style"]
+:HL["/_next/static/chunks/1ct3-7eityrj0.css","style"]
+:HL["/_next/static/chunks/0m9h_y6md0uhv.css","style"]
+:HL["/_next/static/chunks/02drwr-xp9mn8.css","style"]
+:HL["/images/BaamixInspector.webp","image"]
+4:[["children",{"s":"__PAGE__","h":160}]]
+3:[["children",{"s":{"n":"slug","t":"d","k":"v3.0.3","s":[]},"h":96,"c":"$Q4"}]]
+2:[["children",{"s":"blog","h":64,"c":"$Q3"}]]
+1:[["children",{"s":{"n":"locale","t":"d","k":"en","s":["feed.xml","install.sh","latest.json"]},"h":48,"c":"$Q2"}]]
+0:{"b":"4vExxGzEJczhIyLCqPpaz","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

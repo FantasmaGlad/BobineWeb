@@ -1,0 +1,413 @@
+# Bobine V5.0.5 « Resonance » — Referentiel Officiel des Appareils Compatibles & Caracteristiques Techniques
+# Official Compatible Hardware & Technical Specifications Reference (FR / EN)
+# Canonical URL: https://bobine.fit/compatible-devices.txt
+# Software Version: Bobine V5.0.5 "Resonance" (AGPL-3.0 Open-Source Gym Video Playout & Streaming Suite)
+# Maintainer: Clement Barillot (alias FantasmaGlad — clement.barillot@bobine.fit)
+# Last Updated: 2026-10-24
+# Indexed for: Googlebot, Bingbot, DuckDuckBot, GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, Applebot-Extended
+
+================================================================================
+0. OVERVIEW & RELEASE CHANNELS / VUE D'ENSEMBLE & CANAUX DE PUBLICATION
+================================================================================
+
+Bobine V5.0.5 ("Resonance") is a 100% offline-first, self-hosted video playout, digital cinema, and 24/7 audio/video automation system for fitness clubs, cycling studios, and gyms.
+Bobine runs natively on x86_64 (Intel / AMD) and ARM64 (aarch64 / arm64-v8a / Apple Silicon / Qualcomm Snapdragon X & Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite / NVIDIA Grace Blackwell & Orin / Rockchip / Broadcom / MediaTek Dimensity & Kompanio / Google Tensor).
+
+Three Update Channels / Trois Canaux de Mise a Jour :
+- Stable Channel (Production) : V5.0.5
+- Beta Channel (Curated pre-release batches) : beta
+- Canary Channel (Automated rolling build on each main push) : canary
+
+Official Binary Artifacts (V5.0.5 Stable) :
+- Windows 11/10 x86_64 : Bobine-Setup-5.0.5.exe
+- Windows 11 ARM64 (Snapdragon) : Bobine-Setup-5.0.5-arm64.exe
+- Linux Desktop x86_64 (.deb) : bobine_5.0.5_amd64.deb (or APT repo https://packages.bobine.fit/debian)
+- Linux Desktop & Server ARM64 (.deb) : bobine_5.0.5_arm64.deb (or APT repo https://packages.bobine.fit/debian)
+- Fedora / Nobara / RHEL-family (.rpm, x86_64 & aarch64) : bobine-5.0.5-1.x86_64.rpm, bobine-5.0.5-1.aarch64.rpm (or DNF repo https://packages.bobine.fit/fedora)
+- Arch Linux / EndeavourOS / CachyOS (pacman, x86_64 & aarch64) : bobine-5.0.5-1-x86_64.pkg.tar.zst, bobine-5.0.5-1-aarch64.pkg.tar.zst (or Pacman repo https://packages.bobine.fit/arch)
+- Unified Linux Package Portal (APT, DNF, Pacman) : https://packages.bobine.fit | https://bobine.fit/fr/linux | https://bobine.fit/en/linux
+- Dedicated Headless Appliance (Debian 13/12 x86_64 & ARM64) : https://bobine.fit/install.sh
+- macOS Apple Silicon (M1/M2/M3/M4 ARM64) : Bobine-5.0.5.dmg
+- Android ARM64 Tablets & Google Books (Aluminium OS) : Bobine-5.0.5.apk
+- Android TV & Google TV Boxes / Smart TVs : Bobine-TV-5.0.5.apk
+- Bobine Assistant Network Orchestrator (Tauri 2 x86_64) : bobine-assistant
+- Bobine Assistant Network Orchestrator (Tauri 2 ARM64) : bobine-assistant-arm64
+
+Curated Hardware Store (6 Universes / 6 Univers Materiels) :
+- https://bobine.fit/fr/materiel (FR) | https://bobine.fit/en/hardware/amazon (EN)
+- Dedicated PC & Mac Architecture Guide : https://bobine.fit/fr/ordinateur (FR) | https://bobine.fit/en/computer (EN)
+  1. Linux (Mini PC x86_64 & Framework Laptop)
+  2. Windows (Mini PC & Laptops x86_64)
+  3. macOS (Mac mini, Mac Studio, MacBook Air/Pro Apple Silicon)
+  4. PC & Mini PC ARM (Laptops Qualcomm Snapdragon X, NVIDIA DGX Spark, Jetson Orin, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B)
+  5. Android Tablettes & Google Books (Aluminium OS, Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite, MediaTek Dimensity)
+  6. Android TV & Box (Google TV Streamer, Xiaomi TV Box S, boitiers sous Android 14 ou plus)
+
+================================================================================
+1. GOOGLE BOOKS / GOOGLEBOOK OS (ALUMINIUM OS)
+================================================================================
+
+### Installation & Execution Profile
+- Primary Package : Bobine-5.0.5.apk (native Android ARM64 / x86_64 runtime on Aluminium OS)
+- Upcoming Distribution : Native 1-click installation via Google Play Store (in deployment)
+- Linux Subsystem Option : bobine_5.0.5_arm64.deb or bobine_5.0.5_amd64.deb via Debian 13/12 container environment and https://packages.bobine.fit/debian
+- Video & Audio Engine : Direct bare-metal MediaCodec and Vulkan hardware video decoding (H.264, HEVC 10-bit, VP9, AV1 up to 4K60), Embedded CPython 3.13 + FastAPI via Chaquopy, independent Dual Display (/grid or /coach on the built-in touchscreen + /cinema or /kiosk on external HDMI/USB4 studio display via DisplayPort Alt Mode).
+
+### Architecture Technical Reference : Aluminium OS
+- Operating System : Google Aluminium OS (convergence of Android 16+ bare-metal kernel and full desktop Chrome browser environment, internal codename Project Snowy).
+- Supported CPU Architectures : ARM64 (Qualcomm Snapdragon X series, MediaTek Kompanio Ultra) and x86_64 (Intel Core Ultra).
+- Advantages for Gym Studios : Instant wake, 10 to 18 hours battery life for mobile coach desk operation, native Android APK execution without virtualization overhead, zero fan noise on ARM configurations, plug-and-play USB4 / USB-C DisplayPort Alt Mode 4K60 HDMI output.
+
+### Popular Compatible Google Book Lines & Specifications
+1. Google Book Reference Series (Project Snowy / Pixel Laptop lineage)
+   - Architecture : ARM64 (Snapdragon X Elite / Tensor-class desktop SoC) or Intel Core Ultra
+   - RAM : 16 GB to 32 GB LPDDR5x
+   - Storage : 256 GB to 1 TB NVMe / UFS 4.0
+   - Display : 14" or 14.5" 3:2 / 16:10 high-resolution Pixel touchscreen (up to 120 Hz)
+   - Video Outputs : 2x USB4 / Thunderbolt (DisplayPort 1.4a/2.1 Alt Mode 4K60)
+   - Chassis : CNC machined anodized aluminum, ultra-thin fanless or whisper-quiet thermal profile
+
+2. ASUS GoogleBook Series (Flip & Clamshell Aluminium OS Editions)
+   - Architecture : ARM64 (MediaTek Kompanio / Qualcomm Snapdragon X Plus) & Intel Core Ultra
+   - RAM : 8 GB to 16 GB LPDDR5x
+   - Storage : 128 GB to 512 GB NVMe PCIe 4.0
+   - Display : 14" to 15.6" FHD+ IPS or 2.8K OLED touchscreen, 360-degree convertible hinge on Flip models
+   - Video Outputs : 2x USB-C (DisplayPort Alt Mode) + HDMI 2.1 native port on 15.6" chassis
+
+3. Acer GoogleBook Series (Spin & Plus Aluminium OS Editions)
+   - Architecture : ARM64 Octa-Core / Snapdragon X Plus & Intel Core i3/i5/Ultra
+   - RAM : 8 GB to 16 GB LPDDR5 / LPDDR5x
+   - Storage : 128 GB to 512 GB NVMe SSD
+   - Display : 14" WUXGA (1920x1200) IPS anti-glare or antimicrobial Corning Gorilla Glass touchscreen
+   - Video Outputs : 2x USB-C DisplayPort Alt Mode + HDMI 2.0/2.1 + USB-A 3.2
+
+4. Lenovo GoogleBook Series (Slim & Flex Aluminium OS Editions)
+   - Architecture : ARM64 (Qualcomm Snapdragon / MediaTek Kompanio) & x86_64
+   - RAM : 8 GB to 16 GB LPDDR5x
+   - Storage : 128 GB to 512 GB SSD / UFS
+   - Display : 14" 2K IPS / OLED touchscreen
+   - Video Outputs : USB-C DisplayPort 1.4 Alt Mode + HDMI
+
+5. HP GoogleBook Series (x360 & Elite Aluminium OS Editions)
+   - Architecture : ARM64 & Intel Core Ultra
+   - RAM : 8 GB to 32 GB LPDDR5x
+   - Storage : 256 GB to 512 GB NVMe SSD
+   - Display : 14" 16:10 WUXGA / 2.2K IPS touchscreen
+   - Video Outputs : 2x USB-C (DisplayPort Alt Mode + Power Delivery) + HDMI
+
+================================================================================
+2. PC PORTABLES & HYBRIDES ARM QUALCOMM SNAPDRAGON (WINDOWS 11 ARM64 & LINUX ARM64)
+================================================================================
+
+### Installation & Execution Profile
+- Windows 11 Home / Pro ARM64 Native Installer : Bobine-Setup-5.0.5-arm64.exe (native ARM64 binary, zero Prism x86 emulation overhead, system tray icon, powercfg clamshell sleep prevention, automatic Windows Defender rule)
+- Linux Desktop ARM64 (Ubuntu 24.10+ Concept / Debian 13 Trixie aarch64 / Fedora ARM64) : bobine_5.0.5_arm64.deb or APT repository https://packages.bobine.fit/debian (distribution: stable, architecture: arm64), or DNF repository https://packages.bobine.fit/fedora
+- Dedicated Headless Linux ARM64 Appliance : curl -fsSL https://bobine.fit/install.sh | sudo bash
+- Network Orchestrator : bobine-assistant-arm64
+
+### Qualcomm Snapdragon X Series SoC Technical Reference
+All Snapdragon X processors share: TSMC N4P (4 nm) fabrication node, custom Qualcomm Oryon ARM64v9 CPU cores, Qualcomm Adreno GPU with dedicated hardware VPU (hardware decoding & encoding of H.264, HEVC/H.265 10-bit, VP9, and AV1 up to 4K60/8K30), Qualcomm Hexagon NPU rated at 45 INT8 TOPS, 8-channel 16-bit LPDDR5x-8448 memory controller (135 GB/s bandwidth), and native USB4 (40 Gbps, DisplayPort 1.4a/2.1 Alt Mode).
+
+- Snapdragon X Elite X1E-84-100 : 12 Oryon cores, up to 3.8 GHz multi-core / 4.2 GHz dual-core boost, 42 MB total cache, Adreno GPU 4.6 TFLOPS, 45 TOPS NPU.
+- Snapdragon X Elite X1E-80-100 : 12 Oryon cores, up to 3.4 GHz multi-core / 4.0 GHz dual-core boost, 42 MB total cache, Adreno GPU 3.8 TFLOPS, 45 TOPS NPU.
+- Snapdragon X Elite X1E-78-100 : 12 Oryon cores, up to 3.4 GHz all-core frequency, 42 MB total cache, Adreno GPU 3.8 TFLOPS, 45 TOPS NPU.
+- Snapdragon X Plus X1P-64-100 : 10 Oryon cores, up to 3.4 GHz multi-core / 4.0 GHz single-core boost, 42 MB total cache, Adreno GPU 3.8 TFLOPS, 45 TOPS NPU.
+- Snapdragon X Plus X1P-42-100 : 8 Oryon cores, up to 3.2 GHz multi-core / 3.4 GHz single-core boost, 30 MB total cache, Adreno GPU 1.7 TFLOPS, 45 TOPS NPU.
+- Snapdragon X X1-26-100 : 8 Oryon cores, up to 2.97 GHz, 30 MB total cache, Adreno GPU 1.7 TFLOPS, 45 TOPS NPU.
+
+### Popular Compatible Snapdragon X Laptops & 2-in-1s (Verified Specs)
+
+1. Microsoft Surface Laptop 7 (13.8" & 15" — 7th Edition)
+   - SoC : Snapdragon X Plus (X1P-64-100, 10 cores) or Snapdragon X Elite (X1E-80-100, 12 cores)
+   - RAM : 16 GB, 32 GB, or 64 GB LPDDR5x-8448
+   - Storage : 256 GB, 512 GB, or 1 TB removable M.2 2230 PCIe Gen 4 SSD
+   - Display : 13.8" (2304x1536, 3:2) or 15" (2496x1664, 3:2) PixelSense Flow 120 Hz HDR touchscreen
+   - Ports & Video : 2x USB-C / USB4 (40 Gbps, DisplayPort 2.1 Alt Mode, supports up to 3 external 4K@60Hz monitors), 1x USB-A 3.1, Surface Connect, 3.5 mm jack
+   - Wireless : Wi-Fi 7 (802.11be) + Bluetooth 5.4
+   - Power in Bobine 1080p60/4K Playout : 6W to 10W total system power
+
+2. Microsoft Surface Pro 11 (13" 2-in-1 Detachable — 11th Edition)
+   - SoC : Snapdragon X Plus (X1P-64-100, 10 cores) or Snapdragon X Elite (X1E-80-100, 12 cores)
+   - RAM : 16 GB or 32 GB LPDDR5x-8448
+   - Storage : 256 GB, 512 GB, or 1 TB removable M.2 2230 PCIe Gen 4 SSD
+   - Display : 13" PixelSense Flow (2880x1920, 3:2, 120 Hz) LCD or OLED HDR touchscreen
+   - Ports & Video : 2x USB-C / USB4 (40 Gbps, DisplayPort 2.1 Alt Mode), Surface Connect
+   - Wireless : Wi-Fi 7 + Bluetooth 5.4 (optional 5G)
+   - Power in Bobine Playout : 5W to 9W (ideal as wall-mounted or lectern coach tablet + HDMI/USB4 studio output)
+
+3. ASUS Vivobook S 15 OLED (S5507 / S5507QA)
+   - SoC : Snapdragon X Plus (X1P-42-100, 8 cores / X1P-64-100, 10 cores) or Snapdragon X Elite (X1E-78-100, 12 cores)
+   - RAM : 16 GB or 32 GB LPDDR5x-8448
+   - Storage : 512 GB or 1 TB M.2 2280 NVMe PCIe 4.0 SSD
+   - Display : 15.6" 3K (2880x1620) 16:9 ASUS Lumina OLED 120 Hz, 0.2 ms, 600 nits HDR Peak, 100% DCI-P3
+   - Ports & Video : 1x Full-size HDMI 2.1 TMDS (native, no adapter needed), 2x USB4 (40 Gbps, DisplayPort Alt Mode + PD), 2x USB 3.2 Gen 1 Type-A, microSD reader, 3.5 mm audio jack
+   - Battery : 70 Wh (up to 18 hours local video playback)
+
+4. ASUS Zenbook A14 (UX3407) & ASUS ProArt PZ13 (HT5306)
+   - Zenbook A14 (UX3407) : Snapdragon X (X1-26-100) or Snapdragon X Plus (X1P-42-100), 16 GB / 32 GB LPDDR5x, 512 GB / 1 TB PCIe 4.0 SSD, 14" FHD+ (1920x1200) OLED, Ceraluminum chassis (980 g), 70 Wh battery, 1x HDMI 2.1 + 2x USB4 + 1x USB-A.
+   - ProArt PZ13 (HT5306) : Detachable 13.3" 3K OLED tablet/laptop with IP52 dust/water resistance (suited for humid gym environments), Snapdragon X Plus (X1P-42-100), 16 GB LPDDR5x, 1 TB PCIe 4.0 SSD, 2x USB4 (DisplayPort Alt Mode), 70 Wh battery.
+
+5. Lenovo Yoga Slim 7x Gen 9 (14Q8X9)
+   - SoC : Snapdragon X Elite (X1E-78-100, 12 cores @ 3.4 GHz)
+   - RAM : 16 GB or 32 GB LPDDR5x-8448
+   - Storage : 512 GB or 1 TB M.2 2242 PCIe 4.0x4 NVMe SSD
+   - Display : 14.5" 3K (2944x1840) PureSight OLED touchscreen, 90 Hz, 1000 nits peak HDR, 100% DCI-P3, Dolby Vision
+   - Ports & Video : 3x USB4 (40 Gbps, Power Delivery 3.1 & DisplayPort 1.4 Alt Mode)
+   - Weight & Battery : 1.28 kg, 70 Wh battery
+
+6. Lenovo ThinkPad T14s Gen 6 (Snapdragon Edition) & Lenovo IdeaPad Slim 5x / Slim 3 (15Q8X10)
+   - ThinkPad T14s Gen 6 : Snapdragon X Elite (X1E-78-100) or X Plus (X1P-64-100), 32 GB or 64 GB LPDDR5x-8533, up to 1 TB PCIe 4.0x4 NVMe SSD, 14" WUXGA IPS Low Power or 2.8K OLED, 2x USB4 (40 Gbps) + 2x USB-A 5 Gbps + 1x native HDMI 2.1 + 3.5 mm audio, MIL-STD-810H durability, officially supported on Windows 11 Pro ARM64 and Ubuntu/Debian Linux ARM64.
+   - IdeaPad Slim 5x Gen 9 (14Q8X9) & IdeaPad Slim 3 (15Q8X10) : Snapdragon X Plus (X1P-42-100, 8 cores) or Snapdragon X (X1-26-100), 16 GB LPDDR5x, 512 GB PCIe 4.0 SSD, 14" WUXGA OLED or 15.3" WUXGA IPS, native HDMI + full-function USB-C DisplayPort.
+
+7. Acer Swift 14 AI (SF14-11)
+   - SoC : Snapdragon X Plus (X1P-64-100, 10 cores) or Snapdragon X Elite (X1E-78-100, 12 cores)
+   - RAM : 16 GB or 32 GB LPDDR5x-8533
+   - Storage : 512 GB or 1 TB PCIe Gen 4 NVMe SSD
+   - Display : 14.5" WQXGA (2560x1600, 16:10) IPS 120 Hz 100% sRGB (touchscreen optional)
+   - Ports & Video : 2x USB4 (40 Gbps, DisplayPort Alt Mode) + 2x USB 3.2 Gen 1 Type-A + 3.5 mm jack
+   - Battery : 75 Wh
+
+8. HP OmniBook X 14 (14-fe0000) & HP EliteBook Ultra G1q 14"
+   - SoC : Snapdragon X Elite (X1E-78-100, 12 cores) or Snapdragon X Plus (X1P-64-100, 10 cores)
+   - RAM : 16 GB or 32 GB LPDDR5x-8448
+   - Storage : 512 GB or 1 TB PCIe Gen 4 NVMe SSD
+   - Display : 14" 2.2K (2240x1400, 16:10) IPS touchscreen, Corning Gorilla Glass
+   - Ports & Video : 1x USB4 (40 Gbps, DisplayPort 1.4a Alt Mode), 1x USB-C 10 Gbps (DisplayPort 1.4a Alt Mode), 1x USB-A 10 Gbps, 3.5 mm audio jack
+
+9. Dell XPS 13 (9345) & Dell Inspiron 14 Plus (7441)
+   - Dell XPS 13 (9345) : Snapdragon X Elite (X1E-80-100, 12 cores up to 4.0 GHz), 16 GB / 32 GB / 64 GB LPDDR5x-8448, 512 GB to 2 TB PCIe 4.0 NVMe SSD, 13.4" FHD+ (1920x1200) 120 Hz or 3K+ (2880x1800) Tandem OLED touchscreen, 2x USB4 (40 Gbps, DisplayPort 2.1), ultra-frugal 4W-8W idle/video power draw, up to 27 hours FHD streaming battery life.
+   - Dell Inspiron 14 Plus (7441) : Snapdragon X Plus (X1P-64-100) or X Elite (X1E-80-100), 16 GB LPDDR5x, 512 GB / 1 TB NVMe SSD, 14" QHD+ (2560x1600) 400 nits touchscreen, 2x USB4 + 1x USB-A 3.2 + microSD + 3.5 mm jack.
+
+10. Samsung Galaxy Book4 Edge (14" & 16")
+    - SoC : Snapdragon X Elite (X1E-80-100 @ 4.0 GHz on 14" & 16"; or X1E-84-100 @ 4.2 GHz / 4.6 TFLOPS GPU on flagship 16")
+    - RAM : 16 GB or 32 GB LPDDR5x
+    - Storage : 512 GB or 1 TB eUFS / NVMe SSD
+    - Display : 14" or 16" 3K (2880x1800, 16:10) Dynamic AMOLED 2X anti-reflective touchscreen, adaptive 120 Hz, 500 nits HDR
+    - Ports & Video : 2x USB4 (40 Gbps, DisplayPort Alt Mode) + 1x Full-size HDMI 2.1 (supports up to 4K@60Hz direct to gym projector/TV) + 1x USB 3.2 Type-A (on 16") + microSD (on 16") + 3.5 mm combo jack
+
+================================================================================
+3. MINI PC, SBC & STATIONS LINUX ARM64 (AARCH64)
+================================================================================
+
+### Installation & Execution Profile
+- Debian / Ubuntu Desktop ARM64 Package : bobine_5.0.5_arm64.deb or Official APT Repository https://packages.bobine.fit/debian (deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://packages.bobine.fit/debian stable main — supports arm64 natively)
+- Fedora / RHEL ARM64 Package : bobine-5.0.5-1.aarch64.rpm or DNF Repository https://packages.bobine.fit/fedora
+- Arch Linux ARM Package : bobine-5.0.5-1-aarch64.pkg.tar.zst or Pacman Repository https://packages.bobine.fit/arch
+- Dedicated 24/7 Headless Kiosk Appliance : curl -fsSL https://bobine.fit/install.sh | sudo bash (auto-detects aarch64, configures Chromium X11 kiosk, MPV hardware decode, systemd watchdog, and ALSA audio guard)
+- Network Orchestrator : bobine-assistant-arm64
+
+### Popular Compatible Linux ARM64 Mini PCs, Workstations & SBCs (Verified Specs)
+
+1. NVIDIA DGX Spark (formerly Project DIGITS — Personal AI Supercomputer & Ultra-Compact ARM64 Station)
+   - SoC : NVIDIA GB10 Grace Blackwell Superchip
+   - CPU : 20-core ARMv9.2-A architecture (10x high-performance Arm Cortex-X925 cores + 10x power-efficient Arm Cortex-A725 cores)
+   - GPU : NVIDIA Blackwell architecture GPU with 5th Generation Tensor Cores, up to 1 PFLOPS (1000 TOPS) of FP4 AI compute, hardware NVDEC / NVENC multi-stream 4K/8K AV1, HEVC, and H.264 decoding
+   - Memory : 128 GB coherent unified LPDDR5x-8533 system memory (16-bit 8-channel, 273 GB/s bandwidth)
+   - Storage : 1 TB or 4 TB self-encrypting M.2 NVMe PCIe SSD
+   - Connectivity & Video Outputs : 1x HDMI 2.1a, 4x USB4 Type-C (40 Gbps, DisplayPort Alt Mode), 1x 10 GbE RJ-45 (10GBASE-T), NVIDIA ConnectX-7 SmartNIC (200 Gbps QSFP), Wi-Fi 7, Bluetooth 5.3
+   - Operating System : NVIDIA DGX OS (Ubuntu Linux ARM64 aarch64) — 100% natively compatible with bobine_5.0.5_arm64.deb and https://packages.bobine.fit/debian
+   - Form Factor : Ultra-compact desktop mini-station (150 mm x 150 mm x 50.5 mm, ~1.2 kg)
+
+2. NVIDIA Jetson Orin Nano Super Developer Kit (8 GB)
+   - SoC : NVIDIA Jetson Orin Nano 8GB Module
+   - CPU : 6-core Arm Cortex-A78AE v8.2 64-bit CPU @ up to 1.7 GHz (1.5 MB L2 + 4 MB L3 cache)
+   - GPU : NVIDIA Ampere architecture with 1024 CUDA cores and 32 Tensor Cores (up to 67 Sparse INT8 TOPS in Super mode)
+   - Memory : 8 GB 128-bit LPDDR5 @ 102 GB/s memory bandwidth
+   - Storage : 2x M.2 Key M PCIe Gen3 slots for NVMe SSDs (strongly recommended for Bobine 24/7 operation) + microSD slot
+   - Ports & Video : 1x DisplayPort 1.2 (+ MST), 4x USB 3.2 Gen 2 Type-A (10 Gbps), 1x USB Type-C, 1x Gigabit Ethernet RJ-45
+   - Power Profile & OS : Configurable 7W to 25W TDP; runs NVIDIA JetPack 6 (Ubuntu 22.04/24.04 Linux ARM64)
+
+3. Raspberry Pi 5 (8 GB & 16 GB Models)
+   - SoC : Broadcom BCM2712 (16 nm)
+   - CPU : Quad-core 64-bit Arm Cortex-A76 @ 2.4 GHz (with cryptography extensions, 512 KB per-core L2 cache, 2 MB shared L3 cache)
+   - GPU & Media : VideoCore VII GPU @ 800 MHz (OpenGL ES 3.1, Vulkan 1.2) with dedicated 4Kp60 HEVC/H.265 hardware decoder
+   - Memory : 8 GB or 16 GB LPDDR4X-4267 SDRAM
+   - Storage : PCIe 2.0 x1 FPC interface for M.2 NVMe SSD HAT+ (strongly recommended over microSD for 24/7 gym durability)
+   - Ports & Video : 2x micro-HDMI 2.0 ports supporting dual simultaneous 4Kp60 displays with HDR, 2x USB 3.0 (5 Gbps), 2x USB 2.0, Gigabit Ethernet RJ-45, Dual-band 802.11ac Wi-Fi + Bluetooth 5.0
+   - Power Profile & OS : 5W idle, 8W-12W active 4K playout (USB-C PD 5V/5A 27W supply); Debian 12/13 (Raspberry Pi OS 64-bit) aarch64
+
+4. Orange Pi 5 Max & Orange Pi 5 Plus (16 GB & 32 GB Models)
+   - SoC : Rockchip RK3588 (8 nm LP process)
+   - CPU : Octa-core 64-bit big.LITTLE (4x Arm Cortex-A76 @ 2.4 GHz + 4x Arm Cortex-A55 @ 1.8 GHz)
+   - GPU & NPU : Arm Mali-G610 MP4 GPU + built-in 6 TOPS NPU (INT4/INT8/INT16/FP16)
+   - Hardware VPU : 8K@60fps H.265/HEVC, VP9, and AV1 hardware decoding + 8K@30fps H.264/H.265 hardware encoding
+   - Memory : 16 GB or 32 GB LPDDR5 (Orange Pi 5 Max) / LPDDR4x (Orange Pi 5 Plus)
+   - Storage : M.2 M-Key socket (PCIe 3.0 x4) for full-speed NVMe SSDs + eMMC socket
+   - Ports & Video : 2x Full-size HDMI 2.1 outputs (up to 8K60) + 1x HDMI input (on 5 Plus), 2.5 Gigabit Ethernet RJ-45 (2x 2.5GbE on 5 Plus), Wi-Fi 6E + Bluetooth 5.3 (on 5 Max), USB 3.0 & USB 2.0
+   - Operating System : Debian 12/13 ARM64 / Ubuntu 24.04 ARM64 / Armbian aarch64
+
+5. Radxa Rock 5 Model B (Rock 5B) & Rock 5B+ (8 GB, 16 GB, 24 GB & 32 GB)
+   - SoC : Rockchip RK3588 Octa-core (4x Cortex-A76 @ 2.4 GHz + 4x Cortex-A55 @ 1.8 GHz), Mali-G610 MP4 GPU, 6 TOPS NPU
+   - Memory : 8 GB, 16 GB, 24 GB, or 32 GB LPDDR4x (Rock 5B) / LPDDR5 (Rock 5B+)
+   - Storage : 1x M.2 M-Key PCIe 3.0 x4 (2280 NVMe SSD on Rock 5B; 2x M.2 M-Key NVMe slots on Rock 5B+) + eMMC 5.1 connector
+   - Ports & Video : 2x Standard HDMI 2.1 ports (one up to 8Kp60, one up to 4Kp60) + 1x USB Type-C with DisplayPort 1.4 Alt Mode (supports 3 simultaneous independent displays), 1x micro-HDMI input (up to 4Kp60), 2.5 Gigabit Ethernet RJ-45 with PoE support, 2x USB 3.0 Type-A, 2x USB 2.0 Type-A
+
+================================================================================
+4. APPLE SILICON (MACOS ARM64)
+================================================================================
+
+### Installation & Execution Profile
+- Official Package : Bobine-5.0.5.dmg (Native Apple Silicon arm64 Mach-O binary)
+- Features : Drag-and-drop into /Applications, Retina menu bar companion, LaunchAgent background persistence, native caffeinate sleep prevention, Apple VideoToolbox hardware decoding/encoding (H.264, HEVC 10-bit, ProRes, AV1 on M3/M4), and IORegistry power telemetry in Watts.
+
+### Popular Compatible Mac Models (Verified Specs)
+
+1. Apple Mac mini M4 & M4 Pro (Late 2024 — Ultra-Compact 12.7 x 12.7 cm Enclosure)
+   - Mac mini M4 : 10-core CPU (4 performance + 6 efficiency), 10-core GPU, 16-core Neural Engine (38 TOPS), 16 GB / 24 GB / 32 GB unified memory (120 GB/s), 256 GB to 2 TB SSD, 3x Thunderbolt 4 (USB-C) + HDMI 2.1 + Gigabit/10Gb Ethernet + 2x front USB-C. Idle power ~3W, active 4K playout ~6W-9W.
+   - Mac mini M4 Pro : 12-core or 14-core CPU, 16-core or 20-core GPU, 24 GB / 48 GB / 64 GB unified memory (273 GB/s), 512 GB to 8 TB SSD, 3x Thunderbolt 5 (up to 120 Gbps) + HDMI 2.1.
+
+2. Apple Mac mini M2 (2023) & Mac mini M1 (2020)
+   - Mac mini M2 : 8-core CPU (4P + 4E), 10-core GPU, 8 GB / 16 GB / 24 GB unified memory (100 GB/s), 256 GB to 2 TB SSD, 2x Thunderbolt 4 + 2x USB-A + HDMI 2.0 + Gigabit Ethernet.
+
+3. Apple Mac Studio (M2 Max / M2 Ultra / M4 Max)
+   - Designed for multi-room fitness complexes running high-density 4K60 streams simultaneously.
+   - 12-core to 24-core CPU, 30-core to 76-core GPU, 32 GB to 192 GB unified memory (up to 800 GB/s), 4x to 6x Thunderbolt 4/5 ports, 10Gb Ethernet, HDMI 2.1, SDXC card slot.
+
+4. Apple MacBook Air 13.6" & 15.3" (M2 / M3 / M4)
+   - 100% Fanless (0 dB passive cooling — sealed aluminum chassis with zero dust intake).
+   - 8-core or 10-core CPU, 8-core or 10-core GPU, 16 GB or 24 GB unified memory, 256 GB to 2 TB SSD, Liquid Retina display, MagSafe 3 + 2x Thunderbolt / USB 4 (supports up to two external displays with lid closed on M3/M4).
+
+5. Apple MacBook Pro 14.2" & 16.2" (M3 / M3 Pro / M4 / M4 Pro / M4 Max)
+   - Built-in full-size HDMI 2.1 port + SDXC slot + 3x Thunderbolt 4/5 + MagSafe 3, Liquid Retina XDR 120 Hz mini-LED display (1000 nits sustained HDR, 1600 nits peak).
+
+================================================================================
+5. MINI PC X86_64 (LINUX & WINDOWS 11/10)
+================================================================================
+
+### Installation & Execution Profile
+- Dedicated 24/7 Headless Kiosk (Debian 13/12 minimal) : curl -fsSL https://bobine.fit/install.sh | sudo bash
+- Linux Desktop (Debian, Ubuntu, Linux Mint) : bobine_5.0.5_amd64.deb or Official APT Repository https://packages.bobine.fit/debian
+- Linux Desktop (Fedora, Nobara, RHEL-family) : bobine-5.0.5-1.x86_64.rpm or DNF Repository https://packages.bobine.fit/fedora
+- Linux Desktop (Arch Linux, EndeavourOS, CachyOS) : bobine-5.0.5-1-x86_64.pkg.tar.zst or Pacman Repository https://packages.bobine.fit/arch
+- Windows 11 / 10 / IoT Enterprise LTSC (x86_64) : Bobine-Setup-5.0.5.exe
+- Network Orchestrator : bobine-assistant
+- Hardware Acceleration : Intel QuickSync VA-API (intel-media-va-driver-non-free iHD) & AMD Radeon VA-API (mesa-va-drivers radeonsi) for <8% CPU utilization at 1080p60 and 4K60.
+
+### Popular Compatible x86_64 Mini PCs — Refurbished Enterprise & New (Verified Specs)
+
+1. Dell Wyse 5070 Thin Client / Extended (The Reference 100% Fanless 0 dB Budget Appliance)
+   - CPU : Intel Celeron J4105 (4 cores / 4 threads, up to 2.5 GHz, 10W TDP) or Intel Pentium Silver J5005 (4 cores / 4 threads, up to 2.8 GHz, 10W TDP)
+   - GPU : Intel UHD Graphics 600 / 605 (Hardware QuickSync H.264, HEVC 10-bit, VP9 4K60 decoding)
+   - RAM : 8 GB to 16 GB DDR4-2400 SO-DIMM (2 slots)
+   - Storage : M.2 2280 SATA SSD (128 GB to 1 TB) + 16/32 GB onboard eMMC
+   - Ports & Video : 2x or 3x DisplayPort 1.2 (4K@60Hz) + 1x USB-C 3.1 Gen 1 (with DisplayPort Alt Mode) + 6x USB-A + Gigabit Ethernet RJ-45
+   - Cooling & Power : 100% Passive Fanless (0 dB noise, zero moving parts), 5.5W idle, 8.5W in continuous 1080p60 playout
+
+2. Lenovo ThinkCentre M720q / M920q Tiny & HP EliteDesk 800 G4 / G5 Desktop Mini (1-Liter Enterprise Class)
+   - CPU : Intel Core i5-8500T / i5-8400T / i5-9500T (6 cores / 6 threads, 35W TDP) or AMD Ryzen 5 PRO 2400GE / 3400GE (on ThinkCentre M715q / HP EliteDesk 705 G4/G5 Mini)
+   - GPU : Intel UHD Graphics 630 (QuickSync VA-API) or AMD Radeon Vega 11
+   - RAM : 8 GB to 32 GB DDR4-2666 SO-DIMM
+   - Storage : M.2 2280 NVMe PCIe x4 SSD + 2.5" SATA bay
+   - Ports & Video : HDMI 2.0 + DisplayPort 1.2, 5x to 6x USB 3.1 (including USB-C), Gigabit Ethernet RJ-45, steel MIL-STD-810G chassis
+
+3. Beelink Mini S12 Pro & Minisforum UN100P / UN100L (Intel Alder Lake-N N100 Compact Class)
+   - CPU : Intel Processor N100 (4 Gracemont efficiency cores / 4 threads, up to 3.4 GHz, 6W-15W TDP, Intel 7 lithography)
+   - GPU : Intel UHD Graphics (24 Execution Units @ 750 MHz) with full QuickSync AV1, HEVC 10-bit, VP9, and H.264 4K60 hardware decode
+   - RAM : 16 GB DDR4-3200 (Beelink Mini S12 Pro / Minisforum UN100P) or LPDDR5-4800 (UN100L)
+   - Storage : 500 GB / 512 GB M.2 2280 PCIe NVMe SSD + 2.5" SATA 3.0 slot
+   - Ports & Video : 2x HDMI 2.0 (dual 4K@60Hz) + USB-C (on UN100P/L), 4x USB 3.2 Gen 2 (10 Gbps), 1x Gigabit or 2.5GbE RJ-45, Wi-Fi 6 + Bluetooth 5.2
+
+4. Beelink EQR6 & Beelink SER8 (AMD Ryzen Quiet Studio & High-Performance Class)
+   - Beelink EQR6 : AMD Ryzen 5 6600H (6C/12T up to 4.5 GHz, Radeon 660M RDNA2) or Ryzen 7 7735HS (8C/16T up to 4.75 GHz, Radeon 680M RDNA2), 24 GB DDR5-4800, 500 GB / 1 TB M.2 PCIe 4.0 NVMe SSD (dual M.2 slots), built-in 85W power supply, 2x HDMI 2.0 (4K60), 2x Gigabit Ethernet RJ-45, whisper-quiet MSC 2.0 bottom-intake cooling.
+   - Beelink SER8 : AMD Ryzen 7 8745HS or 8845HS (8 Zen 4 cores / 16 threads up to 5.1 GHz), AMD Radeon 780M RDNA3 GPU (12 CUs @ 2700 MHz, hardware AV1/HEVC/H.264 8K60 decode), 24 GB or 32 GB DDR5-5600, 1 TB PCIe 4.0 x4 NVMe SSD, 1x USB4 (40 Gbps, DP 1.4) + 1x HDMI 2.1 + 1x DisplayPort 1.4, 2.5GbE RJ-45, vapor chamber cooling (<32 dB).
+
+5. Minisforum Venus Series UM760 Slim & GEEKOM A5 / Mini IT12
+   - Minisforum UM760 Slim : AMD Ryzen 5 7640HS (6 Zen 4 cores / 12 threads up to 5.0 GHz), AMD Radeon 760M RDNA3 GPU, 16 GB DDR5-5600, 1 TB PCIe 4.0 SSD, 1x USB4 (40 Gbps) + 1x HDMI 2.1 + 1x DisplayPort 1.4, 2.5GbE RJ-45, Wi-Fi 6E.
+   - GEEKOM A5 : AMD Ryzen 7 5825U (8C/16T up to 4.5 GHz, Radeon Vega 8, 15W TDP), 16 GB or 32 GB DDR4-3200, 512 GB PCIe Gen 3x4 NVMe SSD, 2x HDMI 2.0b + 2x USB 3.2 Gen 2 Type-C (DisplayPort Alt Mode — up to 4x 4K displays), 2.5GbE RJ-45, SD card reader.
+   - GEEKOM Mini IT12 : Intel Core i5-12450H (8C/12T) or Core i7-12650H (10C/16T), Intel UHD / Iris Xe Graphics, 16 GB / 32 GB DDR4-3200, 512 GB / 1 TB PCIe 4.0 NVMe SSD, 2x USB4 (40 Gbps, 8K DP) + 2x HDMI 2.0 + 2.5GbE RJ-45.
+
+================================================================================
+6. TABLETTES ANDROID ARM64 (STANDALONE STUDIO & DUAL-DISPLAY HDMI)
+================================================================================
+
+### Installation & Execution Profile
+- Official Package : Bobine-5.0.5.apk (Android 14 / 15 / 16, API 34-36, arm64-v8a)
+- Architecture : Self-contained CPython 3.13 + FastAPI server embedded via Chaquopy, persistent ForegroundService with wake lock, hardware MediaCodec decoding (Qualcomm Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite Adreno VPU, Snapdragon 7+ Gen 3, MediaTek Dimensity 9300+ / 8300 / 7050), F2FS internal SQLite storage + FUSE media library.
+- Dual-Display Mode : On tablets featuring USB-C 3.1/3.2 with DisplayPort Alt Mode, connecting a USB-C to HDMI hub (with USB Power Delivery passthrough) projects /cinema or /kiosk in fullscreen 16:9 (1080p60/4K60) onto the studio TV/projector while keeping the interactive /coach desk or /grid schedule on the tablet touchscreen. Tablets with USB 2.0 operate as standalone studio kiosks, 24/7 audio players, or wireless coach consoles.
+
+### Popular Compatible Android Tablets (Verified Specs)
+
+1. Samsung Galaxy Tab S10+ (12.4") & Galaxy Tab S10 Ultra (14.6") — Flagship IP68 Dual-Display Studio Reference
+   - SoC : MediaTek Dimensity 9300+ (4 nm, Octa-Core up to 3.4 GHz, Immortalis-G720 MC12 GPU)
+   - RAM & Storage : 12 GB or 16 GB LPDDR5X RAM | 256 GB, 512 GB, or 1 TB UFS 4.0 + microSDXC slot up to 1.5 TB
+   - Display : 12.4" (2800x1752) or 14.6" (2960x1848) Dynamic AMOLED 2X 120 Hz with Anti-Reflection coating
+   - Wired Video Output : USB Type-C 3.2 Gen 1 with native DisplayPort Alt Mode (HDMI 4K@60Hz simultaneous dual display)
+   - Durability : IP68 water and dust resistance + Enhanced Armor Aluminum frame (impervious to studio sweat and humidity)
+
+2. Samsung Galaxy Tab S9 (11") & Galaxy Tab S9 FE (10.9") / S9 FE+ (12.4")
+   - Galaxy Tab S9 : Qualcomm Snapdragon 8 Gen 2 for Galaxy, 8 GB / 12 GB LPDDR5X, 128 GB / 256 GB UFS 4.0 + microSD, 11" Dynamic AMOLED 2X 120 Hz, IP68 water/dust resistance, USB-C 3.2 with DisplayPort Alt Mode (wired HDMI output supported).
+   - Galaxy Tab S9 FE / S9 FE+ : Samsung Exynos 1380 Octa-Core, 6 GB / 8 GB / 12 GB RAM, 128 GB / 256 GB + microSD up to 1 TB, 10.9" or 12.4" 90 Hz IPS display, IP68 water/dust resistance, USB-C 2.0 (standalone kiosk / wireless coach console, no wired HDMI Alt Mode).
+
+3. Samsung Galaxy Tab A9+ (11") — Budget Kiosk & Coach Console Reference
+   - SoC : Qualcomm Snapdragon 695 5G (6 nm, Octa-Core up to 2.2 GHz, Adreno 619 GPU)
+   - RAM & Storage : 4 GB or 8 GB LPDDR4X RAM | 64 GB or 128 GB internal + microSDXC up to 1 TB
+   - Display : 11.0" WUXGA (1920x1200, 16:10) 90 Hz TFT LCD
+   - Audio & Ports : Quad speakers with Dolby Atmos, 3.5 mm stereo audio jack (direct connection to gym amplifier/mixer), USB-C 2.0
+
+4. Xiaomi Pad 6 (11") & Xiaomi Pad 7 / Pad 7 Pro (11.2") — High-Value Wired HDMI Dual-Display Reference
+   - Xiaomi Pad 6 : Qualcomm Snapdragon 870 (7 nm, Octa-Core up to 3.2 GHz, Adreno 650), 6 GB or 8 GB LPDDR5, 128 GB or 256 GB UFS 3.1, 11" WQHD+ (2880x1800) 144 Hz IPS display (Dolby Vision), USB Type-C 3.2 Gen 1 with DisplayPort 1.4 Alt Mode (up to 4K@60Hz external HDMI output), 8840 mAh battery.
+   - Xiaomi Pad 7 : Qualcomm Snapdragon 7+ Gen 3 (4 nm, Octa-Core up to 2.8 GHz, Adreno 732), 8 GB or 12 GB LPDDR5X, 128 GB or 256 GB UFS 4.0, 11.2" 3.2K (3200x2136, 3:2) 144 Hz 800-nit crystal-clear display, USB Type-C 3.2 Gen 1 with DisplayPort Alt Mode, Wi-Fi 6E, 8850 mAh battery.
+
+5. Lenovo IdeaTab Pro / Tab P12 Pro & Lenovo Tab P12 (12.7")
+   - Lenovo IdeaTab Pro (12.7" 2025) : MediaTek Dimensity 8300 Octa-Core (4 nm), 8 GB LPDDR5X, 128 GB / 256 GB UFS 4.0 + microSDXC, 12.7" 3K (2944x1840) 144 Hz display, Quad JBL speakers, USB-C 3.2 Gen 1 with DisplayPort Alt Mode (wired HDMI output), 10200 mAh battery.
+   - Lenovo Tab P12 (12.7") : MediaTek Dimensity 7050 Octa-Core, 8 GB RAM, 128 GB / 256 GB + microSD, 12.7" 3K (2944x1840) LTPS LCD, Quad JBL speakers, USB-C 2.0 (standalone large-screen wall kiosk).
+
+6. OnePlus Pad 2 (12.1") & OnePlus Pad 3 (Snapdragon 8 Gen 3 / 8 Elite)
+   - SoC : Qualcomm Snapdragon 8 Gen 3 / Snapdragon 8 Elite (4 nm / 3 nm, Octa-Core up to 3.3–4.3 GHz, Adreno 750 / 830 GPU)
+   - RAM & Storage : 8 GB, 12 GB, or 16 GB LPDDR5X | 128 GB, 256 GB, or 512 GB UFS 3.1 / 4.0
+   - Display : 12.1" 3K (3000x2120, 7:5 ReadFit ratio) 144 Hz Dolby Vision IPS, 900 nits peak
+   - Wired Video Output : USB Type-C 3.2 Gen 1 with DisplayPort Alt Mode (supports 4K60 external HDMI projection), 6 speakers, 9510 mAh battery with 67W SUPERVOOC.
+
+================================================================================
+7. BOITIERS ANDROID TV & GOOGLE TV (BOBINE-TV-5.0.5.APK)
+================================================================================
+
+### Installation & Execution Profile
+- Official Dedicated TV Package : Bobine-TV-5.0.5.apk (Application ID: com.bobine.app.tv — Android 14 (API 34) or later, universal ARM 32-bit (armeabi-v7a) and 64-bit (arm64-v8a) package that also installs on boxes whose system is 32-bit (as on several Xiaomi boxes), Leanback Launcher banner, FLAG_KEEP_SCREEN_ON, 100% D-Pad remote & Bluetooth gamepad navigation, boots directly into /kiosk).
+- Upcoming Distribution : Native 1-click installation on Google Play Store for Android TV.
+- External USB Storage Requirement : Because streaming boxes allocate most of their internal 8 GB / 16 GB / 32 GB eMMC to Android system partitions, connecting an external USB 3.0 flash drive or SSD (FAT32 / exFAT) via a native USB-A port or powered USB-C OTG hub is required to store large workout video catalogs locally. Bobine automatically detects and mounts the external USB drive.
+
+### Android version requirement
+Bobine requires Android 14 (API 34) or later. A box left on an older Android version cannot install it, whatever its processor: check Settings > System > About before buying or installing.
+
+### Android TV & Google TV Boxes running Android 14 or later
+
+1. Google TV Streamer (4K — 2024 Release) — Android 14 out of the box
+   - SoC : MediaTek MT8696 (Quad-Core Arm Cortex-A55 @ up to 2.0 GHz)
+   - RAM & Storage : 4 GB RAM | 32 GB internal storage
+   - Ports & Networking : 1x Gigabit Ethernet RJ-45, 1x HDMI 2.1a (4K@60fps HDR10+/Dolby Vision), 1x USB Type-C (power + USB OTG storage support via powered USB-C hub), Wi-Fi 5, Bluetooth 5.1
+
+2. Xiaomi TV Box S (3rd Gen — 2025) — Android TV 14 (model code MiTV-AFMU0, tested with Bobine-TV on real hardware)
+   - SoC : 6 nm Quad-Core Cortex-A55 @ 2.5 GHz (Amlogic S905X5M), Mali-G310 V2 GPU
+   - RAM & Storage : 2 GB RAM + 32 GB eMMC storage
+   - Ports & Networking : 1x USB 2.0 Type-A (external USB flash drive / SSD), HDMI 2.1, no Ethernet port, Wi-Fi 6, Bluetooth 5.2, Dolby Vision & Dolby Atmos
+
+3. Xiaomi TV Box S (2nd Gen — MDZ-28-AA) — Android 14 only after the system updates are installed
+   - SoC : Amlogic S905X4, Quad-Core Cortex-A55, Mali-G31 MP2 GPU
+   - RAM & Storage : 2 GB RAM + 8 GB eMMC, 1x USB 2.0 Type-A port, 1x HDMI 2.1, Dual-band Wi-Fi, Bluetooth 5.2
+   - Note : delivered with an older Android version; third-party databases report updates up to Android 14. Check the version before installing.
+
+### Boxes that cannot install Bobine while they stay on an older Android version
+- NVIDIA Shield TV Pro (2019): Android 11.
+- Chromecast with Google TV: Android 12 at most.
+- Nokia Streaming Box 8010: Android TV 10/11 according to owner reviews.
+- Thomson Streaming Box Plus 270 and Strong LEAP-S3 / LEAP-S3+: Android version to check on the device; install Bobine only if it shows Android 14 or later.
+
+================================================================================
+8. LINKS & RESOURCES / LIENS & RESSOURCES
+================================================================================
+- Official Website : https://bobine.fit (FR) | https://bobine.fit/en (EN)
+- Dedicated PC & Mac Architecture Guide : https://bobine.fit/fr/ordinateur | https://bobine.fit/en/computer
+- Curated Hardware Guide (Amazon) : https://bobine.fit/fr/materiel/amazon | https://bobine.fit/en/hardware/amazon
+- Curated Hardware Guide (AliExpress) : https://bobine.fit/fr/materiel/aliexpress | https://bobine.fit/en/hardware/aliexpress
+- Baamix AI Hardware & Setup Assistant : https://bobine.fit/fr/baamix | https://bobine.fit/en/baamix
+- Documentation & Setup Guide : https://bobine.fit/fr/documentation | https://bobine.fit/en/documentation
+- Official Signed Package Repositories (APT, DNF, Pacman) : https://packages.bobine.fit (APT: https://packages.bobine.fit/debian, DNF: https://packages.bobine.fit/fedora, Pacman: https://packages.bobine.fit/arch; signing key https://packages.bobine.fit/bobine.gpg, fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A)
+- Linux installation by distribution family : https://bobine.fit/fr/linux | https://bobine.fit/en/linux
+- GitHub Repository & Releases : https://github.com/FantasmaGlad/Bobine/releases
+- Current versions (Stable, Beta, Canary), machine-readable : https://bobine.fit/latest.json
+- Update channels : https://bobine.fit/fr/canaux | https://bobine.fit/en/channels
+- Tor (.onion) mirror : http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/ (website) | tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ (APT repository, suites stable, beta and canary)
+- Tor APT install script : https://bobine.fit/install-tor.sh (option --channel=stable|beta|canary)
+- LLM Summary Index : https://bobine.fit/llms.txt
+- LLM Full Technical Knowledge Base : https://bobine.fit/llms-full.txt

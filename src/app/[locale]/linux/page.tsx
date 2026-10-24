@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import { LANDING_PAGES, getLanding } from "@/content/landing";
-import LandingPage from "@/components/LandingPage";
+import LinuxShowcasePage from "@/components/linux/LinuxShowcasePage";
 
 const ID = "linux";
 
@@ -17,5 +17,5 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  return <LandingPage locale={locale as Locale} id={ID} />;
+  return <LinuxShowcasePage locale={locale as Locale} />;
 }

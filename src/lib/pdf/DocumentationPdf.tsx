@@ -364,22 +364,22 @@ function BrandFooter({ locale }: { locale: Locale }) {
 // react-pdf ne lit que le PNG et le JPEG : pas de WebP ici.
 const DEVICE_IMAGES: Record<DeviceImageKey, { srcs: string[]; captionFr: string; captionEn: string }> = {
   windows: {
-    srcs: ["/images/pdf/windows-device.png"],
+    srcs: ["/images/pdf/windows-device-cutout.png"],
     captionFr: "Exemple de mini PC Windows 11 (Intel N100) — photo officielle du fabricant",
     captionEn: "Example Windows 11 mini PC (Intel N100) — official manufacturer photo",
   },
   macos: {
-    srcs: ["/images/pdf/macos-device.png"],
+    srcs: ["/images/pdf/macos-device-cutout.png"],
     captionFr: "Apple Mac Mini — photo officielle Apple",
     captionEn: "Apple Mac Mini — official Apple photo",
   },
   linux: {
-    srcs: ["/images/pdf/linux-device.png"],
+    srcs: ["/images/pdf/linux-device-cutout.png"],
     captionFr: "Mini PC industriel 100% fanless recommandé pour Linux — photo officielle du fabricant",
     captionEn: "100% fanless industrial mini PC recommended for Linux — official manufacturer photo",
   },
   android: {
-    srcs: ["/images/pdf/android-device.png"],
+    srcs: ["/images/pdf/android-device-cutout.png"],
     captionFr: "Exemple de tablette Android compatible — photo officielle du fabricant",
     captionEn: "Example compatible Android tablet — official manufacturer photo",
   },

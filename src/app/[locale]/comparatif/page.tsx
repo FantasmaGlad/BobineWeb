@@ -96,7 +96,7 @@ const COMPARISONS_DATA = {
         slug: "les-mills-cinema",
         target: "Les Mills Cinema & Les Mills Virtual",
         badge: "Modèle Premium & Redevances",
-        image: "/images/hardware/geekom-it13-max.webp",
+        image: "/images/hardware/geekom-it13-max-cutout.webp",
         headline: "Économisez 1 500 € à 3 600 € / an par studio sans sacrifier l'expérience immersive.",
         description:
           "Comparatif détaillé entre le modèle à royalties cumulées de Les Mills (BodyPump, RPM, The Trip) et la régie libre Bobine sur mini PC reconditionné standard.",
@@ -141,7 +141,7 @@ const COMPARISONS_DATA = {
         slug: "affichage-dynamique-fitness",
         target: "Anthias (Screenly OSE) & Affichage Dynamique (TouchPlayer, Waves, Yodeck)",
         badge: "Régie Métier vs Signalétique",
-        image: "/images/hardware/tv-google-tv-streamer.webp",
+        image: "/images/hardware/tv-google-tv-streamer-cutout.webp",
         headline: "Pourquoi un afficheur passif comme Anthias ne remplace pas une régie vidéo fitness.",
         description:
           "Comprendre la différence fondamentale entre des boucles d'images passives et les fonctions métier de Bobine (planning de cours programmés, borne tactile adhérent, radio 24/7).",
@@ -216,7 +216,7 @@ const COMPARISONS_DATA = {
         slug: "les-mills-cinema",
         target: "Les Mills Cinema & Les Mills Virtual",
         badge: "Premium Royalties vs Open Playout",
-        image: "/images/hardware/geekom-it13-max.webp",
+        image: "/images/hardware/geekom-it13-max-cutout.webp",
         headline: "Save $1,500 to $3,600 / year per studio with zero recurring license fees.",
         description:
           "Detailed breakdown between Les Mills cumulative royalties (BodyPump, RPM, The Trip) and Bobine's free sovereign playout engine running on budget mini PCs.",
@@ -261,7 +261,7 @@ const COMPARISONS_DATA = {
         slug: "affichage-dynamique-fitness",
         target: "Anthias (Screenly OSE) & Generic Signage (TouchPlayer, Waves, Yodeck)",
         badge: "Dedicated Playout vs Generic Signage",
-        image: "/images/hardware/tv-google-tv-streamer.webp",
+        image: "/images/hardware/tv-google-tv-streamer-cutout.webp",
         headline: "Why passive players like Anthias fail to meet gym studio requirements.",
         description:
           "Understanding the gap between generic slide/video loopers and Bobine's purpose-built fitness features (scheduled class playout, member touch kiosk, 24/7 gym radio).",

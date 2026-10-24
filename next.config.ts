@@ -33,9 +33,8 @@ const securityHeaders = [
   },
 ];
 
-// Pages dont le slug anglais diffère du slug français ; `/materiel` (simple renvoi vers
-// `/materiel/amazon`) est traité à part.
-const EN_PAGES = Object.entries(EN_SLUG_MAP).filter(([fr, en]) => fr !== en && fr !== "/materiel");
+// Pages dont le slug anglais diffère du slug français.
+const EN_PAGES = Object.entries(EN_SLUG_MAP).filter(([fr, en]) => fr !== en);
 
 // Miroir Tor : export statique (voir scripts/prepare-onion.mjs et le workflow onion-mirror).
 const isOnion = process.env.NEXT_PUBLIC_BOBINE_ONION === "1";
@@ -65,7 +64,6 @@ const nextConfig: NextConfig = {
       },
       // Slugs localisés EN : l'ancien chemin français sous /en passe en 308 vers le slug anglais
       ...EN_PAGES.map(([fr, en]) => ({ source: `/en${fr}`, destination: `/en${en}`, permanent: true })),
-      { source: "/en/materiel", destination: "/en/hardware/amazon", permanent: true },
     ];
   },
   // Même sitemap sous une seconde adresse : Search Console conserve l'état « Impossible de lire » d'une
@@ -75,7 +73,6 @@ const nextConfig: NextConfig = {
       { source: "/sitemap-bobine.xml", destination: "/sitemap.xml" },
       // Slugs localisés anglais mappés vers les pages réelles (dossiers français)
       ...EN_PAGES.map(([fr, en]) => ({ source: `/en${en}`, destination: `/en${fr}` })),
-      { source: "/en/hardware", destination: "/en/materiel/amazon" },
     ];
   },
   async headers() {

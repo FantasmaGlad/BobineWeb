@@ -36,11 +36,7 @@ export function lp(locale: Locale, pathname: string): string {
   return `/${locale}${getLocalizedPath(pathname, locale)}`;
 }
 
-const FR_FROM_EN = Object.fromEntries(
-  Object.entries(EN_SLUG_MAP)
-    .filter(([fr]) => fr !== "/materiel")
-    .map(([fr, en]) => [en, fr])
-);
+const FR_FROM_EN = Object.fromEntries(Object.entries(EN_SLUG_MAP).map(([fr, en]) => [en, fr]));
 
 /** Chemin français (dossier réel) d'un chemin sans préfixe de langue, qu'il soit français ou anglais. */
 export function toFrenchPath(pathname: string): string {

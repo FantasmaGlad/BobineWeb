@@ -1,0 +1,589 @@
+{
+  "routes": [
+    {
+      "id": "home",
+      "path": "",
+      "kind": "hub",
+      "label": {
+        "fr": "Accueil",
+        "en": "Home"
+      },
+      "description": {
+        "fr": "Régie vidéo et audio libre, auto-hébergée et hors ligne pour salles de sport.",
+        "en": "Free, self-hosted, offline video and audio playout for fitness studios."
+      },
+      "priority": 1.0,
+      "changeFrequency": "weekly",
+      "icon": "icon:globe"
+    },
+    {
+      "id": "features",
+      "path": "/fonctionnalites",
+      "kind": "leaf",
+      "label": {
+        "fr": "Fonctionnalités",
+        "en": "Features"
+      },
+      "description": {
+        "fr": "Lecture, régie, canaux, plateformes et outils de Bobine.",
+        "en": "Playback, control room, channels, platforms and tools in Bobine."
+      },
+      "priority": 0.95,
+      "changeFrequency": "weekly",
+      "parent": "home",
+      "icon": "icon:layers",
+      "nav": true,
+      "footer": "product"
+    },
+    {
+      "id": "baamix",
+      "path": "/baamix",
+      "kind": "leaf",
+      "label": {
+        "fr": "Assistant IA Baamix",
+        "en": "Baamix AI assistant"
+      },
+      "description": {
+        "fr": "La mascotte de Bobine et son assistant pour répondre à vos questions.",
+        "en": "Bobine's mascot and the assistant that answers your questions."
+      },
+      "priority": 0.85,
+      "changeFrequency": "weekly",
+      "parent": "resources",
+      "icon": "icon:zap",
+      "footer": "product"
+    },
+    {
+      "id": "download",
+      "path": "/telechargement",
+      "kind": "hub",
+      "label": {
+        "fr": "Télécharger",
+        "en": "Download"
+      },
+      "description": {
+        "fr": "Choisissez votre système, votre canal de mise à jour et vérifiez les fichiers avant de les installer.",
+        "en": "Pick your system and update channel, and verify the files before installing them."
+      },
+      "priority": 0.95,
+      "changeFrequency": "weekly",
+      "parent": "home",
+      "icon": "icon:download",
+      "nav": true,
+      "footer": "download"
+    },
+    {
+      "id": "computer",
+      "path": "/ordinateur",
+      "kind": "leaf",
+      "label": {
+        "fr": "Ordinateur (PC & Mac)",
+        "en": "Computer (PC & Mac)"
+      },
+      "description": {
+        "fr": "Installateur pour Windows et macOS, en 64 bits et ARM64.",
+        "en": "Installer for Windows and macOS, 64-bit and ARM64."
+      },
+      "priority": 0.9,
+      "changeFrequency": "weekly",
+      "parent": "download",
+      "icon": "brand:os.windows",
+      "footer": "download"
+    },
+    {
+      "id": "linux",
+      "path": "/linux",
+      "kind": "leaf",
+      "label": {
+        "fr": "Linux",
+        "en": "Linux"
+      },
+      "description": {
+        "fr": "Dépôts signés APT, DNF et Pacman pour Debian, Fedora et Arch Linux.",
+        "en": "Signed APT, DNF and Pacman repositories for Debian, Fedora and Arch Linux."
+      },
+      "priority": 0.9,
+      "changeFrequency": "weekly",
+      "parent": "download",
+      "icon": "brand:os.linux",
+      "footer": "download"
+    },
+    {
+      "id": "androidtv",
+      "path": "/android-tv",
+      "kind": "leaf",
+      "label": {
+        "fr": "Android TV",
+        "en": "Android TV"
+      },
+      "description": {
+        "fr": "Application pour boîtiers Android TV et Google TV.",
+        "en": "App for Android TV and Google TV boxes."
+      },
+      "priority": 0.9,
+      "changeFrequency": "weekly",
+      "parent": "download",
+      "icon": "brand:os.androidtv",
+      "footer": "download"
+    },
+    {
+      "id": "googlebook",
+      "path": "/google-book",
+      "kind": "leaf",
+      "label": {
+        "fr": "Google Book",
+        "en": "Google Book"
+      },
+      "description": {
+        "fr": "Bobine sur Google Book et tablettes Android.",
+        "en": "Bobine on Google Book and Android tablets."
+      },
+      "priority": 0.9,
+      "changeFrequency": "weekly",
+      "parent": "download",
+      "icon": "brand:os.googlebook",
+      "footer": "download"
+    },
+    {
+      "id": "tor",
+      "path": "/tor",
+      "kind": "leaf",
+      "label": {
+        "fr": "Tor (.onion)",
+        "en": "Tor (.onion)"
+      },
+      "description": {
+        "fr": "Miroir du site et dépôt de paquets accessibles par le réseau Tor.",
+        "en": "Site mirror and package repository reachable over the Tor network."
+      },
+      "priority": 0.8,
+      "changeFrequency": "monthly",
+      "parent": "download",
+      "icon": "brand:os.tor",
+      "footer": "download"
+    },
+    {
+      "id": "docs",
+      "path": "/documentation",
+      "kind": "hub",
+      "label": {
+        "fr": "Documentation",
+        "en": "Documentation"
+      },
+      "description": {
+        "fr": "Installation, guide d'utilisation, questions fréquentes et documentation développeur.",
+        "en": "Installation, user guide, frequently asked questions and developer documentation."
+      },
+      "priority": 0.95,
+      "changeFrequency": "weekly",
+      "parent": "home",
+      "icon": "icon:terminal",
+      "nav": true,
+      "footer": "docs"
+    },
+    {
+      "id": "docs-usage",
+      "path": "/documentation/utilisation",
+      "kind": "leaf",
+      "label": {
+        "fr": "Guide d'utilisation",
+        "en": "User guide"
+      },
+      "description": {
+        "fr": "Utiliser Bobine au quotidien : cours, programmation, régie.",
+        "en": "Using Bobine every day: classes, scheduling, control room."
+      },
+      "priority": 0.85,
+      "changeFrequency": "weekly",
+      "parent": "docs",
+      "icon": "icon:display"
+    },
+    {
+      "id": "docs-faq",
+      "path": "/documentation/faq",
+      "kind": "leaf",
+      "label": {
+        "fr": "Questions fréquentes",
+        "en": "FAQ"
+      },
+      "description": {
+        "fr": "Réponses aux questions les plus courantes.",
+        "en": "Answers to the most common questions."
+      },
+      "priority": 0.85,
+      "changeFrequency": "weekly",
+      "parent": "docs",
+      "icon": "icon:search"
+    },
+    {
+      "id": "docs-dev",
+      "path": "/documentation/developpeurs",
+      "kind": "leaf",
+      "label": {
+        "fr": "Documentation développeur",
+        "en": "Developer documentation"
+      },
+      "description": {
+        "fr": "Architecture, API et contribution au code source.",
+        "en": "Architecture, API and contributing to the source code."
+      },
+      "priority": 0.8,
+      "changeFrequency": "monthly",
+      "parent": "docs",
+      "icon": "icon:cpu"
+    },
+    {
+      "id": "compare",
+      "path": "/comparatif",
+      "kind": "hub",
+      "label": {
+        "fr": "Comparatifs",
+        "en": "Comparisons"
+      },
+      "description": {
+        "fr": "Bobine face aux solutions de diffusion pour salles de sport.",
+        "en": "Bobine compared with playout solutions for fitness studios."
+      },
+      "priority": 0.9,
+      "changeFrequency": "weekly",
+      "parent": "home",
+      "icon": "icon:layers",
+      "nav": true,
+      "footer": "compare"
+    },
+    {
+      "id": "compare-lesmills",
+      "path": "/comparatif/les-mills-cinema",
+      "kind": "leaf",
+      "label": {
+        "fr": "Les Mills Cinema",
+        "en": "Les Mills Cinema"
+      },
+      "description": {
+        "fr": "Comparatif avec Les Mills Cinema.",
+        "en": "Comparison with Les Mills Cinema."
+      },
+      "priority": 0.9,
+      "changeFrequency": "weekly",
+      "parent": "compare",
+      "icon": "icon:video"
+    },
+    {
+      "id": "compare-wexer",
+      "path": "/comparatif/wexer-fitness-on-demand",
+      "kind": "leaf",
+      "label": {
+        "fr": "Wexer & Fitness On Demand",
+        "en": "Wexer & Fitness On Demand"
+      },
+      "description": {
+        "fr": "Comparatif avec Wexer et Fitness On Demand.",
+        "en": "Comparison with Wexer and Fitness On Demand."
+      },
+      "priority": 0.9,
+      "changeFrequency": "weekly",
+      "parent": "compare",
+      "icon": "icon:video"
+    },
+    {
+      "id": "compare-radical",
+      "path": "/comparatif/radical-fitness-yako",
+      "kind": "leaf",
+      "label": {
+        "fr": "Radical Fitness & Yako",
+        "en": "Radical Fitness & Yako"
+      },
+      "description": {
+        "fr": "Comparatif avec Radical Fitness et Yako.",
+        "en": "Comparison with Radical Fitness and Yako."
+      },
+      "priority": 0.9,
+      "changeFrequency": "weekly",
+      "parent": "compare",
+      "icon": "icon:video"
+    },
+    {
+      "id": "compare-signage",
+      "path": "/comparatif/affichage-dynamique-fitness",
+      "kind": "leaf",
+      "label": {
+        "fr": "Affichage dynamique",
+        "en": "Digital signage"
+      },
+      "description": {
+        "fr": "Comparatif avec les solutions d'affichage dynamique.",
+        "en": "Comparison with digital signage solutions."
+      },
+      "priority": 0.9,
+      "changeFrequency": "weekly",
+      "parent": "compare",
+      "icon": "icon:display"
+    },
+    {
+      "id": "hardware",
+      "path": "/materiel",
+      "kind": "hub",
+      "label": {
+        "fr": "Matériel",
+        "en": "Hardware"
+      },
+      "description": {
+        "fr": "Choisir un ordinateur, un boîtier ou un écran compatible avec Bobine.",
+        "en": "Choose a computer, box or display that works with Bobine."
+      },
+      "priority": 0.9,
+      "changeFrequency": "weekly",
+      "parent": "home",
+      "icon": "icon:cpu",
+      "nav": true,
+      "footer": "hardware"
+    },
+    {
+      "id": "hardware-aliexpress",
+      "path": "/materiel/aliexpress",
+      "kind": "leaf",
+      "label": {
+        "fr": "Sélection AliExpress",
+        "en": "AliExpress selection"
+      },
+      "description": {
+        "fr": "Matériel compatible proposé sur AliExpress.",
+        "en": "Compatible hardware offered on AliExpress."
+      },
+      "priority": 0.7,
+      "changeFrequency": "weekly",
+      "parent": "hardware",
+      "icon": "icon:external"
+    },
+    {
+      "id": "hardware-amazon",
+      "path": "/materiel/amazon",
+      "kind": "leaf",
+      "label": {
+        "fr": "Sélection Amazon",
+        "en": "Amazon selection"
+      },
+      "description": {
+        "fr": "Matériel compatible proposé sur Amazon.",
+        "en": "Compatible hardware offered on Amazon."
+      },
+      "priority": 0.9,
+      "changeFrequency": "weekly",
+      "parent": "hardware",
+      "icon": "icon:external",
+      "hidden": true
+    },
+    {
+      "id": "resources",
+      "path": "/ressources",
+      "kind": "hub",
+      "label": {
+        "fr": "Ressources",
+        "en": "Resources"
+      },
+      "description": {
+        "fr": "Blog, nouveautés, canaux de mise à jour, sécurité et projet.",
+        "en": "Blog, what's new, update channels, security and the project."
+      },
+      "priority": 0.9,
+      "changeFrequency": "weekly",
+      "parent": "home",
+      "icon": "icon:layers",
+      "nav": true,
+      "footer": "resources"
+    },
+    {
+      "id": "blog",
+      "path": "/blog",
+      "kind": "hub",
+      "label": {
+        "fr": "Blog",
+        "en": "Blog"
+      },
+      "description": {
+        "fr": "Une note par version publiée, avec les changements marquants.",
+        "en": "One note per published release, with the notable changes."
+      },
+      "priority": 0.85,
+      "changeFrequency": "daily",
+      "parent": "resources",
+      "icon": "icon:send",
+      "footer": "resources",
+      "dynamicChildren": true
+    },
+    {
+      "id": "news",
+      "path": "/nouveautes",
+      "kind": "leaf",
+      "label": {
+        "fr": "Nouveautés",
+        "en": "What's new"
+      },
+      "description": {
+        "fr": "La chronologie des dernières versions.",
+        "en": "The timeline of the latest releases."
+      },
+      "priority": 0.9,
+      "changeFrequency": "daily",
+      "parent": "resources",
+      "icon": "icon:zap",
+      "footer": "resources"
+    },
+    {
+      "id": "channels",
+      "path": "/canaux",
+      "kind": "hub",
+      "label": {
+        "fr": "Canaux de mise à jour",
+        "en": "Update channels"
+      },
+      "description": {
+        "fr": "Stable, Bêta et Canary : choisir son rythme de mises à jour.",
+        "en": "Stable, Beta and Canary: pick your update pace."
+      },
+      "priority": 0.9,
+      "changeFrequency": "weekly",
+      "parent": "resources",
+      "icon": "icon:layers"
+    },
+    {
+      "id": "channel-stable",
+      "path": "/canaux/stable",
+      "kind": "leaf",
+      "label": {
+        "fr": "Canal Stable",
+        "en": "Stable channel"
+      },
+      "description": {
+        "fr": "Versions officielles numérotées.",
+        "en": "Official numbered releases."
+      },
+      "priority": 0.85,
+      "changeFrequency": "daily",
+      "parent": "channels",
+      "icon": "icon:shield"
+    },
+    {
+      "id": "channel-beta",
+      "path": "/canaux/beta",
+      "kind": "leaf",
+      "label": {
+        "fr": "Canal Bêta",
+        "en": "Beta channel"
+      },
+      "description": {
+        "fr": "Lots de nouveautés choisis avant la Stable.",
+        "en": "Curated batches of changes ahead of Stable."
+      },
+      "priority": 0.85,
+      "changeFrequency": "daily",
+      "parent": "channels",
+      "icon": "icon:zap"
+    },
+    {
+      "id": "channel-canary",
+      "path": "/canaux/canary",
+      "kind": "leaf",
+      "label": {
+        "fr": "Canal Canary",
+        "en": "Canary channel"
+      },
+      "description": {
+        "fr": "Dernier commit, sans curation.",
+        "en": "Latest commit, uncurated."
+      },
+      "priority": 0.85,
+      "changeFrequency": "daily",
+      "parent": "channels",
+      "icon": "icon:terminal"
+    },
+    {
+      "id": "about",
+      "path": "/a-propos",
+      "kind": "leaf",
+      "label": {
+        "fr": "À propos",
+        "en": "About"
+      },
+      "description": {
+        "fr": "Le projet, son auteur et sa licence libre.",
+        "en": "The project, its author and its free licence."
+      },
+      "priority": 0.8,
+      "changeFrequency": "monthly",
+      "parent": "resources",
+      "icon": "icon:globe",
+      "footer": "project"
+    },
+    {
+      "id": "support",
+      "path": "/soutenir",
+      "kind": "leaf",
+      "label": {
+        "fr": "Soutenir le projet",
+        "en": "Support the project"
+      },
+      "description": {
+        "fr": "Contribuer ou soutenir le développement de Bobine.",
+        "en": "Contribute to or support the development of Bobine."
+      },
+      "priority": 0.7,
+      "changeFrequency": "monthly",
+      "parent": "resources",
+      "icon": "icon:send",
+      "footer": "project"
+    },
+    {
+      "id": "security",
+      "path": "/securite",
+      "kind": "leaf",
+      "label": {
+        "fr": "Sécurité",
+        "en": "Security"
+      },
+      "description": {
+        "fr": "Signalement de vulnérabilités et clé de signature.",
+        "en": "Vulnerability reporting and signing key."
+      },
+      "priority": 0.4,
+      "changeFrequency": "yearly",
+      "parent": "resources",
+      "icon": "icon:shield",
+      "footer": "legal"
+    },
+    {
+      "id": "legal",
+      "path": "/mentions-legales",
+      "kind": "leaf",
+      "label": {
+        "fr": "Mentions légales",
+        "en": "Legal notice"
+      },
+      "description": {
+        "fr": "Éditeur et hébergeur du site.",
+        "en": "Publisher and host of the site."
+      },
+      "priority": 0.3,
+      "changeFrequency": "yearly",
+      "parent": "home",
+      "footer": "legal"
+    },
+    {
+      "id": "privacy",
+      "path": "/confidentialite",
+      "kind": "leaf",
+      "label": {
+        "fr": "Confidentialité",
+        "en": "Privacy"
+      },
+      "description": {
+        "fr": "Données collectées et cookies.",
+        "en": "Collected data and cookies."
+      },
+      "priority": 0.3,
+      "changeFrequency": "yearly",
+      "parent": "home",
+      "footer": "legal"
+    }
+  ]
+}

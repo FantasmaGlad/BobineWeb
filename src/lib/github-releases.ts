@@ -113,7 +113,7 @@ Réservés aux utilisateurs ayant activé un canal anticipé dans Réglages > Mi
     title: "Bobine V3.0.1 — Canal Stable/Bêta, Dépôt APT Officiel & Fiabilité Multi-Plateformes",
     publishedAt: "2026-09-08T18:00:00Z",
     url: "https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.1",
-    body: `La version 3.0.1 introduit le canal de mise à jour Stable/Bêta ("Programme Bobine Beta"), le dépôt APT officiel apt.bobine.fit signé GPG pour Debian/Ubuntu, l'ouverture simultanée admin + kiosque sur PC, et la résolution dynamique des URLs réseau.`,
+    body: `La version 3.0.1 introduit le canal de mise à jour Stable/Bêta ("Programme Bobine Beta"), le dépôt APT officiel packages.bobine.fit/debian signé GPG pour Debian/Ubuntu, l'ouverture simultanée admin + kiosque sur PC, et la résolution dynamique des URLs réseau.`,
     isPrerelease: false,
   },
   {

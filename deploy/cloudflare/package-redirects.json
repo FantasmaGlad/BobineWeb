@@ -1,0 +1,66 @@
+[
+  {
+    "ref": "legacy_packages_key",
+    "description": "Clé commune des anciens dépôts Linux",
+    "expression": "(http.host in {\"apt.bobine.fit\" \"rpm.bobine.fit\" \"arch.bobine.fit\"}) and http.request.uri.path eq \"/bobine.gpg\"",
+    "action": "redirect",
+    "enabled": true,
+    "action_parameters": {
+      "from_value": {
+        "target_url": {
+          "value": "https://packages.bobine.fit/bobine.gpg"
+        },
+        "status_code": 301,
+        "preserve_query_string": true
+      }
+    }
+  },
+  {
+    "ref": "legacy_packages_apt",
+    "description": "Dépôt apt vers packages.bobine.fit/debian",
+    "expression": "http.host eq \"apt.bobine.fit\"",
+    "action": "redirect",
+    "enabled": true,
+    "action_parameters": {
+      "from_value": {
+        "target_url": {
+          "expression": "concat(\"https://packages.bobine.fit/debian\", http.request.uri.path)"
+        },
+        "status_code": 301,
+        "preserve_query_string": true
+      }
+    }
+  },
+  {
+    "ref": "legacy_packages_rpm",
+    "description": "Dépôt rpm vers packages.bobine.fit/fedora",
+    "expression": "http.host eq \"rpm.bobine.fit\"",
+    "action": "redirect",
+    "enabled": true,
+    "action_parameters": {
+      "from_value": {
+        "target_url": {
+          "expression": "concat(\"https://packages.bobine.fit/fedora\", http.request.uri.path)"
+        },
+        "status_code": 301,
+        "preserve_query_string": true
+      }
+    }
+  },
+  {
+    "ref": "legacy_packages_arch",
+    "description": "Dépôt arch vers packages.bobine.fit/arch",
+    "expression": "http.host eq \"arch.bobine.fit\"",
+    "action": "redirect",
+    "enabled": true,
+    "action_parameters": {
+      "from_value": {
+        "target_url": {
+          "expression": "concat(\"https://packages.bobine.fit/arch\", http.request.uri.path)"
+        },
+        "status_code": 301,
+        "preserve_query_string": true
+      }
+    }
+  }
+]

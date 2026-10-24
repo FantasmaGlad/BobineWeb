@@ -1313,9 +1313,9 @@ const armMiniPc: HardwareFormFactor = {
   targetEn: "Low-power Linux ARM64 control rooms compatible with bobine_x.y.z_arm64.deb",
   defaultTier: "recommande",
   editorialNoteFr:
-    "Installation native sous Linux ARM64 via bobine_x.y.z_arm64.deb, le dépôt apt.bobine.fit et bobine-assistant-arm64 (également compatible avec NVIDIA DGX Spark sous DGX OS Ubuntu ARM64). Pour les PC portables Qualcomm Snapdragon X Elite/Plus sous Windows 11 ARM64 et les stations NVIDIA Jetson Orin Nano Super, consultez l'onglet Amazon.",
+    "Installation native sous Linux ARM64 via bobine_x.y.z_arm64.deb, le dépôt packages.bobine.fit/debian et bobine-assistant-arm64 (également compatible avec NVIDIA DGX Spark sous DGX OS Ubuntu ARM64). Vérifiez les prérequis de votre appareil avant de choisir un paquet.",
   editorialNoteEn:
-    "Native installation on Linux ARM64 via bobine_x.y.z_arm64.deb, the apt.bobine.fit repository and bobine-assistant-arm64 (also compatible with NVIDIA DGX Spark on DGX OS Ubuntu ARM64). For Qualcomm Snapdragon X Elite/Plus laptops running Windows 11 ARM64 and NVIDIA Jetson Orin Nano Super stations, check the Amazon tab.",
+    "Native installation on Linux ARM64 via bobine_x.y.z_arm64.deb, the packages.bobine.fit/debian repository and bobine-assistant-arm64 (also compatible with NVIDIA DGX Spark on DGX OS Ubuntu ARM64). Check your device requirements before choosing a package.",
   tiers: ARM_MINIPC_TIERS,
 };
 

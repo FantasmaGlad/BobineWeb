@@ -10,7 +10,7 @@ const copy = {
     badge: "Vie Privée & Éthique",
     title: "Politique de Confidentialité",
     subtitle: "Ce que le site collecte, ce qui reste sur votre appareil et ce qui transite par des prestataires : zéro cookie publicitaire, zéro pistage commercial.",
-    updated: "Dernière mise à jour : 7 octobre 2026",
+    updated: "Dernière mise à jour : 24 octobre 2026",
     sections: [
       {
         heading: "1. Responsable du Traitement",
@@ -44,7 +44,7 @@ const copy = {
       },
       {
         heading: "6. Hébergement, Prestataires & Transferts Hors UE",
-        body: "Toutes les connexions à bobine.fit sont chiffrées via HTTPS / TLS. Le site est hébergé par Vercel Inc. et son trafic transite par Cloudflare, Inc. (DNS, accélération, protection contre les attaques), qui traitent des données techniques de connexion telles que l'adresse IP et les journaux de requêtes. Le dépôt de paquets apt.bobine.fit et le code source sont hébergés par GitHub, Inc., dont l'API est aussi interrogée par notre serveur pour lister les versions publiées. Un miroir en service onion (réseau Tor) du site et du dépôt est en outre hébergé sur une machine personnelle de l'éditeur : il ne conserve aucun journal de visite, n'utilise ni mesure d'audience ni ressource tierce, et n'affiche ni boutique ni assistant.",
+        body: "Toutes les connexions à bobine.fit sont chiffrées via HTTPS / TLS. Le site est hébergé par Vercel Inc. et son trafic transite par Cloudflare, Inc. (DNS, accélération, protection contre les attaques), qui traitent des données techniques de connexion telles que l'adresse IP et les journaux de requêtes. Le dépôt de paquets packages.bobine.fit/debian et le code source sont hébergés par GitHub, Inc., dont l'API est aussi interrogée par notre serveur pour lister les versions publiées. Un miroir en service onion (réseau Tor) du site et du dépôt est en outre hébergé sur une machine personnelle de l'éditeur : il ne conserve aucun journal de visite, n'utilise ni mesure d'audience ni ressource tierce, et n'affiche ni boutique ni assistant.",
         contact: "Ces prestataires sont établis aux États-Unis : vos données techniques peuvent donc être traitées hors de l'Union européenne, dans le cadre de leurs propres engagements et politiques de confidentialité.",
         subtext: "Le site ne revend ni ne cède aucune donnée à des tiers à des fins commerciales.",
       },
@@ -66,7 +66,7 @@ const copy = {
     badge: "Privacy & Digital Ethics",
     title: "Privacy Policy",
     subtitle: "What the site collects, what stays on your device and what goes through providers: zero advertising cookies, zero commercial tracking.",
-    updated: "Last updated: 7 October 2026",
+    updated: "Last updated: 24 October 2026",
     sections: [
       {
         heading: "1. Data Controller",
@@ -100,7 +100,7 @@ const copy = {
       },
       {
         heading: "6. Hosting, Providers & Transfers Outside the EU",
-        body: "All connections to bobine.fit are encrypted via HTTPS / TLS. The site is hosted by Vercel Inc. and its traffic goes through Cloudflare, Inc. (DNS, acceleration, protection against attacks), which process technical connection data such as IP addresses and request logs. The apt.bobine.fit package repository and the source code are hosted by GitHub, Inc., whose API our server also queries to list published releases. A mirror of the site and the repository is additionally served as an onion service (Tor network) from a personal machine of the publisher: it keeps no visit log, uses no analytics or third-party resource, and offers neither the store nor the assistant.",
+        body: "All connections to bobine.fit are encrypted via HTTPS / TLS. The site is hosted by Vercel Inc. and its traffic goes through Cloudflare, Inc. (DNS, acceleration, protection against attacks), which process technical connection data such as IP addresses and request logs. The packages.bobine.fit/debian package repository and the source code are hosted by GitHub, Inc., whose API our server also queries to list published releases. A mirror of the site and the repository is additionally served as an onion service (Tor network) from a personal machine of the publisher: it keeps no visit log, uses no analytics or third-party resource, and offers neither the store nor the assistant.",
         contact: "These providers are based in the United States: your technical data may therefore be processed outside the European Union, under their own commitments and privacy policies.",
         subtext: "The site neither sells nor transfers any data to third parties for commercial purposes.",
       },

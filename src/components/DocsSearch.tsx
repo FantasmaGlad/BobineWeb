@@ -90,14 +90,14 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
     {
       title: "Installer Bobine sur Fedora, RHEL, AlmaLinux ou Rocky Linux (dnf)",
       category: "Installation",
-      excerpt: "Paquet .rpm et dépôt dnf rpm.bobine.fit, clé de signature, ffmpeg complet via RPM Fusion.",
+      excerpt: "Paquet .rpm et dépôt dnf packages.bobine.fit/fedora, clé de signature, ffmpeg complet via RPM Fusion.",
       href: "/fr/documentation",
       tags: ["fedora", "rpm", "dnf", "rhel", "alma", "rocky", "nobara", "rpm fusion", "ffmpeg"],
     },
     {
       title: "Installer Bobine sur Arch Linux, EndeavourOS, CachyOS ou Manjaro (pacman)",
       category: "Installation",
-      excerpt: "Paquet pacman et dépôt [bobine] arch.bobine.fit, import de la clé, section pacman.conf.",
+      excerpt: "Paquet pacman et dépôt [bobine] packages.bobine.fit/arch, import de la clé, section pacman.conf.",
       href: "/fr/documentation",
       tags: ["arch", "archlinux", "pacman", "endeavouros", "cachyos", "manjaro", "pkg.tar.zst"],
     },
@@ -225,14 +225,14 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
     {
       title: "Install Bobine on Fedora, RHEL, AlmaLinux or Rocky Linux (dnf)",
       category: "Installation",
-      excerpt: ".rpm package and dnf repository rpm.bobine.fit, signing key, full ffmpeg through RPM Fusion.",
+      excerpt: ".rpm package and dnf repository packages.bobine.fit/fedora, signing key, full ffmpeg through RPM Fusion.",
       href: "/en/documentation",
       tags: ["fedora", "rpm", "dnf", "rhel", "alma", "rocky", "nobara", "rpm fusion", "ffmpeg"],
     },
     {
       title: "Install Bobine on Arch Linux, EndeavourOS, CachyOS or Manjaro (pacman)",
       category: "Installation",
-      excerpt: "pacman package and [bobine] repository arch.bobine.fit, key import, pacman.conf section.",
+      excerpt: "pacman package and [bobine] repository packages.bobine.fit/arch, key import, pacman.conf section.",
       href: "/en/documentation",
       tags: ["arch", "archlinux", "pacman", "endeavouros", "cachyos", "manjaro", "pkg.tar.zst"],
     },

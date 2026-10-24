@@ -2,14 +2,14 @@
  * Paquets Linux de Bobine : l'unique endroit où vivent les conventions de nommage des fichiers, les adresses
  * des dépôts, l'empreinte de la clé de signature et les commandes d'installation et de mise à jour des trois
  * familles (Debian et Ubuntu en .deb, Fedora en .rpm, Arch Linux en .pkg.tar.zst). Ces conventions sont celles du
- * dépôt Bobine (workflow de release et dépôts rpm.bobine.fit et arch.bobine.fit) : si l'une change, c'est ce
+ * dépôt Bobine (workflow de release et dépôts packages.bobine.fit/fedora et packages.bobine.fit/arch) : si l'une change, c'est ce
  * fichier, et lui seul, qu'il faut corriger. Les interfaces (fenêtre de téléchargement, documentation, pages de
  * référencement) n'écrivent jamais un nom de fichier ni une commande de dépôt à la main.
  */
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 
 /**
- * Interrupteur unique des dépôts Fedora (dnf) et Arch (pacman). Faux tant que rpm.bobine.fit et arch.bobine.fit ne
+ * Interrupteur unique des dépôts Fedora (dnf) et Arch (pacman). Faux tant que packages.bobine.fit/fedora et packages.bobine.fit/arch ne
  * sont pas en ligne et que les paquets ne sont pas publiés dans les releases : le site affiche alors « Bientôt »,
  * sans lien cliquable, et présente les commandes comme valables « dès la mise en ligne des dépôts ». Passer à
  * `true` active d'un coup la fenêtre de téléchargement, la documentation et les pages de référencement.
@@ -138,8 +138,8 @@ export const NOT_VALIDATED_NOTE: Localized = {
 
 /** Mention affichée à côté des commandes Fedora et Arch tant que l'interrupteur est faux. */
 export const REPOS_SOON_NOTE: Localized = {
-  fr: "Dès la mise en ligne des dépôts : rpm.bobine.fit et arch.bobine.fit ne sont pas encore publiés, ces commandes ne fonctionneront qu'à ce moment-là.",
-  en: "As soon as the repositories go live: rpm.bobine.fit and arch.bobine.fit are not published yet, so these commands will only work then.",
+  fr: "Ce dépôt est temporairement indisponible. Consultez packages.bobine.fit pour connaître les canaux disponibles.",
+  en: "This repository is temporarily unavailable. Check packages.bobine.fit for available channels.",
 };
 
 /** Phrase de statut d'une famille pour une langue : vide quand son dépôt est réellement en ligne. */

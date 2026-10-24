@@ -57,6 +57,8 @@ jobs:
         run: node scripts/ci/glass-check.mjs
       - name: Simulateur d'installation aligné sur les scripts
         run: bash scripts/ci/check-simulator-sync.sh
+      - name: Hôte unique des dépôts Linux
+        run: bash scripts/ci/check-package-hosts.sh
       - name: Paquets Linux (conventions, empreinte, logos)
         run: bash scripts/ci/check-linux-packages.sh
       - uses: actions/cache@v6

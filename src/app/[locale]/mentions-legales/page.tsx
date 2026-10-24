@@ -10,7 +10,7 @@ const copy = {
     badge: "Transparence & Cadre Légal",
     title: "Mentions Légales",
     subtitle: "Informations légales relatives à l'éditeur, à l'hébergement, au rôle du site dans les achats de matériel et aux droits d'utilisation du projet open-source Bobine.",
-    updated: "Dernière mise à jour : 7 octobre 2026",
+    updated: "Dernière mise à jour : 24 octobre 2026",
     sections: [
       {
         heading: "1. Éditeur du Site & Direction de la Publication",
@@ -21,7 +21,7 @@ const copy = {
       {
         heading: "2. Hébergement & Infrastructure",
         body: "Le site web bobine.fit est hébergé par Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis (vercel.com). Le trafic du site transite par le réseau de Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, États-Unis (cloudflare.com), qui assure la résolution DNS, l'accélération et la protection contre les attaques. Un miroir en service onion (Tor) est hébergé par l'éditeur lui-même, sur sa propre machine.",
-        contact: "Les dépôts de paquets Linux apt.bobine.fit (et, dès leur ouverture, rpm.bobine.fit et arch.bobine.fit) sont servis par GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis), tout comme le code source du projet.",
+        contact: "Les dépôts de paquets Linux packages.bobine.fit (APT, DNF et Pacman) sont servis par GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis), tout comme le code source du projet.",
         subtext: "Le traitement des données par ces prestataires est décrit dans la Politique de Confidentialité.",
       },
       {
@@ -54,7 +54,7 @@ const copy = {
     badge: "Transparency & Legal Framework",
     title: "Legal Notice",
     subtitle: "Legal information regarding the publisher, hosting, the site's role in hardware purchases, and the terms of use of the open-source Bobine project.",
-    updated: "Last updated: 7 October 2026",
+    updated: "Last updated: 24 October 2026",
     sections: [
       {
         heading: "1. Site Publisher & Publication Director",
@@ -65,7 +65,7 @@ const copy = {
       {
         heading: "2. Hosting & Infrastructure",
         body: "The website bobine.fit is hosted by Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA (vercel.com). Site traffic goes through the network of Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA (cloudflare.com), which provides DNS resolution, acceleration and protection against attacks. A mirror served as an onion service (Tor) is hosted by the publisher on their own machine.",
-        contact: "The apt.bobine.fit Linux package repositories (and, once they open, rpm.bobine.fit and arch.bobine.fit) are served by GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA), as is the project's source code.",
+        contact: "The packages.bobine.fit Linux package repositories (APT, DNF and Pacman) are served by GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA), as is the project's source code.",
         subtext: "How these providers process data is described in the Privacy Policy.",
       },
       {

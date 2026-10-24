@@ -261,7 +261,7 @@ export default async function DeveloppeursPage({
       </p>
       <ul>
         <li>Website: <code>http://{ONION_SITE_HOST}/</code></li>
-        <li>APT repository: <code>tor+http://{ONION_APT_HOST}/</code> (same signing key as apt.bobine.fit, checked by <code>apt</code>; install <code>apt-transport-tor</code> first)</li>
+        <li>APT repository: <code>tor+http://{ONION_APT_HOST}/</code> (same signing key as packages.bobine.fit/debian, checked by <code>apt</code>; install <code>apt-transport-tor</code> first)</li>
       </ul>
       <p>
         The mirror is a static export of this site with no server-side route, and the hardware store and the Baamix assistant are deliberately not offered there. Learn more about Tor: <a href={TOR_PROJECT_URL} target="_blank" rel="noopener noreferrer">torproject.org</a> and its <a href={TOR_SOURCE_URL} target="_blank" rel="noopener noreferrer">source code on GitHub</a>.
@@ -472,7 +472,7 @@ export default async function DeveloppeursPage({
       </p>
       <ul>
         <li>Site : <code>http://{ONION_SITE_HOST}/</code></li>
-        <li>Dépôt APT : <code>tor+http://{ONION_APT_HOST}/</code> (même clé de signature que apt.bobine.fit, vérifiée par <code>apt</code> ; installer d&apos;abord <code>apt-transport-tor</code>)</li>
+        <li>Dépôt APT : <code>tor+http://{ONION_APT_HOST}/</code> (même clé de signature que packages.bobine.fit/debian, vérifiée par <code>apt</code> ; installer d&apos;abord <code>apt-transport-tor</code>)</li>
       </ul>
       <p>
         Le miroir est un export statique de ce site, sans aucune route serveur ; la boutique matériel et l&apos;assistant Baamix n&apos;y sont volontairement pas proposés. Pour en savoir plus sur Tor : <a href={TOR_PROJECT_URL} target="_blank" rel="noopener noreferrer">torproject.org</a> et son <a href={TOR_SOURCE_URL} target="_blank" rel="noopener noreferrer">code source sur GitHub</a>.

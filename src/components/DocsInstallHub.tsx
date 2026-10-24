@@ -646,8 +646,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           <>
             <p>
               {isEn
-                ? "Add the signed repository (rpm.bobine.fit) to receive Bobine with your regular dnf upgrade. The first install shows the signing key fingerprint: compare it with the one below before accepting."
-                : "Ajoutez le dépôt signé (rpm.bobine.fit) pour recevoir Bobine avec votre dnf upgrade habituel. La première installation affiche l'empreinte de la clé de signature : comparez-la à celle ci-dessous avant d'accepter."}
+                ? "Add the signed repository (packages.bobine.fit/fedora) to receive Bobine with your regular dnf upgrade. The first install shows the signing key fingerprint: compare it with the one below before accepting."
+                : "Ajoutez le dépôt signé (packages.bobine.fit/fedora) pour recevoir Bobine avec votre dnf upgrade habituel. La première installation affiche l'empreinte de la clé de signature : comparez-la à celle ci-dessous avant d'accepter."}
             </p>
             {renderRepoNote("fedora")}
             {renderCopyBlock(fedoraInstallScript())}

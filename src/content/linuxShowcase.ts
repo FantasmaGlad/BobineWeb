@@ -1,0 +1,486 @@
+export interface DistroItem {
+  id: string;
+  name: string;
+  icon: string;
+  pkgFormat: string;
+  architectures: string[];
+  status: {
+    fr: string;
+    en: string;
+  };
+  siteUrl: string;
+}
+
+export interface DistroFamily {
+  id: string;
+  title: {
+    fr: string;
+    en: string;
+  };
+  badge: {
+    fr: string;
+    en: string;
+  };
+  manager: string;
+  distros: DistroItem[];
+}
+
+export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
+  {
+    id: "debian",
+    title: {
+      fr: "Famille Debian & Ubuntu",
+      en: "Debian & Ubuntu Family",
+    },
+    badge: {
+      fr: "Gestionnaire APT (.deb)",
+      en: "APT Package Manager (.deb)",
+    },
+    manager: "apt",
+    distros: [
+      {
+        id: "debian",
+        name: "Debian 12 / 13",
+        icon: "/images/icons/distros/debian.svg",
+        pkgFormat: ".deb",
+        architectures: ["x86_64", "aarch64"],
+        status: { fr: "Référence Appliance", en: "Appliance Baseline" },
+        siteUrl: "https://www.debian.org",
+      },
+      {
+        id: "ubuntu",
+        name: "Ubuntu 22.04 / 24.04 LTS",
+        icon: "/images/icons/distros/ubuntu.svg",
+        pkgFormat: ".deb",
+        architectures: ["x86_64", "aarch64"],
+        status: { fr: "Certifié LTS", en: "LTS Certified" },
+        siteUrl: "https://ubuntu.com",
+      },
+      {
+        id: "linuxmint",
+        name: "Linux Mint 21 / 22",
+        icon: "/images/icons/distros/linuxmint.svg",
+        pkgFormat: ".deb",
+        architectures: ["x86_64"],
+        status: { fr: "Validé Bureau", en: "Desktop Validated" },
+        siteUrl: "https://linuxmint.com",
+      },
+      {
+        id: "popos",
+        name: "Pop!_OS 22.04 / 24.04",
+        icon: "/images/icons/distros/popos.svg",
+        pkgFormat: ".deb",
+        architectures: ["x86_64"],
+        status: { fr: "Validé GPU", en: "GPU Validated" },
+        siteUrl: "https://system76.com/pop",
+      },
+      {
+        id: "zorin",
+        name: "Zorin OS 17",
+        icon: "/images/icons/distros/zorin.svg",
+        pkgFormat: ".deb",
+        architectures: ["x86_64"],
+        status: { fr: "Validé Bureau", en: "Desktop Validated" },
+        siteUrl: "https://zorin.com",
+      },
+      {
+        id: "raspberrypi",
+        name: "Raspberry Pi OS (64-bit)",
+        icon: "/images/icons/distros/raspberrypi.svg",
+        pkgFormat: ".deb",
+        architectures: ["aarch64"],
+        status: { fr: "Validé ARM64", en: "ARM64 Validated" },
+        siteUrl: "https://www.raspberrypi.com/software/",
+      },
+    ],
+  },
+  {
+    id: "fedora",
+    title: {
+      fr: "Famille Fedora & Dérivés RPM",
+      en: "Fedora & RPM Derivatives",
+    },
+    badge: {
+      fr: "Gestionnaire DNF (.rpm)",
+      en: "DNF Package Manager (.rpm)",
+    },
+    manager: "dnf",
+    distros: [
+      {
+        id: "fedora",
+        name: "Fedora 39 / 40 / 41",
+        icon: "/images/icons/distros/fedora.svg",
+        pkgFormat: ".rpm",
+        architectures: ["x86_64", "aarch64"],
+        status: { fr: "Certifié Natif", en: "Natively Certified" },
+        siteUrl: "https://fedoraproject.org",
+      },
+      {
+        id: "nobara",
+        name: "Nobara Linux",
+        icon: "/images/icons/distros/nobara.svg",
+        pkgFormat: ".rpm",
+        architectures: ["x86_64"],
+        status: { fr: "Validé Multimédia", en: "Media Validated" },
+        siteUrl: "https://nobaraproject.org",
+      },
+      {
+        id: "rhel",
+        name: "Red Hat Enterprise Linux",
+        icon: "/images/icons/distros/rhel.svg",
+        pkgFormat: ".rpm",
+        architectures: ["x86_64", "aarch64"],
+        status: { fr: "Entreprise", en: "Enterprise" },
+        siteUrl: "https://www.redhat.com",
+      },
+      {
+        id: "almalinux",
+        name: "AlmaLinux 9",
+        icon: "/images/icons/distros/almalinux.svg",
+        pkgFormat: ".rpm",
+        architectures: ["x86_64", "aarch64"],
+        status: { fr: "Validé Serveur", en: "Server Validated" },
+        siteUrl: "https://almalinux.org",
+      },
+      {
+        id: "rockylinux",
+        name: "Rocky Linux 9",
+        icon: "/images/icons/distros/rockylinux.svg",
+        pkgFormat: ".rpm",
+        architectures: ["x86_64", "aarch64"],
+        status: { fr: "Validé Serveur", en: "Server Validated" },
+        siteUrl: "https://rockylinux.org",
+      },
+      {
+        id: "opensuse",
+        name: "openSUSE Tumbleweed & Leap",
+        icon: "/images/icons/distros/opensuse.svg",
+        pkgFormat: ".rpm",
+        architectures: ["x86_64", "aarch64"],
+        status: { fr: "Zypper Compatible", en: "Zypper Compatible" },
+        siteUrl: "https://www.opensuse.org",
+      },
+    ],
+  },
+  {
+    id: "arch",
+    title: {
+      fr: "Famille Arch Linux & Dérivés",
+      en: "Arch Linux & Derivatives",
+    },
+    badge: {
+      fr: "Gestionnaire Pacman (.pkg.tar.zst)",
+      en: "Pacman Package Manager (.pkg.tar.zst)",
+    },
+    manager: "pacman",
+    distros: [
+      {
+        id: "arch",
+        name: "Arch Linux",
+        icon: "/images/icons/distros/arch.svg",
+        pkgFormat: "pacman",
+        architectures: ["x86_64", "aarch64"],
+        status: { fr: "Dépôt Dédié [bobine]", en: "Dedicated [bobine] Repo" },
+        siteUrl: "https://archlinux.org",
+      },
+      {
+        id: "endeavouros",
+        name: "EndeavourOS",
+        icon: "/images/icons/distros/endeavouros.svg",
+        pkgFormat: "pacman",
+        architectures: ["x86_64"],
+        status: { fr: "Rolling Release", en: "Rolling Release" },
+        siteUrl: "https://endeavouros.com",
+      },
+      {
+        id: "cachyos",
+        name: "CachyOS",
+        icon: "/images/icons/distros/cachyos.svg",
+        pkgFormat: "pacman",
+        architectures: ["x86_64"],
+        status: { fr: "Optimisé Performance", en: "Performance Tuned" },
+        siteUrl: "https://cachyos.org",
+      },
+      {
+        id: "manjaro",
+        name: "Manjaro Linux",
+        icon: "/images/icons/distros/manjaro.svg",
+        pkgFormat: "pacman",
+        architectures: ["x86_64", "aarch64"],
+        status: { fr: "Validé Bureau", en: "Desktop Validated" },
+        siteUrl: "https://manjaro.org",
+      },
+    ],
+  },
+];
+
+export const LINUX_SHOWCASE_CONTENT = {
+  fr: {
+    hero: {
+      badge: "Appliance Kiosque & Poste de Bureau 2026",
+      title: "La puissance de Bobine. La liberté de Linux.",
+      lead: "Conçu pour les salles de sport, cinémas associatifs et régies audiovisuelles exigeantes : découvrez l'appliance autonome et le logiciel de diffusion le plus complet sur Linux. Paquets natifs signés pour Debian, Fedora et Arch.",
+      ctaPrimary: "Installer sur votre machine",
+      ctaSecondary: "Explorer les dépôts officiels",
+      chipsLabel: "Validé sur architectures certifiées :",
+    },
+    chips: [
+      { name: "AMD Ryzen", note: "Zen 3, Zen 4, Hawk Point", icon: "/images/icons/chips/amd.svg" },
+      { name: "Intel Core", note: "Gen 12+, Core Ultra", icon: "/images/icons/chips/intel.svg" },
+      { name: "Qualcomm Snapdragon", note: "ARM64 X Elite & X Plus", icon: "/images/icons/chips/snapdragon.svg" },
+      { name: "Framework Laptop", note: "Modulaire 13 & 16", icon: "/images/icons/os/framework.svg" },
+    ],
+    terminal: {
+      sectionTag: "Installation Express & Dépôts",
+      sectionTitle: "Installez Bobine en une ligne de commande.",
+      sectionDesc: "Chaque famille de distribution dispose d'un dépôt signé et sécurisé. Choisissez votre système et votre canal de mise à jour pour obtenir immédiatement la commande exacte.",
+      tabs: {
+        debian: "Debian & Ubuntu",
+        fedora: "Fedora & RHEL",
+        arch: "Arch Linux",
+        appliance: "Script Appliance Dédiée",
+      },
+      channels: {
+        stable: "Stable (Production)",
+        beta: "Bêta (Validée)",
+        canary: "Canary (En continu)",
+      },
+      copyBtn: "Copier la commande",
+      copiedText: "Commande copiée !",
+      repoNote: "Dépôts officiels hébergés sur",
+      viewRepoLink: "packages.bobine.fit",
+      keyVerifiedNote: "Toutes les signatures sont vérifiables avec l'empreinte OpenPGP",
+    },
+    distros: {
+      sectionTag: "Écosystème Certifié",
+      sectionTitle: "16 distributions Linux prises en charge.",
+      sectionDesc: "Qu'il s'agisse d'une appliance Debian dédiée tournant en continu 24h/24 ou de votre station de travail de montage Fedora ou Arch, Bobine s'intègre comme un paquet système natif.",
+    },
+    bento: {
+      sectionTag: "Architecture Audiovisuelle",
+      sectionTitle: "Pourquoi Bobine excelle sur Linux.",
+      sectionDesc: "Conçu sans artifice ni couche superflue, Bobine exploite les primitives noyau les plus performantes pour garantir une fluidité vidéo absolue sans consommer de ressources inutiles.",
+      cards: [
+        {
+          badge: "Accélération Matérielle 4K",
+          title: "Décodage direct VA-API & NVDEC à 60 fps",
+          desc: "Déchargez intégralement le processeur grâce au décodage vidéo par la puce graphique Intel, AMD ou NVIDIA. Même sur un mini-PC fanless ou un vieux portable reconditionné, la lecture reste d'une fluidité parfaite sans chauffer.",
+          features: [
+            "Support matériel H.264, HEVC / H.265, VP9 et AV1",
+            "Sortie multi-écrans HDMI indépendante en plein écran natif",
+            "Zéro saccade ni déchirement d'image (V-Sync Wayland / X11)",
+          ],
+        },
+        {
+          badge: "Résilience Kiosque 24/7",
+          title: "Appliance durcie avec auto-guérison Systemd",
+          desc: "En mode appliance, Bobine démarre instantanément à l'allumage sans afficher de bureau. Le service systemd est sécurisé en bac à sable strict et surveillé en continu par un watchdog matériel.",
+          features: [
+            "Démarrage silencieux direct vers l'écran de projection",
+            "Redémarrage automatique en sous-seconde en cas d'anomalie",
+            "Montage automatique sécurisé des clés USB de cours",
+          ],
+        },
+        {
+          badge: "Souveraineté & Respect",
+          title: "100% Hors-ligne, zéro abonnement, zéro cloud",
+          desc: "Vos plannings, vos vidéos et vos données d'adhérents restent sur votre machine locale. Aucune connexion internet n'est requise pour diffuser vos cours, piloter la régie ou lancer le kiosque cinéma.",
+          features: [
+            "Contrôle local immédiat depuis smartphone ou tablette",
+            "Zéro compte requis, zéro télémétrie invasive",
+            "Licence libre AGPL-3.0 : vous êtes propriétaire de votre outil",
+          ],
+        },
+        {
+          badge: "Intégration Système",
+          title: "Mises à jour silencieuses avec votre OS",
+          desc: "Fini les installeurs manuels ou les binaires dispersés : Bobine se met à jour naturellement lors de vos `apt upgrade`, `dnf upgrade` ou `pacman -Syu` réguliers.",
+          features: [
+            "Contrôle strict de parité binaire FHS (/usr/lib/bobine)",
+            "Packages signés cryptographiquement par clé OpenPGP",
+            "Rollback sans douleur vers la version Stable à tout moment",
+          ],
+        },
+      ],
+    },
+    framework: {
+      sectionTag: "Partenariat Matériel Recommandé",
+      title: "Framework Laptop : Le matériel idéal pour Bobine.",
+      desc: "Nous recommandons chaleureusement le Framework Laptop (13 et 16 pouces) pour déployer Bobine en salle ou en régie. Son châssis en aluminium usiné, sa réparabilité exemplaire (indice 10/10) et ses cartes d'extension interchangeables permettent de brancher deux écrans HDMI directs sans adaptateur fragile.",
+      specs: [
+        { title: "Processeurs supportés", value: "AMD Ryzen & Intel Core" },
+        { title: "Sorties d'affichage", value: "Cartes HDMI & DP modulaires" },
+        { title: "Indice de réparabilité", value: "10 / 10 (Pièces remplaçables)" },
+        { title: "Compatibilité Linux", value: "100% native avec Bobine" },
+      ],
+      linkText: "Découvrir les ordinateurs Framework sur frame.work",
+    },
+    security: {
+      title: "Clé de signature OpenPGP officielle",
+      desc: "Tous les paquets, dépôts APT, dépôts DNF et bases de données Pacman sont signés par la clé OpenPGP officielle de Bobine. Vérifiez systématiquement cette empreinte avant d'autoriser l'installation :",
+      fingerprint: "B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A",
+      downloadKeyText: "Télécharger la clé publique binaire (bobine.gpg)",
+    },
+  },
+  en: {
+    hero: {
+      badge: "Kiosk Appliance & Desktop Playout 2026",
+      title: "The power of Bobine. The freedom of Linux.",
+      lead: "Engineered for fitness studios, community cinemas and demanding audiovisual desks: experience the most reliable autonomous playout system on Linux. Native signed packages for Debian, Fedora and Arch Linux.",
+      ctaPrimary: "Install on your machine",
+      ctaSecondary: "Explore official package repositories",
+      chipsLabel: "Validated on certified architectures:",
+    },
+    chips: [
+      { name: "AMD Ryzen", note: "Zen 3, Zen 4, Hawk Point", icon: "/images/icons/chips/amd.svg" },
+      { name: "Intel Core", note: "Gen 12+, Core Ultra", icon: "/images/icons/chips/intel.svg" },
+      { name: "Qualcomm Snapdragon", note: "ARM64 X Elite & X Plus", icon: "/images/icons/chips/snapdragon.svg" },
+      { name: "Framework Laptop", note: "Modular 13 & 16", icon: "/images/icons/os/framework.svg" },
+    ],
+    terminal: {
+      sectionTag: "Quick Installation & Repositories",
+      sectionTitle: "Install Bobine with a single terminal command.",
+      sectionDesc: "Each distribution family has a dedicated, cryptographically signed repository. Select your distribution and update channel to get the exact install command instantly.",
+      tabs: {
+        debian: "Debian & Ubuntu",
+        fedora: "Fedora & RHEL",
+        arch: "Arch Linux",
+        appliance: "Dedicated Kiosk Script",
+      },
+      channels: {
+        stable: "Stable (Production)",
+        beta: "Beta (Curated)",
+        canary: "Canary (Nightly)",
+      },
+      copyBtn: "Copy command",
+      copiedText: "Command copied!",
+      repoNote: "Official package hub hosted on",
+      viewRepoLink: "packages.bobine.fit",
+      keyVerifiedNote: "All signatures are verified against the Bobine OpenPGP key",
+    },
+    distros: {
+      sectionTag: "Certified Ecosystem",
+      sectionTitle: "16 Linux distributions fully supported.",
+      sectionDesc: "Whether running on a dedicated 24/7 Debian appliance or on your Fedora or Arch production workstation, Bobine integrates as a native system package.",
+    },
+    bento: {
+      sectionTag: "Audiovisual Architecture",
+      sectionTitle: "Why Bobine thrives on Linux.",
+      sectionDesc: "Built without unnecessary bloat, Bobine leverages low-level Linux kernel primitives to deliver rock-solid 4K video playback with minimal system load.",
+      cards: [
+        {
+          badge: "4K Hardware Acceleration",
+          title: "Direct VA-API & NVDEC decoding at 60 fps",
+          desc: "Offload the entire video decoding pipeline to your Intel, AMD or NVIDIA GPU. Even on silent fanless mini-PCs or refurbished laptops, playback remains buttery-smooth with minimal thermal footprint.",
+          features: [
+            "Hardware decoding for H.264, HEVC / H.265, VP9 and AV1",
+            "Independent multi-screen HDMI output in native fullscreen",
+            "Zero tearing or frame drops (V-Sync Wayland / X11)",
+          ],
+        },
+        {
+          badge: "24/7 Kiosk Resilience",
+          title: "Hardened appliance with Systemd watchdog",
+          desc: "In appliance mode, Bobine boots directly into the projection screen without displaying any desktop chrome. The systemd service is sandboxed and constantly monitored by a hardware watchdog.",
+          features: [
+            "Silent boot straight into the classroom or kiosk display",
+            "Sub-second automatic restart in case of unexpected failure",
+            "Automatic and secure mounting of removable instructor media",
+          ],
+        },
+        {
+          badge: "Sovereignty & Privacy",
+          title: "100% Offline, zero subscriptions, zero cloud",
+          desc: "Your schedules, videos, and member data remain strictly on your local machine. No internet connection is ever needed to run classes, trigger automation, or manage the cinema kiosk.",
+          features: [
+            "Instant local control from any smartphone or tablet",
+            "Zero accounts needed, zero telemetry or tracking",
+            "AGPL-3.0 open-source license: you own your equipment",
+          ],
+        },
+        {
+          badge: "System Integration",
+          title: "Seamless updates with your operating system",
+          desc: "Say goodbye to manual tarballs and scattered binaries: Bobine updates naturally with your routine `apt upgrade`, `dnf upgrade`, or `pacman -Syu` workflows.",
+          features: [
+            "Strict FHS binary parity compliance (/usr/lib/bobine)",
+            "Cryptographically signed with official OpenPGP key",
+            "Seamless rollback to Stable at any time without data loss",
+          ],
+        },
+      ],
+    },
+    framework: {
+      sectionTag: "Recommended Hardware",
+      title: "Framework Laptop: The ideal hardware for Bobine.",
+      desc: "We enthusiastically recommend Framework Laptops (13 and 16 inches) for studio and control room deployments. Its machined aluminum chassis, 10/10 reparability score, and hot-swappable I/O cards allow connecting dual independent HDMI displays without fragile dongles.",
+      specs: [
+        { title: "Processors supported", value: "AMD Ryzen & Intel Core" },
+        { title: "Display outputs", value: "Modular HDMI & DP expansion cards" },
+        { title: "Reparability score", value: "10 / 10 (Replaceable parts)" },
+        { title: "Linux compatibility", value: "100% native with Bobine" },
+      ],
+      linkText: "Discover Framework Laptops at frame.work",
+    },
+    security: {
+      title: "Official OpenPGP Signing Key",
+      desc: "All packages, APT repositories, DNF repositories, and Pacman databases are signed by the official Bobine OpenPGP key. Always verify this fingerprint before trusting installation:",
+      fingerprint: "B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A",
+      downloadKeyText: "Download public binary key (bobine.gpg)",
+    },
+  },
+};
+
+export function getTerminalCommand(family: string, channel: string): string {
+  if (family === "debian") {
+    return [
+      "# 1. Importer la clé de signature OpenPGP",
+      "sudo install -m 0755 -d /etc/apt/keyrings",
+      "curl -fsSL https://packages.bobine.fit/bobine.gpg | sudo tee /etc/apt/keyrings/bobine.gpg > /dev/null",
+      "",
+      `# 2. Configurer le dépôt officiel Bobine (${channel})`,
+      `echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://packages.bobine.fit/debian ${channel} main" | sudo tee /etc/apt/sources.list.d/bobine.list`,
+      "",
+      "# 3. Mettre à jour et installer",
+      "sudo apt update && sudo apt install bobine",
+    ].join("\n");
+  }
+
+  if (family === "fedora") {
+    return [
+      `# 1. Ajouter le dépôt DNF Bobine (${channel})`,
+      `sudo dnf config-manager addrepo --from-repofile=https://packages.bobine.fit/fedora/bobine-${channel}.repo`,
+      "",
+      "# 2. Installer Bobine",
+      "sudo dnf install bobine",
+      "",
+      "# Note pour RHEL / AlmaLinux / Rocky (dnf 4) :",
+      `# sudo dnf config-manager --add-repo https://packages.bobine.fit/fedora/bobine-${channel}.repo`,
+    ].join("\n");
+  }
+
+  if (family === "arch") {
+    return [
+      "# 1. Importer et approuver la clé de signature",
+      "curl -fsSL https://packages.bobine.fit/bobine.gpg | sudo pacman-key --add -",
+      "sudo pacman-key --lsign-key B77D96D72F84F36ACAA3F8729CBF497D829EE15A",
+      "",
+      "# 2. Ajouter le dépôt Bobine à /etc/pacman.conf",
+      "sudo tee -a /etc/pacman.conf << 'EOF'",
+      "",
+      "[bobine]",
+      "SigLevel = Required DatabaseOptional",
+      `Server = https://packages.bobine.fit/arch/${channel}/$arch`,
+      "EOF",
+      "",
+      "# 3. Synchroniser les bases et installer",
+      "sudo pacman -Sy bobine",
+    ].join("\n");
+  }
+
+  // appliance direct script
+  return [
+    "# Script d'installation automatique pour appliance dédiée (Debian minimale)",
+    "curl -fsSL https://bobine.fit/install.sh | bash",
+  ].join("\n");
+}

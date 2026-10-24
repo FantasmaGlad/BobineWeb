@@ -23,10 +23,10 @@ export default function AddToCartButton({ item, locale, size = "md" }: AddToCart
         e.stopPropagation();
         if (!inCart) {
           const styles = getComputedStyle(e.currentTarget);
-          const accent = styles.getPropertyValue("--accent-primary").trim() || "#0f172a";
-          const surface = styles.getPropertyValue("--bg-card").trim() || "#ffffff";
+          const accent = styles.getPropertyValue("--accent-primary").trim();
+          const surface = styles.getPropertyValue("--bg-card").trim();
           spawnConfettiBurst(e.clientX, e.clientY, {
-            colors: [accent, "#64748b", surface],
+            colors: [accent, styles.getPropertyValue("--text-muted").trim(), surface],
           });
         }
         toggleItem(item);

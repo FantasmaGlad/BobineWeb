@@ -2,6 +2,7 @@
 // Garde-fou du verre et des jetons de style : aucune valeur figée, aucune variable non définie, ordre des préfixes
 // de `backdrop-filter`, mode « transparence réduite », et contraste du texte sur chaque matériau de verre dans les 16
 // thèmes (jetons réels du CSS, pas des copies). Code de sortie 1 au premier écart.
+import { checkStyleTokens } from "./style-tokens.mjs";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -14,7 +15,8 @@ const tsx = files.filter((f) => /\.tsx?$/.test(f)).map((f) => readFileSync(f, "u
 const noComments = css.replace(/\/\*[\s\S]*?\*\//g, "");
 const source = noComments.replace(/url\([^)]*\)/g, "url()").replace(/^\s*--(ink|specular)\s*:.*$/gm, "");
 
-const errors = [];
+const tokenCheck = checkStyleTokens(root);
+const errors = [...tokenCheck.errors];
 const fail = (msg) => errors.push(msg);
 
 // 1. Valeurs figées ------------------------------------------------------------------------------------------
@@ -46,6 +48,9 @@ if (undef.length) fail(`variables non définies : ${undef.join(", ")}`);
 // 3. Transparence réduite -----------------------------------------------------------------------------------------
 const reduced = /@media \(prefers-reduced-transparency: reduce\)\s*\{([\s\S]*?)\n\}/.exec(noComments)?.[1] ?? "";
 for (const t of ["--blur-scale: 0", "--glass-surface-bg", "--glass-card-bg", "--glass-floating-bg", "--glass-modal-bg"]) if (!reduced.includes(t)) fail(`mode transparence réduite : ${t} absent`);
+
+const opaque = /@supports not \(\(backdrop-filter:[\s\S]*?\)\)\s*\{([\s\S]*?)\n\}/.exec(noComments)?.[1] ?? "";
+for (const t of ["--blur-scale: 0", "--glass-surface-bg: var(--bg-card)", "--glass-card-bg: var(--bg-card)", "--glass-floating-bg: var(--bg-surface-elevated)", "--glass-modal-bg: var(--bg-surface-elevated)"]) if (!opaque.includes(t)) fail(`repli sans filtre : ${t} absent`);
 
 // 4. Contraste sur les matériaux de verre, thème par thème -------------------------------------------------------
 const rules = [...noComments.matchAll(/(^|\n)(:root[^{}]*)\{([^{}]*)\}/g)].map((m) => {
@@ -104,13 +109,26 @@ for (const theme of themes) {
       for (const backdrop of [canvas, hotspot]) {
         for (const fill of materialColors(vars[material], vars)) {
           const surface = over(fill, backdrop);
-          for (const [token, min] of [["text-heading", 7], ["text-body", 7], ["text-muted", 4.5], ["accent-text", 4.5]]) {
+          for (const [token, min] of [["text-heading", 7], ["text-body", 7], ["text-muted", 4.5], ["accent-text", 4.5], ["accent-success", 4.5], ["text-dim", 4.5], ["status-warning-text", 4.5], ["status-danger-text", 4.5], ["status-info-text", 4.5], ["channel-beta", 4.5], ["channel-canary", 4.5]]) {
             measured++;
             const r = ratio(evaluate(`var(--${token})`, vars), surface);
             if (r < min) fail(`${theme} : ${token} sur ${material} = ${r.toFixed(2)}:1 (min ${min})`);
           }
         }
       }
+    }
+    for (const family of ["success", "warning", "danger", "info"]) {
+      const r = ratio(evaluate(`var(--status-${family}-fg)`, vars), evaluate(`var(--status-${family})`, vars));
+      measured++;
+      if (r < 4.5) fail(`${theme} : texte sur état ${family} = ${r.toFixed(2)}:1`);
+      const label = ratio(evaluate(`var(--status-${family}-text)`, vars), evaluate(`var(--status-${family}-bg)`, vars));
+      measured++;
+      if (label < 4.5) fail(`${theme} : libellé sur fond d’état ${family} = ${label.toFixed(2)}:1`);
+    }
+    for (const channel of ["stable", "beta", "canary"]) {
+      const r = ratio(evaluate(`var(--channel-${channel}-fg)`, vars), evaluate(`var(--channel-${channel}-bg)`, vars));
+      measured++;
+      if (r < 4.5) fail(`${theme} : texte sur canal ${channel} = ${r.toFixed(2)}:1`);
     }
     measured++;
     if (ratio(evaluate("var(--accent-primary-fg)", vars), evaluate("var(--accent-primary)", vars)) < 4.5) fail(`${theme} : texte sur bouton principal < 4,5:1`);
@@ -124,4 +142,5 @@ if (errors.length) {
   console.error(errors.map((e) => `::error::${e}`).join("\n"));
   process.exit(1);
 }
+console.log(`Cliquet : ${JSON.stringify(tokenCheck.categories)}`);
 console.log(`glass-check : ${themes.length} thèmes, ${measured} mesures de contraste, aucune valeur figée.`);

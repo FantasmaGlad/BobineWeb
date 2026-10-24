@@ -1,0 +1,37 @@
+{
+  "cssColorSelectors": [
+    "^\\.dot--",
+    "^\\.linux-terminal__dot--",
+    "^\\.terminal",
+    "^\\.code-",
+    "^\\.github",
+    "^\\.tauri-terminal",
+    "^\\.platform-btn--amazon",
+    "^\\.platform-btn--aliexpress",
+    "^\\.cart-platform",
+    "^\\.interactive-terminal-(?:window|header|body|user-host|cmd-text)",
+    "^\\.tauri-log-",
+    "^\\.hw-cart-group--(?:amazon|aliexpress)",
+    "^\\.hw-seller-badge"
+  ],
+  "typescriptColorFiles": [
+    "src/lib/themes.ts",
+    "src/lib/pdf/DocumentationPdf.tsx",
+    "src/lib/pdf/icons.tsx",
+    "src/app/[locale]/opengraph-image.tsx",
+    "src/components/icons/AndroidIcon.tsx",
+    "src/components/icons/AndroidTvIcon.tsx",
+    "src/components/icons/AppleIcon.tsx",
+    "src/components/icons/LinuxIcon.tsx",
+    "src/components/icons/PdfIcon.tsx",
+    "src/components/icons/WindowsIcon.tsx",
+    "src/components/TerminalDemo.tsx",
+    "src/components/hardware/PlatformSelectorSidebar.tsx",
+    "src/app/manifest.ts"
+  ],
+  "reasons": {
+    "cssColorSelectors": "Palettes de terminal, marque GitHub et marketplaces : couleurs éditoriales indépendantes du thème.",
+    "typescriptColorFiles": "Palettes des thèmes, impression PDF, image sociale et couleurs officielles des marques. Les dimensions restent contrôlées hors impression.",
+    "print": "L’impression impose une palette opaque indépendante du thème à l’écran."
+  }
+}

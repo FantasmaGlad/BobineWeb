@@ -7,7 +7,7 @@
   margin-top: 0.75rem;
   margin-bottom: 1.5rem;
   padding: 0.45rem;
-  border-radius: 9999px;
+  border-radius: var(--radius-9999px);
   width: fit-content;
   max-width: 100%;
   background: var(--glass-card-bg);
@@ -21,11 +21,11 @@
   display: inline-flex;
   align-items: center;
   padding: 0.42rem 0.95rem;
-  font-size: 0.85rem;
+  font-size: var(--fs-0-85rem);
   font-weight: 650;
   text-decoration: none;
   color: var(--text-muted);
-  border-radius: 9999px;
+  border-radius: var(--radius-9999px);
   border: 1px solid transparent;
   transition: transform 0.18s var(--ease-spring-pill), color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
 }
@@ -62,7 +62,7 @@
   margin-bottom: 0.75rem;
 }
 .cmp-h1-1 {
-  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-size: var(--fs-clamp-2rem-3-8vw-3rem);
   font-weight: 800;
   letter-spacing: -0.025em;
   margin-top: 0.5rem;
@@ -72,7 +72,7 @@
 }
 .cmp-p-1 {
   max-width: 52rem;
-  font-size: 1.12rem;
+  font-size: var(--fs-1-12rem);
   color: var(--text-muted);
   line-height: 1.65;
 }
@@ -92,20 +92,20 @@
   backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
 }
 .cmp-span-1 {
-  font-size: 0.75rem;
+  font-size: var(--fs-0-75rem);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--text-muted);
 }
 .cmp-div-4 {
-  font-size: 1.55rem;
+  font-size: var(--fs-1-55rem);
   font-weight: 800;
   color: var(--accent-text);
   margin: 0.35rem 0;
 }
 .cmp-p-2 {
-  font-size: 0.85rem;
+  font-size: var(--fs-0-85rem);
   color: var(--text-body);
   line-height: 1.5;
   margin: 0;
@@ -154,11 +154,11 @@
   align-items: center;
   gap: 0.45rem;
   padding: 0.45rem 0.9rem;
-  font-size: 0.84rem;
+  font-size: var(--fs-0-84rem);
   font-weight: 650;
   text-decoration: none;
   color: var(--text-heading);
-  border-radius: 9999px;
+  border-radius: var(--radius-9999px);
   background: var(--glass-inset-bg);
   border: 1px solid var(--glass-card-border);
   box-shadow: var(--glass-edge);
@@ -176,7 +176,7 @@
   margin-top: 3rem;
 }
 .cmp-h2-1 {
-  font-size: 1.55rem;
+  font-size: var(--fs-1-55rem);
   font-weight: 750;
   color: var(--text-heading);
   margin-bottom: 1.25rem;
@@ -197,13 +197,13 @@
   backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
 }
 .cmp-h3-1 {
-  font-size: 1.2rem;
+  font-size: var(--fs-1-2rem);
   font-weight: 750;
   color: var(--text-heading);
   margin-bottom: 0.75rem;
 }
 .cmp-p-3 {
-  font-size: 0.95rem;
+  font-size: var(--fs-0-95rem);
   color: var(--text-body);
   line-height: 1.65;
   margin: 0;
@@ -228,7 +228,7 @@
 }
 .cmp-summary-1 {
   font-weight: 650;
-  font-size: 1.05rem;
+  font-size: var(--fs-1-05rem);
   color: var(--text-heading);
   cursor: pointer;
   outline: none;
@@ -236,7 +236,7 @@
 .cmp-p-4 {
   margin-top: 0.75rem;
   margin-bottom: 0;
-  font-size: 0.95rem;
+  font-size: var(--fs-0-95rem);
   color: var(--text-body);
   line-height: 1.6;
 }
@@ -255,13 +255,13 @@
   backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
 }
 .cmp-h2-2 {
-  font-size: 1.6rem;
+  font-size: var(--fs-1-6rem);
   font-weight: 800;
   color: var(--text-heading);
   margin-bottom: 0.75rem;
 }
 .cmp-p-5 {
-  font-size: 1rem;
+  font-size: var(--fs-1rem);
   color: var(--text-muted);
   max-width: 640px;
   margin: 0 auto 1.5rem auto;
@@ -347,7 +347,7 @@
 }
 
 .cmp-span-3 {
-  font-size: 0.75rem;
+  font-size: var(--fs-0-75rem);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -356,21 +356,21 @@
   margin-bottom: 0.5rem;
 }
 .cmp-h2-3 {
-  font-size: 1.35rem;
+  font-size: var(--fs-1-35rem);
   font-weight: 800;
   color: var(--text-heading);
   margin-bottom: 0.6rem;
   line-height: 1.25;
 }
 .cmp-p-6 {
-  font-size: 0.95rem;
+  font-size: var(--fs-0-95rem);
   font-weight: 650;
   color: var(--text-heading);
   margin-bottom: 0.6rem;
   line-height: 1.45;
 }
 .cmp-p-7 {
-  font-size: 0.9rem;
+  font-size: var(--fs-0-9rem);
   color: var(--text-muted);
   margin-bottom: 1.25rem;
   line-height: 1.6;
@@ -384,7 +384,7 @@
   gap: 0.55rem;
 }
 .cmp-li-1 {
-  font-size: 0.88rem;
+  font-size: var(--fs-0-88rem);
   color: var(--text-body);
   display: flex;
   align-items: flex-start;

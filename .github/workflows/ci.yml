@@ -103,6 +103,7 @@ jobs:
             sleep 1
           done
           node scripts/ci/mobile-check.mjs
+          node scripts/ci/modal-check.mjs
 
   onion:
     name: Miroir Tor (export statique)

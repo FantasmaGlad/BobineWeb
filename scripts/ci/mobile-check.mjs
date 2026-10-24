@@ -43,7 +43,7 @@ try {
   await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
   const failures = [];
   let measured = 0;
-  const paths = process.env.MOBILE_CHECK_PATHS?.split(",") ?? ["/fr", "/en", "/fr/linux", "/en/linux", "/fr/documentation", "/en/documentation", "/fr/materiel/aliexpress", "/en/hardware/aliexpress", "/fr/materiel/amazon", "/en/hardware/amazon"];
+  const paths = process.env.MOBILE_CHECK_PATHS?.split(",") ?? ["/fr", "/en", "/fr/linux", "/en/linux", "/fr/documentation", "/en/documentation", "/fr/materiel/aliexpress", "/en/hardware/aliexpress", "/fr/materiel/amazon", "/en/hardware/amazon", "/fr/telechargement", "/en/download", "/fr/ressources", "/en/resources", "/fr/materiel", "/en/hardware"];
   for (const path of paths) for (const width of [360, 390, 768, 1280]) {
     const response = await fetch(origin + path);
     if (!response.ok) throw new Error(`${path} : HTTP ${response.status}`);

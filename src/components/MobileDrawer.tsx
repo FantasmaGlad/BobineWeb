@@ -9,6 +9,7 @@ import ThemeSwitcher from "@/components/ThemeSwitcher";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 import GitHubBadge from "@/components/GitHubBadge";
 import { lp } from "@/lib/seo";
+import { navRoutes, routeHref } from "@/lib/siteMap";
 import "@/styles/split/site-chrome.css";
 import Icon from "@/components/ui/Icon";
 
@@ -31,13 +32,7 @@ export default function MobileDrawer({
 
   const mainLinks: Array<{ href: string; label: string; tag?: string }> = [
     { href: `/${locale}`, label: dict.nav.home },
-    { href: lp(locale, `/fonctionnalites`), label: dict.nav.features },
-    { href: lp(locale, `/materiel/aliexpress`), label: dict.nav.hardware, tag: isEn ? "Selection" : "Sélection" },
-    { href: `/${locale}/documentation`, label: dict.nav.documentation },
-    { href: lp(locale, `/comparatif`), label: dict.nav.comparisons },
-    { href: `/${locale}/blog`, label: dict.nav.blog },
-    { href: lp(locale, `/soutenir`), label: dict.nav.support },
-    { href: lp(locale, `/a-propos`), label: dict.nav.about },
+    ...navRoutes().map((route) => ({ href: routeHref(locale, route.id), label: route.label[locale] })),
   ];
 
   useEffect(() => {

@@ -3,6 +3,7 @@ import { locales } from "@/lib/i18n";
 import { getBobineReleases } from "@/lib/github-releases";
 import { EN_SLUG_MAP } from "@/lib/seo";
 import { CLEARNET_URL } from "@/lib/onion";
+import { ROUTES } from "@/lib/siteMap";
 
 interface RouteConfig {
   path: string;
@@ -12,38 +13,8 @@ interface RouteConfig {
   lastModified?: string;
 }
 
-const staticRoutes: RouteConfig[] = [
-  { path: "", priority: 1.0, changeFrequency: "weekly" },
-  { path: "/fonctionnalites", priority: 0.95, changeFrequency: "weekly" },
-  { path: "/documentation", priority: 0.95, changeFrequency: "weekly" },
-  { path: "/documentation/utilisation", priority: 0.85, changeFrequency: "weekly" },
-  { path: "/documentation/faq", priority: 0.85, changeFrequency: "weekly" },
-  { path: "/documentation/developpeurs", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/blog", priority: 0.85, changeFrequency: "daily" },
-  { path: "/nouveautes", priority: 0.9, changeFrequency: "daily" },
-  { path: "/canaux", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/canaux/stable", priority: 0.85, changeFrequency: "daily" },
-  { path: "/canaux/beta", priority: 0.85, changeFrequency: "daily" },
-  { path: "/canaux/canary", priority: 0.85, changeFrequency: "daily" },
-  { path: "/ordinateur", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/linux", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/android-tv", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/google-book", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/tor", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/comparatif", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/comparatif/les-mills-cinema", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/comparatif/wexer-fitness-on-demand", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/comparatif/radical-fitness-yako", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/comparatif/affichage-dynamique-fitness", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/materiel/amazon", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/materiel/aliexpress", priority: 0.7, changeFrequency: "weekly" },
-  { path: "/baamix", priority: 0.85, changeFrequency: "weekly" },
-  { path: "/a-propos", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/soutenir", priority: 0.7, changeFrequency: "monthly" },
-  { path: "/mentions-legales", priority: 0.3, changeFrequency: "yearly" },
-  { path: "/confidentialite", priority: 0.3, changeFrequency: "yearly" },
-  { path: "/securite", priority: 0.4, changeFrequency: "yearly" },
-];
+// Les routes statiques viennent du plan du site (src/lib/siteMap.json) : une seule liste pour la navigation et le sitemap.
+const staticRoutes: RouteConfig[] = ROUTES.map(({ path, priority, changeFrequency }) => ({ path, priority, changeFrequency }));
 
 export const dynamic = "force-static";
 

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #
-# install-tor.sh — Bobine : dépôt APT protégé via Tor (service onion)
+# install-tor.sh — Bobine : dépôts Linux protégés via Tor (service onion)
 #
-# Installe apt-transport-tor, récupère la clé de signature de Bobine (par Tor, sans contacter le web
-# classique), vérifie son empreinte contre celle publiée, puis ajoute la source APT en .onion.
+# Configure apt, dnf ou pacman et Tor, récupère la clé de signature de Bobine (par Tor, sans contacter le web
+# classique), vérifie son empreinte contre celle publiée, puis configure le dépôt signé en .onion.
 # À LIRE AVANT de l'exécuter. Il s'arrête si l'empreinte de la clé diffère.
 #
 #   curl -fsSL https://bobine.fit/install-tor.sh | bash
@@ -112,7 +112,7 @@ ART
     else
         printf '%s%s  Bobine%s %s· Tor%s\n' "$BOLD" "$PURPLE" "$RESET" "$DIM" "$RESET"
     fi
-    printf '\n%s%s  %s%s\n' "$BOLD" "$PURPLE" "$(t "Dépôt APT protégé via Tor (service onion)" "APT repository protected through Tor (onion service)")" "$RESET"
+    printf '\n%s%s  %s%s\n' "$BOLD" "$PURPLE" "$(t "Dépôts Linux protégés via Tor (service onion)" "Linux repositories protected through Tor (onion service)")" "$RESET"
     printf '%s  %s%s\n' "$DIM" "$(t "Mêmes paquets, même signature, sans révéler votre adresse IP." "Same packages, same signature, without revealing your IP address.")" "$RESET"
     printf '%s  tor+http://%s%s\n\n' "$DIM" "$APT_ONION" "$RESET"
 }
@@ -158,21 +158,24 @@ select_channel
 
 # ---------------------------------------------------------------- 1. environnement
 step "$(t "Vérification de l'environnement" "Checking the environment")"
-command -v apt-get >/dev/null 2>&1 || die "$(t "apt-get introuvable : ce script vise Debian, Ubuntu et dérivés." "apt-get not found: this script targets Debian, Ubuntu and derivatives.")"
-command -v curl >/dev/null 2>&1 || die "$(t "curl est requis (sudo apt install curl)." "curl is required (sudo apt install curl).")"
-command -v gpg >/dev/null 2>&1 || die "$(t "gpg est requis (sudo apt install gnupg)." "gpg is required (sudo apt install gnupg).")"
-ok "$(t "Système compatible (apt, curl, gpg)" "Compatible system (apt, curl, gpg)")"
+if command -v apt-get >/dev/null 2>&1; then FAMILY=apt
+elif command -v dnf >/dev/null 2>&1; then FAMILY=dnf
+elif command -v pacman >/dev/null 2>&1; then FAMILY=pacman
+else die "$(t "Gestionnaire requis : apt, dnf ou pacman." "Required package manager: apt, dnf or pacman.")"; fi
+command -v curl >/dev/null 2>&1 || die "curl requis / required"
+command -v gpg >/dev/null 2>&1 || die "gpg requis / required"
+SUDO=()
+if (( EUID != 0 )); then command -v sudo >/dev/null || die "sudo requis / required"; SUDO=(sudo); fi
+ok "$FAMILY, curl, gpg"
 
-# ---------------------------------------------------------------- 2. apt-transport-tor
-step "$(t "Paquet apt-transport-tor" "apt-transport-tor package")"
-if dpkg -s apt-transport-tor >/dev/null 2>&1; then
-    ok "$(t "Déjà installé" "Already installed")"
-elif (( DRY_RUN )); then
-    info "${DIM}[dry-run] sudo apt-get install apt-transport-tor${RESET}"
-else
-    sudo apt-get install -y -qq apt-transport-tor >"$TMP/apt-install.log" 2>&1 \
-        || { cat "$TMP/apt-install.log" >&2; die "$(t "Installation de apt-transport-tor impossible" "Could not install apt-transport-tor")"; }
-    ok "$(t "apt-transport-tor installé (Tor et le proxy SOCKS local inclus)" "apt-transport-tor installed (Tor and the local SOCKS proxy included)")"
+step "$(t "Transport Tor" "Tor transport")"
+case "$FAMILY" in
+    apt) run "${SUDO[@]}" apt-get install -y apt-transport-tor ;;
+    dnf) run "${SUDO[@]}" dnf install -y tor ;;
+    pacman) run "${SUDO[@]}" pacman -Syu --needed --noconfirm tor ;;
+esac
+if command -v systemctl >/dev/null 2>&1 && [[ -d /run/systemd/system ]]; then
+    run "${SUDO[@]}" systemctl enable --now tor
 fi
 
 # ---------------------------------------------------------------- 3. clé de signature
@@ -206,25 +209,78 @@ else
     info "$(t "Aucune clé à vérifier en simulation" "No key to check in dry-run")"
 fi
 
-# ---------------------------------------------------------------- 5. source APT
-step "$(t "Source APT via Tor" "APT source through Tor")"
-if [[ -s "$KEY_FILE" ]]; then
-    run sudo install -d -m 755 /etc/apt/keyrings
-    if (( DRY_RUN )); then info "${DIM}[dry-run] gpg --dearmor -> $KEY_DEST${RESET}"; else sudo gpg --yes --dearmor -o "$KEY_DEST" "$KEY_FILE"; fi
-fi
-LINE="deb [signed-by=${KEY_DEST}] tor+http://${APT_ONION}/ ${CHANNEL} main"
-if (( DRY_RUN )); then info "${DIM}[dry-run] $LINE${RESET}"; else printf '%s\n' "$LINE" | sudo tee "$LIST_DEST" >/dev/null; fi
-if (( DRY_RUN )); then
-    ok "$(t "Simulation terminée" "Dry-run complete")"
-else
-    run sudo apt-get update >"$TMP/apt-update.log" 2>&1 || { cat "$TMP/apt-update.log" >&2; die "$(t "apt update a échoué" "apt update failed")"; }
-    ok "$(t "Index récupéré par Tor et signature validée" "Index fetched through Tor and signature validated")"
-fi
+# ---------------------------------------------------------------- 5. dépôt signé
+step "$(t "Dépôt signé via Tor" "Signed repository through Tor")"
+BASE="http://${APT_ONION}"
+case "$FAMILY" in
+    apt)
+        run "${SUDO[@]}" install -d -m 755 /etc/apt/keyrings
+        if (( ! DRY_RUN )); then
+            gpg --batch --yes --dearmor -o "$TMP/keyring.gpg" "$KEY_FILE"
+            "${SUDO[@]}" install -m 644 "$TMP/keyring.gpg" "$KEY_DEST"
+        fi
+        printf 'deb [signed-by=%s] tor+%s/debian %s main\n' "$KEY_DEST" "$BASE" "$CHANNEL" > "$TMP/source"
+        LIST_DEST=/etc/apt/sources.list.d/bobine-onion.list
+        run "${SUDO[@]}" install -m 644 "$TMP/source" "$LIST_DEST"
+        run "${SUDO[@]}" apt-get update
+        INSTALL="sudo apt install bobine"; UPDATE="sudo apt update && sudo apt upgrade"
+        ;;
+    dnf)
+        KEY_DEST=/etc/pki/rpm-gpg/BOBINE-ONION
+        LIST_DEST=/etc/yum.repos.d/bobine-onion.repo
+        run "${SUDO[@]}" install -d -m 755 /etc/pki/rpm-gpg /etc/yum.repos.d
+        run "${SUDO[@]}" install -m 644 "$KEY_FILE" "$KEY_DEST"
+        cat > "$TMP/source" <<EOF
+[bobine-onion]
+name=Bobine via Tor ($CHANNEL)
+baseurl=$BASE/fedora/$CHANNEL/\$basearch/
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=file://$KEY_DEST
+proxy=socks5h://127.0.0.1:9050
+EOF
+        run "${SUDO[@]}" install -m 644 "$TMP/source" "$LIST_DEST"
+        run "${SUDO[@]}" dnf -y --disablerepo='*' --enablerepo=bobine-onion makecache
+        INSTALL="sudo dnf install bobine"; UPDATE="sudo dnf upgrade --refresh"
+        ;;
+    pacman)
+        LIST_DEST=/etc/pacman.d/bobine-onion.conf
+        run "${SUDO[@]}" pacman-key --init
+        run "${SUDO[@]}" pacman-key --add "$KEY_FILE"
+        run "${SUDO[@]}" pacman-key --lsign-key "$PRIMARY_FPR"
+        # Un XferCommand global ferait passer tous les dépôts par Tor et modifierait
+        # le choix de transport du poste. Le wrapper n'utilise Tor que pour .onion.
+        cat > "$TMP/transfer" <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+case "$1" in
+    http://*.onion/*) exec curl --fail --location --socks5-hostname 127.0.0.1:9050 --output "$2" "$1" ;;
+    *) exec curl --fail --location --output "$2" "$1" ;;
+esac
+EOF
+        run "${SUDO[@]}" install -m 755 "$TMP/transfer" /usr/local/bin/bobine-pacman-transfer
+        cat > "$TMP/source" <<EOF
+[options]
+XferCommand = /usr/local/bin/bobine-pacman-transfer %u %o
+[bobine]
+SigLevel = Required DatabaseRequired
+Server = $BASE/arch/$CHANNEL/\$arch
+EOF
+        run "${SUDO[@]}" install -m 644 "$TMP/source" "$LIST_DEST"
+        if (( ! DRY_RUN )) && ! grep -q '^Include = /etc/pacman.d/bobine-onion.conf$' /etc/pacman.conf; then
+            printf '\nInclude = /etc/pacman.d/bobine-onion.conf\n' | "${SUDO[@]}" tee -a /etc/pacman.conf >/dev/null
+        fi
+        run "${SUDO[@]}" pacman -Syu --noconfirm
+        INSTALL="sudo pacman -Syu bobine"; UPDATE="sudo pacman -Syu"
+        ;;
+esac
+ok "$(t "Dépôt configuré" "Repository configured")"
 
 # ---------------------------------------------------------------- bilan
 printf '\n%s%s  %s%s\n\n' "$BOLD" "$GREEN" "$(t "Terminé : dépôt Bobine protégé par Tor" "Done: Bobine repository protected by Tor")" "$RESET"
-printf '  %s%s%s  %s\n' "$BOLD" "$(t "Canal          :" "Channel        :")" "$RESET" "$CHANNEL"
-printf '  %s%s%s  sudo apt install bobine\n' "$BOLD" "$(t "Installer      :" "Install        :")" "$RESET"
-printf '  %s%s%s  sudo apt update && sudo apt upgrade\n' "$BOLD" "$(t "Mettre à jour  :" "Update         :")" "$RESET"
+printf '  %s%s%s  %s\n' "$BOLD" "$(t "Canal          :" "Channel        :")" "$RESET" "$CHANNEL ($FAMILY)"
+printf '  %s%s%s  %s\n' "$BOLD" "$(t "Installer      :" "Install        :")" "$RESET" "$INSTALL"
+printf '  %s%s%s  %s\n' "$BOLD" "$(t "Mettre à jour  :" "Update         :")" "$RESET" "$UPDATE"
 printf '  %s%s%s  %s\n\n' "$BOLD" "$(t "Retirer        :" "Remove         :")" "$RESET" "sudo rm $LIST_DEST"
 printf '%s  %s%s\n\n' "$DIM" "$(t "Soutenez le projet Tor : https://www.torproject.org/" "Support the Tor project: https://www.torproject.org/")" "$RESET"

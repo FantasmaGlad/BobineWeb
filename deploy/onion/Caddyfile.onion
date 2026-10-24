@@ -5,15 +5,20 @@
 	auto_https off
 }
 
-# Depot APT (copie de la branche gh-pages du depot Bobine)
+# Dépôts signés APT, DNF et Pacman (bobine-packages, branche gh-pages)
 http://:8081 {
 	bind unix//run/onion/apt.sock|0660
 	root * /srv/onion/apt
+	@legacy path /dists/* /pool/*
+	rewrite @legacy /debian{uri}
 	file_server
 	header {
 		-Server
 		X-Content-Type-Options nosniff
 		Referrer-Policy no-referrer
+		X-Frame-Options SAMEORIGIN
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
 	}
 }
 

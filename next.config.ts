@@ -40,6 +40,7 @@ const EN_PAGES = Object.entries(EN_SLUG_MAP).filter(([fr, en]) => fr !== en);
 const isOnion = process.env.NEXT_PUBLIC_BOBINE_ONION === "1";
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ["127.0.0.1"],
   pageExtensions: ["ts", "tsx", "mdx"],
   ...(isOnion ? { output: "export" as const, trailingSlash: true } : {}),
   images: isOnion ? { unoptimized: true } : { formats: ["image/avif", "image/webp"] },

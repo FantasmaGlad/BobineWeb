@@ -223,6 +223,7 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
                   />
                 </div>
                 <div className="landing-showcase-card__body">
+                  {card.image.includes("/editorial/") ? <p>{isEn ? "Device category diagram" : "Schéma de catégorie matérielle"}</p> : null}
                   <h2 className="landing-showcase-card__title">{card.title}</h2>
                   <p className="landing-showcase-card__desc">{card.subtitle}</p>
                   <span className="landing-showcase-card__cta">

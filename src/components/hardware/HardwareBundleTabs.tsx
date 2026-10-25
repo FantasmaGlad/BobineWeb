@@ -5,8 +5,6 @@ import { formatPrice, sumPrices } from "@/lib/price";
 import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
 import {
-  HARDWARE_BUNDLES,
-  PRICE_CHECKED_AT,
   type HardwareOsBundle,
   type OsKey,
   type TierKey,
@@ -27,7 +25,7 @@ import "@/styles/split/pages-hardware.css";
 interface HardwareBundleTabsProps {
   locale: Locale;
   /** Catalogue affiché (Amazon par défaut). */
-  bundles?: Partial<Record<OsKey, HardwareOsBundle>>;
+  bundles: Partial<Record<OsKey, HardwareOsBundle>>;
   platform?: MerchantPlatform;
   /** Date ISO de la dernière vérification/rafraîchissement des prix. */
   checkedAt?: string;
@@ -51,9 +49,9 @@ function formatCheckedDate(iso: string, isEn: boolean) {
 
 export default function HardwareBundleTabs({
   locale,
-  bundles = HARDWARE_BUNDLES,
+  bundles,
   platform = "amazon",
-  checkedAt = PRICE_CHECKED_AT,
+  checkedAt = "",
   enabledOs = ALL_OS,
   unavailableOs,
 }: HardwareBundleTabsProps) {
@@ -76,6 +74,8 @@ export default function HardwareBundleTabs({
   const currentFormFactor = currentBundle.formFactors[activeFormFactorKey]!;
   const currentTier = currentFormFactor.tiers[selectedTier] || currentFormFactor.tiers[currentFormFactor.defaultTier];
 
+  if (!currentTier) throw new Error("Catalogue : gamme par défaut absente");
+
   const { total: totalAmazon, unknown: unknownPriceCount } = sumPrices(currentTier.items);
   const mainItem = currentTier.items.find((item) => item.category === "uc") ?? currentTier.items[0];
   const accessoryItems = currentTier.items.filter((item) => item.id !== mainItem?.id);
@@ -93,7 +93,7 @@ export default function HardwareBundleTabs({
 
   // Navigation "shop & buy" entre gammes : glisser au doigt (mobile) ou à la souris (PC)
   // fait défiler d'une gamme à l'autre, comme les onglets, sans dupliquer l'état sélectionné.
-  const tierOrder: TierKey[] = ["essentiel", "recommande", "pro", "premium"];
+  const tierOrder = Object.keys(currentFormFactor.tiers) as TierKey[];
   const tierIndex = tierOrder.indexOf(selectedTier);
   const [dragX, setDragX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -294,7 +294,7 @@ export default function HardwareBundleTabs({
             role="tablist"
             aria-label={isEn ? "Tier level" : "Gamme de performance"}
           >
-            {tierList.map((tier) => {
+            {tierList.filter(tier => currentFormFactor.tiers[tier.id]).map((tier) => {
               const isTierActive = selectedTier === tier.id;
               return (
                 <button

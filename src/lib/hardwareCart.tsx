@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { sumPrices } from "@/lib/price";
 
-export type CartPlatform = "amazon" | "aliexpress";
+import type { ProductSource } from "@/lib/productSources";
+export type CartPlatform = Exclude<ProductSource, "manufacturer">;
 
 export interface CartItem {
   /** Absent sur les paniers enregistrés avant l'arrivée d'AliExpress : traité comme Amazon. */
@@ -33,7 +34,7 @@ function safeParseCart(raw: string | null): CartItem[] {
   if (!raw) return [];
   try {
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
+    return Array.isArray(parsed) ? parsed.map((item: CartItem) => item.platform === "aliexpress" ? item : {...item, priceAmazon:null, imageUrl: item.imageUrl?.includes("/editorial/") ? item.imageUrl : "/images/hardware/editorial/selection.svg"}) : [];
   } catch {
     return [];
   }

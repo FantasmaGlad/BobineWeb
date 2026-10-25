@@ -4,7 +4,7 @@ import React from "react";
 import { formatPrice } from "@/lib/price";
 import Image from "next/image";
 import { type Locale } from "@/lib/i18n";
-import { PRICE_CHECKED_AT, type HardwareItem } from "@/content/hardware";
+import type { HardwareItem } from "@/content/hardware";
 import SellerLine, { type MerchantPlatform } from "@/components/hardware/SellerLine";
 import MarqueeText from "@/components/hardware/MarqueeText";
 import AddToCartButton from "@/components/hardware/AddToCartButton";
@@ -34,7 +34,7 @@ export default function HardwareAccessoriesGrid({
   locale,
   items,
   platform = "amazon",
-  checkedAt = PRICE_CHECKED_AT,
+  checkedAt = "",
 }: {
   locale: Locale;
   items: HardwareItem[];

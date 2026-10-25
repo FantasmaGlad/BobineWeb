@@ -16,6 +16,16 @@ export default function ServiceWorkerRegistration({ locale }: { locale: Locale }
         .catch(() => {});
     }
 
+    if ("serviceWorker" in navigator && process.env.NODE_ENV === "development") {
+      navigator.serviceWorker.getRegistrations().then(async (registrations) => {
+        const local = registrations.filter(registration => new URL(registration.active?.scriptURL ?? registration.waiting?.scriptURL ?? registration.installing?.scriptURL ?? location.href).pathname === "/sw.js");
+        if (!local.length) return;
+        await Promise.all(local.map(registration => registration.unregister()));
+        if ("caches" in window) await Promise.all((await caches.keys()).filter(key => key.startsWith("bobineweb-")).map(key => caches.delete(key)));
+        location.reload();
+      }).catch(() => {});
+    }
+
     // 2. Gestion des changements de connectivité réseau
     let timer: NodeJS.Timeout | null = null;
 

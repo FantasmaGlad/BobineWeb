@@ -44,6 +44,9 @@ self.addEventListener("fetch", (event) => {
   const request = event.request;
   const url = new URL(request.url);
 
+  // Les prévisualisations locales alternent développement et builds : leurs URL de chunks peuvent être réutilisées.
+  if (["localhost", "127.0.0.1", "[::1]"].includes(self.location.hostname)) return;
+
   // Ignorer les requêtes non GET ou externes (sauf assets locaux)
   if (request.method !== "GET" || url.origin !== self.location.origin) {
     return;

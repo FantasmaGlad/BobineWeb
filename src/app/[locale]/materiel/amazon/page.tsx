@@ -5,7 +5,7 @@ import { IS_ONION } from "@/lib/onion";
 import OnionMirrorNotice from "@/components/OnionMirrorNotice";
 import { buildMetadata, lp } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
-import HardwareBundleTabs from "@/components/hardware/HardwareBundleTabs";
+import AmazonCatalog from "@/components/hardware/AmazonCatalog";
 import HardwareCartBar from "@/components/hardware/HardwareCartBar";
 import "@/styles/split/pages-hardware.css";
 
@@ -27,33 +27,14 @@ export async function generateMetadata({
     description: isEn
       ? "Browse hardware ideas for Bobine by operating system and budget. Catalogue under review: check specifications, compatibility, prices and availability before buying."
       : "Parcourez des idées de matériel pour Bobine par système et budget. Catalogue en révision : caractéristiques, compatibilité, prix et disponibilité à vérifier avant achat.",
-    keywords: [
-      "Matériel Bobine",
-      "Pack Dell Wyse 5070 J5005",
-      "Dell Wyse 5070 fitness",
-      "Mini PC salle de sport",
-      "PC ARM Snapdragon fitness",
-      "Snapdragon X Elite salle de sport",
-      "Raspberry Pi 5 fitness",
-      "NVIDIA DGX Spark régie",
-      "Tablettes Android salle de sport",
-      "Android TV fitness box",
-      "Alternative Les Mills Cinema matériel",
-      "Borne tactile fitness matériel",
-      "Régie vidéo fitness équipement",
-      "Télécommande régie fitness 2.4GHz",
-      "Câble DisplayPort HDMI 4K salle de sport",
-      "Support mural antivol tablette fitness",
-      "Gym playout hardware guide",
-      "Open-source fitness automation hardware",
-    ],
   });
 }
 
 export default async function HardwareAmazonPage({
-  params,
+  params, searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{os?:string|string[];form?:string|string[];tier?:string|string[]}>;
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
@@ -94,7 +75,7 @@ export default async function HardwareAmazonPage({
       </aside>
 
       {/* 1. Les Bundles par OS (Linux, Windows, macOS, Android), avec accessoires filtrés intégrés */}
-      <HardwareBundleTabs locale={currentLocale} />
+      <AmazonCatalog locale={currentLocale} selection={await searchParams} />
 
       {/* 2. Panier persistant "Mon Pack" — flottant, disponible mobile & desktop */}
       <HardwareCartBar locale={currentLocale} />

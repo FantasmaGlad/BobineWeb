@@ -4,7 +4,7 @@ import { useState } from "react";
 import { formatPrice, sumPrices } from "@/lib/price";
 import Image from "next/image";
 import { useHardwareCart, cartItemPlatform, type CartItem, type CartPlatform } from "@/lib/hardwareCart";
-import { AMAZON_STORE_ID } from "@/content/hardware";
+import { AMAZON_STORE_ID } from "@/lib/productSources";
 import type { Locale } from "@/lib/i18n";
 import "@/styles/split/pages-hardware.css";
 

@@ -1,0 +1,17 @@
+.amazon-catalog { display: grid; gap: 1.25rem; padding-bottom: 2rem; }
+.amazon-catalog h1, .amazon-catalog h2, .amazon-catalog h3 { color: var(--text-heading); }
+.amazon-catalog p { line-height: 1.7; color: var(--text-body); }
+.amazon-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.amazon-filters a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0.5rem 1rem; border: 1px solid var(--glass-card-border); border-radius: var(--radius-md); background: var(--glass-inset-bg); color: var(--text-heading); text-decoration: none; }
+.amazon-filters a[aria-current] { background: var(--accent-subtle); border-color: var(--accent-primary); }
+.amazon-product { min-width: 0; display: grid; grid-template-columns: minmax(8rem, 0.4fr) minmax(0, 1fr); align-items: center; gap: 1rem; padding: 1.25rem; border: 1px solid var(--glass-card-border); border-radius: var(--radius-lg); background: var(--glass-card-bg); box-shadow: var(--glass-card-highlight), var(--shadow-card); -webkit-backdrop-filter: blur(var(--glass-card-blur)); backdrop-filter: blur(var(--glass-card-blur)); }
+.amazon-product img { width: 100%; height: auto; }
+.amazon-product h3 { margin-top: 0; overflow-wrap: anywhere; }
+.amazon-product__reference { font-size: var(--fs-0-85rem); }
+.amazon-product__actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.amazon-product__actions a, .amazon-product__actions button { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; text-align: center; }
+.amazon-product-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }
+.amazon-product-grid .amazon-product { grid-template-columns: 1fr; align-content: start; }
+.amazon-product-grid img { max-height: 9rem; }
+.amazon-catalog__notice { border-left: 3px solid var(--accent-primary); padding: 0.75rem 1rem; background: var(--glass-inset-bg); }
+@media (max-width: 700px) { .amazon-product, .amazon-product-grid { grid-template-columns: 1fr; } .amazon-product > img { max-height: 11rem; } }

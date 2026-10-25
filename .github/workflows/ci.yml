@@ -103,6 +103,8 @@ jobs:
         run: |
           node scripts/ci/check-comparisons.mjs
           node scripts/ci/check-marketing.mjs
+          node scripts/ci/check-catalog.mjs
+          node --test scripts/ci/check-catalog.test.mjs
       - name: Géométrie mobile et cibles tactiles
         run: |
           npm run start -- --port 3102 > "$RUNNER_TEMP/mobile-server.log" 2>&1 &
@@ -114,6 +116,7 @@ jobs:
           done
           node scripts/ci/mobile-check.mjs
           node scripts/ci/modal-check.mjs
+          node scripts/ci/check-feature-menu.mjs
 
   onion:
     name: Miroir Tor (export statique)

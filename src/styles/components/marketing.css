@@ -45,3 +45,27 @@
 
 .marketing-hero .media-frame img { max-height: 28rem; object-fit: contain; }
 .marketing-card p, .marketing-card li { overflow-wrap: anywhere; }
+
+.features-layout { display: grid; grid-template-columns: 13rem minmax(0,1fr); gap: 2rem; align-items: start; }
+.features-content { min-width: 0; }
+.feature-navigation { position: sticky; top: 6.75rem; }
+.feature-navigation ul { list-style: none; margin: 0; padding: 0; }
+.feature-navigation li + li { margin-top: 0.15rem; }
+.feature-navigation a { display: block; padding: 0.45rem 0.65rem; color: var(--text-body); text-decoration: none; line-height: 1.4; border-left: 2px solid var(--border-subtle); font-size: var(--fs-0-875rem); }
+.feature-navigation a:hover, .feature-navigation a:focus-visible { color: var(--accent-text); background: var(--accent-subtle); border-color: var(--accent-primary); }
+.feature-navigation__desktop > p { margin: 0 0 0.65rem; font-size: var(--fs-0-8rem); font-weight: 700; }
+.feature-navigation__mobile { display: none; }
+.features-content .marketing-card:target { border-color: var(--accent-primary); }
+@media (max-width: 960px) {
+  .features-layout { display: block; }
+  .feature-navigation { position: sticky; top: 4.5rem; z-index: var(--z-10); margin-bottom: 1rem; }
+  .feature-navigation__desktop { display: none; }
+  .feature-navigation__mobile { display: block; border: 1px solid var(--glass-card-border); border-radius: var(--radius-md); background: var(--bg-surface-elevated); }
+  .feature-navigation__mobile summary { min-height: 44px; padding: 0.65rem 1rem; cursor: pointer; font-weight: 650; color: var(--text-heading); }
+  .feature-navigation__mobile summary span { margin-left: 0.5rem; color: var(--text-muted); font-size: var(--fs-0-8rem); }
+  .feature-navigation__mobile nav { padding: 0 0.5rem 0.5rem; max-height: min(24rem, 60dvh); overflow-y: auto; }
+  .feature-navigation a { display: flex; align-items: center; min-height: 44px; }
+}
+@media (pointer: coarse) { .feature-navigation a { min-height: 44px; display: flex; align-items: center; } }
+
+.features-content .marketing-card[id] { scroll-margin-top: 8rem; }

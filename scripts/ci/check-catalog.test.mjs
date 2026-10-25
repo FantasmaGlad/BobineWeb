@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {validateCatalog} from './check-catalog.mjs';
+const load=()=>[JSON.parse(readFileSync(new URL('../../src/content/products.json',import.meta.url))),JSON.parse(readFileSync(new URL('../../src/content/bundles.json',import.meta.url)))];
+test('le catalogue canonique et toutes ses références sont valides',()=>{const [p,b]=load();assert.equal(validateCatalog(p,b).selections,38)});
+test('un prix Amazon réintroduit est refusé',()=>{const [p,b]=load();Object.values(p)[0].priceAmazon=299;assert.throws(()=>validateCatalog(p,b),/prix Amazon/)});
+test('une unité répétée dans deux gammes est refusée',()=>{const [p,b]=load();const t=b.bundles.linux.formFactors.minipc.tiers;t.pro.items[0]=t.essentiel.items[0];assert.throws(()=>validateCatalog(p,b),/unité principale répétée/)});
+test('une référence et une illustration absentes sont refusées',()=>{const [p,b]=load();assert.throws(()=>validateCatalog(p,b,()=>false),/illustration/);b.bundles.linux.formFactors.minipc.tiers.pro.items[0]='B000000000';assert.throws(()=>validateCatalog(p,b),/Référence absente/)});
+test('un faux ASIN ou un lien de recherche ne peut pas devenir une fiche',()=>{let [p,b]=load();Object.values(p)[0].asin='invalide';assert.throws(()=>validateCatalog(p,b),/ASIN/);[p,b]=load();Object.values(p)[0].listing='https://www.amazon.fr/s?k=mini+pc';assert.throws(()=>validateCatalog(p,b),/fiche directe/)});

@@ -11,7 +11,6 @@ interface TickerMetric {
 }
 
 const METRICS_FR: TickerMetric[] = [
-  { tag: "ÉCONOMIE", label: "Gain financier", value: "Économisez 1 500 € à 3 000 € / an par studio (Zéro redevance logicielle)" },
   { tag: "SANS ABONNEMENT", label: "Coût d'usage", value: "0 € / mois · Logiciel libre sans engagement, sans coût caché" },
   { tag: "CODE OUVERT", label: "Transparence totale", value: "Code source public sur GitHub : auditable par n'importe qui, aucune boîte noire" },
   { tag: "MAC & MAC MINI", label: "Régie studio", value: "Idéal en studio sous macOS : silence quasi total, double écran HDMI & démarrage automatique" },
@@ -42,7 +41,6 @@ const METRICS_FR: TickerMetric[] = [
 ];
 
 const METRICS_EN: TickerMetric[] = [
-  { tag: "SAVINGS", label: "Financial gain", value: "Save €1,500 to €3,000 / year per studio (Zero software royalties)" },
   { tag: "NO SUBSCRIPTION", label: "Software cost", value: "€0 / month · Open-source, zero recurring fees, no vendor lock-in" },
   { tag: "OPEN SOURCE", label: "Full transparency", value: "Public source code on GitHub: auditable by anyone, zero black box" },
   { tag: "MAC & MAC MINI", label: "Studio appliance", value: "Perfect control unit: near-total silence, dual HDMI screens & auto-launch" },

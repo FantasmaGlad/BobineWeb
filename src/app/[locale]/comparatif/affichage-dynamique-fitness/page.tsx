@@ -93,7 +93,7 @@ const CONTENT = {
         {
           criterion: "Coût Mensuel Récurrent",
           bobine: "0 € / mois (Licence libre AGPL-3.0)",
-          competitor: "15 € à 50 € / mois par écran connecté",
+          competitor: "Souvent un abonnement par écran connecté (selon l'offre)",
         },
       ],
     },
@@ -167,7 +167,7 @@ const CONTENT = {
         {
           criterion: "Monthly Subscription per Display",
           bobine: "$0 / month (Free AGPL-3.0)",
-          competitor: "$15 to $50 / month per connected screen",
+          competitor: "Often a subscription per connected screen (depends on the offer)",
         },
       ],
     },

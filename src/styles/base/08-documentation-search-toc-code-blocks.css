@@ -163,6 +163,17 @@
   transform: scale(1.15);
 }
 
+.roi-number-input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-8px);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface-hover);
+  color: var(--text-main);
+  font: inherit;
+}
+
 .roi-range-marks {
   display: flex;
   justify-content: space-between;

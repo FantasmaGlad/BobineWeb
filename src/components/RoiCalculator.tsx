@@ -9,14 +9,18 @@ export default function RoiCalculator({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const screensInputId = useId();
   const costInputId = useId();
+  const hardwareInputId = useId();
   const [screens, setScreens] = useState<number>(2);
-  const [costPerScreen, setCostPerScreen] = useState<number>(200);
+  // Montants saisis par le visiteur : aucun tarif de fournisseur n'est présupposé (vide = 0).
+  const [costPerScreen, setCostPerScreen] = useState<string>("");
+  const [hardwarePerScreen, setHardwarePerScreen] = useState<string>("");
 
-  const hardwareCost = screens * 50; // ~50€ par mini PC Dell Wyse 5070 reconditionné
-  const yearlyProprietary = screens * costPerScreen * 12;
+  const monthly = Math.max(0, Number(costPerScreen) || 0);
+  const hardwareCost = screens * Math.max(0, Number(hardwarePerScreen) || 0);
+  const yearlyProprietary = screens * monthly * 12;
   const savingsYear1 = yearlyProprietary - hardwareCost;
-  const savingsYear3 = screens * costPerScreen * 36 - hardwareCost;
-  const savingsYear5 = screens * costPerScreen * 60 - hardwareCost;
+  const savingsYear3 = screens * monthly * 36 - hardwareCost;
+  const savingsYear5 = screens * monthly * 60 - hardwareCost;
 
   const formatCurrency = (val: number) => {
     return new Intl.NumberFormat(isEn ? "en-US" : "fr-FR", {
@@ -30,17 +34,17 @@ export default function RoiCalculator({ locale }: { locale: Locale }) {
     <section className="roi-calculator-section">
       <div className="roi-calculator-header">
         <span className="feature-category-label">
-          {isEn ? "Interactive ROI Calculator" : "Simulateur d'Économies & ROI"}
+          {isEn ? "Cost calculator" : "Simulateur de coûts"}
         </span>
         <h2 className="roi-calculator-title">
           {isEn
-            ? "Calculate your gym's annual savings with Bobine"
-            : "Calculez les économies réelles de votre salle avec Bobine"}
+            ? "Work out the gap with your own figures"
+            : "Calculez l'écart avec vos propres montants"}
         </h2>
         <p className="roi-calculator-desc">
           {isEn
-            ? "Compare the recurring fees of proprietary closed platforms against a one-off refurbished mini PC with Bobine."
-            : "Comparez le coût des abonnements mensuels fermés avec l'investissement unique dans un mini PC Bobine."}
+            ? "Enter what you pay today per screen and what a player would cost you. The result only reflects these amounts: no vendor rate is assumed."
+            : "Saisissez ce que vous payez aujourd'hui par écran et le prix d'un lecteur pour vous. Le résultat ne reflète que ces montants : aucun tarif de fournisseur n'est supposé."}
         </p>
       </div>
 
@@ -76,54 +80,67 @@ export default function RoiCalculator({ locale }: { locale: Locale }) {
           <div className="roi-slider-group">
             <div className="roi-slider-label">
               <label htmlFor={costInputId} className="roi-calculator-label-1">
-                {isEn ? "Current monthly cost per screen:" : "Coût mensuel actuel par écran (Les Mills / SaaS) :"}
+                {isEn ? "Current monthly cost per screen (€):" : "Coût mensuel actuel par écran (€) :"}
               </label>
-              <span className="roi-slider-value">{costPerScreen} € / mois</span>
             </div>
             <input
               id={costInputId}
-              type="range"
-              min="100"
-              max="400"
-              step="25"
+              type="number"
+              inputMode="decimal"
+              min="0"
+              step="1"
+              placeholder="0"
               value={costPerScreen}
-              onChange={(e) => setCostPerScreen(Number(e.target.value))}
-              className="roi-range-input"
+              onChange={(e) => setCostPerScreen(e.target.value)}
+              className="roi-number-input"
             />
-            <div className="roi-range-marks">
-              <span>100 €</span>
-              <span>200 €</span>
-              <span>300 €</span>
-              <span>400 €</span>
+          </div>
+
+          <div className="roi-slider-group">
+            <div className="roi-slider-label">
+              <label htmlFor={hardwareInputId} className="roi-calculator-label-1">
+                {isEn ? "Cost of one player for you (€):" : "Coût d'un lecteur pour vous (€) :"}
+              </label>
             </div>
+            <input
+              id={hardwareInputId}
+              type="number"
+              inputMode="decimal"
+              min="0"
+              step="1"
+              placeholder="0"
+              value={hardwarePerScreen}
+              onChange={(e) => setHardwarePerScreen(e.target.value)}
+              className="roi-number-input"
+            />
           </div>
         </div>
 
         {/* Résultat des économies */}
         <div className="roi-results-grid">
           <div className="roi-result-card roi-result-card--featured">
-            <span className="roi-result-period">{isEn ? "1st Year Net Savings" : "Économie Nette Année 1"}</span>
+            <span className="roi-result-period">{isEn ? "1st year gap" : "Écart sur 1 an"}</span>
             <div className="roi-result-amount">{formatCurrency(savingsYear1)}</div>
             <span className="roi-result-sub">
               {isEn
-                ? `Includes ${formatCurrency(hardwareCost)} one-time hardware purchase`
-                : `Achat matériel déduit (${formatCurrency(hardwareCost)} au total)`}
+                ? `After ${formatCurrency(hardwareCost)} of players bought once`
+                : `Après ${formatCurrency(hardwareCost)} de lecteurs achetés une fois`}
             </span>
           </div>
 
           <div className="roi-result-card">
-            <span className="roi-result-period">{isEn ? "3-Year Total Savings" : "Économie sur 3 ans"}</span>
+            <span className="roi-result-period">{isEn ? "3-year gap" : "Écart sur 3 ans"}</span>
             <div className="roi-result-amount">{formatCurrency(savingsYear3)}</div>
             <span className="roi-result-sub">
-              {isEn ? "0 € software subscription" : "0 € d'abonnement logiciel"}
+              {isEn ? "No software subscription with Bobine" : "Aucun abonnement logiciel avec Bobine"}
             </span>
           </div>
 
           <div className="roi-result-card">
-            <span className="roi-result-period">{isEn ? "5-Year Total Savings" : "Économie sur 5 ans"}</span>
+            <span className="roi-result-period">{isEn ? "5-year gap" : "Écart sur 5 ans"}</span>
             <div className="roi-result-amount">{formatCurrency(savingsYear5)}</div>
             <span className="roi-result-sub">
-              {isEn ? "Full hardware ownership" : "Matériel 100% amorti et possédé"}
+              {isEn ? "You own the hardware" : "Le matériel vous appartient"}
             </span>
           </div>
         </div>
@@ -133,8 +150,8 @@ export default function RoiCalculator({ locale }: { locale: Locale }) {
           <div className="roi-calculator-div-1">
             <p className="roi-calculator-p-1">
               {isEn
-                ? "With Bobine, you retain 100% of your gym's margin and own your video playback equipment for life."
-                : "Avec Bobine, vous conservez 100% de votre marge et devenez propriétaire définitif de votre matériel de diffusion."}
+                ? "A simple projection from the amounts above; it ignores taxes, electricity and any other cost."
+                : "Projection simple à partir des montants saisis ; elle ignore taxes, électricité et tout autre coût."}
             </p>
           </div>
           <Link

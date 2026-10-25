@@ -6,9 +6,30 @@ import { getServerCatalog } from "@/lib/catalog/server";
 import { buildCatalogIndex, buildCartContext, buildStoreViewContext, buildFallbackCompareBlock, buildFallbackProductBlocks } from "@/lib/catalog/promptContext";
 import type { ServerCatalog } from "@/lib/catalog/server";
 import { PACKAGE_REPOS_LIVE } from "@/lib/linuxPackages";
+import { CHAT_BOUNDS, clientKey, createRateLimiter, validateChatPayload } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
+
+/** 20 requêtes par minute et par adresse : un client isolé est borné ici, Cloudflare porte la limite principale. */
+const chatLimiter = createRateLimiter(20, 60_000);
+
+const MESSAGES = {
+  fr: {
+    unavailable: "Assistant momentanément indisponible.",
+    invalid: "Format de messages invalide.",
+    tooLarge: "La conversation est trop longue : démarrez une nouvelle discussion.",
+    rateLimited: "Trop de questions en peu de temps. Réessayez dans quelques instants.",
+    internal: "Baamix n'a pas pu répondre. Réessayez dans un instant.",
+  },
+  en: {
+    unavailable: "The assistant is temporarily unavailable.",
+    invalid: "Invalid message format.",
+    tooLarge: "The conversation is too long: start a new discussion.",
+    rateLimited: "Too many questions in a short time. Please try again in a moment.",
+    internal: "Baamix could not answer. Please try again in a moment.",
+  },
+} as const;
 
 const OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1";
 const HF_BASE_URL = "https://router.huggingface.co/v1";
@@ -50,7 +71,7 @@ La liste ci-dessous est l'INTÉGRALITÉ des produits réellement en vente sur /m
 {{HARDWARE_CATALOG}}
 
 Ce que tu dois savoir des deux boutiques :
-- **Amazon** : catalogue Linux, Windows, macOS et Android. Prix constatés à la main (la date est indiquée), fiche produit vérifiée, achat et retours gérés par Amazon.
+- **Amazon** : catalogue Linux, Windows, macOS et Android. Prix à vérifier sur la boutique (le site n'en garantit aucun), achat et retours gérés par Amazon.
 - **AliExpress** : catalogue Linux, Windows et Android (pas de macOS : aucun Mac neuf fiable n'y est référencé, l'utilisateur est alors redirigé vers Windows et Linux). Prix rafraîchis automatiquement, toujours affichés « à partir de » (variante la moins chère de l'annonce : vérifier la RAM, le SSD et la version sur la fiche). Chaque gamme propose plusieurs marques alternatives. Connectique uniquement de boutiques officielles. Informations vendeur affichées (boutique, note, nombre de ventes) : encourage à les regarder, et signale quand une annonce compte très peu de ventes. Les mini PC et portables Linux y sont livrés avec Windows : il faut réinstaller Linux. Pour les tablettes, vérifier la ROM « globale » (Google Play, français). Un seul mini PC est réellement sans ventilateur (XCY N150).
 - Les liens d'achat sont des liens d'affiliation (aucun surcoût pour l'acheteur) : si l'utilisateur le demande, dis-le simplement, sans détour.
 - Les deux plateformes sont payées séparément : un panier « Mon Pack » peut mélanger les deux, chaque groupe se règle sur sa plateforme.
@@ -156,26 +177,43 @@ async function buildSystemPrompt(cart: unknown, storeView: unknown, catalog: Ser
 }
 
 export async function POST(req: Request) {
+  const lang = req.headers.get("accept-language")?.toLowerCase().startsWith("en") ? "en" : "fr";
+  let text: (typeof MESSAGES)[typeof lang] = MESSAGES[lang];
   try {
+    const limit = chatLimiter(clientKey(req.headers));
+    if (!limit.allowed) {
+      return NextResponse.json({ error: text.rateLimited }, { status: 429, headers: { "Retry-After": String(limit.retryAfter) } });
+    }
+    const declared = Number(req.headers.get("content-length") ?? 0);
+    if (declared > CHAT_BOUNDS.maxBodyBytes) return NextResponse.json({ error: text.tooLarge }, { status: 413 });
+
+    const raw = await req.text();
+    if (raw.length > CHAT_BOUNDS.maxBodyBytes) return NextResponse.json({ error: text.tooLarge }, { status: 413 });
+    let payload: { messages?: unknown; cart?: unknown; storeView?: unknown; locale?: unknown };
+    try {
+      payload = JSON.parse(raw);
+    } catch {
+      return NextResponse.json({ error: text.invalid }, { status: 400 });
+    }
+    // La langue de l'interface décide des messages d'erreur ; l'en-tête Accept-Language ne sert qu'au refus précoce.
+    if (payload.locale === "en" || payload.locale === "fr") text = MESSAGES[payload.locale];
+    const rejection = validateChatPayload(payload);
+    if (rejection) {
+      const tooLarge = rejection === "trop-de-messages" || rejection === "message-trop-long" || rejection === "conversation-trop-longue";
+      return NextResponse.json({ error: tooLarge ? text.tooLarge : text.invalid }, { status: tooLarge ? 413 : 400 });
+    }
+    const { messages, cart, storeView } = payload as { messages: Array<{ role: string; content: string }>; cart?: unknown; storeView?: unknown };
+
     const apiKey = process.env.OPENROUTER_API_KEY || process.env.ORCAROUTER_API_KEY;
     const hfToken = process.env.HF_TOKEN;
     if (!apiKey && !hfToken) {
       console.error("HF_TOKEN et OPENROUTER_API_KEY manquantes : renseignez-en au moins une dans les variables d'environnement.");
-      return NextResponse.json({ error: "Assistant momentanément indisponible." }, { status: 503 });
+      return NextResponse.json({ error: text.unavailable }, { status: 503 });
     }
     const baseURL =
       process.env.OPENROUTER_BASE_URL ||
       process.env.ORCAROUTER_BASE_URL ||
       OPENROUTER_BASE_URL;
-
-    const { messages, cart, storeView } = await req.json();
-
-    if (!Array.isArray(messages) || messages.length === 0) {
-      return NextResponse.json(
-        { error: "Format de messages invalide." },
-        { status: 400 }
-      );
-    }
 
     // Deux fournisseurs : Hugging Face (principal) puis OpenRouter (repli). Pas de nouvelle tentative
     // automatique du SDK : au moindre échec on passe tout de suite au suivant.
@@ -327,9 +365,8 @@ export async function POST(req: Request) {
       },
     });
   } catch (error: unknown) {
+    // Le détail reste dans les journaux du serveur : le client ne reçoit jamais le message d'une exception.
     console.error("Erreur API Chat:", error);
-    const message =
-      error instanceof Error ? error.message : "Erreur interne du serveur.";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: text.internal }, { status: 500 });
   }
 }

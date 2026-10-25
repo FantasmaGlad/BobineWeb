@@ -7,9 +7,11 @@ import type { Locale } from "@/lib/i18n";
 import { readCart } from "@/lib/hardwareCart";
 import { readStoreView, subscribeStoreView, type StoreView } from "@/lib/storeView";
 import AssistantMessageBody from "@/components/AssistantMessageBody";
+import Icon from "@/components/ui/Icon";
 import BaamixThinking, { HamsterWheel } from "@/components/BaamixThinking";
 import { IS_ONION, CLEARNET_URL } from "@/lib/onion";
 import "@/styles/split/pages-misc.css";
+import "@/styles/components/chatbot.css";
 
 
 
@@ -77,6 +79,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
   const [openNonce, setOpenNonce] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -170,12 +173,16 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
       return;
     }
     if (isOpen) {
+      openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
       document.body.style.overflow = "hidden";
       if (inputRef.current) {
         inputRef.current.focus();
       }
     } else {
       document.body.style.overflow = "";
+      // Retour du focus au bouton qui a ouvert l'assistant (s'il existe encore).
+      if (openerRef.current?.isConnected) openerRef.current.focus();
+      openerRef.current = null;
     }
     return () => {
       document.body.style.overflow = "";
@@ -194,6 +201,25 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape" && isOpen) {
         setIsOpen(false);
+        return;
+      }
+      // Piège de focus : Tab et Maj+Tab restent dans la fenêtre de l'assistant.
+      if (e.key === "Tab" && isOpen && modalRef.current) {
+        const focusable = [...modalRef.current.querySelectorAll<HTMLElement>("button:not([disabled]), input:not([disabled]), a[href], [tabindex]:not([tabindex='-1'])")].filter((el) => el.getClientRects().length > 0);
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const active = document.activeElement;
+        if (!modalRef.current.contains(active)) {
+          e.preventDefault();
+          first.focus();
+        } else if (e.shiftKey && active === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     }
 
@@ -316,7 +342,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
       aria-hidden={hidden || undefined}
       role={isPage ? "region" : "dialog"}
       aria-modal={isPage ? undefined : true}
-      aria-label={isPage ? (isEn ? "Baamix AI assistant" : "Assistant IA Baamix") : undefined}
+      aria-label={isEn ? "Baamix AI assistant" : "Assistant IA Baamix"}
     >
       {/* Page /baamix : titre principal accessible mais invisible (le chat occupe tout l'écran, sans en-tête). */}
       {isPage && <h1 className="sr-only">{isEn ? "Baamix, the Bobine AI assistant" : "Baamix, l'assistant IA de Bobine"}</h1>}
@@ -349,10 +375,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                   title={isEn ? "Reset chat" : "Réinitialiser la conversation"}
                   aria-label={isEn ? "Reset chat" : "Réinitialiser"}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="1 4 1 10 7 10" />
-                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
-                  </svg>
+                  <Icon name="refresh" size={14} />
                 </button>
               )}
               {!isPage && (
@@ -363,10 +386,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                 aria-label={isEn ? "Close" : "Fermer"}
                 title={isEn ? "Close assistant" : "Fermer l'assistant"}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
+                <Icon name="close" size={16} />
               </button>
               )}
             </div>
@@ -376,15 +396,13 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
       {/* Page /baamix : bouton discret de nouvelle conversation */}
       {isPage && !IS_ONION && messages.length > 0 && (
         <button type="button" className="chatbot-page-reset" onClick={() => setMessages([])}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M12 5v14M5 12h14" />
-          </svg>
+          <Icon name="plus" size={14} />
           {isEn ? "New conversation" : "Nouvelle conversation"}
         </button>
       )}
 
           {/* Corps de conversation */}
-          <div ref={bodyRef} className={`chatbot-modal__body${messages.length === 0 ? " chatbot-modal__body--empty" : ""}`}>
+          <div ref={bodyRef} role="log" aria-live="polite" aria-relevant="additions" aria-busy={isLoading} className={`chatbot-modal__body${messages.length === 0 ? " chatbot-modal__body--empty" : ""}`}>
             {!IS_ONION && (
             <>{/* Message de bienvenue */}
             <div className="chatbot-message chatbot-message--assistant">
@@ -521,10 +539,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                 disabled={IS_ONION || !input.trim() || isLoading}
                 aria-label={isEn ? "Send" : "Envoyer"}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="22" y1="2" x2="11" y2="13" />
-                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                </svg>
+                <Icon name="send" size={16} />
               </button>
             </div>
             <div className="chatbot-badge-disclaimer">

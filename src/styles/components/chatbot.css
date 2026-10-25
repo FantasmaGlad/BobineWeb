@@ -1,0 +1,10 @@
+/* Assistant Baamix : zones sûres des téléphones (encoche, barre de gestes) sous la fenêtre plein écran. */
+@media (max-width: 600px) {
+  .chatbot-modal__footer {
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+  }
+
+  .chatbot-modal__header {
+    padding-top: calc(0.75rem + env(safe-area-inset-top));
+  }
+}

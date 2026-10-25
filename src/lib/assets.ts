@@ -19,6 +19,7 @@ export interface AssetDef {
   render?: "mask" | "image";
   tone?: "brand" | "ink";
   color?: string;
+  maxBytes?: number;
 }
 
 const registry = data as Record<AssetKey, AssetDef>;

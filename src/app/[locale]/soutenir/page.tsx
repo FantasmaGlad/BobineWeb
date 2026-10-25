@@ -16,11 +16,12 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "/soutenir",
     title: isEn
-      ? "Support the Bobine Project — Open Source Gym Playout"
+      ? "Support Bobine — Open Source Gym Playout"
       : "Soutenir le Projet Bobine — Régie Vidéo Libre",
     description: isEn
       ? "Bobine is free and open source, with no subscription for gyms and no tracking. Donations on Ko-fi pay for test hardware, the domain name and build servers."
       : "Bobine est libre, sans abonnement ni suivi. Les dons sur Ko-fi financent le banc d'essai matériel, le nom de domaine et les serveurs de compilation.",
+    image: "/images/marketing/laptop-og.webp",
     keywords: [
       "Soutenir Bobine",
       "Don Bobine",

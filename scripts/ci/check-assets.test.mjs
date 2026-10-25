@@ -28,7 +28,7 @@ test("le registre réel est conforme", () => {
 });
 
 test("une couleur officielle sous 3:1 est refusée", () => {
-  const r = run((d) => { d["os.linux"].tone = "brand"; d["os.linux"].color = "#FCC624"; });
+  const r = run((d) => { d["os.linux"].render = "mask"; d["os.linux"].tone = "brand"; d["os.linux"].color = "#FCC624"; });
   assert.equal(r.status, 1);
   assert.match(r.stderr, /os\.linux .*minimum 3:1/);
 });

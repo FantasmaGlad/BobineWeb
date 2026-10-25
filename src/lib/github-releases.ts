@@ -406,7 +406,8 @@ export async function getBobineStableReleases(): Promise<BobineRelease[]> {
 export async function getBobineBetaRelease(): Promise<BobineRelease | null> {
   const releases = await getBobineReleases();
   return (
-    releases.find((release) => release.isPrerelease || release.slug.toLowerCase() === "beta") ??
+    releases.find((release) => release.slug.toLowerCase() === "beta") ??
+    releases.find((release) => release.isPrerelease && /beta/i.test(release.slug)) ??
     FALLBACK_RELEASES.find((r) => r.slug === "beta") ??
     null
   );

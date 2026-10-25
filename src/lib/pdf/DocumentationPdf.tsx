@@ -394,7 +394,7 @@ const DEVICE_IMAGES: Record<DeviceImageKey, { srcs: string[]; captionFr: string;
     captionEn: "Baamix, Bobine's mascot, and the Firefox fox — Bobine supports Firefox",
   },
   channels: {
-    srcs: ["/images/channels/stable.png", "/images/channels/beta.png", "/images/channels/canary.png"],
+    srcs: ["/images/channels/bobine-stable.png", "/images/channels/bobine-beta.png", "/images/channels/bobine-canary.png"],
     captionFr: "Les trois canaux de mise à jour : Stable, Bêta (curée) et Canary (rolling)",
     captionEn: "The three update channels: Stable, Beta (curated) and Canary (rolling)",
   },

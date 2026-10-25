@@ -19,3 +19,12 @@
   height: 1.15em;
   object-fit: contain;
 }
+
+/* Le support clair conserve les couleurs de marque, même dans les thèmes sombres. */
+:where(.brand-icon--image) {
+  box-sizing: border-box;
+  padding: 0.08em;
+  border-radius: var(--radius-4px);
+  background: color-mix(in srgb, var(--specular) 96%, transparent);
+  vertical-align: middle;
+}

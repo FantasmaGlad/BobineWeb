@@ -236,3 +236,13 @@ Bobine is also available over Tor as onion services (v3), hosted by the maintain
   ```bash
   curl -fsSL https://bobine.fit/install-tor.sh | bash -s -- --channel=beta
   ```
+
+
+## Product pages and current screenshots
+
+- Features: https://bobine.fit/en/features (scheduled playout, wired/network outputs, kiosk, coach audio, radio, storage, themes, backups and update channels).
+- Hardware: https://bobine.fit/en/hardware/aliexpress (direct catalog; old /en/hardware address redirects here).
+- About: https://bobine.fit/en/about ; voluntary support: https://bobine.fit/en/support.
+- Release journal: https://bobine.fit/en/blog ; release notes retain their original language, usually French.
+- Image credits: https://bobine.fit/en/credits. Current screenshots show an isolated Bobine 5.0.5 demonstration with synthetic media. Old demonstration captures are not reused.
+- Playback capability depends on hardware, codecs and browser. Bobine supplies no licensed workout catalog; clubs provide their media and the required permissions.

@@ -189,7 +189,7 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
                 {channelRows.map((row) => (
                   <button key={row.id} type="button" className="dl-chip dl-chip--row" aria-pressed={channel === row.id} onClick={() => setChannel(row.id)}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`/images/channels/${row.id}.webp`} alt="" width={28} height={28} className="dl-chip__logo" />
+                    <img src={`/images/channels/bobine-${row.id}.webp`} alt="" width={28} height={28} className="dl-chip__logo" />
                     <span className="dl-chip__name">{row.label}</span>
                     <code>{row.version}</code>
                     <small>{row.hint}</small>
@@ -238,7 +238,7 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
                 <dt>{isEn ? "Version" : "Version"}</dt>
                 <dd className="dl-facts__version">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`/images/channels/${channel}.webp`} alt="" width={22} height={22} className="dl-chip__logo" />
+                  <img src={`/images/channels/bobine-${channel}.webp`} alt="" width={22} height={22} className="dl-chip__logo" />
                   <span>{result.version}</span>
                 </dd>
                 {size && (<><dt>{isEn ? "Size" : "Taille"}</dt><dd>{size}</dd></>)}

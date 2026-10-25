@@ -322,7 +322,7 @@
     {
       "id": "hardware",
       "path": "/materiel",
-      "kind": "hub",
+      "kind": "leaf",
       "label": {
         "fr": "Matériel",
         "en": "Hardware"
@@ -335,16 +335,16 @@
       "changeFrequency": "weekly",
       "parent": "home",
       "icon": "icon:cpu",
-      "nav": true,
-      "footer": "hardware"
+      "hidden": true,
+      "redirectTo": "hardware-aliexpress"
     },
     {
       "id": "hardware-aliexpress",
       "path": "/materiel/aliexpress",
       "kind": "leaf",
       "label": {
-        "fr": "Sélection AliExpress",
-        "en": "AliExpress selection"
+        "fr": "Matériel AliExpress",
+        "en": "AliExpress hardware"
       },
       "description": {
         "fr": "Matériel compatible proposé sur AliExpress.",
@@ -352,8 +352,10 @@
       },
       "priority": 0.7,
       "changeFrequency": "weekly",
-      "parent": "hardware",
-      "icon": "icon:external"
+      "parent": "home",
+      "icon": "icon:external",
+      "nav": true,
+      "footer": "hardware"
     },
     {
       "id": "hardware-amazon",
@@ -369,7 +371,7 @@
       },
       "priority": 0.9,
       "changeFrequency": "weekly",
-      "parent": "hardware",
+      "parent": "home",
       "icon": "icon:external",
       "hidden": true
     },
@@ -583,6 +585,24 @@
       "priority": 0.3,
       "changeFrequency": "yearly",
       "parent": "home",
+      "footer": "legal"
+    },
+    {
+      "id": "credits",
+      "path": "/credits",
+      "kind": "leaf",
+      "label": {
+        "fr": "Crédits des images",
+        "en": "Image credits"
+      },
+      "description": {
+        "fr": "Sources des illustrations, captures et démonstrations.",
+        "en": "Sources of illustrations, screenshots and demonstrations."
+      },
+      "priority": 0.3,
+      "changeFrequency": "monthly",
+      "parent": "resources",
+      "icon": "icon:video",
       "footer": "legal"
     }
   ]

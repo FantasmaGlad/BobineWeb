@@ -21,3 +21,9 @@ Les photographies et visuels des produits de la boutique matériel (`public/imag
 ## Identité Bobine
 
 Le nom Bobine, le nom et la mascotte Baamix et les logos Bobine sont la propriété de Bobine ; voir [`LICENSE`](LICENSE).
+
+## Logos en couleurs et captures
+
+Les logos des systèmes, navigateurs et distributions sont affichés en couleur, sans recoloration par le thème, sur un support clair. Les tracés Simple Icons restent attribués ci-dessus. Firefox utilise le SVG du dépôt officiel [mozilla-firefox/firefox](https://github.com/mozilla-firefox/firefox/blob/main/browser/branding/official/content/about-logo.svg). Edge utilise le SVG publié par [Microsoft](https://github.com/microsoft/Microsoft-AI-Decision-Framework/blob/b8b5ccb00ad1f8cff663e8e0f44cbe79e058c207/images/icons/edge.svg). Tux utilise le SVG de [Garrett LeSage](https://github.com/garrett/Tux), d’après Larry Ewing et Simon Budig ; l’attribution à Larry Ewing et au GIMP est conservée. Les marques demeurent la propriété de leurs titulaires.
+
+Les captures de la médiathèque et du planning proviennent d’une instance de démonstration Bobine 5.0.5 avec des médias synthétiques, le 25 octobre 2026. Elles ne constituent pas une validation sur appareil. Les illustrations Baamix et les icônes de canaux relèvent de l’identité Bobine. Les sources et les crédits sont disponibles sur la page Crédits du site. Les captures des anciennes démonstrations ne sont pas réutilisées.

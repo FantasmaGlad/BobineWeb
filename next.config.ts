@@ -54,6 +54,10 @@ const nextConfig: NextConfig = {
   // Ignorés par un export statique : les redirections et en-têtes du miroir vivent dans Caddy.
   ...(isOnion ? {} : { async redirects() {
     return [
+      { source: "/fr/materiel", destination: "/fr/materiel/aliexpress", permanent: true },
+      { source: "/en/hardware", destination: "/en/hardware/aliexpress", permanent: true },
+      { source: "/en/materiel", destination: "/en/hardware/aliexpress", permanent: true },
+      { source: "/fr/support", destination: "/fr/soutenir", permanent: true },
       // Emplacement historique de security.txt (RFC 9116, section 3)
       { source: "/security.txt", destination: "/.well-known/security.txt", permanent: true },
       {

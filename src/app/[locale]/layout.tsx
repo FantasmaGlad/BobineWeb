@@ -189,7 +189,7 @@ export default async function RootLayout({
         />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var m={aurore:'miel',glacier:'ciel',rose:'clair',foret:'menthe',abysse:'hiver'};var r=localStorage.getItem('bobineweb-theme')||'lavande';var t=m[r]||r;document.documentElement.setAttribute('data-theme',t);var ua=navigator.userAgent||'';var p='linux';if(/Android/i.test(ua)){p='android';}else if(/iPhone|iPad|iPod/i.test(ua)||(navigator.maxTouchPoints>1&&/Macintosh/i.test(ua))){p='ios';}else if(/Windows/i.test(ua)){p='windows';}else if(/Macintosh|Mac OS X/i.test(ua)){p='macos';}document.documentElement.setAttribute('data-platform',p);}catch(e){}})()`,
+            __html: `(function(){try{var m={aurore:'miel',glacier:'ciel',rose:'clair',foret:'menthe',abysse:'hiver'};var c=document.cookie.match(/(?:^|; )bobine-theme=([\\w-]+)/);var r=(c&&c[1])||localStorage.getItem('bobineweb-theme')||'lavande';var t=m[r]||r;document.documentElement.setAttribute('data-theme',t);var ua=navigator.userAgent||'';var p='linux';if(/Android/i.test(ua)){p='android';}else if(/iPhone|iPad|iPod/i.test(ua)||(navigator.maxTouchPoints>1&&/Macintosh/i.test(ua))){p='ios';}else if(/Windows/i.test(ua)){p='windows';}else if(/Macintosh|Mac OS X/i.test(ua)){p='macos';}document.documentElement.setAttribute('data-platform',p);}catch(e){}})()`,
           }}
         />
       </head>

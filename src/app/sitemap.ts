@@ -14,7 +14,7 @@ interface RouteConfig {
 }
 
 // Les routes statiques viennent du plan du site (src/lib/siteMap.json) : une seule liste pour la navigation et le sitemap.
-const staticRoutes: RouteConfig[] = ROUTES.map(({ path, priority, changeFrequency }) => ({ path, priority, changeFrequency }));
+const staticRoutes: RouteConfig[] = ROUTES.filter((route) => !route.redirectTo).map(({ path, priority, changeFrequency }) => ({ path, priority, changeFrequency }));
 
 export const dynamic = "force-static";
 

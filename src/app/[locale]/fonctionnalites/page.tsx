@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import ScrollIndicator from "@/components/ScrollIndicator";
+import Breadcrumbs from "@/components/page/Breadcrumbs";
 import "@/styles/split/pages-misc.css";
 
 const copy = {
@@ -210,6 +211,7 @@ export default async function FeaturesPage({
 
   return (
     <div className="container">
+      <Breadcrumbs locale={locale as Locale} id="features" visible={false} />
       {/* 1. Hero Section — Plein écran propre sur Desktop et Mobile */}
       <section className="hero-fullscreen">
         <div>

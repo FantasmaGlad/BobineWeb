@@ -6,7 +6,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata, lp } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
 import RoiCalculator from "@/components/RoiCalculator";
-import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
+import Breadcrumbs from "@/components/page/Breadcrumbs";
 import BrandIcon from "@/components/ui/BrandIcon";
 import "@/styles/split/pages-comparison.css";
 import Icon from "@/components/ui/Icon";
@@ -320,6 +320,7 @@ export default async function ComparatifHubPage({
 
   return (
     <div className="cmp-hub">
+      <Breadcrumbs locale={locale as Locale} id="compare" visible={false} />
       {/* 1. En-tête Hero Apple Glassmorphism structuré */}
       <header className="cmp-header-1 cmp-hub__header">
         <div className="cmp-div-8">

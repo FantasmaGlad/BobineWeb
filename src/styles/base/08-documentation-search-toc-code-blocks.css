@@ -1,0 +1,327 @@
+/* ==========================================================================
+   Documentation Search, TOC & Code Blocks
+   ========================================================================== */
+
+/* Documentation TOC */
+
+/* ==========================================================================
+   Terminal Code Blocks (Markdown, Documentation & Blog)
+   ========================================================================== */
+
+.terminal-code-block {
+  position: relative;
+  margin-block: 1.35rem 1.85rem;
+  border-radius: var(--radius-0-65rem);
+  border: 1px solid var(--border-subtle);
+  background: #0d1117;
+  overflow: hidden;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+.terminal-code-block__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+  padding: 0.45rem 0.85rem;
+}
+
+.terminal-code-block__title {
+  display: flex;
+  align-items: center;
+}
+
+.terminal-code-block__title code {
+  color: #8b949e;
+  font-size: var(--fs-0-725rem);
+  font-family: "SF Mono", Monaco, Consolas, monospace;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.terminal-code-block__body {
+  margin: 0 !important;
+  padding: 0.95rem 1.15rem !important;
+  background: #0d1117 !important;
+  color: #c9d1d9 !important;
+  font-family: "SF Mono", Monaco, "Cascadia Code", Consolas, monospace !important;
+  font-size: var(--fs-0-8rem) !important;
+  line-height: 1.55 !important;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+.terminal-code-block__body code {
+  background: none !important;
+  color: #c9d1d9 !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+  font-family: inherit !important;
+}
+
+/* ==========================================================================
+   Vercel-style Documentation Components (Callouts, Tables, API cards)
+   ========================================================================== */
+
+/* Variante "empilée en cartes" pour les tableaux longs sur mobile
+   (ex : tableau de dépannage) — évite le défilement horizontal illisible. */
+
+/* ==========================================================================
+   ROI Calculator Component
+   ========================================================================== */
+
+.roi-calculator-section {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.roi-calculator-header {
+  max-width: 48rem;
+  margin-bottom: 1.5rem;
+}
+
+.roi-calculator-title {
+  font-size: var(--fs-clamp-1-35rem-3vw-1-75rem);
+  font-weight: 750;
+  color: var(--text-heading);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin: 0.15rem 0 0.4rem 0;
+}
+
+.roi-calculator-desc {
+  margin: 0;
+  font-size: var(--fs-0-95rem);
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.roi-calculator-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-0-85rem);
+  padding: 1.5rem;
+}
+
+.roi-sliders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.roi-slider-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.roi-slider-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.65rem;
+  font-size: var(--fs-0-9rem);
+}
+
+.roi-slider-value {
+  font-size: var(--fs-1-05rem);
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+
+.roi-range-input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: var(--radius-4px);
+  background: var(--bg-surface-hover);
+  outline: none;
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+}
+
+.roi-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-50);
+  background: var(--accent-primary);
+  border: 2px solid var(--bg-card);
+  box-shadow: 0 2px 6px color-mix(in srgb, var(--ink) 20%, transparent);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.roi-range-input::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.roi-range-marks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.35rem;
+  font-size: var(--fs-0-725rem);
+  color: var(--text-dim);
+}
+
+.roi-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.roi-result-card {
+  background: var(--bg-surface-hover);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-0-75rem);
+  padding: 1.15rem;
+  text-align: center;
+}
+
+.roi-result-card--featured {
+  background: var(--accent-subtle);
+  border-color: var(--accent-primary);
+  position: relative;
+}
+
+.roi-result-period {
+  display: block;
+  font-size: var(--fs-0-8rem);
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+
+.roi-result-amount {
+  font-size: var(--fs-clamp-1-4rem-2-8vw-1-85rem);
+  font-weight: 800;
+  color: var(--accent-primary);
+  line-height: 1.1;
+  margin-bottom: 0.35rem;
+}
+
+.roi-result-sub {
+  font-size: var(--fs-0-725rem);
+  color: var(--text-dim);
+}
+
+.roi-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+@media (max-width: 768px) {
+
+  .roi-calculator-card {
+    padding: 1.15rem 1rem;
+  }
+  .roi-sliders-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .roi-results-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .roi-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 1rem;
+  }
+  .roi-card-footer .btn-primary {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
+
+}
+
+/* ==========================================================================
+   Badge Dynamique GitHub
+   ========================================================================== */
+
+.github-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-9999px);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  text-decoration: none;
+  font-size: var(--fs-0-8rem);
+  font-weight: 600;
+  color: var(--text-heading);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  line-height: 1;
+}
+
+.github-badge:hover {
+  border-color: var(--border-vibrant);
+  background: var(--accent-subtle);
+  color: var(--text-heading);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-1px);
+}
+
+.github-badge__icon {
+  flex-shrink: 0;
+  color: var(--text-heading);
+}
+
+.github-badge__name {
+  color: var(--text-heading);
+  font-weight: 600;
+}
+
+.github-badge__release {
+  font-size: var(--fs-0-7rem);
+  font-weight: 700;
+  background: var(--badge-bg);
+  color: var(--badge-fg);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-9999px);
+  border: 1px solid var(--badge-border);
+}
+
+.github-badge__stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: var(--fs-0-75rem);
+  color: var(--text-muted);
+  padding-left: 0.35rem;
+  border-left: 1px solid var(--border-subtle);
+}
+
+.github-badge__star-icon {
+  color: #eab308;
+}
+
+.github-badge--compact .github-badge__name {
+  display: none;
+}
+
+@media (max-width: 900px) {
+
+  .site-header .github-badge {
+    display: none;
+  }
+
+}

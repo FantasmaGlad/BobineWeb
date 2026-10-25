@@ -1,0 +1,374 @@
+/*
+ * BobineWeb — Système de Design Apple Premium & Thèmes dynamiques
+ * 16 thèmes unifiés avec l'application Bobine (8 Clairs, 8 Sombres),
+ * calibrés pour une lisibilité optimale (WCAG AA/AAA), du verre dépoli
+ * à contours marqués et un maillage lumineux ambiant.
+ */
+
+:root,
+:root[data-theme="charbon"] {
+  /* Valeurs de repli sans attribut data-theme : thème Charbon (Albâtre & Carbone). Le thème par défaut du site, Lavande, est posé par data-theme dès le premier rendu. */
+  --bg-canvas: #f4f4f5;
+  --bg-main: #f4f4f5;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #e4e4e7;
+  --bg-surface-hover: #d4d4d8;
+  --bg-inset: #ececef;
+
+  --text-heading: #09090b;
+  --text-main: #18181b;
+  --text-body: #18181b;
+  --text-base: #18181b;
+  --text-muted: #52525b;
+  --text-dim: var(--text-muted);
+
+  --accent-primary: #18181b;
+  --accent-primary-fg: #ffffff;
+  --accent-hover: #27272a;
+  --accent-subtle: rgba(24, 24, 27, 0.07);
+  --accent-glow: rgba(24, 24, 27, 0.16);
+  --accent-success: color-mix(in srgb, #16803d 55%, var(--text-heading));
+  --accent-warning: #f59e0b;
+  --accent-canary: #eab308;
+  --accent-beta: #0ea5e9;
+
+  --border-subtle: #e4e4e7;
+  --border-vibrant: #18181b;
+  --border-color: #e4e4e7;
+  --border-hover: #a1a1aa;
+  --border-focus: #18181b;
+
+  --radius-sm: 0.45rem;
+  --radius-md: 0.7rem;
+  --radius-lg: 0.95rem;
+  --radius-xl: 1.25rem;
+
+  --shadow-color: color-mix(in srgb, var(--ink) 8%, transparent);
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 5%, transparent);
+  --shadow-md: 0 6px 18px -2px color-mix(in srgb, var(--ink) 8%, transparent);
+  --shadow-card: 0 6px 24px -4px color-mix(in srgb, var(--ink) 7%, transparent), 0 1px 3px color-mix(in srgb, var(--ink) 4%, transparent);
+  --shadow-card-hover: 0 16px 36px -6px color-mix(in srgb, var(--ink) 14%, transparent), 0 0 20px color-mix(in srgb, var(--ink) 6%, transparent);
+  --ambient-glow: rgba(24, 24, 27, 0.04);
+
+  --badge-bg: rgba(24, 24, 27, 0.06);
+  --badge-fg: #09090b;
+  --badge-border: rgba(24, 24, 27, 0.2);
+
+  --logo-filter: none;
+  --max-width: 76rem;
+
+  /* Courbes de ressort Apple */
+  --ease-spring-hover: cubic-bezier(0.2, 0.8, 0.2, 1.2);
+  --ease-spring-pill: cubic-bezier(0.2, 0.9, 0.3, 1.2);
+
+  /* Tokens de verre — Collection Claire (par défaut). Le verre est translucide : l'arrière-plan (maillage ambiant,
+     illustrations, autres éléments) reste lisible, flouté et saturé ; le contraste du texte est vérifié sur les
+     16 thèmes par scripts/ci/glass-check.mjs. */
+  --bg-ambient-mesh:
+    radial-gradient(circle at 12% 6%, color-mix(in srgb, var(--accent-primary) 12%, transparent) 0%, transparent 46%),
+    radial-gradient(circle at 88% 18%, color-mix(in srgb, var(--accent-primary) 8%, transparent) 0%, transparent 52%),
+    radial-gradient(circle at 50% 95%, color-mix(in srgb, var(--accent-primary) 6%, transparent) 0%, transparent 48%);
+  --glass-surface-bg: color-mix(in srgb, var(--bg-card) 58%, transparent);
+  --glass-surface-border: color-mix(in srgb, var(--ink) 12%, var(--border-subtle));
+  --glass-surface-blur: var(--blur-xl);
+  --glass-card-bg: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--bg-card) 74%, transparent) 0%,
+    color-mix(in srgb, var(--bg-card) 52%, color-mix(in srgb, var(--accent-primary) 3%, transparent)) 100%
+  );
+  --glass-card-border: color-mix(in srgb, var(--ink) 14%, var(--border-subtle));
+  --glass-card-blur: var(--blur-lg);
+  --glass-card-highlight: inset 0 1px 0 0 color-mix(in srgb, var(--specular) 90%, transparent), inset 0 0 0 0.5px color-mix(in srgb, var(--specular) 55%, transparent);
+  --glass-floating-bg: color-mix(in srgb, var(--bg-card) 78%, transparent);
+  --glass-modal-bg: color-mix(in srgb, var(--bg-card) 58%, transparent);
+  --glass-floating-border: color-mix(in srgb, var(--ink) 16%, var(--border-subtle));
+  --glass-floating-blur: var(--blur-2xl);
+  --glass-inset-bg: color-mix(in srgb, var(--bg-inset) 62%, transparent);
+  --glass-edge: inset 0 1px 0 color-mix(in srgb, var(--specular) 65%, transparent), inset 0 -1px 0 color-mix(in srgb, var(--ink) 7%, transparent);
+  --glass-gloss: linear-gradient(180deg, color-mix(in srgb, var(--specular) 34%, transparent) 0%, color-mix(in srgb, var(--specular) 8%, transparent) 46%, transparent 52%, color-mix(in srgb, var(--ink) 12%, transparent) 100%);
+
+  /* Échelle de flou du verre : un seul réglage pour tout le site.
+     --blur-scale : 1 = normal ; 0 supprime les flous (« transparence réduite »). */
+  --blur-scale: 1;
+  --blur-xs: calc(4px * var(--blur-scale));
+  --blur-sm: calc(8px * var(--blur-scale));
+  --blur-md: calc(14px * var(--blur-scale));
+  --blur-lg: calc(22px * var(--blur-scale));
+  --blur-xl: calc(30px * var(--blur-scale));
+  --blur-2xl: calc(36px * var(--blur-scale));
+  --saturate-soft: 165%;
+  --saturate-rich: 190%;
+
+  /* Neutres physiques : ombres (--ink) et reflets (--specular), repris par toutes les ombres, bords et
+     reflets via color-mix. Un thème peut les surcharger en un seul endroit. */
+  --ink: #000000;
+  --specular: #ffffff;
+
+  /* Voiles sous les fenêtres et tiroirs ; pastilles posées sur une image ou une vidéo. */
+  --scrim-soft: color-mix(in srgb, var(--ink) 40%, transparent);
+  --scrim: color-mix(in srgb, var(--ink) 62%, transparent);
+  --glass-chip-bg: color-mix(in srgb, var(--ink) 70%, transparent);
+  --glass-chip-blur: var(--blur-sm);
+
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --text-on-accent: var(--accent-primary-fg);
+  /* Accent utilisable comme couleur de texte (liens) : rapproché de l'encre du thème pour tenir >= 4,5:1 sur chaque matériau de verre. */
+  --accent-text: color-mix(in srgb, var(--accent-primary) 60%, var(--text-heading));
+
+  /* Badge d'annonce Android — Couleurs dérivées dynamiquement du thème actif */
+  --android-badge-fg: var(--accent-primary);
+  --android-badge-bg: color-mix(in srgb, var(--accent-primary) 12%, var(--bg-card));
+  --android-badge-border: color-mix(in srgb, var(--accent-primary) 35%, var(--border-subtle));
+  --android-badge-glow: color-mix(in srgb, var(--accent-primary) 20%, transparent);
+}
+
+/* ==========================================================================
+   COLLECTION CLAIRE (8 THÈMES) — Contrastes typographiques WCAG AAA/AA
+   ========================================================================== */
+
+/* Carmin — Rouge rubis Apple sur porcelaine immaculée */
+:root[data-theme="clair"] {
+  --bg-canvas: #f6f7f9;
+  --bg-main: #f6f7f9;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #eef0f4;
+  --bg-surface-hover: #e5e8ef;
+  --bg-inset: #edeff4;
+  --text-heading: #0f172a;
+  --text-main: #1e293b;
+  --text-body: #1e293b;
+  --text-base: #1e293b;
+  --text-muted: #475569;
+  --text-dim: var(--text-muted);
+  --accent-primary: #e11d48;
+  --accent-primary-fg: #ffffff;
+  --accent-hover: #be123c;
+  --accent-subtle: rgba(225, 29, 72, 0.08);
+  --accent-glow: rgba(225, 29, 72, 0.22);
+  --border-subtle: #dde2ea;
+  --border-vibrant: #e11d48;
+  --border-color: #dde2ea;
+  --border-focus: #e11d48;
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 5%, transparent);
+  --shadow-card: 0 6px 24px -4px color-mix(in srgb, var(--ink) 7%, transparent), 0 1px 3px color-mix(in srgb, var(--ink) 3%, transparent);
+  --shadow-card-hover: 0 16px 36px -6px color-mix(in srgb, var(--ink) 13%, transparent), 0 0 18px color-mix(in srgb, var(--ink) 10%, transparent);
+  --ambient-glow: rgba(225, 29, 72, 0.04);
+  --badge-bg: rgba(225, 29, 72, 0.09);
+  --badge-fg: #be123c;
+  --badge-border: rgba(225, 29, 72, 0.24);
+  --logo-filter: none;
+}
+
+/* Ambre — Ivoire solaire et ambre chaud lumineux sans jaunissement */
+:root[data-theme="miel"] {
+  --bg-canvas: #faf8f5;
+  --bg-main: #faf8f5;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #f3efe8;
+  --bg-surface-hover: #ebe4d8;
+  --bg-inset: #f2ede4;
+  --text-heading: #18130c;
+  --text-main: #261f15;
+  --text-body: #261f15;
+  --text-base: #261f15;
+  --text-muted: #574e42;
+  --text-dim: var(--text-muted);
+  --accent-primary: #d97706;
+  --accent-primary-fg: #140e08;
+  --accent-hover: #f59e0b;
+  --accent-subtle: rgba(217, 119, 6, 0.09);
+  --accent-glow: rgba(217, 119, 6, 0.22);
+  --border-subtle: #e4ddd2;
+  --border-vibrant: #d97706;
+  --border-color: #e4ddd2;
+  --border-focus: #d97706;
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 5%, transparent);
+  --shadow-card: 0 6px 24px -4px color-mix(in srgb, var(--ink) 7%, transparent);
+  --shadow-card-hover: 0 16px 36px -6px color-mix(in srgb, var(--ink) 13%, transparent), 0 0 18px color-mix(in srgb, var(--ink) 10%, transparent);
+  --ambient-glow: rgba(217, 119, 6, 0.04);
+  --badge-bg: rgba(217, 119, 6, 0.10);
+  --badge-fg: #b45309;
+  --badge-border: rgba(217, 119, 6, 0.25);
+  --logo-filter: none;
+}
+
+/* Sauge — Brume botanique fraîche et émeraude scandinave */
+:root[data-theme="menthe"] {
+  --bg-canvas: #f4f8f6;
+  --bg-main: #f4f8f6;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #eaf1ed;
+  --bg-surface-hover: #dce8e1;
+  --bg-inset: #e8f0ec;
+  --text-heading: #0c1d15;
+  --text-main: #162e23;
+  --text-body: #162e23;
+  --text-base: #162e23;
+  --text-muted: #43594e;
+  --text-dim: var(--text-muted);
+  --accent-primary: #059669;
+  --accent-primary-fg: #08090a;
+  --accent-hover: #10b981;
+  --accent-subtle: rgba(5, 150, 105, 0.09);
+  --accent-glow: rgba(5, 150, 105, 0.22);
+  --border-subtle: #d5e2db;
+  --border-vibrant: #059669;
+  --border-color: #d5e2db;
+  --border-focus: #059669;
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 5%, transparent);
+  --shadow-card: 0 6px 24px -4px color-mix(in srgb, var(--ink) 7%, transparent);
+  --shadow-card-hover: 0 16px 36px -6px color-mix(in srgb, var(--ink) 13%, transparent), 0 0 18px color-mix(in srgb, var(--ink) 10%, transparent);
+  --ambient-glow: rgba(5, 150, 105, 0.04);
+  --badge-bg: rgba(5, 150, 105, 0.10);
+  --badge-fg: #047857;
+  --badge-border: rgba(5, 150, 105, 0.25);
+  --logo-filter: none;
+}
+
+/* Azur — Cristal alpin et bleu saphir Cupertino */
+:root[data-theme="ciel"] {
+  --bg-canvas: #f4f7fb;
+  --bg-main: #f4f7fb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #eaeff6;
+  --bg-surface-hover: #dce5f0;
+  --bg-inset: #e8eef6;
+  --text-heading: #0b1929;
+  --text-main: #16283d;
+  --text-body: #16283d;
+  --text-base: #16283d;
+  --text-muted: #43556b;
+  --text-dim: var(--text-muted);
+  --accent-primary: #0071e3;
+  --accent-primary-fg: #ffffff;
+  --accent-hover: #005bb5;
+  --accent-subtle: rgba(0, 113, 227, 0.09);
+  --accent-glow: rgba(0, 113, 227, 0.22);
+  --border-subtle: #d6e0ec;
+  --border-vibrant: #0071e3;
+  --border-color: #d6e0ec;
+  --border-focus: #0071e3;
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 5%, transparent);
+  --shadow-card: 0 6px 24px -4px color-mix(in srgb, var(--ink) 7%, transparent);
+  --shadow-card-hover: 0 16px 36px -6px color-mix(in srgb, var(--ink) 13%, transparent), 0 0 18px color-mix(in srgb, var(--ink) 10%, transparent);
+  --ambient-glow: rgba(0, 113, 227, 0.04);
+  --badge-bg: rgba(0, 113, 227, 0.10);
+  --badge-fg: #005bb5;
+  --badge-border: rgba(0, 113, 227, 0.25);
+  --logo-filter: none;
+}
+
+/* Lavande — Nacre irisée et améthyste profonde */
+:root[data-theme="lavande"] {
+  --bg-canvas: #f7f6fb;
+  --bg-main: #f7f6fb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #eeeaf6;
+  --bg-surface-hover: #e3ddf0;
+  --bg-inset: #ece8f5;
+  --text-heading: #161126;
+  --text-main: #231c38;
+  --text-body: #231c38;
+  --text-base: #231c38;
+  --text-muted: #504868;
+  --text-dim: var(--text-muted);
+  --accent-primary: #7c3aed;
+  --accent-primary-fg: #ffffff;
+  --accent-hover: #6d28d9;
+  --accent-subtle: rgba(124, 58, 237, 0.09);
+  --accent-glow: rgba(124, 58, 237, 0.22);
+  --border-subtle: #ded8ec;
+  --border-vibrant: #7c3aed;
+  --border-color: #ded8ec;
+  --border-focus: #7c3aed;
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 5%, transparent);
+  --shadow-card: 0 6px 24px -4px color-mix(in srgb, var(--ink) 7%, transparent);
+  --shadow-card-hover: 0 16px 36px -6px color-mix(in srgb, var(--ink) 13%, transparent), 0 0 18px color-mix(in srgb, var(--ink) 10%, transparent);
+  --ambient-glow: rgba(124, 58, 237, 0.04);
+  --badge-bg: rgba(124, 58, 237, 0.10);
+  --badge-fg: #6d28d9;
+  --badge-border: rgba(124, 58, 237, 0.25);
+  --logo-filter: none;
+}
+
+/* Sable — Pierre calcaire claire, lin soyeux et bronze doré */
+:root[data-theme="beige"] {
+  --bg-canvas: #f7f5f0;
+  --bg-main: #f7f5f0;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #efeae0;
+  --bg-surface-hover: #e5ded0;
+  --bg-inset: #ede8de;
+  --text-heading: #1c1814;
+  --text-main: #29231d;
+  --text-body: #29231d;
+  --text-base: #29231d;
+  --text-muted: #575048;
+  --text-dim: var(--text-muted);
+  --accent-primary: #9a5b25;
+  --accent-primary-fg: #ffffff;
+  --accent-hover: #7c4619;
+  --accent-subtle: rgba(154, 91, 37, 0.09);
+  --accent-glow: rgba(154, 91, 37, 0.20);
+  --border-subtle: #e0d9cc;
+  --border-vibrant: #9a5b25;
+  --border-color: #e0d9cc;
+  --border-focus: #9a5b25;
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 5%, transparent);
+  --shadow-card: 0 6px 24px -4px color-mix(in srgb, var(--ink) 7%, transparent);
+  --shadow-card-hover: 0 16px 36px -6px color-mix(in srgb, var(--ink) 13%, transparent), 0 0 18px color-mix(in srgb, var(--ink) 10%, transparent);
+  --ambient-glow: rgba(154, 91, 37, 0.04);
+  --badge-bg: rgba(154, 91, 37, 0.10);
+  --badge-fg: #7c4619;
+  --badge-border: rgba(154, 91, 37, 0.25);
+  --logo-filter: none;
+}
+
+/* Cacao — Porcelaine chaude, cachemire et expresso torréfié */
+:root[data-theme="coco"] {
+  --bg-canvas: #f8f5f2;
+  --bg-main: #f8f5f2;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #f0eae4;
+  --bg-surface-hover: #e5dcd3;
+  --bg-inset: #eee8e1;
+  --text-heading: #1f1510;
+  --text-main: #2d2019;
+  --text-body: #2d2019;
+  --text-base: #2d2019;
+  --text-muted: #5a4b43;
+  --text-dim: var(--text-muted);
+  --accent-primary: #7c3a19;
+  --accent-primary-fg: #ffffff;
+  --accent-hover: #612b10;
+  --accent-subtle: rgba(124, 58, 25, 0.09);
+  --accent-glow: rgba(124, 58, 25, 0.20);
+  --border-subtle: #e2d7ce;
+  --border-vibrant: #7c3a19;
+  --border-color: #e2d7ce;
+  --border-focus: #7c3a19;
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 5%, transparent);
+  --shadow-card: 0 6px 24px -4px color-mix(in srgb, var(--ink) 7%, transparent);
+  --shadow-card-hover: 0 16px 36px -6px color-mix(in srgb, var(--ink) 13%, transparent), 0 0 18px color-mix(in srgb, var(--ink) 10%, transparent);
+  --ambient-glow: rgba(124, 58, 25, 0.04);
+  --badge-bg: rgba(124, 58, 25, 0.10);
+  --badge-fg: #612b10;
+  --badge-border: rgba(124, 58, 25, 0.25);
+  --logo-filter: none;
+}

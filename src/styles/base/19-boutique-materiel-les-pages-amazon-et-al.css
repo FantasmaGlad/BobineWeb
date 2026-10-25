@@ -1,0 +1,303 @@
+/* ==========================================================================
+   Boutique matériel : les pages Amazon et AliExpress suivent le thème général du site
+   (16 thèmes). Seuls le logo, la pastille de marque et le badge boutique gardent leurs couleurs.
+   ========================================================================== */
+
+.platform-shell {
+  min-height: 60vh;
+}
+
+/* Fiche principale : liseré d'accent et bande en tête, couleurs du thème actif. */
+.platform-shell .hw-tier-card {
+  border: 1px solid var(--border-vibrant) !important;
+  border-radius: var(--radius-0-9rem);
+  box-shadow: 0 8px 28px -12px var(--accent-glow) !important;
+  overflow: hidden;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.platform-shell .hw-tier-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 0.3rem;
+  background: var(--accent-primary);
+}
+
+.platform-shell .hw-tier-card > *:not(.hw-tier-nav-arrow) {
+  position: relative;
+}
+
+.platform-shell .stepper-mode-btn.is-active {
+  background: var(--accent-primary);
+  color: var(--accent-primary-fg);
+  border-color: var(--accent-primary);
+  font-weight: 700;
+}
+
+.platform-shell .hw-item-card--hero {
+  border: 1px solid var(--border-vibrant) !important;
+}
+
+.platform-shell .hw-alt-unit-card {
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.platform-shell .hw-alt-unit-card:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -12px var(--accent-glow);
+}
+
+.platform-shell .hw-price,
+.platform-shell .hw-alt-unit-card__price {
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .platform-shell .hw-alt-unit-card,
+  .platform-shell .hw-tier-card {
+    transition: none;
+  }
+  .platform-shell .hw-alt-unit-card:hover {
+    transform: none;
+  }
+}
+
+/* Badge boutique officielle : jaune Choice d'AliExpress, à plat. */
+.hw-seller-badge {
+  background: #ffd60a;
+  color: #191919;
+  border: 1px solid #ffd60a;
+}
+
+/* ==========================================================================
+   Hauteurs verrouillées : quel que soit l'OS, la gamme ou la longueur du texte, chaque bloc
+   garde la même hauteur (texte coupé sur un nombre de lignes fixe, texte complet en infobulle).
+   ========================================================================== */
+
+/* Ligne défilante : hauteur fixe d'une ligne, défile en boucle seulement si le texte dépasse. */
+.marquee {
+  position: relative;
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 1.5;
+  height: 1.5em;
+}
+
+.marquee__measure {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.marquee__static {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.marquee__track {
+  display: inline-flex;
+  animation: marquee-scroll 40s linear infinite;
+  will-change: transform;
+}
+
+.marquee__item {
+  flex-shrink: 0;
+  padding-right: 3rem;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
+
+  .marquee.is-scrolling {
+    text-overflow: ellipsis;
+  }
+}
+
+/* Mobile : pas de survol pour mettre en pause et un texte qui défile en continu est illisible :
+   les lignes passent à la ligne et s'affichent en entier. */
+@media (max-width: 640px) {
+  .marquee {
+    height: auto;
+    overflow: visible;
+    white-space: normal;
+  }
+
+  .marquee__track {
+    display: block;
+    animation: none;
+    will-change: auto;
+  }
+
+  .marquee__item {
+    padding-right: 0;
+  }
+
+  .marquee__item[aria-hidden="true"] {
+    display: none;
+  }
+
+  .marquee__static {
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  /* La carte d'alternative ne doit jamais dépasser la largeur du carrousel. */
+  .hw-alt-unit-card {
+    width: 100%;
+    gap: 0.5rem;
+    padding: 0.55rem 0.6rem;
+  }
+}
+
+.hw-form-title,
+.hw-tier-summary,
+.hw-hero-name,
+.hw-hero-specs {
+  min-width: 0;
+  margin: 0;
+}
+
+.hw-clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.hw-hero-desc {
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  line-height: 1.5;
+  min-height: 4.5em;
+  max-height: 4.5em;
+}
+
+.hw-seller-slot {
+  min-height: 1.5rem;
+  max-height: 1.5rem;
+  overflow: hidden;
+}
+
+.hw-seller-line {
+  flex-wrap: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.hw-seller-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hw-seller-stats {
+  flex-shrink: 0;
+}
+
+/* Cartes d'alternatives : hauteur fixe, une seule ligne vendeur. */
+.hw-alt-unit-card {
+  height: 5rem;
+}
+
+.hw-alt-unit-card .hw-seller-stats {
+  display: none;
+}
+
+.hw-alt-unit-card__name {
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  line-height: 1.25;
+  min-height: 2rem;
+  max-height: 2rem;
+}
+
+/* Grille d'accessoires : toutes les cartes d'une même hauteur, contenu tronqué proprement. */
+.hw-acc-grid {
+  grid-auto-rows: 22rem;
+}
+
+.hw-acc-grid > .hw-item-card {
+  height: 100%;
+  overflow: hidden;
+}
+
+.hw-acc-name {
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  min-height: 2.5rem;
+  max-height: 2.5rem;
+}
+
+.hw-acc-specs {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.hw-acc-desc {
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  min-height: 3.5rem;
+  max-height: 3.5rem;
+}
+
+@media (max-width: 560px) {
+  .hw-hero-desc {
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+    min-height: 7.5em;
+    max-height: 7.5em;
+  }
+}
+
+/* Ligne titre + badges : même hauteur avec ou sans badge ventilateur. */
+.hw-tier-specs-row {
+  min-height: 3rem;
+}
+
+/* Bloc prix : prix + ligne de note (date de constat) toujours présents, hauteur constante. */
+.hw-price-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 2.9rem;
+}
+
+.hw-price-note {
+  display: block;
+  min-height: 1rem;
+  font-size: var(--fs-0-7rem);
+  line-height: 1rem;
+  color: var(--text-muted);
+}
+
+/* Défilement des alternatives : pas de barre (la flèche suffit), pour ne jamais changer la hauteur. */
+.hw-alt-units__list {
+  scrollbar-width: none;
+}
+
+.hw-alt-units__list::-webkit-scrollbar {
+  display: none;
+}

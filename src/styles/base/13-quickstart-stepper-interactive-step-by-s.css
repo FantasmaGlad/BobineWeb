@@ -1,0 +1,500 @@
+/* ==========================================================================
+   QuickStart Stepper (Interactive Step-by-Step Guide)
+   ========================================================================== */
+
+.quickstart-stepper-container {
+  margin-block: 1.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.stepper-mode-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-0-65rem);
+}
+
+.stepper-progress-counter {
+  font-size: var(--fs-0-85rem);
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.stepper-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-0-45rem);
+  padding: 2px;
+  gap: 2px;
+}
+
+.stepper-mode-btn {
+  font: inherit;
+  font-size: var(--fs-0-725rem);
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-0-35rem);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.15s ease;
+}
+
+.stepper-mode-btn.is-active {
+  background: var(--bg-card);
+  color: var(--text-heading);
+  border-color: var(--border-subtle);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 5%, transparent);
+}
+
+.stepper-progress-track {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-inset);
+  border-radius: var(--radius-999px);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.stepper-progress-fill {
+  height: 100%;
+  background: var(--accent-primary);
+  border-radius: var(--radius-999px);
+  transition: width 0.3s ease;
+}
+
+.stepper-nav-pills-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.35rem;
+  scrollbar-width: none;
+}
+
+.stepper-nav-pills-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.stepper-nav-pill {
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.75rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-0-5rem);
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  font-size: var(--fs-0-78rem);
+  font-weight: 600;
+}
+
+.stepper-nav-pill:hover {
+  background: var(--bg-card);
+  color: var(--text-heading);
+  border-color: var(--accent-primary);
+}
+
+.stepper-nav-pill.is-active {
+  background: var(--bg-card);
+  color: var(--text-heading);
+  border-color: var(--accent-primary);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+.stepper-nav-pill.is-done {
+  border-color: var(--accent-primary);
+}
+
+.pill-number-badge {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-999px);
+  background: var(--bg-inset);
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-0-65rem);
+  font-weight: 700;
+  border: 1px solid var(--border-subtle);
+}
+
+.stepper-nav-pill.is-active .pill-number-badge {
+  background: var(--accent-primary);
+  color: var(--accent-primary-fg);
+  border-color: var(--accent-primary);
+}
+
+.stepper-nav-pill.is-done .pill-number-badge {
+  background: var(--accent-primary);
+  color: var(--accent-primary-fg);
+  border-color: var(--accent-primary);
+}
+
+.stepper-focused-card,
+.stepper-continuous-item {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-0-75rem);
+  overflow: hidden;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--ink) 5%, transparent);
+}
+
+.stepper-continuous-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.stepper-card-header {
+  padding: 1.15rem 1.35rem;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.stepper-card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.stepper-card-badge {
+  font-size: var(--fs-0-68rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-0-3rem);
+  background: var(--bg-inset);
+  color: var(--accent-primary);
+  border: 1px solid var(--border-subtle);
+}
+
+.stepper-card-heading {
+  margin: 0;
+  font-size: var(--fs-1-15rem);
+  font-weight: 800;
+  color: var(--text-heading);
+  letter-spacing: -0.01em;
+}
+
+.stepper-card-check-btn {
+  font: inherit;
+  font-size: var(--fs-0-78rem);
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-0-45rem);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all 0.15s ease;
+}
+
+.stepper-card-check-btn:hover {
+  border-color: var(--accent-primary);
+  color: var(--text-heading);
+}
+
+.stepper-card-check-btn.is-checked {
+  background: var(--bg-inset);
+  border-color: var(--accent-primary);
+  color: var(--text-heading);
+}
+
+.stepper-check-box {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-3px);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stepper-card-check-btn.is-checked .stepper-check-box {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary-fg);
+}
+
+.stepper-card-body {
+  padding: 1.35rem 1.5rem;
+  color: var(--text-base);
+  font-size: var(--fs-0-925rem);
+  line-height: 1.6;
+}
+
+.stepper-card-body p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.stepper-card-body p:last-child {
+  margin-bottom: 0;
+}
+
+.stepper-card-footer {
+  padding: 1rem 1.35rem;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.stepper-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--fs-0-825rem);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.stepper-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.stepper-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ==========================================================================
+   Terminal Window Titles & Clickable Command Rows
+   ========================================================================== */
+
+.interactive-terminal-window-title,
+.terminal-code-block__title {
+  display: flex;
+  align-items: center;
+}
+
+.interactive-terminal-window-title span,
+.interactive-terminal-window-title code,
+.terminal-code-block__title span,
+.terminal-code-block__title code {
+  color: #ffffff !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  font-size: var(--fs-0-725rem) !important;
+  font-family: "SF Mono", Monaco, Consolas, monospace !important;
+  font-weight: 500 !important;
+}
+
+.interactive-terminal-cmd-row.is-clickable {
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  border-radius: var(--radius-0-25rem);
+  padding: 0.35rem 0.5rem;
+  margin: -0.35rem -0.5rem 0.65rem -0.5rem;
+}
+
+.interactive-terminal-cmd-row.is-clickable:hover {
+  background: color-mix(in srgb, var(--specular) 6%, transparent);
+  border-bottom-color: color-mix(in srgb, var(--specular) 30%, transparent);
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 14px;
+  background: var(--accent-primary);
+  vertical-align: middle;
+  animation: terminal-blink 1s step-start infinite;
+  margin-left: 0.25rem;
+}
+
+@keyframes terminal-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   3. Grille de Téléchargements Directs Multi-OS (Hero Bobine 3.0.0)
+   -------------------------------------------------------------------------- */
+/* Le shell porte la grille commune ; featured et grid s'effacent
+   (display:contents) pour que leurs cartes rejoignent la même rangée
+   sur desktop/tablette. Sur mobile, le shell redevient une colonne et
+   featured retrouve sa propre boîte pour épingler le repère de
+   défilement en bas de son bloc (voir media query plus bas). */
+.os-download-shell {
+  width: 100%;
+  max-width: 100%;
+}
+
+.os-download-desktop-view {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.os-download-desktop-header {
+  width: 100%;
+}
+
+.os-download-desktop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: clamp(0.6rem, 0.9vw, 0.95rem);
+  width: 100%;
+  margin-top: clamp(0.35rem, 0.7vh, 0.65rem);
+  margin-bottom: clamp(0.35rem, 0.7vh, 0.65rem);
+}
+
+@media (min-width: 1024px) {
+  .os-download-desktop-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(0.6rem, 0.9vw, 0.95rem);
+  }
+
+  .os-download-card {
+    padding: clamp(0.75rem, 1vw, 1.05rem);
+    min-height: 165px;
+  }
+
+  .os-download-card__header {
+    gap: 0.65rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .os-download-card__icon-wrap {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-md);
+  }
+
+  .os-download-card__icon {
+    transform: none;
+  }
+
+  .os-download-card__name {
+    font-size: var(--fs-1-05rem);
+  }
+
+  .os-download-card__subtitle {
+    font-size: var(--fs-0-76rem);
+    min-height: 2.4em;
+  }
+
+  .os-download-card__meta {
+    font-size: var(--fs-0-76rem);
+    min-height: 2.8rem;
+    margin-bottom: 0.55rem;
+    padding-top: 0.55rem;
+  }
+
+  .os-download-card__action {
+    font-size: var(--fs-0-82rem);
+    min-height: 38px;
+    padding: 0.45rem 0.75rem;
+  }
+}
+
+.os-download-mobile-view {
+  display: none;
+}
+
+/* Ordre visuel fixe dès 640px : évite le décalage de mise en page (CLS)
+   provoqué par reorderForPlatform() qui ne réordonne le DOM qu'après le
+   montage (détection client-only). display:contents fait que l'ordre du
+   DOM pilote l'ordre visuel de la grille ; ces règles le figent quel que
+   soit l'OS détecté, pour que le premier rendu affiche déjà la position
+   finale. Sous 640px, featured/grid redeviennent des blocs distincts
+   (voir media query plus bas) : cette règle ne s'y applique plus. */
+@media (min-width: 640px) {
+
+  .os-download-card[data-platform="linux"] {
+    order: 1;
+  }
+
+  .os-download-card[data-platform="windows"] {
+    order: 2;
+  }
+
+  .os-download-card[data-platform="macos"] {
+    order: 3;
+  }
+
+  .os-download-card[data-platform="android"] {
+    order: 4;
+  }
+
+  .os-download-card[data-platform="android-tv"] {
+    order: 5;
+  }
+
+}
+
+.os-download-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1rem, 1.4vw, 1.35rem);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--bg-card) 76%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 80%, color-mix(in srgb, var(--specular) 20%, transparent));
+  text-decoration: none;
+  color: var(--text-heading);
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  min-height: 185px;
+  height: 100%;
+  box-shadow: 0 4px 20px -6px var(--shadow-color);
+}
+
+.os-download-card:hover {
+  transform: translateY(-3px);
+  background: color-mix(in srgb, var(--bg-card) 88%, transparent);
+  border-color: color-mix(in srgb, var(--accent-primary) 50%, var(--border-subtle));
+  box-shadow: 0 14px 32px -12px color-mix(in srgb, var(--accent-primary) 24%, transparent);
+}
+
+.os-download-card:active {
+  transform: scale(0.985);
+}
+
+.os-download-card--soon {
+  border-style: dashed;
+}
+
+.os-download-card--soon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--accent-primary) 18%, transparent);
+}

@@ -1,0 +1,476 @@
+.tauri-toggle-desc {
+  font-size: var(--fs-0-75rem);
+  color: var(--text-muted);
+  line-height: 1.4;
+  display: block;
+  margin-top: 0.15rem;
+}
+
+.tauri-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.tauri-pane-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.tauri-progress-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.tauri-progress-track {
+  flex: 1;
+  height: 8px;
+  border-radius: var(--radius-9999px);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+.tauri-progress-fill {
+  height: 100%;
+  background: var(--accent-primary);
+  transition: width 0.3s ease;
+  border-radius: var(--radius-9999px);
+}
+
+.tauri-progress-pct {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: var(--fs-0-82rem);
+  color: var(--accent-primary);
+  min-width: 40px;
+  text-align: right;
+}
+
+.tauri-terminal-box {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #1c1c1e;
+  color: #e4e4e7;
+  margin-bottom: 0.85rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tauri-terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45rem 0.85rem;
+  background: #2c2c2e;
+  border-bottom: 1px solid #3a3a3c;
+  font-size: var(--fs-0-72rem);
+  color: #a1a1aa;
+  font-family: var(--font-mono);
+}
+
+.tauri-terminal-body {
+  padding: 0.65rem 0.85rem;
+  height: 140px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: var(--fs-0-74rem);
+  line-height: 1.55;
+}
+
+.tauri-log-row {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.tauri-log-prefix {
+  color: #71717a;
+}
+
+.tauri-log-ok {
+  color: #4ade80;
+}
+
+.tauri-log-done {
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+.tauri-success-banner {
+  display: flex;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--accent-success) 12%, var(--bg-surface));
+  border: 1px solid color-mix(in srgb, var(--accent-success) 30%, transparent);
+  align-items: center;
+}
+
+.tauri-success-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-50);
+  background: var(--accent-success);
+  color: var(--status-success-fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tauri-success-details h4 {
+  font-size: var(--fs-0-875rem);
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.tauri-success-details p {
+  font-size: var(--fs-0-775rem);
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+.tauri-success-actions {
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 767px) {
+
+  .headless-action-tabs {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .headless-action-btn {
+    width: 100%;
+  }
+
+  .tauri-form-grid,
+  .tauri-specs-grid {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .tauri-stepper-label {
+    display: none;
+  }
+
+  .tauri-demo-body-viewport {
+    height: auto;
+    min-height: 440px;
+  }
+
+}
+
+/* ==========================================================================
+   Hub d'Installation & Documentation Multi-OS (DocsInstallHub)
+   ========================================================================== */
+
+/* Le nom et le badge se partagent une ligne qui peut retomber à la ligne :
+   le badge ne vole jamais une largeur fixe au nom, il se pousse simplement
+   en dessous si la carte est trop étroite pour les deux côte à côte. */
+
+/* Hero de la méthode d'installation sélectionnée */
+
+/* Version text sans encadré, chiffres dans la même couleur */
+
+/* Quick install box pour CLI */
+
+/* Copie de commande */
+
+/* Flux d'étapes d'installation (Steps Flow) */
+
+/* ==========================================================================
+   Feuille de Route (Android à l'étude, iOS/iPadOS piste explorée)
+   — intégrée comme onglets dans docs-install-tabs, voir DocsInstallHub.tsx
+   ========================================================================== */
+
+/* ==========================================================================
+   Modale de Téléchargement Multi-Canal (Stable / Bêta) & Sélecteur d'OS
+   ========================================================================== */
+
+@keyframes slideUpModal {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Sélecteur segmenté d'architecture processeur (x86_64 / ARM64) style Apple Glassmorphism */
+
+/* Famille de distribution (Linux) : même pastille segmentée que l'architecture, avec logo et mention « Bientôt ». */
+
+/* Téléphone : les sélecteurs prennent toute la largeur, chaque famille s'empile (logo, nom, « Bientôt »). */
+
+/* Action pas encore disponible (paquet non publié) : jamais de lien, jamais de survol. */
+.download-modal__action-btn.is-soon,
+.download-modal__action-btn.is-soon:hover {
+  background: var(--glass-inset-bg);
+  color: var(--text-muted);
+  border: 1px dashed var(--border-subtle);
+  cursor: not-allowed;
+  filter: none;
+}
+
+.download-modal__channel-card {
+  --channel: var(--accent-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.75rem 1.65rem 1.6rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Filet de teinte du canal : seul signe d'identité, discret. */
+.download-modal__channel-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--channel);
+  opacity: 0.5;
+}
+
+.download-modal__channel-card--stable { --channel: var(--channel-stable); }
+.download-modal__channel-card--beta { --channel: var(--channel-beta); }
+.download-modal__channel-card--canary { --channel: var(--channel-canary); }
+
+.download-modal__channel-card.download-modal__channel-card--stable {
+  border-color: color-mix(in srgb, var(--channel) 32%, var(--glass-card-border));
+}
+
+.download-modal__channel-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--channel) 42%, var(--glass-card-border));
+}
+
+.download-modal__channel-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-sm);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.download-modal__card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: nowrap;
+  margin-bottom: 1.1rem;
+}
+
+.download-modal__card-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.download-modal__badge {
+  --channel: var(--accent-primary);
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--fs-0-7rem);
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-999px);
+  line-height: 1.2;
+  white-space: nowrap;
+  flex-shrink: 0;
+  background: color-mix(in srgb, var(--channel) 11%, transparent);
+  color: var(--channel);
+  border: 1px solid color-mix(in srgb, var(--channel) 24%, transparent);
+}
+
+.download-modal__badge--stable { --channel: var(--channel-stable); }
+
+.download-modal__badge--rec { --channel: color-mix(in srgb, var(--accent-success) 62%, var(--text-heading)); }
+
+.download-modal__badge--beta { --channel: var(--channel-beta); }
+
+.download-modal__badge--canary { --channel: var(--channel-canary); }
+
+.download-modal__version {
+  font-family: var(--font-mono);
+  font-size: var(--fs-0-75rem);
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.download-modal__card-desc {
+  font-size: var(--fs-0-92rem);
+  line-height: 1.65;
+  color: var(--text-body);
+  font-weight: 400;
+  margin: 0 0 1.6rem 0;
+  flex-grow: 1;
+}
+
+.download-modal__action-btn {
+  --channel: var(--accent-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: var(--fs-0-875rem);
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  min-height: 42px;
+}
+
+@keyframes download-modal-icon-pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Une seule action pleine (Stable, recommandée) ; Bêta et Canary en teinte douce, bordure fine. */
+
+.download-modal__cli-block {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  background: var(--glass-inset-bg);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: var(--fs-0-82rem);
+}
+
+.download-modal__cli-block .cli-scroll {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text-main);
+}
+
+.cli-scroll__inner {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.cli-scroll[data-scroll="true"] .cli-scroll__inner {
+  animation: cli-scroll var(--cli-duration) ease-in-out 1.5s infinite alternate;
+}
+
+@keyframes cli-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--cli-shift)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cli-scroll[data-scroll="true"] .cli-scroll__inner {
+    animation: none;
+  }
+}
+
+.download-modal__cli-copy-btn {
+  --channel: var(--accent-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  font-size: var(--fs-0-75rem);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--channel) 9%, transparent);
+  color: var(--text-heading);
+  border: 1px solid color-mix(in srgb, var(--channel) 32%, var(--border-subtle));
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.download-modal__cli-copy-btn--stable { --channel: var(--channel-stable); }
+.download-modal__cli-copy-btn--beta { --channel: var(--channel-beta); }
+.download-modal__cli-copy-btn--canary { --channel: var(--channel-canary); }
+
+.download-modal__cli-copy-btn:hover {
+  background: color-mix(in srgb, var(--channel) 18%, transparent);
+  border-color: color-mix(in srgb, var(--channel) 55%, var(--border-subtle));
+}
+
+/* Multi-channel buttons dans DocsInstallHub */
+
+/* ==========================================================================
+   Page Matériel — navigation fluide entre packs OS/gammes & achat mobile
+   ========================================================================== */
+
+@keyframes hwFadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hw-fade-panel {
+  animation: hwFadeSlide 0.22s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hw-fade-panel {
+    animation: none;
+  }
+}
+
+.hw-item-card {
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.hw-item-card:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--ink) 7%, transparent);
+}
+
+.hw-item-card--hero:hover {
+  transform: none;
+}
+
+.hw-alt-units {
+  margin-bottom: 1.5rem;
+}

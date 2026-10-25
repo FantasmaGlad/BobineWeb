@@ -1,0 +1,451 @@
+.hw-cart-sheet-row-name {
+  font-size: var(--fs-0-8rem);
+  font-weight: 600;
+  color: var(--text-heading);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hw-cart-sheet-row-price {
+  font-size: var(--fs-0-75rem);
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.hw-cart-sheet-row-link {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: var(--radius-999px);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.hw-cart-sheet-row-link:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.hw-cart-sheet-row-remove {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: var(--radius-999px);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.hw-cart-sheet-row-remove:hover {
+  color: var(--status-danger-text);
+  border-color: color-mix(in srgb, var(--status-danger-text) 30%, transparent);
+  background: color-mix(in srgb, var(--status-danger-text) 8%, transparent);
+}
+
+.hw-cart-sheet-footer {
+  flex-shrink: 0;
+  padding: 1rem 1.25rem calc(1rem + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border-subtle);
+}
+
+.hw-cart-sheet-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--fs-0-9rem);
+  color: var(--text-heading);
+  margin-bottom: 0.5rem;
+}
+
+.hw-cart-sheet-total strong {
+  font-size: var(--fs-1-15rem);
+  font-weight: 800;
+}
+
+.hw-cart-sheet-note {
+  margin: 0 0 0.75rem 0;
+  font-size: var(--fs-0-7rem);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.hw-cart-sheet-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.hw-cart-sheet-clear {
+  flex-shrink: 0;
+}
+
+.hw-os-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.hw-os-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.hw-os-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex-shrink: 0;
+  width: 220px;
+}
+
+.hw-os-sidebar button {
+  width: 100%;
+}
+
+@media (min-width: 901px) {
+  /* Plaqué contre le bord droit réel de l'écran, symétrique au bandeau
+     plateforme (platform-rail) plaqué à gauche : on sort le sélecteur d'OS
+     du flux flex et on réserve la place équivalente dans le contenu. */
+  .hw-os-sidebar {
+    position: fixed;
+    top: 7.5rem;
+    right: 1.25rem;
+    max-height: calc(100vh - 9rem);
+    overflow-y: auto;
+    z-index: var(--z-40);
+  }
+
+  .hw-os-content {
+    padding-right: calc(220px + 1.5rem);
+  }
+}
+
+@media (max-width: 900px) {
+  .hw-os-layout {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hw-os-content {
+    width: 100%;
+  }
+
+  .hw-os-sidebar {
+    order: -1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .hw-os-sidebar button {
+    width: auto;
+    flex: 1 1 auto;
+  }
+}
+
+/* =========================================================================
+   SÉLECTEUR DE PLATEFORME (/materiel/amazon, /materiel/aliexpress, ...)
+   ========================================================================= */
+
+.platform-shell {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.platform-shell__content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.platform-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  flex-shrink: 0;
+  width: 4rem;
+  padding-left: clamp(0.35rem, 1vw, 0.75rem);
+  position: sticky;
+  top: 5.5rem;
+  padding-top: 1.5rem;
+}
+
+.platform-rail__icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+
+.platform-rail__icon-shape {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-22);
+  overflow: hidden;
+  opacity: 1;
+  animation: platform-icon-float 3.2s ease-in-out infinite;
+  transition: transform 0.15s ease;
+}
+
+.platform-rail__icon:nth-child(2) .platform-rail__icon-shape {
+  animation-delay: -1.6s;
+}
+
+.platform-rail__icon:hover .platform-rail__icon-shape {
+  transform: scale(1.05);
+}
+
+.platform-rail__icon:active .platform-rail__icon-shape {
+  transform: scale(0.88);
+}
+
+.platform-rail__icon.is-active .platform-rail__icon-shape {
+  transform: scale(1.08);
+}
+
+@keyframes platform-icon-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .platform-rail__icon-shape {
+    animation: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .platform-shell {
+    flex-direction: column;
+  }
+
+  .platform-shell__content {
+    width: 100%;
+  }
+
+  /* Sur mobile le sélecteur de boutique passe dans le flux, en rangée au-dessus du contenu :
+     un panneau flottant recouvrait les listes et les boutons. */
+  .platform-rail {
+    position: static;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.25rem;
+    width: 100%;
+    padding: 0.5rem 0 0.25rem;
+  }
+
+  .platform-rail__icon-shape {
+    width: 2.75rem;
+    height: 2.75rem;
+    animation: none;
+  }
+
+  .platform-rail__icon:hover {
+    background: none;
+  }
+}
+
+.hw-seller-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  font-size: var(--fs-0-7rem);
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.hw-seller-badge {
+  flex-shrink: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-0-3rem);
+  background: #ffd60a;
+  color: #191919;
+  border: 1px solid #e6b800;
+}
+
+.hw-seller-name {
+  font-weight: 600;
+  color: var(--text-heading);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@keyframes platform-skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.hw-mobile-buybar {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .hw-mobile-buybar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: var(--z-90);
+    min-height: 3.5rem;
+    padding: 0.65rem 1rem calc(0.65rem + env(safe-area-inset-bottom));
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-subtle);
+    box-shadow: 0 -4px 16px color-mix(in srgb, var(--ink) 8%, transparent);
+    /* Fixe la barre sur son propre calque GPU : évite le redimensionnement /
+       redessin visible de certains navigateurs mobiles pendant le scroll. */
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  .hw-mobile-buybar-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
+
+  .hw-mobile-buybar-price {
+    font-size: var(--fs-1-05rem);
+    font-weight: 800;
+    color: var(--text-heading);
+  }
+
+  .hw-mobile-buybar-label {
+    font-size: var(--fs-0-7rem);
+    color: var(--text-muted);
+  }
+
+  .hw-mobile-buybar-cta {
+    flex-shrink: 0;
+    padding: 0.55rem 1.1rem !important;
+    font-size: var(--fs-0-825rem) !important;
+    text-decoration: none;
+  }
+
+  /* Espace pour ne pas masquer le contenu derrière la barre fixe */
+  .container:has(.hw-mobile-buybar) {
+    padding-bottom: 4.5rem;
+  }
+}
+
+/* --- OS sans catalogue sur une plateforme --- */
+.hw-unavailable-os {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  border: 2px dashed var(--accent-primary);
+  border-radius: var(--radius-0-75rem);
+  background: var(--bg-card);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.hw-unavailable-os p {
+  margin: 0 0 1rem;
+}
+
+.hw-unavailable-os__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.hw-unavailable-os__actions .btn-primary {
+  cursor: pointer;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-0-45rem);
+  font-size: var(--fs-0-85rem);
+}
+
+/* --- Panier : groupes par plateforme --- */
+.hw-cart-group {
+  margin-bottom: 1.25rem;
+  padding: 0.75rem;
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-0-65rem);
+}
+
+.hw-cart-group--amazon {
+  border-color: #adb1b8;
+}
+
+.hw-cart-group--aliexpress {
+  border-color: #e62e04;
+}
+
+.hw-cart-group__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: var(--fs-0-8rem);
+  color: var(--text-muted);
+}
+
+.hw-cart-group__chip {
+  font-weight: 800;
+  font-size: var(--fs-0-75rem);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-0-35rem);
+}
+
+.hw-cart-group--amazon .hw-cart-group__chip {
+  background: #d5d9d9;
+  color: #0f1111;
+}
+
+.hw-cart-group--aliexpress .hw-cart-group__chip {
+  background: #e62e04;
+  color: #ffffff;
+}
+
+.hw-cart-group__cta {
+  display: block;
+  width: 100%;
+  margin-top: 0.6rem;
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-0-45rem);
+  font-size: var(--fs-0-85rem);
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.hw-cart-group--amazon .hw-cart-group__cta,
+.hw-cart-group--aliexpress .hw-cart-group__cta {
+  background: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary-fg) !important;
+}
+
+.hw-cart-group--amazon .hw-cart-group__cta:hover,
+.hw-cart-group--aliexpress .hw-cart-group__cta:hover {
+  background: var(--accent-hover);
+}
+
+.hw-cart-sheet-row.is-opened {
+  opacity: 0.6;
+}

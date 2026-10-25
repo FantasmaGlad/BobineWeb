@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 import { readFileSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import postcss from "postcss";
-const css = postcss.parse(readFileSync("src/app/globals.css", "utf8"));
+// globals.css n'est plus qu'une liste d'importations : on lit les fichiers dans l'ordre de la cascade.
+const readCss = (file) => readFileSync(file, "utf8").replace(/@import\s+"([^"]+)";\s*/g, (_, rel) => readCss(join(dirname(file), rel)));
+const css = postcss.parse(readCss("src/app/globals.css"));
 const registry = readFileSync("src/lib/themes.ts", "utf8");
 const themeNames = [...registry.slice(0, registry.indexOf("export const themes")).matchAll(/"([\w-]+)"/g)].map((m) => m[1]);
 const output = postcss.root();

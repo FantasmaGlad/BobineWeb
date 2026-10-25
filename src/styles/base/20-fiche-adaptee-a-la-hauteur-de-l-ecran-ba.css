@@ -1,0 +1,490 @@
+/* ==========================================================================
+   Fiche adaptée à la hauteur de l'écran (bandeau défilant + en-tête du site inclus, ~125 px) :
+   plus la fenêtre est basse, plus l'espacement se resserre, puis les blocs facultatifs disparaissent.
+   Les hauteurs restent identiques d'un OS à l'autre à taille d'écran donnée.
+   ========================================================================== */
+
+@media (min-width: 561px) and (max-height: 880px) {
+  .hw-tier-card {
+    padding: 1rem !important;
+  }
+
+  .hw-tier-header-row {
+    padding-bottom: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .hw-form-toggle {
+    margin-bottom: 0.75rem !important;
+  }
+
+  .hw-tier-specs-row {
+    min-height: 2.4rem;
+  }
+
+  .hw-item-card--hero {
+    padding: 0.85rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .hw-hero-desc {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    min-height: 3em;
+    max-height: 3em;
+  }
+
+  .hw-price-block {
+    min-height: 2.5rem;
+  }
+
+  .hw-alt-unit-card {
+    height: 4.25rem;
+  }
+
+  .hw-alt-unit-card__image {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+}
+
+@media (min-width: 561px) and (max-height: 760px) {
+  .hw-hero-desc,
+  .hw-tier-dots {
+    display: none;
+  }
+
+  .hw-tier-card {
+    padding: 0.75rem 1rem !important;
+  }
+
+  .hw-tier-header-row {
+    padding-bottom: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .hw-form-toggle {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .hw-item-card--hero {
+    margin-bottom: 0.5rem !important;
+  }
+}
+
+/* --- Baamix : étiquette de boutique et comparatif de produits --- */
+.chatbot-platform-tag {
+  margin-left: 0.35rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: var(--radius-0-3rem);
+  font-size: var(--fs-0-65rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+}
+
+.chatbot-compare {
+  margin-top: 0.75rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-0-6rem);
+  background: var(--bg-card);
+  overflow: hidden;
+}
+
+.chatbot-compare__scroll {
+  overflow-x: auto;
+}
+
+.chatbot-compare__table {
+  width: 100%;
+  min-width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-0-72rem);
+  line-height: 1.4;
+  color: var(--text-main);
+}
+
+.chatbot-compare__table th,
+.chatbot-compare__table td {
+  padding: 0.5rem 0.55rem;
+  border-top: 1px solid var(--border-subtle);
+  text-align: left;
+  vertical-align: top;
+  min-width: 8.5rem;
+}
+
+.chatbot-compare__table thead th {
+  border-top: 0;
+  vertical-align: bottom;
+}
+
+.chatbot-compare__table tbody th {
+  min-width: 5.5rem;
+  width: 5.5rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-inset);
+}
+
+.chatbot-compare__thumb {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 0.35rem;
+  border-radius: var(--radius-0-4rem);
+  border: 1px solid var(--border-subtle);
+  background: var(--glass-inset-bg);
+  overflow: hidden;
+}
+
+.chatbot-compare__name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.chatbot-compare__table .is-best {
+  color: var(--status-success-text);
+}
+
+.chatbot-compare__actions {
+  white-space: nowrap;
+}
+
+.chatbot-compare__actions > * {
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+/* ==========================================================================
+   Baamix : bulle agrandie sur PC et page plein écran /baamix
+   ========================================================================== */
+
+@media (min-width: 601px) {
+  .chatbot-modal:not(.chatbot-modal--page) {
+    width: min(calc(100vw - 4rem), 42rem);
+    height: min(calc(100dvh - 4rem), 46rem);
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .chatbot-modal__body {
+    padding: 1.1rem 1.25rem;
+    gap: 0.9rem;
+  }
+
+  .chatbot-message__bubble {
+    font-size: var(--fs-0-9rem);
+    padding: 0.65rem 0.95rem;
+  }
+
+  .chatbot-suggestions__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+}
+
+/* Page /baamix : le chat occupe 100 % de l'écran sous l'en-tête, sans bordure ni ombre ni arrondi. */
+.chatbot-modal.chatbot-modal--page {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  max-width: none;
+  height: calc(100dvh - 4.35rem);
+  min-height: 28rem;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  animation: none;
+  z-index: auto;
+}
+
+/* Vraie interface de chat : colonne de conversation centrée, réponses sans bulle, saisie ancrée en bas. */
+.chatbot-modal--page .chatbot-modal__body {
+  padding: 3.5rem max(1.25rem, calc((100% - 46rem) / 2)) 1rem;
+  gap: 1.5rem;
+}
+
+.chatbot-modal--page .chatbot-modal__body--empty {
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.chatbot-modal--page .chatbot-message__bubble {
+  font-size: var(--fs-1rem);
+  line-height: 1.65;
+}
+
+.chatbot-modal--page .chatbot-message--assistant .chatbot-message__bubble {
+  background: transparent;
+  border: none;
+  padding: 0.2rem 0;
+}
+
+.chatbot-modal--page .chatbot-message--user {
+  justify-content: flex-end;
+}
+
+.chatbot-modal--page .chatbot-message--user .chatbot-message__bubble {
+  max-width: min(85%, 34rem);
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius-1-25rem);
+}
+
+.chatbot-modal--page .chatbot-suggestions__list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.chatbot-modal--page .chatbot-modal__footer {
+  background: transparent;
+  border-top: none;
+  padding: 0.5rem max(1rem, calc((100% - 46rem) / 2)) 0.75rem;
+}
+
+.chatbot-modal--page .chatbot-input-wrapper {
+  border-radius: var(--radius-1-5rem);
+  padding: 0.35rem 0.4rem 0.35rem 1.1rem;
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+.chatbot-page-reset {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  z-index: var(--z-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  font: inherit;
+  font-size: var(--fs-0-8rem);
+  color: var(--text-main);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-999px);
+  cursor: pointer;
+}
+
+.chatbot-page-reset:hover {
+  background: var(--bg-surface-hover);
+}
+
+@media (max-width: 600px) {
+  .chatbot-modal.chatbot-modal--page {
+    height: calc(100dvh - 4rem);
+    border-radius: 0;
+    margin-top: 0;
+  }
+}
+
+.baamix-page {
+  padding-bottom: 3rem;
+}
+
+.baamix-page .container {
+  padding-top: 0.5rem;
+}
+
+.baamix-page__about {
+  max-width: 62rem;
+  margin: 2.5rem auto 0;
+  color: var(--text-main);
+  line-height: 1.7;
+  font-size: var(--fs-0-95rem);
+}
+
+.baamix-page__about h2 {
+  font-size: var(--fs-1-35rem);
+  font-weight: 800;
+  color: var(--text-heading);
+  margin: 0 0 0.75rem;
+}
+
+.baamix-page__about h3 {
+  font-size: var(--fs-1-05rem);
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 1.75rem 0 0.5rem;
+}
+
+.baamix-page__about ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.baamix-page__about dt {
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-top: 0.85rem;
+}
+
+.baamix-page__about dd {
+  margin: 0.15rem 0 0;
+  color: var(--text-muted);
+}
+
+.baamix-page__about a {
+  color: var(--text-heading);
+  text-decoration: underline;
+}
+
+/* --- Baamix : indicateur d'attente (roue de hamster + phrases qui changent) --- */
+.baamix-thinking {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--text-heading);
+  min-height: 2rem;
+}
+
+.baamix-wheel {
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.baamix-wheel__rim {
+  transform-origin: 16px 16px;
+  animation: baamixWheelSpin 2.2s linear infinite;
+}
+
+.baamix-wheel__hamster {
+  animation: baamixHamsterRun 0.42s ease-in-out infinite alternate;
+}
+
+.baamix-thinking__text {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: var(--fs-0-9rem);
+  color: var(--text-main);
+  min-width: 0;
+}
+
+.baamix-thinking__phrase {
+  animation: baamixPhraseIn 0.4s ease-out, baamixPulse 2.6s ease-in-out infinite;
+}
+
+.baamix-thinking__time {
+  font-size: var(--fs-0-75rem);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes baamixWheelSpin {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes baamixHamsterRun {
+  from { transform: translateY(0); }
+  to { transform: translateY(-1.2px); }
+}
+
+@keyframes baamixPhraseIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes baamixPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .baamix-wheel__rim,
+  .baamix-wheel__hamster,
+  .baamix-thinking__phrase {
+    animation: none;
+  }
+}
+
+/* Miroir Tor : page de renvoi des routes absentes (boutique, Baamix) */
+.onion-notice {
+  padding: clamp(2.5rem, 8vw, 5rem) 0;
+}
+
+.onion-notice__inner {
+  max-width: 44rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.onion-notice__mark {
+  display: inline-flex;
+}
+
+.onion-notice__eyebrow {
+  margin: 0.25rem 0 0;
+  font-size: var(--fs-0-8rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.onion-notice__title {
+  margin: 0;
+  font-size: var(--fs-clamp-1-6rem-4vw-2-3rem);
+  line-height: 1.2;
+  color: var(--text-heading);
+}
+
+.onion-notice__lead {
+  margin: 0;
+  font-size: var(--fs-1-05rem);
+  color: var(--text-muted);
+}
+
+.onion-notice__points {
+  list-style: none;
+  margin: 0.5rem 0;
+  padding: 0;
+  width: 100%;
+  display: grid;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.onion-notice__points li {
+  padding: 0.9rem 1.1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--accent-primary);
+  border-radius: var(--radius-0-6rem);
+  color: var(--text-main);
+  line-height: 1.55;
+}
+
+.onion-notice__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.onion-notice__clearnet {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0.75rem 0 0;
+  font-size: var(--fs-0-9rem);
+  color: var(--text-muted);
+}
+
+.onion-notice__clearnet a {
+  color: var(--text-heading);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}

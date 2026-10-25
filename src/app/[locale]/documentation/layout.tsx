@@ -33,31 +33,8 @@ export default async function DocumentationLayout({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: locale === "en" ? "Home" : "Accueil",
-        item: `https://bobine.fit/${locale}`,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Documentation",
-        item: `https://bobine.fit/${locale}/documentation`,
-      },
-    ],
-  };
-
   return (
     <div className="docs-page-wrapper">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
       {/* Barre de navigation contextuelle mobile/tablette */}
       <DocsMobileNav locale={locale} items={sections[locale]} />
 

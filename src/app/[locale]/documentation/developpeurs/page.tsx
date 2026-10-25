@@ -269,6 +269,7 @@ export default async function DeveloppeursPage({
     </>
   ) : (
     <>
+      <BreadcrumbsJsonLd items={breadcrumbs} />
       <div className="dx-div-1">
         <div>
           <span className="feature-category-label">Architecture & Référence API</span>

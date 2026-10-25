@@ -95,6 +95,8 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Verre du CSS construit (Safari)
         run: node scripts/ci/check-built-glass.mjs
+      - name: Fils d'Ariane (un seul par page, adresses dans la langue de la page)
+        run: node scripts/ci/check-breadcrumbs.mjs
       - name: Géométrie mobile et cibles tactiles
         run: |
           npm run start -- --port 3102 > "$RUNNER_TEMP/mobile-server.log" 2>&1 &

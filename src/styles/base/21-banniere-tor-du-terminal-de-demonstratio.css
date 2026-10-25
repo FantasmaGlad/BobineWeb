@@ -1,0 +1,329 @@
+.onion-notice__footer {
+  margin: 1rem 0 0;
+  font-size: var(--fs-0-8rem);
+  color: var(--text-dim);
+}
+
+/* Bannière Tor du terminal de démonstration : l'ASCII art est un SVG, il garde ses proportions partout */
+.terminal-ascii-svg--tor {
+  width: min(100%, 260px);
+  max-width: 260px;
+}
+
+/* Miroir Tor : Baamix court dans sa roue en bas du chat, une fois son message entièrement tapé */
+.baamix-idle-runner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1rem 0 0.5rem;
+  color: var(--text-muted);
+  font-size: var(--fs-0-8rem);
+  animation: baamixIdleIn 0.5s ease both;
+}
+
+.baamix-idle-runner .baamix-wheel {
+  width: 48px;
+  height: 48px;
+  flex: none;
+}
+
+@keyframes baamixIdleIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .baamix-idle-runner { animation: none; }
+}
+
+/* Guide de démarrage : mascotte « inspecteur » en filigrane derrière le titre et l'introduction */
+.docs-intro-art-wrap {
+  position: relative;
+  isolation: isolate;
+}
+
+.docs-intro-art-wrap > :not(.docs-intro-art) {
+  position: relative;
+  z-index: var(--z-1);
+}
+
+.docs-intro-art {
+  position: absolute;
+  z-index: 0;
+  top: -0.5rem;
+  right: 0;
+  width: clamp(110px, 20vw, 210px);
+  height: auto;
+  opacity: 0.22;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (min-width: 1024px) {
+  .docs-intro-art {
+    top: -1.25rem;
+    right: 4.5rem;
+    opacity: 0.3;
+  }
+}
+
+/* ==========================================================================
+   COUCHE FINALE — GLASSMORPHISM APPLE PREMIUM, CONTOURS MARQUÉS & ANIMATIONS
+   Harmonisation complète avec l'application Bobine :
+   - Surfaces vitrées translucides à double liseré spéculaire (--glass-card-bg)
+   - Boutons primaires avec reflet spéculaire (--glass-gloss) et halo d'accent
+   - Boutons secondaires en verre dépoli à contour marqué (--glass-edge)
+   - Animations ressort de survol (élévation + grossissement) et clic (:active)
+   - Préservation intégrale des thèmes marchands (/materiel) et @media print
+   ========================================================================== */
+
+/* Matériaux de verre. Le flou n'est posé que là où du contenu passe derrière (en-tête qui défile, fenêtres, tiroirs,
+   menus, cartes posées sur une illustration) ; les autres surfaces gardent le même matériau (translucidité, reflet
+   spéculaire, bord) sans le coût du flou. Tout vient des jetons --glass-* et --blur-*. */
+
+/* Surface : barres collées en haut de page */
+.site-header,
+.docs-mobile-nav-wrapper {
+  background: var(--glass-surface-bg);
+  -webkit-backdrop-filter: blur(var(--glass-surface-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-surface-blur)) saturate(var(--saturate-rich));
+  border-bottom: 1px solid var(--glass-surface-border);
+  box-shadow: var(--glass-card-highlight), 0 4px 20px color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+/* Contrôles : pastilles et sélecteurs */
+.locale-switcher,
+.theme-switcher-pill-group {
+  background: var(--glass-card-bg);
+  -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  border: 1px solid var(--glass-card-border);
+  box-shadow: var(--glass-edge), var(--shadow-sm);
+  transition: transform 0.22s var(--ease-spring-pill), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.locale-switcher:hover,
+.theme-switcher-pill-group:hover {
+  border-color: color-mix(in srgb, var(--accent-primary) 50%, var(--glass-card-border));
+  box-shadow: var(--glass-edge), 0 6px 18px color-mix(in srgb, var(--accent-primary) 14%, transparent);
+}
+
+/* Flottant : menus, fenêtres, tiroirs, notifications */
+.theme-dropdown-modal,
+.share-dropdown-panel,
+.docs-search-results,
+.docs-mobile-nav-dropdown,
+.offline-toast {
+  background: var(--glass-floating-bg);
+  -webkit-backdrop-filter: blur(var(--glass-floating-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-floating-blur)) saturate(var(--saturate-rich));
+  border: 1px solid var(--glass-floating-border);
+  box-shadow: var(--glass-card-highlight), var(--shadow-card-hover);
+}
+
+/* Boutons Primaires & Secondaires */
+.button:not(:disabled),
+.btn-primary:not(:disabled) {
+  background-color: var(--accent-primary);
+  background-image: none;
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 85%, var(--ink));
+  box-shadow: 0 2px 8px -1px color-mix(in srgb, var(--accent-primary) 28%, transparent);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.15s ease;
+}
+
+.button:hover:not(:disabled),
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+  background-image: none;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px -1px color-mix(in srgb, var(--accent-primary) 36%, transparent);
+}
+
+.btn-secondary:not(:disabled) {
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--bg-surface-elevated) 86%, transparent) 0%,
+    color-mix(in srgb, var(--bg-surface) 64%, transparent) 100%
+  );
+  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-rich));
+  border: 1px solid var(--glass-card-border);
+  box-shadow: var(--glass-edge), 0 6px 18px color-mix(in srgb, var(--ink) 6%, transparent);
+  transition:
+    transform 0.24s var(--ease-spring-hover),
+    box-shadow 0.22s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    filter 0.15s ease;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--bg-surface-elevated) 94%, transparent) 0%,
+    color-mix(in srgb, var(--accent-primary) 10%, color-mix(in srgb, var(--bg-surface) 72%, transparent)) 100%
+  );
+  border-color: color-mix(in srgb, var(--accent-primary) 48%, var(--glass-card-border));
+  transform: translateY(-2px) scale(1.025);
+  box-shadow:
+    var(--glass-edge),
+    0 10px 24px color-mix(in srgb, var(--ink) 10%, transparent),
+    0 0 0 3px color-mix(in srgb, var(--accent-primary) 10%, transparent);
+}
+
+/* Cartes : même matériau partout. Le flou ne concerne que les cartes qui recouvrent une illustration ou le contenu
+   défilant ; les cartes internes à une fenêtre ou à un autre verre n'ajoutent pas de flou. */
+.os-download-card,
+.docs-method-hero,
+.docs-step-card,
+.docs-api-card,
+.docs-callout,
+.docs-tor-note,
+.docs-table-wrapper,
+.blog-hero-release-card,
+.roi-calculator-card,
+.roi-result-card,
+.github-pr-card,
+.kofi-widget-card,
+.terminal-wrapper,
+.interactive-terminal-card,
+.tauri-demo-window,
+.stepper-focused-card,
+.stepper-continuous-item,
+.comparison-table-wrapper,
+.mobile-drawer-contact-card,
+.release-body__attachment,
+.chatbot-product-card,
+.chatbot-compare,
+.download-modal__channel-card {
+  background: var(--glass-card-bg);
+  border: 1px solid var(--glass-card-border);
+  box-shadow: var(--glass-card-highlight), var(--shadow-card);
+  transition:
+    transform 0.26s var(--ease-spring-hover),
+    border-color 0.22s ease,
+    box-shadow 0.24s ease,
+    background 0.22s ease;
+}
+
+.os-download-card,
+.docs-method-hero,
+.blog-hero-release-card,
+.roi-calculator-card,
+.github-pr-card,
+.kofi-widget-card {
+  -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+}
+
+/* Éléments en creux à l'intérieur d'un verre : même teinte, sans flou */
+.docs-install-divider__pill,
+.stepper-mode-bar,
+.stepper-nav-pill,
+.docs-faq-filter-chip,
+.headless-action-btn,
+.terminal-channel-tabs,
+.terminal-demo-status-pill,
+.tauri-demo-status-pill,
+.tauri-spec-card,
+.tauri-toggle-card,
+.tauri-device-row,
+.hw-alt-unit-card {
+  background: var(--glass-inset-bg);
+}
+
+/* Survol avec élévation, grossissement subtil et contour illuminé */
+.os-download-card:hover,
+.docs-step-card:hover,
+.blog-hero-release-card:hover,
+.github-pr-card:hover {
+  transform: translateY(-3px) scale(1.015);
+  border-color: color-mix(in srgb, var(--accent-primary) 46%, var(--glass-card-border));
+  box-shadow:
+    var(--glass-card-highlight),
+    var(--shadow-card-hover),
+    0 0 0 1px color-mix(in srgb, var(--accent-primary) 22%, transparent);
+}
+
+/* Grossissement coordonné des icônes au survol d'une carte */
+.os-download-card__icon {
+  transition: transform 0.26s var(--ease-spring-hover), background-color 0.2s ease, color 0.2s ease;
+}
+
+.os-download-card:hover .os-download-card__icon {
+  transform: scale(1.12);
+}
+
+/* Fenêtre de téléchargement : plus transparente que les autres fenêtres, le fond de la page reste visible derrière */
+
+/* Fenêtres et panneaux latéraux */
+.chatbot-modal:not(.chatbot-modal--page),
+.hw-cart-sheet {
+  background: var(--glass-floating-bg);
+  -webkit-backdrop-filter: blur(var(--glass-floating-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-floating-blur)) saturate(var(--saturate-rich));
+  border: 1px solid var(--glass-floating-border);
+  box-shadow: var(--glass-card-highlight), var(--shadow-card-hover);
+}
+
+/* Micro-interactions sur les pastilles, onglets et liens de navigation */
+.site-header__nav a,
+.locale-switcher__link,
+.theme-segment-btn,
+.theme-card-option {
+  transition:
+    transform 0.2s var(--ease-spring-pill),
+    background-color 0.16s ease,
+    color 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.18s ease;
+}
+
+.site-header__nav a:hover,
+.locale-switcher__link:hover {
+  transform: translateY(-1px) scale(1.04);
+}
+
+.theme-card-option:hover {
+  transform: translateY(-2px) scale(1.025);
+  border-color: color-mix(in srgb, var(--accent-primary) 48%, var(--glass-card-border));
+}
+
+/* Feedback tactile universel au clic (:active) */
+.button:active:not(:disabled),
+.btn-primary:active:not(:disabled),
+.btn-secondary:active:not(:disabled),
+.theme-switcher-btn:active,
+.theme-switcher-arrow-btn:active,
+.theme-segment-btn:active,
+.theme-card-option:active,
+.locale-switcher__link:active,
+.site-header__nav a:active,
+.os-download-card:active,
+.download-modal__action-btn:active {
+  transform: scale(0.96) !important;
+  filter: brightness(0.94);
+  transition-duration: 0.1s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .btn-primary,
+  .btn-secondary,
+  .os-download-card,
+  .docs-step-card,
+  .blog-hero-release-card,
+  .github-pr-card,
+  .download-modal__channel-card,
+  .site-header__nav a,
+  .locale-switcher__link,
+  .theme-card-option {
+    transition: none !important;
+    transform: none !important;
+  }
+}

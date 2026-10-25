@@ -3,7 +3,7 @@
  *
  * Ce fichier ne contient que des identifiants curatés à la main et leur texte éditorial ;
  * prix, lien affilié, image et vendeur viennent de l'instantané `aliexpress-snapshot.json` (généré par
- * scripts/aliexpress-snapshot.mjs) puis, côté serveur, sont rafraîchis en direct par l'API.
+ * un outil local non versionné) puis, côté serveur, sont rafraîchis en direct par l'API.
  *
  * Convention : les objets réutilisent le type HardwareItem d'Amazon pour partager les composants
  * d'affichage. Pour AliExpress, `asin` = product_id, `amazonUrl` = lien affilié de suivi et

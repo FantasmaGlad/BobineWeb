@@ -1,0 +1,493 @@
+.docs-callout {
+  display: flex;
+  gap: 0.85rem;
+  padding: 1rem 1.15rem;
+  border-radius: var(--radius-0-65rem);
+  margin: 1.5rem 0;
+  border: 1px solid var(--glass-card-border);
+  background: var(--glass-card-bg);
+  font-size: var(--fs-0-925rem);
+  line-height: 1.55;
+  box-sizing: border-box;
+  box-shadow: var(--glass-card-highlight), var(--shadow-card);
+}
+.docs-callout--tip,
+.docs-callout--info {
+  border-left: 3px solid var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 6%, var(--bg-card));
+}
+.docs-callout__content {
+  flex: 1;
+  min-width: 0;
+}
+.docs-callout__title {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: var(--text-heading);
+}
+.docs-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1px solid var(--glass-card-border);
+  border-radius: var(--radius-0-65rem);
+  background: var(--glass-card-bg);
+  box-shadow: var(--glass-card-highlight), var(--shadow-card);
+}
+.docs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-0-875rem);
+  text-align: left;
+}
+.docs-table th {
+  background: var(--bg-surface);
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: var(--fs-0-75rem);
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.docs-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-body);
+  vertical-align: top;
+}
+.docs-table tr:last-child td {
+  border-bottom: none;
+}
+.docs-table code {
+  font-family: var(--font-mono);
+  font-size: var(--fs-0-825rem);
+  padding: 0.15rem 0.35rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-0-3rem);
+}
+@media (max-width: 640px) {
+.docs-table-wrapper {
+    margin: 1rem 0;
+    border-radius: var(--radius-0-5rem);
+  }
+.docs-table {
+    font-size: var(--fs-0-78rem);
+    width: 100%;
+    table-layout: auto;
+  }
+.docs-table th {
+    padding: 0.45rem 0.5rem;
+    font-size: var(--fs-0-7rem);
+    letter-spacing: 0.02em;
+  }
+.docs-table td {
+    padding: 0.5rem 0.5rem;
+    font-size: var(--fs-0-78rem);
+    line-height: 1.4;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+.docs-table code {
+    font-size: var(--fs-0-725rem);
+    padding: 0.1rem 0.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+.docs-table--stack-mobile {
+    border: none;
+  }
+.docs-table--stack-mobile thead {
+    display: none;
+  }
+.docs-table--stack-mobile,
+  .docs-table--stack-mobile tbody,
+  .docs-table--stack-mobile tr,
+  .docs-table--stack-mobile td {
+    display: block;
+    width: 100%;
+  }
+.docs-table--stack-mobile tr {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+.docs-table--stack-mobile tr:last-child {
+    border-bottom: none;
+  }
+.docs-table--stack-mobile td {
+    border-bottom: none;
+    padding: 0.3rem 0;
+  }
+.docs-table--stack-mobile td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: var(--fs-0-7rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+  }
+}
+
+.docs-content h2,
+.docs-content h3 {
+  scroll-margin-top: 5.5rem;
+}
+.docs-api-card {
+  border: 1px solid var(--glass-card-border);
+  border-radius: var(--radius-0-65rem);
+  padding: 1.15rem;
+  margin: 1.25rem 0;
+  background: var(--glass-card-bg);
+  box-shadow: var(--glass-card-highlight), var(--shadow-sm);
+  scroll-margin-top: 5.5rem;
+}
+.docs-api-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.65rem;
+}
+.docs-method-badge {
+  font-size: var(--fs-0-75rem);
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-0-35rem);
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+.docs-method--get {
+  background: color-mix(in srgb, var(--status-info-text) 10%, var(--bg-card));
+  color: var(--status-info-text);
+  border: 1px solid color-mix(in srgb, var(--status-info-text) 30%, transparent);
+}
+.docs-method--post {
+  background: color-mix(in srgb, var(--accent-success) 10%, var(--bg-card));
+  color: var(--accent-success);
+  border: 1px solid color-mix(in srgb, var(--accent-success) 30%, transparent);
+}
+.docs-method--ws {
+  background: color-mix(in srgb, var(--accent-text) 10%, var(--bg-card));
+  color: var(--accent-text);
+  border: 1px solid color-mix(in srgb, var(--accent-text) 30%, transparent);
+}
+.docs-api-endpoint {
+  font-family: var(--font-mono);
+  font-size: var(--fs-0-95rem);
+  font-weight: 600;
+  color: var(--text-heading);
+}
+@media print {
+.docs-page-wrapper,
+  .docs-layout,
+  .docs-main-panel,
+  .docs-content,
+  .docs-content__inner {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+}
+
+.docs-install-hub {
+  margin-top: 1.5rem;
+  margin-bottom: 3.5rem;
+}
+.docs-install-selector-wrap {
+  margin-bottom: 2rem;
+  padding-bottom: 1.75rem;
+  /* Ligne fine entre le choix de la méthode d'installation et l'article qui suit */
+  border-bottom: 1px solid var(--border-subtle);
+}
+.docs-install-nav-header {
+  margin-bottom: 0.75rem;
+}
+.docs-install-nav-label {
+  font-size: var(--fs-0-8rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+.docs-install-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.75rem;
+  width: 100%;
+}
+.docs-install-tab-btn {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.7rem 0.95rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  color: var(--text-main);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 64px;
+  height: 64px;
+  box-sizing: border-box;
+  position: relative;
+  text-decoration: none;
+}
+.docs-install-tab-btn:hover {
+  border-color: color-mix(in srgb, var(--accent-primary) 40%, transparent);
+  background: color-mix(in srgb, var(--bg-card) 95%, var(--accent-primary) 5%);
+  transform: translateY(-1px);
+}
+.docs-install-tab-btn.is-active {
+  border-color: var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 8%, var(--bg-card));
+  box-shadow: 0 0 0 1px var(--accent-primary), 0 4px 12px color-mix(in srgb, var(--accent-primary) 12%, transparent);
+}
+.docs-install-tab-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+  color: var(--accent-primary);
+  flex-shrink: 0;
+}
+.docs-install-tab-btn.is-active .docs-install-tab-icon {
+  background: var(--accent-primary);
+  color: var(--accent-primary-fg);
+}
+.docs-install-tab-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.15rem;
+  min-width: 0;
+  overflow: hidden;
+}
+.docs-install-tab-name {
+  font-size: var(--fs-0-92rem);
+  font-weight: 700;
+  color: var(--text-heading);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+  min-width: 0;
+}
+.docs-install-tab-format {
+  font-size: var(--fs-0-76rem);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+}
+.docs-channels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.15rem;
+  width: 100%;
+  margin-top: 0.85rem;
+  margin-bottom: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .docs-channels-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+}
+
+/* Sélecteur d'architecture x86_64 vs ARM64 dans la documentation */
+.docs-arch-switch-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 0.85rem;
+  margin-bottom: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.docs-arch-switch-label {
+  font-size: var(--fs-0-8rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.docs-arch-switch-pill {
+  display: inline-flex;
+  background: var(--bg-surface-elevated);
+  padding: 3px;
+  border-radius: var(--radius-9999px);
+  border: 1px solid var(--border-subtle);
+  gap: 3px;
+}
+
+.docs-arch-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-9999px);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: var(--fs-0-8rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: inherit;
+  user-select: none;
+}
+
+.docs-arch-switch-btn {
+  white-space: nowrap;
+}
+
+.docs-arch-switch-btn:hover {
+  color: var(--text-heading);
+}
+
+.docs-arch-switch-btn.is-active {
+  background: var(--bg-card);
+  color: var(--accent-primary);
+  box-shadow: 0 2px 6px color-mix(in srgb, var(--ink) 8%, transparent);
+  font-weight: 700;
+}
+
+.docs-arch-switch-sub {
+  font-size: var(--fs-0-7rem);
+  opacity: 0.75;
+  font-weight: 500;
+}
+
+/* Header des cartes de canaux : empêche le chevauchement des badges */
+.docs-channel-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.docs-channel-card__tag-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.docs-channel-card__version {
+  font-family: var(--font-mono);
+  font-size: var(--fs-0-75rem);
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+  margin-left: auto;
+  padding-top: 0.15rem;
+}
+
+/* Descriptions des versions noircies pour lisibilité parfaite */
+.docs-install-panel .download-modal__card-desc {
+  color: var(--text-heading) !important;
+  font-weight: 550;
+  opacity: 0.95;
+  font-size: var(--fs-0-84rem);
+  line-height: 1.45;
+  margin-bottom: 1rem;
+}
+
+/* Boutons de téléchargement dans les cartes de doc : contraste maximal GARANTI */
+.docs-channel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-md);
+  font-size: var(--fs-0-82rem);
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+  text-decoration: none !important;
+  box-sizing: border-box;
+}
+
+.docs-channel-btn--stable {
+  background: var(--channel-stable-bg) !important;
+  color: var(--channel-stable-fg) !important;
+  border: 1px solid var(--channel-stable-bg) !important;
+  box-shadow: var(--shadow-sm);
+}
+.docs-channel-btn--stable *, .docs-channel-btn--stable svg { color: inherit !important; stroke: currentColor !important; }
+.docs-channel-btn--stable:hover { transform: translateY(-1px); box-shadow: var(--shadow-card); }
+
+.docs-channel-btn--beta {
+  background: var(--channel-beta-bg) !important;
+  color: var(--channel-beta-fg) !important;
+  border: 1px solid var(--channel-beta-bg) !important;
+  box-shadow: var(--shadow-sm);
+}
+.docs-channel-btn--beta *, .docs-channel-btn--beta svg { color: inherit !important; stroke: currentColor !important; }
+.docs-channel-btn--beta:hover { transform: translateY(-1px); box-shadow: var(--shadow-card); }
+
+.docs-channel-btn--canary {
+  background: var(--channel-canary-bg) !important;
+  color: var(--channel-canary-fg) !important;
+  border: 1px solid var(--channel-canary-bg) !important;
+  box-shadow: var(--shadow-sm);
+}
+.docs-channel-btn--canary *, .docs-channel-btn--canary svg { color: inherit !important; stroke: currentColor !important; }
+.docs-channel-btn--canary:hover { transform: translateY(-1px); box-shadow: var(--shadow-card); }
+
+/* Séparateur visuel propre entre les cartes de téléchargement et la documentation détaillée */
+.docs-install-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.25rem 0 1.75rem;
+  width: 100%;
+}
+
+.docs-install-divider__line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-subtle);
+}
+
+.docs-install-divider__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.15rem;
+  border-radius: var(--radius-9999px);
+  background: var(--glass-inset-bg);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-heading);
+  font-size: var(--fs-0-85rem);
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}

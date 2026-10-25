@@ -1,0 +1,359 @@
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Bannière ASCII */
+.terminal-ascii-container {
+  margin-block: 0.65rem 0.85rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.terminal-ascii-svg {
+  width: 100%;
+  max-width: 660px;
+  height: auto;
+  display: block;
+  margin-inline: auto;
+  color: var(--text-heading);
+}
+
+.terminal-ascii-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.55rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--border-subtle);
+  font-size: var(--fs-0-72rem);
+}
+
+.terminal-ascii-tag {
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+.terminal-ascii-meta {
+  color: var(--text-muted);
+  font-size: var(--fs-0-7rem);
+}
+
+/* Invite interactive du canal de mise à jour (install.sh) */
+.terminal-channel-prompt {
+  margin-top: 0.85rem;
+  padding: 0.75rem 0.95rem;
+  background: color-mix(in srgb, var(--accent-primary) 6%, var(--glass-inset-bg));
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 22%, transparent);
+  box-shadow: var(--glass-edge);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-0-8rem);
+}
+
+.terminal-channel-prompt__header {
+  color: var(--text-heading);
+  font-weight: 700;
+}
+
+.terminal-channel-prompt__label {
+  color: var(--accent-primary);
+}
+
+.terminal-channel-prompt__choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.terminal-channel-prompt__btn {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.65rem;
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: var(--fs-0-775rem);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.terminal-channel-prompt__btn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
+  border-color: var(--accent-primary);
+  color: var(--text-heading);
+}
+
+.terminal-channel-prompt__btn.is-selected {
+  background: color-mix(in srgb, var(--accent-primary) 15%, transparent);
+  border-color: var(--accent-primary);
+  color: var(--text-heading);
+  font-weight: 600;
+}
+
+.terminal-channel-prompt__btn:disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.terminal-prompt-num {
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+.terminal-prompt-name {
+  flex: 1;
+}
+
+.terminal-channel-prompt__query {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--text-heading);
+  margin-top: 0.2rem;
+  font-size: var(--fs-0-78rem);
+}
+
+.terminal-prompt-qtext {
+  color: var(--text-muted);
+}
+
+.terminal-prompt-qval {
+  color: var(--accent-primary);
+  font-weight: 800;
+}
+
+.terminal-channel-prompt__confirmation {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.4rem;
+  border-top: 1px dashed var(--border-subtle);
+  font-size: var(--fs-0-74rem);
+}
+
+.terminal-channel-prompt__badge {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  border-radius: var(--radius-9999px);
+  background: var(--accent-primary);
+  color: var(--accent-primary-fg);
+  font-weight: 700;
+  font-size: var(--fs-0-68rem);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.terminal-channel-prompt__detail {
+  color: var(--text-muted);
+}
+
+/* Étapes d'installation */
+.terminal-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.terminal-step-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+  font-size: var(--fs-0-78rem);
+}
+
+.terminal-step-num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-0-74rem);
+  color: var(--accent-primary);
+  font-weight: 700;
+  min-width: 52px;
+}
+
+.terminal-ok {
+  color: var(--accent-success);
+  font-weight: 800;
+  font-family: inherit;
+}
+
+.terminal-spinner {
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent-primary);
+  vertical-align: middle;
+}
+
+.terminal-spinner-icon {
+  animation: spinIcon 0.8s linear infinite;
+}
+
+@keyframes spinIcon {
+  100% { transform: rotate(360deg); }
+}
+
+.terminal-step-title {
+  color: var(--text-heading);
+  font-weight: 600;
+}
+
+.terminal-step-detail {
+  color: var(--text-muted);
+}
+
+/* Boîte récapitulative finale officielle de install.sh */
+.terminal-demo-summary-box {
+  margin-top: 0.95rem;
+  padding: 0.85rem 1.15rem;
+  background: color-mix(in srgb, var(--accent-success) 8%, var(--glass-inset-bg));
+  box-shadow: var(--glass-edge);
+  border: 1px solid color-mix(in srgb, var(--accent-success) 30%, transparent);
+  border-left: 4px solid var(--accent-success);
+  border-radius: var(--radius-md);
+}
+
+.terminal-summary-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent-success);
+  margin-bottom: 0.65rem;
+  font-size: var(--fs-0-85rem);
+  font-weight: 700;
+}
+
+.terminal-summary-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-0-78rem);
+}
+
+.terminal-summary-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.summary-key {
+  min-width: 80px;
+  font-size: var(--fs-0-7rem);
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.summary-val {
+  color: var(--text-heading);
+}
+
+.summary-val code {
+  font-size: var(--fs-0-75rem);
+  padding: 0.1rem 0.35rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-4px);
+}
+
+.summary-alt {
+  font-size: var(--fs-0-7rem);
+  color: var(--text-muted);
+  margin-left: 0.35rem;
+}
+
+/* ==========================================================================
+   Bandeau Défilant Spécifications Techniques (TechTicker)
+   ========================================================================== */
+
+.tech-ticker-wrapper {
+  width: 100%;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  height: 2.25rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: var(--fs-0-75rem);
+  user-select: none;
+  position: relative;
+  z-index: var(--z-30);
+}
+
+@keyframes pulseLiveDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+
+.tech-ticker-track {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 1rem, black calc(100% - 2rem), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 1rem, black calc(100% - 2rem), transparent);
+}
+
+.tech-ticker-content {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+  animation: tickerScroll 520s linear infinite;
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.tech-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 0.85rem;
+  line-height: 1;
+}
+
+.tech-ticker-tag {
+  font-size: var(--fs-0-7rem);
+  font-weight: 800;
+  color: var(--accent-primary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tech-ticker-label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.tech-ticker-value {
+  color: var(--text-heading);
+  font-weight: 600;
+}
+
+.tech-ticker-item::after {
+  content: "·";
+  color: var(--border-subtle);
+  margin-left: 0.65rem;
+  font-size: var(--fs-0-75rem);
+}

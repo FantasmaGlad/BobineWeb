@@ -1,0 +1,329 @@
+@media (max-width: 640px) {
+
+  .github-pr-card__header,
+  .kofi-widget-card__header {
+    padding: 0.95rem 1rem;
+  }
+
+  .github-pr-card__body,
+  .kofi-widget-card__body {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .github-pr-card__title,
+  .kofi-creator-title {
+    font-size: var(--fs-1-05rem);
+  }
+
+  .kofi-widget-card__footer {
+    padding: 1rem;
+  }
+
+}
+
+/* Utilitaires d'accessibilité */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ==========================================================================
+   EN-TÊTES & HÉROS NATURELS (SANS SYNDROME BOX IN A BOX)
+   ========================================================================== */
+
+/* 1. Page d'accueil — Plein écran immersif sans coupure visuelle */
+.hero-fullscreen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  max-width: 100%;
+  width: 100%;
+  min-height: calc(100dvh - 6.85rem - env(safe-area-inset-bottom, 0px));
+  justify-content: space-between;
+  padding-top: clamp(0.5rem, 1.2vh, 1.15rem);
+  padding-bottom: clamp(0.35rem, 0.8vh, 0.65rem);
+  flex-shrink: 0;
+}
+
+.hero-fullscreen__content {
+  position: relative;
+  z-index: var(--z-1);
+}
+
+.hero-fullscreen__backdrop-art {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Version mobile (< 1024px) : placée derrière le titre, centrée à droite */
+  top: 1.25rem;
+  bottom: auto;
+  right: -0.75rem;
+  transform: none;
+  width: min(58vw, 240px);
+  max-height: 210px;
+  opacity: 0.95;
+  transition: opacity 0.3s ease;
+}
+
+@media (min-width: 1024px) {
+
+  .hero-fullscreen__backdrop-art {
+    top: 0.5rem;
+    bottom: auto;
+    /* La décoration peut dépasser la colonne, sans agrandir le viewport. */
+    right: max(clamp(-11rem, -9vw, -5.5rem), calc((100% - 100vw) / 2 + 1rem));
+    transform: none;
+    width: min(34vw, 420px);
+    max-height: 250px;
+    opacity: 0.95;
+    z-index: 0;
+  }
+
+}
+
+/* Téléphone : la mascotte passe en filigrane pour ne pas masquer le titre et le paragraphe. */
+@media (max-width: 639px) {
+  .hero-fullscreen__backdrop-art {
+    opacity: 0.2;
+    width: min(60vw, 230px);
+  }
+}
+
+/* Visuel Google Book en grand format à gauche de l'écran d'accueil */
+.hero-fullscreen__backdrop-art--left {
+  right: auto;
+  left: -1.25rem;
+  top: 0.5rem;
+  width: min(52vw, 220px);
+  max-height: 195px;
+}
+
+@media (max-width: 1023px) {
+  .hero-fullscreen__backdrop-art--left {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-fullscreen__backdrop-art--left {
+    right: auto;
+    left: max(clamp(-12.5rem, -10vw, -6.5rem), calc((100% - 100vw) / 2 + 1rem));
+    top: -2.5rem;
+    width: min(38vw, 480px);
+    max-height: 340px;
+    opacity: 0.95;
+    z-index: 0;
+  }
+
+  .hero-fullscreen:has(.hero-fullscreen__backdrop-art--left) .os-download-desktop-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-inline: clamp(1rem, 3.5vw, 3rem);
+    max-width: 62rem;
+    margin-inline: auto;
+    position: relative;
+    z-index: var(--z-2);
+  }
+
+  /* Le Google Book occupe 50 % de place en plus : les cartes de téléchargement
+     descendent d'autant, sans changer de hauteur ni de format. */
+  .hero-fullscreen:has(.hero-fullscreen__backdrop-art--left) .os-download-desktop-grid {
+    margin-top: clamp(4.5rem, 13vh, 8.5rem);
+  }
+}
+
+/* +50 % : agrandi depuis le milieu du bord supérieur du portable, de sorte que
+   son axe vertical et son bord haut ne bougent pas (point repéré dans l'image de
+   350 px, centrée dans le conteneur et décalée de 5 px vers le haut). Une
+   transformation ne modifie pas la mise en page. En dessous de 1500 px, la
+   colonne de texte est trop proche : taille d'origine. */
+@media (min-width: 1500px) {
+  .hero-fullscreen__backdrop-art--left {
+    transform: scale(1.5);
+    transform-origin: calc(50% + 12px) 73px;
+  }
+}
+
+/* Bandeau discret d'annonce Android aux couleurs du Bugdroid (#3DDC84) au-dessus de l'image (desktop uniquement) */
+
+/* Retiré sur la version téléphone (< 1024px) */
+
+.hero-fullscreen__backdrop-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  opacity: 1;
+  mask-image: linear-gradient(to right, transparent 0%, color-mix(in srgb, var(--ink) 40%, transparent) 8%, black 28%, black 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, color-mix(in srgb, var(--ink) 40%, transparent) 8%, black 28%, black 100%);
+  transition: opacity 0.3s ease;
+}
+
+/* Mascotte détourée (renard Firefox + Baamix) : ratio quasi carré, aucun fondu
+   sur le bord gauche — le masque dégradé du visuel 16:9 effacerait la queue. */
+.hero-fullscreen__backdrop-img--mascot {
+  width: auto;
+  max-width: 100%;
+  max-height: 210px;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+@media (min-width: 1024px) {
+  .hero-fullscreen__backdrop-img--mascot {
+    max-height: 250px;
+  }
+}
+
+/* Google Book détouré sur fond transparent : aucun mask-image pour ne jamais couper le châssis */
+.hero-fullscreen__backdrop-img--googlebook {
+  width: auto;
+  max-width: 100%;
+  max-height: 220px;
+  mask-image: none;
+  -webkit-mask-image: none;
+  filter: drop-shadow(0 18px 34px color-mix(in srgb, var(--ink) 28%, transparent));
+}
+
+@media (min-width: 1024px) {
+  .hero-fullscreen__backdrop-img--googlebook {
+    max-height: 350px;
+  }
+}
+
+.hero-fullscreen__title {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-heading);
+  text-wrap: balance;
+}
+
+.hero-fullscreen__subtitle {
+  color: var(--text-main);
+  font-weight: 550;
+}
+
+.hero-fullscreen__scroll {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--text-muted);
+  font-size: var(--fs-0-8rem);
+  font-weight: 600;
+  margin-top: auto;
+  margin-bottom: 0.2rem;
+  padding: 0.35rem 0.85rem;
+  background: color-mix(in srgb, var(--bg-card) 60%, transparent);
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+  backdrop-filter: blur(var(--blur-sm));
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-9999px);
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  align-self: center;
+}
+
+.hero-fullscreen__scroll:hover {
+  color: var(--text-heading);
+  background: color-mix(in srgb, var(--accent-primary) 12%, var(--bg-card));
+  border-color: color-mix(in srgb, var(--accent-primary) 35%, transparent);
+  transform: translateY(1px);
+}
+
+.hero-fullscreen__scroll:active {
+  transform: scale(0.97);
+}
+
+.hero-fullscreen__scroll svg {
+  flex-shrink: 0;
+  animation: scrollChevronBounce 2.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  transition: transform 0.2s ease;
+}
+
+@keyframes scrollChevronBounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(3.5px);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .hero-fullscreen__title {
+    font-size: var(--fs-clamp-1-85rem-2-5vw-2-35rem);
+    line-height: 1.2;
+    max-width: min(90vw, 62rem);
+    margin-bottom: 0.65rem;
+  }
+
+  .hero-fullscreen__subtitle {
+    font-size: var(--fs-clamp-0-92rem-1-12vw-1-02rem);
+    line-height: 1.48;
+    max-width: min(92vw, 58rem);
+    margin-bottom: 0.95rem;
+    color: var(--text-main);
+    font-weight: 550;
+    text-wrap: balance;
+  }
+
+  /* Le texte anglais est plus court que le français : sans cette largeur il tient sur 2 lignes
+     au lieu des 3 de la version française. */
+  html:lang(en) .hero-fullscreen__subtitle {
+    max-width: min(92vw, 40rem);
+  }
+
+}
+
+@media (max-width: 1023px) {
+
+  .hero-fullscreen {
+    min-height: calc(100svh - 6.85rem - env(safe-area-inset-bottom, 0px));
+    padding-top: clamp(0.75rem, 1.5vh, 1.25rem);
+    padding-bottom: clamp(0.5rem, 1.2vh, 1rem);
+    justify-content: space-between;
+  }
+
+  .hero-fullscreen__title {
+    font-size: var(--fs-clamp-1-75rem-4-5vw-2-25rem);
+    line-height: 1.18;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-fullscreen__subtitle {
+    font-size: var(--fs-0-95rem);
+    line-height: 1.5;
+    max-width: 100%;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-fullscreen__scroll {
+    margin-top: auto;
+    margin-bottom: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    font-size: var(--fs-0-8rem);
+  }
+
+}

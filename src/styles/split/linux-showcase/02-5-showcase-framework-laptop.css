@@ -1,0 +1,251 @@
+.linux-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 48rem) {
+  .linux-bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.linux-bento-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+  border-radius: var(--radius-lg);
+  background: var(--glass-card-bg);
+  border: 1px solid var(--glass-card-border);
+  box-shadow: var(--glass-card-highlight), var(--shadow-card);
+  -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+}
+
+.linux-bento-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent-primary) 45%, var(--glass-card-border));
+}
+
+.linux-bento-card__title {
+  font-size: var(--fs-clamp-1-35rem-2-2vw-1-75rem);
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--text-heading);
+  margin-bottom: 0.85rem;
+}
+
+.linux-bento-card__desc {
+  font-size: var(--fs-1rem);
+  line-height: 1.65;
+  color: var(--text-body);
+  margin-bottom: 1.5rem;
+}
+
+.linux-bento-card__features {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.linux-bento-card__feature {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--fs-0-92rem);
+  color: var(--text-muted);
+}
+
+.linux-bento-card__check {
+  flex-shrink: 0;
+  color: var(--accent-primary);
+}
+
+/* --------------------------------------------------------------------------
+   5. Showcase Framework Laptop
+   -------------------------------------------------------------------------- */
+.linux-framework-section {
+  margin-bottom: var(--showcase-section-gap);
+  padding: clamp(2.5rem, 5vw, 4rem);
+  border-radius: var(--radius-lg);
+  background: var(--glass-card-bg);
+  border: 1px solid var(--glass-card-border);
+  box-shadow: var(--glass-card-highlight), var(--shadow-card);
+  -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+}
+
+.linux-framework__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+}
+
+@media (max-width: 56rem) {
+  .linux-framework__content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.linux-framework__title {
+  font-size: var(--fs-clamp-1-85rem-3-2vw-2-5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-heading);
+  margin-bottom: 1rem;
+}
+
+.linux-framework__desc {
+  font-size: var(--fs-1-05rem);
+  line-height: 1.65;
+  color: var(--text-body);
+  margin-bottom: 1.75rem;
+}
+
+.linux-framework__specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.linux-framework__spec {
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  background: var(--glass-inset-bg);
+  border: 1px solid var(--border-subtle);
+}
+
+.linux-framework__spec-title {
+  font-size: var(--fs-0-8rem);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.linux-framework__spec-value {
+  font-size: var(--fs-1rem);
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.linux-framework__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  color: var(--accent-text);
+  text-decoration: none;
+}
+
+.linux-framework__link:hover {
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   6. Carte de Sécurité Cryptographique OpenPGP
+   -------------------------------------------------------------------------- */
+.linux-security-card {
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+  border-radius: var(--radius-lg);
+  background: var(--glass-card-bg);
+  border: 1px solid var(--glass-card-border);
+  box-shadow: var(--glass-card-highlight), var(--shadow-card);
+  -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  margin-bottom: var(--showcase-section-gap);
+}
+
+.linux-security-card__title {
+  font-size: var(--fs-1-4rem);
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 0.75rem;
+}
+
+.linux-security-card__desc {
+  font-size: var(--fs-1rem);
+  line-height: 1.6;
+  color: var(--text-body);
+  margin-bottom: 1.5rem;
+}
+
+.linux-security-card__fpr-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: var(--glass-inset-bg);
+  border: 1px solid var(--border-subtle);
+}
+
+.linux-security-card__fpr-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: var(--fs-1rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-heading);
+}
+
+/* Accessibilité et mouvement réduit */
+@media (prefers-reduced-motion: reduce) {
+  .linux-hero__cta-primary,
+  .linux-hero__cta-secondary,
+  .linux-distro-card,
+  .linux-bento-card,
+  .linux-terminal__copy-btn {
+    transition: none;
+  }
+}
+
+.linux-section-header__tag--left {
+  text-align: left;
+}
+
+.linux-framework__visual-wrap {
+  position: relative;
+}
+
+.linux-framework__image {
+  border-radius: var(--radius-lg);
+}
+
+.linux-security-card__btn {
+  position: static;
+}
+
+.linux-terminal__copied-text {
+  color: var(--accent-success);
+}
+
+.linux-showcase__breadcrumb {
+  padding-top: 1rem;
+}
+
+.linux-showcase__faq {
+  margin-bottom: var(--showcase-section-gap);
+}
+
+.linux-showcase__related-nav {
+  text-align: center;
+}
+
+.linux-showcase__related-title {
+  margin-bottom: 1rem;
+}
+
+.linux-showcase__related-list {
+  justify-content: center;
+}

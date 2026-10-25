@@ -1,0 +1,224 @@
+/* ==========================================================================
+   « Transparence réduite » (réglage du système) : plus aucun flou, surfaces de
+   verre remplacées par les surfaces pleines du thème. Tout passe par les jetons.
+   ========================================================================== */
+@media (prefers-reduced-transparency: reduce) {
+  :root,
+  :root[data-theme] {
+    --blur-scale: 0;
+    --glass-surface-bg: var(--bg-card);
+    --glass-card-bg: var(--bg-card);
+    --glass-floating-bg: var(--bg-surface-elevated);
+    --glass-modal-bg: var(--bg-surface-elevated);
+    --glass-inset-bg: var(--bg-inset);
+    --glass-chip-bg: color-mix(in srgb, var(--ink) 88%, transparent);
+  }
+}
+
+/* ==========================================================================
+   Utilitaires partagés (états pilotés par une classe, sans style en ligne)
+   ========================================================================== */
+
+/* Chevron de menu déroulant : pivote d'un demi-tour à l'ouverture */
+.chevron-flip {
+  transition: transform 0.2s ease;
+  transform: rotate(0);
+}
+.chevron-flip.is-open {
+  transform: rotate(180deg);
+}
+
+:root {
+  /* Les couleurs d’état suivent la luminance de l’encre du thème. */
+  --status-success: var(--accent-success);
+  --status-success-text: var(--status-success);
+  --status-success-bg: color-mix(in srgb, var(--status-success) 10%, var(--bg-card));
+  --status-success-fg: var(--bg-card);
+  --status-warning: color-mix(in srgb, #a16207 45%, var(--text-heading));
+  --status-warning-text: var(--status-warning);
+  --status-warning-bg: color-mix(in srgb, var(--status-warning) 10%, var(--bg-card));
+  --status-warning-fg: var(--bg-card);
+  --status-danger: color-mix(in srgb, #b91c1c 45%, var(--text-heading));
+  --status-danger-text: var(--status-danger);
+  --status-danger-bg: color-mix(in srgb, var(--status-danger) 10%, var(--bg-card));
+  --status-danger-fg: var(--bg-card);
+  --status-info: color-mix(in srgb, #0369a1 45%, var(--text-heading));
+  --status-info-text: var(--status-info);
+  --status-info-bg: color-mix(in srgb, var(--status-info) 10%, var(--bg-card));
+  --status-info-fg: var(--bg-card);
+  --channel-stable: var(--accent-text);
+  --channel-stable-bg: var(--accent-primary);
+  --channel-stable-fg: var(--accent-primary-fg);
+  --channel-beta: var(--status-info);
+  --channel-beta-bg: var(--status-info);
+  --channel-beta-fg: var(--status-info-fg);
+  --channel-canary: var(--status-warning);
+  --channel-canary-bg: var(--status-warning);
+  --channel-canary-fg: var(--status-warning-fg);
+  --code-bg: var(--bg-inset);
+  --code-text: var(--text-body);
+  --code-comment: var(--text-muted);
+  --glass-modal-border: var(--glass-floating-border);
+  --glass-hero-bg: var(--glass-card-bg);
+  --glass-hero-border: var(--glass-card-border);
+  --modal-radius: var(--radius-xl);
+  --modal-shadow: var(--shadow-card-hover);
+  --z-100: 100;
+  --radius-0-45rem: 0.45rem;
+  --fs-0-835rem: 0.835rem;
+  --fs-0-8rem: 0.8rem;
+  --radius-0-3rem: 0.3rem;
+  --radius-999px: 999px;
+  --z-120: 120;
+  --radius-0-85rem: 0.85rem;
+  --radius-0-55rem: 0.55rem;
+  --fs-0-775rem: 0.775rem;
+  --fs-0-675rem: 0.675rem;
+  --fs-0-65rem: 0.65rem;
+  --fs-0-75rem: 0.75rem;
+  --fs-0-825rem: 0.825rem;
+  --radius-50: 50%;
+  --fs-0-9rem: 0.9rem;
+  --fs-0-95rem: 0.95rem;
+  --fs-clamp-1-45rem-3-2vw-1-95rem: clamp(1.45rem, 3.2vw, 1.95rem);
+  --fs-clamp-1-2rem-2-5vw-1-4rem: clamp(1.2rem, 2.5vw, 1.4rem);
+  --fs-clamp-1-025rem-2vw-1-18rem: clamp(1.025rem, 2vw, 1.18rem);
+  --radius-0-0-4rem-0-4rem-0: 0 0.4rem 0.4rem 0;
+  --fs-0-85rem: 0.85rem;
+  --radius-0-3em: 0.3em;
+  --fs-0-85em: 0.85em;
+  --radius-0-65rem: 0.65rem;
+  --radius-0-75rem: 0.75rem;
+  --fs-0-925rem: 0.925rem;
+  --fs-0-725rem: 0.725rem;
+  --fs-clamp-1-25rem-2-6vw-1-5rem: clamp(1.25rem, 2.6vw, 1.5rem);
+  --fs-0-68rem: 0.68rem;
+  --fs-0-72rem: 0.72rem;
+  --fs-0-76rem: 0.76rem;
+  --fs-0-7rem: 0.7rem;
+  --fs-0-78rem: 0.78rem;
+  --fs-0-74rem: 0.74rem;
+  --radius-9999px: 9999px;
+  --radius-4px: 4px;
+  --z-30: 30;
+  --radius-0-5rem: 0.5rem;
+  --z-999: 999;
+  --z-10: 10;
+  --fs-0-975rem: 0.975rem;
+  --z-150: 150;
+  --fs-0-875rem: 0.875rem;
+  --radius-1-25rem: 1.25rem;
+  --z-960: 960;
+  --z-2: 2;
+  --radius-0-35rem: 0.35rem;
+  --radius-0-4rem: 0.4rem;
+  --radius-0-25rem: 0.25rem;
+  --z-1000: 1000;
+  --fs-clamp-1-35rem-3vw-1-75rem: clamp(1.35rem, 3vw, 1.75rem);
+  --fs-1-05rem: 1.05rem;
+  --fs-clamp-1-4rem-2-8vw-1-85rem: clamp(1.4rem, 2.8vw, 1.85rem);
+  --fs-1-25rem: 1.25rem;
+  --z-950: 950;
+  --fs-10-5pt: 10.5pt;
+  --radius-1rem: 1rem;
+  --radius-2rem: 2rem;
+  --fs-1-15rem: 1.15rem;
+  --fs-1-1rem: 1.1rem;
+  --radius-0-6rem: 0.6rem;
+  --z-1: 1;
+  --z-neg-1: -1;
+  --fs-clamp-1-85rem-2-5vw-2-35rem: clamp(1.85rem, 2.5vw, 2.35rem);
+  --fs-clamp-0-92rem-1-12vw-1-02rem: clamp(0.92rem, 1.12vw, 1.02rem);
+  --fs-clamp-1-75rem-4-5vw-2-25rem: clamp(1.75rem, 4.5vw, 2.25rem);
+  --fs-1-65rem: 1.65rem;
+  --fs-0-62rem: 0.62rem;
+  --radius-3px: 3px;
+  --fs-0-82rem: 0.82rem;
+  --fs-clamp-1-6rem-3-2vw-2-25rem: clamp(1.6rem, 3.2vw, 2.25rem);
+  --fs-1-5rem: 1.5rem;
+  --radius-1-1rem: 1.1rem;
+  --radius-0-9rem: 0.9rem;
+  --fs-0-66rem: 0.66rem;
+  --fs-0-92rem: 0.92rem;
+  --z-5: 5;
+  --z-95: 95;
+  --z-200: 200;
+  --radius-0-85rem-0-85rem-0-0: 0.85rem 0.85rem 0 0;
+  --fs-1rem: 1rem;
+  --z-40: 40;
+  --radius-22: 22%;
+  --z-90: 90;
+  --radius-1-5rem: 1.5rem;
+  --fs-1-35rem: 1.35rem;
+  --fs-clamp-1-6rem-4vw-2-3rem: clamp(1.6rem, 4vw, 2.3rem);
+  --radius-12px: 12px;
+  --fs-1-2rem: 1.2rem;
+  --z-20: 20;
+  --z-45: 45;
+  --z-50: 50;
+  --z-800: 800;
+  --radius-2px: 2px;
+  --fs-0-84rem: 0.84rem;
+  --fs-clamp-1-2rem-2-2vw-1-5rem: clamp(1.2rem, 2.2vw, 1.5rem);
+  --fs-2rem: 2rem;
+  --fs-0-64rem: 0.64rem;
+  --fs-0-86rem: 0.86rem;
+  --radius-14px: 14px;
+  --radius-10px: 10px;
+  --radius-9px: 9px;
+  --fs-0-83rem: 0.83rem;
+  --radius-6px: 6px;
+  --fs-0-94rem: 0.94rem;
+  --fs-0-98rem: 0.98rem;
+  --radius-7px: 7px;
+  --radius-8px: 8px;
+  --fs-0-88rem: 0.88rem;
+  --fs-clamp-2rem-3-8vw-3rem: clamp(2rem, 3.8vw, 3rem);
+  --fs-1-12rem: 1.12rem;
+  --fs-1-4rem: 1.4rem;
+  --fs-clamp-2-35rem-5-2vw-4-15rem: clamp(2.35rem, 5.2vw, 4.15rem);
+  --fs-clamp-1-1rem-1-8vw-1-35rem: clamp(1.1rem, 1.8vw, 1.35rem);
+  --fs-clamp-1-85rem-3-5vw-2-75rem: clamp(1.85rem, 3.5vw, 2.75rem);
+  --fs-1-3rem: 1.3rem;
+  --fs-clamp-1-35rem-2-2vw-1-75rem: clamp(1.35rem, 2.2vw, 1.75rem);
+  --fs-clamp-1-85rem-3-2vw-2-5rem: clamp(1.85rem, 3.2vw, 2.5rem);
+  --fs-1-45rem: 1.45rem;
+  --fs-clamp-1-4rem-3-2vw-2-2rem: clamp(1.4rem, 3.2vw, 2.2rem);
+  --fs-clamp-1-35rem-2-8vw-1-85rem: clamp(1.35rem, 2.8vw, 1.85rem);
+  --fs-1-55rem: 1.55rem;
+  --fs-1-6rem: 1.6rem;
+  --fs-1-025rem: 1.025rem;
+  --fs-clamp-1-75rem-3-5vw-2-4rem: clamp(1.75rem, 3.5vw, 2.4rem);
+  --fs-clamp-1-75rem-3-8vw-2-5rem: clamp(1.75rem, 3.8vw, 2.5rem);
+  --fs-clamp-1-5rem-3-5vw-2-1rem: clamp(1.5rem, 3.5vw, 2.1rem);
+  --fs-clamp-1-85rem-3-8vw-2-6rem: clamp(1.85rem, 3.8vw, 2.6rem);
+}
+
+/* Un navigateur sans filtre conserve des matériaux opaques et lisibles. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root, :root[data-theme] {
+    --blur-scale: 0;
+    --glass-surface-bg: var(--bg-card);
+    --glass-card-bg: var(--bg-card);
+    --glass-floating-bg: var(--bg-surface-elevated);
+    --glass-modal-bg: var(--bg-surface-elevated);
+    --glass-inset-bg: var(--bg-inset);
+    --glass-chip-bg: var(--ink);
+  }
+}
+
+/* Une commande tactile doit rester atteignable indépendamment de sa variante visuelle. */
+@media (pointer: coarse) {
+  :root button,
+  a.button,
+  a[class*="btn"],
+  .site-header a,
+  .site-footer a,
+  .mobile-drawer a,
+  .hw-mobile-buybar a {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .site-footer a,
+  .mobile-drawer a { display: inline-flex; align-items: center; }
+}

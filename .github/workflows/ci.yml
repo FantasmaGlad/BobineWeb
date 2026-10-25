@@ -97,6 +97,8 @@ jobs:
         run: node scripts/ci/check-built-glass.mjs
       - name: Fils d'Ariane (un seul par page, adresses dans la langue de la page)
         run: node scripts/ci/check-breadcrumbs.mjs
+      - name: Comparatifs (parité, sources et structure FR/EN)
+        run: node scripts/ci/check-comparisons.mjs
       - name: Géométrie mobile et cibles tactiles
         run: |
           npm run start -- --port 3102 > "$RUNNER_TEMP/mobile-server.log" 2>&1 &

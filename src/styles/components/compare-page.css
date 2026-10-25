@@ -1,0 +1,338 @@
+/* Sous-navigation Comparatifs en pilules de verre Apple */
+.cmp-subnav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 0.45rem;
+  border-radius: var(--radius-9999px);
+  width: fit-content;
+  max-width: 100%;
+  background: var(--glass-card-bg);
+  border: 1px solid var(--glass-card-border);
+  box-shadow: var(--glass-card-highlight), var(--shadow-sm);
+  -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+}
+
+.cmp-subnav__pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.42rem 0.95rem;
+  min-height: 44px;
+  font-size: var(--fs-0-85rem);
+  font-weight: 650;
+  text-decoration: none;
+  color: var(--text-muted);
+  border-radius: var(--radius-9999px);
+  border: 1px solid transparent;
+  transition: transform 0.18s var(--ease-spring-pill), color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.cmp-subnav__pill:hover {
+  color: var(--text-heading);
+  background: var(--glass-inset-bg);
+}
+
+.cmp-subnav__pill--active {
+  color: var(--text-heading);
+  background: color-mix(in srgb, var(--accent-primary) 16%, var(--glass-inset-bg));
+  border-color: color-mix(in srgb, var(--accent-primary) 42%, var(--glass-card-border));
+  box-shadow: var(--glass-edge);
+}
+
+.compare-layout {
+  padding-bottom: 3rem;
+}
+
+.compare-page {
+  min-width: 0;
+}
+
+.compare-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem 0 2.5rem;
+}
+
+.compare-hero h1 {
+  font-size: var(--fs-clamp-2rem-3-8vw-3rem);
+  color: var(--text-heading);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin: 0 0 1rem;
+}
+
+.compare-hero p {
+  font-size: var(--fs-1-12rem);
+  line-height: 1.65;
+  max-width: 65ch;
+  margin-bottom: 1.5rem;
+}
+
+.compare-hero__image {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-xl);
+}
+
+.compare-page p {
+  color: var(--text-body);
+  line-height: 1.65;
+}
+
+.compare-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.compare-actions a,
+.compare-study .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  max-width: 100%;
+  text-align: center;
+}
+
+.compare-actions svg {
+  flex-shrink: 0;
+}
+
+.compare-notice,
+.compare-study,
+.compare-analysis section,
+.compare-faq details,
+.compare-cta {
+  background: var(--glass-card-bg);
+  border: 1px solid var(--glass-card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-card-highlight), var(--shadow-card);
+  -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  padding: clamp(1rem, 3vw, 1.75rem);
+}
+
+.compare-notice {
+  margin-bottom: 2.5rem;
+}
+
+.compare-notice p,
+.compare-analysis p,
+.compare-faq p {
+  max-width: 75ch;
+  margin-bottom: 0;
+}
+
+.compare-page h2 {
+  color: var(--text-heading);
+  font-size: var(--fs-1-35rem);
+  line-height: 1.35;
+  margin: 0 0 1rem;
+}
+
+.compare-section > h2,
+.compare-notice h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.compare-section > h2 svg,
+.compare-notice h2 svg {
+  flex-shrink: 0;
+}
+
+.compare-section,
+.compare-analysis,
+.compare-studies {
+  margin-bottom: 2.5rem;
+}
+
+.compare-studies,
+.compare-analysis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.compare-study {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.compare-study > svg {
+  margin-bottom: 1rem;
+  color: var(--accent-text);
+}
+
+.compare-study .compare-study__focus {
+  font-weight: 650;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.compare-study .btn-secondary {
+  margin-top: auto;
+}
+
+.compare-table__caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.compare-table {
+  table-layout: fixed;
+}
+
+.compare-table th,
+.compare-table td {
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+  vertical-align: top;
+}
+
+.compare-table thead th {
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.compare-table tbody th {
+  background: var(--glass-inset-bg);
+}
+
+.compare-table__mobile-label {
+  display: none;
+}
+
+.compare-row-sources {
+  padding-left: 1.25rem;
+  font-size: var(--fs-0-85rem);
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.compare-sources {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.compare-sources li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.75rem 0;
+  scroll-margin-top: 6rem;
+}
+
+.compare-sources a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  gap: 0.5rem;
+}
+
+.compare-sources a svg {
+  flex-shrink: 0;
+}
+
+.compare-sources span {
+  color: var(--text-muted);
+  font-size: var(--fs-0-85rem);
+}
+
+.compare-doc-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 0.75rem;
+}
+
+.compare-faq {
+  display: grid;
+  gap: 1rem;
+}
+
+.compare-faq summary {
+  cursor: pointer;
+  font-weight: 650;
+  color: var(--text-heading);
+  padding-block: 0.75rem;
+  min-height: 44px;
+}
+
+.compare-cta .compare-actions {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .compare-hero {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .compare-hero__image {
+    max-width: 36rem;
+    justify-self: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .compare-studies,
+  .compare-analysis {
+    grid-template-columns: 1fr;
+  }
+
+  /* Les en-têtes restent dans l’arbre d’accessibilité malgré la présentation en cartes. */
+  .compare-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .compare-table,
+  .compare-table tbody,
+  .compare-table tr,
+  .compare-table td,
+  .compare-table tbody th {
+    display: block;
+    width: 100%;
+  }
+
+  .compare-table tr + tr {
+    border-top: 1px solid var(--glass-card-border);
+  }
+
+  .compare-table td {
+    border-bottom: none;
+  }
+
+  .compare-table__mobile-label {
+    display: block;
+    font-weight: 750;
+    color: var(--text-heading);
+    margin-bottom: 0.25rem;
+  }
+
+  .compare-actions {
+    align-items: stretch;
+  }
+}

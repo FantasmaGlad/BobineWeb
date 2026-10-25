@@ -7,10 +7,9 @@ import { lp } from "@/lib/seo";
 
 interface ComparatifNavProps {
   locale: Locale;
-  currentTitle?: string;
 }
 
-export default function ComparatifNav({ locale, currentTitle }: ComparatifNavProps) {
+export default function ComparatifNav({ locale }: ComparatifNavProps) {
   const pathname = usePathname();
   const isEn = locale === "en";
 

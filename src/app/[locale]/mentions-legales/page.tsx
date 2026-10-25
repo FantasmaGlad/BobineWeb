@@ -10,7 +10,7 @@ const copy = {
     badge: "Transparence & Cadre Légal",
     title: "Mentions Légales",
     subtitle: "Informations légales relatives à l'éditeur, à l'hébergement, au rôle du site dans les achats de matériel et aux droits d'utilisation du projet open-source Bobine.",
-    updated: "Dernière mise à jour : 24 octobre 2026",
+    updated: "Dernière mise à jour : 25 octobre 2026",
     sections: [
       {
         heading: "1. Éditeur du Site & Direction de la Publication",
@@ -28,7 +28,7 @@ const copy = {
         heading: "3. Propriété Intellectuelle & Licence Logicielle",
         body: "L'ensemble du code source du logiciel Bobine est mis à disposition sous licence libre GNU Affero General Public License v3.0 (AGPL-3.0).",
         contact: "Liberté d'usage : vous êtes libre d'utiliser, d'étudier, de modifier, de compiler et de redistribuer Bobine sans redevance, dans le respect de cette licence.",
-        subtext: "Les marques, noms de produits et logos cités (ex : HP, Intel, AMD, Apple, Amazon, AliExpress, Les Mills, Fedora, Arch Linux, Debian, Ubuntu) appartiennent à leurs propriétaires respectifs et sont utilisés uniquement pour identifier des produits, à des fins d'interopérabilité technique et de comparaison descriptive. Les images de produits proviennent des fiches des vendeurs.",
+        subtext: "Les marques, noms de produits et logos cités (ex : HP, Intel, AMD, Apple, Amazon, AliExpress, Les Mills, Fedora, Arch Linux, Debian, Ubuntu) appartiennent à leurs propriétaires respectifs et sont utilisés uniquement pour identifier des produits, à des fins d'interopérabilité technique et de comparaison descriptive. Les comparatifs identifient les solutions tierces par leur nom en texte, sans reproduire leur logo ni suggérer de partenariat. Les images de produits proviennent des fiches des vendeurs.",
       },
       {
         heading: "4. Rôle du Site : Information et Suggestions, Aucune Vente",
@@ -54,7 +54,7 @@ const copy = {
     badge: "Transparency & Legal Framework",
     title: "Legal Notice",
     subtitle: "Legal information regarding the publisher, hosting, the site's role in hardware purchases, and the terms of use of the open-source Bobine project.",
-    updated: "Last updated: 24 October 2026",
+    updated: "Last updated: 25 October 2026",
     sections: [
       {
         heading: "1. Site Publisher & Publication Director",
@@ -72,7 +72,7 @@ const copy = {
         heading: "3. Intellectual Property & Software License",
         body: "The entire source code of Bobine is distributed under the GNU Affero General Public License v3.0 (AGPL-3.0).",
         contact: "Freedom of use: you are free to run, study, adapt, compile, and redistribute Bobine without license fees, in accordance with that license.",
-        subtext: "Third-party trademarks, product names and logos mentioned (e.g., HP, Intel, AMD, Apple, Amazon, AliExpress, Les Mills, Fedora, Arch Linux, Debian, Ubuntu) remain the property of their respective owners and are used solely to identify products, for technical interoperability and descriptive comparison. Product images come from the sellers' product pages.",
+        subtext: "Third-party trademarks, product names and logos mentioned (e.g., HP, Intel, AMD, Apple, Amazon, AliExpress, Les Mills, Fedora, Arch Linux, Debian, Ubuntu) remain the property of their respective owners and are used solely to identify products, for technical interoperability and descriptive comparison. Comparisons identify third-party solutions by their names in plain text, without reproducing their logos or suggesting a partnership. Product images come from the sellers' product pages.",
       },
       {
         heading: "4. Role of the Site: Information and Suggestions, No Sales",

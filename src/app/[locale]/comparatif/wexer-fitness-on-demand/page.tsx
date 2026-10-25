@@ -24,8 +24,8 @@ export async function generateMetadata({
       ? "Alternative to Wexer Virtual & Fitness On Demand — Sovereign Local-First Playout"
       : "Alternative à Wexer & Fitness On Demand — Régie Vidéo Fitness Locale & Sans Abonnement",
     description: isEn
-      ? "Compare Wexer Virtual and Fitness On Demand with Bobine. Eliminate heavy SaaS subscriptions ($200–$450/mo), regain local network sovereignty, and avoid cloud playback latency."
-      : "Comparatif complet entre Wexer, Fitness On Demand et Bobine. Supprimez les abonnements SaaS récurrents (200 € à 450 €/mois), gagnez en souveraineté locale et éliminez la latence cloud.",
+      ? "Compare Wexer Virtual and Fitness On Demand with Bobine. Eliminate recurring SaaS subscriptions, regain local network sovereignty, and avoid cloud playback latency."
+      : "Comparatif complet entre Wexer, Fitness On Demand et Bobine. Supprimez les abonnements SaaS récurrents, gagnez en souveraineté locale et éliminez la latence cloud.",
     keywords: [
       "Alternative Wexer",
       "Alternative Wexer Virtual",
@@ -45,9 +45,9 @@ const CONTENT = {
     badge: "Étude SaaS B2B",
     title: "Bobine face à Wexer Virtual & Fitness On Demand",
     subtitle:
-      "Pourquoi payer des abonnements mensuels récurrents de 200 € à 450 € par écran alors qu'une architecture locale sans cloud garantit zéro panne et zéro latence ?",
+      "Pourquoi payer des abonnements mensuels récurrents par écran alors qu'une architecture locale sans cloud garantit zéro panne et zéro latence ?",
     summaryCards: [
-      { label: "Coût Mensuel Récurrent", value: "0 € vs 250 €+", desc: "Économie directe chaque mois par écran" },
+      { label: "Coût Mensuel Récurrent Bobine", value: "0 €", desc: "Aucun abonnement par écran ; tarifs des éditeurs sur leurs sites" },
       { label: "Architecture", value: "100% Locale", desc: "Zéro dépendance aux serveurs cloud" },
       { label: "Latence Réseau", value: "< 2 ms (LAN)", desc: "WebSockets locaux, sans serveur intermédiaire" },
       { label: "Protection Données", value: "Conforme RGPD", desc: "Zéro collecte, zéro tracker externe" },
@@ -59,7 +59,7 @@ const CONTENT = {
         {
           criterion: "Abonnement Logiciel par Écran",
           bobine: "0 € / mois (Licence libre AGPL-3.0)",
-          competitor: "200 € à 450 € / mois par écran",
+          competitor: "Abonnement mensuel par écran (tarifs sur le site de l'éditeur)",
         },
         {
           criterion: "Fonctionnement en Cas de Coupure Internet",
@@ -68,7 +68,7 @@ const CONTENT = {
         },
         {
           criterion: "Boîtier / Matériel de Lecture",
-          bobine: "Mini PC standard x86-64 (Dell Wyse, HP, Lenovo ~50 €)",
+          bobine: "Mini PC standard x86-64 (Dell Wyse, HP, Lenovo)",
           competitor: "Player propriétaire ou boîtier certifié imposé",
         },
         {
@@ -96,7 +96,7 @@ const CONTENT = {
     sections: [
       {
         title: "1. Le piège de la rente SaaS pour les écrans de studio",
-        text: "Les acteurs comme Wexer et Fitness On Demand ont bâti leur modèle sur un abonnement mensuel facturé par écran ou par borne. Pour un club disposant de deux studios (un studio cycling et un studio cours collectifs), la facture logicielle atteint rapidement 5 000 € à 9 000 € par an. Cet investissement récurrent ne crée aucune valeur patrimoniale pour la salle : dès que l'abonnement s'arrête, les écrans s'éteignent.",
+        text: "Les acteurs comme Wexer et Fitness On Demand ont bâti leur modèle sur un abonnement mensuel facturé par écran ou par borne. Pour un club disposant de plusieurs studios (cycling, cours collectifs), la facture logicielle augmente avec chaque écran. Cet investissement récurrent ne crée aucune valeur patrimoniale pour la salle : dès que l'abonnement s'arrête, les écrans s'éteignent.",
       },
       {
         title: "2. La puissance du Local-First : zéro latence, zéro coupure",
@@ -119,9 +119,9 @@ const CONTENT = {
     badge: "B2B SaaS Analysis",
     title: "Bobine vs Wexer Virtual & Fitness On Demand",
     subtitle:
-      "Why pay recurring SaaS fees of $200–$450/month per display when local-first architecture delivers zero downtime and sub-2ms latency?",
+      "Why pay recurring SaaS fees per display when local-first architecture delivers zero downtime and sub-2ms latency?",
     summaryCards: [
-      { label: "Recurring Software Cost", value: "$0 vs $250+/mo", desc: "Direct monthly savings per screen" },
+      { label: "Bobine Recurring Cost", value: "$0", desc: "No per-screen subscription; vendors publish their own rates" },
       { label: "System Architecture", value: "100% Local", desc: "Zero cloud server dependencies" },
       { label: "Network Latency", value: "< 2 ms (LAN)", desc: "Local WebSockets, no middleman server" },
       { label: "Data Protection", value: "GDPR Sovereign", desc: "Zero tracking, zero external telemetry" },
@@ -133,7 +133,7 @@ const CONTENT = {
         {
           criterion: "Monthly License per Display",
           bobine: "$0 / month (Perpetual AGPL-3.0)",
-          competitor: "$200 to $450 / month per screen",
+          competitor: "Monthly per-screen subscription (rates on the vendor's site)",
         },
         {
           criterion: "Offline Behavior (Internet Outage)",
@@ -142,7 +142,7 @@ const CONTENT = {
         },
         {
           criterion: "Media Player Hardware",
-          bobine: "Standard x86-64 mini PC (Dell Wyse, HP, Lenovo ~$50)",
+          bobine: "Standard x86-64 mini PC (Dell Wyse, HP, Lenovo)",
           competitor: "Proprietary locked box or certified appliance",
         },
         {
@@ -170,7 +170,7 @@ const CONTENT = {
     sections: [
       {
         title: "1. The Recurring SaaS Tax on Studio Displays",
-        text: "Providers like Wexer and Fitness On Demand charge recurring monthly fees per screen or kiosk. Operating two studios (e.g. indoor cycling and group cardio) easily results in $5,000 to $9,000 in annual software expenses. These recurring fees build no equity for the club: once the subscription lapses, the displays go black.",
+        text: "Providers like Wexer and Fitness On Demand charge recurring monthly fees per screen or kiosk. The software bill grows with every studio and screen (e.g. indoor cycling and group cardio). These recurring fees build no equity for the club: once the subscription lapses, the displays go black.",
       },
       {
         title: "2. The Power of Local-First: Zero Latency, Zero Buffer",
@@ -209,11 +209,11 @@ export default async function WexerComparisonPage({
     {
       category: "compare" as const,
       q: isEn
-        ? "How much can a gym save by choosing Bobine over Wexer or Fitness On Demand?"
-        : "Combien une salle de sport économise-t-elle en choisissant Bobine plutôt que Wexer ou Fitness On Demand ?",
+        ? "What does a gym stop paying by choosing Bobine over Wexer or Fitness On Demand?"
+        : "Que cesse de payer une salle de sport en choisissant Bobine plutôt que Wexer ou Fitness On Demand ?",
       a: isEn
-        ? "Wexer and Fitness On Demand charge between $200 and $450 per screen every month, representing $2,400 to $5,400 per year per room in software subscriptions alone. Bobine is 100% free open-source software (AGPL-3.0) with zero monthly fees, saving clubs thousands of euros every year."
-        : "Wexer et Fitness On Demand facturent entre 200 € et 450 € par écran et par mois, soit 2 400 € à 5 400 € par an et par studio en abonnement logiciel. Bobine est 100% libre et gratuit (licence AGPL-3.0) sans aucun abonnement récurrent, économisant des milliers d'euros chaque année aux clubs.",
+        ? "Wexer and Fitness On Demand bill a recurring subscription per screen (see their sites for current rates). Bobine is 100% free open-source software (AGPL-3.0) with zero monthly fees, so that line of the budget disappears. The calculator on the comparison page lets you enter your own figures."
+        : "Wexer et Fitness On Demand facturent un abonnement récurrent par écran (tarifs à consulter sur leurs sites). Bobine est 100% libre et gratuit (licence AGPL-3.0) sans aucun abonnement récurrent : ce poste de dépenses disparaît. Le simulateur de la page comparatif permet de saisir vos propres montants.",
     },
     {
       category: "compare" as const,

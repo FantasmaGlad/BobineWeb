@@ -73,9 +73,9 @@ const COMPARISONS_DATA = {
       "Analysez objectivement les coûts de licence, l'indépendance de catalogue, les contraintes matérielles et la fiabilité hors-ligne entre Bobine et les acteurs propriétaires du marché.",
     kpis: [
       { label: "Licence Logicielle Bobine", value: "0 € / mois", desc: "Open-source AGPL-3.0 perpétuel, sans redevance par programme ni par écran" },
-      { label: "Économie par Studio", value: "1 800 € – 5 400 €", desc: "Économisés chaque année face aux abonnements SaaS et franchises" },
+      { label: "Calcul de l'écart", value: "Vos propres tarifs", desc: "Le simulateur ci-dessous calcule l'écart à partir des montants que vous saisissez, pas de nos estimations" },
       { label: "Fiabilité Diffusion", value: "100 % Hors-ligne", desc: "Lecture directe sur SSD local sans coupure lors des pannes internet" },
-      { label: "Souveraineté Matérielle", value: "PC, Mac, Linux & TV", desc: "Mini-PC reconditionné dès 45 €, Mac mini M4, Google Book ou Android TV" },
+      { label: "Souveraineté Matérielle", value: "PC, Mac, Linux & TV", desc: "Mini-PC reconditionné, Mac mini M4, Google Book ou Android TV" },
     ],
     cards: [
       {
@@ -83,12 +83,12 @@ const COMPARISONS_DATA = {
         target: "Les Mills Cinema & Les Mills Virtual",
         badge: "Modèle Premium & Redevances",
         image: "/images/hardware/geekom-it13-max-cutout.webp",
-        headline: "Économisez 1 500 € à 3 600 € / an par studio sans sacrifier l'expérience immersive.",
+        headline: "Une régie libre, sans redevance par programme, face au modèle à royalties de Les Mills.",
         description:
           "Comparatif détaillé entre le modèle à royalties cumulées de Les Mills (BodyPump, RPM, The Trip) et la régie libre Bobine sur mini PC reconditionné standard.",
         points: [
-          "0 € / mois de licence (AGPL-3.0) vs 150 € à 350 € / mois par programme",
-          "0 € de formation obligatoire vs 500 € HT / module par coach",
+          "0 € / mois de licence (AGPL-3.0), sans redevance par programme",
+          "Aucune certification Bobine à acheter : vos coachs animent leurs propres cours",
           "100% hors-ligne sur SSD local sans coupure en cas de panne internet",
           "Installation 1 clic sur Windows, macOS, Linux ou mini PC reconditionné",
         ],
@@ -98,11 +98,11 @@ const COMPARISONS_DATA = {
         target: "Wexer Virtual & Fitness On Demand (FOD)",
         badge: "Local-First vs SaaS Cloud",
         image: "/images/BaamixInspector.webp",
-        headline: "Dites adieu aux abonnements SaaS cloud à 250 €+/mois par écran.",
+        headline: "Dites adieu aux abonnements cloud facturés par écran.",
         description:
           "Pourquoi choisir une architecture décentralisée locale avec bus temps réel plutôt qu'un lecteur cloud tributaire de la bande passante et des pannes de serveurs distants.",
         points: [
-          "Zéro abonnement récurrent vs 200 € à 450 € / mois par écran",
+          "Zéro abonnement récurrent et aucun frais par écran côté Bobine",
           "Réactivité sub-2ms sur réseau local vs latence et mise en mémoire cloud",
           "Souveraineté totale RGPD : zéro collecte de données adhérents",
           "Télécommande coach instantanée par QR code sur Wi-Fi local",
@@ -145,9 +145,9 @@ const COMPARISONS_DATA = {
       {
         label: "Coût mensuel récurrent",
         bobine: "0 € / mois (Perpétuel)",
-        col2: "150 € à 400 € / mois / studio",
-        col3: "200 € à 450 € / mois / écran",
-        col4: "0 € à 80 € / mois / écran",
+        col2: "Redevances par programme (tarifs de l'éditeur)",
+        col3: "Abonnement par écran (tarifs de l'éditeur)",
+        col4: "Variable selon l'offre (gratuit à payant)",
       },
       {
         label: "Fonctionnement 100 % hors-ligne",
@@ -193,9 +193,9 @@ const COMPARISONS_DATA = {
       "Objectively analyze licensing costs, content freedom, hardware constraints, and offline reliability between Bobine and proprietary market solutions.",
     kpis: [
       { label: "Bobine Software License", value: "$0 / month", desc: "Perpetual AGPL-3.0 open-source, zero per-program or per-screen royalties" },
-      { label: "Studio Annual Savings", value: "$1,800 – $5,400", desc: "Saved every year per studio compared to cloud SaaS and franchises" },
+      { label: "Cost gap calculation", value: "Your own rates", desc: "The calculator below works out the gap from the amounts you enter, not from our estimates" },
       { label: "Playback Reliability", value: "100% Offline", desc: "Direct playback from local SSD with zero freezes during ISP outages" },
-      { label: "Hardware Sovereignty", value: "PC, Mac, Linux & TV", desc: "Refurbished mini-PC from $45, M4 Mac mini, Google Book or Android TV" },
+      { label: "Hardware Sovereignty", value: "PC, Mac, Linux & TV", desc: "Refurbished mini-PC, M4 Mac mini, Google Book or Android TV" },
     ],
     cards: [
       {
@@ -203,12 +203,12 @@ const COMPARISONS_DATA = {
         target: "Les Mills Cinema & Les Mills Virtual",
         badge: "Premium Royalties vs Open Playout",
         image: "/images/hardware/geekom-it13-max-cutout.webp",
-        headline: "Save $1,500 to $3,600 / year per studio with zero recurring license fees.",
+        headline: "An open playout with no per-program royalties, against the Les Mills royalty model.",
         description:
           "Detailed breakdown between Les Mills cumulative royalties (BodyPump, RPM, The Trip) and Bobine's free sovereign playout engine running on budget mini PCs.",
         points: [
-          "$0 / month license (AGPL-3.0) vs $150–$350 / month per program",
-          "$0 coach certifications vs $500+ per module per instructor",
+          "$0 / month license (AGPL-3.0), no per-program royalties",
+          "No Bobine certification to buy: your coaches teach their own classes",
           "100% offline from local SSD with zero freezes during internet drops",
           "1-click installer on Windows, macOS, Linux, or a refurbished mini PC",
         ],
@@ -218,11 +218,11 @@ const COMPARISONS_DATA = {
         target: "Wexer Virtual & Fitness On Demand (FOD)",
         badge: "Local-First vs Cloud SaaS",
         image: "/images/BaamixInspector.webp",
-        headline: "Say goodbye to $250+/month per screen cloud SaaS subscriptions.",
+        headline: "Say goodbye to cloud subscriptions billed per screen.",
         description:
           "Why decentralized local-first playout delivers superior reliability compared to cloud streaming appliances vulnerable to network outages.",
         points: [
-          "Zero recurring SaaS fee vs $200–$450 / month per screen",
+          "Zero recurring fee and no per-screen charge on the Bobine side",
           "Sub-2ms local latency vs cloud streaming buffering",
           "Complete GDPR compliance: zero member data harvesting",
           "Instant coach mobile remote via local Wi-Fi QR code scan",
@@ -265,9 +265,9 @@ const COMPARISONS_DATA = {
       {
         label: "Recurring monthly cost",
         bobine: "$0 / month (Perpetual)",
-        col2: "$150 to $400 / month / studio",
-        col3: "$200 to $450 / month / screen",
-        col4: "$0 to $80 / month / screen",
+        col2: "Per-program royalties (see the vendor's rates)",
+        col3: "Per-screen subscription (see the vendor's rates)",
+        col4: "Varies by offer (free to paid)",
       },
       {
         label: "100% offline operation",

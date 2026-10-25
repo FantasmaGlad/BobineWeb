@@ -58,7 +58,7 @@ const CONTENT = {
         {
           criterion: "Accessibilité aux Clubs Indépendants",
           bobine: "Ouvert à tous (Téléchargement libre immédiat)",
-          competitor: "Yako réservé aux franchisés / Radical sous contrat de diffusion",
+          competitor: "Yako : programme interne au réseau L'Orange Bleue, pas un fournisseur ouvert à tous / Radical : selon les conditions de l'éditeur",
         },
         {
           criterion: "Liberté d'Import des Vidéos",
@@ -95,7 +95,7 @@ const CONTENT = {
     sections: [
       {
         title: "1. Sortir du carcan des franchises et des marques imposées",
-        text: "Des concepts comme Yako (L'Orange Bleue) ou Radical Fitness apportent des cours chorégraphiés clés en main, mais lient les gérants à un écosystème fermé. Pour un gérant de club indépendant ou un coach qui crée ses propres concepts, acheter une franchise n'a aucun sens économique. Bobine permet de créer sa propre chaîne de cours virtuels avec une qualité de diffusion identique.",
+        text: "Yako n'est pas un fournisseur auquel on s'abonne : c'est l'offre de cours propre au réseau L'Orange Bleue, réservée à ses clubs. Des éditeurs comme Radical Fitness apportent eux aussi des cours chorégraphiés clés en main, mais selon leurs propres conditions de diffusion. Pour un gérant de club indépendant ou un coach qui crée ses propres concepts, acheter une franchise n'a aucun sens économique. Bobine permet de créer sa propre chaîne de cours virtuels avec une qualité de diffusion identique.",
       },
       {
         title: "2. Valoriser vos propres coachs et contenus vidéo",
@@ -132,7 +132,7 @@ const CONTENT = {
         {
           criterion: "Access for Independent Gyms",
           bobine: "Open to everyone (Free immediate download)",
-          competitor: "Restricted to franchisees or tied commercial contracts",
+          competitor: "Yako: in-network offer of L'Orange Bleue, not an open vendor / Radical: per the publisher's terms",
         },
         {
           criterion: "Video Import Freedom",
@@ -211,8 +211,8 @@ export default async function RadicalComparisonPage({
         ? "Can independent gym clubs access franchise virtual programs like Yako or Radical Fitness?"
         : "Les clubs indépendants peuvent-ils accéder aux cours de franchise comme Yako ou Radical Fitness ?",
       a: isEn
-        ? "No. Proprietary franchise programs (such as Yako for L'Orange Bleue) are strictly reserved for franchisees, while Radical Fitness requires paying distribution contracts. Bobine empowers independent gym owners to broadcast their own professional courses without needing any franchise affiliation or licensing fee."
-        : "Non. Les programmes de franchise (comme Yako pour L'Orange Bleue) sont réservés aux franchisés, tandis que Radical Fitness exige des contrats de licence payants. Bobine permet aux gérants de salles indépendantes de diffuser leurs propres cours professionnels sans affiliation de franchise ni redevance.",
+        ? "Generally not. Yako is not a vendor: it is the class offer of the L'Orange Bleue network, meant for that network's own clubs, and other publishers such as Radical Fitness set their own distribution terms (check them with the publisher). Bobine empowers independent gym owners to broadcast their own professional courses without needing any franchise affiliation or licensing fee."
+        : "En général non. Yako n'est pas un fournisseur : c'est l'offre de cours du réseau L'Orange Bleue, destinée à ses propres clubs, et d'autres éditeurs comme Radical Fitness fixent leurs propres conditions de diffusion (à vérifier auprès de l'éditeur). Bobine permet aux gérants de salles indépendantes de diffuser leurs propres cours professionnels sans affiliation de franchise ni redevance.",
     },
     {
       category: "compare" as const,
@@ -238,8 +238,8 @@ export default async function RadicalComparisonPage({
         ? "Is there an upfront cost or monthly charge for Bobine?"
         : "Quel est le coût d'achat ou d'abonnement de Bobine ?",
       a: isEn
-        ? "Bobine is 100% free open-source software distributed under the GNU AGPL-3.0 license. There are zero upfront costs, zero monthly subscriptions, and zero per-screen charges. You only provide standard hardware (a ~€40-€80 mini PC and a screen)."
-        : "Bobine est un logiciel 100% libre et gratuit sous licence GNU AGPL-3.0. Il n'y a aucun coût d'achat, aucun abonnement mensuel et aucun frais par écran. Vous fournissez simplement le matériel standard (un mini PC à 40-80 € et un écran).",
+        ? "Bobine is 100% free open-source software distributed under the GNU AGPL-3.0 license. There are zero upfront costs, zero monthly subscriptions, and zero per-screen charges. You only provide standard hardware (a mini PC and a screen)."
+        : "Bobine est un logiciel 100% libre et gratuit sous licence GNU AGPL-3.0. Il n'y a aucun coût d'achat, aucun abonnement mensuel et aucun frais par écran. Vous fournissez simplement le matériel standard (un mini PC et un écran).",
     },
   ];
 

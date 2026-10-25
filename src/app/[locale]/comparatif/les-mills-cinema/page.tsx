@@ -25,8 +25,8 @@ export async function generateMetadata({
       ? "Alternative to Les Mills Cinema & Virtual — Free Open-Source Gym Playout"
       : "Alternative à Les Mills Cinema & Virtual — Régie Vidéo Libre & Sans Abonnement pour Salle de Sport",
     description: isEn
-      ? "Detailed comparison between Les Mills Cinema / Virtual and Bobine. Discover how to save $1,500 to $3,600 per year per studio, maintain 100% offline autonomy, and free your gym from recurring licensing fees."
-      : "Comparatif complet entre Les Mills Cinema / Virtual et Bobine. Économisez 1 500 € à 3 600 € par an et par studio, gagnez une autonomie 100% hors-ligne et libérez votre salle des redevances par programme.",
+      ? "Detailed comparison between Les Mills Cinema / Virtual and Bobine. Discover how to keep 100% offline autonomy, and free your gym from recurring licensing fees."
+      : "Comparatif complet entre Les Mills Cinema / Virtual et Bobine. Gagnez une autonomie 100% hors-ligne et libérez votre salle des redevances par programme.",
     keywords: [
       "Alternative Les Mills Cinema",
       "Alternative Les Mills Virtual",
@@ -49,9 +49,9 @@ const CONTENT = {
     subtitle:
       "Pourquoi payer des redevances mensuelles par programme et subir des contraintes matérielles lourdes quand une régie libre auto-hébergée offre une autonomie totale à coût nul ?",
     summaryCards: [
-      { label: "Économie Annuelle", value: "1 500 € à 3 600 €", desc: "Par studio chaque année" },
+      { label: "Redevances par programme", value: "Aucune côté Bobine", desc: "Pour les tarifs Les Mills, voir leur site : nous n'en publions pas" },
       { label: "Coût Logiciel Bobine", value: "0 € / mois", desc: "Licence libre perpétuelle AGPL-3.0" },
-      { label: "Matériel Requis", value: "~40-70 €", desc: "Mini PC reconditionné standard" },
+      { label: "Matériel Requis", value: "Un mini PC", desc: "Reconditionné standard, x86-64" },
       { label: "Résilience Réseau", value: "100% Hors-ligne", desc: "Zéro coupure en cas de panne internet" },
     ],
     table: {
@@ -61,16 +61,16 @@ const CONTENT = {
         {
           criterion: "Modèle Économique & Licences",
           bobine: "0 € / mois (Licence AGPL-3.0 sans frais cachés)",
-          competitor: "150 € à 350 € / mois par programme cumulé",
+          competitor: "Redevance mensuelle par programme, cumulée (tarifs sur le site de l'éditeur)",
         },
         {
           criterion: "Coût de Formation Coachs",
           bobine: "0 € (Vos coachs animent librement)",
-          competitor: "479 € à 529 € HT par coach et par module",
+          competitor: "Certification payante par coach et par module (voir l'éditeur)",
         },
         {
           criterion: "Investissement Matériel (CAPEX)",
-          bobine: "40 € à 70 € (Mini PC reconditionné standard)",
+          bobine: "Mini PC reconditionné standard",
           competitor: "Élevé (Écrans géants certifiés, projecteurs pro imposés)",
         },
         {
@@ -103,11 +103,11 @@ const CONTENT = {
     sections: [
       {
         title: "1. La réalité du modèle Les Mills : l'empilement des coûts",
-        text: "Le modèle économique Les Mills repose sur une facturation à la carte par programme. Si votre salle souhaite proposer du BodyPump, du RPM et The Trip en virtuel, vous devez cumuler trois redevances mensuelles distinctes. À cela s'ajoute le coût récurrent des formations : chaque nouvel instructeur doit être certifié (environ 500 € HT par module) pour conserver les droits d'animation. Sur 3 ans d'exploitation, l'addition pour un seul studio dépasse couramment les 10 000 €.",
+        text: "Le modèle économique Les Mills repose sur une facturation à la carte par programme. Si votre salle souhaite proposer du BodyPump, du RPM et The Trip en virtuel, vous devez cumuler trois redevances mensuelles distinctes. À cela s'ajoute le coût récurrent des formations : chaque nouvel instructeur doit être certifié (voir les conditions de l'éditeur) pour conserver les droits d'animation.",
       },
       {
         title: "2. L'alternative souveraine : Bobine sur mini PC standard",
-        text: "Bobine casse cette dépendance. Installez-le en 1 clic sur un PC Windows ou Mac existant, ou sur un mini PC reconditionné bon marché (type Dell Wyse 5070 à 45 € ou HP EliteDesk 705 à 65 €) : vous disposez d'une régie vidéo de niveau professionnel. Vous importez vos propres vidéos de cours en MP4 ou MKV, organisez vos grilles horaires à la seconde près, et le système reprend automatiquement après chaque coupure de courant, sans intervention.",
+        text: "Bobine casse cette dépendance. Installez-le en 1 clic sur un PC Windows ou Mac existant, ou sur un mini PC reconditionné bon marché (type Dell Wyse 5070 ou HP EliteDesk 705) : vous disposez d'une régie vidéo de niveau professionnel. Vous importez vos propres vidéos de cours en MP4 ou MKV, organisez vos grilles horaires à la seconde près, et le système reprend automatiquement après chaque coupure de courant, sans intervention.",
       },
       {
         title: "3. Résilience 100% Hors-ligne : zéro écran noir en plein cours",
@@ -128,9 +128,9 @@ const CONTENT = {
     subtitle:
       "Why pay recurring royalties per fitness program when an open-source self-hosted playout engine delivers full studio autonomy with zero monthly fees?",
     summaryCards: [
-      { label: "Annual Savings", value: "$1,500 to $3,600", desc: "Per studio every year" },
+      { label: "Per-program royalties", value: "None on the Bobine side", desc: "For Les Mills rates, see their site: we do not publish any" },
       { label: "Bobine Software License", value: "$0 / month", desc: "Perpetual AGPL-3.0 open source" },
-      { label: "Hardware Investment", value: "~$40-70", desc: "Standard refurbished mini PC" },
+      { label: "Hardware Required", value: "One mini PC", desc: "Standard refurbished x86-64" },
       { label: "Network Resilience", value: "100% Offline", desc: "Zero playback freezes on internet loss" },
     ],
     table: {
@@ -140,16 +140,16 @@ const CONTENT = {
         {
           criterion: "Business Model & Licensing",
           bobine: "$0 / month (Perpetual AGPL-3.0, zero hidden fees)",
-          competitor: "$150 to $350 / month per cumulative program",
+          competitor: "Monthly royalty per program, stacked (rates on the vendor's site)",
         },
         {
           criterion: "Instructor Certification Cost",
           bobine: "$0 (Your staff teaches freely)",
-          competitor: "$500+ per coach per module",
+          competitor: "Paid certification per coach and module (see the vendor)",
         },
         {
           criterion: "Hardware CAPEX",
-          bobine: "$40 to $70 (Standard refurbished mini PC)",
+          bobine: "Standard refurbished mini PC",
           competitor: "Heavy CAPEX (Certified projectors & screens required)",
         },
         {
@@ -182,11 +182,11 @@ const CONTENT = {
     sections: [
       {
         title: "1. The True Cost of Les Mills: Cumulative Royalties",
-        text: "Les Mills charges clubs on a per-program basis. Offering BodyPump, RPM, and The Trip virtually requires stacking three separate monthly subscriptions. Furthermore, instructor turnover forces operators to pay around $500 per new certification to maintain official teaching status. Over a 3-year period, operating a single studio often exceeds $10,000 in software and training overhead.",
+        text: "Les Mills charges clubs on a per-program basis. Offering BodyPump, RPM, and The Trip virtually requires stacking three separate monthly subscriptions. Furthermore, instructor turnover forces operators to pay for each new certification to maintain official teaching status (see the vendor's terms).",
       },
       {
         title: "2. The Sovereign Alternative: Bobine on Budget Mini PCs",
-        text: "Bobine eliminates recurring costs entirely. Install it in one click on an existing Windows or Mac computer, or on an affordable refurbished mini PC (such as a Dell Wyse 5070 for $45 or an HP EliteDesk 705 for $65), and unlock an enterprise-grade video playout engine. Import standard MP4 or MKV videos, schedule timetable slots with second-precision, and let the system resume automatically after every power cut, with no intervention.",
+        text: "Bobine eliminates recurring costs entirely. Install it in one click on an existing Windows or Mac computer, or on an affordable refurbished mini PC (such as a Dell Wyse 5070 or an HP EliteDesk 705), and unlock an enterprise-grade video playout engine. Import standard MP4 or MKV videos, schedule timetable slots with second-precision, and let the system resume automatically after every power cut, with no intervention.",
       },
       {
         title: "3. 100% Offline Resilience: Never Face Black Screens",
@@ -222,8 +222,8 @@ export default async function LesMillsComparisonPage({
     {
       category: "compare" as const,
       q: isEn
-        ? "Why is Bobine 100% free while Les Mills Cinema costs €150 to €400 per month?"
-        : "Pourquoi Bobine est-il 100% gratuit alors que Les Mills Cinema coûte 150 € à 400 € par mois ?",
+        ? "Why is Bobine 100% free while Les Mills Cinema is billed monthly?"
+        : "Pourquoi Bobine est-il 100% gratuit alors que Les Mills Cinema est facturé chaque mois ?",
       a: isEn
         ? "Bobine is open-source software under the copyleft AGPL-3.0 license. There are no software subscription fees or royalties per screen. You own your standard refurbished hardware (mini PC, HDMI TV)."
         : "Bobine est un logiciel libre sous licence AGPL-3.0. Il n'y a aucun abonnement logiciel ni redevance par écran. Vous êtes propriétaire de votre matériel standard (mini PC reconditionné, TV HDMI).",
@@ -252,8 +252,8 @@ export default async function LesMillsComparisonPage({
         ? "What hardware is required to replace a Les Mills Cinema kiosk?"
         : "Quel matériel est nécessaire pour remplacer une borne Les Mills Cinema ?",
       a: isEn
-        ? "A standard refurbished x86-64 mini PC (such as Dell Wyse 5070 Celeron J4105 or HP EliteDesk 705 ~€40-€80), 4 to 8 GB RAM, and a standard HDMI screen."
-        : "Un mini PC x86-64 reconditionné standard (comme un Dell Wyse 5070 Celeron J4105 ou HP EliteDesk 705 ~40-80 €), 4 à 8 Go de RAM et un écran HDMI standard.",
+        ? "A standard refurbished x86-64 mini PC (such as Dell Wyse 5070 Celeron J4105 or HP EliteDesk 705), 4 to 8 GB RAM, and a standard HDMI screen."
+        : "Un mini PC x86-64 reconditionné standard (comme un Dell Wyse 5070 Celeron J4105 ou HP EliteDesk 705), 4 à 8 Go de RAM et un écran HDMI standard.",
     },
   ];
 

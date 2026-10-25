@@ -1,7 +1,7 @@
 # bobine.fit
 
 <p align="center">
-  <img alt="Bobine" src="public/images/LogoBanniere.png" width="100%">
+  <img alt="Bobine" src="public/images/bobine-banner.webp" width="100%">
 </p>
 
 <table align="center">

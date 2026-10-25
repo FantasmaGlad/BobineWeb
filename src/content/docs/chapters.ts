@@ -936,3 +936,169 @@ const en: DocChapter[] = [
 ];
 
 export const docChapters: Record<Locale, DocChapter[]> = { fr, en };
+
+/** Présentation concise des fonctions livrées, commune aux pages de présentation du produit. */
+export const FEATURE_OVERVIEW = [
+  {
+    "id": "playback",
+    "icon": "video",
+    "title": {
+      "fr": "Cours vidéo et régie",
+      "en": "Video classes and playout"
+    },
+    "description": {
+      "fr": "Importez vos vidéos, organisez la médiathèque et programmez leur diffusion.",
+      "en": "Import videos, organize the library and schedule playback."
+    },
+    "detail": {
+      "fr": "Lecture locale ; codecs et résolution selon le matériel et le navigateur.",
+      "en": "Local playback; codecs and resolution depend on hardware and browser."
+    },
+    "href": "/documentation/utilisation",
+    "anchor": "workout-library"
+  },
+  {
+    "id": "outputs",
+    "icon": "display",
+    "title": {
+      "fr": "Deux canaux indépendants",
+      "en": "Two independent channels"
+    },
+    "description": {
+      "fr": "Préparez séparément la sortie câblée et la sortie réseau, avec leurs propres contenus et plannings.",
+      "en": "Prepare wired and network outputs separately, each with its own content and timetable."
+    },
+    "detail": {
+      "fr": "La sortie réseau nécessite une connexion locale entre les appareils.",
+      "en": "Network output requires a local connection between devices."
+    },
+    "href": "/documentation/utilisation",
+    "anchor": "settings-displays"
+  },
+  {
+    "id": "kiosk",
+    "icon": "layers",
+    "title": {
+      "fr": "Kiosque et télécommande",
+      "en": "Kiosk and remote control"
+    },
+    "description": {
+      "fr": "Proposez le choix d’un cours à la demande et pilotez la régie depuis un navigateur du réseau local.",
+      "en": "Offer on-demand class selection and control playout from a browser on the local network."
+    },
+    "detail": {
+      "fr": "Les possibilités tactiles et télécommande dépendent de l’appareil.",
+      "en": "Touch and remote control capabilities depend on the device."
+    },
+    "href": "/documentation/utilisation",
+    "anchor": "member-cinema-on-demand-kiosk"
+  },
+  {
+    "id": "audio",
+    "icon": "zap",
+    "title": {
+      "fr": "Radio et table de mixage",
+      "en": "Radio and mixer"
+    },
+    "description": {
+      "fr": "Diffusez vos musiques d’ambiance et vos cours audio. Réglez les volumes depuis la régie coach.",
+      "en": "Play background music and audio classes. Adjust levels from the coach console."
+    },
+    "detail": {
+      "fr": "Bibliothèques audio, fondus et annonces programmées ; contenus à fournir.",
+      "en": "Audio libraries, crossfades and scheduled announcements; supply your own content."
+    },
+    "href": "/documentation/utilisation",
+    "anchor": "coach-audio-mode"
+  },
+  {
+    "id": "storage",
+    "icon": "cpu",
+    "title": {
+      "fr": "Stockage externe",
+      "en": "External storage"
+    },
+    "description": {
+      "fr": "Choisissez un emplacement pour vos médias et consultez les périphériques de stockage.",
+      "en": "Choose a location for media and inspect storage devices."
+    },
+    "detail": {
+      "fr": "Accès USB, permissions et formats de disque selon le système.",
+      "en": "USB access, permissions and disk formats depend on the operating system."
+    },
+    "href": "/documentation",
+    "anchor": ""
+  },
+  {
+    "id": "themes",
+    "icon": "layers",
+    "title": {
+      "fr": "Des thèmes pour votre salle",
+      "en": "Themes for your studio"
+    },
+    "description": {
+      "fr": "Adaptez les couleurs des interfaces avec les thèmes clairs et sombres, synchronisés entre les écrans.",
+      "en": "Choose light or dark interface themes, synchronized across displays."
+    },
+    "detail": {
+      "fr": "Préférences enregistrées localement ; interfaces adaptées au tactile et au clavier.",
+      "en": "Locally stored preferences; interfaces support touch and keyboard navigation."
+    },
+    "href": "/documentation/utilisation",
+    "anchor": "settings-displays"
+  },
+  {
+    "id": "backup",
+    "icon": "refresh",
+    "title": {
+      "fr": "Sauvegardes et mises à jour",
+      "en": "Backups and updates"
+    },
+    "description": {
+      "fr": "Exportez votre configuration et restaurez-la sur une autre installation. Choisissez votre canal de mises à jour.",
+      "en": "Export your configuration and restore it on another installation. Choose your update channel."
+    },
+    "detail": {
+      "fr": "Stable, Bêta et Canary ; vérifier une sauvegarde avant un changement de machine.",
+      "en": "Stable, Beta and Canary; verify a backup before moving to another machine."
+    },
+    "href": "/canaux",
+    "anchor": ""
+  },
+  {
+    "id": "platforms",
+    "icon": "globe",
+    "title": {
+      "fr": "Choisir votre plateforme",
+      "en": "Choose your platform"
+    },
+    "description": {
+      "fr": "Des paquets existent pour Windows, macOS, Linux, Android et Android TV.",
+      "en": "Packages are available for Windows, macOS, Linux, Android and Android TV."
+    },
+    "detail": {
+      "fr": "Consultez les prérequis du paquet ; une plateforme annoncée ne vaut pas validation de chaque appareil.",
+      "en": "Check package requirements; platform availability does not validate every device."
+    },
+    "href": "/telechargement",
+    "anchor": ""
+  },
+  {
+    "id": "tor",
+    "icon": "shield",
+    "title": {
+      "fr": "Distribution via Tor",
+      "en": "Distribution over Tor"
+    },
+    "description": {
+      "fr": "Consultez le site statique et les dépôts de paquets sur les miroirs onion.",
+      "en": "Read the static site and access package repositories through onion mirrors."
+    },
+    "detail": {
+      "fr": "Le catalogue affilié et le chatbot ne sont pas proposés sur le miroir statique.",
+      "en": "The affiliate catalog and chatbot are not available on the static mirror."
+    },
+    "href": "/tor",
+    "anchor": ""
+  }
+] as const;

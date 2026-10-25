@@ -37,6 +37,8 @@ export interface SiteRoute {
   hidden?: boolean;
   /** Le hub liste aussi des pages créées à la volée (articles du blog). */
   dynamicChildren?: boolean;
+  /** Ancienne adresse redirigée vers une route canonique. */
+  redirectTo?: RouteId;
 }
 
 export const ROUTES = data.routes as SiteRoute[];
@@ -51,7 +53,9 @@ export function getRoute(id: RouteId): SiteRoute {
 
 /** Adresse d'une route, avec le préfixe de langue et le slug de la langue. */
 export function routeHref(locale: Locale, id: RouteId): string {
-  const { path } = getRoute(id);
+  const route = getRoute(id);
+  if (route.redirectTo) return routeHref(locale, route.redirectTo);
+  const { path } = route;
   return path === "" ? `/${locale}` : lp(locale, path);
 }
 

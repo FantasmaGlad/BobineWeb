@@ -16,7 +16,8 @@ import {
 function getCurrentTheme(): Theme {
   if (typeof window === "undefined") return defaultTheme;
   try {
-    const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+    const cookie = document.cookie.match(/(?:^|; )bobine-theme=([\w-]+)/)?.[1];
+    const stored = cookie || window.localStorage.getItem(THEME_STORAGE_KEY);
     if (stored) {
       return resolveTheme(stored);
     }
@@ -38,6 +39,8 @@ function applyTheme(next: Theme) {
   document.documentElement.setAttribute("data-theme", next);
   try {
     window.localStorage.setItem(THEME_STORAGE_KEY, next);
+    const domain = /(^|\.)bobine\.fit$/.test(location.hostname) ? "; domain=.bobine.fit" : "";
+    document.cookie = `bobine-theme=${next}${domain}; path=/; max-age=31536000; samesite=lax${location.protocol === "https:" ? "; secure" : ""}`;
   } catch {}
   listeners.forEach((listener) => listener());
 }

@@ -7,7 +7,7 @@
   margin-top: 0.75rem;
   margin-bottom: 1.5rem;
   padding: 0.45rem;
-  border-radius: var(--radius-9999px);
+  border-radius: var(--radius-xl);
   width: fit-content;
   max-width: 100%;
   background: var(--glass-card-bg);
@@ -22,6 +22,12 @@
   align-items: center;
   padding: 0.42rem 0.95rem;
   min-height: 44px;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  justify-content: center;
+  text-align: center;
   font-size: var(--fs-0-85rem);
   font-weight: 650;
   text-decoration: none;
@@ -335,4 +341,13 @@
   .compare-actions {
     align-items: stretch;
   }
+}
+
+@media (max-width: 600px) {
+  .cmp-subnav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+  .cmp-subnav__pill:last-child { grid-column: 1 / -1; }
 }

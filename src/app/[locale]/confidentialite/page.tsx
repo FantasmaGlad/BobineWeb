@@ -10,7 +10,7 @@ const copy = {
     badge: "Vie Privée & Éthique",
     title: "Politique de Confidentialité",
     subtitle: "Ce que le site collecte, ce qui reste sur votre appareil et ce qui transite par des prestataires : zéro cookie publicitaire, zéro pistage commercial.",
-    updated: "Dernière mise à jour : 24 octobre 2026",
+    updated: "Dernière mise à jour : 25 octobre 2026",
     sections: [
       {
         heading: "1. Responsable du Traitement",
@@ -20,7 +20,7 @@ const copy = {
       },
       {
         heading: "2. Cookies & Données Stockées sur Votre Appareil",
-        body: "Le site ne dépose aucun cookie publicitaire, aucun pixel de suivi (Meta ou autre) et n'effectue aucun profilage commercial. Il utilise uniquement le stockage local de votre navigateur (localStorage) pour des fonctions que vous utilisez : votre thème visuel, votre progression dans le guide de démarrage et le contenu de votre panier « Mon Pack » du guide matériel.",
+        body: "Le site ne dépose aucun cookie publicitaire, aucun pixel de suivi (Meta ou autre) et n'effectue aucun profilage commercial. Le cookie de préférence bobine-theme conserve votre thème pendant un an et le partage entre bobine.fit et ses sous-domaines, notamment packages.bobine.fit. Le stockage local de votre navigateur (localStorage) conserve aussi les préférences et fonctions que vous utilisez : votre thème visuel, votre progression dans le guide de démarrage et le contenu de votre panier « Mon Pack » du guide matériel.",
         contact: "Ces données restent sur votre appareil. Le contenu du panier n'est transmis à notre serveur que si vous utilisez l'assistant Baamix (voir section 4). Vous pouvez les effacer à tout moment depuis les réglages de votre navigateur ou avec le bouton « Vider » du panier.",
         subtext: "Aucun bandeau de consentement n'est affiché car le site ne dépose pas de traceur à des fins publicitaires ou de mesure individuelle.",
       },
@@ -66,7 +66,7 @@ const copy = {
     badge: "Privacy & Digital Ethics",
     title: "Privacy Policy",
     subtitle: "What the site collects, what stays on your device and what goes through providers: zero advertising cookies, zero commercial tracking.",
-    updated: "Last updated: 24 October 2026",
+    updated: "Last updated: 25 October 2026",
     sections: [
       {
         heading: "1. Data Controller",
@@ -76,7 +76,7 @@ const copy = {
       },
       {
         heading: "2. Cookies & Data Stored on Your Device",
-        body: "The site sets no advertising cookies, no tracking pixels (Meta or other) and performs no commercial profiling. It only uses your browser's local storage (localStorage) for features you use: your visual theme, your progress in the quick-start guide and the contents of your \"My Pack\" cart in the hardware guide.",
+        body: "The site sets no advertising cookies, no tracking pixels (Meta or other) and performs no commercial profiling. The bobine-theme preference cookie stores your theme for one year and shares it between bobine.fit and its subdomains, including packages.bobine.fit. Your browser’s local storage (localStorage) also stores preferences and features you use: your visual theme, your progress in the quick-start guide and the contents of your \"My Pack\" cart in the hardware guide.",
         contact: "This data stays on your device. The cart contents are only sent to our server if you use the Baamix assistant (see section 4). You can erase it at any time from your browser settings or with the cart's \"Empty\" button.",
         subtext: "No consent banner is shown because the site sets no tracker for advertising or individual measurement purposes.",
       },

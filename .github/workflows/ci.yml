@@ -68,7 +68,9 @@ jobs:
       - name: Cliquet de jetons (tests d’injection)
         run: node --test scripts/ci/style-tokens.test.mjs
       - name: Export des jetons à jour
-        run: node scripts/ci/export-tokens.mjs --check
+        run: |
+          node scripts/ci/export-tokens.mjs --check
+          node scripts/ci/export-site-controls.mjs --check
       - name: Installer Stable depuis la source canonique
         run: node scripts/ci/sync-install.mjs
         env:
@@ -98,7 +100,9 @@ jobs:
       - name: Fils d'Ariane (un seul par page, adresses dans la langue de la page)
         run: node scripts/ci/check-breadcrumbs.mjs
       - name: Comparatifs (parité, sources et structure FR/EN)
-        run: node scripts/ci/check-comparisons.mjs
+        run: |
+          node scripts/ci/check-comparisons.mjs
+          node scripts/ci/check-marketing.mjs
       - name: Géométrie mobile et cibles tactiles
         run: |
           npm run start -- --port 3102 > "$RUNNER_TEMP/mobile-server.log" 2>&1 &

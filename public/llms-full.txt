@@ -209,3 +209,13 @@ Bobine is also available over Tor as onion services (v3), hosted by the maintain
 - Website: http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/
 - APT repository: tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ (install apt-transport-tor first; same signing key as https://packages.bobine.fit/bobine.gpg, primary fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A)
 - One-command Tor install (read it first): https://bobine.fit/install-tor.sh (checks the signing key fingerprint). The onion APT repository publishes the three suites `stable`, `beta` and `canary`; the script picks the update channel with `--channel=stable|beta|canary` (on a terminal without the option, it asks; otherwise `stable`), and `--dry-run` changes nothing: `curl -fsSL https://bobine.fit/install-tor.sh | bash -s -- --channel=beta`.
+
+
+## Product pages and current screenshots
+
+- Features: https://bobine.fit/en/features (scheduled playout, wired/network outputs, kiosk, coach audio, radio, storage, themes, backups and update channels).
+- Hardware: https://bobine.fit/en/hardware/aliexpress (direct catalog; old /en/hardware address redirects here).
+- About: https://bobine.fit/en/about ; voluntary support: https://bobine.fit/en/support.
+- Release journal: https://bobine.fit/en/blog ; release notes retain their original language, usually French.
+- Image credits: https://bobine.fit/en/credits. Current screenshots show an isolated Bobine 5.0.5 demonstration with synthetic media. Old demonstration captures are not reused.
+- Playback capability depends on hardware, codecs and browser. Bobine supplies no licensed workout catalog; clubs provide their media and the required permissions.

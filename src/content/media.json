@@ -1,0 +1,98 @@
+{
+  "library": {
+    "alt": {
+      "fr": "Médiathèque Bobine avec trois vidéos de démonstration",
+      "en": "Bobine media library with three demonstration videos"
+    },
+    "credit": "Bobine · capture de démonstration / demo screenshot",
+    "source": "https://github.com/FantasmaGlad/Bobine",
+    "version": "5.0.5",
+    "og": "/images/screens/library-og.webp",
+    "variants": [
+      {
+        "width": 640,
+        "height": 360,
+        "avif": "/images/screens/library-640.avif",
+        "webp": "/images/screens/library-640.webp"
+      },
+      {
+        "width": 1280,
+        "height": 720,
+        "avif": "/images/screens/library-1280.avif",
+        "webp": "/images/screens/library-1280.webp"
+      }
+    ]
+  },
+  "schedule": {
+    "alt": {
+      "fr": "Planning hebdomadaire Bobine et bibliothèque rapide",
+      "en": "Bobine weekly timetable and quick media library"
+    },
+    "credit": "Bobine · capture de démonstration / demo screenshot",
+    "source": "https://github.com/FantasmaGlad/Bobine",
+    "version": "5.0.5",
+    "og": "/images/screens/schedule-og.webp",
+    "variants": [
+      {
+        "width": 640,
+        "height": 360,
+        "avif": "/images/screens/schedule-640.avif",
+        "webp": "/images/screens/schedule-640.webp"
+      },
+      {
+        "width": 1280,
+        "height": 720,
+        "avif": "/images/screens/schedule-1280.avif",
+        "webp": "/images/screens/schedule-1280.webp"
+      }
+    ]
+  },
+  "baamix": {
+    "alt": {
+      "fr": "Baamix, le hamster mascotte de Bobine",
+      "en": "Baamix, the hamster mascot of Bobine"
+    },
+    "credit": "Bobine · identité visuelle / visual identity",
+    "source": "https://bobine.fit",
+    "version": null,
+    "og": "/images/marketing/baamix-og.webp",
+    "variants": [
+      {
+        "width": 640,
+        "height": 640,
+        "avif": "/images/marketing/baamix-640.avif",
+        "webp": "/images/marketing/baamix-640.webp"
+      },
+      {
+        "width": 817,
+        "height": 817,
+        "avif": "/images/marketing/baamix-817.avif",
+        "webp": "/images/marketing/baamix-817.webp"
+      }
+    ]
+  },
+  "laptop": {
+    "alt": {
+      "fr": "Illustration de Baamix sur un ordinateur portable",
+      "en": "Illustration of Baamix on a laptop"
+    },
+    "credit": "Bobine · identité visuelle / visual identity",
+    "source": "https://bobine.fit",
+    "version": null,
+    "og": "/images/marketing/laptop-og.webp",
+    "variants": [
+      {
+        "width": 640,
+        "height": 362,
+        "avif": "/images/marketing/laptop-640.avif",
+        "webp": "/images/marketing/laptop-640.webp"
+      },
+      {
+        "width": 1200,
+        "height": 678,
+        "avif": "/images/marketing/laptop-1200.avif",
+        "webp": "/images/marketing/laptop-1200.webp"
+      }
+    ]
+  }
+}

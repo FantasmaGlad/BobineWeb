@@ -16,7 +16,7 @@ const PLATFORMS = [
     key: "aliexpress",
     labelFr: "AliExpress",
     labelEn: "AliExpress",
-    icon: "/images/hardware/aliexpress-icon-mark-cutout.webp",
+    icon: "/images/hardware/aliexpress-icon-mark.webp",
     confettiColors: ["#FF4747", "#E62E04", "#FFF6F2"],
   },
 ] as const;
@@ -28,19 +28,19 @@ export default function PlatformSelectorSidebar({ locale }: PlatformSelectorSide
   return (
     <nav
       className="platform-rail"
-      role="tablist"
+
       aria-label={isEn ? "Choose a marketplace" : "Choisir une plateforme"}
     >
       {PLATFORMS.map((platform) => {
         const href = lp(locale, `/materiel/${platform.key}`);
-        const isActive = pathname?.includes(`/materiel/${platform.key}`) ?? false;
+        const isActive = pathname === href || pathname === `/${locale}/materiel/${platform.key}`;
 
         return (
           <Link
             key={platform.key}
             href={href}
-            role="tab"
-            aria-selected={isActive}
+
+            aria-current={isActive ? "page" : undefined}
             aria-label={isEn ? platform.labelEn : platform.labelFr}
             title={isEn ? platform.labelEn : platform.labelFr}
             className={`platform-rail__icon ${isActive ? "is-active" : ""}`}

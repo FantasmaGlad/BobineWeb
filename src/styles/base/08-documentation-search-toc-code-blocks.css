@@ -110,17 +110,20 @@
 
 .roi-sliders-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
   gap: 1.75rem;
   margin-bottom: 2rem;
 }
 
 .roi-slider-group {
+  min-width: 0;
   display: flex;
   flex-direction: column;
 }
 
 .roi-slider-label {
+  flex-wrap: wrap;
+  gap: 0.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -135,6 +138,7 @@
 }
 
 .roi-range-input {
+  margin: 0;
   -webkit-appearance: none;
   appearance: none;
   width: 100%;

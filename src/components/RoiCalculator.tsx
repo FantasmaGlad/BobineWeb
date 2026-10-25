@@ -1,7 +1,6 @@
 "use client";
 
 import { useId, useState } from "react";
-import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import "@/styles/split/pages-misc.css";
 
@@ -154,12 +153,7 @@ export default function RoiCalculator({ locale }: { locale: Locale }) {
                 : "Projection simple à partir des montants saisis ; elle ignore taxes, électricité et tout autre coût."}
             </p>
           </div>
-          <Link
-            className="btn-primary"
-            href={`/${locale}/documentation`}
-          >
-            {isEn ? "Start Free Setup" : "Installer Bobine gratuitement"}
-          </Link>
+
         </div>
       </div>
     </section>

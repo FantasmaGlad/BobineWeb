@@ -27,7 +27,8 @@ for (const [key, def] of Object.entries(registry)) {
   used.add(file);
   if (!existsSync(file)) { fail(`${key} : ${def.src} manquant`); continue; }
   const size = statSync(file).size;
-  if (size > MAX_BYTES) fail(`${key} : ${size} octets (maximum ${MAX_BYTES})`);
+  const limit = def.maxBytes ?? MAX_BYTES;
+  if (limit > 250 * 1024 || size > limit) fail(`${key} : ${size} octets (maximum ${Math.min(limit, 250 * 1024)})`);
   const svg = readFileSync(file, "utf8");
   if (!/^\s*<svg[\s>]/.test(svg)) fail(`${key} : ${def.src} n'est pas un SVG`);
   if (/<image\b|data:image|<script\b|<foreignObject\b/i.test(svg)) fail(`${key} : raster, script ou objet étranger embarqué`);
@@ -80,7 +81,7 @@ for (const file of files) {
 
 // 6. Cliquet des <svg> en ligne : la migration vers Icon et BrandIcon se fait page par page, le total ne doit jamais
 // remonter. Baisser ce plafond à chaque migration ; viser 0 hors dessins propres à un composant (démonstrations, PDF).
-const INLINE_SVG_CEILING = 101;
+const INLINE_SVG_CEILING = 97;
 const inline = files.filter((f) => f.endsWith(".tsx") && !f.includes(`${join("components", "ui")}/`)).reduce((n, f) => n + (readFileSync(f, "utf8").match(/<svg\b/g)?.length ?? 0), 0);
 if (inline > INLINE_SVG_CEILING) fail(`${inline} <svg> en ligne (plafond ${INLINE_SVG_CEILING}) : utiliser Icon ou BrandIcon`);
 

@@ -56,4 +56,5 @@ fi
 if [ "$fail" -ne 0 ]; then
   exit 1
 fi
+node scripts/ci/check-images.mjs
 echo "Politique du dépôt respectée."

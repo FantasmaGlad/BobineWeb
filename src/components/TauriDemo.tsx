@@ -663,7 +663,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                 {CHANNELS.map((id) => (
                   <label key={id} className={`tauri-toggle-card ${channel === id ? "is-selected" : ""}`}>
                     <div className="tauri-toggle-left">
-                      <img className="tauri-toggle-icon" src={`/images/channels/${id}.webp`} alt="" width={36} height={36} />
+                      <img className="tauri-toggle-icon" src={`/images/channels/bobine-${id}.webp`} alt="" width={36} height={36} />
                       <div className="tauri-toggle-text">
                         <span className="tauri-toggle-title">
                           {isEn ? "Update channel" : "Canal de mise à jour"} — {CHANNEL_META[id].label[isEn ? "en" : "fr"]}

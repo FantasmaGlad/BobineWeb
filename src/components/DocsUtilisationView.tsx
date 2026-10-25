@@ -14,7 +14,7 @@ interface DocsUtilisationViewProps {
 
 export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps) {
   const isEn = locale === "en";
-  const [activeTab, setActiveTab] = useState<"basics" | "features" | "all">("basics");
+  const [activeTab, setActiveTab] = useState<"basics" | "features" | "all">("all");
 
   return (
     <>

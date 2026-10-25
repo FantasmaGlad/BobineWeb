@@ -1,0 +1,50 @@
+[
+  {
+    "id": "library",
+    "input": "scripts/images/originals/library.png",
+    "folder": "screens",
+    "alt": {
+      "fr": "Médiathèque Bobine avec trois vidéos de démonstration",
+      "en": "Bobine media library with three demonstration videos"
+    },
+    "credit": "Bobine · capture de démonstration / demo screenshot",
+    "source": "https://github.com/FantasmaGlad/Bobine",
+    "version": "5.0.5"
+  },
+  {
+    "id": "schedule",
+    "input": "scripts/images/originals/schedule.png",
+    "folder": "screens",
+    "alt": {
+      "fr": "Planning hebdomadaire Bobine et bibliothèque rapide",
+      "en": "Bobine weekly timetable and quick media library"
+    },
+    "credit": "Bobine · capture de démonstration / demo screenshot",
+    "source": "https://github.com/FantasmaGlad/Bobine",
+    "version": "5.0.5"
+  },
+  {
+    "id": "baamix",
+    "input": "public/images/baamix.jpg",
+    "folder": "marketing",
+    "alt": {
+      "fr": "Baamix, le hamster mascotte de Bobine",
+      "en": "Baamix, the hamster mascot of Bobine"
+    },
+    "credit": "Bobine · identité visuelle / visual identity",
+    "source": "https://bobine.fit",
+    "version": null
+  },
+  {
+    "id": "laptop",
+    "input": "public/images/FrameworkBaamix-wide.webp",
+    "folder": "marketing",
+    "alt": {
+      "fr": "Illustration de Baamix sur un ordinateur portable",
+      "en": "Illustration of Baamix on a laptop"
+    },
+    "credit": "Bobine · identité visuelle / visual identity",
+    "source": "https://bobine.fit",
+    "version": null
+  }
+]

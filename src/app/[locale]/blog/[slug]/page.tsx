@@ -39,6 +39,7 @@ function remoteMediaLink(src: string | undefined, label?: string) {
 }
 
 const markdownComponents: Components = {
+  h1({ children }) { return <h2>{children}</h2>; },
   a({ href, children, node: _node, ...props }) {
     void _node;
     if (IS_ONION && href && GITHUB_ATTACHMENT_PATTERN.test(href)) {
@@ -219,6 +220,7 @@ export default async function BlogPostPage({
         </header>
 
         <div className="release-body">
+          {locale === "en" ? <p className="marketing-notice" lang="en">These release notes are shown in their original language, usually French.</p> : null}
           <Markdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}

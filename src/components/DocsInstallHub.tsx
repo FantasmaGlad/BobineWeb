@@ -307,7 +307,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="download-modal__channel-icon" src="/images/channels/stable.webp" alt="" />
+              <img className="download-modal__channel-icon" src="/images/channels/bobine-stable.webp" alt="" />
               <span className="download-modal__badge download-modal__badge--stable">
                 {isEn ? "Stable Release" : "Version Stable"}
               </span>
@@ -353,7 +353,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="download-modal__channel-icon" src="/images/channels/beta.webp" alt="" />
+              <img className="download-modal__channel-icon" src="/images/channels/bobine-beta.webp" alt="" />
               <span className="download-modal__badge download-modal__badge--beta">
                 {isEn ? "Beta (curated)" : "Bêta (curée)"}
               </span>
@@ -396,7 +396,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="download-modal__channel-icon" src="/images/channels/canary.webp" alt="" />
+              <img className="download-modal__channel-icon" src="/images/channels/bobine-canary.webp" alt="" />
               <span className="download-modal__badge download-modal__badge--canary">
                 {isEn ? "Canary (rolling)" : "Canary (rolling)"}
               </span>
@@ -460,7 +460,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="download-modal__channel-icon" src="/images/channels/stable.webp" alt="" />
+              <img className="download-modal__channel-icon" src="/images/channels/bobine-stable.webp" alt="" />
               <span className="download-modal__badge download-modal__badge--stable">
                 {isEn ? "Stable Release" : "Version Stable"}
               </span>
@@ -500,7 +500,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="download-modal__channel-icon" src="/images/channels/beta.webp" alt="" />
+              <img className="download-modal__channel-icon" src="/images/channels/bobine-beta.webp" alt="" />
               <span className="download-modal__badge download-modal__badge--beta">
                 {isEn ? "Beta (curated)" : "Bêta (curée)"}
               </span>
@@ -537,7 +537,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="download-modal__channel-icon" src="/images/channels/canary.webp" alt="" />
+              <img className="download-modal__channel-icon" src="/images/channels/bobine-canary.webp" alt="" />
               <span className="download-modal__badge download-modal__badge--canary">
                 {isEn ? "Canary (rolling)" : "Canary (rolling)"}
               </span>

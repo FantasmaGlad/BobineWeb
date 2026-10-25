@@ -1,5 +1,4 @@
 import "server-only";
-import { PRICE_CHECKED_AT } from "@/content/hardware";
 import type { FormFactorKey, OsKey, TierKey } from "@/content/hardware";
 import type { StoreView } from "@/lib/storeView";
 import {
@@ -33,7 +32,7 @@ export function buildCatalogIndex(catalog: ServerCatalog): string {
   const aliDate = catalog.aliexpressCheckedAt
     ? `prix AliExpress rafraichis le ${catalog.aliexpressCheckedAt} (indicatifs)`
     : "prix AliExpress issus du dernier instantane (indicatifs)";
-  return `(Prix Amazon constates le ${PRICE_CHECKED_AT} ; ${aliDate}. Precise-le si l'utilisateur demande un prix et invite-le a verifier la fiche du vendeur pour le tarif du jour.)\n${lines}`;
+  return `(Prix Amazon non stockés : consulter la fiche du vendeur ; ${aliDate}. Precise-le si l'utilisateur demande un prix et invite-le a verifier la fiche du vendeur pour le tarif du jour.)\n${lines}`;
 }
 
 function detailLine(e: CatalogEntry): string {

@@ -49,7 +49,7 @@ export default function ChatCompareCard({ ids, locale }: { ids: string[]; locale
     {
       label: isEn ? "Price" : "Prix",
       render: (p) => (
-        <strong className={p.price === cheapest ? "is-best" : undefined}>
+        <strong className={cheapest !== null && p.price === cheapest ? "is-best" : undefined}>
           {p.price === null ? (isEn ? "See price on Amazon" : "Voir le prix sur Amazon") : `${p.price.toFixed(2)} €${p.platform === "aliexpress" ? (isEn ? " (from)" : " (dès)") : ""}`}
         </strong>
       ),

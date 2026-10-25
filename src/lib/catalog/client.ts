@@ -5,7 +5,7 @@ export interface ClientProduct {
   id: string;
   platform: CatalogPlatform;
   name: string;
-  price: number;
+  price: number | null;
   imageUrl: string;
   url: string;
   specs: string;
@@ -30,7 +30,11 @@ export async function fetchCatalogProducts(ids: string[]): Promise<Array<ClientP
       request = fetch(`/api/catalog?ids=${encodeURIComponent(key)}`)
         .then((res) => (res.ok ? res.json() : { products: [] }))
         .then((data: { products: ClientProduct[] }) => {
-          const found = new Map(data.products.map((p) => [p.id, p]));
+          const found = new Map(data.products.map((p) => [p.id, p.platform === "amazon" ? {
+            ...p,
+            price: null,
+            imageUrl: p.imageUrl.includes("/editorial/") ? p.imageUrl : "/images/hardware/editorial/selection.svg",
+          } : p]));
           for (const id of missing) cache.set(id, found.get(id) ?? null);
         })
         .catch(() => {

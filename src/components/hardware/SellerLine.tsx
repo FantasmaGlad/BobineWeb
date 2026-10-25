@@ -1,6 +1,7 @@
 import type { HardwareItem } from "@/content/hardware";
 
-export type MerchantPlatform = "amazon" | "aliexpress";
+import type { ProductSource } from "@/lib/productSources";
+export type MerchantPlatform = Exclude<ProductSource,"manufacturer">;
 
 /** Boutique, note et ventes d'un produit de place de marché (AliExpress) : signal de confiance. */
 export default function SellerLine({ item, isEn }: { item: HardwareItem; isEn: boolean }) {

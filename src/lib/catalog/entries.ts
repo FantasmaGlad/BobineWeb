@@ -1,7 +1,6 @@
 import {
   HARDWARE_BUNDLES,
   STANDALONE_ACCESSORIES,
-  PRICE_CHECKED_AT,
   type FormFactorKey,
   type HardwareItem,
   type HardwareOsBundle,
@@ -9,7 +8,8 @@ import {
   type TierKey,
 } from "@/content/hardware";
 
-export type CatalogPlatform = "amazon" | "aliexpress";
+import type { ProductSource } from "@/lib/productSources";
+export type CatalogPlatform = Exclude<ProductSource, "manufacturer">;
 export type CatalogRole = "main" | "alternative" | "accessory";
 
 /** Un produit achetable, décrit de façon neutre quelle que soit la plateforme. */
@@ -87,6 +87,7 @@ export function getTierEntries(
   const main = tierData.items.find((i) => i.category === "uc") ?? tierData.items[0];
   const entries: CatalogEntry[] = [];
   for (const item of tierData.items) {
+    if (platform === "amazon" && !/^[A-Z0-9]{10}$/.test(item.asin)) continue;
     entries.push(toEntry(item, platform, item.asin === main?.asin ? "main" : "accessory", os, form, tier));
   }
   for (const alt of tierData.alternativeUnits ?? []) {
@@ -132,5 +133,3 @@ export function buildCatalog(aliexpressBundles: Bundles): CatalogEntry[] {
   }
   return [...byId.values()];
 }
-
-export { PRICE_CHECKED_AT };

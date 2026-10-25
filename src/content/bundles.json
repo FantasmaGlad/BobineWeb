@@ -1,0 +1,717 @@
+{
+  "bundles": {
+    "linux": {
+      "os": "linux",
+      "formFactors": {
+        "minipc": {
+          "defaultTier": "recommande",
+          "tiers": {
+            "essentiel": {
+              "id": "essentiel",
+              "items": [
+                "B0F9PF4ZC1",
+                "B08FBGNR8C",
+                "B075DKWRD6",
+                "B0CN96CBZJ",
+                "B08JD5PV9F",
+                "B08DHVYHGZ"
+              ],
+              "alternativeUnits": [
+                "B0DWWJJ1H5"
+              ]
+            },
+            "recommande": {
+              "id": "recommande",
+              "items": [
+                "B0DC6V781B",
+                "B08FBGNR8C",
+                "B075DKWRD6",
+                "B0G7YTQT1K",
+                "B07YYJRXQR",
+                "B08DHVYHGZ"
+              ],
+              "alternativeUnits": [
+                "B0D1XFJBJX",
+                "B09NPZ4L2Q"
+              ]
+            },
+            "pro": {
+              "id": "pro",
+              "items": [
+                "B0DSBN2CSH",
+                "B08LH6S6TN",
+                "B00QV1F19W",
+                "B0HF5JQCTG",
+                "B00552K0GM",
+                "B0C1SCJC9F"
+              ],
+              "alternativeUnits": [
+                "B0FS13N9P3"
+              ]
+            },
+            "premium": {
+              "id": "premium",
+              "items": [
+                "B0HDN8JQ7H",
+                "B09M7HT2T2",
+                "B00QV1F19W",
+                "B0797G6W5K",
+                "B0F37WWYY4"
+              ],
+              "alternativeUnits": [
+                "B0DYHSFMJP"
+              ]
+            }
+          }
+        },
+        "laptop": {
+          "defaultTier": "recommande",
+          "tiers": {
+            "essentiel": {
+              "id": "essentiel",
+              "items": [
+                "B0B8QYXY9H",
+                "B0FVYC8H5J",
+                "B08LH6S6TN",
+                "B0CN96CBZJ",
+                "B08JD5PV9F"
+              ],
+              "alternativeUnits": [
+                "B0DY2T14P6"
+              ]
+            },
+            "recommande": {
+              "id": "recommande",
+              "items": [
+                "B0CPJNNLR4",
+                "B0FVYC8H5J",
+                "B091B4SWR7",
+                "B075DKWRD6",
+                "B0G7YTQT1K",
+                "B07YYJRXQR"
+              ],
+              "alternativeUnits": [
+                "B0CL4X6ZND"
+              ]
+            },
+            "pro": {
+              "id": "pro",
+              "items": [
+                "B0H6GZKCSW",
+                "B0GHQRQ12S",
+                "B091B4SWR7",
+                "B094STPLX3",
+                "B00552K0GM",
+                "B0C1SCJC9F"
+              ],
+              "alternativeUnits": [
+                "B0GX1VXNVW"
+              ]
+            },
+            "premium": {
+              "id": "premium",
+              "items": [
+                "B0F142ZQLN",
+                "B0GHQRQ12S",
+                "B091B4SWR7",
+                "B094STPLX3",
+                "B0G81K4C12",
+                "B00552K0GM",
+                "B0F37WWYY4"
+              ],
+              "alternativeUnits": [
+                "B0DD4FCD4H"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "windows": {
+      "os": "windows",
+      "formFactors": {
+        "minipc": {
+          "defaultTier": "recommande",
+          "tiers": {
+            "essentiel": {
+              "id": "essentiel",
+              "items": [
+                "B0DKT15LL2",
+                "B08LH6S6TN",
+                "B075DKWRD6",
+                "B0CN96CBZJ",
+                "B08JD5PV9F",
+                "B08DHVYHGZ"
+              ],
+              "alternativeUnits": [
+                "B0DWWJJ1H5"
+              ]
+            },
+            "recommande": {
+              "id": "recommande",
+              "items": [
+                "B0DC6V781B",
+                "B08LH6S6TN",
+                "B075DKWRD6",
+                "B0G7YTQT1K",
+                "B07YYJRXQR",
+                "B08DHVYHGZ"
+              ],
+              "alternativeUnits": [
+                "B0D1XFJBJX",
+                "B09NPZ4L2Q"
+              ]
+            },
+            "pro": {
+              "id": "pro",
+              "items": [
+                "B0FS13N9P3",
+                "B08LH6S6TN",
+                "B00QV1F19W",
+                "B0HF5JQCTG",
+                "B00552K0GM",
+                "B0C1SCJC9F"
+              ],
+              "alternativeUnits": [
+                "B0DSBN2CSH"
+              ]
+            },
+            "premium": {
+              "id": "premium",
+              "items": [
+                "B0HDN8JQ7H",
+                "B09M7HT2T2",
+                "B00QV1F19W",
+                "B0797G6W5K",
+                "B0F37WWYY4"
+              ],
+              "alternativeUnits": [
+                "B0DYHSFMJP"
+              ]
+            }
+          }
+        },
+        "laptop": {
+          "defaultTier": "recommande",
+          "tiers": {
+            "essentiel": {
+              "id": "essentiel",
+              "items": [
+                "B0B8QYXY9H",
+                "B0FVYC8H5J",
+                "B08LH6S6TN",
+                "B0CN96CBZJ",
+                "B08JD5PV9F"
+              ],
+              "alternativeUnits": [
+                "B0DY2T14P6"
+              ]
+            },
+            "recommande": {
+              "id": "recommande",
+              "items": [
+                "B0CPJNNLR4",
+                "B0FVYC8H5J",
+                "B091B4SWR7",
+                "B075DKWRD6",
+                "B0G7YTQT1K",
+                "B07YYJRXQR"
+              ],
+              "alternativeUnits": [
+                "B0CL4X6ZND"
+              ]
+            },
+            "pro": {
+              "id": "pro",
+              "items": [
+                "B0G3XPHHP2",
+                "B0GHQRQ12S",
+                "B091B4SWR7",
+                "B094STPLX3",
+                "B00552K0GM",
+                "B0C1SCJC9F"
+              ],
+              "alternativeUnits": [
+                "B0GX1VXNVW"
+              ]
+            },
+            "premium": {
+              "id": "premium",
+              "items": [
+                "B0GPN76ZSX",
+                "B0GHQRQ12S",
+                "B091B4SWR7",
+                "B094STPLX3",
+                "B0G81K4C12",
+                "B00552K0GM",
+                "B0F37WWYY4"
+              ],
+              "alternativeUnits": [
+                "B0DD4FCD4H"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "macos": {
+      "os": "macos",
+      "formFactors": {
+        "minipc": {
+          "defaultTier": "recommande",
+          "tiers": {
+            "essentiel": {
+              "id": "essentiel",
+              "items": [
+                "B0HGGL1RJ1",
+                "B08LH6S6TN",
+                "B0CN96CBZJ",
+                "B08JD5PV9F",
+                "B08DHVYHGZ"
+              ],
+              "alternativeUnits": [
+                "B0DLBW9GNQ"
+              ]
+            },
+            "recommande": {
+              "id": "recommande",
+              "items": [
+                "B0DLBWRZS5",
+                "B08LH6S6TN",
+                "B075DKWRD6",
+                "B0G7YTQT1K",
+                "B07YYJRXQR",
+                "B08DHVYHGZ"
+              ],
+              "alternativeUnits": []
+            },
+            "pro": {
+              "id": "pro",
+              "items": [
+                "B0HGGDQ29W",
+                "B08LH6S6TN",
+                "B00QV1F19W",
+                "B0HF5JQCTG",
+                "B00552K0GM",
+                "B0C1SCJC9F"
+              ],
+              "alternativeUnits": [
+                "B0DL6KQ5SP"
+              ]
+            },
+            "premium": {
+              "id": "premium",
+              "items": [
+                "B0HGS3C159",
+                "B09M7HT2T2",
+                "B00QV1F19W",
+                "B0797G6W5K",
+                "B0F37WWYY4"
+              ],
+              "alternativeUnits": []
+            }
+          }
+        },
+        "laptop": {
+          "defaultTier": "recommande",
+          "tiers": {
+            "essentiel": {
+              "id": "essentiel",
+              "items": [
+                "B0GR6MBRPB",
+                "B0FVYC8H5J",
+                "B08LH6S6TN",
+                "B0CN96CBZJ",
+                "B08JD5PV9F"
+              ],
+              "alternativeUnits": [
+                "B0DZDGB27W",
+                "B0CJZ5CSS9"
+              ]
+            },
+            "recommande": {
+              "id": "recommande",
+              "items": [
+                "B0GR1KRSWJ",
+                "B0FVYC8H5J",
+                "B091B4SWR7",
+                "B075DKWRD6",
+                "B0G7YTQT1K",
+                "B07YYJRXQR"
+              ],
+              "alternativeUnits": [
+                "B0GR1MZT36"
+              ]
+            },
+            "pro": {
+              "id": "pro",
+              "items": [
+                "B0GR1RL3W6",
+                "B0GHQRQ12S",
+                "B091B4SWR7",
+                "B094STPLX3",
+                "B00552K0GM",
+                "B0C1SCJC9F"
+              ],
+              "alternativeUnits": [
+                "B09JRSHT66"
+              ]
+            },
+            "premium": {
+              "id": "premium",
+              "items": [
+                "B0GR1NMSKK",
+                "B0GHQRQ12S",
+                "B091B4SWR7",
+                "B094STPLX3",
+                "B0G81K4C12",
+                "B00552K0GM",
+                "B0F37WWYY4"
+              ],
+              "alternativeUnits": [
+                "B0GR1RZXQN"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "arm": {
+      "os": "arm",
+      "formFactors": {
+        "laptop": {
+          "defaultTier": "recommande",
+          "tiers": {
+            "essentiel": {
+              "id": "essentiel",
+              "items": [
+                "B0F548517S",
+                "B0FVYC8H5J",
+                "B08LH6S6TN",
+                "B091B4SWR7",
+                "B0CN96CBZJ"
+              ],
+              "alternativeUnits": []
+            },
+            "recommande": {
+              "id": "recommande",
+              "items": [
+                "B0DQTLDK89",
+                "B0FVYC8H5J",
+                "B08LH6S6TN",
+                "B091B4SWR7",
+                "B0CN96CBZJ"
+              ],
+              "alternativeUnits": [
+                "B0D1VZCM76",
+                "B0D1VY6181"
+              ]
+            },
+            "pro": {
+              "id": "pro",
+              "items": [
+                "B0D7QLTJGC",
+                "B0FVYC8H5J",
+                "B08LH6S6TN",
+                "B091B4SWR7",
+                "B0CN96CBZJ",
+                "B075DKWRD6"
+              ],
+              "alternativeUnits": [
+                "B0CZTCXQ4P",
+                "B0D4R3BVT2"
+              ]
+            },
+            "premium": {
+              "id": "premium",
+              "items": [
+                "B0GKG3DD8F",
+                "B0FVYC8H5J",
+                "B08LH6S6TN",
+                "B091B4SWR7",
+                "B0CN96CBZJ",
+                "B075DKWRD6"
+              ],
+              "alternativeUnits": [
+                "B0D1YH5Z3J",
+                "B0DV5S4RJQ"
+              ]
+            }
+          }
+        },
+        "minipc": {
+          "defaultTier": "recommande",
+          "tiers": {
+            "essentiel": {
+              "id": "essentiel",
+              "items": [
+                "B0GXJVBZGV",
+                "B075DKWRD6",
+                "B0CN96CBZJ"
+              ],
+              "alternativeUnits": [
+                "B0CQV792B1",
+                "B0CMV77LNV"
+              ]
+            },
+            "recommande": {
+              "id": "recommande",
+              "items": [
+                "B0DDTPF958",
+                "B08LH6S6TN",
+                "B075DKWRD6",
+                "B0CN96CBZJ"
+              ],
+              "alternativeUnits": [
+                "B0D1T9MK83",
+                "B0BRL4PCG7"
+              ]
+            },
+            "pro": {
+              "id": "pro",
+              "items": [
+                "B0CFY1SG8J",
+                "B08LH6S6TN",
+                "B075DKWRD6",
+                "B0CN96CBZJ"
+              ],
+              "alternativeUnits": [
+                "B0F5BGB1MW"
+              ]
+            },
+            "premium": {
+              "id": "premium",
+              "items": [
+                "B0C73YDSVR",
+                "B08FBGNR8C",
+                "B075DKWRD6",
+                "B0CN96CBZJ"
+              ],
+              "alternativeUnits": [
+                "B0DS2CRVQT"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "android": {
+      "os": "android",
+      "formFactors": {
+        "tablet": {
+          "defaultTier": "recommande",
+          "tiers": {
+            "essentiel": {
+              "id": "essentiel",
+              "items": [
+                "B0G4827DCM",
+                "B087WKMPLL",
+                "B0B27G1BZ9",
+                "B08JD5PV9F"
+              ],
+              "alternativeUnits": [
+                "B0FBX2LBTR"
+              ]
+            },
+            "recommande": {
+              "id": "recommande",
+              "items": [
+                "B0DZ65ZC37",
+                "B0FVYC8H5J",
+                "B08LH6S6TN",
+                "B09LXHCH5N",
+                "B07YYJRXQR"
+              ],
+              "alternativeUnits": [
+                "B0FJY8H8TX"
+              ]
+            },
+            "pro": {
+              "id": "pro",
+              "items": [
+                "B0CHZ4BC72",
+                "B0G81K4C12",
+                "B075DKWRD6",
+                "B0876VQW4Q",
+                "B0C1SCJC9F"
+              ],
+              "alternativeUnits": [
+                "B0GCNWXLZ7"
+              ]
+            },
+            "premium": {
+              "id": "premium",
+              "items": [
+                "B0DDTQYPJS",
+                "B0G81K4C12",
+                "B09M7HT2T2",
+                "B0CBPR36BF",
+                "B0F37WWYY4"
+              ],
+              "alternativeUnits": [
+                "B0FJY56WPG"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "android-tv": {
+      "os": "android-tv",
+      "formFactors": {
+        "tv": {
+          "defaultTier": "recommande",
+          "tiers": {
+            "essentiel": {
+              "id": "essentiel",
+              "items": [
+                "xiaomi-tv-box-s-3rd-gen",
+                "B08JD5PV9F"
+              ],
+              "alternativeUnits": []
+            },
+            "recommande": {
+              "id": "recommande",
+              "items": [
+                "B0D8WJYSF9",
+                "B08LH6S6TN",
+                "B07YYJRXQR",
+                "B075DKWRD6"
+              ],
+              "alternativeUnits": []
+            }
+          }
+        }
+      }
+    }
+  },
+  "accessories": [
+    {
+      "asin": "B08FBGNR8C",
+      "compatibleOs": [
+        "linux",
+        "windows",
+        "arm"
+      ]
+    },
+    {
+      "asin": "B08LH6S6TN",
+      "compatibleOs": [
+        "linux",
+        "windows",
+        "macos",
+        "arm",
+        "android",
+        "android-tv"
+      ]
+    },
+    {
+      "asin": "B0G7YTQT1K",
+      "compatibleOs": [
+        "linux",
+        "windows",
+        "macos",
+        "arm",
+        "android-tv"
+      ]
+    },
+    {
+      "asin": "B0HF5JQCTG",
+      "compatibleOs": [
+        "linux",
+        "windows",
+        "macos",
+        "arm"
+      ]
+    },
+    {
+      "asin": "B00552K0GM",
+      "compatibleOs": [
+        "linux",
+        "windows",
+        "macos",
+        "arm"
+      ]
+    },
+    {
+      "asin": "B0FVYC8H5J",
+      "compatibleOs": [
+        "linux",
+        "windows",
+        "macos",
+        "arm",
+        "android"
+      ]
+    },
+    {
+      "asin": "B075DKWRD6",
+      "compatibleOs": [
+        "linux",
+        "windows",
+        "macos",
+        "arm",
+        "android",
+        "android-tv"
+      ]
+    },
+    {
+      "asin": "B087WKMPLL",
+      "compatibleOs": [
+        "android"
+      ]
+    },
+    {
+      "asin": "B091B4SWR7",
+      "compatibleOs": [
+        "linux",
+        "windows",
+        "macos",
+        "arm"
+      ]
+    },
+    {
+      "asin": "B08JD5PV9F",
+      "compatibleOs": [
+        "linux",
+        "windows",
+        "macos",
+        "arm",
+        "android",
+        "android-tv"
+      ]
+    },
+    {
+      "asin": "B07YYJRXQR",
+      "compatibleOs": [
+        "linux",
+        "windows",
+        "macos",
+        "arm",
+        "android",
+        "android-tv"
+      ]
+    },
+    {
+      "asin": "B0C1SCJC9F",
+      "compatibleOs": [
+        "linux",
+        "windows",
+        "macos",
+        "arm",
+        "android",
+        "android-tv"
+      ]
+    },
+    {
+      "asin": "B0F37WWYY4",
+      "compatibleOs": [
+        "linux",
+        "windows",
+        "macos",
+        "arm",
+        "android",
+        "android-tv"
+      ]
+    }
+  ]
+}

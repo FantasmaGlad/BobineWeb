@@ -54,11 +54,12 @@ for (const r of routes) {
 // Chaque hub (hors accueil) rend la liste de ses enfants : HubPage/HubGrid de son identifiant, ou des liens vers chacun
 // dans sa page, sa disposition (barre latérale de la documentation) ou le contenu de pages de canaux (landing.ts).
 const landing = readFileSync(join(repo, "src/content/landing.ts"), "utf8");
+const comparisons = readFileSync(join(repo, "src/content/compare.ts"), "utf8");
 for (const r of routes.filter((x) => x.kind === "hub" && x.id !== "home")) {
   const dir = join(repo, "src/app/[locale]", r.path);
   const text = ["page.tsx", "page.mdx", "layout.tsx"].map((n) => join(dir, n)).filter(existsSync).map((p) => readFileSync(p, "utf8")).join("\n");
   if (new RegExp(`(?:HubPage|HubGrid)[^>]*\\bid="${r.id}"`).test(text)) continue;
-  const source = `${text}\n${text.includes("LandingPage") ? landing : ""}`;
+  const source = `${text}\n${text.includes("LandingPage") ? landing : ""}\n${text.includes("ComparePage") ? comparisons : ""}`;
   const missing = routes.filter((c) => c.parent === r.id && !c.hidden && !source.includes(c.path) && !source.includes(`"${c.path.split("/").pop()}"`));
   if (missing.length) fail(`${r.id} : la page du hub ne mène pas à ${missing.map((c) => c.id).join(", ")}`);
 }

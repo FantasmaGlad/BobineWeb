@@ -8,6 +8,8 @@ import { fileURLToPath } from "node:url";
 const repo = fileURLToPath(new URL("../../", import.meta.url));
 const graph = JSON.parse(readFileSync(join(repo, "src/lib/siteMap.json"), "utf8"));
 const routes = graph.routes.filter((route) => route.id === "compare" || route.parent === "compare");
+const slugs = readFileSync(join(repo, "src/lib/slugs.ts"), "utf8");
+const enSlug = Object.fromEntries([...slugs.matchAll(/"([^"]+)":\s*"([^"]+)"/g)].map((match) => [match[1], match[2]]));
 const root = process.argv[2] ?? join(repo, ".next/server/app");
 const sizes = new Map();
 let pages = 0;
@@ -30,7 +32,12 @@ for (const route of routes) {
     assert(sources.length > 0, `${file}: sources visibles`);
     assert.equal(new Set(sources).size, sources.length, `${file}: sources uniques`);
     for (const id of sources) assert(new RegExp(`id="source-${id}"[\\s\\S]*?<time dateTime="\\d{4}-\\d{2}-\\d{2}"`).test(html), `${file}: date de source ${id}`);
-    if (route.id !== "compare") {
+    if (route.id === "compare") {
+      for (const child of routes.filter((item) => item.parent === "compare" && !item.hidden)) {
+        const href = `/${locale}${locale === "en" ? enSlug[child.path] : child.path}`;
+        assert(html.includes(`href="${href}"`), `${file}: lien rendu vers ${child.id}`);
+      }
+    } else {
       assert(/<table[^>]*role="table"/.test(html), `${file}: tableau sémantique`);
       assert(/scope="row"/.test(html), `${file}: en-têtes de lignes`);
       assert(/compare-table__mobile-label/.test(html), `${file}: libellés des cartes mobiles`);

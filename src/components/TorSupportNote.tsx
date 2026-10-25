@@ -17,9 +17,9 @@ const copy = {
     title: "Distribution Tor (.onion)",
     badge: "Réseau Tor",
     onion: "Vous consultez la version .onion de Bobine. Les échanges sont chiffrés de bout en bout et sans intermédiaire.",
-    clear: "Bobine est accessible sur le réseau Tor pour préserver la confidentialité de votre salle et contourner les pare-feu restrictifs.",
+    clear: "Bobine est accessible sur le réseau Tor pour préserver la confidentialité de votre salle et contourner les pare-feu restrictifs : le site et les dépôts de paquets signés (APT, DNF et Pacman) y sont servis.",
     siteLabel: "Site miroir :",
-    aptLabel: "Dépôt APT :",
+    aptLabel: "Dépôts de paquets (APT, DNF, Pacman) :",
     copy: "Copier",
     copied: "Copié !",
     project: "Projet Tor officiel",
@@ -29,9 +29,9 @@ const copy = {
     title: "Tor Distribution (.onion)",
     badge: "Tor Network",
     onion: "You are browsing the .onion version of Bobine. Connections are end-to-end encrypted with zero intermediary.",
-    clear: "Bobine is available over Tor to keep your gym's IP address private and bypass restrictive firewalls.",
+    clear: "Bobine is available over Tor to keep your gym's IP address private and bypass restrictive firewalls: the site and the signed package repositories (APT, DNF and Pacman) are served there.",
     siteLabel: "Mirror site:",
-    aptLabel: "APT repo:",
+    aptLabel: "Package repositories (APT, DNF, Pacman):",
     copy: "Copy",
     copied: "Copied!",
     project: "Official Tor Project",
@@ -53,7 +53,7 @@ export default function TorSupportNote({ locale }: { locale: Locale }) {
   };
 
   const onionSiteFull = `${ONION_SITE_URL}/`;
-  const onionAptFull = `tor+http://${ONION_APT_HOST}/`;
+  const onionAptFull = `http://${ONION_APT_HOST}/`;
 
   return (
     <aside className="docs-tor-note" aria-label={t.title}>

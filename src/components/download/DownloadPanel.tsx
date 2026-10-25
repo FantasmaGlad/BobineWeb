@@ -10,7 +10,6 @@ import type { AssetKey } from "@/lib/assets";
 import {
   CpuArchitecture,
   DownloadPlatform,
-  SIGNING_KEY_HELP,
   formatSize,
   resolveDownload,
 } from "@/lib/downloadCatalog";
@@ -46,11 +45,6 @@ const HEADING_ICON: Record<string, AssetKey> = {
   cli: "os.linux",
   tauri: "os.linux",
   assistant: "os.linux",
-};
-
-const HASH_COMMAND: Record<string, (file: string) => string> = {
-  windows: (file) => `Get-FileHash .\\${file} -Algorithm SHA256`,
-  macos: (file) => `shasum -a 256 ${file}`,
 };
 
 function CopyButton({ text, id, label, copied, onCopy, isEn }: { text: string; id: string; label: string; copied: string; onCopy: (text: string, id: string) => void; isEn: boolean }) {
@@ -108,7 +102,6 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
   const size = formatSize(result.file?.size, locale);
   const published = result.file?.updatedAt ?? result.publishedAt;
   const publishedLabel = published ? new Intl.DateTimeFormat(isEn ? "en-GB" : "fr-FR", { dateStyle: "long" }).format(new Date(published)) : "";
-  const sha = result.file?.sha256;
 
   const copy = (text: string, key: string) => {
     navigator.clipboard?.writeText(text).then(() => {
@@ -118,7 +111,6 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
   };
 
   const repoScript = family === "debian" ? aptInstallScript(channel) : family === "fedora" ? fedoraInstallScript(channel) : archInstallScript(channel);
-  const hashCommand = result.filename ? (HASH_COMMAND[platform] ?? ((file: string) => `sha256sum ${file}`))(result.filename) : "";
   const cliSteps = [
     "curl -fsSL https://bobine.fit/install.sh -o install.sh",
     "less install.sh",
@@ -196,7 +188,9 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
               <div className="dl-chips dl-chips--stack">
                 {channelRows.map((row) => (
                   <button key={row.id} type="button" className="dl-chip dl-chip--row" aria-pressed={channel === row.id} onClick={() => setChannel(row.id)}>
-                    <span>{row.label}</span>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={`/images/channels/${row.id}.webp`} alt="" width={28} height={28} className="dl-chip__logo" />
+                    <span className="dl-chip__name">{row.label}</span>
                     <code>{row.version}</code>
                     <small>{row.hint}</small>
                   </button>
@@ -242,20 +236,13 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
               <dl className="dl-facts">
                 {result.filename && (<><dt>{isEn ? "File" : "Fichier"}</dt><dd><code>{result.filename}</code></dd></>)}
                 <dt>{isEn ? "Version" : "Version"}</dt>
-                <dd>{result.version}</dd>
+                <dd className="dl-facts__version">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`/images/channels/${channel}.webp`} alt="" width={22} height={22} className="dl-chip__logo" />
+                  <span>{result.version}</span>
+                </dd>
                 {size && (<><dt>{isEn ? "Size" : "Taille"}</dt><dd>{size}</dd></>)}
                 {publishedLabel && (<><dt>{isEn ? "Published" : "Publié"}</dt><dd>{publishedLabel}</dd></>)}
-                {sha && (
-                  <>
-                    <dt>SHA-256</dt>
-                    <dd className="dl-facts__hash">
-                      <code>{sha}</code>
-                      <button type="button" className="dl-btn dl-btn--ghost" onClick={() => copy(sha, "sha")} aria-label={isEn ? "Copy the SHA-256 checksum" : "Copier l'empreinte SHA-256"}>
-                        <Icon name={copied === "sha" ? "check" : "copy"} size={16} />
-                      </button>
-                    </dd>
-                  </>
-                )}
               </dl>
               {!isCli && (result.url ? (
                 <a className="dl-btn dl-btn--primary" href={result.url} rel="noopener noreferrer" download>
@@ -275,44 +262,6 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
                 {isLinux && <Link href={`/${locale}/linux`} onClick={onClose}>{isEn ? "Linux page" : "Page Linux"}</Link>}
               </div>
             </section>
-
-            {result.filename && (
-              <details className="dl-details">
-                <summary>{isEn ? "Verify integrity" : "Vérifier l'intégrité"}</summary>
-                <p className="dl-block__text">
-                  {sha
-                    ? isEn
-                      ? "Compute the checksum of the file you downloaded and compare it with the SHA-256 above, published by GitHub for this file."
-                      : "Calculez l'empreinte du fichier téléchargé et comparez-la au SHA-256 ci-dessus, publié par GitHub pour ce fichier."
-                    : isEn
-                    ? "The checksum of this file is not available on this page: read it on the release page."
-                    : "L'empreinte de ce fichier n'est pas disponible sur cette page : lisez-la sur la page de la release."}
-                </p>
-                <pre className="dl-code"><code>{hashCommand}</code></pre>
-                {result.checksumsSigned ? (
-                  <>
-                    <p className="dl-block__text">
-                      {isEn ? "This release also ships a signed checksum list. Key fingerprint: " : "Cette release joint aussi la liste des empreintes, signée. Empreinte de la clé : "}
-                      <code>{SIGNING_KEY_HELP}</code>
-                    </p>
-                    <pre className="dl-code"><code>{"curl -fsSL https://packages.bobine.fit/bobine.gpg | gpg --import\ngpg --verify SHA256SUMS.asc SHA256SUMS\nsha256sum -c --ignore-missing SHA256SUMS"}</code></pre>
-                  </>
-                ) : (
-                  <p className="dl-block__text">
-                    {isEn
-                      ? "No detached signature is attached to this release's direct files yet; the Linux repositories are signed."
-                      : "Aucune signature détachée n'est encore jointe aux fichiers directs de cette release ; les dépôts Linux, eux, sont signés."}
-                  </p>
-                )}
-                {(platform === "windows" || platform === "macos") && (
-                  <p className="dl-block__text">
-                    {platform === "windows"
-                      ? isEn ? "Windows may show a SmartScreen warning on first launch." : "Windows peut afficher un avertissement SmartScreen au premier lancement."
-                      : isEn ? "macOS may ask for confirmation on first launch (Gatekeeper)." : "macOS peut demander une confirmation au premier lancement (Gatekeeper)."}
-                  </p>
-                )}
-              </details>
-            )}
 
             {result.requirements && (
               <p className="dl-block__text dl-requirements">

@@ -170,6 +170,15 @@ const fr: DocChapter[] = [
         deviceImage: "channels",
       },
       {
+        subtitle: "2.7 bis Vérifier l'intégrité d'un fichier téléchargé",
+        paragraphs: [
+          "Chaque fichier d'une release est publié avec son empreinte SHA-256, que GitHub affiche sur la page de la release. Calculez l'empreinte du fichier téléchargé et comparez-la : si elles diffèrent, ne l'installez pas. Windows : Get-FileHash .\\Bobine-Setup-x.y.z.exe -Algorithm SHA256 (PowerShell). macOS : shasum -a 256 Bobine-x.y.z.dmg. Linux : sha256sum bobine_x.y.z_amd64.deb.",
+          "Les releases joignent aussi SHA256SUMS, la liste des empreintes de tous les fichiers, et SHA256SUMS.asc, sa signature détachée par la clé OpenPGP qui signe les dépôts de paquets (empreinte B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). Importez la clé, vérifiez la signature de la liste, puis les fichiers.",
+          "Cette signature ne remplace pas la signature de code des fabricants : les installateurs Windows et macOS ne sont pas signés par Microsoft ni notarisés par Apple, Windows peut donc afficher un avertissement SmartScreen et macOS demander une confirmation (Gatekeeper) au premier lancement. Les dépôts APT, DNF et Pacman, eux, sont signés avec la même clé.",
+        ],
+        codeBlock: "curl -fsSL https://packages.bobine.fit/bobine.gpg | gpg --import\ngpg --verify SHA256SUMS.asc SHA256SUMS\nsha256sum -c --ignore-missing SHA256SUMS",
+      },
+      {
         subtitle: "2.8 Navigateurs pris en charge par famille de moteur (Chromium, Gecko, WebKit)",
         paragraphs: [
           "Famille Chromium / Blink (Google Chrome 109+, Brave, Microsoft Edge, Vivaldi, Chromium Linux) : prise en charge intégrale de l'interface d'administration, des lecteurs plein écran (/cinema, /kiosk, /radio, /coach), de l'accélération matérielle vidéo, de la synthèse vocale hors-ligne et du mode kiosque multi-écran sur PC Windows, macOS et Linux (voir bobine.fit/fr/ordinateur et bobine.fit/fr/linux).",
@@ -611,6 +620,15 @@ const en: DocChapter[] = [
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta   # or --channel=canary",
         deviceImage: "channels",
+      },
+      {
+        subtitle: "2.7 bis Verifying a downloaded file",
+        paragraphs: [
+          "Every release file is published with its SHA-256 checksum, which GitHub shows on the release page. Compute the checksum of the file you downloaded and compare it: if they differ, do not install it. Windows: Get-FileHash .\\Bobine-Setup-x.y.z.exe -Algorithm SHA256 (PowerShell). macOS: shasum -a 256 Bobine-x.y.z.dmg. Linux: sha256sum bobine_x.y.z_amd64.deb.",
+          "Releases also ship SHA256SUMS, the list of checksums of every file, and SHA256SUMS.asc, its detached signature made with the OpenPGP key that signs the package repositories (fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). Import the key, verify the signature of the list, then the files.",
+          "This signature does not replace vendor code signing: the Windows and macOS installers are not signed by Microsoft nor notarized by Apple, so Windows may show a SmartScreen warning and macOS may ask for confirmation (Gatekeeper) on first launch. The APT, DNF and Pacman repositories are signed with the same key.",
+        ],
+        codeBlock: "curl -fsSL https://packages.bobine.fit/bobine.gpg | gpg --import\ngpg --verify SHA256SUMS.asc SHA256SUMS\nsha256sum -c --ignore-missing SHA256SUMS",
       },
       {
         subtitle: "2.8 Supported browsers by engine family (Chromium, Gecko, WebKit)",

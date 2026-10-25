@@ -1703,15 +1703,15 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
       faq: [
         {
           q: "Peut-on installer Bobine via Tor ?",
-          a: "Oui, sur Debian, Ubuntu et Linux Mint : le dépôt APT officiel est aussi servi en .onion, avec les mêmes paquets signés par la même clé.",
+          a: "Oui, sur Debian, Ubuntu et Linux Mint (APT), sur Fedora et dérivés (DNF) et sur Arch Linux et dérivés (Pacman) : les trois dépôts officiels sont aussi servis en .onion, avec les mêmes paquets signés par la même clé.",
         },
         {
           q: "Peut-on suivre la Bêta ou la Canary par Tor ?",
-          a: "Oui : le dépôt APT en .onion publie les trois suites, stable, beta et canary. install-tor.sh --channel=beta (ou canary) configure la source correspondante.",
+          a: "Oui : les dépôts en .onion publient les trois canaux, stable, beta et canary. install-tor.sh --channel=beta (ou canary) configure la source correspondante pour APT, DNF ou Pacman.",
         },
         {
           q: "Et sur Fedora ou Arch Linux ?",
-          a: "Pour l'instant, le miroir Tor ne publie que le dépôt APT (Debian, Ubuntu, Linux Mint). Les dépôts Fedora (packages.bobine.fit/fedora) et Arch Linux (packages.bobine.fit/arch) sont servis en HTTPS sur le web classique.",
+          a: "Les dépôts Fedora (DNF) et Arch Linux (Pacman) sont servis en .onion comme le dépôt APT, avec la même clé de signature ; install-tor.sh détecte la famille et configure le gestionnaire de paquets. Leur installation par Tor a été essayée dans des conteneurs Debian, Fedora et Arch, pas encore sur des machines réelles. Les mêmes dépôts restent servis en HTTPS sur packages.bobine.fit.",
         },
         {
           q: "Le miroir Tor est-il complet ?",
@@ -1778,15 +1778,15 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
       faq: [
         {
           q: "Can Bobine be installed over Tor?",
-          a: "Yes, on Debian, Ubuntu and Linux Mint: the official APT repository is also served over .onion, with the same packages signed by the same key.",
+          a: "Yes, on Debian, Ubuntu and Linux Mint (APT), on Fedora and derivatives (DNF) and on Arch Linux and derivatives (Pacman): the three official repositories are also served over .onion, with the same packages signed by the same key.",
         },
         {
           q: "Can the Beta or Canary channel be followed over Tor?",
-          a: "Yes: the .onion APT repository publishes all three suites, stable, beta and canary. install-tor.sh --channel=beta (or canary) sets up the matching source.",
+          a: "Yes: the .onion repositories publish all three channels, stable, beta and canary. install-tor.sh --channel=beta (or canary) sets up the matching source for APT, DNF or Pacman.",
         },
         {
           q: "What about Fedora or Arch Linux?",
-          a: "For now the Tor mirror only publishes the APT repository (Debian, Ubuntu, Linux Mint). The Fedora (packages.bobine.fit/fedora) and Arch Linux (packages.bobine.fit/arch) repositories are served over HTTPS on the clear web.",
+          a: "The Fedora (DNF) and Arch Linux (Pacman) repositories are served over .onion like the APT repository, with the same signing key; install-tor.sh detects the family and configures the package manager. Installing over Tor was tried in Debian, Fedora and Arch containers, not yet on real machines. The same repositories are still served over HTTPS on packages.bobine.fit.",
         },
         {
           q: "Is the Tor mirror complete?",

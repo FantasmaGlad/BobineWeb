@@ -9103,7 +9103,8 @@ main {
   --fs-1-15rem: 1.15rem;
   --fs-1-1rem: 1.1rem;
   --radius-0-6rem: 0.6rem;
-  --z-1: -1;
+  --z-1: 1;
+  --z-neg-1: -1;
   --fs-clamp-1-85rem-2-5vw-2-35rem: clamp(1.85rem, 2.5vw, 2.35rem);
   --fs-clamp-0-92rem-1-12vw-1-02rem: clamp(0.92rem, 1.12vw, 1.02rem);
   --fs-clamp-1-75rem-4-5vw-2-25rem: clamp(1.75rem, 4.5vw, 2.25rem);

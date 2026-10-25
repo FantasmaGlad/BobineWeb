@@ -3,16 +3,17 @@
    matériaux de verre dans les 16 thèmes). */
 .dl-panel {
   padding: 0;
-  width: min(56rem, calc(100% - 2rem));
+  width: min(96rem, calc(100% - 2.5rem));
   max-width: 100%;
-  max-height: min(90dvh, 52rem);
+  height: min(92dvh, 60rem);
+  max-height: 92dvh;
   margin: auto;
   border: 1px solid var(--glass-floating-border);
-  border-radius: var(--radius-1-25rem);
-  background: var(--glass-modal-bg);
+  border-radius: var(--radius-1-5rem);
+  background: var(--glass-floating-bg);
   -webkit-backdrop-filter: blur(var(--glass-floating-blur)) saturate(var(--saturate-rich));
   backdrop-filter: blur(var(--glass-floating-blur)) saturate(var(--saturate-rich));
-  box-shadow: var(--shadow-card-hover);
+  box-shadow: var(--glass-card-highlight), var(--shadow-card-hover);
   color: var(--text-body);
   overflow: hidden;
   overscroll-behavior: contain;
@@ -22,14 +23,18 @@
   display: flex;
 }
 
+/* Fond : le site passe au second plan, flouté et assombri selon le thème. */
 .dl-panel::backdrop {
-  background: var(--scrim-soft);
+  background: color-mix(in srgb, var(--ink) 46%, transparent);
+  -webkit-backdrop-filter: blur(var(--blur-md));
+  backdrop-filter: blur(var(--blur-md));
 }
 
 .dl-panel__sheet {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
   min-height: 0;
 }
 
@@ -37,7 +42,7 @@
   display: flex;
   align-items: flex-start;
   gap: 0.85rem;
-  padding: 1rem 1.1rem;
+  padding: 1.25rem clamp(1rem, 2.5vw, 2rem);
   border-bottom: 1px solid var(--glass-floating-border);
 }
 
@@ -52,7 +57,7 @@
 
 .dl-panel__title {
   margin: 0;
-  font-size: var(--fs-1-25rem);
+  font-size: var(--fs-clamp-1-35rem-2-2vw-1-75rem);
   line-height: 1.2;
   color: var(--text-heading);
 }
@@ -85,17 +90,18 @@
 .dl-panel__body {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.1rem;
-  padding: 1rem 1.1rem 1.25rem;
+  gap: 1.25rem;
+  padding: 1.25rem clamp(1rem, 2.5vw, 2rem) 1.75rem;
+  flex: 1;
   overflow-y: auto;
   min-height: 0;
   scrollbar-gutter: stable;
 }
 
-@media (min-width: 720px) {
+@media (min-width: 900px) {
   .dl-panel__body {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: 1.5rem;
+    grid-template-columns: minmax(18rem, 26rem) minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
   }
 }
 
@@ -171,10 +177,6 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   text-align: left;
-}
-
-.dl-chip--row small {
-  flex-basis: 100%;
 }
 
 .dl-block {
@@ -344,11 +346,12 @@
   }
 }
 
-/* Téléphone : feuille du bas, bouton de téléchargement collé en bas de sa section. */
+/* Téléphone : feuille du bas qui occupe presque toute la hauteur, bouton de téléchargement collé en bas de sa section. */
 @media (max-width: 640px) {
   .dl-panel {
     width: 100%;
-    max-height: min(92dvh, 100% - 0.5rem);
+    height: calc(100dvh - 0.5rem);
+    max-height: calc(100dvh - 0.5rem);
     margin: auto 0 0;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -389,4 +392,37 @@
   .dl-btn {
     transition: none;
   }
+}
+
+.dl-chip__logo {
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
+}
+
+.dl-chip--row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  column-gap: 0.7rem;
+}
+
+.dl-chip--row small {
+  grid-column: 2 / -1;
+}
+
+.dl-chip__name {
+  font-weight: 600;
+}
+
+.dl-facts__version {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dl-facts__version .dl-chip__logo {
+  width: 1.4rem;
+  height: 1.4rem;
 }

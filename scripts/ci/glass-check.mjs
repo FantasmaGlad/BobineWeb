@@ -20,6 +20,14 @@ const tokenCheck = checkStyleTokens(root);
 const errors = [...tokenCheck.errors];
 const fail = (msg) => errors.push(msg);
 
+// 0. Taille des feuilles : aucune feuille de plus de 600 lignes (globals.css n'est qu'une liste d'@import ; ajouter les
+// règles dans la partie qui correspond au domaine, ou dans une feuille de composant sous src/styles/components/).
+const MAX_CSS_LINES = 600;
+for (const f of files.filter((f) => f.endsWith(".css"))) {
+  const n = readFileSync(f, "utf8").split("\n").length;
+  if (n > MAX_CSS_LINES) fail(`${f.replace(root, "src/")} : ${n} lignes (maximum ${MAX_CSS_LINES}) : scinder la feuille, ne pas l'allonger`);
+}
+
 // 1. Valeurs figées ------------------------------------------------------------------------------------------
 const filters = [...source.matchAll(/(?<!-webkit-)backdrop-filter\s*:\s*([^;{}]+)[;}]/g)].map((m) => m[1].trim());
 const count = (n, label) => n > 0 && fail(`${n} ${label}`);

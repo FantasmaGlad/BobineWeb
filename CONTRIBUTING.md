@@ -59,7 +59,7 @@ npm run build       # production build
 If you touch styles, the installation simulators or the shell scripts, also run the guards that CI runs on them:
 
 ```bash
-node scripts/ci/glass-check.mjs          # glass tokens, no frozen value, text contrast on the 16 themes
+node scripts/ci/glass-check.mjs          # glass tokens, no frozen value, no stylesheet over 600 lines, text contrast on the 16 themes
 bash scripts/ci/check-simulator-sync.sh  # simulators aligned with public/install.sh and public/install-tor.sh
 bash scripts/ci/policy-check.sh          # repository policy (root entries, secrets, emoji)
 ```
@@ -76,6 +76,7 @@ Next.js 16 has breaking changes compared with earlier versions: read the relevan
 - **Two languages**: French (default) and English. A user-facing change updates both.
 - **Tor mirror**: a new feature must work without a server route or a third-party resource when `IS_ONION` is true, or degrade cleanly. Do not load any font, script or decoder from outside the site.
 - **Legal pages**: any new local storage, cookie, measurement tool, provider or data flow requires updating `mentions-legales` and `confidentialite`, and their "last updated" line, in the same change.
+- **Styles**: no stylesheet over 600 lines. `src/app/globals.css` is only a list of `@import` lines in cascade order, pointing at `src/styles/base/NN-*.css`; put a new rule in the part that matches its domain (or in a component stylesheet under `src/styles/components/`), never at the end of a growing file, and keep the import order, which is the cascade. Colors, blur, radii and sizes come from tokens (`glass-check` refuses frozen values and stylesheets that are too long).
 - **Comments** explain a lasting reason (a constraint, a trap, a non-obvious choice). No history, no commented-out code, no decorative banners.
 - **Secrets** never go in the code, a comment, a screenshot or a log. The variables are listed in `.env.example`.
 

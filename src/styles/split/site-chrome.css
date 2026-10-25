@@ -158,13 +158,6 @@
   width: 100%;
 }
 
-.site-header__cta {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0 1rem;
-  white-space: nowrap;
-}
 
 /* Zones sûres (encoches, barres système) : l'en-tête et le pied de page restent lisibles avec viewport-fit=cover. */
 .site-header,

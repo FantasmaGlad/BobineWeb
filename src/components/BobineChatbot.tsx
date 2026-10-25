@@ -353,7 +353,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
         <div className="chatbot-modal__title-group">
           <div className="chatbot-avatar">
             <Image
-              src="/images/baamix-cutout.webp"
+              src="/images/baamix.jpg"
               alt="Baamix"
               width={34}
               height={34}
@@ -408,7 +408,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
             <div className="chatbot-message chatbot-message--assistant">
               <div className="chatbot-message__avatar">
                 <Image
-                  src="/images/baamix-cutout.webp"
+                  src="/images/baamix.jpg"
                   alt="Baamix"
                   width={26}
                   height={26}
@@ -449,7 +449,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                   <div key={idx} className="chatbot-message chatbot-message--assistant">
                     <div className="chatbot-message__avatar">
                       <Image
-                        src="/images/baamix-cutout.webp"
+                        src="/images/baamix.jpg"
                         alt="Baamix"
                         width={26}
                         height={26}
@@ -471,7 +471,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                   {m.role === "assistant" && (
                     <div className="chatbot-message__avatar">
                       <Image
-                        src="/images/baamix-cutout.webp"
+                        src="/images/baamix.jpg"
                         alt="Baamix"
                         width={26}
                         height={26}

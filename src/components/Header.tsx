@@ -11,7 +11,7 @@ import GitHubBadge from "@/components/GitHubBadge";
 import MobileDrawer from "@/components/MobileDrawer";
 import Icon from "@/components/ui/Icon";
 import { lp } from "@/lib/seo";
-import { navRoutes, routeHref, routeLabel } from "@/lib/siteMap";
+import { navRoutes, routeHref } from "@/lib/siteMap";
 import "@/styles/split/site-chrome.css";
 
 
@@ -25,7 +25,8 @@ export default function Header({
   const pathname = usePathname();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  // Le bouton « Télécharger » est mis en avant à droite : les liens de navigation sont les autres entrées du plan du site.
+  // Le téléchargement se choisit sur les cartes de l'accueil : l'en-tête ne le répète pas. Le tiroir mobile et le pied de page
+  // gardent l'accès à la page Télécharger.
   const links: Array<[string, string]> = navRoutes()
     .filter((route) => route.id !== "download")
     .map((route) => [routeHref(locale, route.id), route.label[locale]]);
@@ -83,7 +84,7 @@ export default function Header({
               >
                 <div className="baamix-header-avatar">
                   <Image
-                    src="/images/baamix-cutout.webp"
+                    src="/images/baamix.jpg"
                     alt="Baamix"
                     width={20}
                     height={20}
@@ -94,9 +95,6 @@ export default function Header({
                 <span>Baamix</span>
               </button>
             )}
-            <Link href={routeHref(locale, "download")} className="btn-primary site-header__cta">
-              {routeLabel(locale, "download")}
-            </Link>
             <GitHubBadge />
             <ThemeSwitcher />
             <LocaleSwitcher locale={locale} dict={dict} />

@@ -46,6 +46,13 @@ for (const m of tsx.matchAll(/["'](--[\w-]+)["']/g)) defined.add(m[1]);
 const undef = [...new Set([...noComments.matchAll(/var\((--[\w-]+)/g)].map((m) => m[1]))].filter((n) => !defined.has(n));
 if (undef.length) fail(`variables non définies : ${undef.join(", ")}`);
 
+// 2bis. Chaque jeton --z-N porte exactement N (une collision de noms a déjà inversé un z-index de 1 en -1 : contenu masqué,
+// cartes sans survol ni clic) ; les valeurs négatives se nomment --z-neg-N.
+for (const m of noComments.matchAll(/(--z-(neg-)?(\d+))\s*:\s*(-?\d+)\s*;/g)) {
+  const expected = (m[2] ? -1 : 1) * Number(m[3]);
+  if (Number(m[4]) !== expected) fail(`${m[1]} vaut ${m[4]} (attendu ${expected})`);
+}
+
 // 3. Transparence réduite -----------------------------------------------------------------------------------------
 const reduced = /@media \(prefers-reduced-transparency: reduce\)\s*\{([\s\S]*?)\n\}/.exec(noComments)?.[1] ?? "";
 for (const t of ["--blur-scale: 0", "--glass-surface-bg", "--glass-card-bg", "--glass-floating-bg", "--glass-modal-bg"]) if (!reduced.includes(t)) fail(`mode transparence réduite : ${t} absent`);

@@ -53,7 +53,7 @@ export default function SupportView({ locale }: { locale: Locale }) {
               <div className="github-profile-author-row">
                 <div className="github-profile-avatar-box">
                   <Image
-                    src="/images/github-profile-transparent.png"
+                    src="/images/github-profile.png"
                     alt="FantasmaGlad"
                     width={34}
                     height={34}

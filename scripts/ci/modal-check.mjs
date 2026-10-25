@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // Contrôle de la fenêtre de téléchargement sur le build servi (Chromium, pas du matériel) :
+// 0. les cartes de l'accueil ne sont recouvertes par aucun élément (1280 et 390 px) ;
 // 1. le focus reste dans la fenêtre sur 40 tabulations (avant et arrière) ;
 // 2. Échap la ferme et le focus revient au déclencheur ;
 // 3. à 740 x 360 (téléphone en paysage), le corps défilable occupe au moins 50 % de la hauteur ;
@@ -34,8 +35,32 @@ async function open(width, height, mobile) {
 
 const key = (k, extra = {}) => send("Input.dispatchKeyEvent", { type: "keyDown", key: k, code: k === "Tab" ? "Tab" : k, windowsVirtualKeyCode: k === "Tab" ? 9 : 27, ...extra }).then(() => send("Input.dispatchKeyEvent", { type: "keyUp", key: k, code: k === "Tab" ? "Tab" : k, windowsVirtualKeyCode: k === "Tab" ? 9 : 27, ...extra }));
 
+// Les cartes de l'accueil doivent recevoir le survol et le clic : rien ne doit les recouvrir (un jeton z-index inversé
+// les avait masquées, la page restait pourtant « verte » pour les contrôles de géométrie).
+async function checkHomeCards(width, height, mobile) {
+  await send("Emulation.setDeviceMetricsOverride", { width, height, deviceScaleFactor: 1, mobile });
+  await send("Page.navigate", { url: origin + "/fr" });
+  for (let i = 0; i < 100; i++) {
+    if (await evaluate(`document.readyState === 'complete' && !!document.querySelector('a[data-platform]')`)) break;
+    await delay(100);
+  }
+  await delay(600);
+  const covered = await evaluate(`(() => [...document.querySelectorAll('a[data-platform]')].filter((e) => e.getClientRects().length).flatMap((e) => {
+    e.scrollIntoView({ block: 'center', inline: 'center' });
+    const r = e.getBoundingClientRect();
+    const x = r.left + r.width / 2, y = r.top + r.height / 2;
+    // Carrousel horizontal sur téléphone : une carte hors de l'écran ne peut pas être touchée, elle n'est pas testée.
+    if (x < 0 || x > innerWidth || y < 0 || y > innerHeight) return [];
+    const top = document.elementFromPoint(x, y);
+    return e === top || e.contains(top) ? [] : [e.dataset.platform + ' recouverte par ' + (top ? top.tagName + '.' + String(top.className).slice(0, 40) : 'rien')];
+  }))()`);
+  if (covered.length) fail(`accueil ${width} px : cartes de téléchargement recouvertes : ${covered.join(", ")}`);
+}
+
 try {
   await send("Page.enable");
+  await checkHomeCards(1280, 900, false);
+  await checkHomeCards(390, 800, true);
   await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
 
   // 1 et 2 : focus et retour de focus (bureau)

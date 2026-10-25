@@ -37,15 +37,6 @@ interface DownloadPanelProps {
   canary: ReleaseChannelInfo;
 }
 
-const SYSTEMS: Array<{ id: DownloadPlatform; label: string; icon: AssetKey | "terminal" }> = [
-  { id: "windows", label: "Windows", icon: "os.windows" },
-  { id: "macos", label: "macOS", icon: "os.macos" },
-  { id: "linux", label: "Linux", icon: "os.linux" },
-  { id: "android", label: "Android", icon: "os.android" },
-  { id: "android-tv", label: "Android TV", icon: "os.androidtv" },
-  { id: "cli", label: "Appliance", icon: "terminal" },
-];
-
 const HEADING_ICON: Record<string, AssetKey> = {
   windows: "os.windows",
   macos: "os.macos",
@@ -76,15 +67,10 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
   const isEn = locale === "en";
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const titleId = useId();
-  const [platform, setPlatform] = useState<DownloadPlatform>(initialPlatform);
   const [arch, setArch] = useState<CpuArchitecture>("x86_64");
   const [family, setFamily] = useState<LinuxFamilyId>("debian");
   const [channel, setChannel] = useState<PackageChannel>("stable");
   const [copied, setCopied] = useState("");
-
-  useEffect(() => {
-    setPlatform(initialPlatform === "tauri" || initialPlatform === "assistant" ? "linux" : initialPlatform);
-  }, [initialPlatform, isOpen]);
 
   // Architecture ARM64 détectée côté client (Snapdragon, Linux aarch64, Windows ARM).
   useEffect(() => {
@@ -113,6 +99,8 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
     };
   }, [isOpen]);
 
+  // La plateforme est celle de la carte cliquée : la fenêtre ne la fait pas choisir une seconde fois.
+  const platform: DownloadPlatform = initialPlatform === "tauri" || initialPlatform === "assistant" ? "linux" : initialPlatform;
   const result = resolveDownload({ locale, platform, arch, family, channel, stable, beta, canary });
   const hasArch = platform === "windows" || platform === "linux";
   const isLinux = platform === "linux";
@@ -169,18 +157,6 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
 
         <div className="dl-panel__body">
           <div className="dl-panel__col">
-            <div role="group" aria-labelledby={`${titleId}-system`} className="dl-field">
-              <span id={`${titleId}-system`} className="dl-field__label">{isEn ? "System" : "Système"}</span>
-              <div className="dl-chips">
-                {SYSTEMS.map((s) => (
-                  <button key={s.id} type="button" className="dl-chip" aria-pressed={platform === s.id} onClick={() => setPlatform(s.id)}>
-                    {s.icon === "terminal" ? <Icon name="terminal" size={18} /> : <BrandIcon name={s.icon} size={18} />}
-                    <span>{s.label}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
             {hasArch && (
               <div role="group" aria-labelledby={`${titleId}-arch`} className="dl-field">
                 <span id={`${titleId}-arch`} className="dl-field__label">{isEn ? "Architecture" : "Architecture"}</span>

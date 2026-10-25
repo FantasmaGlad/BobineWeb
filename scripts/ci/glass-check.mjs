@@ -20,12 +20,16 @@ const tokenCheck = checkStyleTokens(root);
 const errors = [...tokenCheck.errors];
 const fail = (msg) => errors.push(msg);
 
-// 0. Taille des feuilles : aucune feuille de plus de 600 lignes (globals.css n'est qu'une liste d'@import ; ajouter les
-// règles dans la partie qui correspond au domaine, ou dans une feuille de composant sous src/styles/components/).
-const MAX_CSS_LINES = 600;
+// 0. Taille des feuilles : environ 600 lignes par feuille (globals.css n'est qu'une liste d'@import ; ajouter les règles dans
+// la partie qui correspond au domaine, ou dans une feuille de composant sous src/styles/components/). Au-delà de 600 lignes
+// c'est un avertissement, la coupure se décide au bon endroit ; l'échec ne tombe qu'à partir de 800 lignes.
+const SOFT_CSS_LINES = 600;
+const HARD_CSS_LINES = 800;
 for (const f of files.filter((f) => f.endsWith(".css"))) {
   const n = readFileSync(f, "utf8").split("\n").length;
-  if (n > MAX_CSS_LINES) fail(`${f.replace(root, "src/")} : ${n} lignes (maximum ${MAX_CSS_LINES}) : scinder la feuille, ne pas l'allonger`);
+  const name = f.replace(root, "src/");
+  if (n > HARD_CSS_LINES) fail(`${name} : ${n} lignes (limite ${HARD_CSS_LINES}) : scinder la feuille au prochain titre de section`);
+  else if (n > SOFT_CSS_LINES) console.warn(`::warning::${name} : ${n} lignes (repère ${SOFT_CSS_LINES}) : à scinder si elle grossit encore`);
 }
 
 // 1. Valeurs figées ------------------------------------------------------------------------------------------

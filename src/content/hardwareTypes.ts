@@ -74,4 +74,3 @@ export interface StandaloneAccessory {
   priceAmazon: number | null;
   compatibleOs: OsKey[];
 }
-

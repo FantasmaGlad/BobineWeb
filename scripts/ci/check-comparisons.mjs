@@ -18,7 +18,7 @@ for (const route of routes) {
   const structures = [];
   for (const locale of ["fr", "en"]) {
     const file = join(root, locale, `${route.path.slice(1)}.html`);
-    const html = readFileSync(file, "utf8").replace(/<script\b[\s\S]*?<\/script>/g, "");
+    const html = readFileSync(file, "utf8");
     assert.equal((html.match(/<h1\b/g) ?? []).length, 1, `${file}: un H1`);
     assert(!/\bcmp-(?:div|p|h\d|section)-\d/.test(html), `${file}: classes sémantiques`);
     assert(/class="pg-breadcrumbs"/.test(html), `${file}: fil visible`);

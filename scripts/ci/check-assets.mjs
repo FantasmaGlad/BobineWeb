@@ -80,7 +80,7 @@ for (const file of files) {
 
 // 6. Cliquet des <svg> en ligne : la migration vers Icon et BrandIcon se fait page par page, le total ne doit jamais
 // remonter. Baisser ce plafond à chaque migration ; viser 0 hors dessins propres à un composant (démonstrations, PDF).
-const INLINE_SVG_CEILING = 109;
+const INLINE_SVG_CEILING = 101;
 const inline = files.filter((f) => f.endsWith(".tsx") && !f.includes(`${join("components", "ui")}/`)).reduce((n, f) => n + (readFileSync(f, "utf8").match(/<svg\b/g)?.length ?? 0), 0);
 if (inline > INLINE_SVG_CEILING) fail(`${inline} <svg> en ligne (plafond ${INLINE_SVG_CEILING}) : utiliser Icon ou BrandIcon`);
 

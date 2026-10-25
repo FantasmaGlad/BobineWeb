@@ -11,6 +11,13 @@ try {
   const failures = [];
   let measured = 0;
   const paths = process.env.MOBILE_CHECK_PATHS?.split(",") ?? ["/fr", "/en", "/fr/linux", "/en/linux", "/fr/documentation", "/en/documentation", "/fr/materiel/aliexpress", "/en/hardware/aliexpress", "/fr/materiel/amazon", "/en/hardware/amazon", "/fr/telechargement", "/en/download", "/fr/ressources", "/en/resources", "/fr/materiel", "/en/hardware"];
+  if (!process.env.MOBILE_CHECK_PATHS) paths.push(
+    "/fr/comparatif", "/en/compare",
+    "/fr/comparatif/les-mills-cinema", "/en/compare/les-mills-cinema",
+    "/fr/comparatif/wexer-fitness-on-demand", "/en/compare/wexer-fitness-on-demand",
+    "/fr/comparatif/radical-fitness-yako", "/en/compare/radical-fitness-yako",
+    "/fr/comparatif/affichage-dynamique-fitness", "/en/compare/digital-signage-fitness",
+  );
   for (const path of paths) for (const width of [360, 390, 768, 1280]) {
     const response = await fetch(origin + path);
     if (!response.ok) throw new Error(`${path} : HTTP ${response.status}`);

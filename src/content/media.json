@@ -16,6 +16,12 @@
         "webp": "/images/screens/library-640.webp"
       },
       {
+        "width": 800,
+        "height": 450,
+        "avif": "/images/screens/library-800.avif",
+        "webp": "/images/screens/library-800.webp"
+      },
+      {
         "width": 1280,
         "height": 720,
         "avif": "/images/screens/library-1280.avif",
@@ -38,6 +44,12 @@
         "height": 360,
         "avif": "/images/screens/schedule-640.avif",
         "webp": "/images/screens/schedule-640.webp"
+      },
+      {
+        "width": 800,
+        "height": 450,
+        "avif": "/images/screens/schedule-800.avif",
+        "webp": "/images/screens/schedule-800.webp"
       },
       {
         "width": 1280,
@@ -64,6 +76,12 @@
         "webp": "/images/marketing/baamix-640.webp"
       },
       {
+        "width": 800,
+        "height": 800,
+        "avif": "/images/marketing/baamix-800.avif",
+        "webp": "/images/marketing/baamix-800.webp"
+      },
+      {
         "width": 817,
         "height": 817,
         "avif": "/images/marketing/baamix-817.avif",
@@ -86,6 +104,12 @@
         "height": 362,
         "avif": "/images/marketing/laptop-640.avif",
         "webp": "/images/marketing/laptop-640.webp"
+      },
+      {
+        "width": 800,
+        "height": 452,
+        "avif": "/images/marketing/laptop-800.avif",
+        "webp": "/images/marketing/laptop-800.webp"
       },
       {
         "width": 1200,

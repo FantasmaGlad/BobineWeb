@@ -10,8 +10,8 @@ export default function MediaFrame({ id, locale, preload = false, caption }: { i
   return (
     <figure className="media-frame">
       <picture>
-        <source type="image/avif" srcSet={item.variants.map((v) => `${v.avif} ${v.width}w`).join(", ")} sizes="(max-width: 800px) 100vw, 60vw" />
-        <Image src={largest.webp} alt={item.alt[locale]} width={largest.width} height={largest.height} sizes="(max-width: 800px) 100vw, 60vw" preload={preload} unoptimized />
+        <source type="image/avif" srcSet={item.variants.map((v) => `${v.avif} ${v.width}w`).join(", ")} sizes="(max-width: 800px) calc(100vw - 2rem), 60vw" />
+        <Image src={largest.webp} alt={item.alt[locale]} width={largest.width} height={largest.height} sizes="(max-width: 800px) calc(100vw - 2rem), 60vw" loading={preload ? "eager" : "lazy"} fetchPriority={preload ? "high" : undefined} unoptimized />
       </picture>
       {caption ? <figcaption>{caption}</figcaption> : null}
     </figure>

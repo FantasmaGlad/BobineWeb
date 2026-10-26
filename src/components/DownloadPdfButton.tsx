@@ -3,7 +3,6 @@
 import { useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import PdfIcon from "@/components/icons/PdfIcon";
-import { generateDocumentationPdf } from "@/lib/pdf/generate";
 import { useReleaseData } from "@/components/ReleaseProvider";
 import "@/styles/split/pages-misc.css";
 
@@ -26,6 +25,8 @@ export default function DownloadPdfButton({
     try {
       setIsGenerating(true);
       setHasError(false);
+      // Le moteur PDF et les chapitres ne sont utiles qu’après la demande du lecteur.
+      const { generateDocumentationPdf } = await import("@/lib/pdf/generate");
       await generateDocumentationPdf({ locale, chapterId, version });
     } catch (err) {
       console.error("Failed to generate PDF:", err);

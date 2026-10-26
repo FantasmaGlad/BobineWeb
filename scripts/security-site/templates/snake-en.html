@@ -1,0 +1,24 @@
+<main class="page-main" id="gameArea">
+    <div class="snake-score-wrap" aria-label="Score">
+      <div class="snake-score-box">
+        <span class="snake-score-label">SCORE</span>
+        <span class="snake-score-val" id="scoreVal">0</span>
+      </div>
+      <span class="snake-score-colon">·</span>
+      <div class="snake-score-box">
+        <span class="snake-score-label">BEST</span>
+        <span class="snake-score-val" id="bestVal">0</span>
+      </div>
+    </div>
+
+    <canvas id="snakeCanvas" tabindex="0" aria-label="Snake"></canvas>
+
+    <div class="snake-end-overlay" id="endOverlay" role="dialog" aria-modal="true">
+      <h2 class="snake-end-title">Game over</h2>
+      <p class="snake-end-desc" id="endDesc"></p>
+      <button type="button" class="snake-restart-btn" id="restartBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+        <span>Play Again</span>
+      </button>
+    </div>
+  </main>

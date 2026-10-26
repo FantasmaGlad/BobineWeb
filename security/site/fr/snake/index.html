@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="lavande"><head>
+  <meta charset="utf-8">
+  <title>Bobine Snake</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Snake classique en plein écran, adapté au clavier et au tactile.">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="canonical" href="https://security.bobine.fit/fr/snake/">
+  <link rel="alternate" hreflang="en" href="https://security.bobine.fit/snake/">
+  <link rel="alternate" hreflang="fr" href="https://security.bobine.fit/fr/snake/">
+  <link rel="alternate" hreflang="x-default" href="https://security.bobine.fit/snake/">
+
+  <!-- OpenGraph / Social Meta -->
+  <meta property="og:title" content="Bobine Snake">
+  <meta property="og:description" content="Snake classique en plein écran, adapté au clavier et au tactile.">
+  <meta property="og:url" content="https://security.bobine.fit/fr/snake/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Bobine Snake">
+  <meta property="og:image" content="https://bobine.fit/fr/opengraph-image">
+
+  <!-- Twitter Meta -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bobine Snake">
+  <meta name="twitter:description" content="Snake classique en plein écran, adapté au clavier et au tactile.">
+  <meta name="twitter:image" content="https://bobine.fit/fr/opengraph-image">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "Bobine Snake",
+  "description": "Jeu Snake en plein écran.",
+  "genre": [
+    "Arcade",
+    "Retro"
+  ],
+  "playMode": "SinglePlayer",
+  "applicationCategory": "Game",
+  "operatingSystem": "Any web browser",
+  "url": "https://security.bobine.fit/fr/snake/",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+  </script>
+<script src="/assets/theme-init.js"></script><link rel="stylesheet" href="/assets/bobine-tokens.css"><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/bobine-controls.css"><script src="/assets/site.js" defer></script><script src="/assets/snake.js" defer></script></head><body class="snake-page"><a class="skip-link" href="#gameArea">Aller au contenu</a><header class="site-header"><div class="site-header__inner"><a class="brand" href="https://bobine.fit/fr" aria-label="Bobine"><img src="/logo_bobine_entier.png" width="112" height="28" alt="Bobine"><span>Sécurité</span></a><button class="menu-btn" id="menuBtn" type="button" aria-controls="siteNav" aria-expanded="false" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button><nav class="header-nav" id="siteNav" aria-label="Navigation principale"><a href="https://bobine.fit/fr/documentation">Documentation</a><a href="https://bobine.fit/fr/securite">Politique</a><a href="/fr/">Signalement</a><a href="/fr/snake/">Snake</a>
+          <div class="header-controls">
+            <nav class="locale-switcher" aria-label="Langue / Language">
+              <a class="locale-switcher__link" href="/snake/" >EN</a>
+              <a class="locale-switcher__link is-active" href="/fr/snake/" aria-current="true">FR</a>
+            </nav>
+            <div class="theme-switcher-wrapper" id="themePicker">
+              <div class="theme-switcher-pill-group">
+                <button type="button" class="theme-switcher-btn" id="themeCycle" aria-label="Thème suivant"><span class="theme-swatch-icon" data-theme="lavande" aria-hidden="true"></span><span class="theme-switcher-btn__label">Lavande</span></button>
+                <button type="button" class="theme-switcher-arrow-btn" id="themeToggle" aria-label="Ouvrir les 16 thèmes" aria-expanded="false" aria-haspopup="dialog" aria-controls="themePalette"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="chevron-flip" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+              </div>
+              <div class="theme-dropdown-modal" id="themePalette" role="dialog" aria-label="Palette des thèmes" hidden>
+                <div class="theme-segmented-control" role="tablist" aria-label="Thème">
+                  <button type="button" role="tab" class="theme-segment-btn is-active" data-theme-group="light" aria-selected="true">Thèmes Clairs<span class="theme-segment-count">8</span></button>
+                  <button type="button" role="tab" class="theme-segment-btn" data-theme-group="dark" aria-selected="false">Thèmes Sombres<span class="theme-segment-count">8</span></button>
+                </div>
+                <div class="theme-grid" role="listbox" aria-label="Thème"><button type="button" role="option" class="theme-card-option" data-theme-value="charbon" data-dark="false" data-label="Charbon" aria-selected="false"><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Charbon</span><span class="theme-card-option__desc">Albâtre &amp; Carbone</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button><button type="button" role="option" class="theme-card-option" data-theme-value="clair" data-dark="false" data-label="Carmin" aria-selected="false"><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Carmin</span><span class="theme-card-option__desc">Porcelaine &amp; Rubis</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button><button type="button" role="option" class="theme-card-option" data-theme-value="miel" data-dark="false" data-label="Ambre" aria-selected="false"><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Ambre</span><span class="theme-card-option__desc">Ivoire &amp; Or Solaire</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button><button type="button" role="option" class="theme-card-option" data-theme-value="menthe" data-dark="false" data-label="Sauge" aria-selected="false"><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Sauge</span><span class="theme-card-option__desc">Émeraude &amp; Botanique</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button><button type="button" role="option" class="theme-card-option" data-theme-value="ciel" data-dark="false" data-label="Azur" aria-selected="false"><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Azur</span><span class="theme-card-option__desc">Cristal &amp; Saphir</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button><button type="button" role="option" class="theme-card-option" data-theme-value="lavande" data-dark="false" data-label="Lavande" aria-selected="false"><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Lavande</span><span class="theme-card-option__desc">Nacre &amp; Améthyste</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button><button type="button" role="option" class="theme-card-option" data-theme-value="beige" data-dark="false" data-label="Sable" aria-selected="false"><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Sable</span><span class="theme-card-option__desc">Lin &amp; Terre Cuite</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button><button type="button" role="option" class="theme-card-option" data-theme-value="coco" data-dark="false" data-label="Cacao" aria-selected="false"><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Cacao</span><span class="theme-card-option__desc">Cachemire &amp; Expresso</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button><button type="button" role="option" class="theme-card-option" data-theme-value="les-mills-sombre" data-dark="true" data-label="Onyx" aria-selected="false" hidden><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Onyx</span><span class="theme-card-option__desc">Obsidienne &amp; Cinabre</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button><button type="button" role="option" class="theme-card-option" data-theme-value="charbon-sombre" data-dark="true" data-label="Graphite" aria-selected="false" hidden><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Graphite</span><span class="theme-card-option__desc">Titane &amp; Acier Brossé</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button><button type="button" role="option" class="theme-card-option" data-theme-value="automne" data-dark="true" data-label="Cuivre" aria-selected="false" hidden><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Cuivre</span><span class="theme-card-option__desc">Basalte &amp; Magma</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button><button type="button" role="option" class="theme-card-option" data-theme-value="hiver" data-dark="true" data-label="Abysse" aria-selected="false" hidden><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Abysse</span><span class="theme-card-option__desc">Fjord &amp; Cyan Arctique</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button><button type="button" role="option" class="theme-card-option" data-theme-value="lune" data-dark="true" data-label="Indigo" aria-selected="false" hidden><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Indigo</span><span class="theme-card-option__desc">Nuit &amp; Indigo Stellaire</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button><button type="button" role="option" class="theme-card-option" data-theme-value="chili" data-dark="true" data-label="Rubis" aria-selected="false" hidden><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Rubis</span><span class="theme-card-option__desc">Velours &amp; Grenat</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button><button type="button" role="option" class="theme-card-option" data-theme-value="orchidee" data-dark="true" data-label="Orchidée" aria-selected="false" hidden><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Orchidée</span><span class="theme-card-option__desc">Nébuleuse &amp; Améthyste</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button><button type="button" role="option" class="theme-card-option" data-theme-value="taupe" data-dark="true" data-label="Moka" aria-selected="false" hidden><span class="theme-card-option__swatch-wrapper"><span class="theme-card-option__swatch"></span></span><span class="theme-card-option__info"><span class="theme-card-option__name">Moka</span><span class="theme-card-option__desc">Quartz &amp; Or Champagne</span></span><span class="theme-card-option__check" aria-hidden="true">✓</span></button></div>
+              </div>
+            </div>
+          </div></nav></div></header><main class="page-main" id="gameArea">
+    <div class="snake-score-wrap" aria-label="Score">
+      <div class="snake-score-box">
+        <span class="snake-score-label">SCORE</span>
+        <span class="snake-score-val" id="scoreVal">0</span>
+      </div>
+      <span class="snake-score-colon">·</span>
+      <div class="snake-score-box">
+        <span class="snake-score-label">RECORD</span>
+        <span class="snake-score-val" id="bestVal">0</span>
+      </div>
+    </div>
+
+    <canvas id="snakeCanvas" tabindex="0" aria-label="Snake"></canvas>
+
+    <div class="snake-end-overlay" id="endOverlay" role="dialog" aria-modal="true">
+      <h2 class="snake-end-title">Perdu</h2>
+      <p class="snake-end-desc" id="endDesc"></p>
+      <button type="button" class="snake-restart-btn" id="restartBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+        <span>Recommencer</span>
+      </button>
+    </div>
+  </main>
+<p id="copyStatus" class="sr-only" role="status" aria-live="polite"></p><footer class="site-footer"><div class="site-footer__inner"><span>Bobine</span><nav class="footer-links" aria-label="Footer"><a href="/fr/">Sécurité</a><a href="mailto:security@bobine.fit">security@bobine.fit</a></nav></div></footer></body></html>

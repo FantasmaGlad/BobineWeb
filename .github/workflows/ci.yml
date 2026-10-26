@@ -104,7 +104,7 @@ jobs:
           node scripts/ci/check-comparisons.mjs
           node scripts/ci/check-marketing.mjs
           node scripts/ci/check-catalog.mjs
-          node --test scripts/ci/check-catalog.test.mjs
+          node --test scripts/ci/check-catalog.test.mjs scripts/ci/deployment-origin.test.mjs
       - name: Géométrie mobile et cibles tactiles
         run: |
           npm run start -- --port 3102 > "$RUNNER_TEMP/mobile-server.log" 2>&1 &
@@ -117,6 +117,16 @@ jobs:
           node scripts/ci/mobile-check.mjs
           node scripts/ci/modal-check.mjs
           node scripts/ci/check-feature-menu.mjs
+      - name: Thèmes et navigation du site sécurité
+        run: |
+          python3 -m http.server 3104 --bind 127.0.0.1 --directory security/site > "$RUNNER_TEMP/security-server.log" 2>&1 &
+          server=$!
+          trap 'kill "$server" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:3104/fr/ > /dev/null && break
+            sleep 1
+          done
+          node scripts/ci/check-security-menu.mjs
 
   onion:
     name: Miroir Tor (export statique)
@@ -148,6 +158,9 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
       - run: bash scripts/ci/check-security-site.sh
 
   ci-ok:

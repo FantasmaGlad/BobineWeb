@@ -13,7 +13,7 @@ for (const source of sources) {
   if (!/^[a-z0-9-]+$/.test(source.id) || !["marketing", "screens"].includes(source.folder)) throw new Error("Identifiant de média invalide");
   const input = join(root, source.input);
   const metadata = await sharp(input).rotate().metadata();
-  const widths = [...new Set([Math.min(640, metadata.width), Math.min(1280, metadata.width)])];
+  const widths = [...new Set([Math.min(640, metadata.width), Math.min(800, metadata.width), Math.min(1280, metadata.width)])];
   const variants = [];
   await mkdir(join(root, "public/images", source.folder), { recursive: true });
   for (const width of widths) {
@@ -21,7 +21,7 @@ for (const source of sources) {
     let info;
     for (const format of ["avif", "webp"]) {
       const url = `/images/${source.folder}/${source.id}-${width}.${format}`;
-      for (const quality of [72, 60, 48, 36]) {
+      for (const quality of (format === "avif" ? [60, 48, 36] : [72, 60, 48, 36])) {
         info = await sharp(input).rotate().resize({ width, withoutEnlargement: true }).toFormat(format, { quality }).toFile(join(root, "public", url));
         if ((await stat(join(root, "public", url))).size <= 250 * 1024) break;
       }

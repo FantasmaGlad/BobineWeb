@@ -8,7 +8,7 @@ HOST=$(sed -n 's/^export const ONION_SITE_HOST = "\(.*\)";/\1/p' src/lib/onion.t
 [ -n "$HOST" ] || { echo "::error::adresse onion introuvable dans src/lib/onion.ts"; exit 1; }
 # Tor peut perdre un circuit pendant la lecture d'une métadonnée. On retente
 # uniquement le transport ; les signatures et versions restent des échecs stricts.
-curlt() { curl -fsS --retry 2 --retry-delay 3 --retry-max-time 300 --connect-timeout 30 --max-time 120 --socks5-hostname 127.0.0.1:9050 "$@"; }
+curlt() { curl -fsS --retry 2 --retry-all-errors --retry-delay 3 --retry-max-time 300 --max-time 120 --socks5-hostname 127.0.0.1:9050 "$@"; }
 
 attempt() {
   local n=0

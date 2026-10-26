@@ -149,6 +149,8 @@ jobs:
         run: npm run build:onion
         env:
           GITHUB_TOKEN: ${{ github.token }}
+      - name: Reprise des erreurs réseau SOCKS (proxy local, sans Tor)
+        run: python3 scripts/ci/test-tor-transport.py
       - name: Contrôle du miroir
         run: bash scripts/ci/verify-onion.sh out
 

@@ -3,6 +3,7 @@
 set -euo pipefail
 SITE=${1:-https://security.bobine.fit}
 cd "$(git rev-parse --show-toplevel)"
+SITE=$(node scripts/ci/deployment-origin.mjs "$SITE" security)
 FPR=$(tr -d '[:space:]' < security/fingerprint.txt)
 FPR_SPACED=$(sed -E 's/(.{4})/\1 /g; s/ $//' <<< "$FPR")
 
@@ -17,10 +18,13 @@ attempt() {
 
 check() {
   local p code page gh out txt
-  for p in / /fr/ /snake/ /security.asc /.well-known/security.txt; do
+  for p in / /fr/ /snake/ /fr/snake/ /assets/site.js /assets/site.css /assets/bobine-controls.css /assets/bobine-tokens.css /security.asc /.well-known/security.txt; do
     code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 "$SITE$p") || return 1
     echo "$p -> $code"
     [ "$code" = "200" ] || return 1
+  done
+  for p in /assets/site.js /assets/site.css /assets/bobine-controls.css /assets/bobine-tokens.css; do
+    cmp -s <(curl -fsS --max-time 30 "$SITE$p") "security/site$p" || { echo "ressource servie différente : $p"; return 1; }
   done
   # Page lue en entier avant le grep : "grep -q" ferme le tube et ferait échouer curl sous pipefail.
   page=$(curl -fsS --max-time 30 "$SITE/")

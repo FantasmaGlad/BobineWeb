@@ -12,6 +12,11 @@ BASE=${1:?base URL}
 CHECK_WWW=${2:-}
 cd "$(git rev-parse --show-toplevel)"
 
+BASE=$(node scripts/ci/deployment-origin.mjs "$BASE" site)
+if [ -n "${SMOKE_DEPLOYMENT:-}" ]; then
+  SMOKE_DEPLOYMENT=$(node scripts/ci/deployment-origin.mjs "$SMOKE_DEPLOYMENT" vercel)
+fi
+
 # get <chemin> <arguments curl> : une requête vers le site testé.
 get() {
   local path=$1; shift

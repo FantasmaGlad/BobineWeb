@@ -24,6 +24,9 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
 
       - name: Empreinte attendue (fichier unique du dépôt)
         run: echo "EXPECTED_FPR=$(tr -d '[:space:]' < security/fingerprint.txt)" >> "$GITHUB_ENV"

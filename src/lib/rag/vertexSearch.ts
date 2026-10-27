@@ -40,6 +40,7 @@ export async function searchBobineKnowledge(query: string, maxResults = 5): Prom
     }, { autoPaginate: false, timeout: 2800, retry: null }).then(([results]) => {
       const snippets = results.map(normalizeResult).filter((s): s is NonNullable<typeof s> => s !== null);
       if (!snippets.length) return null;
+      console.info("Recherche documentaire disponible.", { snippets: snippets.length });
       const products = snippets.filter(s => s.platform === "amazon" || s.platform === "aliexpress");
       const docs = snippets.filter(s => s.platform !== "amazon" && s.platform !== "aliexpress");
       return {

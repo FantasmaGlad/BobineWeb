@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { ACTIVE_FILTER, frameworkFilter, normalizeResult, plainSnippet } from "../../src/lib/rag/results.mjs";
 import { exportWeb } from "./export";
-import { documentRows } from "./sync";
+import { documentRows, retryableDocuments } from "./sync";
 
 test("les filtres restreignent réellement le framework et la version", () => {
   assert.equal(frameworkFilter("nextjs", "16.4.2"), `${ACTIVE_FILTER} AND framework: ANY("nextjs") AND version: ANY("16.4.2")`);
@@ -39,4 +39,11 @@ test("l'import refuse une source vide, un doublon ou un secret et produit des em
 test("les extraits HTML sont lus par un parseur et ignorent les éléments exécutables", () => {
   assert.equal(plainSnippet('<p>Guide <b>utile</b></p><script>alert(1)</script ><style>body{}</style>'), "Guide utile");
   assert.equal(plainSnippet('<p>A &amp; B &#233;</p>'), "A & B é");
+});
+
+test("la reprise est bornée aux erreurs transitoires identifiées dans le manifeste", () => {
+  const id = "a".repeat(32); const documents = [{ id, content: {uri:"gs://example/a.txt"} }];
+  assert.deepEqual(retryableDocuments({ metadata:{failureCount:"1"},response:{errorSamples:[{code:5,message:`Document /documents/${id} absent temporairement`}] } },documents),documents);
+  assert.throws(() => retryableDocuments({metadata:{failureCount:"2"},response:{errorSamples:[]}},documents));
+  assert.throws(() => retryableDocuments({metadata:{failureCount:"1"},response:{errorSamples:[{code:7,message:`/documents/${id}`}] }},documents));
 });

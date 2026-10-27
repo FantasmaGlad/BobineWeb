@@ -58,6 +58,22 @@ async function probe(store: string, generation: string, framework?: string) {
     }
   }
 }
+export function retryableDocuments(complete: { metadata?: { failureCount?: string }; response?: { errorSamples?: { code?: number; message?: string }[] } }, documents: Record<string, unknown>[]) {
+  const samples = complete.response?.errorSamples || [];
+  const failures = Number(complete.metadata?.failureCount || 0) || samples.length;
+  if (!failures) return [];
+  if (failures !== samples.length) throw new Error("Erreurs incomplètes : reprise ciblée impossible");
+  const ids = new Set<string>();
+  for (const sample of samples) {
+    const id = sample.message?.match(/\/documents\/([a-f0-9]{32})/)?.[1];
+    if (![4, 5, 8, 10, 13, 14].includes(Number(sample.code)) || !id || !documents.some(d => d.id === id)) {
+      throw new Error("Échec d'import non transitoire ou document non identifié");
+    }
+    ids.add(id);
+  }
+  if (ids.size !== failures) throw new Error("Nombre d'erreurs incohérent");
+  return documents.filter(d => ids.has(String(d.id)));
+}
 async function sync(corpus: string, sources: SourceDocument[]) {
   const rows = documentRows(sources);
   const generation = hash(rows.map(r => r.hash).join("\n")).slice(0, 32);
@@ -74,7 +90,7 @@ async function sync(corpus: string, sources: SourceDocument[]) {
   const pending = await readObject(pendingKey);
   let operation = pending?.generation === generation
     ? await request(`https://discoveryengine.googleapis.com/v1/${pending.operation}`) : null;
-  if (!operation || operation.error || Number(operation.metadata?.failureCount || 0)) {
+  if (!operation || operation.error) {
     await ensureSchema(store);
     const documents: Record<string, unknown>[] = [];
     await parallel(rows, async row => {
@@ -92,8 +108,34 @@ async function sync(corpus: string, sources: SourceDocument[]) {
     await writeObject(pendingKey, { generation, operation: operation.name });
   }
   console.log(`${corpus} : suivi de l’import, ${rows.length} documents, opération ${operation.name}`);
-  const complete = await waitOperation(operation);
-  if (Number(complete.metadata?.successCount) !== rows.length) throw new Error(`Import incomplet : ${complete.metadata?.successCount || 0}/${rows.length}`);
+  const complete = await waitOperation(operation, { allowPartial: true });
+  const allDocuments = rows.map(row => ({ id: row.id,
+    structData: { ...row.meta, active: "true", managed_by: MANAGED_BY, generation },
+    content: { mimeType: "text/plain", uri: `gs://${bucket}/sync-v2/content/${corpus}/${row.hash}.txt` } }));
+  const failed = retryableDocuments(complete, allDocuments);
+  let recovered = 0;
+  let retryOperationName: string | undefined;
+  if (failed.length) {
+    for (const doc of failed) {
+      const uri = (doc.content as { uri: string }).uri;
+      if (await readObject(uri.replace(`gs://${bucket}/`, "")) === null) throw new Error("Source GCS manquante : reprise refusée");
+    }
+    let retry = pending?.retryOperation ? await request(`https://discoveryengine.googleapis.com/v1/${pending.retryOperation}`) : null;
+    if (!retry) {
+      const key = `sync-v2/imports/${corpus}/${generation}-retry.jsonl`;
+      await writeObject(key, failed.map(d => JSON.stringify(d)).join("\n") + "\n", "application/x-ndjson");
+      retry = await request(`${storePath(store)}/branches/default_branch/documents:import`, { method: "POST", body: {
+        gcsSource: { inputUris: [`gs://${bucket}/${key}`], dataSchema: "document" }, reconciliationMode: "INCREMENTAL",
+      } });
+      await writeObject(pendingKey, { generation, operation: operation.name, retryOperation: retry.name });
+    }
+    console.log(`${corpus} : reprise unique de ${failed.length} échecs transitoires, sources GCS vérifiées`);
+    const repaired = await waitOperation(retry);
+    recovered = Number(repaired.metadata?.successCount || 0);
+    retryOperationName = repaired.name;
+    if (recovered !== failed.length) throw new Error("Reprise partielle : synchronisation non validée");
+  }
+  if (Number(complete.metadata?.successCount) + recovered !== rows.length) throw new Error(`Import incomplet : ${complete.metadata?.successCount || 0}+${recovered}/${rows.length}`);
   const deadline = Date.now() + 10 * 60 * 1000;
   while (true) {
     try {
@@ -115,7 +157,7 @@ async function sync(corpus: string, sources: SourceDocument[]) {
       structData: { ...doc.structData, active: "false" } } });
   });
   const state = { generation, count: rows.length, ids: rows.map(r => r.id), hashes: rows.map(r => r.hash),
-    frameworks, operation: complete.name, verifiedAt: new Date().toISOString(), retired: retired.length };
+    frameworks, operation: complete.name, retryOperation: retryOperationName, verifiedAt: new Date().toISOString(), retired: retired.length };
   await writeObject(stateKey, state);
   console.log(`${corpus} : import et recherche vérifiés, génération ${generation}, ${retired.length} fiches désactivées`);
 }

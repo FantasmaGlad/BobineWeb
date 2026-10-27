@@ -31,7 +31,7 @@ export async function writeObject(name, body, contentType = "application/json") 
     method: "POST", body: typeof body === "string" ? body : JSON.stringify(body), headers: { "Content-Type": contentType },
   });
 }
-export async function waitOperation(operation) {
+export async function waitOperation(operation, { allowPartial = false } = {}) {
   const deadline = Date.now() + 25 * 60 * 1000;
   while (!operation.done) {
     if (Date.now() > deadline) throw new Error(`Opération encore en cours : ${operation.name}`);
@@ -39,7 +39,7 @@ export async function waitOperation(operation) {
     operation = await request(`https://discoveryengine.googleapis.com/v1/${operation.name}`);
   }
   if (operation.error) throw new Error(JSON.stringify(operation.error));
-  if (operation.response?.errorSamples?.length || Number(operation.metadata?.failureCount || 0)) {
+  if (!allowPartial && (operation.response?.errorSamples?.length || Number(operation.metadata?.failureCount || 0))) {
     throw new Error(`Import partiel refusé : ${JSON.stringify(operation.response ?? operation.metadata)}`);
   }
   return operation;

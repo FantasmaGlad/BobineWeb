@@ -16,7 +16,7 @@ Une synchronisation :
 
 1. Exporte et contrôle les sources ; refuse un corpus vide, les doublons et les secrets locaux.
 2. Ne téléverse que les nouveaux contenus, dans le préfixe `sync-v2/` du bucket.
-3. Déclenche un import incrémental Discovery Engine et attend son résultat. Une erreur partielle ou un nombre de documents incorrect est un échec.
+3. Déclenche un import incrémental Discovery Engine et attend son résultat. Un échec transitoire précisément identifié peut être repris une seule fois, après vérification de son objet GCS ; une erreur permanente, une reprise échouée ou un nombre de documents incorrect est un échec.
 4. Vérifie que la génération est interrogeable, avec les filtres de métadonnées, pour chaque framework.
 5. Désactive les documents retirés des sources, puis enregistre le manifeste vérifié. Les contenus historiques restent récupérables ; aucune purge de bucket n’est effectuée.
 

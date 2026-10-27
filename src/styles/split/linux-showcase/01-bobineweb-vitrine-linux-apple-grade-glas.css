@@ -15,6 +15,11 @@
   padding-bottom: 5rem;
 }
 
+.linux-showcase__breadcrumb {
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
 /* --------------------------------------------------------------------------
    1. Hero Matériel & Logiciel
    -------------------------------------------------------------------------- */
@@ -24,7 +29,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding-top: clamp(2rem, 5vw, 4rem);
+  padding-top: clamp(0.75rem, 2vw, 1.5rem);
   padding-bottom: clamp(3rem, 6vw, 4.5rem);
 }
 

@@ -1,6 +1,7 @@
 import type { Locale } from "@/lib/i18n";
 import type { RouteId } from "@/lib/siteMap";
 import type { IconName } from "@/components/ui/Icon";
+import type { AssetKey } from "@/lib/assets";
 
 type Localized = Record<Locale, string>;
 type Paragraph = { title: Localized; text: Localized };
@@ -12,6 +13,7 @@ export interface Comparison {
   routeId: RouteId;
   name: string;
   icon: IconName;
+  brand: AssetKey;
   title: Localized;
   description: Localized;
   intro: Localized;
@@ -73,7 +75,7 @@ const bobineLicense = text("Logiciel libre AGPL-3.0, sans abonnement logiciel. M
 
 export const comparisons = [
   {
-    slug: "les-mills-cinema", routeId: "compare-lesmills", name: "Les Mills Cinema & Virtual", icon: "video",
+    slug: "les-mills-cinema", routeId: "compare-lesmills", name: "Les Mills Cinema & Virtual", icon: "video", brand: "compare.lesmills",
     title: text("Bobine et Les Mills : comparer les usages", "Bobine and Les Mills: compare studio needs"),
     description: text("Comparez la régie locale Bobine aux offres Les Mills : contenus, programmation, matériel et budget. Sources officielles et points à vérifier.", "Compare local Bobine playout with Les Mills: content, scheduling, hardware and budget. Read official sources and check what your studio needs."),
     intro: text("Vous avez déjà vos vidéos, ou vous cherchez un catalogue de cours ? C’est la première distinction entre une régie comme Bobine et une offre de contenus Les Mills.", "Do you already have workout videos, or do you need a class catalog? That is the first distinction between Bobine playout and a Les Mills content offering."),
@@ -97,7 +99,7 @@ export const comparisons = [
     sources: ["lesmills"],
   },
   {
-    slug: "wexer-fitness-on-demand", routeId: "compare-wexer", name: "Wexer & Fitness On Demand", icon: "display",
+    slug: "wexer-fitness-on-demand", routeId: "compare-wexer", name: "Wexer & Fitness On Demand", icon: "display", brand: "compare.wexer",
     title: text("Bobine, Wexer et Fitness On Demand : comparer", "Bobine, Wexer and Fitness On Demand compared"),
     description: text("Comparez Bobine, Wexer et Fitness On Demand : catalogue, contenus propres, lecture locale et budget. Consultez les sources et préparez votre essai.", "Compare Bobine, Wexer and Fitness On Demand: catalogs, custom content, local playback and budget. Check official sources and plan your studio trial."),
     intro: text("Une plateforme de cours peut aussi stocker ses vidéos localement. Comparez le contenu fourni, les fonctions incluses et les conditions d’exploitation de chaque offre.", "A class platform can store its videos locally too. Compare supplied content, included features and operating conditions for each offering."),
@@ -112,7 +114,7 @@ export const comparisons = [
     ],
     sections: [
       { title: text("Tester plutôt que supposer", "Test rather than assume"), text: text("Demandez une démonstration avec vos propres vidéos et une coupure internet contrôlée. Notez les médias réellement disponibles, les commandes encore accessibles et le comportement au redémarrage.", "Request a demo with your own videos and a controlled internet outage. Record which media remain available, which controls still work and how playback behaves after restart.") },
-      { title: text("Comparer un budget complet", "Compare a complete budget"), text: text("Incluez le matériel, les contenus, l’assistance, l’installation et la maintenance. Un logiciel sans abonnement ne remplace pas automatiquement ces services. Le simulateur ci-dessous utilise uniquement vos montants.", "Include hardware, content, support, installation and maintenance. Software without a subscription does not automatically replace these services. The calculator below uses only your own figures.") },
+      { title: text("Comparer un budget complet", "Compare a complete budget"), text: text("Incluez le matériel, les contenus, l’assistance, l’installation et la maintenance. Un logiciel sans abonnement ne remplace pas automatiquement ces services.", "Include hardware, content, support, installation and maintenance. Software without a subscription does not automatically replace these services.") },
     ],
     faq: [
       { q: text("Wexer dépend-il uniquement du streaming ?", "Does Wexer rely only on streaming?"), a: text("Non. La documentation du Virtual Player décrit un stockage local et la lecture hors ligne des cours déjà téléchargés.", "No. Virtual Player documentation describes local storage and offline playback of classes already downloaded.") },
@@ -121,7 +123,7 @@ export const comparisons = [
     sources: ["wexerOffline", "wexerConnect", "fod"],
   },
   {
-    slug: "radical-fitness-yako", routeId: "compare-radical", name: "Radical Fitness & Yako", icon: "layers",
+    slug: "radical-fitness-yako", routeId: "compare-radical", name: "Radical Fitness & Yako", icon: "layers", brand: "compare.radical",
     title: text("Bobine, Radical Fitness et Yako : quels rôles ?", "Bobine, Radical Fitness and Yako: different roles"),
     description: text("Distinguez la régie Bobine, les programmes Radical Fitness et les cours Yako du réseau L’Orange bleue. Comparez contenus, exploitation et budget.", "Distinguish Bobine playout, Radical Fitness programs and Yako classes from L’Orange bleue. Compare content, operation and the budget for your club."),
     intro: text("Un outil de diffusion, un catalogue de programmes et une offre de réseau répondent à des besoins différents. Yako désigne les cours du réseau L’Orange bleue, pas un fournisseur de régie indépendant.", "Playout software, a program catalog and a network offering meet different needs. Yako names the classes of the L’Orange bleue network, not an independent playout supplier."),
@@ -144,7 +146,7 @@ export const comparisons = [
     sources: ["radical", "yako"],
   },
   {
-    slug: "affichage-dynamique-fitness", routeId: "compare-signage", name: "Anthias (Screenly OSE)", icon: "cpu",
+    slug: "affichage-dynamique-fitness", routeId: "compare-signage", name: "Anthias (Screenly OSE)", icon: "cpu", brand: "compare.signage",
     title: text("Bobine et Anthias : régie ou affichage dynamique ?", "Bobine and Anthias: playout or digital signage?"),
     description: text("Comparez Bobine et Anthias pour les écrans d’une salle : programmation, médias locaux et usages. Distinguez régie fitness et affichage dynamique.", "Compare Bobine and Anthias for gym screens: scheduling, local media and use cases. Distinguish fitness playout from general purpose digital signage."),
     intro: text("Afficher des annonces et piloter une grille de cours ne demandent pas les mêmes outils. Anthias sait aussi programmer ses médias : le choix dépend surtout de votre usage.", "Displaying announcements and running a class timetable call for different tools. Anthias can schedule media too: choose around your actual use case."),
@@ -173,7 +175,7 @@ export type CompareSlug = (typeof comparisons)[number]["slug"];
 
 export const compareCopy = {
   title: text("Comparer les solutions pour votre salle", "Compare solutions for your fitness studio"),
-  description: text("Comparez Bobine, les catalogues de cours et l’affichage dynamique pour votre salle. Sources officielles, usages et simulateur avec vos propres montants.", "Compare Bobine, class catalogs and digital signage for your fitness studio. Read official sources and estimate a budget using your own figures."),
+  description: text("Comparez Bobine, les catalogues de cours et l’affichage dynamique pour votre salle. Sources officielles, usages et points de comparaison pour votre budget.", "Compare Bobine, class catalogs and digital signage for your fitness studio. Read official sources and evaluation points for your budget."),
   intro: text("Avez-vous besoin d’un catalogue de cours, d’une régie pour vos vidéos ou d’un afficheur d’accueil ? Comparez d’abord le service rendu, puis les coûts de votre projet.", "Do you need a class catalog, playout for your own videos, or a reception display? Compare what each service does, then work out the costs for your project."),
   noticeTitle: text("Comment lire ces comparatifs", "How to read these comparisons"),
   notice: text("Comparatifs rédigés par le projet Bobine, sans affiliation aux marques citées. Les offres évoluent : consultez les sources et confirmez les conditions avec chaque fournisseur. Aucun essai sur leur matériel n’est revendiqué. Bobine ne fournit pas de catalogue de cours ni de droits sur les médias.", "These comparisons are written by the Bobine project, with no affiliation to the named brands. Offerings change: read the sources and confirm terms with each supplier. No testing on their hardware is claimed. Bobine supplies neither a workout catalog nor rights to media."),

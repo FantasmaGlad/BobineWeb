@@ -38,7 +38,7 @@ export default async function LinuxShowcasePage({ locale }: { locale: Locale }) 
     url,
     inLanguage: locale,
     dateModified: updated,
-    author: { "@type": "Person", name: AUTHOR_NAME, url: `${BASE_URL}/${locale}${isEn ? "/about" : "/a-propos"}` },
+    author: { "@type": "Person", name: AUTHOR_NAME, url: "https://github.com/FantasmaGlad" },
     publisher: { "@type": "Organization", name: SITE_NAME, url: BASE_URL, logo: `${BASE_URL}/icon.png` },
     isPartOf: { "@type": "WebSite", name: SITE_NAME, url: BASE_URL },
   };

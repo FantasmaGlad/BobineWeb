@@ -46,7 +46,7 @@ export default function LinuxHero({ locale }: { locale: Locale }) {
         </span>
         {chips.map((chip) => (
           <div key={chip.name} className="linux-chips__item">
-            <BrandIcon name={chip.icon} className="linux-chips__icon" />
+            <BrandIcon name={chip.icon} size={24} className="linux-chips__icon" />
             <span>
               <strong>{chip.name}</strong> ({chip.note})
             </span>

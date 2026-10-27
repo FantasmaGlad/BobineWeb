@@ -10,11 +10,7 @@ import {
   type TierKey,
   type FormFactorKey,
 } from "@/content/hardware";
-import LinuxIcon from "@/components/icons/LinuxIcon";
-import WindowsIcon from "@/components/icons/WindowsIcon";
-import AppleIcon from "@/components/icons/AppleIcon";
-import AndroidIcon from "@/components/icons/AndroidIcon";
-import AndroidTvIcon from "@/components/icons/AndroidTvIcon";
+import BrandIcon from "@/components/ui/BrandIcon";
 import HardwareAccessoriesGrid from "@/components/hardware/HardwareAccessoriesGrid";
 import AddToCartButton from "@/components/hardware/AddToCartButton";
 import SellerLine, { type MerchantPlatform } from "@/components/hardware/SellerLine";
@@ -147,60 +143,37 @@ export default function HardwareBundleTabs({
       id: "linux",
       label: "Linux Appliance",
       badge: isEn ? "Official" : "Officiel",
-      icon: <LinuxIcon size={18} />,
+      icon: <BrandIcon name="os.linux" size={20} />,
     },
     {
       id: "windows",
       label: "Windows Desktop",
       badge: isEn ? "Mini PC & PC" : "Mini PC & PC",
-      icon: <WindowsIcon size={18} />,
+      icon: <BrandIcon name="os.windows" size={20} />,
     },
     {
       id: "macos",
       label: "macOS Studio",
       badge: isEn ? "Apple Silicon" : "Apple Silicon",
-      icon: <AppleIcon size={18} />,
+      icon: <BrandIcon name="os.macos" size={20} />,
     },
     {
       id: "arm",
       label: "PC & Mini PC ARM",
       badge: "Snapdragon & ARM64",
-      icon: (
-        <svg
-          width={18}
-          height={18}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <rect x="4" y="4" width="16" height="16" rx="2" />
-          <rect x="9" y="9" width="6" height="6" />
-          <path d="M9 1v3" />
-          <path d="M15 1v3" />
-          <path d="M9 20v3" />
-          <path d="M15 20v3" />
-          <path d="M20 9h3" />
-          <path d="M20 14h3" />
-          <path d="M1 9h3" />
-          <path d="M1 14h3" />
-        </svg>
-      ),
+      icon: <BrandIcon name="chip.snapdragon" size={20} />,
     },
     {
       id: "android",
       label: isEn ? "Android Tablets" : "Android Tablettes",
       badge: isEn ? "Touch Tablets" : "Tablettes Tactiles",
-      icon: <AndroidIcon size={18} />,
+      icon: <BrandIcon name="os.android" size={20} />,
     },
     {
       id: "android-tv",
       label: "Android TV & Box",
       badge: "Google TV & 4K",
-      icon: <AndroidTvIcon size={18} />,
+      icon: <BrandIcon name="os.androidtv" size={20} />,
     },
   ];
 

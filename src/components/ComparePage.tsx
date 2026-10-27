@@ -7,9 +7,9 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata, lp } from "@/lib/seo";
 import Breadcrumbs from "@/components/page/Breadcrumbs";
 import Icon from "@/components/ui/Icon";
+import BrandIcon from "@/components/ui/BrandIcon";
 import ShareButton from "@/components/ShareButton";
 import FaqJsonLd from "@/components/FaqJsonLd";
-import RoiCalculator from "@/components/RoiCalculator";
 
 export type ComparePageProps = { params: Promise<{ locale: string }> };
 
@@ -66,18 +66,6 @@ function CompareTable({ locale, columns, rows }: { locale: Locale; columns: read
   );
 }
 
-function CompareCta({ locale }: { locale: Locale }) {
-  return (
-    <section className="compare-cta" aria-labelledby="compare-try">
-      <h2 id="compare-try">{compareCopy.cta[locale]}</h2>
-      <p>{compareCopy.downloadNote[locale]}</p>
-      <div className="compare-actions">
-        <Link href={lp(locale, "/telechargement")} className="btn-primary"><Icon name="download" />{compareCopy.download[locale]}</Link>
-        <Link href={lp(locale, "/fonctionnalites")} className="btn-secondary">{compareCopy.features[locale]}</Link>
-      </div>
-    </section>
-  );
-}
 
 export default async function ComparePage({ params, slug }: ComparePageProps & { slug?: CompareSlug }) {
   const { locale } = await params;
@@ -110,7 +98,7 @@ export default async function ComparePage({ params, slug }: ComparePageProps & {
       {entry ? (
         <>
           <section className="compare-section" aria-labelledby="compare-criteria">
-            <h2 id="compare-criteria"><Icon name={entry.icon} />{compareCopy.table[locale]}</h2>
+            <h2 id="compare-criteria"><BrandIcon name={entry.brand} size={28} />{compareCopy.table[locale]}</h2>
             <CompareTable locale={locale} columns={entry.columns} rows={entry.rows.map((row) => ({ label: row.label[locale], values: row.values.map((value) => value[locale]) }))} />
             <ul className="compare-row-sources">
               {entry.rows.filter((row) => row.sources.length).map((row) => (
@@ -126,7 +114,7 @@ export default async function ComparePage({ params, slug }: ComparePageProps & {
         <section className="compare-studies" aria-label={locale === "fr" ? "Études comparatives" : "Comparison studies"}>
           {comparisons.map((comparison) => (
             <article key={comparison.slug} className="compare-study">
-              <Icon name={comparison.icon} size={28} />
+              <BrandIcon name={comparison.brand} size={32} />
               <h2>{comparison.name}</h2>
               <p className="compare-study__focus">{comparison.focus[locale]}</p>
               <p>{comparison.intro[locale]}</p>
@@ -141,12 +129,11 @@ export default async function ComparePage({ params, slug }: ComparePageProps & {
         <ul className="compare-sources">
           {sources.map((id) => {
             const source = COMPARE_SOURCES[id];
-            return <li key={id} id={`source-${id}`}><a href={source.url} rel="noreferrer">{source.label}<Icon name="external" size={16} /></a><span>{compareCopy.checked[locale]} <time dateTime={source.checked}>{dateFormat.format(new Date(`${source.checked}T00:00:00Z`))}</time></span></li>;
+            return <li key={id} id={`source-${id}`}><a href={source.url} rel="noreferrer">{source.label}<Icon name="external" size={16} /></a><span><time dateTime={source.checked}>{dateFormat.format(new Date(`${source.checked}T00:00:00Z`))}</time></span></li>;
           })}
         </ul>
         <Link href={`/${locale}/documentation`} className="compare-doc-link">{locale === "fr" ? "Documentation des fonctionnalités Bobine" : "Bobine feature documentation"}</Link>
       </section>
-      <div className="compare-section"><RoiCalculator locale={locale} /></div>
       {faq ? (
         <section className="compare-section" aria-labelledby="compare-faq">
           <h2 id="compare-faq">{compareCopy.faq[locale]}</h2>
@@ -155,7 +142,6 @@ export default async function ComparePage({ params, slug }: ComparePageProps & {
           </div>
         </section>
       ) : null}
-      <CompareCta locale={locale} />
     </div>
   );
 }

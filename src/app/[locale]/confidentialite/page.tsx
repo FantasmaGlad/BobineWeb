@@ -10,7 +10,7 @@ const copy = {
     badge: "Vie Privée & Éthique",
     title: "Politique de Confidentialité",
     subtitle: "Ce que le site collecte, ce qui reste sur votre appareil et ce qui transite par des prestataires : zéro cookie publicitaire, zéro pistage commercial.",
-    updated: "Dernière mise à jour : 25 octobre 2026",
+    updated: "Dernière mise à jour : 27 octobre 2026",
     sections: [
       {
         heading: "1. Responsable du Traitement",
@@ -32,7 +32,7 @@ const copy = {
       },
       {
         heading: "4. Assistant Baamix (Intelligence Artificielle)",
-        body: "Lorsque vous utilisez l'assistant Baamix, le texte de vos messages, le contenu de votre panier « Mon Pack » (noms et prix des produits) et l'indication de l'onglet de la boutique que vous consultez sont envoyés à notre serveur, puis transmis à Hugging Face (Hugging Face, Inc., États-Unis), un service d'inférence qui les relaie à un hébergeur du modèle de langage DeepSeek pour produire la réponse. Si ce service est indisponible, ils sont transmis à OpenRouter (OpenRouter, Inc., États-Unis), qui les relaie à un modèle de langage tiers.",
+        body: "Lorsque vous utilisez l'assistant Baamix, le texte de vos messages, le contenu de votre panier « Mon Pack » (noms et prix des produits) et l'indication de l'onglet de la boutique que vous consultez sont envoyés à notre serveur, puis transmis à Hugging Face (Hugging Face, Inc., États-Unis), un service d'inférence qui les relaie à un hébergeur du modèle de langage DeepSeek pour produire la réponse. Lorsque la recherche documentaire est activée, le texte de votre dernier message est également transmis à Google Cloud Vertex AI Search pour retrouver des extraits de la documentation publique et du catalogue. Le panier et les messages précédents ne sont pas transmis à ce moteur de recherche.",
         contact: "Bobine ne conserve pas vos conversations : elles ne sont enregistrées ni dans une base de données ni dans votre navigateur, et disparaissent quand vous fermez ou rechargez la page. Le site ne journalise pas le contenu des échanges. Les prestataires d'IA appliquent toutefois leurs propres règles de conservation et de traitement, et peuvent traiter les données hors de l'Union européenne.",
         subtext: "N'écrivez aucune donnée personnelle ou sensible dans le chat. Base légale : votre demande d'assistance (intérêt légitime à répondre à cette demande, article 6.1.f du RGPD).",
       },
@@ -45,7 +45,7 @@ const copy = {
       {
         heading: "6. Hébergement, Prestataires & Transferts Hors UE",
         body: "Toutes les connexions à bobine.fit sont chiffrées via HTTPS / TLS. Le site est hébergé par Vercel Inc. et son trafic transite par Cloudflare, Inc. (DNS, accélération, protection contre les attaques), qui traitent des données techniques de connexion telles que l'adresse IP et les journaux de requêtes. Le dépôt de paquets packages.bobine.fit/debian et le code source sont hébergés par GitHub, Inc., dont l'API est aussi interrogée par notre serveur pour lister les versions publiées. Un miroir en service onion (réseau Tor) du site et du dépôt est en outre hébergé sur une machine personnelle de l'éditeur : il ne conserve aucun journal de visite, n'utilise ni mesure d'audience ni ressource tierce, et n'affiche ni boutique ni assistant.",
-        contact: "Ces prestataires sont établis aux États-Unis : vos données techniques peuvent donc être traitées hors de l'Union européenne, dans le cadre de leurs propres engagements et politiques de confidentialité.",
+        contact: "Google Cloud fournit aussi le stockage de la documentation publique et le moteur de recherche de Baamix, dans une configuration globale. Ces prestataires sont établis aux États-Unis : vos données techniques peuvent donc être traitées hors de l'Union européenne, dans le cadre de leurs propres engagements et politiques de confidentialité.",
         subtext: "Le site ne revend ni ne cède aucune donnée à des tiers à des fins commerciales.",
       },
       {
@@ -66,7 +66,7 @@ const copy = {
     badge: "Privacy & Digital Ethics",
     title: "Privacy Policy",
     subtitle: "What the site collects, what stays on your device and what goes through providers: zero advertising cookies, zero commercial tracking.",
-    updated: "Last updated: 25 October 2026",
+    updated: "Last updated: 27 October 2026",
     sections: [
       {
         heading: "1. Data Controller",
@@ -88,7 +88,7 @@ const copy = {
       },
       {
         heading: "4. Baamix Assistant (Artificial Intelligence)",
-        body: "When you use the Baamix assistant, the text of your messages, the contents of your \"My Pack\" cart (product names and prices) and the store tab you are viewing are sent to our server, then forwarded to Hugging Face (Hugging Face, Inc., USA), an inference service that relays them to a host of the DeepSeek language model to produce the answer. If that service is unavailable, they are forwarded to OpenRouter (OpenRouter, Inc., USA), which relays them to a third-party language model.",
+        body: "When you use the Baamix assistant, the text of your messages, the contents of your \"My Pack\" cart (product names and prices) and the store tab you are viewing are sent to our server, then forwarded to Hugging Face (Hugging Face, Inc., USA), an inference service that relays them to a host of the DeepSeek language model to produce the answer. When document search is enabled, the text of your latest message is also sent to Google Cloud Vertex AI Search to retrieve excerpts from the public documentation and catalogue. The cart and earlier messages are not sent to this search service.",
         contact: "Bobine does not keep your conversations: they are stored neither in a database nor in your browser, and disappear when you close or reload the page. The site does not log the content of exchanges. AI providers apply their own retention and processing rules, however, and may process data outside the European Union.",
         subtext: "Do not type personal or sensitive data in the chat. Legal basis: your request for assistance (legitimate interest in answering it, Article 6(1)(f) GDPR).",
       },
@@ -101,7 +101,7 @@ const copy = {
       {
         heading: "6. Hosting, Providers & Transfers Outside the EU",
         body: "All connections to bobine.fit are encrypted via HTTPS / TLS. The site is hosted by Vercel Inc. and its traffic goes through Cloudflare, Inc. (DNS, acceleration, protection against attacks), which process technical connection data such as IP addresses and request logs. The packages.bobine.fit/debian package repository and the source code are hosted by GitHub, Inc., whose API our server also queries to list published releases. A mirror of the site and the repository is additionally served as an onion service (Tor network) from a personal machine of the publisher: it keeps no visit log, uses no analytics or third-party resource, and offers neither the store nor the assistant.",
-        contact: "These providers are based in the United States: your technical data may therefore be processed outside the European Union, under their own commitments and privacy policies.",
+        contact: "Google Cloud also provides public-document storage and the Baamix search service, using a global configuration. These providers are based in the United States: your technical data may therefore be processed outside the European Union, under their own commitments and privacy policies.",
         subtext: "The site neither sells nor transfers any data to third parties for commercial purposes.",
       },
       {

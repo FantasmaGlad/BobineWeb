@@ -63,6 +63,12 @@ jobs:
         run: |
           node scripts/ci/check-site-graph.mjs
           node --test scripts/ci/check-site-graph.test.mjs
+      - name: Sources et contrats de recherche documentaire
+        env:
+          BOBINE_SOURCE_DIR: ${{ runner.temp }}/bobine-sources
+        run: |
+          git clone --depth 1 https://github.com/FantasmaGlad/Bobine.git "$BOBINE_SOURCE_DIR"
+          npm run test:rag
       - name: Limite de débit et bornes de /api/chat
         run: node --test scripts/ci/chat-limits.test.mjs
       - name: Cliquet de jetons (tests d’injection)

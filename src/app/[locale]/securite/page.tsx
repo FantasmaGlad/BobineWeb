@@ -86,7 +86,7 @@ const copy: Record<Locale, { badge: string; title: string; subtitle: string; upd
         heading: "3. Hors périmètre",
         paragraphs: ["Ne nous signalez pas :"],
         items: [
-          "les failles des services tiers (Vercel, Cloudflare, GitHub, Amazon, AliExpress, Hugging Face, OpenRouter, Resend) : adressez-vous directement à leurs éditeurs ;",
+          "les failles des services tiers (Vercel, Cloudflare, GitHub, Amazon, AliExpress, Hugging Face, Google Cloud, Resend) : adressez-vous directement à leurs éditeurs ;",
           "l'ingénierie sociale, le hameçonnage, l'accès physique ;",
           "les attaques par déni de service, les tests de charge et les scans automatisés massifs ;",
           "les constats sans impact démontrable (absence d'un en-tête non exploitable, version affichée, fichiers publics volontaires comme llms.txt ou robots.txt) ;",
@@ -169,7 +169,7 @@ const copy: Record<Locale, { badge: string; title: string; subtitle: string; upd
         heading: "3. Out of scope",
         paragraphs: ["Please do not report:"],
         items: [
-          "flaws in third-party services (Vercel, Cloudflare, GitHub, Amazon, AliExpress, Hugging Face, OpenRouter, Resend): contact their vendors directly;",
+          "flaws in third-party services (Vercel, Cloudflare, GitHub, Amazon, AliExpress, Hugging Face, Google Cloud, Resend): contact their vendors directly;",
           "social engineering, phishing, physical access;",
           "denial-of-service attacks, load tests and mass automated scans;",
           "findings without demonstrable impact (a missing non-exploitable header, displayed version, deliberately public files such as llms.txt or robots.txt);",

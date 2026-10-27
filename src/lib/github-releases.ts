@@ -45,6 +45,20 @@ Réservés aux utilisateurs ayant activé un canal anticipé dans Réglages > Mi
     isPrerelease: true,
   },
   {
+    slug: "canary",
+    title: "Bobine — Canary (build automatique)",
+    publishedAt: "2026-10-24T18:00:00Z",
+    url: "https://github.com/FantasmaGlad/Bobine/releases/tag/canary",
+    body: `Bobine — Canal Canary (builds automatiques au fil de l'eau)
+
+Dernières compilations de développement générées automatiquement à chaque push sur la branche principale.
+
+Recommandé aux testeurs et développeurs souhaitant éprouver les derniers correctifs avant leur intégration en Bêta.
+
+Pour l'activer : Réglages > Mises à jour logicielles > Canal Canary, ou via install.sh --channel=canary.`,
+    isPrerelease: true,
+  },
+  {
     slug: "V5.0.5",
     title: "Bobine V5.0.5 « Résonance » — Unification des Dépôts Linux (packages.bobine.fit), Mises à Jour Multi-Distributions (.deb, .rpm, pacman), Support Étendu des Puces & Raffinement Apple Liquid Glass",
     publishedAt: "2026-10-24T12:00:00Z",
@@ -142,7 +156,7 @@ Cette version 2.0.1 apporte le support étendu de l'accélération matérielle (
 
 - **Site Web Officiel & Documentation** : [https://bobine.fit](https://bobine.fit)
 - **Guide de Démarrage Rapide** : [https://bobine.fit/fr/documentation/demarrage-rapide](https://bobine.fit/fr/documentation/demarrage-rapide)
-- **Soutenir le Projet (Ko-fi)** : [https://ko-fi.com/fantasmaglad](https://ko-fi.com/fantasmaglad) ou [https://bobine.fit/fr/soutenir](https://bobine.fit/fr/soutenir)
+- **Soutenir le Projet (Ko-fi)** : [https://ko-fi.com/fantasmaglad](https://ko-fi.com/fantasmaglad)
 
 ---
 
@@ -409,6 +423,16 @@ export async function getBobineBetaRelease(): Promise<BobineRelease | null> {
     releases.find((release) => release.slug.toLowerCase() === "beta") ??
     releases.find((release) => release.isPrerelease && /beta/i.test(release.slug)) ??
     FALLBACK_RELEASES.find((r) => r.slug === "beta") ??
+    null
+  );
+}
+
+export async function getBobineCanaryRelease(): Promise<BobineRelease | null> {
+  const releases = await getBobineReleases();
+  return (
+    releases.find((release) => release.slug.toLowerCase() === "canary") ??
+    releases.find((release) => release.isPrerelease && /canary/i.test(release.slug)) ??
+    FALLBACK_RELEASES.find((r) => r.slug === "canary") ??
     null
   );
 }

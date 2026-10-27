@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import type { Locale } from "@/lib/i18n";
 import "@/styles/split/pages-misc.css";
 
@@ -111,7 +112,6 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
   // Étape 2 : Connexion SSH
   const [sshConnecting, setSshConnecting] = useState<boolean>(false);
   const [sshAuthMethod, setSshAuthMethod] = useState<"password" | "key">("password");
-  const [sshKeyImported, setSshKeyImported] = useState<boolean>(false);
 
   // Étape 4 : Options
   const [kioskEnabled, setKioskEnabled] = useState<boolean>(true);
@@ -206,7 +206,6 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
     setSelectedIp("203.0.113.10");
     setSshConnecting(false);
     setSshAuthMethod("password");
-    setSshKeyImported(false);
     setDeployStepIndex(0);
     setDeployPct(0);
     setDeployLogs([]);
@@ -521,7 +520,6 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                       className={`tauri-btn tauri-btn--sm ${sshAuthMethod === "key" ? "tauri-btn--primary" : "tauri-btn--secondary"}`}
                       onClick={() => {
                         setSshAuthMethod("key");
-                        setSshKeyImported(true);
                       }}
                     >
                       {isEn ? "Import SSH key" : "Importer une clé SSH"}
@@ -663,7 +661,7 @@ export default function TauriDemo({ locale }: TauriDemoProps) {
                 {CHANNELS.map((id) => (
                   <label key={id} className={`tauri-toggle-card ${channel === id ? "is-selected" : ""}`}>
                     <div className="tauri-toggle-left">
-                      <img className="tauri-toggle-icon" src={`/images/channels/bobine-${id}.webp`} alt="" width={36} height={36} />
+                      <Image className="tauri-toggle-icon" src={`/images/channels/bobine-${id}.webp`} alt="" width={36} height={36} />
                       <div className="tauri-toggle-text">
                         <span className="tauri-toggle-title">
                           {isEn ? "Update channel" : "Canal de mise à jour"} — {CHANNEL_META[id].label[isEn ? "en" : "fr"]}

@@ -407,6 +407,7 @@ function DeviceIllustration({ deviceKeys, locale }: { deviceKeys: DeviceImageKey
     <View style={styles.deviceImageWrap} wrap={false}>
       <View style={styles.deviceImageRow}>
         {devices.flatMap((device) => device.srcs).map((src) => (
+          /* eslint-disable-next-line jsx-a11y/alt-text */
           <Image key={src} src={src} style={styles.deviceImage} />
         ))}
       </View>

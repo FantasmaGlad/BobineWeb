@@ -9,6 +9,7 @@ on:
       - 'src/lib/linuxPackages.ts'
       - 'src/lib/rag/**'
       - 'scripts/rag/**'
+      - 'docs/**'
       - 'package-lock.json'
       - '.github/workflows/rag-sync.yml'
   schedule:

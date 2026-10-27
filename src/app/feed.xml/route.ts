@@ -36,7 +36,7 @@ export async function GET() {
   <title>Bobine - versions et nouveautés</title>
   <subtitle>Versions publiées de Bobine, la régie vidéo libre pour salles de sport</subtitle>
   <link rel="self" type="application/atom+xml" href="${BASE_URL}/feed.xml"/>
-  <link rel="alternate" type="text/html" href="${BASE_URL}/fr/nouveautes"/>
+  <link rel="alternate" type="text/html" href="${BASE_URL}/fr/blog"/>
   <updated>${escapeXml(updated)}</updated>
   <author><name>Clément Barillot</name></author>
 ${entries}

@@ -30,6 +30,7 @@ export { EN_SLUG_MAP };
  * Search Console compte comme « page avec redirection ».
  */
 export function lp(locale: Locale, pathname: string): string {
+  if (pathname.startsWith("http://") || pathname.startsWith("https://")) return pathname;
   // L'export statique du miroir Tor ne porte ni réécriture ni redirection : seuls les dossiers
   // réels (slugs français) y existent.
   if (IS_ONION) return `/${locale}${pathname}`;

@@ -1103,8 +1103,8 @@
     "asin": "B0F548517S",
     "source": "amazon",
     "name": {
-      "fr": "Lenovo IdeaPad Slim 3 15Q8X10 15,3\" WUXGA Copilot+ (Qualcomm Snapdragon X X1-26-100 8 cœurs, 16 Go LPDDR5x, 512 Go SSD, Windows 11 ARM)",
-      "en": "Lenovo IdeaPad Slim 3 15Q8X10 15,3\" WUXGA Copilot+ (Qualcomm Snapdragon X X1-26-100 8 cores, 16 GB LPDDR5x, 512 GB SSD, Windows 11 ARM)"
+      "fr": "Lenovo IdeaPad Slim 3 15Q8X10 15,3\" WUXGA (Qualcomm Snapdragon X X1-26-100 8 cœurs, 16 Go LPDDR5x, 512 Go SSD, Windows 11 ARM)",
+      "en": "Lenovo IdeaPad Slim 3 15Q8X10 15,3\" WUXGA (Qualcomm Snapdragon X X1-26-100 8 cores, 16 GB LPDDR5x, 512 GB SSD, Windows 11 ARM)"
     },
     "category": "uc",
     "illustration": "/images/hardware/editorial/laptop.svg",
@@ -1183,8 +1183,8 @@
     "asin": "B0D7QLTJGC",
     "source": "amazon",
     "name": {
-      "fr": "ASUS Vivobook S 15 OLED Copilot+ PC (Qualcomm Snapdragon X Elite 12 cœurs, 32 Go LPDDR5x, 1 To SSD NVMe, Windows 11 Pro ARM, HDMI 2.1 + 2x USB4)",
-      "en": "ASUS Vivobook S 15 OLED Copilot+ PC (Qualcomm Snapdragon X Elite 12 cores, 32 GB LPDDR5x, 1 TB SSD NVMe, Windows 11 Pro ARM, HDMI 2.1 + 2x USB4)"
+      "fr": "ASUS Vivobook S 15 OLED (Qualcomm Snapdragon X Elite 12 cœurs, 32 Go LPDDR5x, 1 To SSD NVMe, Windows 11 Pro ARM, HDMI 2.1 + 2x USB4)",
+      "en": "ASUS Vivobook S 15 OLED (Qualcomm Snapdragon X Elite 12 cores, 32 GB LPDDR5x, 1 TB SSD NVMe, Windows 11 Pro ARM, HDMI 2.1 + 2x USB4)"
     },
     "category": "uc",
     "illustration": "/images/hardware/editorial/laptop.svg",

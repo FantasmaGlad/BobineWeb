@@ -3,7 +3,6 @@ import Image from "next/image";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import FooterDetails from "@/components/FooterDetails";
 import GitHubIcon from "@/components/icons/GitHubIcon";
-import { TOR_PROJECT_URL, TOR_SOURCE_URL } from "@/lib/onion";
 import { FOOTER_GROUPS, footerRoutes, routeHref } from "@/lib/siteMap";
 import "@/styles/components/site-footer.css";
 
@@ -49,6 +48,17 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Diction
                       </a>
                     </li>
                   )}
+                  {group.id === "legal" && (
+                    <li>
+                      <a
+                        href={isEn ? "https://security.bobine.fit/" : "https://security.bobine.fit/fr/"}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {isEn ? "Security" : "Sécurité"}
+                      </a>
+                    </li>
+                  )}
                 </ul>
               </details>
             );
@@ -58,16 +68,9 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Diction
         <div className="site-footer__bottom">
           <span>© {new Date().getFullYear()} Bobine · {isEn ? "All rights reserved" : "Tous droits réservés"} · AGPL-3.0</span>
           <span>
-            {isEn ? "Supporting the " : "Soutien au "}
-            <a href={TOR_PROJECT_URL} target="_blank" rel="noopener noreferrer">
-              {isEn ? "Tor Project" : "projet Tor"}
-            </a>
-            {" · "}
-            <a href={TOR_SOURCE_URL} target="_blank" rel="noopener noreferrer">
-              {isEn ? "source code" : "code source"}
-            </a>
-            {" · "}
-            <a href="mailto:clement.barillot@bobine.fit">{isEn ? "Contact" : "Contact"}</a>
+            {isEn
+              ? "The Open Source community is the driving force of technological independence."
+              : "La communauté Open Source fait la force de l’indépendance technologique."}
           </span>
         </div>
       </div>

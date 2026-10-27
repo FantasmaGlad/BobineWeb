@@ -129,7 +129,7 @@ export default function OsDownloadGrid({
     {
       id: "android",
       name: "Android",
-      subtitle: isEn ? "Tablets (Snapdragon 8 Gen 2/3, Tensor), Google Books & ARM kiosks" : "Tablettes (Snapdragon 8 Gen 2/3, Tensor), Google Books & Bornes ARM",
+      subtitle: isEn ? "Tablets, Google Books & ARM kiosks" : "Tablettes, Google Books & Bornes ARM",
       format: isEn ? "Package .apk" : "Paquet .apk",
       badge: isEn ? "1-click install" : "Installation 1 clic",
       url: stableInfo.downloads.android,

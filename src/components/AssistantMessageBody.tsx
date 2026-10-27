@@ -54,7 +54,9 @@ export default function AssistantMessageBody({
 
   const [reduced, setReduced] = useState(false);
   useEffect(() => {
-    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    queueMicrotask(() => {
+      setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    });
   }, []);
 
   // Le rendu Markdown est chargé à la demande. Sur un réseau lent (Tor), la frappe finissait avant son arrivée
@@ -73,9 +75,12 @@ export default function AssistantMessageBody({
   const instant = !animate || reduced;
   const [shown, setShown] = useState(0);
   const targetRef = useRef(target);
-  targetRef.current = target;
   const streamingRef = useRef(streaming);
-  streamingRef.current = streaming;
+
+  useEffect(() => {
+    targetRef.current = target;
+    streamingRef.current = streaming;
+  });
 
   useEffect(() => {
     if (instant || !markdownReady || !active) return;

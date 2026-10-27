@@ -70,7 +70,7 @@ const fr: DocChapter[] = [
         subtitle: "2.1 Windows 11 / 10 & Windows ARM (Qualcomm Snapdragon)",
         paragraphs: [
           "Installeurs officiels Bobine-Setup-x.y.z.exe (x86_64 pour processeurs Intel et AMD) et Bobine-Setup-x.y.z-arm64.exe (architecture native ARM64 pour puces Qualcomm Snapdragon X Elite et Snapdragon X Plus) : exécution silencieuse en arrière-plan (icône près de l'horloge), mode capot fermé (clamshell) sans mise en veille via powercfg, règle de pare-feu automatique et désinstallation en 1 clic via Inno Setup.",
-          "Matériel de référence testé : PC portables Copilot+ Snapdragon X (Surface Laptop 7, ASUS Vivobook S 15, Lenovo Yoga Slim 7x, Samsung Galaxy Book4 Edge) et mini PC Intel N100 / AMD Ryzen livrés avec Windows 11 Pro (voir le hub matériel bobine.fit/materiel pour des références vérifiées et leur prix constaté).",
+          "Matériel de référence testé : PC portables Snapdragon X (Surface Laptop 7, ASUS Vivobook S 15, Lenovo Yoga Slim 7x, Samsung Galaxy Book4 Edge) et mini PC Intel N100 / AMD Ryzen livrés avec Windows 11 Pro (voir la sélection matérielle bobine.fit/fr/materiel/aliexpress pour des références vérifiées).",
         ],
         deviceImage: "windows",
       },
@@ -129,7 +129,7 @@ const fr: DocChapter[] = [
         paragraphs: [
           `Paquet natif Bobine-x.y.z.apk (Android ${ANDROID.minVersion} à ${ANDROID.maxVersion}, API ${ANDROID.minApi}-${ANDROID.maxApi}), embarquant CPython 3.13 et FastAPI via Chaquopy, service de premier plan persistant, accélération MediaCodec et double affichage (/grid tactile + /cinema HDMI USB-C DisplayPort avec résolution robuste du branchement à chaud sans écran noir).`,
           "Compatibilité Google Books & puces ARM64 : Bobine s'exécute nativement en plein écran sur les ordinateurs portables Google Book (Aluminium OS) et les tablettes équipées de SoC Qualcomm Snapdragon 8 Gen 2, 8 Gen 3, 8 Elite, Snapdragon X Plus/Elite, MediaTek Dimensity 8300/9300+, Kompanio et Google Tensor.",
-          "Matériel de référence testé : tablettes Samsung Galaxy Tab ou Xiaomi Pad avec port USB-C compatible DisplayPort Alt Mode, et ordinateurs portables Google Book (voir bobine.fit/fr/google-book et bobine.fit/fr/materiel/amazon).",
+          "Matériel de référence testé : tablettes Samsung Galaxy Tab ou Xiaomi Pad avec port USB-C compatible DisplayPort Alt Mode, et ordinateurs portables Google Book (voir bobine.fit/fr/telechargement et bobine.fit/fr/materiel/amazon).",
           "Démarrage avec l'appareil : Réglages > « Démarrage de l'appareil » (case « Lancer Bobine au démarrage de l'appareil ») relance le serveur Bobine quand l'appareil redémarre ou que l'application est mise à jour. L'ouverture automatique de l'écran dépend d'Android : elle exige l'autorisation « Afficher par-dessus d'autres applications », que certains appareils (dont des boîtiers Android TV) réinitialisent à chaque redémarrage. Dans ce cas, le serveur et les écrans distants fonctionnent déjà ; ouvrez simplement l'application pour afficher l'écran local.",
           "Mises à jour intégrées : si Android bloque l'installation depuis l'application (source inconnue non autorisée), Bobine l'indique avant de télécharger et ouvre le réglage correspondant au lieu d'échouer en cours de route.",
         ],
@@ -181,7 +181,7 @@ const fr: DocChapter[] = [
       {
         subtitle: "2.8 Navigateurs pris en charge par famille de moteur (Chromium, Gecko, WebKit)",
         paragraphs: [
-          "Famille Chromium / Blink (Google Chrome 109+, Brave, Microsoft Edge, Vivaldi, Chromium Linux) : prise en charge intégrale de l'interface d'administration, des lecteurs plein écran (/cinema, /kiosk, /radio, /coach), de l'accélération matérielle vidéo, de la synthèse vocale hors-ligne et du mode kiosque multi-écran sur PC Windows, macOS et Linux (voir bobine.fit/fr/ordinateur et bobine.fit/fr/linux).",
+          "Famille Chromium / Blink (Google Chrome 109+, Brave, Microsoft Edge, Vivaldi, Chromium Linux) : prise en charge intégrale de l'interface d'administration, des lecteurs plein écran (/cinema, /kiosk, /radio, /coach), de l'accélération matérielle vidéo, de la synthèse vocale hors-ligne et du mode kiosque multi-écran sur PC Windows, macOS et Linux (voir bobine.fit/fr/telechargement et bobine.fit/fr/linux).",
           "Famille Gecko (Mozilla Firefox 115+ Desktop, Firefox 157+ certifié de bout en bout, Firefox ESR, Firefox pour Android et Tor Browser) : compatibilité certifiée par tests automatisés sur les téléversements repris après coupure réseau, le streaming HTTP Range H.264 et l'assistant IA local Baamix.",
           "Famille WebKit (Apple Safari 16+ sur macOS, iPadOS et iOS) : prise en charge native du pupitre coach mobile, de la télécommande par QR code (http://bobine.local:8000) et du décodage matériel VideoToolbox sur Mac, iPad et iPhone.",
           "Quand un navigateur client ne sait pas décoder nativement un flux HEVC ou 10 bits, Bobine génère et sert automatiquement une version H.264 compatible à la demande sans altérer le fichier original. Le panneau Réglages > Compatibilité navigateur affiche en direct les codecs matériels décodés, l'état de l'API Screen Wake Lock, la prise en charge des manettes HTML5 Gamepad et le compteur d'images perdues.",
@@ -522,7 +522,7 @@ const en: DocChapter[] = [
         subtitle: "2.1 Windows 11 / 10 & Windows ARM (Qualcomm Snapdragon)",
         paragraphs: [
           "Official Bobine-Setup-x.y.z.exe installer (x86_64 for Intel/AMD processors) and Bobine-Setup-x.y.z-arm64.exe (native ARM64 architecture for Qualcomm Snapdragon X Elite and Snapdragon X Plus SoCs): silent background execution (systray icon near clock), clamshell laptop mode without sleep via powercfg, automatic firewall rule, and 1-click uninstaller via Inno Setup.",
-          "Reference hardware tested: Copilot+ Snapdragon X laptops (Surface Laptop 7, ASUS Vivobook S 15, Lenovo Yoga Slim 7x, Samsung Galaxy Book4 Edge) and new Intel N100 / AMD Ryzen mini PCs shipped with Windows 11 Pro (see the hardware hub at bobine.fit/materiel for verified picks and their checked price).",
+          "Reference hardware tested: Snapdragon X laptops (Surface Laptop 7, ASUS Vivobook S 15, Lenovo Yoga Slim 7x, Samsung Galaxy Book4 Edge) and new Intel N100 / AMD Ryzen mini PCs shipped with Windows 11 Pro (see the hardware selection at bobine.fit/en/hardware/aliexpress for verified picks).",
         ],
         deviceImage: "windows",
       },

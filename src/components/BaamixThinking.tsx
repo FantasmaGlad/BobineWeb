@@ -69,15 +69,12 @@ export function HamsterWheel() {
  */
 export default function BaamixThinking({ isEn, hasStoreContext }: { isEn: boolean; hasStoreContext: boolean }) {
   const pool = [...(isEn ? PHRASES_EN : PHRASES_FR), ...(hasStoreContext ? (isEn ? STORE_EN : STORE_FR) : [])];
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(() => Math.floor(Math.random() * pool.length));
   const [seconds, setSeconds] = useState(0);
-  const lastRef = useRef(-1);
+  const lastRef = useRef(index);
 
   useEffect(() => {
-    // Départ aléatoire : deux questions de suite ne commencent pas par la même phrase.
-    const start = Math.floor(Math.random() * pool.length);
-    lastRef.current = start;
-    setIndex(start);
+    lastRef.current = index;
 
     const rotate = window.setInterval(() => {
       let next = Math.floor(Math.random() * pool.length);

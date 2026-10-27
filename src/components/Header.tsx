@@ -10,7 +10,6 @@ import ThemeSwitcher from "@/components/ThemeSwitcher";
 import GitHubBadge from "@/components/GitHubBadge";
 import MobileDrawer from "@/components/MobileDrawer";
 import Icon from "@/components/ui/Icon";
-import { lp } from "@/lib/seo";
 import { navRoutes, routeHref } from "@/lib/siteMap";
 import "@/styles/split/site-chrome.css";
 
@@ -31,16 +30,6 @@ export default function Header({
     .filter((route) => route.id !== "download")
     .map((route) => [routeHref(locale, route.id), route.label[locale]]);
 
-  const isAllowedBaamix = (() => {
-    if (!pathname) return false;
-    const cleanPath = pathname.replace(/\/$/, "");
-    if (cleanPath === `/${locale}`) return true;
-    if (cleanPath.startsWith(lp(locale, `/fonctionnalites`))) return true;
-    if (cleanPath.startsWith(lp(locale, `/comparatif`))) return true;
-    if (cleanPath.startsWith(lp(locale, `/materiel`))) return true;
-    if (cleanPath.startsWith(`/${locale}/documentation`)) return true;
-    return false;
-  })();
 
   return (
     <>
@@ -74,27 +63,25 @@ export default function Header({
 
           {/* Switchers & Badges Desktop */}
           <div className="site-header__actions">
-            {isAllowedBaamix && (
-              <button
-                type="button"
-                className="baamix-header-btn"
-                onClick={() => window.dispatchEvent(new CustomEvent("toggle-baamix"))}
-                title="Ouvrir l'assistant Baamix"
-                aria-label="Ouvrir l'assistant Baamix"
-              >
-                <div className="baamix-header-avatar">
-                  <Image
-                    src="/images/baamix.jpg"
-                    alt="Baamix"
-                    width={20}
-                    height={20}
-                    className="chatbot-avatar-img"
-                  />
-                  <span className="baamix-header-dot" />
-                </div>
-                <span>Baamix</span>
-              </button>
-            )}
+            <button
+              type="button"
+              className="baamix-header-btn"
+              onClick={() => window.dispatchEvent(new CustomEvent("toggle-baamix"))}
+              title={locale === "fr" ? "Ouvrir l'assistant Baamix" : "Open Baamix assistant"}
+              aria-label={locale === "fr" ? "Ouvrir l'assistant Baamix" : "Open Baamix assistant"}
+            >
+              <div className="baamix-header-avatar">
+                <Image
+                  src="/images/baamix.jpg"
+                  alt="Baamix"
+                  width={20}
+                  height={20}
+                  className="chatbot-avatar-img"
+                />
+                <span className="baamix-header-dot" />
+              </div>
+              <span>Baamix</span>
+            </button>
             <GitHubBadge />
             <ThemeSwitcher />
             <LocaleSwitcher locale={locale} dict={dict} />

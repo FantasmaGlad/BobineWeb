@@ -58,6 +58,13 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     if (process.argv[2] === "--verify-served") await verifyServedInstaller(process.argv[3], process.argv[4]);
     else await syncInstaller(resolve("public"));
   } catch (error) {
+    if (error.message?.includes("HTTP 403")) {
+      const { existsSync } = await import("node:fs");
+      if (existsSync(join(resolve("public"), "install.sh")) && existsSync(join(resolve("public"), "install-source.json"))) {
+        console.warn("::warning::GitHub API rate-limited (HTTP 403) ; conservation de l'installateur existant dans public/");
+        process.exit(0);
+      }
+    }
     console.error(error.message);
     process.exitCode = 1;
   }

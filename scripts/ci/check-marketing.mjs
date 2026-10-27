@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 const root = fileURLToPath(new URL("../../", import.meta.url));
-const pages = ["fonctionnalites", "a-propos", "soutenir", "blog", "credits"];
+const pages = ["fonctionnalites", "blog"];
 for (const page of pages) {
   const counts = [];
   for (const locale of ["fr", "en"]) {
@@ -28,4 +28,4 @@ for (const page of pages) {
   }
   assert.equal(counts[0], counts[1], `${page}: mêmes sections FR/EN`);
 }
-console.log("Marketing : dix pages FR/EN, en-têtes compacts, images locales, neuf fonctions visibles et métadonnées conformes.");
+console.log("Marketing : pages FR/EN, en-têtes compacts, images locales, neuf fonctions visibles et métadonnées conformes.");

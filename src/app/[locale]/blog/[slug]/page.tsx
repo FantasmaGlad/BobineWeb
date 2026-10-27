@@ -6,7 +6,7 @@ import Markdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { isLocale, type Locale } from "@/lib/i18n";
-import { getBobineRelease, getBobineReleases } from "@/lib/github-releases";
+import { getBobineRelease } from "@/lib/github-releases";
 import { buildMetadata } from "@/lib/seo";
 import { IS_ONION } from "@/lib/onion";
 import GitHubIcon from "@/components/icons/GitHubIcon";
@@ -94,14 +94,8 @@ function cleanReleaseBody(body: string, title: string): string {
 }
 
 export async function generateStaticParams() {
-  const releases = await getBobineReleases();
-  const slugs = new Set<string>(["beta", "BETA"]);
-  for (const rel of releases) {
-    slugs.add(rel.slug);
-    slugs.add(rel.slug.toLowerCase());
-    slugs.add(rel.slug.toUpperCase());
-  }
-  return Array.from(slugs).map((slug) => ({ slug }));
+  const slugs = ["v5.0.5", "V5.0.5", "beta", "BETA", "canary", "CANARY"];
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -136,8 +130,16 @@ export default async function BlogPostPage({
   const { locale, slug } = await params;
   if (!isLocale(locale)) notFound();
 
-  const release = await getBobineRelease(decodeURIComponent(slug));
-  if (!release) notFound();
+  const release = (await getBobineRelease(decodeURIComponent(slug))) ?? {
+    slug,
+    title: `Bobine ${slug}`,
+    publishedAt: "",
+    url: `https://github.com/FantasmaGlad/Bobine/releases/tag/${slug}`,
+    body: locale === "fr"
+      ? `Cette version est archivée. Vous pouvez consulter les notes de publication et télécharger les paquets historiques directement sur GitHub : [Voir la release ${slug} sur GitHub](https://github.com/FantasmaGlad/Bobine/releases/tag/${slug}).`
+      : `This version is archived. You can read the release notes and download historical packages directly on GitHub: [View release ${slug} on GitHub](https://github.com/FantasmaGlad/Bobine/releases/tag/${slug}).`,
+    isPrerelease: false,
+  };
 
   const articleSchema = {
     "@context": "https://schema.org",

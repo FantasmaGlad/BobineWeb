@@ -9,12 +9,14 @@
     "type": "git",
     "url": "https://github.com/FantasmaGlad/BobineWeb.git"
   },
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "build:onion": "node scripts/prepare-onion.mjs && NEXT_PUBLIC_BOBINE_ONION=1 next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "node --test scripts/ci/*.test.mjs && npm run test:rag",
     "sync:rag": "tsx scripts/rag/sync.ts",
     "prebuild": "node scripts/ci/sync-install.mjs",
     "prebuild:onion": "node scripts/ci/sync-install.mjs",

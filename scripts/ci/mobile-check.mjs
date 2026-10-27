@@ -12,8 +12,7 @@ try {
   let measured = 0;
   const paths = process.env.MOBILE_CHECK_PATHS?.split(",") ?? ["/fr", "/en", "/fr/linux", "/en/linux", "/fr/documentation", "/en/documentation", "/fr/materiel/aliexpress", "/en/hardware/aliexpress", "/fr/materiel/amazon", "/en/hardware/amazon", "/fr/telechargement", "/en/download", "/fr/ressources", "/en/resources"];
   if (!process.env.MOBILE_CHECK_PATHS) paths.push(
-    "/fr/fonctionnalites", "/en/features", "/fr/a-propos", "/en/about",
-    "/fr/soutenir", "/en/support", "/fr/blog", "/en/blog", "/fr/credits", "/en/credits",
+    "/fr/fonctionnalites", "/en/features", "/fr/blog", "/en/blog",
     "/fr/comparatif", "/en/compare",
     "/fr/comparatif/les-mills-cinema", "/en/compare/les-mills-cinema",
     "/fr/comparatif/wexer-fitness-on-demand", "/en/compare/wexer-fitness-on-demand",

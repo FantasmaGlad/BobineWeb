@@ -26,6 +26,7 @@ test("l'architecture exportée reprend exactement les sources publiques et les p
   assert.equal(docs.find(d => d.key === "specs/docs/ARCHITECTURE.md")?.text, readFileSync(resolve(bobineRoot, "docs/ARCHITECTURE.md"), "utf8"));
   assert.ok(docs.some(d => d.key.startsWith("docs/en/")));
   assert.ok(docs.filter(d => d.platform === "aliexpress").every(d => !d.text.includes('"price"')));
+  assert.ok(docs.some(d => d.key === "specs/web/src/content/compare.ts"));
   assert.ok(!docs.some(d => d.key.includes(".agents")));
 });
 test("l'import refuse une source vide, un doublon ou un secret et produit des empreintes stables", () => {

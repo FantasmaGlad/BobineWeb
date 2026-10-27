@@ -186,8 +186,6 @@
 .docs-tor-note,
 .docs-table-wrapper,
 .blog-hero-release-card,
-.roi-calculator-card,
-.roi-result-card,
 .github-pr-card,
 .kofi-widget-card,
 .terminal-wrapper,
@@ -214,7 +212,6 @@
 .os-download-card,
 .docs-method-hero,
 .blog-hero-release-card,
-.roi-calculator-card,
 .github-pr-card,
 .kofi-widget-card {
   -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));

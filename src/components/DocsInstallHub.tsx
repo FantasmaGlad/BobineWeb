@@ -77,7 +77,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
     if (typeof navigator === "undefined") return;
     const ua = navigator.userAgent || "";
     if (/\b(aarch64|arm64|armv8|woa|snapdragon)\b/i.test(ua)) {
-      setSelectedArch("arm64");
+      queueMicrotask(() => setSelectedArch("arm64"));
       return;
     }
     const navWithUAData = navigator as Navigator & {

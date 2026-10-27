@@ -105,19 +105,7 @@
 .os-download-grid-p-1 {
   margin: 0;
 }
-.roi-calculator-label-1 {
-  font-weight: 600;
-  color: var(--text-heading);
-}
-.roi-calculator-div-1 {
-  max-width: 34rem;
-}
-.roi-calculator-p-1 {
-  margin: 0;
-  font-size: var(--fs-0-925rem);
-  color: var(--text-muted);
-  line-height: 1.45;
-}
+
 .shot-figure-1 {
   margin-block: 1.25rem;
 }

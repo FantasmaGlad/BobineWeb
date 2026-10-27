@@ -118,7 +118,6 @@ Quand l'utilisateur hésite, demande « lequel choisir », « quelle différence
 ### 6. REDIRECTIONS DOCUMENTATION :
 - Guide de démarrage : /fr/documentation
 - Utilisation & écrans : /fr/documentation/utilisation
-- Manifeste, Vision & Auteur : /fr/a-propos
 - FAQ / Dépannage : /fr/documentation/faq
 - Développeurs : /fr/documentation/developpeurs
 - Baamix en plein écran : /fr/baamix (le même assistant que la bulle, pour discuter en grand)

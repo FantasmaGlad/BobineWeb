@@ -70,7 +70,7 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
   useEffect(() => {
     const ua = navigator.userAgent || "";
     if (/\b(aarch64|arm64|armv8|woa|snapdragon)\b/i.test(ua)) {
-      setArch("arm64");
+      queueMicrotask(() => setArch("arm64"));
       return;
     }
     const uaData = (navigator as Navigator & { userAgentData?: { getHighEntropyValues?: (hints: string[]) => Promise<{ architecture?: string }> } }).userAgentData;

@@ -6,7 +6,6 @@ import { CLEARNET_URL } from "@/lib/onion";
 import { OPERATING_SYSTEMS, REQUIREMENTS, ANDROID, type PlatformId } from "@/lib/productFacts";
 import { LANDING_PAGES, LANDING_COMMON, getLanding, type LandingId, type LandingSectionIcon } from "@/content/landing";
 import { getRepoStats } from "@/lib/releaseChannels";
-import { getBobineReleases } from "@/lib/github-releases";
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import FaqJsonLd from "@/components/FaqJsonLd";
@@ -18,12 +17,8 @@ import Icon from "@/components/ui/Icon";
 const BASE_URL = CLEARNET_URL;
 const CHANNELS = ["stable", "beta", "canary"] as const;
 
-/** Plateforme proposée quand l'appareil du visiteur n'est pas reconnu. */
 const FALLBACK_PLATFORM: Partial<Record<LandingId, PlatformId>> = {
-  ordinateur: "windows",
   linux: "linux",
-  "android-tv": "android-tv",
-  "google-book": "android",
   tor: "linux",
 };
 /** Plateformes détaillées dans « Configuration requise » : celle de la page d'abord. */
@@ -90,7 +85,7 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
   const isEn = locale === "en";
   const page = LANDING_PAGES[id];
   const c = getLanding(id, locale);
-  const [stats, releases] = await Promise.all([getRepoStats(), getBobineReleases()]);
+  const stats = await getRepoStats();
   const infos: Record<Channel, ReleaseChannelInfo> = { stable: stats.stable, beta: stats.beta, canary: stats.canary };
   const channel = page.channel;
   const common = LANDING_COMMON[locale];
@@ -125,7 +120,7 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
     url,
     inLanguage: locale,
     dateModified: updated,
-    author: { "@type": "Person", name: AUTHOR_NAME, url: `${BASE_URL}/${locale}${isEn ? "/about" : "/a-propos"}` },
+    author: { "@type": "Person", name: AUTHOR_NAME, url: "https://github.com/FantasmaGlad" },
     publisher: { "@type": "Organization", name: SITE_NAME, url: BASE_URL, logo: `${BASE_URL}/icon.png` },
     isPartOf: { "@type": "WebSite", name: SITE_NAME, url: BASE_URL },
   };
@@ -237,7 +232,7 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
         </section>
       )}
 
-      {id === "canaux" || id === "nouveautes" ? (
+      {id === "canaux" ? (
         <section className="landing-card landing-section">
           <h2 className="landing-h2">{isEn ? "Current versions" : "Versions en cours"}</h2>
           <div className="landing-table-wrap">
@@ -266,26 +261,6 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
           </div>
         </section>
       ) : null}
-
-      {id === "nouveautes" && (
-        <section className="landing-card landing-section">
-          <h2 className="landing-h2">{isEn ? "Latest releases" : "Dernières versions publiées"}</h2>
-          <ul className="landing-releases">
-            {releases
-              .filter((r) => !r.isPrerelease)
-              .slice(0, 8)
-              .map((r) => (
-                <li key={r.slug}>
-                  <Link href={`/${locale}/blog/${r.slug}`} className="landing-link">
-                    {r.slug}
-                  </Link>
-                  {r.publishedAt ? ` - ${formatDate(r.publishedAt, locale)}` : ""}
-                  <small>{r.title}</small>
-                </li>
-              ))}
-          </ul>
-        </section>
-      )}
 
       <div className="landing-stack">
         {c.sections.map((s) => (

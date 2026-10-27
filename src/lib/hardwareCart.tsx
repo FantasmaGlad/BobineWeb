@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useSyncExternalStore } from "react";
 import { sumPrices } from "@/lib/price";
 
 import type { ProductSource } from "@/lib/productSources";
@@ -40,10 +40,19 @@ function safeParseCart(raw: string | null): CartItem[] {
   }
 }
 
+let cachedRaw: string | null | undefined = undefined;
+let cachedItems: CartItem[] = [];
+
 export function readCart(): CartItem[] {
   if (typeof window === "undefined") return [];
   try {
-    return safeParseCart(window.localStorage.getItem(STORAGE_KEY));
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (raw === cachedRaw) {
+      return cachedItems;
+    }
+    cachedRaw = raw;
+    cachedItems = safeParseCart(raw);
+    return cachedItems;
   } catch {
     return [];
   }
@@ -51,12 +60,15 @@ export function readCart(): CartItem[] {
 
 function writeCart(items: CartItem[]): CartItem[] {
   try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    const raw = JSON.stringify(items);
+    window.localStorage.setItem(STORAGE_KEY, raw);
+    cachedRaw = raw;
+    cachedItems = safeParseCart(raw);
   } catch {
     // stockage plein ou indisponible (navigation privée) : on ignore silencieusement
   }
   window.dispatchEvent(new CustomEvent(CART_EVENT));
-  return items;
+  return cachedItems;
 }
 
 export function isInCartStorage(asin: string): boolean {
@@ -81,6 +93,17 @@ export function clearCartStorage(): CartItem[] {
   return writeCart([]);
 }
 
+function subscribeCart(callback: () => void) {
+  window.addEventListener(CART_EVENT, callback);
+  window.addEventListener("storage", callback);
+  return () => {
+    window.removeEventListener(CART_EVENT, callback);
+    window.removeEventListener("storage", callback);
+  };
+}
+
+const SERVER_CART: CartItem[] = [];
+
 /**
  * Hook réactif utilisable depuis n'importe quel composant client, sans
  * Provider : se resynchronise sur tout changement local (autre composant,
@@ -88,23 +111,16 @@ export function clearCartStorage(): CartItem[] {
  * navigateur "storage").
  */
 export function useHardwareCart() {
-  const [items, setItems] = useState<CartItem[]>([]);
-
-  useEffect(() => {
-    setItems(readCart());
-    const sync = () => setItems(readCart());
-    window.addEventListener(CART_EVENT, sync);
-    window.addEventListener("storage", sync);
-    return () => {
-      window.removeEventListener(CART_EVENT, sync);
-      window.removeEventListener("storage", sync);
-    };
-  }, []);
+  const items = useSyncExternalStore(
+    subscribeCart,
+    readCart,
+    () => SERVER_CART
+  );
 
   const isInCart = useCallback((asin: string) => items.some((i) => i.asin === asin), [items]);
-  const toggleItem = useCallback((item: CartItem) => setItems(toggleCartItemStorage(item)), []);
-  const removeItem = useCallback((asin: string) => setItems(removeFromCartStorage(asin)), []);
-  const clear = useCallback(() => setItems(clearCartStorage()), []);
+  const toggleItem = useCallback((item: CartItem) => toggleCartItemStorage(item), []);
+  const removeItem = useCallback((asin: string) => removeFromCartStorage(asin), []);
+  const clear = useCallback(() => clearCartStorage(), []);
   const total = useMemo(() => sumPrices(items).total, [items]);
   const unknownPrices = useMemo(() => sumPrices(items).unknown, [items]);
 

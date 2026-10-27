@@ -262,5 +262,25 @@
     "name": "Telegram",
     "src": "/images/icons/apps/telegram.svg",
     "tone": "ink"
+  },
+  "compare.lesmills": {
+    "name": "Les Mills",
+    "src": "/images/icons/compare/lesmills.svg",
+    "tone": "ink"
+  },
+  "compare.wexer": {
+    "name": "Wexer",
+    "src": "/images/icons/compare/wexer.svg",
+    "tone": "ink"
+  },
+  "compare.radical": {
+    "name": "Radical Fitness",
+    "src": "/images/icons/compare/radical.svg",
+    "tone": "ink"
+  },
+  "compare.signage": {
+    "name": "Anthias",
+    "src": "/images/icons/compare/anthias.svg",
+    "tone": "ink"
   }
 }

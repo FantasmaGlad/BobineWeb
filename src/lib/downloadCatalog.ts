@@ -125,8 +125,8 @@ export function resolveDownload(req: DownloadRequest): ResolvedDownload {
     case "android":
       heading = "Android";
       targets = isEn
-        ? "Android tablets, Google Books and ARM64 kiosks (Snapdragon 8 Gen 2 and later, MediaTek Dimensity, Google Tensor)"
-        : "Tablettes Android, Google Books et bornes ARM64 (Snapdragon 8 Gen 2 et suivants, MediaTek Dimensity, Google Tensor)";
+        ? "Android tablets, Google Books and ARM64 kiosks"
+        : "Tablettes Android, Google Books et bornes ARM64";
       requirements = REQUIREMENTS.android[req.locale];
       format = ".apk (ARM64)";
       url = d.android;

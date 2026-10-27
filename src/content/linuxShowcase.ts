@@ -227,10 +227,10 @@ export const LINUX_SHOWCASE_CONTENT = {
       chipsLabel: "Architectures ciblées (matériel non validé) :",
     },
     chips: [
-      { name: "AMD Ryzen", note: "Zen 3/4/5, Ryzen AI 300, Radeon VA-API", icon: "chip.amd" as const },
-      { name: "Intel Core & N-Series", note: "Core Ultra, Gen 12–15, N100 / N305 QSV", icon: "chip.intel" as const },
-      { name: "Qualcomm Snapdragon", note: "ARM64 X Elite / X Plus, 8 Gen 2 / 8 Gen 3", icon: "chip.snapdragon" as const },
-      { name: "Framework & SBC ARM64", note: "Framework 13/16, Raspberry Pi 5, DGX Spark", icon: "os.framework" as const },
+      { name: "AMD Ryzen", note: "Zen 3/4/5, Ryzen AI, Radeon VA-API", icon: "chip.amd" as const },
+      { name: "Intel Core & N-Series", note: "Core Ultra, Gen 12–15, N-Series QSV", icon: "chip.intel" as const },
+      { name: "Qualcomm Snapdragon", note: "ARM64 X-Series, Bornes & Tablettes ARM", icon: "chip.snapdragon" as const },
+      { name: "Framework & SBC ARM64", note: "Framework 13/16, Bornes & Mini PC ARM", icon: "os.framework" as const },
     ],
     terminal: {
       sectionTag: "Installation Express & Dépôts",
@@ -334,10 +334,10 @@ export const LINUX_SHOWCASE_CONTENT = {
       chipsLabel: "Target architectures (hardware not validated):",
     },
     chips: [
-      { name: "AMD Ryzen", note: "Zen 3/4/5, Ryzen AI 300, Radeon VA-API", icon: "chip.amd" as const },
-      { name: "Intel Core & N-Series", note: "Core Ultra, Gen 12–15, N100 / N305 QSV", icon: "chip.intel" as const },
-      { name: "Qualcomm Snapdragon", note: "ARM64 X Elite / X Plus, 8 Gen 2 / 8 Gen 3", icon: "chip.snapdragon" as const },
-      { name: "Framework & ARM64 SBC", note: "Framework 13/16, Raspberry Pi 5, DGX Spark", icon: "os.framework" as const },
+      { name: "AMD Ryzen", note: "Zen 3/4/5, Ryzen AI, Radeon VA-API", icon: "chip.amd" as const },
+      { name: "Intel Core & N-Series", note: "Core Ultra, Gen 12–15, N-Series QSV", icon: "chip.intel" as const },
+      { name: "Qualcomm Snapdragon", note: "ARM64 X-Series, ARM Kiosks & Tablets", icon: "chip.snapdragon" as const },
+      { name: "Framework & ARM64 SBC", note: "Framework 13/16, ARM Kiosks & Mini PCs", icon: "os.framework" as const },
     ],
     terminal: {
       sectionTag: "Quick Installation & Repositories",

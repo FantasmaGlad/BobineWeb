@@ -32,7 +32,7 @@ const copy = {
       ctaNote: "Ce lien quitte le réseau Tor. Rien n'est ouvert automatiquement.",
     },
     docs: "Lire la documentation",
-    manifest: "Lire le manifeste",
+    download: "Télécharger Bobine",
     footer:
       "Tor protège votre adresse IP et le contenu du transport, pas vos habitudes de navigation. Bobine n'est pas affilié au Tor Project.",
   },
@@ -61,7 +61,7 @@ const copy = {
       ctaNote: "This link leaves the Tor network. Nothing opens automatically.",
     },
     docs: "Read the documentation",
-    manifest: "Read the manifesto",
+    download: "Download Bobine",
     footer:
       "Tor protects your IP address and the content of the transport, not your browsing habits. Bobine is not affiliated with the Tor Project.",
   },
@@ -106,8 +106,8 @@ export default function OnionMirrorNotice({
           <Link href={`/${locale}/documentation`} className="btn-primary">
             {t.docs}
           </Link>
-          <Link href={lp(locale, `/a-propos`)} className="btn-secondary">
-            {t.manifest}
+          <Link href={lp(locale, `/telechargement`)} className="btn-secondary">
+            {t.download}
           </Link>
         </div>
 

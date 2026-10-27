@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { ACTIVE_FILTER, frameworkFilter, normalizeResult } from "../../src/lib/rag/results.mjs";
+import { ACTIVE_FILTER, frameworkFilter, normalizeResult, plainSnippet } from "../../src/lib/rag/results.mjs";
 import { exportWeb } from "./export";
 import { documentRows } from "./sync";
 
@@ -34,4 +34,9 @@ test("l'import refuse une source vide, un doublon ou un secret et produit des em
   assert.throws(() => documentRows([])); assert.throws(() => documentRows([source,source]));
   assert.throws(() => documentRows([{...source,text:"-----BEGIN " + "PRIVATE KEY-----"}]));
   assert.notEqual(documentRows([source])[0].hash,documentRows([{...source,text:"modifié"}])[0].hash);
+});
+
+test("les extraits HTML sont lus par un parseur et ignorent les éléments exécutables", () => {
+  assert.equal(plainSnippet('<p>Guide <b>utile</b></p><script>alert(1)</script ><style>body{}</style>'), "Guide utile");
+  assert.equal(plainSnippet('<p>A &amp; B &#233;</p>'), "A & B é");
 });

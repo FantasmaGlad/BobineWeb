@@ -37,7 +37,7 @@ export async function searchBobineKnowledge(query: string, maxResults = 5): Prom
       servingConfig, query: query.slice(0, 4000), pageSize: Math.max(1, Math.min(10, maxResults)),
       filter: ACTIVE_FILTER,
       contentSearchSpec: { snippetSpec: { returnSnippet: true } },
-    }, { autoPaginate: false, timeout: 1400, retry: null }).then(([results]) => {
+    }, { autoPaginate: false, timeout: 2800, retry: null }).then(([results]) => {
       const snippets = results.map(normalizeResult).filter((s): s is NonNullable<typeof s> => s !== null);
       if (!snippets.length) return null;
       const products = snippets.filter(s => s.platform === "amazon" || s.platform === "aliexpress");
@@ -48,10 +48,11 @@ export async function searchBobineKnowledge(query: string, maxResults = 5): Prom
         hardwareCatalogSnippet: products.map(s => `- **${s.title}** : ${s.snippet}`).join("\n"),
       };
     });
-    const timeout = new Promise<null>(resolve => { timer = setTimeout(() => resolve(null), 1500); });
+    const timeout = new Promise<null>(resolve => { timer = setTimeout(() => resolve(null), 3000); });
     return await Promise.race([search, timeout]);
-  } catch {
-    console.warn("Recherche documentaire indisponible ; contexte local utilisé.");
+  } catch (error) {
+    const code = error instanceof Error && "code" in error ? error.code : "initialisation";
+    console.warn("Recherche documentaire indisponible ; contexte local utilisé.", { code });
     return null;
   } finally {
     if (timer) clearTimeout(timer);

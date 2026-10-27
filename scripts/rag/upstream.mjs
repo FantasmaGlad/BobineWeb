@@ -1,3 +1,4 @@
+import { plainSnippet } from "../../src/lib/rag/results.mjs";
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from "node:fs";
 import { join } from "node:path";
@@ -76,7 +77,7 @@ export async function exportUpstream(root, bobineRoot) {
     const response = await fetch(ref.url, { signal: AbortSignal.timeout(30000) });
     if (!response.ok) throw new Error(`Référence inaccessible : ${ref.url} HTTP ${response.status}`);
     const html = await response.text();
-    const text = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+    const text = plainSnippet(html);
     if (text.length < 1000) throw new Error(`Référence incomplète : ${ref.url}`);
     docs.push({ key: ref.url, framework: ref.framework, version: ref.version, locale: "en", platform: "doc",
       title: `Linux packaging — ${new URL(ref.url).hostname}`, source_url: ref.url, text,

@@ -1,3 +1,5 @@
+import { parseFragment } from "parse5";
+
 export const MANAGED_BY = "bobine-sync-v2";
 export const ACTIVE_FILTER = `managed_by: ANY("${MANAGED_BY}") AND active: ANY("true")`;
 export const FRAMEWORKS = ["tauri", "nextjs", "ffmpeg", "pydantic", "fastapi", "linux", "systemd"];
@@ -25,9 +27,13 @@ export function decodeStruct(struct) {
 }
 
 export function plainSnippet(text) {
-  return String(text).replace(/<[^>]*>/g, "").replace(/&#39;|&apos;/g, "'")
-    .replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">")
-    .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&");
+  function visit(node) {
+    if (["script", "style", "noscript", "template"].includes(node.nodeName)) return "";
+    if (node.nodeName === "#text") return node.value;
+    const content = (node.childNodes ?? []).map(visit).join("");
+    return ["p", "div", "li", "h1", "h2", "h3", "br", "tr"].includes(node.nodeName) ? ` ${content} ` : content;
+  }
+  return visit(parseFragment(String(text))).replace(/\s+/g, " ").trim();
 }
 
 export function normalizeResult(result) {

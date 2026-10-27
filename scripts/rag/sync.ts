@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { isDeepStrictEqual } from "node:util";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { writeFileSync } from "node:fs";
@@ -40,7 +41,7 @@ async function ensureSchema(store: string) {
   }
   schema.properties.title = { type: "string", retrievable: true, keyPropertyMapping: "title" };
   schema.properties.source_url = { type: "string", retrievable: true };
-  if (JSON.stringify(schema) === current.jsonSchema) return;
+  if (isDeepStrictEqual(schema, JSON.parse(current.jsonSchema))) return;
   await waitOperation(await request(`${storePath(store)}/schemas/default_schema`, {
     method: "PATCH", body: { name: current.name, jsonSchema: JSON.stringify(schema) },
   }));
@@ -48,7 +49,7 @@ async function ensureSchema(store: string) {
 async function probe(store: string, generation: string, framework?: string) {
   const filter = `${ACTIVE_FILTER} AND generation: ANY("${generation}")${framework ? ` AND framework: ANY("${framework}")` : ""}`;
   const result = await request(`${storePath(store)}/servingConfigs/default_search:search`, {
-    method: "POST", body: { query: framework || "Bobine", filter, pageSize: 3, contentSearchSpec: { snippetSpec: { returnSnippet: true } } },
+    method: "POST", body: { query: framework || "", filter, pageSize: 3, contentSearchSpec: { snippetSpec: { returnSnippet: true } } },
   });
   if (!result.results?.length) throw new Error(`Index pas encore interrogeable : ${store}${framework ? `/${framework}` : ""}`);
   for (const r of result.results) {

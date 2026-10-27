@@ -55,7 +55,7 @@
   }
 }
   </script>
-<script src="/assets/theme-init.js"></script><link rel="stylesheet" href="/assets/bobine-tokens.css"><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/bobine-controls.css"><script src="/assets/site.js" defer></script></head><body class="security-page"><a class="skip-link" href="#main">Aller au contenu</a><header class="site-header"><div class="site-header__inner"><a class="brand" href="https://bobine.fit/fr" aria-label="Bobine"><img src="/logo_bobine_entier.png" width="112" height="28" alt="Bobine"><span>Sécurité</span></a><button class="menu-btn" id="menuBtn" type="button" aria-controls="siteNav" aria-expanded="false" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button><nav class="header-nav" id="siteNav" aria-label="Navigation principale"><a href="https://bobine.fit/fr/documentation">Documentation</a><a href="https://bobine.fit/fr/securite">Politique</a><a href="/fr/">Signalement</a><a href="/fr/snake/">Snake</a>
+<script src="/assets/theme-init.js"></script><link rel="stylesheet" href="/assets/bobine-tokens.css"><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/bobine-controls.css"><script src="/assets/site.js" defer></script></head><body class="security-page"><a class="skip-link" href="#main">Aller au contenu</a><header class="site-header"><div class="site-header__inner"><a class="brand" href="https://bobine.fit/fr" aria-label="Bobine"><img src="/logo_bobine_entier.png" width="112" height="28" alt="Bobine"><span>Sécurité</span></a><button class="menu-btn" id="menuBtn" type="button" aria-controls="siteNav" aria-expanded="false" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button><nav class="header-nav" id="siteNav" aria-label="Navigation principale"><a href="https://bobine.fit/fr/documentation">Documentation</a><a href="/fr/#specs-heading">Politique</a><a href="/fr/">Signalement</a><a href="/fr/snake/">Snake</a>
           <div class="header-controls">
             <nav class="locale-switcher" aria-label="Langue / Language">
               <a class="locale-switcher__link" href="/" >EN</a>
@@ -194,11 +194,37 @@
           </tr>
           <tr>
             <th scope="row">Politique</th>
-            <td><a href="https://bobine.fit/fr/securite" target="_blank" rel="noopener noreferrer">bobine.fit/fr/securite</a> · <a href="https://github.com/FantasmaGlad/Bobine/blob/main/SECURITY.md" target="_blank" rel="noopener noreferrer">SECURITY.md</a></td>
+            <td><a href="/fr/">security.bobine.fit/fr/</a> · <a href="https://github.com/FantasmaGlad/Bobine/blob/main/SECURITY.md" target="_blank" rel="noopener noreferrer">SECURITY.md</a></td>
+          </tr>
+          <tr>
+            <th scope="row">Signalement privé</th>
+            <td><a href="https://github.com/FantasmaGlad/Bobine/security/advisories/new" target="_blank" rel="noopener noreferrer">GitHub Security Advisory</a></td>
           </tr>
           <tr>
             <th scope="row">Clé révoquée</th>
             <td><a href="https://github.com/FantasmaGlad/Bobine/blob/main/docs/security/revoked/bobine-security-8208FFD3F7AB4DD3-REVOKED.asc" target="_blank" rel="noopener noreferrer">8208 FFD3 F7AB 4DD3 (révoquée le 2026-10-07)</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Historique des bulletins et avis de sécurité -->
+    <section class="specs-section" aria-labelledby="bulletins-heading">
+      <h2 id="bulletins-heading" class="specs-section__title">Historique des bulletins &amp; avis de sécurité</h2>
+
+      <table class="specs-table">
+        <tbody>
+          <tr>
+            <th scope="row">2026-10-08</th>
+            <td>Publication du portail <code>security.bobine.fit</code> et enregistrement DNS <code>openpgp4fpr</code> · Vérification CI quotidienne active.</td>
+          </tr>
+          <tr>
+            <th scope="row">2026-10-07</th>
+            <td>Mise en service de la clé officielle de signalement <code>23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2</code> · Signature RFC 9116.</td>
+          </tr>
+          <tr>
+            <th scope="row">2026-10-07</th>
+            <td>Révocation préventive de la clé 8208FFD3 suite à un problème de phrase de passe (clé privée non compromise, aucun rapport reçu).</td>
           </tr>
         </tbody>
       </table>

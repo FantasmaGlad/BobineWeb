@@ -96,7 +96,7 @@ Bobine provides seamless compatibility across the distributions and hardware arc
 > [!NOTE]
 > **Independent Hardware Recommendations & Equipment Shop**: Bobine has **no commercial partnerships, sponsorships, or brand affiliations** with device manufacturers: these are strictly independent recommendations tested and proven for reliable 24/7 fitness studio and gym operations.
 >
-> **Recommendation Shop**: Explore our complete curated selection of tested playout units, cabling, and studio kits at [**bobine.fit/en/materiel**](https://bobine.fit/en/materiel).
+> **Recommendation Shop**: Explore our complete curated selection of tested playout units, cabling, and studio kits at [**bobine.fit/en/hardware/aliexpress**](https://bobine.fit/en/hardware/aliexpress).
 
 | System / Recommended Ecosystem | Description & Support Details | Official Website |
 | :--- | :--- | :---: |
@@ -137,7 +137,7 @@ Beyond operating system environments, here are the popular device categories and
   - **Google Books**: Chromebooks with Google Play Store and touch screen (HP Chromebook x360, Acer Spin, Lenovo Duet, ASUS Chromebook Flip).
   - **Apple**: iPad (10th gen, iPad Air, iPad Pro) via fullscreen Safari / PWA.
 
-> *Technical note: Find configuration guides, verified HDMI/USB-C cables, and wall-mount brackets in our [hardware recommendation shop](https://bobine.fit/en/materiel).*
+> *Technical note: Find configuration guides, verified HDMI/USB-C cables, and wall-mount brackets in our [hardware recommendation shop](https://bobine.fit/en/hardware/aliexpress).*
 
 #### 5. Supported Web Browsers
 | Browser | Engine | Support Status & Validation | Official Website |
@@ -163,7 +163,68 @@ Beyond operating system environments, here are the popular device categories and
 - **Verifiable security posture.** An OpenPGP-signed `security.txt` ([RFC 9116](https://www.rfc-editor.org/rfc/rfc9116)), a published report key whose fingerprint is checked daily across four independent channels, and a disclosure site hosted separately from the website.
 - **A delivery pipeline run by GitHub Actions**: validation, deployment and live tests are one workflow, and the host's own Git integration is switched off.
 
+## Page Structure & Navigation
+
+The routes on Bobine Web are organized modularly with bilingual routing (`/fr/` and `/en/`):
+
+| Route (EN) | Route (FR) | Description & Role |
+|---|---|---|
+| `/` | `/` | Homepage, fitness video playout showcase, Liquid Glass 16-theme switcher, and quick navigation. |
+| `/download` | `/telechargement` | Unified cross-platform V5.0.5 download hub (Windows x86-64 & ARM64 Snapdragon, macOS Apple Silicon, Android APK, Android TV APK, Linux packages, Bash CLI, Tor mirror) with channel switcher. |
+| `/resources` | `/ressources` | Interactive A-Z index of project resources, third-party libraries, fonts, components and licenses, featuring instant client-side search without page reload. |
+| `/features` | `/fonctionnalites` | Streamlined Google Documentation format (`.features-doc-list`) highlighting technical capabilities without visual clutter. |
+| `/comparisons` | `/comparatif` | Technical comparison matrix against existing fitness solutions (Wexer, Les Mills, Radical Fitness / Yako, standard signage) with crisp official vector brand logos (`BrandIcon`). |
+| `/hardware/aliexpress` | `/materiel/aliexpress` | Curated and field-tested AliExpress hardware selection (24/7 kiosk mini PCs, fanless units, coach tablets, cabling and adapters). |
+| `/hardware/amazon` | `/materiel/amazon` | Curated Amazon hardware selection, product specifications and studio kits. |
+| `/linux` | `/linux` | Dedicated Linux ecosystem hub, certified distributions (Debian, Ubuntu, Fedora, Arch Linux, Raspberry Pi OS), and copy-paste installation commands. |
+| `/channels` | `/canaux` | Detailed overview of the three release channels (Stable V5.0.5, Beta, Canary) and delivery cycles. |
+| `/blog` | `/blog` | Technical release notes and announcements for the three active channels (Stable V5.0.5, Beta, Canary), redirecting older history to GitHub Releases archives. |
+| `/baamix` | `/baamix` | Baamix interactive assistant for gym hardware sizing, setup and deployment recommendations. |
+| `/documentation` | `/documentation` | Comprehensive technical knowledge base (installation guides, studio operations, developer guide, and FAQ). |
+| `/privacy` | `/confidentialite` | Privacy policy and strict tracker-free guarantees (zero telemetry, zero marketing cookies). |
+| `/legal` | `/mentions-legales` | Legal notices and publisher information. |
+
+### Permanent SEO Redirects (HTTP 308)
+
+As part of the architecture cleanup, obsolete routes have been permanently removed and redirected via HTTP 308 in `next.config.ts`:
+- `/computer` (`/ordinateur`) → `/download` (`/telechargement`)
+- `/google-book` → `/download` (`/telechargement`)
+- `/android-tv` → `/download` (`/telechargement`)
+- `/whats-new` (`/nouveautes`) → `/blog`
+- `/security` (`/securite`) → `https://security.bobine.fit`
+
 ## Architecture
+
+### Bobine Ecosystem Constellation
+
+The Bobine ecosystem is distributed across a constellation of specialized, independent web properties sharing the Liquid Glass design system:
+
+- **Main Website (`bobine.fit`)**: Showcase, documentation, hardware catalog, three-tier blog, and the Baamix assistant. Built with Next.js 16 (App Router, Turbopack), React 19, and TypeScript.
+- **Package Portal (`packages.bobine.fit`)**: Official Linux repositories (Debian/Ubuntu APT, Fedora DNF/RPM, Arch Linux Pacman), official GPG key `bobine.gpg`, official channel badges (Stable, Beta, Canary), processor and browser logos, with Lavender as default theme.
+- **Security & Disclosure Portal (`security.bobine.fit`)**: Standalone static SSG site, RFC 9116 compliant (`/.well-known/security.txt`), official OpenPGP key (`security.asc` - fingerprint `23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2`), responsible disclosure policy, theme controls, and the classic Snake arcade game.
+- **Tor Sovereign Mirror (`.onion`)**: Clean static build of `bobine.fit` served over the Tor network without external requests or affiliate links, alongside its onion APT mirror repository.
+
+```mermaid
+flowchart TD
+  User["Users & Gym Playout Units"] --> Web["bobine.fit (Main Portal)"]
+  User --> Pkg["packages.bobine.fit (Linux Repos)"]
+  User --> Sec["security.bobine.fit (Security Portal)"]
+  User -.-> Tor["Tor Mirror .onion (Sovereign Access)"]
+
+  subgraph Constellation["Bobine Ecosystem Constellation"]
+    Web
+    Pkg
+    Sec
+    Tor
+  end
+
+  CI["GitHub Actions (CI/CD)"] --> Web
+  CI --> Pkg
+  CI --> Sec
+  CI --> Tor
+```
+
+### Technical Pipeline and Technology Choices
 
 ```mermaid
 flowchart LR
@@ -214,7 +275,7 @@ Production builds fetch `install.sh` from the latest published Stable release of
 
 ## Security
 
-Report vulnerabilities privately, never through a public issue: see [SECURITY.md](SECURITY.md) and <https://bobine.fit/en/security>. The report key fingerprint is `23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2`.
+Report vulnerabilities privately, never through a public issue: see [SECURITY.md](SECURITY.md) and <https://security.bobine.fit/>. The report key fingerprint is `23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2`.
 
 ## Contributing
 

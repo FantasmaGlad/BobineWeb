@@ -8,7 +8,7 @@ Version anglaise : [SECURITY.md](../../SECURITY.md).
 
 | Quoi | Où |
 |---|---|
-| Page de politique (périmètre, engagements, délais, historique des clés) | <https://bobine.fit/fr/securite> ([en](https://bobine.fit/en/security)) |
+| Page de politique (périmètre, engagements, délais, historique des clés) | <https://security.bobine.fit/fr/> ([en](https://security.bobine.fit)) |
 | Politique lisible par machine, signée OpenPGP ([RFC 9116](https://www.rfc-editor.org/rfc/rfc9116)) | <https://bobine.fit/.well-known/security.txt> |
 | Site de divulgation dédié, hébergé séparément du site | <https://security.bobine.fit> |
 | Politique du logiciel Bobine et du dépôt APT | [FantasmaGlad/Bobine, SECURITY.md](https://github.com/FantasmaGlad/Bobine/blob/main/SECURITY.md) |

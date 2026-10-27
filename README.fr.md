@@ -96,7 +96,7 @@ Bobine garantit une compatibilité totale et sans compromis sur l'ensemble des d
 > [!NOTE]
 > **Indépendance des recommandations & Boutique matérielle** : Bobine n'a **aucun partenariat commercial, sponsoring ou contrat de marque** avec les constructeurs : ce sont des recommandations matérielles strictement indépendantes et éprouvées sur le terrain pour la diffusion 24/7 en salle de sport et studio de fitness.
 >
-> **Boutique de recommandations** : Retrouvez l'ensemble de notre sélection d'appareils, câblages et kits régie testés sur [**bobine.fit/fr/materiel**](https://bobine.fit/fr/materiel).
+> **Boutique de recommandations** : Retrouvez l'ensemble de notre sélection d'appareils, câblages et kits régie testés sur [**bobine.fit/fr/materiel/aliexpress**](https://bobine.fit/fr/materiel/aliexpress).
 
 | Système / Écosystème Recommandé | Description & Prise en charge | Site officiel |
 | :--- | :--- | :---: |
@@ -137,7 +137,7 @@ En complément des systèmes d'exploitation, voici les catégories et marques d'
   - **Google Books** : Chromebooks avec Google Play Store et écran tactile (HP Chromebook x360, Acer Spin, Lenovo Duet, ASUS Chromebook Flip).
   - **Apple** : iPad (10e génération, iPad Air, iPad Pro) en affichage plein écran Safari / PWA.
 
-> *Note technique : Retrouvez les guides de configuration, kits de câblage HDMI/USB-C et supports muraux sur notre [boutique de recommandations matérielles](https://bobine.fit/fr/materiel).*
+> *Note technique : Retrouvez les guides de configuration, kits de câblage HDMI/USB-C et supports muraux sur notre [boutique de recommandations matérielles](https://bobine.fit/fr/materiel/aliexpress).*
 
 #### 5. Navigateurs Supportés
 | Navigateur | Moteur | Statut & Validation | Site officiel |
@@ -163,7 +163,68 @@ En complément des systèmes d'exploitation, voici les catégories et marques d'
 - **Une posture de sécurité vérifiable.** Un `security.txt` signé OpenPGP ([RFC 9116](https://www.rfc-editor.org/rfc/rfc9116)), une clé de réception des rapports dont l'empreinte est contrôlée chaque jour sur quatre canaux indépendants, et un site de divulgation hébergé séparément du site.
 - **Une chaîne de livraison conduite par GitHub Actions** : validation, déploiement et tests en direct forment un seul workflow, et l'intégration Git de l'hébergeur est désactivée.
 
+## Arborescence et organisation des pages
+
+L'arborescence des routes de Bobine Web est structurée de façon modulaire et bilingue (`/fr/` et `/en/`) :
+
+| Route (FR) | Route (EN) | Description & Rôle |
+|---|---|---|
+| `/` | `/` | Page d'accueil, vitrine du lecteur vidéo pour salles de sport, sélecteur de thème Liquid Glass (16 thèmes) et accès rapide. |
+| `/telechargement` | `/download` | Hub unifié de téléchargement multi-plateforme V5.0.5 (Windows x86-64 & ARM64 Snapdragon, macOS Apple Silicon, Android APK, Android TV APK, paquets Linux, CLI Bash, miroir Tor) avec choix de canal. |
+| `/ressources` | `/resources` | Index alphabétique interactif A-Z des ressources, bibliothèques, polices, composants et licences, avec barre de recherche instantanée sans rechargement de page. |
+| `/fonctionnalites` | `/features` | Présentation épurée au format Google Documentation (`.features-doc-list`), axée sur la lisibilité technique sans éléments superflus. |
+| `/comparatif` | `/comparisons` | Matrice comparative technique face aux solutions logicielles et matérielles du marché (Wexer, Les Mills, Radical Fitness / Yako, affichage dynamique classique) avec logos vectoriels officiels (`BrandIcon`). |
+| `/materiel/aliexpress` | `/hardware/aliexpress` | Sélection matérielle AliExpress testée et validée (mini-PC kiosques 24/7, boîtiers fanless, tablettes pupitre, câblage et adaptateurs). |
+| `/materiel/amazon` | `/hardware/amazon` | Sélection matérielle Amazon testée et validée, fiches produits et kits régie. |
+| `/linux` | `/linux` | Hub dédié à l'écosystème Linux, distributions certifiées (Debian, Ubuntu, Fedora, Arch Linux, Raspberry Pi OS) et commandes d'installation prêtes à l'emploi. |
+| `/canaux` | `/channels` | Guide des trois canaux de publication (Stable V5.0.5, Bêta, Canary) et de leurs cycles de livraison. |
+| `/blog` | `/blog` | Journal technique et publications des trois canaux actifs (Stable V5.0.5, Bêta, Canary), avec redirection vers les archives complètes des Releases GitHub. |
+| `/baamix` | `/baamix` | Interface de l'assistant Baamix pour le dimensionnement, l'installation et le choix du matériel régie. |
+| `/documentation` | `/documentation` | Base de connaissances technique complète (guides d'installation, utilisation en salle, guide développeurs et FAQ). |
+| `/confidentialite` | `/privacy` | Politique de confidentialité et engagements stricts de respect de la vie privée (zéro traceur, zéro cookie publicitaire). |
+| `/mentions-legales` | `/legal` | Mentions légales et informations éditoriales. |
+
+### Redirections permanentes SEO (HTTP 308)
+
+Conformément à la restructuration du site, les anciennes routes obsolètes sont définitivement supprimées et redirigées en HTTP 308 dans `next.config.ts` :
+- `/ordinateur` (`/computer`) → `/telechargement` (`/download`)
+- `/google-book` → `/telechargement` (`/download`)
+- `/android-tv` → `/telechargement` (`/download`)
+- `/nouveautes` (`/whats-new`) → `/blog`
+- `/securite` (`/security`) → `https://security.bobine.fit`
+
 ## Architecture
+
+### Constellation de l'écosystème Bobine
+
+L'écosystème Bobine s'articule autour d'une constellation de plateformes indépendantes et spécialisées, unifiées par le même design system Liquid Glass :
+
+- **Portail principal (`bobine.fit`)** : Vitrine, documentation, catalogue matériel, blog trois canaux et assistant Baamix. Réalisé avec Next.js 16 (App Router, Turbopack), React 19 et TypeScript.
+- **Portail des paquets (`packages.bobine.fit`)** : Dépôts officiels Linux (Debian/Ubuntu APT, Fedora DNF/RPM, Arch Linux Pacman), clé GPG officielle `bobine.gpg`, badges de canaux officiels (Stable, Bêta, Canary), logos des puces et des navigateurs, avec thème Lavande par défaut.
+- **Portail de sécurité & divulgation (`security.bobine.fit`)** : Site statique SSG dédié, conforme RFC 9116 (`/.well-known/security.txt`), clé PGP officielle (`security.asc` - empreinte `23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2`), politique de divulgation responsable et jeu historique Snake.
+- **Miroir souverain Tor (`.onion`)** : Version statique de `bobine.fit` pour le réseau Tor, sans ressource externe ni lien marchand, accompagnée de son dépôt APT miroir accessible via Tor.
+
+```mermaid
+flowchart TD
+  User["Utilisateurs et régies"] --> Web["bobine.fit (Portail principal)"]
+  User --> Pkg["packages.bobine.fit (Dépôts Linux)"]
+  User --> Sec["security.bobine.fit (Portail sécurité)"]
+  User -.-> Tor["Miroir Tor .onion (Accès souverain)"]
+
+  subgraph Constellation["Constellation Écosystème Bobine"]
+    Web
+    Pkg
+    Sec
+    Tor
+  end
+
+  CI["GitHub Actions (CI/CD)"] --> Web
+  CI --> Pkg
+  CI --> Sec
+  CI --> Tor
+```
+
+### Pipeline technique et choix technologiques
 
 ```mermaid
 flowchart LR
@@ -212,7 +273,7 @@ npm run dev                  # http://localhost:3000
 
 ## Sécurité
 
-Signalez les vulnérabilités en privé, jamais par ticket public : voir [SECURITY.md](docs/fr/SECURITY.md) et <https://bobine.fit/fr/securite>. L'empreinte de la clé de réception est `23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2`.
+Signalez les vulnérabilités en privé, jamais par ticket public : voir [SECURITY.md](docs/fr/SECURITY.md) et <https://security.bobine.fit/fr/>. L'empreinte de la clé de réception est `23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2`.
 
 ## Contribuer
 

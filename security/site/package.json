@@ -1,0 +1,22 @@
+{
+  "name": "security-bobine",
+  "version": "5.0.5",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build --webpack",
+    "check": "bash ../../scripts/ci/check-security-site.sh"
+  },
+  "dependencies": {
+    "next": "^16.4.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  }
+}

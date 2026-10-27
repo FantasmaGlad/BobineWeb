@@ -52,6 +52,8 @@ import re, sys, pathlib
 root = pathlib.Path(sys.argv[1])
 bad = 0
 for page in root.rglob("*.html"):
+    if any(part.startswith(".") or part in ("node_modules", "out") for part in page.relative_to(root).parts[:-1]):
+        continue
     html = page.read_text(encoding="utf-8")
     if not re.match(r"\s*<!doctype html>", html, re.I):
         print(f"::error::{page} : doctype absent"); bad = 1

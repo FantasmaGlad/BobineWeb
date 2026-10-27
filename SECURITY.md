@@ -8,7 +8,7 @@ French version: [docs/fr/SECURITY.md](docs/fr/SECURITY.md).
 
 | What | Where |
 |---|---|
-| Policy page (scope, commitments, timelines, history of keys) | <https://bobine.fit/en/security> ([fr](https://bobine.fit/fr/securite)) |
+| Policy page (scope, commitments, timelines, history of keys) | <https://security.bobine.fit> ([fr](https://security.bobine.fit/fr/)) |
 | Machine-readable policy, OpenPGP-signed ([RFC 9116](https://www.rfc-editor.org/rfc/rfc9116)) | <https://bobine.fit/.well-known/security.txt> |
 | Dedicated disclosure site, hosted separately from the website | <https://security.bobine.fit> |
 | Policy of the Bobine software and of the APT repository | [FantasmaGlad/Bobine, SECURITY.md](https://github.com/FantasmaGlad/Bobine/blob/main/SECURITY.md) |

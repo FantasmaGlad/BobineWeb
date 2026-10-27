@@ -1,0 +1,112 @@
+{
+  "format": 1,
+  "note": "Next.js et Tauri suivent les verrous du projet. Python : cibles documentaires explicites, dont Android. FFmpeg/systemd : références versionnées ; les versions déployées varient selon l’OS. Tauri-docs est un instantané figé compatible avec la majeure 2, sans promesse d’alignement exact sur un patch du runtime.",
+  "sources": [
+    {
+      "framework": "nextjs",
+      "version": "16.4.2",
+      "repo": "https://github.com/vercel/next.js.git",
+      "ref": "refs/tags/v16.4.2",
+      "paths": [
+        "docs"
+      ],
+      "commit": "2864b1772c37242a9b40ab4d366eb7d368c2a070"
+    },
+    {
+      "framework": "tauri",
+      "version": "2.12.4",
+      "repo": "https://github.com/tauri-apps/tauri-docs.git",
+      "ref": "HEAD",
+      "paths": [
+        "src/content/docs"
+      ],
+      "commit": "ec113a503f1c195e3ccfda705f3f5cfe608093bd"
+    },
+    {
+      "framework": "ffmpeg",
+      "version": "8.0.1",
+      "repo": "https://github.com/FFmpeg/FFmpeg.git",
+      "ref": "refs/tags/n8.0.1",
+      "paths": [
+        "doc/ffmpeg.texi",
+        "doc/ffprobe.texi",
+        "doc/encoders.texi",
+        "doc/decoders.texi",
+        "doc/filters.texi",
+        "doc/hwaccels.texi"
+      ],
+      "commit": "894da5ca7d742e4429ffb2af534fcda0103ef593"
+    },
+    {
+      "framework": "pydantic",
+      "version": "1.10.26",
+      "repo": "https://github.com/pydantic/pydantic.git",
+      "ref": "refs/tags/v1.10.26",
+      "paths": [
+        "docs"
+      ],
+      "commit": "d771df98f3194ea2695a6a893e318b32381032c3"
+    },
+    {
+      "framework": "pydantic",
+      "version": "2.14.1",
+      "repo": "https://github.com/pydantic/pydantic.git",
+      "ref": "refs/tags/v2.14.1",
+      "paths": [
+        "docs"
+      ],
+      "commit": "b2212c787fb5c73386dc770681ec49cd09da8e73"
+    },
+    {
+      "framework": "fastapi",
+      "version": "0.99.1",
+      "repo": "https://github.com/fastapi/fastapi.git",
+      "ref": "refs/tags/0.99.1",
+      "paths": [
+        "docs/en/docs"
+      ],
+      "commit": "dd4e78ca7b09abdf0d4646fe4697316c021a8b2e"
+    },
+    {
+      "framework": "fastapi",
+      "version": "0.143.3",
+      "repo": "https://github.com/fastapi/fastapi.git",
+      "ref": "refs/tags/0.143.3",
+      "paths": [
+        "docs/en/docs"
+      ],
+      "commit": "bb7f314287bf36e04539c572a2256d94ea45f0d6"
+    },
+    {
+      "framework": "systemd",
+      "version": "259",
+      "repo": "https://github.com/systemd/systemd.git",
+      "ref": "refs/tags/v259",
+      "paths": [
+        "man/systemd.service.xml",
+        "man/systemd.unit.xml",
+        "man/systemd.timer.xml",
+        "man/systemctl.xml",
+        "man/journalctl.xml"
+      ],
+      "commit": "9ca433482f2281d71718718705ca8cd3bf562ad6"
+    }
+  ],
+  "references": [
+    {
+      "framework": "linux",
+      "version": "reference",
+      "url": "https://www.debian.org/doc/debian-policy/"
+    },
+    {
+      "framework": "linux",
+      "version": "reference",
+      "url": "https://docs.fedoraproject.org/en-US/packaging-guidelines/"
+    },
+    {
+      "framework": "linux",
+      "version": "reference",
+      "url": "https://wiki.archlinux.org/title/PKGBUILD"
+    }
+  ]
+}

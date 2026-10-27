@@ -10,7 +10,7 @@ const copy = {
     badge: "Transparence & Cadre Légal",
     title: "Mentions Légales",
     subtitle: "Informations légales relatives à l'éditeur, à l'hébergement, au rôle du site dans les achats de matériel et aux droits d'utilisation du projet open-source Bobine.",
-    updated: "Dernière mise à jour : 25 octobre 2026",
+    updated: "Dernière mise à jour : 27 octobre 2026",
     sections: [
       {
         heading: "1. Éditeur du Site & Direction de la Publication",
@@ -40,7 +40,7 @@ const copy = {
         heading: "5. Informations sur les Produits & Assistant Baamix",
         body: "Les prix, disponibilités et caractéristiques affichés sont donnés à titre indicatif. Les prix Amazon sont des prix constatés à la date indiquée. Les prix AliExpress sont récupérés automatiquement et affichés « à partir de » : ils correspondent à la variante la moins chère de l'annonce et peuvent varier selon la configuration, le pays de livraison ou les promotions. Seule la fiche du vendeur fait foi.",
         contact: "Les suggestions de matériel reflètent la sélection éditoriale du site et ne constituent ni une garantie de compatibilité ni un conseil personnalisé engageant son auteur : vérifiez la compatibilité avec votre installation avant tout achat.",
-        subtext: "Baamix est un assistant fondé sur l'intelligence artificielle. Il peut se tromper : ses réponses n'ont aucune valeur contractuelle et doivent être vérifiées avec la documentation et la fiche du vendeur.",
+        subtext: "Baamix utilise Hugging Face pour générer ses réponses et peut interroger Google Cloud Vertex AI Search pour retrouver la documentation pertinente. Il peut se tromper : ses réponses n'ont aucune valeur contractuelle et doivent être vérifiées avec la documentation et la fiche du vendeur.",
       },
       {
         heading: "6. Liens d'Affiliation & Soutien au Projet Libre",
@@ -54,7 +54,7 @@ const copy = {
     badge: "Transparency & Legal Framework",
     title: "Legal Notice",
     subtitle: "Legal information regarding the publisher, hosting, the site's role in hardware purchases, and the terms of use of the open-source Bobine project.",
-    updated: "Last updated: 25 October 2026",
+    updated: "Last updated: 27 October 2026",
     sections: [
       {
         heading: "1. Site Publisher & Publication Director",
@@ -84,7 +84,7 @@ const copy = {
         heading: "5. Product Information & the Baamix Assistant",
         body: "Prices, availability and specifications are indicative. Amazon prices are prices observed on the stated date. AliExpress prices are retrieved automatically and shown as \"from\": they match the cheapest variant of the listing and may vary with configuration, delivery country or promotions. Only the seller's product page is authoritative.",
         contact: "Hardware suggestions reflect the site's editorial selection and are neither a compatibility guarantee nor personalised advice binding its author: check compatibility with your installation before any purchase.",
-        subtext: "Baamix is an assistant based on artificial intelligence. It can be wrong: its answers have no contractual value and should be checked against the documentation and the seller's product page.",
+        subtext: "Baamix uses Hugging Face to generate its answers and may query Google Cloud Vertex AI Search to retrieve relevant documentation. It can be wrong: its answers have no contractual value and should be checked against the documentation and the seller's product page.",
       },
       {
         heading: "6. Affiliate Links & Open-Source Sponsorship",

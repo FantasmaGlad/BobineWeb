@@ -120,7 +120,8 @@ async function sync(corpus: string, sources: SourceDocument[]) {
       const uri = (doc.content as { uri: string }).uri;
       if (await readObject(uri.replace(`gs://${bucket}/`, "")) === null) throw new Error("Source GCS manquante : reprise refusée");
     }
-    let retry = pending?.retryOperation ? await request(`https://discoveryengine.googleapis.com/v1/${pending.retryOperation}`) : null;
+    const previousRetry = pending?.generation === generation && pending?.operation === operation.name ? pending.retryOperation : null;
+    let retry = previousRetry ? await request(`https://discoveryengine.googleapis.com/v1/${previousRetry}`) : null;
     if (!retry) {
       const key = `sync-v2/imports/${corpus}/${generation}-retry.jsonl`;
       await writeObject(key, failed.map(d => JSON.stringify(d)).join("\n") + "\n", "application/x-ndjson");

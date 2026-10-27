@@ -73,24 +73,6 @@
       "footer": "download"
     },
     {
-      "id": "computer",
-      "path": "/ordinateur",
-      "kind": "leaf",
-      "label": {
-        "fr": "Ordinateur (PC & Mac)",
-        "en": "Computer (PC & Mac)"
-      },
-      "description": {
-        "fr": "Installateur pour Windows et macOS, en 64 bits et ARM64.",
-        "en": "Installer for Windows and macOS, 64-bit and ARM64."
-      },
-      "priority": 0.9,
-      "changeFrequency": "weekly",
-      "parent": "download",
-      "icon": "brand:os.windows",
-      "footer": "download"
-    },
-    {
       "id": "linux",
       "path": "/linux",
       "kind": "leaf",
@@ -106,42 +88,6 @@
       "changeFrequency": "weekly",
       "parent": "download",
       "icon": "brand:os.linux",
-      "footer": "download"
-    },
-    {
-      "id": "androidtv",
-      "path": "/android-tv",
-      "kind": "leaf",
-      "label": {
-        "fr": "Android TV",
-        "en": "Android TV"
-      },
-      "description": {
-        "fr": "Application pour boîtiers Android TV et Google TV.",
-        "en": "App for Android TV and Google TV boxes."
-      },
-      "priority": 0.9,
-      "changeFrequency": "weekly",
-      "parent": "download",
-      "icon": "brand:os.androidtv",
-      "footer": "download"
-    },
-    {
-      "id": "googlebook",
-      "path": "/google-book",
-      "kind": "leaf",
-      "label": {
-        "fr": "Google Book",
-        "en": "Google Book"
-      },
-      "description": {
-        "fr": "Bobine sur Google Book et tablettes Android.",
-        "en": "Bobine on Google Book and Android tablets."
-      },
-      "priority": 0.9,
-      "changeFrequency": "weekly",
-      "parent": "download",
-      "icon": "brand:os.googlebook",
       "footer": "download"
     },
     {
@@ -414,24 +360,6 @@
       "dynamicChildren": true
     },
     {
-      "id": "news",
-      "path": "/nouveautes",
-      "kind": "leaf",
-      "label": {
-        "fr": "Nouveautés",
-        "en": "What's new"
-      },
-      "description": {
-        "fr": "La chronologie des dernières versions.",
-        "en": "The timeline of the latest releases."
-      },
-      "priority": 0.9,
-      "changeFrequency": "daily",
-      "parent": "resources",
-      "icon": "icon:zap",
-      "footer": "resources"
-    },
-    {
       "id": "channels",
       "path": "/canaux",
       "kind": "hub",
@@ -500,60 +428,6 @@
       "icon": "icon:terminal"
     },
     {
-      "id": "about",
-      "path": "/a-propos",
-      "kind": "leaf",
-      "label": {
-        "fr": "À propos",
-        "en": "About"
-      },
-      "description": {
-        "fr": "Le projet, son auteur et sa licence libre.",
-        "en": "The project, its author and its free licence."
-      },
-      "priority": 0.8,
-      "changeFrequency": "monthly",
-      "parent": "resources",
-      "icon": "icon:globe",
-      "footer": "project"
-    },
-    {
-      "id": "support",
-      "path": "/soutenir",
-      "kind": "leaf",
-      "label": {
-        "fr": "Soutenir le projet",
-        "en": "Support the project"
-      },
-      "description": {
-        "fr": "Contribuer ou soutenir le développement de Bobine.",
-        "en": "Contribute to or support the development of Bobine."
-      },
-      "priority": 0.7,
-      "changeFrequency": "monthly",
-      "parent": "resources",
-      "icon": "icon:send",
-      "footer": "project"
-    },
-    {
-      "id": "security",
-      "path": "/securite",
-      "kind": "leaf",
-      "label": {
-        "fr": "Sécurité",
-        "en": "Security"
-      },
-      "description": {
-        "fr": "Signalement de vulnérabilités et clé de signature.",
-        "en": "Vulnerability reporting and signing key."
-      },
-      "priority": 0.4,
-      "changeFrequency": "yearly",
-      "parent": "resources",
-      "icon": "icon:shield",
-      "footer": "legal"
-    },
-    {
       "id": "legal",
       "path": "/mentions-legales",
       "kind": "leaf",
@@ -585,24 +459,6 @@
       "priority": 0.3,
       "changeFrequency": "yearly",
       "parent": "home",
-      "footer": "legal"
-    },
-    {
-      "id": "credits",
-      "path": "/credits",
-      "kind": "leaf",
-      "label": {
-        "fr": "Crédits des images",
-        "en": "Image credits"
-      },
-      "description": {
-        "fr": "Sources des illustrations, captures et démonstrations.",
-        "en": "Sources of illustrations, screenshots and demonstrations."
-      },
-      "priority": 0.3,
-      "changeFrequency": "monthly",
-      "parent": "resources",
-      "icon": "icon:video",
       "footer": "legal"
     }
   ]

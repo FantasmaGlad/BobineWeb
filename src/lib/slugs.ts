@@ -23,12 +23,6 @@ export const EN_SLUG_MAP: Record<string, string> = {
   "/canaux/stable": "/channels/stable",
   "/canaux/beta": "/channels/beta",
   "/canaux/canary": "/channels/canary",
-  "/nouveautes": "/whats-new",
-  "/a-propos": "/about",
-  "/credits": "/credits",
-  "/soutenir": "/support",
   "/mentions-legales": "/legal-notice",
   "/confidentialite": "/privacy",
-  "/securite": "/security",
-  "/ordinateur": "/computer",
 };

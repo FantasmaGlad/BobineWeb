@@ -7,6 +7,8 @@ import { exportWeb, type SourceDocument } from "./export";
 import { exportUpstream } from "./upstream.mjs";
 import { request, readObject, writeObject, storePath, waitOperation, bucket } from "./cloud.mjs";
 import { ACTIVE_FILTER, MANAGED_BY } from "../../src/lib/rag/results.mjs";
+/** Préfixe des objets Cloud Storage ; RAG_PREFIX et RAG_WEB_STORE permettent un essai sur un index jetable sans toucher à la production. */
+const PREFIX = process.env.RAG_PREFIX || "sync-v2";
 const root = resolve(fileURLToPath(new URL("../..", import.meta.url)));
 const bobineRoot = resolve(process.env.BOBINE_SOURCE_DIR || [resolve(root, "../Bobine"), resolve(root, "../../Bobine")].find(existsSync) || resolve(root, "../Bobine"));
 const hash = (s: string) => createHash("sha256").update(s).digest("hex");
@@ -77,8 +79,8 @@ export function retryableDocuments(complete: { metadata?: { failureCount?: strin
 async function sync(corpus: string, sources: SourceDocument[]) {
   const rows = documentRows(sources);
   const generation = hash(rows.map(r => r.hash).join("\n")).slice(0, 32);
-  const store = corpus === "web" ? "bobine-web-store" : "bobine-frameworks-store";
-  const stateKey = `sync-v2/state/${corpus}.json`;
+  const store = corpus === "web" ? (process.env.RAG_WEB_STORE || "bobine-web-store") : (process.env.RAG_FRAMEWORKS_STORE || "bobine-frameworks-store");
+  const stateKey = `${PREFIX}/state/${corpus}.json`;
   const previous = await readObject(stateKey);
   const frameworks = [...new Set(sources.map(s => s.framework).filter(Boolean))] as string[];
   if (previous?.generation === generation) {
@@ -86,7 +88,7 @@ async function sync(corpus: string, sources: SourceDocument[]) {
     console.log(`${corpus} : inchangé, recherche vérifiée (${rows.length} documents)`);
     return;
   }
-  const pendingKey = `sync-v2/state/${corpus}.pending.json`;
+  const pendingKey = `${PREFIX}/state/${corpus}.pending.json`;
   const pending = await readObject(pendingKey);
   let operation = pending?.generation === generation
     ? await request(`https://discoveryengine.googleapis.com/v1/${pending.operation}`) : null;
@@ -94,13 +96,13 @@ async function sync(corpus: string, sources: SourceDocument[]) {
     await ensureSchema(store);
     const documents: Record<string, unknown>[] = [];
     await parallel(rows, async row => {
-      const object = `sync-v2/content/${corpus}/${row.hash}.txt`;
+      const object = `${PREFIX}/content/${corpus}/${row.hash}.txt`;
       if (!previous?.hashes?.includes(row.hash)) await writeObject(object, row.text, "text/plain; charset=utf-8");
       documents.push({ id: row.id, structData: { ...row.meta, active: "true", managed_by: MANAGED_BY, generation },
         content: { mimeType: "text/plain", uri: `gs://${bucket}/${object}` } });
     });
     documents.sort((a, b) => String(a.id).localeCompare(String(b.id)));
-    const manifestKey = `sync-v2/imports/${corpus}/${generation}.jsonl`;
+    const manifestKey = `${PREFIX}/imports/${corpus}/${generation}.jsonl`;
     await writeObject(manifestKey, documents.map(d => JSON.stringify(d)).join("\n") + "\n", "application/x-ndjson");
     operation = await request(`${storePath(store)}/branches/default_branch/documents:import`, {
       method: "POST", body: { gcsSource: { inputUris: [`gs://${bucket}/${manifestKey}`], dataSchema: "document" }, reconciliationMode: "INCREMENTAL" },
@@ -111,7 +113,7 @@ async function sync(corpus: string, sources: SourceDocument[]) {
   const complete = await waitOperation(operation, { allowPartial: true });
   const allDocuments = rows.map(row => ({ id: row.id,
     structData: { ...row.meta, active: "true", managed_by: MANAGED_BY, generation },
-    content: { mimeType: "text/plain", uri: `gs://${bucket}/sync-v2/content/${corpus}/${row.hash}.txt` } }));
+    content: { mimeType: "text/plain", uri: `gs://${bucket}/${PREFIX}/content/${corpus}/${row.hash}.txt` } }));
   const failed = retryableDocuments(complete, allDocuments);
   let recovered = 0;
   let retryOperationName: string | undefined;
@@ -123,7 +125,7 @@ async function sync(corpus: string, sources: SourceDocument[]) {
     const previousRetry = pending?.generation === generation && pending?.operation === operation.name ? pending.retryOperation : null;
     let retry = previousRetry ? await request(`https://discoveryengine.googleapis.com/v1/${previousRetry}`) : null;
     if (!retry) {
-      const key = `sync-v2/imports/${corpus}/${generation}-retry.jsonl`;
+      const key = `${PREFIX}/imports/${corpus}/${generation}-retry.jsonl`;
       await writeObject(key, failed.map(d => JSON.stringify(d)).join("\n") + "\n", "application/x-ndjson");
       retry = await request(`${storePath(store)}/branches/default_branch/documents:import`, { method: "POST", body: {
         gcsSource: { inputUris: [`gs://${bucket}/${key}`], dataSchema: "document" }, reconciliationMode: "INCREMENTAL",

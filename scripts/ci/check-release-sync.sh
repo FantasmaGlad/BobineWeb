@@ -57,12 +57,16 @@ if [ -z "$stable_tag" ]; then
   err "Stable : aucune release stable publiée"
 else
   check_channel "Stable" "$stable_tag" "${stable_tag#V}"
+  # A development branch may advance before the next Stable is published.
+  # The immutable source of the published release is its own tag.
+  tagged_version=$(api "contents/VERSION?ref=$stable_tag" | jq -r '.content' | base64 --decode | tr -d '[:space:]')
   source_version=$(api "contents/VERSION?ref=main" | jq -r '.content' | base64 --decode | tr -d '[:space:]')
-  [[ "$source_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || err "VERSION Bobine illisible"
-  [ "$stable_tag" = "V$source_version" ] || err "Stable publiée $stable_tag différente de Bobine/VERSION ($source_version)"
   announced=$(curl -fsS --retry 3 --max-time 30 https://bobine.fit/latest.json | jq -r '.latest_stable')
-  [ "$announced" = "$stable_tag" ] || err "Stable annoncée $announced différente de la release $stable_tag"
-  echo "Stable annoncée, release et VERSION : $stable_tag"
+  jq -n --arg stableTag "$stable_tag" --arg taggedVersion "$tagged_version" \
+    --arg developmentVersion "$source_version" --arg announced "$announced" \
+    '{stableTag: $stableTag, taggedVersion: $taggedVersion, developmentVersion: $developmentVersion, announced: $announced}' \
+    | node scripts/ci/release-version-policy.mjs || fail=1
+  echo "Stable publiée : $stable_tag ; VERSION au tag : $tagged_version ; développement : $source_version"
   fallback="$(sed -n 's/^  version: "\(V[0-9.]*\)",$/\1/p' src/lib/releaseFallbacks.ts | head -n1)"
   if [ "$fallback" != "$stable_tag" ]; then
     echo "::warning::liens de repli du site (src/lib/releaseFallbacks.ts) sur $fallback alors que la Stable publiée est $stable_tag"

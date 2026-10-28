@@ -604,8 +604,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
     fedora: {
       title: isEn ? "Bobine for Fedora and derivatives (.rpm package — x86_64 & ARM64)" : "Bobine pour Fedora et dérivés (Paquet .rpm — x86_64 & ARM64)",
       desc: isEn
-        ? "Native package and dnf repository for Fedora, Nobara and, through EPEL, RHEL, AlmaLinux and Rocky Linux, on x86_64 and aarch64."
-        : "Paquet natif et dépôt dnf pour Fedora, Nobara et, via EPEL, RHEL, AlmaLinux et Rocky Linux, en x86_64 et aarch64.",
+        ? "Native package and dnf repository for Fedora, Nobara and, through EPEL, RHEL, AlmaLinux and Rocky Linux 10 or newer (not covered by CI), on x86_64 and aarch64."
+        : "Paquet natif et dépôt dnf pour Fedora, Nobara et, via EPEL, RHEL, AlmaLinux et Rocky Linux 10 ou plus récent (non couverts par la CI), en x86_64 et aarch64.",
     },
     arch: {
       title: isEn ? "Bobine for Arch Linux and derivatives (pacman package — x86_64 & ARM64)" : "Bobine pour Arch Linux et dérivés (Paquet pacman — x86_64 & ARM64)",
@@ -1035,12 +1035,12 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           <div className="docs-callout docs-callout--info dx-div-15">
             <div className="docs-callout__content">
               <div className="docs-callout__title">
-                {isEn ? "Apple Silicon Architecture & Intel Mac Roadmap" : "Architecture Apple Silicon & Précision Mac Intel"}
+                {isEn ? "Apple Silicon Architecture & Intel Macs" : "Architecture Apple Silicon & Précision Mac Intel"}
               </div>
               <div>
                 {isEn
-                  ? "Bobine is compiled natively for Apple Silicon Macs (MacBook Air, MacBook Pro, Mac mini, Mac Studio with M1, M2, M3, or M4). Native support for legacy Intel Macs (x86_64) is undergoing validation and will be released in an upcoming update."
-                  : "Bobine est optimisé nativement pour les Mac Apple Silicon (MacBook, Mac mini, iMac équipés de puces M1, M2, M3 ou M4). La compatibilité native avec les anciens processeurs Mac Intel (x86_64) arrivera lors d'une prochaine mise à jour."}
+                  ? "Bobine is compiled natively for Apple Silicon Macs (MacBook Air, MacBook Pro, Mac mini, Mac Studio with M1, M2, M3, or M4). Intel Macs (x86_64) are not covered: no Intel build is published."
+                  : "Bobine est optimisé nativement pour les Mac Apple Silicon (MacBook, Mac mini, iMac équipés de puces M1, M2, M3 ou M4). Les Mac Intel (x86_64) ne sont pas couverts : aucun build Intel n'est publié."}
               </div>
             </div>
           </div>

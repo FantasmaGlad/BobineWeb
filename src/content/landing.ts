@@ -711,7 +711,7 @@ linux: {
           icon: "layers",
           bullets: [
             "Debian, Ubuntu, Linux Mint, Pop!_OS, Zorin OS : paquet .deb, dépôt APT packages.bobine.fit/debian, mises à jour avec apt upgrade.",
-            "Fedora, Nobara, RHEL, AlmaLinux, Rocky Linux : paquet .rpm, dépôt dnf packages.bobine.fit/fedora, mises à jour avec dnf upgrade.",
+            "Fedora, Nobara, RHEL 10+, AlmaLinux 10+, Rocky Linux 10+ : paquet .rpm, dépôt dnf packages.bobine.fit/fedora, mises à jour avec dnf upgrade.",
             "Arch Linux, EndeavourOS, CachyOS, Manjaro : paquet pacman, dépôt packages.bobine.fit/arch, mises à jour avec pacman -Syu.",
             "Les trois dépôts publient les canaux Stable, Bêta et Canary, signés par la même clé GPG.",
           ],
@@ -813,7 +813,7 @@ linux: {
           icon: "layers",
           bullets: [
             "Debian, Ubuntu, Linux Mint, Pop!_OS, Zorin OS: .deb package, APT repository packages.bobine.fit/debian, updates with apt upgrade.",
-            "Fedora, Nobara, RHEL, AlmaLinux, Rocky Linux: .rpm package, dnf repository packages.bobine.fit/fedora, updates with dnf upgrade.",
+            "Fedora, Nobara, RHEL 10+, AlmaLinux 10+, Rocky Linux 10+: .rpm package, dnf repository packages.bobine.fit/fedora, updates with dnf upgrade.",
             "Arch Linux, EndeavourOS, CachyOS, Manjaro: pacman package, packages.bobine.fit/arch repository, updates with pacman -Syu.",
             "All three repositories publish the Stable, Beta and Canary channels, signed by the same GPG key.",
           ],

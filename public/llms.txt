@@ -119,7 +119,7 @@ All three Linux repository families share the same OpenPGP signing key (`https:/
   sudo apt update && sudo apt install -y bobine
   ```
   Manual files: `bobine_5.0.5_amd64.deb`, `bobine_5.0.5_arm64.deb` (`bobine_beta_amd64.deb`, `bobine_canary_arm64.deb`).
-- **Fedora, Nobara, RHEL, AlmaLinux, Rocky Linux (`.rpm`, DNF)**: `https://packages.bobine.fit/fedora`
+- **Fedora, Nobara, RHEL 10+, AlmaLinux 10+, Rocky Linux 10+ (`.rpm`, DNF)**: `https://packages.bobine.fit/fedora`
   ```bash
   sudo dnf config-manager addrepo --from-repofile=https://packages.bobine.fit/fedora/bobine-stable.repo   # dnf 4: sudo dnf config-manager --add-repo <same URL>
   sudo dnf install -y bobine
@@ -146,7 +146,7 @@ All three Linux repository families share the same OpenPGP signing key (`https:/
 - **Channel Switching**: Users can toggle between Stable, Beta, and Canary at any time from the Web Admin Settings (Settings -> Software Updates) or via CLI (`install.sh --channel=stable|beta|canary`).
 
 ## Technical Architecture & APIs
-- **OS & Architecture Support**: Google Books (Aluminium OS), Android ARM64 (API 34-36) & Android TV, Windows 11/10 (x86_64 & ARM64 Snapdragon), macOS Apple Silicon (M1–M4), Linux Desktop across Debian/Ubuntu, Fedora/RHEL, and Arch Linux families (x86_64 & aarch64 including NVIDIA DGX Spark, Jetson Orin, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B).
+- **OS & Architecture Support**: Google Books (Aluminium OS), Android ARM64 (API 34-36) & Android TV, Windows 11/10 (x86_64 & ARM64 Snapdragon), macOS Apple Silicon (M1–M4), Linux Desktop across the Debian 13+/Ubuntu 24.04+, Fedora (RHEL 10+) and Arch Linux families (glibc 2.38 or newer) (x86_64 & aarch64 including NVIDIA DGX Spark, Jetson Orin, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B).
 - **Backend Architecture**: Python 3.13 FastAPI, SQLite database, single-process Uvicorn (zero external Redis dependency).
 - **Deterministic Multimedia Binaries**: Dedicated resolution module (app.utils.ffmpeg_binaries) handling Android Chaquopy libffmpeg.so/libffprobe.so, macOS launchd environment, Windows x86_64/ARM64 PyInstaller frozen directory, and Linux PATH. Automatic SQLite database duration backfills on startup.
 - **Frontend**: Next.js App Router with SSG static export, 16 WCAG AAA/AA themes (8 light, 8 dark), zero emoji design system.

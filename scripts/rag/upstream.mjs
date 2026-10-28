@@ -22,7 +22,7 @@ export function refreshLock(root, bobineRoot) {
     { framework: "tauri", version: tauri, repo: "https://github.com/tauri-apps/tauri-docs.git", ref: "HEAD", paths: ["src/content/docs"] },
     { framework: "ffmpeg", version: "8.0.1", repo: "https://github.com/FFmpeg/FFmpeg.git", ref: "refs/tags/n8.0.1", paths: ["doc/ffmpeg.texi", "doc/ffprobe.texi", "doc/encoders.texi", "doc/decoders.texi", "doc/filters.texi", "doc/hwaccels.texi"] },
     ...["1.10.26", "2.14.1"].map(version => ({ framework: "pydantic", version, repo: "https://github.com/pydantic/pydantic.git", ref: `refs/tags/v${version}`, paths: ["docs"] })),
-    ...["0.99.1", "0.143.3"].map(version => ({ framework: "fastapi", version, repo: "https://github.com/fastapi/fastapi.git", ref: `refs/tags/${version}`, paths: ["docs/en/docs"] })),
+    ...["0.99.1", "0.143.3", "0.162.0"].map(version => ({ framework: "fastapi", version, repo: "https://github.com/fastapi/fastapi.git", ref: `refs/tags/${version}`, paths: ["docs/en/docs"] })),
     { framework: "systemd", version: "259", repo: "https://github.com/systemd/systemd.git", ref: "refs/tags/v259", paths: ["man/systemd.service.xml", "man/systemd.unit.xml", "man/systemd.timer.xml", "man/systemctl.xml", "man/journalctl.xml"] },
   ];
   const file = join(root, "scripts/rag/sources.lock.json");

@@ -8,7 +8,7 @@ npm run check:rag -- --corpus=web
 npm run sync:rag
 ```
 
-Le checkout de Bobine est recherché dans `../Bobine`, ou au chemin `BOBINE_SOURCE_DIR`. Les scripts utilisent les Application Default Credentials localement et une identité GitHub fédérée en CI. Le compte de synchronisation dispose de droits d’import et de mise à jour ; le compte utilisé par le site est distinct. Les variables sont décrites dans `.env.example`.
+Le checkout de Bobine est recherché dans `../Bobine`, puis dans `../../Bobine` (dossiers regroupés sous un dossier parent), ou au chemin `BOBINE_SOURCE_DIR`. Les scripts utilisent les Application Default Credentials localement et une identité GitHub fédérée en CI. Le compte de synchronisation dispose de droits d’import et de mise à jour ; le compte utilisé par le site est distinct. Les variables sont décrites dans `.env.example`.
 
 Chaque document porte un identifiant stable, un hash de contenu, la plateforme, la langue, l’URL source et, pour les frameworks, la version et la révision. `sources.lock.json` fige les sources Git. Les versions Next.js suivent les deux package-lock ; Tauri suit Cargo.lock. La documentation Tauri est un instantané du site documentaire de la majeure 2 : elle n’est pas une référence exacte de chaque patch du runtime. Les versions Python, FFmpeg et systemd sont des cibles documentaires explicites ; elles ne prouvent pas la version installée sur tous les appareils. Pour changer ces cibles, modifier `upstream.mjs`, puis régénérer et examiner le verrou. Les références Linux sans tag sont identifiées par leur URL et leur hash de contenu.
 

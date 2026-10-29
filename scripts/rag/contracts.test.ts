@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { ACTIVE_FILTER, frameworkFilter, normalizeResult, plainSnippet } from "../../src/lib/rag/results.mjs";
 import { exportWeb } from "./export";
@@ -21,7 +21,7 @@ test("les Struct gRPC et les métadonnées canoniques classent les fiches sans h
   assert.equal(normalizeResult({document:{id:"empty"}}), null);
 });
 test("l'architecture exportée reprend exactement les sources publiques et les prix courants restent hors index", () => {
-  const root = resolve("."); const bobineRoot = resolve(process.env.BOBINE_SOURCE_DIR || "../Bobine");
+  const root = resolve("."); const bobineRoot = resolve(process.env.BOBINE_SOURCE_DIR || ["../Bobine", "../../Bobine"].find(p => existsSync(resolve(p))) || "../Bobine");
   const docs = exportWeb(root, bobineRoot);
   assert.equal(docs.find(d => d.key === "specs/docs/ARCHITECTURE.md")?.text, readFileSync(resolve(bobineRoot, "docs/ARCHITECTURE.md"), "utf8"));
   assert.ok(docs.some(d => d.key.startsWith("docs/en/")));

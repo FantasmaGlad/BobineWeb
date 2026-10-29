@@ -95,7 +95,7 @@ const fr: DocChapter[] = [
       {
         subtitle: "2.3 bis Linux Bureau Fedora, RHEL et dérivés (paquet .rpm — x86_64 & ARM64)",
         paragraphs: [
-          `Dépôt dnf officiel signé cryptographiquement (https://packages.bobine.fit/fedora) pour Fedora, Nobara et, via EPEL, RHEL, AlmaLinux et Rocky Linux, en x86_64 et aarch64. Une fois le dépôt ajouté, ${fedoraCommands().upgrade} met Bobine à jour avec le reste du système. Paquets autonomes directs : ${rpmName("x86_64")} et ${rpmName("arm64")}, à installer avec sudo dnf install ./fichier.rpm. Sur dnf 4 (RHEL, AlmaLinux, Rocky Linux), la commande d'ajout est ${fedoraCommands().addRepoLegacy}.`,
+          `Dépôt dnf officiel signé cryptographiquement (https://packages.bobine.fit/fedora) pour Fedora, Nobara et, via EPEL, RHEL, AlmaLinux et Rocky Linux 10 ou plus récent (non couverts par la CI), en x86_64 et aarch64. Une fois le dépôt ajouté, ${fedoraCommands().upgrade} met Bobine à jour avec le reste du système. Paquets autonomes directs : ${rpmName("x86_64")} et ${rpmName("arm64")}, à installer avec sudo dnf install ./fichier.rpm. Sur dnf 4 (RHEL, AlmaLinux, Rocky Linux), la commande d'ajout est ${fedoraCommands().addRepoLegacy}.`,
           `Le fichier bobine-stable.repo suit la Stable ; bobine-beta.repo et bobine-canary.repo suivent la Bêta et la Canary, avec la même clé de signature. Au premier dnf install, dnf affiche l'empreinte de la clé : comparez-la à ${SIGNING_KEY_FINGERPRINT} avant d'accepter.`,
           `ffmpeg : Fedora ne fournit que ffmpeg-free, privé de plusieurs codecs. Pour lire tous les formats de cours, ajoutez RPM Fusion puis remplacez-le par le ffmpeg complet (commandes ci-dessous). ${noteList(FAMILY_NOTES.fedora.derivatives.slice(1), "fr")} ${FAMILY_NOTES.fedora.limits[1].fr}`,
           [repoStatusNote("fedora", "fr"), NOT_VALIDATED_NOTE.fr].filter(Boolean).join(" "),
@@ -453,7 +453,7 @@ const fr: DocChapter[] = [
         paragraphs: [
           "Chaque nouvelle version est publiée sur GitHub Releases (github.com/FantasmaGlad/Bobine/releases) avec son changelog détaillé, ses binaires signés pour les 5 systèmes d'exploitation, et son SHA-256 de vérification d'intégrité.",
           "Trois canaux permettent de suivre l'avancement du projet : le canal Stable (tags Vx.y.z figés, recommandé en production de salle), le canal Bêta (lots de fonctionnalités/correctifs curés, publiés manuellement) et le canal Canary (rolling, reconstruit automatiquement à chaque évolution du code sur la branche principale, pour les clubs souhaitant tester les toutes dernières modifications sans attendre un lot).",
-          "Le hub de paquets Linux unifié (packages.bobine.fit) reflète les trois canaux dans ses distributions stable, beta et canary pour Debian/Ubuntu (packages.bobine.fit/debian, apt), Fedora/RHEL (packages.bobine.fit/fedora, dnf) et Arch Linux (packages.bobine.fit/arch, pacman), avec la même clé de signature GPG. Le dépôt APT du miroir Tor (.onion) publie les mêmes trois suites.",
+          "Le hub de paquets Linux unifié (packages.bobine.fit) reflète les trois canaux dans ses distributions stable, beta et canary pour Debian/Ubuntu (packages.bobine.fit/debian, apt), Fedora (packages.bobine.fit/fedora, dnf) et Arch Linux (packages.bobine.fit/arch, pacman), avec la même clé de signature GPG. Le dépôt APT du miroir Tor (.onion) publie les mêmes trois suites.",
         ],
       },
       {
@@ -547,7 +547,7 @@ const en: DocChapter[] = [
       {
         subtitle: "2.3 bis Linux Desktop Fedora, RHEL and derivatives (.rpm package — x86_64 & ARM64)",
         paragraphs: [
-          `Official cryptographically signed dnf repository (https://packages.bobine.fit/fedora) for Fedora, Nobara and, through EPEL, RHEL, AlmaLinux and Rocky Linux, on x86_64 and aarch64. Once the repository is added, ${fedoraCommands().upgrade} updates Bobine along with the rest of the system. Standalone direct packages: ${rpmName("x86_64")} and ${rpmName("arm64")}, installed with sudo dnf install ./file.rpm. On dnf 4 (RHEL, AlmaLinux, Rocky Linux) the command to add it is ${fedoraCommands().addRepoLegacy}.`,
+          `Official cryptographically signed dnf repository (https://packages.bobine.fit/fedora) for Fedora, Nobara and, through EPEL, RHEL, AlmaLinux and Rocky Linux 10 or newer (not covered by CI), on x86_64 and aarch64. Once the repository is added, ${fedoraCommands().upgrade} updates Bobine along with the rest of the system. Standalone direct packages: ${rpmName("x86_64")} and ${rpmName("arm64")}, installed with sudo dnf install ./file.rpm. On dnf 4 (RHEL, AlmaLinux, Rocky Linux) the command to add it is ${fedoraCommands().addRepoLegacy}.`,
           `The bobine-stable.repo file follows Stable; bobine-beta.repo and bobine-canary.repo follow Beta and Canary, with the same signing key. At the first dnf install, dnf shows the key fingerprint: compare it with ${SIGNING_KEY_FINGERPRINT} before accepting.`,
           `ffmpeg: Fedora only ships ffmpeg-free, stripped of several codecs. To play every class format, add RPM Fusion and swap it for the full ffmpeg (commands below). ${noteList(FAMILY_NOTES.fedora.derivatives.slice(1), "en")} ${FAMILY_NOTES.fedora.limits[1].en}`,
           [repoStatusNote("fedora", "en"), NOT_VALIDATED_NOTE.en].filter(Boolean).join(" "),
@@ -911,7 +911,7 @@ const en: DocChapter[] = [
         paragraphs: [
           "Every new version is published on GitHub Releases (github.com/FantasmaGlad/Bobine/releases) with a detailed changelog, signed binaries for all 5 operating systems, and a SHA-256 integrity checksum.",
           "Three channels track the project's progress: the Stable channel (frozen Vx.y.z tags, recommended for production gym playout), the Beta channel (curated batches of features/fixes, published manually) and the Canary channel (rolling, automatically rebuilt on every change to the main branch, for clubs wanting the very latest changes without waiting for a batch).",
-          "The unified Linux package hub (packages.bobine.fit) mirrors all three channels in its stable, beta and canary distributions for Debian/Ubuntu (packages.bobine.fit/debian, apt), Fedora/RHEL (packages.bobine.fit/fedora, dnf) and Arch Linux (packages.bobine.fit/arch, pacman), with the same GPG signing key. The APT repository of the Tor mirror (.onion) publishes the same three suites.",
+          "The unified Linux package hub (packages.bobine.fit) mirrors all three channels in its stable, beta and canary distributions for Debian/Ubuntu (packages.bobine.fit/debian, apt), Fedora (packages.bobine.fit/fedora, dnf) and Arch Linux (packages.bobine.fit/arch, pacman), with the same GPG signing key. The APT repository of the Tor mirror (.onion) publishes the same three suites.",
         ],
       },
       {

@@ -130,7 +130,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "Bobine fonctionne-t-il sur Fedora, RHEL, AlmaLinux ou Rocky Linux, et comment recevoir les mises à jour ?",
-      a: `${soon("fedora", "fr")}Oui, sur Fedora et Nobara : un paquet .rpm (x86_64 et aarch64) et un dépôt dnf signé (https://packages.bobine.fit/fedora). Deux commandes, ${fedoraCommands().addRepo} puis ${fedoraCommands().install}, et ${fedoraCommands().upgrade} met ensuite Bobine à jour avec le système ; bobine-beta.repo et bobine-canary.repo suivent les canaux Bêta et Canary. Fedora ne fournit qu'un ffmpeg amputé de codecs : ajoutez RPM Fusion pour le ffmpeg complet. Sur RHEL, AlmaLinux et Rocky Linux, passez par EPEL (ffmpeg limité sans RPM Fusion). Les distributions immuables comme Bazzite ne conviennent pas à l'appliance kiosque. Empreinte de la clé : ${SIGNING_KEY_FINGERPRINT}.`,
+      a: `${soon("fedora", "fr")}Oui, sur Fedora et Nobara : un paquet .rpm (x86_64 et aarch64) et un dépôt dnf signé (https://packages.bobine.fit/fedora). Deux commandes, ${fedoraCommands().addRepo} puis ${fedoraCommands().install}, et ${fedoraCommands().upgrade} met ensuite Bobine à jour avec le système ; bobine-beta.repo et bobine-canary.repo suivent les canaux Bêta et Canary. Fedora ne fournit qu'un ffmpeg amputé de codecs : ajoutez RPM Fusion pour le ffmpeg complet. Sur RHEL, AlmaLinux et Rocky Linux (version 10 ou plus récente uniquement, non couvertes par la CI), passez par EPEL (ffmpeg limité sans RPM Fusion). Les distributions immuables comme Bazzite ne conviennent pas à l'appliance kiosque. Empreinte de la clé : ${SIGNING_KEY_FINGERPRINT}.`,
     },
     {
       category: "updates",
@@ -262,7 +262,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "Does Bobine run on Fedora, RHEL, AlmaLinux or Rocky Linux, and how do I get updates?",
-      a: `${soon("fedora", "en")}Yes, on Fedora and Nobara: an .rpm package (x86_64 and aarch64) and a signed dnf repository (https://packages.bobine.fit/fedora). Two commands, ${fedoraCommands().addRepo} then ${fedoraCommands().install}, and ${fedoraCommands().upgrade} then updates Bobine along with the system; bobine-beta.repo and bobine-canary.repo follow the Beta and Canary channels. Fedora only ships a codec-stripped ffmpeg: add RPM Fusion for the full ffmpeg. On RHEL, AlmaLinux and Rocky Linux, go through EPEL (limited ffmpeg without RPM Fusion). Immutable distributions such as Bazzite do not suit the kiosk appliance. Key fingerprint: ${SIGNING_KEY_FINGERPRINT}.`,
+      a: `${soon("fedora", "en")}Yes, on Fedora and Nobara: an .rpm package (x86_64 and aarch64) and a signed dnf repository (https://packages.bobine.fit/fedora). Two commands, ${fedoraCommands().addRepo} then ${fedoraCommands().install}, and ${fedoraCommands().upgrade} then updates Bobine along with the system; bobine-beta.repo and bobine-canary.repo follow the Beta and Canary channels. Fedora only ships a codec-stripped ffmpeg: add RPM Fusion for the full ffmpeg. On RHEL, AlmaLinux and Rocky Linux (version 10 or newer only, not covered by CI), go through EPEL (limited ffmpeg without RPM Fusion). Immutable distributions such as Bazzite do not suit the kiosk appliance. Key fingerprint: ${SIGNING_KEY_FINGERPRINT}.`,
     },
     {
       category: "updates",

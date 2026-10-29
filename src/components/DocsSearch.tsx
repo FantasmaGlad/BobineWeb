@@ -89,7 +89,7 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
       tags: ["etcher", "flash", "usb", "debian", "dd", "iso"],
     },
     {
-      title: "Installer Bobine sur Fedora, RHEL, AlmaLinux ou Rocky Linux (dnf)",
+      title: "Installer Bobine sur Fedora, RHEL 10+, AlmaLinux 10+ ou Rocky Linux 10+ (dnf)",
       category: "Installation",
       excerpt: "Paquet .rpm et dépôt dnf packages.bobine.fit/fedora, clé de signature, ffmpeg complet via RPM Fusion.",
       href: "/fr/documentation",
@@ -224,7 +224,7 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
       tags: ["etcher", "flash", "usb", "debian", "dd", "iso"],
     },
     {
-      title: "Install Bobine on Fedora, RHEL, AlmaLinux or Rocky Linux (dnf)",
+      title: "Install Bobine on Fedora, RHEL 10+, AlmaLinux 10+ or Rocky Linux 10+ (dnf)",
       category: "Installation",
       excerpt: ".rpm package and dnf repository packages.bobine.fit/fedora, signing key, full ffmpeg through RPM Fusion.",
       href: "/en/documentation",

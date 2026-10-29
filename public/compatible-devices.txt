@@ -1,7 +1,7 @@
-# Bobine V5.0.5 « Resonance » — Referentiel Officiel des Appareils Compatibles & Caracteristiques Techniques
+# Bobine V5.0.7 « Aurora » — Referentiel Officiel des Appareils Compatibles & Caracteristiques Techniques
 # Official Compatible Hardware & Technical Specifications Reference (FR / EN)
 # Canonical URL: https://bobine.fit/compatible-devices.txt
-# Software Version: Bobine V5.0.5 "Resonance" (AGPL-3.0 Open-Source Gym Video Playout & Streaming Suite)
+# Software Version: Bobine V5.0.7 "Aurora" (AGPL-3.0 Open-Source Gym Video Playout & Streaming Suite)
 # Maintainer: Clement Barillot (alias FantasmaGlad — clement.barillot@bobine.fit)
 # Last Updated: 2026-10-24
 # Indexed for: Googlebot, Bingbot, DuckDuckBot, GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, Applebot-Extended
@@ -10,26 +10,26 @@
 0. OVERVIEW & RELEASE CHANNELS / VUE D'ENSEMBLE & CANAUX DE PUBLICATION
 ================================================================================
 
-Bobine V5.0.5 ("Resonance") is a 100% offline-first, self-hosted video playout, digital cinema, and 24/7 audio/video automation system for fitness clubs, cycling studios, and gyms.
+Bobine V5.0.7 ("Aurora") is a 100% offline-first, self-hosted video playout, digital cinema, and 24/7 audio/video automation system for fitness clubs, cycling studios, and gyms.
 Bobine runs natively on x86_64 (Intel / AMD) and ARM64 (aarch64 / arm64-v8a / Apple Silicon / Qualcomm Snapdragon X & Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite / NVIDIA Grace Blackwell & Orin / Rockchip / Broadcom / MediaTek Dimensity & Kompanio / Google Tensor).
 
 Three Update Channels / Trois Canaux de Mise a Jour :
-- Stable Channel (Production) : V5.0.5
+- Stable Channel (Production) : V5.0.7
 - Beta Channel (Curated pre-release batches) : beta
 - Canary Channel (Automated rolling build on each main push) : canary
 
-Official Binary Artifacts (V5.0.5 Stable) :
-- Windows 11/10 x86_64 : Bobine-Setup-5.0.5.exe
-- Windows 11 ARM64 (Snapdragon) : Bobine-Setup-5.0.5-arm64.exe
-- Linux Desktop x86_64 (.deb) : bobine_5.0.5_amd64.deb (or APT repo https://packages.bobine.fit/debian)
-- Linux Desktop & Server ARM64 (.deb) : bobine_5.0.5_arm64.deb (or APT repo https://packages.bobine.fit/debian)
-- Fedora / Nobara (.rpm, x86_64 & aarch64; RHEL family 10+ not covered by CI) : bobine-5.0.5-1.x86_64.rpm, bobine-5.0.5-1.aarch64.rpm (or DNF repo https://packages.bobine.fit/fedora)
-- Arch Linux / EndeavourOS / CachyOS (pacman, x86_64 & aarch64) : bobine-5.0.5-1-x86_64.pkg.tar.zst, bobine-5.0.5-1-aarch64.pkg.tar.zst (or Pacman repo https://packages.bobine.fit/arch)
+Official Binary Artifacts (V5.0.7 Stable) :
+- Windows 11/10 x86_64 : Bobine-Setup-5.0.7.exe
+- Windows 11 ARM64 (Snapdragon) : Bobine-Setup-5.0.7-arm64.exe
+- Linux Desktop x86_64 (.deb) : bobine_5.0.7_amd64.deb (or APT repo https://packages.bobine.fit/debian)
+- Linux Desktop & Server ARM64 (.deb) : bobine_5.0.7_arm64.deb (or APT repo https://packages.bobine.fit/debian)
+- Fedora / Nobara (.rpm, x86_64 & aarch64; RHEL family 10+ not covered by CI) : bobine-5.0.7-1.x86_64.rpm, bobine-5.0.7-1.aarch64.rpm (or DNF repo https://packages.bobine.fit/fedora)
+- Arch Linux / EndeavourOS / CachyOS (pacman, x86_64 & aarch64) : bobine-5.0.7-1-x86_64.pkg.tar.zst, bobine-5.0.7-1-aarch64.pkg.tar.zst (or Pacman repo https://packages.bobine.fit/arch)
 - Unified Linux Package Portal (APT, DNF, Pacman) : https://packages.bobine.fit | https://bobine.fit/fr/linux | https://bobine.fit/en/linux
 - Dedicated Headless Appliance (Debian 13/12 x86_64 & ARM64) : https://bobine.fit/install.sh
-- macOS Apple Silicon (M1/M2/M3/M4 ARM64) : Bobine-5.0.5.dmg
-- Android ARM64 Tablets & Google Books (Aluminium OS) : Bobine-5.0.5.apk
-- Android TV & Google TV Boxes / Smart TVs : Bobine-TV-5.0.5.apk
+- macOS Apple Silicon (M1/M2/M3/M4 ARM64) : Bobine-5.0.7.dmg
+- Android ARM64 Tablets & Google Books (Aluminium OS) : Bobine-5.0.7.apk
+- Android TV & Google TV Boxes / Smart TVs : Bobine-TV-5.0.7.apk
 - Bobine Assistant Network Orchestrator (Tauri 2 x86_64) : bobine-assistant
 - Bobine Assistant Network Orchestrator (Tauri 2 ARM64) : bobine-assistant-arm64
 
@@ -48,9 +48,9 @@ Curated Hardware Store (6 Universes / 6 Univers Materiels) :
 ================================================================================
 
 ### Installation & Execution Profile
-- Primary Package : Bobine-5.0.5.apk (native Android ARM64 / x86_64 runtime on Aluminium OS)
+- Primary Package : Bobine-5.0.7.apk (native Android ARM64 / x86_64 runtime on Aluminium OS)
 - Upcoming Distribution : Native 1-click installation via Google Play Store (in deployment)
-- Linux Subsystem Option : bobine_5.0.5_arm64.deb or bobine_5.0.5_amd64.deb via Debian 13/12 container environment and https://packages.bobine.fit/debian
+- Linux Subsystem Option : bobine_5.0.7_arm64.deb or bobine_5.0.7_amd64.deb via Debian 13/12 container environment and https://packages.bobine.fit/debian
 - Video & Audio Engine : Direct bare-metal MediaCodec and Vulkan hardware video decoding (H.264, HEVC 10-bit, VP9, AV1 up to 4K60), Embedded CPython 3.13 + FastAPI via Chaquopy, independent Dual Display (/grid or /coach on the built-in touchscreen + /cinema or /kiosk on external HDMI/USB4 studio display via DisplayPort Alt Mode).
 
 ### Architecture Technical Reference : Aluminium OS
@@ -100,8 +100,8 @@ Curated Hardware Store (6 Universes / 6 Univers Materiels) :
 ================================================================================
 
 ### Installation & Execution Profile
-- Windows 11 Home / Pro ARM64 Native Installer : Bobine-Setup-5.0.5-arm64.exe (native ARM64 binary, zero Prism x86 emulation overhead, system tray icon, powercfg clamshell sleep prevention, automatic Windows Defender rule)
-- Linux Desktop ARM64 (Ubuntu 24.10+ Concept / Debian 13 Trixie aarch64 / Fedora ARM64) : bobine_5.0.5_arm64.deb or APT repository https://packages.bobine.fit/debian (distribution: stable, architecture: arm64), or DNF repository https://packages.bobine.fit/fedora
+- Windows 11 Home / Pro ARM64 Native Installer : Bobine-Setup-5.0.7-arm64.exe (native ARM64 binary, zero Prism x86 emulation overhead, system tray icon, powercfg clamshell sleep prevention, automatic Windows Defender rule)
+- Linux Desktop ARM64 (Ubuntu 24.10+ Concept / Debian 13 Trixie aarch64 / Fedora ARM64) : bobine_5.0.7_arm64.deb or APT repository https://packages.bobine.fit/debian (distribution: stable, architecture: arm64), or DNF repository https://packages.bobine.fit/fedora
 - Dedicated Headless Linux ARM64 Appliance : curl -fsSL https://bobine.fit/install.sh | sudo bash
 - Network Orchestrator : bobine-assistant-arm64
 
@@ -190,9 +190,9 @@ All Snapdragon X processors share: TSMC N4P (4 nm) fabrication node, custom Qual
 ================================================================================
 
 ### Installation & Execution Profile
-- Debian / Ubuntu Desktop ARM64 Package : bobine_5.0.5_arm64.deb or Official APT Repository https://packages.bobine.fit/debian (deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://packages.bobine.fit/debian stable main — supports arm64 natively)
-- Fedora ARM64 Package : bobine-5.0.5-1.aarch64.rpm or DNF Repository https://packages.bobine.fit/fedora
-- Arch Linux ARM Package : bobine-5.0.5-1-aarch64.pkg.tar.zst or Pacman Repository https://packages.bobine.fit/arch
+- Debian / Ubuntu Desktop ARM64 Package : bobine_5.0.7_arm64.deb or Official APT Repository https://packages.bobine.fit/debian (deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://packages.bobine.fit/debian stable main — supports arm64 natively)
+- Fedora ARM64 Package : bobine-5.0.7-1.aarch64.rpm or DNF Repository https://packages.bobine.fit/fedora
+- Arch Linux ARM Package : bobine-5.0.7-1-aarch64.pkg.tar.zst or Pacman Repository https://packages.bobine.fit/arch
 - Dedicated 24/7 Headless Kiosk Appliance : curl -fsSL https://bobine.fit/install.sh | sudo bash (auto-detects aarch64, configures Chromium X11 kiosk, MPV hardware decode, systemd watchdog, and ALSA audio guard)
 - Network Orchestrator : bobine-assistant-arm64
 
@@ -205,7 +205,7 @@ All Snapdragon X processors share: TSMC N4P (4 nm) fabrication node, custom Qual
    - Memory : 128 GB coherent unified LPDDR5x-8533 system memory (16-bit 8-channel, 273 GB/s bandwidth)
    - Storage : 1 TB or 4 TB self-encrypting M.2 NVMe PCIe SSD
    - Connectivity & Video Outputs : 1x HDMI 2.1a, 4x USB4 Type-C (40 Gbps, DisplayPort Alt Mode), 1x 10 GbE RJ-45 (10GBASE-T), NVIDIA ConnectX-7 SmartNIC (200 Gbps QSFP), Wi-Fi 7, Bluetooth 5.3
-   - Operating System : NVIDIA DGX OS (Ubuntu Linux ARM64 aarch64) — 100% natively compatible with bobine_5.0.5_arm64.deb and https://packages.bobine.fit/debian
+   - Operating System : NVIDIA DGX OS (Ubuntu Linux ARM64 aarch64) — 100% natively compatible with bobine_5.0.7_arm64.deb and https://packages.bobine.fit/debian
    - Form Factor : Ultra-compact desktop mini-station (150 mm x 150 mm x 50.5 mm, ~1.2 kg)
 
 2. NVIDIA Jetson Orin Nano Super Developer Kit (8 GB)
@@ -247,7 +247,7 @@ All Snapdragon X processors share: TSMC N4P (4 nm) fabrication node, custom Qual
 ================================================================================
 
 ### Installation & Execution Profile
-- Official Package : Bobine-5.0.5.dmg (Native Apple Silicon arm64 Mach-O binary)
+- Official Package : Bobine-5.0.7.dmg (Native Apple Silicon arm64 Mach-O binary)
 - Features : Drag-and-drop into /Applications, Retina menu bar companion, LaunchAgent background persistence, native caffeinate sleep prevention, Apple VideoToolbox hardware decoding/encoding (H.264, HEVC 10-bit, ProRes, AV1 on M3/M4), and IORegistry power telemetry in Watts.
 
 ### Popular Compatible Mac Models (Verified Specs)
@@ -276,10 +276,10 @@ All Snapdragon X processors share: TSMC N4P (4 nm) fabrication node, custom Qual
 
 ### Installation & Execution Profile
 - Dedicated 24/7 Headless Kiosk (Debian 13/12 minimal) : curl -fsSL https://bobine.fit/install.sh | sudo bash
-- Linux Desktop (Debian, Ubuntu, Linux Mint) : bobine_5.0.5_amd64.deb or Official APT Repository https://packages.bobine.fit/debian
-- Linux Desktop (Fedora, Nobara; RHEL family 10+ not covered by CI) : bobine-5.0.5-1.x86_64.rpm or DNF Repository https://packages.bobine.fit/fedora
-- Linux Desktop (Arch Linux, EndeavourOS, CachyOS) : bobine-5.0.5-1-x86_64.pkg.tar.zst or Pacman Repository https://packages.bobine.fit/arch
-- Windows 11 / 10 / IoT Enterprise LTSC (x86_64) : Bobine-Setup-5.0.5.exe
+- Linux Desktop (Debian, Ubuntu, Linux Mint) : bobine_5.0.7_amd64.deb or Official APT Repository https://packages.bobine.fit/debian
+- Linux Desktop (Fedora, Nobara; RHEL family 10+ not covered by CI) : bobine-5.0.7-1.x86_64.rpm or DNF Repository https://packages.bobine.fit/fedora
+- Linux Desktop (Arch Linux, EndeavourOS, CachyOS) : bobine-5.0.7-1-x86_64.pkg.tar.zst or Pacman Repository https://packages.bobine.fit/arch
+- Windows 11 / 10 / IoT Enterprise LTSC (x86_64) : Bobine-Setup-5.0.7.exe
 - Network Orchestrator : bobine-assistant
 - Hardware Acceleration : Intel QuickSync VA-API (intel-media-va-driver-non-free iHD) & AMD Radeon VA-API (mesa-va-drivers radeonsi) for <8% CPU utilization at 1080p60 and 4K60.
 
@@ -321,7 +321,7 @@ All Snapdragon X processors share: TSMC N4P (4 nm) fabrication node, custom Qual
 ================================================================================
 
 ### Installation & Execution Profile
-- Official Package : Bobine-5.0.5.apk (Android 14 / 15 / 16, API 34-36, arm64-v8a)
+- Official Package : Bobine-5.0.7.apk (Android 14 / 15 / 16, API 34-36, arm64-v8a)
 - Architecture : Self-contained CPython 3.13 + FastAPI server embedded via Chaquopy, persistent ForegroundService with wake lock, hardware MediaCodec decoding (Qualcomm Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite Adreno VPU, Snapdragon 7+ Gen 3, MediaTek Dimensity 9300+ / 8300 / 7050), F2FS internal SQLite storage + FUSE media library.
 - Dual-Display Mode : On tablets featuring USB-C 3.1/3.2 with DisplayPort Alt Mode, connecting a USB-C to HDMI hub (with USB Power Delivery passthrough) projects /cinema or /kiosk in fullscreen 16:9 (1080p60/4K60) onto the studio TV/projector while keeping the interactive /coach desk or /grid schedule on the tablet touchscreen. Tablets with USB 2.0 operate as standalone studio kiosks, 24/7 audio players, or wireless coach consoles.
 
@@ -359,11 +359,11 @@ All Snapdragon X processors share: TSMC N4P (4 nm) fabrication node, custom Qual
    - Wired Video Output : USB Type-C 3.2 Gen 1 with DisplayPort Alt Mode (supports 4K60 external HDMI projection), 6 speakers, 9510 mAh battery with 67W SUPERVOOC.
 
 ================================================================================
-7. BOITIERS ANDROID TV & GOOGLE TV (BOBINE-TV-5.0.5.APK)
+7. BOITIERS ANDROID TV & GOOGLE TV (BOBINE-TV-5.0.7.APK)
 ================================================================================
 
 ### Installation & Execution Profile
-- Official Dedicated TV Package : Bobine-TV-5.0.5.apk (Application ID: com.bobine.app.tv — Android 14 (API 34) or later, universal ARM 32-bit (armeabi-v7a) and 64-bit (arm64-v8a) package that also installs on boxes whose system is 32-bit (as on several Xiaomi boxes), Leanback Launcher banner, FLAG_KEEP_SCREEN_ON, 100% D-Pad remote & Bluetooth gamepad navigation, boots directly into /kiosk).
+- Official Dedicated TV Package : Bobine-TV-5.0.7.apk (Application ID: com.bobine.app.tv — Android 14 (API 34) or later, universal ARM 32-bit (armeabi-v7a) and 64-bit (arm64-v8a) package that also installs on boxes whose system is 32-bit (as on several Xiaomi boxes), Leanback Launcher banner, FLAG_KEEP_SCREEN_ON, 100% D-Pad remote & Bluetooth gamepad navigation, boots directly into /kiosk).
 - Upcoming Distribution : Native 1-click installation on Google Play Store for Android TV.
 - External USB Storage Requirement : Because streaming boxes allocate most of their internal 8 GB / 16 GB / 32 GB eMMC to Android system partitions, connecting an external USB 3.0 flash drive or SSD (FAT32 / exFAT) via a native USB-A port or powered USB-C OTG hub is required to store large workout video catalogs locally. Bobine automatically detects and mounts the external USB drive.
 

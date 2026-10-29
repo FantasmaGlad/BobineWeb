@@ -59,6 +59,21 @@ Pour l'activer : Réglages > Mises à jour logicielles > Canal Canary, ou via in
     isPrerelease: true,
   },
   {
+    slug: "V5.0.7",
+    title: "Bobine V5.0.7 « Aurora » — Installateurs lancés en CI sur chaque plateforme, plancher glibc 2.38 déclaré, dépôts Linux rafraîchis chaque semaine et port d'écoute adaptatif",
+    publishedAt: "2026-10-29T12:41:48Z",
+    url: "https://github.com/FantasmaGlad/Bobine/releases/tag/V5.0.7",
+    body: `La version 5.0.7 « Aurora » fiabilise la chaîne de distribution : chaque installateur est désormais installé puis lancé en intégration continue avant publication.
+
+- Les paquets Linux (.deb, .rpm, pacman, amd64 et arm64) sont installés et leur application répond avant toute publication ; Debian 12, Ubuntu 22.04 et RHEL 9 sont refusés proprement par la dépendance glibc 2.38.
+- Les installateurs Windows (x86-64 et ARM64) et l'image macOS sont installés, lancés puis désinstallés ou démontés en CI.
+- Les dépôts APT, DNF et pacman de packages.bobine.fit sont ré-exportés et re-signés chaque semaine, et une sonde quotidienne contrôle signatures, validité et versions.
+- Les canaux Canary et Bêta sont mis à jour en place, sans coupure de téléchargement.
+- Bobine écoute toujours sur le port 8000 et bascule sur un port libre voisin s'il est occupé ; BOBINE_PORT_STRICT=1 supprime ce repli.
+- L'application Android est compilée avec l'API 37 tout en conservant la cible 36.`,
+    isPrerelease: false,
+  },
+  {
     slug: "V5.0.5",
     title: "Bobine V5.0.5 « Résonance » — Unification des Dépôts Linux (packages.bobine.fit), Mises à Jour Multi-Distributions (.deb, .rpm, pacman), Support Étendu des Puces & Raffinement Apple Liquid Glass",
     publishedAt: "2026-10-24T12:00:00Z",

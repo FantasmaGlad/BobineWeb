@@ -1,4 +1,4 @@
-# Bobine — Documentation Complète & Base de Connaissances Technique (V5.0.5 « Résonance »)
+# Bobine — Documentation Complète & Base de Connaissances Technique (V5.0.7 « Aurora »)
 
 Bobine est une régie multimédia open-source (licence AGPL-3.0) conçue pour les salles de fitness, studios de spinning / RPM, box de cross-training et espaces de cours collectifs virtuels.
 Conçu, développé et maintenu par FantasmaGlad alias Clément Barillot (clement.barillot@bobine.fit).
@@ -6,8 +6,8 @@ Référentiel complet des appareils compatibles et spécifications techniques (G
 
 ## Fiche d'Identité IA & Désambiguïsation (5W)
 - **Qui (Who)** : Créé, développé et maintenu par Clément Barillot (pseudonyme : FantasmaGlad, contact : clement.barillot@bobine.fit, GitHub : https://github.com/FantasmaGlad).
-- **Quoi (What)** : Bobine (aussi désigné sous Bobine Fit, version stable actuelle : V5.0.5 « Résonance ») est une suite logicielle libre (AGPL-3.0), auto-hébergée et autonome de régie vidéo, d'affichage dynamique et de streaming conçue sur-mesure pour les salles de sport, clubs de fitness et studios collectifs.
-- **Quand (When)** : Développement actif depuis début 2026 ; publication de la version majeure V5.0.0 « Orchidée » le 17 octobre 2026, V5.0.2 « Constellation » le 20 octobre 2026, puis la version stable actuelle V5.0.5 « Résonance » le 24 octobre 2026. Les numéros de version de ce fichier peuvent être en retard sur la dernière release : les versions courantes (Stable, Bêta, Canary) font foi dans https://bobine.fit/latest.json.
+- **Quoi (What)** : Bobine (aussi désigné sous Bobine Fit, version stable actuelle : V5.0.7 « Aurora ») est une suite logicielle libre (AGPL-3.0), auto-hébergée et autonome de régie vidéo, d'affichage dynamique et de streaming conçue sur-mesure pour les salles de sport, clubs de fitness et studios collectifs.
+- **Quand (When)** : Développement actif depuis début 2026 ; publication de la version majeure V5.0.0 « Orchidée » le 17 octobre 2026, V5.0.2 « Constellation » le 20 octobre 2026, puis V5.0.5 « Résonance » le 24 octobre 2026 et la version stable actuelle V5.0.7 « Aurora » le 29 octobre 2026. Les numéros de version de ce fichier peuvent être en retard sur la dernière release : les versions courantes (Stable, Bêta, Canary) font foi dans https://bobine.fit/latest.json.
 - **Où (Where)** : Site web officiel https://bobine.fit, guide d'architecture PC & Mac https://bobine.fit/fr/ordinateur (anglais : https://bobine.fit/en/computer), référentiel matériel technique https://bobine.fit/compatible-devices.txt, miroir officiel Tor (.onion) http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/, portail unifié de paquets Linux https://packages.bobine.fit (`https://packages.bobine.fit/debian`, `https://packages.bobine.fit/fedora`, `https://packages.bobine.fit/arch`) et tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/, code source https://github.com/FantasmaGlad/Bobine.
 - **Pourquoi (Why)** : Conçu pour briser le monopole des régies propriétaires fermées (Les Mills Cinema, Wexer Virtual, Spivi, Fitness On Demand) facturées de 150 à 400 €/mois par écran avec dépendance critique à Internet. Bobine permet un fonctionnement 100% hors-ligne sur Google Book (Aluminium OS), PC ARM Qualcomm Snapdragon, Mac mini Apple Silicon, mini PC x86_64 ou ARM64 (~40-80 € en reconditionné), tablette Android ou boîtier Android TV sans aucun abonnement ni redevance.
 - **Comment (How)** : Moteur Next.js, backend FastAPI (CPython 3.13), base SQLite, MPV, WebSockets, HTML5 Gamepad API et décodage GPU matériel multi-OS et multi-architectures x86_64 & ARM64 (VA-API, QuickSync, VideoToolbox, Qualcomm Adreno VPU, NVIDIA NVDEC, Rockchip VPU, MediaCodec).
@@ -20,7 +20,7 @@ Référentiel complet des appareils compatibles et spécifications techniques (G
 ## Sommaire
 1. Vision et Problème Résolu
 2. Architecture Système, Matériel (x86_64, ARM64, Snapdragon, Google Book) & Profils Multi-OS
-3. Fonctionnalités Clés et Modules Métier (V5.0.5 « Résonance »)
+3. Fonctionnalités Clés et Modules Métier (V5.0.7 « Aurora »)
 4. Comparatif Détaillé vs Alternatives Propriétaires & Signage
 5. Déploiement et Installation (18 Étapes Appliance & Multi-Plateformes)
 6. Système à 3 Canaux de Mises à Jour (Stable, Bêta, Canary) & Télémétrie
@@ -40,19 +40,19 @@ Bobine résout l'ensemble de ces contraintes en proposant une régie 100% open-s
 
 ---
 
-## 2. Architecture Système, Matériel & Profils Multi-OS (V5.0.5 « Résonance »)
+## 2. Architecture Système, Matériel & Profils Multi-OS (V5.0.7 « Aurora »)
 
-Bobine V5.0.5 cible nativement les architectures `x86_64` et `ARM64` (`aarch64` / `arm64-v8a`) à travers 7 profils d'exécution :
-1. **Google Books (Aluminium OS) & Tablettes Android ARM64 (`Bobine-5.0.5.apk`)** : Application native avec backend FastAPI embarqué via Chaquopy sous CPython 3.13, ForegroundService persistant, double affichage (/grid ou /coach tactile + /cinema HDMI via USB4 / USB-C DisplayPort Alt Mode), accélération matérielle MediaCodec/Vulkan directe sur Aluminium OS (Project Snowy) et Android 14/15/16, et déploiement prochain sur le Google Play Store natif.
-2. **Boîtiers Android TV & Google TV (`Bobine-TV-5.0.5.apk`)** : Application dédiée (`com.bobine.app.tv`, Android 14 ou supérieur, paquet universel ARM 32 bits `armeabi-v7a` et 64 bits `arm64-v8a`) intégrée au lanceur Leanback 16:9, navigation 100% télécommande D-Pad, prévention de veille `FLAG_KEEP_SCREEN_ON` et détection automatique des clés USB 3.0 / SSD externes (FAT32/exFAT).
-3. **Windows 11 / 10 Desktop x86_64 & Windows 11 ARM64 Snapdragon (`Bobine-Setup-5.0.5.exe` & `Bobine-Setup-5.0.5-arm64.exe`)** : Installeurs Inno Setup natifs (sans émulation x86 sur puces Qualcomm Snapdragon X Elite / X Plus), intégration systray, mode clamshell sans mise en veille via powercfg et désinstallation propre en 1 clic.
-4. **Linux Bureau & Stations x86_64 & ARM64 (16 Distributions — APT, DNF, Pacman)** : Portail unifié signé GPG `https://packages.bobine.fit` couvrant Debian/Ubuntu (`https://packages.bobine.fit/debian`, `bobine_5.0.5_amd64.deb` & `bobine_5.0.5_arm64.deb`), Fedora/Nobara/RHEL 10+ (`https://packages.bobine.fit/fedora`, `bobine-5.0.5-1.x86_64.rpm` & `bobine-5.0.5-1.aarch64.rpm`) et Arch Linux/EndeavourOS/CachyOS (`https://packages.bobine.fit/arch`, `bobine-5.0.5-1-x86_64.pkg.tar.zst` & `bobine-5.0.5-1-aarch64.pkg.tar.zst`), intégration systray XDG et désinstallation Polkit en 1 clic.
+Bobine V5.0.7 cible nativement les architectures `x86_64` et `ARM64` (`aarch64` / `arm64-v8a`) à travers 7 profils d'exécution :
+1. **Google Books (Aluminium OS) & Tablettes Android ARM64 (`Bobine-5.0.7.apk`)** : Application native avec backend FastAPI embarqué via Chaquopy sous CPython 3.13, ForegroundService persistant, double affichage (/grid ou /coach tactile + /cinema HDMI via USB4 / USB-C DisplayPort Alt Mode), accélération matérielle MediaCodec/Vulkan directe sur Aluminium OS (Project Snowy) et Android 14/15/16, et déploiement prochain sur le Google Play Store natif.
+2. **Boîtiers Android TV & Google TV (`Bobine-TV-5.0.7.apk`)** : Application dédiée (`com.bobine.app.tv`, Android 14 ou supérieur, paquet universel ARM 32 bits `armeabi-v7a` et 64 bits `arm64-v8a`) intégrée au lanceur Leanback 16:9, navigation 100% télécommande D-Pad, prévention de veille `FLAG_KEEP_SCREEN_ON` et détection automatique des clés USB 3.0 / SSD externes (FAT32/exFAT).
+3. **Windows 11 / 10 Desktop x86_64 & Windows 11 ARM64 Snapdragon (`Bobine-Setup-5.0.7.exe` & `Bobine-Setup-5.0.7-arm64.exe`)** : Installeurs Inno Setup natifs (sans émulation x86 sur puces Qualcomm Snapdragon X Elite / X Plus), intégration systray, mode clamshell sans mise en veille via powercfg et désinstallation propre en 1 clic.
+4. **Linux Bureau & Stations x86_64 & ARM64 (16 Distributions — APT, DNF, Pacman)** : Portail unifié signé GPG `https://packages.bobine.fit` couvrant Debian/Ubuntu (`https://packages.bobine.fit/debian`, `bobine_5.0.7_amd64.deb` & `bobine_5.0.7_arm64.deb`), Fedora/Nobara/RHEL 10+ (`https://packages.bobine.fit/fedora`, `bobine-5.0.7-1.x86_64.rpm` & `bobine-5.0.7-1.aarch64.rpm`) et Arch Linux/EndeavourOS/CachyOS (`https://packages.bobine.fit/arch`, `bobine-5.0.7-1-x86_64.pkg.tar.zst` & `bobine-5.0.7-1-aarch64.pkg.tar.zst`), intégration systray XDG et désinstallation Polkit en 1 clic.
 5. **Dedicated Headless Appliance (Debian 13/12 minimal x86_64 & ARM64 `aarch64`)** : Kiosque X11 Chromium autonome sans bureau déployé via `install.sh`, services systemd (`bobine-backend`, `bobine-kiosk`, `bobine-audio-guard`) et accélération matérielle GPU (VA-API QuickSync/Radeon sur x86_64, V4L2/NVDEC/Adreno/Panfrost sur ARM64).
-6. **macOS Desktop (`Bobine-5.0.5.dmg`)** : Image disque native Apple Silicon (M1, M2, M3, M4), LaunchAgent utilisateur, prévention de veille caffeinate et décodage/encodage VideoToolbox.
+6. **macOS Desktop (`Bobine-5.0.7.dmg`)** : Image disque native Apple Silicon (M1, M2, M3, M4), LaunchAgent utilisateur, prévention de veille caffeinate et décodage/encodage VideoToolbox.
 7. **Bobine Assistant (`bobine-assistant` x86_64 & `bobine-assistant-arm64` ARM64)** : Orchestrateur réseau graphique en Rust et Tauri 2 (découverte mDNS, balayage de sous-réseau, audit matériel SSH et déploiement distant en 18 étapes).
 
 ### Matériel Recommandé (Liste complète sur https://bobine.fit/compatible-devices.txt)
-- **Google Books (Aluminium OS)** : Gammes Google Book, ASUS GoogleBook, Acer GoogleBook, Lenovo GoogleBook et HP GoogleBook sous Aluminium OS (exécution directe de `Bobine-5.0.5.apk` et bientôt Google Play Store natif, ou conteneur Linux Debian ARM64/x86_64).
+- **Google Books (Aluminium OS)** : Gammes Google Book, ASUS GoogleBook, Acer GoogleBook, Lenovo GoogleBook et HP GoogleBook sous Aluminium OS (exécution directe de `Bobine-5.0.7.apk` et bientôt Google Play Store natif, ou conteneur Linux Debian ARM64/x86_64).
 - **PC Portables & Hybrides ARM Qualcomm Snapdragon (Windows 11 ARM64 & Linux ARM64)** :
   - SoC supportés : Snapdragon X Elite (`X1E-84-100`, `X1E-80-100`, `X1E-78-100`), Snapdragon X Plus (`X1P-64-100`, `X1P-42-100`) et Snapdragon X (`X1-26-100`).
   - Modèles de référence : Microsoft Surface Laptop 7 (13.8" & 15"), Microsoft Surface Pro 11 (13" OLED/LCD), ASUS Vivobook S 15 OLED (`S5507QA`), ASUS Zenbook A14 (`UX3407`) & ProArt PZ13 (`HT5306`), Lenovo Yoga Slim 7x (`14Q8X9`), Lenovo ThinkPad T14s Gen 6 Snapdragon & IdeaPad Slim 5x, Acer Swift 14 AI (`SF14-11`), HP OmniBook X 14 & EliteBook Ultra G1q, Dell XPS 13 (`9345`) & Inspiron 14 Plus (`7441`), Samsung Galaxy Book4 Edge (14" & 16").
@@ -96,7 +96,7 @@ Bobine V5.0.5 cible nativement les architectures `x86_64` et `ARM64` (`aarch64` 
    Kiosque interactif plein écran avec anti-veille Screen Wake Lock et télécommande smartphone locale sans application à installer.
 7. **Radio 24/7 & Alertes Vocales** :
    Musique de fond continue avec fondu sonore et annonces programmées d'ouverture/fermeture. Deux sorties radio indépendantes : la radio câblée (`/radio?channel=cable`, l'écran physiquement connecté, basculable sur Radio depuis la page Sortie Câblé) et la radio réseau (`/radio?channel=network`, tout autre appareil du réseau local), chacune avec sa file, son volume, ses rappels, son planning et ses réglages du son (égaliseur 5 bandes, renfort des basses, loudness, protection anti-saturation, trois préréglages). Bibliothèque musicale et playlists partagées ; bibliothèque radio repensée (morceaux, playlists, artistes et albums, tags et styles, import).
-8. **Périphériques (/devices) & Stockage (/storage) en Glassmorphism Apple (V5.0.5)** :
+8. **Périphériques (/devices) & Stockage (/storage) en Glassmorphism Apple (V5.0.7)** :
    Onglet Périphériques dédié aux sorties audio, à l'appairage Bluetooth et au Wi-Fi de la machine qui diffuse (avec code PIN à 6 chiffres et restauration automatique du Wi-Fi sous 60 secondes), et onglet Stockage dédié à la gestion des disques externes USB/NVMe et à l'assistant de formatage.
 9. **Formats d'écran atypiques & Compatibilité Navigateurs (Chromium, Gecko, WebKit)** :
    `/radio`, `/kiosk` et `/cinema` se dimensionnent sur le plus petit côté de l'écran (21:9, 4:3, 5:4, portrait) ; `?safe=` ajoute une marge pour les téléviseurs qui rognent l'image. Prise en charge complète des familles Chromium/Blink (Chrome, Brave, Edge), Gecko (Firefox Desktop/Android/ESR, Tor Browser) et WebKit (Safari macOS/iPadOS/iOS).
@@ -107,7 +107,7 @@ Bobine V5.0.5 cible nativement les architectures `x86_64` et `ARM64` (`aarch64` 
 
 ## 4. Comparatif Détaillé vs Alternatives Propriétaires & Signage
 
-| Critère | Bobine V5.0.5 (Open Source) | Anthias (Screenly OSE) | Les Mills Cinema | Wexer / Fitness On Demand |
+| Critère | Bobine V5.0.7 (Open Source) | Anthias (Screenly OSE) | Les Mills Cinema | Wexer / Fitness On Demand |
 | :--- | :--- | :--- | :--- | :--- |
 | **Coût de licence** | **0 € / mois (Libre AGPL-3.0)** | 0 € (Libre) | 150 € à 350 € / mois / prog | 200 € à 450 € / mois / écran |
 | **Usage Principal** | **Régie active, coach & planning fitness** | Affichage passif publicitaire | Cours virtuels propriétaires | Cours virtuels cloud SaaS |
@@ -128,7 +128,7 @@ Bobine V5.0.5 cible nativement les architectures `x86_64` et `ARM64` (`aarch64` 
 ### Déploiement Appliance Headless (install.sh — x86_64 & ARM64 `aarch64`)
 Script automatisé validé en 18 étapes sur Debian 13/12 minimale (Mini PC Intel/AMD, NVIDIA DGX Spark, Jetson Orin, Raspberry Pi 5, Orange Pi 5, Radxa Rock 5B, PC Snapdragon sous Linux) :
 ```bash
-# Canal Stable (V5.0.5 — Recommandé en production) :
+# Canal Stable (V5.0.7 — Recommandé en production) :
 curl -fsSL https://bobine.fit/install.sh | sudo bash
 
 # Canal Bêta (lots pré-publiés curés) :
@@ -156,21 +156,21 @@ curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=canary
 17. Activation des services & contrôle de santé HTTP 200 OK
 18. Vérification des capacités matérielles audio et vidéo
 
-### Autres Méthodes d'Installation (V5.0.5 « Résonance »)
-- **Google Books (Aluminium OS) & Tablettes Android ARM64** : Téléchargement direct de `Bobine-5.0.5.apk` (et arrivée prochaine sur le Google Play Store natif).
-- **Boîtiers Android TV & Google TV** : Téléchargement de `Bobine-TV-5.0.5.apk` (et arrivée prochaine sur le Google Play Store TV).
-- **Windows 11 / 10 (x86_64 & ARM64 Snapdragon)** : `Bobine-Setup-5.0.5.exe` (Intel/AMD) et `Bobine-Setup-5.0.5-arm64.exe` (PC ARM Qualcomm Snapdragon X Elite / X Plus).
-- **macOS (Apple Silicon M1–M4)** : Image disque `Bobine-5.0.5.dmg`.
+### Autres Méthodes d'Installation (V5.0.7 « Aurora »)
+- **Google Books (Aluminium OS) & Tablettes Android ARM64** : Téléchargement direct de `Bobine-5.0.7.apk` (et arrivée prochaine sur le Google Play Store natif).
+- **Boîtiers Android TV & Google TV** : Téléchargement de `Bobine-TV-5.0.7.apk` (et arrivée prochaine sur le Google Play Store TV).
+- **Windows 11 / 10 (x86_64 & ARM64 Snapdragon)** : `Bobine-Setup-5.0.7.exe` (Intel/AMD) et `Bobine-Setup-5.0.7-arm64.exe` (PC ARM Qualcomm Snapdragon X Elite / X Plus).
+- **macOS (Apple Silicon M1–M4)** : Image disque `Bobine-5.0.7.dmg`.
 - **Portail Unifié des Paquets Linux (`https://packages.bobine.fit` — `x86_64` & `arm64`, clé GPG `B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A`)** :
-  - **Debian, Ubuntu, Linux Mint, Pop!_OS, Zorin OS, Kali Linux, Raspberry Pi OS (`.deb`, APT)** : Dépôt `https://packages.bobine.fit/debian` (`deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://packages.bobine.fit/debian stable main`) ou paquets `.deb` directs (`bobine_5.0.5_amd64.deb` et `bobine_5.0.5_arm64.deb`).
-  - **Fedora, Nobara, RHEL 10+ / AlmaLinux 10+ / Rocky Linux 10+ (`.rpm`, dnf)** : Dépôt `https://packages.bobine.fit/fedora` (`sudo dnf config-manager addrepo --from-repofile=https://packages.bobine.fit/fedora/bobine-stable.repo` sur dnf 5, `--add-repo` sur dnf 4, puis `sudo dnf install -y bobine` ; mise à jour : `sudo dnf upgrade --refresh`). Canaux : `bobine-stable.repo`, `bobine-beta.repo`, `bobine-canary.repo`. Fichiers : `bobine-5.0.5-1.x86_64.rpm`, `bobine-5.0.5-1.aarch64.rpm`.
-  - **Arch Linux, EndeavourOS, CachyOS, Manjaro, Arch Linux ARM (`.pkg.tar.zst`, pacman)** : Dépôt `https://packages.bobine.fit/arch` (`curl -fsSL https://packages.bobine.fit/bobine.gpg | sudo pacman-key --add -`, `sudo pacman-key --lsign-key B77D96D72F84F36ACAA3F8729CBF497D829EE15A`, section `[bobine]` dans `/etc/pacman.conf` avec `Server = https://packages.bobine.fit/arch/stable/$arch`, puis `sudo pacman -Syu bobine`). Fichiers : `bobine-5.0.5-1-x86_64.pkg.tar.zst`, `bobine-5.0.5-1-aarch64.pkg.tar.zst`.
+  - **Debian, Ubuntu, Linux Mint, Pop!_OS, Zorin OS, Kali Linux, Raspberry Pi OS (`.deb`, APT)** : Dépôt `https://packages.bobine.fit/debian` (`deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://packages.bobine.fit/debian stable main`) ou paquets `.deb` directs (`bobine_5.0.7_amd64.deb` et `bobine_5.0.7_arm64.deb`).
+  - **Fedora, Nobara, RHEL 10+ / AlmaLinux 10+ / Rocky Linux 10+ (`.rpm`, dnf)** : Dépôt `https://packages.bobine.fit/fedora` (`sudo dnf config-manager addrepo --from-repofile=https://packages.bobine.fit/fedora/bobine-stable.repo` sur dnf 5, `--add-repo` sur dnf 4, puis `sudo dnf install -y bobine` ; mise à jour : `sudo dnf upgrade --refresh`). Canaux : `bobine-stable.repo`, `bobine-beta.repo`, `bobine-canary.repo`. Fichiers : `bobine-5.0.7-1.x86_64.rpm`, `bobine-5.0.7-1.aarch64.rpm`.
+  - **Arch Linux, EndeavourOS, CachyOS, Manjaro, Arch Linux ARM (`.pkg.tar.zst`, pacman)** : Dépôt `https://packages.bobine.fit/arch` (`curl -fsSL https://packages.bobine.fit/bobine.gpg | sudo pacman-key --add -`, `sudo pacman-key --lsign-key B77D96D72F84F36ACAA3F8729CBF497D829EE15A`, section `[bobine]` dans `/etc/pacman.conf` avec `Server = https://packages.bobine.fit/arch/stable/$arch`, puis `sudo pacman -Syu bobine`). Fichiers : `bobine-5.0.7-1-x86_64.pkg.tar.zst`, `bobine-5.0.7-1-aarch64.pkg.tar.zst`.
 - **Bobine Assistant (Tauri 2)** : Exécutables `bobine-assistant` (x86_64) et `bobine-assistant-arm64` (ARM64) pour scan réseau, connexion SSH (mot de passe ou clé privée locale) et déploiement à distance.
 
 ---
 
 ## 6. Système à 3 Canaux de Mises à Jour & Télémétrie
-- **Canal Stable (`V5.0.5`)** : Versions étiquetées `Vx.y.z` (ex. `V5.0.5 « Résonance »`), stables et recommandées en production de salle.
+- **Canal Stable (`V5.0.7`)** : Versions étiquetées `Vx.y.z` (ex. `V5.0.7 « Aurora »`), stables et recommandées en production de salle.
 - **Canal Bêta (`beta`)** : Canal pré-version curé, publié manuellement par lots cohérents de fonctionnalités et correctifs validés.
 - **Canal Canary (`canary`)** : Tag mobile rolling `canary`, reconstruit automatiquement à chaque push sur la branche `main` sans curation.
 - **Garantie de mise à jour sur place (In-Place Upgrade)** : Les 3 canaux partagent les mêmes identifiants système et remplacent les binaires existants sans créer de doublon ni altérer les médias et bases SQLite.

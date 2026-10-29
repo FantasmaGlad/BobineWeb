@@ -94,7 +94,7 @@ function cleanReleaseBody(body: string, title: string): string {
 }
 
 export async function generateStaticParams() {
-  const slugs = ["v5.0.5", "V5.0.5", "beta", "BETA", "canary", "CANARY"];
+  const slugs = ["v5.0.7", "V5.0.7", "v5.0.5", "V5.0.5", "beta", "BETA", "canary", "CANARY"];
   return slugs.map((slug) => ({ slug }));
 }
 

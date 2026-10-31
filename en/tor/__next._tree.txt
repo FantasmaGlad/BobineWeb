@@ -1,0 +1,13 @@
+:HL["/_next/static/chunks/29tpql4a-td6s.css","style"]
+:HL["/_next/static/chunks/0dd7ukgis-ogb.css","style"]
+:HL["/_next/static/chunks/1h_b9kmzvym-g.css","style"]
+:HL["/_next/static/chunks/2ymz9m8bt6f33.css","style"]
+:HL["/_next/static/chunks/1h4vrx91ufmz7.css","style"]
+:HL["/_next/static/chunks/0418rxb3yq247.css","style"]
+:HL["/_next/static/chunks/20cf0_8o2zkem.css","style"]
+:HL["/_next/static/chunks/0l9vpz2vy43n4.css","style"]
+:HL["/images/BaamixInspector.webp","image"]
+3:[["children",{"s":"__PAGE__","h":160}]]
+2:[["children",{"s":"tor","h":64,"c":"$Q3"}]]
+1:[["children",{"s":{"n":"locale","t":"d","k":"en","s":["feed.xml","install.sh","latest.json"]},"h":48,"c":"$Q2"}]]
+0:{"b":"jpVs80sXuYyS2x91fk1Ye","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

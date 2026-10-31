@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="fr">
+  <id>https://bobine.fit/feed.xml</id>
+  <title>Bobine - versions et nouveautés</title>
+  <subtitle>Versions publiées de Bobine, la régie vidéo libre pour salles de sport</subtitle>
+  <link rel="self" type="application/atom+xml" href="https://bobine.fit/feed.xml"/>
+  <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog"/>
+  <updated>2026-10-31T18:29:24Z</updated>
+  <author><name>Clément Barillot</name></author>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/canary</id>
+    <title>Bobine — Canary (build automatique)</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/canary"/>
+    <updated>2026-10-31T18:29:24Z</updated>
+    <summary>&lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/LogoBanniere.png&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine — Canal Canary&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/Versions/Canary.png&quot; width=&quot;220&quot;&gt; &lt;/p&gt; # Bobine — Canary (build automatique) &gt; **Canal Canary (rolling).** Pre-release</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V5.0.7</id>
+    <title>Bobine V5.0.7</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V5.0.7"/>
+    <updated>2026-10-29T12:41:48Z</updated>
+    <summary># Bobine V5.0.7 « Aurora » — Canaux unifiés, lisibilité mesurée, livraison signée et paquets Linux à plancher glibc &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/LogoBanniere.png&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; La version **5.0.7 « Aurora »** est la première **Stable** publiée depuis **5.0.5 « Résonance »** : la **5.0.6** n'a pas connu de pu</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/beta</id>
+    <title>Bobine — Bêta (lot curé)</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/beta"/>
+    <updated>2026-10-29T12:47:25Z</updated>
+    <summary>&lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/LogoBanniere.png&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine — Canal Bêta&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/Versions/Beta.png&quot; width=&quot;220&quot;&gt; &lt;/p&gt; # Bobine — Bêta (lot curé) &gt; **Canal Bêta (accès anticipé).** Lots de fonctionnalit</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V5.0.5</id>
+    <title>Bobine V5.0.5</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V5.0.5"/>
+    <updated>2026-10-24T11:06:37Z</updated>
+    <summary># Bobine V5.0.5 « Résonance » — Stockage externe à chaud, routage et table de mixage radio, dépôts Linux unifiés (Debian, Fedora, Arch) et composant audio natif &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/LogoBanniere.png&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; La version **5.0.5 « Résonance »** inaugure la gestion complète du **Stockage externe (</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V5.0.2</id>
+    <title>Bobine V5.0.2</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V5.0.2"/>
+    <updated>2026-10-20T07:21:23Z</updated>
+    <summary># Bobine V5.0.2 « Constellation » — Périphériques avec vue globale, deux sorties radio indépendantes, bibliothèque radio repensée &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/LogoBanniere.png&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; La version **5.0.2** ajoute l'onglet **Périphériques** (audio, Bluetooth et Wi-Fi de la machine qui diffuse, avec une </summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V5.0.0</id>
+    <title>Bobine V5.0.0</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V5.0.0"/>
+    <updated>2026-10-17T10:01:15Z</updated>
+    <summary># Bobine V5.0.0 « Orchidée » — Trois Canaux de Mise à Jour, Écosystème ARM64 Natif, Nouvelle Identité Visuelle &amp; Sous-titres &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/LogoBanniere.png&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Stable&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/Versions</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V4.0.3</id>
+    <title>Bobine V4.0.3</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V4.0.3"/>
+    <updated>2026-10-15T17:22:11Z</updated>
+    <summary># Bobine V4.0.3 — Support Firefox, Mises à Jour Fiabilisées et Installateur Sans Friction &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/LogoBanniere.png&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine soutient Firefox — le renard Firefox et Baamix, la mascotte de Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V4.0.2</id>
+    <title>Bobine V4.0.2</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V4.0.2"/>
+    <updated>2026-10-14T09:01:11Z</updated>
+    <summary># Bobine V4.0.2 — Support Dédié Android TV &amp; Google TV, Résolution des Conflits HDMI et Expérience Grand Écran &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine sur Grand Écran — Séance de Pilates avec Baamix&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/PilateBaamix.jpeg&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; La version **4.0.2 Stable** de Bobine marque une étape majeure dans l'accessibilité et l</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V4.0.1</id>
+    <title>Bobine V4.0.1</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V4.0.1"/>
+    <updated>2026-10-13T14:49:14Z</updated>
+    <summary># Bobine V4.0.1 — Horloge Serveur Étendue à l'Audio Coach, à la Radio et à /cinema &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/bobine_banner.svg&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; La version **4.0.1 Stable** de Bobine prolonge la 4.0 : l'**horloge de lecture pilotée par le serveur**, introduite pour la vidéo du canal Réseau, gouverne désormai</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.6</id>
+    <title>Bobine V3.0.6</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V3.0.6"/>
+    <updated>2026-09-14T13:47:32Z</updated>
+    <summary># Bobine V3.0.6 — Correctifs Critiques HDMI Android, Déport de Navigation Système &amp; Recommandations Matérielles &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/bobine_banner.svg&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; La version **3.0.6 Stable** de Bobine apporte des correctifs de stabilité majeurs pour l'exploitation sur tablettes Android en environn</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.5</id>
+    <title>Bobine V3.0.5</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V3.0.5"/>
+    <updated>2026-09-13T06:38:23Z</updated>
+    <summary># Bobine V3.0.5 — Console Régie Coach Responsive, Hub d'Ambiances Visuelles, Moteur Vidéo Gapless &amp; Métriques d'Assiduité &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/bobine_banner.svg&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; La version **3.0.5 Stable** de Bobine marque une étape déterminante pour l'équipement multimédia des salles de sport, studios</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.4</id>
+    <title>Bobine V3.0.4</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V3.0.4"/>
+    <updated>2026-09-11T19:51:11Z</updated>
+    <summary># Bobine V3.0.4 — Support Manettes &amp; Contrôles Universels, Désinstallation Multi-Plateforme &amp; Fiabilisation Système &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/bobine_banner.svg&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; La version **3.0.4** apporte une évolution majeure à l'ergonomie, au confort de pilotage et à la robustesse générale de Bobine sur </summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.3</id>
+    <title>Bobine V3.0.3</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V3.0.3"/>
+    <updated>2026-09-11T17:55:46Z</updated>
+    <summary># Bobine V3.0.3 — Élimination du Gel Vidéo au Seek, Mode Cinéma Réseau et Imports Atomiques &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/bobine_banner.svg&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; La version 3.0.3 apporte des corrections critiques de synchronisation multimédia et de résilience des données pour l'ensemble des plateformes supportées. E</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.2</id>
+    <title>Bobine V3.0.2</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V3.0.2"/>
+    <updated>2026-09-09T20:05:08Z</updated>
+    <summary># Bobine V3.0.2 — Sortie Officielle Android Native, Accélération Matérielle Multi-OS &amp; Maxi Premium &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/bobine_banner.svg&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; La version 3.0.2 marque une étape majeure dans l'histoire de Bobine : l'arrivée officielle de l'**application native Android (`.apk`)**, transforma</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.1</id>
+    <title>Bobine V3.0.1</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V3.0.1"/>
+    <updated>2026-09-08T12:08:07Z</updated>
+    <summary># Bobine V3.0.1 — Canal Stable/Bêta, Dépôt APT Officiel &amp; Fiabilité Multi-Plateformes &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/bobine_banner.svg&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; La version 3.0.1 fait suite à la sortie officielle multi-plateforme de la 3.0.0 avec un objectif clair : donner aux utilisateurs un accès anticipé et maîtrisé au</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.0</id>
+    <title>Bobine V3.0.0</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V3.0.0"/>
+    <updated>2026-09-06T12:53:19Z</updated>
+    <summary># Bobine V3.0.0 — Sortie Officielle Multi-Plateforme &amp; Souveraineté Numérique &lt;p align=&quot;center&quot;&gt; &lt;img alt=&quot;Bobine&quot; src=&quot;https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/bobine_banner.svg&quot; width=&quot;100%&quot;&gt; &lt;/p&gt; Bobine franchit une étape majeure dans son cycle de développement avec la sortie officielle de la **version 3.0.0**. Cette version marque l'ouverture totale de la platef</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V2.0.1</id>
+    <title>Bobine V2.0.1 — Accélération Matérielle Intel/AMD &amp; Nouvel Installeur Rapide</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V2.0.1"/>
+    <updated>2026-08-22T11:55:22Z</updated>
+    <summary>Bobine est une régie vidéo et sonore autonome et libre (licence AGPL-3.0) conçue pour équiper les studios et salles de sport : diffusion automatique de cours collectifs programmés à la seconde, contrôle direct du téléviseur par HDMI-CEC, borne tactile adhérent à la demande, télécommande mobile locale sans application, et radio d'ambiance 24/7 avec annonces vocales. Incluant borne à la demande, exp</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V2.0.0</id>
+    <title>Bobine V2.0.0 — Official Release</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V2.0.0"/>
+    <updated>2026-08-15T12:08:18Z</updated>
+    <summary># Bobine 2.0 — l'alternative open source à un système de cours virtuels propriétaire **Bobine transforme un mini PC bon marché en système complet de diffusion de cours collectifs : planning automatique, borne à la demande, deux écrans indépendants, radio d'ambiance et télécommande mobile. Le tout hébergé chez vous, sous licence libre, sans abonnement récurrent et sans dépendance à un éditeur.** Là</summary>
+  </entry>
+</feed>

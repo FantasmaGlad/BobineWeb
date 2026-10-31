@@ -1,0 +1,296 @@
+{
+  "os.linux": {
+    "name": "Linux",
+    "src": "/images/icons/os/linux.svg",
+    "tone": "ink",
+    "color": "#FCC624",
+    "render": "image",
+    "maxBytes": 153600,
+    "halo": true
+  },
+  "os.windows": {
+    "name": "Windows",
+    "src": "/images/icons/os/windows.svg",
+    "color": "#0078D4",
+    "render": "image"
+  },
+  "os.macos": {
+    "name": "macOS",
+    "src": "/images/icons/os/apple.svg",
+    "tone": "ink",
+    "color": "#000000"
+  },
+  "os.android": {
+    "name": "Android",
+    "src": "/images/icons/os/android.svg",
+    "tone": "ink",
+    "color": "#3DDC84",
+    "render": "image",
+    "halo": true
+  },
+  "os.androidtv": {
+    "name": "Android TV",
+    "src": "/images/icons/os/androidtv.svg",
+    "tone": "ink",
+    "color": "#3DDC84",
+    "render": "image",
+    "halo": true
+  },
+  "os.googlebook": {
+    "name": "Google Book",
+    "src": "/images/icons/os/googlebook.svg",
+    "tone": "ink",
+    "color": "#4285F4",
+    "render": "image",
+    "halo": true
+  },
+  "os.framework": {
+    "name": "Framework",
+    "src": "/images/icons/os/framework.svg",
+    "tone": "ink",
+    "color": "#000000"
+  },
+  "os.tor": {
+    "name": "Tor",
+    "src": "/images/icons/os/tor.svg",
+    "tone": "ink",
+    "color": "#7D4698",
+    "render": "image",
+    "halo": true
+  },
+  "browser.chrome": {
+    "name": "Chrome",
+    "src": "/images/icons/browsers/chrome.svg",
+    "render": "image",
+    "halo": true
+  },
+  "browser.edge": {
+    "name": "Edge",
+    "src": "/images/icons/browsers/edge.svg",
+    "render": "image",
+    "halo": true
+  },
+  "browser.firefox": {
+    "name": "Firefox",
+    "src": "/images/icons/browsers/firefox.svg",
+    "tone": "ink",
+    "color": "#FF7139",
+    "render": "image",
+    "halo": true
+  },
+  "browser.safari": {
+    "name": "Safari",
+    "src": "/images/icons/browsers/safari.svg",
+    "color": "#006CFF",
+    "render": "image",
+    "halo": true
+  },
+  "browser.brave": {
+    "name": "Brave",
+    "src": "/images/icons/browsers/brave.svg",
+    "tone": "ink",
+    "color": "#FB542B",
+    "render": "image"
+  },
+  "browser.opera": {
+    "name": "Opera",
+    "src": "/images/icons/browsers/opera.svg",
+    "tone": "ink",
+    "color": "#FF1B2D",
+    "render": "image"
+  },
+  "browser.samsung": {
+    "name": "Samsung Internet",
+    "src": "/images/icons/browsers/samsunginternet.svg",
+    "tone": "ink",
+    "color": "#1428A0",
+    "render": "image",
+    "halo": true
+  },
+  "browser.tor": {
+    "name": "Tor Browser",
+    "src": "/images/icons/browsers/torbrowser.svg",
+    "tone": "ink",
+    "color": "#7D4698",
+    "render": "image",
+    "halo": true
+  },
+  "chip.amd": {
+    "name": "AMD",
+    "src": "/images/icons/chips/amd.svg",
+    "tone": "brand",
+    "color": "#ED1C24"
+  },
+  "chip.intel": {
+    "name": "Intel",
+    "src": "/images/icons/chips/intel.svg",
+    "tone": "ink",
+    "color": "#0071C5"
+  },
+  "chip.snapdragon": {
+    "name": "Snapdragon",
+    "src": "/images/icons/chips/snapdragon.svg",
+    "tone": "ink",
+    "color": "#C33139",
+    "render": "image"
+  },
+  "distro.almalinux": {
+    "name": "AlmaLinux",
+    "src": "/images/icons/distros/almalinux.svg",
+    "tone": "ink",
+    "color": "#0069DA",
+    "render": "image",
+    "halo": true
+  },
+  "distro.arch": {
+    "name": "Arch Linux",
+    "src": "/images/icons/distros/arch.svg",
+    "tone": "ink",
+    "color": "#1793D1",
+    "render": "image"
+  },
+  "distro.cachyos": {
+    "name": "CachyOS",
+    "src": "/images/icons/distros/cachyos.svg",
+    "tone": "ink",
+    "color": "#00AA88",
+    "render": "image"
+  },
+  "distro.debian": {
+    "name": "Debian",
+    "src": "/images/icons/distros/debian.svg",
+    "tone": "ink",
+    "color": "#A81D33",
+    "render": "image"
+  },
+  "distro.endeavouros": {
+    "name": "EndeavourOS",
+    "src": "/images/icons/distros/endeavouros.svg",
+    "tone": "ink",
+    "color": "#7F7FFF",
+    "render": "image"
+  },
+  "distro.fedora": {
+    "name": "Fedora",
+    "src": "/images/icons/distros/fedora.svg",
+    "tone": "ink",
+    "color": "#51A2DA",
+    "render": "image"
+  },
+  "distro.linuxmint": {
+    "name": "Linux Mint",
+    "src": "/images/icons/distros/linuxmint.svg",
+    "tone": "ink",
+    "color": "#86BE43",
+    "render": "image"
+  },
+  "distro.manjaro": {
+    "name": "Manjaro",
+    "src": "/images/icons/distros/manjaro.svg",
+    "tone": "ink",
+    "color": "#35BFA4",
+    "render": "image"
+  },
+  "distro.nobara": {
+    "name": "Nobara",
+    "src": "/images/icons/distros/nobara.svg",
+    "tone": "ink",
+    "color": "#000000"
+  },
+  "distro.opensuse": {
+    "name": "openSUSE",
+    "src": "/images/icons/distros/opensuse.svg",
+    "tone": "ink",
+    "color": "#73BA25",
+    "render": "image"
+  },
+  "distro.popos": {
+    "name": "Pop!_OS",
+    "src": "/images/icons/distros/popos.svg",
+    "tone": "ink",
+    "color": "#48B9C7",
+    "render": "image"
+  },
+  "distro.raspberrypi": {
+    "name": "Raspberry Pi",
+    "src": "/images/icons/distros/raspberrypi.svg",
+    "tone": "ink",
+    "color": "#A22846",
+    "render": "image"
+  },
+  "distro.rhel": {
+    "name": "Red Hat Enterprise Linux",
+    "src": "/images/icons/distros/rhel.svg",
+    "color": "#EE0000",
+    "render": "image"
+  },
+  "distro.rockylinux": {
+    "name": "Rocky Linux",
+    "src": "/images/icons/distros/rockylinux.svg",
+    "tone": "ink",
+    "color": "#10B981",
+    "render": "image"
+  },
+  "distro.ubuntu": {
+    "name": "Ubuntu",
+    "src": "/images/icons/distros/ubuntu.svg",
+    "tone": "ink",
+    "color": "#E95420",
+    "render": "image"
+  },
+  "distro.zorin": {
+    "name": "Zorin OS",
+    "src": "/images/icons/distros/zorin.svg",
+    "tone": "ink",
+    "color": "#15A6F0",
+    "render": "image"
+  },
+  "app.github": {
+    "name": "GitHub",
+    "src": "/images/icons/apps/github.svg",
+    "tone": "ink",
+    "color": "#181717"
+  },
+  "app.linkedin": {
+    "name": "LinkedIn",
+    "src": "/images/icons/apps/linkedin.svg",
+    "color": "#0A66C2",
+    "render": "image"
+  },
+  "app.whatsapp": {
+    "name": "WhatsApp",
+    "src": "/images/icons/apps/whatsapp.svg",
+    "tone": "ink"
+  },
+  "app.x": {
+    "name": "X",
+    "src": "/images/icons/apps/x.svg",
+    "tone": "ink"
+  },
+  "app.telegram": {
+    "name": "Telegram",
+    "src": "/images/icons/apps/telegram.svg",
+    "tone": "ink"
+  },
+  "compare.lesmills": {
+    "name": "Les Mills",
+    "src": "/images/icons/compare/lesmills.svg",
+    "tone": "ink"
+  },
+  "compare.wexer": {
+    "name": "Wexer",
+    "src": "/images/icons/compare/wexer.svg",
+    "tone": "ink"
+  },
+  "compare.radical": {
+    "name": "Radical Fitness",
+    "src": "/images/icons/compare/radical.svg",
+    "color": "#ED1C24",
+    "render": "image"
+  },
+  "compare.signage": {
+    "name": "Anthias",
+    "src": "/images/icons/compare/anthias.svg",
+    "tone": "ink"
+  }
+}

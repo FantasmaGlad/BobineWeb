@@ -1,0 +1,62 @@
+3:"$Sreact.fragment"
+4:"/_next/static/chunks/2-kg71eaml0uv.js"
+5:"/_next/static/chunks/2y556c5ae28rv.js"
+6:"/_next/static/chunks/3u6_sme-hpw_4.js"
+7:"/_next/static/chunks/2kvso6qjibumy.js"
+8:"/_next/static/chunks/42l--lcnumnkj.js"
+9:I[31617,["$4","$5","$6","$7","$8"],"default"]
+a:I[81380,["$4","$5","$6","$7","$8"],"default"]
+b:I[91011,["$4","$5","$6","$7","$8"],"default"]
+c:I[69861,["$4","$5","$6","$7","$8"],"default"]
+d:"/_next/static/chunks/0l5ct_aoo06un.js"
+e:I[39756,["$d"],"default"]
+f:I[37457,["$d"],"default"]
+10:I[60020,["$4","$5","$6","$7","$8"],"default"]
+14:"/_next/static/chunks/3phsovf4el5k2.js"
+15:"/_next/static/chunks/0_ddn5ehcaxmk.js"
+16:"/_next/static/chunks/39331a1dz4q6_.js"
+17:"/_next/static/chunks/1gtwq7sewgscd.js"
+18:I[5500,["$4","$5","$6","$7","$8","$14","$15","$16","$17"],"Image"]
+19:I[105,["$4","$5","$6","$7","$8","$14","$15","$16","$17"],"default"]
+1a:I[22016,["$4","$5","$6","$7","$8","$14","$15","$16","$17"],""]
+1b:I[4576,["$4","$5","$6","$7","$8","$14","$15","$16","$17"],"default"]
+1c:I[12831,["$4","$5","$6","$7","$8","$14","$15","$16","$17"],"default"]
+20:"ViewportBoundary"
+21:I[97367,["$d"],"$20"]
+22:"MetadataBoundary"
+23:I[97367,["$d"],"$22"]
+24:"$Sreact.suspense"
+:HL["/_next/static/chunks/3nz79eul2eja3.css","style"]
+:HL["/_next/static/chunks/3odm3n2nn0iyz.css","style"]
+12:X
+13:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$3","c",{"children":[[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Bobine\",\"item\":\"https://bobine.fit/en\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Documentation\",\"item\":\"https://bobine.fit/en/documentation\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"Getting Started\",\"item\":\"https://bobine.fit/en/documentation\"}]}"}}],["$","div",null,{"className":"docs-intro-art-wrap","children":[["$","$L18",null,{"src":"/images/BaamixInspector.webp","alt":"","aria-hidden":"true","className":"docs-intro-art","width":560,"height":776,"sizes":"(max-width: 639px) 120px, 220px","priority":true}],["$","div",null,{"className":"dx-div-4","children":[["$","div",null,{"children":[["$","span",null,{"className":"feature-category-label","children":"Getting Started & Multi-OS Setup"}],["$","h1",null,{"className":"dx-h1-1","children":"Installation & Quick Start"}]]}],["$","div",null,{"className":"dx-div-2","children":["$","$L19",null,{"locale":"en","pathname":"/documentation","title":"Bobine Installation & Quick Start Guide","description":"Official setup guide for Bobine across Windows (x86_64 & ARM64), macOS, Linux (x86_64 & ARM64), Google Books, Android, Android TV, and dedicated appliances."}]}]]}],["$","p",null,{"className":"dx-p-1","children":"Bobine adapts to your setup: choose between 1-click applications for standard computers (Windows x86_64 & Snapdragon ARM64, Mac Apple Silicon, Linux x86_64 & ARM64, Google Books under Aluminium OS, Android tablets & TV) or deploy a dedicated 24/7 appliance (x86_64 or ARM64 mini PC) for uninterrupted studio playout with automatic recovery after power cuts."}]]}],["$","p",null,{"className":"dx-p-2","children":["$","$L1a",null,{"href":"/en/fonctionnalites","className":"dx-link-1","children":"See also: What Bobine does for your gym >"}]}],["$","div",null,{"className":"docs-callout docs-callout--info dx-div-5","children":[["$","div",null,{"className":"docs-callout__content","children":[["$","div",null,{"className":"docs-callout__title","children":"Complete offline manual"}],["$","p",null,{"className":"dx-p-3","children":"One PDF document: cover page, table of contents, and every chapter (manifesto, setup, usage, features, FAQ, developer reference, roadmap) — kept ready for offline use if the site or network is ever unreachable."}]]}],["$","$L1b",null,{"locale":"en","variant":"manual"}]]}],["$","$L1c",null,{"locale":"en"}]],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/3odm3n2nn0iyz.css","precedence":"next"}],["$","script","script-0",{"src":"/_next/static/chunks/3phsovf4el5k2.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/0_ddn5ehcaxmk.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/39331a1dz4q6_.js","async":true}],"$L1d"],"$L1e"]}],"p":"$@1f","v":null,"s":"$12"}}]]
+2:[["children",{"s":"documentation","h":64,"d":{"r":["$","$3","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/3nz79eul2eja3.css","precedence":"next"}],["$","script","script-0",{"src":"/_next/static/chunks/42l--lcnumnkj.js","async":true}]],["$","div",null,{"className":"docs-page-wrapper","children":[["$","$L9",null,{"locale":"en","items":[["","Quick start"],["utilisation","Usage"],["faq","FAQ / Troubleshooting"],["developpeurs","Developers"]]}],["$","div",null,{"className":"docs-layout","children":[["$","aside",null,{"className":"docs-sidebar-panel","children":["$","div",null,{"className":"docs-sidebar-sticky","children":[["$","$La",null,{"locale":"en"}],["$","div",null,{"className":"docs-sidebar-nav-wrapper","children":[["$","span",null,{"className":"docs-sidebar-section-title","children":"Documentation"}],["$","$Lb",null,{"locale":"en","items":"$2:0:1:d:r:props:children:1:props:children:0:props:items"}]]}],["$","$Lc",null,{"locale":"en"}]]}]}],["$","div",null,{"className":"docs-main-panel","children":[["$","article",null,{"className":"docs-content","children":["$","div",null,{"className":"docs-content__inner","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]}]}],["$","$L10",null,{"locale":"en"}]]}]]}]]}]]}],"p":"$@11","v":null,"s":"$12"},"c":"$Q13"}]]
+1:[["children",{"s":{"n":"locale","t":"d","k":"en","s":["feed.xml","install.sh","latest.json"]},"h":48,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":80,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$L21",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, viewport-fit=cover"}]]}],["$","$L23",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$24",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Setup Guide & Documentation · Bobine"}],["$","meta","1",{"name":"description","content":"Official Bobine setup guide: native 1-click installers for Windows 11/10 (x86_64 & Snapdragon ARM64), macOS Apple Silicon, Linux (x86_64 & ARM64), Google Books (Aluminium OS), Android tablets and Android TV, local network orchestration with Bobine Assistant, and 24/7 dedicated gym appliance on Debian 13 (Mini PC x86_64, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5)."}],["$","meta","2",{"name":"application-name","content":"Bobine"}],["$","link","3",{"rel":"author","href":"https://github.com/FantasmaGlad"}],["$","meta","4",{"name":"author","content":"Clément Barillot"}],["$","link","5",{"rel":"manifest","href":"/manifest.webmanifest"}],["$","meta","6",{"name":"keywords","content":"Documentation Bobine,Démarrage rapide Bobine,Installation Bobine,Google Book,Googlebook,Aluminium OS,Bobine Google Book,Application salle de sport Google Book,PC ARM Qualcomm Snapdragon,Snapdragon X Elite,Snapdragon X Plus,Windows 11 ARM64,Linux ARM64,NVIDIA DGX Spark,Mini PC ARM salle de sport,Raspberry Pi 5 salle de sport,Orange Pi 5 RK3588,Bobine Windows,Bobine macOS,Bobine Linux,Bobine Fedora,Bobine Arch Linux,Bobine Android,Bobine Android TV,Bobine Assistant,Debian 13 mini PC fitness,Script install.sh Bobine"}],["$","meta","7",{"name":"creator","content":"Clément Barillot (FantasmaGlad)"}],["$","meta","8",{"name":"publisher","content":"Bobine Fit"}],["$","meta","9",{"name":"robots","content":"index, follow"}],["$","meta","10",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","meta","11",{"name":"category","content":"technology"}],["$","meta","12",{"name":"classification","content":"Fitness Video Playout & Gym Cinema Automation"}],["$","link","13",{"rel":"canonical","href":"https://bobine.fit/en/documentation/"}],["$","link","14",{"rel":"alternate","hrefLang":"fr","href":"https://bobine.fit/fr/documentation/"}],["$","link","15",{"rel":"alternate","hrefLang":"en","href":"https://bobine.fit/en/documentation/"}],["$","link","16",{"rel":"alternate","hrefLang":"fr-FR","href":"https://bobine.fit/fr/documentation/"}],["$","link","17",{"rel":"alternate","hrefLang":"en-US","href":"https://bobine.fit/en/documentation/"}],["$","link","18",{"rel":"alternate","hrefLang":"x-default","href":"https://bobine.fit/fr/documentation/"}],["$","link","19",{"rel":"alternate","type":"application/atom+xml","href":"https://bobine.fit/feed.xml"}],["$","meta","20",{"property":"og:title","content":"Setup Guide & Documentation · Bobine"}],["$","meta","21",{"property":"og:description","content":"Official Bobine setup guide: native 1-click installers for Windows 11/10 (x86_64 & Snapdragon ARM64), macOS Apple Silicon, Linux (x86_64 & ARM64), Google Books (Aluminium OS), Android tablets and Android TV, local network orchestration with Bobine Assistant, and 24/7 dedicated gym appliance on Debian 13 (Mini PC x86_64, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5)."}],["$","meta","22",{"property":"og:url","content":"https://bobine.fit/en/documentation/"}],["$","meta","23",{"property":"og:site_name","content":"Bobine"}],["$","meta","24",{"property":"og:locale","content":"en_US"}],["$","meta","25",{"property":"og:image","content":"https://bobine.fit/en/opengraph-image"}],["$","meta","26",{"property":"og:image:width","content":"1200"}],["$","meta","27",{"property":"og:image:height","content":"630"}],["$","meta","28",{"property":"og:image:alt","content":"Setup Guide & Documentation"}],["$","meta","29",{"property":"og:locale:alternate","content":"fr_FR"}],"$L25","$L26","$L27","$L28","$L29","$L2a","$L2b","$L2c","$L2d","$L2e","$L2f","$L30","$L31","$L32","$L33"]}]}],null]}],null]}],"p":"$@34","v":null,"s":"$12"}},"a":"$@35","u":"$@36","b":"jpVs80sXuYyS2x91fk1Ye"}
+37:I[97367,["$d"],"OutletBoundary"]
+39:I[27201,["$d"],"IconMark"]
+1d:["$","script","script-3",{"src":"/_next/static/chunks/1gtwq7sewgscd.js","async":true}]
+1e:["$","$L37",null,{"children":["$","$24",null,{"name":"Next.MetadataOutlet","children":"$@38"}]}]
+25:["$","meta","30",{"property":"og:type","content":"website"}]
+26:["$","meta","31",{"name":"twitter:card","content":"summary_large_image"}]
+27:["$","meta","32",{"name":"twitter:title","content":"Setup Guide & Documentation · Bobine"}]
+28:["$","meta","33",{"name":"twitter:description","content":"Official Bobine setup guide: native 1-click installers for Windows 11/10 (x86_64 & Snapdragon ARM64), macOS Apple Silicon, Linux (x86_64 & ARM64), Google Books (Aluminium OS), Android tablets and Android TV, local network orchestration with Bobine Assistant, and 24/7 dedicated gym appliance on Debian 13 (Mini PC x86_64, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5)."}]
+29:["$","meta","34",{"name":"twitter:image","content":"https://bobine.fit/en/opengraph-image"}]
+2a:["$","link","35",{"rel":"shortcut icon","href":"/favicon.ico"}]
+2b:["$","link","36",{"rel":"icon","href":"/favicon.ico?favicon.084wvoryi_91c.ico","sizes":"48x48","type":"image/x-icon"}]
+2c:["$","link","37",{"rel":"icon","href":"/favicon-48x48.png","sizes":"48x48","type":"image/png"}]
+2d:["$","link","38",{"rel":"icon","href":"/favicon-96x96.png","sizes":"96x96","type":"image/png"}]
+2e:["$","link","39",{"rel":"icon","href":"/icon-192.png","sizes":"192x192","type":"image/png"}]
+2f:["$","link","40",{"rel":"icon","href":"/icon.png","sizes":"512x512","type":"image/png"}]
+30:["$","link","41",{"rel":"icon","href":"/favicon.ico","sizes":"48x48"}]
+31:["$","link","42",{"rel":"apple-touch-icon","href":"/apple-touch-icon.png","sizes":"180x180","type":"image/png"}]
+32:["$","link","43",{"rel":"apple-touch-icon","href":"/icon-192.png","sizes":"192x192","type":"image/png"}]
+33:["$","$L39","44",{}]
+36:true
+12:300
+38:null
+12:C
+35:0
+11:"$undefined"
+1f:"$undefined"
+34:"$undefined"

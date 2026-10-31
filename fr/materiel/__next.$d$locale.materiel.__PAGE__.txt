@@ -1,0 +1,44 @@
+3:"$Sreact.fragment"
+4:"/_next/static/chunks/0l5ct_aoo06un.js"
+5:I[39756,["$4"],"default"]
+6:I[37457,["$4"],"default"]
+a:"/_next/static/chunks/2-kg71eaml0uv.js"
+b:"/_next/static/chunks/2y556c5ae28rv.js"
+c:"/_next/static/chunks/3u6_sme-hpw_4.js"
+d:"/_next/static/chunks/2kvso6qjibumy.js"
+e:"/_next/static/chunks/187l5dn9bzp7s.js"
+f:I[22016,["$a","$b","$c","$d","$e"],""]
+10:I[97367,["$4"],"OutletBoundary"]
+11:"$Sreact.suspense"
+14:"ViewportBoundary"
+15:I[97367,["$4"],"$14"]
+16:"MetadataBoundary"
+17:I[97367,["$4"],"$16"]
+:HL["/images/icons/os/tor.svg","image"]
+8:X
+9:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$3","c",{"children":[["$","section",null,{"className":"onion-notice","children":["$","div",null,{"className":"container onion-notice__inner","children":[["$","span",null,{"className":"onion-notice__mark","children":["$","img",null,{"src":"/images/icons/os/tor.svg","alt":"","className":"brand-icon--image brand-icon--halo","style":{"width":"96px","height":"96px"},"aria-hidden":true}]}],["$","p",null,{"className":"onion-notice__eyebrow","children":"Miroir Tor de Bobine"}],["$","h1",null,{"className":"onion-notice__title","children":"La boutique reste sur le web classique"}],["$","p",null,{"className":"onion-notice__lead","children":"Vous consultez la version .onion de Bobine. Cette page ne présente volontairement aucun produit."}],["$","ul",null,{"className":"onion-notice__points","children":[["$","li","La sélection de matériel repose sur des liens d'affiliation vers Amazon et AliExpress. Un lien suivi ne correspond pas à ce qu'on attend d'un accès par Tor.",{"children":"La sélection de matériel repose sur des liens d'affiliation vers Amazon et AliExpress. Un lien suivi ne correspond pas à ce qu'on attend d'un accès par Tor."}],["$","li","Bobine est un logiciel libre : le matériel n'est jamais imposé, et tout ce qu'il faut pour installer et utiliser le logiciel est ici, sans achat.",{"children":"Bobine est un logiciel libre : le matériel n'est jamais imposé, et tout ce qu'il faut pour installer et utiliser le logiciel est ici, sans achat."}],["$","li","Le miroir ne contacte aucun service extérieur et ne garde aucun journal de visite.",{"children":"Le miroir ne contacte aucun service extérieur et ne garde aucun journal de visite."}]]}],["$","div",null,{"className":"onion-notice__actions","children":[["$","$Lf",null,{"href":"/fr/documentation","className":"btn-primary","children":"Lire la documentation"}],["$","$Lf",null,{"href":"/fr/telechargement","className":"btn-secondary","children":"Télécharger Bobine"}]]}],["$","p",null,{"className":"onion-notice__clearnet","children":[["$","a",null,{"href":"https://bobine.fit/fr/materiel/aliexpress","rel":"noopener noreferrer","children":"Ouvrir la boutique sur bobine.fit"}],["$","span",null,{"children":"Ce lien quitte le réseau Tor. Rien n'est ouvert automatiquement."}]]}],["$","p",null,{"className":"onion-notice__footer","children":"Tor protège votre adresse IP et le contenu du transport, pas vos habitudes de navigation. Bobine n'est pas affilié au Tor Project."}]]}]}],null,["$","$L10",null,{"children":["$","$11",null,{"name":"Next.MetadataOutlet","children":"$@12"}]}]]}],"p":"$@13","v":null,"s":"$8"}}]]
+2:[["children",{"s":"materiel","h":64,"d":{"r":["$","$3","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/187l5dn9bzp7s.js","async":true}]],["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}],"p":"$@7","v":null,"s":"$8"},"c":"$Q9"}]]
+1:[["children",{"s":{"n":"locale","t":"d","k":"fr","s":["feed.xml","install.sh","latest.json"]},"h":48,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":80,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$L15",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, viewport-fit=cover"}]]}],["$","$L17",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$11",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Bobine — Régie vidéo & streaming libre pour salles de sport | Alternative Les Mills Cinema"}],["$","meta","1",{"name":"description","content":"Bobine transforme un Google Book (Aluminium OS), un PC ARM Qualcomm Snapdragon, un Mac mini, une tablette Android ou un mini PC x86/ARM64 en régie vidéo autonome et 100% hors-ligne pour salles de sport. L'alternative libre, gratuite et sans abonnement à Les Mills Cinema et Les Mills Virtual."}],["$","meta","2",{"name":"application-name","content":"Bobine"}],["$","link","3",{"rel":"author","href":"https://github.com/FantasmaGlad"}],["$","meta","4",{"name":"author","content":"FantasmaGlad"}],["$","link","5",{"rel":"manifest","href":"/manifest.webmanifest"}],["$","meta","6",{"name":"keywords","content":"Bobine,Bobine fit,Bobine Github,Google Book,Googlebook,Aluminium OS,Bobine Google Book,Application salle de sport Google Book,PC ARM Qualcomm Snapdragon,Snapdragon X Elite,Snapdragon X Plus,Windows 11 ARM64,Linux ARM64,NVIDIA DGX Spark,Mini PC ARM salle de sport,Raspberry Pi 5 salle de sport,Orange Pi 5 RK3588,Les Mills,Les Mills Cinema,Alternative Les Mills,Alternative Les Mills Cinema,Alternative Les Mills Virtual,Régie vidéo salle de sport,Régie vidéo fitness,Diffusion cours collectifs vidéo,Borne tactile fitness,Dell Wyse 5070,Affichage dynamique salle de sport,Logiciel libre sport,Gym video playout,Virtual fitness kiosk"}],["$","meta","7",{"name":"creator","content":"FantasmaGlad"}],["$","meta","8",{"name":"publisher","content":"Bobine"}],["$","meta","9",{"name":"robots","content":"index, follow"}],["$","meta","10",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","meta","11",{"name":"category","content":"technology"}],["$","meta","12",{"name":"classification","content":"Fitness Video Playout & Gym Cinema Automation"}],["$","meta","13",{"property":"og:title","content":"Bobine — Régie vidéo & streaming libre pour salles de sport | Alternative Les Mills Cinema"}],["$","meta","14",{"property":"og:description","content":"Bobine transforme un Google Book (Aluminium OS), un PC ARM Qualcomm Snapdragon, un Mac mini, une tablette Android ou un mini PC x86/ARM64 en régie vidéo autonome et 100% hors-ligne pour salles de sport. L'alternative libre, gratuite et sans abonnement à Les Mills Cinema et Les Mills Virtual."}],["$","meta","15",{"property":"og:image","content":"https://bobine.fit/fr/opengraph-image?09519e9e416ecc04"}],["$","meta","16",{"property":"og:image:type","content":"image/png"}],["$","meta","17",{"property":"og:image:width","content":"1200"}],["$","meta","18",{"property":"og:image:height","content":"630"}],["$","meta","19",{"property":"og:image:alt","content":"Bobine"}],["$","meta","20",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","21",{"name":"twitter:title","content":"Bobine — Régie vidéo & streaming libre pour salles de sport | Alternative Les Mills Cinema"}],["$","meta","22",{"name":"twitter:description","content":"Bobine transforme un Google Book (Aluminium OS), un PC ARM Qualcomm Snapdragon, un Mac mini, une tablette Android ou un mini PC x86/ARM64 en régie vidéo autonome et 100% hors-ligne pour salles de sport. L'alternative libre, gratuite et sans abonnement à Les Mills Cinema et Les Mills Virtual."}],["$","meta","23",{"name":"twitter:image","content":"https://bobine.fit/fr/opengraph-image?09519e9e416ecc04"}],["$","meta","24",{"name":"twitter:image:alt","content":"Bobine"}],"$L18","$L19","$L1a","$L1b","$L1c","$L1d","$L1e","$L1f","$L20","$L21","$L22","$L23","$L24"]}]}],null]}],null]}],"p":"$@25","v":null,"s":"$8"}},"a":"$@26","u":"$@27","b":"jpVs80sXuYyS2x91fk1Ye"}
+28:I[27201,["$4"],"IconMark"]
+12:null
+18:["$","meta","25",{"name":"twitter:image:type","content":"image/png"}]
+19:["$","meta","26",{"name":"twitter:image:width","content":"1200"}]
+1a:["$","meta","27",{"name":"twitter:image:height","content":"630"}]
+1b:["$","link","28",{"rel":"shortcut icon","href":"/favicon.ico"}]
+1c:["$","link","29",{"rel":"icon","href":"/favicon.ico?favicon.084wvoryi_91c.ico","sizes":"48x48","type":"image/x-icon"}]
+1d:["$","link","30",{"rel":"icon","href":"/favicon-48x48.png","sizes":"48x48","type":"image/png"}]
+1e:["$","link","31",{"rel":"icon","href":"/favicon-96x96.png","sizes":"96x96","type":"image/png"}]
+1f:["$","link","32",{"rel":"icon","href":"/icon-192.png","sizes":"192x192","type":"image/png"}]
+20:["$","link","33",{"rel":"icon","href":"/icon.png","sizes":"512x512","type":"image/png"}]
+21:["$","link","34",{"rel":"icon","href":"/favicon.ico","sizes":"48x48"}]
+22:["$","link","35",{"rel":"apple-touch-icon","href":"/apple-touch-icon.png","sizes":"180x180","type":"image/png"}]
+23:["$","link","36",{"rel":"apple-touch-icon","href":"/icon-192.png","sizes":"192x192","type":"image/png"}]
+24:["$","$L28","37",{}]
+27:true
+8:300
+8:C
+26:0
+7:"$undefined"
+13:"$undefined"
+25:"$undefined"

@@ -1,0 +1,53 @@
+3:"$Sreact.fragment"
+4:"/_next/static/chunks/0l5ct_aoo06un.js"
+5:I[39756,["$4"],"default"]
+6:I[37457,["$4"],"default"]
+d:"/_next/static/chunks/2-kg71eaml0uv.js"
+e:"/_next/static/chunks/2y556c5ae28rv.js"
+f:"/_next/static/chunks/3u6_sme-hpw_4.js"
+10:"/_next/static/chunks/2kvso6qjibumy.js"
+11:"/_next/static/chunks/187l5dn9bzp7s.js"
+12:"/_next/static/chunks/44fjq9xp4mzst.js"
+13:I[22016,["$d","$e","$f","$10","$11","$12"],""]
+14:I[97367,["$4"],"OutletBoundary"]
+15:"$Sreact.suspense"
+18:"ViewportBoundary"
+19:I[97367,["$4"],"$18"]
+1a:"MetadataBoundary"
+1b:I[97367,["$4"],"$1a"]
+:HL["/images/icons/os/tor.svg","image"]
+:HL["/_next/static/chunks/0sw3eofexd48w.css","style"]
+:HL["/_next/static/chunks/0rge7a031ho7u.css","style"]
+8:X
+b:X
+b:C
+c:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$3","c",{"children":[["$","section",null,{"className":"onion-notice","children":["$","div",null,{"className":"container onion-notice__inner","children":[["$","span",null,{"className":"onion-notice__mark","children":["$","img",null,{"src":"/images/icons/os/tor.svg","alt":"","className":"brand-icon--image brand-icon--halo","style":{"width":"96px","height":"96px"},"aria-hidden":true}]}],["$","p",null,{"className":"onion-notice__eyebrow","children":"Bobine Tor mirror"}],["$","h1",null,{"className":"onion-notice__title","children":"The store stays on the regular web"}],["$","p",null,{"className":"onion-notice__lead","children":"You are viewing the .onion version of Bobine. This page deliberately lists no product."}],["$","ul",null,{"className":"onion-notice__points","children":[["$","li","The hardware selection relies on affiliate links to Amazon and AliExpress. A tracked link is not what one expects from a Tor visit.",{"children":"The hardware selection relies on affiliate links to Amazon and AliExpress. A tracked link is not what one expects from a Tor visit."}],["$","li","Bobine is free software: hardware is never imposed, and everything needed to install and use the software is here, with no purchase.",{"children":"Bobine is free software: hardware is never imposed, and everything needed to install and use the software is here, with no purchase."}],["$","li","The mirror contacts no outside service and keeps no visit log.",{"children":"The mirror contacts no outside service and keeps no visit log."}]]}],["$","div",null,{"className":"onion-notice__actions","children":[["$","$L13",null,{"href":"/en/documentation","className":"btn-primary","children":"Read the documentation"}],["$","$L13",null,{"href":"/en/telechargement","className":"btn-secondary","children":"Download Bobine"}]]}],["$","p",null,{"className":"onion-notice__clearnet","children":[["$","a",null,{"href":"https://bobine.fit/en/materiel/amazon","rel":"noopener noreferrer","children":"Open the store on bobine.fit"}],["$","span",null,{"children":"This link leaves the Tor network. Nothing opens automatically."}]]}],["$","p",null,{"className":"onion-notice__footer","children":"Tor protects your IP address and the content of the transport, not your browsing habits. Bobine is not affiliated with the Tor Project."}]]}]}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0sw3eofexd48w.css","precedence":"next"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/0rge7a031ho7u.css","precedence":"next"}],["$","script","script-0",{"src":"/_next/static/chunks/44fjq9xp4mzst.js","async":true}]],["$","$L14",null,{"children":["$","$15",null,{"name":"Next.MetadataOutlet","children":"$@16"}]}]]}],"p":"$@17","v":null,"s":"$8"}}]]
+9:[["children",{"s":"amazon","h":96,"d":{"r":["$","$3","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}],"p":"$@a","v":"$b","s":"$8"},"c":"$Qc"}]]
+2:[["children",{"s":"materiel","h":64,"d":{"r":["$","$3","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/187l5dn9bzp7s.js","async":true}]],["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}],"p":"$@7","v":null,"s":"$8"},"c":"$Q9"}]]
+1:[["children",{"s":{"n":"locale","t":"d","k":"en","s":["feed.xml","install.sh","latest.json"]},"h":48,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":80,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$L19",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, viewport-fit=cover"}]]}],["$","$L1b",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$15",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Hardware Guide & Gym Playout Bundles · Bobine"}],["$","meta","1",{"name":"description","content":"Browse hardware ideas for Bobine by operating system and budget. Catalogue under review: check specifications, compatibility, prices and availability before buying."}],["$","meta","2",{"name":"application-name","content":"Bobine"}],["$","link","3",{"rel":"author","href":"https://github.com/FantasmaGlad"}],["$","meta","4",{"name":"author","content":"Clément Barillot"}],["$","link","5",{"rel":"manifest","href":"/manifest.webmanifest"}],["$","meta","6",{"name":"keywords","content":"Bobine,Bobine Fit,Bobine playout,Bobine GitHub,Bobine open source,Google Book,Googlebook,Aluminium OS,Bobine Google Book,Google Book gym app,Application salle de sport Google Book,Qualcomm Snapdragon ARM PC,PC ARM Qualcomm Snapdragon,Snapdragon X Elite,Snapdragon X Plus,Windows 11 ARM64,Linux ARM64,NVIDIA DGX Spark,ARM mini PC gym,Mini PC ARM salle de sport,Raspberry Pi 5 gym playout,Raspberry Pi 5 salle de sport,Orange Pi 5 RK3588,Les Mills Cinema,Les Mills Virtual,Les Mills Cinema alternative,Les Mills Virtual alternative,Les Mills free alternative,Wexer alternative,Spivi alternative,Fitness On Demand alternative,gym video playout,gym video player,virtual fitness kiosk,fitness studio video automation,scheduled fitness classes video,offline gym video playout,gym digital signage,self-hosted fitness software,open source gym software,free gym playout,group fitness scheduler,fitness kiosk on-demand"}],["$","meta","7",{"name":"creator","content":"Clément Barillot (FantasmaGlad)"}],["$","meta","8",{"name":"publisher","content":"Bobine Fit"}],["$","meta","9",{"name":"robots","content":"index, follow"}],["$","meta","10",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","meta","11",{"name":"category","content":"technology"}],["$","meta","12",{"name":"classification","content":"Fitness Video Playout & Gym Cinema Automation"}],["$","link","13",{"rel":"canonical","href":"https://bobine.fit/en/hardware/amazon/"}],["$","link","14",{"rel":"alternate","hrefLang":"fr","href":"https://bobine.fit/fr/materiel/amazon/"}],["$","link","15",{"rel":"alternate","hrefLang":"en","href":"https://bobine.fit/en/hardware/amazon/"}],["$","link","16",{"rel":"alternate","hrefLang":"fr-FR","href":"https://bobine.fit/fr/materiel/amazon/"}],["$","link","17",{"rel":"alternate","hrefLang":"en-US","href":"https://bobine.fit/en/hardware/amazon/"}],["$","link","18",{"rel":"alternate","hrefLang":"x-default","href":"https://bobine.fit/fr/materiel/amazon/"}],["$","link","19",{"rel":"alternate","type":"application/atom+xml","href":"https://bobine.fit/feed.xml"}],["$","meta","20",{"property":"og:title","content":"Hardware Guide & Gym Playout Bundles · Bobine"}],["$","meta","21",{"property":"og:description","content":"Browse hardware ideas for Bobine by operating system and budget. Catalogue under review: check specifications, compatibility, prices and availability before buying."}],["$","meta","22",{"property":"og:url","content":"https://bobine.fit/en/hardware/amazon/"}],["$","meta","23",{"property":"og:site_name","content":"Bobine"}],["$","meta","24",{"property":"og:locale","content":"en_US"}],["$","meta","25",{"property":"og:image","content":"https://bobine.fit/en/opengraph-image"}],["$","meta","26",{"property":"og:image:width","content":"1200"}],["$","meta","27",{"property":"og:image:height","content":"630"}],["$","meta","28",{"property":"og:image:alt","content":"Hardware Guide & Gym Playout Bundles"}],["$","meta","29",{"property":"og:locale:alternate","content":"fr_FR"}],"$L1c","$L1d","$L1e","$L1f","$L20","$L21","$L22","$L23","$L24","$L25","$L26","$L27","$L28","$L29","$L2a"]}]}],null]}],null]}],"p":"$@2b","v":null,"s":"$8"}},"a":"$@2c","u":"$@2d","b":"jpVs80sXuYyS2x91fk1Ye"}
+2e:I[27201,["$4"],"IconMark"]
+16:null
+1c:["$","meta","30",{"property":"og:type","content":"website"}]
+1d:["$","meta","31",{"name":"twitter:card","content":"summary_large_image"}]
+1e:["$","meta","32",{"name":"twitter:title","content":"Hardware Guide & Gym Playout Bundles · Bobine"}]
+1f:["$","meta","33",{"name":"twitter:description","content":"Browse hardware ideas for Bobine by operating system and budget. Catalogue under review: check specifications, compatibility, prices and availability before buying."}]
+20:["$","meta","34",{"name":"twitter:image","content":"https://bobine.fit/en/opengraph-image"}]
+21:["$","link","35",{"rel":"shortcut icon","href":"/favicon.ico"}]
+22:["$","link","36",{"rel":"icon","href":"/favicon.ico?favicon.084wvoryi_91c.ico","sizes":"48x48","type":"image/x-icon"}]
+23:["$","link","37",{"rel":"icon","href":"/favicon-48x48.png","sizes":"48x48","type":"image/png"}]
+24:["$","link","38",{"rel":"icon","href":"/favicon-96x96.png","sizes":"96x96","type":"image/png"}]
+25:["$","link","39",{"rel":"icon","href":"/icon-192.png","sizes":"192x192","type":"image/png"}]
+26:["$","link","40",{"rel":"icon","href":"/icon.png","sizes":"512x512","type":"image/png"}]
+27:["$","link","41",{"rel":"icon","href":"/favicon.ico","sizes":"48x48"}]
+28:["$","link","42",{"rel":"apple-touch-icon","href":"/apple-touch-icon.png","sizes":"180x180","type":"image/png"}]
+29:["$","link","43",{"rel":"apple-touch-icon","href":"/icon-192.png","sizes":"192x192","type":"image/png"}]
+2a:["$","$L2e","44",{}]
+2d:true
+8:300
+8:C
+2c:0
+a:"$undefined"
+7:"$undefined"
+17:"$undefined"
+2b:"$undefined"

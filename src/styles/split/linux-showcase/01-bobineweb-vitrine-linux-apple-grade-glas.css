@@ -390,7 +390,7 @@
 
 .linux-distros-columns {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.5rem;
 }
 
@@ -402,7 +402,8 @@
 }
 
 .linux-distros-family {
-  padding: 1.35rem;
+  min-width: 0;
+  padding: 1.15rem;
   border-radius: var(--radius-lg);
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -431,15 +432,16 @@
 
 .linux-distros-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.65rem;
 }
 
 .linux-distro-card {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
-  padding: 0.75rem 0.9rem;
+  min-width: 0;
+  gap: 0.75rem;
+  padding: 0.75rem 0.85rem;
   border-radius: var(--radius-md);
   background: var(--glass-inset-bg);
   border: 1px solid var(--border-subtle);

@@ -4,17 +4,17 @@
   "sources": [
     {
       "framework": "nextjs",
-      "version": "16.4.2",
+      "version": "16.4.3",
       "repo": "https://github.com/vercel/next.js.git",
-      "ref": "refs/tags/v16.4.2",
+      "ref": "refs/tags/v16.4.3",
       "paths": [
         "docs"
       ],
-      "commit": "2864b1772c37242a9b40ab4d366eb7d368c2a070"
+      "commit": "29bbeab09981148ade186e8599ecdede15abc281"
     },
     {
       "framework": "tauri",
-      "version": "2.12.4",
+      "version": "2.12.5",
       "repo": "https://github.com/tauri-apps/tauri-docs.git",
       "ref": "HEAD",
       "paths": [

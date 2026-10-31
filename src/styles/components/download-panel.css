@@ -102,8 +102,8 @@
   align-items: center;
   justify-content: center;
   flex: none;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-999px);
   background: var(--glass-inset-bg);
@@ -154,7 +154,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.45rem;
-  min-height: 38px;
+  min-height: 44px;
+  min-width: 44px;
   padding: 0.35rem 0.75rem;
   border: 1px solid transparent;
   border-radius: var(--radius-0-55rem);
@@ -318,7 +319,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 40px;
+  min-height: 44px;
+  min-width: 44px;
   padding: 0.45rem 1rem;
   border-radius: var(--radius-0-75rem);
   font: inherit;
@@ -356,7 +358,7 @@
   background: var(--glass-inset-bg);
   color: var(--text-heading);
   font-size: var(--fs-0-825rem);
-  min-height: 36px;
+  min-height: 44px;
   padding: 0.35rem 0.85rem;
 }
 
@@ -366,7 +368,7 @@
 
 .dl-btn--copy {
   flex: none;
-  min-height: 32px;
+  min-height: 44px;
   min-width: 6.2rem;
   padding: 0.25rem 0.7rem;
   border: 1px solid var(--border-subtle);
@@ -400,7 +402,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  min-height: 34px;
+  min-height: 44px;
   padding: 0.25rem 0.65rem;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-0-55rem);
@@ -430,7 +432,8 @@
 .dl-links a {
   display: inline-flex;
   align-items: center;
-  min-height: 28px;
+  min-height: 44px;
+  min-width: 44px;
   color: var(--text-muted);
   text-decoration: underline;
   text-underline-offset: 3px;

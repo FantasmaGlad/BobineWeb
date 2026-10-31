@@ -1,11 +1,9 @@
 .comparison-table-wrapper {
-  background: var(--glass-card-bg);
-  border: 1px solid var(--glass-card-border);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   overflow-x: auto;
-  box-shadow: var(--glass-card-highlight), var(--shadow-card);
-  -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
-  backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  box-shadow: var(--shadow-card);
 }
 .comparison-table {
   width: 100%;

@@ -65,6 +65,37 @@ for (const theme of themes) {
     }
   }
 }
+// 3 bis. Logos multicolores sans fond : aucune couleur ne doit disparaître sur un thème, sinon `halo` est obligatoire.
+// Un logo noir d'un seul tracé doit être un masque « ink » (il suit la couleur du texte), jamais une image.
+const NAMED = { black: "#000000", white: "#ffffff" };
+const hexOf = (value) => {
+  let h = value.toLowerCase(); h = NAMED[h] ?? h;
+  if (/^#[0-9a-f]{3}$/.test(h)) h = "#" + [...h.slice(1)].map((c) => c + c).join("");
+  return /^#[0-9a-f]{6}$/.test(h) ? h : null;
+};
+const MIN_ICON_CONTRAST = 1.5;
+for (const [key, def] of Object.entries(registry)) {
+  if (def.render !== "image" || !existsSync(join(repo, "public", def.src))) continue;
+  const svg = readFileSync(join(repo, "public", def.src), "utf8");
+  const colors = new Set([...svg.matchAll(/(?:fill|stop-color|stroke)\s*[:=]\s*["']?\s*(#[0-9a-fA-F]{3,6}|black|white)\b/g)].map((m) => hexOf(m[1])).filter(Boolean));
+  if (!/fill\s*[:=]/i.test(svg)) colors.add("#000000"); // sans remplissage déclaré, le tracé est noir
+  if (colors.size === 1 && colors.has("#000000")) { fail(`${key} : logo noir d'un seul tracé affiché en image (fond nécessaire) ; retirer "render" et garder "tone": "ink"`); continue; }
+  let weak = null;
+  for (const theme of themes) {
+    const vars = resolve(theme);
+    const canvas = evaluate("var(--bg-canvas)", vars);
+    const hotspot = over(evaluate("color-mix(in srgb, var(--accent-primary) 22%, transparent)", vars), canvas);
+    for (const material of ["glass-card-bg", "glass-inset-bg", "glass-surface-bg"]) for (const backdrop of [canvas, hotspot]) for (const fill of materialColors(vars[material], vars)) {
+      for (const color of colors) {
+        const r = ratio(toRgb(color), over(fill, backdrop));
+        if (r < MIN_ICON_CONTRAST && (!weak || r < weak.r)) weak = { r, color, theme };
+      }
+    }
+  }
+  if (weak && !def.halo) fail(`${key} : ${weak.color} se confond avec le thème ${weak.theme} (${weak.r.toFixed(2)}:1, minimum ${MIN_ICON_CONTRAST}:1) ; ajouter "halo": true`);
+  if (!weak && def.halo) fail(`${key} : "halo" inutile, aucune couleur ne disparaît sur les 16 thèmes`);
+}
+
 if (themes.length !== 16) fail(`${themes.length} thèmes détectés (16 attendus)`);
 
 // 4. Attribution dans NOTICE.md --------------------------------------------------------------------------------

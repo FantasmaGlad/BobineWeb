@@ -5,7 +5,8 @@
     "tone": "ink",
     "color": "#FCC624",
     "render": "image",
-    "maxBytes": 153600
+    "maxBytes": 153600,
+    "halo": true
   },
   "os.windows": {
     "name": "Windows",
@@ -17,66 +18,72 @@
     "name": "macOS",
     "src": "/images/icons/os/apple.svg",
     "tone": "ink",
-    "color": "#000000",
-    "render": "image"
+    "color": "#000000"
   },
   "os.android": {
     "name": "Android",
     "src": "/images/icons/os/android.svg",
     "tone": "ink",
     "color": "#3DDC84",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "os.androidtv": {
     "name": "Android TV",
     "src": "/images/icons/os/androidtv.svg",
     "tone": "ink",
     "color": "#3DDC84",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "os.googlebook": {
     "name": "Google Book",
     "src": "/images/icons/os/googlebook.svg",
     "tone": "ink",
     "color": "#4285F4",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "os.framework": {
     "name": "Framework",
     "src": "/images/icons/os/framework.svg",
     "tone": "ink",
-    "color": "#000000",
-    "render": "image"
+    "color": "#000000"
   },
   "os.tor": {
     "name": "Tor",
     "src": "/images/icons/os/tor.svg",
     "tone": "ink",
     "color": "#7D4698",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "browser.chrome": {
     "name": "Chrome",
     "src": "/images/icons/browsers/chrome.svg",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "browser.edge": {
     "name": "Edge",
     "src": "/images/icons/browsers/edge.svg",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "browser.firefox": {
     "name": "Firefox",
     "src": "/images/icons/browsers/firefox.svg",
     "tone": "ink",
     "color": "#FF7139",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "browser.safari": {
     "name": "Safari",
     "src": "/images/icons/browsers/safari.svg",
     "color": "#006CFF",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "browser.brave": {
     "name": "Brave",
@@ -97,41 +104,43 @@
     "src": "/images/icons/browsers/samsunginternet.svg",
     "tone": "ink",
     "color": "#1428A0",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "browser.tor": {
     "name": "Tor Browser",
     "src": "/images/icons/browsers/torbrowser.svg",
     "tone": "ink",
     "color": "#7D4698",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "chip.amd": {
     "name": "AMD",
     "src": "/images/icons/chips/amd.svg",
-    "color": "#ED1C24",
-    "render": "image"
+    "tone": "brand",
+    "color": "#ED1C24"
   },
   "chip.intel": {
     "name": "Intel",
     "src": "/images/icons/chips/intel.svg",
     "tone": "ink",
-    "color": "#0068B5",
-    "render": "image"
+    "color": "#0071C5"
   },
   "chip.snapdragon": {
     "name": "Snapdragon",
     "src": "/images/icons/chips/snapdragon.svg",
     "tone": "ink",
-    "color": "#3253DC",
+    "color": "#C33139",
     "render": "image"
   },
   "distro.almalinux": {
     "name": "AlmaLinux",
     "src": "/images/icons/distros/almalinux.svg",
     "tone": "ink",
-    "color": "#000000",
-    "render": "image"
+    "color": "#0069DA",
+    "render": "image",
+    "halo": true
   },
   "distro.arch": {
     "name": "Arch Linux",
@@ -186,8 +195,7 @@
     "name": "Nobara",
     "src": "/images/icons/distros/nobara.svg",
     "tone": "ink",
-    "color": "#000000",
-    "render": "image"
+    "color": "#000000"
   },
   "distro.opensuse": {
     "name": "openSUSE",
@@ -246,7 +254,8 @@
   "app.linkedin": {
     "name": "LinkedIn",
     "src": "/images/icons/apps/linkedin.svg",
-    "tone": "ink"
+    "color": "#0A66C2",
+    "render": "image"
   },
   "app.whatsapp": {
     "name": "WhatsApp",
@@ -276,7 +285,8 @@
   "compare.radical": {
     "name": "Radical Fitness",
     "src": "/images/icons/compare/radical.svg",
-    "tone": "ink"
+    "color": "#ED1C24",
+    "render": "image"
   },
   "compare.signage": {
     "name": "Anthias",

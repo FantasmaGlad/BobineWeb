@@ -1,11 +1,10 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { lp } from "@/lib/seo";
 import { resourceList, type ResourceItem } from "@/content/resources";
-import RouteIcon from "@/components/page/RouteIcon";
 import Icon from "@/components/ui/Icon";
 import "@/styles/components/resource-index.css";
 
@@ -13,6 +12,8 @@ interface ResourceIndexProps {
   locale: Locale;
   id?: string;
 }
+
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 function normalize(str: string): string {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -28,24 +29,39 @@ export default function ResourceIndex({ locale, id = "resources" }: ResourceInde
   const [query, setQuery] = useState("");
   const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
   const searchInputId = useId();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  // Raccourci clavier `/` pour cibler la barre de recherche comme dans un index de référence
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "/" && document.activeElement !== inputRef.current) {
+        const tag = (document.activeElement as HTMLElement | null)?.tagName;
+        if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   // Liste triée par ordre alphabétique du titre localisé
   const sortedItems = useMemo(() => {
     return [...resourceList].sort((a, b) =>
-      a.title[locale].localeCompare(b.title[locale], locale, { sensitivity: "base" })
+      a.title[locale].localeCompare(b.title[locale], locale, { sensitivity: "base" }),
     );
   }, [locale]);
 
-  // Toutes les lettres disponibles
-  const availableLetters = useMemo(() => {
+  // Ensemble des lettres disponibles
+  const availableLetterSet = useMemo(() => {
     const letters = new Set<string>();
     for (const item of sortedItems) {
       letters.add(getInitialLetter(item.title[locale]));
     }
-    return Array.from(letters).sort();
+    return letters;
   }, [sortedItems, locale]);
 
-  // Filtrage ultra-rapide par recherche et lettre
+  // Filtrage instantané par recherche et lettre
   const filteredItems = useMemo(() => {
     const q = normalize(query.trim());
     return sortedItems.filter((item) => {
@@ -74,94 +90,108 @@ export default function ResourceIndex({ locale, id = "resources" }: ResourceInde
     return Array.from(groups.entries()).sort(([a], [b]) => a.localeCompare(b));
   }, [filteredItems, locale]);
 
-  const placeholder = locale === "fr" ? "Rechercher dans les ressources (ex : linux, mise à jour, tor...)" : "Search resources (e.g. linux, updates, tor...)";
-  const allLabel = locale === "fr" ? "Toutes" : "All";
-  const countLabel = locale === "fr"
-    ? `${filteredItems.length} ressource${filteredItems.length > 1 ? "s" : ""}`
-    : `${filteredItems.length} resource${filteredItems.length > 1 ? "s" : ""}`;
+  const placeholder =
+    locale === "fr"
+      ? "Filtrer l'index (ex : linux, mise à jour, tor...)"
+      : "Filter index (e.g. linux, updates, tor...)";
+  const allLabel = locale === "fr" ? "Tout" : "All";
+  const countLabel =
+    locale === "fr"
+      ? `${filteredItems.length} entrée${filteredItems.length > 1 ? "s" : ""}`
+      : `${filteredItems.length} entr${filteredItems.length > 1 ? "ies" : "y"}`;
 
   return (
     <div className="resource-index" id={id}>
-      <div className="resource-search-bar" role="search">
-        <label htmlFor={searchInputId} className="resource-search-bar__icon" aria-label={locale === "fr" ? "Rechercher" : "Search"}>
-          <Icon name="search" size={20} />
-        </label>
-        <input
-          id={searchInputId}
-          type="search"
-          className="resource-search-bar__input"
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            if (selectedLetter) setSelectedLetter(null);
-          }}
-          placeholder={placeholder}
-          aria-label={placeholder}
-          autoComplete="off"
-          spellCheck={false}
-        />
-        {query ? (
-          <button
-            type="button"
-            className="resource-search-bar__clear"
-            onClick={() => setQuery("")}
-            aria-label={locale === "fr" ? "Effacer la recherche" : "Clear search"}
+      {/* Bandeau d'index unifié sur une ligne : recherche + alphabet complet A–Z + compteur */}
+      <div className="resource-toolbar">
+        <div className="resource-search-bar" role="search">
+          <label
+            htmlFor={searchInputId}
+            className="resource-search-bar__icon"
+            aria-label={locale === "fr" ? "Rechercher" : "Search"}
           >
-            <Icon name="close" size={16} />
-          </button>
-        ) : null}
-      </div>
+            <Icon name="search" size={16} />
+          </label>
+          <input
+            ref={inputRef}
+            id={searchInputId}
+            type="search"
+            className="resource-search-bar__input"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              if (selectedLetter) setSelectedLetter(null);
+            }}
+            placeholder={placeholder}
+            aria-label={placeholder}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          {query ? (
+            <button
+              type="button"
+              className="resource-search-bar__clear"
+              onClick={() => setQuery("")}
+              aria-label={locale === "fr" ? "Effacer la recherche" : "Clear search"}
+            >
+              <Icon name="close" size={14} />
+            </button>
+          ) : (
+            <kbd className="resource-search-bar__kbd" aria-hidden="true">
+              /
+            </kbd>
+          )}
+        </div>
 
-      <nav className="resource-letters-nav" aria-label={locale === "fr" ? "Index alphabétique" : "Alphabetical index"}>
-        <button
-          type="button"
-          className="resource-letter-pill"
-          data-active={!selectedLetter}
-          onClick={() => {
-            setSelectedLetter(null);
-            setQuery("");
-          }}
+        <nav
+          className="resource-letters-nav"
+          aria-label={locale === "fr" ? "Index alphabétique" : "Alphabetical index"}
         >
-          {allLabel}
-        </button>
-        {availableLetters.map((letter) => (
           <button
-            key={letter}
             type="button"
-            className="resource-letter-pill"
-            data-active={selectedLetter === letter}
+            className="resource-letter-pill resource-letter-pill--all"
+            data-active={!selectedLetter}
             onClick={() => {
-              setSelectedLetter((prev) => (prev === letter ? null : letter));
+              setSelectedLetter(null);
               setQuery("");
             }}
           >
-            {letter}
+            {allLabel}
           </button>
-        ))}
-      </nav>
+          {ALPHABET.map((letter) => {
+            const hasEntries = availableLetterSet.has(letter);
+            return (
+              <button
+                key={letter}
+                type="button"
+                className="resource-letter-pill"
+                data-active={selectedLetter === letter}
+                disabled={!hasEntries}
+                onClick={() => {
+                  setSelectedLetter((prev) => (prev === letter ? null : letter));
+                  setQuery("");
+                }}
+              >
+                {letter}
+              </button>
+            );
+          })}
+        </nav>
 
-      <div className="resource-meta-bar" aria-live="polite">
-        <span>{countLabel}</span>
-        {query ? (
-          <span>
-            {locale === "fr" ? `Résultats pour « ${query} »` : `Results for "${query}"`}
-          </span>
-        ) : selectedLetter ? (
-          <span>
-            {locale === "fr" ? `Section ${selectedLetter}` : `Section ${selectedLetter}`}
-          </span>
-        ) : null}
+        <div className="resource-meta-bar" aria-live="polite">
+          <span>{countLabel}</span>
+        </div>
       </div>
 
       {groupedItems.length === 0 ? (
         <div className="resource-empty-state">
           <p className="resource-empty-state__title">
-            {locale === "fr" ? "Aucune ressource trouvée" : "No resource found"}
+            {locale === "fr" ? "Aucune entrée trouvée" : "No entry found"}
           </p>
           <p className="resource-empty-state__desc">
             {locale === "fr"
-              ? `Aucune ressource ne correspond à votre recherche « ${query} ». Essayez d'autres mots-clés ou parcourez l'index alphabétique.`
-              : `No resources match your search "${query}". Try different keywords or browse the alphabetical index.`}
+              ? `Aucune entrée ne correspond à « ${query} ».`
+              : `No entry matches "${query}".`}
           </p>
           <button
             type="button"
@@ -171,58 +201,66 @@ export default function ResourceIndex({ locale, id = "resources" }: ResourceInde
               setSelectedLetter(null);
             }}
           >
-            {locale === "fr" ? "Réinitialiser les filtres" : "Reset filters"}
+            {locale === "fr" ? "Réinitialiser" : "Reset"}
           </button>
         </div>
       ) : (
-        groupedItems.map(([letter, items]) => (
-          <section key={letter} className="resource-letter-section" id={`letter-${letter.toLowerCase()}`}>
-            <h2 className="resource-letter-heading">
-              <span className="resource-letter-heading__badge">{letter}</span>
-              <span>{locale === "fr" ? `Index ${letter}` : `Index ${letter}`}</span>
-            </h2>
-            <ul className="resource-cards-grid">
-              {items.map((item) => {
-                const isExternal = item.path.startsWith("http://") || item.path.startsWith("https://");
-                const href = isExternal
-                  ? (locale === "fr" ? `${item.path}/fr/` : item.path)
-                  : lp(locale, item.path);
-                const cardContent = (
-                  <>
-                    <div>
-                      <div className="resource-card__header">
-                        <span className="resource-card__icon-wrapper" aria-hidden="true">
-                          <RouteIcon icon={item.icon} size={20} />
-                        </span>
-                        <span className="resource-card__category">{item.category[locale]}</span>
-                      </div>
-                      <h3 className="resource-card__title">{item.title[locale]}</h3>
-                      <p className="resource-card__desc">{item.description[locale]}</p>
-                    </div>
-                    <span className="resource-card__footer">
-                      <span>{locale === "fr" ? (isExternal ? "Ouvrir" : "Consulter") : (isExternal ? "Open" : "View")}</span>
-                      <Icon name={isExternal ? "external" : "arrow-right"} size={14} />
-                    </span>
-                  </>
-                );
+        <div className="book-index-columns">
+          {groupedItems.map(([letter, items]) => (
+            <section
+              key={letter}
+              className="resource-letter-section"
+              id={`letter-${letter.toLowerCase()}`}
+            >
+              <h2 className="resource-letter-heading">{letter}</h2>
+              <ul className="book-index-list">
+                {items.map((item) => {
+                  const isExternal =
+                    item.path.startsWith("http://") || item.path.startsWith("https://");
+                  const baseExternal = item.path.replace(/\/+$/, "");
+                  const href = isExternal
+                    ? locale === "fr"
+                      ? `${baseExternal}/fr/`
+                      : `${baseExternal}/`
+                    : lp(locale, item.path);
 
-                return (
-                  <li key={item.id}>
-                    {isExternal ? (
-                      <a href={href} className="resource-card" target="_blank" rel="noopener noreferrer">
-                        {cardContent}
-                      </a>
-                    ) : (
-                      <Link href={href} className="resource-card">
-                        {cardContent}
-                      </Link>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
-        ))
+                  const entryContent = (
+                    <>
+                      <span className="book-index-entry__line">
+                        <span className="book-index-entry__title">{item.title[locale]}</span>
+                        <span className="book-index-entry__dots" aria-hidden="true" />
+                        <span className="book-index-entry__cat">
+                          {item.category[locale]}
+                          {isExternal ? " ↗" : ""}
+                        </span>
+                      </span>
+                      <span className="book-index-entry__desc">{item.description[locale]}</span>
+                    </>
+                  );
+
+                  return (
+                    <li key={item.id} className="book-index-item">
+                      {isExternal ? (
+                        <a
+                          href={href}
+                          className="book-index-entry"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {entryContent}
+                        </a>
+                      ) : (
+                        <Link href={href} className="book-index-entry">
+                          {entryContent}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          ))}
+        </div>
       )}
     </div>
   );

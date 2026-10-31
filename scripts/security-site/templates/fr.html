@@ -19,69 +19,82 @@
     <section class="install-flow" aria-labelledby="flow-heading">
       <h2 id="flow-heading" class="flow-section-title">Signalement privé en 3 étapes</h2>
 
-      <article class="install-step">
-        <div class="install-step__header">
-          <span class="install-step__num">1.</span>
-          <h3 class="install-step__title">Récupérer et vérifier la clé</h3>
-        </div>
-        <p class="install-step__desc">Récupérez la clé publique, puis comparez l'empreinte avec le tableau ci-dessous et avec la copie publiée dans le dépôt GitHub :</p>
-        <div class="command-wrapper">
-          <div class="command-header">
-            <span>Terminal (Bash)</span>
+      <article class="install-step step-card">
+        <div class="install-step__intro">
+          <div class="install-step__header">
+            <span class="install-step__num">1.</span>
+            <h3 class="install-step__title">Récupérer et vérifier la clé</h3>
           </div>
-          <div class="command-body">
-            <code id="cmd-1">gpg --locate-keys security@bobine.fit &amp;&amp; gpg --fingerprint security@bobine.fit</code>
-            <button type="button" class="copy-btn" data-copy="cmd-1" aria-label="Copier la commande">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              <span class="copy-label">Copier</span>
-            </button>
-          </div>
+          <p class="install-step__desc">Récupérez la clé publique, puis comparez l'empreinte avec le tableau ci-dessous et avec la copie publiée dans le dépôt GitHub :</p>
         </div>
-        <aside class="info-callout"><strong>Empreinte attendue :</strong> <code>23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2</code>. Une clé dont l'empreinte diffère sur un canal ne doit pas être utilisée.</aside>
+        <div class="install-step__details">
+          <div class="command-wrapper">
+            <div class="command-header">
+              <span>Terminal (Bash)</span>
+            </div>
+            <div class="command-body">
+              <code id="cmd-1" class="command-code">gpg --locate-keys security@bobine.fit &amp;&amp; gpg --fingerprint security@bobine.fit</code>
+              <button type="button" class="copy-btn" data-copy="cmd-1" aria-label="Copier la commande">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span class="copy-label">Copier</span>
+              </button>
+            </div>
+          </div>
+          <aside class="info-callout"><strong>Empreinte attendue :</strong> <code id="fingerprint-value">23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2</code>. Une clé dont l'empreinte diffère sur un canal ne doit pas être utilisée.</aside>
+        </div>
       </article>
 
-      <article class="install-step">
-        <div class="install-step__header">
-          <span class="install-step__num">2.</span>
-          <h3 class="install-step__title">Chiffrer votre rapport</h3>
-        </div>
-        <p class="install-step__desc">Chiffrez le rapport pour la clé de sécurité. Pour recevoir une réponse chiffrée, joignez votre propre clé publique :</p>
-        <div class="command-wrapper">
-          <div class="command-header">
-            <span>Terminal (Bash)</span>
+      <article class="install-step step-card">
+        <div class="install-step__intro">
+          <div class="install-step__header">
+            <span class="install-step__num">2.</span>
+            <h3 class="install-step__title">Chiffrer votre rapport</h3>
           </div>
-          <div class="command-body">
-            <code id="cmd-2">gpg --armor --encrypt --recipient security@bobine.fit report.txt</code>
-            <button type="button" class="copy-btn" data-copy="cmd-2" aria-label="Copier la commande">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              <span class="copy-label">Copier</span>
-            </button>
-          </div>
+          <p class="install-step__desc">Chiffrez le rapport pour la clé de sécurité. Pour recevoir une réponse chiffrée, joignez votre propre clé publique :</p>
         </div>
-        <aside class="info-callout"><strong>Votre propre paire de clés :</strong> <code>gpg --quick-generate-key "Votre Nom &lt;vous@exemple.org&gt;" future-default default 2y</code> puis <code>gpg --armor --export vous@exemple.org</code>. Ne partagez jamais votre clé privée. Sans PGP, utilisez le <a href="https://github.com/FantasmaGlad/Bobine/security/advisories/new" target="_blank" rel="noopener noreferrer">signalement privé GitHub</a>.</aside>
+        <div class="install-step__details">
+          <div class="command-wrapper">
+            <div class="command-header">
+              <span>Terminal (Bash)</span>
+            </div>
+            <div class="command-body">
+              <code id="cmd-2" class="command-code">gpg --armor --encrypt --recipient security@bobine.fit report.txt</code>
+              <button type="button" class="copy-btn" data-copy="cmd-2" aria-label="Copier la commande">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span class="copy-label">Copier</span>
+              </button>
+            </div>
+          </div>
+          <aside class="info-callout"><strong>Votre propre paire de clés :</strong> <code>gpg --quick-generate-key "Votre Nom &lt;vous@exemple.org&gt;" future-default default 2y</code> puis <code>gpg --armor --export vous@exemple.org</code>. Ne partagez jamais votre clé privée. Sans PGP, utilisez le <a href="https://github.com/FantasmaGlad/Bobine/security/advisories/new" target="_blank" rel="noopener noreferrer">signalement privé GitHub</a>.</aside>
+        </div>
       </article>
 
-      <article class="install-step">
-        <div class="install-step__header">
-          <span class="install-step__num">3.</span>
-          <h3 class="install-step__title">L'envoyer</h3>
-        </div>
-        <p class="install-step__desc">Envoyez le fichier chiffré (<code>report.txt.asc</code>) à l'adresse de sécurité, ou ouvrez un signalement privé sur GitHub :</p>
-        <div class="command-wrapper">
-          <div class="command-header">
-            <span>E-mail</span>
+      <article class="install-step step-card">
+        <div class="install-step__intro">
+          <div class="install-step__header">
+            <span class="install-step__num">3.</span>
+            <h3 class="install-step__title">L'envoyer</h3>
           </div>
-          <div class="command-body">
-            <code id="cmd-3">security@bobine.fit</code>
-            <button type="button" class="copy-btn" data-copy="cmd-3" aria-label="Copier la commande">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              <span class="copy-label">Copier</span>
-            </button>
+          <p class="install-step__desc">Envoyez le fichier chiffré (<code>report.txt.asc</code>) à l'adresse de sécurité, ou ouvrez un signalement privé sur GitHub :</p>
+        </div>
+        <div class="install-step__details">
+          <div class="command-wrapper">
+            <div class="command-header">
+              <span>E-mail</span>
+            </div>
+            <div class="command-body">
+              <code id="cmd-3" class="command-code">security@bobine.fit</code>
+              <button type="button" class="copy-btn" data-copy="cmd-3" aria-label="Copier la commande">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span class="copy-label">Copier</span>
+              </button>
+            </div>
           </div>
         </div>
       </article>
     </section>
 
+    <div class="security-bottom-grid">
     <!-- Spécifications de la clé -->
     <section class="specs-section" aria-labelledby="specs-heading">
       <h2 id="specs-heading" class="specs-section__title">Détails de la clé et de la divulgation</h2>
@@ -153,4 +166,5 @@
         </tbody>
       </table>
     </section>
+    </div>
   </main>

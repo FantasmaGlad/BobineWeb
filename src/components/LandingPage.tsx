@@ -201,7 +201,9 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
         </section>
       )}
 
-      <LandingDownload locale={locale} channels={channelsData} lockedChannel={channel} fallback={fallbackPlatform} />
+      {id !== "tor" && (
+        <LandingDownload locale={locale} channels={channelsData} lockedChannel={channel} fallback={fallbackPlatform} />
+      )}
 
       {c.showcaseCards && c.showcaseCards.length > 0 && (
         <section className="landing-section" aria-label={isEn ? "Hardware and platform selection" : "Sélection matériel et plateformes"}>
@@ -262,7 +264,7 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
         </section>
       ) : null}
 
-      <div className="landing-stack">
+      <div className={`landing-stack ${c.sections.length >= 2 ? "landing-stack--grid" : ""}`}>
         {c.sections.map((s) => (
           <article key={s.heading} className="landing-card">
             <div className="landing-card__head">
@@ -308,53 +310,57 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
         </section>
       )}
 
-      <section className="landing-card landing-section" aria-labelledby="landing-req-title">
-        <div className="landing-card__head">
-          <span className="landing-card__icon">
-            <SectionIcon name="cpu" />
-          </span>
-          <h2 id="landing-req-title" className="landing-h2">{common.requirementsTitle}</h2>
-        </div>
-        <div className="landing-table-wrap">
-          <table className="landing-table">
-            <thead>
-              <tr>
-                <th scope="col">{isEn ? "Platform" : "Plateforme"}</th>
-                <th scope="col">{isEn ? "Requirement" : "Configuration"}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {requirementIds.map((p) => (
-                <tr key={p}>
-                  <td>{REQUIREMENTS[p].name}</td>
-                  <td>{REQUIREMENTS[p][isEn ? "en" : "fr"]}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="landing-note">{common.requirementsNote(ANDROID.minVersion)}</p>
-      </section>
-
-      <div className="landing-stack">
-        {commonBlocks.map((b, idx) => (
-          <article key={b.heading} className="landing-card">
+      {id !== "tor" && (
+        <>
+          <section className="landing-card landing-section" aria-labelledby="landing-req-title">
             <div className="landing-card__head">
               <span className="landing-card__icon">
-                <SectionIcon name={idx === 0 ? "shield" : "download"} />
+                <SectionIcon name="cpu" />
               </span>
-              <h2 className="landing-h2">{b.heading}</h2>
+              <h2 id="landing-req-title" className="landing-h2">{common.requirementsTitle}</h2>
             </div>
-            {b.paragraphs.map((para) => (
-              <p key={para} className="landing-prose">{para}</p>
+            <div className="landing-table-wrap">
+              <table className="landing-table">
+                <thead>
+                  <tr>
+                    <th scope="col">{isEn ? "Platform" : "Plateforme"}</th>
+                    <th scope="col">{isEn ? "Requirement" : "Configuration"}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {requirementIds.map((p) => (
+                    <tr key={p}>
+                      <td>{REQUIREMENTS[p].name}</td>
+                      <td>{REQUIREMENTS[p][isEn ? "en" : "fr"]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="landing-note">{common.requirementsNote(ANDROID.minVersion)}</p>
+          </section>
+
+          <div className={`landing-stack ${commonBlocks.length >= 2 ? "landing-stack--grid" : ""}`}>
+            {commonBlocks.map((b, idx) => (
+              <article key={b.heading} className="landing-card">
+                <div className="landing-card__head">
+                  <span className="landing-card__icon">
+                    <SectionIcon name={idx === 0 ? "shield" : "download"} />
+                  </span>
+                  <h2 className="landing-h2">{b.heading}</h2>
+                </div>
+                {b.paragraphs.map((para) => (
+                  <p key={para} className="landing-prose">{para}</p>
+                ))}
+              </article>
             ))}
-          </article>
-        ))}
-      </div>
+          </div>
+        </>
+      )}
 
       <section className="landing-section">
         <h2 className="landing-h2">{isEn ? "Frequently asked questions" : "Questions fréquentes"}</h2>
-        <div className="landing-faq">
+        <div className={`landing-faq ${c.faq.length >= 4 ? "landing-faq--grid" : ""}`}>
           {c.faq.map((item) => (
             <details key={item.q} className="landing-card">
               <summary>{item.q}</summary>

@@ -155,15 +155,3 @@
   cursor: wait;
   opacity: 0.7;
 }
-.tor-logo {
-  display: inline-flex;
-  width: var(--tor-logo-size);
-  height: var(--tor-logo-size);
-  vertical-align: middle;
-}
-.tor-logo__img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}

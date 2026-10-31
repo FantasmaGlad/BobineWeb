@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import BrandIcon from "@/components/ui/BrandIcon";
 import type { Locale } from "@/lib/i18n";
 import { CLEARNET_URL } from "@/lib/onion";
 import { lp } from "@/lib/seo";
@@ -67,11 +67,11 @@ const copy = {
   },
 } as const;
 
-/** Logo du projet Tor (fichier fourni par le mainteneur). */
+/** Logo du projet Tor via le registre d'icônes. */
 function OnionMark() {
   return (
     <span className="onion-notice__mark">
-      <Image src="/images/tor-onion.webp" alt="Tor" width={96} height={96} unoptimized priority />
+      <BrandIcon name="os.tor" size={96} />
     </span>
   );
 }

@@ -1,4 +1,4 @@
-/* Sous-navigation Comparatifs en pilules de verre Apple */
+/* Sous-navigation Comparatifs en pilules */
 .cmp-subnav {
   display: flex;
   flex-wrap: wrap;
@@ -10,11 +10,9 @@
   border-radius: var(--radius-xl);
   width: fit-content;
   max-width: 100%;
-  background: var(--glass-card-bg);
-  border: 1px solid var(--glass-card-border);
-  box-shadow: var(--glass-card-highlight), var(--shadow-sm);
-  -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
-  backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  background: var(--glass-inset-bg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
 }
 
 .cmp-subnav__pill {
@@ -34,19 +32,18 @@
   color: var(--text-muted);
   border-radius: var(--radius-9999px);
   border: 1px solid transparent;
-  transition: transform 0.18s var(--ease-spring-pill), color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  transition: transform 0.18s ease, color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
 }
 
 .cmp-subnav__pill:hover {
   color: var(--text-heading);
-  background: var(--glass-inset-bg);
+  background: var(--accent-subtle);
 }
 
 .cmp-subnav__pill--active {
   color: var(--text-heading);
-  background: color-mix(in srgb, var(--accent-primary) 16%, var(--glass-inset-bg));
-  border-color: color-mix(in srgb, var(--accent-primary) 42%, var(--glass-card-border));
-  box-shadow: var(--glass-edge);
+  background: var(--accent-subtle);
+  border-color: var(--accent-primary);
 }
 
 .compare-layout {
@@ -113,22 +110,22 @@
   flex-shrink: 0;
 }
 
-.compare-notice,
 .compare-study,
 .compare-analysis section,
 .compare-faq details,
 .compare-cta {
-  background: var(--glass-card-bg);
-  border: 1px solid var(--glass-card-border);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  box-shadow: var(--glass-card-highlight), var(--shadow-card);
-  -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
-  backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
   padding: clamp(1rem, 3vw, 1.75rem);
 }
 
 .compare-notice {
-  margin-bottom: 2.5rem;
+  margin-top: 2rem;
+  border: none;
+  border-left: 2px solid var(--border-hover);
+  background: transparent;
+  padding: 0.25rem 0 0.25rem 1rem;
 }
 
 .compare-notice p,
@@ -145,6 +142,16 @@
   margin: 0 0 1rem;
 }
 
+.compare-notice h2 {
+  font-size: var(--fs-1-05rem);
+  margin-bottom: 0.5rem;
+}
+
+.compare-notice p {
+  font-size: var(--fs-0-9rem);
+  color: var(--text-muted);
+}
+
 .compare-section > h2,
 .compare-notice h2 {
   display: flex;
@@ -157,9 +164,15 @@
   flex-shrink: 0;
 }
 
+.compare-notice h2 svg {
+  color: var(--accent-text);
+}
+
 .compare-section,
 .compare-analysis,
-.compare-studies {
+.compare-studies,
+.compare-pillars,
+.compare-split {
   margin-bottom: 2.5rem;
 }
 
@@ -170,10 +183,67 @@
   gap: 1.5rem;
 }
 
+.compare-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 1.5rem;
+}
+
+.compare-split > .compare-section,
+.compare-split > .compare-analysis {
+  margin-bottom: 0;
+}
+
+.compare-split .compare-analysis {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.compare-pillars__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.compare-pillar {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.compare-pillar h3 {
+  color: var(--text-heading);
+  font-size: var(--fs-1-05rem);
+  line-height: 1.35;
+  margin: 0 0 0.5rem;
+}
+
+.compare-pillar p {
+  color: var(--text-body);
+  font-size: var(--fs-0-9rem);
+  margin: 0;
+}
+
+.compare-pillar__icons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  color: var(--text-heading);
+}
+
 .compare-study {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  min-width: 0;
 }
 
 .compare-study > svg {
@@ -301,7 +371,8 @@
 
 @media (max-width: 767px) {
   .compare-studies,
-  .compare-analysis {
+  .compare-analysis,
+  .compare-pillars__grid {
     grid-template-columns: 1fr;
   }
 
@@ -324,7 +395,7 @@
   }
 
   .compare-table tr + tr {
-    border-top: 1px solid var(--glass-card-border);
+    border-top: 1px solid var(--border-subtle);
   }
 
   .compare-table td {
@@ -340,6 +411,22 @@
 
   .compare-actions {
     align-items: stretch;
+  }
+}
+
+@media (min-width: 1024px) {
+  .compare-split {
+    grid-template-columns: minmax(0, 1.35fr) minmax(19rem, 0.85fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .compare-studies {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .compare-pillars__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

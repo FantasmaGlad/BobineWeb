@@ -15,39 +15,42 @@ export default function LinuxDistroGrid({ locale }: { locale: Locale }) {
         <p className="linux-section-header__desc">{NOT_VALIDATED_NOTE[locale]}</p>
       </header>
 
-      {LINUX_DISTRO_FAMILIES.map((family) => (
-        <div key={family.id} className="linux-distros-family">
-          <div className="linux-distros-family__title">
-            <span>{family.title[locale]}</span>
-          </div>
+      <div className="linux-distros-columns">
+        {LINUX_DISTRO_FAMILIES.map((family) => (
+          <div key={family.id} className="linux-distros-family">
+            <div className="linux-distros-family__title">
+              <span>{family.title[locale]}</span>
+              <span className="linux-distros-family__badge">{family.badge[locale]}</span>
+            </div>
 
-          <div className="linux-distros-grid">
-            {family.distros.map((distro) => (
-              <a
-                key={distro.id}
-                href={distro.siteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="linux-distro-card"
-                title={`${distro.name} — ${distro.status[locale]}`}
-              >
-                <div className="linux-distro-card__icon-wrap">
-                  <BrandIcon name={distro.icon} className="linux-distro-card__icon" />
-                </div>
-
-                <div className="linux-distro-card__info">
-                  <div className="linux-distro-card__name">{distro.name}</div>
-                  <div className="linux-distro-card__meta">
-                    <span className="linux-distro-card__status">{distro.status[locale]}</span>
-                    <span>·</span>
-                    <span>{distro.pkgFormat}</span>
+            <div className="linux-distros-grid">
+              {family.distros.map((distro) => (
+                <a
+                  key={distro.id}
+                  href={distro.siteUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="linux-distro-card"
+                  title={`${distro.name} — ${distro.status[locale]}`}
+                >
+                  <div className="linux-distro-card__icon-wrap">
+                    <BrandIcon name={distro.icon} className="linux-distro-card__icon" />
                   </div>
-                </div>
-              </a>
-            ))}
+
+                  <div className="linux-distro-card__info">
+                    <div className="linux-distro-card__name">{distro.name}</div>
+                    <div className="linux-distro-card__meta">
+                      <span className="linux-distro-card__status">{distro.status[locale]}</span>
+                      <span>·</span>
+                      <span>{distro.pkgFormat}</span>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </section>
   );
 }

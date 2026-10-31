@@ -113,8 +113,12 @@ const CHANNEL_CLI = (channel: string) =>
   `curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=${channel}`;
 
 const TOR_COMMANDS = `sudo apt install apt-transport-tor
-curl -fsS --socks5-hostname 127.0.0.1:9050 http://${ONION_APT_HOST}/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg
-echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://${ONION_APT_HOST}/ stable main" | sudo tee /etc/apt/sources.list.d/bobine-onion.list
+curl -fsS --socks5-hostname 127.0.0.1:9050 \\
+  http://${ONION_APT_HOST}/bobine.gpg \\
+  | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg
+echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] \\
+  tor+http://${ONION_APT_HOST}/ stable main" \\
+  | sudo tee /etc/apt/sources.list.d/bobine-onion.list
 sudo apt update && sudo apt install bobine`;
 
 /** Phrase ajoutée tant que les dépôts Fedora et Arch ne sont pas en ligne, vide ensuite. */

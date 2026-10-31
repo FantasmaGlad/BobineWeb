@@ -20,7 +20,7 @@ export default function BrandIcon({ name, size, className, label }: BrandIconPro
     const style = dimension ? ({ width: dimension, height: dimension } as CSSProperties) : undefined;
     // Icône multicolore : un masque la rendrait monochrome, l'image garde ses couleurs officielles.
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={asset.src} alt={label ?? ""} className={`brand-icon--image${className ? ` ${className}` : ""}`} style={style} {...(label ? {} : { "aria-hidden": true })} />;
+    return <img src={asset.src} alt={label ?? ""} className={`brand-icon--image${asset.halo ? " brand-icon--halo" : ""}${className ? ` ${className}` : ""}`} style={style} {...(label ? {} : { "aria-hidden": true })} />;
   }
   const style = {
     "--brand-icon-src": `url("${asset.src}")`,

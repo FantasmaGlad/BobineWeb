@@ -306,8 +306,10 @@ export function updateCommand(family: LinuxFamilyId): string {
 /** Source APT du .deb (déjà en ligne) : clé, source signée, installation. */
 export function aptInstallScript(channel: PackageChannel = "stable"): string {
   return [
-    `curl -fsSL ${SIGNING_KEY_URL("debian")} | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg`,
-    `echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] ${repoUrl("debian")}/ ${channel} main" | sudo tee /etc/apt/sources.list.d/bobine.list`,
+    `curl -fsSL ${SIGNING_KEY_URL("debian")} \\`,
+    "  | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg",
+    `echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] ${repoUrl("debian")}/ ${channel} main" \\`,
+    "  | sudo tee /etc/apt/sources.list.d/bobine.list",
     "sudo apt update && sudo apt install bobine",
   ].join("\n");
 }

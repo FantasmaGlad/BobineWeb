@@ -45,25 +45,25 @@ export interface ThemeMeta {
 }
 
 export const themeMeta: Record<Theme, ThemeMeta> = {
-  // --- Collection Claire (8 thèmes) ---
-  charbon: { label: "Charbon", bg: "#f4f4f5", accent: "#18181b", isDark: false, desc: "Albâtre & Carbone" },
-  clair: { label: "Carmin", bg: "#f6f7f9", accent: "#e11d48", isDark: false, desc: "Porcelaine & Rubis" },
-  miel: { label: "Ambre", bg: "#faf8f5", accent: "#d97706", isDark: false, desc: "Ivoire & Or Solaire" },
-  menthe: { label: "Sauge", bg: "#f4f8f6", accent: "#059669", isDark: false, desc: "Émeraude & Botanique" },
-  ciel: { label: "Azur", bg: "#f4f7fb", accent: "#0071e3", isDark: false, desc: "Cristal & Saphir" },
-  lavande: { label: "Lavande", bg: "#f7f6fb", accent: "#7c3aed", isDark: false, desc: "Nacre & Améthyste" },
-  beige: { label: "Sable", bg: "#f7f5f0", accent: "#9a5b25", isDark: false, desc: "Lin & Terre Cuite" },
-  coco: { label: "Cacao", bg: "#f8f5f2", accent: "#7c3a19", isDark: false, desc: "Cachemire & Expresso" },
+  // --- Collection Claire (8 thèmes — Direction artistique Apple.com) ---
+  charbon: { label: "Charbon", bg: "#f5f5f7", accent: "#1d1d1f", isDark: false, desc: "Albâtre & Carbone Apple" },
+  clair: { label: "Carmin", bg: "#f8f5f6", accent: "#be123c", isDark: false, desc: "Porcelaine & Rubis" },
+  miel: { label: "Ambre", bg: "#f8f6f2", accent: "#b45309", isDark: false, desc: "Ivoire & Or Solaire" },
+  menthe: { label: "Sauge", bg: "#f4f7f5", accent: "#047857", isDark: false, desc: "Émeraude & Botanique" },
+  ciel: { label: "Azur", bg: "#f4f6f9", accent: "#0071e3", isDark: false, desc: "Cristal & Bleu Cupertino" },
+  lavande: { label: "Lavande", bg: "#f6f5f9", accent: "#6d28d9", isDark: false, desc: "Nacre & Améthyste" },
+  beige: { label: "Sable", bg: "#f7f6f2", accent: "#854d0e", isDark: false, desc: "Lin & Terre Cuite" },
+  coco: { label: "Cacao", bg: "#f4f5f7", accent: "#475569", isDark: false, desc: "Cachemire & Ardoise" },
 
-  // --- Collection Sombre (8 thèmes) ---
-  "les-mills-sombre": { label: "Onyx", bg: "#08090b", accent: "#e4002b", isDark: true, desc: "Obsidienne & Cinabre" },
-  "charbon-sombre": { label: "Graphite", bg: "#0a0c10", accent: "#e2e8f0", isDark: true, desc: "Titane & Acier Brossé" },
-  automne: { label: "Cuivre", bg: "#0b0908", accent: "#f97316", isDark: true, desc: "Basalte & Magma" },
-  hiver: { label: "Abysse", bg: "#070b0f", accent: "#06b6d4", isDark: true, desc: "Fjord & Cyan Arctique" },
-  lune: { label: "Indigo", bg: "#080911", accent: "#6366f1", isDark: true, desc: "Nuit & Indigo Stellaire" },
-  chili: { label: "Rubis", bg: "#0b0809", accent: "#f43f5e", isDark: true, desc: "Velours & Grenat" },
-  orchidee: { label: "Orchidée", bg: "#09080d", accent: "#d946ef", isDark: true, desc: "Nébuleuse & Améthyste" },
-  taupe: { label: "Moka", bg: "#0b0a09", accent: "#eab308", isDark: true, desc: "Quartz & Or Champagne" },
+  // --- Collection Sombre (8 thèmes — Contraste franc Apple Pro Dark) ---
+  "les-mills-sombre": { label: "Onyx", bg: "#000000", accent: "#e4002b", isDark: true, desc: "Obsidienne & Cinabre" },
+  "charbon-sombre": { label: "Graphite", bg: "#050507", accent: "#e5e5ea", isDark: true, desc: "Titane & Acier Brossé" },
+  automne: { label: "Cuivre", bg: "#060504", accent: "#ff9f0a", isDark: true, desc: "Basalte & Ambre" },
+  hiver: { label: "Abysse", bg: "#040608", accent: "#2997ff", isDark: true, desc: "Fjord & Azur Nocturne" },
+  lune: { label: "Indigo", bg: "#050507", accent: "#818cf8", isDark: true, desc: "Nuit & Indigo Stellaire" },
+  chili: { label: "Rubis", bg: "#070405", accent: "#ff453a", isDark: true, desc: "Velours & Grenat" },
+  orchidee: { label: "Orchidée", bg: "#060408", accent: "#bf5af2", isDark: true, desc: "Nébuleuse & Améthyste" },
+  taupe: { label: "Moka", bg: "#040705", accent: "#eab308", isDark: true, desc: "Quartz & Or Champagne" },
 };
 
 export const THEME_STORAGE_KEY = "bobineweb-theme";

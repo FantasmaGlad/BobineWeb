@@ -97,7 +97,7 @@ export default async function LinuxShowcasePage({ locale }: { locale: Locale }) 
         <header className="linux-section-header">
           <h2 className="linux-section-header__title">{isEn ? "Frequently asked questions" : "Questions fréquentes"}</h2>
         </header>
-        <div className="landing-faq">
+        <div className="landing-faq landing-faq--grid">
           {c.faq.map((item) => (
             <details key={item.q} className="landing-card">
               <summary>{item.q}</summary>

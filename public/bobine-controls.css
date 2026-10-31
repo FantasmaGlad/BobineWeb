@@ -322,7 +322,7 @@
   transform: rotate(180deg);
 }
 /* Icônes de marque : masque rempli d'une couleur, donc lisible dans les 16 thèmes (couleur officielle seulement si le
-   contraste le permet, sinon la couleur du texte). Voir src/lib/assets.ts. Spécificité nulle : une classe du site peut
+   contraste le permet, sinon la couleur du texte). Les logos multicolores sont affichés tels quels, sans fond. Voir src/lib/assets.ts. Spécificité nulle : une classe du site peut
    imposer sa taille. */
 :where(.brand-icon) {
   --brand-icon-color: currentColor;
@@ -341,30 +341,30 @@
   width: 1.15em;
   height: 1.15em;
   object-fit: contain;
-}
-
-/* Le support clair conserve les couleurs de marque, même dans les thèmes sombres. */
-:where(.brand-icon--image) {
-  box-sizing: border-box;
-  padding: 0.08em;
-  border-radius: var(--radius-4px);
-  background: color-mix(in srgb, var(--specular) 96%, transparent);
   vertical-align: middle;
 }
 
-.theme-swatch-icon[data-theme="charbon"], [data-theme-value="charbon"] { --swatch-bg: #f4f4f5; --swatch-accent: #18181b; }
-.theme-swatch-icon[data-theme="clair"], [data-theme-value="clair"] { --swatch-bg: #f6f7f9; --swatch-accent: #e11d48; }
-.theme-swatch-icon[data-theme="miel"], [data-theme-value="miel"] { --swatch-bg: #faf8f5; --swatch-accent: #d97706; }
-.theme-swatch-icon[data-theme="menthe"], [data-theme-value="menthe"] { --swatch-bg: #f4f8f6; --swatch-accent: #059669; }
-.theme-swatch-icon[data-theme="ciel"], [data-theme-value="ciel"] { --swatch-bg: #f4f7fb; --swatch-accent: #0071e3; }
-.theme-swatch-icon[data-theme="lavande"], [data-theme-value="lavande"] { --swatch-bg: #f7f6fb; --swatch-accent: #7c3aed; }
-.theme-swatch-icon[data-theme="beige"], [data-theme-value="beige"] { --swatch-bg: #f7f5f0; --swatch-accent: #9a5b25; }
-.theme-swatch-icon[data-theme="coco"], [data-theme-value="coco"] { --swatch-bg: #f8f5f2; --swatch-accent: #7c3a19; }
-.theme-swatch-icon[data-theme="les-mills-sombre"], [data-theme-value="les-mills-sombre"] { --swatch-bg: #08090b; --swatch-accent: #e4002b; }
-.theme-swatch-icon[data-theme="charbon-sombre"], [data-theme-value="charbon-sombre"] { --swatch-bg: #0a0c10; --swatch-accent: #e2e8f0; }
-.theme-swatch-icon[data-theme="automne"], [data-theme-value="automne"] { --swatch-bg: #0b0908; --swatch-accent: #f97316; }
-.theme-swatch-icon[data-theme="hiver"], [data-theme-value="hiver"] { --swatch-bg: #070b0f; --swatch-accent: #06b6d4; }
-.theme-swatch-icon[data-theme="lune"], [data-theme-value="lune"] { --swatch-bg: #080911; --swatch-accent: #6366f1; }
-.theme-swatch-icon[data-theme="chili"], [data-theme-value="chili"] { --swatch-bg: #0b0809; --swatch-accent: #f43f5e; }
-.theme-swatch-icon[data-theme="orchidee"], [data-theme-value="orchidee"] { --swatch-bg: #09080d; --swatch-accent: #d946ef; }
-.theme-swatch-icon[data-theme="taupe"], [data-theme-value="taupe"] { --swatch-bg: #0b0a09; --swatch-accent: #eab308; }
+/* Aucun support derrière un logo : les visuels sont transparents et reposent sur la surface du thème. Un logo dont une
+   couleur se confond avec une surface d'un thème (voir `halo` dans assets.json et check-assets.mjs) reçoit un fin
+   liseré de la couleur du texte, qui suit le thème, au lieu d'un fond. */
+:where(.brand-icon--halo) {
+  filter: drop-shadow(0 0 0.6px color-mix(in srgb, var(--text-main) 85%, transparent))
+    drop-shadow(0 0 0.6px color-mix(in srgb, var(--text-main) 85%, transparent));
+}
+
+.theme-swatch-icon[data-theme="charbon"], [data-theme-value="charbon"] { --swatch-bg: #f5f5f7; --swatch-accent: #1d1d1f; }
+.theme-swatch-icon[data-theme="clair"], [data-theme-value="clair"] { --swatch-bg: #f8f5f6; --swatch-accent: #be123c; }
+.theme-swatch-icon[data-theme="miel"], [data-theme-value="miel"] { --swatch-bg: #f8f6f2; --swatch-accent: #b45309; }
+.theme-swatch-icon[data-theme="menthe"], [data-theme-value="menthe"] { --swatch-bg: #f4f7f5; --swatch-accent: #047857; }
+.theme-swatch-icon[data-theme="ciel"], [data-theme-value="ciel"] { --swatch-bg: #f4f6f9; --swatch-accent: #0071e3; }
+.theme-swatch-icon[data-theme="lavande"], [data-theme-value="lavande"] { --swatch-bg: #f6f5f9; --swatch-accent: #6d28d9; }
+.theme-swatch-icon[data-theme="beige"], [data-theme-value="beige"] { --swatch-bg: #f7f6f2; --swatch-accent: #854d0e; }
+.theme-swatch-icon[data-theme="coco"], [data-theme-value="coco"] { --swatch-bg: #f4f5f7; --swatch-accent: #475569; }
+.theme-swatch-icon[data-theme="les-mills-sombre"], [data-theme-value="les-mills-sombre"] { --swatch-bg: #000000; --swatch-accent: #e4002b; }
+.theme-swatch-icon[data-theme="charbon-sombre"], [data-theme-value="charbon-sombre"] { --swatch-bg: #050507; --swatch-accent: #e5e5ea; }
+.theme-swatch-icon[data-theme="automne"], [data-theme-value="automne"] { --swatch-bg: #060504; --swatch-accent: #ff9f0a; }
+.theme-swatch-icon[data-theme="hiver"], [data-theme-value="hiver"] { --swatch-bg: #040608; --swatch-accent: #2997ff; }
+.theme-swatch-icon[data-theme="lune"], [data-theme-value="lune"] { --swatch-bg: #050507; --swatch-accent: #818cf8; }
+.theme-swatch-icon[data-theme="chili"], [data-theme-value="chili"] { --swatch-bg: #070405; --swatch-accent: #ff453a; }
+.theme-swatch-icon[data-theme="orchidee"], [data-theme-value="orchidee"] { --swatch-bg: #060408; --swatch-accent: #bf5af2; }
+.theme-swatch-icon[data-theme="taupe"], [data-theme-value="taupe"] { --swatch-bg: #040705; --swatch-accent: #eab308; }

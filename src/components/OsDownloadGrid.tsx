@@ -13,9 +13,8 @@ import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFallbacks";
 import { useReleaseData } from "@/components/ReleaseProvider";
 import DownloadPanel, { type DownloadPlatform } from "@/components/download/DownloadPanel";
-import { ANDROID } from "@/lib/productFacts";
 import DistroLogo from "@/components/icons/DistroLogo";
-import { LINUX_FAMILIES, LINUX_FAMILY_IDS } from "@/lib/linuxPackages";
+import { LINUX_FAMILIES } from "@/lib/linuxPackages";
 import "@/styles/split/pages-misc.css";
 
 export default function OsDownloadGrid({
@@ -86,21 +85,16 @@ export default function OsDownloadGrid({
       id: "linux",
       name: "Linux",
       subtitle: (
-        <>
-          <span className="os-download-card__distros">
-            {linuxDistros.map((d) => (
-              <span key={d.name} className={`os-download-card__distro${d.live ? "" : " is-soon"}`} title={d.live ? d.name : `${d.name} (${isEn ? "soon" : "bientôt"})`}>
-                <DistroLogo id={d.logo} />
-                <span className="sr-only">{d.name}</span>
-              </span>
-            ))}
-          </span>
-          <span className="os-download-card__distro-arch">x86_64 &amp; ARM64</span>
-        </>
+        <span className="os-download-card__distros">
+          {linuxDistros.map((d) => (
+            <span key={d.name} className={`os-download-card__distro${d.live ? "" : " is-soon"}`} title={d.live ? d.name : `${d.name} (${isEn ? "soon" : "bientôt"})`}>
+              <DistroLogo id={d.logo} />
+              <span className="sr-only">{d.name}</span>
+            </span>
+          ))}
+        </span>
       ),
-      format: `${isEn ? "Package" : "Paquet"} ${LINUX_FAMILY_IDS.filter((id) => LINUX_FAMILIES[id].live)
-        .map((id) => LINUX_FAMILIES[id].extension)
-        .join(" · ")}`,
+      format: isEn ? "Linux package" : "Paquet Linux",
       badge: isEn ? "1-click install" : "Installation 1 clic",
       url: stableInfo.downloads.linux,
       isComingSoon: false,
@@ -109,7 +103,7 @@ export default function OsDownloadGrid({
     {
       id: "windows",
       name: "Windows",
-      subtitle: isEn ? "11, 10 & Windows ARM (Snapdragon)" : "11, 10 & Windows ARM (Snapdragon)",
+      subtitle: "Windows 11 & 10",
       format: isEn ? "Installer .exe" : "Installeur .exe",
       badge: isEn ? "1-click install" : "Installation 1 clic",
       url: stableInfo.downloads.windows,
@@ -119,7 +113,7 @@ export default function OsDownloadGrid({
     {
       id: "macos",
       name: "macOS",
-      subtitle: isEn ? "Apple Silicon (M1–M4)" : "Apple Silicon (M1–M4)",
+      subtitle: "macOS Apple Silicon",
       format: isEn ? "Disk image .dmg" : "Image disque .dmg",
       badge: isEn ? "1-click install" : "Installation 1 clic",
       url: stableInfo.downloads.macos,
@@ -129,7 +123,7 @@ export default function OsDownloadGrid({
     {
       id: "android",
       name: "Android",
-      subtitle: isEn ? "Tablets, Google Books & ARM kiosks" : "Tablettes, Google Books & Bornes ARM",
+      subtitle: isEn ? "Android & Google Book" : "Android & Google Book",
       format: isEn ? "Package .apk" : "Paquet .apk",
       badge: isEn ? "1-click install" : "Installation 1 clic",
       url: stableInfo.downloads.android,
@@ -139,7 +133,7 @@ export default function OsDownloadGrid({
     {
       id: "android-tv",
       name: "Android TV",
-      subtitle: isEn ? `Google TV, Xiaomi & Smart TVs (Android ${ANDROID.minVersion}+)` : `Google TV, Xiaomi & Smart TV (Android ${ANDROID.minVersion}+)`,
+      subtitle: "Android TV & Google TV",
       format: isEn ? "Package .apk" : "Paquet .apk",
       badge: isEn ? "Soon on Google Play" : "Bientôt sur Google Play",
       url: stableInfo.downloads.androidTv || `https://github.com/FantasmaGlad/Bobine/releases/download/${stableInfo.version}/Bobine-TV-${stableInfo.version.replace(/^V/i, "")}.apk`,

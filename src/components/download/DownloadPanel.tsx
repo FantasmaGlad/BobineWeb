@@ -47,17 +47,44 @@ const HEADING_ICON: Record<string, AssetKey> = {
   assistant: "os.linux",
 };
 
-function CopyButton({ text, id, label, copied, onCopy, isEn }: { text: string; id: string; label: string; copied: string; onCopy: (text: string, id: string) => void; isEn: boolean }) {
+function CopyButton({
+  text,
+  id,
+  label,
+  copied,
+  onCopy,
+  isEn,
+}: {
+  text: string;
+  id: string;
+  label: string;
+  copied: string;
+  onCopy: (text: string, id: string) => void;
+  isEn: boolean;
+}) {
+  const isCopied = copied === id;
   return (
-    <button type="button" className="dl-btn dl-btn--ghost" onClick={() => onCopy(text, id)}>
-      <Icon name={copied === id ? "check" : "copy"} size={16} />
-      <span>{copied === id ? (isEn ? "Copied" : "Copié") : label}</span>
+    <button
+      type="button"
+      className={`dl-btn dl-btn--copy${isCopied ? " is-copied" : ""}`}
+      onClick={() => onCopy(text, id)}
+    >
+      <Icon name={isCopied ? "check" : "copy"} size={15} />
+      <span>{isCopied ? (isEn ? "Copied" : "Copié") : label}</span>
     </button>
   );
 }
 
-/** Fenêtre de téléchargement : `<dialog>` natif (arrière-plan inerte, Échap, piège et retour du focus). */
-export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform = "windows", stable, beta, canary }: DownloadPanelProps) {
+/** Fenêtre de téléchargement minimaliste (« Simple d'abord » + divulgation progressive). */
+export default function DownloadPanel({
+  isOpen,
+  onClose,
+  locale,
+  initialPlatform = "windows",
+  stable,
+  beta,
+  canary,
+}: DownloadPanelProps) {
   const isEn = locale === "en";
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const titleId = useId();
@@ -65,6 +92,7 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
   const [family, setFamily] = useState<LinuxFamilyId>("debian");
   const [channel, setChannel] = useState<PackageChannel>("stable");
   const [copied, setCopied] = useState("");
+  const [showMoreOptions, setShowMoreOptions] = useState(false);
 
   // Architecture ARM64 détectée côté client (Snapdragon, Linux aarch64, Windows ARM).
   useEffect(() => {
@@ -73,8 +101,17 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
       queueMicrotask(() => setArch("arm64"));
       return;
     }
-    const uaData = (navigator as Navigator & { userAgentData?: { getHighEntropyValues?: (hints: string[]) => Promise<{ architecture?: string }> } }).userAgentData;
-    uaData?.getHighEntropyValues?.(["architecture"]).then((v) => v?.architecture && /arm/i.test(v.architecture) && setArch("arm64")).catch(() => {});
+    const uaData = (
+      navigator as Navigator & {
+        userAgentData?: {
+          getHighEntropyValues?: (hints: string[]) => Promise<{ architecture?: string }>;
+        };
+      }
+    ).userAgentData;
+    uaData
+      ?.getHighEntropyValues?.(["architecture"])
+      .then((v) => v?.architecture && /arm/i.test(v.architecture) && setArch("arm64"))
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -93,15 +130,28 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
     };
   }, [isOpen]);
 
-  // La plateforme est celle de la carte cliquée : la fenêtre ne la fait pas choisir une seconde fois.
-  const platform: DownloadPlatform = initialPlatform === "tauri" || initialPlatform === "assistant" ? "linux" : initialPlatform;
-  const result = resolveDownload({ locale, platform, arch, family, channel, stable, beta, canary });
+  const platform: DownloadPlatform =
+    initialPlatform === "tauri" || initialPlatform === "assistant" ? "linux" : initialPlatform;
+  const result = resolveDownload({
+    locale,
+    platform,
+    arch,
+    family,
+    channel,
+    stable,
+    beta,
+    canary,
+  });
   const hasArch = platform === "windows" || platform === "linux";
   const isLinux = platform === "linux";
   const isCli = platform === "cli";
   const size = formatSize(result.file?.size, locale);
   const published = result.file?.updatedAt ?? result.publishedAt;
-  const publishedLabel = published ? new Intl.DateTimeFormat(isEn ? "en-GB" : "fr-FR", { dateStyle: "long" }).format(new Date(published)) : "";
+  const publishedLabel = published
+    ? new Intl.DateTimeFormat(isEn ? "en-GB" : "fr-FR", { dateStyle: "medium" }).format(
+        new Date(published),
+      )
+    : "";
 
   const copy = (text: string, key: string) => {
     navigator.clipboard?.writeText(text).then(() => {
@@ -110,23 +160,39 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
     });
   };
 
-  const repoScript = family === "debian" ? aptInstallScript(channel) : family === "fedora" ? fedoraInstallScript(channel) : archInstallScript(channel);
+  const repoScript =
+    family === "debian"
+      ? aptInstallScript(channel)
+      : family === "fedora"
+        ? fedoraInstallScript(channel)
+        : archInstallScript(channel);
   const cliSteps = [
     "curl -fsSL https://bobine.fit/install.sh -o install.sh",
     "less install.sh",
     `sudo bash install.sh${channel === "stable" ? "" : ` --channel=${channel}`}`,
   ].join("\n");
 
-  const channelRows: Array<{ id: PackageChannel; label: string; version: string; hint: string }> = [
-    { id: "stable", label: "Stable", version: stable.version, hint: isEn ? "Official numbered release" : "Version officielle numérotée" },
-    { id: "beta", label: isEn ? "Beta" : "Bêta", version: beta.commit ? `#${beta.commit}` : isEn ? "rolling" : "continue", hint: isEn ? "Curated batches ahead of Stable" : "Lots choisis avant la Stable" },
-    { id: "canary", label: "Canary", version: canary.commit ? `#${canary.commit}` : isEn ? "rolling" : "continue", hint: isEn ? "Latest commit, untested" : "Dernier commit, non testé" },
+  const channelRows: Array<{ id: PackageChannel; label: string; version: string }> = [
+    { id: "stable", label: "Stable", version: stable.version },
+    {
+      id: "beta",
+      label: isEn ? "Beta" : "Bêta",
+      version: beta.commit ? `#${beta.commit}` : isEn ? "rolling" : "continue",
+    },
+    {
+      id: "canary",
+      label: "Canary",
+      version: canary.commit ? `#${canary.commit}` : isEn ? "rolling" : "continue",
+    },
   ];
+
+  const activeChannelLabel =
+    channel === "stable" ? "Stable" : channel === "beta" ? (isEn ? "Beta" : "Bêta") : "Canary";
 
   return (
     <dialog
       ref={dialogRef}
-      className="dl-panel"
+      className={`dl-panel${isLinux || isCli ? " dl-panel--wide" : ""}`}
       aria-labelledby={titleId}
       onClose={onClose}
       onClick={(e) => {
@@ -135,143 +201,303 @@ export default function DownloadPanel({ isOpen, onClose, locale, initialPlatform
     >
       <div className="dl-panel__sheet">
         <header className="dl-panel__header">
-          <BrandIcon name={HEADING_ICON[platform] ?? "os.linux"} size={40} className="dl-panel__logo" />
+          <BrandIcon
+            name={HEADING_ICON[platform] ?? "os.linux"}
+            size={36}
+            className="dl-panel__logo"
+          />
           <div className="dl-panel__heading">
-            <h2 id={titleId} className="dl-panel__title">
-              {isEn ? `Bobine for ${result.heading}` : `Bobine pour ${result.heading}`}
-            </h2>
+            <div className="dl-panel__title-row">
+              <h2 id={titleId} className="dl-panel__title">
+                {isEn ? `Bobine for ${result.heading}` : `Bobine pour ${result.heading}`}
+              </h2>
+              <span className="dl-panel__badge">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`/images/channels/bobine-${channel}.webp`}
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="dl-panel__badge-logo"
+                />
+                <span>
+                  {activeChannelLabel} · {result.version}
+                </span>
+                {hasArch && <span>· {arch}</span>}
+              </span>
+            </div>
             <p className="dl-panel__targets">{result.targets}</p>
           </div>
-          <button type="button" className="dl-panel__close" onClick={onClose} autoFocus aria-label={isEn ? "Close" : "Fermer"}>
-            <Icon name="close" size={20} />
+          <button
+            type="button"
+            className="dl-panel__close"
+            onClick={onClose}
+            autoFocus
+            aria-label={isEn ? "Close" : "Fermer"}
+          >
+            <Icon name="close" size={18} />
           </button>
         </header>
 
         <div className="dl-panel__body">
-          <div className="dl-panel__col">
-            {hasArch && (
-              <div role="group" aria-labelledby={`${titleId}-arch`} className="dl-field">
-                <span id={`${titleId}-arch`} className="dl-field__label">{isEn ? "Architecture" : "Architecture"}</span>
-                <div className="dl-chips">
-                  <button type="button" className="dl-chip" aria-pressed={arch === "x86_64"} onClick={() => setArch("x86_64")}>
-                    <span>x86_64</span>
-                    <small>Intel / AMD</small>
-                  </button>
-                  <button type="button" className="dl-chip" aria-pressed={arch === "arm64"} onClick={() => setArch("arm64")}>
-                    <span>ARM64</span>
-                    <small>Snapdragon / Pi 5</small>
-                  </button>
-                </div>
+          {/* NIVEAU 1 : PARCOURS SIMPLE IMMÉDIAT */}
+          {isLinux && (
+            <div className="dl-primary-flow">
+              <div
+                role="group"
+                aria-label={isEn ? "Distribution family" : "Famille de distribution"}
+                className="dl-segmented dl-segmented--distros"
+              >
+                {LINUX_FAMILY_IDS.map((id) => {
+                  const f = LINUX_FAMILIES[id];
+                  return (
+                    <button
+                      key={id}
+                      type="button"
+                      className="dl-segmented__btn"
+                      aria-pressed={family === id}
+                      disabled={!f.live}
+                      onClick={() => setFamily(id)}
+                    >
+                      <BrandIcon name={`distro.${f.logo}`} size={16} />
+                      <span>{f.label[locale]}</span>
+                      <small>{f.extension}</small>
+                    </button>
+                  );
+                })}
               </div>
-            )}
 
-            {isLinux && (
-              <div role="group" aria-labelledby={`${titleId}-family`} className="dl-field">
-                <span id={`${titleId}-family`} className="dl-field__label">{isEn ? "Distribution family" : "Famille de distribution"}</span>
-                <div className="dl-chips">
-                  {LINUX_FAMILY_IDS.map((id) => {
-                    const f = LINUX_FAMILIES[id];
-                    return (
-                      <button key={id} type="button" className="dl-chip" aria-pressed={family === id} disabled={!f.live} onClick={() => setFamily(id)}>
-                        <BrandIcon name={`distro.${f.logo}`} size={18} />
-                        <span>{f.label[locale]}</span>
-                        <small>{f.live ? f.extension : isEn ? "soon" : "bientôt"}</small>
-                      </button>
-                    );
-                  })}
+              <section className="dl-terminal-box" aria-labelledby={`${titleId}-repo`}>
+                <div className="dl-terminal-box__bar">
+                  <div className="dl-terminal-box__meta">
+                    <span id={`${titleId}-repo`} className="dl-terminal-box__title">
+                      {isEn
+                        ? `Signed ${LINUX_FAMILIES[family].manager.toUpperCase()} repository (recommended)`
+                        : `Dépôt ${LINUX_FAMILIES[family].manager.toUpperCase()} signé (recommandé)`}
+                    </span>
+                    <span className="dl-terminal-box__sub">
+                      {isEn ? "Automatic system updates · OpenPGP" : "Mises à jour automatiques · OpenPGP"}
+                    </span>
+                  </div>
+                  <CopyButton
+                    text={repoScript}
+                    id="repo"
+                    label={isEn ? "Copy" : "Copier"}
+                    copied={copied}
+                    onCopy={copy}
+                    isEn={isEn}
+                  />
                 </div>
-              </div>
-            )}
+                <pre className="dl-code">
+                  <code>{repoScript}</code>
+                </pre>
+              </section>
 
-            <div role="group" aria-labelledby={`${titleId}-channel`} className="dl-field">
-              <span id={`${titleId}-channel`} className="dl-field__label">{isEn ? "Release channel" : "Canal de version"}</span>
-              <div className="dl-chips dl-chips--stack">
-                {channelRows.map((row) => (
-                  <button key={row.id} type="button" className="dl-chip dl-chip--row" aria-pressed={channel === row.id} onClick={() => setChannel(row.id)}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`/images/channels/bobine-${row.id}.webp`} alt="" width={28} height={28} className="dl-chip__logo" />
-                    <span className="dl-chip__name">{row.label}</span>
-                    <code>{row.version}</code>
-                    <small>{row.hint}</small>
-                  </button>
-                ))}
+              <div className="dl-direct-row">
+                <div className="dl-direct-row__info">
+                  <span className="dl-direct-row__label">
+                    {isEn ? "Or direct package:" : "Ou paquet direct :"}
+                  </span>
+                  {result.filename && <code className="dl-direct-row__file">{result.filename}</code>}
+                  {size && <span className="dl-direct-row__meta">({size})</span>}
+                </div>
+                {result.url ? (
+                  <a
+                    className="dl-btn dl-btn--secondary"
+                    href={result.url}
+                    rel="noopener noreferrer"
+                    download
+                  >
+                    <Icon name="download" size={16} />
+                    <span>
+                      {isEn ? "Download" : "Télécharger"} {LINUX_FAMILIES[family].extension}
+                    </span>
+                  </a>
+                ) : (
+                  <span className="dl-direct-row__meta">
+                    {isEn ? "Not published for this channel" : "Non publié sur ce canal"}
+                  </span>
+                )}
               </div>
+            </div>
+          )}
+
+          {isCli && (
+            <section className="dl-terminal-box" aria-labelledby={`${titleId}-cli`}>
+              <div className="dl-terminal-box__bar">
+                <div className="dl-terminal-box__meta">
+                  <span id={`${titleId}-cli`} className="dl-terminal-box__title">
+                    {isEn ? "Read the script, then run it" : "Lire le script, puis l'exécuter"}
+                  </span>
+                </div>
+                <CopyButton
+                  text={cliSteps}
+                  id="cli-steps"
+                  label={isEn ? "Copy" : "Copier"}
+                  copied={copied}
+                  onCopy={copy}
+                  isEn={isEn}
+                />
+              </div>
+              <pre className="dl-code">
+                <code>{cliSteps}</code>
+              </pre>
+            </section>
+          )}
+
+          {!isLinux && !isCli && (
+            <section className="dl-hero-action" aria-labelledby={`${titleId}-file`}>
+              <div className="dl-hero-action__main">
+                {result.url ? (
+                  <a
+                    id={`${titleId}-file`}
+                    className="dl-btn dl-btn--primary dl-btn--hero"
+                    href={result.url}
+                    rel="noopener noreferrer"
+                    download
+                  >
+                    <Icon name="download" size={18} />
+                    <span>
+                      {isEn ? "Download" : "Télécharger"} {result.filename || `Bobine ${result.version}`}
+                    </span>
+                    {size && <small className="dl-btn__size">{size}</small>}
+                  </a>
+                ) : (
+                  <p className="dl-block__text">
+                    {isEn
+                      ? "This file is not published for this channel yet."
+                      : "Ce fichier n'est pas encore publié pour ce canal."}
+                  </p>
+                )}
+              </div>
+              <div className="dl-hero-action__facts">
+                {result.filename && (
+                  <span>
+                    <strong>{isEn ? "File:" : "Fichier :"}</strong> <code>{result.filename}</code>
+                  </span>
+                )}
+                {publishedLabel && (
+                  <span>
+                    <strong>{isEn ? "Published:" : "Publié :"}</strong> {publishedLabel}
+                  </span>
+                )}
+                <span>{isEn ? "100% local · No account required" : "100 % local · Sans compte requis"}</span>
+              </div>
+            </section>
+          )}
+
+          {/* BARRE DE PIED & BOUTON "PLUS D'OPTIONS" (DIVULGATION PROGRESSIVE) */}
+          <div className="dl-footer-bar">
+            <button
+              type="button"
+              className="dl-more-toggle"
+              aria-expanded={showMoreOptions}
+              onClick={() => setShowMoreOptions((v) => !v)}
+            >
+              <Icon name={showMoreOptions ? "close" : "plus"} size={14} />
+              <span>
+                {isEn
+                  ? "More options (Channel, Architecture, Info)"
+                  : "Plus d'options (Canal, Architecture, Infos)"}
+              </span>
+            </button>
+
+            <div className="dl-links">
+              <a href={result.releaseUrl} target="_blank" rel="noopener noreferrer">
+                {isEn ? "Release notes" : "Notes de version"}
+              </a>
+              <a
+                href="https://github.com/FantasmaGlad/Bobine"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {isEn ? "Source code" : "Code source"}
+              </a>
+              {isLinux && (
+                <Link href={`/${locale}/linux`} onClick={onClose}>
+                  {isEn ? "Linux page" : "Page Linux"}
+                </Link>
+              )}
             </div>
           </div>
 
-          <div className="dl-panel__col">
-            {isLinux && (
-              <section className="dl-block" aria-labelledby={`${titleId}-repo`}>
-                <h3 id={`${titleId}-repo`} className="dl-block__title">
-                  {isEn ? `Signed ${LINUX_FAMILIES[family].manager.toUpperCase()} repository (recommended)` : `Dépôt ${LINUX_FAMILIES[family].manager.toUpperCase()} signé (recommandé)`}
-                </h3>
-                <p className="dl-block__text">
-                  {isEn ? "Updates arrive with the system. The repository is signed with OpenPGP." : "Les mises à jour arrivent avec le système. Le dépôt est signé avec OpenPGP."}
-                </p>
-                <pre className="dl-code"><code>{repoScript}</code></pre>
-                <CopyButton text={repoScript} id="repo" label={isEn ? "Copy commands" : "Copier les commandes"} copied={copied} onCopy={copy} isEn={isEn} />
-              </section>
-            )}
+          {/* NIVEAU 2 : TIROIR D'OPTIONS AVANCÉES */}
+          <div className="dl-advanced-drawer" data-open={showMoreOptions ? "true" : "false"}>
+            <div className="dl-advanced-drawer__inner">
+              <div className="dl-advanced-grid">
+                {hasArch && (
+                  <div role="group" aria-labelledby={`${titleId}-arch`} className="dl-field">
+                    <span id={`${titleId}-arch`} className="dl-field__label">
+                      {isEn ? "Processor architecture" : "Architecture processeur"}
+                    </span>
+                    <div className="dl-segmented">
+                      <button
+                        type="button"
+                        className="dl-segmented__btn"
+                        aria-pressed={arch === "x86_64"}
+                        onClick={() => setArch("x86_64")}
+                      >
+                        <span>x86_64</span>
+                        <small>Intel / AMD</small>
+                      </button>
+                      <button
+                        type="button"
+                        className="dl-segmented__btn"
+                        aria-pressed={arch === "arm64"}
+                        onClick={() => setArch("arm64")}
+                      >
+                        <span>ARM64</span>
+                        <small>Snapdragon / Pi 5</small>
+                      </button>
+                    </div>
+                  </div>
+                )}
 
-            {isCli ? (
-              <section className="dl-block" aria-labelledby={`${titleId}-cli`}>
-                <h3 id={`${titleId}-cli`} className="dl-block__title">{isEn ? "Read the script, then run it" : "Lire le script, puis l'exécuter"}</h3>
-                <p className="dl-block__text">
-                  {isEn
-                    ? "The script installs services and packages with administrator rights: read it before running it."
-                    : "Le script installe des services et des paquets avec les droits d'administrateur : lisez-le avant de l'exécuter."}
-                </p>
-                <pre className="dl-code"><code>{cliSteps}</code></pre>
-                <CopyButton text={cliSteps} id="cli-steps" label={isEn ? "Copy commands" : "Copier les commandes"} copied={copied} onCopy={copy} isEn={isEn} />
-                <details className="dl-details">
-                  <summary>{isEn ? "Single command (without reading)" : "Commande unique (sans lecture préalable)"}</summary>
-                  <pre className="dl-code"><code>{result.command}</code></pre>
-                  <CopyButton text={result.command ?? ""} id="cli-one" label={isEn ? "Copy" : "Copier"} copied={copied} onCopy={copy} isEn={isEn} />
-                </details>
-              </section>
-            ) : null}
-
-            <section className="dl-block" aria-labelledby={`${titleId}-file`}>
-              <h3 id={`${titleId}-file`} className="dl-block__title">{isLinux ? (isEn ? "Direct download" : "Téléchargement direct") : isEn ? "File" : "Fichier"}</h3>
-              <dl className="dl-facts">
-                {result.filename && (<><dt>{isEn ? "File" : "Fichier"}</dt><dd><code>{result.filename}</code></dd></>)}
-                <dt>{isEn ? "Version" : "Version"}</dt>
-                <dd className="dl-facts__version">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`/images/channels/bobine-${channel}.webp`} alt="" width={22} height={22} className="dl-chip__logo" />
-                  <span>{result.version}</span>
-                </dd>
-                {size && (<><dt>{isEn ? "Size" : "Taille"}</dt><dd>{size}</dd></>)}
-                {publishedLabel && (<><dt>{isEn ? "Published" : "Publié"}</dt><dd>{publishedLabel}</dd></>)}
-              </dl>
-              {!isCli && (result.url ? (
-                <a className="dl-btn dl-btn--primary" href={result.url} rel="noopener noreferrer" download>
-                  <Icon name="download" size={18} />
-                  <span>
-                    {isEn ? "Download" : "Télécharger"} {result.filename}
-                    {size ? ` (${size})` : ""}
+                <div role="group" aria-labelledby={`${titleId}-channel`} className="dl-field">
+                  <span id={`${titleId}-channel`} className="dl-field__label">
+                    {isEn ? "Release channel" : "Canal de version"}
                   </span>
-                </a>
-              ) : (
-                <p className="dl-block__text">{isEn ? "This file is not published for this channel yet." : "Ce fichier n'est pas encore publié pour ce canal."}</p>
-              ))}
-              <div className="dl-links">
-                <a href={result.releaseUrl} target="_blank" rel="noopener noreferrer">{isEn ? "Release notes" : "Notes de version"}</a>
-                <a href="https://github.com/FantasmaGlad/Bobine" target="_blank" rel="noopener noreferrer">{isEn ? "Source code (AGPL-3.0)" : "Code source (AGPL-3.0)"}</a>
-                <a href="https://github.com/FantasmaGlad/Bobine/releases" target="_blank" rel="noopener noreferrer">{isEn ? "Other files" : "Autres fichiers"}</a>
-                {isLinux && <Link href={`/${locale}/linux`} onClick={onClose}>{isEn ? "Linux page" : "Page Linux"}</Link>}
+                  <div className="dl-segmented">
+                    {channelRows.map((row) => (
+                      <button
+                        key={row.id}
+                        type="button"
+                        className="dl-segmented__btn"
+                        aria-pressed={channel === row.id}
+                        onClick={() => setChannel(row.id)}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={`/images/channels/bobine-${row.id}.webp`}
+                          alt=""
+                          width={16}
+                          height={16}
+                          className="dl-chip__logo"
+                        />
+                        <span>{row.label}</span>
+                        <small>{row.version}</small>
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </section>
 
-            {result.requirements && (
-              <p className="dl-block__text dl-requirements">
-                <strong>{isEn ? "Requirements: " : "Prérequis : "}</strong>
-                {result.requirements} {isEn ? "No account or online service required." : "Aucun compte ni service en ligne requis."}
-              </p>
-            )}
+              {result.requirements && (
+                <p className="dl-requirements">
+                  <strong>{isEn ? "Requirements: " : "Prérequis : "}</strong>
+                  {result.requirements}{" "}
+                  {isEn
+                    ? "No account or online service required."
+                    : "Aucun compte ni service en ligne requis."}
+                </p>
+              )}
+            </div>
           </div>
         </div>
-        <p className="dl-sr-only" role="status" aria-live="polite">{copied ? (isEn ? "Copied to the clipboard" : "Copié dans le presse-papiers") : ""}</p>
+
+        <p className="dl-sr-only" role="status" aria-live="polite">
+          {copied ? (isEn ? "Copied to the clipboard" : "Copié dans le presse-papiers") : ""}
+        </p>
       </div>
     </dialog>
   );

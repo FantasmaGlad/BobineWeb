@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { Locale } from "@/lib/i18n";
-import PdfIcon from "@/components/icons/PdfIcon";
+import Icon from "@/components/ui/Icon";
 import { useReleaseData } from "@/components/ReleaseProvider";
 import "@/styles/split/pages-misc.css";
 
@@ -62,7 +62,7 @@ export default function DownloadPdfButton({
             : "Télécharger ce chapitre en PDF"
         }
       >
-        <PdfIcon size={15} />
+        <Icon name="download" size={15} />
         <span className="download-pdf-label--full">
           {isGenerating
             ? isEn

@@ -6,7 +6,8 @@
  * `tone` décide de la couleur d'une icône à un seul tracé :
  *  - `brand` : couleur officielle (`color`), seulement si elle atteint 3:1 sur les surfaces des 16 thèmes ;
  *  - `ink` : couleur du texte du thème (`currentColor`), pour les marques noires ou trop claires.
- * Les icônes multicolores (`render: "image"`) sont affichées telles quelles.
+ * Les icônes multicolores (`render: "image"`) sont affichées telles quelles, sans fond ; `halo` ajoute un liseré quand
+ * une de leurs couleurs disparaît sur un thème (contrôlé par `check-assets.mjs`).
  */
 import data from "./assets.json";
 
@@ -18,6 +19,8 @@ export interface AssetDef {
   src: string;
   render?: "mask" | "image";
   tone?: "brand" | "ink";
+  /** Logo multicolore dont une couleur se confond avec une surface d'un thème : liseré au lieu d'un fond. */
+  halo?: boolean;
   color?: string;
   maxBytes?: number;
 }

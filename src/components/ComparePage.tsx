@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { comparisons, COMPARE_SOURCES, compareCopy, getComparison, type CompareSlug, type CompareRow } from "@/content/compare";
+import { BOBINE_VALUE_PILLARS, comparisons, COMPARE_SOURCES, compareCopy, getComparison, type CompareSlug, type CompareRow } from "@/content/compare";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata, lp } from "@/lib/seo";
 import Breadcrumbs from "@/components/page/Breadcrumbs";
@@ -93,10 +93,28 @@ export default async function ComparePage({ params, slug }: ComparePageProps & {
         </div>
         <Image src="/images/FrameworkBaamix-wide.webp" alt={compareCopy.imageAlt[locale]} width={1200} height={678} sizes="(max-width: 900px) 100vw, 40vw" preload className="compare-hero__image" />
       </header>
-      <ComparisonNotice locale={locale} />
+
+      {entry ? null : (
+        <section className="compare-pillars" aria-labelledby="compare-pillars-title">
+          <h2 id="compare-pillars-title">{compareCopy.pillarsHeading[locale]}</h2>
+          <div className="compare-pillars__grid">
+            {BOBINE_VALUE_PILLARS.map((pillar) => (
+              <article key={pillar.id} className="compare-pillar">
+                <h3>{pillar.title[locale]}</h3>
+                <p>{pillar.body[locale]}</p>
+                {pillar.osIcons ? (
+                  <div className="compare-pillar__icons">
+                    {pillar.osIcons.map((icon) => <BrandIcon key={icon} name={icon} size={20} />)}
+                  </div>
+                ) : null}
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       {entry ? (
-        <>
+        <div className="compare-split">
           <section className="compare-section" aria-labelledby="compare-criteria">
             <h2 id="compare-criteria"><BrandIcon name={entry.brand} size={28} />{compareCopy.table[locale]}</h2>
             <CompareTable locale={locale} columns={entry.columns} rows={entry.rows.map((row) => ({ label: row.label[locale], values: row.values.map((value) => value[locale]) }))} />
@@ -109,7 +127,7 @@ export default async function ComparePage({ params, slug }: ComparePageProps & {
           <div className="compare-analysis">
             {entry.sections.map((section) => <section key={section.title[locale]}><h2>{section.title[locale]}</h2><p>{section.text[locale]}</p></section>)}
           </div>
-        </>
+        </div>
       ) : (
         <section className="compare-studies" aria-label={locale === "fr" ? "Études comparatives" : "Comparison studies"}>
           {comparisons.map((comparison) => (
@@ -142,6 +160,8 @@ export default async function ComparePage({ params, slug }: ComparePageProps & {
           </div>
         </section>
       ) : null}
+
+      <ComparisonNotice locale={locale} />
     </div>
   );
 }

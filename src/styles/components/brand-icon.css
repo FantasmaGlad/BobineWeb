@@ -2,17 +2,24 @@
    contraste le permet, sinon la couleur du texte). Les logos multicolores sont affichés tels quels, sans fond. Voir src/lib/assets.ts. Spécificité nulle : une classe du site peut
    imposer sa taille. */
 :where(.brand-icon) {
-  --brand-icon-color: currentColor;
   display: inline-block;
   flex: none;
   width: 1.15em;
   height: 1.15em;
+  vertical-align: middle;
+}
+
+:where(.brand-icon:not(img):not(.brand-icon--image)) {
+  --brand-icon-color: currentColor;
   background-color: var(--brand-icon-color);
   -webkit-mask: var(--brand-icon-src) center / contain no-repeat;
   mask: var(--brand-icon-src) center / contain no-repeat;
 }
 
-:where(.brand-icon--image) {
+:where(.brand-icon--image),
+:where(img.brand-icon),
+.brand-icon--image,
+img.brand-icon {
   display: inline-block;
   flex: none;
   width: 1.15em;

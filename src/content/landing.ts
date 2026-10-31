@@ -898,18 +898,18 @@ tor: {
     id: "tor",
     path: "/tor",
     fr: {
-      title: "Bobine sur Tor : miroir .onion du site et dépôt APT anonyme",
+      title: "Bobine sur Tor : miroir .onion du site et dépôts Linux anonymes",
       description:
-        "Bobine sur le réseau Tor : site miroir en service onion et dépôt APT officiel accessible en .onion, paquets signés par la même clé. Commandes d'installation et empreinte de la clé.",
-      badge: "Réseau Tor · Services Onion v3 · Dépôt APT signé",
-      h1: "Bobine sur Tor : miroir .onion et dépôt APT",
+        "Bobine sur le réseau Tor : site miroir en service onion et dépôts Linux officiels (Debian, Fedora, Arch) accessibles en .onion, paquets signés par la même clé. Commandes d'installation et empreinte de la clé.",
+      badge: "Réseau Tor · Services Onion v3 · Dépôts Linux signés",
+      h1: "Bobine sur Tor : miroir .onion et dépôts Linux",
       lead:
-        "Pour installer et mettre à jour Bobine sans révéler votre adresse IP, le site et le dépôt APT officiel sont aussi proposés en services onion. C'est un miroir du site et du dépôt officiels : les paquets restent signés par la même clé.",
+        "Pour installer et mettre à jour Bobine sans révéler votre adresse IP, le site et les dépôts Linux officiels (Debian, Fedora, Arch) sont aussi proposés en services onion. C'est un miroir du site et des dépôts officiels : les paquets restent signés par la même clé.",
       breadcrumb: "Tor",
-      keywords: ["Bobine Tor", "Bobine onion", "Bobine .onion", "dépôt APT Tor", "apt-transport-tor Bobine", "Bobine anonyme"],
+      keywords: ["Bobine Tor", "Bobine onion", "Bobine .onion", "dépôts Linux Tor", "apt-transport-tor Bobine", "Bobine anonyme"],
       heroImage: {
         src: "/images/baamix-tor.webp",
-        alt: "Architecture du miroir Tor et du dépôt APT .onion de Bobine",
+        alt: "Architecture du miroir Tor et des dépôts Linux .onion de Bobine",
         width: 1200,
         height: 675,
       },
@@ -919,7 +919,7 @@ tor: {
           icon: "network",
           bullets: [
             `Site : http://${ONION_SITE_HOST}/`,
-            `Dépôt APT : tor+http://${ONION_APT_HOST}/`,
+            `Dépôts Linux (APT, DNF, Pacman) : tor+http://${ONION_APT_HOST}/`,
             "La boutique matériel et l'assistant Baamix ne sont pas proposés sur le miroir : ils reposent sur des liens d'affiliation et des services tiers.",
             "Le miroir est hébergé par le mainteneur, sans journal de visite, avec une disponibilité au mieux.",
           ],
@@ -973,18 +973,18 @@ tor: {
       ],
     },
     en: {
-      title: "Bobine on Tor: .onion site mirror and anonymous APT repository",
+      title: "Bobine on Tor: .onion site mirror and anonymous Linux repositories",
       description:
-        "Bobine on the Tor network: a site mirror as an onion service and the official APT repository reachable over .onion, with packages signed by the same key. Installation commands and key fingerprint.",
-      badge: "Tor Network · Onion v3 Services · Signed APT Repo",
-      h1: "Bobine on Tor: .onion mirror and APT repository",
+        "Bobine on the Tor network: a site mirror as an onion service and official Linux package repositories (Debian, Fedora, Arch) reachable over .onion, with packages signed by the same key. Installation commands and key fingerprint.",
+      badge: "Tor Network · Onion v3 Services · Signed Linux Repositories",
+      h1: "Bobine on Tor: .onion mirror and Linux package repositories",
       lead:
-        "To install and update Bobine without revealing your IP address, the site and the official APT repository are also offered as onion services. It is a mirror of the official site and repository: packages remain signed by the same key.",
+        "To install and update Bobine without revealing your IP address, the site and official Linux package repositories (Debian, Fedora, Arch) are also offered as onion services. It is a mirror of the official site and repositories: packages remain signed by the same key.",
       breadcrumb: "Tor",
-      keywords: ["Bobine Tor", "Bobine onion", "Bobine .onion", "APT repository over Tor", "apt-transport-tor Bobine", "Bobine anonymous install"],
+      keywords: ["Bobine Tor", "Bobine onion", "Bobine .onion", "Linux repositories over Tor", "apt-transport-tor Bobine", "Bobine anonymous install"],
       heroImage: {
         src: "/images/baamix-tor.webp",
-        alt: "Bobine Tor mirror and .onion APT repository architecture",
+        alt: "Bobine Tor mirror and .onion Linux repositories architecture",
         width: 1200,
         height: 675,
       },
@@ -994,7 +994,7 @@ tor: {
           icon: "network",
           bullets: [
             `Site: http://${ONION_SITE_HOST}/`,
-            `APT repository: tor+http://${ONION_APT_HOST}/`,
+            `Linux repositories (APT, DNF, Pacman): tor+http://${ONION_APT_HOST}/`,
             "The hardware store and the Baamix assistant are not offered on the mirror: they rely on affiliate links and third-party services.",
             "The mirror is hosted by the maintainer, keeps no visit log, and runs on a best-effort basis.",
           ],

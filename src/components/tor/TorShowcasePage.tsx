@@ -129,14 +129,14 @@ export default function TorShowcasePage({ locale }: { locale: Locale }) {
 
           <div className="tor-address-row">
             <div className="tor-address-row__info">
-              <span className="tor-address-row__label">{isEn ? "APT Package Repository" : "Dépôt de paquets APT"}</span>
+              <span className="tor-address-row__label">{isEn ? "Linux Package Repository (APT, DNF, Pacman)" : "Miroir des paquets Linux (APT, DNF, Pacman)"}</span>
               <span className="tor-address-row__value">{onionAptUrl}</span>
             </div>
             <button
               type="button"
               onClick={() => copyToClipboard("apt-url", onionAptUrl)}
               className="tor-copy-btn"
-              aria-label={isEn ? "Copy APT onion URL" : "Copier l'adresse onion du dépôt APT"}
+              aria-label={isEn ? "Copy Linux packages onion URL" : "Copier l'adresse onion du miroir des paquets Linux"}
             >
               <Icon name={copiedKey === "apt-url" ? "check" : "copy"} size={14} />
               <span>{copiedKey === "apt-url" ? (isEn ? "Copied!" : "Copié !") : (isEn ? "Copy" : "Copier")}</span>

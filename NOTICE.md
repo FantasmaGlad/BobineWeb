@@ -8,7 +8,7 @@ Les dépendances de [`package.json`](package.json) sont installées depuis le re
 
 ## Marques et logos
 
-Les noms, logos et marques cités appartiennent à leurs titulaires respectifs et ne sont utilisés que pour les identifier : Tor Project (logo d'oignon de la page du miroir et mention « non affilié au Tor Project »), Amazon, AliExpress, Vercel, Cloudflare, GitHub, Hugging Face, OpenRouter, Debian, Ubuntu, Fedora, Arch Linux, Microsoft, Apple, Google, Les Mills, Wexer, Fitness On Demand, Radical Fitness, Yako (L’Orange bleue), Screenly, Anthias, Yodeck, Xibo, OptiSigns, TouchPlayer, Waves et Spivi. Leur présence n'implique aucune affiliation, sauf mention contraire sur le site.
+Les noms, logos et marques cités appartiennent à leurs titulaires respectifs et ne sont utilisés que pour les identifier : Tor Project (logo d'oignon de la page du miroir et mention « non affilié au Tor Project »), Amazon, AliExpress, Vercel, Cloudflare, GitHub, Hugging Face, OpenRouter, Debian, Ubuntu, Fedora, Arch Linux, Microsoft, Apple, Apple Silicon, Google, Les Mills, Wexer, Fitness On Demand, Radical Fitness, Yako (L’Orange bleue), Screenly, Anthias, Yodeck, Xibo, OptiSigns, TouchPlayer, Waves et Spivi. Leur présence n'implique aucune affiliation, sauf mention contraire sur le site.
 
 Les comparatifs citent les produits à titre d’identification descriptive ; aucun partenariat ni équivalence de contenus n’est suggéré.
 

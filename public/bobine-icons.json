@@ -134,6 +134,14 @@
     "color": "#C33139",
     "render": "image"
   },
+  "chip.apple-silicon": {
+    "name": "Apple Silicon",
+    "src": "/images/icons/chips/apple-silicon.svg",
+    "tone": "ink",
+    "color": "#111114",
+    "render": "image",
+    "halo": true
+  },
   "distro.almalinux": {
     "name": "AlmaLinux",
     "src": "/images/icons/distros/almalinux.svg",

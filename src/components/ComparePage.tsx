@@ -116,7 +116,7 @@ export default async function ComparePage({ params, slug }: ComparePageProps & {
       {entry ? (
         <div className="compare-split">
           <section className="compare-section" aria-labelledby="compare-criteria">
-            <h2 id="compare-criteria"><BrandIcon name={entry.brand} size={28} />{compareCopy.table[locale]}</h2>
+            <h2 id="compare-criteria"><span className="compare-table__brand-badge"><BrandIcon name={entry.brand} /></span>{compareCopy.table[locale]}</h2>
             <CompareTable locale={locale} columns={entry.columns} rows={entry.rows.map((row) => ({ label: row.label[locale], values: row.values.map((value) => value[locale]) }))} />
             <ul className="compare-row-sources">
               {entry.rows.filter((row) => row.sources.length).map((row) => (
@@ -132,7 +132,9 @@ export default async function ComparePage({ params, slug }: ComparePageProps & {
         <section className="compare-studies" aria-label={locale === "fr" ? "Études comparatives" : "Comparison studies"}>
           {comparisons.map((comparison) => (
             <article key={comparison.slug} className="compare-study">
-              <BrandIcon name={comparison.brand} size={32} />
+              <div className="compare-study__brand-wrap">
+                <BrandIcon name={comparison.brand} className="compare-study__brand-icon" />
+              </div>
               <h2>{comparison.name}</h2>
               <p className="compare-study__focus">{comparison.focus[locale]}</p>
               <p>{comparison.intro[locale]}</p>

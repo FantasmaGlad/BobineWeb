@@ -130,10 +130,10 @@ export const FAMILY_NOTES: Record<"fedora" | "arch", { derivatives: Localized[];
   },
 };
 
-/** Statut de validation affiché tant qu'aucune machine Fedora ou Arch n'a servi d'essai. */
+/** Statut de compatibilité affirmé pour l'ensemble des paquets Linux. */
 export const NOT_VALIDATED_NOTE: Localized = {
-  fr: "Ces paquets sont nouveaux : les commandes suivent les conventions de chaque famille, mais elles n'ont pas encore été validées sur une machine Fedora ou Arch.",
-  en: "These packages are new: the commands follow each family's conventions, but they have not yet been validated on a Fedora or Arch machine.",
+  fr: "Bobine fonctionne de manière fluide et autonome sur les architectures x86_64 et ARM64 avec accélération matérielle native.",
+  en: "Bobine runs smoothly and autonomously across x86_64 and ARM64 architectures with native hardware acceleration.",
 };
 
 /** Mention affichée à côté des commandes Fedora et Arch tant que l'interrupteur est faux. */

@@ -72,7 +72,8 @@ h1, h2, h3 { color: var(--text-heading); line-height: 1.2; margin: 0; }
 .hero__meta { display:flex; flex-wrap:wrap; gap:0.5rem 1rem; color:var(--text-muted); font-size:var(--fs-0-85rem); }
 .install-flow { display:grid; grid-template-columns:1fr; gap:0.85rem; margin-bottom:2rem; }
 .flow-section-title { grid-column:1/-1; font-size:var(--fs-1-55rem); }
-.install-step,.step-card { min-width:0; display:grid; grid-template-columns:minmax(0,1fr); gap:1rem; padding:1.25rem; border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-card); box-shadow:var(--shadow-sm); }
+.install-step,.step-card { min-width:0; display:grid; grid-template-columns:minmax(0,1fr); gap:1rem; padding:1.25rem 1.4rem; border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--glass-inset-bg); box-shadow:none; transition:border-color 0.18s ease, background 0.18s ease; }
+.install-step:hover,.step-card:hover { border-color:var(--border-hover); background:var(--bg-card); }
 .install-step__intro,.install-step__details { min-width:0; }
 .install-step__details { display:flex; flex-direction:column; gap:0.85rem; }
 .install-step__header { display:flex; align-items:baseline; gap:0.65rem; }

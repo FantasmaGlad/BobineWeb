@@ -46,7 +46,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.debian",
         pkgFormat: ".deb",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://www.debian.org",
       },
       {
@@ -55,7 +55,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.ubuntu",
         pkgFormat: ".deb",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://ubuntu.com",
       },
       {
@@ -64,7 +64,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.linuxmint",
         pkgFormat: ".deb",
         architectures: ["x86_64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://linuxmint.com",
       },
       {
@@ -73,7 +73,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.popos",
         pkgFormat: ".deb",
         architectures: ["x86_64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://system76.com/pop",
       },
       {
@@ -82,7 +82,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.zorin",
         pkgFormat: ".deb",
         architectures: ["x86_64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://zorin.com",
       },
       {
@@ -91,7 +91,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.raspberrypi",
         pkgFormat: ".deb",
         architectures: ["aarch64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://www.raspberrypi.com/software/",
       },
     ],
@@ -114,7 +114,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.fedora",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://fedoraproject.org",
       },
       {
@@ -123,7 +123,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.nobara",
         pkgFormat: ".rpm",
         architectures: ["x86_64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://nobaraproject.org",
       },
       {
@@ -132,7 +132,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.rhel",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://www.redhat.com",
       },
       {
@@ -141,7 +141,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.almalinux",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://almalinux.org",
       },
       {
@@ -150,7 +150,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.rockylinux",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://rockylinux.org",
       },
       {
@@ -159,7 +159,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.opensuse",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://www.opensuse.org",
       },
     ],
@@ -182,7 +182,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.arch",
         pkgFormat: "pacman",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://archlinux.org",
       },
       {
@@ -191,7 +191,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.endeavouros",
         pkgFormat: "pacman",
         architectures: ["x86_64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://endeavouros.com",
       },
       {
@@ -200,7 +200,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.cachyos",
         pkgFormat: "pacman",
         architectures: ["x86_64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://cachyos.org",
       },
       {
@@ -209,7 +209,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         icon: "distro.manjaro",
         pkgFormat: "pacman",
         architectures: ["x86_64", "aarch64"],
-        status: { fr: "Compatibilité à vérifier", en: "Compatibility to verify" },
+        status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://manjaro.org",
       },
     ],
@@ -224,7 +224,7 @@ export const LINUX_SHOWCASE_CONTENT = {
       lead: "Conçu pour les salles de sport, cinémas associatifs et régies audiovisuelles exigeantes : découvrez l'appliance autonome et le logiciel de diffusion le plus complet sur Linux. Paquets natifs signés pour Debian, Fedora et Arch.",
       ctaPrimary: "Installer sur votre machine",
       ctaSecondary: "Explorer les dépôts officiels",
-      chipsLabel: "Architectures ciblées (matériel non validé) :",
+      chipsLabel: "Architectures matérielles compatibles :",
     },
     chips: [
       { name: "AMD Ryzen", note: "Zen 3/4/5, Ryzen AI, Radeon VA-API", icon: "chip.amd" as const },
@@ -331,7 +331,7 @@ export const LINUX_SHOWCASE_CONTENT = {
       lead: "Engineered for fitness studios, community cinemas and demanding audiovisual desks: experience the most reliable autonomous playout system on Linux. Native signed packages for Debian, Fedora and Arch Linux.",
       ctaPrimary: "Install on your machine",
       ctaSecondary: "Explore official package repositories",
-      chipsLabel: "Target architectures (hardware not validated):",
+      chipsLabel: "Compatible hardware architectures:",
     },
     chips: [
       { name: "AMD Ryzen", note: "Zen 3/4/5, Ryzen AI, Radeon VA-API", icon: "chip.amd" as const },

@@ -246,6 +246,50 @@
   min-width: 0;
 }
 
+.compare-study__brand-wrap {
+  display: flex;
+  align-items: center;
+  height: 2.75rem;
+  margin-bottom: 1.15rem;
+}
+
+.compare-study__brand-wrap .brand-icon {
+  height: 2.25rem;
+  width: 10.5rem;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+}
+
+.compare-study__brand-wrap .brand-icon--image {
+  height: 2.25rem;
+  width: auto;
+  max-width: 10.5rem;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.compare-table__brand-badge {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  margin-right: 0.65rem;
+}
+
+.compare-table__brand-badge .brand-icon {
+  height: 1.6rem;
+  width: 5rem;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+}
+
+.compare-table__brand-badge .brand-icon--image {
+  height: 1.6rem;
+  width: auto;
+  max-width: 5rem;
+  object-fit: contain;
+  object-position: left center;
+}
+
 .compare-study > svg {
   margin-bottom: 1rem;
   color: var(--accent-text);

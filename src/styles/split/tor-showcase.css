@@ -1,0 +1,357 @@
+/* ==========================================================================
+   Page Vitrine Tor (.onion) · Style Apple-Grade Épuré & Aérien
+   Zéro encadré lourd : filets discrets, typographie respirante, fond ambient
+   ========================================================================== */
+
+.tor-page {
+  position: relative;
+  width: 100%;
+  max-width: 82rem;
+  margin-inline: auto;
+  padding: 1.5rem clamp(1rem, 3.5vw, 2.5rem) 5rem;
+  overflow: hidden;
+}
+
+/* Visuel Baamix Tor en arrière-plan subtil à droite */
+.tor-page__ambient-visual {
+  position: absolute;
+  top: -1rem;
+  right: -5%;
+  width: clamp(340px, 48vw, 680px);
+  height: auto;
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask-image: radial-gradient(ellipse 65% 65% at 65% 40%, black 25%, transparent 75%);
+  mask-image: radial-gradient(ellipse 65% 65% at 65% 40%, black 25%, transparent 75%);
+  filter: saturate(0.85);
+  user-select: none;
+}
+
+.tor-hero {
+  position: relative;
+  max-width: 58rem;
+  padding: 1.5rem 0 3.5rem;
+}
+
+.tor-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-9999px);
+  background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 30%, transparent);
+  font-size: var(--fs-0-8rem);
+  font-weight: 650;
+  color: var(--text-heading);
+  letter-spacing: 0.02em;
+  margin-bottom: 1.25rem;
+}
+
+.tor-hero__badge-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.tor-hero h1 {
+  font-size: var(--fs-clamp-2rem-3-8vw-3rem);
+  color: var(--text-heading);
+  line-height: 1.15;
+  letter-spacing: -0.028em;
+  margin: 0 0 1.25rem;
+}
+
+.tor-hero__lead {
+  font-size: var(--fs-1-15rem);
+  line-height: 1.7;
+  color: var(--text-body);
+  max-width: 62ch;
+  margin: 0 0 2rem;
+}
+
+.tor-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+/* Sections éditoriales sans boîte (frameless) */
+.tor-section {
+  position: relative;
+  padding: 3rem 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.tor-section-header {
+  margin-bottom: 1.75rem;
+  max-width: 52rem;
+}
+
+.tor-section-header__tag {
+  font-size: var(--fs-0-82rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-text);
+  margin-bottom: 0.4rem;
+}
+
+.tor-section-header__title {
+  font-size: var(--fs-1-55rem);
+  font-weight: 700;
+  color: var(--text-heading);
+  letter-spacing: -0.015em;
+  margin: 0 0 0.65rem;
+}
+
+.tor-section-header__desc {
+  font-size: var(--fs-0-98rem);
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Bandes d'adresses .onion épurées avec bouton de copie */
+.tor-addresses {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 62rem;
+}
+
+.tor-address-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem 1.4rem;
+  background: var(--glass-inset-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.tor-address-row:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card);
+}
+
+.tor-address-row__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.tor-address-row__label {
+  font-size: var(--fs-0-82rem);
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.tor-address-row__value {
+  font-family: var(--font-mono);
+  font-size: var(--fs-0-9rem);
+  color: var(--text-heading);
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+
+.tor-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.45rem 1rem;
+  font: inherit;
+  font-size: var(--fs-0-82rem);
+  font-weight: 600;
+  color: var(--text-heading);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.tor-copy-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent-primary);
+  background: var(--accent-subtle);
+}
+
+.tor-notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  max-width: 62rem;
+}
+
+.tor-notes-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: var(--fs-0-88rem);
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.tor-notes-list li svg {
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+  color: var(--accent-text);
+}
+
+/* Ligne de commande Express (curl | bash) */
+.tor-command-block {
+  max-width: 62rem;
+  border-radius: var(--radius-lg);
+  background: var(--glass-inset-bg);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+.tor-command-block__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+}
+
+.tor-command-block__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--fs-0-82rem);
+  font-weight: 650;
+  color: var(--text-muted);
+}
+
+.tor-command-block__code {
+  padding: 1.25rem 1.4rem;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-0-9rem);
+  line-height: 1.7;
+  color: var(--text-heading);
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+
+/* Empreinte PGP */
+.tor-fingerprint-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-lg);
+  background: var(--glass-inset-bg);
+  border: 1px solid var(--border-subtle);
+  max-width: 62rem;
+}
+
+.tor-fingerprint-box__code {
+  font-family: var(--font-mono);
+  font-size: var(--fs-0-92rem);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-heading);
+}
+
+/* FAQ Aérienne sans encadré */
+.tor-faq-list {
+  display: flex;
+  flex-direction: column;
+  max-width: 62rem;
+}
+
+.tor-faq-item {
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 1.25rem 0;
+  transition: border-color 0.15s ease;
+}
+
+.tor-faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  font-size: var(--fs-1-05rem);
+  font-weight: 650;
+  color: var(--text-heading);
+  list-style: none;
+  min-height: 44px;
+}
+
+.tor-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.tor-faq-item summary svg {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tor-faq-item[open] summary svg {
+  transform: rotate(90deg);
+  color: var(--accent-text);
+}
+
+.tor-faq-item p {
+  margin: 0.75rem 0 0;
+  font-size: var(--fs-0-95rem);
+  line-height: 1.7;
+  color: var(--text-body);
+  max-width: 70ch;
+}
+
+/* Navigation liée */
+.tor-related-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.tor-related-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1.1rem;
+  min-height: 44px;
+  border-radius: var(--radius-9999px);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  font-size: var(--fs-0-88rem);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.tor-related-pill:hover {
+  transform: translateY(-1px);
+  color: var(--text-heading);
+  border-color: var(--accent-primary);
+  background: var(--accent-subtle);
+}

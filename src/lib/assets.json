@@ -36,6 +36,14 @@
     "render": "image",
     "halo": true
   },
+  "os.googletv": {
+    "name": "Google TV",
+    "src": "/images/icons/os/googletv.svg",
+    "tone": "ink",
+    "color": "#4285F4",
+    "render": "image",
+    "halo": true
+  },
   "os.googlebook": {
     "name": "Google Book",
     "src": "/images/icons/os/googlebook.svg",
@@ -120,6 +128,13 @@
     "src": "/images/icons/chips/amd.svg",
     "tone": "brand",
     "color": "#ED1C24"
+  },
+  "chip.arm": {
+    "name": "Arm",
+    "src": "/images/icons/chips/arm.svg",
+    "tone": "brand",
+    "color": "#0091BD",
+    "render": "image"
   },
   "chip.intel": {
     "name": "Intel",

@@ -161,7 +161,7 @@ export default function HardwareBundleTabs({
       id: "arm",
       label: "PC & Mini PC ARM",
       badge: "Snapdragon & ARM64",
-      icon: <BrandIcon name="chip.snapdragon" size={20} />,
+      icon: <BrandIcon name="chip.arm" size={20} />,
     },
     {
       id: "android",
@@ -173,7 +173,7 @@ export default function HardwareBundleTabs({
       id: "android-tv",
       label: "Android TV & Box",
       badge: "Google TV & 4K",
-      icon: <BrandIcon name="os.androidtv" size={20} />,
+      icon: <BrandIcon name="os.googletv" size={20} />,
     },
   ];
 

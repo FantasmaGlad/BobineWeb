@@ -315,6 +315,7 @@
 .linux-terminal__tab-icon {
   width: 1.15rem;
   height: 1.15rem;
+  background: transparent !important;
 }
 
 .linux-terminal__body {

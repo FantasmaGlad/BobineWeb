@@ -44,3 +44,6 @@ npm run dev                  # http://localhost:3000
 
 - **Security**: Report vulnerabilities privately via [security@bobine.fit](mailto:security@bobine.fit) (OpenPGP key `23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2`, details on [security.bobine.fit](https://security.bobine.fit) and [SECURITY.md](SECURITY.md)).
 - **License**: Copyright (c) 2026 Bobine. All rights reserved. The website source is published for reading only. See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md). The Bobine software itself is licensed under the [GNU AGPL-3.0](https://github.com/FantasmaGlad/Bobine/blob/main/LICENSE).
+- **Contributing**: this repository does not accept contributions; see [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md), which point to the Bobine repository.
+
+<sub>Related repositories: [Bobine](https://github.com/FantasmaGlad/Bobine) (application) · [bobine-packages](https://github.com/FantasmaGlad/bobine-packages) (Linux package repositories) · [homebrew-bobine](https://github.com/FantasmaGlad/homebrew-bobine) (Homebrew tap) · Security policy: [security.bobine.fit](https://security.bobine.fit), [`/.well-known/security.txt`](https://bobine.fit/.well-known/security.txt)</sub>

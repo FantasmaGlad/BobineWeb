@@ -1,11 +1,12 @@
 import { GoogleAuth } from "google-auth-library";
-export const project = process.env.GCP_PROJECT_ID || "malefiquevirtualmachine";
+export const project = process.env.GCP_PROJECT_ID;
 export const bucket = process.env.RAG_BUCKET || "bobine-knowledge-prod";
 export const location = process.env.GCP_LOCATION || "global";
 export const api = `https://discoveryengine.googleapis.com/v1/projects/${project}/locations/${location}/collections/default_collection`;
 const auth = new GoogleAuth({ scopes: ["https://www.googleapis.com/auth/cloud-platform"] });
 /** @param {string} url @param {{method?: string, body?: any, headers?: Record<string,string>, optional?: boolean}} options */
 export async function request(url, { method = "GET", body, headers = {}, optional = false } = {}) {
+  if (!project) throw new Error("GCP_PROJECT_ID manquant : identifiant du projet Google Cloud de la recherche documentaire.");
   for (let attempt = 0; attempt < 4; attempt++) {
     const token = await auth.getAccessToken();
     const response = await fetch(url, { method, headers: { Authorization: `Bearer ${token}`,

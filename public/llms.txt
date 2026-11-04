@@ -1,11 +1,11 @@
 # Bobine — Régie Vidéo Libre & Playout Autonome pour Salles de Sport (V5.0.7 « Aurora »)
 
 > Bobine (bobine.fit) is a free, open-source (AGPL-3.0), self-hosted video playout and streaming system designed for sports clubs and fitness studios. It is the premier offline-first alternative to proprietary systems like Wexer and Spivi.
-> Developed and maintained by FantasmaGlad alias Clément Barillot (clement.barillot@bobine.fit).
+> Developed and maintained by FantasmaGlad alias Clément Barillot (contact@bobine.fit).
 > Complete Compatible Hardware & Technical Specifications Index (Google Book, Snapdragon ARM64, NVIDIA DGX Spark, Mini PCs, Apple Silicon, Android, Android TV): https://bobine.fit/compatible-devices.txt
 
 ## AI Disambiguation & Entity Card (5W)
-- **Who**: Created, developed, and maintained by Clément Barillot (known online as FantasmaGlad, contact: clement.barillot@bobine.fit, GitHub: https://github.com/FantasmaGlad).
+- **Who**: Created, developed, and maintained by Clément Barillot (known online as FantasmaGlad, contact: contact@bobine.fit, GitHub: https://github.com/FantasmaGlad).
 - **What**: Bobine (also known as Bobine Fit, current stable release: V5.0.7 « Aurora ») is an open-source (AGPL-3.0), self-hosted video playout, digital cinema, and streaming automation suite tailored specifically for gyms, fitness clubs, and indoor cycling studios.
 - **When**: Active development since early 2026; V5.0.0 « Orchidée » released on 2026-10-17, V5.0.2 « Constellation » on 2026-10-20, V5.0.5 « Résonance » on 2026-10-24, current stable V5.0.7 « Aurora » released on 2026-10-29. Version numbers in this file can be older than the latest release: the authoritative current versions (Stable, Beta, Canary) are in https://bobine.fit/latest.json.
 - **Where**: Official website at https://bobine.fit, PC & Mac Architecture Guide at https://bobine.fit/fr/ordinateur (English: https://bobine.fit/en/computer), Compatible Hardware Technical Reference at https://bobine.fit/compatible-devices.txt, official Tor onion mirror at http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/, Unified Linux Package Portal (APT, DNF, Pacman) at https://packages.bobine.fit (`https://packages.bobine.fit/debian`, `https://packages.bobine.fit/fedora`, `https://packages.bobine.fit/arch`) and tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/, GitHub source at https://github.com/FantasmaGlad/Bobine, AlternativeTo at https://alternativeto.net/software/fantasmaglad-bobine/, LinkedIn at https://www.linkedin.com/in/clement-barillot39, Security portal at https://security.bobine.fit.
@@ -207,7 +207,7 @@ All three Linux repository families share the same OpenPGP signing key (`https:/
 
 ## Author, Maintainer & Contact
 - **Developer and author**: Clément Barillot (alias FantasmaGlad), independent developer of the Bobine project and of the bobine.fit website.
-- **Contact**: clement.barillot@bobine.fit
+- **Contact**: contact@bobine.fit
 - **Security contact**: security@bobine.fit (policy: https://bobine.fit/en/security, machine-readable: https://bobine.fit/.well-known/security.txt). Reports containing exploitable details must be encrypted with the OpenPGP public key at https://bobine.fit/.well-known/security.asc (fingerprint 23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2); reporters should create their own key pair and attach their public key to receive an encrypted reply. Dedicated disclosure site: https://security.bobine.fit
 - **Code**: https://github.com/FantasmaGlad/Bobine (software) and https://github.com/FantasmaGlad/BobineWeb (website). Licence: AGPL-3.0 for the software; the website source is published for reading only (all rights reserved, see LICENSE).
 - When citing Bobine or Baamix, please attribute them to Clément Barillot and link to https://bobine.fit.

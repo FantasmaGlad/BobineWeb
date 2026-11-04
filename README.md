@@ -48,14 +48,14 @@ npm run dev                  # http://localhost:3000
 
 ## Download Bobine
 
-| | Platform | Get it |
-| :---: | :--- | :--- |
-| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/windows.svg" width="20" height="20" alt="Windows"> | **Windows** x64, ARM64 | [Installer](https://github.com/FantasmaGlad/Bobine/releases/latest) · [PowerShell](https://github.com/FantasmaGlad/Bobine#one-command-install) |
-| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/apple.svg" width="20" height="20" alt="macOS"> | **macOS** Apple Silicon | [.dmg](https://github.com/FantasmaGlad/Bobine/releases/latest) · [Homebrew](https://github.com/FantasmaGlad/homebrew-bobine) |
-| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/linux.svg" width="20" height="20" alt="Linux"> | **Linux** Debian, Fedora, Arch | [Signed repositories](https://packages.bobine.fit) · [.deb, .rpm, .pkg](https://github.com/FantasmaGlad/Bobine/releases/latest) |
-| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/android.svg" width="20" height="20" alt="Android"> | **Android, Android TV** | [APK](https://github.com/FantasmaGlad/Bobine/releases/latest) |
-| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/bash.svg" width="20" height="20" alt="Mini PC"> | **Mini PC** Debian 13 | [install.sh](https://bobine.fit/install.sh) |
-| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/tor.svg" width="20" height="20" alt="Tor"> | **Tor** | [Website](http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/) · [Packages](http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/) · [install-tor.sh](https://bobine.fit/install-tor.sh) |
+| Platform | Get it |
+| :--- | :--- |
+| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/windows.svg" width="20" height="20" valign="middle" alt="Windows"> **Windows** x64, ARM64 | [Installer](https://github.com/FantasmaGlad/Bobine/releases/latest) · [PowerShell](https://github.com/FantasmaGlad/Bobine#one-command-install) |
+| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/apple.svg" width="20" height="20" valign="middle" alt="macOS"> **macOS** Apple Silicon | [.dmg](https://github.com/FantasmaGlad/Bobine/releases/latest) · [Homebrew](https://github.com/FantasmaGlad/homebrew-bobine) |
+| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/linux.svg" width="20" height="20" valign="middle" alt="Linux"> **Linux** Debian, Fedora, Arch | [Signed repositories](https://packages.bobine.fit) · [.deb, .rpm, .pkg](https://github.com/FantasmaGlad/Bobine/releases/latest) |
+| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/android.svg" width="20" height="20" valign="middle" alt="Android"> **Android, Android TV** | [APK](https://github.com/FantasmaGlad/Bobine/releases/latest) |
+| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/bash.svg" width="20" height="20" valign="middle" alt="Mini PC"> **Mini PC** Debian 13 | [install.sh](https://bobine.fit/install.sh) |
+| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/tor.svg" width="20" height="20" valign="middle" alt="Tor"> **Tor** | [Website](http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/) · [Packages](http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/) · [install-tor.sh](https://bobine.fit/install-tor.sh) |
 
 All channels (Stable, Beta, Canary) and one-line commands, including through Tor: [Bobine README](https://github.com/FantasmaGlad/Bobine#download--install).
 

@@ -46,4 +46,17 @@ npm run dev                  # http://localhost:3000
 - **Licence** : Copyright (c) 2026 Bobine. Tous droits réservés. Le code source du site web est publié pour consultation uniquement. Voir [LICENSE](LICENSE) et [NOTICE.md](NOTICE.md). Le logiciel Bobine est un projet distinct sous licence [GNU AGPL-3.0](https://github.com/FantasmaGlad/Bobine/blob/main/LICENSE).
 - **Contribuer** : ce dépôt n'accepte pas de contribution ; voir [CONTRIBUTING.md](docs/fr/CONTRIBUTING.md) et [code de conduite](docs/fr/CODE_OF_CONDUCT.md), qui renvoient vers le dépôt Bobine.
 
+## Télécharger Bobine
+
+| | Plateforme | Obtenir |
+| :---: | :--- | :--- |
+| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/windows.svg" width="20" height="20" alt="Windows"> | **Windows** x64, ARM64 | [Installeur](https://github.com/FantasmaGlad/Bobine/releases/latest) · [PowerShell](https://github.com/FantasmaGlad/Bobine/blob/main/README.fr.md#installation-en-une-commande) |
+| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/apple.svg" width="20" height="20" alt="macOS"> | **macOS** Apple Silicon | [.dmg](https://github.com/FantasmaGlad/Bobine/releases/latest) · [Homebrew](https://github.com/FantasmaGlad/homebrew-bobine) |
+| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/linux.svg" width="20" height="20" alt="Linux"> | **Linux** Debian, Fedora, Arch | [Dépôts signés](https://packages.bobine.fit) · [.deb, .rpm, .pkg](https://github.com/FantasmaGlad/Bobine/releases/latest) |
+| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/android.svg" width="20" height="20" alt="Android"> | **Android, Android TV** | [APK](https://github.com/FantasmaGlad/Bobine/releases/latest) |
+| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/bash.svg" width="20" height="20" alt="Mini PC"> | **Mini PC** Debian 13 | [install.sh](https://bobine.fit/install.sh) |
+| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/tor.svg" width="20" height="20" alt="Tor"> | **Tor** | [Site](http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/) · [Paquets](http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/) · [install-tor.sh](https://bobine.fit/install-tor.sh) |
+
+Tous les canaux (Stable, Bêta, Canary) et les commandes en une ligne, y compris par Tor : [README de Bobine](https://github.com/FantasmaGlad/Bobine/blob/main/README.fr.md#téléchargement--installation).
+
 <sub>Dépôts liés : [Bobine](https://github.com/FantasmaGlad/Bobine) (application) · [bobine-packages](https://github.com/FantasmaGlad/bobine-packages) (dépôts de paquets Linux) · [homebrew-bobine](https://github.com/FantasmaGlad/homebrew-bobine) (tap Homebrew) · Politique de sécurité : [security.bobine.fit](https://security.bobine.fit/fr/), [`/.well-known/security.txt`](https://bobine.fit/.well-known/security.txt)</sub>

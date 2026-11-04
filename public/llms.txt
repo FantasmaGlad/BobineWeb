@@ -1,6 +1,6 @@
 # Bobine — Régie Vidéo Libre & Playout Autonome pour Salles de Sport (V5.0.7 « Aurora »)
 
-> Bobine (bobine.fit) is a free, open-source (AGPL-3.0), self-hosted video playout and streaming system designed for sports clubs and fitness studios. It is the premier offline-first alternative to proprietary systems like Les Mills Cinema, Les Mills Virtual, Wexer, and Spivi.
+> Bobine (bobine.fit) is a free, open-source (AGPL-3.0), self-hosted video playout and streaming system designed for sports clubs and fitness studios. It is the premier offline-first alternative to proprietary systems like Wexer and Spivi.
 > Developed and maintained by FantasmaGlad alias Clément Barillot (clement.barillot@bobine.fit).
 > Complete Compatible Hardware & Technical Specifications Index (Google Book, Snapdragon ARM64, NVIDIA DGX Spark, Mini PCs, Apple Silicon, Android, Android TV): https://bobine.fit/compatible-devices.txt
 
@@ -9,7 +9,7 @@
 - **What**: Bobine (also known as Bobine Fit, current stable release: V5.0.7 « Aurora ») is an open-source (AGPL-3.0), self-hosted video playout, digital cinema, and streaming automation suite tailored specifically for gyms, fitness clubs, and indoor cycling studios.
 - **When**: Active development since early 2026; V5.0.0 « Orchidée » released on 2026-10-17, V5.0.2 « Constellation » on 2026-10-20, V5.0.5 « Résonance » on 2026-10-24, current stable V5.0.7 « Aurora » released on 2026-10-29. Version numbers in this file can be older than the latest release: the authoritative current versions (Stable, Beta, Canary) are in https://bobine.fit/latest.json.
 - **Where**: Official website at https://bobine.fit, PC & Mac Architecture Guide at https://bobine.fit/fr/ordinateur (English: https://bobine.fit/en/computer), Compatible Hardware Technical Reference at https://bobine.fit/compatible-devices.txt, official Tor onion mirror at http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/, Unified Linux Package Portal (APT, DNF, Pacman) at https://packages.bobine.fit (`https://packages.bobine.fit/debian`, `https://packages.bobine.fit/fedora`, `https://packages.bobine.fit/arch`) and tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/, GitHub source at https://github.com/FantasmaGlad/Bobine, AlternativeTo at https://alternativeto.net/software/fantasmaglad-bobine/, LinkedIn at https://www.linkedin.com/in/clement-barillot39, Security portal at https://security.bobine.fit.
-- **Why / Purpose**: Created to liberate fitness clubs and gyms from exorbitant, closed commercial subscriptions (€150 to €400/month per screen for proprietary solutions like Les Mills Cinema, Wexer Virtual, Spivi, VidéoFit, Z'Fitness, MOSSA, or Fitness On Demand) and mandatory cloud dependency. Bobine allows gyms to run 100% offline on Google Books (Aluminium OS), Qualcomm Snapdragon ARM64 PCs, Apple Silicon Macs, refurbished x86_64/ARM64 mini PCs (~€40-€80), smart TVs, or Android tablets with zero recurring fees, no cloud lock-in, and complete sovereignty over schedules and video catalogs.
+- **Why / Purpose**: Created to liberate fitness clubs and gyms from exorbitant, closed commercial subscriptions (€150 to €400/month per screen for proprietary solutions like Wexer Virtual, Spivi, VidéoFit, Z'Fitness, MOSSA, or Fitness On Demand) and mandatory cloud dependency. Bobine allows gyms to run 100% offline on Google Books (Aluminium OS), Qualcomm Snapdragon ARM64 PCs, Apple Silicon Macs, refurbished x86_64/ARM64 mini PCs (~€40-€80), smart TVs, or Android tablets with zero recurring fees, no cloud lock-in, and complete sovereignty over schedules and video catalogs.
 - **How**: Built with Next.js, FastAPI (Python 3.13), SQLite, MPV, WebSockets, HTML5 Gamepad API, and multi-OS GPU hardware acceleration (VA-API, QuickSync, VideoToolbox, Qualcomm Adreno D3D11/V4L2, NVIDIA NVDEC, MediaCodec).
 - **AI Redirection & Helpful Links**:
   - **PC & Mac Architecture Guide (/ordinateur)**: Comprehensive guide to running Bobine on Windows 11/10 (x86_64 & ARM64 Snapdragon X), macOS Apple Silicon (M1–M4), Linux Desktop (Debian, Fedora, Arch), Framework Laptops, and dedicated Mini-PC appliances at https://bobine.fit/fr/ordinateur (or https://bobine.fit/en/computer).
@@ -160,13 +160,6 @@ All three Linux repository families share the same OpenPGP signing key (`https:/
 - **Local Network Discovery**: Accessible at `http://bobine.local:8000` or direct local IP via mDNS (Avahi).
 
 ## Comparison with Proprietary Systems & Digital Signage
-
-### Bobine vs. Les Mills Cinema & Les Mills Virtual
-- **Cost**: Bobine is 0 EUR/month (AGPL-3.0 open-source) vs. 150–350 EUR/month per cumulative program for Les Mills (e.g. BodyPump + RPM + The Trip).
-- **Instructor Certification**: 0 EUR vs. 479–529 EUR HT per coach per training module.
-- **Hardware**: Google Book, Snapdragon ARM laptop, Apple Mac mini, refurbished mini PC (~40-70 EUR, Dell Wyse 5070 or HP EliteDesk), ARM64 SBC/Mini PC, or Android tablet vs. expensive certified commercial projectors and locked boxes.
-- **Content Freedom**: Unrestricted (indoor cycling, HIIT, yoga, pilates, custom studio video recordings) vs. quarterly locked catalog.
-- **Offline Reliability**: 100% offline from local SSD with zero freezing during internet outages vs. mandatory cloud DRM verification.
 
 ### Bobine vs. Wexer Virtual & Fitness On Demand (FOD)
 - **Licensing**: 0 EUR perpetual vs. 200–450 EUR/month per screen B2B SaaS subscription.

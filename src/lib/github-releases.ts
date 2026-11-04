@@ -306,7 +306,7 @@ Guide d'installation complet disponible sur [https://bobine.fit/fr/documentation
 
 Bobine est distribué sous licence **AGPL-3.0**. Le code source est public et auditable, les données restent sur votre matériel, et le fonctionnement du système ne dépend d'aucun service tiers ni d'aucune décision commerciale externe.
 
-**Mots-clés :** affichage dynamique auto-hébergé, signalétique numérique salle de sport, alternative open source LesMills Cinema, planification vidéo cours collectifs, lecteur vidéo fitness à la demande, borne de cours virtuels, radio d'ambiance studio, télécommande mobile fitness, logiciel libre hors ligne, local-first, sans abonnement.`,
+**Mots-clés :** affichage dynamique auto-hébergé, signalétique numérique salle de sport, alternative open source aux régies propriétaires facturées à l'écran, planification vidéo cours collectifs, lecteur vidéo fitness à la demande, borne de cours virtuels, radio d'ambiance studio, télécommande mobile fitness, logiciel libre hors ligne, local-first, sans abonnement.`,
   },
   {
     slug: "V2.0.0",

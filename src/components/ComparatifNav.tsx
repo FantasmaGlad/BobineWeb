@@ -19,10 +19,6 @@ export default function ComparatifNav({ locale }: ComparatifNavProps) {
       label: isEn ? "Overview" : "Vue d'ensemble",
     },
     {
-      href: lp(locale, "/comparatif/les-mills-cinema"),
-      label: "Les Mills Cinema",
-    },
-    {
       href: lp(locale, "/comparatif/wexer-fitness-on-demand"),
       label: "Wexer & FOD",
     },

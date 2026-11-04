@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Garde-fou des icônes de marque : chaque entrée du registre (src/lib/assets.json) existe, reste légère et sans raster ni
-// fond, aucun fichier d'icône n'est orphelin, les couleurs officielles atteignent 3:1 sur les surfaces des 16 thèmes,
+// fond, aucun fichier d'icône n'est orphelin, les couleurs officielles atteignent 3:1 sur les surfaces des 15 thèmes,
 // chaque marque est attribuée dans NOTICE.md, et aucun composant n'écrit de chemin d'icône à la main.
 // Code de sortie 1 au premier écart.
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
@@ -93,10 +93,10 @@ for (const [key, def] of Object.entries(registry)) {
     }
   }
   if (weak && !def.halo) fail(`${key} : ${weak.color} se confond avec le thème ${weak.theme} (${weak.r.toFixed(2)}:1, minimum ${MIN_ICON_CONTRAST}:1) ; ajouter "halo": true`);
-  if (!weak && def.halo) fail(`${key} : "halo" inutile, aucune couleur ne disparaît sur les 16 thèmes`);
+  if (!weak && def.halo) fail(`${key} : "halo" inutile, aucune couleur ne disparaît sur les 15 thèmes`);
 }
 
-if (themes.length !== 16) fail(`${themes.length} thèmes détectés (16 attendus)`);
+if (themes.length !== 15) fail(`${themes.length} thèmes détectés (15 attendus)`);
 
 // 4. Attribution dans NOTICE.md --------------------------------------------------------------------------------
 const notice = readFileSync(join(repo, "NOTICE.md"), "utf8").toLowerCase();

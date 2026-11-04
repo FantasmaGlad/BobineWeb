@@ -38,7 +38,7 @@ export default async function Image() {
           Bobine
         </div>
         <div style={{ display: "flex", fontSize: 32, marginTop: 16, opacity: 0.75 }}>
-          {"L’alternative open-source à LesMills Cinema"}
+          {"L’alternative open-source aux régies propriétaires par écran"}
         </div>
       </div>
     ),

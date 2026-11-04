@@ -20,7 +20,7 @@ css.walkRules((rule) => {
     const wrapper = rule.parent.clone({ nodes: [] }); wrapper.append(copy); output.append(wrapper);
   } else output.append(copy);
 });
-if (themeNames.length !== 16 || themeNames.some((name) => !found.has(name))) throw new Error("Le CSS et le registre des 16 thèmes divergent");
+if (themeNames.length !== 15 || themeNames.some((name) => !found.has(name))) throw new Error("Le CSS et le registre des 15 thèmes divergent");
 const content = output.toString().trim() + "\n";
 const target = "public/bobine-tokens.css";
 if (process.argv.includes("--check")) {

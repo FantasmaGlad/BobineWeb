@@ -38,8 +38,8 @@ export async function generateMetadata({
       ? "Bobine Fit — Open-Source Gym Video Playout & Streaming"
       : "Bobine Fit — Régie vidéo & streaming open-source pour salle de sport",
     description: isEn
-      ? "Transform a Google Book (Aluminium OS), Qualcomm Snapdragon ARM64 laptop, Apple Silicon Mac mini, Android tablet, or budget mini PC into an autonomous, 100% offline video playout suite for gyms. The free, self-hosted alternative to Les Mills Cinema."
-      : "Transformez un Google Book (Aluminium OS), un PC ARM Qualcomm Snapdragon, un Mac mini, une tablette Android ou un mini PC standard en régie vidéo autonome et 100% hors-ligne pour votre salle de sport. L'alternative libre et sans abonnement à Les Mills Cinema.",
+      ? "Transform a Google Book (Aluminium OS), Qualcomm Snapdragon ARM64 laptop, Apple Silicon Mac mini, Android tablet, or budget mini PC into an autonomous, 100% offline video playout suite for gyms. The free, self-hosted alternative to proprietary per-screen playout subscriptions."
+      : "Transformez un Google Book (Aluminium OS), un PC ARM Qualcomm Snapdragon, un Mac mini, une tablette Android ou un mini PC standard en régie vidéo autonome et 100% hors-ligne pour votre salle de sport. L'alternative libre et sans abonnement aux régies propriétaires facturées à l'écran.",
     keywords: isEn
       ? [
           "Bobine",
@@ -61,8 +61,7 @@ export async function generateMetadata({
           "Raspberry Pi 5 salle de sport",
           "Orange Pi 5 RK3588",
           "Gym video playout",
-          "Les Mills Cinema alternative",
-          "Les Mills Virtual alternative",
+          "proprietary per-screen playout alternative",
           "Wexer alternative",
           "Fitness digital signage",
           "Gym streaming playout",
@@ -89,7 +88,7 @@ export async function generateMetadata({
           "Raspberry Pi 5 salle de sport",
           "Orange Pi 5 RK3588",
           "Régie vidéo salle de sport",
-          "Alternative Les Mills Cinema",
+          "Alternative aux régies propriétaires par écran",
           "Affichage dynamique fitness",
           "Streaming vidéo salle de sport",
           "Cours collectifs vidéo fitness",

@@ -36,13 +36,13 @@ export async function generateMetadata({
     metadataBase: new URL(CLEARNET_URL),
     title: {
       default: isEn
-        ? "Bobine — Open-Source Gym Video Playout & Cinema Suite | Les Mills Cinema Alternative"
-        : "Bobine — Régie vidéo & streaming libre pour salles de sport | Alternative Les Mills Cinema",
+        ? "Bobine — Open-Source Gym Video Playout & Cinema Suite | Proprietary Playout Alternative"
+        : "Bobine — Régie vidéo & streaming libre pour salles de sport | Alternative aux régies propriétaires",
       template: "%s · Bobine",
     },
     description: isEn
-      ? "Bobine turns Google Books (Aluminium OS), Qualcomm Snapdragon ARM64 PCs, Apple Silicon Macs, Android tablets, and budget x86/ARM64 mini PCs into an autonomous, 100% offline video playout system for fitness clubs. The free, copyleft alternative to Les Mills Cinema and Wexer Virtual."
-      : "Bobine transforme un Google Book (Aluminium OS), un PC ARM Qualcomm Snapdragon, un Mac mini, une tablette Android ou un mini PC x86/ARM64 en régie vidéo autonome et 100% hors-ligne pour salles de sport. L'alternative libre, gratuite et sans abonnement à Les Mills Cinema et Les Mills Virtual.",
+      ? "Bobine turns Google Books (Aluminium OS), Qualcomm Snapdragon ARM64 PCs, Apple Silicon Macs, Android tablets, and budget x86/ARM64 mini PCs into an autonomous, 100% offline video playout system for fitness clubs. The free, copyleft alternative to proprietary per-screen playout subscriptions and Wexer Virtual."
+      : "Bobine transforme un Google Book (Aluminium OS), un PC ARM Qualcomm Snapdragon, un Mac mini, une tablette Android ou un mini PC x86/ARM64 en régie vidéo autonome et 100% hors-ligne pour salles de sport. L'alternative libre, gratuite et sans abonnement aux régies propriétaires facturées à l'écran et à Wexer Virtual.",
     keywords: isEn
       ? [
           "Bobine",
@@ -65,8 +65,7 @@ export async function generateMetadata({
           "Orange Pi 5 RK3588",
           "gym video playout",
           "virtual fitness kiosk",
-          "Les Mills Cinema alternative",
-          "Les Mills Virtual alternative",
+          "proprietary per-screen playout alternative",
           "Wexer alternative",
           "fitness studio video player",
           "offline gym signage",
@@ -93,11 +92,7 @@ export async function generateMetadata({
           "Mini PC ARM salle de sport",
           "Raspberry Pi 5 salle de sport",
           "Orange Pi 5 RK3588",
-          "Les Mills",
-          "Les Mills Cinema",
-          "Alternative Les Mills",
-          "Alternative Les Mills Cinema",
-          "Alternative Les Mills Virtual",
+          "Alternative aux régies propriétaires par écran",
           "Régie vidéo salle de sport",
           "Régie vidéo fitness",
           "Diffusion cours collectifs vidéo",

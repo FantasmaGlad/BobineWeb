@@ -333,9 +333,9 @@ const fr: DocChapter[] = [
         techChips: [{ icon: "database", label: "ZIP / SQLite" }, { icon: "terminal", label: "systemd watchdog" }],
       },
       {
-        subtitle: "4.7 Identité visuelle « glassmorphism » & 16 thèmes",
+        subtitle: "4.7 Identité visuelle « glassmorphism » & 15 thèmes",
         paragraphs: [
-          "Toute l'interface d'administration (bibliothèque, planning, audio, radio, réglages, journaux) adopte un style translucide inspiré d'Apple : cartes en verre dépoli, dégradés doux et contours marqués. Le thème Lavande est le thème par défaut ; 16 thèmes calibrés WCAG sont disponibles.",
+          "Toute l'interface d'administration (bibliothèque, planning, audio, radio, réglages, journaux) adopte un style translucide inspiré d'Apple : cartes en verre dépoli, dégradés doux et contours marqués. Le thème Lavande est le thème par défaut ; 15 thèmes calibrés WCAG sont disponibles.",
           "L'écran de pause de /cinema reprend le recouvrement façon Netflix, et le changement de sortie câblée/réseau est animé, sur Android (tactile et HDMI) comme sur ordinateur. Le logo officiel du menu et l'écran de démarrage Android sont déclinés selon le canal de mise à jour actif (Stable, Bêta ou Canary).",
         ],
         techChips: [{ icon: "film", label: "Glassmorphism" }],
@@ -406,7 +406,7 @@ const fr: DocChapter[] = [
           "Backend : Python avec FastAPI et Uvicorn mono-processus (zéro dépendance externe Redis). Python 3.11 minimum : 3.13 sur Debian 13 et les tablettes Android, 3.11 dans le paquet Android TV (seul runtime embarqué disponible pour les systèmes 32 bits).",
           "Base de données : SQLite avec schéma versionné, migrations automatiques et backfill d'extraction de durées et métadonnées.",
           "Moteurs multimédias : MPV avec VA-API sous Linux, moteur Gapless A/B Deck sous HTML5 (/cinema), et module déterministe app.utils.ffmpeg_binaries pour résoudre FFmpeg/FFprobe sur tous les OS.",
-          "Frontend : Next.js App Router, export SSG statique, 16 thèmes calibrés WCAG AAA/AA, aucun emoji.",
+          "Frontend : Next.js App Router, export SSG statique, 15 thèmes calibrés WCAG AAA/AA, aucun emoji.",
         ],
         techChips: [
           { icon: "server", label: "FastAPI / Python 3.11+" },
@@ -791,7 +791,7 @@ const en: DocChapter[] = [
         techChips: [{ icon: "database", label: "ZIP / SQLite" }, { icon: "terminal", label: "systemd watchdog" }],
       },
       {
-        subtitle: "4.7 \"Glassmorphism\" visual identity & 16 themes",
+        subtitle: "4.7 \"Glassmorphism\" visual identity & 15 themes",
         paragraphs: [
           "The whole admin interface (library, schedule, audio, radio, settings, logs) adopts a translucent Apple-inspired style: frosted-glass cards, soft gradients and defined outlines. Lavender is the default theme; 16 WCAG-calibrated themes are available.",
           "The /cinema pause screen uses a Netflix-style overlay, and switching between the cabled and network outputs is animated, on Android (touch and HDMI) as on desktop. The official logo in the menu and the Android startup screen follow the active update channel (Stable, Beta or Canary).",

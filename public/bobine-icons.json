@@ -295,11 +295,6 @@
     "src": "/images/icons/apps/telegram.svg",
     "tone": "ink"
   },
-  "compare.lesmills": {
-    "name": "Les Mills",
-    "src": "/images/icons/compare/lesmills.svg",
-    "tone": "ink"
-  },
   "compare.wexer": {
     "name": "Wexer",
     "src": "/images/icons/compare/wexer.svg",

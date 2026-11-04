@@ -14,7 +14,6 @@ try {
   if (!process.env.MOBILE_CHECK_PATHS) paths.push(
     "/fr/fonctionnalites", "/en/features", "/fr/blog", "/en/blog",
     "/fr/comparatif", "/en/compare",
-    "/fr/comparatif/les-mills-cinema", "/en/compare/les-mills-cinema",
     "/fr/comparatif/wexer-fitness-on-demand", "/en/compare/wexer-fitness-on-demand",
     "/fr/comparatif/radical-fitness-yako", "/en/compare/radical-fitness-yako",
     "/fr/comparatif/affichage-dynamique-fitness", "/en/compare/digital-signage-fitness",

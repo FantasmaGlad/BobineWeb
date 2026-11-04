@@ -10,7 +10,6 @@
     "coco"
   ],
   "darkThemes": [
-    "les-mills-sombre",
     "charbon-sombre",
     "automne",
     "hiver",
@@ -75,13 +74,6 @@
       "accent": "#475569",
       "isDark": false,
       "desc": "Cachemire & Ardoise"
-    },
-    "les-mills-sombre": {
-      "label": "Onyx",
-      "bg": "#000000",
-      "accent": "#e4002b",
-      "isDark": true,
-      "desc": "Obsidienne & Cinabre"
     },
     "charbon-sombre": {
       "label": "Graphite",

@@ -21,11 +21,11 @@ try {
     assert(await b.evaluate(`document.documentElement.dataset.theme==='orchidee' && document.getElementById('themePalette').hidden`),'thème et repli');
     const visited=new Set();
     for(let i=0;i<16;i++)visited.add(await b.evaluate(`document.getElementById('themeCycle').click();document.documentElement.dataset.theme`));
-    assert.equal(visited.size,16,'16 thèmes distincts accessibles');
-    assert(await b.evaluate(`document.documentElement.dataset.theme==='orchidee'`),'16 thèmes accessibles');
+    assert.equal(visited.size,15,'15 thèmes distincts accessibles');
+    assert(await b.evaluate(`document.documentElement.dataset.theme==='orchidee'`),'15 thèmes accessibles');
     if(path.includes('snake'))assert(await b.evaluate(`document.getElementById('snakeCanvas').width>0 && document.getElementById('snakeCanvas').height>0`),'canvas visible');
     else assert.equal(await b.evaluate(`document.querySelectorAll('[data-copy]').length`),3);
     views++;
   }
-  console.log(`Sécurité : ${views} vues FR/EN, palettes contenues, 16 thèmes et canvas conformes.`);
+  console.log(`Sécurité : ${views} vues FR/EN, palettes contenues, 15 thèmes et canvas conformes.`);
 } finally {await b.close()}

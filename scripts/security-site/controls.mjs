@@ -17,7 +17,7 @@ export function renderControls(locale, langLinks, themes) {
             <div class="theme-switcher-wrapper" id="themePicker">
               <div class="theme-switcher-pill-group">
                 <button type="button" class="theme-switcher-btn" id="themeCycle" aria-label="${isFr ? "Thème suivant" : "Next theme"}"><span class="theme-swatch-icon" data-theme="lavande" aria-hidden="true"></span><span class="theme-switcher-btn__label">Lavande</span></button>
-                <button type="button" class="theme-switcher-arrow-btn" id="themeToggle" aria-label="${isFr ? "Ouvrir les 16 thèmes" : "Open all 16 themes"}" aria-expanded="false" aria-haspopup="dialog" aria-controls="themePalette"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="chevron-flip" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                <button type="button" class="theme-switcher-arrow-btn" id="themeToggle" aria-label="${isFr ? "Ouvrir les 15 thèmes" : "Open all 15 themes"}" aria-expanded="false" aria-haspopup="dialog" aria-controls="themePalette"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="chevron-flip" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
               </div>
               <div class="theme-dropdown-modal" id="themePalette" role="dialog" aria-label="${isFr ? "Palette des thèmes" : "Theme palette"}" hidden>
                 <div class="theme-segmented-control" role="tablist" aria-label="${esc(t.themeLabel)}">

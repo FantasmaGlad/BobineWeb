@@ -10,7 +10,6 @@ export const lightThemes = [
 ] as const;
 
 export const darkThemes = [
-  "les-mills-sombre",
   "charbon-sombre",
   "automne",
   "hiver",
@@ -55,8 +54,7 @@ export const themeMeta: Record<Theme, ThemeMeta> = {
   beige: { label: "Sable", bg: "#f7f6f2", accent: "#854d0e", isDark: false, desc: "Lin & Terre Cuite" },
   coco: { label: "Cacao", bg: "#f4f5f7", accent: "#475569", isDark: false, desc: "Cachemire & Ardoise" },
 
-  // --- Collection Sombre (8 thèmes — Contraste franc Apple Pro Dark) ---
-  "les-mills-sombre": { label: "Onyx", bg: "#000000", accent: "#e4002b", isDark: true, desc: "Obsidienne & Cinabre" },
+  // --- Collection Sombre (7 thèmes — Contraste franc Apple Pro Dark) ---
   "charbon-sombre": { label: "Graphite", bg: "#050507", accent: "#e5e5ea", isDark: true, desc: "Titane & Acier Brossé" },
   automne: { label: "Cuivre", bg: "#060504", accent: "#ff9f0a", isDark: true, desc: "Basalte & Ambre" },
   hiver: { label: "Abysse", bg: "#040608", accent: "#2997ff", isDark: true, desc: "Fjord & Azur Nocturne" },

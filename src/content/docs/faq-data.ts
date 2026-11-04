@@ -49,7 +49,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     },
     {
       category: "compare",
-      q: "En quoi Bobine remplace-t-il Les Mills Cinema, Wexer ou Spivi ?",
+      q: "En quoi Bobine remplace-t-il les régies propriétaires comme Wexer ou Spivi ?",
       a: "Même expérience haut de gamme en salle (cours planifiés, borne tactile membre à la demande, diffusion 1080p60/4K), mais sans abonnement exorbitant (0 € vs 150-400 €/mois) et sans catalogue imposé. Vous êtes propriétaire de vos appareils et tout tourne 100% hors-ligne sur SSD local.",
     },
     {
@@ -176,7 +176,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     },
     {
       category: "compare",
-      q: "How does Bobine replace proprietary systems like Les Mills Cinema, Wexer, or Spivi?",
+      q: "How does Bobine replace proprietary systems like Wexer or Spivi?",
       a: "Same premium studio workout experience — automated weekly timetables, on-demand member touchscreen kiosk, 1080p60/4K playout — without recurring monthly fees ($0 vs $150-$400/mo) or locked catalogs. You own your devices, and playback is 100% offline from local SSD.",
     },
     {

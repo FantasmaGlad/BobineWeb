@@ -35,4 +35,4 @@ for(const [file,body]of Object.entries(files)) {
     if(!readFileSync(target).equals(Buffer.from(body)))throw new Error(`${file} : génération périmée`);
   } else {mkdirSync(dirname(target),{recursive:true});writeFileSync(target,body);}
 }
-console.log(`Site de sécurité : ${Object.keys(files).length} pages et ressources ${check?'à jour':'générées'}, 16 thèmes communs.`);
+console.log(`Site de sécurité : ${Object.keys(files).length} pages et ressources ${check?'à jour':'générées'}, 15 thèmes communs.`);

@@ -17,15 +17,14 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "/documentation/utilisation",
     title: isEn
-      ? "User Manual & Daily Operations — Bobine | Les Mills Cinema Alternative"
-      : "Guide d'Utilisation & Exploitation Quotidienne — Bobine | Alternative Les Mills Cinema",
+      ? "User Manual & Daily Operations — Bobine | Proprietary Playout Alternative"
+      : "Guide d'Utilisation & Exploitation Quotidienne — Bobine | Alternative aux régies propriétaires par écran",
     description: isEn
       ? "Comprehensive usage manual for Bobine: Admin dashboard, video library management, weekly timetable scheduler, member touch kiosk, and 24/7 background radio."
       : "Manuel complet d'utilisation de Bobine : panneau d'administration, médiathèque vidéo, planificateur de cours hebdomadaire, borne tactile et radio 24/7.",
     keywords: [
       "Guide utilisation Bobine",
-      "Alternative Les Mills Cinema",
-      "Alternative Les Mills Virtual",
+      "Alternative aux régies propriétaires par écran",
       "Panneau administration vidéo fitness",
       "Planificateur cours collectif",
       "Borne tactile membre fitness",

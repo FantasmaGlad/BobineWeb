@@ -19,15 +19,14 @@ export async function generateMetadata({
     locale: locale as Locale,
     pathname: "/documentation/faq",
     title: isEn
-      ? "FAQ & Troubleshooting Guide — Bobine | Les Mills Cinema Alternative"
-      : "FAQ & Guide de Dépannage — Bobine | Alternative Les Mills Cinema",
+      ? "FAQ & Troubleshooting Guide — Bobine | Proprietary Playout Alternative"
+      : "FAQ & Guide de Dépannage — Bobine | Alternative aux régies propriétaires par écran",
     description: isEn
       ? "Frequently asked questions, common error troubleshooting matrix, diagnostic commands, and resilience guides for Bobine."
-      : "Foire aux questions, tableau de résolution des erreurs courantes, commandes de diagnostic et résilience de Bobine face aux régies comme Les Mills Cinema.",
+      : "Foire aux questions, tableau de résolution des erreurs courantes, commandes de diagnostic et résilience de Bobine face aux régies propriétaires.",
     keywords: [
       "FAQ Bobine",
-      "Alternative Les Mills Cinema",
-      "Alternative Les Mills Virtual",
+      "Alternative aux régies propriétaires par écran",
       "Dépannage régie vidéo",
       "Erreurs courantes Bobine",
       "Commandes diagnostic Linux Bobine",

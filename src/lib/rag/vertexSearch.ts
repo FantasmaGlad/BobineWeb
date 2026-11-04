@@ -36,7 +36,7 @@ let warmUp: Promise<unknown> | null = null;
 
 function servingConfigPath(client: SearchServiceClient): string {
   return client.projectLocationCollectionDataStoreServingConfigPath(
-    process.env.GCP_PROJECT_ID || "malefiquevirtualmachine", process.env.GCP_LOCATION || "global",
+    process.env.GCP_PROJECT_ID as string, process.env.GCP_LOCATION || "global",
     "default_collection", process.env.VERTEX_DATA_STORE_ID || "bobine-web-store", "default_search",
   );
 }
@@ -64,7 +64,7 @@ startWarmUp();
 
 /** La recherche est facultative ; une panne conserve le contexte documentaire local. */
 export async function searchBobineKnowledge(query: string, maxResults = 5): Promise<RagResult | null> {
-  if (process.env.ENABLE_VERTEX_RAG !== "true" || !query.trim()) return null;
+  if (process.env.ENABLE_VERTEX_RAG !== "true" || !process.env.GCP_PROJECT_ID || !query.trim()) return null;
   const key = `${relaxQuery(query.slice(0, 4000), "bobine")}|${maxResults}`;
   const hit = cache.get(key);
   if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.value;

@@ -57,3 +57,4 @@ jobs:
         working-directory: web
         env:
           BOBINE_SOURCE_DIR: ${{ github.workspace }}/Bobine
+          GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}

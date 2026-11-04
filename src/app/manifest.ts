@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Bobine — Régie vidéo & streaming pour salles de sport",
     short_name: "Bobine",
     description:
-      "L'alternative open-source et autonome à Les Mills Cinema pour la diffusion de cours vidéo en salle de sport.",
+      "L'alternative open-source et autonome aux régies propriétaires facturées à l'écran pour la diffusion de cours vidéo en salle de sport.",
     start_url: "/fr",
     display: "standalone",
     background_color: "#eef2ff",

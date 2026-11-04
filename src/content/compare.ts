@@ -26,11 +26,6 @@ export interface Comparison {
 }
 
 export const COMPARE_SOURCES = {
-  lesmills: {
-    label: "Les Mills · Virtual support",
-    url: "https://www.lesmills.com/us/clubs-and-facilities/tools-resources/support",
-    checked: "2026-10-25",
-  },
   wexerOffline: {
     label: "Wexer · Virtual Player Content Storage",
     url: "https://helpcenter.wexer.com/hc/en-us/articles/25796557175447-Virtual-Player-Content-Storage",
@@ -120,31 +115,6 @@ export const BOBINE_VALUE_PILLARS: readonly {
 ];
 
 export const comparisons = [
-  {
-    slug: "les-mills-cinema", routeId: "compare-lesmills", name: "Les Mills Cinema & Virtual", icon: "video", brand: "compare.lesmills",
-    title: text("Bobine et Les Mills : comparer les usages", "Bobine and Les Mills: compare studio needs"),
-    description: text("Comparez la régie locale Bobine aux offres Les Mills : contenus, programmation, matériel et budget. Sources officielles et points à vérifier.", "Compare local Bobine playout with Les Mills: content, scheduling, hardware and budget. Read official sources and check what your studio needs."),
-    intro: text("Vous avez déjà vos vidéos, ou vous cherchez un catalogue de cours sous licence ? C’est la distinction clé entre une régie universelle multi-OS comme Bobine et une offre de contenus Les Mills.", "Do you already have workout videos, or do you need a licensed class catalog? That is the key distinction between universal cross-OS playout with Bobine and a Les Mills content offering."),
-    focus: text("Régie multi-OS vs catalogue sous licence", "Cross-OS playout vs licensed catalog"),
-    columns: ["Bobine", "Les Mills Virtual"],
-    rows: [
-      { label: text("Systèmes & matériel", "OS & hardware"), values: [crossOsSupport, text("Écosystème Apple (iPad dédié) et équipement certifié selon l’offre Virtual ou Cinema retenue.", "Apple ecosystem (dedicated iPad) and certified hardware depending on your chosen Virtual or Cinema offering.")], sources: ["lesmills"] },
-      { label: text("Contenus", "Content"), values: [ownContent, text("Programmes Les Mills ; vérifier le catalogue et les droits inclus dans l’offre choisie.", "Les Mills programs; check the catalog and rights included with your chosen offering.")], sources: ["lesmills"] },
-      { label: text("Programmation", "Scheduling"), values: [text("Grille hebdomadaire, lancement à la demande et radio d’ambiance automatique entre les cours.", "Weekly timetable, on-demand playback and automatic background radio between classes."), text("Le Virtual Scheduler propose une grille mêlant cours virtuels et cours en direct.", "Virtual Scheduler supports a timetable combining virtual and live classes.")], sources: ["lesmills"] },
-      { label: text("Borne à la demande", "On-demand kiosk"), values: [text("Mode kiosque adhérent intégré et télécommande web LAN depuis tout appareil.", "Built-in member kiosk mode and LAN web remote from any device."), text("Sélection de cours sur l’iPad Virtual pendant les créneaux à la demande.", "Class selection on the Virtual iPad during on-demand slots.")], sources: ["lesmills"] },
-      { label: text("Lecture et connexion", "Playback and connection"), values: [localPlayback, text("Contenus téléchargés dans l’application ; connexion requise pour sa mise à jour. Confirmer les conditions hors ligne de votre offre.", "Content downloads into the app; updating it requires internet. Confirm your offering’s offline conditions.")], sources: ["lesmills"] },
-      { label: text("Budget", "Budget"), values: [bobineLicense, text("Demander les conditions de l’offre Virtual ou Cinema choisie ; aucun tarif supposé ici.", "Request terms for your chosen Virtual or Cinema offering; no rates are assumed here.")], sources: [] },
-    ],
-    sections: [
-      { title: text("Choisir selon le contenu à diffuser", "Choose around the content you need"), text: text("Bobine transforme n’importe quel PC, Mac ou Android TV en régie autonome pour vos propres vidéos, tandis que Les Mills fournit un catalogue de cours chorégraphiés sous licence.", "Bobine turns any PC, Mac or Android TV into an autonomous playout studio for your own videos, whereas Les Mills supplies a licensed catalog of choreographed classes.") },
-      { title: text("Vérifier l’offre précise", "Check the specific offering"), text: text("Cinema, Virtual et les autres offres Les Mills ne sont pas interchangeables. La source ci-dessous décrit Virtual. Pour un projet Cinema, faites confirmer les équipements, les droits et l’assistance par votre interlocuteur.", "Cinema, Virtual and other Les Mills offerings are distinct. The source below describes Virtual. For a Cinema project, confirm equipment, rights and support with your supplier.") },
-    ],
-    faq: [
-      { q: text("Bobine inclut-il les cours Les Mills ?", "Does Bobine include Les Mills classes?"), a: text("Non. Bobine est une régie de diffusion. Les contenus et les autorisations nécessaires sont à fournir séparément par la salle.", "No. Bobine is playout software. The club must separately supply content and the necessary permissions.") },
-      { q: text("Les Mills Virtual propose-t-il aussi du cours à la demande ?", "Does Les Mills Virtual also offer on-demand classes?"), a: text("Oui. Son support décrit une sélection de cours sur iPad et des créneaux à la demande. Ce n’est pas une fonction exclusive à Bobine.", "Yes. Its support documentation describes iPad class selection and on-demand slots. This is not exclusive to Bobine.") },
-    ],
-    sources: ["lesmills"],
-  },
   {
     slug: "wexer-fitness-on-demand", routeId: "compare-wexer", name: "Wexer & Fitness On Demand", icon: "display", brand: "compare.wexer",
     title: text("Bobine, Wexer et Fitness On Demand : comparer", "Bobine, Wexer and Fitness On Demand compared"),

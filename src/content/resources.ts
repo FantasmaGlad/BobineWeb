@@ -76,7 +76,7 @@ export const resourceList: readonly ResourceItem[] = [
     path: "/comparatif",
     category: text("Comparatif", "Comparison"),
     icon: "icon:layers",
-    tags: ["comparatif", "solutions", "les mills", "wexer", "yako", "anthias", "budget"],
+    tags: ["comparatif", "solutions", "wexer", "yako", "anthias", "budget"],
   },
   {
     id: "privacy",
@@ -122,15 +122,6 @@ export const resourceList: readonly ResourceItem[] = [
     category: text("Documentation", "Documentation"),
     icon: "icon:display",
     tags: ["guide", "utilisation", "manuel", "cours", "planning", "coach", "kiosque"],
-  },
-  {
-    id: "compare-lesmills",
-    title: text("Les Mills Cinema (Comparatif)", "Les Mills Cinema (Comparison)"),
-    description: text("Points de comparaison entre la régie locale Bobine et les offres Les Mills Cinema & Virtual.", "Comparison points between local Bobine playout and Les Mills Cinema & Virtual offerings."),
-    path: "/comparatif/les-mills-cinema",
-    category: text("Comparatif", "Comparison"),
-    icon: "icon:video",
-    tags: ["les mills", "cinema", "virtual", "comparatif", "cours virtuels", "rpm"],
   },
   {
     id: "linux",

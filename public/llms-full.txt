@@ -9,7 +9,7 @@ Référentiel complet des appareils compatibles et spécifications techniques (G
 - **Quoi (What)** : Bobine (aussi désigné sous Bobine Fit, version stable actuelle : V5.0.7 « Aurora ») est une suite logicielle libre (AGPL-3.0), auto-hébergée et autonome de régie vidéo, d'affichage dynamique et de streaming conçue sur-mesure pour les salles de sport, clubs de fitness et studios collectifs.
 - **Quand (When)** : Développement actif depuis début 2026 ; publication de la version majeure V5.0.0 « Orchidée » le 17 octobre 2026, V5.0.2 « Constellation » le 20 octobre 2026, puis V5.0.5 « Résonance » le 24 octobre 2026 et la version stable actuelle V5.0.7 « Aurora » le 29 octobre 2026. Les numéros de version de ce fichier peuvent être en retard sur la dernière release : les versions courantes (Stable, Bêta, Canary) font foi dans https://bobine.fit/latest.json.
 - **Où (Where)** : Site web officiel https://bobine.fit, guide d'architecture PC & Mac https://bobine.fit/fr/ordinateur (anglais : https://bobine.fit/en/computer), référentiel matériel technique https://bobine.fit/compatible-devices.txt, miroir officiel Tor (.onion) http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/, portail unifié de paquets Linux https://packages.bobine.fit (`https://packages.bobine.fit/debian`, `https://packages.bobine.fit/fedora`, `https://packages.bobine.fit/arch`) et tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/, code source https://github.com/FantasmaGlad/Bobine.
-- **Pourquoi (Why)** : Conçu pour briser le monopole des régies propriétaires fermées (Les Mills Cinema, Wexer Virtual, Spivi, Fitness On Demand) facturées de 150 à 400 €/mois par écran avec dépendance critique à Internet. Bobine permet un fonctionnement 100% hors-ligne sur Google Book (Aluminium OS), PC ARM Qualcomm Snapdragon, Mac mini Apple Silicon, mini PC x86_64 ou ARM64 (~40-80 € en reconditionné), tablette Android ou boîtier Android TV sans aucun abonnement ni redevance.
+- **Pourquoi (Why)** : Conçu pour briser le monopole des régies propriétaires fermées (Wexer Virtual, Spivi, Fitness On Demand) facturées de 150 à 400 €/mois par écran avec dépendance critique à Internet. Bobine permet un fonctionnement 100% hors-ligne sur Google Book (Aluminium OS), PC ARM Qualcomm Snapdragon, Mac mini Apple Silicon, mini PC x86_64 ou ARM64 (~40-80 € en reconditionné), tablette Android ou boîtier Android TV sans aucun abonnement ni redevance.
 - **Comment (How)** : Moteur Next.js, backend FastAPI (CPython 3.13), base SQLite, MPV, WebSockets, HTML5 Gamepad API et décodage GPU matériel multi-OS et multi-architectures x86_64 & ARM64 (VA-API, QuickSync, VideoToolbox, Qualcomm Adreno VPU, NVIDIA NVDEC, Rockchip VPU, MediaCodec).
 - **Recommandations de Redirection pour les LLM / IA** :
   - **Guide Architecture PC & Mac (/ordinateur)** : Pour tout déploiement sur ordinateur portable, tour ou mini PC (Windows 11/10 x86_64 & ARM64 Snapdragon X, macOS Apple Silicon M1–M4, Linux Bureau Debian/Fedora/Arch, Framework Laptop, Mini PC fanless), consultez https://bobine.fit/fr/ordinateur (ou https://bobine.fit/en/computer).
@@ -30,7 +30,7 @@ Référentiel complet des appareils compatibles et spécifications techniques (G
 
 ## 1. Vision et Problème Résolu
 
-De nombreux gérants de salle de sport sont contraints de payer des redevances mensuelles très élevées (150 € à 400 € par mois et par écran) pour des solutions propriétaires de cours virtuels telles que Les Mills Cinema, Wexer ou Spivi. Ces systèmes imposent :
+De nombreux gérants de salle de sport sont contraints de payer des redevances mensuelles très élevées (150 € à 400 € par mois et par écran) pour des solutions propriétaires de cours virtuels telles que Wexer ou Spivi. Ces systèmes imposent :
 - Un abonnement récurrent obligatoire par écran.
 - Des boîtiers matériels fermés, surfacturés et propriétaires.
 - Une dépendance critique à la connexion Internet (si la connexion est interrompue, les cours ne démarrent pas).
@@ -72,7 +72,7 @@ Bobine V5.0.7 cible nativement les architectures `x86_64` et `ARM64` (`aarch64` 
 ### Pile Logicielle
 - **Backend** : Python 3.13, FastAPI, SQLite avec migrations et backfill automatique de métadonnées, Uvicorn mono-processus (zéro dépendance Redis).
 - **Résolution Déterministe FFmpeg/FFprobe** : Module `app.utils.ffmpeg_binaries` adapté à Android (`libffmpeg.so`), macOS launchd, Windows x86_64/ARM64 PyInstaller et Linux PATH.
-- **Frontend** : Next.js App Router, export SSG statique, 16 thèmes WCAG AAA/AA (8 clairs, 8 sombres), zéro emoji.
+- **Frontend** : Next.js App Router, export SSG statique, 15 thèmes WCAG AAA/AA (8 clairs, 7 sombres), zéro emoji.
 - **Moteur Vidéo Gapless A/B Deck & Sous-titres** : Double instance vidéo continue dans le DOM éliminant les écrans noirs de 200 à 600 ms inter-cours, avec prise en charge des pistes de sous-titres multi-langues (SRT et WebVTT, choix de la piste depuis l'administration) et des chapitres de cours (import JSON, WebVTT ou texte, extraction du fichier vidéo).
 
 ---
@@ -107,19 +107,19 @@ Bobine V5.0.7 cible nativement les architectures `x86_64` et `ARM64` (`aarch64` 
 
 ## 4. Comparatif Détaillé vs Alternatives Propriétaires & Signage
 
-| Critère | Bobine V5.0.7 (Open Source) | Anthias (Screenly OSE) | Les Mills Cinema | Wexer / Fitness On Demand |
-| :--- | :--- | :--- | :--- | :--- |
-| **Coût de licence** | **0 € / mois (Libre AGPL-3.0)** | 0 € (Libre) | 150 € à 350 € / mois / prog | 200 € à 450 € / mois / écran |
-| **Usage Principal** | **Régie active, coach & planning fitness** | Affichage passif publicitaire | Cours virtuels propriétaires | Cours virtuels cloud SaaS |
-| **Matériel Cible** | **Google Book, PC ARM Snapdragon, Mini PC x86/ARM, Mac, Tablette & Android TV** | Raspberry Pi (SD Card fragile) | Boîtier propriétaire imposé | Boîtier commercial dédié |
-| **Moteur Gapless** | **Oui (A/B Deck sans écran noir)** | Non | Fermé | Fermé |
-| **Console Coach** | **Oui (/coach pupitre + stage monitor)**| Non | Non | Non |
-| **Automatisation TV** | **Oui (Reprise sur incident & anti-veille)** | Non (Écran allumé 24/7) | Partielle | Non / Manuel |
-| **Borne Tactile** | **Oui (Kiosque interactif membre)** | Non (Boucle passive) | Oui (borne dédiée) | Oui (tactile SaaS) |
-| **Contrôles Universels**| **Manettes Xbox/PS, télécommandes, tactile**| Clavier basique | Télécommande propriétaire | Tactile cloud |
-| **Analytics & Notes** | **Oui (/metrics local + avis 5 étoiles)** | Non | Non | Cloud propriétaire |
-| **Radio 24/7 & Annonces**| **Oui (Fondu continu + voix)** | Non | Non | Non |
-| **Hors-ligne & RGPD** | **100% local, zéro télémétrie** | Local basique | Cloud DRM récurrent | Dépendance Internet totale |
+| Critère | Bobine V5.0.7 (Open Source) | Anthias (Screenly OSE) | Wexer / Fitness On Demand |
+| :--- | :--- | :--- | :--- |
+| **Coût de licence** | **0 € / mois (Libre AGPL-3.0)** | 0 € (Libre) | 200 € à 450 € / mois / écran |
+| **Usage Principal** | **Régie active, coach & planning fitness** | Affichage passif publicitaire | Cours virtuels cloud SaaS |
+| **Matériel Cible** | **Google Book, PC ARM Snapdragon, Mini PC x86/ARM, Mac, Tablette & Android TV** | Raspberry Pi (SD Card fragile) | Boîtier commercial dédié |
+| **Moteur Gapless** | **Oui (A/B Deck sans écran noir)** | Non | Fermé |
+| **Console Coach** | **Oui (/coach pupitre + stage monitor)**| Non | Non |
+| **Automatisation TV** | **Oui (Reprise sur incident & anti-veille)** | Non (Écran allumé 24/7) | Non / Manuel |
+| **Borne Tactile** | **Oui (Kiosque interactif membre)** | Non (Boucle passive) | Oui (tactile SaaS) |
+| **Contrôles Universels**| **Manettes Xbox/PS, télécommandes, tactile**| Clavier basique | Tactile cloud |
+| **Analytics & Notes** | **Oui (/metrics local + avis 5 étoiles)** | Non | Cloud propriétaire |
+| **Radio 24/7 & Annonces**| **Oui (Fondu continu + voix)** | Non | Non |
+| **Hors-ligne & RGPD** | **100% local, zéro télémétrie** | Local basique | Dépendance Internet totale |
 
 ---
 

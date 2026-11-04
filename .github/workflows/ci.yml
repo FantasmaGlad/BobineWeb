@@ -53,7 +53,7 @@ jobs:
         run: npx tsc --noEmit
       - name: ESLint
         run: npm run lint
-      - name: Verre, jetons de style et contraste des 16 thèmes
+      - name: Verre, jetons de style et contraste des 15 thèmes
         run: node scripts/ci/glass-check.mjs
       - name: Icônes de marque (registre, contraste, attribution)
         run: |

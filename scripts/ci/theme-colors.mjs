@@ -1,4 +1,4 @@
-// Couleurs réelles des 16 thèmes : lit les jetons du CSS (pas de copie), les résout (var, color-mix, dégradés) et
+// Couleurs réelles des 15 thèmes : lit les jetons du CSS (pas de copie), les résout (var, color-mix, dégradés) et
 // mesure les contrastes WCAG. Partagé par glass-check.mjs (matériaux de verre) et check-assets.mjs (icônes).
 export function loadThemeColors(noComments) {
   const rules = [...noComments.matchAll(/(^|\n)(:root[^{}]*)\{([^{}]*)\}/g)].map((m) => {

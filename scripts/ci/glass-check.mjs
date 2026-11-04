@@ -112,7 +112,7 @@ for (const theme of themes) {
     fail(`${theme} : ${err.message}`);
   }
 }
-if (themes.length !== 16) fail(`${themes.length} thèmes détectés (16 attendus) : ${themes.join(", ")}`);
+if (themes.length !== 15) fail(`${themes.length} thèmes détectés (15 attendus) : ${themes.join(", ")}`);
 
 if (errors.length) {
   console.error(errors.map((e) => `::error::${e}`).join("\n"));

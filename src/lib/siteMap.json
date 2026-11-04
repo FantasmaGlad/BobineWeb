@@ -198,23 +198,6 @@
       "footer": "compare"
     },
     {
-      "id": "compare-lesmills",
-      "path": "/comparatif/les-mills-cinema",
-      "kind": "leaf",
-      "label": {
-        "fr": "Les Mills Cinema",
-        "en": "Les Mills Cinema"
-      },
-      "description": {
-        "fr": "Comparatif avec Les Mills Cinema.",
-        "en": "Comparison with Les Mills Cinema."
-      },
-      "priority": 0.9,
-      "changeFrequency": "weekly",
-      "parent": "compare",
-      "icon": "icon:video"
-    },
-    {
       "id": "compare-wexer",
       "path": "/comparatif/wexer-fitness-on-demand",
       "kind": "leaf",

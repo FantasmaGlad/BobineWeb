@@ -799,7 +799,7 @@ export const usageScenarios: TerminalScenario[] = [
             remote_url: "http://192.168.1.50:8000/remote",
             mdns_url: "http://bobine.local:8000/remote",
             active_channel: "wired",
-            current_media: "Les Mills RPM 85 (Masterclass)",
+            current_media: "Cours collectif 85 (Masterclass)",
             pin_required: false,
           },
           null,

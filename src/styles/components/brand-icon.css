@@ -1,4 +1,4 @@
-/* Icônes de marque : masque rempli d'une couleur, donc lisible dans les 16 thèmes (couleur officielle seulement si le
+/* Icônes de marque : masque rempli d'une couleur, donc lisible dans les 15 thèmes (couleur officielle seulement si le
    contraste le permet, sinon la couleur du texte). Les logos multicolores sont affichés tels quels, sans fond. Voir src/lib/assets.ts. Spécificité nulle : une classe du site peut
    imposer sa taille. */
 :where(.brand-icon) {

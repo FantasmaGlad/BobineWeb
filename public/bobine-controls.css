@@ -321,7 +321,7 @@
 .chevron-flip.is-open {
   transform: rotate(180deg);
 }
-/* Icônes de marque : masque rempli d'une couleur, donc lisible dans les 16 thèmes (couleur officielle seulement si le
+/* Icônes de marque : masque rempli d'une couleur, donc lisible dans les 15 thèmes (couleur officielle seulement si le
    contraste le permet, sinon la couleur du texte). Les logos multicolores sont affichés tels quels, sans fond. Voir src/lib/assets.ts. Spécificité nulle : une classe du site peut
    imposer sa taille. */
 :where(.brand-icon) {
@@ -371,7 +371,6 @@ img.brand-icon {
 .theme-swatch-icon[data-theme="lavande"], [data-theme-value="lavande"] { --swatch-bg: #f6f5f9; --swatch-accent: #6d28d9; }
 .theme-swatch-icon[data-theme="beige"], [data-theme-value="beige"] { --swatch-bg: #f7f6f2; --swatch-accent: #854d0e; }
 .theme-swatch-icon[data-theme="coco"], [data-theme-value="coco"] { --swatch-bg: #f4f5f7; --swatch-accent: #475569; }
-.theme-swatch-icon[data-theme="les-mills-sombre"], [data-theme-value="les-mills-sombre"] { --swatch-bg: #000000; --swatch-accent: #e4002b; }
 .theme-swatch-icon[data-theme="charbon-sombre"], [data-theme-value="charbon-sombre"] { --swatch-bg: #050507; --swatch-accent: #e5e5ea; }
 .theme-swatch-icon[data-theme="automne"], [data-theme-value="automne"] { --swatch-bg: #060504; --swatch-accent: #ff9f0a; }
 .theme-swatch-icon[data-theme="hiver"], [data-theme-value="hiver"] { --swatch-bg: #040608; --swatch-accent: #2997ff; }

@@ -304,7 +304,6 @@
   --logo-filter: none;
 }
 
-:root[data-theme="les-mills-sombre"],
 :root[data-theme="charbon-sombre"],
 :root[data-theme="automne"],
 :root[data-theme="hiver"],
@@ -330,39 +329,6 @@
   --android-badge-bg: color-mix(in srgb, var(--accent-primary) 15%, var(--bg-card));
   --android-badge-border: color-mix(in srgb, var(--accent-primary) 40%, var(--border-subtle));
   --android-badge-glow: color-mix(in srgb, var(--accent-primary) 25%, transparent);
-}
-:root[data-theme="les-mills-sombre"] {
-  --bg-canvas: #000000;
-  --bg-main: #000000;
-  --bg-card: #121215;
-  --bg-card-hover: #1c1c21;
-  --bg-surface: #121215;
-  --bg-surface-elevated: #1c1c21;
-  --bg-surface-hover: #24242b;
-  --bg-inset: #0a0a0c;
-  --text-heading: #f5f5f7;
-  --text-main: #f5f5f7;
-  --text-body: #d2d2d7;
-  --text-base: #d2d2d7;
-  --text-muted: #8e8e93;
-  --text-dim: var(--text-muted);
-  --accent-primary: #e4002b;
-  --accent-primary-fg: #ffffff;
-  --accent-hover: #be123c;
-  --accent-subtle: rgba(228, 0, 43, 0.12);
-  --accent-glow: rgba(228, 0, 43, 0.22);
-  --border-subtle: #222227;
-  --border-vibrant: color-mix(in srgb, #e4002b 65%, #222227);
-  --border-color: #222227;
-  --border-focus: #e4002b;
-  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 60%, transparent);
-  --shadow-card: 0 4px 18px color-mix(in srgb, var(--ink) 68%, transparent);
-  --shadow-card-hover: 0 12px 30px color-mix(in srgb, var(--ink) 80%, transparent);
-  --ambient-glow: rgba(228, 0, 43, 0.05);
-  --badge-bg: rgba(228, 0, 43, 0.14);
-  --badge-fg: #fda4af;
-  --badge-border: rgba(228, 0, 43, 0.30);
-  --logo-filter: none;
 }
 :root[data-theme="charbon-sombre"] {
   --bg-canvas: #050507;

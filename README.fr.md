@@ -22,7 +22,7 @@ English: [README.md](README.md).
 
 ## Architecture & Constellation
 
-Conçu avec **Next.js 16** (App Router, Turbopack), **React 19** et **TypeScript**, partageant un système de design Apple-grade à 16 thèmes (8 thèmes clairs dont la palette *Charbon*, 8 thèmes sombres à haut contraste) à travers les quatre propriétés web :
+Conçu avec **Next.js 16** (App Router, Turbopack), **React 19** et **TypeScript**, partageant un système de design Apple-grade à 15 thèmes (8 thèmes clairs dont la palette *Charbon*, 7 thèmes sombres à haut contraste) à travers les quatre propriétés web :
 
 - **Bilinguisme Strict** : Toutes les pages sont servies en français (`/fr/`) et en anglais (`/en/`) depuis des sources de contenu typées (`src/content/`).
 - **Dépôts Linux Dédiés** : Distributions signées pour Debian/Ubuntu, Fedora et Arch Linux (`packages.bobine.fit`).

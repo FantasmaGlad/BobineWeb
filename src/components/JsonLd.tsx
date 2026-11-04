@@ -33,8 +33,8 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
       { "@type": "Thing", name: "GNU Affero General Public License", sameAs: "https://www.wikidata.org/wiki/Q131262" },
     ],
     description: isEn
-      ? "Open-source, self-hosted streaming and video playout automation system for gyms and fitness studios. Offline alternative to Les Mills Cinema, Anthias, Screenly, and Wexer."
-      : "Régie vidéo et système de streaming open-source et auto-hébergé pour salles de sport et studios fitness. Alternative 100% hors-ligne à Les Mills Cinema, Anthias, Screenly et Wexer.",
+      ? "Open-source, self-hosted streaming and video playout automation system for gyms and fitness studios. Offline alternative to proprietary per-screen playout, Anthias, Screenly, and Wexer."
+      : "Régie vidéo et système de streaming open-source et auto-hébergé pour salles de sport et studios fitness. Alternative 100% hors-ligne aux régies propriétaires facturées à l'écran, à Anthias, Screenly et Wexer.",
     memoryRequirements: "4 GB",
     storageRequirements: "16 GB SSD",
     processorRequirements: "x86-64 CPU (Intel QuickSync / AMD Radeon VA-API) or ARM64 (Android, Apple Silicon)",
@@ -51,7 +51,7 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
           "Instant mobile remote control via local QR code without application install",
           "24/7 background radio with scheduled voice announcements and audio crossfade",
           "Real-time eco-designed hardware telemetry (instant Watts, CPU/GPU temperatures, RAM MT/s)",
-          "Free open-source alternative to Les Mills Cinema, Anthias, and proprietary gym signage",
+          "Free open-source alternative to proprietary gym playout and signage, including Anthias",
           "Hardware-accelerated 1080p60 & 4K decoding (Intel QuickSync, AMD VA-API, VideoToolbox, MediaCodec)",
         ]
       : [
@@ -66,7 +66,7 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
           "Télécommande mobile instantanée par QR code local sans application à installer",
           "Radio d'ambiance 24/7 avec alertes et annonces vocales programmées et fondu sonore",
           "Télémétrie matérielle éco-conçue (puissance instantanée en Watts, températures CPU/GPU, RAM en MT/s)",
-          "Alternative libre et gratuite à Les Mills Cinema, Anthias, Screenly et régies propriétaires",
+          "Alternative libre et gratuite aux régies propriétaires, à Anthias et à Screenly",
           "Décodage matériel ultra-fluide 1080p60 et 4K via Intel QuickSync, AMD VA-API, VideoToolbox et MediaCodec",
         ],
     offers: {

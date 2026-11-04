@@ -59,7 +59,7 @@ npm run build       # compilation de production
 Si vous touchez aux styles, aux simulateurs d'installation ou aux scripts shell, lancez aussi les garde-fous que la CI leur applique :
 
 ```bash
-node scripts/ci/glass-check.mjs          # jetons de verre, aucune valeur figée, contraste du texte sur les 16 thèmes
+node scripts/ci/glass-check.mjs          # jetons de verre, aucune valeur figée, contraste du texte sur les 15 thèmes
 bash scripts/ci/check-simulator-sync.sh  # simulateurs alignés sur public/install.sh et public/install-tor.sh
 bash scripts/ci/policy-check.sh          # politique du dépôt (entrées de racine, secrets, emoji)
 ```

@@ -58,6 +58,6 @@ for (const route of routes) {
   }
   assert.deepEqual(structures[0], structures[1], `${route.path}: parité des sections FR/EN`);
 }
-assert.equal(pages, 10, "hub et quatre études en deux langues");
+assert.equal(pages, 8, "hub et trois études en deux langues");
 assert(sizes.size > 0, "visuels locaux contrôlés");
 console.log(`check-comparisons : ${pages} pages, parité FR/EN, titres, descriptions, sources datées, liens et structure conformes.`);

@@ -59,7 +59,7 @@ npm run build       # production build
 If you touch styles, the installation simulators or the shell scripts, also run the guards that CI runs on them:
 
 ```bash
-node scripts/ci/glass-check.mjs          # glass tokens, no frozen value, stylesheet size, text contrast on the 16 themes
+node scripts/ci/glass-check.mjs          # glass tokens, no frozen value, stylesheet size, text contrast on the 15 themes
 bash scripts/ci/check-simulator-sync.sh  # simulators aligned with public/install.sh and public/install-tor.sh
 bash scripts/ci/policy-check.sh          # repository policy (root entries, secrets, emoji)
 ```

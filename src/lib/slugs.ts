@@ -8,7 +8,6 @@
 export const EN_SLUG_MAP: Record<string, string> = {
   "/fonctionnalites": "/features",
   "/comparatif": "/compare",
-  "/comparatif/les-mills-cinema": "/compare/les-mills-cinema",
   "/comparatif/wexer-fitness-on-demand": "/compare/wexer-fitness-on-demand",
   "/comparatif/radical-fitness-yako": "/compare/radical-fitness-yako",
   "/comparatif/affichage-dynamique-fitness": "/compare/digital-signage-fitness",

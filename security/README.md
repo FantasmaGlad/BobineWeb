@@ -6,7 +6,7 @@
 
 - **Architecture hybride & SSG** : compilée avec Next.js 16, React 19 et TypeScript (`output: 'export'`) et script de synchronisation `scripts/security-site/build.mjs` garantissant zéro script inline hors JSON-LD.
 - **Zéro dépendance d'exécution** : aucune feuille de style ni script tiers en ligne ; les métadonnées JSON-LD sont les seuls blocs intégrés autorisés.
-- **Design System Bobine** : jetons Liquid Glass (`bobine-tokens.css`), sélecteurs partagés (`bobine-controls.css`), thème Lavande par défaut (`data-theme="lavande"`), et palette de 16 thèmes synchronisée avec le site principal.
+- **Design System Bobine** : jetons Liquid Glass (`bobine-tokens.css`), sélecteurs partagés (`bobine-controls.css`), thème Lavande par défaut (`data-theme="lavande"`), et palette de 15 thèmes synchronisée avec le site principal.
 - **Ressources préservées** : mini-jeu d'arcade Snake historique (`/snake/` et `/fr/snake/`), clé OpenPGP (`security.asc`), fichier signé `/.well-known/security.txt`, domaine `CNAME` et `.nojekyll`.
 
 ## 2. Commandes de Build & Vérification
@@ -31,7 +31,7 @@ Pour prévisualiser et tester le rendu localement :
 # Lancer le serveur local
 python3 -m http.server 3104 --bind 127.0.0.1 --directory security/site
 
-# Dans un autre terminal : tester le menu, les 16 thèmes et Snake sur plusieurs résolutions
+# Dans un autre terminal : tester le menu, les 15 thèmes et Snake sur plusieurs résolutions
 node scripts/ci/check-security-menu.mjs
 ```
 

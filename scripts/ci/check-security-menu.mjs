@@ -15,12 +15,12 @@ try {
     if(width<=960)await b.evaluate(`document.getElementById('menuBtn').click()`);
     await b.evaluate(`document.getElementById('themeToggle').click()`);
     const palette=await b.evaluate(`(()=>{const p=document.getElementById('themePalette');const r=p.getBoundingClientRect();return {hidden:p.hidden,left:r.left,right:r.right,top:r.top,bottom:r.bottom,count:p.querySelectorAll('[data-theme-value]').length}})()`);
-    assert(!palette.hidden);assert.equal(palette.count,16);assert(palette.left>=-1&&palette.right<=width+1&&palette.top>=0&&palette.bottom<=height+1,`${path} ${width} palette hors écran ${JSON.stringify(palette)}`);
+    assert(!palette.hidden);assert.equal(palette.count,15);assert(palette.left>=-1&&palette.right<=width+1&&palette.top>=0&&palette.bottom<=height+1,`${path} ${width} palette hors écran ${JSON.stringify(palette)}`);
     assert(await b.evaluate(`Array.from(document.querySelectorAll('[data-theme-group]')).every(e=>{const r=e.getBoundingClientRect();return e.contains(document.elementFromPoint(r.left+r.width/2,r.top+r.height/2));})`),'onglets de palette visibles et accessibles');
     await b.evaluate(`document.querySelector('[data-theme-group="dark"]').click();document.querySelector('[data-theme-value="orchidee"]').click()`);
     assert(await b.evaluate(`document.documentElement.dataset.theme==='orchidee' && document.getElementById('themePalette').hidden`),'thème et repli');
     const visited=new Set();
-    for(let i=0;i<16;i++)visited.add(await b.evaluate(`document.getElementById('themeCycle').click();document.documentElement.dataset.theme`));
+    for(let i=0;i<15;i++)visited.add(await b.evaluate(`document.getElementById('themeCycle').click();document.documentElement.dataset.theme`));
     assert.equal(visited.size,15,'15 thèmes distincts accessibles');
     assert(await b.evaluate(`document.documentElement.dataset.theme==='orchidee'`),'15 thèmes accessibles');
     if(path.includes('snake'))assert(await b.evaluate(`document.getElementById('snakeCanvas').width>0 && document.getElementById('snakeCanvas').height>0`),'canvas visible');

@@ -1,31 +1,5 @@
 /* Généré depuis les sélecteurs du site principal. */
 
-.locale-switcher {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-  font-size: var(--fs-0-8rem);
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-0-45rem);
-  padding: 0.15rem 0.3rem;
-}
-.locale-switcher__link {
-  text-decoration: none;
-  padding: 0.15rem 0.4rem;
-  border-radius: var(--radius-0-3rem);
-  color: var(--text-muted);
-  font-weight: 500;
-  transition: all 0.15s ease;
-}
-.locale-switcher__link:hover {
-  color: var(--text-heading);
-}
-.locale-switcher__link.is-active {
-  color: var(--accent-primary);
-  background: var(--accent-subtle);
-  font-weight: 600;
-}
 .theme-switcher-wrapper {
   position: relative;
 }
@@ -260,7 +234,6 @@
   z-index: var(--z-150);
   box-shadow: 0 -8px 30px color-mix(in srgb, var(--ink) 45%, transparent);
 }
-.locale-switcher,
 .theme-switcher-pill-group {
   background: var(--glass-card-bg);
   -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
@@ -269,7 +242,6 @@
   box-shadow: var(--glass-edge), var(--shadow-sm);
   transition: transform 0.22s var(--ease-spring-pill), border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.locale-switcher:hover,
 .theme-switcher-pill-group:hover {
   border-color: color-mix(in srgb, var(--accent-primary) 50%, var(--glass-card-border));
   box-shadow: var(--glass-edge), 0 6px 18px color-mix(in srgb, var(--accent-primary) 14%, transparent);
@@ -281,7 +253,6 @@
   border: 1px solid var(--glass-floating-border);
   box-shadow: var(--glass-card-highlight), var(--shadow-card-hover);
 }
-.locale-switcher__link,
 .theme-segment-btn,
 .theme-card-option {
   transition:
@@ -291,9 +262,6 @@
     border-color 0.16s ease,
     box-shadow 0.18s ease;
 }
-.locale-switcher__link:hover {
-  transform: translateY(-1px) scale(1.04);
-}
 .theme-card-option:hover {
   transform: translateY(-2px) scale(1.025);
   border-color: color-mix(in srgb, var(--accent-primary) 48%, var(--glass-card-border));
@@ -301,15 +269,13 @@
 .theme-switcher-btn:active,
 .theme-switcher-arrow-btn:active,
 .theme-segment-btn:active,
-.theme-card-option:active,
-.locale-switcher__link:active {
+.theme-card-option:active {
   transform: scale(0.96) !important;
   filter: brightness(0.94);
   transition-duration: 0.1s;
 }
 @media (prefers-reduced-motion: reduce) {
-  .locale-switcher__link,
-.theme-card-option {
+  .theme-card-option {
     transition: none !important;
     transform: none !important;
   }

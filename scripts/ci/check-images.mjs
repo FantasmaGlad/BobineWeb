@@ -6,7 +6,6 @@ import { fileURLToPath } from "node:url";
 const root = fileURLToPath(new URL("../../", import.meta.url));
 const walk = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((e) => e.isDirectory() ? walk(join(dir, e.name)) : [join(dir, e.name)]);
 for (const file of walk(join(root, "public/images"))) {
-  if (file.includes("/hardware/")) continue;
   assert(statSync(file).size <= 250 * 1024, `${file}: image > 250 Ko`);
 }
 const media = JSON.parse(readFileSync(join(root, "src/content/media.json"), "utf8"));

@@ -57,3 +57,30 @@ test("refuser une provenance qui usurpe le digest de la release", async () => {
     await assert.rejects(verifyServedInstaller(join(dir, "install.sh"), join(dir, "install-source.json"), metadata()), /Provenance/);
   } finally { await rm(dir, { recursive: true, force: true }); }
 });
+
+const ps1 = Buffer.from("# Installe Bobine sous Windows\r\nparam([string]$Channel = 'stable')\r\n");
+function withPs1() {
+  const release = fixture();
+  release.assets.push({ id: 201, name: "install.ps1", size: ps1.length, digest: "sha256:" + createHash("sha256").update(ps1).digest("hex"), browser_download_url: "https://github.com/FantasmaGlad/Bobine/releases/download/V1.2.3/install.ps1" });
+  return async (url) => url.startsWith("https://api.github.com/") ? Response.json(release) : new Response(url.endsWith(".ps1") ? ps1 : body);
+}
+
+test("install.ps1 est servi et vérifié quand la release le contient", async () => {
+  const dir = await directory();
+  try {
+    await syncInstaller(dir, withPs1());
+    assert.deepEqual(await readFile(join(dir, "install.ps1")), ps1);
+    await verifyServedInstaller(join(dir, "install.ps1"), join(dir, "install-ps1-source.json"), withPs1());
+    await writeFile(join(dir, "install.ps1"), "<html>erreur</html>");
+    await assert.rejects(verifyServedInstaller(join(dir, "install.ps1"), join(dir, "install-ps1-source.json"), withPs1()), /digest/);
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
+test("une Stable sans install.ps1 sert seulement install.sh", async () => {
+  const dir = await directory();
+  try {
+    await syncInstaller(dir, metadata());
+    await assert.rejects(readFile(join(dir, "install.ps1")), /ENOENT/);
+    assert.deepEqual(await readFile(join(dir, "install.sh")), body);
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});

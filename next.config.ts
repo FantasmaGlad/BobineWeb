@@ -167,6 +167,14 @@ const nextConfig: NextConfig = {
         source: "/install.sh",
         headers: [{ key: "X-Robots-Tag", value: "noindex" }],
       },
+      {
+        // `irm https://bobine.fit/install.ps1 | iex` lit un texte, jamais un binaire à télécharger.
+        source: "/install.ps1",
+        headers: [
+          { key: "Content-Type", value: "text/plain; charset=utf-8" },
+          { key: "X-Robots-Tag", value: "noindex" },
+        ],
+      },
     ];
   } }),
 };

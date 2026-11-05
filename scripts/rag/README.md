@@ -1,6 +1,6 @@
 # Synchronisation documentaire
 
-Le site utilise les chapitres et le catalogue publics comme sources. Le corpus technique reprend les fichiers canoniques du dépôt Bobine, puis des documentations officielles versionnées. Aucun document de suivi interne, fichier d’environnement ni conversation n’est exporté.
+Le site utilise les chapitres et les spécifications publiques comme sources. Le corpus technique reprend les fichiers canoniques du dépôt Bobine, puis des documentations officielles versionnées. Aucun document de suivi interne, fichier d’environnement ni conversation n’est exporté.
 
 ```sh
 npm run test:rag

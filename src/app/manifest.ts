@@ -51,9 +51,9 @@ export default function manifest(): MetadataRoute.Manifest {
         description: "Guide d'installation et d'utilisation",
       },
       {
-        name: "Matériel",
-        url: "/fr/materiel/amazon",
-        description: "Recommandations matérielles et packs par OS pour studio fitness",
+        name: "Téléchargement",
+        url: "/fr/telechargement",
+        description: "Télécharger Bobine pour Linux, macOS, Windows ou Android TV",
       },
       {
         name: "Fonctionnalités",

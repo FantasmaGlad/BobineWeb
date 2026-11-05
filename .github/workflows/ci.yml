@@ -111,8 +111,7 @@ jobs:
         run: |
           node scripts/ci/check-comparisons.mjs
           node scripts/ci/check-marketing.mjs
-          node scripts/ci/check-catalog.mjs
-          node --test scripts/ci/check-catalog.test.mjs scripts/ci/deployment-origin.test.mjs
+          node --test scripts/ci/deployment-origin.test.mjs
       - name: Géométrie mobile et cibles tactiles
         run: |
           npm run start -- --port 3102 > "$RUNNER_TEMP/mobile-server.log" 2>&1 &

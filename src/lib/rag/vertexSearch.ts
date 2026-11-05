@@ -6,12 +6,11 @@ export interface RagSnippet {
   title: string;
   snippet: string;
   url?: string;
-  platform?: "amazon" | "aliexpress" | "doc" | "spec";
+  platform?: "doc" | "spec";
 }
 export interface RagResult {
   snippets: RagSnippet[];
   projectKnowledgeSnippet: string;
-  hardwareCatalogSnippet: string;
 }
 
 let cachedClient: SearchServiceClient | null = null;
@@ -86,12 +85,9 @@ async function searchUncached(query: string, maxResults: number): Promise<RagRes
       const snippets = results.map(normalizeResult).filter((s): s is NonNullable<typeof s> => s !== null);
       if (!snippets.length) return null;
       console.info("Recherche documentaire disponible.", { snippets: snippets.length });
-      const products = snippets.filter(s => s.platform === "amazon" || s.platform === "aliexpress");
-      const docs = snippets.filter(s => s.platform !== "amazon" && s.platform !== "aliexpress");
       return {
         snippets: snippets as RagSnippet[],
-        projectKnowledgeSnippet: docs.map(s => `### ${s.title}\nSource : ${s.url}\n${s.snippet}`).join("\n\n"),
-        hardwareCatalogSnippet: products.map(s => `- **${s.title}** : ${s.snippet}`).join("\n"),
+        projectKnowledgeSnippet: snippets.map(s => `### ${s.title}\nSource : ${s.url}\n${s.snippet}`).join("\n\n"),
       };
     });
     const timeout = new Promise<null>(resolve => { timer = setTimeout(() => resolve(null), budget); });

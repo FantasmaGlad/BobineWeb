@@ -1,19 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
-import { readCart } from "@/lib/hardwareCart";
-import { readStoreView, subscribeStoreView } from "@/lib/storeView";
 import AssistantMessageBody from "@/components/AssistantMessageBody";
 import Icon from "@/components/ui/Icon";
 import BaamixThinking, { HamsterWheel } from "@/components/BaamixThinking";
 import { IS_ONION, CLEARNET_URL } from "@/lib/onion";
 import "@/styles/split/pages-misc.css";
 import "@/styles/components/chatbot.css";
-
-
 
 /**
  * Miroir Tor : Baamix ne peut pas répondre (aucun serveur, et les services d'IA tiers feraient sortir
@@ -90,47 +86,25 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
     if (IS_ONION) void import("./MarkdownRenderer");
   }, []);
 
-  // Ce que le visiteur regarde dans la boutique (publié par /materiel) : sert à proposer des questions adaptées.
-  const storeView = useSyncExternalStore(subscribeStoreView, readStoreView, () => null);
-
-  const baseSuggestions = isEn
+  const suggestions = isEn
     ? [
-        "What hardware should I buy for my gym?",
-        "Amazon or AliExpress: which one should I choose?",
+        "What computer should I use for my gym?",
         "Mini PC or laptop for a control room?",
         "How is Bobine free with no subscription?",
         "How do I install Bobine on Debian?",
         "How does the one-click backup and restore work?",
       ]
     : [
-        "Quel matériel acheter pour ma salle ?",
-        "Amazon ou AliExpress : que choisir ?",
+        "Quel ordinateur utiliser pour ma salle ?",
         "Mini PC ou PC portable pour une régie ?",
         "Pourquoi Bobine est gratuit sans abonnement ?",
         "Comment installer Bobine sur Debian ?",
         "Comment fonctionne la sauvegarde en un clic ?",
       ];
 
-  // Sur la boutique, les questions portent sur ce qui est affiché ; sinon les questions de base.
-  const storeSuggestions = isEn
-    ? [
-        "Compare the products shown here",
-        "Which one is best for a quiet 24/7 room?",
-        "Is the cheaper option worth it?",
-        "What am I missing to complete this setup?",
-      ]
-    : [
-        "Compare les produits affichés ici",
-        "Lequel choisir pour une salle silencieuse 24 h sur 24 ?",
-        "L'option la moins chère est-elle suffisante ?",
-        "Que me manque-t-il pour compléter ce pack ?",
-      ];
-
-  const suggestions = storeView ? [...storeSuggestions, baseSuggestions[1], baseSuggestions[0]] : baseSuggestions;
-
   const defaultGreeting = isEn
-    ? "Hello! I am Baamix, the Bobine mascot. Have a question about Bobine or equipping your gym? I recommend and compare hardware from both Amazon and AliExpress."
-    : "Bonjour, je suis Baamix la mascotte de Bobine ! Une question sur Bobine ou l'équipement de votre salle ? Je recommande et compare le matériel d'Amazon comme d'AliExpress.";
+    ? "Hello! I am Baamix, the Bobine mascot. Have a question about Bobine or setting up your gym's video playout? I'm here to help."
+    : "Bonjour, je suis Baamix la mascotte de Bobine ! Une question sur Bobine ou l'installation de votre régie vidéo ? Je suis là pour vous aider.";
 
   useEffect(() => {
     function handleToggle() {
@@ -270,8 +244,6 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
         body: JSON.stringify({
           messages: [...messages, userMessage],
           locale,
-          cart: readCart(),
-          storeView: readStoreView(),
         }),
       });
 
@@ -455,7 +427,7 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                       />
                     </div>
                     <div className="chatbot-message__bubble chatbot-message__typing">
-                      <BaamixThinking isEn={isEn} hasStoreContext={storeView !== null} />
+                      <BaamixThinking isEn={isEn} />
                     </div>
                   </div>
                 );
@@ -483,7 +455,6 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                         raw={m.content}
                         streaming={isLoading && idx === messages.length - 1}
                         animate={idx === messages.length - 1}
-                        locale={locale}
                         onGrow={keepBottomVisible}
                         onDone={IS_ONION ? () => setOnionTyped(true) : undefined}
                         active={!hidden}
@@ -522,8 +493,8 @@ export default function BobineChatbot({ locale, variant = "bubble" }: { locale: 
                       ? "Baamix is resting on the Tor mirror (see his message above)"
                       : "Baamix est en veille sur le miroir Tor (voir son message ci-dessus)"
                     : isEn
-                    ? "Ask Baamix (Amazon and AliExpress hardware, setup)..."
-                    : "Posez votre question à Baamix (matériel Amazon et AliExpress, installation)..."
+                    ? "Ask Baamix (recommended computers, setup, features)..."
+                    : "Posez votre question à Baamix (ordinateurs conseillés, installation, régie)..."
                 }
                 value={input}
                 onChange={(e) => setInput(e.target.value)}

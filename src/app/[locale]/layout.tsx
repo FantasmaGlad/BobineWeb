@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import Header from "@/components/Header";
-import TechTicker from "@/components/TechTicker";
 import Footer from "@/components/Footer";
 
 import JsonLd from "@/components/JsonLd";
@@ -194,7 +193,6 @@ export default async function RootLayout({
         <GlobalRippleEffect />
         <JsonLd locale={locale} />
         <Header locale={locale} dict={dict} />
-        <TechTicker locale={locale as Locale} />
         <main>{children}</main>
         <Footer locale={locale as Locale} dict={dict} />
 

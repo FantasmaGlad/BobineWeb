@@ -166,7 +166,7 @@ export function buildMetadata({
         "en": enUrl,
         "fr-FR": frUrl,
         "en-US": enUrl,
-        "x-default": frUrl,
+        "x-default": enUrl,
       },
       types: { "application/atom+xml": `${BASE_URL}/feed.xml` },
     },

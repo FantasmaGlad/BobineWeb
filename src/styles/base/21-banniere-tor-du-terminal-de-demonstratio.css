@@ -75,7 +75,7 @@
    - Boutons primaires avec reflet spéculaire (--glass-gloss) et halo d'accent
    - Boutons secondaires en verre dépoli à contour marqué (--glass-edge)
    - Animations ressort de survol (élévation + grossissement) et clic (:active)
-   - Préservation intégrale des thèmes marchands (/materiel) et @media print
+   - Préservation intégrale de @media print
    ========================================================================== */
 
 /* Matériaux de verre. Le flou n'est posé que là où du contenu passe derrière (en-tête qui défile, fenêtres, tiroirs,
@@ -93,7 +93,6 @@
 }
 
 /* Contrôles : pastilles et sélecteurs */
-.locale-switcher,
 .theme-switcher-pill-group {
   background: var(--glass-card-bg);
   -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
@@ -103,7 +102,6 @@
   transition: transform 0.22s var(--ease-spring-pill), border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.locale-switcher:hover,
 .theme-switcher-pill-group:hover {
   border-color: color-mix(in srgb, var(--accent-primary) 50%, var(--glass-card-border));
   box-shadow: var(--glass-edge), 0 6px 18px color-mix(in srgb, var(--accent-primary) 14%, transparent);
@@ -270,7 +268,6 @@
 
 /* Micro-interactions sur les pastilles, onglets et liens de navigation */
 .site-header__nav a,
-.locale-switcher__link,
 .theme-segment-btn,
 .theme-card-option {
   transition:
@@ -281,8 +278,7 @@
     box-shadow 0.18s ease;
 }
 
-.site-header__nav a:hover,
-.locale-switcher__link:hover {
+.site-header__nav a:hover {
   transform: translateY(-1px) scale(1.04);
 }
 
@@ -299,7 +295,6 @@
 .theme-switcher-arrow-btn:active,
 .theme-segment-btn:active,
 .theme-card-option:active,
-.locale-switcher__link:active,
 .site-header__nav a:active,
 .os-download-card:active,
 .download-modal__action-btn:active {
@@ -318,7 +313,6 @@
   .github-pr-card,
   .download-modal__channel-card,
   .site-header__nav a,
-  .locale-switcher__link,
   .theme-card-option {
     transition: none !important;
     transform: none !important;

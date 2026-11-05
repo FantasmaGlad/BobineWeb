@@ -37,10 +37,10 @@ export default function NotFound() {
           Guide d&apos;installation
         </Link>
         <Link
-          href="/fr/materiel/aliexpress"
+          href="/fr/telechargement"
           className="btn-secondary not-found-link-1"
         >
-          Guide Matériel
+          Téléchargement
         </Link>
       </div>
     </div>

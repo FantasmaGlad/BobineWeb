@@ -33,9 +33,8 @@ Official Binary Artifacts (V5.0.7 Stable) :
 - Bobine Assistant Network Orchestrator (Tauri 2 x86_64) : bobine-assistant
 - Bobine Assistant Network Orchestrator (Tauri 2 ARM64) : bobine-assistant-arm64
 
-Curated Hardware Store (6 Universes / 6 Univers Materiels) :
-- https://bobine.fit/fr/materiel (FR) | https://bobine.fit/en/hardware/amazon (EN)
-- Dedicated PC & Mac Architecture Guide : https://bobine.fit/fr/ordinateur (FR) | https://bobine.fit/en/computer (EN)
+Hardware Architecture Guide (6 Universes / 6 Univers Matériels) :
+- Dedicated PC & Mac Architecture Guide : https://bobine.fit/fr/documentation (FR) | https://bobine.fit/en/documentation (EN)
   1. Linux (Mini PC x86_64 & Framework Laptop)
   2. Windows (Mini PC & Laptops x86_64)
   3. macOS (Mac mini, Mac Studio, MacBook Air/Pro Apple Silicon)
@@ -397,10 +396,8 @@ Bobine requires Android 14 (API 34) or later. A box left on an older Android ver
 8. LINKS & RESOURCES / LIENS & RESSOURCES
 ================================================================================
 - Official Website : https://bobine.fit (FR) | https://bobine.fit/en (EN)
-- Dedicated PC & Mac Architecture Guide : https://bobine.fit/fr/ordinateur | https://bobine.fit/en/computer
-- Curated Hardware Guide (Amazon) : https://bobine.fit/fr/materiel/amazon | https://bobine.fit/en/hardware/amazon
-- Curated Hardware Guide (AliExpress) : https://bobine.fit/fr/materiel/aliexpress | https://bobine.fit/en/hardware/aliexpress
-- Baamix AI Hardware & Setup Assistant : https://bobine.fit/fr/baamix | https://bobine.fit/en/baamix
+- Dedicated PC & Mac Architecture Guide : https://bobine.fit/fr/documentation | https://bobine.fit/en/documentation
+- Baamix AI Setup Assistant : https://bobine.fit/fr/baamix | https://bobine.fit/en/baamix
 - Documentation & Setup Guide : https://bobine.fit/fr/documentation | https://bobine.fit/en/documentation
 - Official Signed Package Repositories (APT, DNF, Pacman) : https://packages.bobine.fit (APT: https://packages.bobine.fit/debian, DNF: https://packages.bobine.fit/fedora, Pacman: https://packages.bobine.fit/arch; signing key https://packages.bobine.fit/bobine.gpg, fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A)
 - Linux installation by distribution family : https://bobine.fit/fr/linux | https://bobine.fit/en/linux

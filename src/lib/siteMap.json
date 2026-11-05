@@ -249,62 +249,6 @@
       "icon": "icon:display"
     },
     {
-      "id": "hardware",
-      "path": "/materiel",
-      "kind": "leaf",
-      "label": {
-        "fr": "Matériel",
-        "en": "Hardware"
-      },
-      "description": {
-        "fr": "Choisir un ordinateur, un boîtier ou un écran compatible avec Bobine.",
-        "en": "Choose a computer, box or display that works with Bobine."
-      },
-      "priority": 0.9,
-      "changeFrequency": "weekly",
-      "parent": "home",
-      "icon": "icon:cpu",
-      "hidden": true,
-      "redirectTo": "hardware-aliexpress"
-    },
-    {
-      "id": "hardware-aliexpress",
-      "path": "/materiel/aliexpress",
-      "kind": "leaf",
-      "label": {
-        "fr": "Matériel AliExpress",
-        "en": "AliExpress hardware"
-      },
-      "description": {
-        "fr": "Matériel compatible proposé sur AliExpress.",
-        "en": "Compatible hardware offered on AliExpress."
-      },
-      "priority": 0.7,
-      "changeFrequency": "weekly",
-      "parent": "home",
-      "icon": "icon:external",
-      "nav": true,
-      "footer": "hardware"
-    },
-    {
-      "id": "hardware-amazon",
-      "path": "/materiel/amazon",
-      "kind": "leaf",
-      "label": {
-        "fr": "Sélection Amazon",
-        "en": "Amazon selection"
-      },
-      "description": {
-        "fr": "Matériel compatible proposé sur Amazon.",
-        "en": "Compatible hardware offered on Amazon."
-      },
-      "priority": 0.9,
-      "changeFrequency": "weekly",
-      "parent": "home",
-      "icon": "icon:external",
-      "hidden": true
-    },
-    {
       "id": "resources",
       "path": "/ressources",
       "kind": "hub",

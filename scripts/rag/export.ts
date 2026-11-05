@@ -61,21 +61,6 @@ export function exportWeb(root: string, bobineRoot: string): SourceDocument[] {
       text: `# ${row.issue}\n\nCause : ${row.cause}\n\nSolution : ${row.solution}`,
     }));
   }
-  const products = JSON.parse(readFileSync(join(root, "src/content/products.json"), "utf8"));
-  for (const [id, p] of Object.entries(products) as [string, Record<string, unknown>][]) {
-    // La fiche conserve les données canoniques, sans déduire une caractéristique absente.
-    output.push({ key: `catalog/amazon/${id}`, title: `Amazon — ${(p.name as { fr: string }).fr}`,
-      locale: "multi", platform: "amazon", source_url: String(p.listing || `https://www.amazon.fr/dp/${id}`),
-      text: JSON.stringify(p, null, 2) });
-  }
-  const ali = JSON.parse(readFileSync(join(root, "src/content/aliexpress-snapshot.json"), "utf8"));
-  for (const [id, raw] of Object.entries(ali) as [string, Record<string, unknown>][]) {
-    const { price: _price, link: _link, ...p } = raw;
-    void _price; void _link;
-    output.push({ key: `catalog/aliexpress/${id}`, title: `AliExpress — ${p.title || id}`, locale: "multi",
-      platform: "aliexpress", source_url: `https://fr.aliexpress.com/item/${id}.html`,
-      text: `Prix à consulter dans le catalogue courant ou sur l'annonce ; les informations du snapshot sont datées et ne prouvent pas la disponibilité.\n${JSON.stringify(p, null, 2)}` });
-  }
   const revision = execFileSync("git", ["-C", bobineRoot, "rev-parse", "HEAD"], { encoding: "utf8" }).trim();
   for (const file of ["docs/ARCHITECTURE.md", "docs/ARCHITECTURE.en.md", "assistant/README.md", "media/README.md", "media/PROTOCOL.md"]) {
     const path = join(bobineRoot, file);
@@ -85,7 +70,7 @@ export function exportWeb(root: string, bobineRoot: string): SourceDocument[] {
       source_url: `https://github.com/FantasmaGlad/Bobine/blob/${revision}/${file}`,
       text: readFileSync(path, "utf8") }));
   }
-  for (const file of ["src/content/README-hardware.md", "src/content/compare.ts"]) output.push(...chunked({
+  for (const file of ["src/content/compare.ts"]) output.push(...chunked({
     key: `specs/web/${file}`, title: `BobineWeb — ${file}`, locale: "multi", platform: "spec",
     source_url: `https://github.com/FantasmaGlad/BobineWeb/blob/main/${file}`, text: readFileSync(join(root, file), "utf8"),
   }));

@@ -8,7 +8,7 @@ const eslintConfig = defineConfig([
   {
     // Regles « React Compiler » du plugin react-hooks : elles signalent des rendus supplementaires
     // (setState dans un effet, lecture de ref au rendu), sans bug ni impact visible. Reglees en
-    // avertissements pour garder la CI verte sans refactoriser le chat Baamix, l'animation et le panier.
+    // avertissements pour garder la CI verte sans refactoriser le chat Baamix et l'animation.
     rules: {
       "react-hooks/set-state-in-effect": "warn",
       "react-hooks/refs": "warn",

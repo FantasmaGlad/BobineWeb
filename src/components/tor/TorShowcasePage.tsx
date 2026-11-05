@@ -149,8 +149,8 @@ export default function TorShowcasePage({ locale }: { locale: Locale }) {
             <Icon name="shield" size={15} />
             <span>
               {isEn
-                ? "The hardware guide and the Baamix assistant are excluded from the mirror because they rely on external affiliate links."
-                : "La boutique matériel et l'assistant Baamix sont exclus du miroir car ils reposent sur des liens tiers d'affiliation."}
+                ? "The Baamix assistant is excluded from the Tor mirror to prevent external API calls and preserve complete anonymity."
+                : "L'assistant Baamix est exclu du miroir Tor afin d'éviter tout appel API externe et de préserver un anonymat complet."}
             </span>
           </li>
           <li>

@@ -1,12 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import type { Locale } from "@/lib/i18n";
-import { parseCatalogBlocks } from "@/lib/chatBlocks";
-import ChatProductCard from "@/components/ChatProductCard";
-import ChatCompareCard from "@/components/ChatCompareCard";
-
 const MarkdownRenderer = dynamic(() => import("./MarkdownRenderer"), {
   loading: () => <span className="markdown-loading" />,
 });
@@ -34,7 +29,6 @@ export default function AssistantMessageBody({
   raw,
   streaming,
   animate,
-  locale,
   onGrow,
   onDone,
   active = true,
@@ -42,15 +36,13 @@ export default function AssistantMessageBody({
   raw: string;
   streaming: boolean;
   animate: boolean;
-  locale: Locale;
   onGrow?: () => void;
   /** Appelé une fois la frappe terminée (ex. pour afficher Baamix qui court en bas du chat). */
   onDone?: () => void;
   /** Faux tant que le chat est masqué (monté à l'avance) : la frappe attend l'ouverture. */
   active?: boolean;
 }) {
-  const parsed = useMemo(() => parseCatalogBlocks(raw), [raw]);
-  const target = parsed.displayText;
+  const target = raw;
 
   const [reduced, setReduced] = useState(false);
   useEffect(() => {
@@ -108,18 +100,5 @@ export default function AssistantMessageBody({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visibleCount, typingDone]);
 
-  return (
-    <>
-      <MarkdownRenderer content={visible} />
-      {typingDone &&
-        parsed.compares.map((ids) => <ChatCompareCard key={ids.join(",")} ids={ids} locale={locale} />)}
-      {typingDone && parsed.productIds.length > 0 && (
-        <div className="chatbot-product-cards">
-          {parsed.productIds.map((id) => (
-            <ChatProductCard key={id} id={id} locale={locale} />
-          ))}
-        </div>
-      )}
-    </>
-  );
+  return <MarkdownRenderer content={visible} />;
 }

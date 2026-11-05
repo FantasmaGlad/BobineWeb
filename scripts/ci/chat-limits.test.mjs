@@ -45,6 +45,5 @@ test("les bornes de la conversation sont appliquées", () => {
   assert.equal(validateChatPayload({ messages: [{ role: "system", content: "x" }] }), "format");
   assert.equal(validateChatPayload({ messages: [{ role: "user", content: "x".repeat(CHAT_BOUNDS.maxMessageChars + 1) }] }), "message-trop-long");
   assert.equal(validateChatPayload({ messages: Array.from({ length: CHAT_BOUNDS.maxMessages + 1 }, () => ok[0]) }), "trop-de-messages");
-  assert.equal(validateChatPayload({ messages: ok, cart: Array.from({ length: CHAT_BOUNDS.maxCartItems + 1 }, () => ({})) }), "panier");
   assert.equal(validateChatPayload({ messages: [{ role: "assistant", content: "salut" }] }), "format");
 });

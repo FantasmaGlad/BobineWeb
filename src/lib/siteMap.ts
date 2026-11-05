@@ -11,7 +11,7 @@ import type { Locale } from "@/lib/i18n";
 import { lp } from "@/lib/seo";
 
 export type RouteId = (typeof data.routes)[number]["id"];
-export type FooterGroup = "product" | "download" | "docs" | "compare" | "hardware" | "resources" | "project" | "legal";
+export type FooterGroup = "product" | "download" | "docs" | "compare" | "resources" | "project" | "legal";
 
 export interface Localized {
   fr: string;
@@ -82,7 +82,6 @@ export const FOOTER_GROUPS: Array<{ id: FooterGroup; label: Localized }> = [
   { id: "download", label: { fr: "Télécharger", en: "Download" } },
   { id: "docs", label: { fr: "Documentation", en: "Documentation" } },
   { id: "compare", label: { fr: "Comparatifs", en: "Comparisons" } },
-  { id: "hardware", label: { fr: "Matériel", en: "Hardware" } },
   { id: "resources", label: { fr: "Ressources", en: "Resources" } },
   { id: "project", label: { fr: "Projet", en: "Project" } },
   { id: "legal", label: { fr: "Légal", en: "Legal" } },

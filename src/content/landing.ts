@@ -920,7 +920,7 @@ tor: {
           bullets: [
             `Site : http://${ONION_SITE_HOST}/`,
             `Dépôts Linux (APT, DNF, Pacman) : tor+http://${ONION_APT_HOST}/`,
-            "La boutique matériel et l'assistant Baamix ne sont pas proposés sur le miroir : ils reposent sur des liens d'affiliation et des services tiers.",
+            "L'assistant Baamix n'est pas proposé sur le miroir afin de garantir un fonctionnement entièrement autonome et sans appel réseau externe.",
             "Le miroir est hébergé par le mainteneur, sans journal de visite, avec une disponibilité au mieux.",
           ],
         },
@@ -962,7 +962,7 @@ tor: {
         },
         {
           q: "Le miroir Tor est-il complet ?",
-          a: "Il reprend le site statique (documentation, comparatifs, blog) ; la boutique matériel et l'assistant Baamix en sont exclus.",
+          a: "Il reprend le site statique (documentation, comparatifs, blog) ; l'assistant Baamix en est exclu afin d'éviter tout appel API externe.",
         },
       ],
       related: [
@@ -995,7 +995,7 @@ tor: {
           bullets: [
             `Site: http://${ONION_SITE_HOST}/`,
             `Linux repositories (APT, DNF, Pacman): tor+http://${ONION_APT_HOST}/`,
-            "The hardware store and the Baamix assistant are not offered on the mirror: they rely on affiliate links and third-party services.",
+            "The Baamix assistant is not offered on the mirror to preserve complete network autonomy and privacy.",
             "The mirror is hosted by the maintainer, keeps no visit log, and runs on a best-effort basis.",
           ],
         },

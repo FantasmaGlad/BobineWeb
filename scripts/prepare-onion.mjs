@@ -17,7 +17,7 @@ if (process.env.CI !== "true" && !force) {
 }
 
 const targets = [
-  "src/app/api", // chat Baamix, catalogue, statistiques GitHub, callback AliExpress
+  "src/app/api", // chat Baamix, statistiques GitHub
   "src/proxy.ts", // redirections de langue : refaites dans Caddy
 ];
 

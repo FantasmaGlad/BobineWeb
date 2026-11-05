@@ -7,6 +7,7 @@ import ShareButton from "@/components/ShareButton";
 import DownloadPdfButton from "@/components/DownloadPdfButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import DocsInstallHub from "@/components/DocsInstallHub";
+import HeadlessInstallSection from "@/components/HeadlessInstallSection";
 import Link from "next/link";
 import "@/styles/split/pages-docs.css";
 
@@ -137,6 +138,9 @@ export default async function DocumentationPage({
 
       {/* Hub d'Installation Multi-Méthodes avec logos officiels */}
       <DocsInstallHub locale={locale as Locale} />
+
+      {/* Démonstrations d'installation headless et appliance (Power users) */}
+      <HeadlessInstallSection locale={locale as Locale} />
     </>
   );
 }

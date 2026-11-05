@@ -359,8 +359,7 @@ function BrandFooter({ locale }: { locale: Locale }) {
   );
 }
 
-// Illustrations du PDF : photos d'appareils réels (fiches produit vérifiées du hub matériel
-// bobine.fit/materiel), visuel Google Book, mascotte et logos des trois canaux de mise à jour.
+// Illustrations du PDF : photos d'appareils réels, visuel Google Book, mascotte et logos des trois canaux de mise à jour.
 // react-pdf ne lit que le PNG et le JPEG : pas de WebP ici.
 const DEVICE_IMAGES: Record<DeviceImageKey, { srcs: string[]; captionFr: string; captionEn: string }> = {
   windows: {

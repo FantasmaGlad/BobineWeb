@@ -106,10 +106,14 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   if (!isLocale(locale)) return {};
   const release = await getBobineRelease(decodeURIComponent(slug));
+  if (!release) return {};
   const isEn = locale === "en";
-  const title = release?.title ?? slug;
-  const description = release?.body
-    ? release.body.slice(0, 155).replace(/[#*`_]/g, "").trim() + "..."
+  const title = release.title ?? slug;
+  const cleanBody = release.body
+    ? release.body.replace(/<[^>]+>/g, " ").replace(/[#*`_\[\]()]/g, "").replace(/\s+/g, " ").trim()
+    : "";
+  const description = cleanBody
+    ? cleanBody.slice(0, 155).trim() + "..."
     : (isEn ? "Release notes and updates for Bobine." : "Notes de version et nouveautés de Bobine.");
 
   return buildMetadata({
@@ -130,22 +134,14 @@ export default async function BlogPostPage({
   const { locale, slug } = await params;
   if (!isLocale(locale)) notFound();
 
-  const release = (await getBobineRelease(decodeURIComponent(slug))) ?? {
-    slug,
-    title: `Bobine ${slug}`,
-    publishedAt: "",
-    url: `https://github.com/FantasmaGlad/Bobine/releases/tag/${slug}`,
-    body: locale === "fr"
-      ? `Cette version est archivée. Vous pouvez consulter les notes de publication et télécharger les paquets historiques directement sur GitHub : [Voir la release ${slug} sur GitHub](https://github.com/FantasmaGlad/Bobine/releases/tag/${slug}).`
-      : `This version is archived. You can read the release notes and download historical packages directly on GitHub: [View release ${slug} on GitHub](https://github.com/FantasmaGlad/Bobine/releases/tag/${slug}).`,
-    isPrerelease: false,
-  };
+  const release = await getBobineRelease(decodeURIComponent(slug));
+  if (!release) notFound();
 
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: release.title,
-    description: release.body.slice(0, 160).replace(/[#*`_]/g, "").trim(),
+    description: release.body.replace(/<[^>]+>/g, " ").replace(/[#*`_\[\]()]/g, "").replace(/\s+/g, " ").slice(0, 160).trim(),
     datePublished: release.publishedAt,
     dateModified: release.publishedAt,
     mainEntityOfPage: `https://bobine.fit/${locale}/blog/${slug}`,

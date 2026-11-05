@@ -25,7 +25,7 @@ export async function GET() {
     <title>${escapeXml(r.title)}</title>
     <link rel="alternate" type="text/html" href="${escapeXml(`${BASE_URL}/fr/blog/${r.slug}`)}"/>
     <updated>${escapeXml(r.publishedAt)}</updated>
-    <summary>${escapeXml(r.body.replace(/\s+/g, " ").slice(0, 400))}</summary>
+    <summary>${escapeXml(r.body.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 400))}</summary>
   </entry>`
     )
     .join("\n");

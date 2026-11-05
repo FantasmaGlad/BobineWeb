@@ -12,47 +12,47 @@ const copy = {
   fr: {
     title: "Baamix, l'assistant IA de Bobine — Chat plein écran",
     description:
-      "Discutez en plein écran avec Baamix, l'assistant IA gratuit de Bobine : installation, fonctionnalités, choix du matériel (Amazon et AliExpress), comparaison de produits et conseils pour équiper votre salle de sport. Sans compte.",
+      "Discutez en plein écran avec Baamix, l'assistant IA gratuit de Bobine : installation, fonctionnalités, choix d'architecture matérielle (mini PC, ARM, Mac mini), configuration et conseils pour équiper votre salle de sport. Sans compte.",
     keywords: [
       "Baamix",
       "Assistant IA Bobine",
       "Chatbot Bobine",
       "Chatbot salle de sport",
       "Conseiller matériel régie vidéo fitness",
-      "Comparateur mini PC salle de sport",
+      "Mini PC salle de sport",
       "Assistant IA fitness gratuit",
       "Bobine Clément Barillot",
     ],
     aboutHeading: "À propos de Baamix",
     intro:
-      "Baamix est la mascotte et l'assistant IA de Bobine, le logiciel libre de régie vidéo pour salles de sport. Il répond en français et en anglais, sans compte et gratuitement, avec la documentation officielle et le catalogue matériel du site, et propose aussi bien des produits Amazon que des produits AliExpress.",
+      "Baamix est la mascotte et l'assistant IA de Bobine, le logiciel libre de régie vidéo pour salles de sport. Il répond en français et en anglais, sans compte et gratuitement, en s'appuyant sur la documentation officielle et les spécifications techniques de Bobine.",
     canTitle: "Ce que Baamix peut faire",
     can: [
-      "Répondre sur Bobine : installation (Debian, Windows, macOS, Android), planning des cours, télécommande coach, sauvegarde en un clic, mises à jour.",
-      "Aider à choisir le matériel : mini PC, PC portables et tablettes du catalogue vérifié Amazon et AliExpress, avec les fiches produit directement dans la conversation.",
-      "Comparer des produits côte à côte (prix, caractéristiques, refroidissement, vendeur) et donner un verdict adapté à votre besoin.",
-      "Conseiller sur votre panier « Mon Pack » et sur ce que vous regardez dans la boutique, pour signaler un oubli ou une meilleure option.",
+      "Répondre sur Bobine : installation (Debian, Ubuntu, Windows, macOS, Android TV), planning des cours, télécommande coach, sauvegarde en un clic, mises à jour.",
+      "Aider à choisir votre architecture matérielle : mini PC x86_64 reconditionné, PC Snapdragon ARM64, Mac mini Apple Silicon ou cartes monocartes (Raspberry Pi 5, Orange Pi 5).",
+      "Expliquer les prérequis de diffusion vidéo, de décodage matériel et d'affichage multi-écrans pour votre studio.",
+      "Guider dans la configuration réseau locale, l'accès hors ligne 24/7 et la sécurisation de votre régie.",
     ],
     examplesTitle: "Exemples de questions",
     examples: [
-      "Quel matériel acheter pour équiper une salle de cycling avec un seul écran 4K ?",
-      "Compare le mini PC sans ventilateur et le Ryzen 5 pour une salle silencieuse 24 h sur 24.",
-      "Amazon ou AliExpress : que choisir pour un mini PC ?",
-      "Comment installer Bobine sur Debian et sauvegarder ma configuration ?",
+      "Quel matériel choisir pour équiper une salle de cycling avec un écran 4K autonome ?",
+      "Comment installer Bobine sur un mini PC Debian et configurer le démarrage automatique 24/7 ?",
+      "Quelle est la différence entre un PC Snapdragon ARM et un mini PC x86_64 pour Bobine ?",
+      "Comment sauvegarder ma configuration et programmer des cours vidéo hebdomadaires ?",
     ],
     faqTitle: "Questions fréquentes sur Baamix",
     faq: [
       {
         q: "Qu'est-ce que Baamix ?",
-        a: "Baamix est l'assistant IA et la mascotte de Bobine, un logiciel libre (AGPL-3.0) de régie vidéo pour salles de sport. Il aide à installer, utiliser et équiper Bobine.",
+        a: "Baamix est l'assistant IA et la mascotte de Bobine, un logiciel libre (AGPL-3.0) de régie vidéo pour salles de sport. Il aide à installer, utiliser et déployer Bobine.",
       },
       {
         q: "Baamix est-il gratuit, faut-il un compte ?",
         a: "Baamix est gratuit et fonctionne sans compte ni inscription.",
       },
       {
-        q: "Baamix peut-il me recommander du matériel ?",
-        a: "Oui, uniquement parmi les produits réellement référencés sur le site (Amazon et AliExpress). Le site ne vend rien : les achats se font sur ces plateformes, via des liens d'affiliation sans surcoût.",
+        q: "Baamix peut-il me conseiller sur le matériel ?",
+        a: "Oui, il analyse vos besoins d'affichage (résolution, nombre d'écrans, environnement sonore) et vous oriente vers les architectures adaptées (mini PC, ARM64, Mac mini, Android TV).",
       },
       {
         q: "Mes conversations sont-elles conservées ?",
@@ -60,7 +60,7 @@ const copy = {
       },
       {
         q: "Baamix peut-il se tromper ?",
-        a: "Oui, c'est une IA : ses réponses sont indicatives et doivent être vérifiées avec la documentation et la fiche du vendeur.",
+        a: "Oui, c'est une IA : ses réponses sont indicatives et doivent être vérifiées avec la documentation officielle.",
       },
     ],
     whoTitle: "Qui est derrière Baamix ?",
@@ -72,47 +72,47 @@ const copy = {
   en: {
     title: "Baamix, the Bobine AI Assistant — Full-screen Chat",
     description:
-      "Chat full screen with Baamix, the free Bobine AI assistant: installation, features, hardware picks (Amazon and AliExpress), product comparison and advice to equip your gym. No account needed.",
+      "Chat full screen with Baamix, the free Bobine AI assistant: installation, features, hardware architecture advice (mini PC, ARM, Mac mini), setup and tips to equip your gym. No account needed.",
     keywords: [
       "Baamix",
       "Bobine AI assistant",
       "Bobine chatbot",
       "Gym chatbot",
       "Gym video playout hardware advisor",
-      "Mini PC comparison gym",
+      "Mini PC gym",
       "Free fitness AI assistant",
       "Bobine Clément Barillot",
     ],
     aboutHeading: "About Baamix",
     intro:
-      "Baamix is the mascot and AI assistant of Bobine, the open-source video playout software for gyms. It answers in French and English, free and without an account, using the official documentation and the site's hardware catalog, and recommends products from both Amazon and AliExpress.",
+      "Baamix is the mascot and AI assistant of Bobine, the open-source video playout software for gyms. It answers in French and English, free and without an account, using the official documentation and technical specifications of Bobine.",
     canTitle: "What Baamix can do",
     can: [
-      "Answer questions about Bobine: installation (Debian, Windows, macOS, Android), class scheduling, coach remote, one-click backup, updates.",
-      "Help you choose hardware: mini PCs, laptops and tablets from the verified Amazon and AliExpress catalog, with product cards right in the conversation.",
-      "Compare products side by side (price, specs, cooling, seller) and give a verdict that fits your needs.",
-      "Advise on your \"My Pack\" cart and on what you are viewing in the store, to flag something missing or a better option.",
+      "Answer questions about Bobine: installation (Debian, Ubuntu, Windows, macOS, Android TV), class scheduling, coach remote, one-click backup, updates.",
+      "Help you choose hardware architecture: refurbished x86_64 mini PC, Snapdragon ARM64 PC, Apple Silicon Mac mini, or single-board computers (Raspberry Pi 5, Orange Pi 5).",
+      "Explain video playback requirements, hardware video decoding, and multi-display setups for your fitness studio.",
+      "Guide you through local network configuration, 24/7 offline operation, and kiosk security.",
     ],
     examplesTitle: "Example questions",
     examples: [
-      "What hardware should I buy to equip a cycling studio with a single 4K screen?",
-      "Compare the fanless mini PC and the Ryzen 5 for a quiet 24/7 room.",
-      "Amazon or AliExpress: which one should I choose for a mini PC?",
-      "How do I install Bobine on Debian and back up my configuration?",
+      "What hardware should I choose to equip a cycling studio with a standalone 4K display?",
+      "How do I install Bobine on a Debian mini PC and set up automatic 24/7 boot?",
+      "What is the difference between a Snapdragon ARM PC and an x86_64 mini PC for Bobine?",
+      "How do I back up my configuration and schedule weekly video fitness classes?",
     ],
     faqTitle: "Baamix FAQ",
     faq: [
       {
         q: "What is Baamix?",
-        a: "Baamix is the AI assistant and mascot of Bobine, an open-source (AGPL-3.0) video playout software for gyms. It helps you install, use and equip Bobine.",
+        a: "Baamix is the AI assistant and mascot of Bobine, an open-source (AGPL-3.0) video playout software for gyms. It helps you install, use and deploy Bobine.",
       },
       {
         q: "Is Baamix free, do I need an account?",
         a: "Baamix is free and works without an account or sign-up.",
       },
       {
-        q: "Can Baamix recommend hardware?",
-        a: "Yes, only among the products actually listed on the site (Amazon and AliExpress). The site sells nothing: purchases are made on those platforms through affiliate links at no extra cost.",
+        q: "Can Baamix advise on hardware?",
+        a: "Yes, it evaluates your display requirements (resolution, screen count, acoustics) and guides you toward suitable hardware architectures (mini PC, ARM64, Mac mini, Android TV).",
       },
       {
         q: "Are my conversations kept?",
@@ -120,7 +120,7 @@ const copy = {
       },
       {
         q: "Can Baamix be wrong?",
-        a: "Yes, it is an AI: its answers are indicative and should be checked against the documentation and the seller's page.",
+        a: "Yes, it is an AI: its answers are indicative and should be checked against the official documentation.",
       },
     ],
     whoTitle: "Who is behind Baamix?",

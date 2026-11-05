@@ -7,7 +7,7 @@ const PHRASES_FR = [
   "Baamix court dans sa roue...",
   "Baamix fouille dans ses graines de tournesol...",
   "Baamix remplit ses bajoues d'informations...",
-  "Baamix consulte le catalogue...",
+  "Baamix consulte les spécifications...",
   "Baamix affûte ses moustaches...",
   "Baamix pèse le pour et le contre...",
   "Baamix relit la documentation...",
@@ -22,7 +22,7 @@ const PHRASES_EN = [
   "Baamix is running in its wheel...",
   "Baamix is digging through its sunflower seeds...",
   "Baamix is stuffing its cheeks with facts...",
-  "Baamix is checking the catalog...",
+  "Baamix is checking the specs...",
   "Baamix is sharpening its whiskers...",
   "Baamix is weighing the pros and cons...",
   "Baamix is rereading the documentation...",
@@ -31,9 +31,6 @@ const PHRASES_EN = [
   "Baamix is nibbling a seed to focus...",
   "Baamix is double-checking the mini PC math...",
 ];
-
-const STORE_FR = ["Baamix examine les produits affichés...", "Baamix compare les fiches de la boutique..."];
-const STORE_EN = ["Baamix is examining the products on screen...", "Baamix is comparing the store cards..."];
 
 const SLOW_FR = "Baamix s'accroche à sa roue, encore un instant...";
 const SLOW_EN = "Baamix keeps pedaling, one more moment...";
@@ -65,10 +62,9 @@ export function HamsterWheel() {
 /**
  * Indicateur d'attente de Baamix, dans l'esprit d'un indicateur de réflexion : une phrase qui change
  * régulièrement (humour de hamster), un compteur de secondes et une phrase dédiée si la réponse tarde.
- * `hasStoreContext` ajoute des phrases sur les produits affichés dans la boutique.
  */
-export default function BaamixThinking({ isEn, hasStoreContext }: { isEn: boolean; hasStoreContext: boolean }) {
-  const pool = [...(isEn ? PHRASES_EN : PHRASES_FR), ...(hasStoreContext ? (isEn ? STORE_EN : STORE_FR) : [])];
+export default function BaamixThinking({ isEn }: { isEn: boolean }) {
+  const pool = isEn ? PHRASES_EN : PHRASES_FR;
   const [index, setIndex] = useState(() => Math.floor(Math.random() * pool.length));
   const [seconds, setSeconds] = useState(0);
   const lastRef = useRef(index);

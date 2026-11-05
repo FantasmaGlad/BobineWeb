@@ -5,10 +5,7 @@ cd "${1:-out}"
 
 test -f fr/index.html || { echo "::error::fr/index.html manquant"; exit 1; }
 
-# La boutique est remplacée par la page de renvoi ; Baamix par son chat (message sans appel réseau).
-for page in fr/materiel fr/materiel/amazon fr/materiel/aliexpress en/materiel; do
-  grep -q "onion-notice" "$page/index.html" || { echo "::error::Page de renvoi absente : $page"; exit 1; }
-done
+# Baamix s'ouvre sur son chat (message sans appel réseau).
 for page in fr/baamix en/baamix; do
   grep -q "chatbot-modal--page" "$page/index.html" || { echo "::error::Chat Baamix absent : $page"; exit 1; }
 done

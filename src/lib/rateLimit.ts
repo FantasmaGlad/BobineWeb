@@ -43,7 +43,6 @@ export interface ChatBounds {
   maxMessages: number;
   maxMessageChars: number;
   maxTotalChars: number;
-  maxCartItems: number;
 }
 
 export const CHAT_BOUNDS: ChatBounds = {
@@ -51,12 +50,11 @@ export const CHAT_BOUNDS: ChatBounds = {
   maxMessages: 40,
   maxMessageChars: 4000,
   maxTotalChars: 24000,
-  maxCartItems: 60,
 };
 
 /** Vérifie la forme et la taille de la conversation ; renvoie la raison du refus ou null. */
-export function validateChatPayload(payload: { messages?: unknown; cart?: unknown }, bounds: ChatBounds = CHAT_BOUNDS): string | null {
-  const { messages, cart } = payload;
+export function validateChatPayload(payload: { messages?: unknown }, bounds: ChatBounds = CHAT_BOUNDS): string | null {
+  const { messages } = payload;
   if (!Array.isArray(messages) || messages.length === 0) return "format";
   if (messages.length > bounds.maxMessages) return "trop-de-messages";
   let total = 0;
@@ -70,6 +68,5 @@ export function validateChatPayload(payload: { messages?: unknown; cart?: unknow
   }
   if (total > bounds.maxTotalChars) return "conversation-trop-longue";
   if (messages[messages.length - 1]?.role !== "user") return "format";
-  if (cart !== undefined && (!Array.isArray(cart) || cart.length > bounds.maxCartItems)) return "panier";
   return null;
 }

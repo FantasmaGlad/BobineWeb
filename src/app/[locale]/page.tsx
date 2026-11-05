@@ -4,8 +4,6 @@ import type { Locale } from "@/lib/i18n";
 import { isLocale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 import OsDownloadGrid from "@/components/OsDownloadGrid";
-import HeadlessInstallSection from "@/components/HeadlessInstallSection";
-import ScrollIndicator from "@/components/ScrollIndicator";
 
 const copy = {
   fr: {
@@ -146,16 +144,7 @@ export default async function HomePage({
             subtitle={t.subtitle}
           />
         </div>
-
-        <ScrollIndicator
-          locale={locale as Locale}
-          label={locale === "en" ? "Other installation methods" : "Autres méthodes d'installation"}
-          targetId="headless-installation"
-        />
       </section>
-
-      {/* 2. Installation Headless & Démonstrations Dédiées (Bash CLI & Bobine Assistant Tauri) */}
-      <HeadlessInstallSection locale={locale as Locale} />
     </div>
   );
 }

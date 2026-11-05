@@ -14,9 +14,9 @@ test("les filtres restreignent réellement le framework et la version", () => {
 });
 test("les Struct gRPC et les métadonnées canoniques classent les fiches sans heuristique de titre", () => {
   const result = normalizeResult({ document: { id: "x", structData: { fields: {
-    title: { stringValue: "Mini PC" }, platform: { stringValue: "amazon" }, source_url: { stringValue: "https://example.com" },
+    title: { stringValue: "Mini PC" }, platform: { stringValue: "spec" }, source_url: { stringValue: "https://example.com" },
   } }, derivedStructData: { fields: { snippets: { listValue: { values: [ { structValue: { fields: { snippet: { stringValue: "<b>Intel</b> &amp; AMD" } } } } ] } } } } } });
-  assert.equal(result?.platform, "amazon"); assert.equal(result?.snippet, "Intel & AMD");
+  assert.equal(result?.platform, "spec"); assert.equal(result?.snippet, "Intel & AMD");
   assert.equal(result?.url, "https://example.com");
   assert.equal(normalizeResult({document:{id:"empty"}}), null);
 });
@@ -27,7 +27,6 @@ test("l'architecture exportée reprend exactement les sources publiques et les p
   assert.equal(architecture.map(d => d.text).join(""), readFileSync(resolve(bobineRoot, "docs/ARCHITECTURE.md"), "utf8"));
   assert.ok(docs.every(d => d.text.length < 20000 || d.platform !== "doc"), "aucun document de documentation démesuré");
   assert.ok(docs.some(d => d.key.startsWith("docs/en/")));
-  assert.ok(docs.filter(d => d.platform === "aliexpress").every(d => !d.text.includes('"price"')));
   assert.ok(docs.some(d => d.key === "specs/web/src/content/compare.ts" || d.key.startsWith("specs/web/src/content/compare.ts#")));
   assert.ok(!docs.some(d => d.key.includes(".agents")));
 });

@@ -70,7 +70,7 @@ export function normalizeResult(result) {
   return {
     id: doc.id ?? "", title: String(meta.title || derived.title || doc.id || "Document"),
     snippet: text, url: String(meta.source_url || derived.link || doc.content?.uri || ""),
-    platform: ["amazon", "aliexpress", "doc", "spec"].includes(meta.platform) ? meta.platform : "doc",
+    platform: ["doc", "spec"].includes(meta.platform) ? meta.platform : "doc",
     framework: meta.framework, version: meta.version, locale: meta.locale, generation: meta.generation,
   };
 }

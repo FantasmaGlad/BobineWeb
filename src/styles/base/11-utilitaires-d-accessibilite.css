@@ -216,6 +216,8 @@
 .hero-fullscreen__subtitle {
   color: var(--text-main);
   font-weight: 550;
+  text-align: center;
+  margin-inline: auto;
 }
 
 .hero-fullscreen__scroll {
@@ -282,17 +284,13 @@
   .hero-fullscreen__subtitle {
     font-size: var(--fs-clamp-0-92rem-1-12vw-1-02rem);
     line-height: 1.48;
-    max-width: min(92vw, 58rem);
+    max-width: min(92vw, 43rem);
     margin-bottom: 0.95rem;
     color: var(--text-main);
     font-weight: 550;
     text-wrap: balance;
-  }
-
-  /* Le texte anglais est plus court que le français : sans cette largeur il tient sur 2 lignes
-     au lieu des 3 de la version française. */
-  html:lang(en) .hero-fullscreen__subtitle {
-    max-width: min(92vw, 40rem);
+    text-align: center;
+    margin-inline: auto;
   }
 
 }

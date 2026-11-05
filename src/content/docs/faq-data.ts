@@ -60,7 +60,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Quel matériel informatique faut-il acheter ?",
-      a: "Un mini PC x86-64 standard, du reconditionné d'entrée de gamme (dès ~160 €) au mini PC industriel 100% fanless pour un silence absolu (~600 €), avec 8 à 16 Go de RAM et un écran HDMI standard. Le hub matériel bobine.fit/materiel référence des configurations vérifiées avec prix constatés et liens d'achat à jour, par système d'exploitation. Un panier « Mon Pack » permet d'y construire sa propre configuration produit par produit (bouton flottant en bas de la page), et l'assistant Baamix voit ce panier en direct pour signaler un oubli probable ou recommander un accessoire compatible.",
+      a: "Un mini PC x86-64 ou ARM64 standard, du mini PC reconditionné d'entrée de gamme (Dell Wyse 5070, HP EliteDesk, Beelink N100) au mini PC industriel fanless, avec 8 à 16 Go de RAM et un écran HDMI standard. Bobine tourne également sur PC portable ARM Qualcomm Snapdragon, Mac mini Apple Silicon, tablette Android ou Google Book.",
     },
     {
       category: "hardware",
@@ -154,7 +154,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     },
     {
       q: "Puis-je installer et mettre à jour Bobine via Tor ?",
-      a: "Oui. Le dépôt APT et le site sont aussi disponibles en services onion (Tor), sans révéler votre adresse IP. Le plus simple est le script https://bobine.fit/install-tor.sh (à lire avant de l'exécuter), qui vérifie l'empreinte de la clé et accepte --channel=stable, --channel=beta ou --channel=canary : le dépôt onion publie les trois suites. À la main, installez apt-transport-tor puis utilisez la source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main (ou beta, canary) : les paquets restent signés par la même clé que https://packages.bobine.fit/bobine.gpg, vérifiée par apt (empreinte de la clé principale B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). Le site est aussi consultable dans Tor Browser : http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. La boutique matériel n'y est pas proposée, et l'assistant Baamix n'y répond pas.",
+      a: "Oui. Le dépôt APT et le site sont aussi disponibles en services onion (Tor), sans révéler votre adresse IP. Le plus simple est le script https://bobine.fit/install-tor.sh (à lire avant de l'exécuter), qui vérifie l'empreinte de la clé et accepte --channel=stable, --channel=beta ou --channel=canary : le dépôt onion publie les trois suites. À la main, installez apt-transport-tor puis utilisez la source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main (ou beta, canary) : les paquets restent signés par la même clé que https://packages.bobine.fit/bobine.gpg, vérifiée par apt (empreinte de la clé principale B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). Le site est aussi consultable dans Tor Browser : http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. L'assistant Baamix n'y est pas proposé afin d'éviter tout appel API externe.",
       category: "updates",
     },
     {
@@ -192,7 +192,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "What hardware do I need to equip my gym?",
-      a: "A standard x86-64 mini PC, anywhere from an entry-level refurbished unit (from ~€160) to a 100% fanless industrial mini PC for absolute silence (~€600), with 8-16GB RAM and a standard HDMI display. The hardware hub at bobine.fit/materiel lists verified configurations with checked prices and up-to-date purchase links, organized by operating system. A \"My Pack\" cart lets you build your own configuration product by product (floating button at the bottom of the page), and the Baamix assistant sees this cart live to flag a likely gap or recommend a compatible accessory.",
+      a: "A standard x86-64 or ARM64 mini PC, from an entry-level refurbished unit (Dell Wyse 5070, HP EliteDesk, Beelink N100) to a fanless industrial mini PC, with 8-16GB RAM and a standard HDMI display. Bobine also runs on Snapdragon ARM laptops, Apple Silicon Mac minis, Android tablets, or Google Books.",
     },
     {
       category: "hardware",
@@ -281,7 +281,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     },
     {
       q: "Can I install and update Bobine over Tor?",
-      a: "Yes. The APT repository and the website are also available as onion services (Tor), without revealing your IP address. The simplest way is the https://bobine.fit/install-tor.sh script (read it before running it), which checks the key fingerprint and accepts --channel=stable, --channel=beta or --channel=canary: the onion repository publishes all three suites. By hand, install apt-transport-tor, then use the source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main (or beta, canary): packages remain signed by the same key, checked by apt (primary key fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). The site can also be browsed in Tor Browser: http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. The hardware store is not offered there, and the Baamix assistant does not answer.",
+      a: "Yes. The APT repository and the website are also available as onion services (Tor), without revealing your IP address. The simplest way is the https://bobine.fit/install-tor.sh script (read it before running it), which checks the key fingerprint and accepts --channel=stable, --channel=beta or --channel=canary: the onion repository publishes all three suites. By hand, install apt-transport-tor, then use the source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main (or beta, canary): packages remain signed by the same key, checked by apt (primary key fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). The site can also be browsed in Tor Browser: http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. The Baamix assistant is not offered there to preserve complete network autonomy and privacy.",
       category: "updates",
     },
     {

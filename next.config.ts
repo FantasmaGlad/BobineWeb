@@ -55,9 +55,12 @@ const nextConfig: NextConfig = {
   // Ignorés par un export statique : les redirections et en-têtes du miroir vivent dans Caddy.
   ...(isOnion ? {} : { async redirects() {
     return [
-      { source: "/fr/materiel", destination: "/fr/materiel/aliexpress", permanent: true },
-      { source: "/en/hardware", destination: "/en/hardware/aliexpress", permanent: true },
-      { source: "/en/materiel", destination: "/en/hardware/aliexpress", permanent: true },
+      { source: "/fr/materiel", destination: "/fr/documentation", permanent: true },
+      { source: "/fr/materiel/:path*", destination: "/fr/documentation", permanent: true },
+      { source: "/en/hardware", destination: "/en/documentation", permanent: true },
+      { source: "/en/hardware/:path*", destination: "/en/documentation", permanent: true },
+      { source: "/en/materiel", destination: "/en/documentation", permanent: true },
+      { source: "/en/materiel/:path*", destination: "/en/documentation", permanent: true },
       // Redirections des anciennes pages documentaires fusionnées
       {
         source: "/:locale(fr|en)/documentation/demarrage-rapide",

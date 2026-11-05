@@ -5,7 +5,6 @@
     "comparisons": "Comparisons",
     "documentation": "Documentation",
     "blog": "Blog",
-    "hardware": "Hardware",
     "demo": "Demonstration",
     "support": "Support",
     "about": "About"
@@ -16,10 +15,6 @@
     "github": "Source code on GitHub",
     "tagline": "Bobine is free software, licensed under AGPL-3.0."
   },
-  "localeSwitcher": {
-    "fr": "Français",
-    "en": "English"
-  },
   "search": {
     "placeholder": "Search documentation & FAQ...",
     "resultsFound": "results found",
@@ -29,7 +24,7 @@
     "title": "Baamix",
     "subtitle": "Bobine Mascot",
     "buttonLabel": "Baamix",
-    "inputPlaceholder": "Ask a question (hardware, quote, setup)..."
+    "inputPlaceholder": "Ask a question (installation, features, setup)..."
   }
 }
 

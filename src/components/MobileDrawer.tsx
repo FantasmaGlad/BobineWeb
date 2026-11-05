@@ -6,7 +6,6 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
-import LocaleSwitcher from "@/components/LocaleSwitcher";
 import GitHubBadge from "@/components/GitHubBadge";
 import { lp } from "@/lib/seo";
 import { navRoutes, routeHref } from "@/lib/siteMap";
@@ -156,12 +155,6 @@ export default function MobileDrawer({
                   {isEn ? "Theme" : "Thème"}
                 </span>
                 <ThemeSwitcher />
-              </div>
-              <div className="mobile-drawer-setting-box">
-                <span className="mobile-drawer-setting-title">
-                  {isEn ? "Language" : "Langue"}
-                </span>
-                <LocaleSwitcher locale={locale} dict={dict} />
               </div>
             </div>
           </div>

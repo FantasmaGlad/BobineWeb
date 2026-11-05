@@ -68,7 +68,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             "en": enUrl,
             "fr-FR": frUrl,
             "en-US": enUrl,
-            "x-default": frUrl,
+            "x-default": enUrl,
           },
         },
       };

@@ -6,4 +6,4 @@
 
 `channels/` contient les icônes Stable, Bêta et Canary du logiciel, issues de `Assets/Images/channel-icons/` dans [Bobine](https://github.com/FantasmaGlad/Bobine/tree/main/Assets/Images/channel-icons). Le même script en produit les PNG et WebP de 256 px utilisés dans le site et le PDF.
 
-`node scripts/ci/check-images.mjs` vérifie les alternatives, les fichiers générés, les icônes actuelles et le plafond de 250 Ko par image hors catalogue matériel. Les crédits publiés sont accessibles sur `/fr/credits` et `/en/credits` ; les marques ont leurs notices dans `NOTICE.md`.
+`node scripts/ci/check-images.mjs` vérifie les alternatives, les fichiers générés, les icônes actuelles et le plafond de 250 Ko par image. Les crédits publiés sont accessibles sur `/fr/credits` et `/en/credits` ; les marques ont leurs notices dans `NOTICE.md`.

@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import type { Dictionary, Locale } from "@/lib/i18n";
-import LocaleSwitcher from "@/components/LocaleSwitcher";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import GitHubBadge from "@/components/GitHubBadge";
 import MobileDrawer from "@/components/MobileDrawer";
@@ -84,7 +83,6 @@ export default function Header({
             </button>
             <GitHubBadge />
             <ThemeSwitcher />
-            <LocaleSwitcher locale={locale} dict={dict} />
           </div>
 
 

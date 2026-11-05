@@ -149,14 +149,6 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
     alternateName: ["Bobine", "bobine.fit", "Bobine Playout", "Bobine Fitness"],
     url: CLEARNET_URL,
     inLanguage: ["fr-FR", "en-US"],
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: "https://bobine.fit/fr/documentation?q={search_term_string}",
-      },
-      "query-input": "required name=search_term_string",
-    },
   };
 
   return (

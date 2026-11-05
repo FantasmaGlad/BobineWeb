@@ -10,7 +10,7 @@ try {
   await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
   const failures = [];
   let measured = 0;
-  const paths = process.env.MOBILE_CHECK_PATHS?.split(",") ?? ["/fr", "/en", "/fr/linux", "/en/linux", "/fr/documentation", "/en/documentation", "/fr/materiel/aliexpress", "/en/hardware/aliexpress", "/fr/materiel/amazon", "/en/hardware/amazon", "/fr/telechargement", "/en/download", "/fr/ressources", "/en/resources"];
+  const paths = process.env.MOBILE_CHECK_PATHS?.split(",") ?? ["/fr", "/en", "/fr/linux", "/en/linux", "/fr/documentation", "/en/documentation", "/fr/telechargement", "/en/download", "/fr/ressources", "/en/resources"];
   if (!process.env.MOBILE_CHECK_PATHS) paths.push(
     "/fr/fonctionnalites", "/en/features", "/fr/blog", "/en/blog",
     "/fr/comparatif", "/en/compare",

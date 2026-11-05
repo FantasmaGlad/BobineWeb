@@ -1,7 +1,7 @@
 import { PACKAGE_REPOS_LIVE } from "@/lib/linuxPackages";
 
 /**
- * Faits produit réutilisés dans plusieurs pages (landing, documentation, FAQ, boutique, JSON-LD) : un seul
+ * Faits produit réutilisés dans plusieurs pages (landing, documentation, FAQ, JSON-LD) : un seul
  * endroit à changer quand la version minimale d'Android évolue. Les numéros de version de Bobine, eux, ne
  * figurent jamais ici : ils viennent de GitHub à l'affichage (`releaseChannels.ts`).
  */

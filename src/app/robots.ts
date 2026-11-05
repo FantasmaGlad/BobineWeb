@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 // Robots d'indexation classiques et d'IA générative autorisés explicitement (SEO + GEO). Les points
-// d'API du site (chat de Baamix, catalogue) ne sont pas du contenu : ils restent fermés aux robots.
+// d'API du site (chat de Baamix) ne sont pas du contenu : ils restent fermés aux robots.
 const CRAWLERS = [
   "Googlebot",
   "Googlebot-Image",

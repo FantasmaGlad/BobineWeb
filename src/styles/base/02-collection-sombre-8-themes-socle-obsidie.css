@@ -411,37 +411,7 @@ img {
   background: var(--accent-subtle);
 }
 
-/* Locale Switcher */
 
-.locale-switcher {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-  font-size: var(--fs-0-8rem);
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-0-45rem);
-  padding: 0.15rem 0.3rem;
-}
-
-.locale-switcher__link {
-  text-decoration: none;
-  padding: 0.15rem 0.4rem;
-  border-radius: var(--radius-0-3rem);
-  color: var(--text-muted);
-  font-weight: 500;
-  transition: all 0.15s ease;
-}
-
-.locale-switcher__link:hover {
-  color: var(--text-heading);
-}
-
-.locale-switcher__link.is-active {
-  color: var(--accent-primary);
-  background: var(--accent-subtle);
-  font-weight: 600;
-}
 
 /* Theme Switcher Popover / Menu */
 

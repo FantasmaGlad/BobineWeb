@@ -6,13 +6,8 @@
     "^\\.code-",
     "^\\.github",
     "^\\.tauri-terminal",
-    "^\\.platform-btn--amazon",
-    "^\\.platform-btn--aliexpress",
-    "^\\.cart-platform",
     "^\\.interactive-terminal-(?:window|header|body|user-host|cmd-text)",
-    "^\\.tauri-log-",
-    "^\\.hw-cart-group--(?:amazon|aliexpress)",
-    "^\\.hw-seller-badge"
+    "^\\.tauri-log-"
   ],
   "typescriptColorFiles": [
     "src/lib/themes.ts",
@@ -27,11 +22,10 @@
     "src/components/icons/TauriIcon.tsx",
     "src/components/icons/WindowsIcon.tsx",
     "src/components/TerminalDemo.tsx",
-    "src/components/hardware/PlatformSelectorSidebar.tsx",
     "src/app/manifest.ts"
   ],
   "reasons": {
-    "cssColorSelectors": "Palettes de terminal, marque GitHub et marketplaces : couleurs éditoriales indépendantes du thème.",
+    "cssColorSelectors": "Palettes de terminal et marque GitHub : couleurs éditoriales indépendantes du thème.",
     "typescriptColorFiles": "Palettes des thèmes, impression PDF, image sociale et couleurs officielles des marques. Les dimensions restent contrôlées hors impression.",
     "print": "L’impression impose une palette opaque indépendante du thème à l’écran."
   }

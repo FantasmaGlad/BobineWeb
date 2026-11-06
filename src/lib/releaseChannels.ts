@@ -1,9 +1,10 @@
-import type { ReleaseChannelInfo, ReleaseFile } from "@/lib/releaseTypes";
+import type { AssistantPackages, ReleaseChannelInfo, ReleaseFile } from "@/lib/releaseTypes";
 import { assignPackageAsset, withoutNewPackages } from "@/lib/linuxPackages";
 import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFallbacks";
 import {
   fetchRepoCounts,
   fetchRepoReleases,
+  pickAssistantReleases,
   pickChannelReleases,
   type GitHubReleaseJson,
 } from "@/lib/githubApi";
@@ -31,6 +32,30 @@ export interface RepoStatsResponse {
   stable: ReleaseChannelInfo;
   beta: ReleaseChannelInfo;
   canary: ReleaseChannelInfo;
+  /** Assistant d'installation : absent tant que sa release du canal n'est pas publiée. */
+  assistant: { stable?: AssistantPackages; beta?: AssistantPackages; canary?: AssistantPackages };
+}
+
+/** Paquets de l'assistant d'une release `assistant-*`, classés par nom (cf. assistant/scripts/bundle.py de Bobine). */
+export function parseAssistantRelease(release: GitHubReleaseJson | undefined): AssistantPackages | undefined {
+  if (!release || !Array.isArray(release.assets)) return undefined;
+  const packages: AssistantPackages = {
+    version: release.tag_name.replace(/^assistant-V?/, ""),
+    htmlUrl: release.html_url,
+  };
+  for (const asset of release.assets) {
+    const name = String(asset?.name || "");
+    const url = typeof asset?.browser_download_url === "string" ? asset.browser_download_url : "";
+    if (!url) continue;
+    if (/^Bobine-Assistant-Setup-.+-arm64\.exe$/.test(name)) packages.windowsArm64 = url;
+    else if (/^Bobine-Assistant-Setup-.+\.exe$/.test(name)) packages.windows = url;
+    else if (/^Bobine-Assistant-.+\.dmg$/.test(name)) packages.macos = url;
+    else if (/^bobine-assistant_.+_arm64\.deb$/.test(name)) packages.debArm64 = url;
+    else if (/^bobine-assistant_.+_amd64\.deb$/.test(name)) packages.deb = url;
+    else if (/^bobine-assistant-.+\.aarch64\.rpm$/.test(name)) packages.rpmArm64 = url;
+    else if (/^bobine-assistant-.+\.x86_64\.rpm$/.test(name)) packages.rpm = url;
+  }
+  return packages;
 }
 
 function parseReleaseAssets(
@@ -122,6 +147,7 @@ function channelInfoFromRelease(
 export async function getRepoStats(): Promise<RepoStatsResponse> {
   const [releases, counts] = await Promise.all([fetchRepoReleases(), fetchRepoCounts()]);
   const channels = releases ? pickChannelReleases(releases) : {};
+  const assistant = releases ? pickAssistantReleases(releases) : {};
 
   const stableInfo = channelInfoFromRelease(channels.stable, FALLBACK_STABLE);
   const betaInfo = channelInfoFromRelease(channels.beta, FALLBACK_BETA);
@@ -135,5 +161,10 @@ export async function getRepoStats(): Promise<RepoStatsResponse> {
     stable: stableInfo,
     beta: betaInfo,
     canary: canaryInfo,
+    assistant: {
+      stable: parseAssistantRelease(assistant.stable),
+      beta: parseAssistantRelease(assistant.beta),
+      canary: parseAssistantRelease(assistant.canary),
+    },
   };
 }

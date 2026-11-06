@@ -13,7 +13,7 @@ English: [README.md](README.md).
 | Propriété | URL / Dépôt | Rôle |
 | :--- | :--- | :--- |
 | **Site Principal** | <https://bobine.fit> | Vitrine, téléchargements, documentation, guide matériel, blog |
-| **Miroir Tor (.onion)** | `http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/` | Miroir souverain en service onion et dépôt APT anonyme |
+| **Miroir Tor (.onion)** | [bobinedaoki….onion](http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/) | Miroir souverain en service onion et dépôt APT anonyme |
 | **Portail Paquets Linux** | <https://packages.bobine.fit> | Dépôts officiels signés APT, DNF et Pacman |
 | **Portail Sécurité** | <https://security.bobine.fit> | Politique RFC 9116 et clé OpenPGP officielle |
 | **Logiciel Bobine** | [FantasmaGlad/Bobine](https://github.com/FantasmaGlad/Bobine) | Code source du moteur de régie (V5.0.7, AGPL-3.0) |

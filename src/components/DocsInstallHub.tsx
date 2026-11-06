@@ -14,7 +14,8 @@ import QuickStartStepper from "@/components/QuickStartStepper";
 import { docChapters } from "@/content/docs/chapters";
 import { useDetectedPlatform, reorderForPlatform } from "@/lib/detectPlatform";
 
-import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
+import type { AssistantPackages, ReleaseChannelInfo } from "@/lib/releaseTypes";
+import type { RepoStatsResponse } from "@/lib/releaseChannels";
 import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFallbacks";
 import { useReleaseData } from "@/components/ReleaseProvider";
 import { ONION_APT_HOST, ONION_SITE_HOST } from "@/lib/onion";
@@ -66,6 +67,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const [stable, setStable] = useState<ReleaseChannelInfo>(initialRelease?.stable ?? FALLBACK_STABLE);
   const [beta, setBeta] = useState<ReleaseChannelInfo>(initialRelease?.beta ?? FALLBACK_BETA);
   const [canary, setCanary] = useState<ReleaseChannelInfo>(initialRelease?.canary ?? FALLBACK_CANARY);
+  const [assistant, setAssistant] = useState<RepoStatsResponse["assistant"]>(initialRelease?.assistant ?? {});
   const [copiedCmd, setCopiedCmd] = useState(false);
   const [selectedArch, setSelectedArch] = useState<"x86_64" | "arm64">("x86_64");
   const [selectedFamily, setSelectedFamily] = useState<LinuxFamilyId>("debian");
@@ -106,6 +108,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         if (data.stable) setStable(data.stable);
         if (data.beta) setBeta(data.beta);
         if (data.canary) setCanary(data.canary);
+        if (data.assistant) setAssistant(data.assistant);
       })
       .catch(() => {});
     return () => {
@@ -270,6 +273,57 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       </div>
     </div>
   );
+
+  // Paquets de l'assistant (release à part, tags assistant-*) : un lien par système publié, pour chaque canal.
+  const renderAssistantPackages = () => {
+    const rows: Array<{ id: string; label: string; packages?: AssistantPackages }> = [
+      { id: "stable", label: "Stable", packages: assistant.stable },
+      { id: "beta", label: isEn ? "Beta" : "Bêta", packages: assistant.beta },
+      { id: "canary", label: "Canary", packages: assistant.canary },
+    ];
+    const links = (p: AssistantPackages) =>
+      [
+        { url: p.windows, text: "Windows x64" },
+        { url: p.windowsArm64, text: "Windows ARM64" },
+        { url: p.macos, text: "macOS" },
+        { url: p.deb, text: ".deb amd64" },
+        { url: p.debArm64, text: ".deb arm64" },
+        { url: p.rpm, text: ".rpm x86_64" },
+        { url: p.rpmArm64, text: ".rpm aarch64" },
+      ].filter((link): link is { url: string; text: string } => Boolean(link.url));
+    return (
+      <div className="docs-steps-flow">
+        <h3 className="docs-steps-flow__heading">
+          {isEn ? "Installable packages (updates itself):" : "Paquets installables (se met à jour seul) :"}
+        </h3>
+        <ul className="docs-plain-list">
+          {rows.map(({ id, label, packages }) => (
+            <li key={id}>
+              <strong>{label}</strong>
+              {packages ? ` ${packages.version} : ` : " : "}
+              {packages && links(packages).length > 0
+                ? links(packages).map((link, index) => (
+                    <span key={link.url}>
+                      {index > 0 && " · "}
+                      <a href={link.url} rel="noopener noreferrer" download>
+                        {link.text}
+                      </a>
+                    </span>
+                  ))
+                : isEn
+                  ? "not published yet"
+                  : "pas encore publié"}
+            </li>
+          ))}
+        </ul>
+        <p className="dx-p-6">
+          {isEn
+            ? "macOS with Homebrew: brew install --cask fantasmaglad/bobine/bobine-assistant · command line: bobine-assistant --help"
+            : "macOS avec Homebrew : brew install --cask fantasmaglad/bobine/bobine-assistant · ligne de commande : bobine-assistant --help"}
+        </p>
+      </div>
+    );
+  };
 
   const renderDivider = () => (
     <div className="docs-install-divider">
@@ -1493,6 +1547,10 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               archText: isArm ? "ARM64 (Qualcomm Snapdragon, Raspberry Pi 5)" : "x86_64 (Intel / AMD)",
             })}
           </div>
+
+          {renderDivider()}
+
+          {renderAssistantPackages()}
 
           {renderDivider()}
 

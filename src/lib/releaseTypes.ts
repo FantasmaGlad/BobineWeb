@@ -8,6 +8,19 @@ export interface ReleaseFile {
   updatedAt?: string;
 }
 
+/** Paquets de l'assistant d'installation d'un canal (release `assistant-*` à part) ; un champ absent n'est pas publié. */
+export interface AssistantPackages {
+  version: string;
+  htmlUrl: string;
+  windows?: string;
+  windowsArm64?: string;
+  macos?: string;
+  deb?: string;
+  debArm64?: string;
+  rpm?: string;
+  rpmArm64?: string;
+}
+
 export interface ReleaseChannelInfo {
   version: string;
   /** Commit court (7 car.) visé par le tag mobile d'un canal rolling (Beta/Canary) — absent pour Stable. */

@@ -58,6 +58,15 @@ export async function fetchRepoCounts(): Promise<{ stars: number; forks: number 
 }
 
 /**
+ * L'assistant d'installation publie ses propres releases dans le même dépôt (tags `assistant-Vx.y.z`, `assistant-beta`,
+ * `assistant-canary`, pointeur `assistant-stable`), jamais « Latest » ni mêlées à celles de Bobine : elles ne doivent
+ * compter ni comme une version de Bobine ni comme un billet.
+ */
+export function isAssistantRelease(release: GitHubReleaseJson): boolean {
+  return release.tag_name.toLowerCase().startsWith("assistant-");
+}
+
+/**
  * Release de chaque canal : Stable = la plus récente qui n'est pas une pré-release (même règle que
  * `/releases/latest`), Bêta et Canary = leur tag mobile unique.
  */
@@ -66,9 +75,23 @@ export function pickChannelReleases(releases: GitHubReleaseJson[]): {
   beta?: GitHubReleaseJson;
   canary?: GitHubReleaseJson;
 } {
+  const bobine = releases.filter((release) => !isAssistantRelease(release));
   return {
-    stable: releases.find((release) => !release.prerelease),
-    beta: releases.find((release) => release.tag_name === "beta"),
-    canary: releases.find((release) => release.tag_name === "canary"),
+    stable: bobine.find((release) => !release.prerelease),
+    beta: bobine.find((release) => release.tag_name === "beta"),
+    canary: bobine.find((release) => release.tag_name === "canary"),
+  };
+}
+
+/** Releases de l'assistant par canal : la Stable est la plus récente `assistant-Vx.y.z` (pas le pointeur `assistant-stable`). */
+export function pickAssistantReleases(releases: GitHubReleaseJson[]): {
+  stable?: GitHubReleaseJson;
+  beta?: GitHubReleaseJson;
+  canary?: GitHubReleaseJson;
+} {
+  return {
+    stable: releases.find((release) => /^assistant-V\d+\.\d+\.\d+$/.test(release.tag_name)),
+    beta: releases.find((release) => release.tag_name === "assistant-beta"),
+    canary: releases.find((release) => release.tag_name === "assistant-canary"),
   };
 }

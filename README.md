@@ -13,7 +13,7 @@ Français : [README.fr.md](README.fr.md).
 | Property | URL / Repository | Purpose |
 | :--- | :--- | :--- |
 | **Main Website** | <https://bobine.fit> | Showcase, download hub, docs, hardware guides, blog |
-| **Tor Mirror (.onion)** | `http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/` | Sovereign `.onion` site mirror & anonymous APT repository |
+| **Tor Mirror (.onion)** | [bobinedaoki….onion](http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/) | Sovereign `.onion` site mirror & anonymous APT repository |
 | **Linux Package Portal** | <https://packages.bobine.fit> | GPG-signed APT, DNF, and Pacman repositories |
 | **Security Portal** | <https://security.bobine.fit> | RFC 9116 security policy & verified OpenPGP key |
 | **Bobine Software** | [FantasmaGlad/Bobine](https://github.com/FantasmaGlad/Bobine) | Playout engine source code (V5.0.7, AGPL-3.0) |

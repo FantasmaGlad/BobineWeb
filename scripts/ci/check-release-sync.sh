@@ -52,7 +52,8 @@ check_channel() {
   echo "$label ($tag) : fichiers attendus présents"
 }
 
-stable_tag="$(jq -r '[.[] | select(.prerelease == false and .draft == false)][0].tag_name // empty' <<<"$releases")"
+# Les releases de l'assistant (tags assistant-*) ne sont jamais la Stable de Bobine.
+stable_tag="$(jq -r '[.[] | select(.prerelease == false and .draft == false and (.tag_name | startswith("assistant-") | not))][0].tag_name // empty' <<<"$releases")"
 if [ -z "$stable_tag" ]; then
   err "Stable : aucune release stable publiée"
 else

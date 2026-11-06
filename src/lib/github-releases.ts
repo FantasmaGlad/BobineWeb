@@ -1,6 +1,6 @@
 import "server-only";
 
-import { fetchRepoReleases } from "@/lib/githubApi";
+import { fetchRepoReleases, isAssistantRelease } from "@/lib/githubApi";
 
 export interface BobineRelease {
   slug: string;
@@ -409,7 +409,7 @@ export async function getBobineReleases(): Promise<BobineRelease[]> {
   const releases = await fetchRepoReleases();
   if (!releases || releases.length === 0) return FALLBACK_RELEASES;
 
-  return releases.map((release) => ({
+  return releases.filter((release) => !isAssistantRelease(release)).map((release) => ({
     slug: release.tag_name,
     title: release.name || release.tag_name,
     publishedAt: release.published_at ?? "",

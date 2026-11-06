@@ -19,6 +19,7 @@ export interface AssistantPackages {
   debArm64?: string;
   rpm?: string;
   rpmArm64?: string;
+  android?: string;
 }
 
 export interface ReleaseChannelInfo {

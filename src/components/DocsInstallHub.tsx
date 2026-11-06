@@ -290,6 +290,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         { url: p.debArm64, text: ".deb arm64" },
         { url: p.rpm, text: ".rpm x86_64" },
         { url: p.rpmArm64, text: ".rpm aarch64" },
+        { url: p.android, text: "Android" },
       ].filter((link): link is { url: string; text: string } => Boolean(link.url));
     return (
       <div className="docs-steps-flow">
@@ -318,8 +319,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         </ul>
         <p className="dx-p-6">
           {isEn
-            ? "macOS with Homebrew: brew install --cask fantasmaglad/bobine/bobine-assistant · command line: bobine-assistant --help"
-            : "macOS avec Homebrew : brew install --cask fantasmaglad/bobine/bobine-assistant · ligne de commande : bobine-assistant --help"}
+            ? "macOS with Homebrew: brew install --cask fantasmaglad/bobine/bobine-assistant · command line: bobine-assistant --help · Android: install the new APK over the old one to update"
+            : "macOS avec Homebrew : brew install --cask fantasmaglad/bobine/bobine-assistant · ligne de commande : bobine-assistant --help · Android : la nouvelle APK s'installe par-dessus l'ancienne"}
         </p>
       </div>
     );

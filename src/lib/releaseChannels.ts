@@ -54,6 +54,7 @@ export function parseAssistantRelease(release: GitHubReleaseJson | undefined): A
     else if (/^bobine-assistant_.+_amd64\.deb$/.test(name)) packages.deb = url;
     else if (/^bobine-assistant-.+\.aarch64\.rpm$/.test(name)) packages.rpmArm64 = url;
     else if (/^bobine-assistant-.+\.x86_64\.rpm$/.test(name)) packages.rpm = url;
+    else if (/^Bobine-Assistant-.+\.apk$/.test(name)) packages.android = url;
   }
   return packages;
 }

@@ -39,6 +39,7 @@ def verify(root):
             raise ValueError(f'SHA-256 incorrect : {file}')
 
     versions = {}
+    bobine = {}
     with tempfile.TemporaryDirectory() as home:
         def gpg(*args, output=False):
             result = subprocess.run(['gpg', '--homedir', home, '--batch', *args],
@@ -80,6 +81,9 @@ def verify(root):
                 if not records:
                     raise ValueError(f'index APT vide : {packages}')
                 versions[f'apt/{channel}/{arch}'] = [record['Version'] for record in records]
+                # Le dépôt porte aussi l'assistant d'installation (bobine-assistant) : la version de référence est
+                # celle du paquet bobine seul.
+                bobine[f'{channel}/{arch}'] = [record['Version'] for record in records if record.get('Package') == 'bobine']
                 for record in records:
                     checksum(path(root / 'debian', record['Filename']), record['SHA256'], record['Size'])
 
@@ -130,8 +134,8 @@ def verify(root):
                 if not found:
                     raise ValueError(f'index Pacman vide : {repo}')
                 versions[f'pacman/{channel}/{arch}'] = found
-    stable = versions['apt/stable/amd64']
-    if len(set(stable)) != 1 or stable != versions['apt/stable/arm64']:
+    stable = bobine.get('stable/amd64', [])
+    if len(set(stable)) != 1 or stable != bobine.get('stable/arm64'):
         raise ValueError('versions stables APT incohérentes entre architectures')
     (root / 'mirror-packages.json').write_text(json.dumps({'verified_at': int(time.time()), 'versions': versions}, indent=2) + '\n')
     (root / 'latest.json').write_text(json.dumps({'version': stable[0]}) + '\n')

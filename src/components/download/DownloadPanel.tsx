@@ -172,6 +172,16 @@ export default function DownloadPanel({
     `sudo bash install.sh${channel === "stable" ? "" : ` --channel=${channel}`}`,
   ].join("\n");
 
+  // Installation en une commande : PowerShell sous Windows, cask Homebrew (Stable seulement) sous macOS.
+  const oneLine =
+    platform === "windows"
+      ? channel === "stable"
+        ? "irm https://bobine.fit/install.ps1 | iex"
+        : `& ([scriptblock]::Create((irm https://bobine.fit/install.ps1))) -Channel ${channel}`
+      : platform === "macos" && channel === "stable"
+        ? "brew install --cask fantasmaglad/bobine/bobine"
+        : "";
+
   const channelRows: Array<{ id: PackageChannel; label: string; version: string }> = [
     { id: "stable", label: "Stable", version: stable.version },
     {
@@ -383,6 +393,40 @@ export default function DownloadPanel({
                 )}
                 <span>{isEn ? "100% local · No account required" : "100 % local · Sans compte requis"}</span>
               </div>
+            </section>
+          )}
+
+          {oneLine && (
+            <section className="dl-terminal-box" aria-labelledby={`${titleId}-one-line`}>
+              <div className="dl-terminal-box__bar">
+                <div className="dl-terminal-box__meta">
+                  <span id={`${titleId}-one-line`} className="dl-terminal-box__title">
+                    {platform === "windows"
+                      ? isEn ? "Or in one PowerShell command" : "Ou en une commande PowerShell"
+                      : isEn ? "Or with Homebrew" : "Ou avec Homebrew"}
+                  </span>
+                  <span className="dl-terminal-box__sub">
+                    {platform === "windows"
+                      ? isEn
+                        ? "Signed SHA256SUMS checked, x64 or ARM64 detected"
+                        : "SHA256SUMS signé vérifié, x64 ou ARM64 détecté"
+                      : isEn
+                        ? "Also installs the bobine command"
+                        : "Installe aussi la commande bobine"}
+                  </span>
+                </div>
+                <CopyButton
+                  text={oneLine}
+                  id="one-line"
+                  label={isEn ? "Copy" : "Copier"}
+                  copied={copied}
+                  onCopy={copy}
+                  isEn={isEn}
+                />
+              </div>
+              <pre className="dl-code">
+                <code>{oneLine}</code>
+              </pre>
             </section>
           )}
 

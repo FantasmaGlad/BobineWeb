@@ -225,7 +225,7 @@
   position: absolute;
   inset-inline: 0;
   top: 0;
-  height: 4px;
+  height: 3px;
   border-radius: var(--radius-999px);
   background: var(--accent-primary);
   opacity: 0.85;

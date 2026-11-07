@@ -174,8 +174,8 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           <h3 id="settings-displays">{isEn ? "Settings & Screen Routing" : "Paramètres & Routage d'écran"}</h3>
           <p>
             {isEn
-              ? "Control screen output routing (what plays on the wired HDMI TV vs what streams to networked browser displays), switch between the 9 themes, each in light and dark (from the next release; version 5.1.0 ships 15 themes), language selection, and maintenance zone."
-              : "Sortie d'écran (quel contenu sur l'écran câblé, quel contenu sur l'écran réseau), bascule instantanée parmi les 9 thèmes, chacun en clair et en sombre (à partir de la prochaine version ; la 5.1.0 en compte 15), langue, réseau, et zone de maintenance."}
+              ? "Control screen output routing (what plays on the wired HDMI TV vs what streams to networked browser displays), switch between the 9 themes, each in light and dark, language selection, and maintenance zone."
+              : "Sortie d'écran (quel contenu sur l'écran câblé, quel contenu sur l'écran réseau), bascule instantanée parmi les 9 thèmes, chacun en clair et en sombre, langue, réseau, et zone de maintenance."}
           </p>
 
           <h3 id="system-health-watchdog">{isEn ? "System Health & Watchdog Supervisor" : "Santé et Supervision Automatique"}</h3>

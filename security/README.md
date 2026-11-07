@@ -1,16 +1,16 @@
 # security.bobine.fit
 
-Site statique de divulgation responsable : politique, clé OpenPGP et `/.well-known/security.txt` (RFC 9116). Publié sur GitHub Pages par le job `deploy-security` de `.github/workflows/deploy.yml`.
+Site statique de divulgation responsable, noir sur blanc et sans script : politique, clé OpenPGP et `/.well-known/security.txt` (RFC 9116). Publié sur GitHub Pages par le job `deploy-security` de `.github/workflows/deploy.yml`.
 
 ## Commandes
 
 ```bash
-node scripts/security-site/build.mjs        # générer les pages statiques
+node scripts/security-site/build.mjs        # générer les pages (contenu dans le script, style dans scripts/security-site/site.css)
 bash scripts/ci/check-security-site.sh      # signature, empreinte, expirations, liens
 bash scripts/security-txt/sign.sh           # renouveler et signer security.txt
 ```
 
-Aperçu local : `python3 -m http.server 3104 --bind 127.0.0.1 --directory security/site`, puis `node scripts/ci/check-security-menu.mjs`.
+Aperçu local : `python3 -m http.server 3104 --bind 127.0.0.1 --directory security/site`.
 
 ## Clé
 

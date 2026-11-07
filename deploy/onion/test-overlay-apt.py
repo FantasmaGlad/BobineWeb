@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Les overlays du miroir onion ne laissent aucune commande ni aucun lien vers le web classique.
 
-Essai sur une copie minimale du portail (assets/site.js reprend la forme du vrai fichier de bobine-packages) : le portail
-adapté ne contient plus de clearnet, un site.js dont la forme change fait échouer l'overlay (sync.sh garde alors l'ancienne
-copie), et le contrôle final refuse tout fichier qui mène à bobine.fit, packages.bobine.fit ou GitHub.
+Essai sur une copie minimale du portail (pages statiques avec le bloc <!-- install --> de bobine-packages) : le portail
+adapté ne contient plus de clearnet, une page sans ce bloc fait échouer l'overlay (sync.sh garde alors l'ancienne copie),
+et le contrôle final refuse tout fichier qui mène à bobine.fit, packages.bobine.fit ou GitHub.
 
 Usage : python3 deploy/onion/test-overlay-apt.py
 """
@@ -31,10 +31,15 @@ def run(script, folder):
     return subprocess.run([sys.executable, str(OVERLAY / script), str(folder)], capture_output=True, text=True)
 
 
+PAGE = ('<a href="https://packages.bobine.fit/bobine.gpg">clé</a>\n<!-- install -->\n<pre><code>curl -fsSL https://packages.bobine.fit/bobine.gpg'
+        '</code></pre>\n<!-- /install -->\n<a href="https://github.com/FantasmaGlad/Bobine">GitHub</a>')
+
+
 def portal(root: Path) -> Path:
     (root / "assets").mkdir(parents=True)
-    shutil.copyfile(HERE / "fixtures" / "site.js", root / "assets" / "site.js")
-    (root / "index.html").write_text('<script src="/assets/site.js"></script><a href="https://packages.bobine.fit/bobine.gpg">clé</a>', encoding="utf-8")
+    (root / "fr").mkdir()
+    (root / "index.html").write_text(PAGE, encoding="utf-8")
+    (root / "fr" / "index.html").write_text(PAGE, encoding="utf-8")
     (root / "README.md").write_text("curl -fsSL https://packages.bobine.fit/bobine.gpg", encoding="utf-8")
     (root / "llms.txt").write_text("https://bobine.fit/", encoding="utf-8")
     (root / "bobine-stable.repo").write_text("[b]\nbaseurl=https://packages.bobine.fit/fedora/\n", encoding="utf-8")
@@ -58,47 +63,29 @@ class OverlayTests(unittest.TestCase):
             self.assertEqual(run(script, self.root).returncode, 0, script)
         check = run("no-clearnet-check.py", self.root)
         self.assertEqual(check.returncode, 0, check.stderr)
-        script = (self.root / "assets" / "site.js").read_text(encoding="utf-8")
-        self.assertIn("--socks5-hostname 127.0.0.1:9050", script)
-        self.assertIn("install-tor.sh", script)
-        self.assertNotIn("RELEASES", script)
-        self.assertNotIn("github.com", script)
-        self.assertIn("d.title", script)
+        for name, title in (("index.html", "Install over Tor"), ("fr/index.html", "Installer par Tor")):
+            page = (self.root / name).read_text(encoding="utf-8")
+            self.assertIn(title, page)
+            self.assertIn("--socks5-hostname 127.0.0.1:9050", page)
+            self.assertIn("install-tor.sh", page)
+            self.assertNotIn("github.com", page)
         self.assertFalse((self.root / "README.md").exists() or (self.root / "llms.txt").exists())
         repo = (self.root / "bobine-stable.repo").read_text(encoding="utf-8")
         self.assertIn("http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/fedora/", repo)
         self.assertIn("proxy=socks5h://127.0.0.1:9050", repo)
         self.assertNotIn("https://", (self.root / "assets" / "NOTICE.md").read_text(encoding="utf-8"))
 
-    def test_the_commands_follow_the_chosen_channel(self):
-        module = load("site-tor")
-        patched = module.patch((HERE / "fixtures" / "site.js").read_text(encoding="utf-8"))
-        self.assertIn("var option = ch === 'stable' ? '' : ' --channel=' + ch;", patched)
-        self.assertIn("url: '/' + family + '/' + (family === 'debian' ? '' : ch + '/')", patched)
-
-    def test_a_changed_upstream_script_fails_the_overlay(self):
-        script = self.root / "assets" / "site.js"
-        script.write_text(script.read_text(encoding="utf-8").replace("function direct()", "function directLink()"), encoding="utf-8")
+    def test_a_page_without_the_install_block_fails_the_overlay(self):
+        (self.root / "fr" / "index.html").write_text("<p>sans bloc</p>", encoding="utf-8")
         result = run("site-tor.py", self.root)
         self.assertEqual(result.returncode, 1)
-        self.assertIn("introuvables", result.stderr)
-
-    def test_a_missing_render_call_fails_the_overlay(self):
-        script = self.root / "assets" / "site.js"
-        script.write_text(script.read_text(encoding="utf-8").replace("T.dlBtn(d.ext)", "T.download(d.ext)"), encoding="utf-8")
-        self.assertEqual(run("site-tor.py", self.root).returncode, 1)
+        self.assertIn("marqueurs", result.stderr)
 
     def test_svg_attributions_are_not_links(self):
         (self.root / "logo.svg").write_text("<svg><dc:source>https://github.com/garrett/Tux</dc:source></svg>", encoding="utf-8")
         for script in ("packages-tor.py", "site-tor.py", "mirror-files-tor.py"):
             run(script, self.root)
         self.assertEqual(run("no-clearnet-check.py", self.root).returncode, 0)
-
-    def test_a_site_without_the_script_is_left_alone(self):
-        shutil.rmtree(self.root / "assets")
-        result = run("site-tor.py", self.root)
-        self.assertEqual(result.returncode, 0)
-        self.assertIn("rien à adapter", result.stdout)
 
 
 class SiteOverlayTests(unittest.TestCase):

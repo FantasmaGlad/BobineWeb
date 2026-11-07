@@ -43,8 +43,6 @@ const HEADING_ICON: Record<string, AssetKey> = {
   android: "os.android",
   "android-tv": "os.androidtv",
   cli: "os.linux",
-  tauri: "os.linux",
-  assistant: "os.linux",
 };
 
 function CopyButton({
@@ -130,8 +128,7 @@ export default function DownloadPanel({
     };
   }, [isOpen]);
 
-  const platform: DownloadPlatform =
-    initialPlatform === "tauri" || initialPlatform === "assistant" ? "linux" : initialPlatform;
+  const platform: DownloadPlatform = initialPlatform;
   const result = resolveDownload({
     locale,
     platform,

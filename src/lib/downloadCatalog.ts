@@ -16,7 +16,7 @@ import {
   type PackageChannel,
 } from "@/lib/linuxPackages";
 
-export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "android-tv" | "cli" | "tauri" | "assistant";
+export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "android-tv" | "cli";
 export type CpuArchitecture = "x86_64" | "arm64";
 
 export const SIGNING_KEY_HELP = "B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A";
@@ -144,16 +144,6 @@ export function resolveDownload(req: DownloadRequest): ResolvedDownload {
       command = `curl -fsSL https://bobine.fit/install.sh | sudo bash${suffix}`;
       break;
     }
-    case "tauri":
-    case "assistant":
-      heading = isEn ? "Bobine Assistant" : "Bobine Assistant";
-      targets = isEn
-        ? "SSH orchestrator with network discovery and channel selector, Linux"
-        : "Orchestrateur SSH avec découverte réseau et sélecteur de canal, Linux";
-      format = isArm ? (isEn ? "ARM64 binary" : "Binaire ARM64") : isEn ? "x86_64 binary" : "Binaire x86_64";
-      url = isArm ? d.assistantArm64 : d.assistant;
-      filename = isArm ? "bobine-assistant-arm64" : "bobine-assistant";
-      break;
   }
 
   return {

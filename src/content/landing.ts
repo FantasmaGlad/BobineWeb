@@ -398,7 +398,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           icon: "shield",
           bullets: [
             "Une version par tag Vx.y.z strict, publiée sur GitHub Releases avec ses notes.",
-            `Les mêmes fichiers sur toutes les plateformes : Windows (x86-64 et ARM64), macOS Apple Silicon, ${linuxFormatsShort("fr")}, Android, Android TV, assistant Bobine Assistant.`,
+            `Les mêmes fichiers sur toutes les plateformes : Windows (x86-64 et ARM64), macOS Apple Silicon, ${linuxFormatsShort("fr")}, Android, Android TV, et Bobine Deploy pour l'installation à distance.`,
             "Une empreinte SHA-256 vérifiée avant toute installation lancée depuis l'application.",
           ],
         },
@@ -439,7 +439,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           icon: "shield",
           bullets: [
             "One release per strict Vx.y.z tag, published on GitHub Releases with its notes.",
-            `The same files on every platform: Windows (x86-64 and ARM64), macOS Apple Silicon, ${linuxFormatsShort("en")}, Android, Android TV, and the Bobine Assistant.`,
+            `The same files on every platform: Windows (x86-64 and ARM64), macOS Apple Silicon, ${linuxFormatsShort("en")}, Android, Android TV, and Bobine Deploy for remote installation.`,
             "A SHA-256 digest verified before any installation started from the application.",
           ],
         },
@@ -591,7 +591,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "Rejoindre ou quitter la Canary",
           icon: "terminal",
           paragraphs: [
-            "Dans Réglages, Mises à jour logicielles, choisissez le canal Canary. Sur l'appliance Linux ou depuis l'assistant Bobine Assistant :",
+            "Dans Réglages, Mises à jour logicielles, choisissez le canal Canary. Sur l'appliance Linux :",
           ],
           code: CHANNEL_CLI("canary"),
         },
@@ -644,7 +644,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "Join or leave the Canary",
           icon: "terminal",
           paragraphs: [
-            "In Settings, Software updates, choose the Canary channel. On the Linux appliance or from the Bobine Assistant:",
+            "In Settings, Software updates, choose the Canary channel. On the Linux appliance:",
           ],
           code: CHANNEL_CLI("canary"),
         },

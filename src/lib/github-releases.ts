@@ -21,7 +21,7 @@ const FALLBACK_RELEASES: BobineRelease[] = [
 
 Accès anticipé aux fonctionnalités en cours de développement : le canal Bêta propose des lots sélectionnés et testés avant leur passage en Stable, tandis que le canal Canary est reconstruit automatiquement à chaque commit sur la branche principale.
 
-Réservés aux utilisateurs ayant activé un canal anticipé dans Réglages > Mises à jour logicielles, via install.sh --channel=beta|canary, ou via l'assistant Tauri.
+Réservés aux utilisateurs ayant activé un canal anticipé dans Réglages > Mises à jour logicielles, via install.sh --channel=beta|canary, ou via Bobine Deploy.
 
 ### Téléchargements directs du canal Bêta
 
@@ -35,8 +35,7 @@ Réservés aux utilisateurs ayant activé un canal anticipé dans Réglages > Mi
 - Linux Bureau Fedora/RHEL ARM64 : [bobine-beta.aarch64.rpm](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-beta.aarch64.rpm)
 - Linux Bureau Arch Linux (x86_64) : [bobine-beta-x86_64.pkg.tar.zst](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-beta-x86_64.pkg.tar.zst)
 - macOS : [Bobine-beta.dmg](https://github.com/FantasmaGlad/Bobine/releases/download/beta/Bobine-beta.dmg)
-- Bobine Assistant (x86_64) : [bobine-assistant](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant)
-- Bobine Assistant ARM64 : [bobine-assistant-arm64](https://github.com/FantasmaGlad/Bobine/releases/download/beta/bobine-assistant-arm64)
+- Bobine Deploy (installation à distance) : [github.com/FantasmaGlad/bobine-deploy](https://github.com/FantasmaGlad/bobine-deploy/releases/latest)
 - Script Appliance : \`curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta\`
 
 ### Retour à la version Stable

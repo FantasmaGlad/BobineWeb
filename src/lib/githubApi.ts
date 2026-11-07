@@ -1,6 +1,7 @@
 import "server-only";
 
 const REPO = "FantasmaGlad/Bobine";
+const DEPLOY_REPO = "FantasmaGlad/bobine-deploy";
 
 /**
  * Fenêtre de rafraîchissement des données GitHub (versions, téléchargements, étoiles). Deux minutes :
@@ -58,9 +59,8 @@ export async function fetchRepoCounts(): Promise<{ stars: number; forks: number 
 }
 
 /**
- * L'assistant d'installation publie ses propres releases dans le même dépôt (tags `assistant-Vx.y.z`, `assistant-beta`,
- * `assistant-canary`, pointeur `assistant-stable`), jamais « Latest » ni mêlées à celles de Bobine : elles ne doivent
- * compter ni comme une version de Bobine ni comme un billet.
+ * Anciennes releases de l'assistant d'installation (tags `assistant-*`), restées dans le dépôt de Bobine depuis son
+ * déplacement vers FantasmaGlad/bobine-deploy : elles ne comptent ni comme une version de Bobine ni comme un billet.
  */
 export function isAssistantRelease(release: GitHubReleaseJson): boolean {
   return release.tag_name.toLowerCase().startsWith("assistant-");
@@ -83,15 +83,17 @@ export function pickChannelReleases(releases: GitHubReleaseJson[]): {
   };
 }
 
-/** Releases de l'assistant par canal : la Stable est la plus récente `assistant-Vx.y.z` (pas le pointeur `assistant-stable`). */
-export function pickAssistantReleases(releases: GitHubReleaseJson[]): {
-  stable?: GitHubReleaseJson;
-  beta?: GitHubReleaseJson;
-  canary?: GitHubReleaseJson;
-} {
-  return {
-    stable: releases.find((release) => /^assistant-V\d+\.\d+\.\d+$/.test(release.tag_name)),
-    beta: releases.find((release) => release.tag_name === "assistant-beta"),
-    canary: releases.find((release) => release.tag_name === "assistant-canary"),
-  };
+/** Releases de Bobine Deploy, dans son propre dépôt. */
+export async function fetchDeployReleases(): Promise<GitHubReleaseJson[] | null> {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${DEPLOY_REPO}/releases?per_page=20`, {
+      headers: githubHeaders(),
+      next: { revalidate: GITHUB_REVALIDATE_SECONDS },
+    });
+    if (!res.ok) return null;
+    const data: unknown = await res.json();
+    return Array.isArray(data) ? (data as GitHubReleaseJson[]).filter((release) => !release.draft) : null;
+  } catch {
+    return null;
+  }
 }

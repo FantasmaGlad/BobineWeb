@@ -46,13 +46,13 @@ check_channel() {
     "Bobine-Setup-${suffix}.exe" "Bobine-Setup-${suffix}-arm64.exe" \
     "bobine_${suffix}_amd64.deb" "bobine_${suffix}_arm64.deb" \
     "Bobine-${suffix}.dmg" "Bobine-${suffix}.apk" "Bobine-TV-${suffix}.apk" \
-    bobine-assistant bobine-assistant-arm64 install.sh; do
+    install.sh; do
     grep -qxF "$name" <<<"$names" || err "$label ($tag) : fichier $name absent"
   done
   echo "$label ($tag) : fichiers attendus présents"
 }
 
-# Les releases de l'assistant (tags assistant-*) ne sont jamais la Stable de Bobine.
+# Les anciennes releases de l'assistant (tags assistant-*, avant Bobine Deploy) ne sont jamais la Stable de Bobine.
 stable_tag="$(jq -r '[.[] | select(.prerelease == false and .draft == false and (.tag_name | startswith("assistant-") | not))][0].tag_name // empty' <<<"$releases")"
 if [ -z "$stable_tag" ]; then
   err "Stable : aucune release stable publiée"

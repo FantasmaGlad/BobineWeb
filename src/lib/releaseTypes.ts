@@ -8,18 +8,18 @@ export interface ReleaseFile {
   updatedAt?: string;
 }
 
-/** Paquets de l'assistant d'installation d'un canal (release `assistant-*` à part) ; un champ absent n'est pas publié. */
-export interface AssistantPackages {
+/** Paquets de Bobine Deploy (dépôt FantasmaGlad/bobine-deploy, dernière release Stable) ; un champ absent n'est pas publié. */
+export interface DeployPackages {
   version: string;
   htmlUrl: string;
   windows?: string;
   windowsArm64?: string;
   macos?: string;
+  macosArm64?: string;
   deb?: string;
   debArm64?: string;
   rpm?: string;
   rpmArm64?: string;
-  android?: string;
 }
 
 export interface ReleaseChannelInfo {
@@ -47,8 +47,6 @@ export interface ReleaseChannelInfo {
     macos: string;
     android: string;
     androidTv?: string;
-    assistant: string;
-    assistantArm64?: string;
     installScript: string;
   };
 }

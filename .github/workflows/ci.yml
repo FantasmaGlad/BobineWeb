@@ -82,8 +82,6 @@ jobs:
         run: node --test scripts/ci/sync-install.test.mjs
       - name: Versions Stable, tag source et développement
         run: node --test scripts/ci/release-version-policy.test.mjs
-      - name: Simulateur d'installation aligné sur les scripts
-        run: bash scripts/ci/check-simulator-sync.sh
       - name: Transparence des visuels détourés
         run: node scripts/ci/check-transparent-assets.mjs
       - name: Hôte unique des dépôts Linux

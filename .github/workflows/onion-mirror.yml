@@ -64,6 +64,25 @@ jobs:
             echo "built: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           } > out/mirror-info.txt
 
+      # Manifeste SHA-256 de tous les fichiers, signé par une clé dédiée au miroir (jamais la clé des paquets). La machine
+      # hôte n'accepte que l'empreinte qu'elle a installée elle-même (deploy/onion/README.md). Sans le secret, le
+      # miroir reste publié non signé et la machine qui n'exige pas encore de signature continue de fonctionner.
+      - name: Signer le miroir
+        run: |
+          set -eu
+          if [ -z "$ONION_SIGNING_KEY" ]; then
+            echo "::warning::ONION_SIGNING_KEY absent : miroir publié sans signature"
+            exit 0
+          fi
+          export GNUPGHOME="$(mktemp -d)"
+          chmod 700 "$GNUPGHOME"
+          printf '%s\n' "$ONION_SIGNING_KEY" | gpg --batch --quiet --import
+          python3 deploy/onion/site-signature.py manifest out
+          gpg --batch --armor --detach-sign -o out/SHA256SUMS.asc out/SHA256SUMS
+          rm -rf "$GNUPGHOME"
+        env:
+          ONION_SIGNING_KEY: ${{ secrets.ONION_SIGNING_KEY }}
+
       - name: Publier sur la branche onion-site
         run: |
           set -eu

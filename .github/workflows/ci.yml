@@ -163,6 +163,7 @@ jobs:
       - name: Overlays du miroir (aucune commande ni lien vers le web classique)
         run: |
           python3 deploy/onion/test-overlay-apt.py
+          python3 deploy/onion/test-site-signature.py
           # L'export réel, comme sync.sh l'adapte sur la machine du miroir : plus aucune commande clearnet.
           cp -r out out-overlay
           python3 deploy/onion/overlay/site/commands-tor.py out-overlay

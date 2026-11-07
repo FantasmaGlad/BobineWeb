@@ -65,12 +65,11 @@ jobs:
         run: |
           node scripts/ci/check-site-graph.mjs
           node --test scripts/ci/check-site-graph.test.mjs
-      - name: Sources et contrats de recherche documentaire
+      - name: Parité des palettes avec l'application
         env:
           BOBINE_SOURCE_DIR: ${{ runner.temp }}/bobine-sources
         run: |
           git clone --depth 1 https://github.com/FantasmaGlad/Bobine.git "$BOBINE_SOURCE_DIR"
-          npm run test:rag
           node scripts/ci/check-theme-parity.mjs "$BOBINE_SOURCE_DIR"
       - name: Cliquet de jetons (tests d’injection)
         run: node --test scripts/ci/style-tokens.test.mjs

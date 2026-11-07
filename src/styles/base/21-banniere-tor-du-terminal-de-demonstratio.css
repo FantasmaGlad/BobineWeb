@@ -26,9 +26,7 @@
 
 /* Contrôles : pastilles et sélecteurs */
 .theme-switcher-pill-group {
-  background: var(--glass-card-bg);
-  -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
-  backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
+  background: var(--bg-surface-elevated);
   border: 1px solid var(--glass-card-border);
   box-shadow: var(--glass-edge), var(--shadow-sm);
   transition: transform 0.22s var(--ease-spring-pill), border-color 0.2s ease, box-shadow 0.2s ease;

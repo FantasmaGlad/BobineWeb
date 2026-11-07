@@ -42,8 +42,8 @@ body,
   .feature-navigation__mobile nav {
     animation: scroll-hint linear both;
     animation-timeline: scroll(self block);
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0, #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, var(--ink) var(--fade-top), var(--ink) calc(100% - var(--fade-bottom)), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, var(--ink) var(--fade-top), var(--ink) calc(100% - var(--fade-bottom)), transparent 100%);
   }
 }
 

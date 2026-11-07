@@ -31,7 +31,7 @@
 - FAQ: https://bobine.fit/en/documentation/faq
 - Developers: https://bobine.fit/en/documentation/developers
 - Downloads: https://bobine.fit/en/download
-- Anonymization (Tor): https://bobine.fit/en/documentation/anonymization
+- Anonymization: https://bobine.fit/en/documentation/anonymization
 
 ## Security
 - Disclosure policy and OpenPGP key: https://security.bobine.fit

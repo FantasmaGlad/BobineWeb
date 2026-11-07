@@ -828,7 +828,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       id: "windows",
       group: "desktop",
       name: "Windows",
-      format: ".exe (11, 10, IoT)",
+      format: ".exe (11, 10)",
       badge: isEn ? "1-click" : "1 clic",
       icon: <WindowsIcon size={20} />,
     },
@@ -861,7 +861,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       group: "roadmap",
       name: "iOS / iPadOS",
       format: isEn ? "Explored idea" : "Piste explorée",
-      badge: isEn ? "Roadmap" : "À venir",
+      badge: isEn ? "Explored" : "Explorée",
       icon: <AppleIcon size={20} />,
     },
     {
@@ -950,7 +950,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               </div>
               <div className="dx-div-14">
                 <h2 className="docs-method-hero__title">
-                  {isEn ? "Bobine for Windows 11, 10, Windows ARM & Windows IoT" : "Bobine pour Windows 11, 10, Windows ARM et Windows IoT"}
+                  {isEn ? "Bobine for Windows 11, 10 & Windows ARM" : "Bobine pour Windows 11, 10 et Windows ARM"}
                 </h2>
                 <p className="docs-method-hero__desc">
                   {isEn
@@ -1029,7 +1029,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             </div>
 
             <div className="docs-step-card">
-              <div className="docs-step-card__num">3</div>
+              <div className="docs-step-card__num">4</div>
               <div className="docs-step-card__content">
                 <h4>{isEn ? "Browser interface & Mobile Wi-Fi remote" : "Accès dans le navigateur & Télécommande Wi-Fi"}</h4>
                 <p>
@@ -1046,8 +1046,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <h4>{isEn ? "Import workouts & Anti-sleep safeguard" : "Ajoutez vos cours & Protection anti-veille"}</h4>
                 <p>
                   {isEn
-                    ? "Drag and drop your video workout files (MP4, MKV, WebM) directly into the library. The built-in Screen Wake Lock API ensures your screen stays awake during workouts without altering your Windows power plans."
-                    : "Glissez-déposez vos vidéos d'entraînement (MP4, MKV, WebM) dans l'onglet Vidéothèque. Grâce à l'API Screen Wake Lock intégrée, votre écran reste allumé pendant la séance sans forcer la veille générale de Windows."}
+                    ? "Drag and drop your video workout files (MP4, MKV, AVI) directly into the library. The built-in Screen Wake Lock API ensures your screen stays awake during workouts without altering your Windows power plans."
+                    : "Glissez-déposez vos vidéos d'entraînement (MP4, MKV, AVI) dans l'onglet Vidéothèque. Grâce à l'API Screen Wake Lock intégrée, votre écran reste allumé pendant la séance sans forcer la veille générale de Windows."}
                 </p>
               </div>
             </div>
@@ -1272,7 +1272,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               </div>
 
               <div className="docs-step-card">
-                <div className="docs-step-card__num">4</div>
+                <div className="docs-step-card__num">3</div>
                 <div className="docs-step-card__content">
                   <h4>{isEn ? "Desktop Integration & XDG Storage" : "Intégration au bureau & Stockage XDG"}</h4>
                   <p>
@@ -1316,8 +1316,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <p className="docs-method-hero__desc">
                   {androidVariant === "tv"
                     ? (isEn
-                        ? `Dedicated APK for TV boxes, sticks and Smart TVs running Android ${ANDROID.minVersion} or later, such as the Google TV Streamer or the Xiaomi TV Box S 3rd generation). Installs on 32-bit and 64-bit ARM systems, Leanback launcher, full remote-control navigation, embedded FastAPI server (Chaquopy) and MediaCodec hardware acceleration.`
-                        : `APK dédié aux box TV, clés HDMI et Smart TV sous Android ${ANDROID.minVersion} ou supérieur, comme le Google TV Streamer ou le Xiaomi TV Box S 3e génération). S'installe sur les systèmes ARM 32 et 64 bits, lanceur Leanback, navigation complète à la télécommande, serveur FastAPI embarqué (Chaquopy) et accélération matérielle MediaCodec.`)
+                        ? `Dedicated APK for TV boxes, sticks and Smart TVs running Android ${ANDROID.minVersion} or later, such as the Google TV Streamer or the Xiaomi TV Box S 3rd generation. Installs on 32-bit and 64-bit ARM systems, Leanback launcher, full remote-control navigation, embedded FastAPI server (Chaquopy) and MediaCodec hardware acceleration.`
+                        : `APK dédié aux box TV, clés HDMI et Smart TV sous Android ${ANDROID.minVersion} ou supérieur, comme le Google TV Streamer ou le Xiaomi TV Box S 3e génération. S'installe sur les systèmes ARM 32 et 64 bits, lanceur Leanback, navigation complète à la télécommande, serveur FastAPI embarqué (Chaquopy) et accélération matérielle MediaCodec.`)
                     : (isEn
                         ? "Official native APK package. Direct execution on Android tablets and Google Books (Aluminium OS, with upcoming Google Play Store release). Embedded FastAPI server (Chaquopy), independent dual display (/grid on tablet, /cinema on HDMI), and MediaCodec hardware acceleration."
                         : "Paquet APK natif officiel. Exécution directe sur tablettes Android et Google Books (Aluminium OS, avec arrivée prochaine sur le Google Play Store). Serveur FastAPI embarqué (Chaquopy), double affichage indépendant (/grid sur tablette, /cinema sur HDMI), et accélération matérielle MediaCodec.")}
@@ -1440,8 +1440,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 </h2>
                 <p className="docs-method-hero__desc">
                   {isEn
-                    ? "Not under active study yet. Here is why iPad support is a harder question than Android."
-                    : "Pas encore à l'étude active. Voici pourquoi le support iPad est une question plus complexe qu'Android."}
+                    ? "Explored, not committed. Here is why iPad support is a harder question than Android."
+                    : "Piste explorée, non engagée. Voici pourquoi le support iPad est une question plus complexe qu'Android."}
                 </p>
               </div>
             </div>
@@ -1578,8 +1578,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 </h2>
                 <p className="docs-method-hero__desc">
                   {isEn
-                    ? "Recommended for permanent gym installations. Turns low-cost refurbished hardware (Dell Wyse 5070, Beelink N100 ~40-70 €) into an autonomous, maintenance-free playout appliance with a self-healing watchdog."
-                    : "La solution recommandée pour les studios et salles de sport : transforme un mini PC reconditionné (40 à 70 €) sous Debian 13 minimale en régie autonome 365 jours/an avec chien de garde auto-réparateur."}
+                    ? "Recommended for permanent gym installations. Turns low-cost refurbished hardware (Dell Wyse 5070, Beelink N100) into an autonomous, maintenance-free playout appliance with a self-healing watchdog."
+                    : "La solution recommandée pour les studios et salles de sport : transforme un mini PC reconditionné sous Debian 13 minimale en régie autonome 365 jours/an avec chien de garde auto-réparateur."}
                 </p>
               </div>
             </div>

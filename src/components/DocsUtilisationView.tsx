@@ -120,7 +120,7 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           <p>
             {isEn
               ? "Accessible on http://bobine.local from any web browser on your gym's local network — no client software or apps needed."
-              : "Accessible sur http://bobine.local depuis n'importe quel navigateur du réseau local — aucune installation cliente nécessaire."}
+              : "Accessible sur http://bobine.local:1903 depuis n'importe quel navigateur du réseau local — aucune installation cliente nécessaire."}
           </p>
           <Shot caption={isEn ? "Overview of the Bobine web administration dashboard" : "Vue d'ensemble du panneau d'administration"} />
 
@@ -163,7 +163,7 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
                 </tr>
                 <tr>
                   <td><strong>{isEn ? "Container" : "Conteneur"}</strong></td>
-                  <td>MP4, MKV, WebM, MOV</td>
+                  <td>MP4, MKV, AVI, MOV</td>
                   <td><code>.mp4</code> ({isEn ? "with faststart enabled" : "avec option faststart"})</td>
                 </tr>
               </tbody>
@@ -174,8 +174,8 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           <h3 id="settings-displays">{isEn ? "Settings & Screen Routing" : "Paramètres & Routage d'écran"}</h3>
           <p>
             {isEn
-              ? "Control screen output routing (what plays on the wired HDMI TV vs what streams to networked browser displays), switch between the 15 dynamic dual-tone themes, language selection, and maintenance zone."
-              : "Sortie d'écran (quel contenu sur l'écran câblé, quel contenu sur l'écran réseau), bascule instantanée parmi les 9 thèmes, chacun en clair et en sombre, langue, réseau, et zone de maintenance."}
+              ? "Control screen output routing (what plays on the wired HDMI TV vs what streams to networked browser displays), switch between the 9 themes, each in light and dark (from the next release; version 5.1.0 ships 15 themes), language selection, and maintenance zone."
+              : "Sortie d'écran (quel contenu sur l'écran câblé, quel contenu sur l'écran réseau), bascule instantanée parmi les 9 thèmes, chacun en clair et en sombre (à partir de la prochaine version ; la 5.1.0 en compte 15), langue, réseau, et zone de maintenance."}
           </p>
 
           <h3 id="system-health-watchdog">{isEn ? "System Health & Watchdog Supervisor" : "Santé et Supervision Automatique"}</h3>

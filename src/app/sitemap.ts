@@ -23,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Pages de blog : une par release GitHub, datée de sa publication (jamais de la date du build).
   let dynamicBlogRoutes: RouteConfig[] = [];
-  let latestReleaseDate = "2026-10-15";
+  let latestReleaseDate = new Date().toISOString().slice(0, 10);
   try {
     const releases = await getBobineReleases();
     if (releases.length > 0 && releases[0].publishedAt) {

@@ -18,7 +18,6 @@
     "src/components/icons/LinuxIcon.tsx",
     "src/components/icons/TauriIcon.tsx",
     "src/components/icons/WindowsIcon.tsx",
-    "src/components/TerminalDemo.tsx",
     "src/app/manifest.ts"
   ],
   "reasons": {

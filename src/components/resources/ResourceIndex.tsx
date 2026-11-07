@@ -92,8 +92,8 @@ export default function ResourceIndex({ locale, id = "resources" }: ResourceInde
 
   const placeholder =
     locale === "fr"
-      ? "Filtrer l'index (ex : linux, mise à jour, tor...)"
-      : "Filter index (e.g. linux, updates, tor...)";
+      ? "Filtrer l'index (ex : linux, mise à jour, anonymat...)"
+      : "Filter index (e.g. linux, updates, privacy...)";
   const allLabel = locale === "fr" ? "Tout" : "All";
   const countLabel =
     locale === "fr"

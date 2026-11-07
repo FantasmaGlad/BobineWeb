@@ -68,12 +68,12 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Bobine est-il compatible avec les PC portables Qualcomm Snapdragon (Windows ARM & Linux ARM) ?",
-      a: "Oui. Bobine propose un installeur Windows 11 ARM64 natif (Bobine-Setup-x.y.z-arm64.exe) et un paquet Debian/Ubuntu ARM64 (bobine_x.y.z_arm64.deb). Les puces Snapdragon X Elite et Snapdragon X Plus offrent une autonomie record et une consommation de 5W à 10W en lecture vidéo continue.",
+      a: "Oui. Bobine propose un installeur Windows 11 ARM64 natif (Bobine-Setup-x.y.z-arm64.exe) et un paquet Debian/Ubuntu ARM64 (bobine_x.y.z_arm64.deb). Les puces Snapdragon X Elite et Snapdragon X Plus offrent une bonne autonomie en lecture vidéo.",
     },
     {
       category: "hardware",
       q: "Bobine fonctionne-t-il sur les ordinateurs portables Google Book (Aluminium OS) ?",
-      a: "Oui. Bobine s'exécute nativement en plein écran sur les Google Books (système Aluminium OS / convergence Android) grâce au paquet Bobine-x.y.z.apk avec accélération MediaCodec/Vulkan, et sera très prochainement disponible directement sur le Google Play Store.",
+      a: "Oui. Bobine s'exécute nativement en plein écran sur les Google Books (système Aluminium OS / convergence Android) grâce au paquet Bobine-x.y.z.apk avec l'accélération matérielle MediaCodec d'Android, et sera très prochainement disponible directement sur le Google Play Store.",
     },
     {
       category: "hardware",
@@ -98,7 +98,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Quels mini PC et cartes ARM64 (NVIDIA DGX Spark, Raspberry Pi, Orange Pi) sont recommandés ?",
-      a: "Sous Linux ARM64, Bobine fonctionne parfaitement sur Raspberry Pi 5 (8 Go / 16 Go), Radxa Rock 5B/5B+ (RK3588), Orange Pi 5 Plus, NVIDIA Jetson Orin Nano Super, ainsi que sur les stations professionnelles NVIDIA DGX Spark (SoC Grace Blackwell GB10 sous DGX OS / Ubuntu ARM64). L'installation se fait en une commande via curl -fsSL https://bobine.fit/install.sh | sudo bash ou via le paquet .deb ARM64.",
+      a: "Sous Linux ARM64, Bobine fonctionne sur Raspberry Pi 5 (8 Go / 16 Go), Radxa Rock 5B/5B+ (RK3588), Orange Pi 5 Plus, NVIDIA Jetson Orin Nano Super, ainsi que sur les stations professionnelles NVIDIA DGX Spark (SoC Grace Blackwell GB10 sous DGX OS / Ubuntu ARM64). L'installation se fait en une commande via curl -fsSL https://bobine.fit/install.sh | sudo bash ou via le paquet .deb ARM64.",
     },
     {
       category: "updates",
@@ -137,7 +137,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     },
     {
       q: "Quels navigateurs web sont pris en charge par famille (Chromium, Gecko/Firefox, WebKit/Safari) ?",
-      a: "Bobine prend en charge les trois grandes familles de moteurs web pour l'administration, la régie coach (/coach) et les écrans réseau (/cinema, /kiosk, /radio) : 1) Famille Chromium / Blink (Google Chrome, Chromium, Microsoft Edge, Brave, Vivaldi sur Linux, Windows, macOS, Android et Google Book) avec Screen Wake Lock natif et décodage matériel ; 2) Famille Gecko (Mozilla Firefox 157+ sur bureau, Firefox pour Android, Firefox ESR et Tor Browser) vérifiée de bout en bout par des tests automatiques (reprise d'envoi de fichiers après coupure réseau, flux HTTP Range, transcodage H.264 automatique à la demande si une vidéo HEVC/10 bits n'est pas décodée matériellement) ; 3) Famille WebKit (Apple Safari sur macOS, iPadOS et iOS) idéale pour piloter le pupitre coach depuis un iPhone, un iPad ou un Mac. Un diagnostic local du navigateur est intégré dans les Réglages de Bobine.",
+      a: "Bobine prend en charge les trois grandes familles de moteurs web pour l'administration, la régie coach (/coach) et les écrans réseau (/cinema, /kiosk, /radio) : 1) Famille Chromium / Blink (Google Chrome, Chromium, Microsoft Edge, Brave, Vivaldi sur Linux, Windows, macOS, Android et Google Book) avec Screen Wake Lock natif et décodage matériel ; 2) Famille Gecko (Mozilla Firefox 157+ sur bureau, Firefox pour Android, Firefox ESR) vérifiée de bout en bout par des tests automatiques (reprise d'envoi de fichiers après coupure réseau, flux HTTP Range, transcodage H.264 automatique à la demande si une vidéo HEVC/10 bits n'est pas décodée matériellement) ; 3) Famille WebKit (Apple Safari sur macOS, iPadOS et iOS) idéale pour piloter le pupitre coach depuis un iPhone, un iPad ou un Mac. Un diagnostic local du navigateur est intégré dans les Réglages de Bobine.",
       category: "hardware",
     },
     {
@@ -185,12 +185,12 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Is Bobine compatible with Qualcomm Snapdragon ARM laptops (Windows ARM & Linux ARM)?",
-      a: "Yes. Bobine provides a native Windows 11 ARM64 installer (Bobine-Setup-x.y.z-arm64.exe) and a Debian/Ubuntu ARM64 package (bobine_x.y.z_arm64.deb). Snapdragon X Elite and Snapdragon X Plus processors deliver record battery life and ultra-low 5W-10W power draw during continuous playback.",
+      a: "Yes. Bobine provides a native Windows 11 ARM64 installer (Bobine-Setup-x.y.z-arm64.exe) and a Debian/Ubuntu ARM64 package (bobine_x.y.z_arm64.deb). Snapdragon X Elite and Snapdragon X Plus processors offer good battery life during video playback.",
     },
     {
       category: "hardware",
       q: "Does Bobine work on Google Book laptops (Aluminium OS)?",
-      a: "Yes. Bobine runs natively in fullscreen on Google Book laptops (Aluminium OS / Android convergence) using the Bobine-x.y.z.apk package with full MediaCodec/Vulkan hardware acceleration, and will soon be available directly from the Google Play Store.",
+      a: "Yes. Bobine runs natively in fullscreen on Google Book laptops (Aluminium OS / Android convergence) using the Bobine-x.y.z.apk package with Android MediaCodec hardware acceleration, and will soon be available directly from the Google Play Store.",
     },
     {
       category: "hardware",
@@ -215,7 +215,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Which ARM64 mini PCs and single-board computers (NVIDIA DGX Spark, Raspberry Pi, Orange Pi) are supported?",
-      a: "Under Linux ARM64, Bobine runs smoothly on Raspberry Pi 5 (8GB / 16GB), Radxa Rock 5B/5B+ (RK3588), Orange Pi 5 Plus, NVIDIA Jetson Orin Nano Super, and workstation-class NVIDIA DGX Spark units (Grace Blackwell GB10 SoC running DGX OS / Ubuntu ARM64). Setup takes 1 command via curl -fsSL https://bobine.fit/install.sh | sudo bash or via the ARM64 .deb package.",
+      a: "Under Linux ARM64, Bobine runs on Raspberry Pi 5 (8GB / 16GB), Radxa Rock 5B/5B+ (RK3588), Orange Pi 5 Plus, NVIDIA Jetson Orin Nano Super, and workstation-class NVIDIA DGX Spark units (Grace Blackwell GB10 SoC running DGX OS / Ubuntu ARM64). Setup takes 1 command via curl -fsSL https://bobine.fit/install.sh | sudo bash or via the ARM64 .deb package.",
     },
     {
       category: "updates",
@@ -249,7 +249,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     },
     {
       q: "Which web browsers are supported by engine family (Chromium, Gecko/Firefox, WebKit/Safari)?",
-      a: "Bobine supports all three major browser engine families for administration, the coach console (/coach), and network screens (/cinema, /kiosk, /radio): 1) Chromium / Blink family (Google Chrome, Chromium, Microsoft Edge, Brave, Vivaldi on Linux, Windows, macOS, Android, and Google Book) with native Screen Wake Lock and hardware decoding; 2) Gecko family (Mozilla Firefox 157+ on desktop, Firefox for Android, Firefox ESR, and Tor Browser) verified end-to-end by automated tests (resumable file uploads after network drops, HTTP Range video streams, on-demand H.264 fallback transcoding when a browser cannot hardware-decode HEVC/10-bit); 3) WebKit family (Apple Safari on macOS, iPadOS, and iOS), ideal for controlling the coach desk from an iPhone, iPad, or Mac. A local browser diagnostic tool is built into Bobine Settings.",
+      a: "Bobine supports all three major browser engine families for administration, the coach console (/coach), and network screens (/cinema, /kiosk, /radio): 1) Chromium / Blink family (Google Chrome, Chromium, Microsoft Edge, Brave, Vivaldi on Linux, Windows, macOS, Android, and Google Book) with native Screen Wake Lock and hardware decoding; 2) Gecko family (Mozilla Firefox 157+ on desktop, Firefox for Android, and Firefox ESR) verified end-to-end by automated tests (resumable file uploads after network drops, HTTP Range video streams, on-demand H.264 fallback transcoding when a browser cannot hardware-decode HEVC/10-bit); 3) WebKit family (Apple Safari on macOS, iPadOS, and iOS), ideal for controlling the coach desk from an iPhone, iPad, or Mac. A local browser diagnostic tool is built into Bobine Settings.",
       category: "hardware",
     },
     {

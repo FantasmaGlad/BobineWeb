@@ -68,7 +68,7 @@ export default function QuickStartStepper({ locale }: QuickStartStepperProps) {
           <p>
             {isEn
               ? "Bobine runs on standard, low-cost x86-64 mini PCs. You do not need expensive proprietary servers — refurbished enterprise hardware provides full 1080p60/4K playout with dedicated GPU decoding."
-              : "Bobine fonctionne sur des mini PC standards x86-64 très économiques. Aucun serveur propriétaire coûteux n'est requis : du matériel reconditionné d'entreprise (40 à 70 €) assure une diffusion 1080p60/4K parfaite avec décodage matériel."}
+              : "Bobine fonctionne sur des mini PC standards x86-64 très économiques. Aucun serveur propriétaire coûteux n'est requis : du matériel reconditionné d'entreprise assure une diffusion 1080p60/4K parfaite avec décodage matériel."}
           </p>
 
           <div className="docs-table-wrapper">
@@ -140,8 +140,8 @@ export default function QuickStartStepper({ locale }: QuickStartStepperProps) {
         <div>
           <p>
             {isEn
-              ? "Bobine targets Debian 13 'Trixie' (or Debian 12 'Bookworm') in a minimal headless installation without any heavy desktop environment."
-              : "Bobine cible Debian 13 « Trixie » (ou Debian 12 « Bookworm ») en installation minimale épurée, sans environnement de bureau lourd."}
+              ? "Bobine targets Debian 13 'Trixie' in a minimal headless installation without any heavy desktop environment."
+              : "Bobine cible Debian 13 « Trixie » en installation minimale épurée, sans environnement de bureau lourd."}
           </p>
           <p>
             {isEn
@@ -290,7 +290,7 @@ sudo ./install.sh</code>
           <p>
             {isEn
               ? "install.sh is idempotent and fully automated: it configures the Python virtual environment (FastAPI + SQLite, no external Redis), builds the Next.js UI, registers the 4 systemd units (backend, kiosk, audio-guard, watchdog), and starts everything."
-              : "install.sh est autonome et idempotent : il configure l'environnement Python (FastAPI + SQLite, sans dépendance Redis), compile l'interface Next.js, enregistre les 4 services systemd (backend, kiosk, audio-guard, watchdog) et démarre la régie."}
+              : "install.sh est autonome et idempotent : il configure l'environnement Python (FastAPI + SQLite), compile l'interface Next.js, enregistre les services systemd (backend, kiosk, audio-guard, watchdog) et démarre la régie."}
           </p>
           <Shot caption={isEn ? "Completed install.sh execution showing success summary and local IP address" : "Fin de l'exécution de install.sh : message de succès et adresse IP affichée dans le terminal"} />
         </div>

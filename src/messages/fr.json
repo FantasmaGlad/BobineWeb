@@ -1,22 +1,10 @@
 {
   "nav": {
-    "home": "Accueil",
-    "features": "Fonctionnalités",
-    "documentation": "Documentation",
-    "blog": "Blog",
-    "demo": "Démonstration",
-    "support": "Soutenir",
-    "about": "À propos"
+    "home": "Accueil"
   },
   "footer": {
     "legal": "Mentions légales",
     "privacy": "Confidentialité",
-    "github": "Code source sur GitHub",
-    "tagline": "Bobine est un logiciel libre, sous licence AGPL-3.0."
-  },
-  "search": {
-    "placeholder": "Rechercher dans la documentation & FAQ...",
-    "resultsFound": "résultats trouvés",
-    "noResults": "Aucun résultat trouvé pour cette recherche."
+    "github": "Code source sur GitHub"
   }
 }

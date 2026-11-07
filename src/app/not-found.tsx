@@ -1,7 +1,6 @@
 import { THEME_INIT_SNIPPET } from "@/lib/themes";
-import Link from "next/link";
+import ErrorPage from "@/components/ErrorPage";
 import "./globals.css";
-import "@/styles/split/pages-misc.css";
 
 export default function GlobalNotFound() {
   return (
@@ -17,33 +16,13 @@ export default function GlobalNotFound() {
         />
       </head>
       <body>
-        <div className="not-found-div-3"
-        >
-          <h1 className="not-found-h1-2"
-          >
-            Erreur 404 · Page introuvable
-          </h1>
-
-          <p className="not-found-p-2"
-          >
-            La page demandée n&apos;existe pas ou a été déplacée. / The requested page does not exist or has been moved.
-          </p>
-
-          <div className="not-found-div-2">
-            <Link
-              href="/fr"
-              className="btn-secondary not-found-link-1"
-            >
-              Retour à l&apos;accueil
-            </Link>
-            <Link
-              href="/en"
-              className="btn-secondary not-found-link-1"
-            >
-              Go to English Home
-            </Link>
-          </div>
-        </div>
+        <ErrorPage
+          code="404"
+          titleFr="Page introuvable"
+          titleEn="Page not found"
+          textFr="La page demandée n'existe pas ou a été déplacée."
+          textEn="The requested page does not exist or has been moved."
+        />
       </body>
     </html>
   );

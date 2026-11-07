@@ -1,56 +1,55 @@
-/* Noir sur blanc, sans décoration : une seule page qui tient à l'écran, texte aligné à gauche et centré en hauteur. */
+/* Noir sur blanc, une seule colonne alignée à gauche, sans encadré ni barre de défilement. */
 *, *::before, *::after { box-sizing: border-box; }
 html { height: 100%; }
 body {
   min-height: 100%;
   margin: 0;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  padding-inline: clamp(1rem, 6vw, 7rem);
-  font: clamp(14px, 1.95vh, 17px) / 1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.25rem, 4vw, 3rem);
+  font: 16px / 1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
   color: #000;
   background: #fff;
 }
-main { align-self: center; width: 100%; max-width: 110rem; padding-block: 1.5rem; }
-h1 { margin: 0 0 0.35em; font-size: clamp(1.6rem, 4.6vh, 2.6rem); line-height: 1.1; letter-spacing: -0.02em; }
-h2 {
-  margin: 0 0 0.6em;
-  padding-bottom: 0.35em;
-  border-bottom: 2px solid #000;
-  font-size: 0.8em;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-}
-p { margin: 0.4em 0; }
-.lead { max-width: 52rem; margin: 0; }
-.key { margin-top: 0.7em; }
+main { flex: 1; width: 100%; max-width: 64rem; }
+h1 { margin: 0 0 0.4rem; font-size: 1.7rem; line-height: 1.15; letter-spacing: -0.01em; }
+h2 { margin: 2.2rem 0 0.4rem; font-size: 1rem; font-weight: 700; }
+p { margin: 0.4rem 0; }
+.lead { margin: 0; }
+.key { margin-top: 0.8rem; }
 a { color: #000; text-underline-offset: 0.2em; }
 a:hover { text-decoration-thickness: 2px; }
 code { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; overflow-wrap: anywhere; }
 pre {
-  margin: 0.4em 0 0.9em;
-  padding: 0.6em 0.8em;
-  border: 1px solid #000;
-  font-size: 0.86em;
-  line-height: 1.45;
+  position: relative;
+  margin: 0.4rem 0 1rem;
+  padding: 0 4.5rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
-pre code { white-space: pre-wrap; overflow-wrap: break-word; }
-.install, .more, .columns {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1rem, 2.6vw, 3rem);
-  margin-top: clamp(1rem, 3.2vh, 2.2rem);
+pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+.copy {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #666;
+  font: inherit;
+  font-size: 0.78rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
 }
-.more { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 0; }
-.columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-table { width: 100%; border-collapse: collapse; }
-th, td { padding: 0.3em 0.6em 0.3em 0; border-bottom: 1px solid #000; text-align: left; vertical-align: top; }
-th { width: 30%; font-weight: 600; }
-ul { margin: 0.4em 0; padding-left: 1.1em; }
-footer { padding-block: 0.9em; border-top: 1px solid #000; font-size: 0.85em; }
+.copy:hover, .copy:focus-visible { color: #000; }
+dl { margin: 0.4rem 0; }
+dt { margin-top: 0.7rem; font-weight: 600; }
+dd { margin: 0; }
+ul { margin: 0.4rem 0; padding-left: 1.1rem; }
+footer { margin-top: 3rem; font-size: 0.85rem; }
 footer p { margin: 0; }
-@media (max-width: 900px) {
-  body { display: block; }
-  .install, .more, .columns { grid-template-columns: 1fr; }
+pre { width: fit-content; max-width: 100%; }
+@media (max-width: 600px) {
+  pre { width: 100%; padding: 1.4rem 0 0; }
 }
-.spaced { margin-top: 1.6em; }

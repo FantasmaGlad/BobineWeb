@@ -59,4 +59,4 @@ npm run dev                  # http://localhost:3000
 
 All channels (Stable, Beta, Canary) and one-line commands, including through Tor: [Bobine README](https://github.com/FantasmaGlad/Bobine#download--install).
 
-<sub>Related repositories: [Bobine](https://github.com/FantasmaGlad/Bobine) (application) · [bobine-packages](https://github.com/FantasmaGlad/bobine-packages) (Linux package repositories) · [homebrew-bobine](https://github.com/FantasmaGlad/homebrew-bobine) (Homebrew tap) · Security policy: [security.bobine.fit](https://security.bobine.fit), [`/.well-known/security.txt`](https://bobine.fit/.well-known/security.txt)</sub>
+<sub>Related repositories: [Bobine](https://github.com/FantasmaGlad/Bobine) (application) · [bobine-packages](https://github.com/FantasmaGlad/bobine-packages) (Linux package repositories) · [homebrew-bobine](https://github.com/FantasmaGlad/homebrew-bobine) (Homebrew tap) · [bobine-deploy](https://github.com/FantasmaGlad/bobine-deploy) (remote installation) · Security policy: [security.bobine.fit](https://security.bobine.fit), [`/.well-known/security.txt`](https://bobine.fit/.well-known/security.txt)</sub>

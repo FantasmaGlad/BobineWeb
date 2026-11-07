@@ -50,7 +50,7 @@
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: var(--fs-0-82rem);
-  color: var(--accent-primary);
+  color: var(--accent-text);
   min-width: 40px;
   text-align: right;
 }
@@ -462,7 +462,7 @@
 }
 
 .hw-item-card:hover {
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px color-mix(in srgb, var(--ink) 7%, transparent);
 }

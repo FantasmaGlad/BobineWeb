@@ -36,7 +36,7 @@
 }
 
 .terminal-ascii-tag {
-  color: var(--accent-primary);
+  color: var(--accent-text);
   font-weight: 700;
 }
 
@@ -66,7 +66,7 @@
 }
 
 .terminal-channel-prompt__label {
-  color: var(--accent-primary);
+  color: var(--accent-text);
 }
 
 .terminal-channel-prompt__choices {
@@ -93,13 +93,13 @@
 
 .terminal-channel-prompt__btn:hover:not(:disabled) {
   background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
   color: var(--text-heading);
 }
 
 .terminal-channel-prompt__btn.is-selected {
   background: color-mix(in srgb, var(--accent-primary) 15%, transparent);
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
   color: var(--text-heading);
   font-weight: 600;
 }
@@ -110,7 +110,7 @@
 }
 
 .terminal-prompt-num {
-  color: var(--accent-primary);
+  color: var(--accent-text);
   font-weight: 700;
 }
 
@@ -132,7 +132,7 @@
 }
 
 .terminal-prompt-qval {
-  color: var(--accent-primary);
+  color: var(--accent-text);
   font-weight: 800;
 }
 
@@ -181,7 +181,7 @@
 .terminal-step-num {
   font-family: var(--font-mono);
   font-size: var(--fs-0-74rem);
-  color: var(--accent-primary);
+  color: var(--accent-text);
   font-weight: 700;
   min-width: 52px;
 }
@@ -195,7 +195,7 @@
 .terminal-spinner {
   display: inline-flex;
   align-items: center;
-  color: var(--accent-primary);
+  color: var(--accent-text);
   vertical-align: middle;
 }
 

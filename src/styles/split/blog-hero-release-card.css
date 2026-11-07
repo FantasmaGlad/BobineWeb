@@ -19,11 +19,11 @@
 }
 .blog-hero-release-card--stable {
   border: 1px solid color-mix(in srgb, var(--accent-primary) 35%, var(--border-subtle));
-  background: linear-gradient(180deg, color-mix(in srgb, var(--accent-subtle) 16%, var(--bg-card)) 0%, var(--bg-card) 100%);
+  background: color-mix(in srgb, var(--accent-subtle) 16%, var(--bg-card));
 }
 .blog-hero-release-card--beta {
   border: 1px solid var(--border-subtle);
-  border-left: 4px solid var(--accent-primary);
+  border-left: 4px solid var(--accent-text);
   background: color-mix(in srgb, var(--accent-subtle) 22%, var(--bg-card));
   margin-bottom: 1.25rem;
 }

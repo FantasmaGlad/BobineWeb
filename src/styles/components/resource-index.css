@@ -32,7 +32,7 @@
 }
 
 .resource-search-bar:focus-within {
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
   box-shadow: 0 0 0 1px var(--border-focus);
 }
 
@@ -238,7 +238,7 @@
 }
 
 .book-index-entry:hover .book-index-entry__dots {
-  border-bottom-color: var(--accent-primary);
+  border-bottom-color: var(--accent-text);
 }
 
 .book-index-entry__cat {

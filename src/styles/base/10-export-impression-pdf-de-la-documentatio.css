@@ -144,7 +144,7 @@
 }
 
 .github-pr-card:hover {
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
 }
 
 .github-pr-card__header {
@@ -255,7 +255,7 @@
 }
 
 .github-pr-branch.is-feature {
-  color: var(--accent-primary);
+  color: var(--accent-text);
   border-color: color-mix(in srgb, var(--accent-primary) 40%, transparent);
 }
 
@@ -316,7 +316,7 @@
   padding: 0.65rem 0.85rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: var(--fs-0-825rem);
-  color: var(--accent-primary);
+  color: var(--accent-text);
   overflow-x: auto;
 }
 
@@ -339,7 +339,7 @@
 }
 
 .kofi-widget-card:hover {
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
 }
 
 .kofi-widget-card__header {
@@ -433,16 +433,16 @@
 }
 
 .kofi-amount-pill:hover {
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
   background: var(--bg-surface-hover);
 }
 
 .kofi-amount-pill.is-selected {
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
   background: var(--accent-subtle);
-  color: var(--accent-primary);
+  color: var(--accent-text);
   font-weight: 700;
-  box-shadow: 0 0 0 1px var(--accent-primary);
+  box-shadow: 0 0 0 1px var(--accent-text);
 }
 
 .kofi-amount-qty {

@@ -363,7 +363,7 @@
 }
 
 .dl-btn--secondary:hover {
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
 }
 
 .dl-btn--copy {
@@ -379,11 +379,11 @@
 }
 
 .dl-btn--copy:hover {
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
 }
 
 .dl-btn--copy.is-copied {
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
   color: var(--accent-text);
 }
 

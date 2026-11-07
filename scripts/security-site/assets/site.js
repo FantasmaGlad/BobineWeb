@@ -1,23 +1,26 @@
 /* Site sécurité : thème et navigation partagés avec bobine.fit. */
 (function () {
   'use strict';
+  var D = window.BOBINE_THEMES, resolve = window.BOBINE_RESOLVE, effective = window.BOBINE_EFFECTIVE;
   var options = Array.from(document.querySelectorAll('[data-theme-value]'));
-  var THEMES = options.map(function (option) { return option.dataset.themeValue; });
+  var THEMES = D.themes.map(function (t) { return t.id; });
   var LANG = document.documentElement.lang === 'fr' ? 'fr' : 'en';
 
-  // --- Thème : cookie bobine-theme sur .bobine.fit (lu aussi par le site), localStorage en repli ---
-  function storedTheme() {
-    var match = document.cookie.match(/(?:^|; )bobine-theme=([\w-]+)/);
-    var value = match ? match[1] : null;
-    try { value = value || localStorage.getItem('bobineweb-theme'); } catch { /* stockage indisponible */ }
-    return THEMES.indexOf(value) >= 0 ? value : 'lavande';
-  }
-  function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
+  // --- Thème et mode : cookies bobine-theme et bobine-theme-mode sur .bobine.fit (lus aussi par le site), localStorage en repli ---
+  var current = resolve();
+  function save(theme, mode) {
     var host = location.hostname;
     var domain = /(^|\.)bobine\.fit$/.test(host) ? '; domain=.bobine.fit' : '';
-    document.cookie = 'bobine-theme=' + theme + domain + '; path=/; max-age=31536000; samesite=lax' + (location.protocol === 'https:' ? '; secure' : '');
-    try { localStorage.setItem('bobineweb-theme', theme); } catch { /* stockage indisponible */ }
+    var attributes = domain + '; path=/; max-age=31536000; samesite=lax' + (location.protocol === 'https:' ? '; secure' : '');
+    document.cookie = 'bobine-theme=' + theme + attributes;
+    document.cookie = 'bobine-theme-mode=' + mode + attributes;
+    try { localStorage.setItem('bobineweb-theme', theme); localStorage.setItem('bobineweb-theme-mode', mode); } catch (e) { /* stockage indisponible */ }
+  }
+  function applyChoice(theme, mode, persist) {
+    current = { theme: theme, mode: mode };
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-mode', effective(mode));
+    if (persist) save(theme, mode);
     options.forEach(function (option) {
       var active = option.dataset.themeValue === theme;
       option.setAttribute('aria-selected', String(active));
@@ -28,18 +31,15 @@
         document.getElementById('themeCycle').setAttribute('aria-label', (LANG === 'fr' ? 'Thème actif : ' : 'Current theme: ') + option.dataset.label + (LANG === 'fr' ? '. Thème suivant' : '. Next theme'));
       }
     });
-  }
-  var picker = document.getElementById('themePicker');
-  var palette = document.getElementById('themePalette');
-  var toggle = document.getElementById('themeToggle');
-  function setGroup(dark) {
-    options.forEach(function (option) { option.hidden = (option.dataset.dark === 'true') !== dark; });
-    document.querySelectorAll('[data-theme-group]').forEach(function (tab) {
-      var active = (tab.dataset.themeGroup === 'dark') === dark;
+    document.querySelectorAll('[data-theme-mode]').forEach(function (tab) {
+      var active = tab.dataset.themeMode === mode;
       tab.classList.toggle('is-active', active);
       tab.setAttribute('aria-selected', String(active));
     });
   }
+  var picker = document.getElementById('themePicker');
+  var palette = document.getElementById('themePalette');
+  var toggle = document.getElementById('themeToggle');
   function closePalette(focus) {
     palette.hidden = true;
     document.querySelector('.site-header').classList.remove('palette-open');
@@ -49,8 +49,7 @@
   }
   toggle.addEventListener('click', function () {
     if (!palette.hidden) { closePalette(false); return; }
-    var selected = options.find(function (o) { return o.dataset.themeValue === storedTheme(); });
-    setGroup(selected.dataset.dark === 'true');
+    var selected = options.find(function (o) { return o.dataset.themeValue === current.theme; });
     document.querySelector('.site-header').classList.add('palette-open');
     palette.hidden = false;
     toggle.setAttribute('aria-expanded', 'true');
@@ -58,12 +57,14 @@
     selected.focus();
   });
   document.getElementById('themeCycle').addEventListener('click', function () {
-    applyTheme(THEMES[(THEMES.indexOf(storedTheme()) + 1) % THEMES.length]);
+    applyChoice(THEMES[(THEMES.indexOf(current.theme) + 1) % THEMES.length], current.mode, true);
   });
   options.forEach(function (option) { option.addEventListener('click', function () {
-    applyTheme(option.dataset.themeValue); closePalette(true);
+    applyChoice(option.dataset.themeValue, current.mode, true); closePalette(true);
   }); });
-  document.querySelectorAll('[data-theme-group]').forEach(function (tab) { tab.addEventListener('click', function () { setGroup(tab.dataset.themeGroup === 'dark'); }); });
+  document.querySelectorAll('[data-theme-mode]').forEach(function (tab) { tab.addEventListener('click', function () { applyChoice(current.theme, tab.dataset.themeMode, true); }); });
+  // « Automatique » suit le réglage du système, y compris quand il change pendant la visite.
+  if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { if (current.mode === 'auto') applyChoice(current.theme, 'auto', false); });
   document.addEventListener('click', function (event) { if (!picker.contains(event.target)) closePalette(false); });
   document.addEventListener('keydown', function (event) {
     if (palette.hidden) return;
@@ -76,7 +77,7 @@
     if (event.key === 'Home' || event.key === 'End') { event.preventDefault(); visible[event.key === 'Home' ? 0 : visible.length - 1].focus(); }
   });
   picker.addEventListener('focusout', function (event) { if (event.relatedTarget && !picker.contains(event.relatedTarget)) closePalette(false); });
-  applyTheme(storedTheme());
+  applyChoice(current.theme, current.mode, false);
 
   // --- Menu des petits écrans ---
   var menuBtn = document.getElementById('menuBtn');

@@ -24,9 +24,10 @@ function footer(locale,game) {
 for(const locale of ['en','fr'])for(const game of [false,true]) {
   const name=game?`snake-${locale}`:locale;
   const path=game?(locale==='fr'?'fr/snake/index.html':'snake/index.html'):(locale==='fr'?'fr/index.html':'index.html');
-  files[path]=`<!DOCTYPE html>\n<html lang="${locale}" data-theme="lavande"><head>${text(`${name}-head.html`)}<script src="/assets/theme-init.js"></script><link rel="stylesheet" href="/assets/bobine-tokens.css"><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/bobine-controls.css"><script src="/assets/site.js" defer></script>${game?'<script src="/assets/snake.js" defer></script>':''}</head><body class="${game?'snake-page':'security-page'}"><a class="skip-link" href="#${game?'gameArea':'main'}">${locale==='fr'?'Aller au contenu':'Skip to content'}</a>${header(locale,game)}${text(`${name}.html`).replace('<main class="page-main">','<main class="page-main" id="main">')}<p id="copyStatus" class="sr-only" role="status" aria-live="polite"></p>${footer(locale,game)}</body></html>\n`;
+  files[path]=`<!DOCTYPE html>\n<html lang="${locale}" data-theme="${themes.defaultTheme}" data-mode="light"><head>${text(`${name}-head.html`)}<script src="/assets/theme-init.js"></script><link rel="stylesheet" href="/assets/bobine-tokens.css"><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/bobine-controls.css"><script src="/assets/site.js" defer></script>${game?'<script src="/assets/snake.js" defer></script>':''}</head><body class="${game?'snake-page':'security-page'}"><a class="skip-link" href="#${game?'gameArea':'main'}">${locale==='fr'?'Aller au contenu':'Skip to content'}</a>${header(locale,game)}${text(`${name}.html`).replace('<main class="page-main">','<main class="page-main" id="main">')}<p id="copyStatus" class="sr-only" role="status" aria-live="polite"></p>${footer(locale,game)}</body></html>\n`;
 }
-for(const file of ['site.css','site.js','snake.js','theme-init.js'])files[`assets/${file}`]=readFileSync(join(source,'assets',file));
+for(const file of ['site.css','site.js','snake.js'])files[`assets/${file}`]=readFileSync(join(source,'assets',file));
+files['assets/theme-init.js']=readFileSync(join(source,'assets','theme-init.js'),'utf8').replace('/*THEME_DATA*/{}',JSON.stringify({themes:themes.themes.map(({id})=>({id})),legacy:themes.legacy,defaultTheme:themes.defaultTheme,defaultMode:themes.defaultMode}));
 for(const file of ['bobine-tokens.css','bobine-controls.css'])files[`assets/${file}`]=readFileSync(join(root,'public',file));
 for(const file of ['favicon.ico','logo_bobine_entier.png'])files[file]=readFileSync(join(root,'public',file));
 for(const [file,body]of Object.entries(files)) {
@@ -35,4 +36,4 @@ for(const [file,body]of Object.entries(files)) {
     if(!readFileSync(target).equals(Buffer.from(body)))throw new Error(`${file} : génération périmée`);
   } else {mkdirSync(dirname(target),{recursive:true});writeFileSync(target,body);}
 }
-console.log(`Site de sécurité : ${Object.keys(files).length} pages et ressources ${check?'à jour':'générées'}, 15 thèmes communs.`);
+console.log(`Site de sécurité : ${Object.keys(files).length} pages et ressources ${check?'à jour':'générées'}, 9 thèmes communs, clairs et sombres.`);

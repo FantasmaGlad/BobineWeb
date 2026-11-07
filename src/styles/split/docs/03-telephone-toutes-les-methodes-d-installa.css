@@ -1,5 +1,5 @@
 .docs-install-divider__pill svg {
-  color: var(--accent-primary);
+  color: var(--accent-text);
 }
 .docs-method-hero {
   display: flex;
@@ -28,7 +28,7 @@
   height: 52px;
   border-radius: var(--radius-lg);
   background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
-  color: var(--accent-primary);
+  color: var(--accent-text);
   flex-shrink: 0;
 }
 .docs-method-hero__title {
@@ -59,7 +59,7 @@
 }
 .docs-method-version-text {
   font-family: var(--font-mono);
-  color: var(--accent-primary);
+  color: var(--accent-text);
   font-weight: 700;
 }
 .docs-method-meta-dot {
@@ -72,7 +72,7 @@
   transition: color 0.2s ease;
 }
 .docs-method-source-link:hover {
-  color: var(--accent-primary);
+  color: var(--accent-text);
 }
 .docs-copyable-cmd {
   display: flex;
@@ -101,7 +101,7 @@
   font-weight: 600;
   border-radius: var(--radius-sm);
   background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
-  color: var(--accent-primary);
+  color: var(--accent-text);
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -145,7 +145,7 @@
   height: 32px;
   border-radius: var(--radius-9999px);
   background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
-  color: var(--accent-primary);
+  color: var(--accent-text);
   font-weight: 800;
   font-size: var(--fs-0-9rem);
   flex-shrink: 0;
@@ -263,7 +263,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  color: var(--accent-primary);
+  color: var(--accent-text);
   background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
   border: 1px solid color-mix(in srgb, var(--accent-primary) 30%, transparent);
   padding: 0.4rem 0.75rem;
@@ -361,8 +361,8 @@
 }
 .docs-tor-note__copy-btn:hover {
   background: var(--bg-surface);
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
+  border-color: var(--accent-text);
+  color: var(--accent-text);
 }
 .docs-tor-note__links {
   display: flex;

@@ -10,7 +10,7 @@
     "^\\.tauri-log-"
   ],
   "typescriptColorFiles": [
-    "src/lib/themes.ts",
+    "src/lib/themePalettes.ts",
     "src/lib/pdf/DocumentationPdf.tsx",
     "src/lib/pdf/icons.tsx",
     "src/app/[locale]/opengraph-image.tsx",

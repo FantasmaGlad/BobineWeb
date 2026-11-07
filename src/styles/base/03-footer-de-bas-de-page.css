@@ -29,7 +29,7 @@
 }
 
 .theme-switcher-btn:focus-visible {
-  outline: 2px solid var(--accent-primary);
+  outline: 2px solid var(--accent-text);
   outline-offset: -1px;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .theme-switcher-arrow-btn:focus-visible {
-  outline: 2px solid var(--accent-primary);
+  outline: 2px solid var(--accent-text);
   outline-offset: -1px;
 }
 
@@ -125,7 +125,7 @@
   padding: 0.1rem 0.35rem;
   border-radius: var(--radius-999px);
   background: var(--accent-subtle);
-  color: var(--accent-primary);
+  color: var(--accent-text);
   font-weight: 700;
 }
 
@@ -226,7 +226,7 @@
 
 .theme-card-option__check {
   font-size: var(--fs-0-75rem);
-  color: var(--accent-primary);
+  color: var(--accent-text);
   font-weight: 800;
   margin-left: auto;
 }
@@ -336,8 +336,8 @@ main {
 }
 
 .btn-secondary:hover {
-  border-color: var(--accent-primary);
-  color: var(--accent-primary) !important;
+  border-color: var(--accent-text);
+  color: var(--accent-text) !important;
   background: var(--bg-card-hover);
   transform: translateY(-1px);
   box-shadow: var(--shadow-card);
@@ -370,11 +370,11 @@ main {
 }
 
 .doc-open-row:hover {
-  border-bottom-color: var(--accent-primary);
+  border-bottom-color: var(--accent-text);
 }
 
 .doc-open-row:hover h2 {
-  color: var(--accent-primary) !important;
+  color: var(--accent-text) !important;
 }
 
 /* Documentation Mobile Contextual Navigation */
@@ -476,7 +476,7 @@ main {
 .docs-content__inner code,
 .release-body code {
   background: var(--bg-inset);
-  color: var(--accent-primary);
+  color: var(--accent-text);
   padding: 0.15em 0.4em;
   border-radius: var(--radius-0-3em);
   font-size: var(--fs-0-85em);

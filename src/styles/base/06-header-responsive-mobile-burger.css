@@ -26,8 +26,8 @@
 
 .mobile-burger-btn:hover {
   background: var(--bg-surface-hover);
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
+  border-color: var(--accent-text);
+  color: var(--accent-text);
 }
 
 @media (max-width: 1280px) {
@@ -104,7 +104,7 @@
 
 .mobile-drawer-close-btn:hover {
   color: var(--text-heading);
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
 }
 
 .mobile-drawer-body {
@@ -179,9 +179,9 @@
 
 .mobile-drawer-link:hover,
 .mobile-drawer-link.is-active {
-  color: var(--accent-primary);
+  color: var(--accent-text);
   background: transparent;
-  border-bottom-color: var(--accent-primary);
+  border-bottom-color: var(--accent-text);
   font-weight: 600;
 }
 
@@ -275,8 +275,8 @@
 }
 
 .baamix-header-btn:hover {
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 1px var(--accent-primary);
+  border-color: var(--accent-text);
+  box-shadow: 0 0 0 1px var(--accent-text);
   background: var(--bg-surface-hover);
 }
 
@@ -323,7 +323,7 @@
 }
 
 .mobile-drawer-baamix-btn:hover {
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
   background: var(--bg-card-hover);
   transform: translateY(-1px);
 }
@@ -418,7 +418,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1.5px solid var(--accent-primary);
+  border: 1.5px solid var(--accent-text);
   overflow: visible;
   flex-shrink: 0;
 }
@@ -446,7 +446,7 @@
 .chatbot-modal__subtitle {
   font-size: var(--fs-0-725rem);
   font-weight: 600;
-  color: var(--accent-primary);
+  color: var(--accent-text);
 }
 
 .chatbot-header-btn {

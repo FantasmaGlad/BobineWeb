@@ -261,11 +261,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1.25rem 2rem;
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--accent-primary) 12%, var(--glass-card-bg)),
-    var(--glass-card-bg)
-  );
+  background: color-mix(in srgb, var(--accent-primary) 8%, var(--glass-card-bg));
   border-color: color-mix(in srgb, var(--accent-primary) 34%, var(--glass-card-border));
 }
 .landing-hardware-cta__text {
@@ -470,7 +466,7 @@
 .landing-dl__pill[aria-pressed="true"] {
   color: var(--text-heading);
   background: color-mix(in srgb, var(--accent-primary) 14%, var(--glass-inset-bg));
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
 }
 .landing-dl__pills--channels .landing-dl__pill {
   font-size: var(--fs-0-82rem);

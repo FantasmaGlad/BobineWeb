@@ -23,6 +23,7 @@ Avant la bascule atomique, `verify-packages.py` vérifie la clé principale épi
 | `sync.sh` | extraction, personnalisation, vérification et bascule atomique |
 | `verify-packages.py` | vérificateur commun, Python 3.11 minimum et GnuPG |
 | `test-verify-packages.py` | refus d'une clé absente, d'index et de binaires altérés |
+| `site-signature.py`, `test-site-signature.py` | manifeste signé de la branche du site : fabrication (CI) et vérification (hôte), et ses refus |
 | `overlay/apt/` | adaptations du portail et des commandes au transport Tor |
 
 ## Installation
@@ -37,9 +38,23 @@ Avant la bascule atomique, `verify-packages.py` vérifie la clé principale épi
    install -d -m 0700 -o onion-sync -g onion-data /var/lib/onion-sync/.ssh
    install -d /etc/bobine-onion /usr/local/lib/bobine-onion
    ```
-3. Copier `Caddyfile.onion` vers `/etc/bobine-onion/Caddyfile`, les unités vers `/etc/systemd/system/`, puis `sync.sh`, `verify-packages.py` et `overlay/` vers `/usr/local/lib/bobine-onion/`.
+3. Copier `Caddyfile.onion` vers `/etc/bobine-onion/Caddyfile`, les unités vers `/etc/systemd/system/`, puis `sync.sh`, `verify-packages.py`, `site-signature.py` et `overlay/` vers `/usr/local/lib/bobine-onion/`.
 4. Ajouter `torrc.bobine-onion.conf` à `/etc/tor/torrc`, puis redémarrer `tor@default`. Les adresses sont dans `/var/lib/tor/bobine-apt/hostname` et `/var/lib/tor/bobine-site/hostname`.
 5. Installer la clé de déploiement GitHub en lecture seule dans `/var/lib/onion-sync/.ssh/` (propriétaire `onion-sync`, mode 0600), puis y créer `known_hosts` avec les clés d'hôte de `github.com` vérifiées auprès de la page officielle des empreintes de GitHub (`ssh-keyscan -t ed25519 github.com` ne suffit pas sans cette vérification) : `sync.sh` impose la vérification stricte et signale un fichier absent. Activer ensuite `bobine-onion-web.service` et `bobine-onion-sync.timer`.
+
+### Signature de la branche du site
+
+La branche `onion-site` est publiée par la CI. Sans signature, quiconque peut y pousser (ou détourner un jeton d'écriture) change ce que la machine sert. Le manifeste `SHA256SUMS` de tous les fichiers est donc signé en CI (`SHA256SUMS.asc`) par une clé GnuPG **dédiée au miroir** (jamais la clé des paquets), et `sync.sh` le vérifie avant toute personnalisation : empreinte épinglée sur la machine, aucun fichier ajouté, retiré ou modifié, aucun lien, et refus d'un `built:` plus ancien que celui déjà servi (`/srv/onion/.site-built`).
+
+1. Sur un poste de confiance, créer la clé, sans phrase secrète (elle est lue par la CI), et noter l'empreinte :
+   ```bash
+   export GNUPGHOME="$(mktemp -d)"
+   gpg --batch --quick-generate-key 'Bobine onion mirror <onion-mirror@bobine.fit>' ed25519 sign 2y
+   gpg --list-secret-keys --with-colons | awk -F: '/^fpr:/ {print $10; exit}'
+   ```
+2. Ajouter la clé privée (`gpg --armor --export-secret-keys EMPREINTE`) au secret `ONION_SIGNING_KEY` de BobineWeb ; garder une sauvegarde hors ligne, puis supprimer le trousseau temporaire. Renouveler la clé avant son expiration (deux ans) : installer d'abord la nouvelle empreinte sur la machine, puis changer le secret.
+3. Sur la machine du miroir : `gpg --armor --export EMPREINTE > /usr/local/lib/bobine-onion/site-signing.pub.asc` et `echo EMPREINTE > /etc/bobine-onion/site-signing.fpr` (propriétaire `root`, lecture seule). Tant que `site-signing.fpr` est absent, `sync.sh` avertit et n'exige pas la signature : à installer **après** une première publication signée, sinon le site reste sur l'ancienne copie.
+4. Vérifier : après le prochain passage de `bobine-onion-sync.service`, le journal ne doit plus contenir « signature du site n'est pas vérifiée ».
 
 ### Migration depuis l'ancien utilisateur unique `onion`
 

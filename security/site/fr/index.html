@@ -14,8 +14,12 @@
 </head>
 <body>
 <main>
+<header>
 <h1>Sécurité de Bobine</h1>
-<p>Signalez en privé les failles du logiciel Bobine, de son site ou de ses dépôts de paquets signés. Chiffrez le rapport avec la clé ci-dessous.</p>
+<p class="lead">Signalez en privé les failles du logiciel Bobine, de son site ou de ses dépôts de paquets signés. Chiffrez le rapport avec la clé ci-dessous.</p>
+</header>
+<div class="columns">
+<section>
 <h2>Clé</h2>
 <table>
 <tr><th>Identité</th><td>Bobine Security &lt;security@bobine.fit&gt;</td></tr>
@@ -24,6 +28,14 @@
 <tr><th>Expiration</th><td>2028-10-06</td></tr>
 <tr><th>Fichiers</th><td><a href="/security.asc">security.asc</a> · <a href="/.well-known/security.txt">security.txt</a></td></tr>
 </table>
+<h2 class="spaced">Historique</h2>
+<ul>
+<li>2026-10-08 : Publication de ce site.</li>
+<li>2026-10-07 : Mise en service de la clé actuelle.</li>
+<li>2026-10-07 : Clé 8208 FFD3 F7AB 4DD3 révoquée après la perte de sa phrase de passe (non compromise, aucun rapport reçu).</li>
+</ul>
+</section>
+<section>
 <h2>Signaler</h2>
 <p>1. Récupérez la clé et comparez son empreinte avec celle ci-dessus :</p>
 <pre><code>gpg --locate-keys security@bobine.fit
@@ -32,12 +44,8 @@ gpg --fingerprint security@bobine.fit</code></pre>
 <pre><code>gpg --armor --encrypt --recipient security@bobine.fit report.txt</code></pre>
 <p>3. Envoyez le fichier chiffré à <a href="mailto:security@bobine.fit">security@bobine.fit</a>, ou ouvrez un <a href="https://github.com/FantasmaGlad/Bobine/security/advisories/new">signalement privé sur GitHub</a>.</p>
 <p>Politique complète : <a href="https://github.com/FantasmaGlad/Bobine/blob/main/SECURITY.md">SECURITY.md</a>.</p>
-<h2>Historique</h2>
-<ul>
-<li>2026-10-08 : Publication de ce site.</li>
-<li>2026-10-07 : Mise en service de la clé actuelle.</li>
-<li>2026-10-07 : Clé 8208 FFD3 F7AB 4DD3 révoquée après la perte de sa phrase de passe (non compromise, aucun rapport reçu).</li>
-</ul>
+</section>
+</div>
 </main>
 <footer>
 <p><a href="https://bobine.fit">bobine.fit</a> · <a href="https://github.com/FantasmaGlad/Bobine">GitHub</a> · <a href="/">English</a></p>

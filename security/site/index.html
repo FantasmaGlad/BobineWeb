@@ -14,8 +14,12 @@
 </head>
 <body>
 <main>
+<header>
 <h1>Bobine security</h1>
-<p>Report vulnerabilities in the Bobine software, its website or its signed package repositories privately. Encrypt the report with the key below.</p>
+<p class="lead">Report vulnerabilities in the Bobine software, its website or its signed package repositories privately. Encrypt the report with the key below.</p>
+</header>
+<div class="columns">
+<section>
 <h2>Key</h2>
 <table>
 <tr><th>Identity</th><td>Bobine Security &lt;security@bobine.fit&gt;</td></tr>
@@ -24,6 +28,14 @@
 <tr><th>Expires</th><td>2028-10-06</td></tr>
 <tr><th>Files</th><td><a href="/security.asc">security.asc</a> · <a href="/.well-known/security.txt">security.txt</a></td></tr>
 </table>
+<h2 class="spaced">History</h2>
+<ul>
+<li>2026-10-08: This site published.</li>
+<li>2026-10-07: Current key put into service.</li>
+<li>2026-10-07: Key 8208 FFD3 F7AB 4DD3 revoked after its passphrase was lost (not compromised, no report received).</li>
+</ul>
+</section>
+<section>
 <h2>Report</h2>
 <p>1. Fetch the key and check its fingerprint against the one above:</p>
 <pre><code>gpg --locate-keys security@bobine.fit
@@ -32,12 +44,8 @@ gpg --fingerprint security@bobine.fit</code></pre>
 <pre><code>gpg --armor --encrypt --recipient security@bobine.fit report.txt</code></pre>
 <p>3. Send the encrypted file to <a href="mailto:security@bobine.fit">security@bobine.fit</a>, or open a <a href="https://github.com/FantasmaGlad/Bobine/security/advisories/new">private GitHub report</a>.</p>
 <p>Full policy: <a href="https://github.com/FantasmaGlad/Bobine/blob/main/SECURITY.md">SECURITY.md</a>.</p>
-<h2>History</h2>
-<ul>
-<li>2026-10-08: This site published.</li>
-<li>2026-10-07: Current key put into service.</li>
-<li>2026-10-07: Key 8208 FFD3 F7AB 4DD3 revoked after its passphrase was lost (not compromised, no report received).</li>
-</ul>
+</section>
+</div>
 </main>
 <footer>
 <p><a href="https://bobine.fit">bobine.fit</a> · <a href="https://github.com/FantasmaGlad/Bobine">GitHub</a> · <a href="/fr/">Français</a></p>

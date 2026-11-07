@@ -36,11 +36,11 @@ export default function Header({
         <div className="site-header__inner">
           <Link href={`/${locale}`} className="site-header__brand" aria-label="Bobine - Accueil">
             <Image
-              src="/logo_bobine_entier.png"
+              src="/logo_bobine_b.webp"
               alt="Bobine"
-              width={160}
-              height={90}
-              priority className="site-image-2"
+              width={142}
+              height={176}
+              priority
             />
           </Link>
 

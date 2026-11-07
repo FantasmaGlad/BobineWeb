@@ -72,8 +72,12 @@ function page(lang) {
 </head>
 <body>
 <main>
+<header>
 <h1>${esc(t.title)}</h1>
-<p>${esc(t.lead)}</p>
+<p class="lead">${esc(t.lead)}</p>
+</header>
+<div class="columns">
+<section>
 <h2>${t.key}</h2>
 <table>
 <tr><th>${t.identity}</th><td>Bobine Security &lt;security@bobine.fit&gt;</td></tr>
@@ -82,6 +86,12 @@ function page(lang) {
 <tr><th>${t.expires}</th><td>2028-10-06</td></tr>
 <tr><th>${t.files}</th><td><a href="/security.asc">security.asc</a> · <a href="/.well-known/security.txt">security.txt</a></td></tr>
 </table>
+<h2 class="spaced">${t.history}</h2>
+<ul>
+${t.events.map(([d, e]) => `<li>${d}${lang === "fr" ? " : " : ": "}${esc(e)}</li>`).join("\n")}
+</ul>
+</section>
+<section>
 <h2>${t.report}</h2>
 <p>${esc(t.step1)}</p>
 ${pre("gpg --locate-keys security@bobine.fit\ngpg --fingerprint security@bobine.fit")}
@@ -89,10 +99,8 @@ ${pre("gpg --locate-keys security@bobine.fit\ngpg --fingerprint security@bobine.
 ${pre("gpg --armor --encrypt --recipient security@bobine.fit report.txt")}
 <p>${t.step3}</p>
 <p>${t.policy}</p>
-<h2>${t.history}</h2>
-<ul>
-${t.events.map(([d, e]) => `<li>${d}${lang === "fr" ? " : " : ": "}${esc(e)}</li>`).join("\n")}
-</ul>
+</section>
+</div>
 </main>
 <footer>
 <p><a href="https://bobine.fit">bobine.fit</a> · <a href="https://github.com/FantasmaGlad/Bobine">GitHub</a> · <a href="${t.other}">${t.otherLabel}</a></p>

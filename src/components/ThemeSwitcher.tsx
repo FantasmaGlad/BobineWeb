@@ -19,7 +19,7 @@ import {
 } from "@/lib/themes";
 import { paletteOf } from "@/lib/themePalettes";
 
-const MODES: readonly ThemeMode[] = ["auto", "light", "dark"];
+const MODES: readonly ThemeMode[] = ["light", "dark", "auto"];
 
 function readCookie(name: string): string | undefined {
   return document.cookie.match(new RegExp(`(?:^|; )${name}=([\\w-]+)`))?.[1];

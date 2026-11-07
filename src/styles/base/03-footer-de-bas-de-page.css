@@ -93,6 +93,11 @@
   border: 1px solid var(--border-subtle);
 }
 
+/* Clair et Sombre sur la même ligne, Automatique en barre large dessous. */
+.theme-segment-btn:last-child {
+  grid-column: 1 / -1;
+}
+
 .theme-segment-btn {
   display: flex;
   align-items: center;

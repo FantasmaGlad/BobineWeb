@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Génère security.bobine.fit (anglais à la racine, français sous /fr/) : HTML statique noir sur blanc, sans script.
+// Génère security.bobine.fit (anglais à la racine, français sous /fr/) : HTML statique noir sur blanc, un seul petit script de copie.
 // `--check` échoue si un fichier suivi par Git n'est pas à jour.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
@@ -67,6 +67,7 @@ function page(lang) {
 <link rel="alternate" hreflang="x-default" href="${SITE}/">
 <link rel="icon" href="/favicon.ico">
 <link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/copy.js" defer></script>
 </head>
 <body>
 <main>
@@ -74,20 +75,15 @@ function page(lang) {
 <h1>${esc(t.title)}</h1>
 <p class="lead">${esc(t.lead)}</p>
 </header>
-<div class="columns">
 <section>
 <h2>${t.key}</h2>
-<table>
-<tr><th>${t.identity}</th><td>Bobine Security &lt;security@bobine.fit&gt;</td></tr>
-<tr><th>${t.fingerprint}</th><td><code>${FP}</code></td></tr>
-<tr><th>${t.algorithms}</th><td>Ed25519, Curve25519</td></tr>
-<tr><th>${t.expires}</th><td>2028-10-06</td></tr>
-<tr><th>${t.files}</th><td><a href="/security.asc">security.asc</a> · <a href="/.well-known/security.txt">security.txt</a></td></tr>
-</table>
-<h2 class="spaced">${t.history}</h2>
-<ul>
-${t.events.map(([d, e]) => `<li>${d}${lang === "fr" ? " : " : ": "}${esc(e)}</li>`).join("\n")}
-</ul>
+<dl>
+<dt>${t.identity}</dt><dd>Bobine Security &lt;security@bobine.fit&gt;</dd>
+<dt>${t.fingerprint}</dt><dd><code>${FP}</code></dd>
+<dt>${t.algorithms}</dt><dd>Ed25519, Curve25519</dd>
+<dt>${t.expires}</dt><dd>2028-10-06</dd>
+<dt>${t.files}</dt><dd><a href="/security.asc">security.asc</a> · <a href="/.well-known/security.txt">security.txt</a></dd>
+</dl>
 </section>
 <section>
 <h2>${t.report}</h2>
@@ -98,10 +94,39 @@ ${pre("gpg --armor --encrypt --recipient security@bobine.fit report.txt")}
 <p>${t.step3}</p>
 <p>${t.policy}</p>
 </section>
-</div>
+<section>
+<h2>${t.history}</h2>
+<ul>
+${t.events.map(([d, e]) => `<li>${d}${lang === "fr" ? " : " : ": "}${esc(e)}</li>`).join("\n")}
+</ul>
+</section>
 </main>
 <footer>
-<p><a href="https://bobine.fit">bobine.fit</a> · <a href="https://github.com/FantasmaGlad/Bobine">GitHub</a> · <a href="${t.other}">${t.otherLabel}</a></p>
+<p><a href="https://bobine.fit">bobine.fit</a> · <a href="https://packages.bobine.fit">packages</a> · <a href="https://github.com/FantasmaGlad/Bobine">GitHub</a> · <a href="${t.other}">${t.otherLabel}</a></p>
+</footer>
+</body>
+</html>
+`;
+}
+
+function notFound() {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 · security.bobine.fit</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<main>
+<h1>404</h1>
+<p>Page introuvable. Page not found.</p>
+</main>
+<footer>
+<p><a href="https://bobine.fit">bobine.fit</a> · <a href="https://packages.bobine.fit">packages</a> · <a href="https://github.com/FantasmaGlad/Bobine">GitHub</a> · <a href="/">security</a></p>
 </footer>
 </body>
 </html>
@@ -111,7 +136,9 @@ ${pre("gpg --armor --encrypt --recipient security@bobine.fit report.txt")}
 const files = {
   "index.html": page("en"),
   "fr/index.html": page("fr"),
+  "404.html": notFound(),
   "assets/site.css": readFileSync(join(root, "scripts/security-site/site.css")),
+  "assets/copy.js": readFileSync(join(root, "scripts/security-site/copy.js")),
   "favicon.ico": readFileSync(join(root, "public/favicon.ico")),
 };
 for (const [file, body] of Object.entries(files)) {

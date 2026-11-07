@@ -123,5 +123,12 @@ pre code,
   .hero-fullscreen__backdrop-art:has(.hero-fullscreen__backdrop-img--mascot) {
     width: min(19vw, 270px);
     max-height: 215px;
+    top: 2.5rem;
+  }
+}
+/* Large écran : plus à gauche, mais dans l'espace libre à droite du titre (jamais dessous). */
+@media (min-width: 1280px) {
+  .hero-fullscreen__backdrop-art:has(.hero-fullscreen__backdrop-img--mascot) {
+    right: max(clamp(-7.5rem, -5vw, -2rem), calc((100% - 100vw) / 2 + 1rem));
   }
 }

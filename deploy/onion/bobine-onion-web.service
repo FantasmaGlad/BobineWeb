@@ -3,10 +3,12 @@ Description=Miroir Tor de Bobine : serveur statique (sockets UNIX locaux)
 After=network.target
 
 [Service]
-User=onion
+# Utilisateur sans accès à la clé de déploiement : lecture seule de /srv/onion par le groupe onion-data.
+User=onion-web
 # Groupe de Tor : le demon abandonne ses privileges et ne conserve que ce groupe,
 # il ne pourrait pas ouvrir des sockets appartenant a un autre groupe.
 Group=debian-tor
+SupplementaryGroups=onion-data
 RuntimeDirectory=onion
 RuntimeDirectoryMode=0750
 Environment=XDG_DATA_HOME=/var/lib/bobine-onion XDG_CONFIG_HOME=/var/lib/bobine-onion
@@ -21,6 +23,7 @@ ProtectHome=yes
 PrivateTmp=yes
 PrivateDevices=yes
 ReadOnlyPaths=/srv/onion
+InaccessiblePaths=/var/lib/onion-sync /var/lib/onion
 CapabilityBoundingSet=
 AmbientCapabilities=
 RestrictAddressFamilies=AF_UNIX

@@ -116,6 +116,12 @@ class SiteOverlayTests(unittest.TestCase):
         self.assertIn("| bash -s -- --channel=canary", text)
         self.assertNotIn("sudo bash", text)
 
+    def test_the_tor_installer_download_goes_through_tor(self):
+        page = self.write("fr/documentation/anonymisation/index.html", "curl -fsSL https://bobine.fit/install-tor.sh -o install-tor.sh\nless install-tor.sh\nbash install-tor.sh")
+        self.assertEqual(self.run_site("commands-tor.py").returncode, 0)
+        self.assertEqual(self.run_site("check-commands.py").returncode, 0)
+        self.assertIn("curl --socks5-hostname 127.0.0.1:9050 -fsSL http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/install-tor.sh -o install-tor.sh", page.read_text(encoding="utf-8"))
+
     def test_repository_commands_use_the_package_onion_service(self):
         page = self.write("docs.js", "curl -fsSL https://packages.bobine.fit/bobine.gpg | sudo gpg --dearmor\n"
                           "deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://packages.bobine.fit/debian stable main")

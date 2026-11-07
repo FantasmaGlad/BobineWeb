@@ -15,7 +15,7 @@ export function checkStyleTokens(root) {
         let print = false;
         for (let p = d.parent; p; p = p.parent) if (p.type === "atrule" && p.name === "media" && p.params === "print") print = true;
         if (print) return;
-        const palette = d.prop.startsWith("--") && d.parent.type === "rule" && d.parent.selectors.every((s) => /^:root(?:\[data-theme(?:="[\w-]+")?\])?$/.test(s));
+        const palette = d.prop.startsWith("--") && d.parent.type === "rule" && d.parent.selectors.every((s) => /^:root(?:\[data-theme(?:="[\w-]+")?\])?(?:\[data-mode(?:="(?:light|dark)")?\])?$/.test(s));
         if (palette) return;
         const officialColor = exceptions.cssColorSelectors.some((s) => new RegExp(s).test(d.parent.selector ?? ""));
         const line = d.source.start.line;

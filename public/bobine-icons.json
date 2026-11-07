@@ -12,7 +12,8 @@
     "name": "Windows",
     "src": "/images/icons/os/windows.svg",
     "color": "#0078D4",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "os.macos": {
     "name": "macOS",
@@ -98,7 +99,8 @@
     "src": "/images/icons/browsers/brave.svg",
     "tone": "ink",
     "color": "#FB542B",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "browser.opera": {
     "name": "Opera",
@@ -126,7 +128,7 @@
   "chip.amd": {
     "name": "AMD",
     "src": "/images/icons/chips/amd.svg",
-    "tone": "brand",
+    "tone": "ink",
     "color": "#ED1C24"
   },
   "chip.arm": {
@@ -134,7 +136,8 @@
     "src": "/images/icons/chips/arm.svg",
     "tone": "brand",
     "color": "#0091BD",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "chip.intel": {
     "name": "Intel",
@@ -147,7 +150,8 @@
     "src": "/images/icons/chips/snapdragon.svg",
     "tone": "ink",
     "color": "#C33139",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "chip.apple-silicon": {
     "name": "Apple Silicon",
@@ -170,49 +174,56 @@
     "src": "/images/icons/distros/arch.svg",
     "tone": "ink",
     "color": "#1793D1",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "distro.cachyos": {
     "name": "CachyOS",
     "src": "/images/icons/distros/cachyos.svg",
     "tone": "ink",
     "color": "#00AA88",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "distro.debian": {
     "name": "Debian",
     "src": "/images/icons/distros/debian.svg",
     "tone": "ink",
     "color": "#A81D33",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "distro.endeavouros": {
     "name": "EndeavourOS",
     "src": "/images/icons/distros/endeavouros.svg",
     "tone": "ink",
     "color": "#7F7FFF",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "distro.fedora": {
     "name": "Fedora",
     "src": "/images/icons/distros/fedora.svg",
     "tone": "ink",
     "color": "#51A2DA",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "distro.linuxmint": {
     "name": "Linux Mint",
     "src": "/images/icons/distros/linuxmint.svg",
     "tone": "ink",
     "color": "#86BE43",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "distro.manjaro": {
     "name": "Manjaro",
     "src": "/images/icons/distros/manjaro.svg",
     "tone": "ink",
     "color": "#35BFA4",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "distro.nobara": {
     "name": "Nobara",
@@ -225,48 +236,55 @@
     "src": "/images/icons/distros/opensuse.svg",
     "tone": "ink",
     "color": "#73BA25",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "distro.popos": {
     "name": "Pop!_OS",
     "src": "/images/icons/distros/popos.svg",
     "tone": "ink",
     "color": "#48B9C7",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "distro.raspberrypi": {
     "name": "Raspberry Pi",
     "src": "/images/icons/distros/raspberrypi.svg",
     "tone": "ink",
     "color": "#A22846",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "distro.rhel": {
     "name": "Red Hat Enterprise Linux",
     "src": "/images/icons/distros/rhel.svg",
     "color": "#EE0000",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "distro.rockylinux": {
     "name": "Rocky Linux",
     "src": "/images/icons/distros/rockylinux.svg",
     "tone": "ink",
     "color": "#10B981",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "distro.ubuntu": {
     "name": "Ubuntu",
     "src": "/images/icons/distros/ubuntu.svg",
     "tone": "ink",
     "color": "#E95420",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "distro.zorin": {
     "name": "Zorin OS",
     "src": "/images/icons/distros/zorin.svg",
     "tone": "ink",
     "color": "#15A6F0",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "app.github": {
     "name": "GitHub",
@@ -278,7 +296,8 @@
     "name": "LinkedIn",
     "src": "/images/icons/apps/linkedin.svg",
     "color": "#0A66C2",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "app.whatsapp": {
     "name": "WhatsApp",
@@ -304,7 +323,8 @@
     "name": "Radical Fitness",
     "src": "/images/icons/compare/radical.svg",
     "color": "#ED1C24",
-    "render": "image"
+    "render": "image",
+    "halo": true
   },
   "compare.signage": {
     "name": "Anthias",

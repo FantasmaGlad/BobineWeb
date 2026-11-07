@@ -4,7 +4,8 @@ import { readFile, writeFile } from "node:fs/promises";
 import { resolve, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import postcss from "postcss";
-import { themeMeta, lightThemes, darkThemes } from "../../src/lib/themes.ts";
+import { DEFAULT_MODE, DEFAULT_THEME, LEGACY_THEMES, THEMES } from "../../src/lib/themePalettes.ts";
+import { MODE_LABELS, OLDER_SITE_KEYS, THEME_LABELS } from "../../src/lib/themeLabels.ts";
 
 const root = fileURLToPath(new URL("../../", import.meta.url));
 async function load(file) {
@@ -27,8 +28,8 @@ source.walkRules((rule) => {
   output.append(copy);
 });
 const files = {
-  "bobine-controls.css": "/* Généré depuis les sélecteurs du site principal. */\n" + output.toString() + "\n" + await readFile(join(root, "src/styles/components/brand-icon.css"), "utf8") + "\n" + Object.entries(themeMeta).map(([id, meta]) => `.theme-swatch-icon[data-theme="${id}"], [data-theme-value="${id}"] { --swatch-bg: ${meta.bg}; --swatch-accent: ${meta.accent}; }`).join("\n") + "\n",
-  "bobine-themes.json": JSON.stringify({ lightThemes, darkThemes, themeMeta }, null, 2) + "\n",
+  "bobine-controls.css": "/* Généré depuis les sélecteurs du site principal. */\n" + output.toString() + "\n" + await readFile(join(root, "src/styles/components/brand-icon.css"), "utf8") + "\n" + THEMES.flatMap(({ id, light, dark }) => [["light", light], ["dark", dark]].map(([mode, p]) => `:root[data-mode="${mode}"] .theme-swatch-icon[data-theme="${id}"], :root[data-mode="${mode}"] [data-theme-value="${id}"] { --swatch-bg: ${p.bg}; --swatch-accent: ${p.accent}; }`)).join("\n") + "\n",
+  "bobine-themes.json": JSON.stringify({ themes: THEMES.map(({ id, base, light, dark }) => ({ id, label: THEME_LABELS[id], base, light, dark })), modeLabels: MODE_LABELS, defaultTheme: DEFAULT_THEME, defaultMode: DEFAULT_MODE, legacy: { ...OLDER_SITE_KEYS, ...Object.fromEntries(Object.entries(LEGACY_THEMES).map(([name, t]) => [name, t.theme + "/" + t.mode])) } }, null, 2) + "\n",
   "bobine-icons.json": await readFile(join(root, "src/lib/assets.json"), "utf8"),
 };
 for (const [name, text] of Object.entries(files)) {

@@ -16,8 +16,8 @@
   flex-shrink: 0;
 }
 .theme-switcher-pill-group:hover {
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 1px var(--accent-primary);
+  border-color: var(--accent-text);
+  box-shadow: 0 0 0 1px var(--accent-text);
 }
 .theme-switcher-btn {
   display: inline-flex;
@@ -47,7 +47,7 @@
   background: var(--bg-surface-hover);
 }
 .theme-switcher-btn:focus-visible {
-  outline: 2px solid var(--accent-primary);
+  outline: 2px solid var(--accent-text);
   outline-offset: -1px;
 }
 .theme-switcher-arrow-btn {
@@ -67,7 +67,7 @@
   background: var(--bg-surface-hover);
 }
 .theme-switcher-arrow-btn:focus-visible {
-  outline: 2px solid var(--accent-primary);
+  outline: 2px solid var(--accent-text);
   outline-offset: -1px;
 }
 .theme-swatch-icon {
@@ -133,7 +133,7 @@
   padding: 0.1rem 0.35rem;
   border-radius: var(--radius-999px);
   background: var(--accent-subtle);
-  color: var(--accent-primary);
+  color: var(--accent-text);
   font-weight: 700;
 }
 .theme-grid {
@@ -221,7 +221,7 @@
 }
 .theme-card-option__check {
   font-size: var(--fs-0-75rem);
-  color: var(--accent-primary);
+  color: var(--accent-text);
   font-weight: 800;
   margin-left: auto;
 }
@@ -329,18 +329,21 @@ img.brand-icon {
     drop-shadow(0 0 0.6px color-mix(in srgb, var(--text-main) 85%, transparent));
 }
 
-.theme-swatch-icon[data-theme="charbon"], [data-theme-value="charbon"] { --swatch-bg: #f5f5f7; --swatch-accent: #1d1d1f; }
-.theme-swatch-icon[data-theme="clair"], [data-theme-value="clair"] { --swatch-bg: #f8f5f6; --swatch-accent: #be123c; }
-.theme-swatch-icon[data-theme="miel"], [data-theme-value="miel"] { --swatch-bg: #f8f6f2; --swatch-accent: #b45309; }
-.theme-swatch-icon[data-theme="menthe"], [data-theme-value="menthe"] { --swatch-bg: #f4f7f5; --swatch-accent: #047857; }
-.theme-swatch-icon[data-theme="ciel"], [data-theme-value="ciel"] { --swatch-bg: #f4f6f9; --swatch-accent: #0071e3; }
-.theme-swatch-icon[data-theme="lavande"], [data-theme-value="lavande"] { --swatch-bg: #f6f5f9; --swatch-accent: #6d28d9; }
-.theme-swatch-icon[data-theme="beige"], [data-theme-value="beige"] { --swatch-bg: #f7f6f2; --swatch-accent: #854d0e; }
-.theme-swatch-icon[data-theme="coco"], [data-theme-value="coco"] { --swatch-bg: #f4f5f7; --swatch-accent: #475569; }
-.theme-swatch-icon[data-theme="charbon-sombre"], [data-theme-value="charbon-sombre"] { --swatch-bg: #050507; --swatch-accent: #e5e5ea; }
-.theme-swatch-icon[data-theme="automne"], [data-theme-value="automne"] { --swatch-bg: #060504; --swatch-accent: #ff9f0a; }
-.theme-swatch-icon[data-theme="hiver"], [data-theme-value="hiver"] { --swatch-bg: #040608; --swatch-accent: #2997ff; }
-.theme-swatch-icon[data-theme="lune"], [data-theme-value="lune"] { --swatch-bg: #050507; --swatch-accent: #818cf8; }
-.theme-swatch-icon[data-theme="chili"], [data-theme-value="chili"] { --swatch-bg: #070405; --swatch-accent: #ff453a; }
-.theme-swatch-icon[data-theme="orchidee"], [data-theme-value="orchidee"] { --swatch-bg: #060408; --swatch-accent: #bf5af2; }
-.theme-swatch-icon[data-theme="taupe"], [data-theme-value="taupe"] { --swatch-bg: #040705; --swatch-accent: #eab308; }
+:root[data-mode="light"] .theme-swatch-icon[data-theme="ardoise"], :root[data-mode="light"] [data-theme-value="ardoise"] { --swatch-bg: #ffffff; --swatch-accent: #697485; }
+:root[data-mode="dark"] .theme-swatch-icon[data-theme="ardoise"], :root[data-mode="dark"] [data-theme-value="ardoise"] { --swatch-bg: #252d41; --swatch-accent: #e3ecf2; }
+:root[data-mode="light"] .theme-swatch-icon[data-theme="chili"], :root[data-mode="light"] [data-theme-value="chili"] { --swatch-bg: #ffffff; --swatch-accent: #cd1c18; }
+:root[data-mode="dark"] .theme-swatch-icon[data-theme="chili"], :root[data-mode="dark"] [data-theme-value="chili"] { --swatch-bg: #2e0605; --swatch-accent: #e5211d; }
+:root[data-mode="light"] .theme-swatch-icon[data-theme="canary"], :root[data-mode="light"] [data-theme-value="canary"] { --swatch-bg: #ffffff; --swatch-accent: #e6d700; }
+:root[data-mode="dark"] .theme-swatch-icon[data-theme="canary"], :root[data-mode="dark"] [data-theme-value="canary"] { --swatch-bg: #393500; --swatch-accent: #ffef00; }
+:root[data-mode="light"] .theme-swatch-icon[data-theme="rose-vif"], :root[data-mode="light"] [data-theme-value="rose-vif"] { --swatch-bg: #ffffff; --swatch-accent: #ff2290; }
+:root[data-mode="dark"] .theme-swatch-icon[data-theme="rose-vif"], :root[data-mode="dark"] [data-theme-value="rose-vif"] { --swatch-bg: #6c0036; --swatch-accent: #ff46a2; }
+:root[data-mode="light"] .theme-swatch-icon[data-theme="charbon"], :root[data-mode="light"] [data-theme-value="charbon"] { --swatch-bg: #ffffff; --swatch-accent: #333333; }
+:root[data-mode="dark"] .theme-swatch-icon[data-theme="charbon"], :root[data-mode="dark"] [data-theme-value="charbon"] { --swatch-bg: #000000; --swatch-accent: #4a4a4a; }
+:root[data-mode="light"] .theme-swatch-icon[data-theme="orchidee"], :root[data-mode="light"] [data-theme-value="orchidee"] { --swatch-bg: #ffffff; --swatch-accent: #d51ece; }
+:root[data-mode="dark"] .theme-swatch-icon[data-theme="orchidee"], :root[data-mode="dark"] [data-theme-value="orchidee"] { --swatch-bg: #470a45; --swatch-accent: #e85ce3; }
+:root[data-mode="light"] .theme-swatch-icon[data-theme="foret"], :root[data-mode="light"] [data-theme-value="foret"] { --swatch-bg: #ffffff; --swatch-accent: #2e6f40; }
+:root[data-mode="dark"] .theme-swatch-icon[data-theme="foret"], :root[data-mode="dark"] [data-theme-value="foret"] { --swatch-bg: #14311c; --swatch-accent: #68ba7f; }
+:root[data-mode="light"] .theme-swatch-icon[data-theme="ocean"], :root[data-mode="light"] [data-theme-value="ocean"] { --swatch-bg: #ffffff; --swatch-accent: #000080; }
+:root[data-mode="dark"] .theme-swatch-icon[data-theme="ocean"], :root[data-mode="dark"] [data-theme-value="ocean"] { --swatch-bg: #00001c; --swatch-accent: #8080ff; }
+:root[data-mode="light"] .theme-swatch-icon[data-theme="pumpkin"], :root[data-mode="light"] [data-theme-value="pumpkin"] { --swatch-bg: #ffffff; --swatch-accent: #ff7518; }
+:root[data-mode="dark"] .theme-swatch-icon[data-theme="pumpkin"], :root[data-mode="dark"] [data-theme-value="pumpkin"] { --swatch-bg: #5d2500; --swatch-accent: #ffb98a; }

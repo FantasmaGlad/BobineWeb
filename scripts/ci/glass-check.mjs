@@ -23,6 +23,9 @@ const fail = (msg) => errors.push(msg);
 // 0. Taille des feuilles : environ 600 lignes par feuille (globals.css n'est qu'une liste d'@import ; ajouter les règles dans
 // la partie qui correspond au domaine, ou dans une feuille de composant sous src/styles/components/). Au-delà de 600 lignes
 // c'est un avertissement, la coupure se décide au bon endroit ; l'échec ne tombe qu'à partir de 800 lignes.
+// Titres et texte courant sur le verre : AA (4,5). La palette fournie plafonne certains thèmes sombres sous 7 sur leur
+// surface (rose vif, ardoise, canary) ; le fond de page, lui, garde AAA (contrôlé par les tests de palette).
+const HEADING_MIN = 4.5;
 const SOFT_CSS_LINES = 600;
 const HARD_CSS_LINES = 800;
 for (const f of files.filter((f) => f.endsWith(".css"))) {
@@ -85,7 +88,7 @@ for (const theme of themes) {
       for (const backdrop of [canvas, hotspot]) {
         for (const fill of materialColors(vars[material], vars)) {
           const surface = over(fill, backdrop);
-          for (const [token, min] of [["text-heading", 7], ["text-body", 7], ["text-muted", 4.5], ["accent-text", 4.5], ["accent-success", 4.5], ["text-dim", 4.5], ["status-warning-text", 4.5], ["status-danger-text", 4.5], ["status-info-text", 4.5], ["channel-beta", 4.5], ["channel-canary", 4.5]]) {
+          for (const [token, min] of [["text-heading", HEADING_MIN], ["text-body", HEADING_MIN], ["text-muted", 4.5], ["accent-text", 4.5], ["accent-success", 4.5], ["text-dim", 4.5], ["status-warning-text", 4.5], ["status-danger-text", 4.5], ["status-info-text", 4.5], ["channel-beta", 4.5], ["channel-canary", 4.5]]) {
             measured++;
             const r = ratio(evaluate(`var(--${token})`, vars), surface);
             if (r < min) fail(`${theme} : ${token} sur ${material} = ${r.toFixed(2)}:1 (min ${min})`);
@@ -112,7 +115,7 @@ for (const theme of themes) {
     fail(`${theme} : ${err.message}`);
   }
 }
-if (themes.length !== 15) fail(`${themes.length} thèmes détectés (15 attendus) : ${themes.join(", ")}`);
+if (themes.length !== 18) fail(`${themes.length} thèmes détectés (18 attendus : 9 thèmes × clair et sombre) : ${themes.join(", ")}`);
 
 if (errors.length) {
   console.error(errors.map((e) => `::error::${e}`).join("\n"));

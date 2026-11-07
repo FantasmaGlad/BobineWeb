@@ -125,7 +125,7 @@
 
 .pg-card:hover {
   background: var(--glass-inset-bg);
-  border-bottom-color: var(--accent-primary);
+  border-bottom-color: var(--accent-text);
 }
 
 .pg-card__icon {

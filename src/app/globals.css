@@ -1,6 +1,7 @@
 /* Feuille globale : l'ordre des importations est celui de la cascade, ne pas le modifier. */
-@import "../styles/base/01-bobineweb-systeme-de-design-apple-premiu.css";
-@import "../styles/base/02-collection-sombre-8-themes-socle-obsidie.css";
+@import "../styles/base/00-themes-generes.css";
+@import "../styles/base/01-jetons-communs.css";
+@import "../styles/base/02-base-typographie-entete.css";
 @import "../styles/base/03-footer-de-bas-de-page.css";
 @import "../styles/base/04-shot-placeholder.css";
 @import "../styles/base/05-banniere-ascii.css";

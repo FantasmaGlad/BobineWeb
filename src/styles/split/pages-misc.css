@@ -100,7 +100,7 @@
 }
 .download-pdf-button-span-1 {
   font-size: var(--fs-0-75rem);
-  color: var(--accent-primary);
+  color: var(--accent-text);
 }
 .os-download-grid-p-1 {
   margin: 0;

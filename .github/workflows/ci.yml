@@ -53,8 +53,10 @@ jobs:
         run: npx tsc --noEmit
       - name: ESLint
         run: npm run lint
-      - name: Verre, jetons de style et contraste des 15 thèmes
-        run: node scripts/ci/glass-check.mjs
+      - name: Verre, jetons de style et contraste des 18 palettes (9 thèmes, clair et sombre)
+        run: |
+          node scripts/ci/generate-themes.mjs --check
+          node scripts/ci/glass-check.mjs
       - name: Icônes de marque (registre, contraste, attribution)
         run: |
           node scripts/ci/check-assets.mjs
@@ -69,6 +71,7 @@ jobs:
         run: |
           git clone --depth 1 https://github.com/FantasmaGlad/Bobine.git "$BOBINE_SOURCE_DIR"
           npm run test:rag
+          node scripts/ci/check-theme-parity.mjs "$BOBINE_SOURCE_DIR"
       - name: Limite de débit et bornes de /api/chat
         run: node --test scripts/ci/chat-limits.test.mjs
       - name: Cliquet de jetons (tests d’injection)

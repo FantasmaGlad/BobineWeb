@@ -98,7 +98,7 @@
 
 .linux-hero__cta-secondary:hover {
   transform: translateY(-2px);
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
   color: var(--text-heading);
 }
 
@@ -274,7 +274,7 @@
 .linux-terminal__pill[aria-checked="true"] {
   color: var(--text-heading);
   background: color-mix(in srgb, var(--accent-primary) 14%, var(--bg-card));
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
 }
 
 .linux-terminal__tabs {
@@ -309,7 +309,7 @@
 
 .linux-terminal__tab[aria-selected="true"] {
   color: var(--text-heading);
-  border-bottom-color: var(--accent-primary);
+  border-bottom-color: var(--accent-text);
 }
 
 .linux-terminal__tab-icon {
@@ -355,7 +355,7 @@
 
 .linux-terminal__copy-btn:hover {
   transform: translateY(-1px);
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
   color: var(--text-heading);
 }
 

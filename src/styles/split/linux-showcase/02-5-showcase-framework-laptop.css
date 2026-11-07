@@ -63,7 +63,7 @@
 
 .linux-bento-card__check {
   flex-shrink: 0;
-  color: var(--accent-primary);
+  color: var(--accent-text);
 }
 
 /* --------------------------------------------------------------------------

@@ -187,7 +187,7 @@
 
 .tor-copy-btn:hover {
   transform: translateY(-1px);
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
   background: var(--accent-subtle);
 }
 
@@ -352,6 +352,6 @@
 .tor-related-pill:hover {
   transform: translateY(-1px);
   color: var(--text-heading);
-  border-color: var(--accent-primary);
+  border-color: var(--accent-text);
   background: var(--accent-subtle);
 }

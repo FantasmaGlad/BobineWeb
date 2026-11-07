@@ -96,7 +96,7 @@ for (const [key, def] of Object.entries(registry)) {
   if (!weak && def.halo) fail(`${key} : "halo" inutile, aucune couleur ne disparaît sur les 15 thèmes`);
 }
 
-if (themes.length !== 15) fail(`${themes.length} thèmes détectés (15 attendus)`);
+if (themes.length !== 18) fail(`${themes.length} thèmes détectés (18 attendus : 9 thèmes × clair et sombre)`);
 
 // 4. Attribution dans NOTICE.md --------------------------------------------------------------------------------
 const notice = readFileSync(join(repo, "NOTICE.md"), "utf8").toLowerCase();

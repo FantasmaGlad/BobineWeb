@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Garde-fou des icônes de marque : chaque entrée du registre (src/lib/assets.json) existe, reste légère et sans raster ni
-// fond, aucun fichier d'icône n'est orphelin, les couleurs officielles atteignent 3:1 sur les surfaces des 15 thèmes,
+// fond, aucun fichier d'icône n'est orphelin, les couleurs officielles atteignent 3:1 sur les surfaces des 18 palettes (9 thèmes en clair et en sombre),
 // chaque marque est attribuée dans NOTICE.md, et aucun composant n'écrit de chemin d'icône à la main.
 // Code de sortie 1 au premier écart.
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
@@ -111,7 +111,7 @@ for (const file of files) {
 }
 
 // 6. Cliquet des <svg> en ligne : la migration vers Icon et BrandIcon se fait page par page, le total ne doit jamais
-// remonter. Baisser ce plafond à chaque migration ; viser 0 hors dessins propres à un composant (démonstrations, PDF).
+// remonter. Baisser ce plafond à chaque migration ; viser 0 hors dessins propres à un composant (démonstrations).
 const INLINE_SVG_CEILING = 97;
 const inline = files.filter((f) => f.endsWith(".tsx") && !f.includes(`${join("components", "ui")}/`)).reduce((n, f) => n + (readFileSync(f, "utf8").match(/<svg\b/g)?.length ?? 0), 0);
 if (inline > INLINE_SVG_CEILING) fail(`${inline} <svg> en ligne (plafond ${INLINE_SVG_CEILING}) : utiliser Icon ou BrandIcon`);

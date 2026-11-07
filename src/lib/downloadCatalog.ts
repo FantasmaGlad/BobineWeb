@@ -87,7 +87,7 @@ export function resolveDownload(req: DownloadRequest): ResolvedDownload {
   switch (req.platform) {
     case "windows":
       heading = "Windows";
-      targets = isArm ? "Windows 11 ARM64 (Qualcomm Snapdragon X Elite / X Plus, PC ARM)" : "Windows 11, 10 et Windows IoT, x86_64 (Intel Core, N100, AMD Ryzen)";
+      targets = isArm ? "Windows 11 ARM64 (Qualcomm Snapdragon X Elite / X Plus, PC ARM)" : "Windows 11 et 10, x86_64 (Intel Core, N100, AMD Ryzen)";
       requirements = REQUIREMENTS.windows[req.locale];
       format = isArm ? ".exe (ARM64)" : ".exe (x86_64)";
       url = isArm ? d.windowsArm64 : d.windows;

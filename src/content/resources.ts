@@ -152,11 +152,11 @@ export const resourceList: readonly ResourceItem[] = [
   },
   {
     id: "tor",
-    title: text("Anonymisation (Tor)", "Anonymization (Tor)"),
-    description: text("Installer et mettre à jour Bobine par Tor.", "Install and update Bobine over Tor."),
+    title: text("Anonymisation", "Anonymization"),
+    description: text("Installer et mettre à jour Bobine de façon anonyme.", "Install and update Bobine anonymously."),
     path: "/documentation/anonymisation",
     category: text("Distribution", "Distribution"),
     icon: "icon:globe",
-    tags: ["tor", "onion", "miroir", "censure", "decentralise", "prive"],
+    tags: ["anonymat", "miroir", "censure", "decentralise", "prive"],
   },
 ] as const;

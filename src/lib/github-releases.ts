@@ -177,12 +177,12 @@ Cette version 2.0.1 apporte le support étendu de l'accélération matérielle (
 
 ## Pourquoi un système open source plutôt qu'une solution propriétaire
 
-Les studios et salles de sport diffusent de plus en plus de cours vidéo pré-enregistrés, animés par un coach à l'écran. Les solutions du marché reposent presque toutes sur le même modèle : plateforme fermée, abonnement mensuel obligatoire (150 à 400 €/mois par écran), et un service qui s'arrête à la moindre coupure internet ou résiliation de contrat.
+Les studios et salles de sport diffusent de plus en plus de cours vidéo pré-enregistrés, animés par un coach à l'écran. Les solutions du marché reposent presque toutes sur le même modèle : plateforme fermée, abonnement mensuel obligatoire, et un service qui s'arrête à la moindre coupure internet ou résiliation de contrat.
 
 Bobine répond au même besoin avec une architecture différente :
 
 - **Propriété des données et du matériel.** Vos vidéos, votre configuration, votre planning restent sur votre machine. Pas de compte, pas d'éditeur tiers entre vous et vos adhérents.
-- **Coût maîtrisé.** Un investissement matériel unique (un mini PC d'occasion à 40–80 € suffit) et aucun abonnement récurrent.
+- **Coût maîtrisé.** Un investissement matériel unique (un mini PC d'occasion suffit) et aucun abonnement récurrent.
 - **Fonctionnement 100% hors ligne.** Une fois installé, la diffusion des cours ne dépend d'aucune connexion internet.
 - **Continuité de service garantie.** Le code étant open source (licence AGPL-3.0), le fonctionnement du système ne dépend pas de la pérennité d'une entreprise tierce.
 - **Autonomie opérationnelle.** Démarrage automatique à la mise sous tension, reprise après coupure de courant, redémarrage automatique d'un composant en panne — sans intervention technique sur place.

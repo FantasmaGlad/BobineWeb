@@ -42,7 +42,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
     distros: [
       {
         id: "debian",
-        name: "Debian 12 / 13",
+        name: "Debian 13",
         icon: "distro.debian",
         pkgFormat: ".deb",
         architectures: ["x86_64", "aarch64"],
@@ -51,7 +51,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       },
       {
         id: "ubuntu",
-        name: "Ubuntu 22.04 / 24.04 LTS",
+        name: "Ubuntu 24.04 LTS",
         icon: "distro.ubuntu",
         pkgFormat: ".deb",
         architectures: ["x86_64", "aarch64"],
@@ -60,7 +60,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       },
       {
         id: "linuxmint",
-        name: "Linux Mint 21 / 22",
+        name: "Linux Mint 22",
         icon: "distro.linuxmint",
         pkgFormat: ".deb",
         architectures: ["x86_64"],
@@ -69,7 +69,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       },
       {
         id: "popos",
-        name: "Pop!_OS 22.04 / 24.04",
+        name: "Pop!_OS 24.04",
         icon: "distro.popos",
         pkgFormat: ".deb",
         architectures: ["x86_64"],
@@ -77,17 +77,8 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
         siteUrl: "https://system76.com/pop",
       },
       {
-        id: "zorin",
-        name: "Zorin OS 17",
-        icon: "distro.zorin",
-        pkgFormat: ".deb",
-        architectures: ["x86_64"],
-        status: { fr: "Compatible", en: "Compatible" },
-        siteUrl: "https://zorin.com",
-      },
-      {
         id: "raspberrypi",
-        name: "Raspberry Pi OS (64-bit)",
+        name: "Raspberry Pi OS (64-bit, Debian 13 base)",
         icon: "distro.raspberrypi",
         pkgFormat: ".deb",
         architectures: ["aarch64"],
@@ -110,7 +101,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
     distros: [
       {
         id: "fedora",
-        name: "Fedora 39 / 40 / 41",
+        name: "Fedora 41+",
         icon: "distro.fedora",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
@@ -128,7 +119,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       },
       {
         id: "rhel",
-        name: "Red Hat Enterprise Linux",
+        name: "Red Hat Enterprise Linux 10",
         icon: "distro.rhel",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
@@ -137,7 +128,7 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       },
       {
         id: "almalinux",
-        name: "AlmaLinux 9",
+        name: "AlmaLinux 10",
         icon: "distro.almalinux",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
@@ -146,21 +137,12 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
       },
       {
         id: "rockylinux",
-        name: "Rocky Linux 9",
+        name: "Rocky Linux 10",
         icon: "distro.rockylinux",
         pkgFormat: ".rpm",
         architectures: ["x86_64", "aarch64"],
         status: { fr: "Compatible", en: "Compatible" },
         siteUrl: "https://rockylinux.org",
-      },
-      {
-        id: "opensuse",
-        name: "openSUSE Tumbleweed & Leap",
-        icon: "distro.opensuse",
-        pkgFormat: ".rpm",
-        architectures: ["x86_64", "aarch64"],
-        status: { fr: "Compatible", en: "Compatible" },
-        siteUrl: "https://www.opensuse.org",
       },
     ],
   },
@@ -221,7 +203,7 @@ export const LINUX_SHOWCASE_CONTENT = {
     hero: {
       badge: "Appliance Kiosque & Poste de Bureau 2026",
       title: "La puissance de Bobine. La liberté de Linux.",
-      lead: "Conçu pour les salles de sport, cinémas associatifs et régies audiovisuelles exigeantes : découvrez l'appliance autonome et le logiciel de diffusion le plus complet sur Linux. Paquets natifs signés pour Debian, Fedora et Arch.",
+      lead: "Conçu pour les salles de sport, cinémas associatifs et régies audiovisuelles exigeantes : découvrez l'appliance autonome et le logiciel de diffusion pour Linux. Paquets natifs signés pour Debian, Fedora et Arch.",
       ctaPrimary: "Installer sur votre machine",
       ctaSecondary: "Explorer les dépôts officiels",
       chipsLabel: "Architectures matérielles compatibles :",
@@ -255,7 +237,7 @@ export const LINUX_SHOWCASE_CONTENT = {
     },
     distros: {
       sectionTag: "Familles de distributions",
-      sectionTitle: "16 distributions Linux à explorer.",
+      sectionTitle: "Distributions Linux prises en charge (glibc 2.38 ou plus récente).",
       sectionDesc: "Qu'il s'agisse d'une appliance Debian dédiée tournant en continu 24h/24 ou de votre station de travail de montage Fedora ou Arch, Bobine s'intègre comme un paquet système natif.",
     },
     bento: {
@@ -276,10 +258,10 @@ export const LINUX_SHOWCASE_CONTENT = {
         {
           badge: "Résilience Kiosque 24/7",
           title: "Appliance durcie avec auto-guérison Systemd",
-          desc: "En mode appliance, Bobine démarre instantanément à l'allumage sans afficher de bureau. Le service systemd est sécurisé en bac à sable strict et surveillé en continu par un watchdog matériel.",
+          desc: "En mode appliance, Bobine démarre instantanément à l'allumage sans afficher de bureau. Le service systemd est sécurisé en bac à sable strict et surveillé par un watchdog systemd (contrôle toutes les 30 secondes).",
           features: [
             "Démarrage silencieux direct vers l'écran de projection",
-            "Redémarrage automatique en sous-seconde en cas d'anomalie",
+            "Redémarrage automatique au passage suivant du contrôle en cas d'anomalie",
             "Montage automatique sécurisé des clés USB de cours",
           ],
         },
@@ -312,8 +294,6 @@ export const LINUX_SHOWCASE_CONTENT = {
       specs: [
         { title: "Processeurs supportés", value: "AMD Ryzen, Intel Core Ultra & Snapdragon" },
         { title: "Sorties d'affichage", value: "Cartes HDMI & DP modulaires" },
-        { title: "Indice de réparabilité", value: "10 / 10 (Pièces remplaçables)" },
-        { title: "Compatibilité Linux", value: "100% native avec Bobine" },
       ],
       linkText: "Découvrir les ordinateurs Framework sur frame.work",
     },
@@ -328,7 +308,7 @@ export const LINUX_SHOWCASE_CONTENT = {
     hero: {
       badge: "Kiosk Appliance & Desktop Playout 2026",
       title: "The power of Bobine. The freedom of Linux.",
-      lead: "Engineered for fitness studios, community cinemas and demanding audiovisual desks: experience the most reliable autonomous playout system on Linux. Native signed packages for Debian, Fedora and Arch Linux.",
+      lead: "Engineered for fitness studios, community cinemas and demanding audiovisual desks: experience the autonomous playout system for Linux. Native signed packages for Debian, Fedora and Arch Linux.",
       ctaPrimary: "Install on your machine",
       ctaSecondary: "Explore official package repositories",
       chipsLabel: "Compatible hardware architectures:",
@@ -362,7 +342,7 @@ export const LINUX_SHOWCASE_CONTENT = {
     },
     distros: {
       sectionTag: "Distribution families",
-      sectionTitle: "Explore 16 Linux distributions.",
+      sectionTitle: "Supported Linux distributions (glibc 2.38 or newer).",
       sectionDesc: "Whether running on a dedicated 24/7 Debian appliance or on your Fedora or Arch production workstation, Bobine integrates as a native system package.",
     },
     bento: {
@@ -383,10 +363,10 @@ export const LINUX_SHOWCASE_CONTENT = {
         {
           badge: "24/7 Kiosk Resilience",
           title: "Hardened appliance with Systemd watchdog",
-          desc: "In appliance mode, Bobine boots directly into the projection screen without displaying any desktop chrome. The systemd service is sandboxed and constantly monitored by a hardware watchdog.",
+          desc: "In appliance mode, Bobine boots directly into the projection screen without displaying any desktop chrome. The systemd service is sandboxed and monitored by a systemd watchdog (checked every 30 seconds).",
           features: [
             "Silent boot straight into the classroom or kiosk display",
-            "Sub-second automatic restart in case of unexpected failure",
+            "Automatic restart at the next check after an unexpected failure",
             "Automatic and secure mounting of removable instructor media",
           ],
         },
@@ -419,8 +399,6 @@ export const LINUX_SHOWCASE_CONTENT = {
       specs: [
         { title: "Processors supported", value: "AMD Ryzen, Intel Core Ultra & Snapdragon" },
         { title: "Display outputs", value: "Modular HDMI & DP expansion cards" },
-        { title: "Reparability score", value: "10 / 10 (Replaceable parts)" },
-        { title: "Linux compatibility", value: "100% native with Bobine" },
       ],
       linkText: "Discover Framework Laptops at frame.work",
     },

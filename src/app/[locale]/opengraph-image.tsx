@@ -13,7 +13,8 @@ export const alt = "Bobine";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default async function Image() {
+export default async function Image({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const iconData = await readFile(
     join(process.cwd(), "public/icon.png")
   );
@@ -38,7 +39,7 @@ export default async function Image() {
           Bobine
         </div>
         <div style={{ display: "flex", fontSize: 32, marginTop: 16, opacity: 0.75 }}>
-          {"L’alternative open-source aux régies propriétaires par écran"}
+          {locale === "en" ? "The open-source alternative to proprietary per-screen playout" : "L’alternative open-source aux régies propriétaires par écran"}
         </div>
       </div>
     ),

@@ -66,63 +66,6 @@
     "render": "image",
     "halo": true
   },
-  "browser.chrome": {
-    "name": "Chrome",
-    "src": "/images/icons/browsers/chrome.svg",
-    "render": "image",
-    "halo": true
-  },
-  "browser.edge": {
-    "name": "Edge",
-    "src": "/images/icons/browsers/edge.svg",
-    "render": "image",
-    "halo": true
-  },
-  "browser.firefox": {
-    "name": "Firefox",
-    "src": "/images/icons/browsers/firefox.svg",
-    "tone": "ink",
-    "color": "#FF7139",
-    "render": "image",
-    "halo": true
-  },
-  "browser.safari": {
-    "name": "Safari",
-    "src": "/images/icons/browsers/safari.svg",
-    "color": "#006CFF",
-    "render": "image",
-    "halo": true
-  },
-  "browser.brave": {
-    "name": "Brave",
-    "src": "/images/icons/browsers/brave.svg",
-    "tone": "ink",
-    "color": "#FB542B",
-    "render": "image"
-  },
-  "browser.opera": {
-    "name": "Opera",
-    "src": "/images/icons/browsers/opera.svg",
-    "tone": "ink",
-    "color": "#FF1B2D",
-    "render": "image"
-  },
-  "browser.samsung": {
-    "name": "Samsung Internet",
-    "src": "/images/icons/browsers/samsunginternet.svg",
-    "tone": "ink",
-    "color": "#1428A0",
-    "render": "image",
-    "halo": true
-  },
-  "browser.tor": {
-    "name": "Tor Browser",
-    "src": "/images/icons/browsers/torbrowser.svg",
-    "tone": "ink",
-    "color": "#7D4698",
-    "render": "image",
-    "halo": true
-  },
   "chip.amd": {
     "name": "AMD",
     "src": "/images/icons/chips/amd.svg",
@@ -225,14 +168,6 @@
     "tone": "ink",
     "color": "#000000"
   },
-  "distro.opensuse": {
-    "name": "openSUSE",
-    "src": "/images/icons/distros/opensuse.svg",
-    "tone": "ink",
-    "color": "#73BA25",
-    "render": "image",
-    "halo": true
-  },
   "distro.popos": {
     "name": "Pop!_OS",
     "src": "/images/icons/distros/popos.svg",
@@ -268,13 +203,6 @@
     "src": "/images/icons/distros/ubuntu.svg",
     "tone": "ink",
     "color": "#E95420",
-    "render": "image"
-  },
-  "distro.zorin": {
-    "name": "Zorin OS",
-    "src": "/images/icons/distros/zorin.svg",
-    "tone": "ink",
-    "color": "#15A6F0",
     "render": "image"
   },
   "app.github": {

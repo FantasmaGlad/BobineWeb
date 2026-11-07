@@ -66,7 +66,7 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Diction
         </nav>
 
         <div className="site-footer__bottom">
-          <span>© {new Date().getFullYear()} Bobine · {isEn ? "All rights reserved" : "Tous droits réservés"} · AGPL-3.0</span>
+          <span>© {new Date().getFullYear()} Bobine · {isEn ? "Free software under AGPL-3.0" : "Logiciel libre sous AGPL-3.0"}</span>
           <span>
             {isEn
               ? "The Open Source community is the driving force of technological independence."

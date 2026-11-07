@@ -1,22 +1,10 @@
 {
   "nav": {
-    "home": "Home",
-    "features": "Features",
-    "documentation": "Documentation",
-    "blog": "Blog",
-    "demo": "Demonstration",
-    "support": "Support",
-    "about": "About"
+    "home": "Home"
   },
   "footer": {
     "legal": "Legal notice",
     "privacy": "Privacy",
-    "github": "Source code on GitHub",
-    "tagline": "Bobine is free software, licensed under AGPL-3.0."
-  },
-  "search": {
-    "placeholder": "Search documentation & FAQ...",
-    "resultsFound": "results found",
-    "noResults": "No matching topics found in documentation."
+    "github": "Source code on GitHub"
   }
 }

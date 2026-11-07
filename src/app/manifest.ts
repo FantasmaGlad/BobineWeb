@@ -8,7 +8,7 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "Bobine",
     description:
       "L'alternative open-source et autonome aux régies propriétaires facturées à l'écran pour la diffusion de cours vidéo en salle de sport.",
-    start_url: "/fr",
+    start_url: "/",
     display: "standalone",
     background_color: "#eef2ff",
     theme_color: "#6366f1",

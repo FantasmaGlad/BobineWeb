@@ -6,7 +6,7 @@ import Markdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { isLocale, type Locale } from "@/lib/i18n";
-import { getBobineRelease } from "@/lib/github-releases";
+import { getBobineRelease, getBobineReleases } from "@/lib/github-releases";
 import { buildMetadata } from "@/lib/seo";
 import { IS_ONION } from "@/lib/onion";
 import GitHubIcon from "@/components/icons/GitHubIcon";
@@ -94,8 +94,13 @@ function cleanReleaseBody(body: string, title: string): string {
 }
 
 export async function generateStaticParams() {
-  const slugs = ["v5.0.7", "V5.0.7", "v5.0.5", "V5.0.5", "beta", "BETA", "canary", "CANARY"];
-  return slugs.map((slug) => ({ slug }));
+  const releases = await getBobineReleases();
+  const slugs = new Set(["beta", "BETA", "canary", "CANARY"]);
+  for (const release of releases) {
+    slugs.add(release.slug);
+    slugs.add(release.slug.toLowerCase());
+  }
+  return [...slugs].map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -206,7 +211,7 @@ export default async function BlogPostPage({
               locale={locale as Locale}
               pathname={`/blog/${slug}`}
               title={release.title}
-              description={`Notes de version et nouveautés de Bobine : ${release.title}`}
+              description={locale === "en" ? `Bobine release notes: ${release.title}` : `Notes de version et nouveautés de Bobine : ${release.title}`}
               hashtags={["Bobine", "Release", "OpenSource", "Fitness"]}
             />
           </div>
@@ -219,6 +224,15 @@ export default async function BlogPostPage({
 
         <div className="release-body">
           {locale === "en" ? <p className="marketing-notice" lang="en">These release notes are shown in their original language, usually French.</p> : null}
+          {/\b(tor|onion)\b/i.test(release.body) ? (
+            <p className="marketing-notice">
+              {locale === "en" ? "This version mentions Tor: " : "Cette version mentionne Tor : "}
+              <Link href={`/${locale}/documentation/${locale === "en" ? "anonymization" : "anonymisation"}`}>
+                {locale === "en" ? "installing and updating Bobine anonymously" : "installer et mettre à jour Bobine de façon anonyme"}
+              </Link>
+              .
+            </p>
+          ) : null}
           <Markdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}
@@ -243,7 +257,7 @@ export default async function BlogPostPage({
             locale={locale as Locale}
             pathname={`/blog/${slug}`}
             title={release.title}
-            description={`Notes de version et nouveautés de Bobine : ${release.title}`}
+            description={locale === "en" ? `Bobine release notes: ${release.title}` : `Notes de version et nouveautés de Bobine : ${release.title}`}
             hashtags={["Bobine", "Release", "OpenSource", "Fitness"]}
           />
         </footer>

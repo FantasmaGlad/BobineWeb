@@ -23,7 +23,7 @@ export async function generateMetadata({
       : "FAQ & Guide de Dépannage — Bobine | Alternative aux régies propriétaires par écran",
     description: isEn
       ? "Frequently asked questions, common error troubleshooting matrix, diagnostic commands, and resilience guides for Bobine."
-      : "Foire aux questions, tableau de résolution des erreurs courantes, commandes de diagnostic et résilience de Bobine face aux régies propriétaires.",
+      : "Foire aux questions, tableau de résolution des erreurs courantes et résilience de Bobine face aux régies propriétaires.",
     keywords: [
       "FAQ Bobine",
       "Alternative aux régies propriétaires par écran",

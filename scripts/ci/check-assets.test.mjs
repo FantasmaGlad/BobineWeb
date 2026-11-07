@@ -34,7 +34,7 @@ test("une couleur officielle sous 3:1 est refusée", () => {
 });
 
 test("un fichier absent du registre est refusé comme orphelin", () => {
-  const r = run((d) => { delete d["browser.opera"]; });
+  const r = run((d) => { delete d["distro.debian"]; });
   assert.equal(r.status, 1);
   assert.match(r.stderr, /orphelin/);
 });

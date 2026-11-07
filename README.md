@@ -22,7 +22,7 @@ Français : [README.fr.md](README.fr.md).
 
 ## Architecture & Constellation
 
-Built with **Next.js 16** (App Router, Turbopack), **React 19**, and **TypeScript**, sharing an design system of 9 palettes, each in light and dark mode, across all four web properties:
+Built with **Next.js 16** (App Router, Turbopack), **React 19**, and **TypeScript**, sharing a design system of 9 palettes, each in light and dark mode, across all four web properties:
 
 - **Bilingual Source of Truth**: All pages served in French (`/fr/`) and English (`/en/`) from typed content definitions (`src/content/`).
 - **Independent Linux Repositories**: Continuous signed distributions for Debian/Ubuntu, Fedora, and Arch Linux (`packages.bobine.fit`).

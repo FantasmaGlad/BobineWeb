@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="fr">
+  <id>https://bobine.fit/feed.xml</id>
+  <title>Bobine - versions et nouveautés</title>
+  <subtitle>Versions publiées de Bobine, la régie vidéo libre pour salles de sport</subtitle>
+  <link rel="self" type="application/atom+xml" href="https://bobine.fit/feed.xml"/>
+  <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog"/>
+  <updated>2026-11-07T13:06:12Z</updated>
+  <author><name>Clément Barillot</name></author>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/canary</id>
+    <title>Bobine — Canary (build automatique)</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/canary"/>
+    <updated>2026-11-07T13:06:12Z</updated>
+    <summary># Bobine — Canary (build automatique) &gt; **Canal Canary (rolling).** Pre-release construite automatiquement depuis le tout dernier commit de `main`, sans aucune curation — pour les développeurs et utilisateurs avancés souhaitant suivre le développement au jour le jour. Une version stable équivalente ou plus récente la remplace toujours automatiquement. Pre-release construite depuis le tout dernier </summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V5.1.0</id>
+    <title>Bobine V5.1.0</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V5.1.0"/>
+    <updated>2026-11-06T06:06:46Z</updated>
+    <summary># Bobine V5.1.0 « Coco » — Port 1903, accès sans PIN protégé, pilotage complet par API et ligne de commande La version **5.1.0 « Coco »** succède à **5.0.7 « Aurora »**. Bobine écoute désormais sur le **port 1903** et s'ouvre sans code PIN sur le réseau local, VPN compris : une garde d'origine refuse toute action venue d'une page web tierce, rebinding DNS compris. Tout ce que fait l'interface se p</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V5.0.7</id>
+    <title>Bobine V5.0.7</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V5.0.7"/>
+    <updated>2026-10-29T12:41:48Z</updated>
+    <summary># Bobine V5.0.7 « Aurora » — Canaux unifiés, lisibilité mesurée, livraison signée et paquets Linux à plancher glibc La version **5.0.7 « Aurora »** est la première **Stable** publiée depuis **5.0.5 « Résonance »** : la **5.0.6** n'a pas connu de publication Stable et l'intégralité de son contenu arrive ici. Elle réunit les **trois canaux Stable, Bêta et Canary** derrière un registre unique, du sél</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/beta</id>
+    <title>Bobine — Bêta (lot curé)</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/beta"/>
+    <updated>2026-10-29T12:47:25Z</updated>
+    <summary># Bobine — Bêta (lot curé) &gt; **Canal Bêta (accès anticipé).** Lots de fonctionnalités et correctifs sélectionnés et testés avant leur passage en Stable — plus avancé que Stable, plus testé que Canary. Une version stable équivalente ou plus récente la remplace toujours automatiquement. Pre-release curée : un lot de fonctionnalités/correctifs sélectionné par le mainteneur, publié manuellement — plus</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V5.0.5</id>
+    <title>Bobine V5.0.5</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V5.0.5"/>
+    <updated>2026-10-24T11:06:37Z</updated>
+    <summary># Bobine V5.0.5 « Résonance » — Stockage externe à chaud, routage et table de mixage radio, dépôts Linux unifiés (Debian, Fedora, Arch) et composant audio natif La version **5.0.5 « Résonance »** inaugure la gestion complète du **Stockage externe (`/storage`)** (détection à chaud des clés USB, disques externes, cartes SD et téléphones MTP/PTP, explorateur de fichiers, import direct, extension de b</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V5.0.2</id>
+    <title>Bobine V5.0.2</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V5.0.2"/>
+    <updated>2026-10-20T07:21:23Z</updated>
+    <summary># Bobine V5.0.2 « Constellation » — Périphériques avec vue globale, deux sorties radio indépendantes, bibliothèque radio repensée La version **5.0.2** ajoute l'onglet **Périphériques** (audio, Bluetooth et Wi-Fi de la machine qui diffuse, avec une **vue globale en carte** et un **détail par sortie audio**, protégé par un **code PIN en six bulles**), transforme la radio en **deux sorties indépendan</summary>
+  </entry>
+  <entry>
+    <id>https://github.com/FantasmaGlad/Bobine/releases/tag/V5.0.0</id>
+    <title>Bobine V5.0.0</title>
+    <link rel="alternate" type="text/html" href="https://bobine.fit/fr/blog/V5.0.0"/>
+    <updated>2026-10-17T10:01:15Z</updated>
+    <summary># Bobine V5.0.0 « Orchidée » — Trois Canaux de Mise à Jour, Écosystème ARM64 Natif, Nouvelle Identité Visuelle &amp; Sous-titres &amp;nbsp;&amp;nbsp; &amp;nbsp;&amp;nbsp; La version **5.0.0 « Orchidée »** est une version majeure : elle introduit un **nouveau système à trois canaux de mise à jour** (Stable / Bêta / Canary), la **prise en charge native complète de l'écosystème ARM64** (PC Qualcomm Snapdragon sous Windo</summary>
+  </entry>
+</feed>

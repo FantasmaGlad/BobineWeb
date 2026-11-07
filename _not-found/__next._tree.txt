@@ -1,0 +1,7 @@
+:HL["/_next/static/chunks/26exobfdg79hv.css","style"]
+:HL["/_next/static/chunks/44s0dhn5sbr5r.css","style"]
+:HL["/_next/static/chunks/26rexq6xmvauf.css","style"]
+:HL["/images/BaamixInspector.webp","image"]
+2:[["children",{"s":"__PAGE__","h":160}]]
+1:[["children",{"s":"/_not-found","h":96,"c":"$Q2"}]]
+0:{"b":"iFmoMFydkSbbvVBgyCuNU","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

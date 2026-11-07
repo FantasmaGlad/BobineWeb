@@ -3,7 +3,7 @@
 import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react";
 import type { Locale } from "@/lib/i18n";
 import { TOR_ART } from "@/lib/torArt";
-import { ONION_APT_HOST } from "@/lib/onion";
+import { CLEARNET_URL, IS_ONION, ONION_APT_HOST, ONION_SITE_URL } from "@/lib/onion";
 
 type Channel = "stable" | "beta" | "canary";
 
@@ -107,8 +107,8 @@ const STEPS: StepItem[] = [
     num: 10,
     labelFr: "Service systemd — backend FastAPI",
     labelEn: "Systemd service — FastAPI backend",
-    detailFr: () => "bobine-backend.service actif (port 8000)",
-    detailEn: () => "bobine-backend.service active (port 8000)",
+    detailFr: () => "bobine-backend.service actif (port 1903)",
+    detailEn: () => "bobine-backend.service active (port 1903)",
     durationMs: 850,
   },
   {
@@ -179,8 +179,8 @@ const STEPS: StepItem[] = [
     num: 18,
     labelFr: "Activation des services & vérification de santé",
     labelEn: "Services activation & healthcheck",
-    detailFr: () => "HTTP 200 OK (http://127.0.0.1:8000/api/health — 8ms)",
-    detailEn: () => "HTTP 200 OK (http://127.0.0.1:8000/api/health — 8ms)",
+    detailFr: () => "HTTP 200 OK (http://127.0.0.1:1903/api/health — 8ms)",
+    detailEn: () => "HTTP 200 OK (http://127.0.0.1:1903/api/health — 8ms)",
     durationMs: 850,
   },
   {
@@ -246,13 +246,25 @@ const TOR_STEPS: StepItem[] = [
   },
 ];
 
-const COMMAND_TOR = "curl -fsSL https://bobine.fit/install-tor.sh | bash";
+// Sur le miroir .onion, une commande copiée ne doit jamais contacter le clearnet : elle passe par le service onion
+// (installateurs servis par le miroir lui-même) et par le proxy SOCKS de Tor ; l'adresse GitHub du canal Canary n'y figure pas.
+const CURL = IS_ONION ? "curl --socks5-hostname 127.0.0.1:9050 -fsSL" : "curl -fsSL";
+const SITE = IS_ONION ? ONION_SITE_URL : CLEARNET_URL;
+const COMMAND_TOR = `${CURL} ${SITE}/install-tor.sh | bash`;
 const COMMAND_TOR_CHANNEL = (c: Channel) => (c === "stable" ? COMMAND_TOR : `${COMMAND_TOR} -s -- --channel=${c}`);
-const COMMAND_STABLE = "curl -fsSL https://bobine.fit/install.sh | sudo bash";
-const COMMAND_BETA = "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta";
-const COMMAND_CANARY =
-  "curl -fsSL https://github.com/FantasmaGlad/Bobine/releases/download/canary/install.sh | bash -s -- --channel=canary";
+const COMMAND_STABLE = `${CURL} ${SITE}/install.sh | sudo bash`;
+const COMMAND_BETA = `${CURL} ${SITE}/install.sh | sudo bash -s -- --channel=beta`;
+const COMMAND_CANARY = IS_ONION
+  ? `${CURL} ${SITE}/install.sh | sudo bash -s -- --channel=canary`
+  : "curl -fsSL https://github.com/FantasmaGlad/Bobine/releases/download/canary/install.sh | bash -s -- --channel=canary";
 const COMMANDS: Record<Channel, string> = { stable: COMMAND_STABLE, beta: COMMAND_BETA, canary: COMMAND_CANARY };
+
+/** Un élément interactif ou de saisie : une frappe qui l'a pour cible ne doit pas piloter la démonstration. */
+const isTypingTarget = (target: EventTarget | null) =>
+  target instanceof HTMLElement && !!target.closest("input, textarea, select, button, a, [contenteditable='true']");
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export default function TerminalDemo({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
@@ -276,8 +288,28 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
   const summaryRef = useRef<HTMLDivElement | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const promptTimerRef = useRef<NodeJS.Timeout | null>(null);
+  // Tous les autres délais (défilement, retour du bouton Copier, enchaînement après le choix du canal) : suivis pour être
+  // annulés par la remise à zéro, le changement de mode et le démontage.
+  const laterRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
+  const later = useCallback((fn: () => void, ms: number) => {
+    const id = setTimeout(() => {
+      laterRef.current.delete(id);
+      fn();
+    }, ms);
+    laterRef.current.add(id);
+    return id;
+  }, []);
+  useEffect(() => {
+    const pending = laterRef.current;
+    return () => {
+      pending.forEach(clearTimeout);
+      pending.clear();
+    };
+  }, []);
 
   const clearAllTimers = () => {
+    laterRef.current.forEach(clearTimeout);
+    laterRef.current.clear();
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
@@ -321,8 +353,8 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
   const startStepsSequence = useCallback(() => {
     setChannelPromptAnswered(true);
     setCurrentRunningStep(0);
-    setTimeout(scrollToBottom, 40);
-  }, [scrollToBottom]);
+    later(scrollToBottom, 40);
+  }, [scrollToBottom, later]);
 
   // Sélection d'un canal lors du prompt interactif
   const handleSelectChannelPrompt = useCallback(
@@ -333,12 +365,12 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         promptTimerRef.current = null;
       }
       setChannelPromptAnswered(true);
-      setTimeout(() => {
+      later(() => {
         setCurrentRunningStep(0);
-        setTimeout(scrollToBottom, 40);
-      }, 500);
+        later(scrollToBottom, 40);
+      }, prefersReducedMotion() ? 0 : 500);
     },
-    [scrollToBottom]
+    [scrollToBottom, later]
   );
 
   // Déclenchement de l'exécution (touche Entrée ou clic initial)
@@ -388,12 +420,13 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
     setCompletedSteps(steps.length);
     setCurrentRunningStep(-1);
     setIsCompleted(true);
-    setTimeout(scrollToBottom, 50);
-  }, [scrollToBottom, steps.length]);
+    later(scrollToBottom, 50);
+  }, [scrollToBottom, steps.length, later]);
 
   // Écoute des touches au clavier (Entrée pour lancer, 1 à 3 pour choisir le canal)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey || isTypingTarget(e.target)) return;
       const rect = containerRef.current?.getBoundingClientRect();
       const isInViewport = rect && rect.top < window.innerHeight && rect.bottom > 0;
       if (!isInViewport) return;
@@ -440,9 +473,9 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         } else {
           setCurrentRunningStep(-1);
           setIsCompleted(true);
-          setTimeout(scrollToBottom, 60);
+          later(scrollToBottom, 60);
         }
-      }, step.durationMs);
+      }, prefersReducedMotion() ? 0 : step.durationMs);
 
       return () => {
         if (timerRef.current) {
@@ -451,7 +484,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
         }
       };
     }
-  }, [currentRunningStep, showBanner, channelPromptAnswered, hasTriggered, isCompleted, scrollToBottom, steps]);
+  }, [currentRunningStep, showBanner, channelPromptAnswered, hasTriggered, isCompleted, scrollToBottom, steps, later]);
 
   // Une fois l'installation terminée, la page défile automatiquement pour révéler le
   // bilan récapitulatif — l'utilisateur reste ensuite libre de remonter à tout moment,
@@ -459,7 +492,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
   useEffect(() => {
     if (!isCompleted) return;
     const timeout = setTimeout(() => {
-      summaryRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+      summaryRef.current?.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "end" });
     }, 250);
     return () => clearTimeout(timeout);
   }, [isCompleted]);
@@ -467,7 +500,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
   const handleCopy = () => {
     navigator.clipboard.writeText(commandText).then(() => {
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      later(() => setCopied(false), 2000);
     });
   };
 
@@ -633,7 +666,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
       <div ref={terminalBodyRef} className="terminal-body terminal-demo-body">
         {/* Ligne d'invite avec commande */}
         <div className="terminal-line terminal-line--command">
-          <span className="terminal-prompt">fanta@dell-wyse:~$</span>
+          <span className="terminal-prompt">admin@bobine:~$</span>
           <code className="terminal-demo-command-text">
             {commandText}
           </code>
@@ -944,7 +977,7 @@ export default function TerminalDemo({ locale }: { locale: Locale }) {
               </div>
               <div className="terminal-summary-row">
                 <span className="summary-key">Kiosk</span>
-                <span className="summary-val">http://127.0.0.1:8000/kiosk <span className="summary-alt">(écran cinéma HDMI-0)</span></span>
+                <span className="summary-val">http://127.0.0.1:1903/kiosk <span className="summary-alt">(écran cinéma HDMI-0)</span></span>
               </div>
               <div className="terminal-summary-row">
                 <span className="summary-key">Config</span>

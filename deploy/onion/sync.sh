@@ -6,7 +6,7 @@ set -euo pipefail
 BASE=/srv/onion
 mkdir -p "$BASE"
 exec 9>"$BASE/.sync.lock"
-flock -n 9 || exit 0
+flock -n 9 || { echo "[onion-sync] une synchronisation est déjà en cours, rien à faire"; exit 0; }
 APT_URL=https://github.com/FantasmaGlad/bobine-packages.git
 APT_BRANCH=gh-pages
 SITE_URL=git@github.com:FantasmaGlad/BobineWeb.git
@@ -16,6 +16,9 @@ export GIT_SSH_COMMAND="ssh -i /var/lib/onion/.ssh/bobineweb_onion_deploy -o Ide
 OVERLAY=/usr/local/lib/bobine-onion/overlay
 
 log() { echo "[onion-sync] $*"; }
+
+# La vérification stricte de la clé d'hôte GitHub exige ce fichier (voir README) : sans lui, ssh échoue sans explication.
+[ -r /var/lib/onion/.ssh/known_hosts ] || log "avertissement : /var/lib/onion/.ssh/known_hosts absent ou illisible, la branche du site ne pourra pas être récupérée"
 
 # Personnalisations propres au miroir Tor (jamais poussees dans le depot source).
 overlay_apt() {
@@ -55,13 +58,17 @@ sync_git() {
   rm -rf "$new.tmp"; mkdir -p "$new.tmp"
   git -C "$src" archive "$branch" | tar -x -C "$new.tmp" \
     || { rm -rf "$new.tmp"; log "$name : extraction impossible"; return 1; }
-  "$overlay" "$new.tmp" || { log "$name : personnalisation refusée"; return 1; }
+  "$overlay" "$new.tmp" || { rm -rf "$new.tmp"; log "$name : personnalisation refusée, ancienne copie conservée"; return 1; }
   if ! "$verify" "$new.tmp"; then
     rm -rf "$new.tmp"; log "$name : verification echouee, ancienne copie conservee"; return 1
   fi
   if [ -d "$new" ]; then mv "$new" "$new.backup-$(date +%s)" || return 1; fi
   mv "$new.tmp" "$new" || return 1
-  ln -sfn "$new" "$BASE/$name.tmp" && mv -T "$BASE/$name.tmp" "$BASE/$name"
+  # Hors de `set -e` (cette fonction est appelée dans un « || ») : un échec de la bascule doit être traité ici, sinon le
+  # journal annoncerait « publié » alors que l'ancienne copie est toujours servie.
+  if ! { ln -sfn "$new" "$BASE/$name.tmp" && mv -T "$BASE/$name.tmp" "$BASE/$name"; }; then
+    rm -f "$BASE/$name.tmp"; log "$name : bascule impossible, ancienne copie conservée"; return 1
+  fi
   # Ne supprimer que les générations achevées, en gardant la précédente même
   # si ses horodatages sont plus anciens que ceux d'une tentative interrompue.
   local old
@@ -69,6 +76,10 @@ sync_git() {
     [ -d "$old" ] || continue
     [[ "$old" =~ /$name-[a-f0-9]{40}$ ]] || continue
     [ "$old" = "$new" ] || [ "$old" = "$cur" ] || rm -rf -- "$old"
+  done
+  # Les copies mises de côté (même empreinte retrouvée sans lien) ne sont conservées que pour la génération en cours.
+  for old in "$BASE/releases/$name-"*.backup-*; do
+    [ -d "$old" ] && rm -rf -- "$old"
   done
   log "$name : publie ($sha)"
 }

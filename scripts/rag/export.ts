@@ -35,7 +35,7 @@ function chunked(doc: SourceDocument): SourceDocument[] {
     title: `${doc.title} — ${heading(text) || `partie ${i + 1}`}`, text }));
 }
 
-export function exportWeb(root: string, bobineRoot: string): SourceDocument[] {
+export function exportWeb(bobineRoot: string): SourceDocument[] {
   const output: SourceDocument[] = [];
   for (const locale of ["fr", "en"] as const) {
     for (const ch of docChapters[locale]) {
@@ -62,10 +62,11 @@ export function exportWeb(root: string, bobineRoot: string): SourceDocument[] {
     }));
   }
   const revision = execFileSync("git", ["-C", bobineRoot, "rev-parse", "HEAD"], { encoding: "utf8" }).trim();
+  const titles: Record<string, string> = { "assistant/README.md": "Bobine — assistant d'installation (README)" };
   for (const file of ["docs/ARCHITECTURE.md", "docs/ARCHITECTURE.en.md", "assistant/README.md", "media/README.md", "media/PROTOCOL.md"]) {
     const path = join(bobineRoot, file);
     if (!existsSync(path)) throw new Error(`Source canonique absente : ${file}`);
-    output.push(...chunked({ key: `specs/${file}`, title: `Bobine — ${file}`, locale: file.includes(".en.") ? "en" : "multi",
+    output.push(...chunked({ key: `specs/${file}`, title: titles[file] ?? `Bobine — ${file}`, locale: file.includes(".en.") ? "en" : "multi",
       platform: "spec", source_revision: revision,
       source_url: `https://github.com/FantasmaGlad/Bobine/blob/${revision}/${file}`,
       text: readFileSync(path, "utf8") }));

@@ -26,7 +26,11 @@ export function documentRows(sources: SourceDocument[]) {
     if (!source.framework && /-----BEGIN (?:RSA )?PRIVATE KEY-----|hf_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}/.test(source.text)) throw new Error(`Secret détecté : ${source.key}`);
     const { text, key: _key, ...meta } = source;
     void _key;
-    const contentHash = hash(JSON.stringify({ text, ...meta }));
+    // L'URL et la révision sont des liens, pas du contenu : les inclure réimportait tout le corpus à chaque commit
+    // de Bobine. Elles restent dans les métadonnées, mais seuls le texte et l'identité documentaire font l'empreinte.
+    const { source_url: _url, source_revision: _revision, ...content } = meta;
+    void _url; void _revision;
+    const contentHash = hash(JSON.stringify({ text, ...content }));
     return { id, text, hash: contentHash, meta };
   }).sort((a, b) => a.id.localeCompare(b.id));
 }
@@ -166,7 +170,7 @@ async function sync(corpus: string, sources: SourceDocument[]) {
 }
 async function main() {
   for (const corpus of selected === "all" ? ["web", "frameworks"] : [selected]) {
-    const sources = corpus === "web" ? exportWeb(root, bobineRoot) : await exportUpstream(root, bobineRoot);
+    const sources = corpus === "web" ? exportWeb(bobineRoot) : await exportUpstream(root, bobineRoot);
     if (process.argv.includes("--dry-run")) {
       const rows = documentRows(sources);
       console.log(`${corpus} : export local valide, ${rows.length} documents, aucune écriture distante`);

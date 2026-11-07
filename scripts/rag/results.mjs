@@ -2,7 +2,7 @@ import { parseFragment } from "parse5";
 
 export const MANAGED_BY = "bobine-sync-v2";
 export const ACTIVE_FILTER = `managed_by: ANY("${MANAGED_BY}") AND active: ANY("true")`;
-export const FRAMEWORKS = ["tauri", "nextjs", "ffmpeg", "pydantic", "fastapi", "linux", "systemd"];
+export const FRAMEWORKS = ["tauri", "nextjs", "ffmpeg", "pydantic", "fastapi", "systemd"];
 
 export function frameworkFilter(framework = "all", version) {
   if (framework !== "all" && !FRAMEWORKS.includes(framework)) throw new Error("Framework inconnu");
@@ -16,10 +16,10 @@ const STOPWORDS = new Set(("le la les un une des du de d l et ou à a au aux en 
   "the an and or not of to in on for with is are be how what which who can do does it its this that my your you we they at by from as").split(" "));
 
 /**
- * Reformule une question en recherche à mots alternatifs. Le moteur exige sinon tous les mots : « Comment fonctionne
- * l'assistant Baamix ? » ne renvoyait rien alors que six documents en parlent. Seuls des mots alphanumériques sont
- * conservés, en minuscules, donc aucun opérateur (AND, OR, NOT, guillemets, deux-points) ne peut être injecté.
- * Un mot rare isolé (« Baamix ») ne renvoie rien seul : `anchor` (« bobine » pour le corpus du projet) l'accompagne.
+ * Reformule une recherche en mots alternatifs. Le moteur exige sinon tous les mots d'une question longue, ce qui
+ * rend une formulation naturelle stérile. Seuls des mots alphanumériques sont conservés, en minuscules, donc aucun
+ * opérateur (AND, OR, NOT, guillemets, deux-points) ne peut être injecté. Un mot isolé trop rare ne renvoie rien
+ * seul : `anchor` (« bobine » pour le corpus web) l'accompagne.
  * @param {string} text
  * @param {string} [anchor]
  */

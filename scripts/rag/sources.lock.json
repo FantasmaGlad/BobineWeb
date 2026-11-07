@@ -101,22 +101,5 @@
       ],
       "commit": "9ca433482f2281d71718718705ca8cd3bf562ad6"
     }
-  ],
-  "references": [
-    {
-      "framework": "linux",
-      "version": "reference",
-      "url": "https://www.debian.org/doc/debian-policy/"
-    },
-    {
-      "framework": "linux",
-      "version": "reference",
-      "url": "https://docs.fedoraproject.org/en-US/packaging-guidelines/"
-    },
-    {
-      "framework": "linux",
-      "version": "reference",
-      "url": "https://wiki.archlinux.org/title/PKGBUILD"
-    }
   ]
 }

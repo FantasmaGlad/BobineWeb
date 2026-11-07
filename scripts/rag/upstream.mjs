@@ -1,11 +1,8 @@
-import { plainSnippet } from "./results.mjs";
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { homedir } from "node:os";
-import { createHash } from "node:crypto";
 const git = (args, cwd) => execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], timeout: 180000 }).trim();
-const sha = text => createHash("sha256").update(text).digest("hex");
 export function resolveCommit(repo, ref) {
   const lines = git(["ls-remote", repo, ref, `${ref}^{}`]).split("\n").filter(Boolean);
   if (!lines.length) throw new Error(`Référence amont absente : ${repo} ${ref}`);
@@ -31,12 +28,7 @@ export function refreshLock(root, bobineRoot) {
     const old = previous.sources.find(s => s.framework === source.framework && s.version === source.version && s.ref === source.ref);
     return { ...source, commit: old?.commit || resolveCommit(source.repo, source.ref) };
   });
-  const lock = { format: 1, note: "Next.js et Tauri suivent les verrous du projet. Python : cibles documentaires explicites, dont Android. FFmpeg/systemd : références versionnées ; les versions déployées varient selon l’OS. Tauri-docs est un instantané figé compatible avec la majeure 2, sans promesse d’alignement exact sur un patch du runtime.", sources,
-    references: [
-      { framework: "linux", version: "reference", url: "https://www.debian.org/doc/debian-policy/" },
-      { framework: "linux", version: "reference", url: "https://docs.fedoraproject.org/en-US/packaging-guidelines/" },
-      { framework: "linux", version: "reference", url: "https://wiki.archlinux.org/title/PKGBUILD" },
-    ] };
+  const lock = { format: 1, note: "Next.js et Tauri suivent les verrous du projet. Python : cibles documentaires explicites, dont Android. FFmpeg/systemd : références versionnées ; les versions déployées varient selon l’OS. Tauri-docs est un instantané figé compatible avec la majeure 2, sans promesse d’alignement exact sur un patch du runtime.", sources };
   writeFileSync(file, JSON.stringify(lock, null, 2) + "\n");
   return lock;
 }
@@ -72,16 +64,6 @@ export async function exportUpstream(root, bobineRoot) {
     }
     if (!count) throw new Error(`Corpus vide : ${source.framework} ${source.version}`);
     console.log(`${source.framework} ${source.version} : ${count} documents, révision ${source.commit.slice(0, 12)}`);
-  }
-  for (const ref of lock.references) {
-    const response = await fetch(ref.url, { signal: AbortSignal.timeout(30000) });
-    if (!response.ok) throw new Error(`Référence inaccessible : ${ref.url} HTTP ${response.status}`);
-    const html = await response.text();
-    const text = plainSnippet(html);
-    if (text.length < 1000) throw new Error(`Référence incomplète : ${ref.url}`);
-    docs.push({ key: ref.url, framework: ref.framework, version: ref.version, locale: "en", platform: "doc",
-      title: `Linux packaging — ${new URL(ref.url).hostname}`, source_url: ref.url, text,
-      source_revision: sha(text) });
   }
   return docs;
 }

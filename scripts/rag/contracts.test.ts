@@ -21,8 +21,8 @@ test("les Struct gRPC et les métadonnées canoniques classent les fiches sans h
   assert.equal(normalizeResult({document:{id:"empty"}}), null);
 });
 test("l'architecture exportée reprend exactement les sources publiques et les prix courants restent hors index", () => {
-  const root = resolve("."); const bobineRoot = resolve(process.env.BOBINE_SOURCE_DIR || ["../Bobine", "../../Bobine"].find(p => existsSync(resolve(p))) || "../Bobine");
-  const docs = exportWeb(root, bobineRoot);
+  const bobineRoot = resolve(process.env.BOBINE_SOURCE_DIR || ["../Bobine", "../../Bobine"].find(p => existsSync(resolve(p))) || "../Bobine");
+  const docs = exportWeb(bobineRoot);
   const architecture = docs.filter(d => d.key === "specs/docs/ARCHITECTURE.md" || d.key.startsWith("specs/docs/ARCHITECTURE.md#")).sort((a, b) => a.key.localeCompare(b.key));
   assert.equal(architecture.map(d => d.text).join(""), readFileSync(resolve(bobineRoot, "docs/ARCHITECTURE.md"), "utf8"));
   assert.ok(docs.every(d => d.text.length < 20000 || d.platform !== "doc"), "aucun document de documentation démesuré");
@@ -35,6 +35,12 @@ test("l'import refuse une source vide, un doublon ou un secret et produit des em
   assert.throws(() => documentRows([])); assert.throws(() => documentRows([source,source]));
   assert.throws(() => documentRows([{...source,text:"-----BEGIN " + "PRIVATE KEY-----"}]));
   assert.notEqual(documentRows([source])[0].hash,documentRows([{...source,text:"modifié"}])[0].hash);
+});
+test("un lien ou une révision qui bouge ne réimporte pas le corpus", () => {
+  const source = { key:"a",title:"A",text:"contenu",source_url:"https://example.com/a",platform:"doc",locale:"fr",source_revision:"a".repeat(40) };
+  const moved = { ...source, source_url:"https://example.com/a?rev=2", source_revision:"b".repeat(40) };
+  assert.equal(documentRows([source])[0].hash, documentRows([moved])[0].hash);
+  assert.equal(documentRows([source])[0].meta.source_revision, "a".repeat(40));
 });
 
 test("les extraits HTML sont lus par un parseur et ignorent les éléments exécutables", () => {

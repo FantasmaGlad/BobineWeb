@@ -1,4 +1,4 @@
-/* Noir sur blanc, une seule colonne alignée à gauche, sans encadré ni barre de défilement. */
+/* Noir sur blanc, une seule colonne alignée à gauche, sans encadré. Sur ordinateur tout tient dans la hauteur de la fenêtre (taille du texte liée à la hauteur) ; sur téléphone la page défile normalement. */
 *, *::before, *::after { box-sizing: border-box; }
 html { height: 100%; }
 body {
@@ -6,50 +6,56 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  padding: clamp(1.25rem, 4vw, 3rem);
-  font: 16px / 1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding: 1.25rem 1rem;
+  font: 16px / 1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
   color: #000;
   background: #fff;
 }
-main { flex: 1; width: 100%; max-width: 64rem; }
-h1 { margin: 0 0 0.4rem; font-size: 1.7rem; line-height: 1.15; letter-spacing: -0.01em; }
-h2 { margin: 2.2rem 0 0.4rem; font-size: 1rem; font-weight: 700; }
-p { margin: 0.4rem 0; }
+main { flex: 1; width: 100%; max-width: 72rem; }
+h1 { margin: 0 0 0.3em; font-size: 1.7rem; line-height: 1.15; letter-spacing: -0.01em; }
+h2 { margin: 1.6em 0 0.3em; font-size: 1rem; font-weight: 700; }
+p { margin: 0.3em 0; }
 .lead { margin: 0; }
-.key { margin-top: 0.8rem; }
+.key { margin-top: 0.6em; }
 a { color: #000; text-underline-offset: 0.2em; }
 a:hover { text-decoration-thickness: 2px; }
 code { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; overflow-wrap: anywhere; }
-pre {
-  position: relative;
-  margin: 0.4rem 0 1rem;
-  padding: 0 4.5rem 0 0;
-  font-size: 0.88rem;
-  line-height: 1.5;
-}
+pre { position: relative; width: fit-content; max-width: 100%; margin: 0.3em 0 0.7em; padding: 0 2.2em 0 0; font-size: 0.88em; line-height: 1.45; }
 pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
 .copy {
   position: absolute;
-  top: 0;
+  top: 0.05em;
   right: 0;
+  display: inline-flex;
+  width: 1.5em;
+  height: 1.5em;
+  align-items: center;
+  justify-content: center;
   padding: 0;
   border: 0;
   background: none;
   color: #666;
-  font: inherit;
-  font-size: 0.78rem;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
   cursor: pointer;
 }
+.copy svg { width: 1.05em; height: 1.05em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .copy:hover, .copy:focus-visible { color: #000; }
-dl { margin: 0.4rem 0; }
-dt { margin-top: 0.7rem; font-weight: 600; }
+.copy:focus-visible { outline: 2px solid #000; outline-offset: 1px; }
+dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); column-gap: 1.2em; row-gap: 0.15em; margin: 0.3em 0; }
+dt { font-weight: 600; }
 dd { margin: 0; }
-ul { margin: 0.4rem 0; padding-left: 1.1rem; }
-footer { margin-top: 3rem; font-size: 0.85rem; }
+ul { margin: 0.3em 0; padding-left: 1.1em; }
+footer { margin-top: 1.4em; font-size: 0.85em; }
 footer p { margin: 0; }
-pre { width: fit-content; max-width: 100%; }
+@media (min-width: 901px) {
+  body { padding: clamp(0.6rem, 2.4vh, 2.4rem) clamp(1rem, 4vw, 3rem); font-size: clamp(10.5px, 1.85vh, 18px); line-height: 1.38; }
+  h1 { font-size: clamp(1.15rem, 3.4vh, 2rem); }
+  h2 { margin-top: 1.1em; }
+  p { margin: 0.2em 0; }
+  pre { margin: 0.2em 0 0.45em; }
+  footer { margin-top: 0.9em; }
+}
 @media (max-width: 600px) {
-  pre { width: 100%; padding: 1.4rem 0 0; }
+  pre { width: 100%; padding: 1.5em 0 0; }
+  dl { grid-template-columns: 1fr; }
+  dt { margin-top: 0.5em; }
 }

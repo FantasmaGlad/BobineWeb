@@ -73,7 +73,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Bobine fonctionne-t-il sur les ordinateurs portables Google Book (Aluminium OS) ?",
-      a: "Oui. Bobine s'exécute nativement en plein écran sur les Google Books (système Aluminium OS / convergence Android) grâce au paquet Bobine-x.y.z.apk avec l'accélération matérielle MediaCodec d'Android, et sera très prochainement disponible directement sur le Google Play Store.",
+      a: "Oui, par le paquet Android Bobine-x.y.z.apk (Android 14 ou plus récent, accélération matérielle MediaCodec d'Android) sur les Google Books (système Aluminium OS / convergence Android). La compatibilité dépend de l'appareil et n'a pas été validée sur tous les modèles : essayez l'APK sur le vôtre. Une publication sur le Google Play Store est envisagée.",
     },
     {
       category: "hardware",
@@ -190,7 +190,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Does Bobine work on Google Book laptops (Aluminium OS)?",
-      a: "Yes. Bobine runs natively in fullscreen on Google Book laptops (Aluminium OS / Android convergence) using the Bobine-x.y.z.apk package with Android MediaCodec hardware acceleration, and will soon be available directly from the Google Play Store.",
+      a: "Yes, through the Android package Bobine-x.y.z.apk (Android 14 or later, Android MediaCodec hardware acceleration) on Google Book laptops (Aluminium OS / Android convergence). Compatibility depends on the device and has not been validated on every model: try the APK on yours. A Google Play Store release is being considered.",
     },
     {
       category: "hardware",

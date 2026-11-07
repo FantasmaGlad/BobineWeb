@@ -160,6 +160,14 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        // Fournisseur CSAF 2.0 (avis de sécurité) : lisible depuis n'importe quelle origine, jamais en cache long
+        source: "/.well-known/csaf/:path*",
+        headers: [
+          { key: "Access-Control-Allow-Origin", value: "*" },
+          { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
+        ],
+      },
+      {
         // Web Key Directory (méthode directe) : les clients PGP exigent un type binaire et CORS ouvert
         source: "/.well-known/openpgpkey/:path*",
         headers: [

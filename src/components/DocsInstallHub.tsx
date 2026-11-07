@@ -45,6 +45,17 @@ import "@/styles/split/pages-docs.css";
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
 type AndroidVariant = "mobile" | "tv";
 
+/** Libellé de bouton sur deux lignes : l'action puis, en dessous, le format ou la puce (séparés par « · »). */
+function ButtonLabel({ label }: { label: string }) {
+  const [main, ...rest] = label.split(" · ");
+  return (
+    <span className="docs-channel-btn__label">
+      <span className="docs-channel-btn__main">{main}</span>
+      {rest.length > 0 && <span className="docs-channel-btn__sub">{rest.join(" · ")}</span>}
+    </span>
+  );
+}
+
 export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const detected = useDetectedPlatform();
@@ -386,7 +397,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                   <polyline points="7 10 12 15 17 10" />
                   <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
-                <span>{cfg.stableLabel}</span>
+                <ButtonLabel label={cfg.stableLabel} />
               </a>
             ) : (
               <button type="button" className="docs-channel-btn docs-channel-btn--soon" disabled>
@@ -429,7 +440,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                   <polyline points="7 10 12 15 17 10" />
                   <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
-                <span>{cfg.betaLabel}</span>
+                <ButtonLabel label={cfg.betaLabel} />
               </a>
             ) : (
               <button type="button" className="docs-channel-btn docs-channel-btn--soon" disabled>
@@ -472,7 +483,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                   <polyline points="7 10 12 15 17 10" />
                   <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
-                <span>{cfg.canaryLabel}</span>
+                <ButtonLabel label={cfg.canaryLabel} />
               </a>
             ) : (
               <button type="button" className="docs-channel-btn docs-channel-btn--soon" disabled>
@@ -1187,7 +1198,10 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
           {renderDivider()}
 
-          {selectedFamily === "debian" && (
+          {/* Les trois parcours sont empilés dans la même cellule : la hauteur est celle du plus grand, changer de distribution ne fait pas tressauter la page. */}
+          <div className="docs-family-stack">
+            <div className={`docs-family-stack__item${selectedFamily === "debian" ? " is-active" : ""}`} aria-hidden={selectedFamily !== "debian"} inert={selectedFamily !== "debian"}>
+
             <div className="docs-steps-flow">
               <h3 className="docs-steps-flow__heading">
                 {isEn ? "Installation options:" : "Options d'installation :"}
@@ -1269,11 +1283,14 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 </div>
               </div>
             </div>
-          )}
-
-          {selectedFamily === "fedora" && renderFedoraSteps()}
-
-          {selectedFamily === "arch" && renderArchSteps()}
+            </div>
+            <div className={`docs-family-stack__item${selectedFamily === "fedora" ? " is-active" : ""}`} aria-hidden={selectedFamily !== "fedora"} inert={selectedFamily !== "fedora"}>
+              {renderFedoraSteps()}
+            </div>
+            <div className={`docs-family-stack__item${selectedFamily === "arch" ? " is-active" : ""}`} aria-hidden={selectedFamily !== "arch"} inert={selectedFamily !== "arch"}>
+              {renderArchSteps()}
+            </div>
+          </div>
         </div>
       )}
 

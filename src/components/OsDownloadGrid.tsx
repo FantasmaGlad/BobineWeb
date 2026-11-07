@@ -113,7 +113,7 @@ export default function OsDownloadGrid({
     {
       id: "macos",
       name: "macOS",
-      subtitle: "macOS Apple Silicon",
+      subtitle: "Apple Silicon",
       format: isEn ? "Disk image .dmg" : "Image disque .dmg",
       badge: isEn ? "1-click install" : "Installation 1 clic",
       url: stableInfo.downloads.macos,
@@ -123,7 +123,7 @@ export default function OsDownloadGrid({
     {
       id: "android",
       name: "Android",
-      subtitle: isEn ? "Android & Google Book" : "Android & Google Book",
+      subtitle: "Google Book",
       format: isEn ? "Package .apk" : "Paquet .apk",
       badge: isEn ? "1-click install" : "Installation 1 clic",
       url: stableInfo.downloads.android,
@@ -133,7 +133,7 @@ export default function OsDownloadGrid({
     {
       id: "android-tv",
       name: "Android TV",
-      subtitle: "Android TV & Google TV",
+      subtitle: "Google TV",
       format: isEn ? "Package .apk" : "Paquet .apk",
       badge: isEn ? "Soon on Google Play" : "Bientôt sur Google Play",
       url: stableInfo.downloads.androidTv || `https://github.com/FantasmaGlad/Bobine/releases/download/${stableInfo.version}/Bobine-TV-${stableInfo.version.replace(/^V/i, "")}.apk`,

@@ -254,3 +254,10 @@
 .dx-para-stack.dx-para-stack:first-child {
   margin: 0;
 }
+
+/* Titre de page avec logo de marque à gauche */
+.dx-h1-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import CodeBlock from "@/components/CodeBlock";
+import BrandIcon from "@/components/ui/BrandIcon";
 import { buildMetadata, lp } from "@/lib/seo";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
 import { ONION_APT_HOST, ONION_SITE_HOST, TOR_PROJECT_URL } from "@/lib/onion";
@@ -69,7 +70,7 @@ export default async function AnonymisationPage({ params }: { params: Promise<{ 
   return (
     <>
       <BreadcrumbsJsonLd items={breadcrumbs} />
-      <h1 className="dx-h1-1">{t.h1}</h1>
+      <h1 className="dx-h1-1 dx-h1-with-icon"><BrandIcon name="os.tor" size="1.1em" />{t.h1}</h1>
       <p>{t.why}</p>
 
       <h2 id="adresses">{t.addrTitle}</h2>

@@ -1,0 +1,127 @@
+/* Défilement discret, commandes sans ascenseur, retours de survol et de clic communs. */
+
+/* 1. Aucune barre de défilement, sur la page comme dans les zones qui défilent : le défilement reste possible. */
+html,
+body,
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* 2. Indicateur de défilement : un fondu en haut et en bas d'une zone verticale, présent seulement tant qu'il reste du contenu
+   de ce côté. Les navigateurs sans animation liée au défilement n'affichent rien (le défilement fonctionne quand même). */
+@property --fade-top {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --fade-bottom {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@keyframes scroll-hint {
+  0% { --fade-top: 0px; --fade-bottom: 1.75rem; }
+  6% { --fade-top: 1.75rem; --fade-bottom: 1.75rem; }
+  94% { --fade-top: 1.75rem; --fade-bottom: 1.75rem; }
+  100% { --fade-top: 1.75rem; --fade-bottom: 0px; }
+}
+@supports (animation-timeline: scroll()) {
+  .docs-sidebar-panel,
+  .docs-mobile-nav-dropdown,
+  .docs-search-results,
+  .docs-toc,
+  .dl-panel__body,
+  .theme-grid,
+  .mobile-drawer-panel,
+  .feature-navigation__mobile nav {
+    animation: scroll-hint linear both;
+    animation-timeline: scroll(self block);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, var(--ink) var(--fade-top), var(--ink) calc(100% - var(--fade-bottom)), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, var(--ink) var(--fade-top), var(--ink) calc(100% - var(--fade-bottom)), transparent 100%);
+  }
+}
+
+/* 3. Commandes à copier : elles passent à la ligne au lieu de défiler. */
+pre,
+pre code,
+.terminal-code-block__body,
+.terminal-code-block__body code,
+.docs-copyable-cmd code,
+.dl-code,
+.release-body pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  overflow-x: hidden;
+}
+
+/* 4. Retours de survol et de clic communs aux zones qui n'en avaient pas (FAQ, onglets, filtres, sommaire, copie). */
+.dx-article-1.dx-article-1,
+.dx-button-1.dx-button-1,
+.dx-tab.dx-tab,
+.docs-faq-filter-chip,
+.docs-toc__link,
+.docs-copy-btn,
+.terminal-copy-btn,
+.docs-sidebar-nav a,
+.docs-install-tabs button {
+  transition-property: transform, background-color, border-color, color, box-shadow, filter;
+  transition-duration: 0.18s;
+  transition-timing-function: ease;
+}
+.dx-article-1.dx-article-1:hover {
+  border-color: color-mix(in srgb, var(--accent-primary) 40%, var(--border-color));
+  box-shadow: var(--shadow-card);
+}
+.dx-button-1.dx-button-1:hover {
+  background: color-mix(in srgb, var(--accent-primary) 8%, transparent);
+}
+.dx-tab.dx-tab:not([aria-selected="true"]):hover {
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+  color: var(--text-heading);
+}
+.docs-faq-filter-chip:hover,
+.docs-copy-btn:hover,
+.terminal-copy-btn:hover {
+  transform: translateY(-1px);
+}
+.dx-button-1.dx-button-1:active,
+.dx-tab.dx-tab:active,
+.docs-faq-filter-chip:active,
+.docs-toc__link:active,
+.docs-copy-btn:active,
+.terminal-copy-btn:active,
+.docs-sidebar-nav a:active,
+.docs-install-tabs button:active {
+  transform: scale(0.97);
+  filter: brightness(0.95);
+  transition-duration: 0.1s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dx-article-1.dx-article-1,
+  .dx-button-1.dx-button-1,
+  .dx-tab.dx-tab,
+  .docs-faq-filter-chip,
+  .docs-toc__link,
+  .docs-copy-btn,
+  .terminal-copy-btn {
+    transition: none;
+    transform: none !important;
+  }
+}
+
+/* 5. Mascotte de l'accueil : à l'échelle des cartes de téléchargement et du reste de la page. */
+.hero-fullscreen__backdrop-img--mascot {
+  max-height: 100%;
+}
+@media (min-width: 1024px) {
+  .hero-fullscreen__backdrop-art:has(.hero-fullscreen__backdrop-img--mascot) {
+    width: min(19vw, 270px);
+    max-height: 215px;
+  }
+}

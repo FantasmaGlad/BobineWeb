@@ -31,7 +31,6 @@ const T = {
     events: [
       ["2026-10-08", "This site published."],
       ["2026-10-07", "Current key put into service."],
-      ["2026-10-07", "Key 8208 FFD3 F7AB 4DD3 revoked after its passphrase was lost (not compromised, no report received)."],
     ],
   },
   fr: {
@@ -49,7 +48,6 @@ const T = {
     events: [
       ["2026-10-08", "Publication de ce site."],
       ["2026-10-07", "Mise en service de la clé actuelle."],
-      ["2026-10-07", "Clé 8208 FFD3 F7AB 4DD3 révoquée après la perte de sa phrase de passe (non compromise, aucun rapport reçu)."],
     ],
   },
 };

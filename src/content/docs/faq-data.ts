@@ -245,7 +245,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "How does the 1-click automatic uninstaller work?",
-      a: "In Settings > Danger Zone, automatic uninstallation triggers the native uninstaller for your platform (Polkit on Linux .deb/.rpm/.pkg.tar.zst, Inno Setup on Windows, LaunchAgent purge on macOS, Android intent, or the bobine-uninstall script on headless Debian). The operation requires explicitly typing the confirmation keyword 'UNINSTALL' ('DÉSINSTALLER') to prevent accidental removals.",
+      a: "In Settings > Danger Zone, automatic uninstallation triggers the native uninstaller for your platform (Polkit on Linux .deb/.rpm/.pkg.tar.zst, Inno Setup on Windows, LaunchAgent purge on macOS, Android intent, or the bobine-uninstall script on headless Debian). The operation requires explicitly typing the confirmation phrase 'DÉSINSTALLER' (accents optional) to prevent accidental removals.",
     },
     {
       q: "Which web browsers are supported by engine family (Chromium, Gecko/Firefox, WebKit/Safari)?",
@@ -296,7 +296,7 @@ export const TROUBLESHOOTING_ROWS: Record<Locale, TroubleshootRow[]> = {
     {
       issue: "Échec de restauration d'une sauvegarde ZIP",
       cause: "Archive corrompue ou exportée depuis une version incompatible",
-      solution: "Vérifiez l'intégrité avec 'sqlite3 bobine.db \"PRAGMA integrity_check;\"'. Ré-exportez une sauvegarde fraîche depuis le panneau d'administration si l'archive est corrompue.",
+      solution: "Vérifiez l'intégrité avec 'sqlite3 data/database.db \"PRAGMA integrity_check;\"'. Ré-exportez une sauvegarde fraîche depuis le panneau d'administration si l'archive est corrompue.",
     },
   ],
   en: [
@@ -328,7 +328,7 @@ export const TROUBLESHOOTING_ROWS: Record<Locale, TroubleshootRow[]> = {
     {
       issue: "Restoring a ZIP backup fails",
       cause: "Corrupted archive or exported from an incompatible version",
-      solution: "Check integrity with 'sqlite3 bobine.db \"PRAGMA integrity_check;\"'. Export a fresh backup from the admin panel if the archive is corrupted.",
+      solution: "Check integrity with 'sqlite3 data/database.db \"PRAGMA integrity_check;\"'. Export a fresh backup from the admin panel if the archive is corrupted.",
     },
   ],
 };

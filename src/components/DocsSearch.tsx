@@ -187,14 +187,14 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
       tags: ["diagnostic", "journalctl", "systemctl", "vainfo", "terminal", "ssh"],
     },
     {
-      title: "Référence de l'API REST Locale (/api/health, /api/status, /api/playout)",
+      title: "Référence de l'API REST locale (/api/health, /api/playback)",
       category: "Développeurs",
       excerpt: "Documentation complète des endpoints REST asynchrones pour le contrôle de lecture et de la santé.",
       href: "/fr/documentation/developpeurs#reference-api-rest",
       tags: ["api", "rest", "endpoints", "health", "status", "playout", "json"],
     },
     {
-      title: "Protocole d'Événements WebSockets temps réel (/ws/events)",
+      title: "Protocole WebSocket temps réel (/ws/playback)",
       category: "Développeurs",
       excerpt: "Flux d'événements bidirectionnel pour la synchronisation instantanée des états entre écrans et télécommandes.",
       href: "/fr/documentation/developpeurs#flux-websockets",
@@ -203,7 +203,7 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
     {
       title: "Architecture FastAPI, SQLite, MPV & Next.js",
       category: "Développeurs",
-      excerpt: "Détails de la pile logicielle multi-worker, SQLite, verrous distribués et WebSockets.",
+      excerpt: "Détails de la pile logicielle : backend mono-processus FastAPI, SQLite et WebSocket.",
       href: "/fr/documentation/developpeurs#stack-technique",
       tags: ["fastapi", "python", "mpv", "sqlite", "architecture", "developpeurs"],
     },
@@ -315,14 +315,14 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
       tags: ["diagnostic", "journalctl", "systemctl", "vainfo", "terminal", "ssh"],
     },
     {
-      title: "Local REST API Reference (/api/health, /api/status, /api/playout)",
+      title: "Local REST API reference (/api/health, /api/playback)",
       category: "Developers",
       excerpt: "Complete technical reference for local REST endpoints, request/response models.",
       href: "/en/documentation/developers#rest-api-reference",
       tags: ["api", "rest", "endpoints", "health", "status", "playout", "json"],
     },
     {
-      title: "Real-Time WebSocket Protocol (/ws/events)",
+      title: "Real-time WebSocket protocol (/ws/playback)",
       category: "Developers",
       excerpt: "Real-time state broadcast events for multi-screen and remote control synchronization.",
       href: "/en/documentation/developers#websocket-events",
@@ -331,7 +331,7 @@ const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
     {
       title: "FastAPI, SQLite, MPV & Next.js Architecture",
       category: "Developers",
-      excerpt: "Multi-worker backend details, SQLite database, distributed locks, and WebSockets.",
+      excerpt: "Software stack details: single-process FastAPI backend, SQLite and WebSocket.",
       href: "/en/documentation/developers#software-stack",
       tags: ["fastapi", "python", "mpv", "sqlite", "architecture", "developers"],
     },

@@ -17,7 +17,7 @@ spec.loader.exec_module(module)
 def make_key(home, name):
     os.chmod(home, 0o700)
     env = {**os.environ, 'GNUPGHOME': str(home)}
-    subprocess.run(['gpg', '--batch', '--quick-generate-key', f'{name} <{name}@test.invalid>', 'ed25519', 'sign', 'never'],
+    subprocess.run(['gpg', '--batch', '--pinentry-mode', 'loopback', '--passphrase', '', '--quick-generate-key', f'{name} <{name}@test.invalid>', 'ed25519', 'sign', 'never'],
                    env=env, check=True, capture_output=True)
     listing = subprocess.run(['gpg', '--batch', '--with-colons', '--fingerprint', '--list-secret-keys'], env=env,
                              check=True, capture_output=True, text=True).stdout
@@ -33,7 +33,7 @@ def build(root, env, built='2026-11-07T04:17:00Z'):
     (root / 'fr/index.html').write_text('<html>fr</html>')
     (root / 'mirror-info.txt').write_text(f'source: FantasmaGlad/BobineWeb@{"a" * 40}\nbuilt: {built}\n')
     module.manifest(root)
-    subprocess.run(['gpg', '--batch', '--armor', '--detach-sign', '-o', str(root / module.SIGNATURE), str(root / module.MANIFEST)],
+    subprocess.run(['gpg', '--batch', '--pinentry-mode', 'loopback', '--passphrase', '', '--armor', '--detach-sign', '-o', str(root / module.SIGNATURE), str(root / module.MANIFEST)],
                    env=env, check=True, capture_output=True)
 
 

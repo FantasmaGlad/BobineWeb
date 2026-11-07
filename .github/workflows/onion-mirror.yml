@@ -78,7 +78,7 @@ jobs:
           chmod 700 "$GNUPGHOME"
           printf '%s\n' "$ONION_SIGNING_KEY" | gpg --batch --quiet --import
           python3 deploy/onion/site-signature.py manifest out
-          gpg --batch --armor --detach-sign -o out/SHA256SUMS.asc out/SHA256SUMS
+          gpg --batch --pinentry-mode loopback --passphrase '' --armor --detach-sign -o out/SHA256SUMS.asc out/SHA256SUMS
           rm -rf "$GNUPGHOME"
         env:
           ONION_SIGNING_KEY: ${{ secrets.ONION_SIGNING_KEY }}

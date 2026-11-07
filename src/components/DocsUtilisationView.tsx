@@ -175,7 +175,7 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           <p>
             {isEn
               ? "Control screen output routing (what plays on the wired HDMI TV vs what streams to networked browser displays), switch between the 15 dynamic dual-tone themes, language selection, and maintenance zone."
-              : "Sortie d'écran (quel contenu sur l'écran câblé, quel contenu sur l'écran réseau), bascule instantanée parmi les 15 thèmes bicolores, langue, réseau, et zone de maintenance."}
+              : "Sortie d'écran (quel contenu sur l'écran câblé, quel contenu sur l'écran réseau), bascule instantanée parmi les 9 thèmes, chacun en clair et en sombre, langue, réseau, et zone de maintenance."}
           </p>
 
           <h3 id="system-health-watchdog">{isEn ? "System Health & Watchdog Supervisor" : "Santé et Supervision Automatique"}</h3>

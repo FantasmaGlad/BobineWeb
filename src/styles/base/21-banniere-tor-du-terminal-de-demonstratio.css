@@ -210,3 +210,25 @@
     transform: none !important;
   }
 }
+
+/* En-tête : contour net et ombre courte, lisibles sur chaque thème (le filet fin se perdait sur les fonds clairs). */
+.site-header {
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Cartes de téléchargement : une vraie barre pleine largeur, à la couleur d'accent du thème, au lieu d'un filet pâle. */
+.os-download-card__meta {
+  border-top: 0;
+  position: relative;
+}
+.os-download-card__meta::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 4px;
+  border-radius: var(--radius-999px);
+  background: var(--accent-primary);
+  opacity: 0.85;
+}

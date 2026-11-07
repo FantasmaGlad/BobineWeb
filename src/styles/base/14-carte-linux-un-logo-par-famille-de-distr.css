@@ -93,7 +93,7 @@
   margin-top: auto;
   margin-bottom: 1rem;
   padding-top: 0.85rem;
-  border-top: 1px dashed var(--border-subtle);
+  border-top: 2px solid color-mix(in srgb, var(--accent-primary) 30%, var(--border-color));
   /* Réserve la hauteur de 2 lignes même si un seul des deux libellés
      (format / statut) passe à la ligne sur une carte étroite : la
      délimitation (border-top) reste ainsi à la même hauteur sur les 5

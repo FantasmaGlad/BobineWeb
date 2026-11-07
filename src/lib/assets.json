@@ -12,8 +12,7 @@
     "name": "Windows",
     "src": "/images/icons/os/windows.svg",
     "color": "#0078D4",
-    "render": "image",
-    "halo": true
+    "render": "image"
   },
   "os.macos": {
     "name": "macOS",
@@ -99,8 +98,7 @@
     "src": "/images/icons/browsers/brave.svg",
     "tone": "ink",
     "color": "#FB542B",
-    "render": "image",
-    "halo": true
+    "render": "image"
   },
   "browser.opera": {
     "name": "Opera",
@@ -136,8 +134,7 @@
     "src": "/images/icons/chips/arm.svg",
     "tone": "brand",
     "color": "#0091BD",
-    "render": "image",
-    "halo": true
+    "render": "image"
   },
   "chip.intel": {
     "name": "Intel",
@@ -174,16 +171,14 @@
     "src": "/images/icons/distros/arch.svg",
     "tone": "ink",
     "color": "#1793D1",
-    "render": "image",
-    "halo": true
+    "render": "image"
   },
   "distro.cachyos": {
     "name": "CachyOS",
     "src": "/images/icons/distros/cachyos.svg",
     "tone": "ink",
     "color": "#00AA88",
-    "render": "image",
-    "halo": true
+    "render": "image"
   },
   "distro.debian": {
     "name": "Debian",
@@ -206,8 +201,7 @@
     "src": "/images/icons/distros/fedora.svg",
     "tone": "ink",
     "color": "#51A2DA",
-    "render": "image",
-    "halo": true
+    "render": "image"
   },
   "distro.linuxmint": {
     "name": "Linux Mint",
@@ -259,8 +253,7 @@
     "name": "Red Hat Enterprise Linux",
     "src": "/images/icons/distros/rhel.svg",
     "color": "#EE0000",
-    "render": "image",
-    "halo": true
+    "render": "image"
   },
   "distro.rockylinux": {
     "name": "Rocky Linux",
@@ -275,16 +268,14 @@
     "src": "/images/icons/distros/ubuntu.svg",
     "tone": "ink",
     "color": "#E95420",
-    "render": "image",
-    "halo": true
+    "render": "image"
   },
   "distro.zorin": {
     "name": "Zorin OS",
     "src": "/images/icons/distros/zorin.svg",
     "tone": "ink",
     "color": "#15A6F0",
-    "render": "image",
-    "halo": true
+    "render": "image"
   },
   "app.github": {
     "name": "GitHub",

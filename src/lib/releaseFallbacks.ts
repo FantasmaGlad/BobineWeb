@@ -31,10 +31,10 @@ function channelDownloads(tag: string, fileVersion: string, withNewPackages = fa
 }
 
 export const FALLBACK_STABLE: ReleaseChannelInfo = {
-  version: "V5.1.0",
-  title: "Bobine V5.1.0",
-  publishedAt: "2026-11-06T06:06:46Z",
-  downloads: channelDownloads("V5.1.0", "5.1.0", true),
+  version: "V5.1.1",
+  title: "Bobine V5.1.1",
+  publishedAt: "2026-11-07T21:24:06Z",
+  downloads: channelDownloads("V5.1.1", "5.1.1", true),
 };
 
 // Canal curé, publié manuellement par lots (job release-beta du dépôt Bobine).

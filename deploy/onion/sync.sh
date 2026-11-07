@@ -31,7 +31,6 @@ log() { echo "[onion-sync] $*"; }
 
 # Personnalisations propres au miroir Tor (jamais poussees dans le depot source).
 overlay_apt() {
-  python3 "$OVERLAY/apt/pong-tor.py" "$1" || return 1
   python3 "$OVERLAY/apt/apt-tor.py" "$1" || return 1
   python3 "$OVERLAY/apt/packages-tor.py" "$1" || return 1
   python3 "$OVERLAY/apt/site-tor.py" "$1" || return 1

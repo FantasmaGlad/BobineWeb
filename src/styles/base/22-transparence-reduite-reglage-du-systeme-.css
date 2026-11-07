@@ -213,12 +213,9 @@
   a.button,
   a[class*="btn"],
   .site-header a,
-  .site-footer a,
-  .mobile-drawer a,
-  .hw-mobile-buybar a {
+  .site-footer a {
     min-width: 44px;
     min-height: 44px;
   }
-  .site-footer a,
-  .mobile-drawer a { display: inline-flex; align-items: center; }
+  .site-footer a { display: inline-flex; align-items: center; }
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Variante Tor de apt.bobine.fit : le mot-symbole en pixels de l'en-tête devient le logo officiel complet de Bobine.
+"""Variante Tor du portail packages.bobine.fit : le mot-symbole en pixels de l'en-tête devient le logo officiel complet de Bobine.
 
 Le logo est un fichier image copié à la racine de la copie servie (le miroir n'accepte aucune ressource externe).
 Si le logo amont a changé de forme, la page est laissée intacte.

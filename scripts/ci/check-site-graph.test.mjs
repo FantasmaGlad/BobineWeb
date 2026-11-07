@@ -45,7 +45,7 @@ test("un hub dont un enfant n'est pas lié est refusé", () => {
 });
 
 test("un pied de page trop long est refusé", () => {
-  const r = run((routes) => { for (const x of routes) x.footer = "legal"; });
+  const r = run((routes) => { const base = routes.find((x) => x.id === "features"); for (let i = 0; i < 23; i++) routes.push({ ...base, id: `pied-${i}`, footer: "legal" }); });
   assert.equal(r.status, 1);
   assert.match(r.stderr, /pied de page/);
 });

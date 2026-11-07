@@ -72,14 +72,8 @@ jobs:
           git clone --depth 1 https://github.com/FantasmaGlad/Bobine.git "$BOBINE_SOURCE_DIR"
           npm run test:rag
           node scripts/ci/check-theme-parity.mjs "$BOBINE_SOURCE_DIR"
-      - name: Limite de débit et bornes de /api/chat
-        run: node --test scripts/ci/chat-limits.test.mjs
       - name: Cliquet de jetons (tests d’injection)
         run: node --test scripts/ci/style-tokens.test.mjs
-      - name: Export des jetons à jour
-        run: |
-          node scripts/ci/export-tokens.mjs --check
-          node scripts/ci/export-site-controls.mjs --check
       - name: Installer Stable depuis la source canonique
         run: node scripts/ci/sync-install.mjs
         env:
@@ -88,10 +82,6 @@ jobs:
         run: node --test scripts/ci/sync-install.test.mjs
       - name: Versions Stable, tag source et développement
         run: node --test scripts/ci/release-version-policy.test.mjs
-      - name: Simulateur d'installation aligné sur les scripts
-        run: bash scripts/ci/check-simulator-sync.sh
-      - name: Transparence des visuels détourés
-        run: node scripts/ci/check-transparent-assets.mjs
       - name: Hôte unique des dépôts Linux
         run: bash scripts/ci/check-package-hosts.sh
       - name: Paquets Linux (conventions, empreinte, logos)
@@ -110,9 +100,8 @@ jobs:
         run: node scripts/ci/check-built-glass.mjs
       - name: Fils d'Ariane (un seul par page, adresses dans la langue de la page)
         run: node scripts/ci/check-breadcrumbs.mjs
-      - name: Comparatifs (parité, sources et structure FR/EN)
+      - name: Discours et origine de déploiement
         run: |
-          node scripts/ci/check-comparisons.mjs
           node scripts/ci/check-marketing.mjs
           node --test scripts/ci/deployment-origin.test.mjs
       - name: Géométrie mobile et cibles tactiles
@@ -127,16 +116,6 @@ jobs:
           node scripts/ci/mobile-check.mjs
           node scripts/ci/modal-check.mjs
           node scripts/ci/check-feature-menu.mjs
-      - name: Thèmes et navigation du site sécurité
-        run: |
-          python3 -m http.server 3104 --bind 127.0.0.1 --directory security/site > "$RUNNER_TEMP/security-server.log" 2>&1 &
-          server=$!
-          trap 'kill "$server" 2>/dev/null || true' EXIT
-          for attempt in $(seq 1 30); do
-            curl -fsS http://127.0.0.1:3104/fr/ > /dev/null && break
-            sleep 1
-          done
-          node scripts/ci/check-security-menu.mjs
 
   onion:
     name: Miroir Tor (export statique)

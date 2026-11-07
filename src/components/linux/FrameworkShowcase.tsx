@@ -1,4 +1,3 @@
-import Image from "next/image";
 import type { Locale } from "@/lib/i18n";
 import { LINUX_SHOWCASE_CONTENT } from "@/content/linuxShowcase";
 
@@ -38,16 +37,6 @@ export default function FrameworkShowcase({ locale }: { locale: Locale }) {
           </a>
         </div>
 
-        <div className="linux-framework__visual-wrap">
-          <Image
-            src="/images/FrameworkBaamix.webp"
-            alt="Framework Laptop modulaire sous Linux pour Bobine"
-            width={640}
-            height={480}
-            className="linux-hero__image linux-framework__image"
-            loading="lazy"
-          />
-        </div>
       </div>
     </section>
   );

@@ -7,14 +7,11 @@
  */
 export const EN_SLUG_MAP: Record<string, string> = {
   "/fonctionnalites": "/features",
-  "/comparatif": "/compare",
-  "/comparatif/wexer-fitness-on-demand": "/compare/wexer-fitness-on-demand",
-  "/comparatif/radical-fitness-yako": "/compare/radical-fitness-yako",
-  "/comparatif/affichage-dynamique-fitness": "/compare/digital-signage-fitness",
   "/telechargement": "/download",
   "/ressources": "/resources",
   "/documentation/utilisation": "/documentation/user-guide",
   "/documentation/developpeurs": "/documentation/developers",
+  "/documentation/anonymisation": "/documentation/anonymization",
   "/canaux": "/channels",
   "/canaux/stable": "/channels/stable",
   "/canaux/beta": "/channels/beta",

@@ -70,8 +70,6 @@
 /* Variante "empilée en cartes" pour les tableaux longs sur mobile
    (ex : tableau de dépannage) — évite le défilement horizontal illisible. */
 
-
-
 /* ==========================================================================
    Badge Dynamique GitHub
    ========================================================================== */
@@ -140,9 +138,7 @@
 }
 
 @media (max-width: 900px) {
-
   .site-header .github-badge {
     display: none;
   }
-
 }

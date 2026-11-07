@@ -1,83 +1,58 @@
 #!/usr/bin/env python3
-"""Variante Tor de assets/site.js (portail packages.bobine.fit) : commandes et liens passent par le service onion.
+"""Variante Tor des pages du portail packages.bobine.fit : le bloc d'installation passe par le service onion.
 
-Le configurateur du portail construit ses commandes (clé, dépôts APT, DNF et Pacman) avec https://packages.bobine.fit et
-ses téléchargements directs avec github.com : copiées ou cliquées depuis le miroir, elles contacteraient le web
-classique et exposeraient l'adresse IP du visiteur. Ici, `commands()` devient la procédure Tor (télécharger
-install-tor.sh par le proxy SOCKS, le lire, l'exécuter) et `direct()` mène à l'index local signé du dépôt.
+Les pages publiées délimitent leurs commandes (clé, dépôts APT, DNF et Pacman, toutes en https://packages.bobine.fit)
+par <!-- install --> et <!-- /install -->. Copiées depuis le miroir, elles contacteraient le web classique : le bloc
+devient la procédure Tor (télécharger install-tor.sh par le proxy SOCKS, le lire, l'exécuter).
 
-Échoue (code 1) si le fichier amont a changé de forme : le miroir garde alors sa copie précédente (sync.sh), plutôt que
-de publier un portail aux liens clearnet.
+Échoue (code 1) si une page d'accueil n'a plus ses marqueurs : le miroir garde alors sa copie précédente (sync.sh),
+plutôt que de publier un portail aux commandes clearnet.
 
 Usage : site-tor.py <dossier de release APT>
 """
+import html
 import re
 import sys
 from pathlib import Path
 
-PACKAGES_HOST = "rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion"
 SITE_HOST = "bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion"
+PAGES = ("index.html", "fr/index.html")
+BLOCK = re.compile(r"<!-- install -->.*?<!-- /install -->", re.S)
 
-COMMANDS = """function commands() {
-    var ch = state.channel;
-    var fr = LANG === 'fr';
-    var option = ch === 'stable' ? '' : ' --channel=' + ch;
-    return [
-      { comment: fr ? '# 1. Télécharger l\\'installateur par Tor (proxy SOCKS 127.0.0.1:9050)' : '# 1. Download the installer through Tor (SOCKS proxy 127.0.0.1:9050)',
-        cmd: 'curl --fail --socks5-hostname 127.0.0.1:9050 http://%(site)s/install-tor.sh -o install-tor.sh' },
-      { comment: fr ? '# 2. Le lire avant de l\\'exécuter' : '# 2. Read it before running it', cmd: 'less install-tor.sh' },
-      { comment: fr ? '# 3. L\\'exécuter : il installe Tor, configure le dépôt signé (APT, DNF ou Pacman) et vérifie l\\'empreinte de la clé' : '# 3. Run it: it installs Tor, configures the signed repository (APT, DNF or Pacman) and checks the key fingerprint',
-        cmd: 'bash install-tor.sh' + option }
-    ];
-  }
-""" % {"site": SITE_HOST}
-
-DIRECT = """function direct() {
-    var fr = LANG === 'fr';
-    var family = state.distro, ch = state.channel;
-    return {
-      title: fr ? 'Index du dépôt signé (onion)' : 'Signed repository index (onion)',
-      meta: fr ? 'Liste des paquets du dépôt, vérifiés par la signature OpenPGP' : 'Package list of the repository, verified by the OpenPGP signature',
-      btn: fr ? 'Ouvrir l\\'index' : 'Open the index',
-      url: '/' + family + '/' + (family === 'debian' ? '' : ch + '/')
-    };
-  }
-"""
-
-RENDER_SWAPS = (
-    ("T.dlTitle(d.ext, d.arch)", "d.title"),
-    ("T.dlMeta[state.distro]", "d.meta"),
-    ("T.dlBtn(d.ext)", "d.btn"),
+TEXT = {
+    "en": ("Install over Tor", "The script installs Tor, configures the signed repository (APT, DNF or Pacman) and checks the key fingerprint. Read it before running it; add --channel=beta or --channel=canary to follow another channel."),
+    "fr": ("Installer par Tor", "Le script installe Tor, configure le dépôt signé (APT, DNF ou Pacman) et vérifie l'empreinte de la clé. Lisez-le avant de l'exécuter ; ajoutez --channel=beta ou --channel=canary pour suivre un autre canal."),
+}
+COMMANDS = (
+    f"curl --fail --socks5-hostname 127.0.0.1:9050 http://{SITE_HOST}/install-tor.sh -o install-tor.sh\n"
+    "less install-tor.sh\n"
+    "bash install-tor.sh"
 )
 
 
-def patch(text: str) -> str:
-    """Renvoie le site.js adapté ; lève ValueError si une ancre amont a disparu."""
-    commands = re.search(r"function commands\(\) \{.*?\n  \}\n(?=\n)", text, re.S)
-    direct = re.search(r"function direct\(\) \{.*?\n  \}\n(?=\n)", text, re.S)
-    if not commands or not direct or commands.start() > direct.start():
-        raise ValueError("fonctions commands() et direct() introuvables dans assets/site.js")
-    text = text[: direct.start()] + DIRECT + text[direct.end():]
-    text = text[: commands.start()] + COMMANDS + text[commands.end():]
-    for old, new in RENDER_SWAPS:
-        if old not in text:
-            raise ValueError(f"appel {old} introuvable dans render()")
-        text = text.replace(old, new)
-    text = text.replace("https://packages.bobine.fit", f"http://{PACKAGES_HOST}").replace("https://bobine.fit", f"http://{SITE_HOST}")
-    return re.sub(r"var RELEASES = '[^']*';\n", "", text)
+def block(lang: str) -> str:
+    title, text = TEXT[lang]
+    return (f"<!-- install -->\n<h2>{html.escape(title)}</h2>\n<p>{html.escape(text)}</p>\n"
+            f"<pre><code>{html.escape(COMMANDS)}</code></pre>\n<!-- /install -->")
+
+
+def patch(text: str, lang: str) -> str:
+    """Renvoie la page adaptée ; lève ValueError si le bloc d'installation a disparu."""
+    if not BLOCK.search(text):
+        raise ValueError("marqueurs <!-- install --> absents")
+    return BLOCK.sub(lambda _m: block(lang), text, count=1)
 
 
 def main() -> int:
-    script = Path(sys.argv[1]) / "assets" / "site.js"
-    if not script.is_file():
-        print("[site-tor] pas de assets/site.js : rien à adapter")
-        return 0
+    root = Path(sys.argv[1])
     try:
-        script.write_text(patch(script.read_text(encoding="utf-8")), encoding="utf-8")
-    except ValueError as exc:
+        for name in PAGES:
+            page = root / name
+            page.write_text(patch(page.read_text(encoding="utf-8"), "fr" if name.startswith("fr/") else "en"), encoding="utf-8")
+    except (OSError, ValueError) as exc:
         print(f"[site-tor] adaptation impossible : {exc}", file=sys.stderr)
         return 1
-    print("[site-tor] commandes et liens de téléchargement du portail passés au service onion")
+    print("[site-tor] bloc d'installation du portail passé au service onion")
     return 0
 
 

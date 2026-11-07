@@ -7,7 +7,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 import JsonLd from "@/components/JsonLd";
-import BobineChatbot from "@/components/BobineChatbot";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import GlobalRippleEffect from "@/components/GlobalRippleEffect";
 import { IS_ONION } from "@/lib/onion";
@@ -41,8 +40,8 @@ export async function generateMetadata({
       template: "%s · Bobine",
     },
     description: isEn
-      ? "Bobine turns Google Books (Aluminium OS), Qualcomm Snapdragon ARM64 PCs, Apple Silicon Macs, Android tablets, and budget x86/ARM64 mini PCs into an autonomous, 100% offline video playout system for fitness clubs. The free, copyleft alternative to proprietary per-screen playout subscriptions and Wexer Virtual."
-      : "Bobine transforme un Google Book (Aluminium OS), un PC ARM Qualcomm Snapdragon, un Mac mini, une tablette Android ou un mini PC x86/ARM64 en régie vidéo autonome et 100% hors-ligne pour salles de sport. L'alternative libre, gratuite et sans abonnement aux régies propriétaires facturées à l'écran et à Wexer Virtual.",
+      ? "Bobine turns Google Books (Aluminium OS), Qualcomm Snapdragon ARM64 PCs, Apple Silicon Macs, Android tablets, and budget x86/ARM64 mini PCs into an autonomous, 100% offline video playout system for fitness clubs. The free, copyleft alternative to proprietary per-screen playout subscriptions."
+      : "Bobine transforme un Google Book (Aluminium OS), un PC ARM Qualcomm Snapdragon, un Mac mini, une tablette Android ou un mini PC x86/ARM64 en régie vidéo autonome et 100% hors-ligne pour salles de sport. L'alternative libre, gratuite et sans abonnement aux régies propriétaires facturées à l'écran.",
     keywords: isEn
       ? [
           "Bobine",
@@ -66,7 +65,6 @@ export async function generateMetadata({
           "gym video playout",
           "virtual fitness kiosk",
           "proprietary per-screen playout alternative",
-          "Wexer alternative",
           "fitness studio video player",
           "offline gym signage",
           "open source gym software",
@@ -164,24 +162,6 @@ export default async function RootLayout({
         <link rel="icon" type="image/png" sizes="512x512" href="/icon.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
-        <link
-          rel="alternate"
-          type="text/plain"
-          href="/compatible-devices.txt"
-          title="Bobine Compatible Hardware & Devices Technical Reference (ARM64, Snapdragon, Google Book, NVIDIA DGX Spark, x86_64, Apple Silicon, Android, Android TV)"
-        />
-        <link
-          rel="alternate"
-          type="text/plain"
-          href="/llms.txt"
-          title="Bobine Summary Reference & Overview"
-        />
-        <link
-          rel="alternate"
-          type="text/plain"
-          href="/llms-full.txt"
-          title="Bobine Complete Technical Documentation & Architecture Reference"
-        />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{${THEME_INIT_SNIPPET}var ua=navigator.userAgent||'';var p='linux';if(/Android/i.test(ua)){p='android';}else if(/iPhone|iPad|iPod/i.test(ua)||(navigator.maxTouchPoints>1&&/Macintosh/i.test(ua))){p='ios';}else if(/Windows/i.test(ua)){p='windows';}else if(/Macintosh|Mac OS X/i.test(ua)){p='macos';}document.documentElement.setAttribute('data-platform',p);}catch(e){}})()`,
@@ -197,7 +177,6 @@ export default async function RootLayout({
         <main>{children}</main>
         <Footer locale={locale as Locale} dict={dict} />
 
-        <BobineChatbot locale={locale as Locale} />
         {!IS_ONION && <ServiceWorkerRegistration locale={locale as Locale} />}
         {!IS_ONION && <Analytics />}
         </ReleaseProvider>

@@ -26,7 +26,7 @@ PACKAGES_CURL = re.compile(r"curl(?: -[A-Za-z]+)+ https://packages\.bobine\.fit/
 PACKAGES_CURL_REPLACEMENT = f"curl --socks5-hostname 127.0.0.1:9050 -fsSL http://{APT_HOST}/"
 PACKAGES = "https://packages.bobine.fit"
 # Variante « lire avant d'exécuter » : télécharger, `less`, puis lancer le fichier téléchargé.
-REVIEW_DOWNLOAD = re.compile(r"curl(?: -[A-Za-z]+)+ https://bobine\.fit/install\.sh -o install\.sh")
+REVIEW_DOWNLOAD = re.compile(r"curl(?: -[A-Za-z]+)+ https://bobine\.fit/install(?:-tor)?\.sh -o install(?:-tor)?\.sh")
 REVIEW_DOWNLOAD_REPLACEMENT = f"curl --socks5-hostname 127.0.0.1:9050 -fsSL http://{SITE_HOST}/install-tor.sh -o install-tor.sh"
 
 

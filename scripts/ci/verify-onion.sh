@@ -5,11 +5,6 @@ cd "${1:-out}"
 
 test -f fr/index.html || { echo "::error::fr/index.html manquant"; exit 1; }
 
-# Baamix s'ouvre sur son chat (message sans appel réseau).
-for page in fr/baamix en/baamix; do
-  grep -q "chatbot-modal--page" "$page/index.html" || { echo "::error::Chat Baamix absent : $page"; exit 1; }
-done
-
 # Aucun lien marchand ni suivi d'affiliation (un simple texte cité dans une note de version reste permis).
 MARCHAND='href="https?://[^"]*(amazon\.[a-z.]+|aliexpress\.[a-z.]+)[^"]*"'
 if grep -rIlE "$MARCHAND" --include=*.html . | grep -q .; then

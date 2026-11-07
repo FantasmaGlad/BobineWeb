@@ -12,7 +12,7 @@
 .media-frame figcaption { color: var(--text-muted); font-size: var(--fs-0-85rem); line-height: 1.6; margin-top: 0.65rem; }
 .marketing-section, .marketing-grid, .marketing-faq { margin-bottom: 2.5rem; }
 .marketing-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
-.marketing-card, .marketing-cta, .marketing-faq details, .marketing-notice {
+.marketing-card, .marketing-faq details, .marketing-notice {
   min-width: 0; padding: clamp(1rem, 3vw, 1.75rem); border-radius: var(--radius-lg);
   background: var(--glass-card-bg); border: 1px solid var(--glass-card-border);
   box-shadow: var(--glass-card-highlight), var(--shadow-card);
@@ -28,19 +28,16 @@
 .marketing-card dd { margin: 0.3rem 0 1rem; color: var(--text-body); line-height: 1.65; }
 .marketing-faq { display: grid; gap: 0.75rem; }
 .marketing-faq summary { min-height: 44px; cursor: pointer; color: var(--text-heading); font-weight: 650; padding-block: 0.75rem; }
-.marketing-cta { margin-top: 2rem; }
-.marketing-credits { margin-top: 1rem; }
-.marketing-credits a { display: inline-flex; min-height: 44px; align-items: center; }
+
 .marketing-notice { margin-bottom: 1.5rem; }
 .marketing-release-title { overflow-wrap: anywhere; }
 .marketing-release-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; color: var(--text-muted); }
-.marketing-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
 .marketing-donations { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; margin-block: 1rem; }
 .marketing-donations button { min-height: 44px; background: var(--glass-inset-bg); color: var(--text-heading); border: 1px solid var(--glass-card-border); border-radius: var(--radius-md); cursor: pointer; }
 .marketing-donations button[aria-pressed="true"] { background: var(--accent-primary); color: var(--accent-primary-fg); }
 @media (max-width: 800px) { .marketing-hero, .marketing-grid { grid-template-columns: 1fr; } .marketing-hero { gap: 1.5rem; padding-block: 1rem 2rem; } }
 
-.marketing-logo { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem; min-height: 44px; }
 .marketing-card[id] { scroll-margin-top: 6rem; }
 
 .marketing-hero .media-frame img { max-height: 28rem; object-fit: contain; }

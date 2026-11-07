@@ -17,16 +17,7 @@
   border-color: var(--border-hover);
   box-shadow: 0 8px 28px -6px var(--shadow-color);
 }
-.blog-hero-release-card--stable {
-  border: 1px solid color-mix(in srgb, var(--accent-primary) 35%, var(--border-subtle));
-  background: color-mix(in srgb, var(--accent-subtle) 16%, var(--bg-card));
-}
-.blog-hero-release-card--beta {
-  border: 1px solid var(--border-subtle);
-  border-left: 4px solid var(--accent-text);
-  background: color-mix(in srgb, var(--accent-subtle) 22%, var(--bg-card));
-  margin-bottom: 1.25rem;
-}
+
 @media (max-width: 1023px) {
 .blog-hero-release-card {
     padding: 1rem 1.15rem !important;

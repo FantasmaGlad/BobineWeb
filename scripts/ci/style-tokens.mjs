@@ -27,7 +27,7 @@ export function checkStyleTokens(root) {
       });
     } else if (/\.tsx?$/.test(file)) {
       const source = readFileSync(file, "utf8");
-      const print = name.startsWith("src/lib/pdf/") || name.endsWith("/opengraph-image.tsx");
+      const print = name.endsWith("/opengraph-image.tsx");
       for (const [index, line] of source.split("\n").entries()) {
         if (!exceptions.typescriptColorFiles.includes(name) && /(?:["'`]#[\da-f]{3,8}["'`]|(?:rgb|hsl)a?\()/i.test(line)) fail("color", name, index + 1, line.trim());
         if (print) continue;

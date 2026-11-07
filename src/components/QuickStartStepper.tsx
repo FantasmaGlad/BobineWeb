@@ -5,7 +5,6 @@ import type { Locale } from "@/lib/i18n";
 import Link from "next/link";
 import Shot from "@/components/Shot";
 import CodeBlock from "@/components/CodeBlock";
-import InteractiveTerminal from "@/components/InteractiveTerminal";
 import { lp } from "@/lib/seo";
 import "@/styles/split/pages-docs.css";
 
@@ -227,7 +226,7 @@ export default function QuickStartStepper({ locale }: QuickStartStepperProps) {
           <p>{isEn ? "Follow the standard installer wizard:" : "Suivez les étapes classiques de l'installateur :"}</p>
           <ol>
             <li><strong>{isEn ? "Language & Keyboard" : "Langue et clavier"}</strong> — {isEn ? "select your preferences." : "choisissez selon vos préférences."}</li>
-            <li><strong>{isEn ? "Hostname" : "Nom de machine"}</strong> — {isEn ? "set e.g. 'bobine'. The system will be accessible at http://bobine.local." : "indiquez 'bobine'. Le système sera joignable sur http://bobine.local."}</li>
+            <li><strong>{isEn ? "Hostname" : "Nom de machine"}</strong> — {isEn ? "set e.g. 'bobine'. The system will be accessible at http://bobine.local:1903." : "indiquez 'bobine'. Le système sera joignable sur http://bobine.local:1903."}</li>
             <li><strong>{isEn ? "User account" : "Compte utilisateur"}</strong> — {isEn ? "create a regular user account (not root) with a strong password." : "créez un compte utilisateur normal (pas root) avec votre mot de passe."}</li>
             <li><strong>{isEn ? "Disk Partitioning" : "Partitionnement"}</strong> — {isEn ? "choose 'Guided - use entire disk'." : "sélectionnez 'Guidé - utiliser tout le disque'."}</li>
             <li>
@@ -280,19 +279,8 @@ export default function QuickStartStepper({ locale }: QuickStartStepperProps) {
       shortTitle: isEn ? "Install Bobine" : "Install Bobine",
       content: (
         <div>
-          <p>
-            {isEn
-              ? "Still in your SSH session, run the automated installer. You can test arguments and options in the interactive playground below:"
-              : "Toujours dans votre session SSH, lancez la commande d'installation. Vous pouvez tester les arguments et options directement dans le simulateur ci-dessous :"}
-          </p>
+          <p>{isEn ? "Still in your SSH session, clone the repository and run the installer:" : "Toujours dans votre session SSH, clonez le dépôt et lancez l'installation :"}</p>
 
-          <InteractiveTerminal
-            locale={locale}
-            preset="installer"
-            title="bash — bobine installer playground"
-          />
-
-          <p><strong>{isEn ? "Alternative — Manual repository clone:" : "Alternative — Clonage manuel du dépôt :"}</strong></p>
           <CodeBlock title="bash — manual git clone">
             <code>git clone https://github.com/FantasmaGlad/Bobine.git
 cd Bobine

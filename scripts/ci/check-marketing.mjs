@@ -20,7 +20,7 @@ for (const page of pages) {
     assert(!html.includes("PR #42"), `${locale}/${page}: référence fictive supprimée`);
     assert(/og:image" content="https:\/\/bobine.fit\/images\/(?:marketing|screens)\/[^" ]+-og.webp/.test(html), `${locale}/${page}: aperçu de section`);
     if (page === "fonctionnalites") {
-      assert.equal((html.match(/class="marketing-card"/g) ?? []).length, 9, "neuf fonctions visibles");
+      assert.equal((html.match(/class="marketing-card"/g) ?? []).length, 8, "huit fonctions visibles");
       assert(!html.includes('class="feature-tech-details"'), "pas de spécifications cachées");
     }
     if (page === "blog" && locale === "en") assert(html.includes("original language"), "langue des notes annoncée");
@@ -28,4 +28,4 @@ for (const page of pages) {
   }
   assert.equal(counts[0], counts[1], `${page}: mêmes sections FR/EN`);
 }
-console.log("Marketing : pages FR/EN, en-têtes compacts, images locales, neuf fonctions visibles et métadonnées conformes.");
+console.log("Marketing : pages FR/EN, en-têtes compacts, images locales, huit fonctions visibles et métadonnées conformes.");

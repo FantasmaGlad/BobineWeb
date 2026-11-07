@@ -120,15 +120,6 @@
   box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 10%, transparent);
 }
 
-.theme-segment-count {
-  font-size: var(--fs-0-675rem);
-  padding: 0.1rem 0.35rem;
-  border-radius: var(--radius-999px);
-  background: var(--accent-subtle);
-  color: var(--accent-text);
-  font-weight: 700;
-}
-
 .theme-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -211,14 +202,6 @@
   font-size: var(--fs-0-775rem);
   font-weight: 600;
   color: var(--text-heading);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.theme-card-option__desc {
-  font-size: var(--fs-0-65rem);
-  color: var(--text-muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -363,19 +346,6 @@ main {
 /* Cartes Interactives & Composants de Contenu */
 
 /* Documentation Layout — Full Screen & Docked Left */
-
-.doc-open-row {
-  border-bottom: 1px solid var(--border-subtle);
-  transition: all 0.15s ease;
-}
-
-.doc-open-row:hover {
-  border-bottom-color: var(--accent-text);
-}
-
-.doc-open-row:hover h2 {
-  color: var(--accent-text) !important;
-}
 
 /* Documentation Mobile Contextual Navigation */
 

@@ -1,6 +1,5 @@
 import type { AssetKey } from "@/lib/assets";
 import type { Locale } from "@/lib/i18n";
-import { ONION_APT_HOST, ONION_SITE_HOST, TOR_PROJECT_URL, TOR_SOURCE_URL } from "@/lib/onion";
 import {
   FAMILY_NOTES,
   NOT_VALIDATED_NOTE,
@@ -17,7 +16,7 @@ import {
 } from "@/lib/linuxPackages";
 
 /**
- * Pages d'atterrissage thématiques (canaux de mise à jour, Tor) :
+ * Pages d'atterrissage thématiques (canaux de mise à jour, Linux) :
  * une page par intention de recherche, rendues par `LandingPage`. Le texte reste
  * factuel et court, sans version ni date en dur : celles-ci viennent de GitHub à l'affichage.
  */
@@ -27,8 +26,7 @@ export type LandingId =
   | "canal-stable"
   | "canal-beta"
   | "canal-canary"
-  | "linux"
-  | "tor";
+  | "linux";
 
 export type LandingSectionIcon =
   | "cpu"
@@ -111,15 +109,6 @@ export interface LandingContent {
 
 const CHANNEL_CLI = (channel: string) =>
   `curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=${channel}`;
-
-const TOR_COMMANDS = `sudo apt install apt-transport-tor
-curl -fsS --socks5-hostname 127.0.0.1:9050 \\
-  http://${ONION_APT_HOST}/bobine.gpg \\
-  | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg
-echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] \\
-  tor+http://${ONION_APT_HOST}/ stable main" \\
-  | sudo tee /etc/apt/sources.list.d/bobine-onion.list
-sudo apt update && sudo apt install bobine`;
 
 /** Phrase ajoutée tant que les dépôts Fedora et Arch ne sont pas en ligne, vide ensuite. */
 const soonSuffix = (l: "fr" | "en") => {
@@ -786,7 +775,6 @@ linux: {
         { label: "Téléchargement multiplateforme", path: "/telechargement" },
         { label: "Documentation d'installation", path: "/documentation" },
         { label: "Canaux de mise à jour", path: "/canaux" },
-        { label: "Bobine sur Tor : dépôt APT anonyme", path: "/tor" },
         { label: "Sécurité et clé de signature", path: "https://security.bobine.fit/fr/" },
       ],
     },
@@ -888,167 +876,10 @@ linux: {
         { label: "Cross-platform downloads", path: "/download" },
         { label: "Installation documentation", path: "/documentation" },
         { label: "Update channels", path: "/canaux" },
-        { label: "Bobine over Tor: anonymous APT repository", path: "/tor" },
         { label: "Security and signing key", path: "https://security.bobine.fit/" },
       ],
     },
   },
-
-tor: {
-    id: "tor",
-    path: "/tor",
-    fr: {
-      title: "Bobine sur Tor : miroir .onion du site et dépôts Linux anonymes",
-      description:
-        "Bobine sur le réseau Tor : site miroir en service onion et dépôts Linux officiels (Debian, Fedora, Arch) accessibles en .onion, paquets signés par la même clé. Commandes d'installation et empreinte de la clé.",
-      badge: "Réseau Tor · Services Onion v3 · Dépôts Linux signés",
-      h1: "Bobine sur Tor : miroir .onion et dépôts Linux",
-      lead:
-        "Pour installer et mettre à jour Bobine sans révéler votre adresse IP, le site et les dépôts Linux officiels (Debian, Fedora, Arch) sont aussi proposés en services onion. C'est un miroir du site et des dépôts officiels : les paquets restent signés par la même clé.",
-      breadcrumb: "Tor",
-      keywords: ["Bobine Tor", "Bobine onion", "Bobine .onion", "dépôts Linux Tor", "apt-transport-tor Bobine", "Bobine anonyme"],
-      heroImage: {
-        src: "/images/baamix-tor.webp",
-        alt: "Architecture du miroir Tor et des dépôts Linux .onion de Bobine",
-        width: 1200,
-        height: 675,
-      },
-      sections: [
-        {
-          heading: "Les adresses onion",
-          icon: "network",
-          bullets: [
-            `Site : http://${ONION_SITE_HOST}/`,
-            `Dépôts Linux (APT, DNF, Pacman) : tor+http://${ONION_APT_HOST}/`,
-            "L'assistant Baamix n'est pas proposé sur le miroir afin de garantir un fonctionnement entièrement autonome et sans appel réseau externe.",
-            "Le miroir est hébergé par le mainteneur, sans journal de visite, avec une disponibilité au mieux.",
-          ],
-        },
-        {
-          heading: "Installer Bobine par Tor sur Debian, Ubuntu ou Mint",
-          icon: "terminal",
-          paragraphs: [
-            "Le script install-tor.sh fait les cinq étapes et s'arrête si l'empreinte de la clé diffère de celle publiée ; l'option --dry-run n'installe rien. Le canal de mise à jour (Stable, Bêta ou Canary) se choisit avec --channel=stable, --channel=beta ou --channel=canary ; sans l'option, le script pose la question sur un terminal et prend Stable sinon. À lire avant de l'exécuter :",
-          ],
-          code: "curl -fsSL https://bobine.fit/install-tor.sh | bash",
-        },
-        {
-          heading: "Ou à la main",
-          icon: "terminal",
-          paragraphs: ["Les mêmes étapes, une par une. Le dernier mot de la ligne deb est la suite APT, donc le canal : stable, beta ou canary, les trois étant publiées par le dépôt onion :"],
-          code: TOR_COMMANDS,
-        },
-        {
-          heading: "Vérifier la clé",
-          icon: "shield",
-          paragraphs: [
-            "Comparez l'empreinte de la clé principale avec celle de https://packages.bobine.fit/bobine.gpg : B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A. apt refuse tout paquet dont la signature ne correspond pas.",
-            `Bobine n'est pas affilié au Tor Project. Pour soutenir le réseau Tor : ${TOR_PROJECT_URL} (code source : ${TOR_SOURCE_URL}).`,
-          ],
-        },
-      ],
-      faq: [
-        {
-          q: "Peut-on installer Bobine via Tor ?",
-          a: "Oui, sur Debian, Ubuntu et Linux Mint (APT), sur Fedora et dérivés (DNF) et sur Arch Linux et dérivés (Pacman) : les trois dépôts officiels sont aussi servis en .onion, avec les mêmes paquets signés par la même clé.",
-        },
-        {
-          q: "Peut-on suivre la Bêta ou la Canary par Tor ?",
-          a: "Oui : les dépôts en .onion publient les trois canaux, stable, beta et canary. install-tor.sh --channel=beta (ou canary) configure la source correspondante pour APT, DNF ou Pacman.",
-        },
-        {
-          q: "Et sur Fedora ou Arch Linux ?",
-          a: "Les dépôts Fedora (DNF) et Arch Linux (Pacman) sont servis en .onion comme le dépôt APT, avec la même clé de signature ; install-tor.sh détecte la famille et configure le gestionnaire de paquets. Leur installation par Tor a été essayée dans des conteneurs Debian, Fedora et Arch, pas encore sur des machines réelles. Les mêmes dépôts restent servis en HTTPS sur packages.bobine.fit.",
-        },
-        {
-          q: "Le miroir Tor est-il complet ?",
-          a: "Il reprend le site statique (documentation, comparatifs, blog) ; l'assistant Baamix en est exclu afin d'éviter tout appel API externe.",
-        },
-      ],
-      related: [
-        { label: "Bobine pour Linux (Debian, Fedora, Arch)", path: "/linux" },
-        { label: "Documentation d'installation", path: "/documentation" },
-        { label: "Sécurité", path: "https://security.bobine.fit/fr/" },
-        { label: "Canaux de mise à jour", path: "/canaux" },
-      ],
-    },
-    en: {
-      title: "Bobine on Tor: .onion site mirror and anonymous Linux repositories",
-      description:
-        "Bobine on the Tor network: a site mirror as an onion service and official Linux package repositories (Debian, Fedora, Arch) reachable over .onion, with packages signed by the same key. Installation commands and key fingerprint.",
-      badge: "Tor Network · Onion v3 Services · Signed Linux Repositories",
-      h1: "Bobine on Tor: .onion mirror and Linux package repositories",
-      lead:
-        "To install and update Bobine without revealing your IP address, the site and official Linux package repositories (Debian, Fedora, Arch) are also offered as onion services. It is a mirror of the official site and repositories: packages remain signed by the same key.",
-      breadcrumb: "Tor",
-      keywords: ["Bobine Tor", "Bobine onion", "Bobine .onion", "Linux repositories over Tor", "apt-transport-tor Bobine", "Bobine anonymous install"],
-      heroImage: {
-        src: "/images/baamix-tor.webp",
-        alt: "Bobine Tor mirror and .onion Linux repositories architecture",
-        width: 1200,
-        height: 675,
-      },
-      sections: [
-        {
-          heading: "The onion addresses",
-          icon: "network",
-          bullets: [
-            `Site: http://${ONION_SITE_HOST}/`,
-            `Linux repositories (APT, DNF, Pacman): tor+http://${ONION_APT_HOST}/`,
-            "The Baamix assistant is not offered on the mirror to preserve complete network autonomy and privacy.",
-            "The mirror is hosted by the maintainer, keeps no visit log, and runs on a best-effort basis.",
-          ],
-        },
-        {
-          heading: "Installing Bobine over Tor on Debian, Ubuntu or Mint",
-          icon: "terminal",
-          paragraphs: [
-            "The install-tor.sh script performs the five steps and stops if the key fingerprint differs from the published one; the --dry-run option installs nothing. The update channel (Stable, Beta or Canary) is chosen with --channel=stable, --channel=beta or --channel=canary; without the option, the script asks on a terminal and falls back to Stable otherwise. Read it before running it:",
-          ],
-          code: "curl -fsSL https://bobine.fit/install-tor.sh | bash",
-        },
-        {
-          heading: "Or by hand",
-          icon: "terminal",
-          paragraphs: ["The same steps, one at a time. The last word of the deb line is the APT suite, hence the channel: stable, beta or canary, all three being published by the onion repository:"],
-          code: TOR_COMMANDS,
-        },
-        {
-          heading: "Checking the key",
-          icon: "shield",
-          paragraphs: [
-            "Compare the primary key fingerprint with the one at https://packages.bobine.fit/bobine.gpg: B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A. apt rejects any package whose signature does not match.",
-            `Bobine is not affiliated with the Tor Project. To support the Tor network: ${TOR_PROJECT_URL} (source code: ${TOR_SOURCE_URL}).`,
-          ],
-        },
-      ],
-      faq: [
-        {
-          q: "Can Bobine be installed over Tor?",
-          a: "Yes, on Debian, Ubuntu and Linux Mint (APT), on Fedora and derivatives (DNF) and on Arch Linux and derivatives (Pacman): the three official repositories are also served over .onion, with the same packages signed by the same key.",
-        },
-        {
-          q: "Can the Beta or Canary channel be followed over Tor?",
-          a: "Yes: the .onion repositories publish all three channels, stable, beta and canary. install-tor.sh --channel=beta (or canary) sets up the matching source for APT, DNF or Pacman.",
-        },
-        {
-          q: "What about Fedora or Arch Linux?",
-          a: "The Fedora (DNF) and Arch Linux (Pacman) repositories are served over .onion like the APT repository, with the same signing key; install-tor.sh detects the family and configures the package manager. Installing over Tor was tried in Debian, Fedora and Arch containers, not yet on real machines. The same repositories are still served over HTTPS on packages.bobine.fit.",
-        },
-        {
-          q: "Is the Tor mirror complete?",
-          a: "It carries the static site (documentation, comparisons, blog); the hardware store and the Baamix assistant are left out.",
-        },
-      ],
-      related: [
-        { label: "Bobine for Linux (Debian, Fedora, Arch)", path: "/linux" },
-        { label: "Installation documentation", path: "/documentation" },
-        { label: "Security", path: "https://security.bobine.fit/" },
-        { label: "Update channels", path: "/canaux" },
-      ],
-    },
-  },
-
 };
 
 export function getLanding(id: LandingId, locale: Locale): LandingLocale {

@@ -62,25 +62,6 @@ export default function Header({
 
           {/* Switchers & Badges Desktop */}
           <div className="site-header__actions">
-            <button
-              type="button"
-              className="baamix-header-btn"
-              onClick={() => window.dispatchEvent(new CustomEvent("toggle-baamix"))}
-              title={locale === "fr" ? "Ouvrir l'assistant Baamix" : "Open Baamix assistant"}
-              aria-label={locale === "fr" ? "Ouvrir l'assistant Baamix" : "Open Baamix assistant"}
-            >
-              <div className="baamix-header-avatar">
-                <Image
-                  src="/images/baamix.jpg"
-                  alt="Baamix"
-                  width={20}
-                  height={20}
-                  className="chatbot-avatar-img"
-                />
-                <span className="baamix-header-dot" />
-              </div>
-              <span>Baamix</span>
-            </button>
             <GitHubBadge />
             <ThemeSwitcher />
           </div>

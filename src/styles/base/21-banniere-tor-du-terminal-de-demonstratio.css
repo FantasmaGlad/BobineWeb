@@ -1,72 +1,4 @@
-.onion-notice__footer {
-  margin: 1rem 0 0;
-  font-size: var(--fs-0-8rem);
-  color: var(--text-dim);
-}
 
-/* Bannière Tor du terminal de démonstration : l'ASCII art est un SVG, il garde ses proportions partout */
-.terminal-ascii-svg--tor {
-  width: min(100%, 260px);
-  max-width: 260px;
-}
-
-/* Miroir Tor : Baamix court dans sa roue en bas du chat, une fois son message entièrement tapé */
-.baamix-idle-runner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  margin: 1rem 0 0.5rem;
-  color: var(--text-muted);
-  font-size: var(--fs-0-8rem);
-  animation: baamixIdleIn 0.5s ease both;
-}
-
-.baamix-idle-runner .baamix-wheel {
-  width: 48px;
-  height: 48px;
-  flex: none;
-}
-
-@keyframes baamixIdleIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: none; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .baamix-idle-runner { animation: none; }
-}
-
-/* Guide de démarrage : mascotte « inspecteur » en filigrane derrière le titre et l'introduction */
-.docs-intro-art-wrap {
-  position: relative;
-  isolation: isolate;
-}
-
-.docs-intro-art-wrap > :not(.docs-intro-art) {
-  position: relative;
-  z-index: var(--z-1);
-}
-
-.docs-intro-art {
-  position: absolute;
-  z-index: 0;
-  top: -0.5rem;
-  right: 0;
-  width: clamp(110px, 20vw, 210px);
-  height: auto;
-  opacity: 0.22;
-  pointer-events: none;
-  user-select: none;
-}
-
-@media (min-width: 1024px) {
-  .docs-intro-art {
-    top: -1.25rem;
-    right: 4.5rem;
-    opacity: 0.3;
-  }
-}
 
 /* ==========================================================================
    COUCHE FINALE — GLASSMORPHISM APPLE PREMIUM, CONTOURS MARQUÉS & ANIMATIONS
@@ -169,23 +101,13 @@
 .os-download-card,
 .docs-method-hero,
 .docs-step-card,
-.docs-api-card,
 .docs-callout,
-.docs-tor-note,
 .docs-table-wrapper,
 .blog-hero-release-card,
-.github-pr-card,
-.kofi-widget-card,
-.terminal-wrapper,
-.interactive-terminal-card,
-.tauri-demo-window,
 .stepper-focused-card,
 .stepper-continuous-item,
-.comparison-table-wrapper,
 .mobile-drawer-contact-card,
 .release-body__attachment,
-.chatbot-product-card,
-.chatbot-compare,
 .download-modal__channel-card {
   background: var(--glass-card-bg);
   border: 1px solid var(--glass-card-border);
@@ -199,9 +121,7 @@
 
 .os-download-card,
 .docs-method-hero,
-.blog-hero-release-card,
-.github-pr-card,
-.kofi-widget-card {
+.blog-hero-release-card {
   -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
   backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
 }
@@ -210,23 +130,14 @@
 .docs-install-divider__pill,
 .stepper-mode-bar,
 .stepper-nav-pill,
-.docs-faq-filter-chip,
-.headless-action-btn,
-.terminal-channel-tabs,
-.terminal-demo-status-pill,
-.tauri-demo-status-pill,
-.tauri-spec-card,
-.tauri-toggle-card,
-.tauri-device-row,
-.hw-alt-unit-card {
+.docs-faq-filter-chip {
   background: var(--glass-inset-bg);
 }
 
 /* Survol avec élévation, grossissement subtil et contour illuminé */
 .os-download-card:hover,
 .docs-step-card:hover,
-.blog-hero-release-card:hover,
-.github-pr-card:hover {
+.blog-hero-release-card:hover {
   transform: translateY(-3px) scale(1.015);
   border-color: color-mix(in srgb, var(--accent-primary) 46%, var(--glass-card-border));
   box-shadow:
@@ -247,14 +158,6 @@
 /* Fenêtre de téléchargement : plus transparente que les autres fenêtres, le fond de la page reste visible derrière */
 
 /* Fenêtres et panneaux latéraux */
-.chatbot-modal:not(.chatbot-modal--page),
-.hw-cart-sheet {
-  background: var(--glass-floating-bg);
-  -webkit-backdrop-filter: blur(var(--glass-floating-blur)) saturate(var(--saturate-rich));
-  backdrop-filter: blur(var(--glass-floating-blur)) saturate(var(--saturate-rich));
-  border: 1px solid var(--glass-floating-border);
-  box-shadow: var(--glass-card-highlight), var(--shadow-card-hover);
-}
 
 /* Micro-interactions sur les pastilles, onglets et liens de navigation */
 .site-header__nav a,
@@ -300,11 +203,32 @@
   .os-download-card,
   .docs-step-card,
   .blog-hero-release-card,
-  .github-pr-card,
   .download-modal__channel-card,
   .site-header__nav a,
   .theme-card-option {
     transition: none !important;
     transform: none !important;
   }
+}
+
+/* En-tête : contour net et ombre courte, lisibles sur chaque thème (le filet fin se perdait sur les fonds clairs). */
+.site-header {
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Cartes de téléchargement : une vraie barre pleine largeur, à la couleur d'accent du thème, au lieu d'un filet pâle. */
+.os-download-card__meta {
+  border-top: 0;
+  position: relative;
+}
+.os-download-card__meta::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 4px;
+  border-radius: var(--radius-999px);
+  background: var(--accent-primary);
+  opacity: 0.85;
 }

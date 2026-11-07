@@ -2,7 +2,6 @@
   "nav": {
     "home": "Home",
     "features": "Features",
-    "comparisons": "Comparisons",
     "documentation": "Documentation",
     "blog": "Blog",
     "demo": "Demonstration",
@@ -19,13 +18,5 @@
     "placeholder": "Search documentation & FAQ...",
     "resultsFound": "results found",
     "noResults": "No matching topics found in documentation."
-  },
-  "chatbot": {
-    "title": "Baamix",
-    "subtitle": "Bobine Mascot",
-    "buttonLabel": "Baamix",
-    "inputPlaceholder": "Ask a question (installation, features, setup)..."
   }
 }
-
-

@@ -14,27 +14,10 @@ export type DocIconKey =
   | "smartphone"
   | "tablet";
 
-export interface TechChip {
-  icon: DocIconKey;
-  label: string;
-}
-
-export type DeviceImageKey =
-  | "windows"
-  | "macos"
-  | "linux"
-  | "android"
-  | "googlebook"
-  | "mascot"
-  | "channels";
-
 export interface DocSubsection {
   subtitle: string;
   paragraphs: string[];
   codeBlock?: string;
-  techChips?: TechChip[];
-  /** Illustration(s) du générateur PDF uniquement : photo d'appareil, mascotte ou logos de canaux. */
-  deviceImage?: DeviceImageKey | DeviceImageKey[];
 }
 
 export interface DocChapter {

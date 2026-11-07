@@ -13,12 +13,12 @@ try {
     await delay(600);
     if(width<961)await b.evaluate(`document.querySelector('.feature-navigation__mobile summary').click()`);
     const menu=await b.evaluate(`(()=>{const nav=[...document.querySelectorAll('.feature-navigation nav')].find(e=>e.getClientRects().length);const links=[...nav.querySelectorAll('a')];const r=links.map(e=>e.getBoundingClientRect());return {count:r.length,left:r.map(b=>b.left),top:r.map(b=>b.top),scroll:document.documentElement.scrollWidth,targets:links.every(a=>!!document.querySelector(a.getAttribute('href')))}})()`);
-    assert.equal(menu.count,9);assert(menu.targets);assert(menu.scroll<=width);assert(menu.left.every(x=>Math.abs(x-menu.left[0])<1),'liste verticale');assert(menu.top.every((y,i)=>!i||y>menu.top[i-1]),'ordre vertical');
+    assert.equal(menu.count,8);assert(menu.targets);assert(menu.scroll<=width);assert(menu.left.every(x=>Math.abs(x-menu.left[0])<1),'liste verticale');assert(menu.top.every((y,i)=>!i||y>menu.top[i-1]),'ordre vertical');
     if(width<961) {
       await b.evaluate(`document.querySelector('.feature-navigation__mobile a[href="#backup"]').click()`);await delay(150);
       assert(await b.evaluate(`!document.querySelector('.feature-navigation__mobile').open && location.hash==='#backup'`),'sélection et repli automatique');
     }
     views++;
   }
-  console.log(`Fonctionnalités : ${views} vues, navigation verticale, neuf ancres et repli mobile conformes.`);
+  console.log(`Fonctionnalités : ${views} vues, navigation verticale, huit ancres et repli mobile conformes.`);
 } finally {await b.close()}

@@ -1,22 +1,11 @@
-.page-span-1 {
-  margin-bottom: 0.75rem;
-  display: inline-block;
-}
-.page-div-1 {
-  padding-top: 2rem;
-}
+
+
 .not-found-div-1 {
   padding-block: 3rem;
   text-align: center;
   max-width: 42rem;
 }
-.not-found-image-1 {
-  width: auto;
-  height: 180px;
-  margin-inline: auto;
-  margin-bottom: 1rem;
-  object-fit: contain;
-}
+
 .not-found-h1-1 {
   font-size: var(--fs-clamp-1-5rem-3-5vw-2-1rem);
   font-weight: 700;
@@ -52,12 +41,7 @@
   text-align: center;
   box-sizing: border-box;
 }
-.not-found-img-1 {
-  width: auto;
-  height: 180px;
-  margin-bottom: 1rem;
-  object-fit: contain;
-}
+
 .not-found-h1-2 {
   font-size: var(--fs-clamp-1-5rem-3-5vw-2-1rem);
   font-weight: 700;
@@ -72,36 +56,7 @@
   font-size: var(--fs-0-95rem);
   line-height: 1.6;
 }
-.bobine-chatbot-span-1 {
-  display: block;
-}
-.bobine-chatbot-div-1 {
-  display: flex;
-  gap: 0.25rem;
-  align-items: center;
-}
-.bobine-chatbot-p-1 {
-  margin: 0;
-}
-.chat-compare-card-image-1 {
-  object-fit: contain;
-  width: 100%;
-  height: 100%;
-}
-.chat-product-card-image-1 {
-  object-fit: contain;
-  width: 100%;
-  height: 100%;
-}
-.download-pdf-button-div-1 {
-  display: inline-flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-.download-pdf-button-span-1 {
-  font-size: var(--fs-0-75rem);
-  color: var(--accent-text);
-}
+
 .os-download-grid-p-1 {
   margin: 0;
 }
@@ -122,36 +77,4 @@
   margin-top: 0.45rem;
   text-align: center;
 }
-.tauri-demo-span-1 {
-  margin-right: 6px;
-}
-.tauri-demo-div-1 {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.25rem;
-}
-.tauri-demo-div-2 {
-  grid-column: 1 / -1;
-}
-.tauri-demo-div-3 {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.tauri-demo-span-2 {
-  white-space: nowrap;
-}
-.chatbot-modal[aria-hidden="true"] {
-  display: none;
-}
-.download-pdf-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  opacity: 1;
-}
-.download-pdf-btn:disabled {
-  cursor: wait;
-  opacity: 0.7;
-}
+

@@ -1,4 +1,4 @@
-import { plainSnippet } from "../../src/lib/rag/results.mjs";
+import { plainSnippet } from "./results.mjs";
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from "node:fs";
 import { join } from "node:path";

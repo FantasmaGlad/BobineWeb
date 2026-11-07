@@ -57,62 +57,8 @@ ICON_INFO="${PURPLE}->${RESET}"
 
 t() { [[ "$LANG_OUT" == "en" ]] && printf '%s' "$2" || printf '%s' "$1"; }
 
-# ---------------------------------------------------------------- bannière : Baamix dans l'oignon
 banner() {
-    local cols line
-    cols=$(tput cols 2>/dev/null || echo 80)
-    printf "\n"
-    if (( cols >= 62 )); then
-        while IFS= read -r line; do
-            line=${line//@G@/$LEAF}
-            line=${line//@P@/$PURPLE}
-            printf '  %s%s\n' "$line" "$RESET"
-        done <<'ART'
-      @G@▙▗
-@G@▗▖    █▞▌  ▗▖
- @G@▝▜▄ ▞▝██▖ █
-  @G@▘▟▜█▌▝██▐█
-@G@▄▄▄▄▘▝█▖▜█▖█▖
- @G@▝▀▀█▙▟▀▖▜▀▜█▄@P@▖
-     @G@▝▜█▟▐▛▘▄ @P@▀▀▀▀▀▀▘ ▄▟▛▙▄▖
-       @P@▜█ ▌ ▄  ▀▀▀▀ ▗▄▄  ▀▚▛█▙▖
-       @P@█▛▗▘▐   ▀ ▄▄▖   ▝▘▄  ▚▛██▄
-      @P@▟▛ ▞ ▐        ▀▀▄▖  ▀▖ ▝▟██▙
-     @P@▞▛ ▞  ▛           ▝▚▖ ▗▙█▄▖▐█▘
-    @P@▟▟ ▗▘ ▗▘           ▄▄▝▀▄▄ ▞▄▛▘
-   @P@▐▌▌ ▟  ▐       ▗▄▄▟▀▀▀▜ ▞▚▙▞▘
-   @P@█▌▌ ▜  ▐     ▗█▛▀   ▟▟▌▀▄▀▘
-  @P@▐█▌▌ ▐▖ ▝▌ ▗▟█▛▘ ▄▄▙█▀▙▞▘
-  @P@▐█▙▜  ▙ ▄▜▛▛▚▖▄▟█▛▜▙▞▘                                @G@▖
-  @P@▐██▌▙▄▟▀▐▘▝▘██▀▜▄▀▘▄    ▜▙▖        ▐▖           @G@▗   ▗█▘
-   @P@███▛▐▙▄▝▀▛▜▄▀▀ ▗▞▘     ▀           ▘           @G@█▖ ▐█▘ ▗▖
-   @P@▐██▄▄▄▄▞▀▀▘   ▝▘           ▄▖    ▗▖            @G@▛█▙█▛▗▟▀
-    @P@▝▀▀▘                     ▝█▛    ▝█           @G@▐▌██▛▟▛
-                                                 @G@▟▐█▚▟▛
-                                  @P@▄▄            @G@▐▌█▚█▘
-         @P@▄▖▀▀▀▘█▀▄▟▄▄▄▄▖  ▝▀▗▄▄▄▄▄▟▄▄▄▌ ▄▖      @G@▛▐▙█▘
-       @P@▗██▄▄▖ ▗▖  ▗▖  ▗  ▘▀▀▝▀█▀▀▀▛▀▘▟▄▟██▄    @G@▟▚██
-       @P@███▚▛ ▗▛  ▗▘  ▗▘     ▚▖▝▙  ▝▖ ▝▙████▖  @G@▟▘▟█▛
-      @P@▐██▙█  ▛  ▗▘  ▗▘       ▜▖▝▙  ▐▖ ▜▞████ @G@▟▘▐██
-      @P@▟███▌ ▐▘ ▗▛  ▗▘         ▜ ▝▌  ▚  ████▟▟@G@█▄██▌
-      @P@████  ▛  ▟   ▛           ▚ ▜  ▐▖ ▜████▛@G@███▛
-      @P@███▌ ▐▌  ▌  ▐            ▝▖▝▌  ▌ ▐████▖
-      @P@███▌ ▐  ▐▘  ▌             ▌ ▌  █ ▝████▌
-      @P@███▌ ▐  ▐   ▌       ▝     ▌ █  █ ▐████▌
-      @P@▜██▙ ▝▌ ▐▖  ▌             ▌ ▌  ▌ ▐████
-       @P@███▖ ▚  ▌  ▚             ▘▗▌ ▐▘ ████▘
-       @P@▝███▖▝▌ ▐  ▝▖           ▞ ▞ ▗▛ ▟███▀
-        @P@▝███▖▝▙ ▚  ▚       ▌    ▟▘▗▛ ▟███▛
-         @P@▝▜██▄▝▚▖▀▖ ▗     ▐ ▞  ▞▘▄▘▗▜██▛▘
-           @P@▝███▄▝▗▞▚    ▝▀▘▝▘▖▀▄▀▗▟███▀
-             @P@▝▀██▄▄▘▝ ▀▀▀▀▀▀▌ ▚▄█▟▛▀▘
-                 @P@▀▀██▄▄   ▗▄▟█▟▀▀
-                     @P@▀▀▀▀▀▀▀▀
-ART
-    else
-        printf '%s%s  Bobine%s %s· Tor%s\n' "$BOLD" "$PURPLE" "$RESET" "$DIM" "$RESET"
-    fi
-    printf '\n%s%s  %s%s\n' "$BOLD" "$PURPLE" "$(t "Dépôts Linux protégés via Tor (service onion)" "Linux repositories protected through Tor (onion service)")" "$RESET"
+    printf '\n%s%s  Bobine · Tor  %s%s\n' "$BOLD" "$PURPLE" "$(t "Dépôts Linux protégés via Tor (service onion)" "Linux repositories protected through Tor (onion service)")" "$RESET"
     printf '%s  %s%s\n' "$DIM" "$(t "Mêmes paquets, même signature, sans révéler votre adresse IP." "Same packages, same signature, without revealing your IP address.")" "$RESET"
     printf '%s  tor+http://%s%s\n\n' "$DIM" "$APT_ONION" "$RESET"
 }

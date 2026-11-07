@@ -31,7 +31,6 @@
 }
 
 @media (max-width: 1280px) {
-
   .site-header__nav {
     display: none;
   }
@@ -47,7 +46,6 @@
     padding: 0.85rem clamp(1rem, 3vw, 1.75rem);
     min-height: 4.25rem;
   }
-
 }
 
 /* Mobile & Tablet Drawer */
@@ -252,97 +250,6 @@
   to { transform: translateX(0); }
 }
 
-/* ==========================================================================
-   Assistant Baamix (fenêtre et bulle)
-   ========================================================================== */
-
-/* Bouton Baamix dans le Header */
-.baamix-header-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font: inherit;
-  font-size: var(--fs-0-8rem);
-  font-weight: 600;
-  color: var(--text-heading);
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-0-45rem);
-  padding: 0.3rem 0.65rem 0.3rem 0.45rem;
-  cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.15s ease;
-}
-
-.baamix-header-btn:hover {
-  border-color: var(--accent-text);
-  box-shadow: 0 0 0 1px var(--accent-text);
-  background: var(--bg-surface-hover);
-}
-
-.baamix-header-avatar {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  border-radius: var(--radius-50);
-  overflow: visible;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.baamix-header-dot {
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
-  width: 6px;
-  height: 6px;
-  border-radius: var(--radius-50);
-  background: var(--status-success);
-  border: 1px solid var(--bg-card);
-}
-
-.mobile-drawer-baamix-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-  padding: 0.65rem 0.85rem;
-  border-radius: var(--radius-0-65rem);
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-heading);
-  font: inherit;
-  font-size: var(--fs-0-875rem);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  box-shadow: var(--shadow-sm);
-  text-align: left;
-}
-
-.mobile-drawer-baamix-btn:hover {
-  border-color: var(--accent-text);
-  background: var(--bg-card-hover);
-  transform: translateY(-1px);
-}
-
-.mobile-drawer-baamix-avatar {
-  position: relative;
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
-  min-height: 32px;
-  border-radius: var(--radius-50);
-  overflow: hidden;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  border: 1px solid var(--border-subtle);
-}
-
 .mobile-drawer-contact-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -354,38 +261,9 @@
   box-shadow: var(--shadow-sm);
 }
 
-.chatbot-avatar-img {
-  border-radius: var(--radius-50);
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
-
 @keyframes pulseDot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.6; transform: scale(0.85); }
-}
-
-/* Modal Chatbot Baamix — Positionné en bas à droite */
-.chatbot-modal {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  top: auto;
-  transform: none;
-  width: min(calc(100vw - 2.5rem), 26.5rem);
-  height: min(34rem, calc(100dvh - 4.5rem));
-  background: color-mix(in srgb, var(--bg-card) 78%, transparent);
-  -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate-rich));
-  backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate-rich));
-  border: 1px solid color-mix(in srgb, var(--border-subtle) 80%, color-mix(in srgb, var(--specular) 25%, transparent));
-  border-radius: var(--radius-1-25rem);
-  box-shadow: 0 24px 60px -12px color-mix(in srgb, var(--ink) 35%, transparent), 0 0 1px color-mix(in srgb, var(--specular) 20%, transparent);
-  z-index: var(--z-960);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  animation: scaleUpChatCorner 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes scaleUpChatCorner {
@@ -393,106 +271,3 @@
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.chatbot-modal__header {
-  padding: 0.85rem 1rem;
-  background: color-mix(in srgb, var(--bg-surface-elevated) 65%, transparent);
-  border-bottom: 1px solid var(--border-subtle);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-shrink: 0;
-}
-
-.chatbot-modal__title-group {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-}
-
-.chatbot-avatar {
-  position: relative;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-50);
-  background: var(--accent-subtle);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1.5px solid var(--accent-text);
-  overflow: visible;
-  flex-shrink: 0;
-}
-
-.chatbot-avatar-status {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 9px;
-  height: 9px;
-  background: var(--status-success);
-  border: 1.5px solid var(--bg-card);
-  border-radius: var(--radius-50);
-  z-index: var(--z-2);
-}
-
-.chatbot-modal__title {
-  margin: 0;
-  font-size: var(--fs-0-95rem);
-  font-weight: 800;
-  color: var(--text-heading);
-  line-height: 1.2;
-}
-
-.chatbot-modal__subtitle {
-  font-size: var(--fs-0-725rem);
-  font-weight: 600;
-  color: var(--accent-text);
-}
-
-.chatbot-header-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  padding: 0.35rem;
-  border-radius: var(--radius-0-35rem);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s ease;
-}
-
-.chatbot-header-btn:hover {
-  background: var(--bg-surface-hover);
-  color: var(--text-heading);
-}
-
-.chatbot-modal__body {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 0.85rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  min-width: 0;
-}
-
-.chatbot-message {
-  display: flex;
-  gap: 0.55rem;
-  max-width: 100%;
-  min-width: 0;
-  width: 100%;
-}
-
-.chatbot-message--assistant {
-  align-self: flex-start;
-  justify-content: flex-start;
-}
-
-.chatbot-message--user {
-  align-self: flex-end;
-  justify-content: flex-end;
-  flex-direction: row-reverse;
-}

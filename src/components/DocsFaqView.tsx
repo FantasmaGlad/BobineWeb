@@ -1,8 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import InteractiveTerminal from "@/components/InteractiveTerminal";
-import DownloadPdfButton from "@/components/DownloadPdfButton";
 import ShareButton from "@/components/ShareButton";
 import type { Locale } from "@/lib/i18n";
 import {
@@ -13,7 +11,7 @@ import {
 } from "@/content/docs/faq-data";
 import "@/styles/split/pages-docs.css";
 
-const CATEGORY_ORDER: FaqCategory[] = ["license", "compare", "hardware", "offline", "updates"];
+const CATEGORY_ORDER: FaqCategory[] = ["license", "hardware", "offline", "updates"];
 
 export default function DocsFaqView({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
@@ -50,7 +48,6 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
           </h1>
         </div>
         <div className="dx-div-2">
-          <DownloadPdfButton locale={locale} chapterId="faq" />
           <ShareButton
             locale={locale}
             pathname="/documentation/faq"
@@ -239,29 +236,14 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
             </table>
           </div>
 
-          <h2 id="diagnostic-commands" className="dx-h2-3">
-            {isEn ? "Interactive Diagnostic Console" : "Commandes de Diagnostic & Résolution Interactive"}
-          </h2>
-          <p className="dx-p-5">
-            {isEn
-              ? "Simulate diagnostic checks or run them over SSH directly on your Bobine mini PC:"
-              : "Simulez les vérifications de diagnostic ou exécutez-les via SSH directement sur votre mini PC Bobine :"}
-          </p>
-
-          <InteractiveTerminal
-            locale={locale}
-            preset="troubleshooting"
-            title={isEn ? "bash — bobine diagnostic console" : "bash — console de diagnostic bobine"}
-          />
-
           <div className="docs-callout docs-callout--tip dx-div-11">
             <div className="docs-callout__content">
-              <div className="docs-callout__title">{isEn ? "Interactive AI Assistant & Community Support" : "Assistant IA Baamix & Support Communautaire"}</div>
+              <div className="docs-callout__title">Support</div>
               <div>
                 {isEn ? (
-                  <>You can ask technical questions to our AI assistant Baamix using the chat widget on the right, or open a ticket on <a href="https://github.com/FantasmaGlad/Bobine/issues" target="_blank" rel="noreferrer">GitHub Issues</a>.</>
+                  <>Open a ticket on <a href="https://github.com/FantasmaGlad/Bobine/issues" target="_blank" rel="noreferrer">GitHub Issues</a>.</>
                 ) : (
-                  <>Vous pouvez poser vos questions techniques directement à Baamix via la bulle de discussion à droite, ou ouvrir un ticket sur <a href="https://github.com/FantasmaGlad/Bobine/issues" target="_blank" rel="noreferrer">GitHub Issues</a>.</>
+                  <>Ouvrez un ticket sur <a href="https://github.com/FantasmaGlad/Bobine/issues" target="_blank" rel="noreferrer">GitHub Issues</a>.</>
                 )}
               </div>
             </div>

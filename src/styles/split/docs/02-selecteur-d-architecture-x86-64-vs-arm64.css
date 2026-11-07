@@ -136,52 +136,7 @@
 .docs-content h3 {
   scroll-margin-top: 5.5rem;
 }
-.docs-api-card {
-  border: 1px solid var(--glass-card-border);
-  border-radius: var(--radius-0-65rem);
-  padding: 1.15rem;
-  margin: 1.25rem 0;
-  background: var(--glass-card-bg);
-  box-shadow: var(--glass-card-highlight), var(--shadow-sm);
-  scroll-margin-top: 5.5rem;
-}
-.docs-api-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.65rem;
-}
-.docs-method-badge {
-  font-size: var(--fs-0-75rem);
-  font-weight: 750;
-  letter-spacing: 0.04em;
-  padding: 0.2rem 0.55rem;
-  border-radius: var(--radius-0-35rem);
-  text-transform: uppercase;
-  font-family: var(--font-mono);
-}
-.docs-method--get {
-  background: color-mix(in srgb, var(--status-info-text) 10%, var(--bg-card));
-  color: var(--status-info-text);
-  border: 1px solid color-mix(in srgb, var(--status-info-text) 30%, transparent);
-}
-.docs-method--post {
-  background: color-mix(in srgb, var(--accent-success) 10%, var(--bg-card));
-  color: var(--accent-success);
-  border: 1px solid color-mix(in srgb, var(--accent-success) 30%, transparent);
-}
-.docs-method--ws {
-  background: color-mix(in srgb, var(--accent-text) 10%, var(--bg-card));
-  color: var(--accent-text);
-  border: 1px solid color-mix(in srgb, var(--accent-text) 30%, transparent);
-}
-.docs-api-endpoint {
-  font-family: var(--font-mono);
-  font-size: var(--fs-0-95rem);
-  font-weight: 600;
-  color: var(--text-heading);
-}
+
 @media print {
 .docs-page-wrapper,
   .docs-layout,

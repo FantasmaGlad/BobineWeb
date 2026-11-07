@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import Shot from "@/components/Shot";
-import InteractiveTerminal from "@/components/InteractiveTerminal";
-import DownloadPdfButton from "@/components/DownloadPdfButton";
 import ShareButton from "@/components/ShareButton";
 import type { Locale } from "@/lib/i18n";
 import "@/styles/split/pages-docs.css";
@@ -29,7 +27,6 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           </h1>
         </div>
         <div className="dx-div-2">
-          <DownloadPdfButton locale={locale} chapterId="utilisation" />
           <ShareButton
             locale={locale}
             pathname="/documentation/utilisation"
@@ -178,14 +175,14 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           <p>
             {isEn
               ? "Control screen output routing (what plays on the wired HDMI TV vs what streams to networked browser displays), switch between the 15 dynamic dual-tone themes, language selection, and maintenance zone."
-              : "Sortie d'écran (quel contenu sur l'écran câblé, quel contenu sur l'écran réseau), bascule instantanée parmi les 15 thèmes bicolores, langue, réseau, et zone de maintenance."}
+              : "Sortie d'écran (quel contenu sur l'écran câblé, quel contenu sur l'écran réseau), bascule instantanée parmi les 9 thèmes, chacun en clair et en sombre, langue, réseau, et zone de maintenance."}
           </p>
 
           <h3 id="system-health-watchdog">{isEn ? "System Health & Watchdog Supervisor" : "Santé et Supervision Automatique"}</h3>
           <p>
             {isEn
-              ? "Bobine exposes a machine-readable health endpoint at GET http://bobine.local/api/health (monitoring SQLite and the Chromium kiosk). A local systemd watchdog continuously tests it and restarts failing components automatically — your workout room recovers autonomously with zero staff intervention, even after a total power cut."
-              : "Bobine expose un point de contrôle machine-lisible, GET http://bobine.local/api/health, qui rapporte l'état de la base de données et du kiosque Chromium. Un chien de garde local le sonde en continu et redémarre automatiquement un composant en panne — la salle se rétablit sans intervention, y compris après une coupure de courant."}
+              ? "Bobine exposes a machine-readable health endpoint at GET http://bobine.local:1903/api/health (monitoring SQLite and the Chromium kiosk). A local systemd watchdog continuously tests it and restarts failing components automatically — your workout room recovers autonomously with zero staff intervention, even after a total power cut."
+              : "Bobine expose un point de contrôle machine-lisible, GET http://bobine.local:1903/api/health, qui rapporte l'état de la base de données et du kiosque Chromium. Un chien de garde local le sonde en continu et redémarre automatiquement un composant en panne — la salle se rétablit sans intervention, y compris après une coupure de courant."}
           </p>
         </section>
       )}
@@ -250,17 +247,11 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           </p>
           <Shot caption={isEn ? "Admin Radio tab with active playlist and playback controls" : "Onglet Radio de l'admin : playlist en cours et contrôles"} />
 
-          <InteractiveTerminal
-            locale={locale}
-            preset="usage"
-            title={isEn ? "bash — bobine audio & operations console" : "bash — console sono & opérations bobine"}
-          />
-
           <h2 id="mobile-phone-remote">{isEn ? "Mobile Phone Remote (QR Code)" : "Télécommande mobile (QR Code)"}</h2>
           <p>
             {isEn
-              ? "Scan the local QR code or open http://bobine.local/remote on any phone connected to the gym Wi-Fi: the interface becomes a handheld controller for instructors (play, pause, seek, volume control, track skip)."
-              : "Scannez le QR Code affiché dans l'administration ou ouvrez http://bobine.local/remote sur un téléphone connecté au Wi-Fi : l'interface devient une télécommande de poche pour les coachs (lecture, pause, avance, volume, passage de piste)."}
+              ? "Scan the local QR code or open http://bobine.local:1903 on any phone connected to the gym Wi-Fi: the interface becomes a handheld controller for instructors (play, pause, seek, volume control, track skip)."
+              : "Scannez le QR Code affiché dans l'administration ou ouvrez http://bobine.local:1903 sur un téléphone connecté au Wi-Fi : l'interface devient une télécommande de poche pour les coachs (lecture, pause, avance, volume, passage de piste)."}
           </p>
           <Shot caption={isEn ? "Mobile remote control interface on a smartphone" : "Interface de télécommande mobile sur un téléphone"} />
 

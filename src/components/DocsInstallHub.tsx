@@ -18,8 +18,6 @@ import type { AssistantPackages, ReleaseChannelInfo } from "@/lib/releaseTypes";
 import type { RepoStatsResponse } from "@/lib/releaseChannels";
 import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFallbacks";
 import { useReleaseData } from "@/components/ReleaseProvider";
-import { ONION_APT_HOST, ONION_SITE_HOST } from "@/lib/onion";
-import TorLogo from "@/components/icons/TorLogo";
 import { ANDROID } from "@/lib/productFacts";
 import DistroLogo from "@/components/icons/DistroLogo";
 import {
@@ -46,11 +44,6 @@ import "@/styles/split/pages-docs.css";
 
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
 type AndroidVariant = "mobile" | "tv";
-
-const TOR_APT_COMMANDS = `sudo apt install apt-transport-tor
-curl -fsS --socks5-hostname 127.0.0.1:9050 http://${ONION_APT_HOST}/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg
-echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://${ONION_APT_HOST}/ stable main" | sudo tee /etc/apt/sources.list.d/bobine-onion.list
-sudo apt update && sudo apt install bobine`;
 
 export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
@@ -1025,13 +1018,13 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
             </div>
 
             <div className="docs-step-card">
-              <div className="docs-step-card__num">4</div>
+              <div className="docs-step-card__num">3</div>
               <div className="docs-step-card__content">
                 <h4>{isEn ? "Browser interface & Mobile Wi-Fi remote" : "Accès dans le navigateur & Télécommande Wi-Fi"}</h4>
                 <p>
                   {isEn
-                    ? "Your default web browser automatically opens to http://localhost:8000. An inbound firewall rule is automatically added to Windows Defender so any smartphone on your local Wi-Fi can open the remote via your PC's IP address."
-                    : "Votre navigateur par défaut s'ouvre automatiquement à l'adresse http://localhost:8000. Une règle de pare-feu Windows Defender est automatiquement configurée afin que vos smartphones en Wi-Fi puissent piloter la régie immédiatement."}
+                    ? "Your default web browser automatically opens to http://localhost:1903. An inbound firewall rule is automatically added to Windows Defender so any smartphone on your local Wi-Fi can open the remote via your PC's IP address."
+                    : "Votre navigateur par défaut s'ouvre automatiquement à l'adresse http://localhost:1903. Une règle de pare-feu Windows Defender est automatiquement configurée afin que vos smartphones en Wi-Fi puissent piloter la régie immédiatement."}
                 </p>
               </div>
             </div>
@@ -1149,8 +1142,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <h4>{isEn ? "Access administration & Mobile control" : "Administration & Télécommande mobile"}</h4>
                 <p>
                   {isEn
-                    ? "Safari opens to http://localhost:8000. Any coach or staff member on the gym Wi-Fi can scan the QR code to take control."
-                    : "Votre navigateur s'ouvre sur http://localhost:8000. Vos coachs connectés au Wi-Fi peuvent scanner le QR code pour piloter la régie depuis leur smartphone."}
+                    ? "Safari opens to http://localhost:1903. Any coach or staff member on the gym Wi-Fi can scan the QR code to take control."
+                    : "Votre navigateur s'ouvre sur http://localhost:1903. Vos coachs connectés au Wi-Fi peuvent scanner le QR code pour piloter la régie depuis leur smartphone."}
                 </p>
               </div>
             </div>
@@ -1261,56 +1254,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                       {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
                     </button>
                   </div>
-                </div>
-              </div>
-
-              <div className="docs-step-card">
-                <div className="docs-step-card__num">3</div>
-                <div className="docs-step-card__content">
-                  <div className="dx-div-17">
-                    <TorLogo size={20} />
-                    <h4 className="dx-h1-1">
-                      {isEn ? "Option C: Protected APT repository over Tor (.onion)" : "Option C : Dépôt APT protégé via Tor (.onion)"}
-                    </h4>
-                  </div>
-                  <p>
-                    {isEn
-                      ? "Same packages, same GPG signature, without revealing your IP address (and even if packages.bobine.fit is blocked). Install apt-transport-tor first, then add the onion source:"
-                      : "Mêmes paquets, même signature GPG, sans révéler votre adresse IP (et même si packages.bobine.fit est bloqué). Installez d'abord apt-transport-tor, puis ajoutez la source onion :"}
-                  </p>
-                  <div className="docs-copyable-cmd dx-div-16">
-                    <code className="dx-code-1">{TOR_APT_COMMANDS}</code>
-                    <button
-                      type="button"
-                      onClick={() => copyToClipboard(TOR_APT_COMMANDS)}
-                      className="docs-copy-btn"
-                      aria-label={isEn ? "Copy command" : "Copier la commande"}
-                    >
-                      {copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}
-                    </button>
-                  </div>
-                  <p className="dx-p-7">
-                    {isEn ? "APT repository (open in Tor Browser): " : "Dépôt APT (à ouvrir dans Tor Browser) : "}
-                    <a href={`http://${ONION_APT_HOST}/`} rel="noopener noreferrer" className="docs-onion-link">
-                      http://{ONION_APT_HOST}/
-                    </a>
-                    <br />
-                    {isEn ? "Website (open in Tor Browser): " : "Site miroir (à ouvrir dans Tor Browser) : "}
-                    <a href={`http://${ONION_SITE_HOST}/`} rel="noopener noreferrer" className="docs-onion-link">
-                      http://{ONION_SITE_HOST}/
-                    </a>
-                  </p>
-                  <p className="dx-p-6">
-                    {isEn
-                      ? "One-command alternative (read it first, add --dry-run to simulate): "
-                      : "Alternative en une commande (à lire avant, ajoutez --dry-run pour simuler) : "}
-                    <a href="/install-tor.sh" className="docs-onion-link">
-                      bobine.fit/install-tor.sh
-                    </a>
-                    {isEn
-                      ? ". It fetches the key through Tor, checks it against the published fingerprint (B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A) and stops if it differs."
-                      : ". Il récupère la clé par Tor, la compare à l'empreinte publiée (B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A) et s'arrête si elle diffère."}
-                  </p>
                 </div>
               </div>
 
@@ -1631,15 +1574,14 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
           <div className="dx-div-11">
             <h3 className="dx-h3-2">
-              {isEn ? "Interactive Step-by-Step Appliance Guide & Terminal Simulator" : "Guide Étape par Étape & Simulateur de Terminal Interactif"}
+              {isEn ? "Step-by-Step Appliance Guide" : "Guide étape par étape"}
             </h3>
             <p className="dx-p-8">
               {isEn
-                ? "Follow the 10 steps below from hardware preparation to automated class playout in your studio. Test installer options live in the terminal emulator at Step 6."
-                : "Suivez les 10 étapes ci-dessous, de la préparation du matériel jusqu'à la diffusion automatisée des cours. Testez les options d'installation en direct dans le terminal à l'étape 6."}
+                ? "Follow the 9 steps below, from hardware preparation to automated class playout in your studio."
+                : "Suivez les 9 étapes ci-dessous, de la préparation du matériel jusqu'à la diffusion automatisée des cours."}
             </p>
 
-            {/* Stepper interactif complet avec terminal virtuel */}
             <QuickStartStepper locale={locale} />
           </div>
         </div>

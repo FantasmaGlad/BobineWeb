@@ -13,10 +13,6 @@ try {
   const paths = process.env.MOBILE_CHECK_PATHS?.split(",") ?? ["/fr", "/en", "/fr/linux", "/en/linux", "/fr/documentation", "/en/documentation", "/fr/telechargement", "/en/download", "/fr/ressources", "/en/resources"];
   if (!process.env.MOBILE_CHECK_PATHS) paths.push(
     "/fr/fonctionnalites", "/en/features", "/fr/blog", "/en/blog",
-    "/fr/comparatif", "/en/compare",
-    "/fr/comparatif/wexer-fitness-on-demand", "/en/compare/wexer-fitness-on-demand",
-    "/fr/comparatif/radical-fitness-yako", "/en/compare/radical-fitness-yako",
-    "/fr/comparatif/affichage-dynamique-fitness", "/en/compare/digital-signage-fitness",
   );
   for (const path of paths) for (const width of [360, 390, 768, 1280]) {
     const response = await fetch(origin + path);

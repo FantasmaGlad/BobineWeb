@@ -17,13 +17,7 @@ const rpmName = (arch: "x86_64" | "arm64") => packageFileName("fedora", "stable"
 const archName = (arch: "x86_64" | "arm64") => packageFileName("arch", "stable", arch, "x.y.z");
 const noteList = (items: Array<{ fr: string; en: string }>, l: "fr" | "en") => items.map((i) => i[l]).join(" ");
 
-/**
- * Source de contenu unique pour la documentation Bobine : consommée à la
- * fois par les pages web (src/components/Docs*.tsx) et par le générateur
- * PDF (src/lib/pdf/DocumentationPdf.tsx). Toute mise à jour ici se reflète
- * automatiquement dans les deux, ce qui évite la dérive entre le site et
- * le document téléchargeable.
- */
+/** Source unique du contenu de la documentation. */
 
 const fr: DocChapter[] = [
   {
@@ -48,14 +42,6 @@ const fr: DocChapter[] = [
           "L'intégralité du code source est ouverte, auditable sur GitHub et distribuée sous licence copyleft AGPL-3.0. Aucune télémétrie cachée, aucun verrouillage propriétaire.",
         ],
       },
-      {
-        subtitle: "1.3 La mascotte Baamix et la sobriété énergétique",
-        paragraphs: [
-          "Le nom Bobine rend hommage à la bobine de film 35mm. La mascotte Baamix, un hamster blanc, symbolise l'endurance et l'ingéniosité locale du projet.",
-          "La solution tourne sur des mini PC reconditionnés (à partir d'environ 160 €, par exemple un HP EliteDesk 800 Mini) ou sur un mini PC industriel 100% fanless (environ 600 €) consommant quelques Watts en pleine lecture 1080p60/4K.",
-        ],
-        deviceImage: "mascot",
-      },
     ],
   },
   {
@@ -72,7 +58,6 @@ const fr: DocChapter[] = [
           "Installeurs officiels Bobine-Setup-x.y.z.exe (x86_64 pour processeurs Intel et AMD) et Bobine-Setup-x.y.z-arm64.exe (architecture native ARM64 pour puces Qualcomm Snapdragon X Elite et Snapdragon X Plus) : exécution silencieuse en arrière-plan (icône près de l'horloge), mode capot fermé (clamshell) sans mise en veille via powercfg, règle de pare-feu automatique et désinstallation en 1 clic via Inno Setup.",
           "Matériel de référence testé : PC portables Snapdragon X (Surface Laptop 7, ASUS Vivobook S 15, Lenovo Yoga Slim 7x, Samsung Galaxy Book4 Edge) et mini PC Intel N100 / AMD Ryzen livrés avec Windows 11 Pro.",
         ],
-        deviceImage: "windows",
       },
       {
         subtitle: "2.2 macOS Apple Silicon (M1 à M4)",
@@ -80,7 +65,6 @@ const fr: DocChapter[] = [
           "Image disque Bobine-x.y.z.dmg : glisser-déposer dans Applications, menu discret dans la barre supérieure, prévention de veille native caffeinate et accélération matérielle VideoToolbox.",
           "Matériel de référence testé : Mac Mini Apple Silicon en régie dédiée, ou MacBook du coach exploité fermé (mode clamshell) via un hub ou dock USB-C.",
         ],
-        deviceImage: "macos",
       },
       {
         subtitle: "2.3 Linux Bureau Debian / Ubuntu / Mint (paquet .deb — x86_64 & ARM64)",
@@ -90,7 +74,6 @@ const fr: DocChapter[] = [
         ],
         codeBlock:
           "# Dépôt APT officiel Linux (packages.bobine.fit/debian — compatible amd64 & arm64)\ncurl -fsSL https://packages.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://packages.bobine.fit/debian stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine",
-        deviceImage: "linux",
       },
       {
         subtitle: "2.3 bis Linux Bureau Fedora, RHEL et dérivés (paquet .rpm — x86_64 & ARM64)",
@@ -113,18 +96,6 @@ const fr: DocChapter[] = [
         codeBlock: `# Dépôt pacman officiel (packages.bobine.fit/arch — x86_64 & aarch64)\n${archInstallScript()}\n\n# Mise à jour\n${archCommands().upgrade}`,
       },
       {
-        subtitle: "2.3 quater Linux via le réseau Tor (.onion)",
-        paragraphs: [
-          "Pour installer et mettre à jour Bobine sans révéler votre adresse IP, le dépôt APT est aussi proposé en service onion (réseau Tor). C'est une copie miroir du dépôt officiel : les paquets restent signés par la même clé, et apt refuse tout paquet dont la signature ne correspond pas.",
-          "Le script https://bobine.fit/install-tor.sh (à lire avant de l'exécuter) fait ces étapes à votre place et s'arrête si l'empreinte de la clé diffère de celle publiée. Le dépôt onion publie les trois suites, stable, beta et canary : l'option --channel=stable|beta|canary choisit le canal de mise à jour (sans l'option, le script pose la question sur un terminal et prend stable sinon), et --dry-run n'installe rien. Les commandes ci-dessous sont la version manuelle, sur le canal stable ; remplacez le dernier mot de la ligne deb par beta ou canary pour suivre un autre canal.",
-          "Comparez l'empreinte de la clé principale avec celle de https://packages.bobine.fit/bobine.gpg : B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A.",
-          "Le site est également consultable dans Tor Browser (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/). L'assistant Baamix n'y est pas proposé afin de garantir un fonctionnement entièrement autonome et sans appel réseau externe. J'héberge ce miroir moi-même, sans journal de visite, avec une disponibilité au mieux. En soutien à la communauté du libre, découvrez le projet Tor : https://www.torproject.org/ (code source : https://github.com/torproject/tor).",
-        ],
-        codeBlock:
-          "# Dépôt APT officiel via Tor (miroir onion)\nsudo apt install apt-transport-tor\ncurl -fsS --socks5-hostname 127.0.0.1:9050 http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine-onion.list\nsudo apt update && sudo apt install bobine",
-        deviceImage: "linux",
-      },
-      {
         subtitle: "2.4 Tablettes Android & Google Books (Aluminium OS)",
         paragraphs: [
           `Paquet natif Bobine-x.y.z.apk (Android ${ANDROID.minVersion} à ${ANDROID.maxVersion}, API ${ANDROID.minApi}-${ANDROID.maxApi}), embarquant CPython 3.13 et FastAPI via Chaquopy, service de premier plan persistant, accélération MediaCodec et double affichage (/grid tactile + /cinema HDMI USB-C DisplayPort avec résolution robuste du branchement à chaud sans écran noir).`,
@@ -133,7 +104,6 @@ const fr: DocChapter[] = [
           "Démarrage avec l'appareil : Réglages > « Démarrage de l'appareil » (case « Lancer Bobine au démarrage de l'appareil ») relance le serveur Bobine quand l'appareil redémarre ou que l'application est mise à jour. L'ouverture automatique de l'écran dépend d'Android : elle exige l'autorisation « Afficher par-dessus d'autres applications », que certains appareils (dont des boîtiers Android TV) réinitialisent à chaque redémarrage. Dans ce cas, le serveur et les écrans distants fonctionnent déjà ; ouvrez simplement l'application pour afficher l'écran local.",
           "Mises à jour intégrées : si Android bloque l'installation depuis l'application (source inconnue non autorisée), Bobine l'indique avant de télécharger et ouvre le réglage correspondant au lieu d'échouer en cours de route.",
         ],
-        deviceImage: ["android", "googlebook"],
       },
       {
         subtitle: "2.4 bis Android TV & Google TV (Box TV, Clés & Smart TVs)",
@@ -164,10 +134,9 @@ const fr: DocChapter[] = [
         subtitle: "2.7 Canaux de version : Stable, Bêta ou Canary",
         paragraphs: [
           "Bobine propose trois canaux de mise à jour : le canal Stable (recommandé en production de salle, tags Vx.y.z stricts), le canal Bêta (lots de fonctionnalités/correctifs que je curate et publie manuellement) et le canal Canary (rolling sur tag mobile canary, reconstruit automatiquement à chaque push sur main, zéro curation).",
-          "Sur tous les OS, Bêta et Canary partagent les mêmes identifiants applicatifs et s'installent par-dessus la version existante sans créer de doublon ni affecter les bases de données ou médias. Le choix s'effectue dans Réglages > Mises à jour logicielles ou via le paramètre CLI (l'installeur Tor, install-tor.sh, accepte la même option --channel et pose la question sur un terminal quand elle est absente) :",
+          "Sur tous les OS, Bêta et Canary partagent les mêmes identifiants applicatifs et s'installent par-dessus la version existante sans créer de doublon ni affecter les bases de données ou médias. Le choix s'effectue dans Réglages > Mises à jour logicielles ou via le paramètre CLI :",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta   # ou --channel=canary",
-        deviceImage: "channels",
       },
       {
         subtitle: "2.7 bis Vérifier l'intégrité d'un fichier téléchargé",
@@ -182,8 +151,8 @@ const fr: DocChapter[] = [
         subtitle: "2.8 Navigateurs pris en charge par famille de moteur (Chromium, Gecko, WebKit)",
         paragraphs: [
           "Famille Chromium / Blink (Google Chrome 109+, Brave, Microsoft Edge, Vivaldi, Chromium Linux) : prise en charge intégrale de l'interface d'administration, des lecteurs plein écran (/cinema, /kiosk, /radio, /coach), de l'accélération matérielle vidéo, de la synthèse vocale hors-ligne et du mode kiosque multi-écran sur PC Windows, macOS et Linux (voir bobine.fit/fr/telechargement et bobine.fit/fr/linux).",
-          "Famille Gecko (Mozilla Firefox 115+ Desktop, Firefox 157+ certifié de bout en bout, Firefox ESR, Firefox pour Android et Tor Browser) : compatibilité certifiée par tests automatisés sur les téléversements repris après coupure réseau, le streaming HTTP Range H.264 et l'assistant IA local Baamix.",
-          "Famille WebKit (Apple Safari 16+ sur macOS, iPadOS et iOS) : prise en charge native du pupitre coach mobile, de la télécommande par QR code (http://bobine.local:8000) et du décodage matériel VideoToolbox sur Mac, iPad et iPhone.",
+          "Famille Gecko (Mozilla Firefox 115+ Desktop, Firefox 157+ certifié de bout en bout, Firefox ESR, Firefox pour Android et Tor Browser) : compatibilité certifiée par tests automatisés sur les téléversements repris après coupure réseau, le streaming HTTP Range H.264",
+          "Famille WebKit (Apple Safari 16+ sur macOS, iPadOS et iOS) : prise en charge native du pupitre coach mobile, de la télécommande par QR code (http://bobine.local:1903) et du décodage matériel VideoToolbox sur Mac, iPad et iPhone.",
           "Quand un navigateur client ne sait pas décoder nativement un flux HEVC ou 10 bits, Bobine génère et sert automatiquement une version H.264 compatible à la demande sans altérer le fichier original. Le panneau Réglages > Compatibilité navigateur affiche en direct les codecs matériels décodés, l'état de l'API Screen Wake Lock, la prise en charge des manettes HTML5 Gamepad et le compteur d'images perdues.",
         ],
       },
@@ -200,7 +169,7 @@ const fr: DocChapter[] = [
       {
         subtitle: "3.1 Panneau d'administration web & bibliothèque",
         paragraphs: [
-          "Accessible depuis n'importe quel appareil connecté au réseau local (Wi-Fi ou câble) à l'adresse http://[IP_BORNE]:8000.",
+          "Accessible depuis n'importe quel appareil connecté au réseau local (Wi-Fi ou câble) à l'adresse http://[IP_BORNE]:1903.",
           "Permet d'importer des vidéos avec détection FFprobe en direct des canaux audio réels (Stéréo 2.0, Surround 5.1, Mono 1.0) et résolutions (4K Ultra HD, 1080p, etc.), de rédiger des synopsis de cours affichés sur l'écran de pause cinématique, et de programmer la grille hebdomadaire seconde par seconde.",
         ],
       },
@@ -290,7 +259,6 @@ const fr: DocChapter[] = [
           "Élimination totale des écrans noirs de 200 à 600 ms et des coupures HDMI entre les cours grâce à deux instances vidéo maintenues actives dans le DOM avec transition en fondu croisé de 0,4 seconde.",
           "Détail technique : décodage matériel VA-API (Intel QuickSync, AMD Radeon), Apple VideoToolbox et Android MediaCodec jusqu'à 4K 60 fps avec moins de 8% de charge processeur. Suppression définitive de l'animation d'introduction pour un démarrage immédiat.",
         ],
-        techChips: [{ icon: "film", label: "Gapless A/B Deck" }, { icon: "film", label: "VA-API / MediaCodec" }],
       },
       {
         subtitle: "4.2 Console Régie Coach & Hub d'Ambiances Visuelles",
@@ -298,7 +266,6 @@ const fr: DocChapter[] = [
           "Pupitre réactif double colonne pensé pour les éducateurs sportifs : régie audio 64px, retour vidéo direct Stage Monitor 16:9, palettes d'ambiances 1-clic et enchaînement sonore Auto/Manuel épuré.",
           "Détail technique : importation audio multi-pistes automatisée (dossiers, ZIP, sélections multiples), détection automatique des préfixes numériques de pistes et extraction déterministe des durées par FFprobe.",
         ],
-        techChips: [{ icon: "play", label: "Console Coach /coach" }, { icon: "film", label: "Hub Ambiances" }],
       },
       {
         subtitle: "4.3 Contrôles Universels & Défilement Marquee",
@@ -306,7 +273,6 @@ const fr: DocChapter[] = [
           "Navigation fluide à la manette de jeu (HTML5 Gamepad API), télécommandes multimédias, souris et tactile.",
           "Détail technique : calcul spatial euclidien 2D (moveDomFocus2D), zone morte calibrée (0.45), debouncing et lissage monotone du temps. Titres longs animés en aller-retour alterné (MarqueeText) et miniatures verrouillées en 16:9.",
         ],
-        techChips: [{ icon: "smartphone", label: "HTML5 Gamepad API" }, { icon: "film", label: "MarqueeText" }],
       },
       {
         subtitle: "4.4 Métriques d'Assiduité Club & Télémétrie Matérielle Éco-Conçue",
@@ -314,7 +280,6 @@ const fr: DocChapter[] = [
           "Supervision locale complète du club et du matériel : assiduité, avis 5 étoiles, consommation énergétique en direct et veille préventive.",
           "Détail technique : mesure de la puissance instantanée en Watts (W) et Wh (Intel RAPL, Apple ioreg, sysfs Android/Linux, WMI Windows), températures CPU/GPU en direct, et télémétrie RAM sans privilèges root (constructeur, technologie LPDDR5X/DDR5/DDR4, fréquence MT/s).",
         ],
-        techChips: [{ icon: "server", label: "Analytics /metrics" }, { icon: "terminal", label: "Télémétrie Watts & RAM" }],
       },
       {
         subtitle: "4.5 Mises à Jour Automatiques Planifiées & Désinstallation 1 Clic",
@@ -322,7 +287,6 @@ const fr: DocChapter[] = [
           "Mise à jour en un clic avec machine à états WebSocket temps réel, vérification d'intégrité SHA-256 via digest natif GitHub Releases, et planification nocturne configurable (défaut 03:00).",
           "Désinstallation automatique universelle en 1 clic (/api/system/uninstall) sur les 5 systèmes d'exploitation avec modale de sécurité stricte par saisie du mot DÉSINSTALLER.",
         ],
-        techChips: [{ icon: "server", label: "Update Orchestrator" }, { icon: "terminal", label: "Désinstallation 1-clic" }],
       },
       {
         subtitle: "4.6 Sauvegarde Intégrale ZIP & Résilience Watchdog",
@@ -330,15 +294,13 @@ const fr: DocChapter[] = [
           "Une configuration entière (vidéothèque, musiques, plannings, réglages) s'exporte en un clic en archive ZIP avec contrôle d'intégrité SQLite PRAGMA à la restauration.",
           "Détail technique : surveillance continue par le démon bobine-audio-guard et le timer bobine-watchdog, redémarrage inconditionnel post-coupure secteur.",
         ],
-        techChips: [{ icon: "database", label: "ZIP / SQLite" }, { icon: "terminal", label: "systemd watchdog" }],
       },
       {
-        subtitle: "4.7 Identité visuelle « glassmorphism » & 15 thèmes",
+        subtitle: "4.7 Identité visuelle « glassmorphism » & 9 thèmes",
         paragraphs: [
-          "Toute l'interface d'administration (bibliothèque, planning, audio, radio, réglages, journaux) adopte un style translucide inspiré d'Apple : cartes en verre dépoli, dégradés doux et contours marqués. Le thème Lavande est le thème par défaut ; 15 thèmes calibrés WCAG sont disponibles.",
+          "Toute l'interface d'administration (bibliothèque, planning, audio, radio, réglages, journaux) adopte un style translucide inspiré d'Apple : surfaces en verre dépoli, aplats nets et contours marqués, sans dégradé de fond. Le thème Ardoise est le thème par défaut ; 9 thèmes, chacun en clair et en sombre (mode automatique selon l'appareil), calibrés WCAG, sont disponibles.",
           "L'écran de pause de /cinema reprend le recouvrement façon Netflix, et le changement de sortie câblée/réseau est animé, sur Android (tactile et HDMI) comme sur ordinateur. Le logo officiel du menu et l'écran de démarrage Android sont déclinés selon le canal de mise à jour actif (Stable, Bêta ou Canary).",
         ],
-        techChips: [{ icon: "film", label: "Glassmorphism" }],
       },
       {
         subtitle: "4.8 Découverte réseau bobine.local & mises à jour fiabilisées",
@@ -346,7 +308,6 @@ const fr: DocChapter[] = [
           "Le service mDNS republie périodiquement l'adresse de bobine.local et retente avec un délai croissant après un changement d'IP (DHCP, Wi-Fi) ou un échec. Son état réel est visible dans Réglages, avec une alerte si bobine.local ne répond pas.",
           "Le pipeline de mise à jour est fiabilisé sur toutes les plateformes : le retour de Bêta ou Canary vers Stable est proposé explicitement, l'empreinte SHA-256 est vérifiée avant toute installation (y compris sous Android, qui choisit l'APK téléphone ou Android TV selon l'appareil), et l'acquittement de la notification est conservé côté serveur.",
         ],
-        techChips: [{ icon: "server", label: "mDNS / Update Orchestrator" }],
       },
     ],
   },
@@ -406,31 +367,23 @@ const fr: DocChapter[] = [
           "Backend : Python avec FastAPI et Uvicorn mono-processus (zéro dépendance externe Redis). Python 3.11 minimum : 3.13 sur Debian 13 et les tablettes Android, 3.11 dans le paquet Android TV (seul runtime embarqué disponible pour les systèmes 32 bits).",
           "Base de données : SQLite avec schéma versionné, migrations automatiques et backfill d'extraction de durées et métadonnées.",
           "Moteurs multimédias : MPV avec VA-API sous Linux, moteur Gapless A/B Deck sous HTML5 (/cinema), et module déterministe app.utils.ffmpeg_binaries pour résoudre FFmpeg/FFprobe sur tous les OS.",
-          "Frontend : Next.js App Router, export SSG statique, 15 thèmes calibrés WCAG AAA/AA, aucun emoji.",
-        ],
-        techChips: [
-          { icon: "server", label: "FastAPI / Python 3.11+" },
-          { icon: "database", label: "SQLite" },
-          { icon: "film", label: "Gapless A/B / MPV" },
-          { icon: "code", label: "Next.js SSG" },
+          "Frontend : Next.js App Router, export SSG statique, 9 thèmes en clair et en sombre calibrés WCAG, aucun emoji.",
         ],
       },
       {
         subtitle: "6.2 Services systemd de l'Appliance Headless",
         paragraphs: [
-          "Sur Debian 13 dédiée, l'architecture repose sur trois démons supervisés : bobine-backend.service (API FastAPI port 8000), bobine-kiosk.service (Chromium X11 plein écran) et bobine-audio-guard.service (veille sonore et santé audio), encadrés par le timer bobine-watchdog.timer.",
+          "Sur Debian 13 dédiée, l'architecture repose sur trois démons supervisés : bobine-backend.service (API FastAPI, port 1903), bobine-kiosk.service (Chromium X11 plein écran) et bobine-audio-guard.service (veille sonore et santé audio), encadrés par le timer bobine-watchdog.timer.",
         ],
         codeBlock: "sudo systemctl status bobine-backend bobine-kiosk bobine-audio-guard\nsudo systemctl restart bobine-backend",
-        techChips: [{ icon: "terminal", label: "systemd" }],
       },
       {
         subtitle: "6.3 Points d'entrée de l'API REST locale & WebSockets (extrait)",
         paragraphs: [
-          "L'API REST locale exposée sur le port 8000 pilote la régie, les métriques, la télémétrie et les mises à jour :",
+          "L'API REST locale exposée sur le port 1903 pilote la régie, les métriques, la télémétrie et les mises à jour :",
         ],
         codeBlock:
           "GET  /api/playback/state?channel=cable   Etat de lecture et canal actif\nPOST /api/coach/action                  Commandes du pupitre coach (pause, next, volume)\nGET  /api/metrics/dashboard             KPIs d'assiduité, histogramme 24h et notes\nGET  /api/settings/system               Télémétrie Watts, températures CPU/GPU et RAM\nPOST /api/updates/orchestrate           Lancement mise à jour avec suivi WebSocket\nPOST /api/system/uninstall              Désinstallation automatique 1-clic sécurisée",
-        techChips: [{ icon: "server", label: "REST / WebSockets" }],
       },
       {
         subtitle: "6.4 Développement & Gouvernance du Projet",
@@ -453,7 +406,7 @@ const fr: DocChapter[] = [
         paragraphs: [
           "Chaque nouvelle version est publiée sur GitHub Releases (github.com/FantasmaGlad/Bobine/releases) avec son changelog détaillé, ses binaires signés pour les 5 systèmes d'exploitation, et son SHA-256 de vérification d'intégrité.",
           "Trois canaux permettent de suivre l'avancement du projet : le canal Stable (tags Vx.y.z figés, recommandé en production de salle), le canal Bêta (lots de fonctionnalités/correctifs curés, publiés manuellement) et le canal Canary (rolling, reconstruit automatiquement à chaque évolution du code sur la branche principale, pour les clubs souhaitant tester les toutes dernières modifications sans attendre un lot).",
-          "Le hub de paquets Linux unifié (packages.bobine.fit) reflète les trois canaux dans ses distributions stable, beta et canary pour Debian/Ubuntu (packages.bobine.fit/debian, apt), Fedora (packages.bobine.fit/fedora, dnf) et Arch Linux (packages.bobine.fit/arch, pacman), avec la même clé de signature GPG. Le dépôt APT du miroir Tor (.onion) publie les mêmes trois suites.",
+          "Le hub de paquets Linux unifié (packages.bobine.fit) reflète les trois canaux dans ses distributions stable, beta et canary pour Debian/Ubuntu (packages.bobine.fit/debian, apt), Fedora (packages.bobine.fit/fedora, dnf) et Arch Linux (packages.bobine.fit/arch, pacman), avec la même clé de signature GPG.",
         ],
       },
       {
@@ -463,7 +416,6 @@ const fr: DocChapter[] = [
           `Bobine embarque le moteur FastAPI sous CPython via Chaquopy (3.13 sur tablettes) et un ForegroundService persistant. Le paquet Android TV (Bobine-TV) reprend ce moteur pour les boîtiers ARM 32 et 64 bits, sous Android ${ANDROID.minVersion} ou supérieur. La sortie vidéo déportée vers le téléviseur ou projecteur diffuse la vitrine /cinema en HDMI sans barre système, tandis que la tablette tactile affiche le pupitre de commande /grid ou la console coach /coach.`,
           "L'application gère l'accélération matérielle MediaCodec, le relais des touches de manettes et télécommandes vers la sortie externe, la mémorisation mDNS (bobine.local) et le double stockage partitionné (interne F2FS pour la base et externe FUSE pour les médias).",
         ],
-        techChips: [{ icon: "smartphone", label: "Android ARM 32/64 bits / Chaquopy" }, { icon: "tablet", label: "Xiaomi Pad / USB-C DP" }, { icon: "film", label: "MediaCodec" }],
       },
       {
         subtitle: "7.2 iOS / iPadOS : piste explorée pour iPads avec sortie vidéo USB-C / Thunderbolt",
@@ -471,7 +423,6 @@ const fr: DocChapter[] = [
           "Dans la même optique de portabilité tactile maximale, la piste iPadOS est envisagée pour les iPads dotés d'une sortie vidéo filaire directe, notamment les iPad Pro à puce Apple Silicon (M1, M2, M4) pourvus d'un port Thunderbolt / USB 4, ainsi que les iPad Air (M2) avec sortie DisplayPort sur USB-C.",
           "Contrairement à l'écosystème Android, iOS restreint fortement l'exécution de processus serveurs locaux en arrière-plan. Le portage de l'architecture Bobine sur iPadOS constitue donc une piste prospective activement réfléchie, mais non engagée techniquement ni calendairement.",
         ],
-        techChips: [{ icon: "tablet", label: "iPadOS / Thunderbolt" }],
       },
     ],
   },
@@ -500,14 +451,6 @@ const en: DocChapter[] = [
           "The entire codebase is open, auditable on GitHub, and distributed under the AGPL-3.0 copyleft license. No hidden telemetry, no proprietary lock-in.",
         ],
       },
-      {
-        subtitle: "1.3 The mascot Baamix and energy frugality",
-        paragraphs: [
-          "The name Bobine pays tribute to 35mm film reels. The mascot Baamix, a white hamster, symbolizes the project's endurance and local ingenuity.",
-          "The software runs on refurbished mini PCs (starting around $160, e.g. an HP EliteDesk 800 Mini) or a 100% fanless industrial mini PC (around $600) consuming just a few Watts at full 1080p60/4K playback.",
-        ],
-        deviceImage: "mascot",
-      },
     ],
   },
   {
@@ -524,7 +467,6 @@ const en: DocChapter[] = [
           "Official Bobine-Setup-x.y.z.exe installer (x86_64 for Intel/AMD processors) and Bobine-Setup-x.y.z-arm64.exe (native ARM64 architecture for Qualcomm Snapdragon X Elite and Snapdragon X Plus SoCs): silent background execution (systray icon near clock), clamshell laptop mode without sleep via powercfg, automatic firewall rule, and 1-click uninstaller via Inno Setup.",
           "Reference hardware tested: Snapdragon X laptops (Surface Laptop 7, ASUS Vivobook S 15, Lenovo Yoga Slim 7x, Samsung Galaxy Book4 Edge) and new Intel N100 / AMD Ryzen mini PCs shipped with Windows 11 Pro.",
         ],
-        deviceImage: "windows",
       },
       {
         subtitle: "2.2 macOS Apple Silicon (M1 to M4)",
@@ -532,7 +474,6 @@ const en: DocChapter[] = [
           "Bobine-x.y.z.dmg disk image: drag-and-drop into Applications, discreet menu bar icon, native caffeinate sleep prevention, and VideoToolbox hardware acceleration.",
           "Reference hardware tested: a dedicated Apple Silicon Mac Mini, or the coach's MacBook run closed (clamshell mode) through a USB-C hub or dock.",
         ],
-        deviceImage: "macos",
       },
       {
         subtitle: "2.3 Linux Desktop Debian / Ubuntu / Mint (.deb package — x86_64 & ARM64)",
@@ -542,7 +483,6 @@ const en: DocChapter[] = [
         ],
         codeBlock:
           "# Official Linux APT repository (packages.bobine.fit/debian — amd64 & arm64 compatible)\ncurl -fsSL https://packages.bobine.fit/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] https://packages.bobine.fit/debian stable main\" | sudo tee /etc/apt/sources.list.d/bobine.list\nsudo apt update && sudo apt install bobine",
-        deviceImage: "linux",
       },
       {
         subtitle: "2.3 bis Linux Desktop Fedora, RHEL and derivatives (.rpm package — x86_64 & ARM64)",
@@ -565,18 +505,6 @@ const en: DocChapter[] = [
         codeBlock: `# Official pacman repository (packages.bobine.fit/arch — x86_64 & aarch64)\n${archInstallScript()}\n\n# Update\n${archCommands().upgrade}`,
       },
       {
-        subtitle: "2.3 quater Linux over the Tor network (.onion)",
-        paragraphs: [
-          "To install and update Bobine without revealing your IP address, the APT repository is also offered as an onion service (Tor network). It is a mirror of the official repository: packages remain signed by the same key, and apt rejects any package whose signature does not match.",
-          "The https://bobine.fit/install-tor.sh script (read it before running it) performs these steps for you and stops if the key fingerprint differs from the published one. The onion repository publishes all three suites, stable, beta and canary: the --channel=stable|beta|canary option picks the update channel (without it, the script asks on a terminal and falls back to stable otherwise), and --dry-run installs nothing. The commands below are the manual version, on the stable channel; replace the last word of the deb line with beta or canary to follow another channel.",
-          "Compare the primary key fingerprint with the one at https://packages.bobine.fit/bobine.gpg: B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A.",
-          "The site can also be browsed in Tor Browser (http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/). The Baamix assistant is not offered there to preserve complete network autonomy and privacy. I host this mirror myself, keep no visit log, and run it on a best-effort basis. In support of the free-software community, discover the Tor project: https://www.torproject.org/ (source code: https://github.com/torproject/tor).",
-        ],
-        codeBlock:
-          "# Official APT repository over Tor (onion mirror)\nsudo apt install apt-transport-tor\ncurl -fsS --socks5-hostname 127.0.0.1:9050 http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/bobine.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg\necho \"deb [signed-by=/etc/apt/keyrings/bobine.gpg] tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main\" | sudo tee /etc/apt/sources.list.d/bobine-onion.list\nsudo apt update && sudo apt install bobine",
-        deviceImage: "linux",
-      },
-      {
         subtitle: "2.4 Android Tablets & Google Books (Aluminium OS)",
         paragraphs: [
           `Certified native Bobine-x.y.z.apk (Android ${ANDROID.minVersion} to ${ANDROID.maxVersion}, API ${ANDROID.minApi}-${ANDROID.maxApi}), embedding CPython 3.13 and FastAPI via Chaquopy, persistent ForegroundService, native MediaCodec acceleration, and robust dual display (touchscreen /grid + HDMI TV /cinema over USB-C DisplayPort with resilient hotplug handling).`,
@@ -585,7 +513,6 @@ const en: DocChapter[] = [
           "Starting with the device: Settings > \"Device startup\" (\"Launch Bobine when the device starts\") restarts the Bobine server when the device reboots or the app is updated. Opening the screen automatically depends on Android: it requires the \"Display over other apps\" permission, which some devices (including Android TV boxes) reset at every reboot. In that case the server and the remote screens already work; just open the app to show the local screen.",
           "Built-in updates: if Android blocks installs from the app (unknown sources not allowed), Bobine says so before downloading and opens the matching setting instead of failing midway.",
         ],
-        deviceImage: ["android", "googlebook"],
       },
       {
         subtitle: "2.4 bis Android TV & Google TV (Streaming Boxes, Sticks & Smart TVs)",
@@ -616,10 +543,9 @@ const en: DocChapter[] = [
         subtitle: "2.7 Release channels: Stable, Beta or Canary",
         paragraphs: [
           "Bobine offers three release channels: the Stable channel (recommended for production gym playout, strict Vx.y.z tags), the Beta channel (batches of features/fixes I curate and publish manually) and the Canary channel (rolling on fixed mobile tag canary, rebuilt automatically on every push to main, zero curation).",
-          "Across all platforms, Beta and Canary share identical application IDs and upgrade existing installations in-place without creating duplicate applications or altering media and databases. Toggle anytime in Settings > Software Updates or via CLI flag (the Tor installer, install-tor.sh, accepts the same --channel option and asks on a terminal when it is missing):",
+          "Across all platforms, Beta and Canary share identical application IDs and upgrade existing installations in-place without creating duplicate applications or altering media and databases. Toggle anytime in Settings > Software Updates or via CLI flag:",
         ],
         codeBlock: "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta   # or --channel=canary",
-        deviceImage: "channels",
       },
       {
         subtitle: "2.7 bis Verifying a downloaded file",
@@ -639,11 +565,6 @@ const en: DocChapter[] = [
           "WebKit family (Apple Safari on macOS, iPadOS and iOS): native support for coach tablets and smartphones on the local Wi-Fi (/coach console, /grid mobile remote, and /cinema showcase), with hardware VideoToolbox decoding and full -webkit-backdrop-filter glassmorphism parity.",
           "Automatic codec fallback & local diagnostics: when a browser cannot decode a video container or profile natively (such as HEVC 10-bit on browsers without hardware licensing), Bobine transparently serves an on-demand H.264 stream without altering the original file. Settings > Browser compatibility provides a real-time local diagnostic (supported codecs, Wake Lock/Gamepad APIs, and dropped-frame counters).",
         ],
-        techChips: [
-          { icon: "code", label: "Chromium / Blink (Chrome, Brave, Edge)" },
-          { icon: "code", label: "Gecko (Firefox Desktop, ESR, Android, Tor)" },
-          { icon: "code", label: "WebKit (Safari macOS, iPadOS, iOS)" },
-        ],
       },
     ],
   },
@@ -658,7 +579,7 @@ const en: DocChapter[] = [
       {
         subtitle: "3.1 Web administration dashboard & media library",
         paragraphs: [
-          "Accessible from any computer, tablet, or smartphone on the local network (Wi-Fi or wired) at http://[APPLIANCE_IP]:8000.",
+          "Accessible from any computer, tablet, or smartphone on the local network (Wi-Fi or wired) at http://[APPLIANCE_IP]:1903.",
           "Enables video imports with live FFprobe extraction of true audio channels (Stereo 2.0, Surround 5.1, Mono 1.0) and resolutions (4K Ultra HD, 1080p), custom class synopsis editing displayed on the cinematic pause screen, and weekly second-by-second scheduling.",
         ],
       },
@@ -748,7 +669,6 @@ const en: DocChapter[] = [
           "Complete elimination of 200-600ms black frames and projector HDMI handshake resyncs between consecutive workouts via dual continuous video instances in the DOM and 0.4s crossfading.",
           "Technical detail: hardware-accelerated decoding via VA-API (Intel QuickSync, AMD Radeon), Apple VideoToolbox, and Android MediaCodec up to 4K 60 fps at under 8% CPU usage. Permanent removal of intro animations for zero-latency instant start.",
         ],
-        techChips: [{ icon: "film", label: "Gapless A/B Deck" }, { icon: "film", label: "VA-API / MediaCodec" }],
       },
       {
         subtitle: "4.2 Responsive Coach Console & Visual Ambiances Hub",
@@ -756,7 +676,6 @@ const en: DocChapter[] = [
           "Purpose-built studio workstation for coaches: 64px audio deck, direct 16:9 Stage Monitor video feed, 1-click ambient palettes, and clean Auto/Manual audio chaining.",
           "Technical detail: automated multi-track audio imports (folders, ZIP archives, multiple selections), automatic track ordering by numeric filename prefixes, and deterministic FFprobe duration calculation.",
         ],
-        techChips: [{ icon: "play", label: "Coach Console /coach" }, { icon: "film", label: "Ambiances Hub" }],
       },
       {
         subtitle: "4.3 Universal Controls & Marquee Scrolling",
@@ -764,7 +683,6 @@ const en: DocChapter[] = [
           "Smooth navigation via gamepads (HTML5 Gamepad API), physical multimedia remotes, mouse, and touchscreen.",
           "Technical detail: 2D Euclidean spatial focus calculation (moveDomFocus2D), calibrated deadzone (0.45), debouncing, and strictly monotonic time smoothing. Animated MarqueeText for long titles and locked 16:9 thumbnail dimensions.",
         ],
-        techChips: [{ icon: "smartphone", label: "HTML5 Gamepad API" }, { icon: "film", label: "MarqueeText" }],
       },
       {
         subtitle: "4.4 Club Attendance Metrics & Eco-Designed Hardware Telemetry",
@@ -772,7 +690,6 @@ const en: DocChapter[] = [
           "Comprehensive local supervision: member attendance, 5-star reviews, live power consumption, and thermal safety.",
           "Technical detail: real-time electrical power measurement in Watts (W) and Wh (Intel RAPL, Apple ioreg, Linux/Android sysfs, Windows WMI), live CPU/GPU temperatures, and non-root RAM telemetry (manufacturer, LPDDR5X/DDR5/DDR4 technology, MT/s clock speed).",
         ],
-        techChips: [{ icon: "server", label: "Analytics /metrics" }, { icon: "terminal", label: "Telemetry Watts & RAM" }],
       },
       {
         subtitle: "4.5 Scheduled Auto-Updates & 1-Click Uninstaller",
@@ -780,7 +697,6 @@ const en: DocChapter[] = [
           "1-click updates powered by a WebSocket state machine, native SHA-256 digest validation against GitHub Releases, and configurable nightly update scheduling (default 03:00).",
           "Automated universal 1-click uninstallation (/api/system/uninstall) across all 5 operating systems protected by a strict confirmation modal requiring typing UNINSTALL.",
         ],
-        techChips: [{ icon: "server", label: "Update Orchestrator" }, { icon: "terminal", label: "1-Click Uninstall" }],
       },
       {
         subtitle: "4.6 Full ZIP Backup & Watchdog Resilience",
@@ -788,15 +704,13 @@ const en: DocChapter[] = [
           "Full venue configuration (video library, music tracks, schedules, settings) exports in one click as a ZIP archive with SQLite PRAGMA integrity validation upon restoration.",
           "Technical detail: continuous supervision by the bobine-audio-guard daemon and bobine-watchdog timer, unconditional reboot post blackout.",
         ],
-        techChips: [{ icon: "database", label: "ZIP / SQLite" }, { icon: "terminal", label: "systemd watchdog" }],
       },
       {
-        subtitle: "4.7 \"Glassmorphism\" visual identity & 15 themes",
+        subtitle: "4.7 \"Glassmorphism\" visual identity & 9 themes",
         paragraphs: [
-          "The whole admin interface (library, schedule, audio, radio, settings, logs) adopts a translucent Apple-inspired style: frosted-glass cards, soft gradients and defined outlines. Lavender is the default theme; 16 WCAG-calibrated themes are available.",
+          "The whole admin interface (library, schedule, audio, radio, settings, logs) adopts a translucent Apple-inspired style: frosted-glass surfaces, flat fills and defined outlines, with no background gradients. Slate is the default theme; 9 WCAG-calibrated themes, each in light and dark (automatic mode following the device), are available.",
           "The /cinema pause screen uses a Netflix-style overlay, and switching between the cabled and network outputs is animated, on Android (touch and HDMI) as on desktop. The official logo in the menu and the Android startup screen follow the active update channel (Stable, Beta or Canary).",
         ],
-        techChips: [{ icon: "film", label: "Glassmorphism" }],
       },
       {
         subtitle: "4.8 bobine.local network discovery & hardened updates",
@@ -804,7 +718,6 @@ const en: DocChapter[] = [
           "The mDNS service periodically republishes the bobine.local address and retries with growing delays after an IP change (DHCP, Wi-Fi) or a failure. Its real state is shown in Settings, with an alert if bobine.local does not answer.",
           "The update pipeline is hardened on every platform: going back from Beta or Canary to Stable is offered explicitly, the SHA-256 digest is verified before any installation (Android included, which picks the phone or Android TV APK according to the device), and the notification acknowledgement is kept server-side.",
         ],
-        techChips: [{ icon: "server", label: "mDNS / Update Orchestrator" }],
       },
     ],
   },
@@ -864,31 +777,23 @@ const en: DocChapter[] = [
           "Backend: Python with FastAPI and single-process Uvicorn (zero external Redis dependency). Python 3.11 minimum: 3.13 on Debian 13 and Android tablets, 3.11 in the Android TV package (the only embedded runtime available for 32-bit systems).",
           "Database: SQLite with versioned schema, automated migrations, and duration/metadata backfills.",
           "Playout engines: MPV with VA-API on Linux, HTML5 Gapless A/B Deck on /cinema, and deterministic app.utils.ffmpeg_binaries resolution across all platforms.",
-          "Frontend: Next.js App Router, static SSG export, 16 WCAG AAA/AA calibrated themes, zero emoji.",
-        ],
-        techChips: [
-          { icon: "server", label: "FastAPI / Python 3.11+" },
-          { icon: "database", label: "SQLite" },
-          { icon: "film", label: "Gapless A/B / MPV" },
-          { icon: "code", label: "Next.js SSG" },
+          "Frontend: Next.js App Router, static SSG export, 9 WCAG-calibrated themes in light and dark, zero emoji.",
         ],
       },
       {
         subtitle: "6.2 Dedicated Headless Appliance Systemd Services",
         paragraphs: [
-          "On Debian 13 minimal, Bobine runs on three supervised daemons: bobine-backend.service (FastAPI API on port 8000), bobine-kiosk.service (Chromium X11 fullscreen kiosk), and bobine-audio-guard.service (audio watchdog and safety), framed by the bobine-watchdog.timer.",
+          "On Debian 13 minimal, Bobine runs on three supervised daemons: bobine-backend.service (FastAPI API, port 1903), bobine-kiosk.service (Chromium X11 fullscreen kiosk), and bobine-audio-guard.service (audio watchdog and safety), framed by the bobine-watchdog.timer.",
         ],
         codeBlock: "sudo systemctl status bobine-backend bobine-kiosk bobine-audio-guard\nsudo systemctl restart bobine-backend",
-        techChips: [{ icon: "terminal", label: "systemd" }],
       },
       {
         subtitle: "6.3 Local REST API endpoints & WebSockets (excerpt)",
         paragraphs: [
-          "The local REST API exposed on port 8000 controls playout, coach mode, attendance metrics, telemetry, and updates:",
+          "The local REST API exposed on port 1903 controls playout, coach mode, attendance metrics, telemetry, and updates:",
         ],
         codeBlock:
           "GET  /api/playback/state?channel=cable   Playout state and active channel\nPOST /api/coach/action                  Coach desk controls (pause, next, volume)\nGET  /api/metrics/dashboard             Attendance KPIs, 24h peak histogram, ratings\nGET  /api/settings/system               Live Watts, CPU/GPU temperatures, RAM telemetry\nPOST /api/updates/orchestrate           Trigger update with WebSocket stream progress\nPOST /api/system/uninstall              Secure 1-click automatic uninstaller",
-        techChips: [{ icon: "server", label: "REST / WebSockets" }],
       },
       {
         subtitle: "6.4 Development & Project Governance",
@@ -911,7 +816,7 @@ const en: DocChapter[] = [
         paragraphs: [
           "Every new version is published on GitHub Releases (github.com/FantasmaGlad/Bobine/releases) with a detailed changelog, signed binaries for all 5 operating systems, and a SHA-256 integrity checksum.",
           "Three channels track the project's progress: the Stable channel (frozen Vx.y.z tags, recommended for production gym playout), the Beta channel (curated batches of features/fixes, published manually) and the Canary channel (rolling, automatically rebuilt on every change to the main branch, for clubs wanting the very latest changes without waiting for a batch).",
-          "The unified Linux package hub (packages.bobine.fit) mirrors all three channels in its stable, beta and canary distributions for Debian/Ubuntu (packages.bobine.fit/debian, apt), Fedora (packages.bobine.fit/fedora, dnf) and Arch Linux (packages.bobine.fit/arch, pacman), with the same GPG signing key. The APT repository of the Tor mirror (.onion) publishes the same three suites.",
+          "The unified Linux package hub (packages.bobine.fit) mirrors all three channels in its stable, beta and canary distributions for Debian/Ubuntu (packages.bobine.fit/debian, apt), Fedora (packages.bobine.fit/fedora, dnf) and Arch Linux (packages.bobine.fit/arch, pacman), with the same GPG signing key.",
         ],
       },
       {
@@ -921,7 +826,6 @@ const en: DocChapter[] = [
           `Bobine embeds FastAPI under CPython via Chaquopy (3.13 on tablets) and a persistent ForegroundService. The Android TV package (Bobine-TV) reuses this engine for 32-bit and 64-bit ARM boxes, on Android ${ANDROID.minVersion} or later. The video feed connected to the TV or projector displays the /cinema view over HDMI without system bars, while the tablet touchscreen runs the /grid desk or /coach console.`,
           "The app includes MediaCodec hardware acceleration, gamepad and remote control forwarding to the external display, mDNS discovery (bobine.local), and dual storage partitioning (fast internal F2FS for database and external FUSE for media).",
         ],
-        techChips: [{ icon: "smartphone", label: "Android ARM 32/64 bits / Chaquopy" }, { icon: "tablet", label: "Xiaomi Pad / USB-C DP" }, { icon: "film", label: "MediaCodec" }],
       },
       {
         subtitle: "7.2 iOS / iPadOS: explored track for iPads with USB-C / Thunderbolt video output",
@@ -929,7 +833,6 @@ const en: DocChapter[] = [
           "With the same goal of maximum tactile portability, iPadOS support is actively explored for iPads equipped with wired display output, notably Apple Silicon iPad Pro models (M1, M2, M4) featuring Thunderbolt / USB 4, as well as iPad Air models (M2) with DisplayPort over USB-C.",
           "Unlike the Android environment, iOS strictly sandboxes background server execution. Porting the Bobine architecture to iPadOS is therefore a prospective exploration, without technical or timeline commitment at this stage.",
         ],
-        techChips: [{ icon: "tablet", label: "iPadOS / Thunderbolt" }],
       },
     ],
   },
@@ -1081,24 +984,6 @@ export const FEATURE_OVERVIEW = [
       "en": "Check package requirements; platform availability does not validate every device."
     },
     "href": "/telechargement",
-    "anchor": ""
-  },
-  {
-    "id": "tor",
-    "icon": "shield",
-    "title": {
-      "fr": "Distribution via Tor",
-      "en": "Distribution over Tor"
-    },
-    "description": {
-      "fr": "Consultez le site statique et les dépôts de paquets sur les miroirs onion.",
-      "en": "Read the static site and access package repositories through onion mirrors."
-    },
-    "detail": {
-      "fr": "Le chatbot n'est pas proposé sur le miroir statique.",
-      "en": "The chatbot is not available on the static mirror."
-    },
-    "href": "/tor",
     "anchor": ""
   }
 ] as const;

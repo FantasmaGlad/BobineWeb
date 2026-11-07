@@ -299,14 +299,11 @@
    Terminal Window Titles & Clickable Command Rows
    ========================================================================== */
 
-.interactive-terminal-window-title,
 .terminal-code-block__title {
   display: flex;
   align-items: center;
 }
 
-.interactive-terminal-window-title span,
-.interactive-terminal-window-title code,
 .terminal-code-block__title span,
 .terminal-code-block__title code {
   color: #ffffff !important;
@@ -316,29 +313,6 @@
   font-size: var(--fs-0-725rem) !important;
   font-family: "SF Mono", Monaco, Consolas, monospace !important;
   font-weight: 500 !important;
-}
-
-.interactive-terminal-cmd-row.is-clickable {
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
-  border-radius: var(--radius-0-25rem);
-  padding: 0.35rem 0.5rem;
-  margin: -0.35rem -0.5rem 0.65rem -0.5rem;
-}
-
-.interactive-terminal-cmd-row.is-clickable:hover {
-  background: color-mix(in srgb, var(--specular) 6%, transparent);
-  border-bottom-color: color-mix(in srgb, var(--specular) 30%, transparent);
-}
-
-.terminal-cursor {
-  display: inline-block;
-  width: 7px;
-  height: 14px;
-  background: var(--accent-primary);
-  vertical-align: middle;
-  animation: terminal-blink 1s step-start infinite;
-  margin-left: 0.25rem;
 }
 
 @keyframes terminal-blink {
@@ -439,7 +413,6 @@
    finale. Sous 640px, featured/grid redeviennent des blocs distincts
    (voir media query plus bas) : cette règle ne s'y applique plus. */
 @media (min-width: 640px) {
-
   .os-download-card[data-platform="linux"] {
     order: 1;
   }
@@ -459,7 +432,6 @@
   .os-download-card[data-platform="android-tv"] {
     order: 5;
   }
-
 }
 
 .os-download-card {

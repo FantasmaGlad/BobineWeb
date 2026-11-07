@@ -14,7 +14,7 @@ err() { echo "::error::$*"; fail=1; }
 [ -f "$S/.nojekyll" ] || err ".nojekyll absent (le dossier .well-known ne serait pas servi)"
 [ "$(tr -d '[:space:]' < "$S/CNAME")" = "security.bobine.fit" ] || err "CNAME inattendu"
 
-for f in index.html fr/index.html snake/index.html fr/snake/index.html robots.txt sitemap.xml llms.txt security.asc .well-known/security.txt; do
+for f in index.html fr/index.html robots.txt sitemap.xml llms.txt security.asc .well-known/security.txt; do
   [ -s "$S/$f" ] || err "Fichier absent ou vide : $S/$f"
 done
 

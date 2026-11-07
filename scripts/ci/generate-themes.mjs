@@ -12,21 +12,33 @@ const target = fileURLToPath(new URL("../../src/styles/base/00-themes-generes.cs
 /** Jetons du site pour une palette : les couleurs de la palette et ce qui s'en déduit (noms propres au site). */
 export function siteTokens(palette, mode) {
   const t = deriveTokens(palette, mode);
+  const { bg, surface } = palette;
+  // Hiérarchie des plans (lisibilité : le site ne doit pas faire bloc) : le fond de page, les cartes, les surfaces
+  // et les éléments flottants sont quatre niveaux distincts. Clair : fond de page légèrement teinté, cartes blanches ;
+  // sombre : fond de page profond, puis des plans de plus en plus clairs.
+  const light = mode === "light";
+  const canvas = light ? mix(bg, surface, 0.28) : bg;
+  const card = light ? bg : mix(bg, surface, 0.5);
+  const plane = light ? mix(bg, surface, 0.45) : mix(bg, surface, 0.75);
+  const elevated = light ? bg : surface;
+  const hover = light ? mix(bg, surface, 0.7) : t["bg-surface-hover"];
+  const text = t["text-main"];
   // Survol d'un bouton plein : s'éloigne de la couleur de son texte, donc le contraste ne baisse jamais.
   const fgIsDark = contrast(t["accent-primary-fg"], "#000000") < contrast(t["accent-primary-fg"], "#ffffff");
+  const border = mix(canvas, text, light ? 0.24 : 0.3);
   return {
-    "bg-canvas": t["bg-main"],
-    "bg-main": t["bg-main"],
-    "bg-card": t["bg-surface"],
-    "bg-card-hover": t["bg-surface-hover"],
-    "bg-surface": t["bg-surface"],
-    "bg-surface-elevated": t["bg-surface-elevated"],
-    "bg-surface-hover": t["bg-surface-hover"],
-    "bg-inset": mix(t["bg-main"], t["text-main"], 0.06),
-    "text-heading": t["text-main"],
-    "text-main": t["text-main"],
-    "text-body": t["text-main"],
-    "text-base": t["text-main"],
+    "bg-canvas": canvas,
+    "bg-main": canvas,
+    "bg-card": card,
+    "bg-card-hover": light ? mix(bg, surface, 0.2) : mix(bg, surface, 0.62),
+    "bg-surface": plane,
+    "bg-surface-elevated": elevated,
+    "bg-surface-hover": hover,
+    "bg-inset": light ? mix(bg, surface, 0.6) : mix(bg, "#000000", 0.3),
+    "text-heading": text,
+    "text-main": text,
+    "text-body": text,
+    "text-base": text,
     "text-muted": t["text-muted"],
     "text-dim": t["text-dim"],
     "accent-primary": t["accent-primary"],
@@ -37,9 +49,9 @@ export function siteTokens(palette, mode) {
     "accent-warning": t["accent-warning-text"],
     "accent-error-text": t["accent-error-text"],
     "accent-info-text": t["accent-info-text"],
-    "border-subtle": t["border-color"],
-    "border-color": t["border-color"],
-    "border-hover": mix(t["border-color"], t["text-main"], 0.18),
+    "border-subtle": mix(canvas, text, light ? 0.14 : 0.2),
+    "border-color": border,
+    "border-hover": mix(border, text, 0.2),
     "border-vibrant": t["accent-text"],
     "border-focus": t["accent-text"],
   };

@@ -69,7 +69,7 @@ Pour l'activer : Réglages > Mises à jour logicielles > Canal Canary, ou via in
 - Les installateurs Windows (x86-64 et ARM64) et l'image macOS sont installés, lancés puis désinstallés ou démontés en CI.
 - Les dépôts APT, DNF et pacman de packages.bobine.fit sont ré-exportés et re-signés chaque semaine, et une sonde quotidienne contrôle signatures, validité et versions.
 - Les canaux Canary et Bêta sont mis à jour en place, sans coupure de téléchargement.
-- Bobine écoute toujours sur le port 8000 et bascule sur un port libre voisin s'il est occupé ; BOBINE_PORT_STRICT=1 supprime ce repli.
+- Dans cette version, Bobine écoute sur le port 8000 (1903 à partir de la 5.1.0) et bascule sur un port libre voisin s'il est occupé ; BOBINE_PORT_STRICT=1 supprime ce repli.
 - L'application Android est compilée avec l'API 37 tout en conservant la cible 36.`,
     isPrerelease: false,
   },

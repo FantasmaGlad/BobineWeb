@@ -83,10 +83,6 @@
   opacity: 0.45;
 }
 
-.os-download-card__distro-arch {
-  display: block;
-}
-
 .os-download-card__meta {
   display: flex;
   align-items: center;
@@ -97,7 +93,7 @@
   margin-top: auto;
   margin-bottom: 1rem;
   padding-top: 0.85rem;
-  border-top: 1px dashed var(--border-subtle);
+  border-top: 2px solid color-mix(in srgb, var(--accent-primary) 30%, var(--border-color));
   /* Réserve la hauteur de 2 lignes même si un seul des deux libellés
      (format / statut) passe à la ligne sur une carte étroite : la
      délimitation (border-top) reste ainsi à la même hauteur sur les 5
@@ -165,7 +161,6 @@
 }
 
 @media (max-width: 1023px) and (min-width: 640px) {
-
   .os-download-shell {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
@@ -174,7 +169,6 @@
     padding: 1.25rem;
     min-height: 180px;
   }
-
 }
 
 /* Repère "défiler pour voir les autres versions" : n'apparaît que sur
@@ -194,7 +188,6 @@
 }
 
 @media (max-width: 639px) {
-
   .hero-fullscreen {
     min-height: calc(100svh - 6.85rem - env(safe-area-inset-bottom, 0px));
     padding-top: 0.65rem;
@@ -211,14 +204,6 @@
   .hero-fullscreen__subtitle {
     font-size: var(--fs-0-875rem);
     margin-bottom: 0.6rem;
-  }
-
-  .hero-fullscreen__scroll {
-    margin-top: auto;
-    margin-bottom: 0.5rem;
-    padding: 0.35rem 0.75rem;
-    font-size: var(--fs-0-76rem);
-    align-self: center;
   }
 
   .hero-fullscreen__content {
@@ -315,7 +300,6 @@
     font-family: inherit;
     animation: osDownloadHintBounce 1.8s ease-in-out infinite;
   }
-
 }
 
 @keyframes osDownloadHintBounce {
@@ -323,181 +307,3 @@
   50% { transform: translateY(4px); opacity: 1; }
 }
 
-/* --------------------------------------------------------------------------
-   4. Section Méthodes d'Installation Headless & Onglets Segmentés
-   -------------------------------------------------------------------------- */
-.headless-section {
-  margin-top: clamp(2rem, 5vh, 4rem);
-  margin-bottom: clamp(2.5rem, 6vh, 5rem);
-  scroll-margin-top: 5.5rem;
-  width: 100%;
-}
-
-.headless-section__header {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
-}
-
-.headless-section__eyebrow {
-  font-size: var(--fs-0-8rem);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--accent-text);
-  margin-bottom: 0.35rem;
-}
-
-.headless-section__title {
-  font-size: var(--fs-clamp-1-6rem-3-2vw-2-25rem);
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  color: var(--text-heading);
-  line-height: 1.2;
-  margin-bottom: 0.6rem;
-}
-
-.headless-section__subtitle {
-  font-size: var(--fs-0-95rem);
-  line-height: 1.55;
-  color: var(--text-muted);
-  max-width: 48rem;
-  margin-bottom: 1.25rem;
-}
-
-/* Boutons d'installation séparés et découplés */
-.headless-action-tabs {
-  display: flex;
-  gap: 0.85rem;
-  flex-wrap: wrap;
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.headless-action-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.85rem;
-  padding: 0.75rem 1.15rem;
-  border-radius: var(--radius-md);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  user-select: none;
-  color: var(--text-muted);
-  box-shadow: 0 2px 6px color-mix(in srgb, var(--ink) 4%, transparent);
-}
-
-.headless-action-btn:hover {
-  border-color: color-mix(in srgb, var(--accent-primary) 35%, var(--border-subtle));
-  color: var(--text-heading);
-  transform: translateY(-1.5px);
-  box-shadow: 0 6px 14px -4px color-mix(in srgb, var(--accent-primary) 15%, transparent);
-}
-
-.headless-action-btn.is-active {
-  background: var(--bg-card);
-  border-color: var(--accent-text);
-  color: var(--text-heading);
-  box-shadow: 0 4px 16px -4px color-mix(in srgb, var(--accent-primary) 22%, transparent);
-}
-
-.headless-action-btn__icon-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-sm);
-  background: color-mix(in srgb, var(--accent-primary) 10%, var(--bg-surface));
-  color: var(--accent-text);
-  flex-shrink: 0;
-  transition: background 0.2s ease;
-}
-
-.headless-action-btn.is-active .headless-action-btn__icon-wrap {
-  background: var(--accent-primary);
-  color: var(--accent-primary-fg);
-}
-
-.headless-action-btn__text {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.headless-action-btn__title {
-  font-size: var(--fs-0-925rem);
-  font-weight: 700;
-  color: var(--text-heading);
-  line-height: 1.2;
-}
-
-.headless-action-btn__desc {
-  font-size: var(--fs-0-75rem);
-  color: var(--text-muted);
-}
-
-/* --------------------------------------------------------------------------
-   5. Démonstration Interactive Bobine Assistant (Tauri 2)
-   -------------------------------------------------------------------------- */
-.tauri-demo-container {
-  width: 100%;
-  max-width: 68rem;
-  margin: 0 auto;
-}
-
-.tauri-demo-window {
-  border-radius: var(--radius-lg);
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  overflow: hidden;
-  box-shadow: 0 16px 36px -12px color-mix(in srgb, var(--accent-primary) 15%, transparent);
-}
-
-.tauri-demo-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1.25rem;
-  background: var(--bg-surface);
-  border-bottom: 1px solid var(--border-subtle);
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.tauri-demo-dots {
-  display: flex;
-  gap: 0.4rem;
-  align-items: center;
-}
-
-.tauri-demo-title-group {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.tauri-demo-brand {
-  display: flex;
-  flex-direction: column;
-}
-
-.tauri-demo-brand-name {
-  font-weight: 800;
-  font-size: var(--fs-0-95rem);
-  letter-spacing: 0.05em;
-  color: var(--text-heading);
-  line-height: 1.15;
-}
-
-.tauri-demo-brand-tag {
-  font-size: var(--fs-0-65rem);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--accent-text);
-}

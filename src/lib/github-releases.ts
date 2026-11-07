@@ -147,7 +147,7 @@ Pour l'activer : Réglages > Mises à jour logicielles > Canal Canary, ou via in
   },
   {
     slug: "V3.0.0",
-    title: "Bobine V3.0.0 — Sortie Officielle Multi-Plateforme & Souveraineté Numérique",
+    title: "Bobine V3.0.0 — Version multi-plateforme",
     publishedAt: "2026-09-06T12:53:00Z",
     url: "https://github.com/FantasmaGlad/Bobine/releases/tag/V3.0.0",
     body: `Bobine V3.0.0 marque l'ouverture au grand public avec des applications natives en 1 clic pour Windows, Linux et macOS, une architecture unifiée sans Redis (FastAPI + SQLite), l'anti-veille native Screen Wake Lock et la sauvegarde universelle ZIP.`,

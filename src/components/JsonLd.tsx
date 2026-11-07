@@ -67,7 +67,7 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
           "Radio d'ambiance 24/7 avec alertes et annonces vocales programmées et fondu sonore",
           "Télémétrie matérielle éco-conçue (puissance instantanée en Watts, températures CPU/GPU, RAM en MT/s)",
           "Alternative libre et gratuite aux régies propriétaires",
-          "Décodage matériel ultra-fluide 1080p60 et 4K via Intel QuickSync, AMD VA-API, VideoToolbox et MediaCodec",
+          "Décodage matériel 1080p60 et 4K via Intel QuickSync, AMD VA-API, VideoToolbox et MediaCodec",
         ],
     offers: {
       "@type": "Offer",

@@ -243,7 +243,7 @@ export const LINUX_SHOWCASE_CONTENT = {
     bento: {
       sectionTag: "Architecture Audiovisuelle",
       sectionTitle: "Pourquoi Bobine excelle sur Linux.",
-      sectionDesc: "Conçu sans artifice ni couche superflue, Bobine exploite les primitives noyau les plus performantes pour garantir une fluidité vidéo absolue sans consommer de ressources inutiles.",
+      sectionDesc: "Conçu sans artifice ni couche superflue, Bobine s'appuie sur les accélérations matérielles du noyau Linux pour lire la vidéo en consommant peu de ressources.",
       cards: [
         {
           badge: "Accélération Matérielle 4K",
@@ -266,7 +266,7 @@ export const LINUX_SHOWCASE_CONTENT = {
           ],
         },
         {
-          badge: "Souveraineté & Respect",
+          badge: "Maîtrise & Respect",
           title: "100% Hors-ligne, zéro abonnement, zéro cloud",
           desc: "Vos plannings, vos vidéos et vos données d'adhérents restent sur votre machine locale. Aucune connexion internet n'est requise pour diffuser vos cours, piloter la régie ou lancer le kiosque cinéma.",
           features: [
@@ -348,7 +348,7 @@ export const LINUX_SHOWCASE_CONTENT = {
     bento: {
       sectionTag: "Audiovisual Architecture",
       sectionTitle: "Why Bobine thrives on Linux.",
-      sectionDesc: "Built without unnecessary bloat, Bobine leverages low-level Linux kernel primitives to deliver rock-solid 4K video playback with minimal system load.",
+      sectionDesc: "Built without unnecessary bloat, Bobine relies on the Linux kernel's hardware acceleration to play video with low resource use.",
       cards: [
         {
           badge: "4K Hardware Acceleration",
@@ -371,7 +371,7 @@ export const LINUX_SHOWCASE_CONTENT = {
           ],
         },
         {
-          badge: "Sovereignty & Privacy",
+          badge: "Control & Privacy",
           title: "100% Offline, zero subscriptions, zero cloud",
           desc: "Your schedules, videos, and member data remain strictly on your local machine. No internet connection is ever needed to run classes, trigger automation, or manage the cinema kiosk.",
           features: [

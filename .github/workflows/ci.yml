@@ -3,6 +3,8 @@ name: CI
 # Contrôles de validation, exécutés sur chaque demande de fusion et appelés par le déploiement :
 # rien n'est publié tant que ces contrôles ne sont pas verts. Le job `ci-ok` est le statut
 # unique à exiger dans la protection de branche.
+# Une demande de fusion qui ne touche que la documentation ne passe que la politique du dépôt ; appelé par le
+# déploiement (qui ignore déjà ces fichiers), tout est vérifié.
 on:
   pull_request:
   workflow_call:
@@ -11,6 +13,29 @@ permissions:
   contents: read
 
 jobs:
+  changes:
+    name: Portée
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      code: ${{ steps.scope.outputs.code }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - id: scope
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -eu
+          if [ "${GITHUB_EVENT_NAME}" != "pull_request" ] || [ -z "${BASE:-}" ]; then
+            echo "code=true" >> "$GITHUB_OUTPUT"
+          elif git diff --name-only "$BASE" HEAD | grep -qvE '(\.md$|^docs/|^LICENSE$)'; then
+            echo "code=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "code=false" >> "$GITHUB_OUTPUT"
+          fi
+
   policy:
     name: Politique du dépôt
     runs-on: ubuntu-latest
@@ -40,6 +65,8 @@ jobs:
 
   web:
     name: Site (types, lint, build)
+    needs: [changes]
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -118,6 +145,8 @@ jobs:
 
   onion:
     name: Miroir Tor (export statique)
+    needs: [changes]
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -152,6 +181,8 @@ jobs:
 
   security-site:
     name: Site de sécurité
+    needs: [changes]
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -164,14 +195,16 @@ jobs:
   ci-ok:
     name: ci-ok
     if: always()
-    needs: [policy, web, onion, security-site]
+    needs: [changes, policy, web, onion, security-site]
     runs-on: ubuntu-latest
     steps:
       - name: Tous les contrôles sont verts
         run: |
           set -eu
           results='${{ join(needs.*.result, ' ') }}'
-          echo "résultats : $results"
+          code='${{ needs.changes.outputs.code }}'
+          echo "résultats : $results (code : $code)"
+          # Documentation seule : site, miroir et site de sécurité sont ignorés par décision, pas par échec.
           for r in $results; do
-            [ "$r" = "success" ] || { echo "::error::un contrôle a échoué ou a été ignoré ($r)"; exit 1; }
+            [ "$r" = "success" ] || { [ "$code" = false ] && [ "$r" = skipped ]; } || { echo "::error::un contrôle a échoué ou a été ignoré ($r)"; exit 1; }
           done

@@ -2,12 +2,10 @@ name: Contrôle en direct du miroir Tor
 
 # Interroge le vrai service onion à travers le réseau Tor : ce que les tests statiques ne voient pas
 # (machine hôte, service onion, serveur web, synchronisation). Un échec prévient le propriétaire du dépôt.
+# Une fois par jour, après la reconstruction quotidienne du miroir (04:17) ; à la demande sinon.
 on:
   schedule:
-    - cron: "37 5,17 * * *"
-  workflow_run:
-    workflows: ["Onion mirror"]
-    types: [completed]
+    - cron: "37 5 * * *"
   workflow_dispatch:
 
 permissions:
@@ -21,9 +19,9 @@ jobs:
   probe:
     name: Sonde Tor
     # Interrupteur : la sonde ne tourne que si la variable TOR_PROBE_ENABLED vaut "true" (machine hôte en ligne).
-    if: vars.TOR_PROBE_ENABLED == 'true' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
+    if: vars.TOR_PROBE_ENABLED == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
       - name: Installer Tor et attendre le circuit

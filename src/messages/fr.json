@@ -2,7 +2,6 @@
   "nav": {
     "home": "Accueil",
     "features": "Fonctionnalités",
-    "comparisons": "Comparatifs",
     "documentation": "Documentation",
     "blog": "Blog",
     "demo": "Démonstration",
@@ -19,13 +18,5 @@
     "placeholder": "Rechercher dans la documentation & FAQ...",
     "resultsFound": "résultats trouvés",
     "noResults": "Aucun résultat trouvé pour cette recherche."
-  },
-  "chatbot": {
-    "title": "Baamix",
-    "subtitle": "Mascotte de Bobine",
-    "buttonLabel": "Baamix",
-    "inputPlaceholder": "Posez votre question (installation, fonctionnalités, config)..."
   }
 }
-
-

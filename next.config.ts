@@ -47,7 +47,6 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizeCss: true,
     optimizePackageImports: [
-      "openai",
       "react-markdown",
       "remark-gfm",
     ],
@@ -61,6 +60,11 @@ const nextConfig: NextConfig = {
       { source: "/en/hardware/:path*", destination: "/en/documentation", permanent: true },
       { source: "/en/materiel", destination: "/en/documentation", permanent: true },
       { source: "/en/materiel/:path*", destination: "/en/documentation", permanent: true },
+      { source: "/fr/comparatif/:path*", destination: "/fr", permanent: true },
+      { source: "/fr/tor", destination: "/fr/documentation/anonymisation", permanent: true },
+      { source: "/en/tor", destination: "/en/documentation/anonymization", permanent: true },
+      { source: "/:locale(fr|en)/baamix", destination: "/:locale", permanent: true },
+      { source: "/en/compare/:path*", destination: "/en", permanent: true },
       // Redirections des anciennes pages documentaires fusionnées
       {
         source: "/:locale(fr|en)/documentation/demarrage-rapide",

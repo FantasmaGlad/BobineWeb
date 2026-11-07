@@ -16,24 +16,6 @@ const text = (fr: string, en: string): Localized => ({ fr, en });
 
 export const resourceList: readonly ResourceItem[] = [
   {
-    id: "compare-signage",
-    title: text("Affichage dynamique & Anthias", "Digital signage & Anthias"),
-    description: text("Comparatif entre régie fitness spécialisée et affichage dynamique généraliste pour vos écrans d'accueil.", "Comparison between dedicated fitness playout and general-purpose digital signage for reception screens."),
-    path: "/comparatif/affichage-dynamique-fitness",
-    category: text("Comparatif", "Comparison"),
-    icon: "icon:cpu",
-    tags: ["affichage dynamique", "anthias", "screenly", "écrans", "signage", "comparatif"],
-  },
-  {
-    id: "baamix",
-    title: text("Assistant IA Baamix", "Baamix AI Assistant"),
-    description: text("L'intelligence artificielle locale et experte de Bobine pour vous assister dans l'installation, le diagnostic et les conseils d'utilisation.", "Bobine's expert AI assistant to help you with installation, troubleshooting, and usage advice."),
-    path: "/baamix",
-    category: text("Intelligence Artificielle", "Artificial Intelligence"),
-    icon: "icon:zap",
-    tags: ["baamix", "ia", "intelligence artificielle", "chatbot", "aide", "assistant", "support"],
-  },
-  {
     id: "channel-beta",
     title: text("Bêta (Canal de préversion)", "Beta (Prerelease channel)"),
     description: text("Testez les nouvelles fonctionnalités avant leur publication générale tout en conservant une bonne stabilité.", "Test new features before general release while maintaining strong operational stability."),
@@ -68,15 +50,6 @@ export const resourceList: readonly ResourceItem[] = [
     category: text("Mises à jour", "Updates"),
     icon: "icon:terminal",
     tags: ["canary", "experimental", "nightly", "developpement", "canaux"],
-  },
-  {
-    id: "compare",
-    title: text("Comparatifs des solutions fitness", "Fitness software comparisons"),
-    description: text("Études objectives et méthodiques comparant Bobine aux catalogues sous licence et outils du marché.", "Objective comparisons contrasting Bobine with licensed class catalogs and commercial systems."),
-    path: "/comparatif",
-    category: text("Comparatif", "Comparison"),
-    icon: "icon:layers",
-    tags: ["comparatif", "solutions", "wexer", "yako", "anthias", "budget"],
   },
   {
     id: "privacy",
@@ -151,15 +124,6 @@ export const resourceList: readonly ResourceItem[] = [
     tags: ["faq", "questions", "frequentes", "aide", "depannage", "formats", "codecs"],
   },
   {
-    id: "compare-radical",
-    title: text("Radical Fitness & Yako (Comparatif)", "Radical Fitness & Yako (Comparison)"),
-    description: text("Distinguer logiciel de diffusion autonome, programmes préchorégraphiés et offres de réseau sportif.", "Distinguishing autonomous playout software, pre-choreographed programs, and gym franchise offerings."),
-    path: "/comparatif/radical-fitness-yako",
-    category: text("Comparatif", "Comparison"),
-    icon: "icon:layers",
-    tags: ["radical fitness", "yako", "orange bleue", "comparatif", "programmes", "cours"],
-  },
-  {
     id: "security",
     title: text("Sécurité & Signalement de vulnérabilités", "Security & Vulnerability reporting"),
     description: text("Portail officiel de sécurité : modèle d'isolation sans cloud, politique de divulgation responsable RFC 9116, clé OpenPGP et signalements.", "Official security portal: cloud-free isolation model, RFC 9116 responsible disclosure policy, OpenPGP key and advisories."),
@@ -188,20 +152,11 @@ export const resourceList: readonly ResourceItem[] = [
   },
   {
     id: "tor",
-    title: text("Tor (.onion) & Miroir décentralisé", "Tor (.onion) & Decentralized mirror"),
-    description: text("Accédez au site statique et aux dépôts de paquets via le réseau décentralisé et chiffré Tor.", "Access the static website and package repositories via the encrypted Tor onion network."),
-    path: "/tor",
+    title: text("Anonymisation (Tor)", "Anonymization (Tor)"),
+    description: text("Installer et mettre à jour Bobine par Tor.", "Install and update Bobine over Tor."),
+    path: "/documentation/anonymisation",
     category: text("Distribution", "Distribution"),
     icon: "icon:globe",
     tags: ["tor", "onion", "miroir", "censure", "decentralise", "prive"],
-  },
-  {
-    id: "compare-wexer",
-    title: text("Wexer & Fitness On Demand (Comparatif)", "Wexer & Fitness On Demand (Comparison)"),
-    description: text("Comparatif avec les plateformes de cours numériques Wexer et Fitness On Demand : stockage local et autonomie.", "Comparison with Wexer and Fitness On Demand digital class platforms: local storage and network resilience."),
-    path: "/comparatif/wexer-fitness-on-demand",
-    category: text("Comparatif", "Comparison"),
-    icon: "icon:display",
-    tags: ["wexer", "fitness on demand", "fod", "comparatif", "cours virtuels", "streaming"],
   },
 ] as const;

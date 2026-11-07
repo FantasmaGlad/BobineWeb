@@ -46,7 +46,6 @@ export default function SecurityHeader({ lang, langLinks }: SecurityHeaderProps)
         </a>
 
         <nav className="header-nav" aria-label={isFr ? "Navigation" : "Navigation"}>
-          <a href={isFr ? "/fr/snake/" : "/snake/"}>Snake</a>
           <a href="/security.asc" download="security.asc">
             security.asc
           </a>

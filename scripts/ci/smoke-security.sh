@@ -18,7 +18,7 @@ attempt() {
 
 check() {
   local p code page gh out txt
-  for p in / /fr/ /snake/ /fr/snake/ /assets/site.js /assets/site.css /assets/bobine-controls.css /assets/bobine-tokens.css /security.asc /.well-known/security.txt; do
+  for p in / /fr/ /assets/site.js /assets/site.css /assets/bobine-controls.css /assets/bobine-tokens.css /security.asc /.well-known/security.txt; do
     code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 "$SITE$p") || return 1
     echo "$p -> $code"
     [ "$code" = "200" ] || return 1

@@ -8,7 +8,7 @@ const soon = (family: "fedora" | "arch", l: "fr" | "en") => {
   return note ? `${note} ` : "";
 };
 
-export type FaqCategory = "license" | "compare" | "hardware" | "offline" | "updates" | "security";
+export type FaqCategory = "license" | "hardware" | "offline" | "updates" | "security";
 
 export interface FaqItem {
   q: string;
@@ -19,7 +19,6 @@ export interface FaqItem {
 export const FAQ_CATEGORY_LABELS: Record<Locale, Record<FaqCategory, string>> = {
   fr: {
     license: "Licence & Coûts",
-    compare: "Comparatifs",
     hardware: "Matériel",
     offline: "Hors-ligne",
     updates: "Mises à jour",
@@ -27,7 +26,6 @@ export const FAQ_CATEGORY_LABELS: Record<Locale, Record<FaqCategory, string>> = 
   },
   en: {
     license: "License & Cost",
-    compare: "Comparisons",
     hardware: "Hardware",
     offline: "Offline",
     updates: "Updates",
@@ -41,16 +39,6 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       category: "license",
       q: "Bobine est-il vraiment 100% gratuit et sans redevance ?",
       a: "Oui. Logiciel libre sous licence AGPL-3.0 : aucun abonnement, aucune redevance par écran, aucun compte obligatoire. Vous êtes l'unique propriétaire de votre matériel et de vos médias.",
-    },
-    {
-      category: "compare",
-      q: "En quoi Bobine diffère-t-il d'un outil d'affichage publicitaire / dynamique (Anthias, Screenly, Xibo, Yodeck) ?",
-      a: "Les outils d'affichage dynamique généralistes font défiler des diaporamas ou des pages web en boucle, mais ils ne sont pas adaptés aux studios de fitness : pas de planning de cours programmés à la seconde, pas de borne tactile membre pour lancer un cours à la demande, pas de télécommande smartphone par QR code et pas de radio 24/7 avec fondu sonore. Bobine est spécialement pensé comme une régie de cours collectifs.",
-    },
-    {
-      category: "compare",
-      q: "En quoi Bobine remplace-t-il les régies propriétaires comme Wexer ou Spivi ?",
-      a: "Même expérience haut de gamme en salle (cours planifiés, borne tactile membre à la demande, diffusion 1080p60/4K), mais sans abonnement exorbitant (0 € vs 150-400 €/mois) et sans catalogue imposé. Vous êtes propriétaire de vos appareils et tout tourne 100% hors-ligne sur SSD local.",
     },
     {
       category: "offline",
@@ -120,7 +108,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "Comment changer de canal de mise à jour (Stable / Bêta / Canary) sur mon installation ?",
-      a: "Sur le panneau d'administration web, rendez-vous dans Réglages > Mises à jour logicielles et choisissez le canal souhaité. Sur une appliance dédiée CLI, vous pouvez également relancer l'installeur avec l'option --channel=stable, --channel=beta ou --channel=canary (ex : curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta). Le script du dépôt APT par Tor (install-tor.sh) accepte la même option --channel et pose la question sur un terminal quand elle est absente.",
+      a: "Sur le panneau d'administration web, rendez-vous dans Réglages > Mises à jour logicielles et choisissez le canal souhaité. Sur une appliance dédiée CLI, vous pouvez également relancer l'installeur avec l'option --channel=stable, --channel=beta ou --channel=canary (ex : curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta).",
     },
     {
       category: "updates",
@@ -143,19 +131,14 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       a: "Dans Réglages > Zone de danger, la désinstallation automatique déclenche le désinstalleur natif de votre plateforme (Polkit sur Linux .deb/.rpm/.pkg.tar.zst, Inno Setup sur Windows, purge des LaunchAgents sous macOS, Intent Android, script bobine-uninstall sous Debian headless). L'opération nécessite la saisie explicite du mot de passe de sécurité « DÉSINSTALLER » pour éviter toute fausse manipulation.",
     },
     {
-      category: "compare",
+      category: "hardware",
       q: "Comment la Console Régie Coach (/coach) aide-t-elle les éducateurs sportifs ?",
       a: "La console coach responsive s'adapte à tous les écrans : sur tablette paysage ou PC, elle offre un pupitre audio avec boutons 64px, un minuteur précis interpolé à 10 Hz, le retour vidéo direct Stage Monitor 16:9 de la salle et une palette d'ambiances visuelles 1-clic. Sur smartphone, elle bascule en vue monoposte avec tiroirs tactiles rétractables. Elle gère l'assignation d'ambiances vidéo différentes par piste musicale et démarre toujours en pause sécurisée pour laisser le coach s'installer.",
     },
     {
       q: "Quels navigateurs web sont pris en charge par famille (Chromium, Gecko/Firefox, WebKit/Safari) ?",
       a: "Bobine prend en charge les trois grandes familles de moteurs web pour l'administration, la régie coach (/coach) et les écrans réseau (/cinema, /kiosk, /radio) : 1) Famille Chromium / Blink (Google Chrome, Chromium, Microsoft Edge, Brave, Vivaldi sur Linux, Windows, macOS, Android et Google Book) avec Screen Wake Lock natif et décodage matériel ; 2) Famille Gecko (Mozilla Firefox 157+ sur bureau, Firefox pour Android, Firefox ESR et Tor Browser) vérifiée de bout en bout par des tests automatiques (reprise d'envoi de fichiers après coupure réseau, flux HTTP Range, transcodage H.264 automatique à la demande si une vidéo HEVC/10 bits n'est pas décodée matériellement) ; 3) Famille WebKit (Apple Safari sur macOS, iPadOS et iOS) idéale pour piloter le pupitre coach depuis un iPhone, un iPad ou un Mac. Un diagnostic local du navigateur est intégré dans les Réglages de Bobine.",
-      category: "compare",
-    },
-    {
-      q: "Puis-je installer et mettre à jour Bobine via Tor ?",
-      a: "Oui. Le dépôt APT et le site sont aussi disponibles en services onion (Tor), sans révéler votre adresse IP. Le plus simple est le script https://bobine.fit/install-tor.sh (à lire avant de l'exécuter), qui vérifie l'empreinte de la clé et accepte --channel=stable, --channel=beta ou --channel=canary : le dépôt onion publie les trois suites. À la main, installez apt-transport-tor puis utilisez la source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main (ou beta, canary) : les paquets restent signés par la même clé que https://packages.bobine.fit/bobine.gpg, vérifiée par apt (empreinte de la clé principale B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). Le site est aussi consultable dans Tor Browser : http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. L'assistant Baamix n'y est pas proposé afin d'éviter tout appel API externe.",
-      category: "updates",
+      category: "hardware",
     },
     {
       category: "security",
@@ -170,17 +153,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
       a: "Yes. Free and open-source software under the copyleft AGPL-3.0 license. Zero subscription fees, zero royalties per screen, and no user accounts. Your only investment is standard refurbished hardware.",
     },
     {
-      category: "compare",
-      q: "How does Bobine differ from general digital signage tools (Anthias, Screenly, Xibo, Yodeck)?",
-      a: "General digital signage players loop slides and ad banners, but lack fitness-specific features: second-precise scheduled class timetables, interactive touch member kiosk, QR-code smartphone remote, and 24/7 background audio with voice crossfade. Bobine is purpose-built for gym studio playout.",
-    },
-    {
-      category: "compare",
-      q: "How does Bobine replace proprietary systems like Wexer or Spivi?",
-      a: "Same premium studio workout experience — automated weekly timetables, on-demand member touchscreen kiosk, 1080p60/4K playout — without recurring monthly fees ($0 vs $150-$400/mo) or locked catalogs. You own your devices, and playback is 100% offline from local SSD.",
-    },
-    {
-      category: "compare",
+      category: "hardware",
       q: "How does the Responsive Coach Console (/coach) assist fitness instructors?",
       a: "The responsive coach console adapts to all screens: on landscape tablets or desktop PCs, it features an audio desk with 64px touch targets, a precise timer interpolated at 10 Hz, a live 16:9 Stage Monitor feed of the studio screen, and a 1-click visual ambiance palette. On smartphones, it switches to a single-operator view with retractable touch drawers. It supports per-track video ambiance assignment and always starts in safe pause mode so instructors can settle in.",
     },
@@ -252,7 +225,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "How do I switch between Stable, Beta and Canary update channels on my setup?",
-      a: "From the web administration dashboard, go to Settings > Software Updates and pick the channel you want. On a dedicated headless CLI appliance, you can run the installer with --channel=stable, --channel=beta or --channel=canary (e.g. curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta). The script for the APT repository over Tor (install-tor.sh) accepts the same --channel option and asks on a terminal when it is missing.",
+      a: "From the web administration dashboard, go to Settings > Software Updates and pick the channel you want. On a dedicated headless CLI appliance, you can run the installer with --channel=stable, --channel=beta or --channel=canary (e.g. curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta).",
     },
     {
       category: "updates",
@@ -277,12 +250,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       q: "Which web browsers are supported by engine family (Chromium, Gecko/Firefox, WebKit/Safari)?",
       a: "Bobine supports all three major browser engine families for administration, the coach console (/coach), and network screens (/cinema, /kiosk, /radio): 1) Chromium / Blink family (Google Chrome, Chromium, Microsoft Edge, Brave, Vivaldi on Linux, Windows, macOS, Android, and Google Book) with native Screen Wake Lock and hardware decoding; 2) Gecko family (Mozilla Firefox 157+ on desktop, Firefox for Android, Firefox ESR, and Tor Browser) verified end-to-end by automated tests (resumable file uploads after network drops, HTTP Range video streams, on-demand H.264 fallback transcoding when a browser cannot hardware-decode HEVC/10-bit); 3) WebKit family (Apple Safari on macOS, iPadOS, and iOS), ideal for controlling the coach desk from an iPhone, iPad, or Mac. A local browser diagnostic tool is built into Bobine Settings.",
-      category: "compare",
-    },
-    {
-      q: "Can I install and update Bobine over Tor?",
-      a: "Yes. The APT repository and the website are also available as onion services (Tor), without revealing your IP address. The simplest way is the https://bobine.fit/install-tor.sh script (read it before running it), which checks the key fingerprint and accepts --channel=stable, --channel=beta or --channel=canary: the onion repository publishes all three suites. By hand, install apt-transport-tor, then use the source tor+http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/ stable main (or beta, canary): packages remain signed by the same key, checked by apt (primary key fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A). The site can also be browsed in Tor Browser: http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/. The Baamix assistant is not offered there to preserve complete network autonomy and privacy.",
-      category: "updates",
+      category: "hardware",
     },
     {
       category: "security",
@@ -321,9 +289,9 @@ export const TROUBLESHOOTING_ROWS: Record<Locale, TroubleshootRow[]> = {
       solution: "Vérifiez avec 'vainfo'. Installez le pilote adapté : intel-media-va-driver-non-free (Intel) ou mesa-va-drivers (AMD Radeon).",
     },
     {
-      issue: "Conflit de port 8000 / 8001",
-      cause: "Un ancien processus orphelin occupe le port web",
-      solution: "Tuez le processus bloquant avec 'sudo fuser -k 8000/tcp' puis relancez les services.",
+      issue: "Le port 1903 est déjà pris",
+      cause: "Une autre application ou une ancienne instance de Bobine l'occupe",
+      solution: "Bobine se replie seul sur un port libre. Sur l'appliance, où le port est fixe, libérez-le avec 'sudo fuser -k 1903/tcp' puis relancez le service.",
     },
     {
       issue: "Échec de restauration d'une sauvegarde ZIP",
@@ -353,9 +321,9 @@ export const TROUBLESHOOTING_ROWS: Record<Locale, TroubleshootRow[]> = {
       solution: "Run 'vainfo'. Verify intel-media-va-driver-non-free (Intel) or mesa-va-drivers (AMD Radeon) is installed.",
     },
     {
-      issue: "Port 8000 / 8001 Conflict",
-      cause: "Stale process holding web server port",
-      solution: "Kill lingering processes with 'sudo fuser -k 8000/tcp' and restart services.",
+      issue: "Port 1903 already in use",
+      cause: "Another application or a previous Bobine instance holds it",
+      solution: "Bobine falls back to a free port on its own. On the appliance, where the port is fixed, free it with 'sudo fuser -k 1903/tcp' and restart the service.",
     },
     {
       issue: "Restoring a ZIP backup fails",

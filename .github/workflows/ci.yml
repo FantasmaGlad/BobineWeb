@@ -72,8 +72,6 @@ jobs:
           git clone --depth 1 https://github.com/FantasmaGlad/Bobine.git "$BOBINE_SOURCE_DIR"
           npm run test:rag
           node scripts/ci/check-theme-parity.mjs "$BOBINE_SOURCE_DIR"
-      - name: Limite de débit et bornes de /api/chat
-        run: node --test scripts/ci/chat-limits.test.mjs
       - name: Cliquet de jetons (tests d’injection)
         run: node --test scripts/ci/style-tokens.test.mjs
       - name: Export des jetons à jour
@@ -110,9 +108,8 @@ jobs:
         run: node scripts/ci/check-built-glass.mjs
       - name: Fils d'Ariane (un seul par page, adresses dans la langue de la page)
         run: node scripts/ci/check-breadcrumbs.mjs
-      - name: Comparatifs (parité, sources et structure FR/EN)
+      - name: Discours et origine de déploiement
         run: |
-          node scripts/ci/check-comparisons.mjs
           node scripts/ci/check-marketing.mjs
           node --test scripts/ci/deployment-origin.test.mjs
       - name: Géométrie mobile et cibles tactiles

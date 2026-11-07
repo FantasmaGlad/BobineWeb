@@ -19,15 +19,6 @@ export default function GlobalNotFound() {
       <body>
         <div className="not-found-div-3"
         >
-          {/* Illustration Baamix Inspecteur */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/BaamixInspector.webp"
-            alt="Baamix Inspecteur"
-            width={180}
-            height={250} className="not-found-img-1"
-          />
-
           <h1 className="not-found-h1-2"
           >
             Erreur 404 · Page introuvable

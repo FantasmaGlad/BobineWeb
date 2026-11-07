@@ -11,14 +11,11 @@
   ],
   "typescriptColorFiles": [
     "src/lib/themePalettes.ts",
-    "src/lib/pdf/DocumentationPdf.tsx",
-    "src/lib/pdf/icons.tsx",
     "src/app/[locale]/opengraph-image.tsx",
     "src/components/icons/AndroidIcon.tsx",
     "src/components/icons/AndroidTvIcon.tsx",
     "src/components/icons/AppleIcon.tsx",
     "src/components/icons/LinuxIcon.tsx",
-    "src/components/icons/PdfIcon.tsx",
     "src/components/icons/TauriIcon.tsx",
     "src/components/icons/WindowsIcon.tsx",
     "src/components/TerminalDemo.tsx",
@@ -26,7 +23,7 @@
   ],
   "reasons": {
     "cssColorSelectors": "Palettes de terminal et marque GitHub : couleurs éditoriales indépendantes du thème.",
-    "typescriptColorFiles": "Palettes des thèmes, impression PDF, image sociale et couleurs officielles des marques. Les dimensions restent contrôlées hors impression.",
+    "typescriptColorFiles": "Palettes des thèmes, image sociale et couleurs officielles des marques. Les dimensions restent contrôlées hors impression.",
     "print": "L’impression impose une palette opaque indépendante du thème à l’écran."
   }
 }

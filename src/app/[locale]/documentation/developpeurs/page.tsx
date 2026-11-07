@@ -1,483 +1,98 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
-
-
 import CodeBlock from "@/components/CodeBlock";
-import InteractiveTerminal from "@/components/InteractiveTerminal";
 import { buildMetadata, lp } from "@/lib/seo";
 import ShareButton from "@/components/ShareButton";
-import DownloadPdfButton from "@/components/DownloadPdfButton";
 import BreadcrumbsJsonLd from "@/components/BreadcrumbsJsonLd";
-import { ONION_APT_HOST, ONION_SITE_HOST, TOR_PROJECT_URL, TOR_SOURCE_URL } from "@/lib/onion";
 import "@/styles/split/pages-docs.css";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+const REPO = "https://github.com/FantasmaGlad/Bobine";
+
+const TEXT = {
+  fr: {
+    title: "Documentation développeurs",
+    description: "Pile technique, API locale et contribution au code de Bobine, logiciel libre sous AGPL-3.0.",
+    crumb: "Développeurs",
+    h1: "Développeurs",
+    lead: "Bobine est un seul processus local : FastAPI et SQLite côté serveur, Next.js côté interface. Le code, l'architecture et les règles de contribution sont sur GitHub.",
+    stackTitle: "Pile",
+    stack: [
+      "Serveur : Python 3.11+, FastAPI, SQLite (SQLAlchemy).",
+      "Interface : Next.js, React, TypeScript.",
+      "Lecture : mpv avec décodage matériel quand il est disponible.",
+      "Assistant d'installation et composants natifs : Rust.",
+    ],
+    apiTitle: "API locale",
+    api: "Bobine écoute sur le port 1903 (variable BOBINE_PORT). S'il est déjà pris, Bobine se replie sur un port libre. La documentation interactive de l'API est servie par l'application elle-même :",
+    contribTitle: "Contribuer",
+    contrib: "Lisez CONTRIBUTING.md et docs/ARCHITECTURE.md avant d'ouvrir une pull request. Les failles se signalent en privé (SECURITY.md).",
+  },
+  en: {
+    title: "Developer documentation",
+    description: "Tech stack, local API and contributing to Bobine, free software under AGPL-3.0.",
+    crumb: "Developers",
+    h1: "Developers",
+    lead: "Bobine is a single local process: FastAPI and SQLite on the server side, Next.js for the interface. Code, architecture and contribution rules live on GitHub.",
+    stackTitle: "Stack",
+    stack: [
+      "Server: Python 3.11+, FastAPI, SQLite (SQLAlchemy).",
+      "Interface: Next.js, React, TypeScript.",
+      "Playback: mpv, with hardware decoding when available.",
+      "Setup assistant and native components: Rust.",
+    ],
+    apiTitle: "Local API",
+    api: "Bobine listens on port 1903 (BOBINE_PORT variable). If it is taken, Bobine falls back to a free port. The interactive API documentation is served by the application itself:",
+    contribTitle: "Contributing",
+    contrib: "Read CONTRIBUTING.md and docs/ARCHITECTURE.en.md before opening a pull request. Vulnerabilities are reported privately (SECURITY.md).",
+  },
+} as const;
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const isEn = locale === "en";
-  return buildMetadata({
-    locale: locale as Locale,
-    pathname: "/documentation/developpeurs",
-    title: isEn
-      ? "Developer Reference & REST API Documentation — Bobine"
-      : "Documentation Développeurs & API REST — Bobine | Régie Vidéo Libre",
-    description: isEn
-      ? "Complete technical reference for software engineers: local REST API endpoints, WebSockets protocol, systemd architecture, and AGPL-3.0 development."
-      : "Référence technique complète pour développeurs : endpoints de l'API REST locale, protocole WebSockets, architecture des services systemd et code source.",
-    keywords: [
-      "API REST Bobine",
-      "Documentation développeurs Bobine",
-      "WebSockets régie vidéo",
-      "Architecture logicielle Bobine",
-      "systemd Bobine",
-      "Gym playout developer API",
-    ],
-  });
+  const t = TEXT[locale];
+  return buildMetadata({ locale: locale as Locale, pathname: "/documentation/developpeurs", title: t.title, description: t.description });
 }
 
-export default async function DeveloppeursPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function DeveloppeursPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const isEn = locale === "en";
-
+  const t = TEXT[locale];
   const breadcrumbs = [
     { name: "Bobine", url: `/${locale}` },
     { name: "Documentation", url: `/${locale}/documentation` },
-    { name: isEn ? "Developers" : "Développeurs", url: lp(locale, `/documentation/developpeurs`) },
+    { name: t.crumb, url: lp(locale, `/documentation/developpeurs`) },
   ];
 
-  return isEn ? (
+  return (
     <>
       <BreadcrumbsJsonLd items={breadcrumbs} />
       <div className="dx-div-1">
-        <div>
-          <span className="feature-category-label">Architecture & API Reference</span>
-          <h1 className="dx-h1-1">Developer Documentation & Architecture</h1>
-        </div>
+        <h1 className="dx-h1-1">{t.h1}</h1>
         <div className="dx-div-2">
-          <DownloadPdfButton locale={locale as Locale} chapterId="developpeurs" />
-          <ShareButton
-            locale={locale as Locale}
-            pathname="/documentation/developpeurs"
-            title="Bobine Developer Documentation & Architecture"
-            description="Technical reference, REST API, WebSockets and architectural overview of Bobine."
-          />
+          <ShareButton locale={locale as Locale} pathname="/documentation/developpeurs" title={t.title} description={t.description} />
         </div>
       </div>
 
       <p>
-        This documentation provides an in-depth reference for software engineers and integrators working with the Bobine platform: architecture, local REST API endpoints, real-time WebSocket protocol, background systemd supervisors, and AGPL-3.0 contribution guidelines.
+        {t.lead} <a href={REPO} target="_blank" rel="noopener noreferrer">github.com/FantasmaGlad/Bobine</a>
       </p>
 
-      <div className="docs-callout docs-callout--info">
-        <div className="docs-callout__content">
-          <div className="docs-callout__title">100% Local & Privacy-Preserving</div>
-          <div>All APIs and WebSocket streams run exclusively on the local network (LAN / Wi-Fi) of the mini PC. No media, authentication keys, or analytics are ever transmitted to third-party cloud servers.</div>
-        </div>
-      </div>
+      <h2 id="stack">{t.stackTitle}</h2>
+      <ul>{t.stack.map((line) => <li key={line}>{line}</li>)}</ul>
 
-      <h2 id="software-stack">Software Stack</h2>
-      <div className="docs-table-wrapper">
-        <table className="docs-table">
-          <thead>
-            <tr>
-              <th>Layer</th>
-              <th>Technology</th>
-              <th>Role & Responsibility</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Backend API</strong></td>
-              <td>Python 3.11+, FastAPI, Uvicorn</td>
-              <td>High-throughput asynchronous REST API and WebSocket events</td>
-            </tr>
-            <tr>
-              <td><strong>Persistence</strong></td>
-              <td>SQLite + SQLAlchemy 2.0</td>
-              <td>Workout metadata, weekly schedules, playlists, and settings</td>
-            </tr>
-            <tr>
-              <td><strong>Playout Engine</strong></td>
-              <td>MPV + VA-API (Intel iHD & AMD mesa-va-drivers)</td>
-              <td>Zero-copy hardware video decoding (1080p60 & 4K) via IPC Unix socket</td>
-            </tr>
-            <tr>
-              <td><strong>Frontend UI</strong></td>
-              <td>Next.js 16 (App Router), React 19, TS</td>
-              <td>Universal responsive web app (Admin, Kiosk, Remote, Radio)</td>
-            </tr>
-            <tr>
-              <td><strong>Audio Routing</strong></td>
-              <td>ALSA</td>
-              <td>Multi-channel audio output routing and volume control</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2 id="local-development">Local Development Workflow & Interactive API Console</h2>
-      <p>Prerequisites: Node.js ≥ 20, Python ≥ 3.11.</p>
-
-      <InteractiveTerminal
-        locale={locale as Locale}
-        preset="developer"
-        title="bash — bobine dev environment & api console"
-      />
-
-      <h2 id="rest-api-reference">Local REST API Reference</h2>
-      <p>
-        The Bobine daemon exposes a clean, typed REST API on <code>http://bobine.local/api</code> (or <code>http://127.0.0.1:8000/api</code>):
-      </p>
-
-      <div className="docs-api-card" id="api-health">
-        <div className="docs-api-header">
-          <span className="docs-method-badge docs-method--get">GET</span>
-          <span className="docs-api-endpoint">/api/health</span>
-        </div>
-        <p>Machine-readable health check endpoint queried continuously by the systemd watchdog.</p>
-        <CodeBlock>
-          <code>{`// Response (200 OK)
-{
-  "status": "healthy",
-  "database": "ok",
-  "kiosk_active": true,
-  "uptime_seconds": 86420
-}`}</code>
-        </CodeBlock>
-      </div>
-
-      <div className="docs-api-card" id="api-status">
-        <div className="docs-api-header">
-          <span className="docs-method-badge docs-method--get">GET</span>
-          <span className="docs-api-endpoint">/api/status</span>
-        </div>
-        <p>Returns the real-time playback state, active workout, progress, and screen routing status.</p>
-        <CodeBlock>
-          <code>{`// Response (200 OK)
-{
-  "state": "playing",
-  "current_workout": {
-    "id": "w_982a7f",
-    "title": "RPM Sprint 45",
-    "category": "Spinning",
-    "duration_seconds": 2700
-  },
-  "timecode": 1420.5,
-  "volume": 80,
-  "next_scheduled_class": {
-    "title": "Yoga Vinyasa",
-    "starts_in_seconds": 840
-  }
-}`}</code>
-        </CodeBlock>
-      </div>
-
-      <div className="docs-api-card" id="api-playout-play">
-        <div className="docs-api-header">
-          <span className="docs-method-badge docs-method--post">POST</span>
-          <span className="docs-api-endpoint">/api/playout/play</span>
-        </div>
-        <p>Starts immediate video playout for a specified workout ID.</p>
-        <CodeBlock>
-          <code>{`// Request body
-{ "workout_id": "w_982a7f", "target_display": "hdmi_wired" }
-
-// Response (200 OK)
-{ "success": true, "message": "Playout started" }`}</code>
-        </CodeBlock>
-      </div>
-
-      <div className="docs-api-card" id="api-playout-volume">
-        <div className="docs-api-header">
-          <span className="docs-method-badge docs-method--post">POST</span>
-          <span className="docs-api-endpoint">/api/playout/volume</span>
-        </div>
-        <p>Adjusts master hardware sound volume level (0 to 100).</p>
-        <CodeBlock>
-          <code>{`// Request body
-{ "level": 85 }
-
-// Response (200 OK)
-{ "success": true, "current_volume": 85 }`}</code>
-        </CodeBlock>
-      </div>
-
-      <div className="docs-api-card" id="api-backup-export">
-        <div className="docs-api-header">
-          <span className="docs-method-badge docs-method--post">POST</span>
-          <span className="docs-api-endpoint">/api/backup/export</span>
-        </div>
-        <p>Generates a full ZIP export of the video library, schedule, and settings for backup or migration.</p>
-      </div>
-
-      <h2 id="websocket-events">Real-Time WebSocket Protocol</h2>
-      <div className="docs-api-header dx-div-3">
-        <span className="docs-method-badge docs-method--ws">WS</span>
-        <span className="docs-api-endpoint">/ws/events</span>
-      </div>
-      <p>
-        Clients connect to <code>ws://bobine.local/ws/events</code> to receive instantaneous state changes across all devices:
-      </p>
-
+      <h2 id="api">{t.apiTitle}</h2>
+      <p>{t.api}</p>
       <CodeBlock>
-        <code>{`// Broadcast event on state change:
-{
-  "event": "PLAYBACK_STATE_CHANGED",
-  "payload": {
-    "state": "playing",
-    "workout_id": "w_982a7f",
-    "timecode": 45.2,
-    "volume": 80
-  }
-}`}</code>
+        <code>http://127.0.0.1:1903/docs</code>
       </CodeBlock>
 
-      <h2 id="systemd-services">Systemd Supervisor Architecture</h2>
-      <p>Bobine is managed by 3 isolated systemd services for fault tolerance:</p>
-      <ul>
-        <li><code>bobine-backend.service</code> — Python FastAPI application and SQLite daemon.</li>
-        <li><code>bobine-kiosk.service</code> — Lightweight X11 session running Chromium in kiosk mode displaying the wired cinema screen.</li>
-        <li><code>bobine-watchdog.service</code> — Proactive health supervisor polling <code>/api/health</code> every 10s and triggering automated component restarts if needed.</li>
-      </ul>
-
-      <h2 id="contributing-community">Community, Contact & Contribution</h2>
+      <h2 id="contribuer">{t.contribTitle}</h2>
       <p>
-        Bobine is licensed under the <strong>AGPL-3.0</strong> copyleft license. We welcome contributions, bug reports, and hardware compatibility tests.
+        {t.contrib} <a href={`${REPO}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noopener noreferrer">CONTRIBUTING.md</a>
       </p>
 
-      <h2 id="tor-distribution">Distribution over Tor (.onion)</h2>
-      <p>
-        To support the free-software community and the Tor project, I also distribute Bobine as two onion services (v3), with no visit log and on a best-effort basis:
-      </p>
-      <ul>
-        <li>Website: <code>http://{ONION_SITE_HOST}/</code></li>
-        <li>APT repository: <code>tor+http://{ONION_APT_HOST}/</code> (same signing key as packages.bobine.fit/debian, checked by <code>apt</code>; install <code>apt-transport-tor</code> first)</li>
-      </ul>
-      <p>
-        The mirror is a static export of this site with no server-side route, and the hardware store and the Baamix assistant are deliberately not offered there. Learn more about Tor: <a href={TOR_PROJECT_URL} target="_blank" rel="noopener noreferrer">torproject.org</a> and its <a href={TOR_SOURCE_URL} target="_blank" rel="noopener noreferrer">source code on GitHub</a>.
-      </p>
-    </>
-  ) : (
-    <>
-      <BreadcrumbsJsonLd items={breadcrumbs} />
-      <div className="dx-div-1">
-        <div>
-          <span className="feature-category-label">Architecture & Référence API</span>
-          <h1 className="dx-h1-1">Documentation Développeurs & Architecture</h1>
-        </div>
-        <div className="dx-div-2">
-          <DownloadPdfButton locale={locale as Locale} chapterId="developpeurs" />
-          <ShareButton
-            locale={locale as Locale}
-            pathname="/documentation/developpeurs"
-            title="Documentation Développeurs Bobine"
-            description="Synthèse technique de l'architecture logicielle, des APIs REST et des WebSockets de Bobine."
-          />
-        </div>
-      </div>
-
-      <p>
-        Cette documentation constitue la référence technique pour les développeurs et intégrateurs du système Bobine : architecture système, endpoints de l&apos;API REST locale, protocole d&apos;événements WebSockets temps réel, superviseurs systemd et guide de contribution AGPL-3.0.
-      </p>
-
-      <div className="docs-callout docs-callout--info">
-        <div className="docs-callout__content">
-          <div className="docs-callout__title">100% Local & Respect de la vie privée</div>
-          <div>L&apos;ensemble des APIs et flux WebSockets s&apos;exécute exclusivement sur le réseau local (LAN / Wi-Fi) du mini PC. Aucun média, clé d&apos;authentification ou donnée télémétrique n&apos;est transmis à des serveurs tiers.</div>
-        </div>
-      </div>
-
-      <h2 id="stack-technique">Stack Technique Détaillée</h2>
-      <div className="docs-table-wrapper">
-        <table className="docs-table">
-          <thead>
-            <tr>
-              <th>Couche</th>
-              <th>Technologie</th>
-              <th>Rôle & Responsabilité</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Backend API</strong></td>
-              <td>Python 3.11+, FastAPI, Uvicorn</td>
-              <td>API REST asynchrone ultra-rapide et gestion des connexions WebSockets</td>
-            </tr>
-            <tr>
-              <td><strong>Persistance</strong></td>
-              <td>SQLite + SQLAlchemy 2.0</td>
-              <td>Métadonnées des vidéos, planning hebdomadaire, playlists et paramètres</td>
-            </tr>
-            <tr>
-              <td><strong>Moteur de Lecture</strong></td>
-              <td>MPV + VA-API (Intel iHD & AMD mesa-va-drivers)</td>
-              <td>Décodage matériel vidéo zero-copy (1080p60 et 4K) piloté via socket IPC Unix</td>
-            </tr>
-            <tr>
-              <td><strong>Interface Frontend</strong></td>
-              <td>Next.js 16 (App Router), React 19, TS</td>
-              <td>Application web universelle et réactive (Admin, Kiosque, Télécommande, Radio)</td>
-            </tr>
-            <tr>
-              <td><strong>Routage Audio</strong></td>
-              <td>ALSA</td>
-              <td>Routage de la sortie audio multi-canaux et gestion du volume</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2 id="developpement-local">Développement Local & Console Interactive d&apos;API</h2>
-      <p>Prérequis : Node.js ≥ 20, Python ≥ 3.11.</p>
-
-      <InteractiveTerminal
-        locale={locale as Locale}
-        preset="developer"
-        title="bash — environnement dev & console api bobine"
-      />
-
-      <h2 id="reference-api-rest">Référence de l&apos;API REST Locale</h2>
-      <p>
-        Le démon Bobine expose une API REST complète et typée sur <code>http://bobine.local/api</code> (ou <code>http://127.0.0.1:8000/api</code>) :
-      </p>
-
-      <div className="docs-api-card" id="api-health">
-        <div className="docs-api-header">
-          <span className="docs-method-badge docs-method--get">GET</span>
-          <span className="docs-api-endpoint">/api/health</span>
-        </div>
-        <p>Point de contrôle de santé machine interrogé en continu par le chien de garde systemd.</p>
-        <CodeBlock>
-          <code>{`// Réponse JSON (200 OK)
-{
-  "status": "healthy",
-  "database": "ok",
-  "kiosk_active": true,
-  "uptime_seconds": 86420
-}`}</code>
-        </CodeBlock>
-      </div>
-
-      <div className="docs-api-card" id="api-status">
-        <div className="docs-api-header">
-          <span className="docs-method-badge docs-method--get">GET</span>
-          <span className="docs-api-endpoint">/api/status</span>
-        </div>
-        <p>Retourne l&apos;état de diffusion en temps réel, le cours en cours, le timecode et le volume.</p>
-        <CodeBlock>
-          <code>{`// Réponse JSON (200 OK)
-{
-  "state": "playing",
-  "current_workout": {
-    "id": "w_982a7f",
-    "title": "RPM Sprint 45",
-    "category": "Spinning",
-    "duration_seconds": 2700
-  },
-  "timecode": 1420.5,
-  "volume": 80,
-  "next_scheduled_class": {
-    "title": "Yoga Vinyasa",
-    "starts_in_seconds": 840
-  }
-}`}</code>
-        </CodeBlock>
-      </div>
-
-      <div className="docs-api-card" id="api-playout-play">
-        <div className="docs-api-header">
-          <span className="docs-method-badge docs-method--post">POST</span>
-          <span className="docs-api-endpoint">/api/playout/play</span>
-        </div>
-        <p>Déclenche la lecture immédiate d&apos;une vidéo par son identifiant unique.</p>
-        <CodeBlock>
-          <code>{`// Corps de requête
-{ "workout_id": "w_982a7f", "target_display": "hdmi_wired" }
-
-// Réponse JSON (200 OK)
-{ "success": true, "message": "Lecture démarrée" }`}</code>
-        </CodeBlock>
-      </div>
-
-      <div className="docs-api-card" id="api-playout-volume">
-        <div className="docs-api-header">
-          <span className="docs-method-badge docs-method--post">POST</span>
-          <span className="docs-api-endpoint">/api/playout/volume</span>
-        </div>
-        <p>Ajuste le volume sonore général de la salle (valeur de 0 à 100).</p>
-        <CodeBlock>
-          <code>{`// Corps de requête
-{ "level": 85 }
-
-// Réponse JSON (200 OK)
-{ "success": true, "current_volume": 85 }`}</code>
-        </CodeBlock>
-      </div>
-
-      <div className="docs-api-card" id="api-backup-export">
-        <div className="docs-api-header">
-          <span className="docs-method-badge docs-method--post">POST</span>
-          <span className="docs-api-endpoint">/api/backup/export</span>
-        </div>
-        <p>Génère une archive ZIP complète de la vidéothèque, du planning et des réglages pour sauvegarde ou migration.</p>
-      </div>
-
-      <h2 id="flux-websockets">Protocole d&apos;Événements WebSockets</h2>
-      <div className="docs-api-header dx-div-3">
-        <span className="docs-method-badge docs-method--ws">WS</span>
-        <span className="docs-api-endpoint">/ws/events</span>
-      </div>
-      <p>
-        Les interfaces clientes se connectent à <code>ws://bobine.local/ws/events</code> pour recevoir les mises à jour en direct :
-      </p>
-
-      <CodeBlock>
-        <code>{`// Message JSON diffusé à tous les clients connectés :
-{
-  "event": "PLAYBACK_STATE_CHANGED",
-  "payload": {
-    "state": "playing",
-    "workout_id": "w_982a7f",
-    "timecode": 45.2,
-    "volume": 80
-  }
-}`}</code>
-      </CodeBlock>
-
-      <h2 id="services-systemd">Architecture des Services Systemd</h2>
-      <p>Bobine est orchestré par 3 unités systemd indépendantes :</p>
-      <ul>
-        <li><code>bobine-backend.service</code> — Application FastAPI Python et démon SQLite.</li>
-        <li><code>bobine-kiosk.service</code> — Session graphique X11 allégée affichant Chromium en plein écran sur la TV.</li>
-        <li><code>bobine-watchdog.service</code> — Superviseur de résilience interrogeant <code>/api/health</code> toutes les 10s avec relance automatique.</li>
-      </ul>
-
-      <h2 id="contact-communaute">Communauté, Contact & Contribution</h2>
-      <p>
-        Bobine est publié sous licence <strong>AGPL-3.0</strong>. Les contributions de code, rapports de bugs et retours d&apos;expérience matériel sont les bienvenus.
-      </p>
-
-      <h2 id="distribution-tor">Distribution via Tor (.onion)</h2>
-      <p>
-        En soutien à la communauté du logiciel libre et au projet Tor, je distribue aussi Bobine via deux services onion (v3), sans journal de visite et avec une disponibilité au mieux :
-      </p>
-      <ul>
-        <li>Site : <code>http://{ONION_SITE_HOST}/</code></li>
-        <li>Dépôt APT : <code>tor+http://{ONION_APT_HOST}/</code> (même clé de signature que packages.bobine.fit/debian, vérifiée par <code>apt</code> ; installer d&apos;abord <code>apt-transport-tor</code>)</li>
-      </ul>
-      <p>
-        Le miroir est un export statique de ce site, sans aucune route serveur ; l&apos;assistant Baamix n&apos;y est volontairement pas proposé afin d&apos;éviter tout appel externe. Pour en savoir plus sur Tor : <a href={TOR_PROJECT_URL} target="_blank" rel="noopener noreferrer">torproject.org</a> et son <a href={TOR_SOURCE_URL} target="_blank" rel="noopener noreferrer">code source sur GitHub</a>.
-      </p>
     </>
   );
 }

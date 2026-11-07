@@ -17,9 +17,7 @@
   align-items: center;
   gap: 0.5rem;
 }
-.dx-div-3.dx-div-3 {
-  margin-bottom: 0.65rem;
-}
+
 .dx-div-4.dx-div-4 {
   display: flex;
   justify-content: space-between;
@@ -43,15 +41,7 @@
   font-weight: 600;
   text-decoration: none;
 }
-.dx-div-5.dx-div-5 {
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-.dx-p-3.dx-p-3 {
-  margin: 0;
-  color: var(--text-muted);
-}
+
 .dx-h1-2.dx-h1-2 {
   margin: 0;
   font-size: var(--fs-clamp-1-75rem-3-5vw-2-4rem);
@@ -148,13 +138,7 @@
   color: var(--text-heading);
   margin-bottom: 0.75rem;
 }
-.dx-h2-3.dx-h2-3 {
-  font-size: var(--fs-1-3rem);
-  font-weight: 750;
-  color: var(--text-heading);
-  margin-top: 2rem;
-  margin-bottom: 0.75rem;
-}
+
 .dx-div-11.dx-div-11 {
   margin-top: 2rem;
 }
@@ -191,17 +175,7 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.dx-div-17.dx-div-17 {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.35rem;
-}
-.dx-p-7.dx-p-7 {
-  margin-top: 0.6rem;
-  font-size: var(--fs-0-85rem);
-  color: var(--text-muted);
-}
+
 .dx-div-18.dx-div-18 {
   margin-top: 1.5rem;
 }
@@ -247,9 +221,7 @@
   padding-bottom: 0.5rem;
   padding-top: 1rem;
 }
-.dx-div-22.dx-div-22 {
-  min-height: 380px;
-}
+
 .dx-tab.dx-tab {
   padding: 0.4rem 0.8rem;
   border-radius: var(--radius-0-45rem);

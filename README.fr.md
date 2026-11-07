@@ -1,6 +1,6 @@
 # bobine.fit
 
-Site web officiel de **Bobine**, système de régie vidéo libre, autonome et hors-ligne pour salles de sport, studios de cycling et cinémas associatifs : vitrine, documentation, comparatifs, guide matériel et assistant Baamix.
+Site web officiel de **Bobine**, système de régie vidéo libre, autonome et hors-ligne pour salles de sport, studios de cycling et cinémas associatifs : vitrine et documentation.
 
 [![Déploiement](https://github.com/FantasmaGlad/BobineWeb/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/FantasmaGlad/BobineWeb/actions/workflows/deploy.yml)
 [![CodeQL](https://github.com/FantasmaGlad/BobineWeb/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/FantasmaGlad/BobineWeb/actions/workflows/codeql.yml)

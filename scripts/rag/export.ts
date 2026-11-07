@@ -70,9 +70,5 @@ export function exportWeb(root: string, bobineRoot: string): SourceDocument[] {
       source_url: `https://github.com/FantasmaGlad/Bobine/blob/${revision}/${file}`,
       text: readFileSync(path, "utf8") }));
   }
-  for (const file of ["src/content/compare.ts"]) output.push(...chunked({
-    key: `specs/web/${file}`, title: `BobineWeb — ${file}`, locale: "multi", platform: "spec",
-    source_url: `https://github.com/FantasmaGlad/BobineWeb/blob/main/${file}`, text: readFileSync(join(root, file), "utf8"),
-  }));
   return output;
 }

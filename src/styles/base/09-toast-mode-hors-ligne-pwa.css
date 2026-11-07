@@ -97,14 +97,12 @@
 }
 
 @media (max-width: 600px) {
-
   .offline-toast {
     left: 1rem;
     right: 1rem;
     max-width: calc(100vw - 2rem);
     bottom: 5rem;
   }
-
 }
 
 /* ==========================================================================
@@ -135,14 +133,6 @@
   background: var(--bg-surface-hover);
   border-color: var(--accent-text);
   color: var(--accent-text);
-}
-
-.download-pdf-label--full {
-  display: inline;
-}
-
-.download-pdf-label--short {
-  display: none;
 }
 
 .share-dropdown-panel {
@@ -333,7 +323,6 @@
 }
 
 @media (max-width: 640px) {
-
   .share-backdrop {
     display: block;
     position: fixed;
@@ -349,14 +338,6 @@
     font-size: var(--fs-0-775rem);
     gap: 0.35rem;
     flex-shrink: 0;
-  }
-
-  .download-pdf-label--full {
-    display: none;
-  }
-
-  .download-pdf-label--short {
-    display: inline;
   }
 
   .share-dropdown-panel {
@@ -377,5 +358,4 @@
     from { opacity: 0; transform: translateY(16px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
 }

@@ -30,6 +30,3 @@ document.documentElement.classList.add('js');
     document.documentElement.setAttribute('data-mode', effective(r.mode));
   } catch (e) {}
 })();
-
-// Compatibilité des anciens liens français du jeu.
-if (location.pathname === '/snake/' && new URLSearchParams(location.search).get('lang') === 'fr') location.replace('/fr/snake/' + location.hash);

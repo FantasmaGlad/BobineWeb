@@ -36,24 +36,6 @@
       "footer": "product"
     },
     {
-      "id": "baamix",
-      "path": "/baamix",
-      "kind": "leaf",
-      "label": {
-        "fr": "Assistant IA Baamix",
-        "en": "Baamix AI assistant"
-      },
-      "description": {
-        "fr": "La mascotte de Bobine et son assistant pour répondre à vos questions.",
-        "en": "Bobine's mascot and the assistant that answers your questions."
-      },
-      "priority": 0.85,
-      "changeFrequency": "weekly",
-      "parent": "resources",
-      "icon": "icon:zap",
-      "footer": "product"
-    },
-    {
       "id": "download",
       "path": "/telechargement",
       "kind": "hub",
@@ -88,24 +70,6 @@
       "changeFrequency": "weekly",
       "parent": "download",
       "icon": "brand:os.linux",
-      "footer": "download"
-    },
-    {
-      "id": "tor",
-      "path": "/tor",
-      "kind": "leaf",
-      "label": {
-        "fr": "Tor (.onion)",
-        "en": "Tor (.onion)"
-      },
-      "description": {
-        "fr": "Miroir du site et dépôt de paquets accessibles par le réseau Tor.",
-        "en": "Site mirror and package repository reachable over the Tor network."
-      },
-      "priority": 0.8,
-      "changeFrequency": "monthly",
-      "parent": "download",
-      "icon": "brand:os.tor",
       "footer": "download"
     },
     {
@@ -179,74 +143,21 @@
       "icon": "icon:cpu"
     },
     {
-      "id": "compare",
-      "path": "/comparatif",
-      "kind": "hub",
-      "label": {
-        "fr": "Comparatifs",
-        "en": "Comparisons"
-      },
-      "description": {
-        "fr": "Bobine face aux solutions de diffusion pour salles de sport.",
-        "en": "Bobine compared with playout solutions for fitness studios."
-      },
-      "priority": 0.9,
-      "changeFrequency": "weekly",
-      "parent": "home",
-      "icon": "icon:layers",
-      "nav": true,
-      "footer": "compare"
-    },
-    {
-      "id": "compare-wexer",
-      "path": "/comparatif/wexer-fitness-on-demand",
+      "id": "docs-anon",
+      "path": "/documentation/anonymisation",
       "kind": "leaf",
       "label": {
-        "fr": "Wexer & Fitness On Demand",
-        "en": "Wexer & Fitness On Demand"
+        "fr": "Anonymisation",
+        "en": "Anonymization"
       },
       "description": {
-        "fr": "Comparatif avec Wexer et Fitness On Demand.",
-        "en": "Comparison with Wexer and Fitness On Demand."
+        "fr": "Installer et mettre à jour Bobine par Tor (services onion v3).",
+        "en": "Install and update Bobine over Tor (v3 onion services)."
       },
-      "priority": 0.9,
-      "changeFrequency": "weekly",
-      "parent": "compare",
-      "icon": "icon:video"
-    },
-    {
-      "id": "compare-radical",
-      "path": "/comparatif/radical-fitness-yako",
-      "kind": "leaf",
-      "label": {
-        "fr": "Radical Fitness & Yako",
-        "en": "Radical Fitness & Yako"
-      },
-      "description": {
-        "fr": "Comparatif avec Radical Fitness et Yako.",
-        "en": "Comparison with Radical Fitness and Yako."
-      },
-      "priority": 0.9,
-      "changeFrequency": "weekly",
-      "parent": "compare",
-      "icon": "icon:video"
-    },
-    {
-      "id": "compare-signage",
-      "path": "/comparatif/affichage-dynamique-fitness",
-      "kind": "leaf",
-      "label": {
-        "fr": "Affichage dynamique",
-        "en": "Digital signage"
-      },
-      "description": {
-        "fr": "Comparatif avec les solutions d'affichage dynamique.",
-        "en": "Comparison with digital signage solutions."
-      },
-      "priority": 0.9,
-      "changeFrequency": "weekly",
-      "parent": "compare",
-      "icon": "icon:display"
+      "priority": 0.8,
+      "changeFrequency": "monthly",
+      "parent": "docs",
+      "icon": "icon:cpu"
     },
     {
       "id": "resources",

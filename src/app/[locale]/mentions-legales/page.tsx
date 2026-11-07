@@ -10,7 +10,7 @@ const copy = {
     badge: "Transparence & Cadre Légal",
     title: "Mentions Légales",
     subtitle: "Informations légales relatives à l'éditeur, à l'hébergement et aux droits d'utilisation du projet open-source Bobine.",
-    updated: "Dernière mise à jour : 5 novembre 2026",
+    updated: "Dernière mise à jour : 7 novembre 2026",
     sections: [
       {
         heading: "1. Éditeur du Site & Direction de la Publication",
@@ -28,7 +28,7 @@ const copy = {
         heading: "3. Propriété Intellectuelle & Licence Logicielle",
         body: "L'ensemble du code source du logiciel Bobine est mis à disposition sous licence libre GNU Affero General Public License v3.0 (AGPL-3.0).",
         contact: "Liberté d'usage : vous êtes libre d'utiliser, d'étudier, de modifier, de compiler et de redistribuer Bobine sans redevance, dans le respect de cette licence.",
-        subtext: "Les marques, noms de produits et logos cités (ex : HP, Intel, AMD, Apple, Dell, Qualcomm, Fedora, Arch Linux, Debian, Ubuntu) appartiennent à leurs propriétaires respectifs et sont utilisés uniquement pour identifier des produits, à des fins d'interopérabilité technique et de description. La préférence de thème utilise le cookie bobine-theme, partagé entre bobine.fit et ses sous-domaines pendant un an ; voir la politique de confidentialité. Les comparatifs identifient les solutions tierces par leur nom en texte, sans reproduire leur logo ni suggérer de partenariat.",
+        subtext: "Les marques, noms de produits et logos cités (ex : HP, Intel, AMD, Apple, Dell, Qualcomm, Fedora, Arch Linux, Debian, Ubuntu) appartiennent à leurs propriétaires respectifs et sont utilisés uniquement pour identifier des produits, à des fins d'interopérabilité technique et de description. La préférence de thème utilise le cookie bobine-theme, partagé entre bobine.fit et ses sous-domaines pendant un an ; voir la politique de confidentialité.",
       },
       {
         heading: "4. Rôle du Site : Information et Documentation Technique, Aucune Vente",
@@ -37,10 +37,10 @@ const copy = {
         subtext: "Les gérants de salle de sport et exploitants restent responsables de la conformité de leurs équipements de diffusion audiovisuelle.",
       },
       {
-        heading: "5. Recommandations Techniques & Assistant Baamix",
+        heading: "5. Recommandations Techniques",
         body: "Les configurations matérielles recommandées dans la documentation sont données à titre purement indicatif pour guider les utilisateurs vers des machines adaptées (mini PC x86_64, PC ARM Snapdragon, Mac mini Apple Silicon, Raspberry Pi, Orange Pi, etc.).",
         contact: "Les recommandations reflètent des retours d'expérience et ne constituent ni une garantie de compatibilité ni un conseil personnalisé engageant son auteur.",
-        subtext: "Baamix utilise un modèle d'IA pour générer ses réponses et peut interroger Google Cloud Vertex AI Search pour retrouver la documentation pertinente. Il peut se tromper : ses réponses n'ont aucune valeur contractuelle et doivent être vérifiées avec la documentation officielle.",
+        subtext: "Vérifiez la configuration requise de chaque paquet avant d'acheter un appareil.",
       },
     ],
   },
@@ -48,7 +48,7 @@ const copy = {
     badge: "Transparency & Legal Framework",
     title: "Legal Notice",
     subtitle: "Legal information regarding the publisher, hosting, and the terms of use of the open-source Bobine project.",
-    updated: "Last updated: 5 November 2026",
+    updated: "Last updated: 7 November 2026",
     sections: [
       {
         heading: "1. Site Publisher & Publication Director",
@@ -66,7 +66,7 @@ const copy = {
         heading: "3. Intellectual Property & Software License",
         body: "The entire source code of Bobine is distributed under the GNU Affero General Public License v3.0 (AGPL-3.0).",
         contact: "Freedom of use: you are free to run, study, adapt, compile, and redistribute Bobine without license fees, in accordance with that license.",
-        subtext: "Third-party trademarks, product names and logos mentioned (e.g., HP, Intel, AMD, Apple, Dell, Qualcomm, Fedora, Arch Linux, Debian, Ubuntu) remain the property of their respective owners and are used solely to identify products, for technical interoperability and descriptive comparison. The theme preference uses the bobine-theme cookie, shared between bobine.fit and its subdomains for one year; see the privacy policy. Comparisons identify third-party solutions by their names in plain text, without reproducing their logos or suggesting a partnership.",
+        subtext: "Third-party trademarks, product names and logos mentioned (e.g., HP, Intel, AMD, Apple, Dell, Qualcomm, Fedora, Arch Linux, Debian, Ubuntu) remain the property of their respective owners and are used solely to identify products, for technical interoperability. The theme preference uses the bobine-theme cookie, shared between bobine.fit and its subdomains for one year; see the privacy policy.",
       },
       {
         heading: "4. Role of the Site: Information and Technical Documentation, No Sales",
@@ -75,10 +75,10 @@ const copy = {
         subtext: "Gym owners and operators remain responsible for the compliance of their audiovisual equipment.",
       },
       {
-        heading: "5. Technical Recommendations & the Baamix Assistant",
+        heading: "5. Technical Recommendations",
         body: "Hardware configurations recommended in the documentation are provided for informational purposes only to guide users toward suitable machines (x86_64 mini PCs, Snapdragon ARM PCs, Apple Silicon Mac mini, Raspberry Pi, Orange Pi, etc.).",
         contact: "Hardware suggestions reflect community experience and are neither a compatibility guarantee nor personalized advice binding its author.",
-        subtext: "Baamix uses an AI model to generate its answers and may query Google Cloud Vertex AI Search to retrieve relevant documentation. It can be wrong: its answers have no contractual value and should be checked against the official documentation.",
+        subtext: "Check each package's requirements before buying a device.",
       },
     ],
   },

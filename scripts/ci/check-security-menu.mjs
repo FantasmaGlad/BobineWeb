@@ -7,7 +7,7 @@ try {
   await b.send('Page.enable');
   await b.send('Emulation.setTouchEmulationEnabled',{enabled:true});
   await b.send('Emulation.setEmulatedMedia',{features:[{name:'pointer',value:'coarse'}]});
-  for(const path of ['/','/fr/','/snake/','/fr/snake/'])for(const [width,height]of [[360,800],[640,360],[768,1024],[1280,900]]) {
+  for(const path of ['/','/fr/'])for(const [width,height]of [[360,800],[640,360],[768,1024],[1280,900]]) {
     await b.send('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:width<961});
     await b.send('Page.navigate',{url:origin+path});
     for(let i=0;i<100;i++){if(await b.evaluate(`document.readyState==='complete' && !!document.getElementById('themeCycle')`))break;await delay(100)}
@@ -23,8 +23,7 @@ try {
     for(let i=0;i<9;i++)visited.add(await b.evaluate(`document.getElementById('themeCycle').click();document.documentElement.dataset.theme`));
     assert.equal(visited.size,9,'9 thèmes distincts accessibles');
     assert(await b.evaluate(`document.documentElement.dataset.theme==='orchidee'`),'9 thèmes accessibles');
-    if(path.includes('snake'))assert(await b.evaluate(`document.getElementById('snakeCanvas').width>0 && document.getElementById('snakeCanvas').height>0`),'canvas visible');
-    else assert.equal(await b.evaluate(`document.querySelectorAll('[data-copy]').length`),3);
+    assert.equal(await b.evaluate(`document.querySelectorAll('[data-copy]').length`),3);
     views++;
   }
   console.log(`Sécurité : ${views} vues FR/EN, palettes contenues, 9 thèmes, mode et canvas conformes.`);

@@ -103,24 +103,6 @@
 }
 
 /* Image Hero Framework Laptop */
-.linux-hero__visual-wrap {
-  position: relative;
-  width: 100%;
-  max-width: 68rem;
-  border-radius: var(--radius-lg);
-  padding: 0.5rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-card);
-}
-
-.linux-hero__image {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: var(--radius-md);
-  object-fit: cover;
-}
 
 /* Puces matérielles certifiées */
 .linux-chips {

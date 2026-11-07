@@ -3,7 +3,7 @@ import sharp from 'sharp';
 
 // Un canal alpha déclaré ne suffit pas : il doit contenir des pixels transparents.
 let checked = 0;
-for (const directory of ['public/images', 'public/images/pdf']) {
+for (const directory of ['public/images']) {
   for (const name of await readdir(directory)) {
     if (!/-(cutout|transparent)\.(webp|png)$/.test(name)) continue;
     const file = `${directory}/${name}`;

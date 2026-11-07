@@ -10,18 +10,18 @@ const TEXT = {
   fr: {
     title: "Ressources Bobine : index alphabétique et recherche",
     description:
-      "Blog, canaux de mise à jour, documentation, sécurité, comparatifs et outils Bobine : index complet par ordre alphabétique avec recherche instantanée.",
+      "Blog, canaux de mise à jour, documentation, sécurité et outils Bobine : index complet par ordre alphabétique avec recherche instantanée.",
     keywords: ["ressources Bobine", "index Bobine", "recherche ressources", "documentation", "canaux de mise à jour"],
     heading: "Ressources & Documentation",
-    lead: "Explorez l'ensemble des pages, documentations, comparatifs et guides du projet Bobine par ordre alphabétique ou utilisez la barre de recherche instantanée.",
+    lead: "Explorez l'ensemble des pages, documentations et guides du projet Bobine par ordre alphabétique ou utilisez la barre de recherche instantanée.",
   },
   en: {
     title: "Bobine resources: alphabetical index and instant search",
     description:
-      "Blog, update channels, documentation, security, comparisons and Bobine tools: complete alphabetical index with instant search.",
+      "Blog, update channels, documentation, security and Bobine tools: complete alphabetical index with instant search.",
     keywords: ["Bobine resources", "Bobine index", "resource search", "documentation", "update channels"],
     heading: "Resources & Documentation",
-    lead: "Explore all pages, documentation, comparisons, and guides of the Bobine ecosystem in alphabetical order or filter instantly using the search bar.",
+    lead: "Explore all pages, documentation and guides of the Bobine ecosystem in alphabetical order or filter instantly using the search bar.",
   },
 } as const;
 

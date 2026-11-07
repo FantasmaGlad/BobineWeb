@@ -53,11 +53,9 @@ export default async function BlogIndexPage({ params }: Props) {
               ) : null}
             </div>
             <h2 className="marketing-release-title" lang="fr">{release.title.split(" — ")[0]}</h2>
-            <MediaFrame
-              id={release.slug.toLowerCase() === "v5.0.5" ? "library" : "laptop"}
-              locale={locale}
-              caption={release.slug.toLowerCase() === "v5.0.5" ? (en ? "Bobine 5.0.5 demonstration screenshot." : "Capture de démonstration de Bobine 5.0.5.") : (en ? "Project illustration." : "Illustration du projet.")}
-            />
+            {release.slug.toLowerCase() === "v5.0.5" ? (
+              <MediaFrame id="library" locale={locale} caption={en ? "Bobine 5.0.5 demonstration screenshot." : "Capture de démonstration de Bobine 5.0.5."} />
+            ) : null}
             <ul lang="fr">
               {releaseSummary(release.body).map((point) => (
                 <li key={point}>{point}</li>

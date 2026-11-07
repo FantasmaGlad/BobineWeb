@@ -52,7 +52,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Ne pas cacher les appels API du chatbot ou github
+  // Ne pas cacher les appels API
   if (url.pathname.startsWith("/api/")) {
     return;
   }

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import type { Locale } from "@/lib/i18n";
 import { LINUX_SHOWCASE_CONTENT } from "@/content/linuxShowcase";
 import BrandIcon from "@/components/ui/BrandIcon";
@@ -26,18 +25,6 @@ export default function LinuxHero({ locale }: { locale: Locale }) {
             <polyline points="7 7 17 7 17 17" />
           </svg>
         </a>
-      </div>
-
-      <div className="linux-hero__visual-wrap">
-        <Image
-          src="/images/FrameworkBaamix-wide.webp"
-          alt="Framework Laptop 16 pouces avec Bobine en action sur Linux"
-          width={1280}
-          height={720}
-          priority
-          sizes="(max-width: 768px) 100vw, 1200px"
-          className="linux-hero__image"
-        />
       </div>
 
       <div className="linux-chips">

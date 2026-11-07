@@ -6,7 +6,7 @@ import { existsSync, writeFileSync } from "node:fs";
 import { exportWeb, type SourceDocument } from "./export";
 import { exportUpstream } from "./upstream.mjs";
 import { request, readObject, writeObject, storePath, waitOperation, bucket } from "./cloud.mjs";
-import { ACTIVE_FILTER, MANAGED_BY } from "../../src/lib/rag/results.mjs";
+import { ACTIVE_FILTER, MANAGED_BY } from "./results.mjs";
 /** Préfixe des objets Cloud Storage ; RAG_PREFIX et RAG_WEB_STORE permettent un essai sur un index jetable sans toucher à la production. */
 const PREFIX = process.env.RAG_PREFIX || "sync-v2";
 const root = resolve(fileURLToPath(new URL("../..", import.meta.url)));

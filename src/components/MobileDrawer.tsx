@@ -92,35 +92,6 @@ export default function MobileDrawer({
               {isEn ? "Assistance & Support" : "Assistance"}
             </span>
             <div className="site-div-6">
-              {/* Bouton Baamix */}
-              <button
-                type="button"
-                className="mobile-drawer-baamix-btn"
-                onClick={() => {
-                  onClose();
-                  window.dispatchEvent(new CustomEvent("open-baamix"));
-                }}
-              >
-                <div className="mobile-drawer-baamix-avatar">
-                  <Image
-                    src="/images/baamix.jpg"
-                    alt="Baamix"
-                    width={32}
-                    height={32} className="site-image-3"
-                  />
-                  <span className="baamix-header-dot" />
-                </div>
-                <div className="site-div-7">
-                  <span className="site-span-2">
-                    Baamix
-                  </span>
-                  <span className="site-span-3">
-                    {isEn ? "Interactive AI Assistant" : "Mascotte & Assistant IA"}
-                  </span>
-                </div>
-                <Icon name="chevron-right" size={16} className="site-svg-1" />
-              </button>
-
               {/* Module contact */}
               <div className="mobile-drawer-contact-card">
                 <span className="site-span-4">

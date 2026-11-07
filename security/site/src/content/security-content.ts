@@ -24,16 +24,6 @@ export interface SecurityStrings {
   footerLead: string;
   copyLabel: string;
   copiedLabel: string;
-  snake: {
-    title: string;
-    description: string;
-    score: string;
-    best: string;
-    overTitle: string;
-    overDesc: string;
-    restartBtn: string;
-    backLink: string;
-  };
 }
 
 export const SECURITY_DATA: Record<"fr" | "en", SecurityStrings> = {
@@ -63,16 +53,6 @@ export const SECURITY_DATA: Record<"fr" | "en", SecurityStrings> = {
     footerLead: "Politique de sécurité et clé OpenPGP officielle de Bobine.",
     copyLabel: "Copier",
     copiedLabel: "Copié !",
-    snake: {
-      title: "Snake — Bobine Sécurité",
-      description: "Mini-jeu d'arcade Snake pour patienter pendant le chiffrement de votre rapport de sécurité.",
-      score: "SCORE",
-      best: "RECORD",
-      overTitle: "Partie terminée !",
-      overDesc: "Votre serpent a heurté un obstacle.",
-      restartBtn: "Rejouer",
-      backLink: "← Retour à la sécurité",
-    },
   },
   en: {
     lang: "en",
@@ -100,15 +80,5 @@ export const SECURITY_DATA: Record<"fr" | "en", SecurityStrings> = {
     footerLead: "Bobine security policy and official OpenPGP key.",
     copyLabel: "Copy",
     copiedLabel: "Copied!",
-    snake: {
-      title: "Snake — Bobine Security",
-      description: "Classic Snake arcade game while you encrypt your security report.",
-      score: "SCORE",
-      best: "BEST",
-      overTitle: "Game Over!",
-      overDesc: "Your snake hit an obstacle.",
-      restartBtn: "Play Again",
-      backLink: "← Back to Security",
-    },
   },
 };

@@ -74,17 +74,3 @@ export function normalizeResult(result) {
     framework: meta.framework, version: meta.version, locale: meta.locale, generation: meta.generation,
   };
 }
-
-/**
- * Question de recherche d'une conversation : la dernière question de l'utilisateur, complétée par la précédente quand elle
- * est courte (« et sur Mac ? » ne dit rien seule). `relaxQuery` garde les mots dans l'ordre : la dernière question prime.
- * @param {{ role: string, content: unknown }[]} messages
- */
-export function buildSearchQuery(messages) {
-  const users = messages.filter(m => m.role === "user").map(m => String(m.content ?? "").trim()).filter(Boolean);
-  const last = users.at(-1) ?? "";
-  const previous = users.at(-2);
-  // Seuls les trois premiers mots utiles de la question précédente suivent : assez pour garder le sujet, pas assez pour le
-  // laisser couvrir un changement de plateforme (« et sur Mac ? » après une question sur Fedora).
-  return previous && last.split(/\s+/).length <= 6 ? `${last} ${relaxQuery(previous).split(" OR ").slice(0, 3).join(" ")}` : last;
-}

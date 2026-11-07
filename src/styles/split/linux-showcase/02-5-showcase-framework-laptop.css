@@ -225,14 +225,6 @@
   text-align: left;
 }
 
-.linux-framework__visual-wrap {
-  position: relative;
-}
-
-.linux-framework__image {
-  border-radius: var(--radius-lg);
-}
-
 .linux-security-card__btn {
   position: static;
   text-decoration: none;

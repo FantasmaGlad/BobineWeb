@@ -1,17 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
 import "@/styles/split/pages-misc.css";
 
 export default function NotFound() {
   return (
     <div className="container not-found-div-1">
-      <Image
-        src="/images/BaamixInspector.webp"
-        alt="Baamix Inspecteur"
-        width={180}
-        height={250} className="not-found-image-1"
-      />
-
       <h1 className="not-found-h1-1"
       >
         Erreur 404 · Page introuvable

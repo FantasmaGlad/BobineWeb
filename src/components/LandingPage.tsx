@@ -19,7 +19,6 @@ const CHANNELS = ["stable", "beta", "canary"] as const;
 
 const FALLBACK_PLATFORM: Partial<Record<LandingId, PlatformId>> = {
   linux: "linux",
-  tor: "linux",
 };
 /** Plateformes détaillées dans « Configuration requise » : celle de la page d'abord. */
 const DOWNLOAD_KEY = { windows: "windows", macos: "macos", linux: "linux", android: "android", "android-tv": "androidTv" } as const;
@@ -201,9 +200,7 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
         </section>
       )}
 
-      {id !== "tor" && (
-        <LandingDownload locale={locale} channels={channelsData} lockedChannel={channel} fallback={fallbackPlatform} />
-      )}
+      <LandingDownload locale={locale} channels={channelsData} lockedChannel={channel} fallback={fallbackPlatform} />
 
       {c.showcaseCards && c.showcaseCards.length > 0 && (
         <section className="landing-section" aria-label={isEn ? "Hardware and platform selection" : "Sélection matériel et plateformes"}>
@@ -310,53 +307,51 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
         </section>
       )}
 
-      {id !== "tor" && (
-        <>
-          <section className="landing-card landing-section" aria-labelledby="landing-req-title">
-            <div className="landing-card__head">
-              <span className="landing-card__icon">
-                <SectionIcon name="cpu" />
-              </span>
-              <h2 id="landing-req-title" className="landing-h2">{common.requirementsTitle}</h2>
-            </div>
-            <div className="landing-table-wrap">
-              <table className="landing-table">
-                <thead>
-                  <tr>
-                    <th scope="col">{isEn ? "Platform" : "Plateforme"}</th>
-                    <th scope="col">{isEn ? "Requirement" : "Configuration"}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {requirementIds.map((p) => (
-                    <tr key={p}>
-                      <td>{REQUIREMENTS[p].name}</td>
-                      <td>{REQUIREMENTS[p][isEn ? "en" : "fr"]}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="landing-note">{common.requirementsNote(ANDROID.minVersion)}</p>
-          </section>
-
-          <div className={`landing-stack ${commonBlocks.length >= 2 ? "landing-stack--grid" : ""}`}>
-            {commonBlocks.map((b, idx) => (
-              <article key={b.heading} className="landing-card">
-                <div className="landing-card__head">
-                  <span className="landing-card__icon">
-                    <SectionIcon name={idx === 0 ? "shield" : "download"} />
-                  </span>
-                  <h2 className="landing-h2">{b.heading}</h2>
-                </div>
-                {b.paragraphs.map((para) => (
-                  <p key={para} className="landing-prose">{para}</p>
-                ))}
-              </article>
-            ))}
+      <>
+        <section className="landing-card landing-section" aria-labelledby="landing-req-title">
+          <div className="landing-card__head">
+            <span className="landing-card__icon">
+              <SectionIcon name="cpu" />
+            </span>
+            <h2 id="landing-req-title" className="landing-h2">{common.requirementsTitle}</h2>
           </div>
-        </>
-      )}
+          <div className="landing-table-wrap">
+            <table className="landing-table">
+              <thead>
+                <tr>
+                  <th scope="col">{isEn ? "Platform" : "Plateforme"}</th>
+                  <th scope="col">{isEn ? "Requirement" : "Configuration"}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {requirementIds.map((p) => (
+                  <tr key={p}>
+                    <td>{REQUIREMENTS[p].name}</td>
+                    <td>{REQUIREMENTS[p][isEn ? "en" : "fr"]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="landing-note">{common.requirementsNote(ANDROID.minVersion)}</p>
+        </section>
+
+        <div className={`landing-stack ${commonBlocks.length >= 2 ? "landing-stack--grid" : ""}`}>
+          {commonBlocks.map((b, idx) => (
+            <article key={b.heading} className="landing-card">
+              <div className="landing-card__head">
+                <span className="landing-card__icon">
+                  <SectionIcon name={idx === 0 ? "shield" : "download"} />
+                </span>
+                <h2 className="landing-h2">{b.heading}</h2>
+              </div>
+              {b.paragraphs.map((para) => (
+                <p key={para} className="landing-prose">{para}</p>
+              ))}
+            </article>
+          ))}
+        </div>
+      </>
 
       <section className="landing-section">
         <h2 className="landing-h2">{isEn ? "Frequently asked questions" : "Questions fréquentes"}</h2>

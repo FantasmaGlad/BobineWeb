@@ -12,17 +12,17 @@ Français : [README.fr.md](README.fr.md).
 
 | Property | URL / Repository | Purpose |
 | :--- | :--- | :--- |
-| **Main Website** | <https://bobine.fit> | Showcase, download hub, docs, hardware guides, blog |
+| **Main Website** | <https://bobine.fit> | Showcase, download hub, docs, blog |
 | **Tor Mirror (.onion)** | [bobinedaoki….onion](http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/) | Sovereign `.onion` site mirror & anonymous APT repository |
 | **Linux Package Portal** | <https://packages.bobine.fit> | GPG-signed APT, DNF, and Pacman repositories |
 | **Security Portal** | <https://security.bobine.fit> | RFC 9116 security policy & verified OpenPGP key |
-| **Bobine Software** | [FantasmaGlad/Bobine](https://github.com/FantasmaGlad/Bobine) | Playout engine source code (V5.0.7, AGPL-3.0) |
+| **Bobine Software** | [FantasmaGlad/Bobine](https://github.com/FantasmaGlad/Bobine) | Playout engine source code (AGPL-3.0) |
 
 ---
 
 ## Architecture & Constellation
 
-Built with **Next.js 16** (App Router, Turbopack), **React 19**, and **TypeScript**, sharing a design system of 9 palettes, each in light and dark mode, across all four web properties:
+Built with **Next.js 16** (App Router, Turbopack), **React 19**, and **TypeScript**, with a design system of 9 palettes, each in light and dark mode:
 
 - **Bilingual Source of Truth**: All pages served in French (`/fr/`) and English (`/en/`) from typed content definitions (`src/content/`).
 - **Independent Linux Repositories**: Continuous signed distributions for Debian/Ubuntu, Fedora, and Arch Linux (`packages.bobine.fit`).

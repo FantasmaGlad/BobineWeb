@@ -16,13 +16,13 @@ English: [README.md](README.md).
 | **Miroir Tor (.onion)** | [bobinedaoki….onion](http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/) | Miroir souverain en service onion et dépôt APT anonyme |
 | **Portail Paquets Linux** | <https://packages.bobine.fit> | Dépôts officiels signés APT, DNF et Pacman |
 | **Portail Sécurité** | <https://security.bobine.fit> | Politique RFC 9116 et clé OpenPGP officielle |
-| **Logiciel Bobine** | [FantasmaGlad/Bobine](https://github.com/FantasmaGlad/Bobine) | Code source du moteur de régie (V5.0.7, AGPL-3.0) |
+| **Logiciel Bobine** | [FantasmaGlad/Bobine](https://github.com/FantasmaGlad/Bobine) | Code source du moteur de régie (AGPL-3.0) |
 
 ---
 
 ## Architecture & Constellation
 
-Conçu avec **Next.js 16** (App Router, Turbopack), **React 19** et **TypeScript**, partageant un système de design de 9 palettes, chacune en mode clair et sombre, à travers les quatre propriétés web :
+Conçu avec **Next.js 16** (App Router, Turbopack), **React 19** et **TypeScript**, avec un système de design de 9 palettes, chacune en mode clair et sombre :
 
 - **Bilinguisme Strict** : Toutes les pages sont servies en français (`/fr/`) et en anglais (`/en/`) depuis des sources de contenu typées (`src/content/`).
 - **Dépôts Linux Dédiés** : Distributions signées pour Debian/Ubuntu, Fedora et Arch Linux (`packages.bobine.fit`).

@@ -29,7 +29,7 @@ try {
     }
     if (!await evaluate(`document.readyState === 'complete' && location.pathname === ${JSON.stringify(path)}`)) throw new Error(`${path} : navigation non terminée`);
     await evaluate("document.fonts.ready");
-    for (const theme of ["lavande", "orchidee"]) {
+    for (const theme of ["ardoise", "orchidee"]) {
       await evaluate(`document.documentElement.dataset.theme = ${JSON.stringify(theme)}; new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))`);
       await delay(700);
       const result = await evaluate(`(() => {

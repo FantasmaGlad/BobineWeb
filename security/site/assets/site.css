@@ -1,10 +1,56 @@
-/* security.bobine.fit : noir sur blanc, sans décoration. */
-body { max-width: 46rem; margin: 0 auto; padding: 1rem; font: 16px/1.5 system-ui, sans-serif; color: black; background: white; }
-h1 { font-size: 1.5rem; }
-h2 { font-size: 1.15rem; margin-top: 2rem; }
-pre { overflow-x: auto; padding: 0.5rem; border: 1px solid gray; }
-code { font-family: ui-monospace, monospace; overflow-wrap: anywhere; }
-pre code { overflow-wrap: normal; }
-footer { margin-top: 3rem; border-top: 1px solid gray; font-size: 0.9rem; }
-table { border-collapse: collapse; }
-th, td { border: 1px solid gray; padding: 0.25rem 0.5rem; text-align: left; vertical-align: top; }
+/* Noir sur blanc, sans décoration : une seule page qui tient à l'écran, texte aligné à gauche et centré en hauteur. */
+*, *::before, *::after { box-sizing: border-box; }
+html { height: 100%; }
+body {
+  min-height: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding-inline: clamp(1rem, 6vw, 7rem);
+  font: clamp(14px, 1.95vh, 17px) / 1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #000;
+  background: #fff;
+}
+main { align-self: center; width: 100%; max-width: 110rem; padding-block: 1.5rem; }
+h1 { margin: 0 0 0.35em; font-size: clamp(1.6rem, 4.6vh, 2.6rem); line-height: 1.1; letter-spacing: -0.02em; }
+h2 {
+  margin: 0 0 0.6em;
+  padding-bottom: 0.35em;
+  border-bottom: 2px solid #000;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+}
+p { margin: 0.4em 0; }
+.lead { max-width: 52rem; margin: 0; }
+.key { margin-top: 0.7em; }
+a { color: #000; text-underline-offset: 0.2em; }
+a:hover { text-decoration-thickness: 2px; }
+code { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; overflow-wrap: anywhere; }
+pre {
+  margin: 0.4em 0 0.9em;
+  padding: 0.6em 0.8em;
+  border: 1px solid #000;
+  font-size: 0.86em;
+  line-height: 1.45;
+}
+pre code { white-space: pre-wrap; overflow-wrap: break-word; }
+.install, .more, .columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.6vw, 3rem);
+  margin-top: clamp(1rem, 3.2vh, 2.2rem);
+}
+.more { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 0; }
+.columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 0.3em 0.6em 0.3em 0; border-bottom: 1px solid #000; text-align: left; vertical-align: top; }
+th { width: 30%; font-weight: 600; }
+ul { margin: 0.4em 0; padding-left: 1.1em; }
+footer { padding-block: 0.9em; border-top: 1px solid #000; font-size: 0.85em; }
+footer p { margin: 0; }
+@media (max-width: 900px) {
+  body { display: block; }
+  .install, .more, .columns { grid-template-columns: 1fr; }
+}
+.spaced { margin-top: 1.6em; }

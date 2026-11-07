@@ -123,6 +123,19 @@ export default async function HomePage({
           </div>
         )}
 
+        {/* Illustration décorative à droite du titre : le renard Firefox et Baamix, la mascotte de Bobine */}
+        <div className="hero-fullscreen__backdrop-art" aria-hidden="true">
+          <Image
+            src="/images/FirefoxBaamix.webp"
+            alt="Le renard Firefox et Baamix, la mascotte de Bobine"
+            className="hero-fullscreen__backdrop-img hero-fullscreen__backdrop-img--mascot"
+            width={1000}
+            height={895}
+            sizes="(max-width: 639px) 240px, (max-width: 1023px) 480px, 640px"
+            priority
+          />
+        </div>
+
         <div className="hero-fullscreen__content">
           <OsDownloadGrid
             locale={locale as Locale}

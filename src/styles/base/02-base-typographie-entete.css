@@ -101,8 +101,22 @@ img {
 
 .site-header__brand img {
   display: block;
-  height: 2.35rem;
+  height: 3rem;
   width: auto;
+}
+
+/* Grand écran : le « B » est centré entre le bord gauche de la fenêtre et le premier menu ; le reste de l'en-tête garde la
+   largeur de lecture du site. */
+@media (min-width: 1024px) {
+  .site-header__inner {
+    max-width: none;
+    padding-inline: 0 max(1.5rem, calc((100vw - 92rem) / 2 + 2rem));
+  }
+  .site-header__brand {
+    flex: 0 0 clamp(5rem, calc((100vw - 92rem) / 2 + 6rem), 22rem);
+    justify-content: center;
+    margin-right: 0;
+  }
 }
 
 .site-header__nav {

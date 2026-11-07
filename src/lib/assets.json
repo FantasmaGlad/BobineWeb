@@ -5,7 +5,6 @@
     "tone": "ink",
     "color": "#FCC624",
     "render": "image",
-    "maxBytes": 153600,
     "halo": true
   },
   "os.windows": {
@@ -26,7 +25,8 @@
     "tone": "ink",
     "color": "#3DDC84",
     "render": "image",
-    "halo": true
+    "halo": true,
+    "maxBytes": 20480
   },
   "os.androidtv": {
     "name": "Android TV",
@@ -38,7 +38,7 @@
   },
   "os.googletv": {
     "name": "Google TV",
-    "src": "/images/icons/os/googletv.svg",
+    "src": "/images/icons/os/androidtv.svg",
     "tone": "ink",
     "color": "#4285F4",
     "render": "image",

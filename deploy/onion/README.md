@@ -31,7 +31,7 @@ Avant la bascule atomique, `verify-packages.py` vérifie la clé principale épi
 2. Créer l'utilisateur système `onion`, `/srv/onion`, `/etc/bobine-onion/` et `/usr/local/lib/bobine-onion/`.
 3. Copier `Caddyfile.onion` vers `/etc/bobine-onion/Caddyfile`, les unités vers `/etc/systemd/system/`, puis `sync.sh`, `verify-packages.py` et `overlay/` vers `/usr/local/lib/bobine-onion/`.
 4. Ajouter `torrc.bobine-onion.conf` à `/etc/tor/torrc`, puis redémarrer `tor@default`. Les adresses sont dans `/var/lib/tor/bobine-apt/hostname` et `/var/lib/tor/bobine-site/hostname`.
-5. Installer la clé de déploiement GitHub en lecture seule dans `/var/lib/onion/.ssh/`, puis activer `bobine-onion-web.service` et `bobine-onion-sync.timer`.
+5. Installer la clé de déploiement GitHub en lecture seule dans `/var/lib/onion/.ssh/`, puis y créer `known_hosts` avec les clés d'hôte de `github.com` vérifiées auprès de la page officielle des empreintes de GitHub (`ssh-keyscan -t ed25519 github.com` ne suffit pas sans cette vérification) : `sync.sh` impose la vérification stricte et signale un fichier absent. Activer ensuite `bobine-onion-web.service` et `bobine-onion-sync.timer`.
 
 Le groupe `debian-tor` permet à Tor d'ouvrir les sockets de Caddy après abandon de ses privilèges. Sauvegarder les clés des services onion hors ligne : leur perte entraîne celle des adresses.
 

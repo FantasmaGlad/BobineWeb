@@ -78,8 +78,8 @@ export const installerScenarios: TerminalScenario[] = [
         {
           type: "dim",
           text: isEnglish
-            ? "Bobine Installer v3.0.0 · Debian 13 (trixie) · Dell Wyse 5070"
-            : "Bobine Installateur v3.0.0 · Debian 13 (trixie) · Dell Wyse 5070",
+            ? "Bobine Installer v5.1.0 · Debian 13 (trixie) · Dell Wyse 5070"
+            : "Bobine Installateur v5.1.0 · Debian 13 (trixie) · Dell Wyse 5070",
         },
       ];
 
@@ -156,15 +156,15 @@ export const installerScenarios: TerminalScenario[] = [
       lines.push({
         type: "success",
         text: isEnglish
-          ? "Healthcheck: API HTTP 200 OK (http://127.0.0.1:8000/api/health — 11ms)"
-          : "Contrôle santé : API HTTP 200 OK (http://127.0.0.1:8000/api/health — 11ms)",
+          ? "Healthcheck: API HTTP 200 OK (http://127.0.0.1:1903/api/health — 11ms)"
+          : "Contrôle santé : API HTTP 200 OK (http://127.0.0.1:1903/api/health — 11ms)",
       });
 
       lines.push({
         type: "prompt",
         text: isEnglish
-          ? "Bobine is ready! Open http://bobine.local:8000 on your phone to control."
-          : "Bobine est prêt ! Ouvrez http://bobine.local:8000 depuis votre smartphone.",
+          ? "Bobine is ready! Open http://bobine.local:1903 on your phone to control."
+          : "Bobine est prêt ! Ouvrez http://bobine.local:1903 depuis votre smartphone.",
       });
 
       return lines;
@@ -182,8 +182,8 @@ export const installerScenarios: TerminalScenario[] = [
       en: "System Health (--check)",
     },
     title: {
-      fr: "Diagnostic de santé et statut des 5 services Bobine",
-      en: "Health diagnostic & status of all 5 Bobine services",
+      fr: "Diagnostic de santé et statut des 4 services Bobine",
+      en: "Health diagnostic & status of the 4 Bobine services",
     },
     description: {
       fr: "Inspecte l'état des services systemd, les ports réseaux, les processus et l'accélération vidéo sans rien modifier.",
@@ -215,7 +215,7 @@ export const installerScenarios: TerminalScenario[] = [
       },
       {
         type: "info",
-        text: isEn ? "Network: 0.0.0.0:8000 (API/Web) & 0.0.0.0:8001 (Stream) LISTEN" : "Réseau : 0.0.0.0:8000 (API/Web) & 0.0.0.0:8001 (Stream) ÉCOUTE",
+        text: isEn ? "Network: 0.0.0.0:1903 (API/Web) LISTEN" : "Réseau : 0.0.0.0:1903 (API/Web) ÉCOUTE",
       },
       {
         type: "success",
@@ -246,7 +246,7 @@ export const installerScenarios: TerminalScenario[] = [
       fr: "Permet d'installer sur une Debian minimale sans le paquet sudo, en attribuant automatiquement les droits kiosk et GPU à l'utilisateur spécifié.",
       en: "Enables automated installation on minimal Debian systems without sudo, assigning kiosk permissions and GPU groups to the specified user.",
     },
-    baseCommand: "su - -c \"$PWD/install.sh --as-user fanta -y\"",
+    baseCommand: "su - -c \"$PWD/install.sh --as-user admin -y\"",
     getOutput: (_flags: string[], isEn: boolean): TerminalLine[] => [
       {
         type: "dim",
@@ -257,20 +257,20 @@ export const installerScenarios: TerminalScenario[] = [
       {
         type: "info",
         text: isEn
-          ? "Target user specified: fanta (UID 1000, GID 1000)"
-          : "Compte utilisateur cible : fanta (UID 1000, GID 1000)",
+          ? "Target user specified: admin (UID 1000, GID 1000)"
+          : "Compte utilisateur cible : admin (UID 1000, GID 1000)",
       },
       {
         type: "success",
         text: isEn
-          ? "Added user fanta to groups: video, render, audio, dialout, input"
-          : "Utilisateur fanta ajouté aux groupes : video, render, audio, dialout, input",
+          ? "Added user admin to groups: video, render, audio, dialout, input"
+          : "Utilisateur admin ajouté aux groupes : video, render, audio, dialout, input",
       },
       {
         type: "success",
         text: isEn
-          ? "Configured /home/fanta/.xsession for automated Chromium kiosk boot"
-          : "Fichier /home/fanta/.xsession configuré pour le lancement automatique du kiosk",
+          ? "Configured /home/admin/.xsession for automated Chromium kiosk boot"
+          : "Fichier /home/admin/.xsession configuré pour le lancement automatique du kiosk",
       },
       {
         type: "success",
@@ -290,43 +290,39 @@ export const troubleshootingScenarios: TerminalScenario[] = [
   {
     id: "port-conflict",
     badge: {
-      fr: "Erreur Courante",
-      en: "Common Error",
-      variant: "danger",
+      fr: "Diagnostic",
+      en: "Diagnostic",
+      variant: "warning",
     },
     tabLabel: {
-      fr: "Conflit Port 8000",
-      en: "Port 8000 Conflict",
+      fr: "Port 1903 occupé",
+      en: "Port 1903 busy",
     },
     title: {
-      fr: "Résolution : Port 8000 déjà occupé (Address already in use)",
-      en: "Resolution: Port 8000 already occupied (Address already in use)",
+      fr: "Port 1903 déjà utilisé : Bobine prend un port de repli",
+      en: "Port 1903 already in use: Bobine falls back to another port",
     },
     description: {
-      fr: "Se produit lorsqu'un ancien processus Uvicorn ou un autre serveur web retient le port HTTP. Cette commande libère le port et relance l'API proprement.",
-      en: "Occurs when a stale Uvicorn instance or another web process holds the HTTP port. This command frees the port and restarts the API cleanly.",
+      fr: "Quand un autre service tient déjà le port 1903, Bobine démarre sur un port voisin (1904 à 1913) et le signale. La commande bobine diagnose indique le port réel et le remède.",
+      en: "When another service already holds port 1903, Bobine starts on a neighbouring port (1904 to 1913) and says so. The bobine diagnose command shows the real port and the remedy.",
     },
-    baseCommand: "sudo fuser -k 8000/tcp && sudo systemctl restart bobine-backend",
+    baseCommand: "bobine diagnose",
     getOutput: (_flags: string[], isEn: boolean): TerminalLine[] => [
       {
-        type: "error",
-        text: isEn ? "ERROR: [Errno 98] error while attempting to bind on address ('0.0.0.0', 8000): address already in use" : "ERREUR : [Errno 98] impossible de lier l'adresse ('0.0.0.0', 8000) : adresse déjà utilisée",
+        type: "info",
+        text: isEn ? "State: warning" : "État : warning",
       },
       {
-        type: "info",
-        text: isEn ? "8000/tcp: killed lingering process PID 2841" : "8000/tcp : processus résiduel PID 2841 arrêté avec succès",
+        type: "warn",
+        text: isEn ? "  warning port_fallback: Bobine listens on port 1904: port 1903 was not available at startup." : "  warning port_fallback : Bobine écoute sur le port 1904 : le port 1903 n'était pas disponible au démarrage.",
       },
       {
         type: "dim",
-        text: isEn ? "Restarting bobine-backend.service via systemd..." : "Redémarrage de bobine-backend.service via systemd...",
+        text: isEn ? "    remedy: Free port 1903 or choose another (BOBINE_PORT), then restart Bobine; the current addresses are in Settings → Documentation." : "    remède : Libérer le port 1903 ou en choisir un autre (BOBINE_PORT), puis redémarrer Bobine ; les adresses à jour sont dans Réglages → Documentation.",
       },
       {
-        type: "success",
-        text: isEn ? "bobine-backend.service restarted successfully" : "bobine-backend.service redémarré avec succès",
-      },
-      {
-        type: "success",
-        text: isEn ? "HTTP GET http://127.0.0.1:8000/api/health returned 200 OK (8ms)" : "HTTP GET http://127.0.0.1:8000/api/health a retourné 200 OK (8ms)",
+        type: "info",
+        text: isEn ? "Who holds the port? sudo ss -ltnp 'sport = :1903'" : "Qui tient le port ? sudo ss -ltnp 'sport = :1903'",
       },
     ],
   },
@@ -390,53 +386,29 @@ export const troubleshootingScenarios: TerminalScenario[] = [
     badge: {
       fr: "Sauvegarde",
       en: "Backup",
-      variant: "default",
+      variant: "success",
     },
     tabLabel: {
-      fr: "Test Sauvegarde ZIP",
-      en: "ZIP Backup Test",
+      fr: "Exporter la configuration",
+      en: "Export the configuration",
     },
     title: {
-      fr: "Export et vérification d'intégrité d'une sauvegarde complète",
-      en: "Export and integrity check of a full backup",
+      fr: "Sauvegarder toute la configuration en fichiers JSON lisibles",
+      en: "Back up the whole configuration as readable JSON files",
     },
     description: {
-      fr: "Teste l'export ZIP complet (vidéothèque, planning, réglages) et vérifie l'intégrité de la base SQLite embarquée.",
-      en: "Tests the full ZIP export (video library, schedule, settings) and checks the integrity of the embedded SQLite database.",
+      fr: "Réglages, playlists, planning, sorties audio : un fichier par famille, rangé en dossiers, que l'on peut lire, comparer et réappliquer. Les médias eux-mêmes ne sont pas inclus.",
+      en: "Settings, playlists, schedule, audio outputs: one file per family, in folders, that you can read, compare and re-apply. The media files themselves are not included.",
     },
-    baseCommand: "bobine-cli backup export --verify",
+    baseCommand: "bobine config export ./sauvegarde",
     getOutput: (_flags: string[], isEn: boolean): TerminalLine[] => [
       {
-        type: "dim",
-        text: "bobine-cli v3.0.0 — backup module",
-      },
-      {
-        type: "info",
-        text: isEn ? "Exporting video library, schedule, and settings..." : "Export de la vidéothèque, du planning et des réglages...",
-      },
-      {
         type: "success",
-        text: "archive: bobine-backup-2026-09-06.zip (842 MB)",
+        text: isEn ? "19 file(s) written to ./sauvegarde" : "19 fichier(s) écrit(s) dans ./sauvegarde",
       },
       {
-        type: "stdout",
-        text: "  videos        : 128 files",
-      },
-      {
-        type: "stdout",
-        text: "  schedule      : 24 recurring slots",
-      },
-      {
-        type: "stdout",
-        text: "  database      : bobine.db (SQLite)",
-      },
-      {
-        type: "stdout",
-        text: "  integrity     : PRAGMA integrity_check -> ok",
-      },
-      {
-        type: "prompt",
-        text: isEn ? "Backup archive verified and ready to restore on any machine." : "Archive de sauvegarde vérifiée et prête à être restaurée sur n'importe quelle machine.",
+        type: "dim",
+        text: isEn ? "To re-apply: bobine config apply ./sauvegarde (dry run), then --yes to write." : "Pour réappliquer : bobine config apply ./sauvegarde (essai à blanc), puis --yes pour écrire.",
       },
     ],
   },
@@ -475,7 +447,7 @@ export const troubleshootingScenarios: TerminalScenario[] = [
       },
       {
         type: "success",
-        text: "bobine-kiosk[1450]: Navigated to http://127.0.0.1:8000/kiosk (DOM ready in 320ms)",
+        text: "bobine-kiosk[1450]: Navigated to http://127.0.0.1:1903/kiosk (DOM ready in 320ms)",
       },
       {
         type: "success",
@@ -493,50 +465,42 @@ export const developerScenarios: TerminalScenario[] = [
   {
     id: "dev-server",
     badge: {
-      fr: "Local Dev",
-      en: "Local Dev",
+      fr: "Développement",
+      en: "Development",
       variant: "info",
     },
     tabLabel: {
-      fr: "Lancer en local (Uvicorn)",
-      en: "Local Dev Server",
+      fr: "Serveur de développement",
+      en: "Development server",
     },
     title: {
-      fr: "Démarrage du serveur Backend avec rechargement à chaud (Hot Reload)",
-      en: "Start Backend API Server with Hot Reloading",
+      fr: "Lancer le backend FastAPI en local",
+      en: "Run the FastAPI backend locally",
     },
     description: {
-      fr: "Lance FastAPI sur le port 8000 avec documentation Swagger interactive disponible sur http://localhost:8000/docs.",
-      en: "Launches FastAPI on port 8000 with interactive Swagger docs accessible at http://localhost:8000/docs.",
+      fr: "Lance le backend sur le port par défaut 1903 ; la documentation interactive de l'API est servie sur /docs.",
+      en: "Runs the backend on the default port 1903; the interactive API documentation is served at /docs.",
     },
-    baseCommand: "cd backend && .venv/bin/uvicorn app.main:app --reload --port 8000",
+    baseCommand: "cd backend && .venv/bin/python run_backend.py",
     getOutput: (_flags: string[], isEn: boolean): TerminalLine[] => [
       {
         type: "info",
-        text: "INFO:     Will watch for changes in ['/home/fanta/Bobine/backend']",
-      },
-      {
-        type: "info",
-        text: "INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)",
-      },
-      {
-        type: "dim",
-        text: "INFO:     Started reloader process [19450] using WatchFiles",
+        text: "INFO:     Uvicorn running on http://0.0.0.0:1903 (Press CTRL+C to quit)",
       },
       {
         type: "success",
-        text: "INFO:     FastAPI app initialized: routes registered (/api/playback, /api/settings, /api/audio, /api/kiosk)",
+        text: isEn ? "Bobine listens on port 1903." : "Bobine écoute sur le port 1903.",
       },
       {
-        type: "prompt",
-        text: isEn ? "Interactive OpenAPI documentation available at http://127.0.0.1:8000/docs" : "Documentation interactive OpenAPI disponible sur http://127.0.0.1:8000/docs",
+        type: "dim",
+        text: isEn ? "Interactive API documentation: http://127.0.0.1:1903/docs" : "Documentation interactive de l'API : http://127.0.0.1:1903/docs",
       },
     ],
   },
   {
     id: "api-health",
     badge: {
-      fr: "REST API",
+      fr: "API REST",
       en: "REST API",
       variant: "success",
     },
@@ -545,47 +509,22 @@ export const developerScenarios: TerminalScenario[] = [
       en: "GET /api/health Query",
     },
     title: {
-      fr: "Interrogation de l'état de santé de l'API REST",
-      en: "Querying REST API system health and active channels",
+      fr: "Interroger l'état de santé de Bobine",
+      en: "Query Bobine's health",
     },
     description: {
-      fr: "Retourne l'état instantané du serveur, des 2 canaux de diffusion (Câblé / Réseau) et du moteur audio.",
-      en: "Returns real-time status for the playout engine, dual independent display channels, and audio mixer.",
+      fr: "Retourne l'état du serveur, de la base de données et du kiosque ; la commande bobine status ajoute l'état de lecture des deux canaux.",
+      en: "Returns the state of the server, the database and the kiosk; the bobine status command adds the playback state of both channels.",
     },
-    baseCommand: "curl -s http://127.0.0.1:8000/api/health | jq .",
-    getOutput: (): TerminalLine[] => [
+    baseCommand: "curl -s http://127.0.0.1:1903/api/health | jq .",
+    getOutput: (_flags: string[], isEn: boolean): TerminalLine[] => [
       {
         type: "json",
-        text: JSON.stringify(
-          {
-            status: "ok",
-            version: "3.0.0",
-            uptime_seconds: 144200,
-            hardware: {
-              gpu: "Intel Celeron J4105 (iHD VA-API)",
-              storage_free_gb: 112.4,
-              cpu_load_pct: 4.2,
-            },
-            channels: {
-              wired: {
-                state: "playing",
-                media_id: "rpm-masterclass-85",
-                progress_sec: 1420,
-                duration_sec: 3300,
-              },
-              network: {
-                state: "idle",
-                target_ip: "192.168.1.120",
-              },
-            },
-            audio_guard: {
-              active_sink: "alsa_output.pci-0000_00_1f.3.analog-stereo",
-              ducking_active: false,
-            },
-          },
-          null,
-          2
-        ),
+        text: JSON.stringify({ status: "ok", components: { database: "ok", kiosk: "ok" } }, null, 2),
+      },
+      {
+        type: "dim",
+        text: isEn ? "Same data: bobine status → Bobine on http://127.0.0.1:1903 : ok" : "Mêmes données : bobine status → Bobine sur http://127.0.0.1:1903 : ok",
       },
     ],
   },
@@ -598,38 +537,25 @@ export const developerScenarios: TerminalScenario[] = [
     },
     tabLabel: {
       fr: "Lancer un cours (POST /api/playback)",
-      en: "Start Class (POST /api/playback)",
+      en: "Start a class (POST /api/playback)",
     },
     title: {
-      fr: "Déclenchement d'une vidéo de cours collectif par appel HTTP",
-      en: "Trigger a group fitness class video via HTTP POST",
+      fr: "Déclencher une vidéo de cours par appel HTTP",
+      en: "Trigger a class video via HTTP POST",
     },
     description: {
-      fr: "Permet d'intégrer Bobine avec vos systèmes tiers (bornes RFID, tourniquets, applications de réservation).",
-      en: "Integrates Bobine with third-party gym software (RFID gates, booking systems, turnstiles).",
+      fr: "Les mêmes routes que l'interface et que la commande bobine : POST /api/playback/{canal}/{action}, canal cable ou network. Le premier paramètre de load est l'identifiant de la vidéo.",
+      en: "The same routes as the interface and the bobine command: POST /api/playback/{channel}/{action}, channel cable or network. The load parameter is the video identifier.",
     },
-    baseCommand: "curl -X POST http://127.0.0.1:8000/api/playback/play -H 'Content-Type: application/json' -d '{\"channel\":\"wired\",\"media_id\":\"bodypump-118\"}'",
-    getOutput: (): TerminalLine[] => [
+    baseCommand: "curl -X POST http://127.0.0.1:1903/api/playback/cable/load -H 'Content-Type: application/json' -d '{\"video_id\": 12}'",
+    getOutput: (_flags: string[], isEn: boolean): TerminalLine[] => [
       {
         type: "json",
-        text: JSON.stringify(
-          {
-            success: true,
-            channel: "wired",
-            media: {
-              id: "bodypump-118",
-              title: "BodyPump 118 — Full Body Power",
-              category: "Renforcement",
-              duration: "55 min",
-              resolution: "1920x1080@60fps",
-            },
-            cec_command_sent: "KEY_POWER_ON (TV display wake)",
-            audio_ducking: "Radio background paused (crossfade 2s)",
-            started_at: "2026-08-28T12:20:00Z",
-          },
-          null,
-          2
-        ),
+        text: JSON.stringify({ state: { state: "playing", current_video: { id: 12, title: "Cours 12" }, volume: 100 } }, null, 2),
+      },
+      {
+        type: "dim",
+        text: isEn ? "Same action: bobine playback cable load video_id=12 → cable : playing" : "Même action : bobine playback cable load video_id=12 → cable : playing",
       },
     ],
   },
@@ -642,49 +568,25 @@ export const developerScenarios: TerminalScenario[] = [
     },
     tabLabel: {
       fr: "Tests unitaires (pytest)",
-      en: "Unit Tests (pytest)",
+      en: "Unit tests (pytest)",
     },
     title: {
-      fr: "Exécution de la suite de tests automatisés Backend",
-      en: "Running the automated Backend test suite",
+      fr: "Exécuter la suite de tests du backend",
+      en: "Run the backend test suite",
     },
     description: {
-      fr: "Vérifie la résolution des conflits de planning, l'export de sauvegarde et l'intégrité de la base SQLite.",
-      en: "Validates timetable conflict resolution, backup export, and SQLite database integrity.",
+      fr: "Vérifie la diffusion, le planning, la configuration, la sécurité réseau et les imports, avec une base SQLite d'essai isolée.",
+      en: "Checks playout, scheduling, configuration, network security and imports, against an isolated SQLite test database.",
     },
-    baseCommand: "cd backend && .venv/bin/pytest -v tests/",
+    baseCommand: "cd backend && .venv/bin/python -m pytest -q",
     getOutput: (_flags: string[], isEn: boolean): TerminalLine[] => [
       {
         type: "dim",
-        text: "rootdir: /home/fanta/Bobine/backend, configfile: pyproject.toml",
-      },
-      {
-        type: "dim",
-        text: "collected 24 items",
-      },
-      {
-        type: "success",
-        text: "tests/test_scheduler.py::test_conflict_resolution PASSED             [ 12%]",
-      },
-      {
-        type: "success",
-        text: "tests/test_scheduler.py::test_recurring_timetable_dispatch PASSED    [ 25%]",
-      },
-      {
-        type: "success",
-        text: "tests/test_cec.py::test_standby_and_wake_payloads PASSED            [ 50%]",
-      },
-      {
-        type: "success",
-        text: "tests/test_audio.py::test_crossfade_and_voice_ducking PASSED        [ 75%]",
-      },
-      {
-        type: "success",
-        text: "tests/test_kiosk.py::test_on_demand_trigger PASSED                   [100%]",
+        text: "........................................................................ [100%]",
       },
       {
         type: "prompt",
-        text: isEn ? "24 passed in 0.68s (100% test coverage for core playout logic)" : "24 validés en 0.68s (100% de couverture sur la logique de diffusion)",
+        text: isEn ? "1393 passed, 8 skipped in 69s" : "1393 réussis, 8 ignorés en 69 s",
       },
     ],
   },
@@ -703,71 +605,57 @@ export const usageScenarios: TerminalScenario[] = [
       variant: "info",
     },
     tabLabel: {
-      fr: "Piloter la Radio Sono",
-      en: "Control Gym Radio",
+      fr: "Piloter la radio",
+      en: "Control the radio",
     },
     title: {
-      fr: "Gestion de la musique d'ambiance 24/7 avec fondu enchaîné",
-      en: "24/7 background gym audio management with smart crossfade",
+      fr: "Gérer la musique d'ambiance 24/7",
+      en: "Manage 24/7 background music",
     },
     description: {
-      fr: "Déclenche la lecture d'une playlist musicale d'ambiance avec fondu sonore paramétrable entre chaque piste.",
-      en: "Triggers playback of a background music playlist with customizable audio crossfade between tracks.",
+      fr: "Chaque sortie radio (cable ou network) se pilote par la même façade : lecture, pause, volume, titre suivant. Le fondu entre pistes se règle dans Réglages.",
+      en: "Each radio output (cable or network) is driven by the same facade: play, pause, volume, next track. The crossfade between tracks is set in Settings.",
     },
-    baseCommand: "curl -X POST http://127.0.0.1:8000/api/audio/play -H 'Content-Type: application/json' -d '{\"playlist_id\":\"energy-hits\",\"crossfade_sec\":4}'",
-    getOutput: (): TerminalLine[] => [
+    baseCommand: "bobine radio cable play",
+    getOutput: (_flags: string[], isEn: boolean): TerminalLine[] => [
       {
-        type: "json",
-        text: JSON.stringify(
-          {
-            status: "playing",
-            mode: "continuous_radio",
-            active_playlist: "Energy Hits & Workout Beats",
-            total_tracks: 84,
-            crossfade_duration_seconds: 4,
-            ducking_on_voice: true,
-            hardware_sink: "analog-stereo",
-          },
-          null,
-          2
-        ),
+        type: "success",
+        text: "cable : playing",
+      },
+      {
+        type: "dim",
+        text: isEn ? "REST equivalent: POST /api/radio/cable/play" : "Équivalent REST : POST /api/radio/cable/play",
       },
     ],
   },
   {
     id: "voice-announcement",
     badge: {
-      fr: "Annonce Vocale",
-      en: "Voice Reminder",
+      fr: "Annonce vocale",
+      en: "Voice reminder",
       variant: "warning",
     },
     tabLabel: {
-      fr: "Annonce vocale automatique",
-      en: "Auto Voice Reminder",
+      fr: "Rappel immédiat",
+      en: "Immediate reminder",
     },
     title: {
-      fr: "Diffusion d'une annonce vocale avec atténuation automatique de la musique",
-      en: "Broadcast a voice announcement with automatic background audio ducking",
+      fr: "Diffuser un rappel avec atténuation de la musique",
+      en: "Play a reminder with automatic music ducking",
     },
     description: {
-      fr: "Baisse automatiquement le volume de la musique de fond à 20%, diffuse l'annonce de sécurité ou de fin de séance, puis remonte la musique en douceur.",
-      en: "Automatically ducks background music down to 20%, broadcasts the gym reminder, and smoothly restores volume.",
+      fr: "Joue un rappel de la bibliothèque tout de suite : la musique baisse puis remonte. Sans identifiant, un rappel actif est tiré au hasard.",
+      en: "Plays a reminder from the library right away: the music ducks then comes back. Without an identifier, an active reminder is picked at random.",
     },
-    baseCommand: "curl -X POST http://127.0.0.1:8000/api/audio/announcement -H 'Content-Type: application/json' -d '{\"audio_id\":\"closing-reminder-10m\"}'",
-    getOutput: (): TerminalLine[] => [
+    baseCommand: "curl -X POST http://127.0.0.1:1903/api/radio/announcements/play-now -H 'Content-Type: application/json' -d '{}'",
+    getOutput: (_flags: string[], isEn: boolean): TerminalLine[] => [
       {
         type: "json",
-        text: JSON.stringify(
-          {
-            success: true,
-            announcement: "Fermeture de l'espace dans 10 minutes (pensez à ranger vos haltères)",
-            ducking_applied: "Music lowered to 20% (-14dB)",
-            announcement_duration_sec: 7.2,
-            restore_crossfade_sec: 1.5,
-          },
-          null,
-          2
-        ),
+        text: JSON.stringify({ id: 3, description: "Fermeture de l'espace dans 10 minutes" }, null, 2),
+      },
+      {
+        type: "dim",
+        text: isEn ? "Same action: bobine radio network radio_play_announcement" : "Même action : bobine radio network radio_play_announcement",
       },
     ],
   },
@@ -779,28 +667,30 @@ export const usageScenarios: TerminalScenario[] = [
       variant: "success",
     },
     tabLabel: {
-      fr: "Obtenir l'URL Télécommande",
-      en: "Get Remote URL",
+      fr: "Adresses d'accès",
+      en: "Access addresses",
     },
     title: {
-      fr: "Récupération du lien direct et QR code de télécommande coach",
-      en: "Fetch coach smartphone remote control direct URL and QR code",
+      fr: "Retrouver les adresses d'accès à Bobine",
+      en: "Find Bobine's access addresses",
     },
     description: {
-      fr: "Génère l'URL d'accès réseau local sans mot de passe pour piloter la diffusion depuis n'importe quel smartphone connecté au Wi-Fi de la salle.",
-      en: "Generates the local network URL to control playback from any coach phone on the gym Wi-Fi without app installation.",
+      fr: "Réglages donne chaque adresse par interface (Wi-Fi, Ethernet, VPN) et le nom bobine.local ; sans mot de passe, sur le réseau local seulement.",
+      en: "Settings lists each address per interface (Wi-Fi, Ethernet, VPN) and the bobine.local name; no password, local network only.",
     },
-    baseCommand: "curl -s http://127.0.0.1:8000/api/kiosk/remote-info | jq .",
+    baseCommand: "bobine settings get network",
     getOutput: (): TerminalLine[] => [
       {
         type: "json",
         text: JSON.stringify(
           {
-            remote_url: "http://192.168.1.50:8000/remote",
-            mdns_url: "http://bobine.local:8000/remote",
-            active_channel: "wired",
-            current_media: "Cours collectif 85 (Masterclass)",
-            pin_required: false,
+            port: 1903,
+            mdns_url: "http://bobine.local:1903",
+            access: [
+              { kind: "loopback", url: "http://127.0.0.1:1903" },
+              { kind: "lan", interface: "wlan0", url: "http://192.168.1.50:1903" },
+              { kind: "mdns", url: "http://bobine.local:1903" },
+            ],
           },
           null,
           2

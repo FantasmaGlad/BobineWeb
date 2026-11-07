@@ -23,7 +23,7 @@
       "base": "#972121",
       "light": {
         "bg": "#ffffff",
-        "surface": "#e2e2e2",
+        "surface": "#ffcfcd",
         "accent": "#cd1c18",
         "text": "#2e0605"
       },

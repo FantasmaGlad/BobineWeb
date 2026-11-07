@@ -37,7 +37,7 @@ export const THEMES: readonly ThemeDef[] = [
     light: { bg: "#ffffff", surface: "#e3ecf2", accent: "#697485", text: "#252d41" },
     dark: { bg: "#252d41", surface: "#536383", accent: "#e3ecf2", text: "#ffffff" } },
   { id: "chili", labelKey: "settingsPage.themeChili", base: "#972121",
-    light: { bg: "#ffffff", surface: "#e2e2e2", accent: "#cd1c18", text: "#2e0605" },
+    light: { bg: "#ffffff", surface: "#ffcfcd", accent: "#cd1c18", text: "#2e0605" },
     dark: { bg: "#2e0605", surface: "#440908", accent: "#e5211d", text: "#f6b7b5" } },
   { id: "canary", labelKey: "settingsPage.themeCanary", base: "#ffef00",
     light: { bg: "#ffffff", surface: "#fffab3", accent: "#e6d700", text: "#393500" },

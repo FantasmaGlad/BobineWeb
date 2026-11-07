@@ -100,31 +100,31 @@
   color-scheme: light;
   --bg-canvas: #ffffff;
   --bg-main: #ffffff;
-  --bg-card: #e2e2e2;
-  --bg-card-hover: #d0cccc;
-  --bg-surface: #e2e2e2;
-  --bg-surface-elevated: #d9d7d7;
-  --bg-surface-hover: #d0cccc;
+  --bg-card: #ffcfcd;
+  --bg-card-hover: #eabbb9;
+  --bg-surface: #ffcfcd;
+  --bg-surface-elevated: #f5c5c3;
+  --bg-surface-hover: #eabbb9;
   --bg-inset: #f2f0f0;
   --text-heading: #2e0605;
   --text-main: #2e0605;
   --text-body: #2e0605;
   --text-base: #2e0605;
-  --text-muted: #674a49;
-  --text-dim: #694c4c;
+  --text-muted: #644746;
+  --text-dim: #664949;
   --accent-primary: #cd1c18;
   --accent-primary-fg: #ffffff;
-  --accent-text: #ba1916;
+  --accent-text: #b21815;
   --accent-hover: #b01815;
-  --accent-success: #2f5325;
+  --accent-success: #2f4d22;
   --accent-warning: #753a07;
-  --accent-error-text: #6f1a15;
-  --accent-info-text: #214660;
+  --accent-error-text: #6d1915;
+  --accent-info-text: #224159;
   --border-subtle: #ded7d7;
   --border-color: #ded7d7;
   --border-hover: #beb1b1;
-  --border-vibrant: #ba1916;
-  --border-focus: #ba1916;
+  --border-vibrant: #b21815;
+  --border-focus: #b21815;
 }
 
 :root[data-theme="chili"][data-mode="dark"] {

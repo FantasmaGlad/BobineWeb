@@ -28,10 +28,34 @@ Avant la bascule atomique, `verify-packages.py` vérifie la clé principale épi
 ## Installation
 
 1. Installer `tor`, `caddy`, `python3` et `gnupg`. Le service Caddy système reste inactif.
-2. Créer l'utilisateur système `onion`, `/srv/onion`, `/etc/bobine-onion/` et `/usr/local/lib/bobine-onion/`.
+2. Créer deux utilisateurs système distincts, pour que le serveur web, exposé sur Tor, ne puisse jamais lire la clé de déploiement : `onion-sync` (synchronisation, seul à lire la clé) et `onion-web` (Caddy), avec le groupe commun `onion-data` pour les copies servies.
+   ```bash
+   groupadd --system onion-data
+   useradd --system --home-dir /var/lib/onion-sync --create-home --shell /usr/sbin/nologin --gid onion-data onion-sync
+   useradd --system --no-create-home --shell /usr/sbin/nologin --gid debian-tor --groups onion-data onion-web
+   install -d -m 2750 -o onion-sync -g onion-data /srv/onion
+   install -d -m 0700 -o onion-sync -g onion-data /var/lib/onion-sync/.ssh
+   install -d /etc/bobine-onion /usr/local/lib/bobine-onion
+   ```
 3. Copier `Caddyfile.onion` vers `/etc/bobine-onion/Caddyfile`, les unités vers `/etc/systemd/system/`, puis `sync.sh`, `verify-packages.py` et `overlay/` vers `/usr/local/lib/bobine-onion/`.
 4. Ajouter `torrc.bobine-onion.conf` à `/etc/tor/torrc`, puis redémarrer `tor@default`. Les adresses sont dans `/var/lib/tor/bobine-apt/hostname` et `/var/lib/tor/bobine-site/hostname`.
-5. Installer la clé de déploiement GitHub en lecture seule dans `/var/lib/onion/.ssh/`, puis y créer `known_hosts` avec les clés d'hôte de `github.com` vérifiées auprès de la page officielle des empreintes de GitHub (`ssh-keyscan -t ed25519 github.com` ne suffit pas sans cette vérification) : `sync.sh` impose la vérification stricte et signale un fichier absent. Activer ensuite `bobine-onion-web.service` et `bobine-onion-sync.timer`.
+5. Installer la clé de déploiement GitHub en lecture seule dans `/var/lib/onion-sync/.ssh/` (propriétaire `onion-sync`, mode 0600), puis y créer `known_hosts` avec les clés d'hôte de `github.com` vérifiées auprès de la page officielle des empreintes de GitHub (`ssh-keyscan -t ed25519 github.com` ne suffit pas sans cette vérification) : `sync.sh` impose la vérification stricte et signale un fichier absent. Activer ensuite `bobine-onion-web.service` et `bobine-onion-sync.timer`.
+
+### Migration depuis l'ancien utilisateur unique `onion`
+
+Avant la séparation, Caddy et la synchronisation partageaient l'utilisateur `onion` : le serveur web pouvait lire la clé de déploiement. Sur une machine déjà installée :
+
+1. Arrêter `bobine-onion-web.service` et `bobine-onion-sync.timer`, créer les utilisateurs et le groupe de l'étape 2.
+2. `mv /var/lib/onion/.ssh /var/lib/onion-sync/.ssh && chown -R onion-sync:onion-data /var/lib/onion-sync && chmod 0700 /var/lib/onion-sync/.ssh`, puis `chown -R onion-sync:onion-data /srv/onion && chmod -R g+rX,o-rwx /srv/onion`.
+3. Copier les unités et `sync.sh` à jour, `systemctl daemon-reload`, relancer `bobine-onion-sync.service` puis `bobine-onion-web.service` et le minuteur.
+4. **Remplacer la clé de déploiement** : l'ancienne était lisible par le serveur web. En créer une nouvelle (`ssh-keygen -t ed25519`), l'ajouter à `BobineWeb` en lecture seule, retirer l'ancienne sur GitHub. Supprimer ensuite l'utilisateur `onion` et `/var/lib/onion`.
+
+## Contrôles avant publication
+
+`sync.sh` n'échange la copie servie qu'après les vérifications de chaque arbre ; en cas d'échec l'ancienne copie reste servie.
+- Dépôt de paquets : `verify-packages.py` (signatures, empreintes, tailles), puis les overlays de `overlay/apt/` adaptent le portail à Tor (`site-tor.py` pour `assets/site.js`, `mirror-files-tor.py` pour les `.repo` et les fichiers propres au web classique) et `no-clearnet-check.py` refuse la copie si un fichier texte mène encore à `bobine.fit`, `packages.bobine.fit` ou GitHub.
+- Site : `overlay/site/commands-tor.py` transforme les commandes `curl` du contenu (installateurs, clé et dépôts) en commandes par le service onion et le proxy SOCKS, puis `check-commands.py` refuse la copie si une commande mène encore au web classique.
+- `python3 deploy/onion/test-overlay-apt.py` essaie ces overlays (lancé par la CI) ; la CI les applique aussi à l'export réel du site.
 
 Le groupe `debian-tor` permet à Tor d'ouvrir les sockets de Caddy après abandon de ses privilèges. Sauvegarder les clés des services onion hors ligne : leur perte entraîne celle des adresses.
 

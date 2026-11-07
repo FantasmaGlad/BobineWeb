@@ -11,24 +11,36 @@ APT_URL=https://github.com/FantasmaGlad/bobine-packages.git
 APT_BRANCH=gh-pages
 SITE_URL=git@github.com:FantasmaGlad/BobineWeb.git
 SITE_BRANCH=onion-site
-export GIT_SSH_COMMAND="ssh -i /var/lib/onion/.ssh/bobineweb_onion_deploy -o IdentitiesOnly=yes -o BatchMode=yes -o UserKnownHostsFile=/var/lib/onion/.ssh/known_hosts -o StrictHostKeyChecking=yes"
+# La clé de déploiement n'est lisible que par l'utilisateur de la synchronisation (onion-sync) : le serveur web, exposé sur
+# Tor, tourne sous un autre utilisateur qui n'a aucun accès à ce dossier.
+STATE=${ONION_SYNC_STATE:-/var/lib/onion-sync}
+export GIT_SSH_COMMAND="ssh -i $STATE/.ssh/bobineweb_onion_deploy -o IdentitiesOnly=yes -o BatchMode=yes -o UserKnownHostsFile=$STATE/.ssh/known_hosts -o StrictHostKeyChecking=yes"
 
 OVERLAY=/usr/local/lib/bobine-onion/overlay
 
 log() { echo "[onion-sync] $*"; }
 
 # La vérification stricte de la clé d'hôte GitHub exige ce fichier (voir README) : sans lui, ssh échoue sans explication.
-[ -r /var/lib/onion/.ssh/known_hosts ] || log "avertissement : /var/lib/onion/.ssh/known_hosts absent ou illisible, la branche du site ne pourra pas être récupérée"
+[ -r "$STATE/.ssh/known_hosts" ] || log "avertissement : $STATE/.ssh/known_hosts absent ou illisible, la branche du site ne pourra pas être récupérée"
 
 # Personnalisations propres au miroir Tor (jamais poussees dans le depot source).
 overlay_apt() {
   python3 "$OVERLAY/apt/pong-tor.py" "$1" || return 1
   python3 "$OVERLAY/apt/apt-tor.py" "$1" || return 1
   python3 "$OVERLAY/apt/packages-tor.py" "$1" || return 1
+  python3 "$OVERLAY/apt/site-tor.py" "$1" || return 1
+  python3 "$OVERLAY/apt/mirror-files-tor.py" "$1" || return 1
+  # Dernier mot : aucune adresse du web classique ne doit rester dans ce qui est servi par Tor.
+  python3 "$OVERLAY/apt/no-clearnet-check.py" "$1" || return 1
 }
 overlay_none() { :; }
 # vercel.json n'est utile qu'a Vercel (desactive le deploiement de la branche onion-site) : pas sur le miroir.
-overlay_site() { rm -f "$1/vercel.json"; }
+overlay_site() {
+  rm -f "$1/vercel.json"
+  python3 "$OVERLAY/site/commands-tor.py" "$1" || return 1
+  # Dernier mot : aucune commande copiable du site ne doit mener au web classique.
+  python3 "$OVERLAY/site/check-commands.py" "$1" || return 1
+}
 
 verify_packages() {
   python3 /usr/local/lib/bobine-onion/verify-packages.py "$1"

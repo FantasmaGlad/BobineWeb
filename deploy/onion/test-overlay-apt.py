@@ -42,6 +42,8 @@ def portal(root: Path) -> Path:
     (root / "fr" / "index.html").write_text(PAGE, encoding="utf-8")
     (root / "README.md").write_text("curl -fsSL https://packages.bobine.fit/bobine.gpg", encoding="utf-8")
     (root / "llms.txt").write_text("https://bobine.fit/", encoding="utf-8")
+    (root / ".well-known").mkdir()
+    (root / ".well-known" / "security.txt").write_text("Contact: https://security.bobine.fit/", encoding="utf-8")
     (root / "bobine-stable.repo").write_text("[b]\nbaseurl=https://packages.bobine.fit/fedora/\n", encoding="utf-8")
     (root / "assets" / "NOTICE.md").write_text("Source : https://github.com/FantasmaGlad/BobineWeb", encoding="utf-8")
     return root
@@ -69,7 +71,8 @@ class OverlayTests(unittest.TestCase):
             self.assertIn("--socks5-hostname 127.0.0.1:9050", page)
             self.assertIn("install-tor.sh", page)
             self.assertNotIn("github.com", page)
-        self.assertFalse((self.root / "README.md").exists() or (self.root / "llms.txt").exists())
+        for name in ("README.md", "llms.txt", ".well-known/security.txt"):
+            self.assertFalse((self.root / name).exists(), name)
         repo = (self.root / "bobine-stable.repo").read_text(encoding="utf-8")
         self.assertIn("http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/fedora/", repo)
         self.assertIn("proxy=socks5h://127.0.0.1:9050", repo)

@@ -68,7 +68,7 @@ Avant la séparation, Caddy et la synchronisation partageaient l'utilisateur `on
 ## Contrôles avant publication
 
 `sync.sh` n'échange la copie servie qu'après les vérifications de chaque arbre ; en cas d'échec l'ancienne copie reste servie.
-- Dépôt de paquets : `verify-packages.py` (signatures, empreintes, tailles), puis les overlays de `overlay/apt/` adaptent le portail à Tor (`site-tor.py` pour `assets/site.js`, `mirror-files-tor.py` pour les `.repo` et les fichiers propres au web classique) et `no-clearnet-check.py` refuse la copie si un fichier texte mène encore à `bobine.fit`, `packages.bobine.fit` ou GitHub.
+- Dépôt de paquets : `verify-packages.py` (signatures, empreintes, tailles), puis les overlays de `overlay/apt/` adaptent le portail à Tor (`site-tor.py` pour `assets/site.js`, `mirror-files-tor.py` pour les `.repo` et les fichiers propres au web classique, dont `.well-known/security.txt`) et `no-clearnet-check.py` refuse la copie si un fichier texte mène encore à `bobine.fit`, `packages.bobine.fit` ou GitHub.
 - Site : `overlay/site/commands-tor.py` transforme les commandes `curl` du contenu (installateurs, clé et dépôts) en commandes par le service onion et le proxy SOCKS, puis `check-commands.py` refuse la copie si une commande mène encore au web classique.
 - `python3 deploy/onion/test-overlay-apt.py` essaie ces overlays (lancé par la CI) ; la CI les applique aussi à l'export réel du site.
 

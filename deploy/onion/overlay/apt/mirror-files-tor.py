@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Fichiers du dépôt qui ne servent qu'au web classique : retirés ou réécrits dans la copie servie par Tor.
 
-Retirés : README (commandes avec https://packages.bobine.fit, à copier tel quel), llms.txt, sitemap.xml, robots.txt et CNAME
-(adresses du site classique). Réécrits : les fichiers .repo de la racine (comme ceux de fedora/, avec le proxy SOCKS) ; les
+Retirés : README (commandes avec https://packages.bobine.fit, à copier tel quel), llms.txt, sitemap.xml, robots.txt, CNAME
+et .well-known/security.txt (adresses du site classique). Réécrits : les fichiers .repo de la racine (comme ceux de fedora/, avec le proxy SOCKS) ; les
 liens du texte de assets/NOTICE.md perdent leur schéma, pour ne rien charger ni ouvrir en clic.
 
 Usage : mirror-files-tor.py <dossier de release APT>
@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 PACKAGES_HOST = "rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion"
-REMOVED = ("README.md", "README.fr.md", "llms.txt", "sitemap.xml", "robots.txt", "CNAME")
+REMOVED = ("README.md", "README.fr.md", "llms.txt", "sitemap.xml", "robots.txt", "CNAME", ".well-known/security.txt")
 CLEARNET_LINK = re.compile(r"https?://((?:www\.)?(?:packages\.bobine\.fit|security\.bobine\.fit|bobine\.fit|api\.github\.com|github\.com|raw\.githubusercontent\.com)\b)")
 
 

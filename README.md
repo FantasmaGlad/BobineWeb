@@ -1,6 +1,26 @@
-# BobineWeb
+<p align="center">
+  <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Images/logo_bobine_icon.png" width="96" height="96" alt="Bobine">
+</p>
 
-Source of [bobine.fit](https://bobine.fit), the website of [Bobine](https://github.com/FantasmaGlad/Bobine): documentation, downloads and Tor mirror. French: [README.fr.md](README.fr.md).
+<h1 align="center">BobineWeb</h1>
+
+<p align="center">
+  <b>Source of bobine.fit, the website of <a href="https://github.com/FantasmaGlad/Bobine">Bobine</a>.</b>
+</p>
+
+<p align="center">
+  <a href="https://bobine.fit"><b>bobine.fit</b></a> &nbsp;·&nbsp;
+  <a href="https://github.com/FantasmaGlad/Bobine#download--install"><b>Downloads</b></a> &nbsp;·&nbsp;
+  <a href="README.fr.md"><b>Français</b></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/FantasmaGlad/BobineWeb/actions/workflows/ci.yml"><img src="https://github.com/FantasmaGlad/BobineWeb/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI"></a>
+</p>
+
+---
+
+## Sites
 
 | Site | Address |
 | :--- | :--- |
@@ -9,12 +29,16 @@ Source of [bobine.fit](https://bobine.fit), the website of [Bobine](https://gith
 | Security policy | <https://security.bobine.fit> |
 | <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/tor.svg" width="20" height="20" valign="middle" alt="Tor"> Tor mirror | [bobinedaoki….onion](http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/) |
 
+## Development
+
 ```bash
 npm ci
 npm run dev    # http://localhost:3000, no external key required
 ```
 
-Next.js, React and TypeScript; pages in French and English from `src/content/`. Downloads: [Bobine README](https://github.com/FantasmaGlad/Bobine#download--install).
+Next.js, React and TypeScript; pages in French and English from `src/content/`.
+
+---
 
 License: view-only, all rights reserved ([LICENSE](LICENSE), [NOTICE.md](NOTICE.md)) · Security: [SECURITY.md](SECURITY.md) · Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
 

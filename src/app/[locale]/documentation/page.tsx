@@ -23,8 +23,8 @@ export async function generateMetadata({
       ? "Setup Guide & Documentation — Bobine | Multi-OS Playout Suite"
       : "Guide de Démarrage & Installation — Bobine | Régie Vidéo Multi-OS",
     description: isEn
-      ? "Official Bobine setup guide: native 1-click installers for Windows 11/10 (x86_64 & Snapdragon ARM64), macOS Apple Silicon, Linux (x86_64 & ARM64), Google Books (Aluminium OS), Android tablets and Android TV, local network orchestration with Bobine Assistant, and 24/7 dedicated gym appliance on Debian 13 (Mini PC x86_64, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5)."
-      : "Guide d'installation officiel de Bobine : installeurs natifs 1 clic pour Windows 11/10 (x86_64 & PC ARM Snapdragon), macOS Apple Silicon, Linux (x86_64 & ARM64), Google Books (Aluminium OS), tablettes Android et Android TV, orchestration réseau avec Bobine Assistant, et régie autonome 24/7 sur mini PC Debian 13 (x86_64, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5).",
+      ? "Official Bobine setup guide: native 1-click installers for Windows 11/10 (x86_64 & Snapdragon ARM64), macOS Apple Silicon, Linux (x86_64 & ARM64), Google Books (Aluminium OS), Android tablets and Android TV, remote installation over the local network with Bobine Deploy, and 24/7 dedicated gym appliance on Debian 13 (Mini PC x86_64, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5)."
+      : "Guide d'installation officiel de Bobine : installeurs natifs 1 clic pour Windows 11/10 (x86_64 & PC ARM Snapdragon), macOS Apple Silicon, Linux (x86_64 & ARM64), Google Books (Aluminium OS), tablettes Android et Android TV, installation à distance sur le réseau local avec Bobine Deploy, et régie autonome 24/7 sur mini PC Debian 13 (x86_64, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5).",
     keywords: [
       "Documentation Bobine",
       "Démarrage rapide Bobine",
@@ -50,7 +50,7 @@ export async function generateMetadata({
       "Bobine Arch Linux",
       "Bobine Android",
       "Bobine Android TV",
-      "Bobine Assistant",
+      "Bobine Deploy",
       "Debian 13 mini PC fitness",
       "Script install.sh Bobine",
     ],

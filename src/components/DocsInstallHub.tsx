@@ -14,8 +14,7 @@ import QuickStartStepper from "@/components/QuickStartStepper";
 import { docChapters } from "@/content/docs/chapters";
 import { useDetectedPlatform, reorderForPlatform } from "@/lib/detectPlatform";
 
-import type { AssistantPackages, ReleaseChannelInfo } from "@/lib/releaseTypes";
-import type { RepoStatsResponse } from "@/lib/releaseChannels";
+import type { DeployPackages, ReleaseChannelInfo } from "@/lib/releaseTypes";
 import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFallbacks";
 import { useReleaseData } from "@/components/ReleaseProvider";
 import { ANDROID } from "@/lib/productFacts";
@@ -41,6 +40,8 @@ import {
   type PackageChannel,
 } from "@/lib/linuxPackages";
 import "@/styles/split/pages-docs.css";
+
+const DEPLOY_RELEASES = "https://github.com/FantasmaGlad/bobine-deploy/releases/latest";
 
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
 type AndroidVariant = "mobile" | "tv";
@@ -71,7 +72,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const [stable, setStable] = useState<ReleaseChannelInfo>(initialRelease?.stable ?? FALLBACK_STABLE);
   const [beta, setBeta] = useState<ReleaseChannelInfo>(initialRelease?.beta ?? FALLBACK_BETA);
   const [canary, setCanary] = useState<ReleaseChannelInfo>(initialRelease?.canary ?? FALLBACK_CANARY);
-  const [assistant, setAssistant] = useState<RepoStatsResponse["assistant"]>(initialRelease?.assistant ?? {});
+  const [deploy, setDeploy] = useState<DeployPackages | undefined>(initialRelease?.deploy);
   const [copiedCmd, setCopiedCmd] = useState(false);
   const [selectedArch, setSelectedArch] = useState<"x86_64" | "arm64">("x86_64");
   const [selectedFamily, setSelectedFamily] = useState<LinuxFamilyId>("debian");
@@ -112,7 +113,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         if (data.stable) setStable(data.stable);
         if (data.beta) setBeta(data.beta);
         if (data.canary) setCanary(data.canary);
-        if (data.assistant) setAssistant(data.assistant);
+        if (data.deploy) setDeploy(data.deploy);
       })
       .catch(() => {});
     return () => {
@@ -278,53 +279,51 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
     </div>
   );
 
-  // Paquets de l'assistant (release à part, tags assistant-*) : un lien par système publié, pour chaque canal.
-  const renderAssistantPackages = () => {
-    const rows: Array<{ id: string; label: string; packages?: AssistantPackages }> = [
-      { id: "stable", label: "Stable", packages: assistant.stable },
-      { id: "beta", label: isEn ? "Beta" : "Bêta", packages: assistant.beta },
-      { id: "canary", label: "Canary", packages: assistant.canary },
-    ];
-    const links = (p: AssistantPackages) =>
-      [
-        { url: p.windows, text: "Windows x64" },
-        { url: p.windowsArm64, text: "Windows ARM64" },
-        { url: p.macos, text: "macOS" },
-        { url: p.deb, text: ".deb amd64" },
-        { url: p.debArm64, text: ".deb arm64" },
-        { url: p.rpm, text: ".rpm x86_64" },
-        { url: p.rpmArm64, text: ".rpm aarch64" },
-        { url: p.android, text: "Android" },
-      ].filter((link): link is { url: string; text: string } => Boolean(link.url));
+  // Paquets de Bobine Deploy (dépôt à part, dernière release Stable) : un lien par système publié.
+  const renderDeployPackages = () => {
+    const links = deploy
+      ? [
+          { url: deploy.windows, text: "Windows x64" },
+          { url: deploy.windowsArm64, text: "Windows ARM64" },
+          { url: deploy.macosArm64, text: "macOS Apple Silicon" },
+          { url: deploy.macos, text: "macOS Intel" },
+          { url: deploy.deb, text: ".deb amd64" },
+          { url: deploy.debArm64, text: ".deb arm64" },
+          { url: deploy.rpm, text: ".rpm x86_64" },
+          { url: deploy.rpmArm64, text: ".rpm aarch64" },
+        ].filter((link): link is { url: string; text: string } => Boolean(link.url))
+      : [];
     return (
       <div className="docs-steps-flow">
         <h3 className="docs-steps-flow__heading">
-          {isEn ? "Installable packages (updates itself):" : "Paquets installables (se met à jour seul) :"}
+          {deploy
+            ? isEn
+              ? `Packages, version ${deploy.version}:`
+              : `Paquets, version ${deploy.version} :`
+            : isEn
+              ? "Packages:"
+              : "Paquets :"}
         </h3>
-        <ul className="docs-plain-list">
-          {rows.map(({ id, label, packages }) => (
-            <li key={id}>
-              <strong>{label}</strong>
-              {packages ? ` ${packages.version} : ` : " : "}
-              {packages && links(packages).length > 0
-                ? links(packages).map((link, index) => (
-                    <span key={link.url}>
-                      {index > 0 && " · "}
-                      <a href={link.url} rel="noopener noreferrer" download>
-                        {link.text}
-                      </a>
-                    </span>
-                  ))
-                : isEn
-                  ? "not published yet"
-                  : "pas encore publié"}
-            </li>
-          ))}
-        </ul>
+        <p className="dx-p-6">
+          {links.length > 0
+            ? links.map((link, index) => (
+                <span key={link.url}>
+                  {index > 0 && " · "}
+                  <a href={link.url} rel="noopener noreferrer" download>
+                    {link.text}
+                  </a>
+                </span>
+              ))
+            : null}
+          {links.length > 0 && " · "}
+          <a href={deploy?.htmlUrl || DEPLOY_RELEASES} rel="noopener noreferrer">
+            {isEn ? "all files and checksums" : "tous les fichiers et empreintes"}
+          </a>
+        </p>
         <p className="dx-p-6">
           {isEn
-            ? "macOS with Homebrew: brew install --cask fantasmaglad/bobine/bobine-assistant · command line: bobine-assistant --help · Android: install the new APK over the old one to update"
-            : "macOS avec Homebrew : brew install --cask fantasmaglad/bobine/bobine-assistant · ligne de commande : bobine-assistant --help · Android : la nouvelle APK s'installe par-dessus l'ancienne"}
+            ? "Command line: bobine-deploy --help. Source code, license and security policy: github.com/FantasmaGlad/bobine-deploy."
+            : "Ligne de commande : bobine-deploy --help. Code source, licence et politique de sécurité : github.com/FantasmaGlad/bobine-deploy."}
         </p>
       </div>
     );
@@ -867,8 +866,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
     {
       id: "tauri",
       group: "appliance",
-      name: "Bobine Assistant",
-      format: isEn ? "Tauri 2 · Network" : "Tauri 2 · Réseau",
+      name: "Bobine Deploy",
+      format: isEn ? "SSH · Network" : "SSH · Réseau",
       badge: isEn ? "Network" : "Réseau",
       icon: <TauriIcon size={20} />,
     },
@@ -1466,7 +1465,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      {/* 4. TAURI ASSISTANT */}
+      {/* 4. BOBINE DEPLOY */}
       {activeTab === "tauri" && (
         <div
           id="panel-tauri"
@@ -1481,43 +1480,27 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
               </div>
               <div className="dx-div-14">
                 <h2 className="docs-method-hero__title">
-                  {isEn ? "Bobine Assistant (Network Orchestrator)" : "Bobine Assistant (Orchestrateur Réseau)"}
+                  {isEn ? "Bobine Deploy (remote installation)" : "Bobine Deploy (installation à distance)"}
                 </h2>
                 <p className="docs-method-hero__desc">
                   {isEn
-                    ? "Lightweight Rust & Tauri 2 desktop tool to discover, audit, and deploy Bobine headless appliances across your local network without typing terminal commands."
-                    : "Application graphique légère en Rust & Tauri 2 pour découvrir, auditer et déployer vos appliances Bobine sur le réseau local sans saisir de ligne de commande."}
+                    ? "Separate desktop application (Linux, Windows, macOS, x86_64 and ARM64) that finds the mini PC on your local network, connects to it over SSH and installs Bobine with live progress, from a window or the command line."
+                    : "Application de bureau séparée (Linux, Windows, macOS, x86_64 et ARM64) qui trouve le mini PC sur le réseau local, s'y connecte en SSH et installe Bobine avec une progression en temps réel, en fenêtre ou en ligne de commande."}
                 </p>
-                {renderArchSwitch()}
               </div>
             </div>
 
-            {renderChannelCards({
-              stableUrl: isArm ? (stable.downloads.assistantArm64 || stable.downloads.assistant) : stable.downloads.assistant,
-              stableLabel: isArm
-                ? (isEn ? `Download Assistant (${stable.version}) · ARM64` : `Télécharger l'Assistant (${stable.version}) · ARM64`)
-                : (isEn ? `Download Assistant (${stable.version}) · x86_64` : `Télécharger l'Assistant (${stable.version}) · x86_64`),
-              betaUrl: isArm ? (beta.downloads.assistantArm64 || beta.downloads.assistant) : beta.downloads.assistant,
-              betaLabel: isArm
-                ? (isEn ? "Download Beta · ARM64" : "Télécharger la Bêta · ARM64")
-                : (isEn ? "Download Beta · x86_64" : "Télécharger la Bêta · x86_64"),
-              canaryUrl: isArm ? (canary.downloads.assistantArm64 || canary.downloads.assistant) : canary.downloads.assistant,
-              canaryLabel: isArm
-                ? (isEn ? "Download Canary · ARM64" : "Télécharger la Canary · ARM64")
-                : (isEn ? "Download Canary · x86_64" : "Télécharger la Canary · x86_64"),
-              archText: isArm ? "ARM64 (Qualcomm Snapdragon, Raspberry Pi 5)" : "x86_64 (Intel / AMD)",
-            })}
           </div>
 
           {renderDivider()}
 
-          {renderAssistantPackages()}
+          {renderDeployPackages()}
 
           {renderDivider()}
 
           <div className="docs-steps-flow">
             <h3 className="docs-steps-flow__heading">
-              {isEn ? "Key Capabilities of Bobine Assistant:" : "Fonctionnalités clés de l'Assistant :"}
+              {isEn ? "What Bobine Deploy does:" : "Ce que fait Bobine Deploy :"}
             </h3>
 
             <div className="docs-step-card">
@@ -1550,8 +1533,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <h4>{isEn ? "One-Click Guided Remote Deployment" : "Déploiement distant guidé en un clic"}</h4>
                 <p>
                   {isEn
-                    ? "Pushes configuration, orchestrates updates, and triggers service reloads with live progress tracking, eliminating the need to physically connect a keyboard to the mini PC."
-                    : "Déploie les mises à jour, installe les dépendances et surveille le redémarrage des services avec une barre de progression en temps réel, sans brancher de clavier au mini PC."}
+                    ? "Checks the SSH host key, uploads the installer from a signed Bobine release and runs it with live progress, without connecting a keyboard to the mini PC."
+                    : "Vérifie la clé d'hôte SSH, téléverse l'installateur d'une release signée de Bobine et le déroule avec une progression en temps réel, sans brancher de clavier au mini PC."}
                 </p>
               </div>
             </div>

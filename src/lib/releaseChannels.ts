@@ -1,10 +1,10 @@
-import type { AssistantPackages, ReleaseChannelInfo, ReleaseFile } from "@/lib/releaseTypes";
+import type { DeployPackages, ReleaseChannelInfo, ReleaseFile } from "@/lib/releaseTypes";
 import { assignPackageAsset, withoutNewPackages } from "@/lib/linuxPackages";
 import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFallbacks";
 import {
   fetchRepoCounts,
+  fetchDeployReleases,
   fetchRepoReleases,
-  pickAssistantReleases,
   pickChannelReleases,
   type GitHubReleaseJson,
 } from "@/lib/githubApi";
@@ -25,36 +25,32 @@ export interface RepoStatsResponse {
     macos: string;
     android: string;
     androidTv?: string;
-    assistant: string;
-    assistantArm64?: string;
     installScript?: string;
   };
   stable: ReleaseChannelInfo;
   beta: ReleaseChannelInfo;
   canary: ReleaseChannelInfo;
-  /** Assistant d'installation : absent tant que sa release du canal n'est pas publiée. */
-  assistant: { stable?: AssistantPackages; beta?: AssistantPackages; canary?: AssistantPackages };
+  /** Bobine Deploy : absent tant qu'aucune release Stable n'est publiée ou lisible. */
+  deploy?: DeployPackages;
 }
 
-/** Paquets de l'assistant d'une release `assistant-*`, classés par nom (cf. assistant/scripts/bundle.py de Bobine). */
-export function parseAssistantRelease(release: GitHubReleaseJson | undefined): AssistantPackages | undefined {
+/** Paquets de la dernière release Stable de Bobine Deploy, classés par nom (cf. scripts/bundle.py de bobine-deploy). */
+export function parseDeployRelease(releases: GitHubReleaseJson[] | null): DeployPackages | undefined {
+  const release = releases?.find((candidate) => !candidate.prerelease && /^v\d+\.\d+\.\d+$/.test(candidate.tag_name));
   if (!release || !Array.isArray(release.assets)) return undefined;
-  const packages: AssistantPackages = {
-    version: release.tag_name.replace(/^assistant-V?/, ""),
-    htmlUrl: release.html_url,
-  };
+  const packages: DeployPackages = { version: release.tag_name.replace(/^v/, ""), htmlUrl: release.html_url };
   for (const asset of release.assets) {
     const name = String(asset?.name || "");
     const url = typeof asset?.browser_download_url === "string" ? asset.browser_download_url : "";
     if (!url) continue;
-    if (/^Bobine-Assistant-Setup-.+-arm64\.exe$/.test(name)) packages.windowsArm64 = url;
-    else if (/^Bobine-Assistant-Setup-.+\.exe$/.test(name)) packages.windows = url;
-    else if (/^Bobine-Assistant-.+\.dmg$/.test(name)) packages.macos = url;
-    else if (/^bobine-assistant_.+_arm64\.deb$/.test(name)) packages.debArm64 = url;
-    else if (/^bobine-assistant_.+_amd64\.deb$/.test(name)) packages.deb = url;
-    else if (/^bobine-assistant-.+\.aarch64\.rpm$/.test(name)) packages.rpmArm64 = url;
-    else if (/^bobine-assistant-.+\.x86_64\.rpm$/.test(name)) packages.rpm = url;
-    else if (/^Bobine-Assistant-.+\.apk$/.test(name)) packages.android = url;
+    if (/^Bobine-Deploy-Setup-.+-arm64\.exe$/.test(name)) packages.windowsArm64 = url;
+    else if (/^Bobine-Deploy-Setup-.+-x64\.exe$/.test(name)) packages.windows = url;
+    else if (/^Bobine-Deploy-.+-arm64\.dmg$/.test(name)) packages.macosArm64 = url;
+    else if (/^Bobine-Deploy-.+-x64\.dmg$/.test(name)) packages.macos = url;
+    else if (/^bobine-deploy_.+_arm64\.deb$/.test(name)) packages.debArm64 = url;
+    else if (/^bobine-deploy_.+_amd64\.deb$/.test(name)) packages.deb = url;
+    else if (/^bobine-deploy-.+\.aarch64\.rpm$/.test(name)) packages.rpmArm64 = url;
+    else if (/^bobine-deploy-.+\.x86_64\.rpm$/.test(name)) packages.rpm = url;
   }
   return packages;
 }
@@ -92,12 +88,6 @@ function parseReleaseAssets(
       downloads.androidTv = url;
     } else if (name.endsWith(".apk")) {
       downloads.android = url;
-    } else if (name.includes("assistant")) {
-      if (isArm) {
-        downloads.assistantArm64 = url;
-      } else {
-        downloads.assistant = url;
-      }
     } else if (name === "install.sh") {
       downloads.installScript = url;
     }
@@ -146,9 +136,8 @@ function channelInfoFromRelease(
 
 /** Statistiques du dépôt et versions publiées (étoiles, canaux stable, beta et canary), avec repli statique. */
 export async function getRepoStats(): Promise<RepoStatsResponse> {
-  const [releases, counts] = await Promise.all([fetchRepoReleases(), fetchRepoCounts()]);
+  const [releases, counts, deployReleases] = await Promise.all([fetchRepoReleases(), fetchRepoCounts(), fetchDeployReleases()]);
   const channels = releases ? pickChannelReleases(releases) : {};
-  const assistant = releases ? pickAssistantReleases(releases) : {};
 
   const stableInfo = channelInfoFromRelease(channels.stable, FALLBACK_STABLE);
   const betaInfo = channelInfoFromRelease(channels.beta, FALLBACK_BETA);
@@ -162,10 +151,6 @@ export async function getRepoStats(): Promise<RepoStatsResponse> {
     stable: stableInfo,
     beta: betaInfo,
     canary: canaryInfo,
-    assistant: {
-      stable: parseAssistantRelease(assistant.stable),
-      beta: parseAssistantRelease(assistant.beta),
-      canary: parseAssistantRelease(assistant.canary),
-    },
+    deploy: parseDeployRelease(deployReleases),
   };
 }

@@ -3,8 +3,16 @@ name: CodeQL
 # Analyse statique de sécurité du code TypeScript et des workflows.
 on:
   pull_request:
+    paths-ignore:
+      - "**/*.md"
+      - "docs/**"
+      - "LICENSE"
   push:
     branches: [main]
+    paths-ignore:
+      - "**/*.md"
+      - "docs/**"
+      - "LICENSE"
   schedule:
     - cron: "41 3 * * 2"
 

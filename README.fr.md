@@ -5,9 +5,9 @@ Source de [bobine.fit](https://bobine.fit), le site de [Bobine](https://github.c
 | Site | Adresse |
 | :--- | :--- |
 | Site | <https://bobine.fit> |
-| Portail des paquets Linux | <https://packages.bobine.fit> |
+| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/linux.svg" width="20" height="20" valign="middle" alt="Linux"> Portail des paquets Linux | <https://packages.bobine.fit> |
 | Politique de sécurité | <https://security.bobine.fit/fr/> |
-| Miroir Tor | [bobinedaoki….onion](http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/) |
+| <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/tor.svg" width="20" height="20" valign="middle" alt="Tor"> Miroir Tor | [bobinedaoki….onion](http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/) |
 
 ```bash
 npm ci

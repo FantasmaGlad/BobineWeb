@@ -23,9 +23,9 @@
   "dependencies": {
     "@mdx-js/loader": "^3",
     "@mdx-js/react": "^3",
-    "@next/mdx": "^16.4.3",
+    "@next/mdx": "^16.4.5",
     "@vercel/analytics": "^2.0.1",
-    "next": "^16.4.3",
+    "next": "^16.4.5",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "react-markdown": "^10.1.0",
@@ -39,7 +39,7 @@
     "@types/react-dom": "^19",
     "critters": "^0.0.25",
     "eslint": "^9",
-    "eslint-config-next": "^16.4.3",
+    "eslint-config-next": "^16.4.5",
     "postcss": "^8.5.32",
     "sharp": "^0.35.5",
     "typescript": "^5"

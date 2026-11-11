@@ -6,7 +6,6 @@ import {
   LEGACY_THEMES,
   THEMES,
   THEME_IDS,
-  isThemeId,
   isThemeMode,
   resolveMode,
   resolveStored,
@@ -32,10 +31,6 @@ export const THEME_MODE_STORAGE_KEY = "bobineweb-theme-mode";
 export const THEME_COOKIE = "bobine-theme";
 export const THEME_MODE_COOKIE = "bobine-theme-mode";
 
-
-export function isTheme(value: string): value is Theme {
-  return isThemeId(value);
-}
 
 /** Couleur et mode d'après les valeurs mémorisées (anciens noms traduits, valeur inconnue = défaut). */
 export function resolveTheme(value: string | null | undefined, mode?: string | null): { theme: Theme; mode: ThemeMode } {

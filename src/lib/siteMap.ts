@@ -59,10 +59,6 @@ export function routeHref(locale: Locale, id: RouteId): string {
   return path === "" ? `/${locale}` : lp(locale, path);
 }
 
-export function routeLabel(locale: Locale, id: RouteId): string {
-  return getRoute(id).label[locale];
-}
-
 /** Enfants visibles d'un hub, dans l'ordre du registre. */
 export function childrenOf(id: RouteId): SiteRoute[] {
   return ROUTES.filter((r) => r.parent === id && !r.hidden);

@@ -22,7 +22,6 @@ export type PackageChannel = "stable" | "beta" | "canary";
 export type PackageArch = "x86_64" | "arm64";
 
 export const LINUX_FAMILY_IDS: readonly LinuxFamilyId[] = ["debian", "fedora", "arch"];
-export const PACKAGE_CHANNELS: readonly PackageChannel[] = ["stable", "beta", "canary"];
 
 export const RELEASES_BASE = "https://github.com/FantasmaGlad/Bobine/releases/download";
 
@@ -322,21 +321,6 @@ export function fedoraInstallScript(channel: PackageChannel = "stable"): string 
 export function archInstallScript(channel: PackageChannel = "stable"): string {
   const c = archCommands(channel);
   return [c.importKey, c.trustKey, `sudo tee -a /etc/pacman.conf <<'EOF'\n\n${c.pacmanConf}\nEOF`, c.install].join("\n");
-}
-
-/**
- * Formats de paquets Linux publiés, en une phrase, pour les listes de plateformes : n'annonce Fedora et Arch que
- * lorsque leurs dépôts sont en ligne, sinon les donne comme à venir.
- */
-export function linuxFormatsSummary(locale: "fr" | "en"): string {
-  if (PACKAGE_REPOS_LIVE) {
-    return locale === "fr"
-      ? "Linux : .deb (Debian, Ubuntu, Mint), .rpm (Fedora et dérivés) et paquet pacman (Arch Linux et dérivés), en x86-64 et ARM64"
-      : "Linux: .deb (Debian, Ubuntu, Mint), .rpm (Fedora and derivatives) and pacman package (Arch Linux and derivatives), on x86-64 and ARM64";
-  }
-  return locale === "fr"
-    ? "Linux : .deb (Debian, Ubuntu, Mint) en x86-64 et ARM64 ; paquets Fedora (.rpm) et Arch Linux (pacman) bientôt"
-    : "Linux: .deb (Debian, Ubuntu, Mint) on x86-64 and ARM64; Fedora (.rpm) and Arch Linux (pacman) packages coming soon";
 }
 
 /** Version très courte pour une énumération de fichiers : « Linux (.deb, .rpm, pacman) ». */

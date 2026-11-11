@@ -37,13 +37,6 @@ export function lp(locale: Locale, pathname: string): string {
   return `/${locale}${getLocalizedPath(pathname, locale)}`;
 }
 
-const FR_FROM_EN = Object.fromEntries(Object.entries(EN_SLUG_MAP).map(([fr, en]) => [en, fr]));
-
-/** Chemin français (dossier réel) d'un chemin sans préfixe de langue, qu'il soit français ou anglais. */
-export function toFrenchPath(pathname: string): string {
-  return FR_FROM_EN[pathname] ?? pathname;
-}
-
 export function getLocalizedPath(pathname: string, locale: Locale): string {
   if (locale === "en") {
     return EN_SLUG_MAP[pathname] ?? pathname;

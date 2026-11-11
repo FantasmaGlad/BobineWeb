@@ -11,7 +11,7 @@ import type { Locale } from "@/lib/i18n";
 import { lp } from "@/lib/seo";
 
 export type RouteId = (typeof data.routes)[number]["id"];
-export type FooterGroup = "product" | "download" | "docs" | "resources" | "project" | "legal";
+export type FooterGroup = "product" | "docs" | "resources" | "project" | "legal";
 
 export interface Localized {
   fr: string;
@@ -59,10 +59,6 @@ export function routeHref(locale: Locale, id: RouteId): string {
   return path === "" ? `/${locale}` : lp(locale, path);
 }
 
-export function routeLabel(locale: Locale, id: RouteId): string {
-  return getRoute(id).label[locale];
-}
-
 /** Enfants visibles d'un hub, dans l'ordre du registre. */
 export function childrenOf(id: RouteId): SiteRoute[] {
   return ROUTES.filter((r) => r.parent === id && !r.hidden);
@@ -79,7 +75,6 @@ export const navRoutes = (): SiteRoute[] => ROUTES.filter((r) => r.nav && !r.hid
 
 export const FOOTER_GROUPS: Array<{ id: FooterGroup; label: Localized }> = [
   { id: "product", label: { fr: "Produit", en: "Product" } },
-  { id: "download", label: { fr: "Télécharger", en: "Download" } },
   { id: "docs", label: { fr: "Documentation", en: "Documentation" } },
   { id: "resources", label: { fr: "Ressources", en: "Resources" } },
   { id: "project", label: { fr: "Projet", en: "Project" } },

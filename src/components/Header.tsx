@@ -23,11 +23,7 @@ export default function Header({
   const pathname = usePathname();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  // Le téléchargement se choisit sur les cartes de l'accueil : l'en-tête ne le répète pas. Le tiroir mobile et le pied de page
-  // gardent l'accès à la page Télécharger.
-  const links: Array<[string, string]> = navRoutes()
-    .filter((route) => route.id !== "download")
-    .map((route) => [routeHref(locale, route.id), route.label[locale]]);
+  const links: Array<[string, string]> = navRoutes().map((route) => [routeHref(locale, route.id), route.label[locale]]);
 
 
   return (

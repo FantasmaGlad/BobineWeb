@@ -14,4 +14,3 @@ export const ONION_SITE_URL = `http://${ONION_SITE_HOST}`;
 
 /** Soutien au projet Tor : site officiel et code source du démon (liens cliquables, aucun chargement automatique). */
 export const TOR_PROJECT_URL = "https://www.torproject.org/";
-export const TOR_SOURCE_URL = "https://github.com/torproject/tor";

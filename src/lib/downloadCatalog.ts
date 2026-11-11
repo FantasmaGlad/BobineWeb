@@ -19,8 +19,6 @@ import {
 export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "android-tv" | "cli";
 export type CpuArchitecture = "x86_64" | "arm64";
 
-export const SIGNING_KEY_HELP = "B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A";
-
 export interface DownloadRequest {
   locale: Locale;
   platform: DownloadPlatform;

@@ -51,11 +51,6 @@ export default function manifest(): MetadataRoute.Manifest {
         description: "Guide d'installation et d'utilisation",
       },
       {
-        name: "Téléchargement",
-        url: "/fr/telechargement",
-        description: "Télécharger Bobine pour Linux, macOS, Windows ou Android TV",
-      },
-      {
         name: "Fonctionnalités",
         url: "/fr/fonctionnalites",
         description: "Toutes les capacités de la régie Bobine",

@@ -7,8 +7,8 @@
  */
 export const EN_SLUG_MAP: Record<string, string> = {
   "/fonctionnalites": "/features",
-  "/telechargement": "/download",
   "/ressources": "/resources",
+  "/a-propos": "/about",
   "/documentation/utilisation": "/documentation/user-guide",
   "/documentation/developpeurs": "/documentation/developers",
   "/documentation/anonymisation": "/documentation/anonymization",

@@ -222,7 +222,7 @@ export const FEATURE_OVERVIEW = [
       "fr": "Consultez les prérequis du paquet ; une plateforme annoncée ne vaut pas validation de chaque appareil.",
       "en": "Check package requirements; platform availability does not validate every device."
     },
-    "href": "/telechargement",
+    "href": "",
     "anchor": ""
   }
 ] as const;

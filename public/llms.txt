@@ -30,7 +30,8 @@
 - Usage: https://bobine.fit/en/documentation/user-guide
 - FAQ: https://bobine.fit/en/documentation/faq
 - Developers: https://bobine.fit/en/documentation/developers
-- Downloads: https://bobine.fit/en/download
+- Downloads: https://bobine.fit/en (home page) and https://github.com/FantasmaGlad/Bobine/releases
+- About the author and the project: https://bobine.fit/en/about
 - Anonymization: https://bobine.fit/en/documentation/anonymization
 
 ## Security

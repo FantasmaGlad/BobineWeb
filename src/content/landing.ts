@@ -772,7 +772,6 @@ linux: {
         },
       ],
       related: [
-        { label: "Téléchargement multiplateforme", path: "/telechargement" },
         { label: "Documentation d'installation", path: "/documentation" },
         { label: "Canaux de mise à jour", path: "/canaux" },
         { label: "Sécurité et clé de signature", path: "https://security.bobine.fit/fr/" },
@@ -873,7 +872,6 @@ linux: {
         },
       ],
       related: [
-        { label: "Cross-platform downloads", path: "/download" },
         { label: "Installation documentation", path: "/documentation" },
         { label: "Update channels", path: "/canaux" },
         { label: "Security and signing key", path: "https://security.bobine.fit/" },

@@ -36,25 +36,6 @@
       "footer": "product"
     },
     {
-      "id": "download",
-      "path": "/telechargement",
-      "kind": "hub",
-      "label": {
-        "fr": "Télécharger",
-        "en": "Download"
-      },
-      "description": {
-        "fr": "Choisissez votre système, votre canal de mise à jour et vérifiez les fichiers avant de les installer.",
-        "en": "Pick your system and update channel, and verify the files before installing them."
-      },
-      "priority": 0.95,
-      "changeFrequency": "weekly",
-      "parent": "home",
-      "icon": "icon:download",
-      "nav": true,
-      "footer": "download"
-    },
-    {
       "id": "linux",
       "path": "/linux",
       "kind": "leaf",
@@ -68,9 +49,9 @@
       },
       "priority": 0.9,
       "changeFrequency": "weekly",
-      "parent": "download",
+      "parent": "home",
       "icon": "brand:os.linux",
-      "footer": "download"
+      "footer": "docs"
     },
     {
       "id": "docs",
@@ -264,6 +245,24 @@
       "changeFrequency": "daily",
       "parent": "channels",
       "icon": "icon:terminal"
+    },
+    {
+      "id": "about",
+      "path": "/a-propos",
+      "kind": "leaf",
+      "label": {
+        "fr": "À propos",
+        "en": "About"
+      },
+      "description": {
+        "fr": "Qui développe Bobine, et pourquoi le projet est construit ainsi.",
+        "en": "Who builds Bobine, and why the project is built this way."
+      },
+      "priority": 0.6,
+      "changeFrequency": "yearly",
+      "parent": "resources",
+      "icon": "icon:globe",
+      "footer": "project"
     },
     {
       "id": "legal",

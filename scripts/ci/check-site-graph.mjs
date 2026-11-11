@@ -35,7 +35,7 @@ for (const r of routes) {
   const dir = join(repo, "src/app/[locale]", r.path);
   if (!existsSync(join(dir, "page.tsx")) && !existsSync(join(dir, "page.mdx"))) fail(`${r.id} : aucune page dans src/app/[locale]${r.path}`);
   // Le chemin anglais d'une page ne reprend pas un autre slug.
-  if (r.path && enSlug[r.path] === undefined && /[àâçéèêëîïôùûü]|fonctionnalites|materiel|canaux|nouveautes|propos|soutenir|mentions|confidentialite|securite|ordinateur|telechargement|ressources/.test(r.path)) {
+  if (r.path && enSlug[r.path] === undefined && /[àâçéèêëîïôùûü]|fonctionnalites|materiel|canaux|nouveautes|propos|soutenir|mentions|confidentialite|securite|ordinateur|ressources/.test(r.path)) {
     fail(`${r.id} : slug anglais absent de slugs.ts pour ${r.path}`);
   }
   if (r.kind === "hub" && r.id !== "home" && !r.dynamicChildren && !routes.some((c) => c.parent === r.id && !c.hidden)) fail(`${r.id} : hub sans page enfant visible`);

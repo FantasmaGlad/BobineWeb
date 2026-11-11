@@ -8,7 +8,7 @@
 import { delay, launchChrome } from "./cdp.mjs";
 
 const origin = process.env.MODAL_CHECK_URL ?? "http://127.0.0.1:3102";
-const path = process.env.MODAL_CHECK_PATH ?? "/fr/telechargement";
+const path = process.env.MODAL_CHECK_PATH ?? "/fr";
 const browser = await launchChrome();
 const { send, evaluate } = browser;
 const failures = [];

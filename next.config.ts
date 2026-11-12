@@ -91,6 +91,7 @@ const nextConfig: NextConfig = {
       { source: "/fr/telechargement", destination: "/fr", permanent: true },
       { source: "/en/telechargement", destination: "/en", permanent: true },
       { source: "/en/download", destination: "/en", permanent: true },
+      { source: "/fr/download", destination: "/fr", permanent: true },
       { source: "/telechargement", destination: "/fr", permanent: true },
       { source: "/download", destination: "/en", permanent: true },
       { source: "/a-propos", destination: "/fr/a-propos", permanent: true },

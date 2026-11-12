@@ -6,7 +6,7 @@ import ScrollingCode from "@/components/ScrollingCode";
 import WindowsIcon from "@/components/icons/WindowsIcon";
 import AppleIcon from "@/components/icons/AppleIcon";
 import LinuxIcon from "@/components/icons/LinuxIcon";
-import TauriIcon from "@/components/icons/TauriIcon";
+import Icon from "@/components/ui/Icon";
 import TerminalIcon from "@/components/icons/TerminalIcon";
 import AndroidIcon from "@/components/icons/AndroidIcon";
 import AndroidTvIcon from "@/components/icons/AndroidTvIcon";
@@ -43,7 +43,7 @@ import "@/styles/split/pages-docs.css";
 
 const DEPLOY_RELEASES = "https://github.com/FantasmaGlad/bobine-deploy/releases/latest";
 
-type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "tauri" | "cli";
+type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "deploy" | "cli";
 type AndroidVariant = "mobile" | "tv";
 
 /** Libellé de bouton sur deux lignes : l'action puis, en dessous, le format ou la puce (séparés par « · »). */
@@ -864,12 +864,12 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       icon: <AppleIcon size={20} />,
     },
     {
-      id: "tauri",
+      id: "deploy",
       group: "appliance",
       name: "Bobine Deploy",
       format: isEn ? "SSH · Network" : "SSH · Réseau",
       badge: isEn ? "Network" : "Réseau",
-      icon: <TauriIcon size={20} />,
+      icon: <Icon name="send" size={20} />,
     },
     {
       id: "cli",
@@ -1466,17 +1466,17 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       )}
 
       {/* 4. BOBINE DEPLOY */}
-      {activeTab === "tauri" && (
+      {activeTab === "deploy" && (
         <div
-          id="panel-tauri"
+          id="panel-deploy"
           role="tabpanel"
-          aria-labelledby="tab-tauri"
+          aria-labelledby="tab-deploy"
           className="docs-install-panel animate-fade-in"
         >
           <div className="docs-method-hero">
             <div className="docs-method-hero__left">
               <div className="docs-method-hero__icon">
-                <TauriIcon size={32} />
+                <Icon name="send" size={32} />
               </div>
               <div className="dx-div-14">
                 <h2 className="docs-method-hero__title">

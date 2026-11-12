@@ -36,11 +36,9 @@ export default async function DocumentationLayout({
 
   return (
     <div className="docs-page-wrapper">
-      {/* Barre de navigation contextuelle mobile/tablette */}
       <DocsMobileNav locale={locale} items={sections[locale]} />
 
       <div className="docs-layout">
-        {/* Sidebar Desktop */}
         <aside className="docs-sidebar-panel">
           <div className="docs-sidebar-sticky">
             <DocsSearch locale={locale} />

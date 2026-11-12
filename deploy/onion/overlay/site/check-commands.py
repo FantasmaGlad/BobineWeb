@@ -1,17 +1,11 @@
 #!/usr/bin/env python3
-"""Refuse un miroir onion dont une commande `curl` mène encore au web classique (bobine.fit, packages.bobine.fit, GitHub).
-
-Les simples liens cliquables du site restent permis (voir scripts/ci/verify-onion.sh) ; une commande, elle, se copie et
-s'exécute telle quelle.
-
-Usage : check-commands.py <dossier du site exporté>
-"""
+"""Refuse un miroir onion dont une commande `curl` mène encore au web classique (bobine.fit, packages.bobine.fit, GitHub)."""
 import re
 import sys
 from pathlib import Path
 
 TEXT_SUFFIXES = {".html", ".js", ".txt", ".json", ".md", ".xml", ".sh"}
-EXEMPT = {"install.sh", "install-tor.sh"}  # les installateurs eux-mêmes ne sont pas des pages
+EXEMPT = {"install.sh", "install-tor.sh"}
 CLEARNET_CURL = re.compile(
     r"curl\b[^\n]{0,120}?https?://(?:www\.)?(?:packages\.bobine\.fit|security\.bobine\.fit|bobine\.fit|github\.com|"
     r"raw\.githubusercontent\.com)\b"

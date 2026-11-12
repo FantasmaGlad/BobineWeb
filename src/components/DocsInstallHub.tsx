@@ -46,7 +46,6 @@ const DEPLOY_RELEASES = "https://github.com/FantasmaGlad/bobine-deploy/releases/
 type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "deploy" | "cli";
 type AndroidVariant = "mobile" | "tv";
 
-/** Libellé de bouton sur deux lignes : l'action puis, en dessous, le format ou la puce (séparés par « · »). */
 function ButtonLabel({ label }: { label: string }) {
   const [main, ...rest] = label.split(" · ");
   return (
@@ -61,7 +60,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const detected = useDetectedPlatform();
   const [selectedTab, setSelectedTab] = useState<InstallTab | null>(null);
-  // Un visiteur sur Android TV n'a pas d'onglet propre : il tombe sur l'onglet Android, variante TV.
   const detectedTab: InstallTab | null = detected === "android-tv" ? "android" : (detected as InstallTab | null);
   const activeTab: InstallTab = selectedTab ?? detectedTab ?? "windows";
   const roadmapChapter = docChapters[locale].find((c) => c.id === "feuille-de-route");
@@ -79,7 +77,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const [selectedAndroidVariant, setSelectedAndroidVariant] = useState<AndroidVariant | null>(null);
   const androidVariant: AndroidVariant = selectedAndroidVariant ?? (detected === "android-tv" ? "tv" : "mobile");
 
-  // Détection légère de l'architecture ARM64 côté client (Snapdragon, Linux aarch64, Windows ARM)
   useEffect(() => {
     if (typeof navigator === "undefined") return;
     const ua = navigator.userAgent || "";
@@ -104,7 +101,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
   useEffect(() => {
     let isMounted = true;
-    // Miroir Tor : pas de route serveur, valeurs de repli déjà en place.
     if (process.env.NEXT_PUBLIC_BOBINE_ONION === "1") return;
     fetch("/api/github-stats")
       .then((res) => (res.ok ? res.json() : null))
@@ -199,7 +195,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
     </div>
   );
 
-  /** Mention « dès la mise en ligne des dépôts » : absente dès que l'interrupteur des dépôts est vrai. */
   const renderRepoNote = (family: LinuxFamilyId) => {
     const note = repoStatusNote(family, isEn ? "en" : "fr");
     return note ? <p className="docs-soon-note" role="note">{note}</p> : null;
@@ -279,7 +274,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
     </div>
   );
 
-  // Paquets de Bobine Deploy (dépôt à part, dernière release Stable) : un lien par système publié.
   const renderDeployPackages = () => {
     const links = deploy
       ? [
@@ -347,7 +341,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   );
 
   interface ChannelCardConfig {
-    /** Absent : le fichier n'est pas (encore) publié, le bouton devient un « Bientôt » inactif. */
     stableUrl?: string;
     stableLabel: string;
     betaUrl?: string;
@@ -360,7 +353,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const renderChannelCards = (cfg: ChannelCardConfig) => (
     <>
       <div className="docs-channels-grid">
-        {/* Canal Stable */}
         <div className="download-modal__channel-card download-modal__channel-card--stable">
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
@@ -406,7 +398,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        {/* Canal Bêta */}
         <div className="download-modal__channel-card download-modal__channel-card--beta">
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
@@ -449,7 +440,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        {/* Canal Canary */}
         <div className="download-modal__channel-card download-modal__channel-card--canary">
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
@@ -513,7 +503,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const renderCliChannelCards = () => (
     <>
       <div className="docs-channels-grid">
-        {/* Canal Stable CLI */}
         <div className="download-modal__channel-card download-modal__channel-card--stable">
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
@@ -553,7 +542,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        {/* Canal Bêta CLI */}
         <div className="download-modal__channel-card download-modal__channel-card--beta">
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
@@ -590,7 +578,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        {/* Canal Canary CLI */}
         <div className="download-modal__channel-card download-modal__channel-card--canary">
           <div className="download-modal__card-header docs-channel-card__header">
             <div className="download-modal__card-tag-row docs-channel-card__tag-row">
@@ -645,7 +632,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
     </>
   );
 
-  // Onglet Linux : famille choisie (Debian / Ubuntu, Fedora, Arch Linux), lien du paquet de chaque canal.
   const linuxArch = isArm ? "arm64" : "x86_64";
   const linuxFormat = `${LINUX_FAMILIES[selectedFamily].extension} ${isArm ? "ARM64" : "x86_64"}`;
   const linuxLink = (info: ReleaseChannelInfo, channel: PackageChannel, tag: string) =>
@@ -683,7 +669,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           ))}
         </ul>
         <ul className="docs-plain-list">
-          {/* La limite ffmpeg de Fedora a déjà son étape : seules les autres limites sont rappelées ici. */}
           {FAMILY_NOTES[family].limits.slice(family === "fedora" ? 1 : 0).map((d) => (
             <li key={d.fr}>{d[l]}</li>
           ))}
@@ -914,7 +899,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
   return (
     <div className="docs-install-hub">
-      {/* Sélecteur de méthode d'installation avec logos vectoriels */}
       <div className="docs-install-selector-wrap">
         <div className="docs-install-nav-header">
           <span className="docs-install-nav-label">
@@ -931,9 +915,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      {/* Contenu Dédié par Méthode */}
-
-      {/* 1. WINDOWS */}
       {activeTab === "windows" && (
         <div
           id="panel-windows"
@@ -941,7 +922,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
           aria-labelledby="tab-windows"
           className="docs-install-panel animate-fade-in"
         >
-          {/* Carte de téléchargement direct */}
           <div className="docs-method-hero">
             <div className="docs-method-hero__left">
               <div className="docs-method-hero__icon">
@@ -985,7 +965,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
           {renderDivider()}
 
-          {/* Étapes simples grand public */}
           <div className="docs-steps-flow">
             <h3 className="docs-steps-flow__heading">
               {isEn ? "Step-by-step setup (under 2 minutes):" : "Guide pas à pas en 5 étapes (moins de 2 minutes) :"}
@@ -1054,7 +1033,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      {/* 2. MACOS */}
       {activeTab === "macos" && (
         <div
           id="panel-macos"
@@ -1161,7 +1139,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      {/* 3. LINUX BUREAU : Debian / Ubuntu (.deb), Fedora (.rpm), Arch Linux (.pkg.tar.zst) */}
       {activeTab === "linux" && (
         <div
           id="panel-linux"
@@ -1197,7 +1174,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
           {renderDivider()}
 
-          {/* Les trois parcours sont empilés dans la même cellule : la hauteur est celle du plus grand, changer de distribution ne fait pas tressauter la page. */}
           <div className="docs-family-stack">
             <div className={`docs-family-stack__item${selectedFamily === "debian" ? " is-active" : ""}`} aria-hidden={selectedFamily !== "debian"} inert={selectedFamily !== "debian"}>
 
@@ -1293,7 +1269,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      {/* ANDROID (Application native officielle) */}
       {activeTab === "android" && (
         <div
           id="panel-android"
@@ -1420,7 +1395,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      {/* iOS / iPadOS (feuille de route, piste exploree) */}
       {activeTab === "ios" && (
         <div
           id="panel-ios"
@@ -1465,7 +1439,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      {/* 4. BOBINE DEPLOY */}
       {activeTab === "deploy" && (
         <div
           id="panel-deploy"
@@ -1542,7 +1515,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      {/* 5. DEDICATED APPLIANCE (CLI / BASH) */}
       {activeTab === "cli" && (
         <div
           id="panel-cli"

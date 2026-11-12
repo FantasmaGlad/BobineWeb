@@ -106,7 +106,6 @@ export default async function DocumentationPage({
         </Link>
       </p>
 
-      {/* Hub d'Installation Multi-Méthodes avec logos officiels */}
       <DocsInstallHub locale={locale as Locale} />
     </>
   );

@@ -3,15 +3,6 @@ import { fallbackNewPackages, packageUrl, type PackageChannel } from "@/lib/linu
 
 const RELEASES_BASE = "https://github.com/FantasmaGlad/Bobine/releases/download";
 
-/**
- * Liens de repli quand l'API GitHub ne répond pas (limite de débit, panne) : les noms de fichiers
- * suivent exactement ceux que publie le workflow de release du dépôt Bobine
- * (`scripts/ci/verify-release-assets.sh` y bloque toute publication incomplète).
- * `tag` est le tag GitHub, `fileVersion` le fragment de version dans les noms de fichiers.
- * Les paquets Fedora et Arch ne sont ajoutés (`withNewPackages`) que pour les canaux qui les publient : la Stable
- * V5.0.2 est antérieure à ces paquets, aucun lien de repli n'est donc inventé pour elle. À la prochaine Stable, passer
- * `withNewPackages` à vrai en même temps que la version.
- */
 function channelDownloads(tag: string, fileVersion: string, withNewPackages = false): ReleaseChannelInfo["downloads"] {
   const base = `${RELEASES_BASE}/${tag}`;
   const channel: PackageChannel = tag === "beta" || tag === "canary" ? tag : "stable";
@@ -35,7 +26,6 @@ export const FALLBACK_STABLE: ReleaseChannelInfo = {
   downloads: channelDownloads("V5.1.2", "5.1.2", true),
 };
 
-// Canal curé, publié manuellement par lots (job release-beta du dépôt Bobine).
 export const FALLBACK_BETA: ReleaseChannelInfo = {
   version: "beta",
   title: "Bobine — Bêta",
@@ -43,7 +33,6 @@ export const FALLBACK_BETA: ReleaseChannelInfo = {
   downloads: channelDownloads("beta", "beta", true),
 };
 
-// Canal rolling, republié à chaque push sur main (job release-canary du dépôt Bobine).
 export const FALLBACK_CANARY: ReleaseChannelInfo = {
   version: "canary",
   title: "Bobine — Canary (build automatique)",

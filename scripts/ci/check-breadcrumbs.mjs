@@ -1,8 +1,4 @@
 #!/usr/bin/env node
-// Contrôle des fils d'Ariane sur le build : chaque page prérendue, hors accueil, pages d'erreur et redirections, porte
-// exactement un BreadcrumbList ; ses adresses sont celles de la langue de la page (jamais un chemin français sous /en,
-// qui passe par une redirection 308) et son dernier maillon est la page elle-même.
-// Usage : node scripts/ci/check-breadcrumbs.mjs [dossier du build, .next/server/app par défaut]
 import { readFileSync, readdirSync } from "node:fs";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -21,7 +17,6 @@ for (const file of walk(root).filter((f) => f.endsWith(".html"))) {
   const path = "/" + relative(root, file).replace(/\\/g, "/");
   if (SKIP.test(path)) continue;
   const html = readFileSync(file, "utf8");
-  // Une redirection permanente prérendue n'est pas une page de contenu.
   if (/<meta[^>]+http-equiv="refresh"/i.test(html) || /NEXT_REDIRECT/.test(html)) continue;
   const lists = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)]
     .flatMap((m) => { try { const j = JSON.parse(m[1]); return Array.isArray(j) ? j : j["@graph"] ?? [j]; } catch { return []; } })

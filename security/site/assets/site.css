@@ -1,4 +1,4 @@
-/* Noir sur blanc, une seule colonne alignée à gauche, sans encadré. Sur ordinateur tout tient dans la hauteur de la fenêtre (taille du texte liée à la hauteur) ; sur téléphone la page défile normalement. */
+
 *, *::before, *::after { box-sizing: border-box; }
 html { height: 100%; }
 body {

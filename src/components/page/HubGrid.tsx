@@ -5,7 +5,6 @@ import RouteIcon from "@/components/page/RouteIcon";
 import Icon from "@/components/ui/Icon";
 import "@/styles/components/page.css";
 
-/** Cartes des pages enfants d'un hub : le lien entrant de chaque feuille vers son parent est vérifié en CI. */
 export default function HubGrid({ locale, id }: { locale: Locale; id: RouteId }) {
   const children = childrenOf(id);
   return (

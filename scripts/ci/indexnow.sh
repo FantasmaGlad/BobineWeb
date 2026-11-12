@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
-# Signale à IndexNow (Bing, Yandex, Seznam, Naver) les adresses du sitemap après un déploiement :
-# les moteurs qui s'en servent reprennent les pages en quelques heures au lieu de quelques jours.
-# La clé est publique par conception : elle est servie à la racine du site (public/<clé>.txt),
-# où IndexNow la relit pour vérifier que le site nous appartient.
-# Usage : indexnow.sh [site]   (défaut : https://bobine.fit)
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 

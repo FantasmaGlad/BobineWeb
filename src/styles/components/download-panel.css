@@ -1,5 +1,4 @@
-/* Fenêtre de téléchargement : <dialog> natif minimaliste Apple-grade.
-   Parcours "Simple d'abord" (hauteur fit-content, zéro boîte dans des boîtes) + tiroir "Plus d'options". */
+
 .dl-panel {
   padding: 0;
   width: min(44rem, calc(100% - 2rem));
@@ -26,7 +25,6 @@
   display: flex;
 }
 
-/* Fond tamisé subtil pour laisser vivre la surface principale */
 .dl-panel::backdrop {
   background: var(--scrim-soft);
   -webkit-backdrop-filter: blur(var(--blur-xs));
@@ -132,7 +130,6 @@
   gap: 0.9rem;
 }
 
-/* Contrôle segmenté horizontal type Apple HIG */
 .dl-segmented {
   display: inline-flex;
   flex-wrap: wrap;
@@ -190,7 +187,6 @@
   cursor: not-allowed;
 }
 
-/* Bloc terminal pleine largeur sans scrollbar horizontale */
 .dl-terminal-box {
   display: flex;
   flex-direction: column;
@@ -242,7 +238,6 @@
   overflow-x: hidden;
 }
 
-/* Ligne horizontale de téléchargement direct (.deb / .rpm / .pkg.tar.zst) */
 .dl-direct-row {
   display: flex;
   flex-wrap: wrap;
@@ -278,7 +273,6 @@
   color: var(--text-muted);
 }
 
-/* Action primaire héroïque (Windows, macOS, Android, Android TV) */
 .dl-hero-action {
   display: flex;
   flex-direction: column;
@@ -313,7 +307,6 @@
   color: var(--text-heading);
 }
 
-/* Boutons */
 .dl-btn {
   display: inline-flex;
   align-items: center;
@@ -387,7 +380,6 @@
   color: var(--accent-text);
 }
 
-/* Barre de pied & divulgation progressive */
 .dl-footer-bar {
   display: flex;
   flex-wrap: wrap;
@@ -443,7 +435,6 @@
   color: var(--text-heading);
 }
 
-/* Tiroir animé "Plus d'options" */
 .dl-advanced-drawer {
   display: grid;
   grid-template-rows: 0fr;

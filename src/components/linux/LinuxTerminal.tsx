@@ -22,7 +22,6 @@ export default function LinuxTerminal({ locale }: { locale: Locale }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2200);
     } catch {
-      // repli en cas d'interdiction presse-papier
     }
   };
 

@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
-# Vérifie l'export statique du miroir Tor (dossier passé en argument, "out" par défaut).
 set -euo pipefail
 cd "${1:-out}"
 
 test -f fr/index.html || { echo "::error::fr/index.html manquant"; exit 1; }
 
-# Aucun lien marchand ni suivi d'affiliation (un simple texte cité dans une note de version reste permis).
 MARCHAND='href="https?://[^"]*(amazon\.[a-z.]+|aliexpress\.[a-z.]+)[^"]*"'
 if grep -rIlE "$MARCHAND" --include=*.html . | grep -q .; then
   echo "::error::Lien marchand trouvé dans le miroir :"
@@ -13,7 +11,6 @@ if grep -rIlE "$MARCHAND" --include=*.html . | grep -q .; then
   exit 1
 fi
 
-# Aucune ressource externe chargée automatiquement (les simples liens cliquables restent permis).
 EXT='<(script|img|iframe|source|video)[^>]+src="https?://|<link[^>]+rel="(stylesheet|preload|modulepreload|prefetch|icon|manifest)"[^>]+href="https?://'
 if grep -rIhoE "$EXT" --include=*.html . | grep -q .; then
   echo "::error::Ressource externe chargée automatiquement :"
@@ -21,8 +18,6 @@ if grep -rIhoE "$EXT" --include=*.html . | grep -q .; then
   exit 1
 fi
 
-# Aucun outil de mesure d'audience dans les pages (le composant n'est pas monté ; sa chaîne
-# d'URL peut subsister, inerte, dans un chunk JS partagé).
 if grep -rIl "_vercel/insights\|vercel-scripts" --include=*.html . | grep -q .; then
   echo "::error::Mesure d'audience présente dans le miroir"
   exit 1

@@ -7,13 +7,12 @@ import { CLEARNET_URL } from "./onion";
 
 const BASE_URL = CLEARNET_URL;
 
-/** Identité du site pour les données structurées. */
 export const SITE_NAME = "Bobine Fit";
 export const AUTHOR_NAME = "Clément Barillot";
 
 export interface SeoProps {
   locale: Locale;
-  pathname: string; // e.g. "", "/fonctionnalites", "/documentation/demarrage-rapide"
+  pathname: string;
   title: string;
   description: string;
   keywords?: string[];
@@ -24,15 +23,8 @@ export interface SeoProps {
 
 export { EN_SLUG_MAP };
 
-/**
- * Adresse interne d'une page, avec le slug de sa langue : `lp("en", "/fonctionnalites")` donne
- * `/en/features`. Un lien vers le slug français sous `/en` passe par une redirection 308, que
- * Search Console compte comme « page avec redirection ».
- */
 export function lp(locale: Locale, pathname: string): string {
   if (pathname.startsWith("http://") || pathname.startsWith("https://")) return pathname;
-  // L'export statique du miroir Tor ne porte ni réécriture ni redirection : seuls les dossiers
-  // réels (slugs français) y existent.
   if (IS_ONION) return `/${locale}${pathname}`;
   return `/${locale}${getLocalizedPath(pathname, locale)}`;
 }

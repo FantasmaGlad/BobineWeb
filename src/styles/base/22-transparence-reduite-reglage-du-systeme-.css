@@ -1,7 +1,4 @@
-/* ==========================================================================
-   « Transparence réduite » (réglage du système) : plus aucun flou, surfaces de
-   verre remplacées par les surfaces pleines du thème. Tout passe par les jetons.
-   ========================================================================== */
+
 @media (prefers-reduced-transparency: reduce) {
   :root,
   :root[data-theme] {
@@ -15,11 +12,6 @@
   }
 }
 
-/* ==========================================================================
-   Utilitaires partagés (états pilotés par une classe, sans style en ligne)
-   ========================================================================== */
-
-/* Chevron de menu déroulant : pivote d'un demi-tour à l'ouverture */
 .chevron-flip {
   transition: transform 0.2s ease;
   transform: rotate(0);
@@ -29,7 +21,7 @@
 }
 
 :root {
-  /* Les couleurs d’état suivent la luminance de l’encre du thème. */
+  
   --status-success: var(--accent-success);
   --status-success-text: var(--status-success);
   --status-success-bg: color-mix(in srgb, var(--status-success) 10%, var(--bg-main));
@@ -194,7 +186,6 @@
   --fs-clamp-1-85rem-3-8vw-2-6rem: clamp(1.85rem, 3.8vw, 2.6rem);
 }
 
-/* Un navigateur sans filtre conserve des matériaux opaques et lisibles. */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   :root, :root[data-theme] {
     --blur-scale: 0;
@@ -207,7 +198,6 @@
   }
 }
 
-/* Une commande tactile doit rester atteignable indépendamment de sa variante visuelle. */
 @media (pointer: coarse) {
   :root button,
   a.button,

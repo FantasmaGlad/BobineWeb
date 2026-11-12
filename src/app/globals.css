@@ -1,4 +1,4 @@
-/* Feuille globale : l'ordre des importations est celui de la cascade, ne pas le modifier. */
+
 @import "../styles/base/00-themes-generes.css";
 @import "../styles/base/01-jetons-communs.css";
 @import "../styles/base/02-base-typographie-entete.css";

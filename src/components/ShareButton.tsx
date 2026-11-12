@@ -69,7 +69,6 @@ export default function ShareButton({
     [url]
   );
 
-  // Formats un texte adapté aux codes de chaque plateforme (longueur, ton, hashtags).
   const formattedTextFor = (network: NetworkId): string => {
     switch (network) {
       case "linkedin": {
@@ -119,7 +118,6 @@ export default function ShareButton({
       setCopied(type);
       setTimeout(() => setCopied(null), 2500);
     } catch {
-      // Fallback silencieux : l'utilisateur peut toujours sélectionner le texte affiché.
     }
   };
 
@@ -157,7 +155,6 @@ export default function ShareButton({
               </button>
             </div>
 
-            {/* Sélecteur de plateforme */}
             <div className="share-networks-grid" role="tablist">
               {networks.map((n) => (
                 <button
@@ -177,7 +174,6 @@ export default function ShareButton({
               ))}
             </div>
 
-            {/* Aperçu du texte formaté pour la plateforme sélectionnée */}
             <div className="share-preview">
               <span className="share-preview__label">
                 {isEn ? `Preview for ${active.name}` : `Aperçu pour ${active.name}`}

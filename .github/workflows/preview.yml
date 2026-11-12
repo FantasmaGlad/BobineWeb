@@ -1,7 +1,5 @@
 name: Prévisualisation
 
-# Déploie une prévisualisation pour chaque demande de fusion issue de ce dépôt. Les demandes
-# venant d'un fork n'ont accès à aucun secret : elles passent uniquement par la CI.
 on:
   pull_request:
     types: [opened, synchronize, reopened]

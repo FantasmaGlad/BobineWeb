@@ -73,7 +73,6 @@ function CopyButton({
   );
 }
 
-/** Fenêtre de téléchargement minimaliste (« Simple d'abord » + divulgation progressive). */
 export default function DownloadPanel({
   isOpen,
   onClose,
@@ -92,7 +91,6 @@ export default function DownloadPanel({
   const [copied, setCopied] = useState("");
   const [showMoreOptions, setShowMoreOptions] = useState(false);
 
-  // Architecture ARM64 détectée côté client (Snapdragon, Linux aarch64, Windows ARM).
   useEffect(() => {
     const ua = navigator.userAgent || "";
     if (/\b(aarch64|arm64|armv8|woa|snapdragon)\b/i.test(ua)) {
@@ -169,7 +167,6 @@ export default function DownloadPanel({
     `sudo bash install.sh${channel === "stable" ? "" : ` --channel=${channel}`}`,
   ].join("\n");
 
-  // Installation en une commande : PowerShell sous Windows, cask Homebrew (Stable seulement) sous macOS.
   const oneLine =
     platform === "windows"
       ? channel === "stable"
@@ -247,7 +244,6 @@ export default function DownloadPanel({
         </header>
 
         <div className="dl-panel__body">
-          {/* NIVEAU 1 : PARCOURS SIMPLE IMMÉDIAT */}
           {isLinux && (
             <div className="dl-primary-flow">
               <div
@@ -427,7 +423,6 @@ export default function DownloadPanel({
             </section>
           )}
 
-          {/* BARRE DE PIED & BOUTON "PLUS D'OPTIONS" (DIVULGATION PROGRESSIVE) */}
           <div className="dl-footer-bar">
             <button
               type="button"
@@ -462,7 +457,6 @@ export default function DownloadPanel({
             </div>
           </div>
 
-          {/* NIVEAU 2 : TIROIR D'OPTIONS AVANCÉES */}
           <div className="dl-advanced-drawer" data-open={showMoreOptions ? "true" : "false"}>
             <div className="dl-advanced-drawer__inner">
               <div className="dl-advanced-grid">

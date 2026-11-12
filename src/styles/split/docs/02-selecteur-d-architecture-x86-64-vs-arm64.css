@@ -161,7 +161,7 @@
 .docs-install-selector-wrap {
   margin-bottom: 2rem;
   padding-bottom: 1.75rem;
-  /* Ligne fine entre le choix de la méthode d'installation et l'article qui suit */
+  
   border-bottom: 1px solid var(--border-subtle);
 }
 .docs-install-nav-header {
@@ -266,7 +266,6 @@
   }
 }
 
-/* Sélecteur d'architecture x86_64 vs ARM64 dans la documentation */
 .docs-arch-switch-wrap {
   display: flex;
   align-items: center;
@@ -331,7 +330,6 @@
   font-weight: 500;
 }
 
-/* Header des cartes de canaux : empêche le chevauchement des badges */
 .docs-channel-card__header {
   display: flex;
   align-items: flex-start;
@@ -360,7 +358,6 @@
   padding-top: 0.15rem;
 }
 
-/* Descriptions des versions noircies pour lisibilité parfaite */
 .docs-install-panel .download-modal__card-desc {
   color: var(--text-heading) !important;
   font-weight: 550;
@@ -370,7 +367,6 @@
   margin-bottom: 1rem;
 }
 
-/* Boutons de téléchargement dans les cartes de doc : contraste maximal GARANTI */
 .docs-channel-btn {
   display: inline-flex;
   align-items: center;
@@ -417,7 +413,6 @@
 .docs-channel-btn--canary *, .docs-channel-btn--canary svg { color: inherit !important; stroke: currentColor !important; }
 .docs-channel-btn--canary:hover { transform: translateY(-1px); box-shadow: var(--shadow-card); }
 
-/* Séparateur visuel propre entre les cartes de téléchargement et la documentation détaillée */
 .docs-install-divider {
   display: flex;
   align-items: center;
@@ -447,7 +442,6 @@
   white-space: nowrap;
 }
 
-/* Bouton de téléchargement sur deux lignes : l'action, puis le format ou la puce */
 .docs-channel-btn__label {
   display: flex;
   flex-direction: column;
@@ -464,7 +458,6 @@
   opacity: 0.85;
 }
 
-/* Parcours par famille de distribution : empilés, seul l'actif est visible, la hauteur reste celle du plus grand */
 .docs-family-stack {
   display: grid;
 }

@@ -1,4 +1,3 @@
-// Tests d'injection du contrôle du plan du site : une régression de hiérarchie doit faire échouer le script.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";

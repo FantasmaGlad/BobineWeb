@@ -14,7 +14,6 @@ import { LINUX_FAMILIES, LINUX_FAMILY_IDS, packageLink } from "@/lib/linuxPackag
 
 type Channel = "stable" | "beta" | "canary";
 
-/** Données minimales d'un canal, sérialisables du serveur vers le client. */
 export interface LandingChannelData {
   label: string;
   version: string;
@@ -24,9 +23,7 @@ export interface LandingChannelData {
 interface Props {
   locale: Locale;
   channels: Record<Channel, LandingChannelData>;
-  /** Canal imposé (pages de canal) ; sinon l'utilisateur choisit. */
   lockedChannel?: Channel;
-  /** Plateforme proposée quand l'appareil n'est pas reconnu (ex. Android TV sur la page Android TV). */
   fallback: PlatformId;
 }
 
@@ -44,13 +41,11 @@ function fileName(url: string): string {
   return decodeURIComponent(url.split("/").pop() ?? url);
 }
 
-/** Fichiers proposés pour une plateforme : un par architecture. */
 function filesFor(platform: PlatformId, d: ReleaseChannelInfo["downloads"]): Array<{ arch: string; url?: string }> {
   switch (platform) {
     case "windows":
       return [{ arch: "x86-64", url: d.windows }, { arch: "ARM64", url: d.windowsArm64 }];
     case "linux":
-      // Debian et Ubuntu toujours ; Fedora et Arch seulement une fois leurs paquets publiés (jamais de lien mort).
       return LINUX_FAMILY_IDS.flatMap((id) => [
         { arch: `${LINUX_FAMILIES[id].label.en} x86-64`, url: id === "debian" ? d.linux : packageLink(d, id, "x86_64") },
         { arch: `${LINUX_FAMILIES[id].label.en} ARM64`, url: id === "debian" ? d.linuxArm64 : packageLink(d, id, "arm64") },
@@ -64,11 +59,6 @@ function filesFor(platform: PlatformId, d: ReleaseChannelInfo["downloads"]): Arr
   }
 }
 
-/**
- * Encart de téléchargement des pages de référencement : propose le fichier adapté à l'appareil du visiteur (détecté
- * après le montage, jamais pendant le rendu serveur) et laisse choisir une autre plateforme ou un autre canal.
- * La liste complète des fichiers reste rendue côté serveur, pour les moteurs de recherche.
- */
 export default function LandingDownload({ locale, channels, lockedChannel, fallback }: Props) {
   const isEn = locale === "en";
   const detected = useDetectedPlatform();

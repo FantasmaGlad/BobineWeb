@@ -61,10 +61,9 @@
   color: var(--text-muted);
   margin-top: 0.2rem;
   line-height: 1.35;
-  min-height: 2.7em; /* 2 lignes pleines (1.35 x 2) : évite un décalage de quelques px entre sous-titres 1 et 2 lignes */
+  min-height: 2.7em; 
 }
 
-/* Carte Linux : un logo par famille de distribution, atténué tant que son dépôt n'est pas en ligne. */
 .os-download-card__distros {
   display: flex;
   align-items: center;
@@ -94,11 +93,7 @@
   margin-bottom: 1rem;
   padding-top: 0.85rem;
   border-top: 2px solid color-mix(in srgb, var(--accent-primary) 30%, var(--border-color));
-  /* Réserve la hauteur de 2 lignes même si un seul des deux libellés
-     (format / statut) passe à la ligne sur une carte étroite : la
-     délimitation (border-top) reste ainsi à la même hauteur sur les 5
-     cartes, qu'elles aient un contenu court ("V3.0.0") ou long
-     ("Étude de faisabilité" / "En développement"). */
+  
   min-height: 3.6rem;
 }
 
@@ -171,9 +166,6 @@
   }
 }
 
-/* Repère "défiler pour voir les autres versions" : n'apparaît que sur
-   mobile, juste après la carte de l'appareil détecté, pour signaler
-   clairement qu'il faut continuer à faire défiler la page. */
 .os-download-mobile-hint {
   display: none;
   flex-direction: column;
@@ -280,7 +272,7 @@
   }
 
   .os-download-card__action {
-    min-height: 44px; /* Standard tactile d'accessibilité mobile */
+    min-height: 44px; 
   }
 
   .os-download-mobile-hint {

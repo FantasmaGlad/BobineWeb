@@ -1,17 +1,9 @@
 #!/usr/bin/env python3
-"""Refuse de publier un miroir onion dont un fichier texte mène au web classique.
-
-Une page, un script ou un fichier .repo qui contient une adresse https de bobine.fit, packages.bobine.fit,
-security.bobine.fit ou GitHub fait contacter le clearnet à qui copie la commande ou clique le lien, et expose son
-adresse IP. Les overlays réécrivent ces adresses ; ce contrôle échoue si l'une a échappé.
-
-Usage : no-clearnet-check.py <dossier>
-"""
+"""Refuse de publier un miroir onion dont un fichier texte mène au web classique."""
 import re
 import sys
 from pathlib import Path
 
-# Les .svg (attributions dans leurs métadonnées, jamais ouvertes comme pages) ne comptent pas.
 TEXT_SUFFIXES = {".html", ".js", ".css", ".json", ".txt", ".repo", ".xml", ".webmanifest", ".sh", ".md"}
 FORBIDDEN = re.compile(
     r"https?://(?:www\.)?(?:packages\.bobine\.fit|security\.bobine\.fit|bobine\.fit|api\.github\.com|github\.com|"

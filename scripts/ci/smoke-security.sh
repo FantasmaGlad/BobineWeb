@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Tests en direct de security.bobine.fit après publication.
 set -euo pipefail
 SITE=${1:-https://security.bobine.fit}
 cd "$(git rev-parse --show-toplevel)"
@@ -26,7 +25,6 @@ check() {
   for p in /assets/site.css; do
     cmp -s <(curl -fsS --max-time 30 "$SITE$p") "security/site$p" || { echo "ressource servie différente : $p"; return 1; }
   done
-  # Page lue en entier avant le grep : "grep -q" ferme le tube et ferait échouer curl sous pipefail.
   page=$(curl -fsS --max-time 30 "$SITE/")
   grep -q "$FPR_SPACED" <<< "$page" || { echo "empreinte absente de la page d'accueil"; return 1; }
   cmp -s <(curl -fsS --max-time 30 "$SITE/security.asc") security/site/security.asc || { echo "security.asc servi différent du dépôt"; return 1; }

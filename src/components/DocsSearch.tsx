@@ -15,7 +15,6 @@ function normalize(text: string): string {
     .replace(/[̀-ͯ]/g, "");
 }
 
-/** Découpe le texte affiché en segments, avec les portions correspondant à `terms` marquées pour surlignage. */
 function highlightSegments(text: string, terms: string[]): Array<{ value: string; match: boolean }> {
   const normalizedText = normalize(text);
   const ranges: Array<[number, number]> = [];
@@ -363,7 +362,6 @@ export default function DocsSearch({ locale }: { locale: Locale }) {
         const excerpt = normalize(item.excerpt);
         const tags = item.tags.map(normalize);
 
-        // Chaque mot de la requête doit correspondre à au moins un champ (recherche "ET").
         let score = 0;
         for (const term of terms) {
           if (title === term) score += 12;
@@ -373,7 +371,7 @@ export default function DocsSearch({ locale }: { locale: Locale }) {
           else if (tags.some((tag) => tag.includes(term))) score += 3;
           else if (category.includes(term)) score += 2;
           else if (excerpt.includes(term)) score += 1;
-          else return null; // Un des mots ne correspond à rien : on exclut l'entrée.
+          else return null;
         }
         return { item, score };
       })
@@ -421,7 +419,6 @@ export default function DocsSearch({ locale }: { locale: Locale }) {
         )}
       </div>
 
-      {/* Résultats de recherche en direct */}
       {query.trim().length > 0 && (
         <div className="docs-search-results">
           {visibleResults.length > 0 ? (

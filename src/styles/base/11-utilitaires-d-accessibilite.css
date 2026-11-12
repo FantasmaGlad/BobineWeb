@@ -1,6 +1,5 @@
 
 
-/* Utilitaires d'accessibilité */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -13,11 +12,6 @@
   border-width: 0;
 }
 
-/* ==========================================================================
-   EN-TÊTES & HÉROS NATURELS (SANS SYNDROME BOX IN A BOX)
-   ========================================================================== */
-
-/* 1. Page d'accueil — Plein écran immersif sans coupure visuelle */
 .hero-fullscreen {
   position: relative;
   display: flex;
@@ -46,7 +40,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* Version mobile (< 1024px) : placée derrière le titre, centrée à droite */
+  
   top: 1.25rem;
   bottom: auto;
   right: -0.75rem;
@@ -61,7 +55,7 @@
   .hero-fullscreen__backdrop-art {
     top: 0.5rem;
     bottom: auto;
-    /* La décoration peut dépasser la colonne, sans agrandir le viewport. */
+    
     right: max(clamp(-11rem, -9vw, -5.5rem), calc((100% - 100vw) / 2 + 1rem));
     transform: none;
     width: min(34vw, 420px);
@@ -78,7 +72,6 @@
   }
 }
 
-/* Visuel Google Book en grand format à gauche de l'écran d'accueil */
 .hero-fullscreen__backdrop-art--left {
   right: auto;
   left: -1.25rem;
@@ -116,28 +109,17 @@
     z-index: var(--z-2);
   }
 
-  /* Le Google Book occupe 50 % de place en plus : les cartes de téléchargement
-     descendent d'autant, sans changer de hauteur ni de format. */
   .hero-fullscreen:has(.hero-fullscreen__backdrop-art--left) .os-download-desktop-grid {
     margin-top: clamp(4.5rem, 13vh, 8.5rem);
   }
 }
 
-/* +50 % : agrandi depuis le milieu du bord supérieur du portable, de sorte que
-   son axe vertical et son bord haut ne bougent pas (point repéré dans l'image de
-   350 px, centrée dans le conteneur et décalée de 5 px vers le haut). Une
-   transformation ne modifie pas la mise en page. En dessous de 1500 px, la
-   colonne de texte est trop proche : taille d'origine. */
 @media (min-width: 1500px) {
   .hero-fullscreen__backdrop-art--left {
     transform: scale(1.5);
     transform-origin: calc(50% + 12px) 73px;
   }
 }
-
-/* Bandeau discret d'annonce Android aux couleurs du Bugdroid (#3DDC84) au-dessus de l'image (desktop uniquement) */
-
-/* Retiré sur la version téléphone (< 1024px) */
 
 .hero-fullscreen__backdrop-img {
   width: 100%;
@@ -149,7 +131,6 @@
   transition: opacity 0.3s ease;
 }
 
-/* Google Book détouré sur fond transparent : aucun mask-image pour ne jamais couper le châssis */
 .hero-fullscreen__backdrop-img--googlebook {
   width: auto;
   max-width: 100%;

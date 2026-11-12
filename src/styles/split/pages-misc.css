@@ -1,6 +1,5 @@
 
 
-/* Pages d'erreur : une colonne alignée à gauche, sans bouton ni encadré. */
 .error-page {
   min-height: 100vh;
   display: flex;

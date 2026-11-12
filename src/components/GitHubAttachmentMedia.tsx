@@ -2,10 +2,6 @@
 
 import { useState } from "react";
 
-// Les pièces jointes GitHub (vidéos/images glissées-déposées dans les notes
-// de release) n'ont pas d'extension dans leur URL — le type réel n'est connu
-// qu'à la réponse HTTP. On tente <video>, et on bascule vers <img> puis vers
-// un simple lien si le type ne correspond pas.
 type Mode = "video" | "image" | "link";
 
 export default function GitHubAttachmentMedia({

@@ -1,9 +1,4 @@
-/*
- * BobineWeb — jetons communs à tous les thèmes.
- * Les couleurs de chaque thème (neuf couleurs, chacune en clair et en sombre) sont dans 00-themes-generes.css, GÉNÉRÉ
- * depuis src/lib/themePalettes.ts. Ici : tout ce qui n'en dépend que par dérivation (verre, ombres, badges) ou pas du tout
- * (rayons, flou, courbes). Aucun dégradé : les sections sont pleines ou en verre (matière translucide posée sur des surfaces).
- */
+
 
 :root {
   --accent-subtle: color-mix(in srgb, var(--accent-primary) 8%, transparent);
@@ -30,11 +25,9 @@
   --logo-filter: none;
   --max-width: 76rem;
 
-  /* Courbes de ressort Apple */
   --ease-spring-hover: cubic-bezier(0.2, 0.8, 0.2, 1.2);
   --ease-spring-pill: cubic-bezier(0.2, 0.9, 0.3, 1.2);
 
-  /* Verre : surfaces nettes (94 %–96 % d'opacité), jamais sur les boutons */
   --bg-ambient-mesh: none;
   --glass-surface-bg: color-mix(in srgb, var(--bg-card) 94%, transparent);
   --glass-surface-border: color-mix(in srgb, var(--text-heading) 20%, transparent);
@@ -50,7 +43,6 @@
   --glass-inset-bg: color-mix(in srgb, var(--bg-inset) 94%, transparent);
   --glass-edge: inset 0 1px 0 color-mix(in srgb, var(--specular) 65%, transparent);
 
-  /* Échelle de flou du verre : un seul réglage pour tout le site. */
   --blur-scale: 1;
   --blur-xs: calc(4px * var(--blur-scale));
   --blur-sm: calc(8px * var(--blur-scale));
@@ -61,11 +53,9 @@
   --saturate-soft: 125%;
   --saturate-rich: 145%;
 
-  /* Neutres physiques : ombres (--ink) et reflets (--specular) */
   --ink: #000000;
   --specular: #ffffff;
 
-  /* Voiles sous les fenêtres et tiroirs ; pastilles posées sur une image ou une vidéo. */
   --scrim-soft: color-mix(in srgb, var(--ink) 35%, transparent);
   --scrim: color-mix(in srgb, var(--ink) 52%, transparent);
   --glass-chip-bg: color-mix(in srgb, var(--ink) 70%, transparent);
@@ -74,14 +64,12 @@
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   --text-on-accent: var(--accent-primary-fg);
 
-  /* Badge d'annonce Android — Couleurs dérivées dynamiquement du thème actif */
   --android-badge-fg: var(--accent-text);
   --android-badge-bg: color-mix(in srgb, var(--accent-primary) 10%, var(--bg-card));
   --android-badge-border: color-mix(in srgb, var(--accent-primary) 28%, var(--border-subtle));
   --android-badge-glow: color-mix(in srgb, var(--accent-primary) 14%, transparent);
 }
 
-/* Mode sombre : ombres plus denses, verre plus opaque, liserés lumineux. */
 :root[data-mode="dark"] {
   --shadow-color: color-mix(in srgb, var(--ink) 65%, transparent);
   --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ink) 60%, transparent);

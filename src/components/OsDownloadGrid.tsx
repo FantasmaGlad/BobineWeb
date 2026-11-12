@@ -39,7 +39,6 @@ export default function OsDownloadGrid({
 
   useEffect(() => {
     let isMounted = true;
-    // Miroir Tor : pas de route serveur, valeurs de repli déjà en place.
     if (process.env.NEXT_PUBLIC_BOBINE_ONION === "1") return;
     fetch("/api/github-stats")
       .then((res) => (res.ok ? res.json() : null))
@@ -50,7 +49,6 @@ export default function OsDownloadGrid({
         if (data.canary) setCanaryInfo(data.canary);
       })
       .catch(() => {
-        // Fallback transparent déjà en place
       });
     return () => {
       isMounted = false;
@@ -62,7 +60,6 @@ export default function OsDownloadGrid({
     setIsModalOpen(true);
   };
 
-  // Debian, Ubuntu, Fedora et Arch Linux : les deux dernières restent atténuées tant que leurs dépôts ne sont pas en ligne.
   const linuxDistros = [
     { name: "Debian", logo: "debian" as const, live: LINUX_FAMILIES.debian.live },
     { name: "Ubuntu", logo: "ubuntu" as const, live: LINUX_FAMILIES.debian.live },
@@ -269,7 +266,6 @@ export default function OsDownloadGrid({
 
   return (
     <div className="os-download-shell">
-      {/* VUE MOBILE (< 640px) : Premier écran dynamique 100dvh avec carte recommandée et repère de défilement ancré en bas */}
       <div className="os-download-mobile-view">
         <div className="os-download-first-screen">
           {(title || headerSlot) && (
@@ -311,7 +307,6 @@ export default function OsDownloadGrid({
         </div>
       </div>
 
-      {/* VUE DESKTOP (>= 640px) : Grille 5 colonnes immuable, zéro déplacement DOM, zéro CLS */}
       <div className="os-download-desktop-view">
         {(title || headerSlot) && (
           <div className="os-download-desktop-header">

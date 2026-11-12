@@ -1,20 +1,4 @@
 #!/usr/bin/env bash
-#
-# install-tor.sh — Bobine : dépôts Linux protégés via Tor (service onion)
-#
-# Configure apt, dnf ou pacman et Tor, récupère la clé de signature de Bobine (par Tor, sans contacter le web
-# classique), vérifie son empreinte contre celle publiée, puis configure le dépôt signé en .onion.
-# À LIRE AVANT de l'exécuter. Il s'arrête si l'empreinte de la clé diffère.
-#
-#   curl -fsSL https://bobine.fit/install-tor.sh | bash
-#   curl -fsSL https://bobine.fit/install-tor.sh | bash -s -- --dry-run     # ne modifie rien
-#   curl -fsSL https://bobine.fit/install-tor.sh | bash -s -- --channel=beta
-#
-# Options : --dry-run   simule (télécharge et vérifie la clé, n'installe rien)
-#           --channel=stable|beta|canary   canal de mise à jour (sans l'option : question sur un terminal, sinon stable)
-#           --lang=en   messages en anglais
-#           --clearnet-key   récupère la clé sur https://packages.bobine.fit (révèle votre IP à ce serveur)
-#
 set -euo pipefail
 
 APT_ONION="rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion"
@@ -37,7 +21,6 @@ for arg in "$@"; do
     esac
 done
 
-# ---------------------------------------------------------------- couleurs (palette Tor)
 if [[ -t 1 ]] && [[ "${NO_COLOR:-}" != "1" ]] && command -v tput >/dev/null 2>&1 && [[ "$(tput colors 2>/dev/null || echo 0)" -ge 8 ]]; then
     BOLD=$(tput bold); DIM=$(tput dim); RESET=$(tput sgr0)
     RED=$(tput setaf 1); YELLOW=$(tput setaf 3)
@@ -82,7 +65,6 @@ TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
 
 banner
 
-# Canal de mise à jour : option, sinon question sur un vrai terminal, sinon stable.
 select_channel() {
     [[ -n "$CHANNEL" ]] && return 0
     CHANNEL="stable"
@@ -102,7 +84,6 @@ select_channel() {
 select_channel
 (( DRY_RUN )) && info "$(t "Mode simulation : rien ne sera installé ni modifié." "Dry-run mode: nothing will be installed or changed.")" && echo
 
-# ---------------------------------------------------------------- 1. environnement
 step "$(t "Vérification de l'environnement" "Checking the environment")"
 if command -v apt-get >/dev/null 2>&1; then FAMILY=apt
 elif command -v dnf >/dev/null 2>&1; then FAMILY=dnf
@@ -124,7 +105,6 @@ if command -v systemctl >/dev/null 2>&1 && [[ -d /run/systemd/system ]]; then
     run "${SUDO[@]}" systemctl enable --now tor
 fi
 
-# ---------------------------------------------------------------- 3. clé de signature
 step "$(t "Clé de signature de Bobine" "Bobine signing key")"
 KEY_FILE="$TMP/bobine.gpg"
 if (( CLEARNET_KEY )); then
@@ -143,7 +123,6 @@ else
     ok "$(t "Clé récupérée par Tor (aucun contact avec le web classique)" "Key fetched through Tor (no contact with the regular web)")"
 fi
 
-# ---------------------------------------------------------------- 4. empreinte
 step "$(t "Vérification de l'empreinte" "Fingerprint check")"
 if [[ -s "$KEY_FILE" ]]; then
     got_fpr=$(gpg --show-keys --with-colons "$KEY_FILE" | awk -F: '/^fpr:/ {print $10; exit}')
@@ -155,7 +134,6 @@ else
     info "$(t "Aucune clé à vérifier en simulation" "No key to check in dry-run")"
 fi
 
-# ---------------------------------------------------------------- 5. dépôt signé
 step "$(t "Dépôt signé via Tor" "Signed repository through Tor")"
 BASE="http://${APT_ONION}"
 case "$FAMILY" in
@@ -195,8 +173,6 @@ EOF
         run "${SUDO[@]}" pacman-key --init
         run "${SUDO[@]}" pacman-key --add "$KEY_FILE"
         run "${SUDO[@]}" pacman-key --lsign-key "$PRIMARY_FPR"
-        # Un XferCommand global ferait passer tous les dépôts par Tor et modifierait
-        # le choix de transport du poste. Le wrapper n'utilise Tor que pour .onion.
         cat > "$TMP/transfer" <<'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
@@ -223,7 +199,6 @@ EOF
 esac
 ok "$(t "Dépôt configuré" "Repository configured")"
 
-# ---------------------------------------------------------------- bilan
 printf '\n%s%s  %s%s\n\n' "$BOLD" "$GREEN" "$(t "Terminé : dépôt Bobine protégé par Tor" "Done: Bobine repository protected by Tor")" "$RESET"
 printf '  %s%s%s  %s\n' "$BOLD" "$(t "Canal          :" "Channel        :")" "$RESET" "$CHANNEL ($FAMILY)"
 printf '  %s%s%s  %s\n' "$BOLD" "$(t "Installer      :" "Install        :")" "$RESET" "$INSTALL"

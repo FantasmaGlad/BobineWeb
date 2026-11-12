@@ -16,7 +16,6 @@ export default function GitHubBadge({ compact = false }: { compact?: boolean }) 
   );
 
   useEffect(() => {
-    // Miroir Tor : pas de route serveur, aucun appel.
     if (process.env.NEXT_PUBLIC_BOBINE_ONION === "1") return;
     fetch("/api/github-stats")
       .then((res) => (res.ok ? res.json() : null))
@@ -52,7 +51,6 @@ export default function GitHubBadge({ compact = false }: { compact?: boolean }) 
 
       <span className="github-badge__release">{releaseTag}</span>
 
-      {/* Miroir Tor : pas de compteur d'étoiles (il serait figé au dernier build). */}
       {!isOnion && (
       <span className="github-badge__stars">
         <svg

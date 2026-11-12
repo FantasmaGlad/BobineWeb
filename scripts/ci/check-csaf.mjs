@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-// Contrôle du fournisseur CSAF 2.0 (public/.well-known/csaf) : métadonnées valides, index et journal des modifications
-// présents, avis listés qui existent et portent leur signature. Aucun avis n'est publié pour l'instant : index vide.
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";

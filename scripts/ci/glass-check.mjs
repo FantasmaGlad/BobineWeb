@@ -1,7 +1,4 @@
 #!/usr/bin/env node
-// Garde-fou du verre et des jetons de style : aucune valeur figée, aucune variable non définie, ordre des préfixes
-// de `backdrop-filter`, mode « transparence réduite », et contraste du texte sur chaque matériau de verre dans les 16
-// thèmes (jetons réels du CSS, pas des copies). Code de sortie 1 au premier écart.
 import { checkStyleTokens } from "./style-tokens.mjs";
 import { loadThemeColors } from "./theme-colors.mjs";
 import { readFileSync, readdirSync } from "node:fs";
@@ -20,11 +17,6 @@ const tokenCheck = checkStyleTokens(root);
 const errors = [...tokenCheck.errors];
 const fail = (msg) => errors.push(msg);
 
-// 0. Taille des feuilles : environ 600 lignes par feuille (globals.css n'est qu'une liste d'@import ; ajouter les règles dans
-// la partie qui correspond au domaine, ou dans une feuille de composant sous src/styles/components/). Au-delà de 600 lignes
-// c'est un avertissement, la coupure se décide au bon endroit ; l'échec ne tombe qu'à partir de 800 lignes.
-// Titres et texte courant sur le verre : AA (4,5). La palette fournie plafonne certains thèmes sombres sous 7 sur leur
-// surface (rose vif, ardoise, canary) ; le fond de page, lui, garde AAA (contrôlé par les tests de palette).
 const HEADING_MIN = 4.5;
 const SOFT_CSS_LINES = 600;
 const HARD_CSS_LINES = 800;
@@ -35,7 +27,6 @@ for (const f of files.filter((f) => f.endsWith(".css"))) {
   else if (n > SOFT_CSS_LINES) console.warn(`::warning::${name} : ${n} lignes (repère ${SOFT_CSS_LINES}) : à scinder si elle grossit encore`);
 }
 
-// 1. Valeurs figées ------------------------------------------------------------------------------------------
 const filters = [...source.matchAll(/(?<!-webkit-)backdrop-filter\s*:\s*([^;{}]+)[;}]/g)].map((m) => m[1].trim());
 const count = (n, label) => n > 0 && fail(`${n} ${label}`);
 count(filters.filter((v) => /blur\(\s*[\d.]+px/.test(v)).length, "flou(s) en pixels : utiliser blur(var(--blur-*))");
@@ -55,27 +46,22 @@ count([...source.matchAll(/(?<![-\w])backdrop-filter\s*:[^;{}]+;\s*-webkit-backd
 count([...source.matchAll(/([^{}]+)\{([^{}]*)\}/g)].filter((m) => /(?<![-\w])backdrop-filter\s*:/.test(m[2]) && !/-webkit-backdrop-filter/.test(m[2])).length, "règle(s) sans -webkit-backdrop-filter");
 count([...tsx.matchAll(/rgba\(\s*(?:0\s*,\s*0\s*,\s*0|255\s*,\s*255\s*,\s*255)\s*,/g)].length, "rgba figé dans un style en ligne (TSX)");
 
-// 2. Variables utilisées sans définition --------------------------------------------------------------------------
 const defined = new Set([...noComments.matchAll(/(--[\w-]+)\s*:/g)].map((m) => m[1]));
 for (const m of tsx.matchAll(/["'](--[\w-]+)["']/g)) defined.add(m[1]);
 const undef = [...new Set([...noComments.matchAll(/var\((--[\w-]+)/g)].map((m) => m[1]))].filter((n) => !defined.has(n));
 if (undef.length) fail(`variables non définies : ${undef.join(", ")}`);
 
-// 2bis. Chaque jeton --z-N porte exactement N (une collision de noms a déjà inversé un z-index de 1 en -1 : contenu masqué,
-// cartes sans survol ni clic) ; les valeurs négatives se nomment --z-neg-N.
 for (const m of noComments.matchAll(/(--z-(neg-)?(\d+))\s*:\s*(-?\d+)\s*;/g)) {
   const expected = (m[2] ? -1 : 1) * Number(m[3]);
   if (Number(m[4]) !== expected) fail(`${m[1]} vaut ${m[4]} (attendu ${expected})`);
 }
 
-// 3. Transparence réduite -----------------------------------------------------------------------------------------
 const reduced = /@media \(prefers-reduced-transparency: reduce\)\s*\{([\s\S]*?)\n\}/.exec(noComments)?.[1] ?? "";
 for (const t of ["--blur-scale: 0", "--glass-surface-bg", "--glass-card-bg", "--glass-floating-bg", "--glass-modal-bg"]) if (!reduced.includes(t)) fail(`mode transparence réduite : ${t} absent`);
 
 const opaque = /@supports not \(\(backdrop-filter:[\s\S]*?\)\)\s*\{([\s\S]*?)\n\}/.exec(noComments)?.[1] ?? "";
 for (const t of ["--blur-scale: 0", "--glass-surface-bg: var(--bg-card)", "--glass-card-bg: var(--bg-card)", "--glass-floating-bg: var(--bg-surface-elevated)", "--glass-modal-bg: var(--bg-surface-elevated)"]) if (!opaque.includes(t)) fail(`repli sans filtre : ${t} absent`);
 
-// 4. Contraste sur les matériaux de verre, thème par thème -------------------------------------------------------
 const { themes, resolve, evaluate, materialColors, over, ratio } = loadThemeColors(noComments);
 
 let measured = 0;

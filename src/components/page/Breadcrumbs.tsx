@@ -6,18 +6,11 @@ import "@/styles/components/page.css";
 
 interface BreadcrumbsProps {
   locale: Locale;
-  /** Route de la page courante dans le plan du site. */
   id: RouteId;
-  /** Maillon final propre à une page créée à la volée (article de blog) : il suit la route `id`. */
   current?: { name: string; href: string };
-  /** Faux : seul le JSON-LD est rendu (pages dont la mise en page a déjà son propre repérage). */
   visible?: boolean;
 }
 
-/**
- * Fil d'Ariane visible et son JSON-LD `BreadcrumbList`, dérivés du plan du site : une page n'a qu'un seul fil, avec les
- * mêmes adresses que ses liens (jamais un chemin français sous `/en`).
- */
 export default function Breadcrumbs({ locale, id, current, visible = true }: BreadcrumbsProps) {
   const items = trailOf(id).map((r) => ({ name: r.label[locale], href: routeHref(locale, r.id) }));
   if (current) items.push({ name: current.name, href: current.href });

@@ -1,4 +1,4 @@
-/* Gabarit des pages : fil d'Ariane, en-tête, sections et liens de hub épurés. Préfixe pg-. */
+
 .pg-page {
   width: 100%;
   max-width: var(--max-width);
@@ -88,7 +88,6 @@
   color: var(--text-muted);
 }
 
-/* Note éditoriale fine à filet gauche au lieu d'un gros rectangle encadré */
 .pg-note {
   margin: 0;
   padding: 0.2rem 0 0.2rem 0.9rem;
@@ -98,7 +97,6 @@
   color: var(--text-muted);
 }
 
-/* Grille horizontale épurée à filets fins (zéro gros rectangle lourd) */
 .pg-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 16.5rem), 1fr));

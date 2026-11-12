@@ -10,7 +10,6 @@ interface ErrorPageProps {
   textEn: string;
 }
 
-/** Page d'erreur minimale, bilingue : le code, deux lignes et les sites de Bobine. Aucun bouton. */
 export default function ErrorPage({ code, titleFr, titleEn, textFr, textEn }: ErrorPageProps) {
   return (
     <div className="error-page">

@@ -7,7 +7,6 @@ import { fileURLToPath } from "node:url";
 const repository = "FantasmaGlad/Bobine";
 const apiRoot = `https://api.github.com/repos/${repository}`;
 const sha256 = (content) => createHash("sha256").update(content).digest("hex");
-// install.sh (appliance) est exigé ; install.ps1 (Windows) n'existe qu'à partir de la Stable 5.1.0.
 export const INSTALLERS = [
   { name: "install.sh", source: "install-source.json", required: true },
   { name: "install.ps1", source: "install-ps1-source.json", required: false },
@@ -45,7 +44,6 @@ export async function syncInstaller(destination, request = fetch) {
       console.log(`${installer.name} absent de la release Stable ${latest.tag} : non servi.`);
       continue;
     }
-    // L’asset public est téléchargé sans transmettre le jeton de l’API aux redirections.
     const response = await request(source.url, { signal: AbortSignal.timeout(30_000) });
     if (!response.ok) throw new Error(`Installateur inaccessible : HTTP ${response.status}`);
     const script = Buffer.from(await response.arrayBuffer());

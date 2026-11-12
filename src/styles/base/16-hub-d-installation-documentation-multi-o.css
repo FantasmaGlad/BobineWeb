@@ -1,32 +1,5 @@
 
 
-/* ==========================================================================
-   Hub d'Installation & Documentation Multi-OS (DocsInstallHub)
-   ========================================================================== */
-
-/* Le nom et le badge se partagent une ligne qui peut retomber à la ligne :
-   le badge ne vole jamais une largeur fixe au nom, il se pousse simplement
-   en dessous si la carte est trop étroite pour les deux côte à côte. */
-
-/* Hero de la méthode d'installation sélectionnée */
-
-/* Version text sans encadré, chiffres dans la même couleur */
-
-/* Quick install box pour CLI */
-
-/* Copie de commande */
-
-/* Flux d'étapes d'installation (Steps Flow) */
-
-/* ==========================================================================
-   Feuille de Route (Android à l'étude, iOS/iPadOS piste explorée)
-   — intégrée comme onglets dans docs-install-tabs, voir DocsInstallHub.tsx
-   ========================================================================== */
-
-/* ==========================================================================
-   Modale de Téléchargement Multi-Canal (Stable / Bêta) & Sélecteur d'OS
-   ========================================================================== */
-
 @keyframes slideUpModal {
   from {
     opacity: 0;
@@ -38,13 +11,6 @@
   }
 }
 
-/* Sélecteur segmenté d'architecture processeur (x86_64 / ARM64) style Apple Glassmorphism */
-
-/* Famille de distribution (Linux) : même pastille segmentée que l'architecture, avec logo et mention « Bientôt ». */
-
-/* Téléphone : les sélecteurs prennent toute la largeur, chaque famille s'empile (logo, nom, « Bientôt »). */
-
-/* Action pas encore disponible (paquet non publié) : jamais de lien, jamais de survol. */
 .download-modal__action-btn.is-soon,
 .download-modal__action-btn.is-soon:hover {
   background: var(--glass-inset-bg);
@@ -69,7 +35,6 @@
   isolation: isolate;
 }
 
-/* Filet de teinte du canal : seul signe d'identité, discret. */
 .download-modal__channel-card::before {
   content: "";
   position: absolute;
@@ -188,8 +153,6 @@
   }
 }
 
-/* Une seule action pleine (Stable, recommandée) ; Bêta et Canary en teinte douce, bordure fine. */
-
 .download-modal__cli-block {
   width: 100%;
   box-sizing: border-box;
@@ -257,12 +220,6 @@
   background: color-mix(in srgb, var(--channel) 18%, transparent);
   border-color: color-mix(in srgb, var(--channel) 55%, var(--border-subtle));
 }
-
-/* Multi-channel buttons dans DocsInstallHub */
-
-/* ==========================================================================
-   Page Matériel — navigation fluide entre packs OS/gammes & achat mobile
-   ========================================================================== */
 
 @keyframes hwFadeSlide {
   from {

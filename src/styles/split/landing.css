@@ -1,5 +1,4 @@
-/* Pages d'atterrissage (ordinateur, canaux, Android TV, Google Book, Tor, nouveautés) : même matériau de verre que le reste
-   du site, aucune valeur figée dans les composants. */
+
 .landing {
   --landing-measure: 84rem;
   --landing-gap: 1.35rem;
@@ -45,7 +44,6 @@
   color: var(--text-muted);
 }
 
-/* Visuel Hero en cadre éditorial net */
 .landing-hero-visual {
   overflow: hidden;
   padding: 0.5rem;
@@ -63,7 +61,6 @@
   border-radius: var(--radius-lg);
 }
 
-/* Pastilles Processeurs / SoC compatibles */
 .landing-chips {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(17.5rem, 1fr));
@@ -111,7 +108,6 @@
   color: var(--text-muted);
 }
 
-/* Grille Showcase Bento avec images HD */
 .landing-showcase-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
@@ -254,7 +250,6 @@
   color: var(--accent-text);
 }
 
-/* Bannière Matériel Recommandé */
 .landing-hardware-cta {
   display: flex;
   flex-wrap: wrap;
@@ -400,7 +395,6 @@
   border-color: color-mix(in srgb, var(--accent-primary) 50%, var(--border-subtle));
 }
 
-/* Encart de téléchargement adapté à l'appareil */
 .landing-dl {
   display: grid;
   gap: 1rem;

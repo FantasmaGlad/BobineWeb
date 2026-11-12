@@ -463,7 +463,6 @@ export function getTerminalCommand(family: string, channel: string): string {
     ].join("\n");
   }
 
-  // appliance direct script
   return [
     "# Script d'installation automatique pour appliance dédiée (Debian 13 minimale)",
     `curl -fsSL https://bobine.fit/install.sh | bash${channel !== "stable" ? ` -s -- --channel=${channel}` : ""}`,

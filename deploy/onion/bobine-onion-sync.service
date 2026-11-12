@@ -5,8 +5,6 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
-# Seul utilisateur à lire la clé de déploiement GitHub (/var/lib/onion-sync/.ssh, mode 0700) ; le serveur web tourne sous
-# onion-web et ne peut pas l'ouvrir. Groupe onion-data : les copies écrites dans /srv/onion lui sont lisibles.
 User=onion-sync
 Group=onion-data
 Environment=HOME=/var/lib/onion-sync ONION_SYNC_STATE=/var/lib/onion-sync

@@ -9,7 +9,6 @@ export default function ServiceWorkerRegistration({ locale }: { locale: Locale }
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
-    // 1. Enregistrement du Service Worker en production
     if (typeof window !== "undefined" && "serviceWorker" in navigator && process.env.NODE_ENV === "production") {
       navigator.serviceWorker
         .register("/sw.js")
@@ -26,7 +25,6 @@ export default function ServiceWorkerRegistration({ locale }: { locale: Locale }
       }).catch(() => {});
     }
 
-    // 2. Gestion des changements de connectivité réseau
     let timer: NodeJS.Timeout | null = null;
 
     const handleOnline = () => {

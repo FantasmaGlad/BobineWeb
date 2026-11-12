@@ -1,6 +1,5 @@
 name: Cohérence avec les releases Bobine
 
-# Vérifie l’installateur Stable par son digest et les assets des trois canaux.
 on:
   schedule:
     - cron: "41 6 * * *"

@@ -3,10 +3,7 @@ Description=Miroir Tor de Bobine : serveur statique (sockets UNIX locaux)
 After=network.target
 
 [Service]
-# Utilisateur sans accès à la clé de déploiement : lecture seule de /srv/onion par le groupe onion-data.
 User=onion-web
-# Groupe de Tor : le demon abandonne ses privileges et ne conserve que ce groupe,
-# il ne pourrait pas ouvrir des sockets appartenant a un autre groupe.
 Group=debian-tor
 SupplementaryGroups=onion-data
 RuntimeDirectory=onion
@@ -16,7 +13,6 @@ StateDirectory=bobine-onion
 ExecStart=/usr/bin/caddy run --config /etc/bobine-onion/Caddyfile --adapter caddyfile
 Restart=on-failure
 
-# Durcissement : lecture seule, aucun droit special, aucune connexion reseau sortante.
 NoNewPrivileges=yes
 ProtectSystem=strict
 ProtectHome=yes

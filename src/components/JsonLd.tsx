@@ -8,7 +8,6 @@ const AUTHOR_EMAIL = "clement.barillot@bobine.fit";
 export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
   const isEn = locale === "en";
 
-  // Dernière version stable publiée (cache de deux minutes) ; absente si l'API est injoignable.
   let latestVersion: string | undefined;
   try {
     const releases = await getBobineReleases();
@@ -71,7 +70,6 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
         ],
     offers: {
       "@type": "Offer",
-      // Logiciel libre : gratuit, sans date de validité ni disponibilité commerciale.
       price: "0",
       priceCurrency: "EUR",
     },

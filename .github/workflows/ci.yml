@@ -1,10 +1,5 @@
 name: CI
 
-# Contrôles de validation, exécutés sur chaque demande de fusion et appelés par le déploiement :
-# rien n'est publié tant que ces contrôles ne sont pas verts. Le job `ci-ok` est le statut
-# unique à exiger dans la protection de branche.
-# Une demande de fusion qui ne touche que la documentation ne passe que la politique du dépôt ; appelé par le
-# déploiement (qui ignore déjà ces fichiers), tout est vérifié.
 on:
   pull_request:
   workflow_call:
@@ -174,7 +169,6 @@ jobs:
         run: |
           python3 deploy/onion/test-overlay-apt.py
           python3 deploy/onion/test-site-signature.py
-          # L'export réel, comme sync.sh l'adapte sur la machine du miroir : plus aucune commande clearnet.
           cp -r out out-overlay
           python3 deploy/onion/overlay/site/commands-tor.py out-overlay
           python3 deploy/onion/overlay/site/check-commands.py out-overlay
@@ -204,7 +198,6 @@ jobs:
           results='${{ join(needs.*.result, ' ') }}'
           code='${{ needs.changes.outputs.code }}'
           echo "résultats : $results (code : $code)"
-          # Documentation seule : site, miroir et site de sécurité sont ignorés par décision, pas par échec.
           for r in $results; do
             [ "$r" = "success" ] || { [ "$code" = false ] && [ "$r" = skipped ]; } || { echo "::error::un contrôle a échoué ou a été ignoré ($r)"; exit 1; }
           done

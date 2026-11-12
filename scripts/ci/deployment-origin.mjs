@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import {pathToFileURL} from 'node:url';
 
-/** Refuse chemins, identifiants, ports et domaines ressemblants avant tout appel authentifié. */
 export function deploymentOrigin(value, mode='site') {
   const url=new URL(value);
   if(url.protocol!=='https:' || url.username || url.password || url.port || url.pathname!=='/' || url.search || url.hash)throw new Error('Une origine HTTPS sans chemin ni identifiants est exigée');

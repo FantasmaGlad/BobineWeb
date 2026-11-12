@@ -67,7 +67,6 @@
 
 .features-content .marketing-card[id] { scroll-margin-top: 8rem; }
 
-/* Liste des fonctionnalités */
 .features-doc-list {
   display: flex;
   flex-direction: column;

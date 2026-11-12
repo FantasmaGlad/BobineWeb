@@ -2,10 +2,6 @@
 
 import { useEffect } from "react";
 
-/**
- * Replie les groupes du pied de page sous 768 px (accordéons) et les garde ouverts au-dessus. Le HTML rendu côté serveur
- * les a tous ouverts : sans JavaScript (miroir Tor), tous les liens restent visibles.
- */
 export default function FooterDetails() {
   useEffect(() => {
     const media = window.matchMedia("(min-width: 768px)");

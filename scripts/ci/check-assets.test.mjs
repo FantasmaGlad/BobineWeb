@@ -1,4 +1,3 @@
-// Tests d'injection du garde-fou des icônes : une régression doit faire échouer check-assets.mjs.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";

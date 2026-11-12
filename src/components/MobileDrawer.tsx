@@ -63,7 +63,6 @@ export default function MobileDrawer({
         ref={drawerRef}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header Drawer */}
         <div className="mobile-drawer-header">
           <Link href={`/${locale}`} onClick={onClose} className="site-header__brand">
             <Image
@@ -84,15 +83,12 @@ export default function MobileDrawer({
           </button>
         </div>
 
-        {/* Corps du Drawer Scrollable */}
         <div className="mobile-drawer-body">
-          {/* 1. Assistance & Contact — Tout en haut */}
           <div className="mobile-drawer-section">
             <span className="mobile-drawer-section-title">
               {isEn ? "Assistance & Support" : "Assistance"}
             </span>
             <div className="site-div-6">
-              {/* Module contact */}
               <div className="mobile-drawer-contact-card">
                 <span className="site-span-4">
                   <Icon name="mail" size={14} />
@@ -115,7 +111,6 @@ export default function MobileDrawer({
             </div>
           </div>
 
-          {/* 2. Réglages (Thème & Langue) — Au-dessus de Navigation */}
           <div className="mobile-drawer-section mobile-drawer-section--settings">
             <span className="mobile-drawer-section-title">
               {isEn ? "Settings" : "Réglages"}
@@ -130,7 +125,6 @@ export default function MobileDrawer({
             </div>
           </div>
 
-          {/* 3. Navigation Principale */}
           <div className="mobile-drawer-section">
             <span className="mobile-drawer-section-title">
               {isEn ? "Navigation" : "Navigation"}
@@ -161,7 +155,6 @@ export default function MobileDrawer({
             </nav>
           </div>
 
-          {/* 4. Communauté & Légal — Tout en bas */}
           <div className="mobile-drawer-section site-div-9">
             <div className="site-div-10">
               <div className="site-div-11">
@@ -189,5 +182,4 @@ export default function MobileDrawer({
     </div>
   );
 }
-
 

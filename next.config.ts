@@ -33,10 +33,8 @@ const securityHeaders = [
   },
 ];
 
-// Pages dont le slug anglais diffère du slug français.
 const EN_PAGES = Object.entries(EN_SLUG_MAP).filter(([fr, en]) => fr !== en);
 
-// Miroir Tor : export statique (voir scripts/prepare-onion.mjs et le workflow onion-mirror).
 const isOnion = process.env.NEXT_PUBLIC_BOBINE_ONION === "1";
 
 const nextConfig: NextConfig = {
@@ -51,7 +49,6 @@ const nextConfig: NextConfig = {
       "remark-gfm",
     ],
   },
-  // Ignorés par un export statique : les redirections et en-têtes du miroir vivent dans Caddy.
   ...(isOnion ? {} : { async redirects() {
     return [
       { source: "/fr/materiel", destination: "/fr/documentation", permanent: true },
@@ -65,7 +62,6 @@ const nextConfig: NextConfig = {
       { source: "/en/tor", destination: "/en/documentation/anonymization", permanent: true },
       { source: "/:locale(fr|en)/baamix", destination: "/:locale", permanent: true },
       { source: "/en/compare/:path*", destination: "/en", permanent: true },
-      // Redirections des anciennes pages documentaires fusionnées
       {
         source: "/:locale(fr|en)/documentation/demarrage-rapide",
         destination: "/:locale/documentation",
@@ -76,7 +72,6 @@ const nextConfig: NextConfig = {
         destination: "/:locale/documentation",
         permanent: true,
       },
-      // Redirections des pages supprimées vers l'accueil ou le blog
       { source: "/fr/ordinateur", destination: "/fr", permanent: true },
       { source: "/en/ordinateur", destination: "/en", permanent: true },
       { source: "/en/computer", destination: "/en", permanent: true },
@@ -87,7 +82,6 @@ const nextConfig: NextConfig = {
       { source: "/fr/nouveautes", destination: "/fr/blog", permanent: true },
       { source: "/en/nouveautes", destination: "/en/blog", permanent: true },
       { source: "/en/whats-new", destination: "/en/blog", permanent: true },
-      // Page Téléchargement supprimée : le choix du paquet se fait sur l'accueil.
       { source: "/fr/telechargement", destination: "/fr", permanent: true },
       { source: "/en/telechargement", destination: "/en", permanent: true },
       { source: "/en/download", destination: "/en", permanent: true },
@@ -96,7 +90,6 @@ const nextConfig: NextConfig = {
       { source: "/download", destination: "/en", permanent: true },
       { source: "/a-propos", destination: "/fr/a-propos", permanent: true },
       { source: "/about", destination: "/en/about", permanent: true },
-      // Pages supprimées : Soutenir, Crédits
       { source: "/fr/soutenir", destination: "https://github.com/FantasmaGlad/Bobine", permanent: true },
       { source: "/en/soutenir", destination: "https://github.com/FantasmaGlad/Bobine", permanent: true },
       { source: "/fr/support", destination: "https://github.com/FantasmaGlad/Bobine", permanent: true },
@@ -106,13 +99,11 @@ const nextConfig: NextConfig = {
       { source: "/fr/credits", destination: "/fr/ressources", permanent: true },
       { source: "/en/credits", destination: "/en/resources", permanent: true },
       { source: "/credits", destination: "/fr/ressources", permanent: true },
-      // Sécurité : redirection vers le sous-domaine dédié security.bobine.fit
       { source: "/fr/securite", destination: "https://security.bobine.fit/fr/", permanent: true },
       { source: "/en/securite", destination: "https://security.bobine.fit/", permanent: true },
       { source: "/en/security", destination: "https://security.bobine.fit/", permanent: true },
       { source: "/securite", destination: "https://security.bobine.fit/fr/", permanent: true },
       { source: "/security", destination: "https://security.bobine.fit/", permanent: true },
-      // Emplacement historique de security.txt (RFC 9116, section 3)
       { source: "/security.txt", destination: "/.well-known/security.txt", permanent: true },
       {
         source: "/:path*",
@@ -120,16 +111,12 @@ const nextConfig: NextConfig = {
         destination: "https://bobine.fit/:path*",
         permanent: true,
       },
-      // Slugs localisés EN : l'ancien chemin français sous /en passe en 308 vers le slug anglais
       ...EN_PAGES.map(([fr, en]) => ({ source: `/en${fr}`, destination: `/en${en}`, permanent: true })),
     ];
   },
-  // Même sitemap sous une seconde adresse : Search Console conserve l'état « Impossible de lire » d'une
-  // adresse déjà en échec, la soumettre sous un nouveau nom force une lecture neuve.
   async rewrites() {
     return [
       { source: "/sitemap-bobine.xml", destination: "/sitemap.xml" },
-      // Slugs localisés anglais mappés vers les pages réelles (dossiers français)
       ...EN_PAGES.map(([fr, en]) => ({ source: `/en${en}`, destination: `/en${fr}` })),
     ];
   },
@@ -164,7 +151,6 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        // Fournisseur CSAF 2.0 (avis de sécurité) : lisible depuis n'importe quelle origine, jamais en cache long
         source: "/.well-known/csaf/:path*",
         headers: [
           { key: "Access-Control-Allow-Origin", value: "*" },
@@ -172,7 +158,6 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        // Web Key Directory (méthode directe) : les clients PGP exigent un type binaire et CORS ouvert
         source: "/.well-known/openpgpkey/:path*",
         headers: [
           { key: "Content-Type", value: "application/octet-stream" },
@@ -184,7 +169,6 @@ const nextConfig: NextConfig = {
         headers: [{ key: "X-Robots-Tag", value: "noindex" }],
       },
       {
-        // `irm https://bobine.fit/install.ps1 | iex` lit un texte, jamais un binaire à télécharger.
         source: "/install.ps1",
         headers: [
           { key: "Content-Type", value: "text/plain; charset=utf-8" },

@@ -6,10 +6,6 @@ import GitHubIcon from "@/components/icons/GitHubIcon";
 import { FOOTER_GROUPS, footerRoutes, routeHref } from "@/lib/siteMap";
 import "@/styles/components/site-footer.css";
 
-/**
- * Pied de page : une colonne par hub du plan du site (environ vingt liens), repliée en accordéons sous 768 px, rendue
- * hors de `<main>` pour exposer le repère `contentinfo`.
- */
 export default function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const isEn = locale === "en";
 

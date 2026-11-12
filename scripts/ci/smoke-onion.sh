@@ -1,13 +1,8 @@
 #!/usr/bin/env bash
-# Interroge le VRAI service onion par Tor (SOCKS5 sur 127.0.0.1:9050) : site, âge du miroir, installateur.
-# Variables : EXPECTED_SHA (préfixe du commit attendu dans mirror-info.txt, facultatif),
-# ATTEMPTS (nombre d'essais espacés de 60 s, 4 par défaut).
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 HOST=$(sed -n 's/^export const ONION_SITE_HOST = "\(.*\)";/\1/p' src/lib/onion.ts)
 [ -n "$HOST" ] || { echo "::error::adresse onion introuvable dans src/lib/onion.ts"; exit 1; }
-# Tor peut perdre un circuit pendant la lecture d'une métadonnée. On retente
-# uniquement le transport ; les signatures et versions restent des échecs stricts.
 curlt() { curl -fsS --retry 2 --retry-all-errors --retry-delay 3 --retry-max-time 300 --max-time 120 --socks5-hostname 127.0.0.1:9050 "$@"; }
 
 attempt() {
@@ -50,7 +45,6 @@ gpg --homedir "$work/gpg" --batch --quiet --import "$work/key"
 for channel in stable beta canary; do
   curlt "http://$PACKAGES_HOST/debian/dists/$channel/InRelease" -o "$work/InRelease"
   gpg --homedir "$work/gpg" --batch --decrypt "$work/InRelease" > "$work/Release"
-  # La compatibilité historique doit donner exactement le même contenu signé.
   curlt "http://$PACKAGES_HOST/dists/$channel/InRelease" -o "$work/legacy"
   cmp "$work/InRelease" "$work/legacy"
   python3 - "$work/Release" <<'PY'

@@ -1,14 +1,5 @@
 #!/usr/bin/env python3
-"""Commandes d'installation du site : sur le miroir onion, elles passent par le service onion et le proxy SOCKS de Tor.
-
-Le contenu du site (démonstration de terminal, documentation, FAQ) cite des commandes `curl -fsSL https://bobine.fit/...`
-ou GitHub. Copiées depuis le miroir, elles contacteraient le web classique et exposeraient l'adresse IP du visiteur ;
-l'installateur du site classique (`install.sh`) récupère de toute façon son code sur GitHub. Elles deviennent donc
-`curl --socks5-hostname 127.0.0.1:9050 -fsSL http://<onion>/install-tor.sh | bash`, avec leurs options (`-s -- --channel=...`) ;
-la clé et les dépôts de packages.bobine.fit passent au service onion des paquets (`curl` par le proxy SOCKS).
-
-Usage : commands-tor.py <dossier du site exporté>
-"""
+"""Commandes d'installation du site : sur le miroir onion, elles passent par le service onion et le proxy SOCKS de Tor."""
 import re
 import sys
 from pathlib import Path
@@ -21,14 +12,11 @@ COMMAND = re.compile(
     r"/install(?:-tor)?\.sh( \| )(?:sudo )?bash"
 )
 REPLACEMENT = rf"curl --socks5-hostname 127.0.0.1:9050 -fsSL http://{SITE_HOST}/install-tor.sh\1bash"
-# Clé et dépôts : `curl` passe par le proxy SOCKS, les autres adresses du dépôt deviennent celles du service onion.
 PACKAGES_CURL = re.compile(r"curl(?: -[A-Za-z]+)+ https://packages\.bobine\.fit/")
 PACKAGES_CURL_REPLACEMENT = f"curl --socks5-hostname 127.0.0.1:9050 -fsSL http://{APT_HOST}/"
 PACKAGES = "https://packages.bobine.fit"
-# Variante « lire avant d'exécuter » : télécharger, `less`, puis lancer le fichier téléchargé.
 REVIEW_DOWNLOAD = re.compile(r"curl(?: -[A-Za-z]+)+ https://bobine\.fit/install(?:-tor)?\.sh -o install(?:-tor)?\.sh")
 REVIEW_DOWNLOAD_REPLACEMENT = f"curl --socks5-hostname 127.0.0.1:9050 -fsSL http://{SITE_HOST}/install-tor.sh -o install-tor.sh"
-
 
 
 def adapt(root: Path) -> tuple[int, int]:
@@ -42,7 +30,7 @@ def adapt(root: Path) -> tuple[int, int]:
             continue
         new, count = COMMAND.subn(REPLACEMENT, text)
         new, review = REVIEW_DOWNLOAD.subn(REVIEW_DOWNLOAD_REPLACEMENT, new)
-        if review:  # même fichier : la lecture et le lancement du fichier téléchargé suivent le nouveau nom
+        if review:
             new = new.replace("less install.sh", "less install-tor.sh").replace("sudo bash install.sh", "bash install-tor.sh")
         count += review
         new, more = PACKAGES_CURL.subn(PACKAGES_CURL_REPLACEMENT, new)

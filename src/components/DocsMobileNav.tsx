@@ -47,7 +47,6 @@ export default function DocsMobileNav({ locale, items }: DocsMobileNavProps) {
     setIsOpen((prev) => !prev);
   };
 
-  // Trouver l'index de l'item actif
   const currentIndex = items.findIndex(([sub]) => {
     const target = lp(locale, sub === "" ? "/documentation" : `/documentation/${sub}`);
     return pathname === target;
@@ -68,7 +67,6 @@ export default function DocsMobileNav({ locale, items }: DocsMobileNavProps) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
 
-  // Fermer le menu lors d'un changement de route (pattern React recommandé)
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (prevPathname !== pathname) {
     setPrevPathname(pathname);

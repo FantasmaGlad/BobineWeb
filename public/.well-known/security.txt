@@ -8,16 +8,16 @@ Hash: SHA512
 Contact: mailto:security@bobine.fit
 Contact: https://github.com/FantasmaGlad/Bobine/security/advisories/new
 Expires: 2027-04-07T12:00:00.000Z
-Encryption: https://bobine.fit/.well-known/security.asc
+Encryption: https://security.bobine.fit/security.asc
 Preferred-Languages: fr, en
-Canonical: https://bobine.fit/.well-known/security.txt
-Policy: https://bobine.fit/fr/securite
-Policy: https://bobine.fit/en/securite
-Acknowledgments: https://bobine.fit/fr/securite#remerciements
+Canonical: https://security.bobine.fit/.well-known/security.txt
+CSAF: https://bobine.fit/.well-known/csaf/provider-metadata.json
+Policy: https://security.bobine.fit/fr/
+Policy: https://security.bobine.fit/
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQQjytMkxQf7D5fmrspuTAIO+L3+sgUCasa/PgAKCRBuTAIO+L3+
-sjPjAP4qaZGFSzbRO9sWnAaQa3NtPd4qXuJcyBOhFJYkAe5XlwEApyohMfdcR0PJ
-kpRc2QCuBzxyFRfzc4eNzF25NdN5cQw=
-=AJOR
+iHUEARYKAB0WIQQjytMkxQf7D5fmrspuTAIO+L3+sgUCau+mogAKCRBuTAIO+L3+
+soXKAPkBmgL7twUvpyIOXSRW2QTHU0iX30QbGbuDISOcG358oQD/d7TKOzzoJ47i
+JT+ZK8wZR5X1WzJOmQMfSIibDRN/qQE=
+=hQKm
 -----END PGP SIGNATURE-----

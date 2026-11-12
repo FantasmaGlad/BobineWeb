@@ -7,7 +7,7 @@
 - Author: Clément Barillot (FantasmaGlad). Contact: clement.barillot@bobine.fit
 - License: AGPL-3.0. Source: https://github.com/FantasmaGlad/Bobine
 - Current versions (Stable, Beta, Canary): https://bobine.fit/latest.json
-- Stack: Python and FastAPI, SQLite, Next.js, mpv. Local web interface on port 1903.
+- Stack: Python and FastAPI, SQLite, FFmpeg, Next.js, HTML5 video playback. Local web interface on port 1903, works offline.
 - Internet is needed to download and update, not to play.
 
 ## Platforms

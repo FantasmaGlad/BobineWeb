@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://bobine.fit/fr"><b>bobine.fit</b></a> &nbsp;·&nbsp;
-  <a href="https://github.com/FantasmaGlad/Bobine/blob/main/README.fr.md#téléchargement--installation"><b>Téléchargements</b></a> &nbsp;·&nbsp;
+  <a href="https://github.com/FantasmaGlad/Bobine/blob/main/README.fr.md#téléchargement"><b>Téléchargements</b></a> &nbsp;·&nbsp;
   <a href="README.md"><b>English</b></a>
 </p>
 
@@ -28,15 +28,6 @@
 | <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/linux.svg" width="20" height="20" valign="middle" alt="Linux"> Portail des paquets Linux | <https://packages.bobine.fit> |
 | Politique de sécurité | <https://security.bobine.fit/fr/> |
 | <img src="https://raw.githubusercontent.com/FantasmaGlad/Bobine/main/Assets/Icons/os/tor.svg" width="20" height="20" valign="middle" alt="Tor"> Miroir Tor | [bobinedaoki….onion](http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/) |
-
-## Développement
-
-```bash
-npm ci
-npm run dev    # http://localhost:3000, sans clé externe
-```
-
-Next.js, React et TypeScript ; pages en français et en anglais depuis `src/content/`.
 
 ---
 

@@ -29,7 +29,6 @@ for label, pattern in [('binaire APT', 'debian/pool/**/*.deb'),
 for label, relative in cases.items():
     with tempfile.TemporaryDirectory(dir=source.parent) as temporary:
         root = Path(temporary) / 'repository'
-        # Les binaires signés sont volumineux ; ne modifier aucun inode partagé.
         shutil.copytree(source, root, copy_function=os.link)
         target = root / relative
         data = target.read_bytes()

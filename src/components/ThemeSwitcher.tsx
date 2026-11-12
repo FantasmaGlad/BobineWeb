@@ -25,7 +25,6 @@ function readCookie(name: string): string | undefined {
   return document.cookie.match(new RegExp(`(?:^|; )${name}=([\\w-]+)`))?.[1];
 }
 
-/** Choix courant « thème|mode » (une chaîne : instantané stable pour useSyncExternalStore). */
 function getChoice(): string {
   if (typeof window === "undefined") return `${defaultTheme}|${defaultMode}`;
   try {
@@ -74,7 +73,6 @@ export default function ThemeSwitcher() {
   const resolved = resolveMode(mode, dark);
   const current = paletteOf(theme, resolved);
 
-  // « Automatique » suit le système : on le relit au montage et à chaque changement.
   useEffect(() => {
     const query = window.matchMedia?.("(prefers-color-scheme: dark)");
     if (!query) return;
@@ -142,7 +140,6 @@ export default function ThemeSwitcher() {
 
       {isOpen && (
         <div className="theme-dropdown-modal" role="dialog" aria-label="Palette des thèmes">
-          {/* Mode : automatique (système), clair ou sombre */}
           <div className="theme-segmented-control" role="tablist" aria-label="Mode">
             {MODES.map((value) => (
               <button
@@ -158,7 +155,6 @@ export default function ThemeSwitcher() {
             ))}
           </div>
 
-          {/* Les pastilles montrent la palette de chaque thème dans le mode appliqué. */}
           <div className="theme-grid" role="listbox">
             {THEMES.map((option) => {
               const palette = paletteOf(option.id, resolved);

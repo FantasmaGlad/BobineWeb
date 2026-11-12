@@ -16,7 +16,6 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
 
   return (
     <>
-      {/* En-tête de la page */}
       <div className="dx-div-4">
         <div>
           <span className="feature-category-label">
@@ -42,7 +41,6 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           : "Maîtrisez chaque écran et outil de Bobine après son installation. Choisissez une rubrique ci-dessous ou parcourez l'ensemble du guide."}
       </p>
 
-      {/* Barre d'onglets segmentée épurée */}
       <div
         role="tablist"
         aria-label={isEn ? "Documentation sections" : "Sections de la documentation"} className="dx-div-19"
@@ -94,7 +92,6 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
         </button>
       </div>
 
-      {/* CONTENU : 1. BASES & PRISE EN MAIN */}
       {(activeTab === "basics" || activeTab === "all") && (
         <section className="dx-section-1">
           {activeTab === "all" && (
@@ -187,7 +184,6 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
         </section>
       )}
 
-      {/* CONTENU : 2. FONCTIONNALITÉS AVANCÉES & MOTEURS */}
       {(activeTab === "features" || activeTab === "all") && (
         <section className="dx-section-1">
           {activeTab === "all" && (

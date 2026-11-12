@@ -1,6 +1,5 @@
 name: CodeQL
 
-# Analyse statique de sécurité du code TypeScript et des workflows.
 on:
   pull_request:
     paths-ignore:

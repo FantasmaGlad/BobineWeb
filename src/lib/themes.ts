@@ -1,5 +1,3 @@
-// Thèmes du site : neuf couleurs, chacune en clair et en sombre (src/lib/themePalettes.ts, identique à celle de l'application
-// Bobine). Le mode « auto » suit le réglage du système.
 import {
   DEFAULT_MODE,
   DEFAULT_THEME,
@@ -27,22 +25,14 @@ export const defaultMode: ThemeMode = DEFAULT_MODE;
 
 export const THEME_STORAGE_KEY = "bobineweb-theme";
 export const THEME_MODE_STORAGE_KEY = "bobineweb-theme-mode";
-/** Cookies partagés avec les sous-domaines (portail des paquets, site de sécurité). */
 export const THEME_COOKIE = "bobine-theme";
 export const THEME_MODE_COOKIE = "bobine-theme-mode";
 
-
-/** Couleur et mode d'après les valeurs mémorisées (anciens noms traduits, valeur inconnue = défaut). */
 export function resolveTheme(value: string | null | undefined, mode?: string | null): { theme: Theme; mode: ThemeMode } {
   const key = value ? (OLDER_SITE_KEYS[value] ?? value) : null;
   return resolveStored(key, mode);
 }
 
-
-/**
- * Corps du script bloquant du <head> : pose data-theme et data-mode avant la première image (aucun flash du mauvais thème).
- * Construit depuis les mêmes données que le reste du site ; le mode « auto » suit prefers-color-scheme.
- */
 export const THEME_INIT_SNIPPET =
   `var ids=${JSON.stringify(THEME_IDS)},lg=${JSON.stringify(LEGACY_THEMES)},ol=${JSON.stringify(OLDER_SITE_KEYS)};` +
   `function ck(n){var c=document.cookie.match(new RegExp('(?:^|; )'+n+'=([\\\\w-]+)'));return c&&c[1];}` +

@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
-"""Fichiers du dépôt qui ne servent qu'au web classique : retirés ou réécrits dans la copie servie par Tor.
-
-Retirés : README (commandes avec https://packages.bobine.fit, à copier tel quel), llms.txt, sitemap.xml, robots.txt, CNAME
-et .well-known/security.txt (adresses du site classique). Réécrits : les fichiers .repo de la racine (comme ceux de fedora/, avec le proxy SOCKS) ; les
-liens du texte de assets/NOTICE.md perdent leur schéma, pour ne rien charger ni ouvrir en clic.
-
-Usage : mirror-files-tor.py <dossier de release APT>
-"""
+"""Fichiers du dépôt qui ne servent qu'au web classique : retirés ou réécrits dans la copie servie par Tor."""
 import re
 import sys
 from pathlib import Path

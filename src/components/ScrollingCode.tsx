@@ -2,11 +2,6 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 
-/**
- * Commande sur une seule ligne : si elle dépasse la largeur disponible, elle défile lentement
- * d'un bord à l'autre et revient, sans barre de défilement. Une commande assez courte reste
- * immobile. La vitesse est fixe (environ 25 px/s), donc la durée suit la longueur à parcourir.
- */
 export default function ScrollingCode({ children }: { children: ReactNode }) {
   const wrapRef = useRef<HTMLSpanElement | null>(null);
   const innerRef = useRef<HTMLElement | null>(null);

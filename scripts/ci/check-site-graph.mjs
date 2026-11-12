@@ -1,7 +1,4 @@
 #!/usr/bin/env node
-// Garde-fou du plan du site (src/lib/siteMap.json) : chaque route a exactement un parent hub, une page réelle, un slug
-// anglais cohérent ; chaque hub rend la liste de ses enfants ; aucun cycle ; aucune feuille orpheline.
-// Code de sortie 1 au premier écart.
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -31,17 +28,14 @@ for (const r of routes) {
     if (!parent) fail(`${r.id} : parent « ${r.parent} » introuvable`);
     else if (parent.kind !== "hub") fail(`${r.id} : le parent « ${r.parent} » n'est pas un hub`);
   }
-  // Une page réelle existe pour chaque route (dossier français de l'application).
   const dir = join(repo, "src/app/[locale]", r.path);
   if (!existsSync(join(dir, "page.tsx")) && !existsSync(join(dir, "page.mdx"))) fail(`${r.id} : aucune page dans src/app/[locale]${r.path}`);
-  // Le chemin anglais d'une page ne reprend pas un autre slug.
   if (r.path && enSlug[r.path] === undefined && /[àâçéèêëîïôùûü]|fonctionnalites|materiel|canaux|nouveautes|propos|soutenir|mentions|confidentialite|securite|ordinateur|ressources/.test(r.path)) {
     fail(`${r.id} : slug anglais absent de slugs.ts pour ${r.path}`);
   }
   if (r.kind === "hub" && r.id !== "home" && !r.dynamicChildren && !routes.some((c) => c.parent === r.id && !c.hidden)) fail(`${r.id} : hub sans page enfant visible`);
 }
 
-// Pas de cycle : chaque chemin remonte à l'accueil.
 for (const r of routes) {
   const seen = new Set();
   for (let cur = r; cur; cur = byId.get(cur.parent)) {
@@ -51,8 +45,6 @@ for (const r of routes) {
   if (!seen.has("home")) fail(`${r.id} : ne remonte pas à l'accueil`);
 }
 
-// Chaque hub (hors accueil) rend la liste de ses enfants : HubPage/HubGrid de son identifiant, ou des liens vers chacun
-// dans sa page, sa disposition (barre latérale de la documentation) ou le contenu de pages de canaux (landing.ts).
 const landing = readFileSync(join(repo, "src/content/landing.ts"), "utf8");
 for (const r of routes.filter((x) => x.kind === "hub" && x.id !== "home")) {
   const dir = join(repo, "src/app/[locale]", r.path);
@@ -63,7 +55,6 @@ for (const r of routes.filter((x) => x.kind === "hub" && x.id !== "home")) {
   if (missing.length) fail(`${r.id} : la page du hub ne mène pas à ${missing.map((c) => c.id).join(", ")}`);
 }
 
-// Le pied de page reste court : au plus 22 liens.
 const footerLinks = routes.filter((r) => r.footer && !r.hidden).length + 1;
 if (footerLinks > 22) fail(`pied de page : ${footerLinks} liens (maximum 22)`);
 

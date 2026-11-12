@@ -60,7 +60,6 @@ class TransportTest(unittest.TestCase):
             thread = threading.Thread(target=serve, daemon=True)
             thread.start()
             function = re.search(r'^curlt\(\) \{.*\}$', SCRIPT.read_text(), re.M).group()
-            # Seul le port est adapté pour isoler le test du Tor installé sur la machine.
             function = function.replace('127.0.0.1:9050', f'127.0.0.1:{port}')
             result = subprocess.run(['bash', '-c', 'set -e\n'+function+'\ncurlt http://fixture.invalid/probe'], capture_output=True, text=True, timeout=25)
             thread.join(timeout=1)

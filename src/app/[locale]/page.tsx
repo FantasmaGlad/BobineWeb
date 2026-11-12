@@ -106,9 +106,7 @@ export default async function HomePage({
 
   return (
     <div className="container">
-      {/* 1. Hero Section — Plein écran propre sur Desktop et Mobile */}
       <section className="hero-fullscreen">
-        {/* Illustration décorative en fond à gauche : Google Book compatible Bobine (via APK Android et bientôt Google Play Store natif) */}
         {!IS_ONION && (
           <div className="hero-fullscreen__backdrop-art hero-fullscreen__backdrop-art--left" aria-hidden="true">
             <Image
@@ -123,7 +121,6 @@ export default async function HomePage({
           </div>
         )}
 
-        {/* Illustration décorative à droite du titre : le renard Firefox et Baamix, la mascotte de Bobine */}
         <div className="hero-fullscreen__backdrop-art" aria-hidden="true">
           <Image
             src="/images/FirefoxBaamix.webp"

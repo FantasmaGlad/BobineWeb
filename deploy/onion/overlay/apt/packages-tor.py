@@ -13,14 +13,11 @@ for page in root.rglob('*.html'):
     html = html.replace('https://packages.bobine.fit', f'http://{packages_host}')
     html = html.replace('https://bobine.fit', f'http://{site_host}')
     html = re.sub(r'href="https://(?:github.com|security.bobine.fit)[^"]*"', f'href="http://{site_host}/fr/"', html)
-    # La documentation sémantique schema.org ne charge aucune ressource réseau.
     html = html.replace("fetch('https://api.github.com/repos/FantasmaGlad/Bobine/releases/latest')", "Promise.reject(new Error('onion: local metadata only'))")
     if 'function getCommands() {' in html:
         lang = 'fr' if page.relative_to(root).parts[0] == 'fr' else 'en'
         command = f"curl --fail --socks5-hostname 127.0.0.1:9050 http://{site_host}/install-tor.sh -o install-tor.sh\\nless install-tor.sh\\nbash install-tor.sh --lang={lang} --channel="
         html = html.replace('function getCommands() {', 'function getCommands() {\n      return [{comment: "Tor · APT / DNF / Pacman", cmd: ' + json.dumps(command.replace('\\n','\n')) + ' + STATE.channel}];\n')
-        # Les liens directs pointent vers les index locaux signés et leur liste
-        # de fichiers, afin de ne pas déduire un nom de paquet à partir d'une version.
         html = html.replace('function getDirectDownloadInfo() {', '''function getDirectDownloadInfo() {
       const family = STATE.distro === 'debian' ? 'debian' : STATE.distro === 'fedora' ? 'fedora' : 'arch';
       return {title: 'Tor · ' + family, meta: 'APT / DNF / Pacman', btn: 'Index', url: '/' + family + '/' + (family === 'debian' ? '' : STATE.channel + '/')};

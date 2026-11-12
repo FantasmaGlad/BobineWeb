@@ -33,8 +33,6 @@
   margin-block: 2.5rem;
 }
 
-/* Shot Placeholder */
-
 .shot-placeholder {
   display: flex;
   align-items: baseline;
@@ -58,10 +56,6 @@
   color: var(--accent-text);
 }
 
-/* ==========================================================================
-   Étiquette de catégorie épurée (Partagée)
-   ========================================================================== */
-
 .feature-category-label {
   display: inline-block;
   font-size: var(--fs-0-725rem);
@@ -71,10 +65,6 @@
   color: var(--accent-text);
   margin-bottom: 0.4rem;
 }
-
-/* ==========================================================================
-   Blocs de code (CodeBlock)
-   ========================================================================== */
 
 .terminal-dots {
   display: flex;

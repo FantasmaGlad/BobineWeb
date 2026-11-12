@@ -1,25 +1,16 @@
 import { PACKAGE_REPOS_LIVE } from "@/lib/linuxPackages";
 
-/**
- * Faits produit réutilisés dans plusieurs pages (landing, documentation, FAQ, JSON-LD) : un seul
- * endroit à changer quand la version minimale d'Android évolue. Les numéros de version de Bobine, eux, ne
- * figurent jamais ici : ils viennent de GitHub à l'affichage (`releaseChannels.ts`).
- */
 export const ANDROID = {
-  /** Première version d'Android prise en charge (paquets téléphone/tablette et Android TV). */
   minVersion: 14,
   minApi: 34,
-  /** Dernière version d'Android couverte par les essais. */
   maxVersion: 16,
   maxApi: 36,
 } as const;
 
-/** Systèmes d'exploitation déclarés dans les données structurées. */
 export const OPERATING_SYSTEMS = ["Windows", "macOS", "Linux", "Android", "Android TV"] as const;
 
 export type PlatformId = "windows" | "macos" | "linux" | "android" | "android-tv";
 
-/** Configuration requise par plateforme, affichée sur les pages de téléchargement et de référencement. */
 export const REQUIREMENTS: Record<PlatformId, { name: string; fr: string; en: string }> = {
   windows: {
     name: "Windows",

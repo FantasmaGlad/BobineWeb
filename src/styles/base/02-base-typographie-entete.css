@@ -1,4 +1,4 @@
-/* Reset & Typographie de base */
+
 
 * {
   box-sizing: border-box;
@@ -61,8 +61,6 @@ img {
   padding-inline: clamp(1rem, 3vw, 1.75rem);
 }
 
-/* Header fixe moderne avec glassmorphism */
-
 .site-header {
   position: sticky;
   top: 0;
@@ -105,8 +103,6 @@ img {
   width: auto;
 }
 
-/* Grand écran : le « B » est centré entre le bord gauche de la fenêtre et le premier menu ; le reste de l'en-tête garde la
-   largeur de lecture du site. */
 @media (min-width: 1024px) {
   .site-header__inner {
     max-width: none;
@@ -148,8 +144,6 @@ img {
   font-weight: 600;
   background: var(--accent-subtle);
 }
-
-/* Theme Switcher Popover / Menu */
 
 .theme-switcher-wrapper {
   position: relative;

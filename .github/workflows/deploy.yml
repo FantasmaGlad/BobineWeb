@@ -1,13 +1,8 @@
 name: Déploiement
 
-# Chaîne de livraison unique, pilotée par GitHub : validation, déploiement du site, publication
-# du site de sécurité, puis tests en direct. L'intégration Git de l'hébergeur est désactivée
-# (vercel.json) : rien n'est publié sans passer par ce workflow.
-# Changer d'hébergeur = remplacer l'action `.github/actions/deploy-vercel`.
 on:
   push:
     branches: [main]
-    # README et documentation des dépôts ne changent pas le site : aucun déploiement.
     paths-ignore:
       - "**/*.md"
       - "docs/**"
@@ -86,8 +81,6 @@ jobs:
         with:
           node-version: 24
       - run: npm install --global vercel@63.1.2
-      # Le site public est derrière une protection anti-bot qui refuse les adresses des runners GitHub :
-      # le test interroge le déploiement lui-même.
       - name: Interroger le déploiement
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -102,7 +95,6 @@ jobs:
     needs: smoke-web
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    # Un refus d'IndexNow ne doit jamais faire échouer une livraison réussie.
     continue-on-error: true
     steps:
       - uses: actions/checkout@v7
@@ -124,8 +116,6 @@ jobs:
       url: https://security.bobine.fit
     steps:
       - uses: actions/checkout@v7
-      # Archive faite à la main : les actions de téléversement Pages écartent les fichiers cachés,
-      # or le dossier .well-known doit être servi.
       - name: Archive du site
         run: tar --dereference --hard-dereference --directory security/site -cf "$RUNNER_TEMP/artifact.tar" .
       - uses: actions/upload-artifact@v7

@@ -1,8 +1,4 @@
 #!/usr/bin/env node
-// Garde-fou des icônes de marque : chaque entrée du registre (src/lib/assets.json) existe, reste légère et sans raster ni
-// fond, aucun fichier d'icône n'est orphelin, les couleurs officielles atteignent 3:1 sur les surfaces des 18 palettes (9 thèmes en clair et en sombre),
-// chaque marque est attribuée dans NOTICE.md, et aucun composant n'écrit de chemin d'icône à la main.
-// Code de sortie 1 au premier écart.
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -11,7 +7,6 @@ import { loadThemeColors } from "./theme-colors.mjs";
 const repo = fileURLToPath(new URL("../../", import.meta.url));
 const srcDir = join(repo, "src");
 const iconsDir = join(repo, "public/images/icons");
-// ASSETS_REGISTRY : registre alternatif, réservé aux tests d'injection.
 const registry = JSON.parse(readFileSync(process.env.ASSETS_REGISTRY ?? join(srcDir, "lib/assets.json"), "utf8"));
 const errors = [];
 const fail = (msg) => errors.push(msg);
@@ -20,7 +15,6 @@ const walk = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((e) => (
 const MAX_BYTES = 12288;
 const MIN_CONTRAST = 3;
 
-// 1. Fichiers du registre ----------------------------------------------------------------------------------------
 const used = new Set();
 for (const [key, def] of Object.entries(registry)) {
   const file = join(repo, "public", def.src);
@@ -37,11 +31,9 @@ for (const [key, def] of Object.entries(registry)) {
   if (def.render !== "image" && def.tone !== "ink" && !/^#[0-9A-F]{6}$/i.test(def.color ?? "")) fail(`${key} : couleur officielle (#RRGGBB) requise en ton « brand »`);
 }
 
-// 2. Aucun fichier d'icône orphelin -----------------------------------------------------------------------------
 for (const file of walk(iconsDir)) if (!used.has(file)) fail(`fichier orphelin : ${relative(repo, file)} (absent du registre)`);
 if (existsSync(join(repo, "public/images/distros"))) fail("public/images/distros/ doit être supprimé : les logos vivent dans public/images/icons/distros/");
 
-// 3. Contraste des couleurs officielles -------------------------------------------------------------------------
 const files = walk(srcDir);
 const css = files.filter((f) => f.endsWith(".css")).map((f) => readFileSync(f, "utf8")).join("\n");
 const noComments = css.replace(/\/\*[\s\S]*?\*\//g, "");
@@ -65,8 +57,6 @@ for (const theme of themes) {
     }
   }
 }
-// 3 bis. Logos multicolores sans fond : aucune couleur ne doit disparaître sur un thème, sinon `halo` est obligatoire.
-// Un logo noir d'un seul tracé doit être un masque « ink » (il suit la couleur du texte), jamais une image.
 const NAMED = { black: "#000000", white: "#ffffff" };
 const hexOf = (value) => {
   let h = value.toLowerCase(); h = NAMED[h] ?? h;
@@ -78,7 +68,7 @@ for (const [key, def] of Object.entries(registry)) {
   if (def.render !== "image" || !existsSync(join(repo, "public", def.src))) continue;
   const svg = readFileSync(join(repo, "public", def.src), "utf8");
   const colors = new Set([...svg.matchAll(/(?:fill|stop-color|stroke)\s*[:=]\s*["']?\s*(#[0-9a-fA-F]{3,6}|black|white)\b/g)].map((m) => hexOf(m[1])).filter(Boolean));
-  if (!/fill\s*[:=]/i.test(svg)) colors.add("#000000"); // sans remplissage déclaré, le tracé est noir
+  if (!/fill\s*[:=]/i.test(svg)) colors.add("#000000");
   if (colors.size === 1 && colors.has("#000000")) { fail(`${key} : logo noir d'un seul tracé affiché en image (fond nécessaire) ; retirer "render" et garder "tone": "ink"`); continue; }
   let weak = null;
   for (const theme of themes) {
@@ -98,11 +88,9 @@ for (const [key, def] of Object.entries(registry)) {
 
 if (themes.length !== 18) fail(`${themes.length} thèmes détectés (18 attendus : 9 thèmes × clair et sombre)`);
 
-// 4. Attribution dans NOTICE.md --------------------------------------------------------------------------------
 const notice = readFileSync(join(repo, "NOTICE.md"), "utf8").toLowerCase();
 for (const def of Object.values(registry)) if (!notice.includes(def.name.toLowerCase())) fail(`NOTICE.md n'attribue pas la marque « ${def.name} »`);
 
-// 5. Aucun chemin d'icône écrit à la main ------------------------------------------------------------------------
 const allowed = new Set([join(srcDir, "lib/assets.json")]);
 for (const file of files) {
   if (allowed.has(file) || !/\.(tsx?|css|mdx?)$/.test(file)) continue;
@@ -110,8 +98,6 @@ for (const file of files) {
   if (/images\/(?:icons|distros)\//.test(text)) fail(`${relative(repo, file)} : chemin d'icône écrit à la main, utiliser BrandIcon et une clé du registre`);
 }
 
-// 6. Cliquet des <svg> en ligne : la migration vers Icon et BrandIcon se fait page par page, le total ne doit jamais
-// remonter. Baisser ce plafond à chaque migration ; viser 0 hors dessins propres à un composant (démonstrations).
 const INLINE_SVG_CEILING = 97;
 const inline = files.filter((f) => f.endsWith(".tsx") && !f.includes(`${join("components", "ui")}/`)).reduce((n, f) => n + (readFileSync(f, "utf8").match(/<svg\b/g)?.length ?? 0), 0);
 if (inline > INLINE_SVG_CEILING) fail(`${inline} <svg> en ligne (plafond ${INLINE_SVG_CEILING}) : utiliser Icon ou BrandIcon`);

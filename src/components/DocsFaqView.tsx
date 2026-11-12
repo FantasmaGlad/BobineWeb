@@ -16,9 +16,6 @@ const CATEGORY_ORDER: FaqCategory[] = ["license", "hardware", "offline", "update
 export default function DocsFaqView({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const [mainTab, setMainTab] = useState<"faq" | "troubleshoot" | "all">("faq");
-  // Le premier élément est ouvert par défaut : évite une page entièrement
-  // repliée au premier affichage (meilleure ergonomie et meilleur SEO —
-  // Google indexe plus volontiers un contenu visible au chargement).
   const [openIndexes, setOpenIndexes] = useState<Record<number, boolean>>({ 0: true });
   const [activeCategory, setActiveCategory] = useState<FaqCategory | "all">("all");
 
@@ -37,7 +34,6 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
 
   return (
     <>
-      {/* En-tête */}
       <div className="dx-div-4">
         <div>
           <span className="feature-category-label">
@@ -63,7 +59,6 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
           : "Retrouvez les réponses aux questions fréquentes ainsi que les solutions pas-à-pas pour diagnostiquer et résoudre rapidement vos besoins d'exploitation."}
       </p>
 
-      {/* Onglets principaux de navigation */}
       <div
         role="tablist"
         aria-label={isEn ? "FAQ Sections" : "Sections FAQ"} className="dx-div-6"
@@ -115,7 +110,6 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
         </button>
       </div>
 
-      {/* SECTION 1 : QUESTIONS FRÉQUENTES */}
       {(mainTab === "faq" || mainTab === "all") && (
         <section className="dx-section-1">
           {mainTab === "all" && (
@@ -126,7 +120,6 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
             </div>
           )}
 
-          {/* Filtres par catégorie — rend la donnée `category` utile pour naviguer vite */}
           <div className="docs-faq-filters" role="tablist" aria-label={isEn ? "Filter by category" : "Filtrer par catégorie"}>
             <button
               type="button"
@@ -151,7 +144,6 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
             ))}
           </div>
 
-          {/* Liste épurée des questions/réponses sans boîte-dans-une-boîte */}
           <div className="dx-div-8">
             {filteredFaqList.map((item, idx) => {
               const isOpen = !!openIndexes[idx];
@@ -200,7 +192,6 @@ export default function DocsFaqView({ locale }: { locale: Locale }) {
         </section>
       )}
 
-      {/* SECTION 2 : TABLEAU DE DÉPANNAGE & DIAGNOSTICS */}
       {(mainTab === "troubleshoot" || mainTab === "all") && (
         <section className="dx-section-1">
           {mainTab === "all" && (

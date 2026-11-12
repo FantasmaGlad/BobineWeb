@@ -1,20 +1,5 @@
 
 
-/* ==========================================================================
-   COUCHE FINALE — GLASSMORPHISM APPLE PREMIUM, CONTOURS MARQUÉS & ANIMATIONS
-   Harmonisation complète avec l'application Bobine :
-   - Surfaces vitrées translucides à double liseré spéculaire (--glass-card-bg)
-   - Boutons primaires avec reflet spéculaire (--glass-gloss) et halo d'accent
-   - Boutons secondaires en verre dépoli à contour marqué (--glass-edge)
-   - Animations ressort de survol (élévation + grossissement) et clic (:active)
-   - Préservation intégrale de @media print
-   ========================================================================== */
-
-/* Matériaux de verre. Le flou n'est posé que là où du contenu passe derrière (en-tête qui défile, fenêtres, tiroirs,
-   menus, cartes posées sur une illustration) ; les autres surfaces gardent le même matériau (translucidité, reflet
-   spéculaire, bord) sans le coût du flou. Tout vient des jetons --glass-* et --blur-*. */
-
-/* Surface : barres collées en haut de page */
 .site-header,
 .docs-mobile-nav-wrapper {
   background: var(--glass-surface-bg);
@@ -24,7 +9,6 @@
   box-shadow: var(--glass-card-highlight), 0 4px 20px color-mix(in srgb, var(--ink) 4%, transparent);
 }
 
-/* Contrôles : pastilles et sélecteurs */
 .theme-switcher-pill-group {
   background: var(--bg-surface-elevated);
   border: 1px solid var(--glass-card-border);
@@ -37,7 +21,6 @@
   box-shadow: var(--glass-edge), 0 6px 18px color-mix(in srgb, var(--accent-primary) 14%, transparent);
 }
 
-/* Flottant : menus, fenêtres, tiroirs, notifications */
 .theme-dropdown-modal,
 .share-dropdown-panel,
 .docs-search-results,
@@ -50,7 +33,6 @@
   box-shadow: var(--glass-card-highlight), var(--shadow-card-hover);
 }
 
-/* Boutons Primaires & Secondaires */
 .button:not(:disabled),
 .btn-primary:not(:disabled) {
   background-color: var(--accent-primary);
@@ -94,8 +76,6 @@
     0 0 0 3px color-mix(in srgb, var(--accent-primary) 10%, transparent);
 }
 
-/* Cartes : même matériau partout. Le flou ne concerne que les cartes qui recouvrent une illustration ou le contenu
-   défilant ; les cartes internes à une fenêtre ou à un autre verre n'ajoutent pas de flou. */
 .os-download-card,
 .docs-method-hero,
 .docs-step-card,
@@ -124,7 +104,6 @@
   backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
 }
 
-/* Éléments en creux à l'intérieur d'un verre : même teinte, sans flou */
 .docs-install-divider__pill,
 .stepper-mode-bar,
 .stepper-nav-pill,
@@ -132,7 +111,6 @@
   background: var(--glass-inset-bg);
 }
 
-/* Survol avec élévation, grossissement subtil et contour illuminé */
 .os-download-card:hover,
 .docs-step-card:hover,
 .blog-hero-release-card:hover {
@@ -144,7 +122,6 @@
     0 0 0 1px color-mix(in srgb, var(--accent-primary) 22%, transparent);
 }
 
-/* Grossissement coordonné des icônes au survol d'une carte */
 .os-download-card__icon {
   transition: transform 0.26s var(--ease-spring-hover), background-color 0.2s ease, color 0.2s ease;
 }
@@ -153,11 +130,6 @@
   transform: scale(1.12);
 }
 
-/* Fenêtre de téléchargement : plus transparente que les autres fenêtres, le fond de la page reste visible derrière */
-
-/* Fenêtres et panneaux latéraux */
-
-/* Micro-interactions sur les pastilles, onglets et liens de navigation */
 .site-header__nav a,
 .theme-segment-btn,
 .theme-card-option {
@@ -178,7 +150,6 @@
   border-color: color-mix(in srgb, var(--accent-primary) 48%, var(--glass-card-border));
 }
 
-/* Feedback tactile universel au clic (:active) */
 .button:active:not(:disabled),
 .btn-primary:active:not(:disabled),
 .btn-secondary:active:not(:disabled),
@@ -209,13 +180,11 @@
   }
 }
 
-/* En-tête : contour net et ombre courte, lisibles sur chaque thème (le filet fin se perdait sur les fonds clairs). */
 .site-header {
   border-bottom: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
 }
 
-/* Cartes de téléchargement : une vraie barre pleine largeur, à la couleur d'accent du thème, au lieu d'un filet pâle. */
 .os-download-card__meta {
   border-top: 0;
   position: relative;

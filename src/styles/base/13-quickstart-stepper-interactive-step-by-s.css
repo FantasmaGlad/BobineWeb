@@ -1,6 +1,4 @@
-/* ==========================================================================
-   QuickStart Stepper (Interactive Step-by-Step Guide)
-   ========================================================================== */
+
 
 .quickstart-stepper-container {
   margin-block: 1.5rem 2.5rem;
@@ -295,10 +293,6 @@
   gap: 0.5rem;
 }
 
-/* ==========================================================================
-   Terminal Window Titles & Clickable Command Rows
-   ========================================================================== */
-
 .terminal-code-block__title {
   display: flex;
   align-items: center;
@@ -320,14 +314,6 @@
   50% { opacity: 0; }
 }
 
-/* --------------------------------------------------------------------------
-   3. Grille de Téléchargements Directs Multi-OS (Hero Bobine 3.0.0)
-   -------------------------------------------------------------------------- */
-/* Le shell porte la grille commune ; featured et grid s'effacent
-   (display:contents) pour que leurs cartes rejoignent la même rangée
-   sur desktop/tablette. Sur mobile, le shell redevient une colonne et
-   featured retrouve sa propre boîte pour épingler le repère de
-   défilement en bas de son bloc (voir media query plus bas). */
 .os-download-shell {
   width: 100%;
   max-width: 100%;
@@ -405,13 +391,6 @@
   display: none;
 }
 
-/* Ordre visuel fixe dès 640px : évite le décalage de mise en page (CLS)
-   provoqué par reorderForPlatform() qui ne réordonne le DOM qu'après le
-   montage (détection client-only). display:contents fait que l'ordre du
-   DOM pilote l'ordre visuel de la grille ; ces règles le figent quel que
-   soit l'OS détecté, pour que le premier rendu affiche déjà la position
-   finale. Sous 640px, featured/grid redeviennent des blocs distincts
-   (voir media query plus bas) : cette règle ne s'y applique plus. */
 @media (min-width: 640px) {
   .os-download-card[data-platform="linux"] {
     order: 1;

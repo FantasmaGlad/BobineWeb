@@ -1,12 +1,4 @@
 #!/usr/bin/env bash
-# Tests en direct du site après déploiement : ./smoke-web.sh <url> [--www]
-#
-# Deux modes :
-# - par défaut, interroge l'adresse publique avec curl ;
-# - avec SMOKE_DEPLOYMENT (adresse du déploiement) et VERCEL_TOKEN, interroge le déploiement lui-même
-#   par `vercel curl`. C'est le mode de la CI : la protection anti-bot de Cloudflare refuse les
-#   adresses IP des serveurs GitHub (403), ce qui rend l'adresse publique inutilisable depuis un runner.
-# Nouvelles tentatives : la propagation d'un déploiement peut prendre quelques dizaines de secondes.
 set -euo pipefail
 BASE=${1:?base URL}
 CHECK_WWW=${2:-}
@@ -17,7 +9,6 @@ if [ -n "${SMOKE_DEPLOYMENT:-}" ]; then
   SMOKE_DEPLOYMENT=$(node scripts/ci/deployment-origin.mjs "$SMOKE_DEPLOYMENT" vercel)
 fi
 
-# get <chemin> <arguments curl> : une requête vers le site testé.
 get() {
   local path=$1; shift
   if [ -n "${SMOKE_DEPLOYMENT:-}" ]; then
@@ -70,7 +61,6 @@ check_install_script() {
   get /install.sh -fsS --max-time 30 -o "$proof/install.sh" &&
     get /install-source.json -fsS --max-time 30 -o "$proof/install-source.json" &&
     node scripts/ci/sync-install.mjs --verify-served "$proof/install.sh" "$proof/install-source.json" || result=1
-  # install.ps1 n'est servi qu'à partir d'une Stable qui le contient : sa provenance publiée dit s'il doit l'être.
   if get /install-ps1-source.json -fsS --max-time 30 -o "$proof/install-ps1-source.json" 2>/dev/null; then
     get /install.ps1 -fsS --max-time 30 -o "$proof/install.ps1" &&
       node scripts/ci/sync-install.mjs --verify-served "$proof/install.ps1" "$proof/install-ps1-source.json" || result=1
@@ -81,7 +71,6 @@ check_install_script() {
   return "$result"
 }
 
-# Redirection www vers l'apex : uniquement depuis une machine que Cloudflare laisse passer.
 check_www() {
   local loc
   loc=$(curl -sSI --max-time 30 "https://www.${BASE#https://}/" | tr -d '\r' | sed -n 's/^[Ll]ocation: //p' | head -n1)

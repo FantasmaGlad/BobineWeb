@@ -8,15 +8,11 @@ import "@/styles/components/page.css";
 interface HubPageProps {
   locale: Locale;
   id: RouteId;
-  /** Contenu propre au hub, placé entre l'introduction et la liste des pages enfants. */
   children?: ReactNode;
-  /** Remplace la description du registre comme chapô. */
   lead?: string;
-  /** Titre de la liste des pages enfants. */
   gridTitle?: string;
 }
 
-/** Gabarit commun des pages « hub » : fil d'Ariane, titre, chapô, contenu éventuel, puis les pages enfants. */
 export default function HubPage({ locale, id, children, lead, gridTitle }: HubPageProps) {
   const route = getRoute(id);
   return (

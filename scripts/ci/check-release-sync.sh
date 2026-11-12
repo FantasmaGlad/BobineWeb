@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# Cohérence des assets publiés et de l’installateur Stable vérifié par son digest GitHub.
-# Variable facultative : GITHUB_TOKEN (limite de débit de l'API GitHub).
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
@@ -52,14 +50,11 @@ check_channel() {
   echo "$label ($tag) : fichiers attendus présents"
 }
 
-# Les anciennes releases de l'assistant (tags assistant-*, avant Bobine Deploy) ne sont jamais la Stable de Bobine.
 stable_tag="$(jq -r '[.[] | select(.prerelease == false and .draft == false and (.tag_name | startswith("assistant-") | not))][0].tag_name // empty' <<<"$releases")"
 if [ -z "$stable_tag" ]; then
   err "Stable : aucune release stable publiée"
 else
   check_channel "Stable" "$stable_tag" "${stable_tag#V}"
-  # A development branch may advance before the next Stable is published.
-  # The immutable source of the published release is its own tag.
   tagged_version=$(api "contents/VERSION?ref=$stable_tag" | jq -r '.content' | base64 --decode | tr -d '[:space:]')
   source_version=$(api "contents/VERSION?ref=main" | jq -r '.content' | base64 --decode | tr -d '[:space:]')
   announced=$(curl -fsS --retry 3 --max-time 30 https://bobine.fit/latest.json | jq -r '.latest_stable')

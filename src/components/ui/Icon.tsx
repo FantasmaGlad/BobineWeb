@@ -1,10 +1,5 @@
 import type { ReactNode } from "react";
 
-/**
- * Icônes d'interface : une seule convention (grille 24 x 24, trait de 1,75, extrémités arrondies, `currentColor`),
- * décoratives par défaut. Les logos de marque passent par `BrandIcon` ; un composant n'écrit pas de `<svg>` à la main
- * pour une icône d'interface.
- */
 const GLYPHS = {
   "arrow-right": (
     <>
@@ -138,10 +133,8 @@ export type IconName = keyof typeof GLYPHS;
 
 interface IconProps {
   name: IconName;
-  /** Taille en pixels (20 par défaut). */
   size?: number;
   className?: string;
-  /** Nom accessible, seulement quand l'icône porte seule le sens. Sinon elle est décorative. */
   label?: string;
 }
 

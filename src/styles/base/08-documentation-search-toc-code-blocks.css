@@ -1,12 +1,4 @@
-/* ==========================================================================
-   Documentation Search, TOC & Code Blocks
-   ========================================================================== */
 
-/* Documentation TOC */
-
-/* ==========================================================================
-   Terminal Code Blocks (Markdown, Documentation & Blog)
-   ========================================================================== */
 
 .terminal-code-block {
   position: relative;
@@ -62,17 +54,6 @@
   font-size: inherit !important;
   font-family: inherit !important;
 }
-
-/* ==========================================================================
-   Vercel-style Documentation Components (Callouts, Tables, API cards)
-   ========================================================================== */
-
-/* Variante "empilée en cartes" pour les tableaux longs sur mobile
-   (ex : tableau de dépannage) — évite le défilement horizontal illisible. */
-
-/* ==========================================================================
-   Badge Dynamique GitHub
-   ========================================================================== */
 
 .github-badge {
   display: inline-flex;

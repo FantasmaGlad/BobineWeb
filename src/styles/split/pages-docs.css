@@ -1,6 +1,4 @@
-/* Pages de documentation et composants associés.
-   Chaque sélecteur est doublé (.x.x) : ces classes remplacent d'anciens styles en ligne et doivent l'emporter sur
-   les règles contextuelles de docs.css (.docs-content p, .docs-content a, .docs-content code…). */
+
 .dx-div-1.dx-div-1 {
   display: flex;
   justify-content: space-between;
@@ -255,7 +253,6 @@
   margin: 0;
 }
 
-/* Titre de page avec logo de marque à gauche */
 .dx-h1-with-icon {
   display: flex;
   align-items: center;

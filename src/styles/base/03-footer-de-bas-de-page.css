@@ -93,7 +93,6 @@
   border: 1px solid var(--border-subtle);
 }
 
-/* Clair et Sombre sur la même ligne, Automatique en barre large dessous. */
 .theme-segment-btn:last-child {
   grid-column: 1 / -1;
 }
@@ -219,8 +218,6 @@
   margin-left: auto;
 }
 
-/* Footer de bas de page */
-
 .site-footer {
   width: 100%;
   margin-top: auto;
@@ -239,16 +236,12 @@
   font-size: var(--fs-0-825rem);
 }
 
-/* Main — Zone principale de contenu */
-
 main {
   flex: 1 0 auto;
   min-height: calc(100svh - 4.25rem);
   display: flex;
   flex-direction: column;
 }
-
-/* Boutons & Liens d'action */
 
 .gp-ripple {
   position: absolute;
@@ -331,8 +324,6 @@ main {
   box-shadow: var(--shadow-card);
 }
 
-/* Badges & Tags */
-
 .badge {
   display: inline-flex;
   align-items: center;
@@ -347,14 +338,6 @@ main {
   border: 1px solid var(--badge-border);
   width: fit-content;
 }
-
-/* Cartes Interactives & Composants de Contenu */
-
-/* Documentation Layout — Full Screen & Docked Left */
-
-/* Documentation Mobile Contextual Navigation */
-
-/* Prose MDX & Blog */
 
 .docs-content__inner,
 .release-body {

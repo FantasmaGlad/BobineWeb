@@ -20,7 +20,6 @@ const CHANNELS = ["stable", "beta", "canary"] as const;
 const FALLBACK_PLATFORM: Partial<Record<LandingId, PlatformId>> = {
   linux: "linux",
 };
-/** Plateformes détaillées dans « Configuration requise » : celle de la page d'abord. */
 const DOWNLOAD_KEY = { windows: "windows", macos: "macos", linux: "linux", android: "android", "android-tv": "androidTv" } as const;
 const REQUIREMENT_ORDER: PlatformId[] = ["windows", "macos", "linux", "android", "android-tv"];
 type Channel = (typeof CHANNELS)[number];
@@ -37,7 +36,6 @@ function channelLabel(channel: Channel, isEn: boolean): string {
   return "Canary";
 }
 
-/** Version lisible d'un canal : numéro pour la Stable, tag et commit pour les canaux mobiles. */
 function versionOf(info: ReleaseChannelInfo): string {
   return info.commit ? `${info.version} (${info.commit})` : info.version;
 }
@@ -92,11 +90,9 @@ export default async function LandingPage({ locale, id }: { locale: Locale; id: 
     CHANNELS.map((ch) => [ch, { label: channelLabel(ch, isEn), version: versionOf(infos[ch]), downloads: infos[ch].downloads }]),
   ) as Record<Channel, LandingChannelData>;
   const fallbackPlatform = FALLBACK_PLATFORM[id] ?? "windows";
-  // Les pages de canal expliquent déjà les mises à jour : seul le contrôle d'intégrité s'y ajoute.
   const commonBlocks = id.startsWith("canal") ? [common.verify] : [common.verify, common.update];
   const requirementIds = [fallbackPlatform, ...REQUIREMENT_ORDER.filter((p) => p !== fallbackPlatform)];
 
-  // Date de dernière mise à jour affichée et publiée en JSON-LD : celle de la release concernée.
   const reference = channel ? infos[channel] : stats.stable;
   const updated = reference.publishedAt;
   const url = `${BASE_URL}${lp(locale, page.path)}`;

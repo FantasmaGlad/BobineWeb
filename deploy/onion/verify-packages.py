@@ -58,7 +58,6 @@ def verify(root):
 
         for channel in CHANNELS:
             suite = root / 'debian/dists' / channel
-            # Le texte analysé est celui déchiffré par GPG, jamais un Release indépendant.
             release = gpg('--decrypt', str(path(suite, 'InRelease')), output=True)
             expires = fields(release).get('Valid-Until')
             if expires and email.utils.parsedate_to_datetime(expires).timestamp() < time.time():
@@ -81,8 +80,6 @@ def verify(root):
                 if not records:
                     raise ValueError(f'index APT vide : {packages}')
                 versions[f'apt/{channel}/{arch}'] = [record['Version'] for record in records]
-                # Le dépôt peut encore porter l'ancien assistant (bobine-assistant) : la version de référence est
-                # celle du paquet bobine seul.
                 bobine[f'{channel}/{arch}'] = [record['Version'] for record in records if record.get('Package') == 'bobine']
                 for record in records:
                     checksum(path(root / 'debian', record['Filename']), record['SHA256'], record['Size'])

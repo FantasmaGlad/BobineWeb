@@ -21,10 +21,6 @@ export default function DocsTableOfContents({ locale }: { locale: Locale }) {
 
     let frameId: number | null = null;
 
-    // Re-scanne les titres H2/H3 visibles — appelé au montage puis à chaque
-    // fois que le contenu change (ex : changement d'onglet dans un guide
-    // d'installation), sans quoi le sommaire restait figé sur le premier
-    // onglet affiché.
     const scanHeadings = () => {
       const elements = Array.from(article.querySelectorAll("h2, h3"));
       const items: TocItem[] = elements.map((elem, idx) => {

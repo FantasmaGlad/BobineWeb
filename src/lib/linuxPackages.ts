@@ -1,20 +1,5 @@
-/**
- * Paquets Linux de Bobine : l'unique endroit où vivent les conventions de nommage des fichiers, les adresses
- * des dépôts, l'empreinte de la clé de signature et les commandes d'installation et de mise à jour des trois
- * familles (Debian et Ubuntu en .deb, Fedora en .rpm, Arch Linux en .pkg.tar.zst). Ces conventions sont celles du
- * dépôt Bobine (workflow de release et dépôts packages.bobine.fit/fedora et packages.bobine.fit/arch) : si l'une change, c'est ce
- * fichier, et lui seul, qu'il faut corriger. Les interfaces (fenêtre de téléchargement, documentation, pages de
- * référencement) n'écrivent jamais un nom de fichier ni une commande de dépôt à la main.
- */
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 
-/**
- * Interrupteur unique des dépôts Fedora (dnf) et Arch (pacman). Faux tant que packages.bobine.fit/fedora et packages.bobine.fit/arch ne
- * sont pas en ligne et que les paquets ne sont pas publiés dans les releases : le site affiche alors « Bientôt »,
- * sans lien cliquable, et présente les commandes comme valables « dès la mise en ligne des dépôts ». Passer à
- * `true` active d'un coup la fenêtre de téléchargement, la documentation et les pages de référencement.
- * `scripts/ci/check-release-sync.sh` lit cette ligne : à `true`, les paquets doivent exister dans les trois canaux.
- */
 export const PACKAGE_REPOS_LIVE = true;
 
 export type LinuxFamilyId = "debian" | "fedora" | "arch";
@@ -25,14 +10,12 @@ export const LINUX_FAMILY_IDS: readonly LinuxFamilyId[] = ["debian", "fedora", "
 
 export const RELEASES_BASE = "https://github.com/FantasmaGlad/Bobine/releases/download";
 
-/** Hôtes des dépôts unifiés sous packages.bobine.fit : .deb (APT), .rpm (DNF) et .pkg.tar.zst (pacman). */
 export const REPO_HOSTS: Record<LinuxFamilyId, string> = {
   debian: "packages.bobine.fit/debian",
   fedora: "packages.bobine.fit/fedora",
   arch: "packages.bobine.fit/arch",
 };
 
-/** Clé de signature commune aux trois dépôts. */
 export const SIGNING_KEY_FINGERPRINT = "B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A";
 export const SIGNING_KEY_FINGERPRINT_COMPACT = SIGNING_KEY_FINGERPRINT.replace(/\s+/g, "");
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -45,17 +28,11 @@ interface Localized {
 
 export interface LinuxFamily {
   id: LinuxFamilyId;
-  /** Identifiant du logo dans le registre des icônes (`distro.<logo>` de src/lib/assets.ts). */
   logo: "debian" | "ubuntu" | "fedora" | "arch";
-  /** Libellé court du sélecteur. */
   label: Localized;
-  /** Extension du paquet. */
   extension: string;
-  /** Distributions concernées, une phrase. */
   distros: Localized;
-  /** Gestionnaire de paquets. */
   manager: string;
-  /** Vrai quand les paquets et le dépôt sont réellement en ligne. */
   live: boolean;
 }
 
@@ -89,7 +66,6 @@ export const LINUX_FAMILIES: Record<LinuxFamilyId, LinuxFamily> = {
   },
 };
 
-/** Dérivés et limites de chaque famille, partagés par la documentation, la page Linux et la FAQ. */
 export const FAMILY_NOTES: Record<"fedora" | "arch", { derivatives: Localized[]; limits: Localized[] }> = {
   fedora: {
     derivatives: [
@@ -129,40 +105,27 @@ export const FAMILY_NOTES: Record<"fedora" | "arch", { derivatives: Localized[];
   },
 };
 
-/** Statut de compatibilité affirmé pour l'ensemble des paquets Linux. */
 export const NOT_VALIDATED_NOTE: Localized = {
   fr: "Bobine fonctionne de manière fluide et autonome sur les architectures x86_64 et ARM64 avec accélération matérielle native.",
   en: "Bobine runs smoothly and autonomously across x86_64 and ARM64 architectures with native hardware acceleration.",
 };
 
-/** Mention affichée à côté des commandes Fedora et Arch tant que l'interrupteur est faux. */
 export const REPOS_SOON_NOTE: Localized = {
   fr: "Ce dépôt est temporairement indisponible. Consultez packages.bobine.fit pour connaître les canaux disponibles.",
   en: "This repository is temporarily unavailable. Check packages.bobine.fit for available channels.",
 };
 
-/** Phrase de statut d'une famille pour une langue : vide quand son dépôt est réellement en ligne. */
 export function repoStatusNote(family: LinuxFamilyId, locale: "fr" | "en"): string {
   return isFamilyLive(family) ? "" : REPOS_SOON_NOTE[locale];
 }
 
 export const isFamilyLive = (family: LinuxFamilyId): boolean => LINUX_FAMILIES[family].live;
 
-// --- Noms de fichiers et adresses de téléchargement -----------------------------------------------------------
-
-/** Architecture telle que l'écrit chaque famille dans le nom du fichier. */
 function archToken(family: LinuxFamilyId, arch: PackageArch): string {
   if (family === "debian") return arch === "arm64" ? "arm64" : "amd64";
   return arch === "arm64" ? "aarch64" : "x86_64";
 }
 
-/**
- * Nom du fichier publié dans les releases GitHub. `fileVersion` est le fragment de version sans « V » (5.0.2) pour
- * la Stable ; Bêta et Canary sont des canaux glissants à nom fixe (`beta`, `canary`).
- *   .deb      bobine_5.0.2_amd64.deb              bobine_beta_amd64.deb
- *   .rpm      bobine-5.0.2-1.x86_64.rpm           bobine-beta.x86_64.rpm
- *   Arch      bobine-5.0.2-1-x86_64.pkg.tar.zst   bobine-beta-x86_64.pkg.tar.zst
- */
 export function packageFileName(family: LinuxFamilyId, channel: PackageChannel, arch: PackageArch, fileVersion: string): string {
   const a = archToken(family, arch);
   const v = channel === "stable" ? fileVersion : channel;
@@ -176,7 +139,6 @@ export function packageFileName(family: LinuxFamilyId, channel: PackageChannel, 
   }
 }
 
-/** Adresse de téléchargement d'un paquet : `tag` est le tag GitHub (V5.0.2, beta ou canary). */
 export function packageUrl(family: LinuxFamilyId, channel: PackageChannel, arch: PackageArch, tag: string): string {
   const fileVersion = channel === "stable" ? tag.replace(/^V/i, "") : channel;
   return `${RELEASES_BASE}/${tag}/${packageFileName(family, channel, arch, fileVersion)}`;
@@ -184,28 +146,21 @@ export function packageUrl(family: LinuxFamilyId, channel: PackageChannel, arch:
 
 type Downloads = ReleaseChannelInfo["downloads"];
 
-/** Champ de `downloads` qui porte le paquet d'une famille et d'une architecture. */
 export function downloadKey(family: LinuxFamilyId, arch: PackageArch): keyof Downloads {
   if (family === "debian") return arch === "arm64" ? "linuxArm64" : "linux";
   if (family === "fedora") return arch === "arm64" ? "linuxRpmArm64" : "linuxRpm";
   return arch === "arm64" ? "linuxArchArm64" : "linuxArch";
 }
 
-/**
- * Lien du paquet pour un canal, ou `undefined` quand il ne doit pas être proposé : famille pas encore en ligne
- * (interrupteur faux) ou fichier absent de la release. L'interface affiche alors « Bientôt », jamais un lien mort.
- */
 export function packageLink(downloads: Downloads, family: LinuxFamilyId, arch: PackageArch): string | undefined {
   if (!isFamilyLive(family)) return undefined;
   return downloads[downloadKey(family, arch)] || undefined;
 }
 
-/** Retire des liens de repli les paquets Fedora et Arch : une release lue sur GitHub n'a que ce qu'elle contient. */
 export function withoutNewPackages(downloads: Downloads): Downloads {
   return { ...downloads, linuxRpm: undefined, linuxRpmArm64: undefined, linuxArch: undefined, linuxArchArm64: undefined };
 }
 
-/** Range un fichier de release dans le bon champ de `downloads` ; renvoie faux si ce n'est pas un de nos paquets. */
 export function assignPackageAsset(downloads: Downloads, name: string, url: string): boolean {
   const lower = name.toLowerCase();
   const isArm = lower.includes("aarch64") || lower.includes("arm64");
@@ -222,7 +177,6 @@ export function assignPackageAsset(downloads: Downloads, name: string, url: stri
   return false;
 }
 
-/** Liens de repli Fedora et Arch d'un canal, pour `releaseFallbacks.ts`. */
 export function fallbackNewPackages(tag: string, channel: PackageChannel): Partial<Downloads> {
   return {
     linuxRpm: packageUrl("fedora", channel, "x86_64", tag),
@@ -232,9 +186,6 @@ export function fallbackNewPackages(tag: string, channel: PackageChannel): Parti
   };
 }
 
-// --- Dépôts, installation et mise à jour -------------------------------------------------------------------------
-
-/** Adresse publique de chaque dépôt (page d'accueil ou fichier de définition du canal). */
 export function repoUrl(family: LinuxFamilyId, channel: PackageChannel = "stable"): string {
   switch (family) {
     case "debian":
@@ -248,11 +199,9 @@ export function repoUrl(family: LinuxFamilyId, channel: PackageChannel = "stable
 
 export interface FedoraCommands {
   addRepo: string;
-  /** dnf 4 (RHEL, AlmaLinux, Rocky Linux) : l'extension s'appelle autrement. */
   addRepoLegacy: string;
   install: string;
   upgrade: string;
-  /** ffmpeg complet via RPM Fusion. */
   ffmpeg: string;
 }
 
@@ -273,7 +222,6 @@ export function fedoraCommands(channel: PackageChannel = "stable"): FedoraComman
 export interface ArchCommands {
   importKey: string;
   trustKey: string;
-  /** Section à ajouter à /etc/pacman.conf, avant les dépôts officiels si l'on veut les masquer, après sinon. */
   pacmanConf: string;
   install: string;
   upgrade: string;
@@ -284,25 +232,20 @@ export function archCommands(channel: PackageChannel = "stable"): ArchCommands {
     importKey: `curl -fsSL ${SIGNING_KEY_URL("arch")} | sudo pacman-key --add -`,
     trustKey: `sudo pacman-key --lsign-key ${SIGNING_KEY_FINGERPRINT_COMPACT}`,
     pacmanConf: ["[bobine]", "SigLevel = Required DatabaseOptional", `Server = ${repoUrl("arch", channel)}`].join("\n"),
-    // -Syu et non -S : synchroniser les index sans mettre le système à jour est un état non pris en charge sur Arch.
     install: "sudo pacman -Syu bobine",
     upgrade: "sudo pacman -Syu",
   };
 }
 
-/** Commande qui affiche l'empreinte de la clé publiée, à comparer à `SIGNING_KEY_FINGERPRINT` avant de l'approuver. */
 export function keyCheckCommand(family: LinuxFamilyId): string {
   return `curl -fsSL ${SIGNING_KEY_URL(family)} | gpg --show-keys --fingerprint`;
 }
 
-/** Commande de mise à jour de chaque famille (avec le reste du système). */
 export function updateCommand(family: LinuxFamilyId): string {
   if (family === "debian") return "sudo apt update && sudo apt upgrade";
   return family === "fedora" ? fedoraCommands().upgrade : archCommands().upgrade;
 }
 
-/** Fichier brut des commandes, d'une seule pièce, pour les boutons « Copier » et les fichiers de référencement. */
-/** Source APT du .deb (déjà en ligne) : clé, source signée, installation. */
 export function aptInstallScript(channel: PackageChannel = "stable"): string {
   return [
     `curl -fsSL ${SIGNING_KEY_URL("debian")} \\`,
@@ -323,7 +266,6 @@ export function archInstallScript(channel: PackageChannel = "stable"): string {
   return [c.importKey, c.trustKey, `sudo tee -a /etc/pacman.conf <<'EOF'\n\n${c.pacmanConf}\nEOF`, c.install].join("\n");
 }
 
-/** Version très courte pour une énumération de fichiers : « Linux (.deb, .rpm, pacman) ». */
 export function linuxFormatsShort(locale: "fr" | "en"): string {
   if (PACKAGE_REPOS_LIVE) return "Linux (.deb amd64/arm64, .rpm x86_64/aarch64, pacman x86_64/aarch64)";
   return locale === "fr"
@@ -331,7 +273,6 @@ export function linuxFormatsShort(locale: "fr" | "en"): string {
     : "Linux (.deb amd64 and arm64; .rpm and pacman coming soon)";
 }
 
-/** Noms de fichiers à nom fixe d'un canal glissant, Fedora et Arch compris dès que leurs dépôts sont en ligne. */
 export function slidingChannelPackageNames(channel: "beta" | "canary"): string[] {
   const names = [packageFileName("debian", channel, "x86_64", channel)];
   if (PACKAGE_REPOS_LIVE) {

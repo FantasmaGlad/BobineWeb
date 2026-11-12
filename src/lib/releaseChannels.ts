@@ -30,11 +30,9 @@ export interface RepoStatsResponse {
   stable: ReleaseChannelInfo;
   beta: ReleaseChannelInfo;
   canary: ReleaseChannelInfo;
-  /** Bobine Deploy : absent tant qu'aucune release Stable n'est publiée ou lisible. */
   deploy?: DeployPackages;
 }
 
-/** Paquets de la dernière release Stable de Bobine Deploy, classés par nom (cf. scripts/bundle.py de bobine-deploy). */
 export function parseDeployRelease(releases: GitHubReleaseJson[] | null): DeployPackages | undefined {
   const release = releases?.find((candidate) => !candidate.prerelease && /^v\d+\.\d+\.\d+$/.test(candidate.tag_name));
   if (!release || !Array.isArray(release.assets)) return undefined;
@@ -60,8 +58,6 @@ function parseReleaseAssets(
   fallback: ReleaseChannelInfo["downloads"]
 ): ReleaseChannelInfo["downloads"] {
   if (!Array.isArray(assets)) return { ...fallback };
-  // Une release lue sur GitHub n'offre que ce qu'elle contient : les paquets Fedora et Arch du repli ne sont
-  // gardés que s'ils y figurent vraiment, pour ne jamais proposer un fichier qui n'existe pas encore.
   const downloads = withoutNewPackages(fallback);
   for (const asset of assets) {
     const name = String(asset?.name || "").toLowerCase();
@@ -81,7 +77,6 @@ function parseReleaseAssets(
         downloads.linux = url;
       }
     } else if (assignPackageAsset(downloads, name, url)) {
-      // .rpm et .pkg.tar.zst rangés par le module des paquets Linux
     } else if (name.endsWith(".dmg")) {
       downloads.macos = url;
     } else if (name.includes("-tv") || name.includes("bobine-tv")) {
@@ -95,7 +90,6 @@ function parseReleaseAssets(
   return downloads;
 }
 
-/** Fichiers publiés d'une release (taille, empreinte, date), par adresse de téléchargement. */
 function parseReleaseFiles(assets: unknown): { files?: Record<string, ReleaseFile>; checksumsSigned: boolean } {
   if (!Array.isArray(assets)) return { checksumsSigned: false };
   const files: Record<string, ReleaseFile> = {};
@@ -134,7 +128,6 @@ function channelInfoFromRelease(
   };
 }
 
-/** Statistiques du dépôt et versions publiées (étoiles, canaux stable, beta et canary), avec repli statique. */
 export async function getRepoStats(): Promise<RepoStatsResponse> {
   const [releases, counts, deployReleases] = await Promise.all([fetchRepoReleases(), fetchRepoCounts(), fetchDeployReleases()]);
   const channels = releases ? pickChannelReleases(releases) : {};

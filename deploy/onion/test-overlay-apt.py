@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
-"""Les overlays du miroir onion ne laissent aucune commande ni aucun lien vers le web classique.
-
-Essai sur une copie minimale du portail (pages statiques avec le bloc <!-- install --> de bobine-packages) : le portail
-adapté ne contient plus de clearnet, une page sans ce bloc fait échouer l'overlay (sync.sh garde alors l'ancienne copie),
-et le contrôle final refuse tout fichier qui mène à bobine.fit, packages.bobine.fit ou GitHub.
-
-Usage : python3 deploy/onion/test-overlay-apt.py
-"""
+"""Les overlays du miroir onion ne laissent aucune commande ni aucun lien vers le web classique."""
 import importlib.util
 import shutil
 import subprocess

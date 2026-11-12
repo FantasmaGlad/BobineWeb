@@ -1,12 +1,9 @@
-// Couleurs réelles des 18 palettes (9 thèmes × clair et sombre) : lit les jetons du CSS (pas de copie), les résout (var, color-mix, dégradés) et
-// mesure les contrastes WCAG. Partagé par glass-check.mjs (matériaux de verre) et check-assets.mjs (icônes).
 export function loadThemeColors(noComments) {
   const rules = [...noComments.matchAll(/(^|\n)(:root[^{}]*)\{([^{}]*)\}/g)].map((m) => {
     const vars = {};
     for (const d of m[3].matchAll(/--([\w-]+)\s*:\s*([^;]+);/g)) vars[d[1]] = d[2].trim().replace(/\s+/g, " ");
     return { selectors: m[2].split(",").map((s) => s.trim()), vars };
   });
-  // Un « thème » est un couple couleur/mode : « ardoise/light », « ardoise/dark », … (blocs du fichier de thèmes générés).
   const themes = [...new Set(rules.flatMap((r) => r.selectors).map((s) => /^:root\[data-theme="([\w-]+)"\]\[data-mode="(light|dark)"\]$/.exec(s)).filter(Boolean).map((m) => `${m[1]}/${m[2]}`))];
   const resolve = (combo) => {
     const [theme, mode] = combo.split("/");
@@ -40,7 +37,6 @@ export function loadThemeColors(noComments) {
     }
     throw new Error(`expression non prise en charge : ${e}`);
   }
-  /** Couleurs d'un matériau : une couleur, ou les arrêts d'un dégradé (le pire cas est testé). */
   const materialColors = (expr, vars) => {
     const g = /^linear-gradient\(([\s\S]*)\)$/.exec(expr.trim());
     if (!g) return [evaluate(expr, vars)];

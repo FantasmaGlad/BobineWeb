@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-// Génère security.bobine.fit (anglais à la racine, français sous /fr/) : HTML statique noir sur blanc, un seul petit script de copie.
-// `--check` échoue si un fichier suivi par Git n'est pas à jour.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";

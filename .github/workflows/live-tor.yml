@@ -1,8 +1,5 @@
 name: Contrôle en direct du miroir Tor
 
-# Interroge le vrai service onion à travers le réseau Tor : ce que les tests statiques ne voient pas
-# (machine hôte, service onion, serveur web, synchronisation). Un échec prévient le propriétaire du dépôt.
-# Une fois par jour, après la reconstruction quotidienne du miroir (04:17) ; à la demande sinon.
 on:
   schedule:
     - cron: "37 5 * * *"
@@ -18,7 +15,6 @@ concurrency:
 jobs:
   probe:
     name: Sonde Tor
-    # Interrupteur : la sonde ne tourne que si la variable TOR_PROBE_ENABLED vaut "true" (machine hôte en ligne).
     if: vars.TOR_PROBE_ENABLED == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -28,7 +24,6 @@ jobs:
         run: |
           set -eu
           sudo apt-get update -qq
-          # Le paquet démarre lui-même le service, qui écoute en SOCKS sur 127.0.0.1:9050.
           sudo apt-get install -y -qq tor gnupg
           for _ in $(seq 1 60); do
             if curl -fsS --max-time 20 --socks5-hostname 127.0.0.1:9050 https://check.torproject.org/api/ip | grep -q '"IsTor":true'; then
@@ -42,7 +37,6 @@ jobs:
           exit 1
       - name: Interroger le miroir
         env:
-          # Après une publication, la machine hôte tire la nouvelle version au plus tard dans un quart d'heure.
           EXPECTED_SHA: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || '' }}
           ATTEMPTS: ${{ github.event_name == 'workflow_run' && '30' || '4' }}
         run: bash scripts/ci/smoke-onion.sh

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-// Audit de géométrie sur le build servi : Chromium mesure des mises en page, pas du matériel Android.
 import { delay, launchChrome } from "./cdp.mjs";
 const origin = process.env.MOBILE_CHECK_URL ?? "http://127.0.0.1:3102";
 const browser = await launchChrome();

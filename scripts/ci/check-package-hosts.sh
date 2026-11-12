@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Les instructions actives utilisent le dépôt unifié, jamais ses anciens alias.
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 if grep -rnE '(apt|rpm|arch)\.bobine\.fit' src public; then

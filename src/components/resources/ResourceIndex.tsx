@@ -31,7 +31,6 @@ export default function ResourceIndex({ locale, id = "resources" }: ResourceInde
   const searchInputId = useId();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  // Raccourci clavier `/` pour cibler la barre de recherche comme dans un index de référence
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "/" && document.activeElement !== inputRef.current) {
@@ -45,14 +44,12 @@ export default function ResourceIndex({ locale, id = "resources" }: ResourceInde
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // Liste triée par ordre alphabétique du titre localisé
   const sortedItems = useMemo(() => {
     return [...resourceList].sort((a, b) =>
       a.title[locale].localeCompare(b.title[locale], locale, { sensitivity: "base" }),
     );
   }, [locale]);
 
-  // Ensemble des lettres disponibles
   const availableLetterSet = useMemo(() => {
     const letters = new Set<string>();
     for (const item of sortedItems) {
@@ -61,7 +58,6 @@ export default function ResourceIndex({ locale, id = "resources" }: ResourceInde
     return letters;
   }, [sortedItems, locale]);
 
-  // Filtrage instantané par recherche et lettre
   const filteredItems = useMemo(() => {
     const q = normalize(query.trim());
     return sortedItems.filter((item) => {
@@ -78,7 +74,6 @@ export default function ResourceIndex({ locale, id = "resources" }: ResourceInde
     });
   }, [sortedItems, query, selectedLetter, locale]);
 
-  // Groupement par lettre
   const groupedItems = useMemo(() => {
     const groups = new Map<string, ResourceItem[]>();
     for (const item of filteredItems) {
@@ -102,7 +97,6 @@ export default function ResourceIndex({ locale, id = "resources" }: ResourceInde
 
   return (
     <div className="resource-index" id={id}>
-      {/* Bandeau d'index unifié sur une ligne : recherche + alphabet complet A–Z + compteur */}
       <div className="resource-toolbar">
         <div className="resource-search-bar" role="search">
           <label

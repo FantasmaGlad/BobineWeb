@@ -1,6 +1,5 @@
-/* Défilement discret, commandes sans ascenseur, retours de survol et de clic communs. */
 
-/* 1. Aucune barre de défilement, sur la page comme dans les zones qui défilent : le défilement reste possible. */
+
 html,
 body,
 * {
@@ -13,8 +12,6 @@ body,
   height: 0;
 }
 
-/* 2. Indicateur de défilement : un fondu en haut et en bas d'une zone verticale, présent seulement tant qu'il reste du contenu
-   de ce côté. Les navigateurs sans animation liée au défilement n'affichent rien (le défilement fonctionne quand même). */
 @property --fade-top {
   syntax: "<length>";
   inherits: false;
@@ -47,7 +44,6 @@ body,
   }
 }
 
-/* 3. Commandes à copier : elles passent à la ligne au lieu de défiler. */
 pre,
 pre code,
 .terminal-code-block__body,
@@ -60,7 +56,6 @@ pre code,
   overflow-x: hidden;
 }
 
-/* 4. Retours de survol et de clic communs aux zones qui n'en avaient pas (FAQ, onglets, filtres, sommaire, copie). */
 .dx-article-1.dx-article-1,
 .dx-button-1.dx-button-1,
 .dx-tab.dx-tab,
@@ -115,7 +110,6 @@ pre code,
   }
 }
 
-/* 5. Mascotte de l'accueil : à l'échelle des cartes de téléchargement et du reste de la page. */
 .hero-fullscreen__backdrop-img--mascot {
   max-height: 100%;
 }
@@ -126,7 +120,7 @@ pre code,
     top: 2.5rem;
   }
 }
-/* Large écran : plus à gauche, mais dans l'espace libre à droite du titre (jamais dessous). */
+
 @media (min-width: 1280px) {
   .hero-fullscreen__backdrop-art:has(.hero-fullscreen__backdrop-img--mascot) {
     right: max(clamp(-7.5rem, -5vw, -2rem), calc((100% - 100vw) / 2 + 1rem));

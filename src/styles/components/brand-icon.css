@@ -1,6 +1,4 @@
-/* Icônes de marque : masque rempli d'une couleur, donc lisible dans tous les thèmes (couleur officielle seulement si le
-   contraste le permet, sinon la couleur du texte). Les logos multicolores sont affichés tels quels, sans fond. Voir src/lib/assets.ts. Spécificité nulle : une classe du site peut
-   imposer sa taille. */
+
 :where(.brand-icon) {
   display: inline-block;
   flex: none;
@@ -32,9 +30,6 @@ img.brand-icon {
   mask: none !important;
 }
 
-/* Aucun support derrière un logo : les visuels sont transparents et reposent sur la surface du thème. Un logo dont une
-   couleur se confond avec une surface d'un thème (voir `halo` dans assets.json et check-assets.mjs) reçoit un fin
-   liseré de la couleur du texte, qui suit le thème, au lieu d'un fond. */
 :where(.brand-icon--halo) {
   filter: drop-shadow(0 0 0.6px color-mix(in srgb, var(--text-main) 85%, transparent))
     drop-shadow(0 0 0.6px color-mix(in srgb, var(--text-main) 85%, transparent));

@@ -1,21 +1,13 @@
 #!/usr/bin/env node
-// Écrit src/styles/base/00-themes-generes.css à partir des palettes de src/lib/themePalettes.ts (copie de celle de
-// l'application Bobine : scripts/ci/check-theme-parity.mjs vérifie qu'elles sont identiques) :
-//   node scripts/ci/generate-themes.mjs          écrit le fichier
-//   node scripts/ci/generate-themes.mjs --check  échoue si le fichier n'est pas à jour
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { DEFAULT_THEME, SEMANTIC_COLORS, THEMES, contrast, deriveTokens, mix, paletteOf } from "../../src/lib/themePalettes.ts";
 
 const target = fileURLToPath(new URL("../../src/styles/base/00-themes-generes.css", import.meta.url));
 
-/** Jetons du site pour une palette : les couleurs de la palette et ce qui s'en déduit (noms propres au site). */
 export function siteTokens(palette, mode) {
   const t = deriveTokens(palette, mode);
   const { bg, surface } = palette;
-  // Hiérarchie des plans (lisibilité : le site ne doit pas faire bloc) : le fond de page, les cartes, les surfaces
-  // et les éléments flottants sont quatre niveaux distincts. Clair : fond de page légèrement teinté, cartes blanches ;
-  // sombre : fond de page profond, puis des plans de plus en plus clairs.
   const light = mode === "light";
   const canvas = light ? mix(bg, surface, 0.28) : bg;
   const card = light ? bg : mix(bg, surface, 0.5);
@@ -23,7 +15,6 @@ export function siteTokens(palette, mode) {
   const elevated = light ? bg : surface;
   const hover = light ? mix(bg, surface, 0.7) : t["bg-surface-hover"];
   const text = t["text-main"];
-  // Survol d'un bouton plein : s'éloigne de la couleur de son texte, donc le contraste ne baisse jamais.
   const fgIsDark = contrast(t["accent-primary-fg"], "#000000") < contrast(t["accent-primary-fg"], "#ffffff");
   const border = mix(canvas, text, light ? 0.24 : 0.3);
   return {
@@ -67,7 +58,7 @@ export function render() {
       blocks.push(`:root[data-theme="${theme.id}"][data-mode="${mode}"] {\n  color-scheme: ${mode};\n${body}\n}`);
     }
   }
-  return `/* GÉNÉRÉ par scripts/ci/generate-themes.mjs depuis src/lib/themePalettes.ts : ne pas modifier à la main.\n   Neuf thèmes, chacun en clair et en sombre : les quatre couleurs de la palette et les jetons qui en sont déduits. */\n:root {\n${fallback}\n${semantic}\n}\n\n${blocks.join("\n\n")}\n`;
+  return `/* Généré par scripts/ci/generate-themes.mjs. */\n:root {\n${fallback}\n${semantic}\n}\n\n${blocks.join("\n\n")}\n`;
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {

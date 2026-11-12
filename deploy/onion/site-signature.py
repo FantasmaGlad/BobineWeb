@@ -1,13 +1,5 @@
 #!/usr/bin/env python3
-"""Signature du miroir statique du site : fabrication du manifeste (CI) et vérification (machine hôte).
-
-Le manifeste `SHA256SUMS` liste chaque fichier de la branche `onion-site` ; sa signature détachée `SHA256SUMS.asc` est
-faite en CI avec une clé dédiée. La machine hôte ne fait confiance qu'à l'empreinte qu'elle a elle-même installée : une
-branche modifiée sans cette clé, un fichier ajouté, retiré ou altéré, ou un retour à une ancienne version sont refusés.
-
-  site-signature.py manifest DOSSIER
-  site-signature.py verify DOSSIER --key CLE_PUBLIQUE.asc --fingerprint EMPREINTE [--previous-built HORODATAGE]
-"""
+"""Signature du miroir statique du site : fabrication du manifeste (CI) et vérification (machine hôte)."""
 import argparse
 import hashlib
 import os
@@ -73,7 +65,6 @@ def check_signature(root, key, fingerprint):
         raise ValueError('signature du manifeste invalide')
     valid = [fields for fields in status if fields[1] == 'VALIDSIG']
     expected = fingerprint.replace(' ', '').upper()
-    # VALIDSIG <empreinte de la sous-clé> ... <empreinte de la clé principale> : l'une ou l'autre peut être celle épinglée.
     if len(valid) != 1 or expected not in (valid[0][2].upper(), valid[0][-1].upper()):
         raise ValueError('le manifeste n\'est pas signé par la clé attendue')
 

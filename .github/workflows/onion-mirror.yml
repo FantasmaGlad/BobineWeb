@@ -1,10 +1,5 @@
 name: Onion mirror
 
-# Construit l'export statique du site pour le miroir Tor (.onion) et le publie
-# sur la branche orpheline `onion-site`. La machine hôte du service onion tire
-# cette branche (git fetch, deploy/onion/sync.sh) : aucun accès entrant vers elle
-# n'est nécessaire. Le nom du workflow est repris par `live-tor.yml` (workflow_run).
-
 on:
   push:
     branches: [main]
@@ -13,11 +8,9 @@ on:
       - "security/**"
       - "**/*.md"
   schedule:
-    # Rafraîchit chaque jour les données lues sur GitHub Releases (blog, version).
     - cron: "17 4 * * *"
   workflow_dispatch:
   repository_dispatch:
-    # À déclencher depuis le dépôt Bobine à chaque release.
     types: [bobine-release]
 
 permissions:
@@ -40,8 +33,6 @@ jobs:
 
       - run: npm ci
 
-      # Retire les routes serveur et le proxy (copie de travail jetable du runner),
-      # puis exporte en statique avec NEXT_PUBLIC_BOBINE_ONION=1.
       - name: Export statique
         run: npm run build:onion
         env:
@@ -50,9 +41,6 @@ jobs:
       - name: Contrôle du miroir
         run: bash scripts/ci/verify-onion.sh out
 
-      # Vercel construit chaque branche poussée : la branche onion-site ne contient que des fichiers statiques
-      # (pas d'application Next.js) et son build échouait. Ce vercel.json lui interdit tout déploiement.
-      # (sync.sh le retire de la copie servie sur le miroir.)
       - name: Interdire le déploiement Vercel de la branche du miroir
         run: |
           echo '{"git":{"deploymentEnabled":false}}' > out/vercel.json
@@ -64,9 +52,6 @@ jobs:
             echo "built: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           } > out/mirror-info.txt
 
-      # Manifeste SHA-256 de tous les fichiers, signé par une clé dédiée au miroir (jamais la clé des paquets). La machine
-      # hôte n'accepte que l'empreinte qu'elle a installée elle-même (deploy/onion/README.md). Sans le secret, le
-      # miroir reste publié non signé et la machine qui n'exige pas encore de signature continue de fonctionner.
       - name: Signer le miroir
         run: |
           set -eu

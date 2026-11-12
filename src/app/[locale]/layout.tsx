@@ -1,4 +1,4 @@
-import "../globals.css"; // en premier : les feuilles de src/styles/split/*.css importées par les composants doivent venir après
+import "../globals.css";
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
@@ -15,12 +15,10 @@ import { ReleaseProvider } from "@/components/ReleaseProvider";
 import { CLEARNET_URL } from "@/lib/onion";
 import { THEME_INIT_SNIPPET } from "@/lib/themes";
 
-
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-/** Fenêtre d'affichage : le contenu passe sous les encoches (viewport-fit=cover), l'en-tête et le pied de page les évitent. */
 export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 export async function generateMetadata({
@@ -135,8 +133,6 @@ export async function generateMetadata({
     },
   };
 }
-
-
 
 import ThemeSync from "@/components/ThemeSync";
 

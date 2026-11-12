@@ -2,7 +2,6 @@ import type { Locale } from "@/lib/i18n";
 import { ANDROID } from "@/lib/productFacts";
 import { SIGNING_KEY_FINGERPRINT, archCommands, fedoraCommands, repoStatusNote } from "@/lib/linuxPackages";
 
-/** Mention de statut des dépôts Fedora et Arch : vide une fois qu'ils sont en ligne. */
 const soon = (family: "fedora" | "arch", l: "fr" | "en") => {
   const note = repoStatusNote(family, l);
   return note ? `${note} ` : "";

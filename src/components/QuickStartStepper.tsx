@@ -26,7 +26,6 @@ export default function QuickStartStepper({ locale }: QuickStartStepperProps) {
         }
       }
     } catch {
-      // stockage local indisponible : la progression n'est pas conservée
     }
     return [];
   });
@@ -40,7 +39,6 @@ export default function QuickStartStepper({ locale }: QuickStartStepperProps) {
       try {
         localStorage.setItem("bobine_quickstart_progress", JSON.stringify(updated));
       } catch {
-        // stockage local indisponible : la progression n'est pas conservée
       }
       return updated;
     });
@@ -381,7 +379,6 @@ speaker-test -t wav -c 2 -l 1`}</code>
 
   return (
     <div className="quickstart-stepper-container">
-      {/* Barre de choix du mode */}
       <div className="stepper-mode-bar">
         <div className="stepper-mode-info">
           <span className="stepper-progress-counter">
@@ -420,7 +417,6 @@ speaker-test -t wav -c 2 -l 1`}</code>
         </div>
       </div>
 
-      {/* Barre de progression */}
       <div className="stepper-progress-track">
         <div
           className="stepper-progress-fill"
@@ -428,7 +424,6 @@ speaker-test -t wav -c 2 -l 1`}</code>
         />
       </div>
 
-      {/* Pastilles de navigation entre étapes */}
       <div className="stepper-nav-pills-wrap">
         {steps.map((s, idx) => {
           const isActive = idx === activeStepIndex && !isContinuousMode;
@@ -461,10 +456,8 @@ speaker-test -t wav -c 2 -l 1`}</code>
         })}
       </div>
 
-      {/* Corps : une étape à la fois, ou liste continue */}
       {!isContinuousMode ? (
         <div className="stepper-focused-card">
-          {/* En-tête de la carte */}
           <div className="stepper-card-header">
             <div className="stepper-card-title-group">
               <span className="stepper-card-badge">{activeStep.badge}</span>
@@ -492,12 +485,10 @@ speaker-test -t wav -c 2 -l 1`}</code>
             </button>
           </div>
 
-          {/* Contenu de la carte */}
           <div className="stepper-card-body">
             {activeStep.content}
           </div>
 
-          {/* Pied de carte : navigation */}
           <div className="stepper-card-footer">
             <button
               type="button"
@@ -545,7 +536,6 @@ speaker-test -t wav -c 2 -l 1`}</code>
           </div>
         </div>
       ) : (
-        /* Mode continu : toutes les étapes */
         <div className="stepper-continuous-list">
           {steps.map((s, idx) => (
             <div key={s.id} id={`step-${s.id}`} className="stepper-continuous-item">

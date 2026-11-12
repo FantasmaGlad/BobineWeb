@@ -1,5 +1,4 @@
-/* Index des ressources Bobine : véritable index de livre multi-colonnes à points de conduite.
-   Zéro carte rectangulaire lourde ; densité typographique éditoriale et balayage horizontal. */
+
 .resource-index {
   display: flex;
   flex-direction: column;
@@ -7,7 +6,6 @@
   width: 100%;
 }
 
-/* Barre d'outils unifiée sur une seule ligne horizontale (Recherche + A-Z + Compteur) */
 .resource-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -88,7 +86,6 @@
   font-size: var(--fs-0-72rem);
 }
 
-/* Ruban alphabétique A-Z typographique (sans boîtes lourdes) */
 .resource-letters-nav {
   display: flex;
   flex-wrap: wrap;
@@ -143,7 +140,6 @@
   white-space: nowrap;
 }
 
-/* Colonnes de livre avec filet séparateur vertical */
 .book-index-columns {
   column-count: 1;
   column-gap: 2.75rem;
@@ -168,7 +164,6 @@
   margin: 0 0 1.65rem;
 }
 
-/* Lettrine capitale sobre */
 .resource-letter-heading {
   margin: 0 0 0.45rem;
   padding-bottom: 0.2rem;
@@ -229,7 +224,6 @@
   transform: translateX(2px);
 }
 
-/* Points de conduite d'index de livre */
 .book-index-entry__dots {
   flex: 1 1 1.5rem;
   border-bottom: 1px dotted var(--border-hover);

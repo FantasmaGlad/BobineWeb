@@ -15,12 +15,6 @@ import {
   slidingChannelPackageNames,
 } from "@/lib/linuxPackages";
 
-/**
- * Pages d'atterrissage thématiques (canaux de mise à jour, Linux) :
- * une page par intention de recherche, rendues par `LandingPage`. Le texte reste
- * factuel et court, sans version ni date en dur : celles-ci viennent de GitHub à l'affichage.
- */
-
 export type LandingId =
   | "canaux"
   | "canal-stable"
@@ -53,7 +47,6 @@ export interface LandingFaq {
 
 export interface LandingLink {
   label: string;
-  /** Chemin français sans préfixe de langue (le slug anglais est résolu par `lp`). */
   path: string;
 }
 
@@ -99,9 +92,7 @@ export interface LandingLocale {
 
 export interface LandingContent {
   id: LandingId;
-  /** Chemin français sans préfixe de langue. */
   path: string;
-  /** Canal imposé à l'encart de téléchargement, le cas échéant. */
   channel?: "stable" | "beta" | "canary";
   fr: LandingLocale;
   en: LandingLocale;
@@ -110,7 +101,6 @@ export interface LandingContent {
 const CHANNEL_CLI = (channel: string) =>
   `curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=${channel}`;
 
-/** Phrase ajoutée tant que les dépôts Fedora et Arch ne sont pas en ligne, vide ensuite. */
 const soonSuffix = (l: "fr" | "en") => {
   const note = repoStatusNote("fedora", l);
   return note ? ` ${note}` : "";
@@ -130,7 +120,6 @@ const CHANNEL_RELATED_EN: LandingLink[] = [
   { label: "Release notes (Blog)", path: "/blog" },
 ];
 
-/** Blocs communs à toutes les pages : configuration requise, vérification du fichier, mises à jour. */
 export const LANDING_COMMON: Record<
   Locale,
   {

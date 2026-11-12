@@ -1,4 +1,3 @@
-/** Extrait les points éditoriaux des notes, sans inventer de fonctions à partir du numéro de version. */
 export function releaseSummary(body: string): string[] {
   const clean = (line: string) => line.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/[*`_]/g, "").replace(/\p{Extended_Pictographic}|\uFE0F/gu, "").trim();
   const editorial = (line: string) => line && !/^(#|https?:|---|<)/.test(line.trim());

@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Contrôle statique du site security.bobine.fit (dossier security/site) avant publication.
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
@@ -18,16 +17,13 @@ for f in index.html fr/index.html robots.txt sitemap.xml llms.txt security.asc .
   [ -s "$S/$f" ] || err "Fichier absent ou vide : $S/$f"
 done
 
-# Identité avec les copies servies par le site principal.
 cmp -s "$S/security.asc" public/.well-known/security.asc || err "security.asc diffère de public/.well-known/security.asc"
 cmp -s "$S/.well-known/security.txt" public/.well-known/security.txt || err "security.txt diffère de public/.well-known/security.txt"
 
-# Empreinte affichée sur les pages.
 for f in index.html fr/index.html; do
   grep -q "$FPR_SPACED" "$S/$f" || err "Empreinte absente de $S/$f"
 done
 
-# Clé, signature et expirations, dans un trousseau jetable.
 gh=$(mktemp -d)
 trap 'rm -rf "$gh"' EXIT
 gpg --homedir "$gh" --batch --quiet --import "$S/security.asc" 2>/dev/null
@@ -46,7 +42,6 @@ kleft=$(( ( kexp - $(date -u +%s) ) / 86400 ))
 echo "la clé expire dans $kleft jours"
 [ "$kleft" -ge 90 ] || err "la clé OpenPGP expire dans moins de 90 jours : la renouveler"
 
-# Liens et ressources locaux des pages.
 python3 -I - "$S" <<'PY' || fail=1
 import re, sys, pathlib
 root = pathlib.Path(sys.argv[1])

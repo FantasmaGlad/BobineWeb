@@ -1,9 +1,3 @@
-/**
- * Catalogue de téléchargement : pour une plateforme, une architecture, une famille Linux et un canal, quel fichier de
- * quelle release proposer, sous quel nom, avec quelle taille et quelle empreinte. Source unique de la fenêtre de
- * téléchargement ; aucune valeur n'est inventée : taille et empreinte viennent de l'API GitHub et sont absentes du
- * repli statique.
- */
 import type { Locale } from "@/lib/i18n";
 import type { ReleaseChannelInfo, ReleaseFile } from "@/lib/releaseTypes";
 import { ANDROID, REQUIREMENTS } from "@/lib/productFacts";
@@ -31,11 +25,8 @@ export interface DownloadRequest {
 }
 
 export interface ResolvedDownload {
-  /** Plateforme affichée dans le titre (« Windows », « Linux (Debian, Ubuntu) »...). */
   heading: string;
-  /** Systèmes visés, tels qu'ils sont décrits dans le produit (jamais une validation sur matériel). */
   targets: string;
-  /** Configuration requise, depuis les faits produit. */
   requirements?: string;
   format: string;
   channel: PackageChannel;
@@ -45,9 +36,7 @@ export interface ResolvedDownload {
   url?: string;
   filename?: string;
   file?: ReleaseFile;
-  /** Commande unique (appliance) à la place d'un fichier. */
   command?: string;
-  /** Vrai quand la release joint SHA256SUMS et sa signature. */
   checksumsSigned: boolean;
 }
 
@@ -57,7 +46,6 @@ function channelInfo(req: DownloadRequest): ReleaseChannelInfo {
   return req.channel === "stable" ? req.stable : req.channel === "beta" ? req.beta : req.canary;
 }
 
-/** Octets lisibles (Mo ou Go), ou chaîne vide quand la taille est inconnue. */
 export function formatSize(bytes: number | undefined, locale: Locale): string {
   if (!bytes || bytes <= 0) return "";
   const mb = bytes / (1024 * 1024);

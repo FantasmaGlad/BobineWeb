@@ -9,11 +9,9 @@ interface RouteConfig {
   path: string;
   priority: number;
   changeFrequency: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
-  /** Date de dernière modification réelle (AAAA-MM-JJ). Absent : date du build. */
   lastModified?: string;
 }
 
-// Les routes statiques viennent du plan du site (src/lib/siteMap.json) : une seule liste pour la navigation et le sitemap.
 const staticRoutes: RouteConfig[] = ROUTES.filter((route) => !route.redirectTo).map(({ path, priority, changeFrequency }) => ({ path, priority, changeFrequency }));
 
 export const dynamic = "force-static";
@@ -21,7 +19,6 @@ export const dynamic = "force-static";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = CLEARNET_URL;
 
-  // Pages de blog : une par release GitHub, datée de sa publication (jamais de la date du build).
   let dynamicBlogRoutes: RouteConfig[] = [];
   let latestReleaseDate = new Date().toISOString().slice(0, 10);
   try {
@@ -36,10 +33,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: rel.publishedAt.slice(0, 10),
     }));
   } catch {
-    // GitHub injoignable au build : seul /blog/beta (ajouté ci-dessous) est listé
   }
 
-  // /blog/beta doit toujours figurer au sitemap, même si l'API GitHub est indisponible au build
   if (!dynamicBlogRoutes.some((r) => r.path.toLowerCase() === "/blog/beta")) {
     dynamicBlogRoutes.push({
       path: "/blog/beta",

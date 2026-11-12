@@ -12,7 +12,6 @@ import Icon from "@/components/ui/Icon";
 import { navRoutes, routeHref } from "@/lib/siteMap";
 import "@/styles/split/site-chrome.css";
 
-
 export default function Header({
   locale,
   dict,
@@ -24,7 +23,6 @@ export default function Header({
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const links: Array<[string, string]> = navRoutes().map((route) => [routeHref(locale, route.id), route.label[locale]]);
-
 
   return (
     <>
@@ -40,7 +38,6 @@ export default function Header({
             />
           </Link>
 
-          {/* Navigation Desktop */}
           <nav aria-label="Navigation principale" className="site-header__nav">
             {links.map(([href, label]) => {
               const isActive = pathname === href || (href !== `/${locale}` && pathname.startsWith(href));
@@ -56,14 +53,11 @@ export default function Header({
             })}
           </nav>
 
-          {/* Switchers & Badges Desktop */}
           <div className="site-header__actions">
             <GitHubBadge />
             <ThemeSwitcher />
           </div>
 
-
-          {/* Bouton Burger Mobile */}
           <button
             type="button"
             className="mobile-burger-btn"
@@ -76,7 +70,6 @@ export default function Header({
         </div>
       </header>
 
-      {/* Drawer Mobile */}
       <MobileDrawer
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}

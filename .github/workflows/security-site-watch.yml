@@ -1,8 +1,5 @@
 name: Surveillance du site de sécurité
 
-# Vérifie chaque jour que security.bobine.fit (GitHub Pages, publié depuis ce dépôt) pointe toujours
-# vers GitHub Pages, que la clé OpenPGP publiée est la bonne sur tous les canaux et que security.txt
-# est valide. Un échec fait échouer l'exécution : GitHub prévient alors le propriétaire du dépôt.
 on:
   schedule:
     - cron: "17 6 * * *"

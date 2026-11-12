@@ -18,18 +18,12 @@ import "@/styles/split/pages-blog.css";
 const GITHUB_ATTACHMENT_PATTERN =
   /^https:\/\/github\.com\/user-attachments\/assets\//;
 
-/**
- * Miroir Tor : aucune image ni vidéo distante n'est chargée automatiquement
- * (GitHub, shields.io...). Le média devient un lien que le lecteur ouvre,
- * ou non, de sa propre initiative.
- */
 function remoteMediaLink(src: string | undefined, label?: string) {
   if (!src) return null;
   let host = src;
   try {
     host = new URL(src).hostname;
   } catch {
-    // src relatif ou invalide : on l'affiche tel quel.
   }
   return (
     <a href={src} target="_blank" rel="noopener noreferrer">
@@ -78,7 +72,6 @@ const markdownComponents: Components = {
 
 function cleanReleaseBody(body: string, title: string): string {
   let cleaned = body;
-  // Si le corps markdown commence par un H1 identique ou similaire au titre déjà affiché dans le header, on le retire
   cleaned = cleaned.replace(/^\s*#\s+[^\n]+/m, (match) => {
     const headingText = match.replace(/^#\s+/, "").trim();
     if (

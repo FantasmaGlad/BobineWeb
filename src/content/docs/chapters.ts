@@ -2,9 +2,6 @@ import type { Locale } from "@/lib/i18n";
 import type { DocChapter } from "./types";
 import { ANDROID } from "@/lib/productFacts";
 
-
-/** Feuille de route et présentation des fonctions : le reste de la documentation vit dans les composants des pages. */
-
 const fr: DocChapter[] = [
   {
     id: "feuille-de-route",
@@ -79,7 +76,6 @@ const en: DocChapter[] = [
 
 export const docChapters: Record<Locale, DocChapter[]> = { fr, en };
 
-/** Présentation concise des fonctions livrées, commune aux pages de présentation du produit. */
 export const FEATURE_OVERVIEW = [
   {
     "id": "playback",

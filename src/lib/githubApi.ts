@@ -3,12 +3,6 @@ import "server-only";
 const REPO = "FantasmaGlad/Bobine";
 const DEPLOY_REPO = "FantasmaGlad/bobine-deploy";
 
-/**
- * Fenêtre de rafraîchissement des données GitHub (versions, téléchargements, étoiles). Deux minutes :
- * une release publiée par le workflow du dépôt Bobine apparaît sur le site à la requête suivante
- * passé ce délai, sans redéploiement. Les deux appels ci-dessous tiennent dans
- * la limite de 60 requêtes/heure sans jeton, `GITHUB_TOKEN` la porte à 5 000.
- */
 export const GITHUB_REVALIDATE_SECONDS = 120;
 
 export interface GitHubReleaseJson {
@@ -29,7 +23,6 @@ function githubHeaders(): Record<string, string> {
   return headers;
 }
 
-/** Toutes les releases publiées (Stable, tags mobiles `beta` et `canary` compris), les plus récentes d'abord. */
 export async function fetchRepoReleases(): Promise<GitHubReleaseJson[] | null> {
   try {
     const res = await fetch(`https://api.github.com/repos/${REPO}/releases?per_page=100`, {
@@ -58,18 +51,10 @@ export async function fetchRepoCounts(): Promise<{ stars: number; forks: number 
   }
 }
 
-/**
- * Anciennes releases de l'assistant d'installation (tags `assistant-*`), restées dans le dépôt de Bobine depuis son
- * déplacement vers FantasmaGlad/bobine-deploy : elles ne comptent ni comme une version de Bobine ni comme un billet.
- */
 export function isAssistantRelease(release: GitHubReleaseJson): boolean {
   return release.tag_name.toLowerCase().startsWith("assistant-");
 }
 
-/**
- * Release de chaque canal : Stable = la plus récente qui n'est pas une pré-release (même règle que
- * `/releases/latest`), Bêta et Canary = leur tag mobile unique.
- */
 export function pickChannelReleases(releases: GitHubReleaseJson[]): {
   stable?: GitHubReleaseJson;
   beta?: GitHubReleaseJson;
@@ -83,7 +68,6 @@ export function pickChannelReleases(releases: GitHubReleaseJson[]): {
   };
 }
 
-/** Releases de Bobine Deploy, dans son propre dépôt. */
 export async function fetchDeployReleases(): Promise<GitHubReleaseJson[] | null> {
   try {
     const res = await fetch(`https://api.github.com/repos/${DEPLOY_REPO}/releases?per_page=20`, {

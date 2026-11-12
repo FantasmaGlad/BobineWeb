@@ -1,9 +1,4 @@
 #!/usr/bin/env node
-/**
- * Prépare une copie de travail JETABLE pour l'export statique du miroir Tor :
- * retire ce qu'un export statique ne peut pas porter (routes serveur, proxy).
- * Refuse de tourner hors CI, pour ne jamais amputer un dépôt de développement.
- */
 import { rm } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -17,8 +12,8 @@ if (process.env.CI !== "true" && !force) {
 }
 
 const targets = [
-  "src/app/api", // statistiques GitHub
-  "src/proxy.ts", // redirections de langue : refaites dans Caddy
+  "src/app/api",
+  "src/proxy.ts",
 ];
 
 for (const target of targets) {

@@ -74,25 +74,18 @@ export default async function LinuxShowcasePage({ locale }: { locale: Locale }) 
         ))}
       </nav>
 
-      {/* 1. Hero Matériel & Logiciel Immersif avec Framework Laptop */}
       <LinuxHero locale={locale} />
 
-      {/* 2. Terminal Glassmorphic Interactif avec sélecteur d'OS et de canaux */}
       <LinuxTerminal locale={locale} />
 
-      {/* 3. Grille Écosystème des 16 Distributions Officielles */}
       <LinuxDistroGrid locale={locale} />
 
-      {/* 4. Bento Grid : 4 Piliers Performance et Résilience 24/7 */}
       <LinuxBento locale={locale} />
 
-      {/* 5. Showcase Matériel Recommandé Framework Laptop */}
       <FrameworkShowcase locale={locale} />
 
-      {/* 6. Sécurité Cryptographique OpenPGP */}
       <LinuxSecurityCard locale={locale} />
 
-      {/* 7. Questions Fréquentes */}
       <section className="linux-section linux-showcase__faq">
         <header className="linux-section-header">
           <h2 className="linux-section-header__title">{isEn ? "Frequently asked questions" : "Questions fréquentes"}</h2>
@@ -107,7 +100,6 @@ export default async function LinuxShowcasePage({ locale }: { locale: Locale }) 
         </div>
       </section>
 
-      {/* 8. Pages Liées */}
       <nav aria-label={isEn ? "Related pages" : "Pages liées"} className="linux-section linux-showcase__related-nav">
         <h2 className="linux-section-header__tag linux-showcase__related-title">
           {isEn ? "Explore more" : "Pour aller plus loin"}

@@ -1,15 +1,5 @@
 #!/usr/bin/env python3
-"""Variante Tor des pages du portail packages.bobine.fit : le bloc d'installation passe par le service onion.
-
-Les pages publiées délimitent leurs commandes (clé, dépôts APT, DNF et Pacman, toutes en https://packages.bobine.fit)
-par <!-- install --> et <!-- /install -->. Copiées depuis le miroir, elles contacteraient le web classique : le bloc
-devient la procédure Tor (télécharger install-tor.sh par le proxy SOCKS, le lire, l'exécuter).
-
-Échoue (code 1) si une page d'accueil n'a plus ses marqueurs : le miroir garde alors sa copie précédente (sync.sh),
-plutôt que de publier un portail aux commandes clearnet.
-
-Usage : site-tor.py <dossier de release APT>
-"""
+"""Variante Tor des pages du portail packages.bobine.fit : le bloc d'installation passe par le service onion."""
 import html
 import re
 import sys

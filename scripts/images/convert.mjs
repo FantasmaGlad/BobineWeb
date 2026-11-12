@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-// Les sources restent locales : le build du site et le miroir Tor n’ont besoin d’aucun téléchargement d’image.
 import sharp from "sharp";
 import { readFile, writeFile, mkdir, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -37,7 +36,6 @@ for (const source of sources) {
 }
 await writeFile(join(root, "src/content/media.json"), JSON.stringify(manifest, null, 2) + "\n");
 
-// Les trois canaux partent des icônes actuelles du logiciel, conservées avec les sources.
 await mkdir(join(root, "public/images/channels"), { recursive: true });
 for (const channel of ["stable", "beta", "canary"]) {
   const input = join(root, `scripts/images/channels/bobine-${channel}.png`);

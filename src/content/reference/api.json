@@ -1391,10 +1391,10 @@
         "video",
         "playlist",
         "audio",
-        "audio-playlist",
+        "audio\\-playlist",
         "background",
-        "radio-track",
-        "radio-playlist"
+        "radio\\-track",
+        "radio\\-playlist"
        ],
        "name": "kind",
        "required": false,

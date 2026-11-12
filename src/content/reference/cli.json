@@ -705,7 +705,11 @@
        "repeat": false
       },
       {
-       "choices": null,
+       "choices": [
+        "left",
+        "right",
+        "both"
+       ],
        "flag": false,
        "help": "",
        "name": "channel",
@@ -987,7 +991,10 @@
     {
      "arguments": [
       {
-       "choices": null,
+       "choices": [
+        "radio_cable",
+        "radio_network"
+       ],
        "flag": false,
        "help": "",
        "name": "channel",
@@ -1003,7 +1010,10 @@
        "repeat": false
       },
       {
-       "choices": null,
+       "choices": [
+        "default",
+        "mute"
+       ],
        "flag": false,
        "help": "",
        "name": "--fallback",
@@ -1766,7 +1776,7 @@
        "repeat": false
       }
      ],
-     "help": "effacer des entrées du journal d'activité",
+     "help": "effacer les entrées choisies du journal d'activité",
      "name": "activity-rm"
     },
     {
@@ -1957,6 +1967,7 @@
       },
       {
        "choices": [
+        "all",
         "cable",
         "network"
        ],
@@ -2062,8 +2073,7 @@
       },
       {
        "choices": [
-        "cable",
-        "network"
+        "cable"
        ],
        "flag": false,
        "help": "canal de diffusion",
@@ -2087,8 +2097,7 @@
       },
       {
        "choices": [
-        "cable",
-        "network"
+        "cable"
        ],
        "flag": false,
        "help": "canal de diffusion",
@@ -2289,7 +2298,7 @@
        "repeat": false
       }
      ],
-     "help": "renommer ou recomposer une playlist (sans option, rien ne change)",
+     "help": "renommer ou recomposer une playlist",
      "name": "set"
     },
     {
@@ -2702,7 +2711,7 @@
       {
        "choices": null,
        "flag": false,
-       "help": "playlist_id",
+       "help": "identifiant de la playlist radio",
        "name": "playlist_id",
        "positional": true,
        "repeat": false
@@ -2710,21 +2719,21 @@
       {
        "choices": null,
        "flag": false,
-       "help": "",
-       "name": "name",
-       "positional": true,
+       "help": "nouveau nom",
+       "name": "--name",
+       "positional": false,
        "repeat": false
       },
       {
        "choices": null,
        "flag": false,
-       "help": "ints",
+       "help": "morceaux, dans l'ordre (1,2,3)",
        "name": "--track-ids",
        "positional": false,
        "repeat": false
       }
      ],
-     "help": "renommer ou recomposer une playlist radio",
+     "help": "renommer ou recomposer une playlist radio (le reste est conservé)",
      "name": "set"
     },
     {
@@ -2878,7 +2887,7 @@
       {
        "choices": null,
        "flag": false,
-       "help": "rule_id",
+       "help": "identifiant de la règle",
        "name": "rule_id",
        "positional": true,
        "repeat": false
@@ -2891,8 +2900,8 @@
        ],
        "flag": false,
        "help": "",
-       "name": "rule_type",
-       "positional": true,
+       "name": "--rule-type",
+       "positional": false,
        "repeat": false
       },
       {
@@ -2940,7 +2949,7 @@
        "repeat": false
       }
      ],
-     "help": "remplacer une règle de rappel",
+     "help": "modifier une règle de rappel (le reste est conservé)",
      "name": "set"
     },
     {

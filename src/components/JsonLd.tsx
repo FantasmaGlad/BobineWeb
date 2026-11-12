@@ -1,4 +1,4 @@
-import { getBobineReleases } from "@/lib/github-releases";
+import { getRepoStats } from "@/lib/releaseChannels";
 import { ANDROID } from "@/lib/productFacts";
 import { PACKAGE_REPOS_LIVE } from "@/lib/linuxPackages";
 import { CLEARNET_URL } from "@/lib/onion";
@@ -8,18 +8,12 @@ const AUTHOR_EMAIL = "clement.barillot@bobine.fit";
 export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
   const isEn = locale === "en";
 
-  let latestVersion: string | undefined;
-  try {
-    const releases = await getBobineReleases();
-    const stable = releases.find((r) => !r.isPrerelease && /\d/.test(r.slug));
-    latestVersion = stable?.slug.replace(/^v/i, "");
-  } catch {
-    latestVersion = undefined;
-  }
+  const latestVersion = (await getRepoStats()).stable.version.replace(/^v/i, "");
 
   const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": `${CLEARNET_URL}/#software`,
     name: "Bobine Fit",
     alternateName: ["Bobine", "bobine.fit", "Bobine Playout", "Régie Bobine", "Bobine Fitness", "Bobine Virtual Fitness"],
     operatingSystem: `Debian 13 (Appliance Headless), Ubuntu, Linux Mint${PACKAGE_REPOS_LIVE ? ", Fedora, Arch Linux" : ""}, Windows 11/10, macOS (Apple Silicon M1–M4), Android ${ANDROID.minVersion}–${ANDROID.maxVersion} (ARM 32/64-bit), Android TV, Google TV`,
@@ -76,7 +70,7 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
     screenshot: "https://bobine.fit/fr/opengraph-image",
     license: "https://www.gnu.org/licenses/agpl-3.0.html",
     downloadUrl: "https://github.com/FantasmaGlad/Bobine/releases/latest",
-    ...(latestVersion ? { softwareVersion: latestVersion } : {}),
+    softwareVersion: latestVersion,
     brand: {
       "@type": "Brand",
       name: "Bobine Fit",

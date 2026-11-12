@@ -71,10 +71,9 @@ export default async function JsonLd({ locale = "fr" }: { locale?: string }) {
         ],
     offers: {
       "@type": "Offer",
-      price: "0.00",
+      // Logiciel libre : gratuit, sans date de validité ni disponibilité commerciale.
+      price: "0",
       priceCurrency: "EUR",
-      availability: "https://schema.org/InStock",
-      priceValidUntil: "2030-12-31",
     },
     screenshot: "https://bobine.fit/fr/opengraph-image",
     license: "https://www.gnu.org/licenses/agpl-3.0.html",

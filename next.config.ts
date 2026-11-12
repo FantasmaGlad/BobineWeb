@@ -90,6 +90,8 @@ const nextConfig: NextConfig = {
       { source: "/download", destination: "/en", permanent: true },
       { source: "/a-propos", destination: "/fr/a-propos", permanent: true },
       { source: "/about", destination: "/en/about", permanent: true },
+      { source: "/commandes", destination: "/fr/commandes", permanent: true },
+      { source: "/commands", destination: "/en/commands", permanent: true },
       { source: "/fr/soutenir", destination: "https://github.com/FantasmaGlad/Bobine", permanent: true },
       { source: "/en/soutenir", destination: "https://github.com/FantasmaGlad/Bobine", permanent: true },
       { source: "/fr/support", destination: "https://github.com/FantasmaGlad/Bobine", permanent: true },

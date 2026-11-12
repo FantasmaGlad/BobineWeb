@@ -141,6 +141,41 @@
       "icon": "icon:cpu"
     },
     {
+      "id": "commands",
+      "path": "/commandes",
+      "kind": "leaf",
+      "label": {
+        "fr": "Commandes",
+        "en": "Commands"
+      },
+      "description": {
+        "fr": "Référence de la commande bobine : arguments et codes de sortie.",
+        "en": "Reference of the bobine command: arguments and exit codes."
+      },
+      "priority": 0.7,
+      "changeFrequency": "monthly",
+      "parent": "docs",
+      "icon": "icon:terminal",
+      "nav": true
+    },
+    {
+      "id": "api",
+      "path": "/api",
+      "kind": "leaf",
+      "label": {
+        "fr": "API HTTP",
+        "en": "HTTP API"
+      },
+      "description": {
+        "fr": "Référence de l'API locale : routes, paramètres et codes d'erreur.",
+        "en": "Reference of the local API: routes, parameters and error codes."
+      },
+      "priority": 0.7,
+      "changeFrequency": "monthly",
+      "parent": "docs",
+      "icon": "icon:layers"
+    },
+    {
       "id": "resources",
       "path": "/ressources",
       "kind": "hub",

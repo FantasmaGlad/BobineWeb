@@ -87,12 +87,12 @@ jobs:
         run: |
           node scripts/ci/check-site-graph.mjs
           node --test scripts/ci/check-site-graph.test.mjs
-      - name: Parité des palettes avec l'application
+      - name: Parité des palettes et de la référence avec l'application
         env:
           BOBINE_SOURCE_DIR: ${{ runner.temp }}/bobine-sources
         run: |
           git clone --depth 1 https://github.com/FantasmaGlad/Bobine.git "$BOBINE_SOURCE_DIR"
-          node scripts/ci/check-theme-parity.mjs "$BOBINE_SOURCE_DIR"
+          node scripts/ci/check-app-parity.mjs "$BOBINE_SOURCE_DIR"
       - name: Cliquet de jetons (tests d’injection)
         run: node --test scripts/ci/style-tokens.test.mjs
       - name: Installer Stable depuis la source canonique

@@ -9,18 +9,22 @@ import DocsTableOfContents from "@/components/DocsTableOfContents";
 
 const sections: Record<Locale, ReadonlyArray<readonly [string, string]>> = {
   fr: [
-    ["", "Démarrage rapide"],
-    ["utilisation", "Utilisation"],
-    ["faq", "FAQ / Dépannage"],
-    ["developpeurs", "Développeurs"],
-    ["anonymisation", "Anonymisation"],
+    ["/documentation", "Démarrage rapide"],
+    ["/documentation/utilisation", "Utilisation"],
+    ["/documentation/faq", "FAQ / Dépannage"],
+    ["/documentation/developpeurs", "Développeurs"],
+    ["/commandes", "Commandes"],
+    ["/api", "API HTTP"],
+    ["/documentation/anonymisation", "Anonymisation"],
   ],
   en: [
-    ["", "Quick start"],
-    ["utilisation", "Usage"],
-    ["faq", "FAQ / Troubleshooting"],
-    ["developpeurs", "Developers"],
-    ["anonymisation", "Anonymization"],
+    ["/documentation", "Quick start"],
+    ["/documentation/utilisation", "Usage"],
+    ["/documentation/faq", "FAQ / Troubleshooting"],
+    ["/documentation/developpeurs", "Developers"],
+    ["/commandes", "Commands"],
+    ["/api", "HTTP API"],
+    ["/documentation/anonymisation", "Anonymization"],
   ],
 };
 

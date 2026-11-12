@@ -41,9 +41,10 @@ if LC_ALL=C.UTF-8 git grep -InP '[\x{1F000}-\x{1FAFF}]' -- . "${excl[@]}"; then
   err "Emoji trouvé (liste ci-dessus) : utiliser une icône SVG filaire ou de la typographie"
 fi
 
-# 6. Commits poussés : aucun trailer de co-auteur, identité noreply.
+# 6. Commits poussés : aucun trailer de co-auteur, identité noreply. Seuls les automates de GitHub sont admis :
+# une fusion en un seul commit d'une branche qui reprend une mise à jour de dépendances les ajoute d'office.
 if [ -n "${POLICY_RANGE:-}" ]; then
-  if git log --format='%B' "$POLICY_RANGE" | grep -iE '^co-authored-by:'; then
+  if git log --format='%B' "$POLICY_RANGE" | grep -iE '^co-authored-by:' | grep -viE '^co-authored-by: *(dependabot|github-actions)\[bot\] <'; then
     err "Trailer de co-auteur interdit dans un commit"
   fi
   bad=$(git log --format='%h %ae %ce' "$POLICY_RANGE" | grep -vE '@users\.noreply\.github\.com.*@users\.noreply\.github\.com|noreply@github\.com' || true)

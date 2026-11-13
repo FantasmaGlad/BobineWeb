@@ -42,7 +42,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "offline",
       q: "Ai-je besoin d'une connexion internet pour faire tourner Bobine au quotidien ?",
-      a: "Non, pas au quotidien. Internet n'est requis qu'une seule fois lors de l'installation initiale pour télécharger les paquets Debian. Ensuite, la salle diffuse ses cours de manière 100% autonome.",
+      a: "Non, pas au quotidien. Internet n'est requis que pour l'installation et les mises à jour. Ensuite, la salle diffuse ses cours de manière 100% autonome.",
     },
     {
       category: "hardware",
@@ -62,7 +62,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Comment Bobine mesure-t-il la puissance en Watts et la télémétrie matérielle ?",
-      a: "Bobine intègre un sous-système de télémétrie éco-conçu interrogeant les compteurs matériels bas niveau sans droits root : le sous-système noyau intel-rapl en microjoules sur mini PC Intel, l'interface ioreg sous macOS Apple Silicon, les nœuds sysfs sous Android/Linux et WMI/powercfg sous Windows. Les températures CPU/GPU et la fréquence effective de la RAM (MT/s) sont également restituées en direct.",
+      a: "Bobine intègre un sous-système de télémétrie éco-conçu interrogeant les compteurs matériels bas niveau sans droits root : le sous-système noyau intel-rapl en microjoules sur mini PC Intel, l'interface ioreg sous macOS Apple Silicon, les nœuds sysfs sous Android/Linux et une estimation d'après la charge du processeur sous Windows. Les températures CPU/GPU et la fréquence effective de la RAM (MT/s) sont également restituées en direct.",
     },
     {
       category: "hardware",
@@ -102,7 +102,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "Quelle est la différence entre les versions Stable, Bêta et Canary ?",
-      a: "La version Stable (ex. Vx.y.z) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La Bêta offre un lot de fonctionnalités/correctifs que je sélectionne et publie manuellement quand il est prêt. La Canary offre un accès anticipé continu, reconstruite automatiquement à chaque commit sur la branche principale, sans curation. Les trois canaux partagent les mêmes identifiants d'application, s'installent par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages > Mises à jour sans perte de données ni de médias.",
+      a: "La version Stable (ex. Vx.y.z) est la version officielle recommandée pour la production et l'exploitation quotidienne en salle. La Bêta offre un lot de fonctionnalités/correctifs que je sélectionne et publie manuellement quand il est prêt. La Canary offre un accès anticipé continu, reconstruite automatiquement à chaque commit sur la branche principale, sans curation. Les trois canaux partagent les mêmes identifiants d'application, s'installent par-dessus la version existante sans créer de doublon, et vous pouvez revenir à la Stable à tout moment depuis Réglages > Mises à jour sans perte de données ni de médias (sauf sous Android, où le système refuse d'installer une version plus ancienne).",
     },
     {
       category: "updates",
@@ -159,7 +159,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "offline",
       q: "Do I need an active internet connection to run Bobine for daily operations?",
-      a: "No, not for daily operations. Internet is only required once during the initial setup. Afterwards, your gym plays workout videos entirely offline from local storage.",
+      a: "No, not for daily operations. Internet is only required for installation and updates. Afterwards, your gym plays workout videos entirely offline from local storage.",
     },
     {
       category: "hardware",
@@ -179,7 +179,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "How does Bobine measure power in Watts and real-time hardware telemetry?",
-      a: "Bobine includes an eco-designed telemetry subsystem querying low-level hardware counters without root privileges: the intel-rapl kernel subsystem in microjoules on Intel mini PCs, the ioreg interface on macOS Apple Silicon, sysfs nodes on Android/Linux, and WMI/powercfg on Windows. CPU/GPU temperatures and effective RAM frequency (MT/s) are also reported in real time.",
+      a: "Bobine includes an eco-designed telemetry subsystem querying low-level hardware counters without root privileges: the intel-rapl kernel subsystem in microjoules on Intel mini PCs, the ioreg interface on macOS Apple Silicon, sysfs nodes on Android/Linux, and an estimate from processor load on Windows. CPU/GPU temperatures and effective RAM frequency (MT/s) are also reported in real time.",
     },
     {
       category: "hardware",
@@ -219,7 +219,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "What is the difference between the Stable, Beta and Canary channels?",
-      a: "The Stable release (e.g. Vx.y.z) is the official tested build recommended for production gym playout. Beta offers a batch of features/fixes I select and publish manually when ready. Canary provides continuous early access, rebuilt automatically on every commit to the main branch, with no curation. All three share identical system application IDs, install directly over your current version without creating duplicate apps, and allow reverting back to Stable anytime from Settings > Software Updates without data loss.",
+      a: "The Stable release (e.g. Vx.y.z) is the official tested build recommended for production gym playout. Beta offers a batch of features/fixes I select and publish manually when ready. Canary provides continuous early access, rebuilt automatically on every commit to the main branch, with no curation. All three share identical system application IDs, install directly over your current version without creating duplicate apps, and allow reverting back to Stable anytime from Settings > Software Updates without data loss (except on Android, where the system refuses to install an older version).",
     },
     {
       category: "updates",

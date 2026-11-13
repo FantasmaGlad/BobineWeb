@@ -4,6 +4,7 @@ import { useState } from "react";
 import Shot from "@/components/Shot";
 import ShareButton from "@/components/ShareButton";
 import type { Locale } from "@/lib/i18n";
+import { usageSectionTitle } from "@/content/docs/usage-sections";
 import "@/styles/split/pages-docs.css";
 
 interface DocsUtilisationViewProps {
@@ -113,7 +114,7 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
             </div>
           </div>
 
-          <h2 id="admin-dashboard">{isEn ? "Admin Dashboard" : "Panneau d'administration"}</h2>
+          <h2 id="admin-dashboard">{usageSectionTitle("admin-dashboard", locale)}</h2>
           <p>
             {isEn
               ? "Accessible on http://bobine.local from any web browser on your gym's local network — no client software or apps needed."
@@ -121,7 +122,7 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           </p>
           <Shot caption={isEn ? "Overview of the Bobine web administration dashboard" : "Vue d'ensemble du panneau d'administration"} />
 
-          <h3 id="workout-library">{isEn ? "Workout Library & Video Formats" : "Bibliothèque & Formats Vidéo Recommandés"}</h3>
+          <h3 id="workout-library">{usageSectionTitle("workout-library", locale)}</h3>
           <p>
             {isEn
               ? "Drag-and-drop or batch video upload, custom category management (Spinning, HIIT, Yoga, Pilates, Stretching), multi-file actions, upload progress tracking, and automatic video thumbnail extraction."
@@ -168,14 +169,14 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           </div>
           <Shot caption={isEn ? "Uploading video files via drag-and-drop into the media library" : "Import de vidéos par glisser-déposer dans la bibliothèque"} />
 
-          <h3 id="settings-displays">{isEn ? "Settings & Screen Routing" : "Paramètres & Routage d'écran"}</h3>
+          <h3 id="settings-displays">{usageSectionTitle("settings-displays", locale)}</h3>
           <p>
             {isEn
               ? "Control screen output routing (what plays on the wired HDMI TV vs what streams to networked browser displays), switch between the 9 themes, each in light and dark, language selection, and maintenance zone."
               : "Sortie d'écran (quel contenu sur l'écran câblé, quel contenu sur l'écran réseau), bascule instantanée parmi les 9 thèmes, chacun en clair et en sombre, langue, réseau, et zone de maintenance."}
           </p>
 
-          <h3 id="system-health-watchdog">{isEn ? "System Health & Watchdog Supervisor" : "Santé et Supervision Automatique"}</h3>
+          <h3 id="system-health-watchdog">{usageSectionTitle("system-health-watchdog", locale)}</h3>
           <p>
             {isEn
               ? "Bobine exposes a machine-readable health endpoint at GET http://bobine.local:1903/api/health (monitoring SQLite and the Chromium kiosk). A local systemd watchdog continuously tests it and restarts failing components automatically — your workout room recovers autonomously with zero staff intervention, even after a total power cut."
@@ -194,7 +195,7 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
             </div>
           )}
 
-          <h2 id="weekly-scheduling">{isEn ? "Weekly Scheduling & Automation" : "Planification & Automatisation"}</h2>
+          <h2 id="weekly-scheduling">{usageSectionTitle("weekly-scheduling", locale)}</h2>
           <p>
             {isEn
               ? "Build a recurring weekly timetable: each scheduled class triggers automatically at the exact second on the chosen display."
@@ -212,7 +213,7 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           </div>
           <Shot caption={isEn ? "Weekly scheduling grid with scheduled workout slots" : "Planning hebdomadaire avec des créneaux de cours"} />
 
-          <h2 id="member-cinema-on-demand-kiosk">{isEn ? "Member Cinema (On-Demand Kiosk)" : "Cinéma membre (borne à la demande)"}</h2>
+          <h2 id="member-cinema-on-demand-kiosk">{usageSectionTitle("member-cinema-on-demand-kiosk", locale)}</h2>
           <p>
             {isEn
               ? "The wired HDMI screen displays a clean fullscreen touch menu: members can browse available workouts and start a session themselves, featuring an animated countdown when an upcoming scheduled class approaches."
@@ -220,14 +221,14 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           </p>
           <Shot caption={isEn ? "Member cinema kiosk selection menu" : "Menu de sélection de la borne cinéma, vue membre"} />
 
-          <h2 id="network-secondary-display">{isEn ? "Network Secondary Display" : "Écran réseau secondaire"}</h2>
+          <h2 id="network-secondary-display">{usageSectionTitle("network-secondary-display", locale)}</h2>
           <p>
             {isEn
               ? "A completely independent second display output — any device with a browser on the local network (smart TV, iPad, PC) can open and display it simultaneously."
               : "Une seconde sortie, totalement indépendante de l'écran câblé — n'importe quel appareil avec un navigateur sur le réseau local peut l'afficher en simultané."}
           </p>
 
-          <h2 id="coach-audio-mode">{isEn ? "Coach Audio Mode" : "Mode coach audio"}</h2>
+          <h2 id="coach-audio-mode">{usageSectionTitle("coach-audio-mode", locale)}</h2>
           <p>
             {isEn
               ? "For workouts where only voice instructions and music are needed over the gym's speakers: an animated or branded background is shown on the TV while audio plays through the sound output."
@@ -235,7 +236,7 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           </p>
           <Shot caption={isEn ? "Coach audio mode display screen with animated backdrop" : "Écran du mode coach audio avec fond animé"} />
 
-          <h2 id="background-radio">{isEn ? "24/7 Background Music & Voice Alerts" : "Radio 24/7 & Rappels Vocaux"}</h2>
+          <h2 id="background-radio">{usageSectionTitle("background-radio", locale)}</h2>
           <p>
             {isEn
               ? "A continuous background music player: smooth crossfades between songs (adjustable 0s to 12s), shuffle, repeat, and scheduled vocal safety announcements ('Please wipe down equipment', closing warnings)."
@@ -243,7 +244,7 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           </p>
           <Shot caption={isEn ? "Admin Radio tab with active playlist and playback controls" : "Onglet Radio de l'admin : playlist en cours et contrôles"} />
 
-          <h2 id="mobile-phone-remote">{isEn ? "Mobile Phone Remote (QR Code)" : "Télécommande mobile (QR Code)"}</h2>
+          <h2 id="mobile-phone-remote">{usageSectionTitle("mobile-phone-remote", locale)}</h2>
           <p>
             {isEn
               ? "Scan the local QR code or open http://bobine.local:1903 on any phone connected to the gym Wi-Fi: the interface becomes a handheld controller for instructors (play, pause, seek, volume control, track skip)."
@@ -251,7 +252,7 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           </p>
           <Shot caption={isEn ? "Mobile remote control interface on a smartphone" : "Interface de télécommande mobile sur un téléphone"} />
 
-          <h2 id="wireless-hardware-remote">{isEn ? "Wireless Hardware Remotes" : "Télécommandes physiques sans fil"}</h2>
+          <h2 id="wireless-hardware-remote">{usageSectionTitle("wireless-hardware-remote", locale)}</h2>
           <p>
             {isEn
               ? "Bobine also supports standard plug-and-play USB air-mouse remotes (like presenter clickers): directional arrows and OK button to navigate and start classes, plus volume and playback controls with zero driver setup."

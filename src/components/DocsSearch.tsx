@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
 import Icon from "@/components/ui/Icon";
+import type { SearchEntry } from "@/lib/searchIndex";
 
 const MAX_RESULTS = 8;
 
@@ -63,286 +64,23 @@ function Highlighted({ text, terms }: { text: string; terms: string[] }): ReactN
   );
 }
 
-interface SearchEntry {
-  title: string;
-  category: string;
-  excerpt: string;
-  href: string;
-  tags: string[];
-}
-
-const SEARCH_DATABASE: Record<Locale, SearchEntry[]> = {
-  fr: [
-    {
-      title: "Matériel requis & prérequis",
-      category: "Démarrage rapide",
-      excerpt: "Dell Wyse 5070, HP EliteDesk 705, processeurs Intel et AMD x86-64, 4 Go de RAM, clé USB, HDMI et sono.",
-      href: "/fr/documentation#step-requirements",
-      tags: ["hardware", "wyse", "ram", "cle usb", "materiel", "intel", "amd", "ryzen", "sono"],
-    },
-    {
-      title: "Écrire l'image Debian sur clé USB (BalenaEtcher / dd)",
-      category: "Installation",
-      excerpt: "Flasher Debian 13 netinst avec BalenaEtcher ou la commande dd sous Linux.",
-      href: "/fr/documentation#step-flash-usb",
-      tags: ["etcher", "flash", "usb", "debian", "dd", "iso"],
-    },
-    {
-      title: "Installer Bobine sur Fedora, RHEL 10+, AlmaLinux 10+ ou Rocky Linux 10+ (dnf)",
-      category: "Installation",
-      excerpt: "Paquet .rpm et dépôt dnf packages.bobine.fit/fedora, clé de signature, ffmpeg complet via RPM Fusion.",
-      href: "/fr/documentation",
-      tags: ["fedora", "rpm", "dnf", "rhel", "alma", "rocky", "nobara", "rpm fusion", "ffmpeg"],
-    },
-    {
-      title: "Installer Bobine sur Arch Linux, EndeavourOS, CachyOS ou Manjaro (pacman)",
-      category: "Installation",
-      excerpt: "Paquet pacman et dépôt [bobine] packages.bobine.fit/arch, import de la clé, section pacman.conf.",
-      href: "/fr/documentation",
-      tags: ["arch", "archlinux", "pacman", "endeavouros", "cachyos", "manjaro", "pkg.tar.zst"],
-    },
-    {
-      title: "Installation Debian 13 minimale sans bureau",
-      category: "Installation",
-      excerpt: "Sélection des paquets : décocher GNOME/bureau, garder uniquement SSH et utilitaires système.",
-      href: "/fr/documentation#step-install-debian",
-      tags: ["debian", "trixie", "ssh", "sans bureau", "kiosque"],
-    },
-    {
-      title: "Script d'installation automatisé install.sh",
-      category: "Installation",
-      excerpt: "Exécuter git clone puis sudo ./install.sh pour installer Node, Python, MPV et les services systemd.",
-      href: "/fr/documentation#step-install-bobine",
-      tags: ["install.sh", "script", "automatique", "systemd", "fastapi"],
-    },
-    {
-      title: "Accéder à l'interface http://bobine.local",
-      category: "Configuration",
-      excerpt: "Première connexion depuis un navigateur sur le réseau local ou via l'adresse IP de la machine.",
-      href: "/fr/documentation#step-open-app",
-      tags: ["mdns", "bobine.local", "ip", "navigateur", "admin"],
-    },
-    {
-      title: "Bibliothèque de cours & import vidéo",
-      category: "Utilisation",
-      excerpt: "Import par glisser-déposer, catégories libres, génération automatique de miniatures.",
-      href: "/fr/documentation/utilisation#workout-library",
-      tags: ["videos", "import", "mp4", "cours", "bibliotheque"],
-    },
-    {
-      title: "Planificateur de cours hebdomadaire",
-      category: "Utilisation",
-      excerpt: "Grille horaire avec déclenchement à la seconde et allumage automatique de la télévision.",
-      href: "/fr/documentation/utilisation#weekly-scheduling",
-      tags: ["planning", "agenda", "cours", "horaires", "semaine"],
-    },
-    {
-      title: "Borne Cinéma Membre & Tactile",
-      category: "Utilisation",
-      excerpt: "Sélection autonome par les adhérents sur écran tactile ou télécommande.",
-      href: "/fr/documentation/utilisation#member-cinema-on-demand-kiosk",
-      tags: ["kiosque", "tactile", "adherent", "a la demande", "cinema"],
-    },
-    {
-      title: "Télécommande smartphone sans installation",
-      category: "Utilisation",
-      excerpt: "Scan de QR code local sur téléphone pour contrôler le cours à distance (lecture, pause, volume).",
-      href: "/fr/documentation/utilisation#mobile-phone-remote",
-      tags: ["smartphone", "remote", "qr code", "wifi", "volume", "telecommande"],
-    },
-    {
-      title: "Radio d'ambiance 24/7 & alertes vocales",
-      category: "Utilisation",
-      excerpt: "Diffusion continue avec fondu enchaîné (crossfade) et annonces vocales programmées.",
-      href: "/fr/documentation/utilisation#background-radio",
-      tags: ["radio", "musique", "crossfade", "annonces", "voix"],
-    },
-    {
-      title: "Sauvegarde et restauration ZIP",
-      category: "FAQ",
-      excerpt: "Exportez toute votre configuration en un clic et restaurez-la sur une nouvelle machine.",
-      href: "/fr/documentation/faq",
-      tags: ["sauvegarde", "restauration", "zip", "backup", "sqlite"],
-    },
-    {
-      title: "Résilience aux coupures de courant & Chien de garde",
-      category: "FAQ",
-      excerpt: "Surveillance continue via /api/health et relance automatique autonome après coupure.",
-      href: "/fr/documentation/faq",
-      tags: ["watchdog", "panne", "coupure", "courant", "reprise", "systemd"],
-    },
-    {
-      title: "Tableau de résolution des erreurs courantes",
-      category: "Dépannage",
-      excerpt: "Diagnostic pas à pas pour mDNS, écran noir, audio HDMI, VA-API et sauvegardes.",
-      href: "/fr/documentation/faq#troubleshooting-matrix",
-      tags: ["erreur", "depannage", "audio", "ecran noir", "sauvegarde", "mdns", "vainfo"],
-    },
-    {
-      title: "Commandes de diagnostic indispensables (systemctl, vainfo, logs)",
-      category: "Dépannage",
-      excerpt: "Commandes terminal pour tester les services systemd, les flux de logs et l'API de santé.",
-      href: "/fr/documentation/faq#troubleshooting-matrix",
-      tags: ["diagnostic", "journalctl", "systemctl", "vainfo", "terminal", "ssh"],
-    },
-    {
-      title: "Référence de l'API REST locale (/api/health, /api/playback)",
-      category: "Développeurs",
-      excerpt: "Documentation complète des endpoints REST asynchrones pour le contrôle de lecture et de la santé.",
-      href: "/fr/documentation/developpeurs#api",
-      tags: ["api", "rest", "endpoints", "health", "status", "playout", "json"],
-    },
-    {
-      title: "Protocole WebSocket temps réel (/ws/playback)",
-      category: "Développeurs",
-      excerpt: "Flux d'événements bidirectionnel pour la synchronisation instantanée des états entre écrans et télécommandes.",
-      href: "/fr/documentation/developpeurs#api",
-      tags: ["websocket", "ws", "events", "temps reel", "broadcast", "etat"],
-    },
-    {
-      title: "Architecture FastAPI, SQLite, MPV & Next.js",
-      category: "Développeurs",
-      excerpt: "Détails de la pile logicielle : backend mono-processus FastAPI, SQLite et WebSocket.",
-      href: "/fr/documentation/developpeurs#stack",
-      tags: ["fastapi", "python", "mpv", "sqlite", "architecture", "developpeurs"],
-    },
-  ],
-  en: [
-    {
-      title: "Required Hardware & Prerequisites",
-      category: "Quick Start",
-      excerpt: "Dell Wyse 5070, HP EliteDesk 705, Intel & AMD x86-64 CPUs, 4GB RAM, USB drive, HDMI cable, and gym sound system.",
-      href: "/en/documentation#step-requirements",
-      tags: ["hardware", "wyse", "ram", "usb", "intel", "amd", "ryzen", "sound", "amp"],
-    },
-    {
-      title: "Write Debian ISO to USB (BalenaEtcher / dd)",
-      category: "Installation",
-      excerpt: "Flash Debian 13 netinst with BalenaEtcher or Linux dd command.",
-      href: "/en/documentation#step-flash-usb",
-      tags: ["etcher", "flash", "usb", "debian", "dd", "iso"],
-    },
-    {
-      title: "Install Bobine on Fedora, RHEL 10+, AlmaLinux 10+ or Rocky Linux 10+ (dnf)",
-      category: "Installation",
-      excerpt: ".rpm package and dnf repository packages.bobine.fit/fedora, signing key, full ffmpeg through RPM Fusion.",
-      href: "/en/documentation",
-      tags: ["fedora", "rpm", "dnf", "rhel", "alma", "rocky", "nobara", "rpm fusion", "ffmpeg"],
-    },
-    {
-      title: "Install Bobine on Arch Linux, EndeavourOS, CachyOS or Manjaro (pacman)",
-      category: "Installation",
-      excerpt: "pacman package and [bobine] repository packages.bobine.fit/arch, key import, pacman.conf section.",
-      href: "/en/documentation",
-      tags: ["arch", "archlinux", "pacman", "endeavouros", "cachyos", "manjaro", "pkg.tar.zst"],
-    },
-    {
-      title: "Minimal Headless Debian 13 Installation",
-      category: "Installation",
-      excerpt: "Package selection: uncheck desktop environments, keep SSH server and standard system utilities.",
-      href: "/en/documentation#step-install-debian",
-      tags: ["debian", "trixie", "ssh", "headless", "kiosk"],
-    },
-    {
-      title: "Automated Playout Installation Script install.sh",
-      category: "Installation",
-      excerpt: "Run git clone then sudo ./install.sh to deploy Node, Python, MPV, and systemd services.",
-      href: "/en/documentation#step-install-bobine",
-      tags: ["install.sh", "script", "automation", "systemd", "fastapi"],
-    },
-    {
-      title: "Post-Install Validation & Hardware VA-API",
-      category: "Installation",
-      excerpt: "Verify Intel or AMD hardware video acceleration with vainfo and check systemd service units.",
-      href: "/en/documentation#step-install-bobine",
-      tags: ["vainfo", "intel", "amd", "vaapi", "systemd", "validation", "speaker-test"],
-    },
-    {
-      title: "Open Interface at http://bobine.local",
-      category: "Configuration",
-      excerpt: "First connection from any local network browser or via the machine IP address.",
-      href: "/en/documentation#step-open-app",
-      tags: ["mdns", "bobine.local", "ip", "browser", "admin"],
-    },
-    {
-      title: "Workout Library & Batch Video Upload",
-      category: "Usage Guide",
-      excerpt: "Drag-and-drop video imports, custom categories, automatic thumbnail generation.",
-      href: "/en/documentation/user-guide#workout-library",
-      tags: ["videos", "import", "mp4", "workouts", "library"],
-    },
-    {
-      title: "Automated Weekly Timetable Scheduler",
-      category: "Usage Guide",
-      excerpt: "Weekly timetable with second-precise automated class triggers and auto TV power.",
-      href: "/en/documentation/user-guide#weekly-scheduling",
-      tags: ["schedule", "timetable", "classes", "automation", "calendar"],
-    },
-    {
-      title: "Touchscreen Member Kiosk",
-      category: "Usage Guide",
-      excerpt: "Self-service workout browsing and launching for gym members between classes.",
-      href: "/en/documentation/user-guide#member-cinema-on-demand-kiosk",
-      tags: ["kiosk", "touch", "member", "on demand", "cinema"],
-    },
-    {
-      title: "Mobile Remote via QR Code (No App)",
-      category: "Usage Guide",
-      excerpt: "Scan local QR code on phone to control class playback, pause, and volume.",
-      href: "/en/documentation/user-guide#mobile-phone-remote",
-      tags: ["smartphone", "remote", "qr code", "wifi", "volume"],
-    },
-    {
-      title: "24/7 Background Music & Voice Reminders",
-      category: "Usage Guide",
-      excerpt: "Continuous audio playout with crossfade and automated spoken reminders.",
-      href: "/en/documentation/user-guide#background-radio",
-      tags: ["radio", "music", "crossfade", "announcements", "voice"],
-    },
-    {
-      title: "Common Error Resolution Matrix",
-      category: "Troubleshooting",
-      excerpt: "Step-by-step diagnostic fixes for mDNS, black screens, HDMI audio, and backups.",
-      href: "/en/documentation/faq#troubleshooting-matrix",
-      tags: ["error", "troubleshooting", "audio", "black screen", "backup", "mdns"],
-    },
-    {
-      title: "Essential Diagnostic Commands (systemctl, vainfo, logs)",
-      category: "Troubleshooting",
-      excerpt: "Terminal diagnostic commands to inspect service health, live logs, and audio.",
-      href: "/en/documentation/faq#troubleshooting-matrix",
-      tags: ["diagnostic", "journalctl", "systemctl", "vainfo", "terminal", "ssh"],
-    },
-    {
-      title: "Local REST API reference (/api/health, /api/playback)",
-      category: "Developers",
-      excerpt: "Complete technical reference for local REST endpoints, request/response models.",
-      href: "/en/documentation/developers#api",
-      tags: ["api", "rest", "endpoints", "health", "status", "playout", "json"],
-    },
-    {
-      title: "Real-time WebSocket protocol (/ws/playback)",
-      category: "Developers",
-      excerpt: "Real-time state broadcast events for multi-screen and remote control synchronization.",
-      href: "/en/documentation/developers#api",
-      tags: ["websocket", "ws", "events", "realtime", "broadcast", "state"],
-    },
-    {
-      title: "FastAPI, SQLite, MPV & Next.js Architecture",
-      category: "Developers",
-      excerpt: "Software stack details: single-process FastAPI backend, SQLite and WebSocket.",
-      href: "/en/documentation/developers#stack",
-      tags: ["fastapi", "python", "mpv", "sqlite", "architecture", "developers"],
-    },
-  ],
-};
-
 export default function DocsSearch({ locale }: { locale: Locale }) {
   const isEn = locale === "en";
   const [query, setQuery] = useState("");
   const router = useRouter();
 
-  const entries = SEARCH_DATABASE[locale] || SEARCH_DATABASE.fr;
+  const [entries, setEntries] = useState<SearchEntry[]>([]);
+
+  useEffect(() => {
+    if (!query.trim() || entries.length > 0) return;
+    let cancelled = false;
+    import("@/lib/searchIndex").then(({ SEARCH_INDEX }) => {
+      if (!cancelled) setEntries(SEARCH_INDEX[locale] || SEARCH_INDEX.fr);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [query, entries.length, locale]);
 
   const terms = useMemo(
     () =>

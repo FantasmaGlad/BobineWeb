@@ -48,7 +48,7 @@ export default function DocsMobileNav({ locale, items }: DocsMobileNavProps) {
   };
 
   const currentIndex = items.findIndex(([sub]) => {
-    const target = lp(locale, sub === "" ? "/documentation" : `/documentation/${sub}`);
+    const target = lp(locale, sub);
     return pathname === target;
   });
 
@@ -119,7 +119,7 @@ export default function DocsMobileNav({ locale, items }: DocsMobileNavProps) {
                   {locale === "en" ? "Table of Contents" : "Sommaire des guides"}
                 </span>
                 {items.map(([sub, label]) => {
-                  const href = lp(locale, sub === "" ? "/documentation" : `/documentation/${sub}`);
+                  const href = lp(locale, sub);
                   const isActive = pathname === href;
                   return (
                     <Link

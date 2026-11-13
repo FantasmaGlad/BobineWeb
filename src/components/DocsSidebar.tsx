@@ -16,12 +16,12 @@ export default function DocsSidebar({
 
   return (
     <nav aria-label="Documentation" className="docs-sidebar">
-      {items.map(([slug, label]) => {
-        const href = lp(locale, `/documentation${slug ? `/${slug}` : ""}`);
+      {items.map(([path, label]) => {
+        const href = lp(locale, path);
         const isActive = pathname === href;
         return (
           <Link
-            key={slug}
+            key={path}
             href={href}
             aria-current={isActive ? "page" : undefined}
             className={isActive ? "is-active" : undefined}

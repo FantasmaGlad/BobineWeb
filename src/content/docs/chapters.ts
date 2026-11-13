@@ -14,7 +14,7 @@ const fr: DocChapter[] = [
       {
         subtitle: "7.0 Suivi des versions & publication continue",
         paragraphs: [
-          "Chaque nouvelle version est publiée sur GitHub Releases (github.com/FantasmaGlad/Bobine/releases) avec son changelog détaillé, ses binaires signés pour les 5 systèmes d'exploitation, et son SHA-256 de vérification d'intégrité.",
+          "Chaque nouvelle version est publiée sur GitHub Releases (github.com/FantasmaGlad/Bobine/releases) avec son changelog détaillé, ses fichiers pour les 5 systèmes d'exploitation et un fichier SHA256SUMS signé pour en vérifier l'intégrité.",
           "Trois canaux permettent de suivre l'avancement du projet : le canal Stable (tags Vx.y.z figés, recommandé en production de salle), le canal Bêta (lots de fonctionnalités/correctifs curés, publiés manuellement) et le canal Canary (rolling, reconstruit automatiquement à chaque évolution du code sur la branche principale, pour les clubs souhaitant tester les toutes dernières modifications sans attendre un lot).",
           "Le hub de paquets Linux unifié (packages.bobine.fit) reflète les trois canaux dans ses distributions stable, beta et canary pour Debian/Ubuntu (packages.bobine.fit/debian, apt), Fedora (packages.bobine.fit/fedora, dnf) et Arch Linux (packages.bobine.fit/arch, pacman), avec la même clé de signature GPG.",
         ],
@@ -50,7 +50,7 @@ const en: DocChapter[] = [
       {
         subtitle: "7.0 Release tracking & continuous publishing",
         paragraphs: [
-          "Every new version is published on GitHub Releases (github.com/FantasmaGlad/Bobine/releases) with a detailed changelog, signed binaries for all 5 operating systems, and a SHA-256 integrity checksum.",
+          "Every new version is published on GitHub Releases (github.com/FantasmaGlad/Bobine/releases) with a detailed changelog, files for all 5 operating systems, and a signed SHA256SUMS file to verify their integrity.",
           "Three channels track the project's progress: the Stable channel (frozen Vx.y.z tags, recommended for production gym playout), the Beta channel (curated batches of features/fixes, published manually) and the Canary channel (rolling, automatically rebuilt on every change to the main branch, for clubs wanting the very latest changes without waiting for a batch).",
           "The unified Linux package hub (packages.bobine.fit) mirrors all three channels in its stable, beta and canary distributions for Debian/Ubuntu (packages.bobine.fit/debian, apt), Fedora (packages.bobine.fit/fedora, dnf) and Arch Linux (packages.bobine.fit/arch, pacman), with the same GPG signing key.",
         ],

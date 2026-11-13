@@ -1130,8 +1130,8 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 <h4>{isEn ? "Access administration & Mobile control" : "Administration & Télécommande mobile"}</h4>
                 <p>
                   {isEn
-                    ? "Safari opens to http://localhost:1903. Any coach or staff member on the gym Wi-Fi can scan the QR code to take control."
-                    : "Votre navigateur s'ouvre sur http://localhost:1903. Vos coachs connectés au Wi-Fi peuvent scanner le QR code pour piloter la régie depuis leur smartphone."}
+                    ? "Safari opens to http://localhost:1903. Any coach or staff member on the gym Wi-Fi can open http://bobine.local:1903 to take control."
+                    : "Votre navigateur s'ouvre sur http://localhost:1903. Vos coachs connectés au Wi-Fi ouvrent http://bobine.local:1903 pour piloter la régie depuis leur smartphone."}
                 </p>
               </div>
             </div>
@@ -1236,7 +1236,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                     <code>{isEn ? "sudo apt install ./bobine_*_amd64.deb # or ./bobine_*_arm64.deb on ARM64" : "sudo apt install ./bobine_*_amd64.deb # ou ./bobine_*_arm64.deb sur ARM64"}</code>
                     <button
                       type="button"
-                      onClick={() => copyToClipboard("sudo apt install ./bobine_*_amd64.deb")}
+                      onClick={() => copyToClipboard(isArm ? "sudo apt install ./bobine_*_arm64.deb" : "sudo apt install ./bobine_*_amd64.deb")}
                       className="docs-copy-btn"
                       aria-label={isEn ? "Copy command" : "Copier la commande"}
                     >

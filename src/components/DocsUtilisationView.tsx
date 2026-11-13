@@ -117,7 +117,7 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           <h2 id="admin-dashboard">{usageSectionTitle("admin-dashboard", locale)}</h2>
           <p>
             {isEn
-              ? "Accessible on http://bobine.local from any web browser on your gym's local network — no client software or apps needed."
+              ? "Accessible on http://bobine.local:1903 from any web browser on your gym's local network — no client software or apps needed."
               : "Accessible sur http://bobine.local:1903 depuis n'importe quel navigateur du réseau local — aucune installation cliente nécessaire."}
           </p>
           <Shot caption={isEn ? "Overview of the Bobine web administration dashboard" : "Vue d'ensemble du panneau d'administration"} />
@@ -239,16 +239,16 @@ export default function DocsUtilisationView({ locale }: DocsUtilisationViewProps
           <h2 id="background-radio">{usageSectionTitle("background-radio", locale)}</h2>
           <p>
             {isEn
-              ? "A continuous background music player: smooth crossfades between songs (adjustable 0s to 12s), shuffle, repeat, and scheduled vocal safety announcements ('Please wipe down equipment', closing warnings)."
-              : "Un lecteur de musique d'ambiance 24/7, façon Spotify : fondu enchaîné réglable (de 0s à 12s), lecture aléatoire, répétition, et rappels vocaux programmés (« re-rackez vos poids », consignes de fermeture)."}
+              ? "A continuous background music player: smooth crossfades between songs (4 s by default), shuffle, repeat, and scheduled vocal safety announcements ('Please wipe down equipment', closing warnings)."
+              : "Un lecteur de musique d'ambiance 24/7, façon Spotify : fondu enchaîné (4 s par défaut), lecture aléatoire, répétition, et rappels vocaux programmés (« re-rackez vos poids », consignes de fermeture)."}
           </p>
           <Shot caption={isEn ? "Admin Radio tab with active playlist and playback controls" : "Onglet Radio de l'admin : playlist en cours et contrôles"} />
 
           <h2 id="mobile-phone-remote">{usageSectionTitle("mobile-phone-remote", locale)}</h2>
           <p>
             {isEn
-              ? "Scan the local QR code or open http://bobine.local:1903 on any phone connected to the gym Wi-Fi: the interface becomes a handheld controller for instructors (play, pause, seek, volume control, track skip)."
-              : "Scannez le QR Code affiché dans l'administration ou ouvrez http://bobine.local:1903 sur un téléphone connecté au Wi-Fi : l'interface devient une télécommande de poche pour les coachs (lecture, pause, avance, volume, passage de piste)."}
+              ? "Open http://bobine.local:1903 on any phone connected to the gym Wi-Fi: the interface becomes a handheld controller for instructors (play, pause, seek, volume control, track skip)."
+              : "Ouvrez http://bobine.local:1903 sur un téléphone connecté au Wi-Fi : l'interface devient une télécommande de poche pour les coachs (lecture, pause, avance, volume, passage de piste)."}
           </p>
           <Shot caption={isEn ? "Mobile remote control interface on a smartphone" : "Interface de télécommande mobile sur un téléphone"} />
 

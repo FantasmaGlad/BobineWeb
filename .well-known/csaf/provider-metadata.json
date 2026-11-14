@@ -1,0 +1,25 @@
+{
+  "canonical_url": "https://bobine.fit/.well-known/csaf/provider-metadata.json",
+  "distributions": [
+    {
+      "directory_url": "https://bobine.fit/.well-known/csaf/white/"
+    }
+  ],
+  "last_updated": "2026-11-07T00:00:00.000Z",
+  "list_on_CSAF_aggregators": true,
+  "metadata_version": "2.0",
+  "mirror_on_CSAF_aggregators": true,
+  "public_openpgp_keys": [
+    {
+      "fingerprint": "23CAD324C507FB0F97E6AECA6E4C020EF8BDFEB2",
+      "url": "https://bobine.fit/.well-known/security.asc"
+    }
+  ],
+  "publisher": {
+    "category": "vendor",
+    "contact_details": "security@bobine.fit",
+    "name": "Bobine",
+    "namespace": "https://bobine.fit"
+  },
+  "role": "csaf_publisher"
+}

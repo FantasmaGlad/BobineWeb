@@ -20,10 +20,10 @@ function channelDownloads(tag: string, fileVersion: string, withNewPackages = fa
 }
 
 export const FALLBACK_STABLE: ReleaseChannelInfo = {
-  version: "V5.1.2",
-  title: "Bobine V5.1.2",
-  publishedAt: "2026-11-12T16:27:23Z",
-  downloads: channelDownloads("V5.1.2", "5.1.2", true),
+  version: "V5.2.2",
+  title: "Bobine V5.2.2",
+  publishedAt: "2026-11-13T20:47:21Z",
+  downloads: channelDownloads("V5.2.2", "5.2.2", true),
 };
 
 export const FALLBACK_BETA: ReleaseChannelInfo = {

@@ -26,7 +26,7 @@ const TEXT = {
     apiTitle: "API locale",
     api: "Bobine écoute sur le port 1903 (variable BOBINE_PORT). S'il est déjà pris, Bobine se replie sur un port libre. La documentation interactive de l'API est servie par l'application elle-même :",
     contribTitle: "Contribuer",
-    contrib: "Lisez CONTRIBUTING.md et docs/ARCHITECTURE.md avant d'ouvrir une pull request. Les failles se signalent en privé (SECURITY.md).",
+    contrib: "Lisez CONTRIBUTING.md avant d'ouvrir une pull request. Les failles se signalent en privé (SECURITY.md).",
   },
   en: {
     title: "Developer documentation",
@@ -44,7 +44,7 @@ const TEXT = {
     apiTitle: "Local API",
     api: "Bobine listens on port 1903 (BOBINE_PORT variable). If it is taken, Bobine falls back to a free port. The interactive API documentation is served by the application itself:",
     contribTitle: "Contributing",
-    contrib: "Read CONTRIBUTING.md and docs/ARCHITECTURE.en.md before opening a pull request. Vulnerabilities are reported privately (SECURITY.md).",
+    contrib: "Read CONTRIBUTING.md before opening a pull request. Vulnerabilities are reported privately (SECURITY.md).",
   },
 } as const;
 

@@ -1,0 +1,33 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+
+User-Agent: Googlebot
+User-Agent: Googlebot-Image
+User-Agent: Bingbot
+User-Agent: GPTBot
+User-Agent: ChatGPT-User
+User-Agent: OAI-SearchBot
+User-Agent: PerplexityBot
+User-Agent: Perplexity-User
+User-Agent: ClaudeBot
+User-Agent: Claude-User
+User-Agent: Claude-SearchBot
+User-Agent: anthropic-ai
+User-Agent: Google-Extended
+User-Agent: GoogleOther
+User-Agent: Applebot
+User-Agent: Applebot-Extended
+User-Agent: cohere-ai
+User-Agent: MistralAI-User
+User-Agent: Meta-ExternalAgent
+User-Agent: Meta-ExternalFetcher
+User-Agent: FacebookBot
+User-Agent: DuckAssistBot
+User-Agent: Amazonbot
+User-Agent: Bytespider
+User-Agent: YouBot
+Allow: /
+Disallow: /api/
+
+Sitemap: https://bobine.fit/sitemap.xml

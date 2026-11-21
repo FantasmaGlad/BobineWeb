@@ -1,0 +1,39 @@
+# Bobine
+
+> Bobine is free software (AGPL-3.0) that plays and schedules videos and music on the screens and speakers of a gym or fitness studio. It runs on a local machine and works offline: no account, no subscription, no cloud service.
+
+## Facts
+- Name: Bobine. Website: https://bobine.fit
+- Author: Clément Barillot (FantasmaGlad). Contact: clement.barillot@bobine.fit
+- License: AGPL-3.0. Source: https://github.com/FantasmaGlad/Bobine
+- Current versions (Stable, Beta, Canary): https://bobine.fit/latest.json
+- Stack: Python and FastAPI, SQLite, FFmpeg, Next.js, HTML5 video playback. Local web interface on port 1903, works offline.
+- Internet is needed to download and update, not to play.
+
+## Platforms
+- Windows 10 or 11, x86-64 or ARM64
+- macOS on Apple Silicon
+- Linux x86-64 or ARM64: .deb, .rpm and pacman packages, signed repositories at https://packages.bobine.fit
+- Android 14 or later, Android TV and Google TV
+- Dedicated Debian machine (kiosk, starts at boot): `curl -fsSL https://bobine.fit/install.sh | sudo bash`
+
+## Features
+- Weekly schedule that starts classes on time
+- Video output on the wired screen and on other screens of the local network
+- Background radio with crossfade and voice reminders
+- Touch kiosk for members, phone remote over local Wi-Fi
+- Subtitles (SRT, WebVTT) and chapters
+- Updates on three channels: Stable, Beta, Canary
+
+## Documentation
+- Install: https://bobine.fit/en/documentation (French: https://bobine.fit/fr/documentation)
+- Usage: https://bobine.fit/en/documentation/user-guide
+- FAQ: https://bobine.fit/en/documentation/faq
+- Developers: https://bobine.fit/en/documentation/developers
+- Downloads: https://bobine.fit/en (home page) and https://github.com/FantasmaGlad/Bobine/releases
+- About the author and the project: https://bobine.fit/en/about
+- Anonymization: https://bobine.fit/en/documentation/anonymization
+
+## Security
+- Disclosure policy and OpenPGP key: https://security.bobine.fit
+- Package signing key: https://packages.bobine.fit/bobine.gpg (fingerprint B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A)

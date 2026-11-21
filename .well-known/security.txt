@@ -1,0 +1,23 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+# Politique de divulgation de vulnerabilites de bobine.fit (RFC 9116).
+# Vulnerability disclosure policy for bobine.fit (RFC 9116).
+
+# Cle OpenPGP : empreinte 23CA D324 C507 FB0F 97E6 AECA 6E4C 020E F8BD FEB2
+Contact: mailto:security@bobine.fit
+Contact: https://github.com/FantasmaGlad/Bobine/security/advisories/new
+Expires: 2027-04-07T12:00:00.000Z
+Encryption: https://security.bobine.fit/security.asc
+Preferred-Languages: fr, en
+Canonical: https://security.bobine.fit/.well-known/security.txt
+CSAF: https://bobine.fit/.well-known/csaf/provider-metadata.json
+Policy: https://security.bobine.fit/fr/
+Policy: https://security.bobine.fit/
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQQjytMkxQf7D5fmrspuTAIO+L3+sgUCau+mogAKCRBuTAIO+L3+
+soXKAPkBmgL7twUvpyIOXSRW2QTHU0iX30QbGbuDISOcG358oQD/d7TKOzzoJ47i
+JT+ZK8wZR5X1WzJOmQMfSIibDRN/qQE=
+=hQKm
+-----END PGP SIGNATURE-----

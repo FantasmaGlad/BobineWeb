@@ -18,6 +18,7 @@ env:
 jobs:
   cleanup:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Supprimer tous les déploiements sauf la dernière production
         env:

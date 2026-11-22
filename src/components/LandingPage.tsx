@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Locale } from "@/lib/i18n";
 import { lp, SITE_NAME, AUTHOR_NAME } from "@/lib/seo";
-import { CLEARNET_URL } from "@/lib/onion";
+import { SITE_URL } from "@/lib/seo";
 import { OPERATING_SYSTEMS, REQUIREMENTS, ANDROID, type PlatformId } from "@/lib/productFacts";
 import { LANDING_PAGES, LANDING_COMMON, getLanding, type LandingId, type LandingSectionIcon } from "@/content/landing";
 import { getRepoStats } from "@/lib/releaseChannels";
@@ -14,7 +14,7 @@ import BrandIcon from "@/components/ui/BrandIcon";
 import "@/styles/split/landing.css";
 import Icon from "@/components/ui/Icon";
 
-const BASE_URL = CLEARNET_URL;
+const BASE_URL = SITE_URL;
 const CHANNELS = ["stable", "beta", "canary"] as const;
 
 const FALLBACK_PLATFORM: Partial<Record<LandingId, PlatformId>> = {

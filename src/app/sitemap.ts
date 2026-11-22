@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { locales } from "@/lib/i18n";
 import { getBobineReleases } from "@/lib/github-releases";
 import { EN_SLUG_MAP } from "@/lib/seo";
-import { CLEARNET_URL } from "@/lib/onion";
+import { SITE_URL } from "@/lib/seo";
 import { ROUTES } from "@/lib/siteMap";
 
 interface RouteConfig {
@@ -17,7 +17,7 @@ const staticRoutes: RouteConfig[] = ROUTES.filter((route) => !route.redirectTo).
 export const dynamic = "force-static";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = CLEARNET_URL;
+  const base = SITE_URL;
 
   let dynamicBlogRoutes: RouteConfig[] = [];
   let latestReleaseDate = new Date().toISOString().slice(0, 10);

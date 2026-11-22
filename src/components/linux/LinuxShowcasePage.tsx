@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { lp, SITE_NAME, AUTHOR_NAME } from "@/lib/seo";
-import { CLEARNET_URL } from "@/lib/onion";
+import { SITE_URL } from "@/lib/seo";
 import { OPERATING_SYSTEMS, REQUIREMENTS } from "@/lib/productFacts";
 import { getLanding } from "@/content/landing";
 import { getRepoStats } from "@/lib/releaseChannels";
@@ -16,7 +16,7 @@ import LinuxSecurityCard from "@/components/linux/LinuxSecurityCard";
 import "@/styles/split/landing.css";
 import "@/styles/split/linux-showcase.css";
 
-const BASE_URL = CLEARNET_URL;
+const BASE_URL = SITE_URL;
 
 export default async function LinuxShowcasePage({ locale }: { locale: Locale }) {
   const isEn = locale === "en";

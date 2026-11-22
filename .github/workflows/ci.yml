@@ -53,6 +53,8 @@ jobs:
             range="$BEFORE..$GITHUB_SHA"
           fi
           POLICY_RANGE="$range" bash scripts/ci/policy-check.sh
+      - name: ShellCheck
+        run: shellcheck -S error scripts/ci/*.sh scripts/security-txt/sign.sh
       - name: Commits de la demande de fusion
         if: github.event_name == 'pull_request'
         run: |
@@ -144,41 +146,6 @@ jobs:
           node scripts/ci/modal-check.mjs
           node scripts/ci/check-feature-menu.mjs
 
-  onion:
-    name: Miroir Tor (export statique)
-    needs: [changes]
-    if: needs.changes.outputs.code == 'true'
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - name: Installer Stable depuis la source canonique
-        run: node scripts/ci/sync-install.mjs
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-      - name: ShellCheck
-        run: shellcheck -S error deploy/onion/*.sh public/install-tor.sh scripts/ci/*.sh scripts/security-txt/sign.sh
-      - name: Export statique
-        run: npm run build:onion
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-      - name: Reprise des erreurs réseau SOCKS (proxy local, sans Tor)
-        run: python3 scripts/ci/test-tor-transport.py
-      - name: Contrôle du miroir
-        run: bash scripts/ci/verify-onion.sh out
-      - name: Overlays du miroir (aucune commande ni lien vers le web classique)
-        run: |
-          python3 deploy/onion/test-overlay-apt.py
-          python3 deploy/onion/test-site-signature.py
-          cp -r out out-overlay
-          python3 deploy/onion/overlay/site/commands-tor.py out-overlay
-          python3 deploy/onion/overlay/site/check-commands.py out-overlay
-
   security-site:
     name: Site de sécurité
     needs: [changes]
@@ -195,7 +162,7 @@ jobs:
   ci-ok:
     name: ci-ok
     if: always()
-    needs: [changes, policy, web, onion, security-site]
+    needs: [changes, policy, web, security-site]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

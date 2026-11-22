@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { type Locale } from "./i18n";
-import { IS_ONION } from "./onion";
 import { EN_SLUG_MAP } from "./slugs";
 
-import { CLEARNET_URL } from "./onion";
-
-const BASE_URL = CLEARNET_URL;
+export const SITE_URL = "https://bobine.fit";
+const BASE_URL = SITE_URL;
 
 export const SITE_NAME = "Bobine Fit";
 export const AUTHOR_NAME = "Clément Barillot";
@@ -25,7 +23,6 @@ export { EN_SLUG_MAP };
 
 export function lp(locale: Locale, pathname: string): string {
   if (pathname.startsWith("http://") || pathname.startsWith("https://")) return pathname;
-  if (IS_ONION) return `/${locale}${pathname}`;
   return `/${locale}${getLocalizedPath(pathname, locale)}`;
 }
 

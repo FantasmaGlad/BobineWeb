@@ -31,7 +31,6 @@
 - Developers: https://bobine.fit/en/documentation/developers
 - Downloads: https://bobine.fit/en (home page) and https://github.com/FantasmaGlad/Bobine/releases
 - About the author and the project: https://bobine.fit/en/about
-- Anonymization: https://bobine.fit/en/documentation/anonymization
 
 ## Security
 - Disclosure policy and OpenPGP key: https://security.bobine.fit

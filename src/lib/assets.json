@@ -58,14 +58,6 @@
     "tone": "ink",
     "color": "#000000"
   },
-  "os.tor": {
-    "name": "Tor",
-    "src": "/images/icons/os/tor.svg",
-    "tone": "ink",
-    "color": "#7D4698",
-    "render": "image",
-    "halo": true
-  },
   "chip.amd": {
     "name": "AMD",
     "src": "/images/icons/chips/amd.svg",

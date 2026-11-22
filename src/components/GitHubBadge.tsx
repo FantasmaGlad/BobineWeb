@@ -16,7 +16,6 @@ export default function GitHubBadge({ compact = false }: { compact?: boolean }) 
   );
 
   useEffect(() => {
-    if (process.env.NEXT_PUBLIC_BOBINE_ONION === "1") return;
     fetch("/api/github-stats")
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
@@ -25,7 +24,6 @@ export default function GitHubBadge({ compact = false }: { compact?: boolean }) 
       .catch(() => {});
   }, []);
 
-  const isOnion = process.env.NEXT_PUBLIC_BOBINE_ONION === "1";
   const starsCount = stats?.stars ?? 0;
   const releaseTag = stats?.latestRelease || "v2.0.1";
 
@@ -51,7 +49,6 @@ export default function GitHubBadge({ compact = false }: { compact?: boolean }) 
 
       <span className="github-badge__release">{releaseTag}</span>
 
-      {!isOnion && (
       <span className="github-badge__stars">
         <svg
           width="12"
@@ -64,7 +61,6 @@ export default function GitHubBadge({ compact = false }: { compact?: boolean }) 
         </svg>
         <span>{starsCount > 0 ? starsCount : "Star"}</span>
       </span>
-      )}
     </a>
   );
 }

@@ -15,7 +15,6 @@ const sections: Record<Locale, ReadonlyArray<readonly [string, string]>> = {
     ["/documentation/developpeurs", "Développeurs"],
     ["/commandes", "Commandes"],
     ["/api", "API HTTP"],
-    ["/documentation/anonymisation", "Anonymisation"],
   ],
   en: [
     ["/documentation", "Quick start"],
@@ -24,7 +23,6 @@ const sections: Record<Locale, ReadonlyArray<readonly [string, string]>> = {
     ["/documentation/developpeurs", "Developers"],
     ["/commandes", "Commands"],
     ["/api", "HTTP API"],
-    ["/documentation/anonymisation", "Anonymization"],
   ],
 };
 

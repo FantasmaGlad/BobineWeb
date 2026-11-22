@@ -5,7 +5,6 @@ export const EN_SLUG_MAP: Record<string, string> = {
   "/commandes": "/commands",
   "/documentation/utilisation": "/documentation/user-guide",
   "/documentation/developpeurs": "/documentation/developers",
-  "/documentation/anonymisation": "/documentation/anonymization",
   "/canaux": "/channels",
   "/canaux/stable": "/channels/stable",
   "/canaux/beta": "/channels/beta",

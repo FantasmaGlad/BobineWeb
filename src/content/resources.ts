@@ -150,13 +150,4 @@ export const resourceList: readonly ResourceItem[] = [
     icon: "icon:globe",
     tags: ["auteur", "author", "contact", "projet", "project", "a propos", "about"],
   },
-  {
-    id: "tor",
-    title: text("Anonymisation", "Anonymization"),
-    description: text("Installer et mettre à jour Bobine de façon anonyme.", "Install and update Bobine anonymously."),
-    path: "/documentation/anonymisation",
-    category: text("Distribution", "Distribution"),
-    icon: "icon:globe",
-    tags: ["anonymat", "miroir", "censure", "decentralise", "prive"],
-  },
 ] as const;

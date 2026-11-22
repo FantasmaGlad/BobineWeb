@@ -9,7 +9,7 @@ const check = process.argv.includes("--check");
 const SITE = "https://security.bobine.fit";
 const FP = readFileSync(join(root, "security/fingerprint.txt"), "utf8").trim().replace(/(.{4})(?!$)/g, "$1 ");
 const ADVISORY = "https://github.com/FantasmaGlad/Bobine/security/advisories/new";
-const POLICY = "https://github.com/FantasmaGlad/Bobine/blob/main/SECURITY.md";
+const POLICY = "https://github.com/FantasmaGlad/Bobine/blob/main/docs/SECURITY.md";
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const pre = (s) => `<pre><code>${esc(s)}</code></pre>`;
 

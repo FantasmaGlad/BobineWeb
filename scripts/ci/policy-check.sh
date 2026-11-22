@@ -14,7 +14,7 @@ done < <(git ls-files | cut -d/ -f1 | sort -u)
 
 while IFS= read -r f; do
   case "$f" in
-    README.md|README.fr.md|CONTRIBUTING.md|CODE_OF_CONDUCT.md|SECURITY.md|NOTICE.md) ;;
+    README.md) ;;
     *) err "Fichier Markdown non autorisé à la racine : $f" ;;
   esac
 done < <(git ls-files | grep -E '^[^/]+\.md$' || true)

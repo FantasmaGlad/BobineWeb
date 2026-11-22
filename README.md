@@ -11,7 +11,7 @@
 <p align="center">
   <a href="https://bobine.fit"><b>bobine.fit</b></a> &nbsp;·&nbsp;
   <a href="https://github.com/FantasmaGlad/Bobine#download"><b>Downloads</b></a> &nbsp;·&nbsp;
-  <a href="README.fr.md"><b>Français</b></a>
+  <a href="docs/fr/README.md"><b>Français</b></a>
 </p>
 
 <p align="center">
@@ -30,6 +30,6 @@
 
 ---
 
-License: view-only, all rights reserved ([LICENSE](LICENSE), [NOTICE.md](NOTICE.md)) · Security: [SECURITY.md](SECURITY.md) · Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
+License: view-only, all rights reserved ([LICENSE](LICENSE), [NOTICE.md](docs/NOTICE.md)) · Security: [SECURITY.md](docs/SECURITY.md) · Contributing: [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 <sub>Related repositories: [Bobine](https://github.com/FantasmaGlad/Bobine) (application) · [bobine-deploy](https://github.com/FantasmaGlad/bobine-deploy) (remote installation) · [bobine-packages](https://github.com/FantasmaGlad/bobine-packages) (Linux package repositories) · [homebrew-bobine](https://github.com/FantasmaGlad/homebrew-bobine) (Homebrew tap) · Security policy: [security.bobine.fit](https://security.bobine.fit), [`/.well-known/security.txt`](https://bobine.fit/.well-known/security.txt)</sub>

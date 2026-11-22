@@ -29,7 +29,7 @@ attempt() {
 
 check_pages() {
   local p code
-  for p in /fr /en /fr/documentation /fr/fonctionnalites /fr/a-propos /robots.txt /sitemap.xml /llms.txt /manifest.webmanifest; do
+  for p in /fr /en /fr/commandes /fr/api /fr/mentions-legales /fr/confidentialite /robots.txt /sitemap.xml /llms.txt /manifest.webmanifest; do
     code=$(get "$p" -sS -o /dev/null -w '%{http_code}' --max-time 30) || return 1
     echo "$p -> $code"
     [ "$code" = "200" ] || return 1

@@ -1,5 +1,3 @@
-
-
 :root {
   --accent-subtle: color-mix(in srgb, var(--accent-primary) 8%, transparent);
   --accent-glow: color-mix(in srgb, var(--accent-primary) 16%, transparent);

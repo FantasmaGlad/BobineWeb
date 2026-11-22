@@ -66,61 +66,6 @@ export const LINUX_FAMILIES: Record<LinuxFamilyId, LinuxFamily> = {
   },
 };
 
-export const FAMILY_NOTES: Record<"fedora" | "arch", { derivatives: Localized[]; limits: Localized[] }> = {
-  fedora: {
-    derivatives: [
-      { fr: "Fedora Workstation et Server : cible principale.", en: "Fedora Workstation and Server: the main target." },
-      { fr: "Nobara : même base Fedora, mêmes paquets.", en: "Nobara: same Fedora base, same packages." },
-      {
-        fr: "RHEL, AlmaLinux et Rocky Linux : installation via EPEL, avec un ffmpeg limité tant que RPM Fusion n'est pas ajouté.",
-        en: "RHEL, AlmaLinux and Rocky Linux: install through EPEL, with a limited ffmpeg until RPM Fusion is added.",
-      },
-    ],
-    limits: [
-      {
-        fr: "Fedora fournit un ffmpeg amputé de plusieurs codecs (ffmpeg-free) : pour lire tous les formats de cours, installez le ffmpeg complet de RPM Fusion.",
-        en: "Fedora ships a ffmpeg stripped of several codecs (ffmpeg-free): to play every class format, install the full ffmpeg from RPM Fusion.",
-      },
-      {
-        fr: "Les distributions immuables (Bazzite, Silverblue, Kinoite) ne sont pas prises en charge ni couvertes par la CI.",
-        en: "Immutable distributions (Bazzite, Silverblue, Kinoite) are neither supported nor covered by CI.",
-      },
-    ],
-  },
-  arch: {
-    derivatives: [
-      { fr: "Arch Linux, EndeavourOS et CachyOS : cibles principales (x86_64).", en: "Arch Linux, EndeavourOS and CachyOS: the main targets (x86_64)." },
-      {
-        fr: "Manjaro : ses dépôts sont décalés de ceux d'Arch, donc des dépendances peuvent manquer ou différer ; installation à vos risques.",
-        en: "Manjaro: its repositories lag behind Arch's, so dependencies may be missing or differ; install at your own risk.",
-      },
-      { fr: "Arch Linux ARM (aarch64) : voie prévue pour l'ARM64, pas encore essayée.", en: "Arch Linux ARM (aarch64): the intended route for ARM64, not yet tried." },
-    ],
-    limits: [
-      {
-        fr: "Évitez d'ajouter le dépôt sur un système qui n'est pas à jour : sur Arch, un paquet se met à jour avec tout le système (pacman -Syu), jamais seul.",
-        en: "Do not add the repository on a system that is not up to date: on Arch a package is updated together with the whole system (pacman -Syu), never alone.",
-      },
-    ],
-  },
-};
-
-export const NOT_VALIDATED_NOTE: Localized = {
-  fr: "Bobine fonctionne de manière fluide et autonome sur les architectures x86_64 et ARM64 avec accélération matérielle native.",
-  en: "Bobine runs smoothly and autonomously across x86_64 and ARM64 architectures with native hardware acceleration.",
-};
-
-export const REPOS_SOON_NOTE: Localized = {
-  fr: "Ce dépôt est temporairement indisponible. Consultez packages.bobine.fit pour connaître les canaux disponibles.",
-  en: "This repository is temporarily unavailable. Check packages.bobine.fit for available channels.",
-};
-
-export function repoStatusNote(family: LinuxFamilyId, locale: "fr" | "en"): string {
-  return isFamilyLive(family) ? "" : REPOS_SOON_NOTE[locale];
-}
-
-export const isFamilyLive = (family: LinuxFamilyId): boolean => LINUX_FAMILIES[family].live;
-
 function archToken(family: LinuxFamilyId, arch: PackageArch): string {
   if (family === "debian") return arch === "arm64" ? "arm64" : "amd64";
   return arch === "arm64" ? "aarch64" : "x86_64";
@@ -150,11 +95,6 @@ export function downloadKey(family: LinuxFamilyId, arch: PackageArch): keyof Dow
   if (family === "debian") return arch === "arm64" ? "linuxArm64" : "linux";
   if (family === "fedora") return arch === "arm64" ? "linuxRpmArm64" : "linuxRpm";
   return arch === "arm64" ? "linuxArchArm64" : "linuxArch";
-}
-
-export function packageLink(downloads: Downloads, family: LinuxFamilyId, arch: PackageArch): string | undefined {
-  if (!isFamilyLive(family)) return undefined;
-  return downloads[downloadKey(family, arch)] || undefined;
 }
 
 export function withoutNewPackages(downloads: Downloads): Downloads {
@@ -237,15 +177,6 @@ export function archCommands(channel: PackageChannel = "stable"): ArchCommands {
   };
 }
 
-export function keyCheckCommand(family: LinuxFamilyId): string {
-  return `curl -fsSL ${SIGNING_KEY_URL(family)} | gpg --show-keys --fingerprint`;
-}
-
-export function updateCommand(family: LinuxFamilyId): string {
-  if (family === "debian") return "sudo apt update && sudo apt upgrade";
-  return family === "fedora" ? fedoraCommands().upgrade : archCommands().upgrade;
-}
-
 export function aptInstallScript(channel: PackageChannel = "stable"): string {
   return [
     `curl -fsSL ${SIGNING_KEY_URL("debian")} \\`,
@@ -264,19 +195,4 @@ export function fedoraInstallScript(channel: PackageChannel = "stable"): string 
 export function archInstallScript(channel: PackageChannel = "stable"): string {
   const c = archCommands(channel);
   return [c.importKey, c.trustKey, `sudo tee -a /etc/pacman.conf <<'EOF'\n\n${c.pacmanConf}\nEOF`, c.install].join("\n");
-}
-
-export function linuxFormatsShort(locale: "fr" | "en"): string {
-  if (PACKAGE_REPOS_LIVE) return "Linux (.deb amd64/arm64, .rpm x86_64/aarch64, pacman x86_64/aarch64)";
-  return locale === "fr"
-    ? "Linux (.deb amd64 et arm64 ; .rpm et pacman bientôt)"
-    : "Linux (.deb amd64 and arm64; .rpm and pacman coming soon)";
-}
-
-export function slidingChannelPackageNames(channel: "beta" | "canary"): string[] {
-  const names = [packageFileName("debian", channel, "x86_64", channel)];
-  if (PACKAGE_REPOS_LIVE) {
-    names.push(packageFileName("fedora", channel, "x86_64", channel), packageFileName("arch", channel, "x86_64", channel));
-  }
-  return names;
 }

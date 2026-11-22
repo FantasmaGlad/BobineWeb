@@ -1,72 +1,21 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/lib/i18n";
-import { getBobineReleases } from "@/lib/github-releases";
-import { EN_SLUG_MAP } from "@/lib/seo";
-import { SITE_URL } from "@/lib/seo";
+import { EN_SLUG_MAP, SITE_URL } from "@/lib/seo";
 import { ROUTES } from "@/lib/siteMap";
-
-interface RouteConfig {
-  path: string;
-  priority: number;
-  changeFrequency: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
-  lastModified?: string;
-}
-
-const staticRoutes: RouteConfig[] = ROUTES.filter((route) => !route.redirectTo).map(({ path, priority, changeFrequency }) => ({ path, priority, changeFrequency }));
 
 export const dynamic = "force-static";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = SITE_URL;
-
-  let dynamicBlogRoutes: RouteConfig[] = [];
-  let latestReleaseDate = new Date().toISOString().slice(0, 10);
-  try {
-    const releases = await getBobineReleases();
-    if (releases.length > 0 && releases[0].publishedAt) {
-      latestReleaseDate = releases[0].publishedAt.slice(0, 10);
-    }
-    dynamicBlogRoutes = releases.map((rel) => ({
-      path: `/blog/${rel.slug}`,
-      priority: rel.slug.toLowerCase() === "beta" ? 0.8 : 0.75,
-      changeFrequency: rel.slug.toLowerCase() === "beta" ? "daily" : "monthly",
-      lastModified: rel.publishedAt.slice(0, 10),
-    }));
-  } catch {
-  }
-
-  if (!dynamicBlogRoutes.some((r) => r.path.toLowerCase() === "/blog/beta")) {
-    dynamicBlogRoutes.push({
-      path: "/blog/beta",
-      priority: 0.8,
-      changeFrequency: "daily",
-      lastModified: latestReleaseDate,
-    });
-  }
-
-  const allRoutes = [...staticRoutes, ...dynamicBlogRoutes];
-
+export default function sitemap(): MetadataRoute.Sitemap {
   return locales.flatMap((locale) =>
-    allRoutes.map(({ path, priority, changeFrequency, lastModified }) => {
-      const frUrl = `${base}/fr${path}`;
-      const enUrl = `${base}/en${EN_SLUG_MAP[path] ?? path}`;
-      const currentUrl = locale === "en" ? enUrl : frUrl;
-
+    ROUTES.filter((route) => !route.redirectTo).map(({ path, priority, changeFrequency }) => {
+      const frUrl = `${SITE_URL}/fr${path}`;
+      const enUrl = `${SITE_URL}/en${EN_SLUG_MAP[path] ?? path}`;
       return {
-        url: currentUrl,
-        lastModified: lastModified ?? latestReleaseDate,
+        url: locale === "en" ? enUrl : frUrl,
         changeFrequency,
         priority,
-        alternates: {
-          languages: {
-            "fr": frUrl,
-            "en": enUrl,
-            "fr-FR": frUrl,
-            "en-US": enUrl,
-            "x-default": enUrl,
-          },
-        },
+        alternates: { languages: { fr: frUrl, en: enUrl, "fr-FR": frUrl, "en-US": enUrl, "x-default": enUrl } },
       };
-    })
+    }),
   );
 }

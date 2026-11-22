@@ -7,8 +7,6 @@ export const ANDROID = {
   maxApi: 36,
 } as const;
 
-export const OPERATING_SYSTEMS = ["Windows", "macOS", "Linux", "Android", "Android TV"] as const;
-
 export type PlatformId = "windows" | "macos" | "linux" | "android" | "android-tv";
 
 export const REQUIREMENTS: Record<PlatformId, { name: string; fr: string; en: string }> = {

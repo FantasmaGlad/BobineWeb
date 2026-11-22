@@ -35,13 +35,10 @@ const securityHeaders = [
 
 const EN_PAGES = Object.entries(EN_SLUG_MAP).filter(([fr, en]) => fr !== en);
 
-const isOnion = process.env.NEXT_PUBLIC_BOBINE_ONION === "1";
-
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
   pageExtensions: ["ts", "tsx", "mdx"],
-  ...(isOnion ? { output: "export" as const, trailingSlash: true } : {}),
-  images: isOnion ? { unoptimized: true } : { formats: ["image/avif", "image/webp"] },
+  images: { formats: ["image/avif", "image/webp"] },
   experimental: {
     optimizeCss: true,
     optimizePackageImports: [
@@ -49,7 +46,7 @@ const nextConfig: NextConfig = {
       "remark-gfm",
     ],
   },
-  ...(isOnion ? {} : { async redirects() {
+  async redirects() {
     return [
       { source: "/fr/materiel", destination: "/fr/documentation", permanent: true },
       { source: "/fr/materiel/:path*", destination: "/fr/documentation", permanent: true },
@@ -58,8 +55,6 @@ const nextConfig: NextConfig = {
       { source: "/en/materiel", destination: "/en/documentation", permanent: true },
       { source: "/en/materiel/:path*", destination: "/en/documentation", permanent: true },
       { source: "/fr/comparatif/:path*", destination: "/fr", permanent: true },
-      { source: "/fr/tor", destination: "/fr/documentation/anonymisation", permanent: true },
-      { source: "/en/tor", destination: "/en/documentation/anonymization", permanent: true },
       { source: "/:locale(fr|en)/baamix", destination: "/:locale", permanent: true },
       { source: "/en/compare/:path*", destination: "/en", permanent: true },
       {
@@ -174,7 +169,7 @@ const nextConfig: NextConfig = {
         ],
       },
     ];
-  } }),
+  },
 };
 
 const withMDX = createMDX({});

@@ -38,7 +38,7 @@ Seule la version actuellement servie sur <https://bobine.fit> (la branche `main`
 
 ## Périmètre
 
-Dans le périmètre : le site `bobine.fit` et ses routes serveur, le miroir Tor, et les chaînes de construction et de déploiement du dépôt. Hors périmètre : les services tiers, l'ingénierie sociale, le déni de service et les scans massifs, les constats sans impact démontrable, et les erreurs de contenu (à signaler par un ticket ordinaire). La liste complète figure sur la page de politique.
+Dans le périmètre : le site `bobine.fit` et ses routes serveur, et les chaînes de construction et de déploiement du dépôt. Hors périmètre : les services tiers, l'ingénierie sociale, le déni de service et les scans massifs, les constats sans impact démontrable, et les erreurs de contenu (à signaler par un ticket ordinaire). La liste complète figure sur la page de politique.
 
 ## Recherche de bonne foi
 

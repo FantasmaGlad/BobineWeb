@@ -124,23 +124,6 @@
       "icon": "icon:cpu"
     },
     {
-      "id": "docs-anon",
-      "path": "/documentation/anonymisation",
-      "kind": "leaf",
-      "label": {
-        "fr": "Anonymisation",
-        "en": "Anonymization"
-      },
-      "description": {
-        "fr": "Installer et mettre à jour Bobine par Tor (services onion v3).",
-        "en": "Install and update Bobine over Tor (v3 onion services)."
-      },
-      "priority": 0.8,
-      "changeFrequency": "monthly",
-      "parent": "docs",
-      "icon": "icon:cpu"
-    },
-    {
       "id": "commands",
       "path": "/commandes",
       "kind": "leaf",

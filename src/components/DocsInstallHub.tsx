@@ -95,7 +95,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
   useEffect(() => {
     let isMounted = true;
-    if (process.env.NEXT_PUBLIC_BOBINE_ONION === "1") return;
     fetch("/api/github-stats")
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {

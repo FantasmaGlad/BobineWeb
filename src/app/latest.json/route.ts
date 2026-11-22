@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getRepoStats } from "@/lib/releaseChannels";
-import { CLEARNET_URL } from "@/lib/onion";
+import { SITE_URL } from "@/lib/seo";
 import { PACKAGE_REPOS_LIVE, withoutNewPackages } from "@/lib/linuxPackages";
 
 export const dynamic = "force-static";
@@ -18,7 +18,7 @@ export async function GET() {
   return NextResponse.json(
     {
       name: "Bobine",
-      homepage: CLEARNET_URL,
+      homepage: SITE_URL,
       repository: "https://github.com/FantasmaGlad/Bobine",
       license: "AGPL-3.0",
       latest_stable: stats.stable.version,

@@ -1,10 +1,10 @@
 import { getBobineReleases } from "@/lib/github-releases";
-import { CLEARNET_URL } from "@/lib/onion";
+import { SITE_URL } from "@/lib/seo";
 
 export const dynamic = "force-static";
 export const revalidate = 120;
 
-const BASE_URL = CLEARNET_URL;
+const BASE_URL = SITE_URL;
 
 function escapeXml(value: string): string {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");

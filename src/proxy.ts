@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { defaultLocale, locales, type Locale } from "@/lib/i18n";
-import { ONION_SITE_URL } from "@/lib/onion";
 
 export function proxy(request: NextRequest) {
   const host = request.headers.get("host") || "";
@@ -34,9 +33,7 @@ export function proxy(request: NextRequest) {
   }
 
   if (currentLocale) {
-    const response = NextResponse.next();
-    response.headers.set("Onion-Location", `${ONION_SITE_URL}${pathname}${request.nextUrl.search}`);
-    return response;
+    return NextResponse.next();
   }
 
   const targetLocale = flagLocale || detectedBrowserLocale || defaultLocale;

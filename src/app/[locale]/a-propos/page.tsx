@@ -13,11 +13,11 @@ const copy = {
     title: "À propos",
     subtitle: "Bobine est conçu, développé et publié par une seule personne. Cette page dit qui, et pourquoi le projet est construit ainsi.",
     metaTitle: "À propos — Bobine",
-    metaDescription: "Clément Barillot, créateur de Bobine : contact, et raisons des choix techniques du projet (plateformes, canaux de mise à jour, miroir Tor).",
+    metaDescription: "Clément Barillot, créateur de Bobine : contact, et raisons des choix techniques du projet (plateformes, canaux de mise à jour).",
     sections: [
       {
         heading: "Auteur",
-        body: "Clément Barillot, créateur de Bobine. Il développe et maintient seul l'application, ce site, les dépôts de paquets et le miroir Tor.",
+        body: "Clément Barillot, créateur de Bobine. Il développe et maintient seul l'application, ce site et les dépôts de paquets.",
         contact: `Contact : ${CONTACT}`,
         subtext: "Code source : github.com/FantasmaGlad/Bobine",
       },
@@ -34,10 +34,6 @@ const copy = {
         heading: "Pourquoi trois canaux de mise à jour ?",
         body: "Pour apprendre à tenir un processus de diffusion propre : Stable en bout de chaîne, Bêta par lots choisis, Canary reconstruite à chaque modification du code.",
       },
-      {
-        heading: "Pourquoi un miroir Tor pour des cours de cuisses-abdos-fessiers ?",
-        body: "C'est disproportionné pour une application de régie, et c'est assumé. Publier une application et ses dépôts par des miroirs en service onion, avec une installation qui ne révèle pas l'adresse de l'utilisateur, est un savoir-faire à maîtriser avant de publier un jour des applications plus sensibles. Bobine sert de terrain d'apprentissage.",
-      },
     ],
   },
   en: {
@@ -45,11 +41,11 @@ const copy = {
     title: "About",
     subtitle: "Bobine is designed, developed and published by one person. This page says who, and why the project is built this way.",
     metaTitle: "About — Bobine",
-    metaDescription: "Clément Barillot, creator of Bobine: contact, and the reasons behind the project's technical choices (platforms, update channels, Tor mirror).",
+    metaDescription: "Clément Barillot, creator of Bobine: contact, and the reasons behind the project's technical choices (platforms, update channels).",
     sections: [
       {
         heading: "Author",
-        body: "Clément Barillot, creator of Bobine. He develops and maintains the application, this website, the package repositories and the Tor mirror on his own.",
+        body: "Clément Barillot, creator of Bobine. He develops and maintains the application, this website and the package repositories on his own.",
         contact: `Contact: ${CONTACT}`,
         subtext: "Source code: github.com/FantasmaGlad/Bobine",
       },
@@ -65,10 +61,6 @@ const copy = {
       {
         heading: "Why three update channels?",
         body: "To learn to run a clean release process: Stable at the end of the line, Beta in chosen batches, Canary rebuilt on every change to the code.",
-      },
-      {
-        heading: "Why a Tor mirror for glutes-and-abs classes?",
-        body: "It is out of proportion for a playout application, and deliberately so. Publishing an application and its repositories through onion-service mirrors, with an installation that does not reveal the user's address, is a skill to master before publishing more sensitive applications one day. Bobine is the training ground.",
       },
     ],
   },

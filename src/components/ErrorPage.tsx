@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { IS_ONION, ONION_APT_HOST } from "@/lib/onion";
 import "@/styles/split/pages-misc.css";
 
 interface ErrorPageProps {
@@ -20,16 +18,10 @@ export default function ErrorPage({ code, titleFr, titleEn, textFr, textEn }: Er
         <p className="error-page__text" lang="en">{titleEn}. {textEn}</p>
       </main>
       <footer className="error-page__footer">
-        {IS_ONION ? (
-          <p>
-            <Link href="/fr">bobine.fit</Link> · <a href={`http://${ONION_APT_HOST}/`}>packages</a>
-          </p>
-        ) : (
-          <p>
-            <a href="https://bobine.fit">bobine.fit</a> · <a href="https://packages.bobine.fit">packages</a> ·{" "}
-            <a href="https://security.bobine.fit">security</a> · <a href="https://github.com/FantasmaGlad/Bobine">GitHub</a>
-          </p>
-        )}
+        <p>
+          <a href="https://bobine.fit">bobine.fit</a> · <a href="https://packages.bobine.fit">packages</a> ·{" "}
+          <a href="https://security.bobine.fit">security</a> · <a href="https://github.com/FantasmaGlad/Bobine">GitHub</a>
+        </p>
       </footer>
     </div>
   );

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
-import { CLEARNET_URL } from "@/lib/onion";
+import { SITE_URL } from "@/lib/seo";
 import { routeHref, trailOf, type RouteId } from "@/lib/siteMap";
 import "@/styles/components/page.css";
 
@@ -17,7 +17,7 @@ export default function Breadcrumbs({ locale, id, current, visible = true }: Bre
   const schema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: items.map((item, index) => ({ "@type": "ListItem", position: index + 1, name: item.name, item: `${CLEARNET_URL}${item.href}` })),
+    itemListElement: items.map((item, index) => ({ "@type": "ListItem", position: index + 1, name: item.name, item: `${SITE_URL}${item.href}` })),
   };
   const label = locale === "en" ? "Breadcrumb" : "Fil d'Ariane";
   return (

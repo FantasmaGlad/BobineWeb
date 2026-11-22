@@ -36,7 +36,7 @@
     {
       "ref": "bobine_machine_clients",
       "description": "Installateurs et clients de dépôts sans transformation navigateur",
-      "expression": "(http.host eq \"packages.bobine.fit\") or (http.request.uri.path in {\"/install-tor.sh\" \"/latest.json\" \"/feed.xml\"}) or starts_with(http.request.uri.path, \"/.well-known/\")",
+      "expression": "(http.host eq \"packages.bobine.fit\") or (http.request.uri.path in {\"/latest.json\" \"/feed.xml\"}) or starts_with(http.request.uri.path, \"/.well-known/\")",
       "action": "set_config",
       "action_parameters": {
         "bic": false,
@@ -50,7 +50,7 @@
     {
       "ref": "bobine_package_clients",
       "description": "Clients de dépôts et fichiers de confiance sans défi JavaScript",
-      "expression": "(http.host eq \"packages.bobine.fit\") or (http.request.uri.path in {\"/install-tor.sh\" \"/latest.json\" \"/feed.xml\"}) or starts_with(http.request.uri.path, \"/.well-known/\")",
+      "expression": "(http.host eq \"packages.bobine.fit\") or (http.request.uri.path in {\"/latest.json\" \"/feed.xml\"}) or starts_with(http.request.uri.path, \"/.well-known/\")",
       "action": "skip",
       "action_parameters": {
         "phases": [
@@ -113,20 +113,6 @@
           "Content-Security-Policy-Report-Only": {
             "operation": "set",
             "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; font-src 'self' data:; frame-ancestors 'self'; base-uri 'self'"
-          }
-        }
-      }
-    },
-    {
-      "ref": "bobine_packages_onion",
-      "description": "Adresse Tor du dépôt signé multi-distribution",
-      "expression": "http.host eq \"packages.bobine.fit\"",
-      "action": "rewrite",
-      "action_parameters": {
-        "headers": {
-          "Onion-Location": {
-            "operation": "set",
-            "value": "http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/"
           }
         }
       }

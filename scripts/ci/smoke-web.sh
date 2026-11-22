@@ -39,7 +39,7 @@ check_pages() {
 check_headers() {
   local h name
   h=$(get /fr -sSI --max-time 30)
-  for name in strict-transport-security x-content-type-options referrer-policy x-frame-options onion-location; do
+  for name in strict-transport-security x-content-type-options referrer-policy x-frame-options; do
     grep -qi "^$name:" <<< "$h" || { echo "en-tête absent : $name"; return 1; }
   done
 }

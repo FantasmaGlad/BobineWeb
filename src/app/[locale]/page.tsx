@@ -19,7 +19,6 @@ const copy = {
 } as const;
 
 import { buildMetadata } from "@/lib/seo";
-import { IS_ONION } from "@/lib/onion";
 
 export async function generateMetadata({
   params,
@@ -105,19 +104,17 @@ export default async function HomePage({
   return (
     <div className="container">
       <section className="hero-fullscreen">
-        {!IS_ONION && (
-          <div className="hero-fullscreen__backdrop-art hero-fullscreen__backdrop-art--left" aria-hidden="true">
-            <Image
-              src="/images/googlebooks.webp"
-              alt={locale === "en" ? "Google Book compatible with Bobine" : "Google Book compatible avec Bobine"}
-              className="hero-fullscreen__backdrop-img hero-fullscreen__backdrop-img--googlebook"
-              width={1024}
-              height={1024}
-              sizes="(max-width: 639px) 220px, (max-width: 1023px) 380px, 540px"
-              priority
-            />
-          </div>
-        )}
+        <div className="hero-fullscreen__backdrop-art hero-fullscreen__backdrop-art--left" aria-hidden="true">
+          <Image
+            src="/images/googlebooks.webp"
+            alt={locale === "en" ? "Google Book compatible with Bobine" : "Google Book compatible avec Bobine"}
+            className="hero-fullscreen__backdrop-img hero-fullscreen__backdrop-img--googlebook"
+            width={1024}
+            height={1024}
+            sizes="(max-width: 639px) 220px, (max-width: 1023px) 380px, 540px"
+            priority
+          />
+        </div>
 
         <div className="hero-fullscreen__backdrop-art" aria-hidden="true">
           <Image

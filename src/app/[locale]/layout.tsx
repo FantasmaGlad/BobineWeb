@@ -9,10 +9,9 @@ import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import GlobalRippleEffect from "@/components/GlobalRippleEffect";
-import { IS_ONION } from "@/lib/onion";
 import { getRepoStats } from "@/lib/releaseChannels";
 import { ReleaseProvider } from "@/components/ReleaseProvider";
-import { CLEARNET_URL } from "@/lib/onion";
+import { SITE_URL } from "@/lib/seo";
 import { THEME_INIT_SNIPPET } from "@/lib/themes";
 
 export function generateStaticParams() {
@@ -30,7 +29,7 @@ export async function generateMetadata({
   const isEn = locale === "en";
 
   return {
-    metadataBase: new URL(CLEARNET_URL),
+    metadataBase: new URL(SITE_URL),
     title: {
       default: isEn
         ? "Bobine — Open-Source Gym Video Playout & Cinema Suite | Proprietary Playout Alternative"
@@ -171,8 +170,8 @@ export default async function RootLayout({
         <main>{children}</main>
         <Footer locale={locale as Locale} dict={dict} />
 
-        {!IS_ONION && <ServiceWorkerRegistration locale={locale as Locale} />}
-        {!IS_ONION && <Analytics />}
+        <ServiceWorkerRegistration locale={locale as Locale} />
+        <Analytics />
         </ReleaseProvider>
       </body>
     </html>

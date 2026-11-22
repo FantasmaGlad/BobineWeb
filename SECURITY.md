@@ -38,7 +38,7 @@ Only the version currently served at <https://bobine.fit> (the `main` branch) re
 
 ## Scope
 
-In scope: the website `bobine.fit` and its server routes, the Tor mirror, and the repository's build and deployment pipelines. Out of scope: third-party services, social engineering, denial of service and mass scans, findings without a demonstrable impact, and content errors (report those as an ordinary issue). The full list is on the policy page.
+In scope: the website `bobine.fit` and its server routes, and the repository's build and deployment pipelines. Out of scope: third-party services, social engineering, denial of service and mass scans, findings without a demonstrable impact, and content errors (report those as an ordinary issue). The full list is on the policy page.
 
 ## Good-faith research
 

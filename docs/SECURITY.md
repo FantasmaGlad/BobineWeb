@@ -2,7 +2,7 @@
 
 This repository is the source of the website <https://bobine.fit>. The vulnerability-disclosure policy is published and maintained on the live site, and this page points to it. Always read the live policy: it is the one that applies.
 
-French version: [docs/fr/SECURITY.md](docs/fr/SECURITY.md).
+French version: [docs/fr/SECURITY.md](fr/SECURITY.md).
 
 ## Where the real policy is
 
@@ -11,7 +11,7 @@ French version: [docs/fr/SECURITY.md](docs/fr/SECURITY.md).
 | Policy page (scope, commitments, timelines, history of keys) | <https://security.bobine.fit> ([fr](https://security.bobine.fit/fr/)) |
 | Machine-readable policy, OpenPGP-signed ([RFC 9116](https://www.rfc-editor.org/rfc/rfc9116)) | <https://bobine.fit/.well-known/security.txt> |
 | Dedicated disclosure site, hosted separately from the website | <https://security.bobine.fit> |
-| Policy of the Bobine software and of the APT repository | [FantasmaGlad/Bobine, SECURITY.md](https://github.com/FantasmaGlad/Bobine/blob/main/SECURITY.md) |
+| Policy of the Bobine software and of the APT repository | [FantasmaGlad/Bobine, SECURITY.md](https://github.com/FantasmaGlad/Bobine/blob/main/docs/SECURITY.md) |
 
 ## Reporting a vulnerability
 
@@ -42,7 +42,7 @@ In scope: the website `bobine.fit` and its server routes, and the repository's b
 
 ## Good-faith research
 
-Research carried out in good faith within the scope and the rules of the policy page will not lead to any action from us. This is also true of the repository license: [LICENSE](LICENSE) section 4.
+Research carried out in good faith within the scope and the rules of the policy page will not lead to any action from us. This is also true of the repository license: [LICENSE](../LICENSE) section 4.
 
 ## Secrets found in this repository
 

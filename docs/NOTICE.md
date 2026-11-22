@@ -1,10 +1,10 @@
 # Éléments tiers
 
-Le code et les contenus de ce dépôt sont couverts par [`LICENSE`](LICENSE), sauf les éléments listés ici, qui restent soumis à leurs propres licences et à leurs propres titulaires.
+Le code et les contenus de ce dépôt sont couverts par [`LICENSE`](../LICENSE), sauf les éléments listés ici, qui restent soumis à leurs propres licences et à leurs propres titulaires.
 
 ## Bibliothèques
 
-Les dépendances de [`package.json`](package.json) sont installées depuis le registre npm et conservent leur licence (Next.js, React et leurs dépendances). Leur code n'est pas redistribué dans ce dépôt ; la liste exacte et les versions sont dans [`package-lock.json`](package-lock.json).
+Les dépendances de [`package.json`](../package.json) sont installées depuis le registre npm et conservent leur licence (Next.js, React et leurs dépendances). Leur code n'est pas redistribué dans ce dépôt ; la liste exacte et les versions sont dans [`package-lock.json`](../package-lock.json).
 
 ## Marques et logos
 
@@ -16,4 +16,4 @@ Les logos multicolores sont affichés en couleur, directement sur la surface du 
 
 ## Identité Bobine
 
-Le nom Bobine, les logos Bobine et les illustrations Baamix sont la propriété de Bobine ; voir [`LICENSE`](LICENSE).
+Le nom Bobine, les logos Bobine et les illustrations Baamix sont la propriété de Bobine ; voir [`LICENSE`](../LICENSE).

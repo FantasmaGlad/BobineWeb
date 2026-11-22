@@ -88,8 +88,8 @@ for (const [key, def] of Object.entries(registry)) {
 
 if (themes.length !== 18) fail(`${themes.length} thèmes détectés (18 attendus : 9 thèmes × clair et sombre)`);
 
-const notice = readFileSync(join(repo, "NOTICE.md"), "utf8").toLowerCase();
-for (const def of Object.values(registry)) if (!notice.includes(def.name.toLowerCase())) fail(`NOTICE.md n'attribue pas la marque « ${def.name} »`);
+const notice = readFileSync(join(repo, "docs/NOTICE.md"), "utf8").toLowerCase();
+for (const def of Object.values(registry)) if (!notice.includes(def.name.toLowerCase())) fail(`docs/NOTICE.md n'attribue pas la marque « ${def.name} »`);
 
 const allowed = new Set([join(srcDir, "lib/assets.json")]);
 for (const file of files) {

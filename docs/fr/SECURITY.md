@@ -2,7 +2,7 @@
 
 Ce dépôt contient les sources du site <https://bobine.fit>. La politique de divulgation des vulnérabilités est publiée et tenue à jour sur le site en ligne ; cette page y renvoie. Lisez toujours la politique en ligne : c'est elle qui s'applique.
 
-Version anglaise : [SECURITY.md](../../SECURITY.md).
+Version anglaise : [SECURITY.md](../SECURITY.md).
 
 ## Où se trouve la politique réelle
 
@@ -11,7 +11,7 @@ Version anglaise : [SECURITY.md](../../SECURITY.md).
 | Page de politique (périmètre, engagements, délais, historique des clés) | <https://security.bobine.fit/fr/> ([en](https://security.bobine.fit)) |
 | Politique lisible par machine, signée OpenPGP ([RFC 9116](https://www.rfc-editor.org/rfc/rfc9116)) | <https://bobine.fit/.well-known/security.txt> |
 | Site de divulgation dédié, hébergé séparément du site | <https://security.bobine.fit> |
-| Politique du logiciel Bobine et du dépôt APT | [FantasmaGlad/Bobine, SECURITY.md](https://github.com/FantasmaGlad/Bobine/blob/main/SECURITY.md) |
+| Politique du logiciel Bobine et du dépôt APT | [FantasmaGlad/Bobine, SECURITY.md](https://github.com/FantasmaGlad/Bobine/blob/main/docs/SECURITY.md) |
 
 ## Signaler une vulnérabilité
 

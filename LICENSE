@@ -49,7 +49,7 @@ VERSION FRANÇAISE
 4. Recherche de vulnérabilités
 
    La recherche de failles menée de bonne foi, dans le périmètre et selon les
-   règles de la politique SECURITY.md et de https://bobine.fit/fr/securite,
+   règles de la politique docs/SECURITY.md et de https://bobine.fit/fr/securite,
    n'est pas une violation de la présente licence.
 
 5. Éléments tiers
@@ -57,7 +57,7 @@ VERSION FRANÇAISE
    Le Site contient ou utilise des éléments qui n'appartiennent pas à Bobine
    (bibliothèques, décodeurs, marques, logos, images de produits). Ils restent
    soumis à leurs propres licences et à leurs propres titulaires ; la présente
-   licence ne leur donne ni ne leur retire aucun droit. Voir NOTICE.md.
+   licence ne leur donne ni ne leur retire aucun droit. Voir docs/NOTICE.md.
 
 6. Le logiciel Bobine
 
@@ -68,7 +68,7 @@ VERSION FRANÇAISE
 7. Contributions
 
    Ce dépôt n'accepte pas de contribution ; celles destinées à Bobine se font
-   sur le dépôt https://github.com/FantasmaGlad/Bobine (voir CONTRIBUTING.md).
+   sur le dépôt https://github.com/FantasmaGlad/Bobine (voir docs/CONTRIBUTING.md).
 
 8. Absence de garantie
 
@@ -127,7 +127,7 @@ ENGLISH VERSION (courtesy translation)
 
 4. Vulnerability research
 
-   Good-faith security research within the scope and rules of SECURITY.md and
+   Good-faith security research within the scope and rules of docs/SECURITY.md and
    https://bobine.fit/en/securite is not a violation of this license.
 
 5. Third-party components
@@ -135,7 +135,7 @@ ENGLISH VERSION (courtesy translation)
    The Site contains or uses components that do not belong to Bobine
    (libraries, decoders, trademarks, logos, product images). They remain subject
    to their own licenses and owners; this license neither grants nor removes
-   any right on them. See NOTICE.md.
+   any right on them. See docs/NOTICE.md.
 
 6. The Bobine software
 
@@ -146,7 +146,7 @@ ENGLISH VERSION (courtesy translation)
 7. Contributions
 
    This repository does not accept contributions; contributions to Bobine go
-   to https://github.com/FantasmaGlad/Bobine (see CONTRIBUTING.md).
+   to https://github.com/FantasmaGlad/Bobine (see docs/CONTRIBUTING.md).
 
 8. No warranty
 

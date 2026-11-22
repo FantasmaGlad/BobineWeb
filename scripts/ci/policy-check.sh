@@ -7,7 +7,7 @@ err() { echo "::error::$*"; fail=1; }
 
 while IFS= read -r top; do
   case "$top" in
-    .github|.gitignore|.gitattributes|.env.example) ;;
+    .github|.gitignore|.gitattributes) ;;
     .*) err "Entrée cachée non autorisée à la racine : $top" ;;
   esac
 done < <(git ls-files | cut -d/ -f1 | sort -u)
@@ -20,7 +20,7 @@ while IFS= read -r f; do
 done < <(git ls-files | grep -E '^[^/]+\.md$' || true)
 
 forbidden='(^|/)(\.env(\..*)?|id_(rsa|ed25519|ecdsa)[^/]*|hs_ed25519_[^/]*|[^/]*\.(pem|key|p12|pfx|jks|keystore|bundle|tar|tgz|tar\.gz|gpg|kdbx))$'
-if git ls-files | grep -E "$forbidden" | grep -vE '(^|/)\.env\.example$' | grep .; then
+if git ls-files | grep -E "$forbidden" | grep .; then
   err "Fichier sensible suivi par Git (liste ci-dessus)"
 fi
 

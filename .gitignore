@@ -18,10 +18,9 @@ coverage/
 playwright-report/
 test-results/
 
-# --- Variables d'environnement : seul le modèle est versionné ---
+# --- Variables d'environnement : jamais versionnées ---
 .env
 .env.*
-!.env.example
 
 # --- Clés, certificats et identifiants : jamais dans le dépôt ---
 # Les clés PUBLIQUES du site (public/.well-known/) ne sont pas concernées.

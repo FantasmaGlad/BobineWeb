@@ -1,7 +1,6 @@
 import "server-only";
 
 const REPO = "FantasmaGlad/Bobine";
-const DEPLOY_REPO = "FantasmaGlad/bobine-deploy";
 
 export const GITHUB_REVALIDATE_SECONDS = 120;
 
@@ -66,18 +65,4 @@ export function pickChannelReleases(releases: GitHubReleaseJson[]): {
     beta: bobine.find((release) => release.tag_name === "beta"),
     canary: bobine.find((release) => release.tag_name === "canary"),
   };
-}
-
-export async function fetchDeployReleases(): Promise<GitHubReleaseJson[] | null> {
-  try {
-    const res = await fetch(`https://api.github.com/repos/${DEPLOY_REPO}/releases?per_page=20`, {
-      headers: githubHeaders(),
-      next: { revalidate: GITHUB_REVALIDATE_SECONDS },
-    });
-    if (!res.ok) return null;
-    const data: unknown = await res.json();
-    return Array.isArray(data) ? (data as GitHubReleaseJson[]).filter((release) => !release.draft) : null;
-  } catch {
-    return null;
-  }
 }

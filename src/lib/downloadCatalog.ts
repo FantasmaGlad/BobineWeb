@@ -10,7 +10,7 @@ import {
   type PackageChannel,
 } from "@/lib/linuxPackages";
 
-export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "android-tv" | "cli";
+export type DownloadPlatform = "windows" | "macos" | "linux" | "android" | "android-tv";
 export type CpuArchitecture = "x86_64" | "arm64";
 
 export interface DownloadRequest {
@@ -36,7 +36,6 @@ export interface ResolvedDownload {
   url?: string;
   filename?: string;
   file?: ReleaseFile;
-  command?: string;
   checksumsSigned: boolean;
 }
 
@@ -68,7 +67,6 @@ export function resolveDownload(req: DownloadRequest): ResolvedDownload {
   let targets: string;
   let requirements: string | undefined;
   let format: string;
-  let command: string | undefined;
 
   switch (req.platform) {
     case "windows":
@@ -118,18 +116,6 @@ export function resolveDownload(req: DownloadRequest): ResolvedDownload {
       url = d.android;
       filename = `Bobine-${fileVersion}.apk`;
       break;
-    case "cli": {
-      heading = isEn ? "Dedicated appliance" : "Appliance dédiée";
-      targets = isEn
-        ? "Dedicated mini PCs on Debian (Dell Wyse 5070, HP ProDesk, Beelink, Raspberry Pi 5), installed by script"
-        : "Mini PC dédiés sous Debian (Dell Wyse 5070, HP ProDesk, Beelink, Raspberry Pi 5), installés par script";
-      format = "bash";
-      url = d.installScript;
-      filename = "install.sh";
-      const suffix = req.channel === "stable" ? "" : ` -s -- --channel=${req.channel}`;
-      command = `curl -fsSL https://bobine.fit/install.sh | sudo bash${suffix}`;
-      break;
-    }
   }
 
   return {
@@ -144,7 +130,6 @@ export function resolveDownload(req: DownloadRequest): ResolvedDownload {
     url,
     filename,
     file: url ? info.files?.[url] : undefined,
-    command,
     checksumsSigned: Boolean(info.checksumsSigned),
   };
 }

@@ -10,7 +10,7 @@ const copy = {
     badge: "Transparence & Cadre Légal",
     title: "Mentions Légales",
     subtitle: "Informations légales relatives à l'éditeur, à l'hébergement et aux droits d'utilisation du projet open-source Bobine.",
-    updated: "Dernière mise à jour : 7 novembre 2026",
+    updated: "Dernière mise à jour : 22 novembre 2026",
     sections: [
       {
         heading: "1. Éditeur du Site & Direction de la Publication",
@@ -48,7 +48,7 @@ const copy = {
     badge: "Transparency & Legal Framework",
     title: "Legal Notice",
     subtitle: "Legal information regarding the publisher, hosting, and the terms of use of the open-source Bobine project.",
-    updated: "Last updated: 7 November 2026",
+    updated: "Last updated: 22 November 2026",
     sections: [
       {
         heading: "1. Site Publisher & Publication Director",

@@ -64,7 +64,6 @@ export async function generateMetadata({
           "Gym streaming playout",
           "Virtual fitness kiosk",
           "Group fitness video player",
-          "Dell Wyse 5070 gym",
           "Open-source fitness software",
         ]
       : [
@@ -89,7 +88,6 @@ export async function generateMetadata({
           "Affichage dynamique fitness",
           "Streaming vidéo salle de sport",
           "Cours collectifs vidéo fitness",
-          "Dell Wyse 5070 streaming",
           "Logiciel libre sport",
         ],
   });

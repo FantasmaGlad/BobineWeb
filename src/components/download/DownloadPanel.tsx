@@ -42,7 +42,6 @@ const HEADING_ICON: Record<string, AssetKey> = {
   linux: "os.linux",
   android: "os.android",
   "android-tv": "os.androidtv",
-  cli: "os.linux",
 };
 
 function CopyButton({
@@ -139,7 +138,6 @@ export default function DownloadPanel({
   });
   const hasArch = platform === "windows" || platform === "linux";
   const isLinux = platform === "linux";
-  const isCli = platform === "cli";
   const size = formatSize(result.file?.size, locale);
   const published = result.file?.updatedAt ?? result.publishedAt;
   const publishedLabel = published
@@ -161,11 +159,6 @@ export default function DownloadPanel({
       : family === "fedora"
         ? fedoraInstallScript(channel)
         : archInstallScript(channel);
-  const cliSteps = [
-    "curl -fsSL https://bobine.fit/install.sh -o install.sh",
-    "less install.sh",
-    `sudo bash install.sh${channel === "stable" ? "" : ` --channel=${channel}`}`,
-  ].join("\n");
 
   const oneLine =
     platform === "windows"
@@ -196,7 +189,7 @@ export default function DownloadPanel({
   return (
     <dialog
       ref={dialogRef}
-      className={`dl-panel${isLinux || isCli ? " dl-panel--wide" : ""}`}
+      className={`dl-panel${isLinux ? " dl-panel--wide" : ""}`}
       aria-labelledby={titleId}
       onClose={onClose}
       onClick={(e) => {
@@ -325,30 +318,7 @@ export default function DownloadPanel({
             </div>
           )}
 
-          {isCli && (
-            <section className="dl-terminal-box" aria-labelledby={`${titleId}-cli`}>
-              <div className="dl-terminal-box__bar">
-                <div className="dl-terminal-box__meta">
-                  <span id={`${titleId}-cli`} className="dl-terminal-box__title">
-                    {isEn ? "Read the script, then run it" : "Lire le script, puis l'exécuter"}
-                  </span>
-                </div>
-                <CopyButton
-                  text={cliSteps}
-                  id="cli-steps"
-                  label={isEn ? "Copy" : "Copier"}
-                  copied={copied}
-                  onCopy={copy}
-                  isEn={isEn}
-                />
-              </div>
-              <pre className="dl-code">
-                <code>{cliSteps}</code>
-              </pre>
-            </section>
-          )}
-
-          {!isLinux && !isCli && (
+          {!isLinux && (
             <section className="dl-hero-action" aria-labelledby={`${titleId}-file`}>
               <div className="dl-hero-action__main">
                 {result.url ? (

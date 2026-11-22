@@ -167,10 +167,6 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/install.sh",
-        headers: [{ key: "X-Robots-Tag", value: "noindex" }],
-      },
-      {
         source: "/install.ps1",
         headers: [
           { key: "Content-Type", value: "text/plain; charset=utf-8" },

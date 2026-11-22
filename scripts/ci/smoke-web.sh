@@ -58,15 +58,9 @@ check_security_txt() {
 check_install_script() {
   local proof result=0
   proof=$(mktemp -d)
-  get /install.sh -fsS --max-time 30 -o "$proof/install.sh" &&
-    get /install-source.json -fsS --max-time 30 -o "$proof/install-source.json" &&
-    node scripts/ci/sync-install.mjs --verify-served "$proof/install.sh" "$proof/install-source.json" || result=1
-  if get /install-ps1-source.json -fsS --max-time 30 -o "$proof/install-ps1-source.json" 2>/dev/null; then
-    get /install.ps1 -fsS --max-time 30 -o "$proof/install.ps1" &&
-      node scripts/ci/sync-install.mjs --verify-served "$proof/install.ps1" "$proof/install-ps1-source.json" || result=1
-  else
-    echo "install.ps1 non servi (Stable antérieure à 5.1.0)"
-  fi
+  get /install.ps1 -fsS --max-time 30 -o "$proof/install.ps1" &&
+    get /install-ps1-source.json -fsS --max-time 30 -o "$proof/install-ps1-source.json" &&
+    node scripts/ci/sync-install.mjs --verify-served "$proof/install.ps1" "$proof/install-ps1-source.json" || result=1
   rm -rf "$proof"
   return "$result"
 }

@@ -5,7 +5,7 @@ import BrandIcon from "@/components/ui/BrandIcon";
 import type { Locale } from "@/lib/i18n";
 import { LINUX_SHOWCASE_CONTENT, getTerminalCommand } from "@/content/linuxShowcase";
 
-type Family = "debian" | "fedora" | "arch" | "appliance";
+type Family = "debian" | "fedora" | "arch";
 type Channel = "stable" | "beta" | "canary";
 
 export default function LinuxTerminal({ locale }: { locale: Locale }) {
@@ -42,22 +42,20 @@ export default function LinuxTerminal({ locale }: { locale: Locale }) {
           </div>
 
           <div className="linux-terminal__bar-actions">
-            {family !== "appliance" && (
-              <div className="linux-terminal__pills" role="radiogroup" aria-label="Canal de mise à jour">
-                {(["stable", "beta", "canary"] as const).map((ch) => (
-                  <button
-                    key={ch}
-                    type="button"
-                    role="radio"
-                    aria-checked={channel === ch}
-                    onClick={() => setChannel(ch)}
-                    className="linux-terminal__pill"
-                  >
-                    {t.channels[ch]}
-                  </button>
-                ))}
-              </div>
-            )}
+            <div className="linux-terminal__pills" role="radiogroup" aria-label="Canal de mise à jour">
+              {(["stable", "beta", "canary"] as const).map((ch) => (
+                <button
+                  key={ch}
+                  type="button"
+                  role="radio"
+                  aria-checked={channel === ch}
+                  onClick={() => setChannel(ch)}
+                  className="linux-terminal__pill"
+                >
+                  {t.channels[ch]}
+                </button>
+              ))}
+            </div>
 
             <button
               type="button"
@@ -119,16 +117,6 @@ export default function LinuxTerminal({ locale }: { locale: Locale }) {
             <span>{t.tabs.arch}</span>
           </button>
 
-          <button
-            type="button"
-            role="tab"
-            aria-selected={family === "appliance"}
-            onClick={() => setFamily("appliance")}
-            className="linux-terminal__tab"
-          >
-            <BrandIcon name="os.linux" className="linux-terminal__tab-icon" />
-            <span>{t.tabs.appliance}</span>
-          </button>
         </div>
 
         <div className="linux-terminal__body">

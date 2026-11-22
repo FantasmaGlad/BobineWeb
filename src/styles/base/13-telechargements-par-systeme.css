@@ -1,0 +1,156 @@
+.terminal-code-block__title {
+  display: flex;
+  align-items: center;
+}
+
+.terminal-code-block__title span,
+.terminal-code-block__title code {
+  color: #ffffff !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  font-size: var(--fs-0-725rem) !important;
+  font-family: "SF Mono", Monaco, Consolas, monospace !important;
+  font-weight: 500 !important;
+}
+
+@keyframes terminal-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.os-download-shell {
+  width: 100%;
+  max-width: 100%;
+}
+
+.os-download-desktop-view {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.os-download-desktop-header {
+  width: 100%;
+}
+
+.os-download-desktop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: clamp(0.6rem, 0.9vw, 0.95rem);
+  width: 100%;
+  margin-top: clamp(0.35rem, 0.7vh, 0.65rem);
+  margin-bottom: clamp(0.35rem, 0.7vh, 0.65rem);
+}
+
+@media (min-width: 1024px) {
+  .os-download-desktop-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(0.6rem, 0.9vw, 0.95rem);
+  }
+
+  .os-download-card {
+    padding: clamp(0.75rem, 1vw, 1.05rem);
+    min-height: 165px;
+  }
+
+  .os-download-card__header {
+    gap: 0.65rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .os-download-card__icon-wrap {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-md);
+  }
+
+  .os-download-card__icon {
+    transform: none;
+  }
+
+  .os-download-card__name {
+    font-size: var(--fs-1-05rem);
+  }
+
+  .os-download-card__subtitle {
+    font-size: var(--fs-0-76rem);
+    min-height: 2.4em;
+  }
+
+  .os-download-card__meta {
+    font-size: var(--fs-0-76rem);
+    min-height: 2.8rem;
+    margin-bottom: 0.55rem;
+    padding-top: 0.55rem;
+  }
+
+  .os-download-card__action {
+    font-size: var(--fs-0-82rem);
+    min-height: 38px;
+    padding: 0.45rem 0.75rem;
+  }
+}
+
+.os-download-mobile-view {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .os-download-card[data-platform="linux"] {
+    order: 1;
+  }
+
+  .os-download-card[data-platform="windows"] {
+    order: 2;
+  }
+
+  .os-download-card[data-platform="macos"] {
+    order: 3;
+  }
+
+  .os-download-card[data-platform="android"] {
+    order: 4;
+  }
+
+  .os-download-card[data-platform="android-tv"] {
+    order: 5;
+  }
+}
+
+.os-download-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1rem, 1.4vw, 1.35rem);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--bg-card) 76%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 80%, color-mix(in srgb, var(--specular) 20%, transparent));
+  text-decoration: none;
+  color: var(--text-heading);
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  min-height: 185px;
+  height: 100%;
+  box-shadow: 0 4px 20px -6px var(--shadow-color);
+}
+
+.os-download-card:hover {
+  transform: translateY(-3px);
+  background: color-mix(in srgb, var(--bg-card) 88%, transparent);
+  border-color: color-mix(in srgb, var(--accent-primary) 50%, var(--border-subtle));
+  box-shadow: 0 14px 32px -12px color-mix(in srgb, var(--accent-primary) 24%, transparent);
+}
+
+.os-download-card:active {
+  transform: scale(0.985);
+}
+
+.os-download-card--soon {
+  border-style: dashed;
+}
+
+.os-download-card--soon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--accent-primary) 18%, transparent);
+}

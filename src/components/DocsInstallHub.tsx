@@ -2,19 +2,15 @@
 
 import { useState, useEffect } from "react";
 import type { Locale } from "@/lib/i18n";
-import ScrollingCode from "@/components/ScrollingCode";
 import WindowsIcon from "@/components/icons/WindowsIcon";
 import AppleIcon from "@/components/icons/AppleIcon";
 import LinuxIcon from "@/components/icons/LinuxIcon";
-import Icon from "@/components/ui/Icon";
-import TerminalIcon from "@/components/icons/TerminalIcon";
 import AndroidIcon from "@/components/icons/AndroidIcon";
 import AndroidTvIcon from "@/components/icons/AndroidTvIcon";
-import QuickStartStepper from "@/components/QuickStartStepper";
 import { docChapters } from "@/content/docs/chapters";
 import { useDetectedPlatform, reorderForPlatform } from "@/lib/detectPlatform";
 
-import type { DeployPackages, ReleaseChannelInfo } from "@/lib/releaseTypes";
+import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
 import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFallbacks";
 import { useReleaseData } from "@/components/ReleaseProvider";
 import { ANDROID } from "@/lib/productFacts";
@@ -41,9 +37,8 @@ import {
 } from "@/lib/linuxPackages";
 import "@/styles/split/pages-docs.css";
 
-const DEPLOY_RELEASES = "https://github.com/FantasmaGlad/bobine-deploy/releases/latest";
 
-type InstallTab = "windows" | "macos" | "linux" | "android" | "ios" | "deploy" | "cli";
+type InstallTab = "windows" | "macos" | "linux" | "android" | "ios";
 type AndroidVariant = "mobile" | "tv";
 
 function ButtonLabel({ label }: { label: string }) {
@@ -70,7 +65,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
   const [stable, setStable] = useState<ReleaseChannelInfo>(initialRelease?.stable ?? FALLBACK_STABLE);
   const [beta, setBeta] = useState<ReleaseChannelInfo>(initialRelease?.beta ?? FALLBACK_BETA);
   const [canary, setCanary] = useState<ReleaseChannelInfo>(initialRelease?.canary ?? FALLBACK_CANARY);
-  const [deploy, setDeploy] = useState<DeployPackages | undefined>(initialRelease?.deploy);
   const [copiedCmd, setCopiedCmd] = useState(false);
   const [selectedArch, setSelectedArch] = useState<"x86_64" | "arm64">("x86_64");
   const [selectedFamily, setSelectedFamily] = useState<LinuxFamilyId>("debian");
@@ -109,7 +103,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         if (data.stable) setStable(data.stable);
         if (data.beta) setBeta(data.beta);
         if (data.canary) setCanary(data.canary);
-        if (data.deploy) setDeploy(data.deploy);
       })
       .catch(() => {});
     return () => {
@@ -273,55 +266,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       </div>
     </div>
   );
-
-  const renderDeployPackages = () => {
-    const links = deploy
-      ? [
-          { url: deploy.windows, text: "Windows x64" },
-          { url: deploy.windowsArm64, text: "Windows ARM64" },
-          { url: deploy.macosArm64, text: "macOS Apple Silicon" },
-          { url: deploy.macos, text: "macOS Intel" },
-          { url: deploy.deb, text: ".deb amd64" },
-          { url: deploy.debArm64, text: ".deb arm64" },
-          { url: deploy.rpm, text: ".rpm x86_64" },
-          { url: deploy.rpmArm64, text: ".rpm aarch64" },
-        ].filter((link): link is { url: string; text: string } => Boolean(link.url))
-      : [];
-    return (
-      <div className="docs-steps-flow">
-        <h3 className="docs-steps-flow__heading">
-          {deploy
-            ? isEn
-              ? `Packages, version ${deploy.version}:`
-              : `Paquets, version ${deploy.version} :`
-            : isEn
-              ? "Packages:"
-              : "Paquets :"}
-        </h3>
-        <p className="dx-p-6">
-          {links.length > 0
-            ? links.map((link, index) => (
-                <span key={link.url}>
-                  {index > 0 && " · "}
-                  <a href={link.url} rel="noopener noreferrer" download>
-                    {link.text}
-                  </a>
-                </span>
-              ))
-            : null}
-          {links.length > 0 && " · "}
-          <a href={deploy?.htmlUrl || DEPLOY_RELEASES} rel="noopener noreferrer">
-            {isEn ? "all files and checksums" : "tous les fichiers et empreintes"}
-          </a>
-        </p>
-        <p className="dx-p-6">
-          {isEn
-            ? "Command line: bobine-deploy --help. Source code, license and security policy: github.com/FantasmaGlad/bobine-deploy."
-            : "Ligne de commande : bobine-deploy --help. Code source, licence et politique de sécurité : github.com/FantasmaGlad/bobine-deploy."}
-        </p>
-      </div>
-    );
-  };
 
   const renderDivider = () => (
     <div className="docs-install-divider">
@@ -487,138 +431,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
         <span className="docs-method-version-text">{stable.version}</span>
         <span className="docs-method-meta-dot">·</span>
         <span>{cfg.archText}</span>
-        <span className="docs-method-meta-dot">·</span>
-        <a
-          href="https://github.com/FantasmaGlad/Bobine/releases"
-          target="_blank"
-          rel="noreferrer"
-          className="docs-method-source-link"
-        >
-          GitHub Releases
-        </a>
-      </div>
-    </>
-  );
-
-  const renderCliChannelCards = () => (
-    <>
-      <div className="docs-channels-grid">
-        <div className="download-modal__channel-card download-modal__channel-card--stable">
-          <div className="download-modal__card-header docs-channel-card__header">
-            <div className="download-modal__card-tag-row docs-channel-card__tag-row">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="download-modal__channel-icon" src="/images/channels/bobine-stable.webp" alt="" />
-              <span className="download-modal__badge download-modal__badge--stable">
-                {isEn ? "Stable Release" : "Version Stable"}
-              </span>
-              <span className="download-modal__badge download-modal__badge--rec">
-                {isEn ? "Recommended" : "Recommandé"}
-              </span>
-            </div>
-            <span className="download-modal__version docs-channel-card__version">{stable.version}</span>
-          </div>
-
-          <p className="download-modal__card-desc">
-            {isEn
-              ? "Official production release. 100% verified, stable and recommended for dedicated 24/7 gym kiosks."
-              : "Version officielle certifiée. 100% testée, stable et recommandée pour l'exploitation en salle de sport."}
-          </p>
-
-          <div className="download-modal__cli-block dx-div-13">
-            <ScrollingCode>curl -fsSL https://bobine.fit/install.sh | sudo bash</ScrollingCode>
-            <button
-              type="button"
-              className="download-modal__cli-copy-btn download-modal__cli-copy-btn--stable"
-              onClick={() => copyToClipboard("curl -fsSL https://bobine.fit/install.sh | sudo bash")}
-              aria-label={isEn ? "Copy command" : "Copier la commande"}
-            >
-              {copiedCmd ? (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-              ) : (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
-              )}
-              <span>{copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}</span>
-            </button>
-          </div>
-        </div>
-
-        <div className="download-modal__channel-card download-modal__channel-card--beta">
-          <div className="download-modal__card-header docs-channel-card__header">
-            <div className="download-modal__card-tag-row docs-channel-card__tag-row">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="download-modal__channel-icon" src="/images/channels/bobine-beta.webp" alt="" />
-              <span className="download-modal__badge download-modal__badge--beta">
-                {isEn ? "Beta (curated)" : "Bêta (curée)"}
-              </span>
-            </div>
-            <span className="download-modal__version docs-channel-card__version">{beta.commit ? `#${beta.commit}` : (isEn ? "Rolling" : "Continue")}</span>
-          </div>
-
-          <p className="download-modal__card-desc">
-            {isEn
-              ? "Beta: batches of features/fixes I select and publish manually when ready."
-              : "Bêta : lots de fonctionnalités/correctifs que je sélectionne et publie manuellement quand ils sont prêts."}
-          </p>
-
-          <div className="download-modal__cli-block dx-div-13">
-            <ScrollingCode>curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta</ScrollingCode>
-            <button
-              type="button"
-              className="download-modal__cli-copy-btn download-modal__cli-copy-btn--beta"
-              onClick={() => copyToClipboard("curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta")}
-              aria-label={isEn ? "Copy command" : "Copier la commande"}
-            >
-              {copiedCmd ? (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-              ) : (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
-              )}
-              <span>{copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}</span>
-            </button>
-          </div>
-        </div>
-
-        <div className="download-modal__channel-card download-modal__channel-card--canary">
-          <div className="download-modal__card-header docs-channel-card__header">
-            <div className="download-modal__card-tag-row docs-channel-card__tag-row">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="download-modal__channel-icon" src="/images/channels/bobine-canary.webp" alt="" />
-              <span className="download-modal__badge download-modal__badge--canary">
-                {isEn ? "Canary (rolling)" : "Canary (rolling)"}
-              </span>
-            </div>
-            <span className="download-modal__version docs-channel-card__version">{canary.commit ? `#${canary.commit}` : (isEn ? "Rolling" : "Continue")}</span>
-          </div>
-
-          <p className="download-modal__card-desc">
-            {isEn
-              ? "Canary: rebuilt automatically on every commit to main. Earliest access, zero curation, untested."
-              : "Canary : reconstruite automatiquement à chaque commit sur main. Accès le plus anticipé, zéro curation, non testé."}
-          </p>
-
-          <div className="download-modal__cli-block dx-div-13">
-            <ScrollingCode>curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=canary</ScrollingCode>
-            <button
-              type="button"
-              className="download-modal__cli-copy-btn download-modal__cli-copy-btn--canary"
-              onClick={() => copyToClipboard("curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=canary")}
-              aria-label={isEn ? "Copy command" : "Copier la commande"}
-            >
-              {copiedCmd ? (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-              ) : (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
-              )}
-              <span>{copiedCmd ? (isEn ? "Copied" : "Copié") : (isEn ? "Copy" : "Copier")}</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="docs-method-meta-row">
-        <span className="docs-method-version-text">{stable.version}</span>
-        <span className="docs-method-meta-dot">·</span>
-        <span>Debian 13 (x86_64 & ARM64 auto-detect)</span>
         <span className="docs-method-meta-dot">·</span>
         <a
           href="https://github.com/FantasmaGlad/Bobine/releases"
@@ -802,7 +614,7 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
 
   const tabs: Array<{
     id: InstallTab;
-    group: "desktop" | "appliance" | "roadmap";
+    group: "desktop" | "roadmap";
     name: string;
     format: string;
     badge: string;
@@ -848,28 +660,11 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
       badge: isEn ? "Explored" : "Explorée",
       icon: <AppleIcon size={20} />,
     },
-    {
-      id: "deploy",
-      group: "appliance",
-      name: "Bobine Deploy",
-      format: isEn ? "SSH · Network" : "SSH · Réseau",
-      badge: isEn ? "Network" : "Réseau",
-      icon: <Icon name="send" size={20} />,
-    },
-    {
-      id: "cli",
-      group: "appliance",
-      name: isEn ? "Dedicated Kiosk" : "Kiosque",
-      format: "Debian 13 · CLI",
-      badge: isEn ? "24/7 Gym" : "Salle 24/7",
-      icon: <TerminalIcon size={18} />,
-    },
   ];
 
   const orderedTabs = reorderForPlatform(
     [
       ...tabs.filter((tab) => tab.group === "desktop"),
-      ...tabs.filter((tab) => tab.group === "appliance"),
       ...tabs.filter((tab) => tab.group === "roadmap"),
     ],
     detected
@@ -1435,126 +1230,6 @@ export default function DocsInstallHub({ locale }: { locale: Locale }) {
                 </p>
               ))}
             </div>
-          </div>
-        </div>
-      )}
-
-      {activeTab === "deploy" && (
-        <div
-          id="panel-deploy"
-          role="tabpanel"
-          aria-labelledby="tab-deploy"
-          className="docs-install-panel animate-fade-in"
-        >
-          <div className="docs-method-hero">
-            <div className="docs-method-hero__left">
-              <div className="docs-method-hero__icon">
-                <Icon name="send" size={32} />
-              </div>
-              <div className="dx-div-14">
-                <h2 className="docs-method-hero__title">
-                  {isEn ? "Bobine Deploy (remote installation)" : "Bobine Deploy (installation à distance)"}
-                </h2>
-                <p className="docs-method-hero__desc">
-                  {isEn
-                    ? "Separate desktop application (Linux, Windows, macOS, x86_64 and ARM64) that finds the mini PC on your local network, connects to it over SSH and installs Bobine with live progress, from a window or the command line."
-                    : "Application de bureau séparée (Linux, Windows, macOS, x86_64 et ARM64) qui trouve le mini PC sur le réseau local, s'y connecte en SSH et installe Bobine avec une progression en temps réel, en fenêtre ou en ligne de commande."}
-                </p>
-              </div>
-            </div>
-
-          </div>
-
-          {renderDivider()}
-
-          {renderDeployPackages()}
-
-          {renderDivider()}
-
-          <div className="docs-steps-flow">
-            <h3 className="docs-steps-flow__heading">
-              {isEn ? "What Bobine Deploy does:" : "Ce que fait Bobine Deploy :"}
-            </h3>
-
-            <div className="docs-step-card">
-              <div className="docs-step-card__num">1</div>
-              <div className="docs-step-card__content">
-                <h4>{isEn ? "mDNS & Subnet Auto-Discovery" : "Découverte réseau mDNS & Balayage de sous-réseau"}</h4>
-                <p>
-                  {isEn
-                    ? "Automatically scans your gym LAN to detect Bobine machines (bobine.local) or sweeps the /24 local subnet to locate available mini PCs."
-                    : "Scanne automatiquement le réseau local pour repérer les machines Bobine (bobine.local) ou balaye le sous-réseau /24 pour localiser les mini PC connectés."}
-                </p>
-              </div>
-            </div>
-
-            <div className="docs-step-card">
-              <div className="docs-step-card__num">2</div>
-              <div className="docs-step-card__content">
-                <h4>{isEn ? "Remote SSH Hardware Audit" : "Audit matériel SSH à distance"}</h4>
-                <p>
-                  {isEn
-                    ? "Audits CPU specifications (Celeron J4105, Intel N100, AMD Ryzen), available RAM, NVMe/eMMC storage, and checks for VA-API hardware video acceleration."
-                    : "Interroge à distance le processeur (Celeron J4105, Intel N100, AMD Ryzen), la mémoire vive, le stockage SSD et vérifie la disponibilité de l'accélération VA-API."}
-                </p>
-              </div>
-            </div>
-
-            <div className="docs-step-card">
-              <div className="docs-step-card__num">3</div>
-              <div className="docs-step-card__content">
-                <h4>{isEn ? "One-Click Guided Remote Deployment" : "Déploiement distant guidé en un clic"}</h4>
-                <p>
-                  {isEn
-                    ? "Checks the SSH host key, uploads the installer from a signed Bobine release and runs it with live progress, without connecting a keyboard to the mini PC."
-                    : "Vérifie la clé d'hôte SSH, téléverse l'installateur d'une release signée de Bobine et le déroule avec une progression en temps réel, sans brancher de clavier au mini PC."}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {activeTab === "cli" && (
-        <div
-          id="panel-cli"
-          role="tabpanel"
-          aria-labelledby="tab-cli"
-          className="docs-install-panel animate-fade-in"
-        >
-          <div className="docs-method-hero">
-            <div className="docs-method-hero__left">
-              <div className="docs-method-hero__icon">
-                <TerminalIcon size={32} />
-              </div>
-              <div className="dx-div-14">
-                <h2 className="docs-method-hero__title">
-                  {isEn ? "Dedicated Gym Appliance (Debian 13 · CLI)" : "Appliance Dédiée & Kiosque 24/7 (Debian 13 · CLI)"}
-                </h2>
-                <p className="docs-method-hero__desc">
-                  {isEn
-                    ? "Recommended for permanent gym installations. Turns low-cost refurbished hardware (Dell Wyse 5070, Beelink N100) into an autonomous, maintenance-free playout appliance with a self-healing watchdog."
-                    : "La solution recommandée pour les studios et salles de sport : transforme un mini PC reconditionné sous Debian 13 minimale en régie autonome 365 jours/an avec chien de garde auto-réparateur."}
-                </p>
-              </div>
-            </div>
-
-            {renderCliChannelCards()}
-          </div>
-
-          {renderDivider()}
-
-          <div className="dx-div-11">
-            <h3 className="dx-h3-2">
-              {isEn ? "Step-by-Step Appliance Guide" : "Guide étape par étape"}
-            </h3>
-            <p className="dx-p-8">
-              {isEn
-                ? "Follow the 9 steps below, from hardware preparation to automated class playout in your studio."
-                : "Suivez les 9 étapes ci-dessous, de la préparation du matériel jusqu'à la diffusion automatisée des cours."}
-            </p>
-
-            <QuickStartStepper locale={locale} />
           </div>
         </div>
       )}

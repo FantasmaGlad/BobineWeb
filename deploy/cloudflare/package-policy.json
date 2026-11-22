@@ -36,7 +36,7 @@
     {
       "ref": "bobine_machine_clients",
       "description": "Installateurs et clients de dépôts sans transformation navigateur",
-      "expression": "(http.host eq \"packages.bobine.fit\") or (http.request.uri.path in {\"/install.sh\" \"/install-tor.sh\" \"/latest.json\" \"/feed.xml\"}) or starts_with(http.request.uri.path, \"/.well-known/\")",
+      "expression": "(http.host eq \"packages.bobine.fit\") or (http.request.uri.path in {\"/install-tor.sh\" \"/latest.json\" \"/feed.xml\"}) or starts_with(http.request.uri.path, \"/.well-known/\")",
       "action": "set_config",
       "action_parameters": {
         "bic": false,
@@ -50,7 +50,7 @@
     {
       "ref": "bobine_package_clients",
       "description": "Clients de dépôts et fichiers de confiance sans défi JavaScript",
-      "expression": "(http.host eq \"packages.bobine.fit\") or (http.request.uri.path in {\"/install.sh\" \"/install-tor.sh\" \"/latest.json\" \"/feed.xml\"}) or starts_with(http.request.uri.path, \"/.well-known/\")",
+      "expression": "(http.host eq \"packages.bobine.fit\") or (http.request.uri.path in {\"/install-tor.sh\" \"/latest.json\" \"/feed.xml\"}) or starts_with(http.request.uri.path, \"/.well-known/\")",
       "action": "skip",
       "action_parameters": {
         "phases": [

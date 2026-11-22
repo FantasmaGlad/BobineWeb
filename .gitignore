@@ -87,7 +87,5 @@ firewall-events*.json
 Thumbs.db
 
 # Installateur fourni par la release Stable et provenance vérifiée au build.
-/public/install.sh
-/public/install-source.json
 /public/install.ps1
 /public/install-ps1-source.json

@@ -82,8 +82,8 @@ export const FAMILY_NOTES: Record<"fedora" | "arch", { derivatives: Localized[];
         en: "Fedora ships a ffmpeg stripped of several codecs (ffmpeg-free): to play every class format, install the full ffmpeg from RPM Fusion.",
       },
       {
-        fr: "Les distributions immuables (Bazzite, Silverblue, Kinoite) ne conviennent pas à l'appliance kiosque : le système y est en lecture seule.",
-        en: "Immutable distributions (Bazzite, Silverblue, Kinoite) do not suit the kiosk appliance: the system is read-only there.",
+        fr: "Les distributions immuables (Bazzite, Silverblue, Kinoite) ne sont pas prises en charge ni couvertes par la CI.",
+        en: "Immutable distributions (Bazzite, Silverblue, Kinoite) are neither supported nor covered by CI.",
       },
     ],
   },

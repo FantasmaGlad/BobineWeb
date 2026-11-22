@@ -23,8 +23,8 @@ export async function generateMetadata({
       ? "Setup Guide & Documentation — Bobine | Multi-OS Playout Suite"
       : "Guide de Démarrage & Installation — Bobine | Régie Vidéo Multi-OS",
     description: isEn
-      ? "Official Bobine setup guide: native 1-click installers for Windows 11/10 (x86_64 & Snapdragon ARM64), macOS Apple Silicon, Linux (x86_64 & ARM64), Google Books (Aluminium OS), Android tablets and Android TV, remote installation over the local network with Bobine Deploy, and 24/7 dedicated gym appliance on Debian 13 (Mini PC x86_64, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5)."
-      : "Guide d'installation officiel de Bobine : installeurs natifs 1 clic pour Windows 11/10 (x86_64 & PC ARM Snapdragon), macOS Apple Silicon, Linux (x86_64 & ARM64), Google Books (Aluminium OS), tablettes Android et Android TV, installation à distance sur le réseau local avec Bobine Deploy, et régie autonome 24/7 sur mini PC Debian 13 (x86_64, NVIDIA DGX Spark, Raspberry Pi 5, Orange Pi 5).",
+      ? "Official Bobine setup guide: native 1-click installers for Windows 11/10 (x86_64 & Snapdragon ARM64), macOS Apple Silicon, Linux (x86_64 & ARM64), Google Books (Aluminium OS), Android tablets and Android TV."
+      : "Guide d'installation officiel de Bobine : installeurs natifs 1 clic pour Windows 11/10 (x86_64 & PC ARM Snapdragon), macOS Apple Silicon, Linux (x86_64 & ARM64), Google Books (Aluminium OS), tablettes Android et Android TV.",
     keywords: [
       "Documentation Bobine",
       "Démarrage rapide Bobine",
@@ -50,9 +50,6 @@ export async function generateMetadata({
       "Bobine Arch Linux",
       "Bobine Android",
       "Bobine Android TV",
-      "Bobine Deploy",
-      "Debian 13 mini PC fitness",
-      "Script install.sh Bobine",
     ],
   });
 }
@@ -89,15 +86,15 @@ export default async function DocumentationPage({
             locale={locale as Locale}
             pathname="/documentation"
             title={isEn ? "Bobine Installation & Quick Start Guide" : "Guide de Démarrage & Installation Bobine"}
-            description={isEn ? "Official setup guide for Bobine across Windows (x86_64 & ARM64), macOS, Linux (x86_64 & ARM64), Google Books, Android, Android TV, and dedicated appliances." : "Guide d'installation officiel de Bobine sur Windows (x86_64 & ARM64), macOS, Linux (x86_64 & ARM64), Google Books, Android, Android TV et mini PC dédiés."}
+            description={isEn ? "Official setup guide for Bobine across Windows (x86_64 & ARM64), macOS, Linux (x86_64 & ARM64), Google Books, Android and Android TV." : "Guide d'installation officiel de Bobine sur Windows (x86_64 & ARM64), macOS, Linux (x86_64 & ARM64), Google Books, Android et Android TV."}
           />
         </div>
       </div>
 
       <p className="dx-p-1">
         {isEn
-          ? "Bobine adapts to your setup: choose between 1-click applications for standard computers (Windows x86_64 & Snapdragon ARM64, Mac Apple Silicon, Linux x86_64 & ARM64, Google Books under Aluminium OS, Android tablets & TV) or deploy a dedicated 24/7 appliance (x86_64 or ARM64 mini PC) for uninterrupted studio playout with automatic recovery after power cuts."
-          : "Bobine s'adapte à vos besoins : choisissez entre les applications en 1 clic pour vos ordinateurs et tablettes (Windows x86_64 & PC ARM Snapdragon, Mac Apple Silicon, Linux x86_64 & ARM64, Google Books sous Aluminium OS, tablettes Android & Android TV), ou déployez une appliance dédiée 24/7 (mini PC x86_64 ou ARM64) pour une diffusion ininterrompue en studio avec reprise automatique après coupure de courant."}
+          ? "Bobine adapts to your setup: install the 1-click application for your computer or tablet (Windows x86_64 & Snapdragon ARM64, Mac Apple Silicon, Linux x86_64 & ARM64, Google Books under Aluminium OS, Android tablets & TV)."
+          : "Bobine s'adapte à vos besoins : installez l'application en 1 clic pour votre ordinateur ou votre tablette (Windows x86_64 & PC ARM Snapdragon, Mac Apple Silicon, Linux x86_64 & ARM64, Google Books sous Aluminium OS, tablettes Android & Android TV)."}
       </p>
 
       <p className="dx-p-2">

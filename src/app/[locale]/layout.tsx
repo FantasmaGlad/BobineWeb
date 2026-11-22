@@ -68,7 +68,6 @@ export async function generateMetadata({
           "open source gym software",
           "group fitness video scheduler",
           "self-hosted fitness kiosk",
-          "Dell Wyse 5070 gym playout",
         ]
       : [
           "Bobine",
@@ -93,7 +92,6 @@ export async function generateMetadata({
           "Régie vidéo fitness",
           "Diffusion cours collectifs vidéo",
           "Borne tactile fitness",
-          "Dell Wyse 5070",
           "Affichage dynamique salle de sport",
           "Logiciel libre sport",
           "Gym video playout",

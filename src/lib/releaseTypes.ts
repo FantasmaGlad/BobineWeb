@@ -6,19 +6,6 @@ export interface ReleaseFile {
   updatedAt?: string;
 }
 
-export interface DeployPackages {
-  version: string;
-  htmlUrl: string;
-  windows?: string;
-  windowsArm64?: string;
-  macos?: string;
-  macosArm64?: string;
-  deb?: string;
-  debArm64?: string;
-  rpm?: string;
-  rpmArm64?: string;
-}
-
 export interface ReleaseChannelInfo {
   version: string;
   commit?: string;
@@ -39,6 +26,5 @@ export interface ReleaseChannelInfo {
     macos: string;
     android: string;
     androidTv?: string;
-    installScript: string;
   };
 }

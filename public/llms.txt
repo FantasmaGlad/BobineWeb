@@ -15,7 +15,6 @@
 - macOS on Apple Silicon
 - Linux x86-64 or ARM64: .deb, .rpm and pacman packages, signed repositories at https://packages.bobine.fit
 - Android 14 or later, Android TV and Google TV
-- Dedicated Debian machine (kiosk, starts at boot): `curl -fsSL https://bobine.fit/install.sh | sudo bash`
 
 ## Features
 - Weekly schedule that starts classes on time

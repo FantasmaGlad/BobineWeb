@@ -1,6 +1,7 @@
 import "server-only";
 
 import { fetchRepoReleases, isAssistantRelease } from "@/lib/githubApi";
+import { findRelease } from "@/lib/releaseLookup";
 
 export interface BobineRelease {
   slug: string;
@@ -419,8 +420,7 @@ export async function getBobineReleases(): Promise<BobineRelease[]> {
 export async function getBobineRelease(
   slug: string
 ): Promise<BobineRelease | null> {
-  const releases = await getBobineReleases();
-  return releases.find((release) => release.slug.toLowerCase() === slug.toLowerCase()) ?? null;
+  return findRelease(await getBobineReleases(), FALLBACK_RELEASES, slug);
 }
 
 export async function getBobineStableReleases(): Promise<BobineRelease[]> {
@@ -430,21 +430,9 @@ export async function getBobineStableReleases(): Promise<BobineRelease[]> {
 }
 
 export async function getBobineBetaRelease(): Promise<BobineRelease | null> {
-  const releases = await getBobineReleases();
-  return (
-    releases.find((release) => release.slug.toLowerCase() === "beta") ??
-    releases.find((release) => release.isPrerelease && /beta/i.test(release.slug)) ??
-    FALLBACK_RELEASES.find((r) => r.slug === "beta") ??
-    null
-  );
+  return getBobineRelease("beta");
 }
 
 export async function getBobineCanaryRelease(): Promise<BobineRelease | null> {
-  const releases = await getBobineReleases();
-  return (
-    releases.find((release) => release.slug.toLowerCase() === "canary") ??
-    releases.find((release) => release.isPrerelease && /canary/i.test(release.slug)) ??
-    FALLBACK_RELEASES.find((r) => r.slug === "canary") ??
-    null
-  );
+  return getBobineRelease("canary");
 }

@@ -32,7 +32,8 @@
       "changeFrequency": "monthly",
       "parent": "home",
       "icon": "icon:terminal",
-      "nav": true
+      "nav": true,
+      "footer": "reference"
     },
     {
       "id": "api",
@@ -49,7 +50,9 @@
       "priority": 0.7,
       "changeFrequency": "monthly",
       "parent": "home",
-      "icon": "icon:layers"
+      "icon": "icon:layers",
+      "footer": "reference",
+      "nav": true
     },
     {
       "id": "legal",

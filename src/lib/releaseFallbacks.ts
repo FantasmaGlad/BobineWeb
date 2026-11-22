@@ -15,7 +15,6 @@ function channelDownloads(tag: string, fileVersion: string, withNewPackages = fa
     macos: `${base}/Bobine-${fileVersion}.dmg`,
     android: `${base}/Bobine-${fileVersion}.apk`,
     androidTv: `${base}/Bobine-TV-${fileVersion}.apk`,
-    installScript: `${base}/install.sh`,
   };
 }
 

@@ -1101,109 +1101,7 @@
      "path": "/api/devices/topology",
      "path_parameters": [],
      "query": [],
-     "summary": "Graphe machine → sorties audio, Bluetooth, Wi-Fi, Ethernet, écrans et télécommandes Bobine."
-    },
-    {
-     "body": null,
-     "method": "GET",
-     "path": "/api/devices/wifi",
-     "path_parameters": [],
-     "query": [],
-     "summary": "Wifi Status"
-    },
-    {
-     "body": null,
-     "method": "POST",
-     "path": "/api/devices/wifi/confirm",
-     "path_parameters": [],
-     "query": [],
-     "summary": "Wifi Confirm"
-    },
-    {
-     "body": {
-      "fields": [
-       {
-        "choices": null,
-        "name": "ssid",
-        "required": true,
-        "type": "string"
-       },
-       {
-        "choices": null,
-        "name": "password",
-        "required": false,
-        "type": "string"
-       },
-       {
-        "choices": null,
-        "name": "acknowledge_disconnect",
-        "required": false,
-        "type": "boolean"
-       }
-      ],
-      "format": "json"
-     },
-     "method": "POST",
-     "path": "/api/devices/wifi/connect",
-     "path_parameters": [],
-     "query": [],
-     "summary": "Wifi Connect"
-    },
-    {
-     "body": {
-      "fields": [
-       {
-        "choices": null,
-        "name": "ssid",
-        "required": true,
-        "type": "string"
-       },
-       {
-        "choices": null,
-        "name": "acknowledge_disconnect",
-        "required": false,
-        "type": "boolean"
-       }
-      ],
-      "format": "json"
-     },
-     "method": "POST",
-     "path": "/api/devices/wifi/forget",
-     "path_parameters": [],
-     "query": [],
-     "summary": "Wifi Forget"
-    },
-    {
-     "body": {
-      "fields": [
-       {
-        "choices": null,
-        "name": "on",
-        "required": true,
-        "type": "boolean"
-       },
-       {
-        "choices": null,
-        "name": "acknowledge_disconnect",
-        "required": false,
-        "type": "boolean"
-       }
-      ],
-      "format": "json"
-     },
-     "method": "POST",
-     "path": "/api/devices/wifi/power",
-     "path_parameters": [],
-     "query": [],
-     "summary": "Wifi Power"
-    },
-    {
-     "body": null,
-     "method": "POST",
-     "path": "/api/devices/wifi/scan",
-     "path_parameters": [],
-     "query": [],
-     "summary": "Wifi Scan"
+     "summary": "Graphe machine → sorties audio, Bluetooth, Ethernet, écrans et télécommandes Bobine."
     }
    ]
   },
@@ -1280,7 +1178,7 @@
      "path": "/api/health",
      "path_parameters": [],
      "query": [],
-     "summary": "Contrôle de santé lisible par machine, consommé par le chien de garde `bobine-watchdog` (redémarrage auto d'un composant mort) et par toute supervision externe."
+     "summary": "Contrôle de santé lisible par machine, pour toute supervision externe."
     }
    ]
   },
@@ -3329,7 +3227,7 @@
      "path": "/api/settings/display-output",
      "path_parameters": [],
      "query": [],
-     "summary": "Sortie active des deux canaux : câblé (écran du Wyse) et réseau (tout autre appareil du LAN)."
+     "summary": "Sortie active des deux canaux : câblé (écran branché à la machine) et réseau (tout autre appareil du LAN)."
     },
     {
      "body": {

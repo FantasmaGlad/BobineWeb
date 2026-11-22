@@ -160,7 +160,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: ShellCheck
-        run: shellcheck -S error deploy/onion/*.sh public/install-tor.sh public/install.sh scripts/ci/*.sh scripts/security-txt/sign.sh
+        run: shellcheck -S error deploy/onion/*.sh public/install-tor.sh scripts/ci/*.sh scripts/security-txt/sign.sh
       - name: Export statique
         run: npm run build:onion
         env:

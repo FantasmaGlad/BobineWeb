@@ -82,8 +82,6 @@
 .docs-callout,
 .docs-table-wrapper,
 .blog-hero-release-card,
-.stepper-focused-card,
-.stepper-continuous-item,
 .mobile-drawer-contact-card,
 .release-body__attachment,
 .download-modal__channel-card {
@@ -105,8 +103,6 @@
 }
 
 .docs-install-divider__pill,
-.stepper-mode-bar,
-.stepper-nav-pill,
 .docs-faq-filter-chip {
   background: var(--glass-inset-bg);
 }

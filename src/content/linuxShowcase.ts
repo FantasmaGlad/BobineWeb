@@ -201,9 +201,9 @@ export const LINUX_DISTRO_FAMILIES: DistroFamily[] = [
 export const LINUX_SHOWCASE_CONTENT = {
   fr: {
     hero: {
-      badge: "Appliance Kiosque & Poste de Bureau 2026",
+      badge: "Poste de bureau Linux 2026",
       title: "La puissance de Bobine. La liberté de Linux.",
-      lead: "Conçu pour les salles de sport, cinémas associatifs et régies audiovisuelles exigeantes : découvrez l'appliance autonome et le logiciel de diffusion pour Linux. Paquets natifs signés pour Debian, Fedora et Arch.",
+      lead: "Conçu pour les salles de sport, cinémas associatifs et régies audiovisuelles exigeantes : découvrez le logiciel de diffusion pour Linux. Paquets natifs signés pour Debian, Fedora et Arch.",
       ctaPrimary: "Installer sur votre machine",
       ctaSecondary: "Explorer les dépôts officiels",
       chipsLabel: "Architectures matérielles compatibles :",
@@ -222,7 +222,6 @@ export const LINUX_SHOWCASE_CONTENT = {
         debian: "Debian & Ubuntu",
         fedora: "Fedora & RHEL",
         arch: "Arch Linux",
-        appliance: "Script Appliance Dédiée",
       },
       channels: {
         stable: "Stable (Production)",
@@ -238,7 +237,7 @@ export const LINUX_SHOWCASE_CONTENT = {
     distros: {
       sectionTag: "Familles de distributions",
       sectionTitle: "Distributions Linux prises en charge (glibc 2.38 ou plus récente).",
-      sectionDesc: "Qu'il s'agisse d'une appliance Debian dédiée tournant en continu 24h/24 ou de votre station de travail de montage Fedora ou Arch, Bobine s'intègre comme un paquet système natif.",
+      sectionDesc: "Debian, Ubuntu, Fedora ou Arch : Bobine s'intègre comme un paquet système natif.",
     },
     bento: {
       sectionTag: "Architecture Audiovisuelle",
@@ -253,16 +252,6 @@ export const LINUX_SHOWCASE_CONTENT = {
             "Support matériel H.264, HEVC / H.265, VP9 et AV1",
             "Sortie multi-écrans HDMI indépendante en plein écran natif",
             "Zéro saccade ni déchirement d'image (V-Sync Wayland / X11)",
-          ],
-        },
-        {
-          badge: "Résilience Kiosque 24/7",
-          title: "Appliance durcie avec auto-guérison Systemd",
-          desc: "En mode appliance, Bobine démarre instantanément à l'allumage sans afficher de bureau. Le service systemd est sécurisé en bac à sable strict et surveillé par un watchdog systemd (contrôle toutes les 30 secondes).",
-          features: [
-            "Démarrage silencieux direct vers l'écran de projection",
-            "Redémarrage automatique au passage suivant du contrôle en cas d'anomalie",
-            "Montage automatique sécurisé des clés USB de cours",
           ],
         },
         {
@@ -306,7 +295,7 @@ export const LINUX_SHOWCASE_CONTENT = {
   },
   en: {
     hero: {
-      badge: "Kiosk Appliance & Desktop Playout 2026",
+      badge: "Linux Desktop Playout 2026",
       title: "The power of Bobine. The freedom of Linux.",
       lead: "Engineered for fitness studios, community cinemas and demanding audiovisual desks: experience the autonomous playout system for Linux. Native signed packages for Debian, Fedora and Arch Linux.",
       ctaPrimary: "Install on your machine",
@@ -327,7 +316,6 @@ export const LINUX_SHOWCASE_CONTENT = {
         debian: "Debian & Ubuntu",
         fedora: "Fedora & RHEL",
         arch: "Arch Linux",
-        appliance: "Dedicated Kiosk Script",
       },
       channels: {
         stable: "Stable (Production)",
@@ -343,7 +331,7 @@ export const LINUX_SHOWCASE_CONTENT = {
     distros: {
       sectionTag: "Distribution families",
       sectionTitle: "Supported Linux distributions (glibc 2.38 or newer).",
-      sectionDesc: "Whether running on a dedicated 24/7 Debian appliance or on your Fedora or Arch production workstation, Bobine integrates as a native system package.",
+      sectionDesc: "Debian, Ubuntu, Fedora or Arch: Bobine integrates as a native system package.",
     },
     bento: {
       sectionTag: "Audiovisual Architecture",
@@ -358,16 +346,6 @@ export const LINUX_SHOWCASE_CONTENT = {
             "Hardware decoding for H.264, HEVC / H.265, VP9 and AV1",
             "Independent multi-screen HDMI output in native fullscreen",
             "Zero tearing or frame drops (V-Sync Wayland / X11)",
-          ],
-        },
-        {
-          badge: "24/7 Kiosk Resilience",
-          title: "Hardened appliance with Systemd watchdog",
-          desc: "In appliance mode, Bobine boots directly into the projection screen without displaying any desktop chrome. The systemd service is sandboxed and monitored by a systemd watchdog (checked every 30 seconds).",
-          features: [
-            "Silent boot straight into the classroom or kiosk display",
-            "Automatic restart at the next check after an unexpected failure",
-            "Automatic and secure mounting of removable instructor media",
           ],
         },
         {
@@ -463,8 +441,5 @@ export function getTerminalCommand(family: string, channel: string): string {
     ].join("\n");
   }
 
-  return [
-    "# Script d'installation automatique pour appliance dédiée (Debian 13 minimale)",
-    `curl -fsSL https://bobine.fit/install.sh | bash${channel !== "stable" ? ` -s -- --channel=${channel}` : ""}`,
-  ].join("\n");
+  throw new Error(`Famille Linux inconnue : ${family}`);
 }

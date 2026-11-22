@@ -13,7 +13,7 @@ api() {
 }
 
 node scripts/ci/sync-install.mjs
-node scripts/ci/sync-install.mjs --verify-served public/install.sh public/install-source.json
+node scripts/ci/sync-install.mjs --verify-served public/install.ps1 public/install-ps1-source.json
 
 releases="$(api "releases?per_page=100")"
 
@@ -43,8 +43,7 @@ check_channel() {
   for name in \
     "Bobine-Setup-${suffix}.exe" "Bobine-Setup-${suffix}-arm64.exe" \
     "bobine_${suffix}_amd64.deb" "bobine_${suffix}_arm64.deb" \
-    "Bobine-${suffix}.dmg" "Bobine-${suffix}.apk" "Bobine-TV-${suffix}.apk" \
-    install.sh; do
+    "Bobine-${suffix}.dmg" "Bobine-${suffix}.apk" "Bobine-TV-${suffix}.apk"; do
     grep -qxF "$name" <<<"$names" || err "$label ($tag) : fichier $name absent"
   done
   echo "$label ($tag) : fichiers attendus présents"

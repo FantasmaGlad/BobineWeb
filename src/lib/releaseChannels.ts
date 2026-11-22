@@ -1,9 +1,8 @@
-import type { DeployPackages, ReleaseChannelInfo, ReleaseFile } from "@/lib/releaseTypes";
+import type { ReleaseChannelInfo, ReleaseFile } from "@/lib/releaseTypes";
 import { assignPackageAsset, withoutNewPackages } from "@/lib/linuxPackages";
 import { FALLBACK_STABLE, FALLBACK_BETA, FALLBACK_CANARY } from "@/lib/releaseFallbacks";
 import {
   fetchRepoCounts,
-  fetchDeployReleases,
   fetchRepoReleases,
   pickChannelReleases,
   type GitHubReleaseJson,
@@ -25,32 +24,10 @@ export interface RepoStatsResponse {
     macos: string;
     android: string;
     androidTv?: string;
-    installScript?: string;
   };
   stable: ReleaseChannelInfo;
   beta: ReleaseChannelInfo;
   canary: ReleaseChannelInfo;
-  deploy?: DeployPackages;
-}
-
-export function parseDeployRelease(releases: GitHubReleaseJson[] | null): DeployPackages | undefined {
-  const release = releases?.find((candidate) => !candidate.prerelease && /^v\d+\.\d+\.\d+$/.test(candidate.tag_name));
-  if (!release || !Array.isArray(release.assets)) return undefined;
-  const packages: DeployPackages = { version: release.tag_name.replace(/^v/, ""), htmlUrl: release.html_url };
-  for (const asset of release.assets) {
-    const name = String(asset?.name || "");
-    const url = typeof asset?.browser_download_url === "string" ? asset.browser_download_url : "";
-    if (!url) continue;
-    if (/^Bobine-Deploy-Setup-.+-arm64\.exe$/.test(name)) packages.windowsArm64 = url;
-    else if (/^Bobine-Deploy-Setup-.+-x64\.exe$/.test(name)) packages.windows = url;
-    else if (/^Bobine-Deploy-.+-arm64\.dmg$/.test(name)) packages.macosArm64 = url;
-    else if (/^Bobine-Deploy-.+-x64\.dmg$/.test(name)) packages.macos = url;
-    else if (/^bobine-deploy_.+_arm64\.deb$/.test(name)) packages.debArm64 = url;
-    else if (/^bobine-deploy_.+_amd64\.deb$/.test(name)) packages.deb = url;
-    else if (/^bobine-deploy-.+\.aarch64\.rpm$/.test(name)) packages.rpmArm64 = url;
-    else if (/^bobine-deploy-.+\.x86_64\.rpm$/.test(name)) packages.rpm = url;
-  }
-  return packages;
 }
 
 function parseReleaseAssets(
@@ -83,8 +60,6 @@ function parseReleaseAssets(
       downloads.androidTv = url;
     } else if (name.endsWith(".apk")) {
       downloads.android = url;
-    } else if (name === "install.sh") {
-      downloads.installScript = url;
     }
   }
   return downloads;
@@ -129,7 +104,7 @@ function channelInfoFromRelease(
 }
 
 export async function getRepoStats(): Promise<RepoStatsResponse> {
-  const [releases, counts, deployReleases] = await Promise.all([fetchRepoReleases(), fetchRepoCounts(), fetchDeployReleases()]);
+  const [releases, counts] = await Promise.all([fetchRepoReleases(), fetchRepoCounts()]);
   const channels = releases ? pickChannelReleases(releases) : {};
 
   const stableInfo = channelInfoFromRelease(channels.stable, FALLBACK_STABLE);
@@ -144,6 +119,5 @@ export async function getRepoStats(): Promise<RepoStatsResponse> {
     stable: stableInfo,
     beta: betaInfo,
     canary: canaryInfo,
-    deploy: parseDeployRelease(deployReleases),
   };
 }

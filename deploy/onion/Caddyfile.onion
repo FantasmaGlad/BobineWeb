@@ -31,9 +31,6 @@ http://:8082 {
 	redir /fr /fr/ 308
 	redir /en /en/ 308
 
-	@installsh path /install.sh
-	header @installsh Content-Type "text/plain; charset=utf-8"
-
 	# La politique de securite interdit tout chargement hors du miroir lui-meme.
 	header {
 		-Server

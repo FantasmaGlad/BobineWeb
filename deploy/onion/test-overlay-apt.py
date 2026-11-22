@@ -99,18 +99,14 @@ class SiteOverlayTests(unittest.TestCase):
         return path
 
     def test_install_commands_become_tor_commands(self):
-        page = self.write("fr/index.html", "curl -fsSL https://bobine.fit/install.sh | sudo bash\n"
-                          "curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta\n"
-                          "curl -fsSL https://github.com/FantasmaGlad/Bobine/releases/download/canary/install.sh | bash -s -- --channel=canary\n"
-                          "curl -sSL https://bobine.fit/install-tor.sh | bash")
+        page = self.write("fr/index.html", "curl -fsSL https://bobine.fit/install-tor.sh | bash\n"
+                          "curl -sSL https://bobine.fit/install-tor.sh | bash -s -- --channel=beta")
         self.assertEqual(self.run_site("check-commands.py").returncode, 1)
         self.assertEqual(self.run_site("commands-tor.py").returncode, 0)
         self.assertEqual(self.run_site("check-commands.py").returncode, 0)
         text = page.read_text(encoding="utf-8")
-        self.assertEqual(text.count("curl --socks5-hostname 127.0.0.1:9050 -fsSL http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/install-tor.sh"), 4)
+        self.assertEqual(text.count("curl --socks5-hostname 127.0.0.1:9050 -fsSL http://bobinedaoki42tt33rxacmtaab2gxvxb2orqgcyhvowv3aggxhruvrid.onion/install-tor.sh"), 2)
         self.assertIn("| bash -s -- --channel=beta", text)
-        self.assertIn("| bash -s -- --channel=canary", text)
-        self.assertNotIn("sudo bash", text)
 
     def test_the_tor_installer_download_goes_through_tor(self):
         page = self.write("fr/documentation/anonymisation/index.html", "curl -fsSL https://bobine.fit/install-tor.sh -o install-tor.sh\nless install-tor.sh\nbash install-tor.sh")
@@ -126,13 +122,6 @@ class SiteOverlayTests(unittest.TestCase):
         self.assertIn("curl --socks5-hostname 127.0.0.1:9050 -fsSL http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/bobine.gpg", text)
         self.assertIn("http://rzvwjat5pidtxtwzcsvew7yc5ugfjvzz432ecpn3s5mlch4cs7vvmqad.onion/debian stable main", text)
         self.assertEqual(self.run_site("check-commands.py").returncode, 0)
-
-    def test_read_before_running_keeps_its_three_lines_consistent(self):
-        page = self.write("a.js", "curl -fsSL https://bobine.fit/install.sh -o install.sh\nless install.sh\nsudo bash install.sh --channel=beta")
-        self.run_site("commands-tor.py")
-        lines = page.read_text(encoding="utf-8").splitlines()
-        self.assertTrue(lines[0].endswith("install-tor.sh -o install-tor.sh"))
-        self.assertEqual(lines[1:], ["less install-tor.sh", "bash install-tor.sh --channel=beta"])
 
     def test_plain_links_are_allowed_but_unknown_curl_commands_are_refused(self):
         self.write("a.html", '<a href="https://github.com/FantasmaGlad/Bobine">code</a>')

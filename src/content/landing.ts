@@ -98,9 +98,6 @@ export interface LandingContent {
   en: LandingLocale;
 }
 
-const CHANNEL_CLI = (channel: string) =>
-  `curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=${channel}`;
-
 const soonSuffix = (l: "fr" | "en") => {
   const note = repoStatusNote("fedora", l);
   return note ? ` ${note}` : "";
@@ -228,9 +225,8 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "Changer de canal sans perdre ses données",
           icon: "terminal",
           paragraphs: [
-            "Sur toutes les plateformes, les trois canaux partagent les mêmes identifiants d'application et s'installent par-dessus la version existante : la base de données et les médias ne sont pas touchés. Le choix se fait dans Réglages, Mises à jour logicielles, Canal de mise à jour, ou à l'installation de l'appliance Linux :",
+            "Sur toutes les plateformes, les trois canaux partagent les mêmes identifiants d'application et s'installent par-dessus la version existante : la base de données et les médias ne sont pas touchés. Le choix se fait dans Réglages, Mises à jour logicielles, Canal de mise à jour.",
           ],
-          code: `${CHANNEL_CLI("stable")}\n${CHANNEL_CLI("beta")}\n${CHANNEL_CLI("canary")}`,
         },
         {
           heading: "Retour à la Stable à tout moment",
@@ -324,9 +320,8 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "Switching channels without losing data",
           icon: "terminal",
           paragraphs: [
-            "On every platform the three channels share the same application IDs and install over the existing version: the database and the media are left untouched. The choice is made in Settings, Software updates, Update channel, or when installing the Linux appliance:",
+            "On every platform the three channels share the same application IDs and install over the existing version: the database and the media are left untouched. The choice is made in Settings, Software updates, Update channel.",
           ],
-          code: `${CHANNEL_CLI("stable")}\n${CHANNEL_CLI("beta")}\n${CHANNEL_CLI("canary")}`,
         },
         {
           heading: "Back to Stable at any time",
@@ -387,7 +382,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           icon: "shield",
           bullets: [
             "Une version par tag Vx.y.z strict, publiée sur GitHub Releases avec ses notes.",
-            `Les mêmes fichiers sur toutes les plateformes : Windows (x86-64 et ARM64), macOS Apple Silicon, ${linuxFormatsShort("fr")}, Android, Android TV, et Bobine Deploy pour l'installation à distance.`,
+            `Les mêmes fichiers sur toutes les plateformes : Windows (x86-64 et ARM64), macOS Apple Silicon, ${linuxFormatsShort("fr")}, Android et Android TV.`,
             "Une empreinte SHA-256 vérifiée avant toute installation lancée depuis l'application.",
           ],
         },
@@ -395,9 +390,8 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "Installer ou revenir à la Stable",
           icon: "terminal",
           paragraphs: [
-            "Sur l'appliance Linux, la Stable est le choix par défaut. Depuis une installation en Bêta ou en Canary, choisissez Stable dans Réglages, Mises à jour logicielles.",
+            "La Stable est le choix par défaut. Depuis une installation en Bêta ou en Canary, choisissez Stable dans Réglages, Mises à jour logicielles.",
           ],
-          code: CHANNEL_CLI("stable"),
         },
       ],
       faq: [
@@ -428,7 +422,7 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           icon: "shield",
           bullets: [
             "One release per strict Vx.y.z tag, published on GitHub Releases with its notes.",
-            `The same files on every platform: Windows (x86-64 and ARM64), macOS Apple Silicon, ${linuxFormatsShort("en")}, Android, Android TV, and Bobine Deploy for remote installation.`,
+            `The same files on every platform: Windows (x86-64 and ARM64), macOS Apple Silicon, ${linuxFormatsShort("en")}, Android and Android TV.`,
             "A SHA-256 digest verified before any installation started from the application.",
           ],
         },
@@ -436,9 +430,8 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "Install or go back to Stable",
           icon: "terminal",
           paragraphs: [
-            "On the Linux appliance, Stable is the default. From a Beta or Canary installation, pick Stable in Settings, Software updates.",
+            "Stable is the default. From a Beta or Canary installation, pick Stable in Settings, Software updates.",
           ],
-          code: CHANNEL_CLI("stable"),
         },
       ],
       faq: [
@@ -484,9 +477,8 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "Rejoindre ou quitter la Bêta",
           icon: "terminal",
           paragraphs: [
-            "Dans Réglages, Mises à jour logicielles, choisissez le canal Bêta (une confirmation est demandée). Sur l'appliance Linux :",
+            "Dans Réglages, Mises à jour logicielles, choisissez le canal Bêta (une confirmation est demandée).",
           ],
-          code: CHANNEL_CLI("beta"),
         },
       ],
       faq: [
@@ -526,9 +518,8 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "Join or leave the Beta",
           icon: "terminal",
           paragraphs: [
-            "In Settings, Software updates, choose the Beta channel (a confirmation is requested). On the Linux appliance:",
+            "In Settings, Software updates, choose the Beta channel (a confirmation is requested).",
           ],
-          code: CHANNEL_CLI("beta"),
         },
       ],
       faq: [
@@ -580,9 +571,8 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "Rejoindre ou quitter la Canary",
           icon: "terminal",
           paragraphs: [
-            "Dans Réglages, Mises à jour logicielles, choisissez le canal Canary. Sur l'appliance Linux :",
+            "Dans Réglages, Mises à jour logicielles, choisissez le canal Canary.",
           ],
-          code: CHANNEL_CLI("canary"),
         },
         {
           heading: "À savoir avant d'installer",
@@ -633,9 +623,8 @@ export const LANDING_PAGES: Record<LandingId, LandingContent> = {
           heading: "Join or leave the Canary",
           icon: "terminal",
           paragraphs: [
-            "In Settings, Software updates, choose the Canary channel. On the Linux appliance:",
+            "In Settings, Software updates, choose the Canary channel.",
           ],
-          code: CHANNEL_CLI("canary"),
         },
         {
           heading: "Before you install",
@@ -752,12 +741,8 @@ linux: {
           a: `Oui : un paquet pacman (${packageFileName("arch", "stable", "x86_64", "x.y.z")}) et un dépôt [bobine] signé, en x86_64 (aarch64 pour Arch Linux ARM).${soonSuffix("fr")}`,
         },
         {
-          q: "Quelle distribution choisir pour une appliance dédiée 24/7 ?",
-          a: "Debian 13 minimale reste la référence : c'est elle que cible le script install.sh. Les paquets .rpm et pacman sont destinés aux postes de bureau Linux.",
-        },
-        {
           q: "Bobine fonctionne-t-il sur Bazzite ou Fedora Silverblue ?",
-          a: "Les distributions immuables ne conviennent pas à l'appliance kiosque, car le système y est en lecture seule.",
+          a: "Les distributions immuables ne sont pas prises en charge ni couvertes par la CI.",
         },
       ],
       related: [
@@ -852,12 +837,8 @@ linux: {
           a: `Yes: a pacman package (${packageFileName("arch", "stable", "x86_64", "x.y.z")}) and a signed [bobine] repository, on x86_64 (aarch64 for Arch Linux ARM).${soonSuffix("en")}`,
         },
         {
-          q: "Which distribution for a dedicated 24/7 appliance?",
-          a: "Minimal Debian 13 remains the reference: it is what the install.sh script targets. The .rpm and pacman packages are meant for Linux desktops.",
-        },
-        {
           q: "Does Bobine run on Bazzite or Fedora Silverblue?",
-          a: "Immutable distributions do not suit the kiosk appliance, because the system is read-only there.",
+          a: "Immutable distributions are neither supported nor covered by CI.",
         },
       ],
       related: [

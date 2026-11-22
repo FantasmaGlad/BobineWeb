@@ -47,7 +47,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Quel matériel informatique faut-il acheter ?",
-      a: "Un mini PC x86-64 ou ARM64 standard, du mini PC reconditionné d'entrée de gamme (Dell Wyse 5070, HP EliteDesk, Beelink N100) au mini PC industriel fanless, avec 8 à 16 Go de RAM et un écran HDMI standard. Bobine tourne également sur PC portable ARM Qualcomm Snapdragon, Mac mini Apple Silicon, tablette Android ou Google Book.",
+      a: "Un mini PC x86-64 ou ARM64 standard, du mini PC reconditionné d'entrée de gamme (HP EliteDesk, Beelink N100) au mini PC industriel fanless, avec 8 à 16 Go de RAM et un écran HDMI standard. Bobine tourne également sur PC portable ARM Qualcomm Snapdragon, Mac mini Apple Silicon, tablette Android ou Google Book.",
     },
     {
       category: "hardware",
@@ -97,7 +97,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Quels mini PC et cartes ARM64 (NVIDIA DGX Spark, Raspberry Pi, Orange Pi) sont recommandés ?",
-      a: "Sous Linux ARM64, Bobine fonctionne sur Raspberry Pi 5 (8 Go / 16 Go), Radxa Rock 5B/5B+ (RK3588), Orange Pi 5 Plus, NVIDIA Jetson Orin Nano Super, ainsi que sur les stations professionnelles NVIDIA DGX Spark (SoC Grace Blackwell GB10 sous DGX OS / Ubuntu ARM64). L'installation se fait en une commande via curl -fsSL https://bobine.fit/install.sh | sudo bash ou via le paquet .deb ARM64.",
+      a: "Sous Linux ARM64, Bobine fonctionne sur Raspberry Pi 5 (8 Go / 16 Go), Radxa Rock 5B/5B+ (RK3588), Orange Pi 5 Plus, NVIDIA Jetson Orin Nano Super, ainsi que sur les stations professionnelles NVIDIA DGX Spark (SoC Grace Blackwell GB10 sous DGX OS / Ubuntu ARM64). L'installation passe par le paquet .deb ARM64 ou le dépôt APT signé.",
     },
     {
       category: "updates",
@@ -107,7 +107,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "Comment changer de canal de mise à jour (Stable / Bêta / Canary) sur mon installation ?",
-      a: "Sur le panneau d'administration web, rendez-vous dans Réglages > Mises à jour logicielles et choisissez le canal souhaité. Sur une appliance dédiée CLI, vous pouvez également relancer l'installeur avec l'option --channel=stable, --channel=beta ou --channel=canary (ex : curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta).",
+      a: "Sur le panneau d'administration web, rendez-vous dans Réglages > Mises à jour logicielles et choisissez le canal souhaité.",
     },
     {
       category: "updates",
@@ -117,7 +117,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "Bobine fonctionne-t-il sur Fedora, RHEL, AlmaLinux ou Rocky Linux, et comment recevoir les mises à jour ?",
-      a: `${soon("fedora", "fr")}Oui, sur Fedora et Nobara : un paquet .rpm (x86_64 et aarch64) et un dépôt dnf signé (https://packages.bobine.fit/fedora). Deux commandes, ${fedoraCommands().addRepo} puis ${fedoraCommands().install}, et ${fedoraCommands().upgrade} met ensuite Bobine à jour avec le système ; bobine-beta.repo et bobine-canary.repo suivent les canaux Bêta et Canary. Fedora ne fournit qu'un ffmpeg amputé de codecs : ajoutez RPM Fusion pour le ffmpeg complet. Sur RHEL, AlmaLinux et Rocky Linux (version 10 ou plus récente uniquement, non couvertes par la CI), passez par EPEL (ffmpeg limité sans RPM Fusion). Les distributions immuables comme Bazzite ne conviennent pas à l'appliance kiosque. Empreinte de la clé : ${SIGNING_KEY_FINGERPRINT}.`,
+      a: `${soon("fedora", "fr")}Oui, sur Fedora et Nobara : un paquet .rpm (x86_64 et aarch64) et un dépôt dnf signé (https://packages.bobine.fit/fedora). Deux commandes, ${fedoraCommands().addRepo} puis ${fedoraCommands().install}, et ${fedoraCommands().upgrade} met ensuite Bobine à jour avec le système ; bobine-beta.repo et bobine-canary.repo suivent les canaux Bêta et Canary. Fedora ne fournit qu'un ffmpeg amputé de codecs : ajoutez RPM Fusion pour le ffmpeg complet. Sur RHEL, AlmaLinux et Rocky Linux (version 10 ou plus récente uniquement, non couvertes par la CI), passez par EPEL (ffmpeg limité sans RPM Fusion). Les distributions immuables comme Bazzite ne sont pas prises en charge. Empreinte de la clé : ${SIGNING_KEY_FINGERPRINT}.`,
     },
     {
       category: "updates",
@@ -127,7 +127,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "Comment fonctionne la désinstallation automatique en 1 clic ?",
-      a: "Dans Réglages > Zone de danger, la désinstallation automatique déclenche le désinstalleur natif de votre plateforme (Polkit sur Linux .deb/.rpm/.pkg.tar.zst, Inno Setup sur Windows, purge des LaunchAgents sous macOS, Intent Android, script bobine-uninstall sous Debian headless). L'opération nécessite la saisie explicite du mot de passe de sécurité « DÉSINSTALLER » pour éviter toute fausse manipulation.",
+      a: "Dans Réglages > Zone de danger, la désinstallation automatique déclenche le désinstalleur natif de votre plateforme (Polkit sur Linux .deb/.rpm/.pkg.tar.zst, Inno Setup sur Windows, purge des LaunchAgents sous macOS, Intent Android). L'opération nécessite la saisie explicite du mot de passe de sécurité « DÉSINSTALLER » pour éviter toute fausse manipulation.",
     },
     {
       category: "hardware",
@@ -164,7 +164,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "What hardware do I need to equip my gym?",
-      a: "A standard x86-64 or ARM64 mini PC, from an entry-level refurbished unit (Dell Wyse 5070, HP EliteDesk, Beelink N100) to a fanless industrial mini PC, with 8-16GB RAM and a standard HDMI display. Bobine also runs on Snapdragon ARM laptops, Apple Silicon Mac minis, Android tablets, or Google Books.",
+      a: "A standard x86-64 or ARM64 mini PC, from an entry-level refurbished unit (HP EliteDesk, Beelink N100) to a fanless industrial mini PC, with 8-16GB RAM and a standard HDMI display. Bobine also runs on Snapdragon ARM laptops, Apple Silicon Mac minis, Android tablets, or Google Books.",
     },
     {
       category: "hardware",
@@ -214,7 +214,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "hardware",
       q: "Which ARM64 mini PCs and single-board computers (NVIDIA DGX Spark, Raspberry Pi, Orange Pi) are supported?",
-      a: "Under Linux ARM64, Bobine runs on Raspberry Pi 5 (8GB / 16GB), Radxa Rock 5B/5B+ (RK3588), Orange Pi 5 Plus, NVIDIA Jetson Orin Nano Super, and workstation-class NVIDIA DGX Spark units (Grace Blackwell GB10 SoC running DGX OS / Ubuntu ARM64). Setup takes 1 command via curl -fsSL https://bobine.fit/install.sh | sudo bash or via the ARM64 .deb package.",
+      a: "Under Linux ARM64, Bobine runs on Raspberry Pi 5 (8GB / 16GB), Radxa Rock 5B/5B+ (RK3588), Orange Pi 5 Plus, NVIDIA Jetson Orin Nano Super, and workstation-class NVIDIA DGX Spark units (Grace Blackwell GB10 SoC running DGX OS / Ubuntu ARM64). Setup goes through the ARM64 .deb package or the signed APT repository.",
     },
     {
       category: "updates",
@@ -224,7 +224,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "How do I switch between Stable, Beta and Canary update channels on my setup?",
-      a: "From the web administration dashboard, go to Settings > Software Updates and pick the channel you want. On a dedicated headless CLI appliance, you can run the installer with --channel=stable, --channel=beta or --channel=canary (e.g. curl -fsSL https://bobine.fit/install.sh | sudo bash -s -- --channel=beta).",
+      a: "From the web administration dashboard, go to Settings > Software Updates and pick the channel you want.",
     },
     {
       category: "updates",
@@ -234,7 +234,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "Does Bobine run on Fedora, RHEL, AlmaLinux or Rocky Linux, and how do I get updates?",
-      a: `${soon("fedora", "en")}Yes, on Fedora and Nobara: an .rpm package (x86_64 and aarch64) and a signed dnf repository (https://packages.bobine.fit/fedora). Two commands, ${fedoraCommands().addRepo} then ${fedoraCommands().install}, and ${fedoraCommands().upgrade} then updates Bobine along with the system; bobine-beta.repo and bobine-canary.repo follow the Beta and Canary channels. Fedora only ships a codec-stripped ffmpeg: add RPM Fusion for the full ffmpeg. On RHEL, AlmaLinux and Rocky Linux (version 10 or newer only, not covered by CI), go through EPEL (limited ffmpeg without RPM Fusion). Immutable distributions such as Bazzite do not suit the kiosk appliance. Key fingerprint: ${SIGNING_KEY_FINGERPRINT}.`,
+      a: `${soon("fedora", "en")}Yes, on Fedora and Nobara: an .rpm package (x86_64 and aarch64) and a signed dnf repository (https://packages.bobine.fit/fedora). Two commands, ${fedoraCommands().addRepo} then ${fedoraCommands().install}, and ${fedoraCommands().upgrade} then updates Bobine along with the system; bobine-beta.repo and bobine-canary.repo follow the Beta and Canary channels. Fedora only ships a codec-stripped ffmpeg: add RPM Fusion for the full ffmpeg. On RHEL, AlmaLinux and Rocky Linux (version 10 or newer only, not covered by CI), go through EPEL (limited ffmpeg without RPM Fusion). Immutable distributions such as Bazzite are not supported. Key fingerprint: ${SIGNING_KEY_FINGERPRINT}.`,
     },
     {
       category: "updates",
@@ -244,7 +244,7 @@ export const FAQ_ITEMS: Record<Locale, FaqItem[]> = {
     {
       category: "updates",
       q: "How does the 1-click automatic uninstaller work?",
-      a: "In Settings > Danger Zone, automatic uninstallation triggers the native uninstaller for your platform (Polkit on Linux .deb/.rpm/.pkg.tar.zst, Inno Setup on Windows, LaunchAgent purge on macOS, Android intent, or the bobine-uninstall script on headless Debian). The operation requires explicitly typing the confirmation phrase 'DÉSINSTALLER' (accents optional) to prevent accidental removals.",
+      a: "In Settings > Danger Zone, automatic uninstallation triggers the native uninstaller for your platform (Polkit on Linux .deb/.rpm/.pkg.tar.zst, Inno Setup on Windows, LaunchAgent purge on macOS, or Android intent). The operation requires explicitly typing the confirmation phrase 'DÉSINSTALLER' (accents optional) to prevent accidental removals.",
     },
     {
       q: "Which web browsers are supported by engine family (Chromium, Gecko/Firefox, WebKit/Safari)?",
@@ -270,7 +270,7 @@ export const TROUBLESHOOTING_ROWS: Record<Locale, TroubleshootRow[]> = {
     {
       issue: "http://bobine.local inaccessible",
       cause: "La box / routeur bloque le protocole mDNS (Bonjour)",
-      solution: "Utilisez l'IP locale (ex: http://192.168.1.50). Tapez 'hostname -I' sur le mini PC pour la connaître.",
+      solution: "Utilisez l'IP locale (ex: http://192.168.1.50). Elle s'affiche dans Réglages, Accès réseau.",
     },
     {
       issue: "Écran noir sur la TV en HDMI",
@@ -290,7 +290,7 @@ export const TROUBLESHOOTING_ROWS: Record<Locale, TroubleshootRow[]> = {
     {
       issue: "Le port 1903 est déjà pris",
       cause: "Une autre application ou une ancienne instance de Bobine l'occupe",
-      solution: "Bobine se replie seul sur un port libre. Sur l'appliance, où le port est fixe, libérez-le avec 'sudo fuser -k 1903/tcp' puis relancez le service.",
+      solution: "Bobine se replie seul sur un port libre.",
     },
     {
       issue: "Échec de restauration d'une sauvegarde ZIP",
@@ -302,7 +302,7 @@ export const TROUBLESHOOTING_ROWS: Record<Locale, TroubleshootRow[]> = {
     {
       issue: "http://bobine.local unreachable",
       cause: "Router / Wi-Fi blocks mDNS (Bonjour)",
-      solution: "Use direct IP address (e.g. http://192.168.1.50). Run 'hostname -I' on the mini PC to find it.",
+      solution: "Use direct IP address (e.g. http://192.168.1.50). It is shown in Settings, Network access.",
     },
     {
       issue: "Black screen on wired TV",
@@ -322,7 +322,7 @@ export const TROUBLESHOOTING_ROWS: Record<Locale, TroubleshootRow[]> = {
     {
       issue: "Port 1903 already in use",
       cause: "Another application or a previous Bobine instance holds it",
-      solution: "Bobine falls back to a free port on its own. On the appliance, where the port is fixed, free it with 'sudo fuser -k 1903/tcp' and restart the service.",
+      solution: "Bobine falls back to a free port on its own.",
     },
     {
       issue: "Restoring a ZIP backup fails",

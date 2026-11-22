@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import createMDX from "@next/mdx";
 import { EN_SLUG_MAP } from "./src/lib/slugs";
 
 const securityHeaders = [
@@ -37,65 +36,15 @@ const EN_PAGES = Object.entries(EN_SLUG_MAP).filter(([fr, en]) => fr !== en);
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
-  pageExtensions: ["ts", "tsx", "mdx"],
+  pageExtensions: ["ts", "tsx"],
   images: { formats: ["image/avif", "image/webp"] },
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: [
-      "react-markdown",
-      "remark-gfm",
-    ],
   },
   async redirects() {
     return [
-      { source: "/fr/materiel", destination: "/fr/documentation", permanent: true },
-      { source: "/fr/materiel/:path*", destination: "/fr/documentation", permanent: true },
-      { source: "/en/hardware", destination: "/en/documentation", permanent: true },
-      { source: "/en/hardware/:path*", destination: "/en/documentation", permanent: true },
-      { source: "/en/materiel", destination: "/en/documentation", permanent: true },
-      { source: "/en/materiel/:path*", destination: "/en/documentation", permanent: true },
-      { source: "/fr/comparatif/:path*", destination: "/fr", permanent: true },
-      { source: "/:locale(fr|en)/baamix", destination: "/:locale", permanent: true },
-      { source: "/en/compare/:path*", destination: "/en", permanent: true },
-      {
-        source: "/:locale(fr|en)/documentation/demarrage-rapide",
-        destination: "/:locale/documentation",
-        permanent: true,
-      },
-      {
-        source: "/:locale(fr|en)/documentation/manifeste",
-        destination: "/:locale/documentation",
-        permanent: true,
-      },
-      { source: "/fr/ordinateur", destination: "/fr", permanent: true },
-      { source: "/en/ordinateur", destination: "/en", permanent: true },
-      { source: "/en/computer", destination: "/en", permanent: true },
-      { source: "/fr/google-book", destination: "/fr", permanent: true },
-      { source: "/en/google-book", destination: "/en", permanent: true },
-      { source: "/fr/android-tv", destination: "/fr", permanent: true },
-      { source: "/en/android-tv", destination: "/en", permanent: true },
-      { source: "/fr/nouveautes", destination: "/fr/blog", permanent: true },
-      { source: "/en/nouveautes", destination: "/en/blog", permanent: true },
-      { source: "/en/whats-new", destination: "/en/blog", permanent: true },
-      { source: "/fr/telechargement", destination: "/fr", permanent: true },
-      { source: "/en/telechargement", destination: "/en", permanent: true },
-      { source: "/en/download", destination: "/en", permanent: true },
-      { source: "/fr/download", destination: "/fr", permanent: true },
-      { source: "/telechargement", destination: "/fr", permanent: true },
-      { source: "/download", destination: "/en", permanent: true },
-      { source: "/a-propos", destination: "/fr/a-propos", permanent: true },
-      { source: "/about", destination: "/en/about", permanent: true },
       { source: "/commandes", destination: "/fr/commandes", permanent: true },
       { source: "/commands", destination: "/en/commands", permanent: true },
-      { source: "/fr/soutenir", destination: "https://github.com/FantasmaGlad/Bobine", permanent: true },
-      { source: "/en/soutenir", destination: "https://github.com/FantasmaGlad/Bobine", permanent: true },
-      { source: "/fr/support", destination: "https://github.com/FantasmaGlad/Bobine", permanent: true },
-      { source: "/en/support", destination: "https://github.com/FantasmaGlad/Bobine", permanent: true },
-      { source: "/soutenir", destination: "https://github.com/FantasmaGlad/Bobine", permanent: true },
-      { source: "/support", destination: "https://github.com/FantasmaGlad/Bobine", permanent: true },
-      { source: "/fr/credits", destination: "/fr/ressources", permanent: true },
-      { source: "/en/credits", destination: "/en/resources", permanent: true },
-      { source: "/credits", destination: "/fr/ressources", permanent: true },
       { source: "/fr/securite", destination: "https://security.bobine.fit/fr/", permanent: true },
       { source: "/en/securite", destination: "https://security.bobine.fit/", permanent: true },
       { source: "/en/security", destination: "https://security.bobine.fit/", permanent: true },
@@ -113,7 +62,6 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return [
-      { source: "/sitemap-bobine.xml", destination: "/sitemap.xml" },
       ...EN_PAGES.map(([fr, en]) => ({ source: `/en${en}`, destination: `/en${fr}` })),
     ];
   },
@@ -132,7 +80,7 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/:sitemap(sitemap|sitemap-bobine).xml",
+        source: "/sitemap.xml",
         headers: [
           { key: "Content-Type", value: "application/xml; charset=utf-8" },
           { key: "Cache-Control", value: "public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400" },
@@ -172,6 +120,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-const withMDX = createMDX({});
-
-export default withMDX(nextConfig);
+export default nextConfig;

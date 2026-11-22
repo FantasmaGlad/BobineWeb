@@ -56,10 +56,9 @@ else
   check_channel "Stable" "$stable_tag" "${stable_tag#V}"
   tagged_version=$(api "contents/VERSION?ref=$stable_tag" | jq -r '.content' | base64 --decode | tr -d '[:space:]')
   source_version=$(api "contents/VERSION?ref=main" | jq -r '.content' | base64 --decode | tr -d '[:space:]')
-  announced=$(curl -fsS --retry 3 --max-time 30 https://bobine.fit/latest.json | jq -r '.latest_stable')
   jq -n --arg stableTag "$stable_tag" --arg taggedVersion "$tagged_version" \
-    --arg developmentVersion "$source_version" --arg announced "$announced" \
-    '{stableTag: $stableTag, taggedVersion: $taggedVersion, developmentVersion: $developmentVersion, announced: $announced}' \
+    --arg developmentVersion "$source_version" \
+    '{stableTag: $stableTag, taggedVersion: $taggedVersion, developmentVersion: $developmentVersion}' \
     | node scripts/ci/release-version-policy.mjs || fail=1
   echo "Stable publiée : $stable_tag ; VERSION au tag : $tagged_version ; développement : $source_version"
   fallback="$(sed -n 's/^  version: "\(V[0-9.]*\)",$/\1/p' src/lib/releaseFallbacks.ts | head -n1)"

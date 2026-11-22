@@ -27,24 +27,19 @@ test("le plan du site réel est conforme", () => {
 });
 
 test("une feuille sans parent hub est refusée", () => {
-  const r = run((routes) => { routes.find((x) => x.id === "linux").parent = "features"; });
+  const r = run((routes) => { routes.find((x) => x.id === "api").parent = "commands"; });
   assert.equal(r.status, 1);
-  assert.match(r.stderr, /linux : le parent « features » n'est pas un hub/);
+  assert.match(r.stderr, /api : le parent « commands » n'est pas un hub/);
 });
 
 test("une route sans page réelle est refusée", () => {
-  const r = run((routes) => { routes.push({ ...routes.find((x) => x.id === "features"), id: "fantome", path: "/page-fantome" }); });
+  const r = run((routes) => { routes.push({ ...routes.find((x) => x.id === "commands"), id: "fantome", path: "/page-fantome" }); });
   assert.equal(r.status, 1);
   assert.match(r.stderr, /fantome : aucune page/);
 });
 
-test("un hub dont un enfant n'est pas lié est refusé", () => {
-  const r = run((routes) => { routes.push({ ...routes.find((x) => x.id === "features"), id: "orpheline", path: "/linux", parent: "download" }); });
-  assert.equal(r.status, 1);
-});
-
 test("un pied de page trop long est refusé", () => {
-  const r = run((routes) => { const base = routes.find((x) => x.id === "features"); for (let i = 0; i < 23; i++) routes.push({ ...base, id: `pied-${i}`, footer: "legal" }); });
+  const r = run((routes) => { const base = routes.find((x) => x.id === "commands"); for (let i = 0; i < 23; i++) routes.push({ ...base, id: `pied-${i}`, footer: "legal" }); });
   assert.equal(r.status, 1);
   assert.match(r.stderr, /pied de page/);
 });

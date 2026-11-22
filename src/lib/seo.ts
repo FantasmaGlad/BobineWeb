@@ -5,9 +5,6 @@ import { EN_SLUG_MAP } from "./slugs";
 export const SITE_URL = "https://bobine.fit";
 const BASE_URL = SITE_URL;
 
-export const SITE_NAME = "Bobine Fit";
-export const AUTHOR_NAME = "Clément Barillot";
-
 export interface SeoProps {
   locale: Locale;
   pathname: string;

@@ -4,20 +4,16 @@ Le code et les contenus de ce dépôt sont couverts par [`LICENSE`](LICENSE), sa
 
 ## Bibliothèques
 
-Les dépendances de [`package.json`](package.json) sont installées depuis le registre npm et conservent leur licence (Next.js, React, MDX, `react-markdown` et leurs dépendances). Leur code n'est pas redistribué dans ce dépôt ; la liste exacte et les versions sont dans [`package-lock.json`](package-lock.json).
+Les dépendances de [`package.json`](package.json) sont installées depuis le registre npm et conservent leur licence (Next.js, React et leurs dépendances). Leur code n'est pas redistribué dans ce dépôt ; la liste exacte et les versions sont dans [`package-lock.json`](package-lock.json).
 
 ## Marques et logos
 
-Les noms, logos et marques cités appartiennent à leurs titulaires respectifs et ne sont utilisés que pour les identifier : Vercel, Cloudflare, GitHub, Debian, Ubuntu, Fedora, Arch Linux, Microsoft, Apple, Apple Silicon, Arm, Google et Google TV. Leur présence n'implique aucune affiliation, sauf mention contraire sur le site.
+Les noms, logos et marques cités appartiennent à leurs titulaires respectifs et ne sont utilisés que pour les identifier : Vercel, Cloudflare, GitHub, Debian, Ubuntu, Fedora, Arch Linux, Microsoft, Apple et Google. Leur présence n'implique aucune affiliation, sauf mention contraire sur le site.
 
-Les icônes de marque de `public/images/icons/` (systèmes, puces, distributions et réseaux) sont listées dans `src/lib/assets.json`, source unique lue par `scripts/ci/check-assets.mjs`. Les dessins vectoriels proviennent du dépôt [simple-icons](https://github.com/simple-icons/simple-icons) (licence CC0 pour le dessin vectoriel), copiés en local sans modification de tracé : Android, Apple (utilisé pour macOS), Framework, AMD, Arm, Intel, Arch Linux, CachyOS, Debian, Fedora, Linux Mint, Manjaro, Nobara, Pop!_OS, Raspberry Pi, Red Hat Enterprise Linux, Rocky Linux, Ubuntu, GitHub, WhatsApp, X et Telegram. Les logos officiels multicolores ou spécifiques proviennent des publications officielles de leurs éditeurs ou de Wikimedia Commons : Linux (Tux de [Garrett LeSage](https://github.com/garrett/Tux), d’après Larry Ewing et Simon Budig ; l’attribution à Larry Ewing et au GIMP est conservée), Windows (Microsoft), Android TV, Google TV et Google Book / ChromeOS (Google), Snapdragon (Qualcomm), AlmaLinux (AlmaLinux OS Foundation), EndeavourOS (EndeavourOS), et LinkedIn (LinkedIn). Les marques représentées restent la propriété de leurs titulaires et ne servent qu'à désigner le système, la puce ou la distribution concernée ; leur présence n'implique aucune affiliation.
+Les icônes de marque de `public/images/icons/` sont listées dans `src/lib/assets.json`, source unique lue par `scripts/ci/check-assets.mjs`. Les dessins vectoriels proviennent du dépôt [simple-icons](https://github.com/simple-icons/simple-icons) (licence CC0 pour le dessin vectoriel), copiés en local sans modification de tracé : Android, Apple (utilisé pour macOS), Arch Linux, Debian, Fedora, Ubuntu et GitHub. Les logos officiels multicolores proviennent des publications officielles de leurs éditeurs ou de Wikimedia Commons : Linux (Tux de [Garrett LeSage](https://github.com/garrett/Tux), d’après Larry Ewing et Simon Budig ; l’attribution à Larry Ewing et au GIMP est conservée), Windows (Microsoft) et Android TV (Google).
+
+Les logos multicolores sont affichés en couleur, directement sur la surface du thème, sans fond ni support ; ceux dont une couleur disparaîtrait sur un thème reçoivent un fin liseré (`halo` dans `assets.json`). Les logos monochromes (Apple, GitHub) sont des masques qui suivent le thème.
 
 ## Identité Bobine
 
-Le nom Bobine et les logos Bobine sont la propriété de Bobine ; voir [`LICENSE`](LICENSE).
-
-## Logos en couleurs et captures
-
-Les logos multicolores des systèmes, distributions et services sont affichés en couleur, directement sur la surface du thème, sans fond ni support ; ceux dont une couleur disparaîtrait sur un thème reçoivent un fin liseré (`halo` dans `assets.json`). Les logos monochromes (Apple, Framework, AMD, Intel, Nobara, GitHub, WhatsApp, X et Telegram) sont des masques qui suivent le thème. Les marques demeurent la propriété de leurs titulaires.
-
-Les captures de la médiathèque et du planning proviennent d’une instance de démonstration Bobine 5.0.5 avec des médias synthétiques, le 25 octobre 2026. Elles ne constituent pas une validation sur appareil. Les illustrations Baamix et les icônes de canaux relèvent de l’identité Bobine. Les sources des images sont listées dans `scripts/images/sources.json`. Les captures des anciennes démonstrations ne sont pas réutilisées.
+Le nom Bobine, les logos Bobine et les illustrations Baamix sont la propriété de Bobine ; voir [`LICENSE`](LICENSE).

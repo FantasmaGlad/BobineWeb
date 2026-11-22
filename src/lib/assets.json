@@ -36,71 +36,6 @@
     "render": "image",
     "halo": true
   },
-  "os.googletv": {
-    "name": "Google TV",
-    "src": "/images/icons/os/androidtv.svg",
-    "tone": "ink",
-    "color": "#4285F4",
-    "render": "image",
-    "halo": true
-  },
-  "os.googlebook": {
-    "name": "Google Book",
-    "src": "/images/icons/os/googlebook.svg",
-    "tone": "ink",
-    "color": "#4285F4",
-    "render": "image",
-    "halo": true
-  },
-  "os.framework": {
-    "name": "Framework",
-    "src": "/images/icons/os/framework.svg",
-    "tone": "ink",
-    "color": "#000000"
-  },
-  "chip.amd": {
-    "name": "AMD",
-    "src": "/images/icons/chips/amd.svg",
-    "tone": "ink",
-    "color": "#ED1C24"
-  },
-  "chip.arm": {
-    "name": "Arm",
-    "src": "/images/icons/chips/arm.svg",
-    "tone": "brand",
-    "color": "#0091BD",
-    "render": "image"
-  },
-  "chip.intel": {
-    "name": "Intel",
-    "src": "/images/icons/chips/intel.svg",
-    "tone": "ink",
-    "color": "#0071C5"
-  },
-  "chip.snapdragon": {
-    "name": "Snapdragon",
-    "src": "/images/icons/chips/snapdragon.svg",
-    "tone": "ink",
-    "color": "#C33139",
-    "render": "image",
-    "halo": true
-  },
-  "chip.apple-silicon": {
-    "name": "Apple Silicon",
-    "src": "/images/icons/chips/apple-silicon.svg",
-    "tone": "ink",
-    "color": "#111114",
-    "render": "image",
-    "halo": true
-  },
-  "distro.almalinux": {
-    "name": "AlmaLinux",
-    "src": "/images/icons/distros/almalinux.svg",
-    "tone": "ink",
-    "color": "#0069DA",
-    "render": "image",
-    "halo": true
-  },
   "distro.arch": {
     "name": "Arch Linux",
     "src": "/images/icons/distros/arch.svg",
@@ -108,11 +43,11 @@
     "color": "#1793D1",
     "render": "image"
   },
-  "distro.cachyos": {
-    "name": "CachyOS",
-    "src": "/images/icons/distros/cachyos.svg",
+  "distro.ubuntu": {
+    "name": "Ubuntu",
+    "src": "/images/icons/distros/ubuntu.svg",
     "tone": "ink",
-    "color": "#00AA88",
+    "color": "#E95420",
     "render": "image"
   },
   "distro.debian": {
@@ -123,14 +58,6 @@
     "render": "image",
     "halo": true
   },
-  "distro.endeavouros": {
-    "name": "EndeavourOS",
-    "src": "/images/icons/distros/endeavouros.svg",
-    "tone": "ink",
-    "color": "#7F7FFF",
-    "render": "image",
-    "halo": true
-  },
   "distro.fedora": {
     "name": "Fedora",
     "src": "/images/icons/distros/fedora.svg",
@@ -138,91 +65,10 @@
     "color": "#51A2DA",
     "render": "image"
   },
-  "distro.linuxmint": {
-    "name": "Linux Mint",
-    "src": "/images/icons/distros/linuxmint.svg",
-    "tone": "ink",
-    "color": "#86BE43",
-    "render": "image",
-    "halo": true
-  },
-  "distro.manjaro": {
-    "name": "Manjaro",
-    "src": "/images/icons/distros/manjaro.svg",
-    "tone": "ink",
-    "color": "#35BFA4",
-    "render": "image",
-    "halo": true
-  },
-  "distro.nobara": {
-    "name": "Nobara",
-    "src": "/images/icons/distros/nobara.svg",
-    "tone": "ink",
-    "color": "#000000"
-  },
-  "distro.popos": {
-    "name": "Pop!_OS",
-    "src": "/images/icons/distros/popos.svg",
-    "tone": "ink",
-    "color": "#48B9C7",
-    "render": "image",
-    "halo": true
-  },
-  "distro.raspberrypi": {
-    "name": "Raspberry Pi",
-    "src": "/images/icons/distros/raspberrypi.svg",
-    "tone": "ink",
-    "color": "#A22846",
-    "render": "image",
-    "halo": true
-  },
-  "distro.rhel": {
-    "name": "Red Hat Enterprise Linux",
-    "src": "/images/icons/distros/rhel.svg",
-    "color": "#EE0000",
-    "render": "image"
-  },
-  "distro.rockylinux": {
-    "name": "Rocky Linux",
-    "src": "/images/icons/distros/rockylinux.svg",
-    "tone": "ink",
-    "color": "#10B981",
-    "render": "image",
-    "halo": true
-  },
-  "distro.ubuntu": {
-    "name": "Ubuntu",
-    "src": "/images/icons/distros/ubuntu.svg",
-    "tone": "ink",
-    "color": "#E95420",
-    "render": "image"
-  },
   "app.github": {
     "name": "GitHub",
     "src": "/images/icons/apps/github.svg",
     "tone": "ink",
     "color": "#181717"
-  },
-  "app.linkedin": {
-    "name": "LinkedIn",
-    "src": "/images/icons/apps/linkedin.svg",
-    "color": "#0A66C2",
-    "render": "image",
-    "halo": true
-  },
-  "app.whatsapp": {
-    "name": "WhatsApp",
-    "src": "/images/icons/apps/whatsapp.svg",
-    "tone": "ink"
-  },
-  "app.x": {
-    "name": "X",
-    "src": "/images/icons/apps/x.svg",
-    "tone": "ink"
-  },
-  "app.telegram": {
-    "name": "Telegram",
-    "src": "/images/icons/apps/telegram.svg",
-    "tone": "ink"
   }
 }

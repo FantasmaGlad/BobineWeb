@@ -1,14 +1,5 @@
 export const EN_SLUG_MAP: Record<string, string> = {
-  "/fonctionnalites": "/features",
-  "/ressources": "/resources",
-  "/a-propos": "/about",
   "/commandes": "/commands",
-  "/documentation/utilisation": "/documentation/user-guide",
-  "/documentation/developpeurs": "/documentation/developers",
-  "/canaux": "/channels",
-  "/canaux/stable": "/channels/stable",
-  "/canaux/beta": "/channels/beta",
-  "/canaux/canary": "/channels/canary",
   "/mentions-legales": "/legal-notice",
   "/confidentialite": "/privacy",
 };

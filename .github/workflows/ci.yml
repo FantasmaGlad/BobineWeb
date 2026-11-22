@@ -109,8 +109,6 @@ jobs:
         run: node --test scripts/ci/sync-install.test.mjs
       - name: Versions Stable, tag source et développement
         run: node --test scripts/ci/release-version-policy.test.mjs
-      - name: Pages du blog des canaux mobiles
-        run: node --test scripts/ci/release-lookup.test.mjs
       - name: Hôte unique des dépôts Linux
         run: bash scripts/ci/check-package-hosts.sh
       - name: Paquets Linux (conventions, empreinte, logos)
@@ -129,10 +127,8 @@ jobs:
         run: node scripts/ci/check-built-glass.mjs
       - name: Fils d'Ariane (un seul par page, adresses dans la langue de la page)
         run: node scripts/ci/check-breadcrumbs.mjs
-      - name: Discours et origine de déploiement
-        run: |
-          node scripts/ci/check-marketing.mjs
-          node --test scripts/ci/deployment-origin.test.mjs
+      - name: Origine de déploiement
+        run: node --test scripts/ci/deployment-origin.test.mjs
       - name: Géométrie mobile et cibles tactiles
         run: |
           npm run start -- --port 3102 > "$RUNNER_TEMP/mobile-server.log" 2>&1 &
@@ -144,7 +140,6 @@ jobs:
           done
           node scripts/ci/mobile-check.mjs
           node scripts/ci/modal-check.mjs
-          node scripts/ci/check-feature-menu.mjs
 
   security-site:
     name: Site de sécurité

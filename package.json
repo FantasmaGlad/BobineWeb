@@ -19,19 +19,12 @@
     "prebuild": "node scripts/ci/sync-install.mjs"
   },
   "dependencies": {
-    "@mdx-js/loader": "^3",
-    "@mdx-js/react": "^3",
-    "@next/mdx": "^16.4.6",
     "@vercel/analytics": "^2.0.1",
     "next": "^16.4.6",
     "react": "19.3.1",
-    "react-dom": "19.3.1",
-    "react-markdown": "^10.1.0",
-    "rehype-raw": "^7.0.0",
-    "remark-gfm": "^4.0.1"
+    "react-dom": "19.3.1"
   },
   "devDependencies": {
-    "@types/mdx": "^2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -39,7 +32,6 @@
     "eslint": "^9",
     "eslint-config-next": "^16.4.6",
     "postcss": "^8.5.32",
-    "sharp": "^0.35.5",
     "typescript": "^5"
   },
   "browserslist": [

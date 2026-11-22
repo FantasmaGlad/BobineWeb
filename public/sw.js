@@ -1,12 +1,8 @@
-const CACHE_NAME = "bobineweb-v1";
+const CACHE_NAME = "bobineweb-v2";
 
 const PRECACHE_ASSETS = [
   "/fr",
   "/en",
-  "/fr/documentation",
-  "/en/documentation",
-  "/fr/fonctionnalites",
-  "/en/features",
   "/icon.png",
   "/manifest.webmanifest",
 ];
@@ -78,11 +74,6 @@ self.addEventListener("fetch", (event) => {
       .catch(async () => {
         const cachedResponse = await caches.match(request);
         if (cachedResponse) return cachedResponse;
-
-        if (url.pathname.includes("/documentation")) {
-          const docFallback = await caches.match("/fr/documentation");
-          if (docFallback) return docFallback;
-        }
 
         return caches.match("/fr") || Response.error();
       })

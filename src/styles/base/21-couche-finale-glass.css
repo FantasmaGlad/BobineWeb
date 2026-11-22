@@ -1,7 +1,4 @@
-
-
-.site-header,
-.docs-mobile-nav-wrapper {
+.site-header {
   background: var(--glass-surface-bg);
   -webkit-backdrop-filter: blur(var(--glass-surface-blur)) saturate(var(--saturate-rich));
   backdrop-filter: blur(var(--glass-surface-blur)) saturate(var(--saturate-rich));
@@ -22,9 +19,6 @@
 }
 
 .theme-dropdown-modal,
-.share-dropdown-panel,
-.docs-search-results,
-.docs-mobile-nav-dropdown,
 .offline-toast {
   background: var(--glass-floating-bg);
   -webkit-backdrop-filter: blur(var(--glass-floating-blur)) saturate(var(--saturate-rich));
@@ -77,14 +71,7 @@
 }
 
 .os-download-card,
-.docs-method-hero,
-.docs-step-card,
-.docs-callout,
-.docs-table-wrapper,
-.blog-hero-release-card,
-.mobile-drawer-contact-card,
-.release-body__attachment,
-.download-modal__channel-card {
+.mobile-drawer-contact-card {
   background: var(--glass-card-bg);
   border: 1px solid var(--glass-card-border);
   box-shadow: var(--glass-card-highlight), var(--shadow-card);
@@ -95,21 +82,12 @@
     background 0.22s ease;
 }
 
-.os-download-card,
-.docs-method-hero,
-.blog-hero-release-card {
+.os-download-card {
   -webkit-backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
   backdrop-filter: blur(var(--glass-card-blur)) saturate(var(--saturate-rich));
 }
 
-.docs-install-divider__pill,
-.docs-faq-filter-chip {
-  background: var(--glass-inset-bg);
-}
-
-.os-download-card:hover,
-.docs-step-card:hover,
-.blog-hero-release-card:hover {
+.os-download-card:hover {
   transform: translateY(-3px) scale(1.015);
   border-color: color-mix(in srgb, var(--accent-primary) 46%, var(--glass-card-border));
   box-shadow:
@@ -166,9 +144,6 @@
   .btn-primary,
   .btn-secondary,
   .os-download-card,
-  .docs-step-card,
-  .blog-hero-release-card,
-  .download-modal__channel-card,
   .site-header__nav a,
   .theme-card-option {
     transition: none !important;

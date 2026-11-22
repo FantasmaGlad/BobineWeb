@@ -9,10 +9,7 @@ try {
   await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
   const failures = [];
   let measured = 0;
-  const paths = process.env.MOBILE_CHECK_PATHS?.split(",") ?? ["/fr", "/en", "/fr/linux", "/en/linux", "/fr/documentation", "/en/documentation", "/fr/a-propos", "/en/about", "/fr/ressources", "/en/resources"];
-  if (!process.env.MOBILE_CHECK_PATHS) paths.push(
-    "/fr/fonctionnalites", "/en/features", "/fr/blog", "/en/blog",
-  );
+  const paths = process.env.MOBILE_CHECK_PATHS?.split(",") ?? ["/fr", "/en", "/fr/commandes", "/en/commands", "/fr/api", "/en/api", "/fr/mentions-legales", "/en/legal-notice", "/fr/confidentialite", "/en/privacy"];
   for (const path of paths) for (const width of [360, 390, 768, 1280]) {
     const response = await fetch(origin + path);
     if (!response.ok) throw new Error(`${path} : HTTP ${response.status}`);

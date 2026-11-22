@@ -1,5 +1,3 @@
-
-
 html,
 body,
 * {
@@ -29,14 +27,9 @@ body,
   100% { --fade-top: 1.75rem; --fade-bottom: 0px; }
 }
 @supports (animation-timeline: scroll()) {
-  .docs-sidebar-panel,
-  .docs-mobile-nav-dropdown,
-  .docs-search-results,
-  .docs-toc,
   .dl-panel__body,
   .theme-grid,
-  .mobile-drawer-panel,
-  .feature-navigation__mobile nav {
+  .mobile-drawer-panel {
     animation: scroll-hint linear both;
     animation-timeline: scroll(self block);
     -webkit-mask-image: linear-gradient(to bottom, transparent 0, var(--ink) var(--fade-top), var(--ink) calc(100% - var(--fade-bottom)), transparent 100%);
@@ -46,68 +39,10 @@ body,
 
 pre,
 pre code,
-.terminal-code-block__body,
-.terminal-code-block__body code,
-.docs-copyable-cmd code,
-.dl-code,
-.release-body pre {
+.dl-code {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   overflow-x: hidden;
-}
-
-.dx-article-1.dx-article-1,
-.dx-button-1.dx-button-1,
-.dx-tab.dx-tab,
-.docs-faq-filter-chip,
-.docs-toc__link,
-.docs-copy-btn,
-.terminal-copy-btn,
-.docs-sidebar-nav a,
-.docs-install-tabs button {
-  transition-property: transform, background-color, border-color, color, box-shadow, filter;
-  transition-duration: 0.18s;
-  transition-timing-function: ease;
-}
-.dx-article-1.dx-article-1:hover {
-  border-color: color-mix(in srgb, var(--accent-primary) 40%, var(--border-color));
-  box-shadow: var(--shadow-card);
-}
-.dx-button-1.dx-button-1:hover {
-  background: color-mix(in srgb, var(--accent-primary) 8%, transparent);
-}
-.dx-tab.dx-tab:not([aria-selected="true"]):hover {
-  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
-  color: var(--text-heading);
-}
-.docs-faq-filter-chip:hover,
-.docs-copy-btn:hover,
-.terminal-copy-btn:hover {
-  transform: translateY(-1px);
-}
-.dx-button-1.dx-button-1:active,
-.dx-tab.dx-tab:active,
-.docs-faq-filter-chip:active,
-.docs-toc__link:active,
-.docs-copy-btn:active,
-.terminal-copy-btn:active,
-.docs-sidebar-nav a:active,
-.docs-install-tabs button:active {
-  transform: scale(0.97);
-  filter: brightness(0.95);
-  transition-duration: 0.1s;
-}
-@media (prefers-reduced-motion: reduce) {
-  .dx-article-1.dx-article-1,
-  .dx-button-1.dx-button-1,
-  .dx-tab.dx-tab,
-  .docs-faq-filter-chip,
-  .docs-toc__link,
-  .docs-copy-btn,
-  .terminal-copy-btn {
-    transition: none;
-    transform: none !important;
-  }
 }
 
 .hero-fullscreen__backdrop-img--mascot {

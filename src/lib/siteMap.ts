@@ -44,16 +44,6 @@ export function routeHref(locale: Locale, id: RouteId): string {
   return path === "" ? `/${locale}` : lp(locale, path);
 }
 
-export function childrenOf(id: RouteId): SiteRoute[] {
-  return ROUTES.filter((r) => r.parent === id && !r.hidden);
-}
-
-export function trailOf(id: RouteId): SiteRoute[] {
-  const trail: SiteRoute[] = [];
-  for (let cur: SiteRoute | undefined = getRoute(id); cur; cur = cur.parent ? getRoute(cur.parent) : undefined) trail.unshift(cur);
-  return trail;
-}
-
 export const navRoutes = (): SiteRoute[] => ROUTES.filter((r) => r.nav && !r.hidden);
 
 export const FOOTER_GROUPS: Array<{ id: FooterGroup; label: Localized }> = [

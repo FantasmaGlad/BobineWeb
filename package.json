@@ -31,7 +31,7 @@
     "critters": "^0.0.25",
     "eslint": "^9",
     "eslint-config-next": "^16.4.6",
-    "postcss": "^8.5.32",
+    "postcss": "^8.5.33",
     "typescript": "^5"
   },
   "browserslist": [

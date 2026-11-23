@@ -1,12 +1,7 @@
-# Ce dépôt ne publie que ce qui est nécessaire pour construire et faire tourner le site.
-# Tout ce qui est généré, secret ou propre à une machine reste hors de Git.
-
-# --- Dépendances ---
 /node_modules
 .pnp
 .pnp.*
 
-# --- Construction ---
 /.next/
 /out/
 /build
@@ -18,12 +13,9 @@ coverage/
 playwright-report/
 test-results/
 
-# --- Variables d'environnement : jamais versionnées ---
 .env
 .env.*
 
-# --- Clés, certificats et identifiants : jamais dans le dépôt ---
-# Les clés PUBLIQUES du site (public/.well-known/) ne sont pas concernées.
 *.pem
 *.key
 *.p12
@@ -48,7 +40,6 @@ service-account*.json
 .netrc
 .htpasswd
 
-# --- Sauvegardes, archives et fichiers temporaires ---
 *.bundle
 *.tar
 *.tar.gz
@@ -62,7 +53,6 @@ service-account*.json
 *.tmp
 *~
 
-# --- Journaux ---
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -70,21 +60,15 @@ yarn-error.log*
 pnpm-debug.log*
 firewall-events*.json
 
-# --- Hébergeur ---
 .vercel
 
-# --- Sources brutes non diffusées ---
-# Les visuels sources, trop lourds, restent hors du dépôt : seules les versions
-# optimisées de public/ sont versionnées et servies.
 /assets/
 /design-src/
 
-# --- Éditeurs et système ---
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
 
-# Installateur fourni par la release Stable et provenance vérifiée au build.
 /public/install.ps1
 /public/install-ps1-source.json

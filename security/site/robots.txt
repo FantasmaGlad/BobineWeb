@@ -1,4 +1,3 @@
-# robots.txt for security.bobine.fit
 User-agent: *
 Allow: /
 

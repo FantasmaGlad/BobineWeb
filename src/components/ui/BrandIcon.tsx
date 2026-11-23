@@ -15,7 +15,7 @@ export default function BrandIcon({ name, size, className, label }: BrandIconPro
   const a11y = label ? ({ role: "img", "aria-label": label } as const) : ({ "aria-hidden": true } as const);
   if (asset.render === "image") {
     const style = dimension ? ({ width: dimension, height: dimension } as CSSProperties) : undefined;
-    // eslint-disable-next-line @next/next/no-img-element
+    // eslint-disable-next-line @next/next/no-img-element -- SVG logos: next/image rejects SVG unless dangerouslyAllowSVG
     return <img src={asset.src} alt={label ?? ""} className={`brand-icon--image${asset.halo ? " brand-icon--halo" : ""}${className ? ` ${className}` : ""}`} style={style} {...(label ? {} : { "aria-hidden": true })} />;
   }
   const style = {

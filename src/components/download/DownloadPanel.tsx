@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import type { ReleaseChannelInfo } from "@/lib/releaseTypes";
@@ -209,8 +210,7 @@ export default function DownloadPanel({
                 {isEn ? `Bobine for ${result.heading}` : `Bobine pour ${result.heading}`}
               </h2>
               <span className="dl-panel__badge">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={`/images/channels/bobine-${channel}.webp`}
                   alt=""
                   width={16}
@@ -471,8 +471,7 @@ export default function DownloadPanel({
                         aria-pressed={channel === row.id}
                         onClick={() => setChannel(row.id)}
                       >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        <Image
                           src={`/images/channels/bobine-${row.id}.webp`}
                           alt=""
                           width={16}

@@ -18,8 +18,7 @@ export const REPO_HOSTS: Record<LinuxFamilyId, string> = {
 
 export const SIGNING_KEY_FINGERPRINT = "B77D 96D7 2F84 F36A CAA3 F872 9CBF 497D 829E E15A";
 export const SIGNING_KEY_FINGERPRINT_COMPACT = SIGNING_KEY_FINGERPRINT.replace(/\s+/g, "");
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const SIGNING_KEY_URL = (_family?: LinuxFamilyId) => "https://packages.bobine.fit/bobine.gpg";
+export const SIGNING_KEY_URL = "https://packages.bobine.fit/bobine.gpg";
 
 interface Localized {
   fr: string;
@@ -169,7 +168,7 @@ export interface ArchCommands {
 
 export function archCommands(channel: PackageChannel = "stable"): ArchCommands {
   return {
-    importKey: `curl -fsSL ${SIGNING_KEY_URL("arch")} | sudo pacman-key --add -`,
+    importKey: `curl -fsSL ${SIGNING_KEY_URL} | sudo pacman-key --add -`,
     trustKey: `sudo pacman-key --lsign-key ${SIGNING_KEY_FINGERPRINT_COMPACT}`,
     pacmanConf: ["[bobine]", "SigLevel = Required DatabaseOptional", `Server = ${repoUrl("arch", channel)}`].join("\n"),
     install: "sudo pacman -Syu bobine",
@@ -179,7 +178,7 @@ export function archCommands(channel: PackageChannel = "stable"): ArchCommands {
 
 export function aptInstallScript(channel: PackageChannel = "stable"): string {
   return [
-    `curl -fsSL ${SIGNING_KEY_URL("debian")} \\`,
+    `curl -fsSL ${SIGNING_KEY_URL} \\`,
     "  | sudo gpg --dearmor -o /etc/apt/keyrings/bobine.gpg",
     `echo "deb [signed-by=/etc/apt/keyrings/bobine.gpg] ${repoUrl("debian")}/ ${channel} main" \\`,
     "  | sudo tee /etc/apt/sources.list.d/bobine.list",

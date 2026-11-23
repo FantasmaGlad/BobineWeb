@@ -40,7 +40,6 @@ async function checkHomeCards(width, height, mobile) {
     e.scrollIntoView({ block: 'center', inline: 'center' });
     const r = e.getBoundingClientRect();
     const x = r.left + r.width / 2, y = r.top + r.height / 2;
-    // Carrousel horizontal sur téléphone : une carte hors de l'écran ne peut pas être touchée, elle n'est pas testée.
     if (x < 0 || x > innerWidth || y < 0 || y > innerHeight) return [];
     const top = document.elementFromPoint(x, y);
     return e === top || e.contains(top) ? [] : [e.dataset.platform + ' recouverte par ' + (top ? top.tagName + '.' + String(top.className).slice(0, 40) : 'rien')];

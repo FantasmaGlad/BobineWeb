@@ -30,57 +30,24 @@
 }
 
 .hero-fullscreen__backdrop-art {
-  position: absolute;
-  pointer-events: none;
-  z-index: 0;
-  user-select: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  
-  top: 1.25rem;
-  bottom: auto;
-  right: -0.75rem;
-  transform: none;
-  width: min(58vw, 240px);
-  max-height: 210px;
-  opacity: 0.95;
-  transition: opacity 0.3s ease;
+  display: none;
 }
 
 @media (min-width: 1024px) {
   .hero-fullscreen__backdrop-art {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     top: 0.5rem;
-    bottom: auto;
-    
     right: max(clamp(-11rem, -9vw, -5.5rem), calc((100% - 100vw) / 2 + 1rem));
-    transform: none;
     width: min(34vw, 420px);
     max-height: 250px;
     opacity: 0.95;
     z-index: 0;
-  }
-}
-
-@media (max-width: 639px) {
-  .hero-fullscreen__backdrop-art {
-    opacity: 0.2;
-    width: min(60vw, 230px);
-  }
-}
-
-.hero-fullscreen__backdrop-art--left {
-  right: auto;
-  left: -1.25rem;
-  top: 0.5rem;
-  width: min(52vw, 220px);
-  max-height: 195px;
-}
-
-@media (max-width: 1023px) {
-  .hero-fullscreen__backdrop-art--left {
-    display: none;
   }
 }
 

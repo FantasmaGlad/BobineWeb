@@ -30,6 +30,6 @@
 
 ---
 
-Licence : consultation seule, tous droits réservés ([LICENSE](../../LICENSE), [NOTICE.md](../NOTICE.md)) · Sécurité : [SECURITY.md](../SECURITY.md) · Contribuer : [CONTRIBUTING.md](../CONTRIBUTING.md)
+Licence : consultation seule, tous droits réservés ([LICENSE](../../LICENSE), [NOTICE.md](../NOTICE.md)) · Sécurité : [SECURITY.md](SECURITY.md) · Contribuer : [CONTRIBUTING.md](CONTRIBUTING.md)
 
 <sub>Dépôts liés : [Bobine](https://github.com/FantasmaGlad/Bobine) (application) · [bobine-deploy](https://github.com/FantasmaGlad/bobine-deploy) (installation à distance) · [bobine-packages](https://github.com/FantasmaGlad/bobine-packages) (dépôts de paquets Linux) · [homebrew-bobine](https://github.com/FantasmaGlad/homebrew-bobine) (tap Homebrew) · Politique de sécurité : [security.bobine.fit](https://security.bobine.fit/fr/), [`/.well-known/security.txt`](https://bobine.fit/.well-known/security.txt)</sub>

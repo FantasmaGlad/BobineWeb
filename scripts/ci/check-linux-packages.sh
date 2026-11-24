@@ -19,7 +19,7 @@ for logo in debian ubuntu fedora arch; do
   [ -s "public/images/icons/distros/$logo.svg" ] || err "public/images/icons/distros/$logo.svg manquant"
 done
 
-hard="$(git grep -lE 'rpm\.bobine\.fit|arch\.bobine\.fit' -- src | grep -v -e "$MOD" -e 'src/content/' -e 'src/components/DocsInstallHub.tsx' -e 'src/components/DocsSearch.tsx' -e 'src/components/JsonLd.tsx' -e 'src/components/TechTicker.tsx' -e 'src/app/api/chat/route.ts' -e 'src/app/\[locale\]/' || true)"
+hard="$(git grep -lE 'rpm\.bobine\.fit|arch\.bobine\.fit' -- src | grep -v -e "$MOD" -e 'src/content/' -e 'src/components/JsonLd.tsx' -e 'src/app/\[locale\]/' || true)"
 [ -z "$hard" ] || err "Adresse de dépôt rpm. ou arch. écrite à la main hors du module des paquets : $hard"
 
 [ "$fail" -eq 0 ] || exit 1

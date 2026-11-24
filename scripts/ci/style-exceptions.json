@@ -4,10 +4,7 @@
     "^\\.linux-terminal__dot--",
     "^\\.terminal",
     "^\\.code-",
-    "^\\.github",
-    "^\\.tauri-terminal",
-    "^\\.interactive-terminal-(?:window|header|body|user-host|cmd-text)",
-    "^\\.tauri-log-"
+    "^\\.github"
   ],
   "typescriptColorFiles": [
     "src/lib/themePalettes.ts",
@@ -16,7 +13,6 @@
     "src/components/icons/AndroidTvIcon.tsx",
     "src/components/icons/AppleIcon.tsx",
     "src/components/icons/LinuxIcon.tsx",
-    "src/components/icons/TauriIcon.tsx",
     "src/components/icons/WindowsIcon.tsx",
     "src/app/manifest.ts"
   ],
